@@ -20,5 +20,8 @@ Route::get('/check','RouteController@check'); //Check Database Connection
 
 Route::get('/','RouteController@home');
 
+Route::get('/test','ConncetionController@test');
+
+Route::get('/con','ConncetionController@DbConnect');
 
 
