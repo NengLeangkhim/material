@@ -18,10 +18,11 @@
             
             echo "<li class='nav-item has-treevie'>";
             echo "<a href='' class='nav-link active'>";
-            echo "<i class='nav-icon fas fa-tachometer-alt'></i>";
+            echo "<i class='nav-icon  {$item->parent->icon} '></i>";
             echo " <p>";
-            echo  $item->parent->module_name;          
-            echo "<i class='right fas fa-angle-left'></i>";
+            echo  $item->parent->module_name;  
+            if(($item->child))        
+            {echo "<i class='right fas fa-angle-left'></i>";}
             echo "</p></a>";
            
            if($item->child)
