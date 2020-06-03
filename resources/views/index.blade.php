@@ -1,11 +1,8 @@
-@include('layout.header')
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-    <div class="wrapper">
-        @include('menu.right_navbar') 
-        @include('menu.left_menu') 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">           
-            <div class="content-header"> <!-- Content Header (Page header) -->
+@extends('master')
+
+@section('content')     
+  
+    <div class="content-header"> <!-- Content Header (Page header) -->
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
@@ -224,10 +221,5 @@
                 <!-- /.row -->
                 </div><!--/. container-fluid -->
             </section>
-        </div>
-        <!-- /.content-wrapper -->
-        @include('layout.footer')
-    </div>
-    <!-- ./wrapper -->
-</body>
-</html>
+  
+@stop

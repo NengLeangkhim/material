@@ -11,30 +11,35 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">  
         <!-- ================CRM====================-->
+        
           <?php 
-        if (is_array($menu ?? '') || is_object($menu ?? '')){
-          foreach ($menu ?? '' as $m) {   
-            echo "<li class='nav-item has-treeview '>";
-            echo "<a href='#' class='nav-link active'>";
+          foreach ($_SESSION['module'] as $item){
+
+            
+            echo "<li class='nav-item has-treevie'>";
+            echo "<a href='' class='nav-link active'>";
             echo "<i class='nav-icon fas fa-tachometer-alt'></i>";
             echo " <p>";
-            echo $m->name;           
+            echo  $item->parent->module_name;          
             echo "<i class='right fas fa-angle-left'></i>";
             echo "</p></a>";
-            $menuid=$m->id;
-              foreach ($sub_menu ?? '' as $sub_m) {
-                if($sub_m->menu_id==$menuid){               
-                  echo " <ul class='nav nav-treeview'> ";
-                  echo "  <li class='nav-item'> ";
-                  echo "  <a href='#' class='nav-link'> ";
-                  echo "  <i class='far fa-circle nav-icon'></i> ";
-                  echo "  <p>$sub_m->name</p> ";
-                  echo "  </a></li></ul> ";
-                }            
-              }
+           
+           if($item->child)
+              {
+                foreach ($item->child as $rr) {
+                               
+                    echo " <ul class='nav nav-treeview sub_menu'> ";
+                    echo "  <li class='nav-item menu'  > ";
+                    echo "  <a href='' class='nav-link  ' ​value='$rr->link'  name='menu'> ";
+                    echo "  <i class='far fa-circle nav-icon'​></i> ";
+                    echo "  <p>$rr->module_name</p> ";
+                    echo "  </a></li></ul> ";
+                            
+                }
+            }
             echo " </li>  ";
             }
-        }
+        
         ?>    
         </ul>
       </nav>

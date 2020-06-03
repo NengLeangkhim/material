@@ -16,12 +16,15 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/check','RouteController@check'); //Check Database Connection
-
-
 Route::get('/','RouteController@home');
 
-Route::get('/test','ConncetionController@test');
+// ================lead===============
+Route::get('/lead','LeadController@getlead');
+Route::get('/addlead','LeadController@addlead');
+Route::get('/detaillead','LeadController@detaillead');
 
-Route::get('/con','ConncetionController@DbConnect');
+// ================Contact===============
+Route::get('/contact','ContactController@getcontact');
+
 
 
