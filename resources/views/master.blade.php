@@ -5,9 +5,8 @@
         @include('menu.left_menu')  
 
         <div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
-           
             @yield('content')
-
+            
         </div><!-- end Content Wrapper. Contains page content -->
 
         <footer class="main-footer">
@@ -27,4 +26,5 @@
     </div>  
 @include('layout.footer') 
 </body>
+
 </html>
