@@ -76,7 +76,6 @@
                                                 <a href="#" class="btn btn-block btn-info btn-sm"><i class="fas fa-wrench"></i></a>
                                             </td>
                                         </tr>
-                                        
                                     </tbody>  
                                 </table>
                             </div>

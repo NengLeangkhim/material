@@ -10,7 +10,21 @@
 
         </div><!-- end Content Wrapper. Contains page content -->
 
-        @include('layout.footer')
-    </div>   <!-- end wrapper -->
+        <footer class="main-footer">
+            <strong>Copyright &copy;2020-<?php echo date("Y"); ?> <a href="https://turbotech.com">TURBOTECH CO.,LTD</a>.</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 2.0.1
+            </div>
+        </footer>
+                <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+    </div>  
+@include('layout.footer') 
 </body>
 </html>

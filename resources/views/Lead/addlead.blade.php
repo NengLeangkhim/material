@@ -30,11 +30,21 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Customer Name English <b style="color:red">*</b></label>
-                                            <input type="text" class="form-control"  name='custEng' id="exampleInputEmail1" placeholder="Customer Name English" >
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="Customer Name English"  name='custEng' >
+                                            </div>
                                         </div>
                                          <div class="col-md-6">
                                              <label for="exampleInputEmail1">Customer Name khmer <b style="color:red">*</b></label>
-                                             <input type="text" class="form-control" name="custkh" id="exampleInputEmail1" placeholder="Customer Name khmer">
+                                             <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="custkh" id="exampleInputEmail1" placeholder="Customer Name khmer">
+                                            </div>
                                          </div>
                                     </div>
                                 </div>
@@ -42,11 +52,21 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Primary Email</label>
-                                            <input type="email" class="form-control"  name="email" id="exampleInputEmail1" placeholder="Primary Email">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-at"></i></span>
+                                                </div>
+                                                <input type="email" class="form-control"  name="email" id="exampleInputEmail1" placeholder="Primary Email">
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Primary Phone <b style="color:red">*</b></label>
-                                            <input type="text" class="form-control" name="phone"id="exampleInputEmail1" placeholder="Primary Phone">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="phone"id="exampleInputEmail1" placeholder="Primary Phone">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -54,11 +74,21 @@
                                     <div class="row">
                                          <div class="col-md-6">
                                             <label for="exampleInputEmail1">Website</label>
-                                              <input type="text" class="form-control" name="website" id="exampleInputEmail1" placeholder="Website">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fab fa-chrome"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="website" id="exampleInputEmail1" placeholder="Website">
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Facebook</label>
-                                            <input type="text" class="form-control" name="facebook" id="exampleInputEmail1" placeholder="Facebook">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fab fa-facebook"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="facebook" id="exampleInputEmail1" placeholder="Facebook">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -66,21 +96,31 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">National ID Ceard / Passport ID</label>
-                                            <input type="text" class="form-control" name="website" id="exampleInputEmail1" placeholder="Website">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-address-card"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="website" id="exampleInputEmail1" placeholder="Website">
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Customer Type</label>
-                                            <select class="form-control" name="custtype">
-                                                <option>Select an Option</option>
-                                                <option>Publi</option>
-                                                <option>Staff</option>
-                                                <option>MNK Staff</option>
-                                                <option>UPG Staff</option>
-                                                <option>Tela Staff</option>
-                                                <option>City Glod Staff</option>
-                                                <option>Amory Staff</option>
-                                                <option>Other</option>
-                                            </select>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                </div>
+                                                <select class="form-control" name="custtype">
+                                                    <option>Select an Option</option>
+                                                    <option>Publi</option>
+                                                    <option>Staff</option>
+                                                    <option>MNK Staff</option>
+                                                    <option>UPG Staff</option>
+                                                    <option>Tela Staff</option>
+                                                    <option>City Glod Staff</option>
+                                                    <option>Amory Staff</option>
+                                                    <option>Other</option>
+                                                </select>   
+                                            </div>                                            
                                         </div>
                                     </div>
                                 </div>
@@ -88,23 +128,36 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Lead Source</label>
-                                            <select class="form-control" name="leadsource">
-                                                <option>option 1</option>
-                                                <option>option 2</option>
-                                                <option>option 3</option>
-                                                <option>option 4</option>
-                                                <option>option 5</option>
-                                            </select>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-tty"></i></span>
+                                                </div>
+                                                <select class="form-control" name="leadsource">
+                                                    <option>option 1</option>
+                                                    <option>option 2</option>
+                                                    <option>option 3</option>
+                                                    <option>option 4</option>
+                                                    <option>option 5</option>
+                                                </select>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="fas fa-plus"></i></span>
+                                                </div>
+                                            </div>  
                                         </div>
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Lead Status</label>
-                                            <select class="form-control" name="leadstatus">
-                                                <option>option 1</option>
-                                                <option>option 2</option>
-                                                <option>option 3</option>
-                                                <option>option 4</option>
-                                                <option>option 5</option>
-                                            </select>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-unlock"></i></span>
+                                                </div>
+                                                <select class="form-control" name="leadstatus">
+                                                    <option>option 1</option>
+                                                    <option>option 2</option>
+                                                    <option>option 3</option>
+                                                    <option>option 4</option>
+                                                    <option>option 5</option>
+                                                </select>
+                                            </div>                                              
                                         </div>
                                     </div>
                                 </div>
@@ -112,23 +165,33 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Industry <b style="color:red">*</b></label>
-                                            <select class="form-control" name="industry">
-                                                <option>option 1</option>
-                                                <option>option 2</option>
-                                                <option>option 3</option>
-                                                <option>option 4</option>
-                                                <option>option 5</option>
-                                            </select>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-industry"></i></span>
+                                                </div>
+                                                <select class="form-control" name="industry">
+                                                    <option>option 1</option>
+                                                    <option>option 2</option>
+                                                    <option>option 3</option>
+                                                    <option>option 4</option>
+                                                    <option>option 5</option>
+                                                </select>
+                                            </div>   
                                         </div>
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Assigened To<b style="color:red">*</b></label>
-                                            <select class="form-control" name="assigendTo">
-                                                <option>option 1</option>
-                                                <option>option 2</option>
-                                                <option>option 3</option>
-                                                <option>option 4</option>
-                                                <option>option 5</option>
-                                            </select>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user-check"></i></span>
+                                                </div>
+                                                <select class="form-control" name="assigendTo">
+                                                    <option>option 1</option>
+                                                    <option>option 2</option>
+                                                    <option>option 3</option>
+                                                    <option>option 4</option>
+                                                    <option>option 5</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                  </div>
@@ -143,17 +206,27 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1"> Home/Street English <b style="color:red">*</b></label>
-                                                <input type="text" class="form-control"  name="streetEN" id="exampleInputEmail1" placeholder="Customer Name English" >
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-road"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control"  name="streetEN" id="exampleInputEmail1" placeholder="Customer Name English" >
+                                                </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">City/Province <b style="color:red">*</b></label>
-                                                <select class="form-control" name="city">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
-                                                    <option>option 5</option>
-                                                </select>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-city"></i></span>
+                                                    </div>
+                                                    <select class="form-control" name="city">
+                                                        <option>option 1</option>
+                                                        <option>option 2</option>
+                                                        <option>option 3</option>
+                                                        <option>option 4</option>
+                                                        <option>option 5</option>
+                                                    </select>     
+                                                </div>
                                             </div>
                                         </div>
                                     </div> 
@@ -161,17 +234,27 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1"> Home/Street Khmer <b style="color:red">*</b></label>
-                                                <input type="text" class="form-control"  name='streetKH' id="exampleInputEmail1" placeholder="Customer Name English" >
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-road"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control"  name='streetKH' id="exampleInputEmail1" placeholder="Customer Name English" >    
+                                                </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Khan/District <b style="color:red">*</b></label>
-                                                <select class="form-control" name="city">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
-                                                    <option>option 5</option>
-                                                </select>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
+                                                    </div>
+                                                    <select class="form-control" name="city">
+                                                        <option>option 1</option>
+                                                        <option>option 2</option>
+                                                        <option>option 3</option>
+                                                        <option>option 4</option>
+                                                        <option>option 5</option>
+                                                    </select>
+                                                </div>                                                
                                             </div>
                                         </div>
                                     </div> 
@@ -179,17 +262,27 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1"> Lead Map <b style="color:red">*</b></label>
-                                                <input type="text" class="form-control"  name='latlng' id="exampleInputEmail1" placeholder="Customer Name English" >
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-map"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control"  name='latlng' id="exampleInputEmail1" placeholder="Customer Name English" >
+                                                </div> 
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Sengkat/Commune <b style="color:red">*</b></label>
-                                                <select class="form-control" name="city">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
-                                                    <option>option 5</option>
-                                                </select>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-street-view"></i></span>
+                                                    </div>
+                                                    <select class="form-control" name="city">
+                                                        <option>option 1</option>
+                                                        <option>option 2</option>
+                                                        <option>option 3</option>
+                                                        <option>option 4</option>
+                                                        <option>option 5</option>
+                                                    </select>        
+                                                </div> 
                                             </div>
                                         </div>
                                     </div> 
@@ -200,13 +293,19 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Village <b style="color:red">*</b></label>
-                                                <select class="form-control" name="city">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
-                                                    <option>option 5</option>
-                                                </select>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
+                                                    </div>
+                                                    <select class="form-control" name="city">
+                                                        <option>option 1</option>
+                                                        <option>option 2</option>
+                                                        <option>option 3</option>
+                                                        <option>option 4</option>
+                                                        <option>option 5</option>
+                                                    </select>     
+                                                </div> 
+                                                
                                             </div>
                                         </div>
                                     </div> 
