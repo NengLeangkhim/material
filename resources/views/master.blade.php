@@ -5,12 +5,14 @@
         @include('menu.left_menu')  
 
         <div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
-           
             @yield('content')
-
+            
         </div><!-- end Content Wrapper. Contains page content -->
 
         @include('layout.footer')
+        
     </div>   <!-- end wrapper -->
+    
 </body>
+
 </html>

@@ -26,5 +26,16 @@ Route::get('/detaillead','LeadController@detaillead');
 // ================Contact===============
 Route::get('/contact','ContactController@getcontact');
 
+// ================Organization===============
+Route::get('/organizations','OrganizationController@getorganization');
+
+// ================Products===============
+Route::get('/product','ProductsController@getProducts');
+
+
+
+
+
+
 
 

@@ -76,7 +76,7 @@
                                                 <a href="#" class="btn btn-block btn-info btn-sm"><i class="fas fa-wrench"></i></a>
                                             </td>
                                         </tr>
-                                        
+
                                     </tbody>  
                                 </table>
                             </div>
@@ -87,6 +87,22 @@
 
 
             <script type="text/javascript">
+            
+            $(function () {
+                $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+                });
+                $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                });
+            });
             $('.lead').click(function(e)
             {
                 var ld = $(this).attr("​value");
@@ -103,3 +119,4 @@
                 });
             })
             </script>
+            
