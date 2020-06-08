@@ -8,14 +8,11 @@ use Illuminate\Support\Facades\DB;
 class RouteController extends Controller
 {
     public function home(){
-    session_start();
-    $_SESSION['userid']=1;
-    if(perms::check_perm()){//module codes
-        $_SESSION['module']=perms:: get_module();
-        return view('index');
-    }else{
-        return view('no_perms');
-    }
+    // session_start();
+    // $_SESSION['userid']=1;
+    // $_SESSION['module']=perms:: get_module();
+
+        return view('login');
     }
     public function check(){
         if (DB::connection('myDamnDbConnection')->getDatabaseName())
