@@ -13,33 +13,34 @@
         <!-- ================CRM====================-->
         
           <?php 
-          foreach ($_SESSION['module'] as $item){
-
+          if(isset($_SESSION['module'])){
+            foreach ($_SESSION['module'] as $item)
+            {            
+              echo "<li class='nav-item has-treevie'>";
+              echo "<a href='' class='nav-link active'>";
+              echo "<i class='nav-icon  {$item->parent->icon} '></i>";
+              echo " <p>";
+              echo  $item->parent->module_name;  
+              if(($item->child))        
+              {echo "<i class='right fas fa-angle-left'></i>";}
+              echo "</p></a>";
             
-            echo "<li class='nav-item has-treevie'>";
-            echo "<a href='' class='nav-link active'>";
-            echo "<i class='nav-icon  {$item->parent->icon} '></i>";
-            echo " <p>";
-            echo  $item->parent->module_name;  
-            if(($item->child))        
-            {echo "<i class='right fas fa-angle-left'></i>";}
-            echo "</p></a>";
-           
-           if($item->child)
-              {
-                foreach ($item->child as $rr) {
-                               
-                    echo " <ul class='nav nav-treeview sub_menu'> ";
-                    echo "  <li class='nav-item menu'  > ";
-                    echo "  <a href='' class='nav-link  ' ​value='$rr->link'  name='menu'> ";
-                    echo "  <i class='far fa-circle nav-icon'​></i> ";
-                    echo "  <p>$rr->module_name</p> ";
-                    echo "  </a></li></ul> ";
-                            
-                }
-            }
-            echo " </li>  ";
-            }
+            if($item->child)
+                {
+                  foreach ($item->child as $rr) {
+                                
+                      echo " <ul class='nav nav-treeview sub_menu'> ";
+                      echo "  <li class='nav-item menu'  > ";
+                      echo "  <a href='' class='nav-link  ' ​value='$rr->link'  name='menu'> ";
+                      echo "  <i class='far fa-circle nav-icon'​></i> ";
+                      echo "  <p>$rr->module_name</p> ";
+                      echo "  </a></li></ul> ";
+                              
+                  }
+              }
+              echo " </li>  ";
+              }
+          }
         
         ?>    
         </ul>

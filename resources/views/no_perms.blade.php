@@ -1,16 +1,10 @@
-@php
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-      }
-      // dump($_SESSION['module']);
-@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <!-- <meta name="csrf-token" content="{{ csrf_token() }}" /> -->
   <title>CRM | BSC</title>
 
   <!-- Font Awesome Icons -->
@@ -24,7 +18,12 @@
    <!-- DataTables -->
    <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-<!-- Select2 -->
-<link rel="stylesheet" href="plugins/select2/css/select2.min.css">
-<link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-</head>
+
+</head>   
+<section class="content">
+  <div class="col-12" style="text-align: center;margin-top:20px">
+    <h6 class="headline text-warning" style="font-size:70px; text-align:center!"> Your don't have permission</h6>
+  </div>
+</section>
+  <!-- /.content -->
+

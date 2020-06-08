@@ -43,40 +43,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach($lead as $row)
                                         <tr>
-                                            <td>TT-LEA000001</td>
-                                            <td>Internet</td>
-                                            <td>internet@gmailcom</td>
-                                            <td>12456787</td>
-                                            <td>Surveyed</td>
-                                            <td>Dara</td>
+                                            <td>{{$row->lead_number}}</td>
+                                            <td>{{$row->customer_name_en}}</td>
+                                            <td>{{$row->email}}</td>
+                                            <td>{{$row->phone}}</td>
+                                            <td>{{$row->status}}</td>
+                                            <td>{{$row->create_by}}</td>
                                             <td>
-                                                <a href="/detaillead" class="btn btn-block btn-info btn-sm"><i class="fas fa-wrench"></i></a>
+                                                <a href="#" class="btn btn-block btn-info btn-sm edit" ​value="{{$row->id}}"><i class="fas fa-wrench"></i></a>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td>TT-LEA000002</td>
-                                            <td>Internet</td>
-                                            <td>internet@gmailcom</td>
-                                            <td>12456787</td>
-                                            <td>Surveyed</td>
-                                            <td>Dara</td>
-                                            <td>
-                                                <a href="#" class="btn btn-block btn-info btn-sm"><i class="fas fa-wrench"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>TT-LEA000003</td>
-                                            <td>Internet</td>
-                                            <td>internet@gmailcom</td>
-                                            <td>12456787</td>
-                                            <td>Surveyed</td>
-                                            <td>Dara</td>
-                                            <td>
-                                                <a href="#" class="btn btn-block btn-info btn-sm"><i class="fas fa-wrench"></i></a>
-                                            </td>
-                                        </tr>
-
+                                        </tr>                                       
+                                    @endforeach
                                     </tbody>  
                                 </table>
                             </div>
@@ -118,5 +97,10 @@
                     }
                 });
             })
+            $('.edit').click(function(e)
+            {
+                var id = $(this).attr("​value");
+                alert(id);
+            });
             </script>
             

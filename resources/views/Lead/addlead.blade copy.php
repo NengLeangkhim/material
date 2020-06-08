@@ -181,10 +181,10 @@
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Assigened To<b style="color:red">*</b></label>
                                             <div class="input-group">
-                                                <div class="input-group-prepend" style="height:38px;width:40px">
+                                                <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                                 </div>
-                                                <select class="form-control select2 to " name="assigendTo" >
+                                                <select class="form-control  select2 " name="assigendTo">
                                                     <option>Select Staff</option>
                                                     @foreach($assig_to as $row )
                                                         <option value="{{$row->id}}">{{$row->name}}</option> 
@@ -204,29 +204,12 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label for="exampleInputEmail1"> Home(EN)<b style="color:red">*</b></label>
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text"><i class="fas fa-home"></i></span>
-                                                                    </div>
-                                                                    <input type="text" class="form-control"  name='homeEN' id="exampleInputEmail1" placeholder="Number of home" >    
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label for="exampleInputEmail1"> Street(EN) <b style="color:red">*</b></label>
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text"><i class="fas fa-road"></i></span>
-                                                                    </div>
-                                                                    <input type="text" class="form-control"  name='streetEN' id="exampleInputEmail1" placeholder="Number of street" >    
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                <label for="exampleInputEmail1"> Home/Street English <b style="color:red">*</b></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                     </div>
+                                                    <input type="text" class="form-control"  name="streetEN" id="exampleInputEmail1" placeholder="Customer Name English" >
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -249,29 +232,12 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label for="exampleInputEmail1"> Home(KH)<b style="color:red">*</b></label>
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text"><i class="fas fa-home"></i></span>
-                                                                    </div>
-                                                                    <input type="text" class="form-control"  name='homeKH' id="exampleInputEmail1" placeholder="Number of home" >    
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label for="exampleInputEmail1"> Street(KH) <b style="color:red">*</b></label>
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text"><i class="fas fa-road"></i></span>
-                                                                    </div>
-                                                                    <input type="text" class="form-control"  name='streetKH' id="exampleInputEmail1" placeholder="Number of street" >    
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                <label for="exampleInputEmail1"> Home/Street Khmer <b style="color:red">*</b></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                     </div>
+                                                    <input type="text" class="form-control"  name='streetKH' id="exampleInputEmail1" placeholder="Customer Name English" >    
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -299,7 +265,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name='latlng' id="exampleInputEmail1" placeholder="11.572532,104.898974" >
+                                                    <input type="text" class="form-control"  name='latlng' id="exampleInputEmail1" placeholder="Customer Name English" >
                                                 </div> 
                                             </div>
                                             <div class="col-md-6">
@@ -378,10 +344,5 @@
             $(function(){
                  //Initialize Select2 Elements
                      $('.select2').select2()
-            })
-
-            $('.to').change(function(e){
-                var to = $(this). children("option:selected"). val();
-                alert(to);
             })
             </script>

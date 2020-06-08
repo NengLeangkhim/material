@@ -9,44 +9,50 @@ use Illuminate\Support\Facades\DB;
 class perms extends Controller
 {
     //
-    public static function check_perm(){
+    private static function check_session(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if(!empty($_SESSION['userid'])){
-            $mo=DB::select("SELECT * from public.exec_get_access_module_of(".$_SESSION['userid'].",45)");
+        if(isset($_SESSION['userid'])){
+            if(!empty($_SESSION['userid'])){
+                return true;
+            }
+        }
+        header('Location:/logout');
+        exit;
+    }
+    // jol system
+    public static function check_perm(){
+        if(self::check_session()){
+            $mo=DB::select("SELECT * from public.exec_get_access_module_of(".$_SESSION['userid'].",'08')");
             if(count($mo)>0){
                 return true;
             }else{
                 return false;
             }
         }else{
-            return view('login');
-            // return false;
+            // return view('login');
+            return false;
         }
     }
+    // check function
     public static function check_perm_module($mo){
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        if(!empty($_SESSION['userid'])){
-            $mo=DB::select("SELECT public.exec_check_position($mo,".$_SESSION['userid'].") as id");
+        if(self::check_perm()){
+            $mo=DB::select("SELECT public.exec_check_position('$mo',".$_SESSION['userid'].") as id");
             if(!empty($mo[0]->id)){
                 return true;
             }else{
                 return false;
             }
         }else{
-            return view('login');
-            // return false;
+            // return view('no_perms');
+            return false;
         }
     }
+    // check list function
     public static function get_module(){
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
         if(self::check_perm()){
-            $mo=DB::select("SELECT * from public.exec_get_access_module_of(".$_SESSION['userid'].",45)");
+            $mo=DB::select("SELECT * from public.exec_get_access_module_of(".$_SESSION['userid'].",'08')");
             foreach($mo as $key=>$rr ){
                 $sub=DB::select("SELECT * from public.exec_get_access_module_of(".$_SESSION['userid'].",".$rr->module_id.")");
                 if(count($sub)>0){
