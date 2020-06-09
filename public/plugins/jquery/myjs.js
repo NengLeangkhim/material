@@ -1,5 +1,5 @@
 function mydemo(){
-    alert("dsvfd");   
+    alert("dsvfd");
 
 }
 
@@ -7,7 +7,6 @@ function mydemo(){
     e.preventDefault();
     var link = $(this).attr("​value");
     if (typeof link !== typeof undefined && link !== false) {
-      alert(""+link);
       $.ajax({
         type: 'GET',
         url:link,
