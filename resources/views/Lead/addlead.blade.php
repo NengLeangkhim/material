@@ -139,7 +139,7 @@
                                                     @endforeach
                                                 </select>
                                                 <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="fas fa-plus"></i></span>
+                                                    <span class="input-group-text btn btn-info" data-toggle="modal" data-target="#modal-info"><i class="fas fa-plus"></i></span>
                                                 </div>
                                             </div>  
                                         </div>
@@ -359,6 +359,34 @@
             </div>
         </div>
     </section>
+    {{-- =================Modal lead source========================= --}}
+    <div class="modal fade" id="modal-info">
+        <form action="POST">
+            <div class="modal-dialog">
+            <div class="modal-content bg-info">
+                <div class="modal-header">
+                <h4 class="modal-title">Create Lead Source</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-address-card"></i></span>
+                        </div>
+                        <input type="text" class="form-control"  id="lead_source" name="source" id="exampleInputEmail1" placeholder="Website">
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-light save_source">Save </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+            </div>
+        </form>
+        <!-- /.modal-dialog -->
+      </div>
     <script type="text/javascript">
             $('.lead').click(function(e)
             {
@@ -384,4 +412,19 @@
                 var to = $(this). children("option:selected"). val();
                 alert(to);
             })
+
+            $('.save_source').click(function(e){
+                e.preventDefault();
+                var str=$('#lead_source').val();
+                // alert(str);
+                $.ajax({
+                    type:'POST',
+                    url:'crm_leasdsource',
+                    data={'name':str},
+                    success:function(data){
+                        alert();
+                    }
+                })
+            })
+           
             </script>

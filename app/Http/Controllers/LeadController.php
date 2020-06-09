@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 class LeadController extends Controller
 {
     public function getlead(){
-        if(perms::check_perm_module('08-01-05')){//module codes
+        if(perms::check_perm_module('CRM_0205')){//module codes
             $lead=DB::select("SELECT * from  crm_lead");
             return view('Lead.index',['lead'=>$lead]);
         }else{
@@ -29,6 +29,9 @@ class LeadController extends Controller
             $lead_industry=DB::select("SELECT * from  crm_lead_industry");
             $assig_to=DB::select("SELECT * from  staff");
             return view('Lead.addlead',['lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to]);
+    }
+    public function savelead(Request $request){
+
     }
     public function detaillead(){
         return view('Lead.detaillead');
