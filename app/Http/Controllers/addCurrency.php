@@ -44,7 +44,7 @@ class addCurrency extends Controller
             </form>';
             echo $m;
         }else{
-            return view('login');
+            return view('no_perms');
         }
     }
 
@@ -59,7 +59,7 @@ class addCurrency extends Controller
                 return redirect()->back();
             }
         }else{
-            return view('login');
+            return view('no_perms');
         }
     }
 }

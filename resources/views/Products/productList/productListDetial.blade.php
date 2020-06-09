@@ -1,7 +1,4 @@
-@php
-    // dump($plist);
-@endphp
-@include('../userview/header')
+<section class="content">
  <!-- page content -->
  <div class="right_col" role="main">
     <div class="contain-fluid">
@@ -14,7 +11,7 @@
         <div class="pull-right" style="margin-top: -1.3%;">
             <a  href="javascript:void(0);" onclick="window.print();" class="text-danger"><i class="fa fa-print"></i> Print</a> |
             {{-- <a href="#" title="Add New" class="text-custom"><i class="fa fa-plus-square"></i> Create New </a> | --}}
-            <a href="/productListDetial?edit={{$plist[0][0]->id}}" title="Update" class="text-custom"><i class="fa fa-pencil-square"></i> Update</a>|
+            <a href='javascript:void(0);' onclick="go_to('/productListDetial?edit={{$plist[0][0]->id}}')" title="Update" class="text-custom"><i class="fa fa-pencil-square"></i> Update</a>|
             {{-- <a href="#" onclick="yesno_dialog('/productListDetial?delete={{$plist[0][0]->id}}','Are you sure to delete this?','Delete')" title="Update" class="text-custom"><i class="fa fa-trash"></i> Delete</a> --}}
         </div>
         <div style="width:100%;height:8px;background-color:#3c8dbc;margin-bottom:1%;margin-top:1%"></div>
@@ -22,7 +19,7 @@
 
         <div class="box-body">
                     <div class="pull-right text-center" style="position: absolute; right: 20px;">
-                        <img src="http://bscdev.turbotechad.local/storages/assets/img/products/15306086881355968.png" style="max-height: 180px; max-width: 310px">
+                        <img src="<?php echo (empty($plist[0][0]->image))?'/media/file/img/placeholder-image.png':$plist[0][0]->image;?>" style="max-height: 180px; max-width: 310px">
                     </div>
                     <div class="pro-detail-head col-md-9">
                         <h4 style="margin-top: 0px;">
@@ -122,12 +119,15 @@
  </div>
  <div id='modaldiv'></div>
 <!-- /page content -->
-@include('../userview/footer')
+</section>
 
 <script type="text/javascript">//to show modal
     $("body").on('DOMSubtreeModified', "#modaldiv", function() {
    if(document.getElementById("yesnomodal")){
         $("#yesnomodal").modal("show");
    }
+   $(document).ready(function(){
+        img_exist();
+   });
 });
 </script>

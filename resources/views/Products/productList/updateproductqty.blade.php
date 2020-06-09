@@ -103,7 +103,7 @@
             <div class="col-md-12 text-right">
                 <button type="submit" class="btn btn-info">Save</button>
                 <!-- <a href="" class="btn btn-info">Save</a> -->
-                <a href="/ProductList" class="btn btn-danger">Cancel</a>
+                <a href='javascript:void(0);' onclick="go_to('ProductList')" class="btn btn-danger">Cancel</a>
             </div>
             </form>
 

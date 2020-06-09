@@ -58,7 +58,7 @@ class addCompany extends Controller
             </form>';
             echo $m;
         }else{
-            return view('login');
+            return view('no_perms');
         }
     }
     public function getaddCompanybranch(){
@@ -115,7 +115,7 @@ class addCompany extends Controller
             </form>';
             echo $m;
         }else{
-            return view('login');
+            return view('no_perms');
         }
     }
     public function addCompany(){
@@ -139,7 +139,7 @@ class addCompany extends Controller
                 return redirect()->back();
             }
         }else{
-            return view('login');
+            return view('no_perms');
         }
     }
 }

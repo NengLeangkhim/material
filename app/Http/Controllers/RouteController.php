@@ -11,7 +11,6 @@ class RouteController extends Controller
     // session_start();
     // $_SESSION['userid']=1;
     // $_SESSION['module']=perms:: get_module();
-
         return view('start');
     }
     public function check(){

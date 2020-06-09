@@ -61,16 +61,18 @@ class product extends Controller
                 $price=$_POST['cost'];
                 $pcode=$_POST['product_code'];
                 $ptype=$_POST['ptype'];
+                $url_path=getcwd();
+                $t=time();
                 if($_FILES["image"]["error"]==4){
                     $img="";
                 }else{
-                    //set up directory here !
-                    $img=basename($_FILES['image']['name']);
-                    if(!move_uploaded_file($_FILES['image']['tmp_name'],$img)){
-                        $img="";
+                    $file_path=path_config::stock_img_path().$t.basename($_FILES["image"]["name"]);
+                    $p=$url_path.$file_path;
+                    $file_path=str_replace("'","''",$file_path);
+                    if(move_uploaded_file($_FILES["image"]["tmp_name"],$p)){
+                        $img=$file_path;
                     }
                 }
-
                 // if(isset($_POST['reorder_qty'])){
                 //     $record_qty=$_POST['reorder_qty'];
                 // }
@@ -124,7 +126,7 @@ class product extends Controller
                 $id=$_GET['pID'];
                 $passv="plist";
                 $addp=array();
-                $addp[]=DB::select("SELECT p.id,b.name as brand ,p.name,p.name_kh, p.part_number,p.product_code, p.barcode,m.name as measurement, p.qty, p.price,(p.qty*p.price)as amount
+                $addp[]=DB::select("SELECT p.id,b.name as brand ,p.name,p.name_kh, p.part_number,p.product_code, p.barcode,m.name as measurement, p.qty, p.price,(p.qty*p.price)as amount,p.image
                 FROM public.product p join measurement m on m.id=p.measurement_id join product_brand b on b.id=p.brand_id where p.id=".$id);
                 $addp[]=DB::select("SELECT distinct sum(q.qty)over(partition by q.company_detail_id) as qty,q.company_detail_id,s.storage,s.location,cd.company,cd.branch
                                     ,(select code from company_branch where id=cd.branch_id) as company_code,(select product_code from product where id=q.product_id) as product_code
@@ -145,8 +147,6 @@ class product extends Controller
                 $passv="addp";
                 $v="products.productList.addproduct";
                 $id=$_GET['edit'];
-                $storage=$_SESSION['warehouse'];
-
                 // $addp[0]=DB::select("select id,name from company");
                 $addp[1]=DB::select("select id,name from measurement where status='t'");
                 $addp[2]=DB::select("select id,name from product_brand where status='t'");
@@ -154,12 +154,12 @@ class product extends Controller
                 $addp[4]=DB::select("select id,name from currency where status='t'");
                 // $addp[5]=DB::select("select id,name from supplier where status='t'");
                 $addp[6]=DB::select("SELECT p.id, p.name,p.name_kh, p.qty, p.price,p.product_code,p.product_type_id,
-                p.measurement_id, p.brand_id, p.barcode, p.image, p.part_number, p.currency_id,p.description,
-				cd.company_id,cd.branch_id
-                FROM public.product p join company_detail cd on p.company_detail_id=cd.id
-				where p.id=$id and cd.status='t'");
+                p.measurement_id, p.brand_id, p.barcode, p.image, p.part_number, p.currency_id,p.description
+                FROM public.product p
+                where p.id=$id");
                 $addp[7]=DB::select("select id,name_en from product_type where status='t'");
             }
+
             return view($v)->with($passv,$addp);
         }else{
             return view('no_perms');

@@ -666,7 +666,7 @@ function get_product_comp(s,target,p){
   }
 
   function SubForm (route,form,target){
-   if(SubformValid()){
+   if(SubformValid(form)){
         $.ajax({
             url:route,
             type:'post',
@@ -680,9 +680,9 @@ function get_product_comp(s,target,p){
         });
    }
 }
-function SubformValid(){
+function SubformValid(form){
     var t=true;
-   $("form#form1 :input[required],select[required]").each(function(){
+   $("form#"+form+" :input[required],select[required]").each(function(){
     var input = $(this); // This is the jquery object of the input, do what you will
     if(input.val()==''||input.val()==null){
         this.reportValidity();
@@ -752,14 +752,38 @@ function go_to(route){
      });
 }
 function submit_form (route,form,goto){
-    if(SubformValid()){
-         $.ajax({
-             url:route,
-             type:'post',
-             data:$(form).serialize(),
-             success:function(){
-                go_to(goto);
-             },
-         });
+    if(SubformValid(form))
+    {
+        if(OnSubmitCofirm('Are You sure ?')){
+            var formElement = document.getElementById(form);
+            var formData = new FormData(formElement);
+            var request = new XMLHttpRequest();
+            request.open("POST", route);
+            request.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data=this.responseText;
+                    if(data=='error'){
+                        alert('មានបញ្ហាកើតឡើងនៅពេលបញ្ចូលទិន្នន័យ');
+                    }else{
+                        alert('ទិន្នន័យបានប្តូររួចរាល់');
+                        go_to(goto);
+                    }
+                }
+            };
+            request.send(formData);
+        }
     }
  }
+ function img_exist(){
+    $( "img" ).each(function( index,item ) {
+        console.log(item);
+        $.ajax({
+            type:'GET',
+            url: $(item).attr('src'),
+            error: function(data){
+                $(item).attr('src','/media/file/img/placeholder-image.png') ;
+            },
+        });
+      });
+
+}

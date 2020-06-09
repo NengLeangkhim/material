@@ -133,7 +133,7 @@ class gettable extends Controller
                             if($t=='id'){
                                 $num_row=(($i+1)+(($page-1)*$limit));
                                 $Tbody.='<td class="text-center">
-                                <a href="'.$this->T_route($table)[$mode].$t_value.'"><i class="fa fa-cog" style="font-size:17px;color:black"></i></a>
+                                <a href="javascript:void(0);" onclick="go_to(\''.$this->T_route($table)[$mode].$t_value.'\')"><i class="fa fa-cog" style="font-size:17px;color:black"></i></a>
                                 </td><td class=" ">'.$num_row.'</td>';
                             }else{
                                 if (strpos(strtolower($t), 'date')) {
@@ -665,16 +665,17 @@ class gettable extends Controller
         $ii=(is_numeric($sr))?$sr:0;
         // $ii=0;
         $sqlstr= array();
-        $sqlstr['productlist']='SELECT p.id,p.product_code as "Product Code",b.name as "Brand" ,p.name as "Name (EN)",p.name_kh as "Name (KHMR)", p.part_number as "Part number", p.barcode as "Barcode",
+        $sqlstr['productlist']='SELECT p.id,p.product_code as "Product Code",pt.name_en as "Type",b.name as "Brand" ,p.name as "Name (EN)",p.name_kh as "Name (KHMR)", p.part_number as "Part number", p.barcode as "Barcode",
             m.name as "Measurement",cu.name as "Currency", p.price as "Base Price",p.qty as "QTY",(p.qty*p.price)as "Amount",description as "Description"
             FROM public.product p
             join measurement m on m.id=p.measurement_id
             join product_brand b on b.id=p.brand_id
             join currency cu on cu.id=p.currency_id
+            join product_type pt on pt.id=p.product_type_id
             -- join company_detail cd on cd.id=p.company_detail_id
             where lower(b.name) like \'%'.$sr.'%\' or lower(p.name) like \'%'.$sr.'%\' or lower(p.name_kh) like \'%'.$sr.'%\'
                 or lower(p.part_number) like \'%'.$sr.'%\' or lower(p.barcode) like \'%'.$sr.'%\'
-                or lower(p.product_code) like \'%'.$sr.'%\'';
+                or lower(p.product_code) like \'%'.$sr.'%\' or lower(pt.name_en) like \'%'.$sr.'%\'';
         $sqlstr['productAssign']='SELECT distinct c.id,c.code as "Company Code", c.name as "Company",(select count(id) from company_branch where company_id=c.id) as "Branches",count(pc.product_id)over (partition by pc.company_id) as "Assigned Product"  from product_company pc right join company c on c.id=pc.company_id
             where lower(c.name) like \'%'.$sr.'%\' or  lower(c.code) like \'%'.$sr.'%\'';
         $sqlstr['customerproductrequest']='SELECT * from (SELECT c.id,

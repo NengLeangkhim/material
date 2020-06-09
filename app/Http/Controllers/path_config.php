@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class path_config extends Controller
 {
     //
-    public function img_path(){
-        
-        return '';
+    public static function stock_img_path(){
+
+        return '/media/file/stock/img/';
     }
 }

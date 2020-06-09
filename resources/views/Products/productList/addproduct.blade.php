@@ -62,7 +62,7 @@ $sel="";
             <div style="width:100%;height:8px;background-color:#3c8dbc;margin-bottom:10px"></div>
 
 
-            <form action="/AddProductList" method="post" id="formmm" name="addproduct" enctype="multipart/form-data" onsubmit="return OnSubmitCofirm('Do you want to add ?');">
+            <form method="post" id="frm_addproduct" name="addproduct" enctype="multipart/form-data" >
             @csrf
             <input type="hidden" name="pid" value="{{$id}}">
             <div class="container-fluid" style="padding-top: 20px;">
@@ -105,6 +105,9 @@ $sel="";
                                     }
                                 @endphp
                             </select>
+                            @php
+                                echo (empty($ptype))?'':"<input hidden name='ptype' value='{$ptype}'>";
+                            @endphp
                             <a  href="javascript:void(0);" onclick="add_dialog('/addptype')" class="input-group-addon pointer">
                                 <span class="fa fa-plus"></span>
                             </a>
@@ -253,9 +256,9 @@ $sel="";
 
 
             <div class="col-md-12 text-right">
-                <button type="submit" class="btn btn-info">Save</button>
+                <button type="button" id="frm_btn_sub_addp" class="btn btn-info">Save</button>
                 <!-- <a href="" class="btn btn-info">Save</a> -->
-                <a href="javascript:history.back()" class="btn btn-danger">Cancel</a>
+                <a href='javascript:void(0);' onclick="go_to('ProductList')" class="btn btn-danger">Cancel</a>
             </div>
             </form>
 
@@ -288,5 +291,8 @@ $("body").on('DOMSubtreeModified', "#modaldiv", function() {
    if(document.getElementById("modaladd")){
         $("#modaladd").modal("show");
    }
+});
+$("#frm_btn_sub_addp").click(function(){
+    submit_form ('/AddProductList','frm_addproduct','ProductList');
 });
 </script>
