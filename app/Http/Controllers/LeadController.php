@@ -30,6 +30,9 @@ class LeadController extends Controller
             $assig_to=DB::select("SELECT * from  staff");
             return view('Lead.addlead',['lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to]);
     }
+    public function savelead(Request $request){
+
+    }
     public function detaillead(){
         return view('Lead.detaillead');
     }

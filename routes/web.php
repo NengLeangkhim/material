@@ -25,6 +25,7 @@ Route::get('/gm','perms@get_module');
 Route::get('/lead','LeadController@getlead');
 Route::get('/addlead','LeadController@addlead');
 Route::get('/detaillead','LeadController@detaillead');
+Route::post('/crm_leasdsource','LeadController@savelead');
 
 // ================Contact===============
 Route::get('/contact','ContactController@getcontact');
