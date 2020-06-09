@@ -34,6 +34,7 @@ class perms extends Controller
             return false;
         }
     }
+    // check function
     public static function check_perm_module($mo){
         if(self::check_perm()){
             $mo=DB::select("SELECT public.exec_check_position('$mo',".$_SESSION['userid'].") as id");
@@ -47,6 +48,7 @@ class perms extends Controller
             return false;
         }
     }
+    // check list function
     public static function get_module(){
         if(self::check_perm()){
             $mo=DB::select("SELECT * from public.exec_get_access_module_of(".$_SESSION['userid'].",null)");
@@ -142,7 +144,7 @@ class perms extends Controller
                         $st.= " <ul class='nav nav-treeview sub_menu'> ";
                         $st.= "  <li class='nav-item has-treeview menu'  > ";
                         $st.= "  <a href='javascript:void(0);' class='nav-link' {$rr->parent->link}  name='menu'> ";
-                        $st.= "  <i class='far fa-circle nav-icon'​></i> <i class='right fas fa-angle-left'></i>";
+                        $st.= "  <i class='{$rr->parent->icon} nav-icon'​></i> <i class='right fas fa-angle-left'></i>";
                         $st.= "  <p>".$rr->parent->module_name."</p> </a>";
                         $st.=self::output_sub($rr->child,'sub');
                         $st.= "  </li></ul> ";
@@ -152,7 +154,7 @@ class perms extends Controller
                         $st.= " <ul class='nav nav-treeview sub_menu'> ";
                         $st.= "  <li class='nav-item menu'  > ";
                         $st.= "  <a href='javascript:void(0);' class='nav-link' ​$rr->link  name='menu'> ";
-                        $st.= "  $sp<i class='far fa-circle nav-icon'​></i> ";
+                        $st.= "  $sp<i class='{$rr->icon} nav-icon'​></i> ";
                         $st.= "  <p>$rr->module_name</p> ";
                         $st.= "  </a></li></ul> ";
                     }

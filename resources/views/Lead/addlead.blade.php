@@ -133,11 +133,10 @@
                                                     <span class="input-group-text"><i class="fas fa-tty"></i></span>
                                                 </div>
                                                 <select class="form-control" name="leadsource">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
-                                                    <option>option 5</option>
+                                                    <option>Select Lead source</option>
+                                                    @foreach($lead_source as $row)
+                                                        <option value="{{$row->id}}">{{$row->name_en}}</option>                                                  
+                                                    @endforeach
                                                 </select>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text"><i class="fas fa-plus"></i></span>
@@ -151,11 +150,10 @@
                                                     <span class="input-group-text"><i class="fas fa-unlock"></i></span>
                                                 </div>
                                                 <select class="form-control" name="leadstatus">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
-                                                    <option>option 5</option>
+                                                    <option >Select Lead Status</option> 
+                                                    @foreach($lead_status as $row)  
+                                                        <option value="{{$row->id}}">{{$row->name_en}}</option>   
+                                                    @endforeach
                                                 </select>
                                             </div>                                              
                                         </div>
@@ -169,27 +167,28 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-industry"></i></span>
                                                 </div>
-                                                <select class="form-control" name="industry">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
-                                                    <option>option 5</option>
+                                                <select class="form-control " name="industry">
+                                                    <option> Select industry</option>
+                                                    @foreach($lead_industry as $row )
+                                                        <option value="{{$row->id}}">{{$row->name_en}}</option> 
+                                                    @endforeach
                                                 </select>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="fas fa-plus"></i></span>
+                                                </div>
                                             </div>   
                                         </div>
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Assigened To<b style="color:red">*</b></label>
                                             <div class="input-group">
-                                                <div class="input-group-prepend">
+                                                <div class="input-group-prepend" style="height:38px;width:40px">
                                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                                 </div>
-                                                <select class="form-control" name="assigendTo">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
-                                                    <option>option 5</option>
+                                                <select class="form-control select2 to " name="assigendTo" >
+                                                    <option>Select Staff</option>
+                                                    @foreach($assig_to as $row )
+                                                        <option value="{{$row->id}}">{{$row->name}}</option> 
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -205,12 +204,29 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1"> Home/Street English <b style="color:red">*</b></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-road"></i></span>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label for="exampleInputEmail1"> Home(EN)<b style="color:red">*</b></label>
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i class="fas fa-home"></i></span>
+                                                                    </div>
+                                                                    <input type="text" class="form-control"  name='homeEN' id="exampleInputEmail1" placeholder="Number of home" >    
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="exampleInputEmail1"> Street(EN) <b style="color:red">*</b></label>
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i class="fas fa-road"></i></span>
+                                                                    </div>
+                                                                    <input type="text" class="form-control"  name='streetEN' id="exampleInputEmail1" placeholder="Number of street" >    
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <input type="text" class="form-control"  name="streetEN" id="exampleInputEmail1" placeholder="Customer Name English" >
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -233,12 +249,29 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1"> Home/Street Khmer <b style="color:red">*</b></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-road"></i></span>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label for="exampleInputEmail1"> Home(KH)<b style="color:red">*</b></label>
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i class="fas fa-home"></i></span>
+                                                                    </div>
+                                                                    <input type="text" class="form-control"  name='homeKH' id="exampleInputEmail1" placeholder="Number of home" >    
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="exampleInputEmail1"> Street(KH) <b style="color:red">*</b></label>
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i class="fas fa-road"></i></span>
+                                                                    </div>
+                                                                    <input type="text" class="form-control"  name='streetKH' id="exampleInputEmail1" placeholder="Number of street" >    
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <input type="text" class="form-control"  name='streetKH' id="exampleInputEmail1" placeholder="Customer Name English" >    
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -266,7 +299,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name='latlng' id="exampleInputEmail1" placeholder="Customer Name English" >
+                                                    <input type="text" class="form-control"  name='latlng' id="exampleInputEmail1" placeholder="11.572532,104.898974" >
                                                 </div> 
                                             </div>
                                             <div class="col-md-6">
@@ -325,7 +358,7 @@
                 </div>
             </div>
         </div>
-    </session>
+    </section>
     <script type="text/javascript">
             $('.lead').click(function(e)
             {
@@ -341,5 +374,14 @@
                             $(".content-wrapper").html(data);
                     }
                 });
+            })
+            $(function(){
+                 //Initialize Select2 Elements
+                     $('.select2').select2()
+            })
+
+            $('.to').change(function(e){
+                var to = $(this). children("option:selected"). val();
+                alert(to);
             })
             </script>
