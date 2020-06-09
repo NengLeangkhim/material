@@ -1,0 +1,40 @@
+.head-hover:hover{
+    background-color: lightblue;
+    cursor: pointer;
+}
+.head-sticky{
+    border-bottom:1px solid #54c0eb;
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+    position: sticky;
+    top:0;
+    background: #3c8dbc;
+}
+
+.optionselect{
+    width: 50%;
+    height: 30px;
+}
+.limenu{
+    margin-top: 5px;
+    padding-top:5px ;
+    width: 100%;
+    background-color: silver;
+    padding-left: 5px;
+    height: 30px;
+}
+.limenu a{
+    height: 15px;
+    font-size: 15px;
+    width: 100%;
+    font-weight: bold;
+    padding: 5px 5px 5px 5px;
+    margin-top: 5px;
+    color: black;
+}
+.activess{
+    background:#007bff;
+    color: white;
+}

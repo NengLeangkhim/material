@@ -29,7 +29,18 @@
 <script src="plugins/chart.js/Chart.min.js"></script>
 
 <!-- PAGE SCRIPTS -->
+
+{{-- STOCK --}}
 <script src="dist/js/pages/dashboard2.js"></script>
+<script src="stJS/js_Expoert_excel_PDF/xlsx.js"></script>
+<script src="stJS/js_Expoert_excel_PDF/FileSaver.js"></script>
+<script src="stJS/js_Expoert_excel_PDF/jhxlsx.js"></script>
+<script src="stJS/ajax.js"></script>
+<script src="stJS/ajaxs.js"></script>
+<script src="stJS/ajaxoldReport.js"></script>
+<script src="stJS/msedge.js"></script>
+{{-- STOCK --}}
+
 <!-- Select2 -->
 <script src="plugins/select2/js/select2.full.min.js"></script>
 
