@@ -11,7 +11,7 @@ class addproduct_type extends Controller
     //
     public function getaddproduct_type(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $m='<form action="/addptype" id="form1" method="POST" name="addproduct_type">
             <input type="hidden" name="_token" value="'.csrf_token().'">
             <div class="modal fade" id="modaladd" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -50,7 +50,7 @@ class addproduct_type extends Controller
 
     public function addptype(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $name=$_POST['name'];
             $sql="SELECT public.insert_product_type(

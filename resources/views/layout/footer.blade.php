@@ -1,6 +1,6 @@
 
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js" ></script>
+<script src="plugins/jquery/jquery.js" ></script>
 
 <!-- Bootstrap -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

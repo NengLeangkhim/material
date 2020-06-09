@@ -74,7 +74,7 @@ class dashbord extends Controller
     }
     public function Dashbord(){
         session_start();
-        if(perms::check_perm_module('07-04')){//module code
+        if(perms::check_perm_module('STO_0103')){//module code
                 // return view('start');
                 $arr[]=array();
                 $arr[0]=DB::select('select id,name from company');

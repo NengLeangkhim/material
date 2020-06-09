@@ -17,7 +17,6 @@ function mydemo(){
      });
     }
 });
-
 // function addlead(){
 //   var link = $(this).attr("​value");   
 //   alert(link);

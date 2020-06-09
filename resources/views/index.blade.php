@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('content')     
+@section('content')
   
     <div class="content-header"> <!-- Content Header (Page header) -->
                 <div class="container-fluid">

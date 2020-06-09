@@ -34,7 +34,7 @@ class ProductReturn extends Controller
     }
     public function addProductReturn(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $action_type=$_POST['action_type'];
             $company=$_POST['company'];

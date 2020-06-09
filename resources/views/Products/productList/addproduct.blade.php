@@ -49,7 +49,7 @@ if(count($addp)==5){
 }
 $sel="";
 @endphp
-@include('../userview/header')
+<section class="content">
  <!-- page content -->
  <div class="right_col" role="main">
     <div class="container-fluid">
@@ -267,7 +267,7 @@ $sel="";
 </div>
 <div id="modaldiv"></div>
 <!-- /page content -->
-@include('../userview/footer')
+</section>
 {{-- Js  --}}
 <script type="text/javascript">
 

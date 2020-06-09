@@ -741,3 +741,25 @@ function refresh_sel(target,route) {
             }
         );
      });
+function go_to(route){
+    $.ajax({
+        type: 'GET',
+        url:route,
+        success:function(data){
+            $(".content-wrapper").show();
+            $(".content-wrapper").html(data);
+        }
+     });
+}
+function submit_form (route,form,goto){
+    if(SubformValid()){
+         $.ajax({
+             url:route,
+             type:'post',
+             data:$(form).serialize(),
+             success:function(){
+                go_to(goto);
+             },
+         });
+    }
+ }

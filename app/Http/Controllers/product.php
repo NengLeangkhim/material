@@ -108,7 +108,7 @@ class product extends Controller
                 $addp[4]=DB::select("select id,name from currency where status='t'");
                 // $addp[5]=DB::select("select id,name from supplier where status='t'");
                 $addp[7]=DB::select("select id,name_en from product_type where status='t'");
-                return view('products.productList.addproduct')->with('addp',$addp);
+                return view('products.productList.addproduct',['addp'=>$addp]);
             }
 
         }else{
@@ -172,7 +172,7 @@ class product extends Controller
 //this function are same as any other get branch function patterns just to match with ajax function
     public function get_company_branch(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $id=$_GET['_id'];//set up same for ajax
             $get_branch=DB::select('select id,branch as name from company_branch where status=\'t\' and company_id='.$id);
             return response()->json(array('response'=> $get_branch), 200);//set up same for ajax
@@ -182,7 +182,7 @@ class product extends Controller
     }
     public function get_product_code(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             // $id=$_GET['_id'];//set up same for ajax
             $tid=$_GET['_tid'];
             // $get_branch=DB::select('select name from product_code where status=\'t\' and company_id='.$id);
@@ -238,7 +238,7 @@ class product extends Controller
     }
     public function update_product_qty(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             if(isset($_GET['id'])){
                 $id=$_GET['id'];
                 // $addp=DB::select('select * from users where active = ?', [1]);

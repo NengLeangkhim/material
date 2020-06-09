@@ -1,26 +1,8 @@
-@extends('master')
-
-@section('content')
+<section class="content">
+  <div class="container-fluid">
         <!-- page content -->
-        <div>
+        <div class="right_col">
           <!-- top tiles -->
-
-  <!-- Modal -->
-  <div class="modal fade" id="ModalCompany" role="dialog">
-    <div class="modal-dialog modal-xl" >
-    
-      <!-- Modal content-->
-      <div class="modal-content" id="copanyProductChange">
-        
-        
-      </div>
-      
-    </div>
-  </div>
-
-
-
-
   <div id="AllCompanyChange">
           <div class="row"  style="" >
             @foreach($company[0] as $companys)
@@ -154,4 +136,18 @@
         <!-- /page content -->
       </div>
     </div>
-    @stop
+
+    <!-- Modal -->
+    <div class="modal fade" id="ModalCompany" role="dialog">
+      <div class="modal-dialog modal-xl" >
+
+        <!-- Modal content-->
+        <div class="modal-content" id="copanyProductChange">
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </section>

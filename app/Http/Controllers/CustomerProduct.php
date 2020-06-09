@@ -48,7 +48,7 @@ class CustomerProduct extends Controller
     //this function are same as any other get branch function patterns just to match with ajax function
     public function get_customer_branch(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $id=$_GET['_id'];//set up same for ajax
             $get_branch=DB::select('select id,branch as name from customer_branch where status=\'t\' and customer_id='.$id);
             return response()->json(array('response'=> $get_branch), 200);//set up same for ajax
@@ -58,7 +58,7 @@ class CustomerProduct extends Controller
     }
     public function get_customer_con(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $id=$_GET['customer_id'];
             $branch_id=$_GET['branch_id'];
             $get_branch=DB::select("select connection_id as name from customer_branch where status='t' and customer_id=$id and id=$branch_id");
@@ -69,7 +69,7 @@ class CustomerProduct extends Controller
     }
     public function insert_customer_product(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $action_type=$_POST['action_type'];
             $customer=$_POST['customer'];

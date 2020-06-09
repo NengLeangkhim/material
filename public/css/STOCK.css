@@ -38,3 +38,14 @@
     background:#007bff;
     color: white;
 }
+.right_col .otherCompany{
+    border: grey solid 1px;
+    background-color: honeydew;
+}
+.reporttable{
+    margin-top: 10px;
+}
+.headings{
+    background-color: #3c8dbc;
+    font-size: 15px;
+}

@@ -1,12 +1,11 @@
-
-@include('../userview/header')
  <!-- page content -->
+ <section class="content">
  <div class="right_col" role="main">
     <div class="contain-fluid">
         <section class="content-header">
             <h2>
                 <a  href="javascript:void(0);"><img src="img/customerProduct.png" height="30" class="img-circle img-bordered-sm" alt="User Image"> Product List</a>
-                                    / <a href="/AddProductList" class="btn btn-info"><i class="fa fa-plus-circle"></i> Create New</a>
+                                    / <a href="javascript:void(0);" onclick="go_to('/AddProductList')" value="/AddProductList" class="btn btn-info"><i class="fa fa-plus-circle"></i> Create New</a>
                         </h2>
         </section>
         <div>
@@ -30,8 +29,8 @@
         </div>
     </div>
 </div>
+</section>
 <!-- /page content -->
-@include('../userview/footer')
 <script type='text/javascript'>
   $(document).ready(
       function(){

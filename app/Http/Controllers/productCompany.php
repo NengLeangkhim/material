@@ -77,7 +77,7 @@ class productCompany extends Controller
     }
     public function addProductCompany(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $company=$_POST['company'];
             $company_branch=$_POST['company_branch'];

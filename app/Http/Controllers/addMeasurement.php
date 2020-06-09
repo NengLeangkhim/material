@@ -10,7 +10,7 @@ class addMeasurement extends Controller
 {
     public function getaddMeasurement(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $m='<form action="/addmeasurement" id="form1" method="POST" name="addmeasurement">
             <input type="hidden" name="_token" value="'.csrf_token().'">
             <div class="modal fade" id="modaladd" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -49,7 +49,7 @@ class addMeasurement extends Controller
 
     public function addMeasurement(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $name=$_POST['name'];
             $sql="insert_measurement('$name',$staff)";

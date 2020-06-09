@@ -12,7 +12,7 @@ class RouteController extends Controller
     // $_SESSION['userid']=1;
     // $_SESSION['module']=perms:: get_module();
 
-        return view('login');
+        return view('start');
     }
     public function check(){
         if (DB::connection('myDamnDbConnection')->getDatabaseName())

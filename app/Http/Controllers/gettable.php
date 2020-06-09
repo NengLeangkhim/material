@@ -11,7 +11,7 @@ class gettable extends Controller
     //
     public function getT(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             //get table for which route/view
             $table=$_GET['table'];
             if(!isset($_SESSION['old_route'])){
@@ -198,7 +198,7 @@ class gettable extends Controller
 
     public function getTT(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $table=$_GET['table'];
             if(!isset($_SESSION['old_route'])){
                 $_SESSION['old_route']=$table;
@@ -397,7 +397,7 @@ class gettable extends Controller
 
     public function getTTOld(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $table=$_GET['table'];
             if(!isset($_SESSION['old_route'])){
                 $_SESSION['old_route']=$table;

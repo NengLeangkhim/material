@@ -83,7 +83,12 @@ $(document).ready(
     //- PIE CHART -
     //-------------
     // Get context with jQuery - using jQuery's .get() method.
+    if($("#pieChart").length == 0) {
+      //it doesn't exist
+      return;
+    }else{
       var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+    }
       var pieData        = {
         labels: [
             'Chrome', 

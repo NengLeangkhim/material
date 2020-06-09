@@ -11,7 +11,7 @@ class addStorage extends Controller
     //
     public function getaddStorage(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $m='<form action="/addstorage" id="form1" method="POST" name="addstorage">
             <input type="hidden" name="_token" value="'.csrf_token().'">
             <div class="modal fade" id="modaladd" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -50,7 +50,7 @@ class addStorage extends Controller
 
     public function getaddStorageLocation(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $q=DB::select("SELECT id,name from storage");
             $m='<form action="/addstorage" id="form1" method="POST" name="addstoragelocation">
             <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -103,7 +103,7 @@ class addStorage extends Controller
 
     public function addstorage(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $name=$_POST['name'];
             if(isset($_POST['location'])){

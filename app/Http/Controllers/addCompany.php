@@ -12,7 +12,7 @@ class addCompany extends Controller
     //modal to show add dialog
     public function getaddCompany(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $m='<form action="/addcompany" id="form1" method="POST">
             <input type="hidden" name="_token" value="'.csrf_token().'">
             <div class="modal fade" id="modaladd" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -63,7 +63,7 @@ class addCompany extends Controller
     }
     public function getaddCompanybranch(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $q=DB::select("SELECT id,name from company");
             $m='<form action="/addcompany" id="form1" method="POST">
             <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -120,7 +120,7 @@ class addCompany extends Controller
     }
     public function addCompany(){
         session_start();
-        if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $name=$_POST['name'];
             $branch=$_POST['branch'];
