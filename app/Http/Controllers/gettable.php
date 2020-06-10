@@ -732,7 +732,11 @@ class gettable extends Controller
                     or lower(\"Return By\") like '%$sr%' or lower(\"Company\") like '%$sr%'
                     or lower(\"Description\") like '%$sr%' or \"Request Product ID\"=$ii
                     or lower(\"Branch\") like '%$sr%'";
-
+        if(perms::check_perm_module('STO_010103')){
+            $apr="";
+        }else{
+            $apr="and ia.deliver_by=".$_SESSION['userid'];
+        }
         $sqlstr['productCompanyimport']="SELECT * from (SELECT ia.id,
                     (select name from staff where id=ia.deliver_by) as \"Deliver By\",
                     cd.company as \"Company\",cd.branch as \"Branch\",
@@ -743,7 +747,7 @@ class gettable extends Controller
                     from invoice_before_arrival ia
                     join company_detail cd on cd.id=ia.company_detail_id
                     left join supplier sp on sp.id=ia.supplier_id
-                    where cd.status='t' and ia.action_type='in' ) as foo
+                    where cd.status='t' and ia.action_type='in' $apr) as foo
                     where lower(\"Approve By\") like '%$sr%'
                     or lower(\"Deliver By\") like '%$sr%' or lower(\"Company\") like '%$sr%'
                     or lower(\"Branch\") like '%$sr%' or lower(\"Description\") like '%$sr%'";
@@ -758,7 +762,7 @@ class gettable extends Controller
                     from invoice_before_arrival ia
                     join company_detail cd on cd.id=ia.company_detail_id
                     left join supplier sp on sp.id=ia.supplier_id
-                    where cd.status='t' and ia.action_type='out' ) as foo
+                    where cd.status='t' and ia.action_type='out' $apr) as foo
                     where lower(\"Approve By\") like '%$sr%'
                     or lower(\"Deliver By\") like '%$sr%' or lower(\"Company\") like '%$sr%'
                     or lower(\"Branch\") like '%$sr%' or lower(\"Description\") like '%$sr%'";
@@ -860,12 +864,13 @@ class gettable extends Controller
                         join currency cu on cu.id=p.currency_id
                         join company_detail cd on cd.id=p.company_detail_id where lower(p.name) like '%$sr%' or lower(p.name_kh) like '%$sr%' or lower(b.name) like '%$sr%' or lower(p.part_number) like '%$sr%'
                         or lower(p.barcode) like '%$sr%' or lower(p.product_code) like '%$sr%' or cd.company like '%$sr%'";
-        $sqlstr['productcompanydashbord']="SELECT p.id,p.name as \"Name\",
+        $sqlstr['productcompanydashbord']="SELECT p.id,((select cb.code from company_branch cb join company_detail cd on cd.branch_id=cb.id where cd.id=(select company_detail_id from staff where id=".$_SESSION['userid']."))||'-'||p.product_code) as \"Product Code\",(select name_en from product_type where id=p.product_type_id) as \"Type\",p.name as \"Name\",
                     (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to')) as \"QTY\",
                     (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to') and q.action_type='in') as \"Import\",
                     (select (sum(q.qty)*-1) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to') and q.action_type='out') as \"Request\"
-                    from product p join product_qty q on p.id=q.product_id join company_detail cd on cd.id=q.company_detail_id join product_company pc on pc.product_id=p.id where 't' and pc.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to') group by p.id having (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid'].")) is not null
-                    and lower(p.name) like '%$sr%'";
+                    from product p join product_qty q on p.id=q.product_id join company_detail cd on cd.id=q.company_detail_id join product_company pc on pc.product_id=p.id where 't' and pc.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to')
+                    group by p.id having (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id right join product p on p.id=q.product_id where q.product_id=p.id and cd.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid'].")) is not null
+                    and (lower(p.name) like '%$sr%' or lower(p.product_code) like '%$sr%')";
         return $sqlstr[$s];
     }
 }

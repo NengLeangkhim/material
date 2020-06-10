@@ -1,8 +1,5 @@
 @php
     $ap="";
-    if($plist[0][0]->approve=="FALSE"){
-        $ap=' | <label for="sub" style="cursor: pointer"><i class="fa fa-check-square"></i> Approve</label>';
-    }
     if($plist[0][0]->action_type=="out"){
         $act='Request';
     }else if($plist[0][0]->action_type=="in"){
@@ -27,7 +24,7 @@
         <div class="pull-right" style="margin-top: -1.3%;">
             <a  href="javascript:void(0);" onclick="window.print();" class="text-danger"><i class="fa fa-print"></i> Print</a>
             @php
-                echo $ap;
+                echo $apr;
             @endphp
             <input type="submit" value="approve" id='sub' style="display:none;">
             {{-- <a href="/productListDetial?edit={{$plist[0][0]->id}}" title="Update" class="text-custom"><i class="fa fa-pencil-square"></i> Update</a>|

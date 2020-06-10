@@ -56,7 +56,7 @@ class productCompany extends Controller
             $r[]=DB::select("SELECT id,branch from company_branch where status='t' and company_id=$company_id");
             // $r[]=DB::select("SELECT id,name from staff");
             // $r[]=DB::select("SELECT id,name from supplier");
-            return view('products.productcompany.addproductCompany')->with("action",$r);
+            return view('products.productcompany.addproductCompany',["action"=>$r]);
         }else{
             return view('no_perms');
         }
@@ -70,7 +70,7 @@ class productCompany extends Controller
             $r[]='in';
             $r[]=DB::select("select cd.company_id,cd.company from staff s join company_detail cd on cd.id=s.company_detail_id where cd.status='t' and s.id=$st_id");
             $r[]=DB::select("SELECT id,branch from company_branch where company_id=$company_id");
-            return view('products.productcompany.addproductCompany')->with("action",$r);
+            return view('products.productcompany.addproductCompany',["action"=>$r]);
         }else{
             return view('no_perms');
         }
@@ -140,7 +140,12 @@ class productCompany extends Controller
             $plist=array();
             $plist[]=DB::select($sql);
             $plist[]=DB::select($sql1);
-            return view('products.productcompany.productCompanydetail')->with("plist",$plist);
+            if(perms::check_perm_module('STO_010103')){
+                $apr='| <label for="sub" style="cursor: pointer"><i class="fa fa-check-square"></i> Approve</label>';
+            }else{
+                $apr="";
+            }
+            return view('products.productcompany.productCompanydetail',["plist"=>$plist,'apr'=>$apr]);
         }else{
             return view('no_perms');
         }
@@ -216,7 +221,7 @@ class productCompany extends Controller
             join company_detail cd on cd.id=q.company_detail_id
             where 't'
             and pc.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid'].")
-            group by p.id having (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid'].")) is not null";
+            group by p.id having (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id left join product p on p.id=q.product_id where q.product_id=p.id and cd.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid'].")) is not null";
             $com=DB::select($sql);
                 return view('products.productcompany.dasboardCompany')->with('action',$com);
         }else{
