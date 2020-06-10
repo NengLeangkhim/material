@@ -21,20 +21,23 @@ Route::post('/login','Login@login');
 Route::get('/login','Login@check_login');
 Route::get('/logout','Login@logout');
 Route::get('/gm','perms@get_module');
-// ================lead===============
-Route::get('/lead','LeadController@getlead');
+
+// =========================CRM SYSTEM==========================
+Route::get('/lead','LeadController@getlead'); 
 Route::get('/addlead','LeadController@addlead');
+Route::get('/district','LeadController@getdistrict'); //getdistrict
+Route::get('/commune','LeadController@getcommune'); //getcommune
+Route::get('/village','LeadController@getvillage'); //getvillage
+Route::POST('/addleadsource','LeadController@addleadsource'); //addlead source
+Route::POST('/addleadindustry','LeadController@addleadindustry'); //addleadindustry
+
 Route::get('/detaillead','LeadController@detaillead');
 Route::post('/crm_leasdsource','LeadController@savelead');
+Route::get('/contact','ContactController@getcontact'); //Contact
+Route::get('/organizations','OrganizationController@getorganization'); //Organization
+Route::get('/product','ProductsController@getProducts'); //Products
 
-// ================Contact===============
-Route::get('/contact','ContactController@getcontact');
 
-// ================Organization===============
-Route::get('/organizations','OrganizationController@getorganization');
-
-// ================Products===============
-Route::get('/product','ProductsController@getProducts');
 
 //==================STOCK SYSTEM===================================================
 Route::get('PaginationAllCompany','dashboard@PaginationAllCompany');
