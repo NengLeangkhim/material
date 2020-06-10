@@ -10,8 +10,12 @@ class RouteController extends Controller
     public function home(){
     // session_start();
     // $_SESSION['userid']=1;
-    // $_SESSION['module']=perms:: get_module();
-        return view('start');
+        // $_SESSION['module']=perms:: get_module();
+        if(perms::check_perm()){
+            return view('start');
+        }else{
+            return redirect('/logout');
+        }
     }
     public function check(){
         if (DB::connection('myDamnDbConnection')->getDatabaseName())

@@ -4,12 +4,14 @@ $a=$action[0];
     if($action[0]=='out'){
         $re="Request By";
         $title="(Request)";
+        $route="customerproductrequest";
     }else if($a=='return'){
         $re="Return By";
         $title="(Return)";
+        $route="customerproductreturn";
     }
 @endphp
-@include('../userview/header')
+<section class="content">
 <div class="right_col" role="main">
     <div class="container-fluid">
         <section class="content-header">
@@ -17,20 +19,19 @@ $a=$action[0];
             <a  href="javascript:void(0);"><img src="img/customerProduct.png" height="30" class="img-circle img-bordered-sm" alt="User Image">Add Customer Products {{$title}}</a>
             </h2>
         </section>
-        <div>
             <div style="width:100%;height:8px;background-color:#3c8dbc;margin-bottom:10px"></div>
             <div>
 
 
-            <form name="addproductcustomer" action="/addCustomerProduct" method="post" enctype="multipart/form-data" onsubmit="return ">
+            <form name="addproductcustomer" id="frm_addcp" method="post" enctype="multipart/form-data" onsubmit="return ">
                 @csrf
                 <input type="hidden" name="action_type" id='action_type' value="{{$a}}">
-            <div class="box-info">
-                <div class="box-body">
+            <div class="container-fluid">
+                <div class="row">
                     <div class="form-group col-md-3">
                         <label>Customer <i class="text-danger">*</i></label>
                         <div class="input-group">
-                            <select name="customer" id='icustomer' class="form-control" onchange="getbranch(this,'customer_branch','s','/getcustomer')">
+                            <select name="customer" id='icustomer' class="form-control select2" onchange="getbranch(this,'customer_branch','s','/getcustomer')">
                                 @php
                                     foreach($action[1] as $customer){
                                         echo '<option value="'.$customer->id.'">'.$customer->name.'</option>';
@@ -46,7 +47,7 @@ $a=$action[0];
                     <div class="form-group col-md-3">
                         <label>Customer Branch<i class="text-danger">*</i></label>
                         <div class="input-group">
-                            <select name="customer_branch" id="customer_branch" class="form-control" onchange="getcustomer_con(document.addproductcustomer.customer,this,'account','/getcustomercon')">
+                            <select name="customer_branch" id="customer_branch" class="form-control select2" onchange="getcustomer_con(document.addproductcustomer.customer,this,'account','/getcustomercon')">
                             </select>
                             {{-- <input type="text" id="custname" name="custname" class="form-control" required=""> --}}
                             <a  href="javascript:void(0);" onclick="add_dialog('/addcustomerbranch')" class="input-group-addon pointer">
@@ -61,7 +62,7 @@ $a=$action[0];
                     <div class="form-group col-md-3">
                         <label>{{$re}} <i class="text-danger">*</i> </label>
                         <div class="input-group">
-                            <select class="form-control" id="istaff" name="_by">
+                            <select class="form-control select2" id="istaff" name="_by">
                                 @php
                                 foreach($action[2] as $staff){
                                     echo '<option value="'.$staff->id.'">'.$staff->name.'</option>';
@@ -77,11 +78,9 @@ $a=$action[0];
                         <label>Description</label>
                         <input type="text" name="description" class="form-control" autocomplete="off">
                     </div>
-                    <div class="clearfix"></div>
-                </div>
                 <br>
 
-                <div class="container" style="height:370px;">
+                <div class="container">
                     <div class="form-group col-3 col-xs-push-8">
                         <input type="text" name="" id="product_search" class="form-control" placeholder="search...">
                     </div>
@@ -135,31 +134,22 @@ $a=$action[0];
                     </table>
                     </div>
                     <div class="form-group col-md-12 text-right">
-                        <button class="btn btn-primary" type="submit" name="savecustproduct">
+                        <button class="btn btn-primary" type="button" id="frm_btn_subaddcp" name="savecustproduct">
                             <i class="fa fa-plus"></i> Save
                         </button>
-                        <a href="javascript:history.back()" class="btn btn-danger m-l-5">
+                        <a href="javascript:void(0);" onclick="go_to('<?php echo $route;?>')" class="btn btn-danger m-l-5">
                             <i class="fa fa-close"></i> Cancel
                         </a>
                     </div>
                 </div>
-
-                {{-- <div class="box-footer"> --}}
-
-                {{-- </div> --}}
+            </div>
             </div>
         </form>
-
-
-
-
-            </div>
-        </div>
     </div>
 </div>
 <div id='modaldiv'>
 </div>
-@include('../userview/footer')
+</section>
 <script type="text/javascript">
     $(document).ready(
         function(){
@@ -177,16 +167,14 @@ $a=$action[0];
            );
         }
     );
-    document.addproductcustomer.onsubmit = function(){
+    $('#frm_btn_subaddcp').click( function(){
         var tbody = document.getElementById("tbody_b");
         if(tbody.rows.length<1){
-            ok_dialog('Please Select product first!','No product!')
-            return false;
+            ok_dialog('Please Select product first!','No product!');
         }else{
-            return OnSubmitCofirm('Do you want to add ?');
+            submit_form('/addCustomerProduct','frm_addcp','<?php echo $route;?>');
         }
-        return true;
-    };
+    });
     $("body").on('DOMSubtreeModified', "#modaldiv", function() {
    if(document.getElementById("okmodal")){
         $("#okmodal").modal("show");
@@ -195,4 +183,12 @@ $a=$action[0];
         $("#modaladd").modal("show");
    }
 });
+$(function(){
+    //Initialize Select2 Elements
+    $('.select2').select2()
+})
+$('#product_search').keyup(
+    function(){
+        get_product(this.value,'tbody_a',1);
+    });
 </script>

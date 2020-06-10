@@ -97,7 +97,7 @@ $sel="";
                     <div class="form-group col-md-3 col-lg-3">
                         <label>Product Type</label>
                         <div class="input-group">
-                            <select class="form-control" name="ptype" required="" id="iptype" value="{{$ptype}}" {{$e }} onchange="getpcode(this,'pcode','getpcode')">
+                            <select class="form-control select2" name="ptype" required="" id="iptype" value="{{$ptype}}" {{$e }} onchange="getpcode(this,'pcode','getpcode')">
                                 @php
                                     foreach($addp[7] as $brandd){
                                         $sel=($brandd->id==$ptype)?'selected':"";
@@ -138,7 +138,7 @@ $sel="";
                     <div class="form-group col-md-3 col-lg-3">
                         <label>Brand</label>
                         <div class="input-group">
-                            <select class="form-control" name="brand" required="" id="ibrand" value="{{$brand}}">
+                            <select class="form-control select2" name="brand" required="" id="ibrand" value="{{$brand}}">
                                 @php
                                     foreach($addp[2] as $brandd){
                                         $sel=($brandd->id==$brand)?'selected':"";
@@ -154,7 +154,7 @@ $sel="";
                     <div class="form-group col-md-3 col-lg-3">
                         <label>Measurement<i class="text-danger">*</i></label>
                         <div class="input-group">
-                            <select class="form-control" name="unit" required id="iunit_type">
+                            <select class="form-control select2" name="unit" required id="iunit_type">
                             @php
                                 foreach($addp[1] as $measurement){
                                     $sel=($measurement->id==$unitType)?"selected":"";
@@ -186,7 +186,7 @@ $sel="";
                     <div class="form-group col-md-3 col-lg-3">
                         <label>Currency <i class="text-danger">*</i></label>
                         <div class="input-group">
-                            <select class="form-control" name="currency" required id="icurrency">
+                            <select class="form-control select2" name="currency" required id="icurrency">
                                 @php
                                 foreach($addp[4] as $currencyy){
                                     $sel=($currencyy->id==$currency)?"selected":"";
@@ -295,4 +295,8 @@ $("body").on('DOMSubtreeModified', "#modaldiv", function() {
 $("#frm_btn_sub_addp").click(function(){
     submit_form ('/AddProductList','frm_addproduct','ProductList');
 });
+$(function(){
+    //Initialize Select2 Elements
+    $('.select2').select2()
+})
 </script>

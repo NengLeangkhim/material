@@ -2,13 +2,15 @@
     if($action[0]=='out'){
         $title='Request';
         $act='out';
+        $route='productCompanyrequest';
     }else if($action[0]=='in'){
         $title='Import';
         $act='cin';
+        $route='productCompanyimport';
     }
 @endphp
 {{-- @include('../otherUser/header') --}}
-@include('../userview/header')
+<section class="content">
  <!-- page content -->
  <div class="right_col" role="main">
     <div class="container-fluid">
@@ -20,7 +22,7 @@
         <div>
             <div style="width:100%;height:8px;background-color:#3c8dbc;margin-bottom:10px"></div>
 
-            <form name="addproductcompany" action="/addProductCompany" method="post" enctype="multipart/form-data">
+            <form name="addproductcompany" id="frm_addcop" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="action_type" id='action_type' value="{{$act}}">
             <div class="box-info">
@@ -34,7 +36,7 @@
                     <div class="form-group col-md-4">
                         <label>Company Branch<i class="text-danger">*</i></label>
                         <div class="input-group">
-                            <select name="company_branch" id="company_branch" class="form-control" onchange="clear_row()" required>
+                            <select name="company_branch" id="company_branch" class="form-control select2" onchange="clear_row()" required>
                             @php
                                 foreach($action[2] as $branch){
                                     echo '<option value="'.$branch->id.'">'.$branch->branch.'</option>';
@@ -56,7 +58,7 @@
                 </div>
                 <br>
 
-                <div class="container" style="height:370px;">
+                <div class="container">
                     <div class="form-group col-3 col-xs-push-8">
                         <input type="text" name="" class="form-control" placeholder="search..." onkeyup="get_product_comp(this.value,'tbody_a',1)">
                     </div>
@@ -110,10 +112,10 @@
                     </table>
                     </div>
                     <div class="form-group col-md-12 text-right">
-                        <button class="btn btn-primary" type="submit" name="savecustproduct">
+                        <button class="btn btn-primary" type="button" id="frm_btn_subaddcop" name="savecustproduct">
                             <i class="fa fa-plus"></i> Save
                         </button>
-                        <a href="javascript:history.back()" class="btn btn-danger m-l-5">
+                        <a href="javascript:void(0);" onclick="go_to('<?php echo $route;?>')" class="btn btn-danger m-l-5">
                             <i class="fa fa-close"></i> Cancel
                         </a>
                     </div>
@@ -132,26 +134,28 @@
 </div>
 <div id='modaldiv'></div>
 <!-- /page content -->
-@include('../userview/footer')
+</section>
 <script type="text/javascript">
     $(document).ready(
         function(){
             get_product_comp('','tbody_a',1);
         }
     );
-    document.addproductcompany.onsubmit = function(){
+    $('#frm_btn_subaddcop').click( function(){
         var tbody = document.getElementById("tbody_b");
         if(tbody.rows.length<1){
-            ok_dialog('Please Select product first!','No product!')
-            return false;
+            ok_dialog('Please Select product first!','No product!');
         }else{
-            return OnSubmitCofirm('Do you want to add ?');
+            submit_form('/addProductCompany','frm_addcop','<?php echo $route;?>');
         }
-        return true;
-    };
+    });
     $("body").on('DOMSubtreeModified', "#modaldiv", function() {
    if(document.getElementById("modaladd")){
         $("#modaladd").modal("show");
    }
 });
+$(function(){
+    //Initialize Select2 Elements
+    $('.select2').select2()
+})
 </script>

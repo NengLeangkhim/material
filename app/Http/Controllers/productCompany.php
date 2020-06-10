@@ -49,7 +49,7 @@ class productCompany extends Controller
         session_start();
         if(perms::check_perm_module('STO_010201')){//module codes
             $st_id=$_SESSION['userid'];
-            $company_id="(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where status='t' and s.id=$st_id)";
+            $company_id="(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where cd.status='t' and s.id=$st_id)";
             $r=array();
             $r[]='out';
             $r[]=DB::select("select cd.company_id,cd.company from staff s join company_detail cd on cd.id=s.company_detail_id where cd.status='t' and s.id=$st_id");

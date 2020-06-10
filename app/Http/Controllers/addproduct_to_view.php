@@ -121,7 +121,7 @@ class addproduct_to_view extends Controller
                                 FROM public.product p
                                 join product_company pc on pc.product_id=p.id
                                 where pc.company_id=$company_id and
-                                (lower(p.name) like '%$s%' or lower(p.barcode) like '%$s%' or lower(p.part_number) like '%$s%') limit 10 offset $start_from");
+                                (lower(p.name) like '%$s%' or lower(p.barcode) like '%$s%' or lower(p.part_number) like '%$s%') limit $limit offset $start_from");
             $pagi=DB::select("SELECT count(*) from (SELECT distinct p.id, p.name, p.barcode, p.part_number,p.product_code
                                 FROM public.product p
                                 join product_company pc on pc.product_id=p.id
@@ -129,26 +129,26 @@ class addproduct_to_view extends Controller
                             (lower(p.name) like '%$s%' or lower(p.barcode) like '%$s%' or lower(p.part_number) like '%$s%' ))as foo");
             $total_row=$pagi[0]->count;
             $total_page=ceil($total_row/$limit);
-            $next=($pn<$total_page)?'<li class="page-item"><a class="page-link" onclick="get_product(\''.$s.'\',\'tbody_a\','.($pn+1).')" href="javascript:void(0);">Next</a></li>':'';
-            $prev=($pn>1)?'<li class="page-item"><a class="page-link" onclick="get_product(\''.$s.'\',\'tbody_a\','.($pn-1).')" href="javascript:void(0);">Previous</a></li>':'';
+            $next=($pn<$total_page)?'<li class="page-item"><a class="page-link" onclick="get_product_comp(\''.$s.'\',\'tbody_a\','.($pn+1).')" href="javascript:void(0);">Next</a></li>':'';
+            $prev=($pn>1)?'<li class="page-item"><a class="page-link" onclick="get_product_comp(\''.$s.'\',\'tbody_a\','.($pn-1).')" href="javascript:void(0);">Previous</a></li>':'';
             $num="";
             if($total_page>1){
                 if($pn>4){
-                    $num.='<li class="page-item"><a class="page-link" onclick="get_product(\''.$s.'\',\'tbody_a\',1);" href="javascript:void(0);">1</a></li>
+                    $num.='<li class="page-item"><a class="page-link" onclick="get_product_comp(\''.$s.'\',\'tbody_a\',1);" href="javascript:void(0);">1</a></li>
                             <li class="page-item"><a class="page-link">...</a></li>';
                 }
                 for($i=$pn-3;$i<=$pn+3;$i++){
                     if(($i>0)&&($i<=$total_page)){
                         if($i==$pn){
-                            $num.='<li class="page-item active"><a class="page-link" onclick="get_product(\''.$s.'\',\'tbody_a\','.$i.');" href="javascript:void(0);">'.$i.'</a></li>';
+                            $num.='<li class="page-item active"><a class="page-link" onclick="get_product_comp(\''.$s.'\',\'tbody_a\','.$i.');" href="javascript:void(0);">'.$i.'</a></li>';
                         }else{
-                            $num.='<li class="page-item"><a class="page-link" onclick="get_product(\''.$s.'\',\'tbody_a\','.$i.');" href="javascript:void(0);">'.$i.'</a></li>';
+                            $num.='<li class="page-item"><a class="page-link" onclick="get_product_comp(\''.$s.'\',\'tbody_a\','.$i.');" href="javascript:void(0);">'.$i.'</a></li>';
                         }
                     }
                 }
                 if($pn<$total_page-4){
                     $num.='<li class="page-item"><a class="page-link">...</a></li>
-                            <li class="page-item"><a class="page-link" onclick="get_product(\''.$s.'\',\'tbody_a\','.$total_page.');" href="javascript:void(0);">'.$total_page.'</a></li>';
+                            <li class="page-item"><a class="page-link" onclick="get_product_comp(\''.$s.'\',\'tbody_a\','.$total_page.');" href="javascript:void(0);">'.$total_page.'</a></li>';
                 }
             }
             $tb="";

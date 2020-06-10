@@ -1,5 +1,5 @@
 {{-- @include('../otherUser/header') --}}
-@include('../userview/header')
+<section class="content">
  <!-- page content -->
  <div class="right_col" role="main">
 
@@ -7,4 +7,4 @@
 </div>
 <div id='modaldiv'></div>
 <!-- /page content -->
-@include('../userview/footer')
+</section>

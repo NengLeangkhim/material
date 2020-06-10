@@ -1,4 +1,4 @@
-@include('../userview/header')
+<section class="content">
  <!-- page content -->
  <div class="right_col" role="main">
     <div class="contain-fluid">
@@ -87,4 +87,4 @@
     </div>
 </div>
 <!-- /page content -->
-@include('../userview/footer')
+</section>

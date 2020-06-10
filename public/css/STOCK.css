@@ -4,11 +4,11 @@
 }
 .head-sticky{
     border-bottom:1px solid #54c0eb;
-    position: -webkit-sticky;
+    /* position: -webkit-sticky;
     position: -moz-sticky;
     position: -ms-sticky;
     position: -o-sticky;
-    position: sticky;
+    position: sticky; */
     top:0;
     background: #3c8dbc;
 }

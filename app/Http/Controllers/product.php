@@ -86,6 +86,7 @@ class product extends Controller
                 $barcode=$_POST['barcode'];
                 if(!empty($_POST['pid'])){//update
                     $pid=$_POST['pid'];
+                    $img=DB::select("select image from product where id=$pid")[0]->image;
                     $sql="update_product(
                             $pid,'$pname','$pname_kh',$cost,$unitType,$company,$company_branch,
                             $staff,'$ppartNumber','$img',$brand,$currency,'$barcode',

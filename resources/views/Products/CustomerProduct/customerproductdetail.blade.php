@@ -7,7 +7,7 @@
         $d='Return Date';
     }
 @endphp
-@include('../userview/header')
+<section class="content">
  <!-- page content -->
  <div class="right_col" role="main">
     <div class="container-fluid">
@@ -113,7 +113,7 @@
  </div>
  <div id='modaldiv'></div>
 <!-- /page content -->
-@include('../userview/footer')
+</section>
 
 <script type="text/javascript">//to show modal
     $("body").on('DOMSubtreeModified', "#modaldiv", function() {

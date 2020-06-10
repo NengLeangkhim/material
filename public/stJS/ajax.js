@@ -733,14 +733,14 @@ function refresh_sel(target,route) {
             getbranch(document.getElementById(tt[target]),t[tt[target]],'s',b[target]);
     }
  }
- $(document).ready(
-     function(){
-        $('#product_search').keyup(
-            function(){
-                get_product(this.value,'tbody_a',1);
-            }
-        );
-     });
+//  $(document).ready(
+//      function(){
+//         $('#product_search').keyup(
+//             function(){
+//                 get_product(this.value,'tbody_a',1);
+//             }
+//         );
+//      });
 function go_to(route){
     $.ajax({
         type: 'GET',

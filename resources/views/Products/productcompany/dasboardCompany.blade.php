@@ -11,7 +11,7 @@
     // }
 @endphp
 {{-- @include('../otherUser/header') --}}
-@include('../userview/header')
+<section class="content">
  <!-- page content -->
  <div class="right_col" role="main">
     <div class="container-fluid">
@@ -52,7 +52,7 @@
     </div>
 </div>
 <!-- /page content -->
-@include('../userview/footer')
+</section>
 @php
 
 function random_color_part() {

@@ -1,4 +1,4 @@
-@include('../userview/header')
+<section class="content">
  <!-- page content -->
  <div class="right_col" role="main">
     <div class="container-fluid">
@@ -12,15 +12,15 @@
 
 
 
-            <form name="addproductreturn" action="/addProductReturn" method="post" enctype="multipart/form-data">
+            <form name="addproductreturn" id="frm_addpreturn" action="/addProductReturn" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="action_type" id='action_type' value="return">
-            <div class="box-info">
-                <div class="box-body">
+            <div class="container-fluid">
+                <div class="row">
                     <div class="form-group col-md-3">
                         <label>Company <i class="text-danger">*</i></label>
                         <div class="input-group">
-                            <select name="company" id="icompany" class="form-control" onchange="getbranch(this,'company_branch','s','/getcompany');clear_row()">
+                            <select name="company" id="icompany" class="form-control select2" onchange="getbranch(this,'company_branch','s','/getcompany');clear_row()">
                                 @php
                                     foreach($action[0] as $company){
                                         echo '<option value="'.$company->id.'">'.$company->name.'</option>';
@@ -36,7 +36,7 @@
                     <div class="form-group col-md-3">
                         <label>Company Branch<i class="text-danger">*</i></label>
                         <div class="input-group">
-                            <select name="company_branch" id="company_branch" class="form-control" onchange="clear_row()">
+                            <select name="company_branch" id="company_branch" class="form-control select2" onchange="clear_row()">
                             </select>
                             {{-- <input type="text" id="custname" name="custname" class="form-control" required=""> --}}
                             <a  href="javascript:void(0);" onclick="add_dialog('/addcompanybranch')" class="input-group-addon pointer">
@@ -47,7 +47,7 @@
                     <div class="form-group col-md-3">
                         <label>Return By<i class="text-danger">*</i> </label>
                         <div class="input-group">
-                            <select class="form-control" id="istaff" name="_by">
+                            <select class="form-control select2" id="istaff" name="_by">
                                 @php
                                 foreach($action[1] as $staff){
                                     echo '<option value="'.$staff->id.'">'.$staff->name.'</option>';
@@ -71,7 +71,7 @@
                 </div>
                 <br>
 
-                <div class="container" style="height:370px;">
+                <div class="container">
                     <div class="form-group col-3 col-xs-push-8">
                         <input type="text" name="" id="product_search" class="form-control" placeholder="search...">
                     </div>
@@ -126,10 +126,10 @@
                     </table>
                     </div>
                     <div class="form-group col-md-12 text-right">
-                        <button class="btn btn-primary" type="submit" name="savecustproduct">
+                        <button class="btn btn-primary" type="button" id="frm_btn_subaddpreturn" name="savecustproduct">
                             <i class="fa fa-plus"></i> Save
                         </button>
-                        <a href="javascript:history.back()" class="btn btn-danger m-l-5">
+                        <a href="javascript:void(0)" onclick="go_to('productReturn')" class="btn btn-danger m-l-5">
                             <i class="fa fa-close"></i> Cancel
                         </a>
                     </div>
@@ -148,7 +148,7 @@
 </div>
 <div id='modaldiv'></div>
 <!-- /page content -->
-@include('../userview/footer')
+</section>
 <script type="text/javascript">
     $(document).ready(
         function(){
@@ -156,19 +156,26 @@
             get_product('','tbody_a',1);
         }
     );
-    document.addproductreturn.onsubmit = function(){
+    $('#frm_btn_subaddpreturn').click( function(){
         var tbody = document.getElementById("tbody_b");
         if(tbody.rows.length<1){
-            ok_dialog('Please Select product first!','No product!')
-            return false;
+            ok_dialog('Please Select product first!','No product!');
         }else{
-            return OnSubmitCofirm('Do you want to add ?');
+            submit_form('/addProductReturn','frm_addpreturn','productReturn');
         }
-        return true;
-    };
+    });
     $("body").on('DOMSubtreeModified', "#modaldiv", function() {
-   if(document.getElementById("modaladd")){
-        $("#modaladd").modal("show");
+   if(document.getElementById("okmodal")){
+        $("#okmodal").modal("show");
    }
 });
+$(function(){
+    //Initialize Select2 Elements
+    $('.select2').select2()
+})
+$('#product_search').keyup(
+    function(){
+        get_product(this.value,'tbody_a',1);
+    }
+);
 </script>

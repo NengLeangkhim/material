@@ -7,14 +7,14 @@
         $route="customerproductreturn";
     }
 @endphp
-@include('../userview/header')
+<section class="content">
  <!-- page content -->
  <div class="right_col" role="main">
     <div class="contain-fluid">
         <section class="content-header">
             <h2>
             <a  href="javascript:void(0);"><img src="img/customerProduct.png" height="30" class="img-circle img-bordered-sm" alt="User Image">{{$title}}</a>
-            / <a href="/addCustomerProduct?action={{$customerProduct[0]}}" class="btn btn-info"><i class="fa fa-plus-circle"></i> Create New</a>
+            / <a href="javascript:void(0);" onclick="go_to('/addCustomerProduct?action={{$customerProduct[0]}}')" class="btn btn-info"><i class="fa fa-plus-circle"></i> Create New</a>
                         </h2>
                     <input type="hidden" name="action_type" value="{{$customerProduct[0]}}">
         </section>
@@ -40,7 +40,7 @@
     </div>
 </div>
 <!-- /page content -->
-@include('../userview/footer')
+</section>
 <script type='text/javascript'>
     $(document).ready(
         function(){

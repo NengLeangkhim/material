@@ -1,4 +1,4 @@
-@include('../userview/header')
+<section class="content">
  <!-- page content -->
  <div class="right_col" role="main">
     <div class="container-fluid">
@@ -7,19 +7,17 @@
                 <a  href="javascript:void(0);"><img src="img/customerProduct.png" height="30" class="img-circle img-bordered-sm" alt="User Image">Add Product Assign</a>
             </h2>
         </section>
-        <div>
             <div style="width:100%;height:8px;background-color:#3c8dbc;margin-bottom:10px"></div>
 
-            <form name="addproductimport" action="/addProductAssign" method="post" enctype="multipart/form-data">
+            <form name="addproductimport" id="frm_addpassign" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="assign_to" id='iassign_to' value="assign">
-            <div class="box-info">
-                <div class="box-body">
-                    <div class="row">
+            <div class="container-fluid">
+                <div class="row">
                     <div class="form-group col-md-3">
                         <label>Company <i class="text-danger">*</i></label>
                         <div class="input-group">
-                            <select name="company" id="icompany" class="form-control" onchange="get_product('','tbody_a',1);clear_row()" required>
+                            <select name="company" id="icompany" class="form-control select2" onchange="get_product('','tbody_a',1);clear_row()" required>
                                 @php
                                     foreach($action[0] as $company){
                                         echo '<option value="'.$company->id.'">'.$company->name.'</option>';
@@ -27,7 +25,7 @@
                                 @endphp
                             </select>
                             {{-- <input type="text" id="custname" name="custname" class="form-control" required=""> --}}
-                            <a href="#" onclick="add_dialog('/addcompany')" class="input-group-addon pointer">
+                            <a href="javascript:void(0);" onclick="add_dialog('/addcompany')" class="input-group-addon pointer">
                                 <span class="fa fa-plus"></span>
                             </a>
                         </div>
@@ -80,12 +78,9 @@
                         <label>Description</label>
                         <input type="text" name="description" class="form-control" autocomplete="off">
                     </div> --}}
-                    <div class="clearfix"></div>
-                </div>
-                </div>
                 <br>
 
-                <div class="container" style="height:370px;">
+                <div class="container">
                     <div class="form-group col-3 col-xs-push-8">
                         <input type="text" name="" id="product_search" class="form-control" placeholder="search...">
                     </div>
@@ -132,30 +127,23 @@
                         </tfoot> --}}
                     </table>
                     </div>
-                    <div class="form-group col-md-12 text-right">
-                        <button class="btn btn-primary" type="submit" name="savecustproduct">
-                            <i class="fa fa-plus"></i> Save
-                        </button>
-                        <a href="javascript:history.back()" class="btn btn-danger m-l-5">
-                            <i class="fa fa-close"></i> Cancel
-                        </a>
-                    </div>
                 </div>
-
-                {{-- <div class="box-footer"> --}}
-
-                {{-- </div> --}}
+                <div class="form-group col-md-12 text-right">
+                    <button class="btn btn-primary" type="button" id="frm_btn_subaddpassign" name="savecustproduct">
+                        <i class="fa fa-plus"></i> Save
+                    </button>
+                    <a href="javascript:void(0);" onclick="go_to('productAssign')" class="btn btn-danger m-l-5">
+                        <i class="fa fa-close"></i> Cancel
+                    </a>
+                </div>
+            </div>
             </div>
         </form>
-
-
-
-        </div>
     </div>
 </div>
 <div id='modaldiv'></div>
 <!-- /page content -->
-@include('../userview/footer')
+</section>
 <script type="text/javascript">
     $(document).ready(
         function(){
@@ -163,19 +151,26 @@
             get_product('','tbody_a',1);
         }
     );
-    document.addproductimport.onsubmit = function(){
+    $('#frm_btn_subaddpassign').click( function(){
         var tbody = document.getElementById("tbody_b");
         if(tbody.rows.length<1){
-            ok_dialog('Please Select product first!','No product!')
-            return false;
+            ok_dialog('Please Select product first!','No product!');
         }else{
-            return OnSubmitCofirm('Do you want to add ?');
+            submit_form('/addProductAssign','frm_addpassign','productAssign');
         }
-        return true;
-    };
+    });
     $("body").on('DOMSubtreeModified', "#modaldiv", function() {
-   if(document.getElementById("modaladd")){
-        $("#modaladd").modal("show");
+   if(document.getElementById("okmodal")){
+        $("#okmodal").modal("show");
    }
 });
+$(function(){
+    //Initialize Select2 Elements
+    $('.select2').select2()
+})
+$('#product_search').keyup(
+    function(){
+        get_product(this.value,'tbody_a',1);
+    }
+);
 </script>
