@@ -139,7 +139,7 @@
                         <button class="btn btn-primary" id="frm_btn_subaddpimport" type="button"  name="savecustproduct">
                             <i class="fa fa-plus"></i> Save
                         </button>
-                        <a href="javascript:void(0);" onlcick="go_to('productImport')" class="btn btn-danger m-l-5">
+                        <a href="javascript:void(0);" onclick="go_to('productImport')" class="btn btn-danger m-l-5">
                             <i class="fa fa-close"></i> Cancel
                         </a>
                     </div>

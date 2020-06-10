@@ -118,7 +118,7 @@
                     <button class="btn btn-primary" type="button" id='frm_btn_subaddprequest' name="savecustproduct">
                         <i class="fa fa-plus"></i> Save
                     </button>
-                    <a href="javascript:history.back()" class="btn btn-danger m-l-5">
+                    <a href="javascript:void(0);" onclick="go_to('ProductRequest')" class="btn btn-danger m-l-5">
                         <i class="fa fa-close"></i> Cancel
                     </a>
                 </div>
