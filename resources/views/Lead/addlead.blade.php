@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#" class="lead" ​value="lead">Lead</a></li>
+                        <li class="breadcrumb-item"><a href="" class="lead" ​value="lead">Lead</a></li>
                         <li class="breadcrumb-item active">New Leads</li>
                     </ol>
                 </div>
@@ -20,6 +20,7 @@
                 <!-- left column -->
                 <div class="col-md-12">
                     <form role="form" action="">
+                        @csrf
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header" style="background:#1fa8e0">
@@ -132,7 +133,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-tty"></i></span>
                                                 </div>
-                                                <select class="form-control" name="leadsource">
+                                                <select class="form-control" name="leadsource" id="ileadsource">
                                                     <option>Select Lead source</option>
                                                     @foreach($lead_source as $row)
                                                         <option value="{{$row->id}}">{{$row->name_en}}</option>                                                  
@@ -167,14 +168,14 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-industry"></i></span>
                                                 </div>
-                                                <select class="form-control " name="industry">
+                                                <select class="form-control " name="industry" id="iindustry">
                                                     <option> Select industry</option>
                                                     @foreach($lead_industry as $row )
                                                         <option value="{{$row->id}}">{{$row->name_en}}</option> 
                                                     @endforeach
                                                 </select>
                                                 <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="fas fa-plus"></i></span>
+                                                    <span class="input-group-text" data-toggle="modal" data-target="#modal-info-industry"><i class="fas fa-plus"></i></span>
                                                 </div>
                                             </div>   
                                         </div>
@@ -235,12 +236,11 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-city"></i></span>
                                                     </div>
-                                                    <select class="form-control" name="city">
-                                                        <option>option 1</option>
-                                                        <option>option 2</option>
-                                                        <option>option 3</option>
-                                                        <option>option 4</option>
-                                                        <option>option 5</option>
+                                                    <select class="form-control select2 city"  id="icity" name="city" onchange="getbranch(this,'idistrict','s','/district')">
+                                                        <option>Select city/povince</option>
+                                                     @foreach($province as $row )
+                                                        <option value="{{$row->gzcode}}">{{$row->latinname}}/{{$row->khname}}</option> 
+                                                        @endforeach
                                                     </select>     
                                                 </div>
                                             </div>
@@ -280,12 +280,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
                                                     </div>
-                                                    <select class="form-control" name="city">
-                                                        <option>option 1</option>
-                                                        <option>option 2</option>
-                                                        <option>option 3</option>
-                                                        <option>option 4</option>
-                                                        <option>option 5</option>
+                                                    <select class="form-control dynamic" name="district" id="idistrict" onchange="getbranch(this,'icommune','s','/commune')">
+                                                        <option>Select Khan/District </option> 
                                                     </select>
                                                 </div>                                                
                                             </div>
@@ -308,12 +304,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-street-view"></i></span>
                                                     </div>
-                                                    <select class="form-control" name="city">
-                                                        <option>option 1</option>
-                                                        <option>option 2</option>
-                                                        <option>option 3</option>
-                                                        <option>option 4</option>
-                                                        <option>option 5</option>
+                                                    <select class="form-control dynamic" name="commune" id="icommune" onchange="getbranch(this,'ivillage','s','/village')">
+                                                        <option>Select Sengkat/Commune </option>
                                                     </select>        
                                                 </div> 
                                             </div>
@@ -330,12 +322,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
                                                     </div>
-                                                    <select class="form-control" name="city">
-                                                        <option>option 1</option>
-                                                        <option>option 2</option>
-                                                        <option>option 3</option>
-                                                        <option>option 4</option>
-                                                        <option>option 5</option>
+                                                    <select class="form-control " name="village" id="ivillage" dats-dependent="village">
+                                                        <option>select Village</option>                                                        
                                                     </select>     
                                                 </div> 
                                                 
@@ -348,7 +336,7 @@
                                             </div>
                                         </div>
                                     </div> 
-                                </div>                
+                                </div>              
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Saves</button>
@@ -361,7 +349,8 @@
     </section>
     {{-- =================Modal lead source========================= --}}
     <div class="modal fade" id="modal-info">
-        <form action="POST">
+        <form id="ifrm_source" action="/addleadsource" method="POST">
+            @csrf
             <div class="modal-dialog">
             <div class="modal-content bg-info">
                 <div class="modal-header">
@@ -372,14 +361,43 @@
                 <div class="modal-body">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-address-card"></i></span>
+                            <span class="input-group-text"><i class="fas fa-tty"></i></span>
                         </div>
-                        <input type="text" class="form-control"  id="lead_source" name="source" id="exampleInputEmail1" placeholder="Website">
+                        <input type="text" class="form-control"  id="lead_source" name="source" id="exampleInputEmail1" placeholder="Website" required>
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline-light save_source">Save </button>
+                <button type="button" class="btn btn-outline-light save_source" onclick="SubForm('/addleadsource','ifrm_source','ileadsource')">Save </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+            </div>
+        </form>
+        <!-- /.modal-dialog -->
+      </div>
+       {{-- =================Modal lead industry========================= --}}
+    <div class="modal fade" id="modal-info-industry">
+        <form id="ifrm_industry" >
+            @csrf
+            <div class="modal-dialog">
+            <div class="modal-content bg-info">
+                <div class="modal-header">
+                <h4 class="modal-title">Create Lead industry</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-tty"></i></span>
+                        </div>
+                        <input type="text" class="form-control"  id="lead_source" name="industry"  placeholder="Website" required>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-light save_source" onclick="SubForm('/addleadindustry','ifrm_industry','iindustry')">Save </button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -412,19 +430,5 @@
                 var to = $(this). children("option:selected"). val();
                 alert(to);
             })
-
-            $('.save_source').click(function(e){
-                e.preventDefault();
-                var str=$('#lead_source').val();
-                // alert(str);
-                $.ajax({
-                    type:'POST',
-                    url:'crm_leasdsource',
-                    data={'name':str},
-                    success:function(data){
-                        alert();
-                    }
-                })
-            })
-           
+        
             </script>
