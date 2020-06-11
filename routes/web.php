@@ -24,7 +24,7 @@ Route::get('/gm','perms@get_module');
 
 // =========================CRM SYSTEM==========================
 Route::get('/lead','LeadController@getlead'); 
-Route::get('/addlead','LeadController@addlead');
+Route::get('/addlead','LeadController@lead');
 Route::get('/district','LeadController@getdistrict'); //getdistrict
 Route::get('/commune','LeadController@getcommune'); //getcommune
 Route::get('/village','LeadController@getvillage'); //getvillage

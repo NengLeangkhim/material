@@ -19,7 +19,7 @@
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-12">
-                    <form role="form" action="">
+                    <form id="ilead" action="">
                         @csrf
                         <!-- general form elements -->
                         <div class="card card-primary">
@@ -175,7 +175,7 @@
                                                     @endforeach
                                                 </select>
                                                 <div class="input-group-append">
-                                                    <span class="input-group-text" data-toggle="modal" data-target="#modal-info-industry"><i class="fas fa-plus"></i></span>
+                                                    <span class="input-group-text btn btn-info" data-toggle="modal" data-target="#modal-info-industry"><i class="fas fa-plus"></i></span>
                                                 </div>
                                             </div>   
                                         </div>
@@ -390,7 +390,7 @@
                 <div class="modal-body">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-tty"></i></span>
+                            <span class="input-group-text"><i class="fas fa-industry"></i></span>
                         </div>
                         <input type="text" class="form-control"  id="lead_source" name="industry"  placeholder="Website" required>
                     </div>

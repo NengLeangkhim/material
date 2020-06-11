@@ -16,7 +16,7 @@ class LeadController extends Controller
        
         
     }
-    public function addlead(){
+    public function lead(){
         // if(perms::check_perm_module('08-01-05-01')){//module codes
         //     $lead_source=DB::select("SELECT * from  crm_lead_source");
         //     $lead_status=DB::select("SELECT * from  crm_lead_status");
