@@ -346,7 +346,7 @@ function get_product_comp(s,target,p){
                 var row="<tr onchange=calculate_amount(this)>";
                 var pid='<input type="hidden" name="pid[]" value="'+val['id']+'">';
                 var qty='<input type="number" class="form-control input-sm text-center number" min="1" step="1" name="qty[]" onkeypress="valid_number(event)" value="1" style="margin:0" required>';
-                var price='<input type="number" class="form-control input-sm text-center number" min="0.0001" step="0.0001" onkeypress="valid_float(event)" value="'+val['price']+'" style="margin:0">';
+                var price='<input type="number" name="price[]" class="form-control input-sm text-center number" min="0.0001" step="0.0001" onkeypress="valid_float(event)" value="'+val['price']+'" style="margin:0">';
                             // '';<input type="hidden" name="price[]" value="'+val['price']+'">
                 var all_qty='<input type="text" class="form-control input-sm text-center" name="a_qty[]" value="'+val['qty']+'" disabled >'+
                             '<input type="hidden" name="all_qty[]" value="'+val['qty']+'">';
@@ -666,6 +666,9 @@ function get_product_comp(s,target,p){
   }
 
   function SubForm (route,form,target){
+    if(check_session()){
+        return;
+    }
    if(SubformValid(form)){
         $.ajax({
             url:route,
@@ -742,6 +745,9 @@ function refresh_sel(target,route) {
 //         );
 //      });
 function go_to(route){
+    if(check_session()){
+        return;
+    }
     $.ajax({
         type: 'GET',
         url:route,
@@ -752,6 +758,9 @@ function go_to(route){
      });
 }
 function submit_form (route,form,goto){
+    if(check_session()){
+        return;
+      }
     if(SubformValid(form))
     {
         if(OnSubmitCofirm('Are You sure ?')){

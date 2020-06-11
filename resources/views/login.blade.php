@@ -16,7 +16,7 @@
     <title>Turbotech System</title>
     <style>
         .material-half-bg{
-            background-image: url("images/OBBPNP0.jpg");
+            background-image: url("images/Layer-1704-1920x840.jpg");/*OBBPNP0*/
             background-repeat: no-repeat;
             background-size: cover;
         }

@@ -9,6 +9,17 @@ use Illuminate\Support\Facades\DB;
 class perms extends Controller
 {
     //
+    public static function check_session_js(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if(isset($_SESSION['userid'])){
+            if(!empty($_SESSION['userid'])){
+                echo 1;
+            }
+        }
+        echo 0;
+    }
     private static function check_session(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
