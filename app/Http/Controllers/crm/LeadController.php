@@ -11,7 +11,7 @@ class LeadController extends Controller
     public function getlead(){
         if(perms::check_perm_module('CRM_0205')){//module codes
             $lead=DB::select("SELECT * from  crm_lead");
-            return view('Lead.index',['lead'=>$lead]);
+            return view('crm.Lead.index',['lead'=>$lead]);
         }else{
             return view('no_perms');
         }
@@ -32,7 +32,7 @@ class LeadController extends Controller
             $assig_to=DB::select("SELECT * from  staff");
             $province=DB::select("SELECT * FROM key_gazetteers WHERE LENGTH(gzcode)=2");
 
-            return view('Lead.addlead',['lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province]);
+            return view('crm.Lead.addlead',['lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province]);
     }
 
     public function getdistrict(){
@@ -88,6 +88,6 @@ class LeadController extends Controller
         }
     }
     public function detaillead(){
-        return view('Lead.detaillead');
+        return view('crm.Lead.detaillead');
     }
 }

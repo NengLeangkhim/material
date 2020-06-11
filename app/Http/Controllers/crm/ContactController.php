@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 class ContactController extends Controller
 {
     public function getcontact(){
-        return view('contact.index');
+        return view('crm.contact.index');
         
     }
 }

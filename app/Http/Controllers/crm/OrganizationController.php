@@ -10,6 +10,6 @@ use App\Http\Controllers\Controller;
 class OrganizationController extends Controller
 {
     public function getorganization(){
-        return view('Organization.index');
+        return view('crm.Organization.index');
     }
 }
