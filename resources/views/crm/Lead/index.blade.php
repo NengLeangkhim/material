@@ -85,17 +85,7 @@
             $('.lead').click(function(e)
             {
                 var ld = $(this).attr("​value");
-                e.preventDefault();  
-                // alert(ld);
-                    $.ajax({   
-                        type: 'GET',   
-                        url:ld,
-                        success:function(data){
-
-                            $(".content-wrapper").show();
-                            $(".content-wrapper").html(data);
-                    }
-                });
+                go_to(ld);
             })
             $('.edit').click(function(e)
             {

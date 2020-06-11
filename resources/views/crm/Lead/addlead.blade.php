@@ -35,7 +35,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="Customer Name English"  name='custEng' >
+                                                <input type="text" class="form-control" placeholder="Customer Name English"  name='custEng'  required>
                                             </div>
                                         </div>
                                          <div class="col-md-6">
@@ -44,7 +44,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="custkh" id="exampleInputEmail1" placeholder="Customer Name khmer">
+                                                <input type="text" class="form-control" name="custkh" id="exampleInputEmail1" placeholder="Customer Name khmer" required>
                                             </div>
                                          </div>
                                     </div>
@@ -52,7 +52,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Primary Email</label>
+                                            <label for="exampleInputEmail1">Primary Email<b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-at"></i></span>
@@ -66,7 +66,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="phone"id="exampleInputEmail1" placeholder="Primary Phone">
+                                                <input type="text" class="form-control" name="phone"id="exampleInputEmail1" placeholder="Primary Phone" required>
                                             </div>
                                         </div>
                                     </div>
@@ -105,13 +105,13 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Customer Type</label>
+                                            <label for="exampleInputEmail1">Customer Type <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                 </div>
-                                                <select class="form-control" name="custtype">
-                                                    <option>Select an Option</option>
+                                                <select class="form-control" name="custtype" required>
+                                                    <option></option>
                                                     <option>Publi</option>
                                                     <option>Staff</option>
                                                     <option>MNK Staff</option>
@@ -128,13 +128,13 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Lead Source</label>
+                                            <label for="exampleInputEmail1">Lead Source <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-tty"></i></span>
                                                 </div>
-                                                <select class="form-control" name="leadsource" id="ileadsource">
-                                                    <option>Select Lead source</option>
+                                                <select class="form-control" name="leadsource" id="ileadsource" required>
+                                                    <option></option>
                                                     @foreach($lead_source as $row)
                                                         <option value="{{$row->id}}">{{$row->name_en}}</option>                                                  
                                                     @endforeach
@@ -151,7 +151,7 @@
                                                     <span class="input-group-text"><i class="fas fa-unlock"></i></span>
                                                 </div>
                                                 <select class="form-control" name="leadstatus">
-                                                    <option >Select Lead Status</option> 
+                                                    <option ></option> 
                                                     @foreach($lead_status as $row)  
                                                         <option value="{{$row->id}}">{{$row->name_en}}</option>   
                                                     @endforeach
@@ -168,8 +168,8 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-industry"></i></span>
                                                 </div>
-                                                <select class="form-control " name="industry" id="iindustry">
-                                                    <option> Select industry</option>
+                                                <select class="form-control " name="industry" id="iindustry" required>
+                                                    <option> </option>
                                                     @foreach($lead_industry as $row )
                                                         <option value="{{$row->id}}">{{$row->name_en}}</option> 
                                                     @endforeach
@@ -185,8 +185,8 @@
                                                 <div class="input-group-prepend" style="height:38px;width:40px">
                                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                                 </div>
-                                                <select class="form-control select2 to " name="assigendTo" >
-                                                    <option>Select Staff</option>
+                                                <select class="form-control select2 to " name="assigendTo"  required>
+                                                    <option></option>
                                                     @foreach($assig_to as $row )
                                                         <option value="{{$row->id}}">{{$row->name}}</option> 
                                                     @endforeach
@@ -214,7 +214,7 @@
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                                     </div>
-                                                                    <input type="text" class="form-control"  name='homeEN' id="exampleInputEmail1" placeholder="Number of home" >    
+                                                                    <input type="text" class="form-control"  name='homeEN' id="exampleInputEmail1" placeholder="Number of home"  required>    
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -223,7 +223,7 @@
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                                     </div>
-                                                                    <input type="text" class="form-control"  name='streetEN' id="exampleInputEmail1" placeholder="Number of street" >    
+                                                                    <input type="text" class="form-control"  name='streetEN' id="exampleInputEmail1" placeholder="Number of street" required >    
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -236,8 +236,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-city"></i></span>
                                                     </div>
-                                                    <select class="form-control select2 city"  id="icity" name="city" onchange="getbranch(this,'idistrict','s','/district')">
-                                                        <option>Select city/povince</option>
+                                                    <select class="form-control select2 city"  id="icity" name="city" onchange="getbranch(this,'idistrict','s','/district')" required>
+                                                        <option></option>
                                                      @foreach($province as $row )
                                                         <option value="{{$row->gzcode}}">{{$row->latinname}}/{{$row->khname}}</option> 
                                                         @endforeach
@@ -258,7 +258,7 @@
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                                     </div>
-                                                                    <input type="text" class="form-control"  name='homeKH' id="exampleInputEmail1" placeholder="Number of home" >    
+                                                                    <input type="text" class="form-control"  name='homeKH' id="exampleInputEmail1" placeholder="Number of home" required>    
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -267,7 +267,7 @@
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                                     </div>
-                                                                    <input type="text" class="form-control"  name='streetKH' id="exampleInputEmail1" placeholder="Number of street" >    
+                                                                    <input type="text" class="form-control"  name='streetKH' id="exampleInputEmail1" placeholder="Number of street"  required>    
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -280,8 +280,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
                                                     </div>
-                                                    <select class="form-control dynamic" name="district" id="idistrict" onchange="getbranch(this,'icommune','s','/commune')">
-                                                        <option>Select Khan/District </option> 
+                                                    <select class="form-control dynamic" name="district" id="idistrict" onchange="getbranch(this,'icommune','s','/commune')" required>
+                                                        <option> </option> 
                                                     </select>
                                                 </div>                                                
                                             </div>
@@ -295,7 +295,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name='latlng' id="exampleInputEmail1" placeholder="11.572532,104.898974" >
+                                                    <input type="text" class="form-control"  name='latlng' id="exampleInputEmail1" placeholder="11.572532,104.898974" required>
                                                 </div> 
                                             </div>
                                             <div class="col-md-6">
@@ -304,8 +304,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-street-view"></i></span>
                                                     </div>
-                                                    <select class="form-control dynamic" name="commune" id="icommune" onchange="getbranch(this,'ivillage','s','/village')">
-                                                        <option>Select Sengkat/Commune </option>
+                                                    <select class="form-control dynamic" name="commune" id="icommune" onchange="getbranch(this,'ivillage','s','/village')" required>
+                                                        <option> </option>
                                                     </select>        
                                                 </div> 
                                             </div>
@@ -322,7 +322,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
                                                     </div>
-                                                    <select class="form-control " name="village" id="ivillage" dats-dependent="village">
+                                                    <select class="form-control " name="village" id="ivillage" dats-dependent="village" required>
                                                         <option>select Village</option>                                                        
                                                     </select>     
                                                 </div> 
@@ -339,8 +339,8 @@
                                 </div>              
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Saves</button>
-                            <button type="submit" class="btn btn-danger">Cencel</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
                         </div>       
                     </form>
                 </div>
