@@ -10,7 +10,7 @@ function check_session(){
         success: function(data){
             if(parseInt(data)==0){
                 alert("session expired!");
-                location.replace('/logout');
+                location.replace('/');
                 return true;
             }else{
                 return false;

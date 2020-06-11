@@ -29,8 +29,10 @@ class perms extends Controller
                 return true;
             }
         }
-        header('Location:/logout');
-        exit;
+        $lg = new Login();
+        $lg->logout();
+        // header('Location:/logout');
+        // exit;
     }
     public static function check_perm(){
         if(self::check_session()){

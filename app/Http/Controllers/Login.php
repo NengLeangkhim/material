@@ -23,6 +23,7 @@ class Login extends Controller
             $_SESSION['userid']=$user;
             if(perms::check_perm()){
                 $_SESSION['module']=perms::get_module();
+                // header("Location:/");
                 return view('index');
             }else{
                 return view('login',['message'=>'Permission Denied!']);

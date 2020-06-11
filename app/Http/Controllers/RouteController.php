@@ -14,7 +14,7 @@ class RouteController extends Controller
         if(perms::check_perm()){
             return view('index');
         }else{
-            return redirect('/logout');
+            return view('login');
         }
     }
     public function check(){

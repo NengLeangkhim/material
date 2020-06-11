@@ -30,7 +30,7 @@
     </div>
     <section class="login-content">
         <div class="login-box ">
-            <form class="login-form " action="/login" method="post">
+            <form class="login-form " action="/" method="post">
                 @csrf
                 <h3 class="login-head"><img src="images/turbotech.png" width="100%" height="100%" alt=""></h3>
                 <div class="form-group" >
