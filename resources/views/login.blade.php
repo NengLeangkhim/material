@@ -36,7 +36,7 @@
                 <div class="form-group" >
                     <label class="control-label">User ID</label>
                     <div class="inputWithIcon">
-                        <input class="form-control " name="username" type="text" placeholder="User ID:" autofocus required>
+                        <input class="form-control " name="username" type="text" placeholder="User ID:" value="{{ $old??'' }}" autofocus required>
                         <i class="fa fa-lg fa-fw fa-envelope-square"></i>
                     </div>
                 </div>

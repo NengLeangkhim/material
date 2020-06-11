@@ -14,19 +14,18 @@ class Login extends Controller
         // dump($q);
         $user=$q[0]->id;
         if($user<0){
-            return view('login',['message'=>'Wrong Username and Password']);
+            return view('login',['message'=>'Wrong Username and Password','old'=>$id_]);
         }elseif($user==0){
-            return view('login',['message'=>'BLOCKED!']);
+            return view('login',['message'=>'BLOCKED!','old'=>$id_]);
         }else{
             // return view('login');
             session_start();
             $_SESSION['userid']=$user;
             if(perms::check_perm()){
                 $_SESSION['module']=perms::get_module();
-                // header("Location:/");
-                return view('index');
+                return redirect('/');//to prevent /login or /logout
             }else{
-                return view('login',['message'=>'Permission Denied!']);
+                return view('login',['message'=>'Permission Denied!','old'=>$id_]);
             }
         }
     }
@@ -42,7 +41,7 @@ class Login extends Controller
             $_SESSION['module']=perms::get_module();
             return view('start');
         }else{
-            return view('login',['message'=>'Permission Denied!']);
+            return view('login',['message'=>'Permission Denied!','old'=>$id_]);
         }
     }
     private function en($st){
