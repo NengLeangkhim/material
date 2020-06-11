@@ -1,4 +1,10 @@
 <?php
+namespace App\Http\Controllers\e_request;
+
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\perms;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);

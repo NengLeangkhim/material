@@ -44,7 +44,10 @@ Route::get('/check_session','perms@check_session_js');
 Route::get('/refreshSel','refreshSelect@refresh_sel');
 //end refresh select after add
 
+Route::get('/sub_r_nav','perms@get_module_nav');//,get right side nav bar
+
 //======================Main=================================
+
 //=======================E-request==========================
 Route::get('/ere_test','e_request\ere_approve@test');
 //=======================E-request==========================

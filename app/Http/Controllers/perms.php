@@ -60,6 +60,7 @@ class perms extends Controller
         }
     }
     // check list function
+    //left list
     public static function get_module(){
         if(self::check_perm()){
             $mo=DB::select("SELECT * from public.exec_get_access_module_of(".$_SESSION['userid'].",null)");
@@ -69,7 +70,7 @@ class perms extends Controller
                     $mo[$key]=array();
                     $mo[$key]= new \stdClass();
                     $mo[$key]->parent=$rr;
-                    $mo[$key]->child=self::get_sub_modul('',$sub);
+                    $mo[$key]->child=$sub;//self::get_sub_modul('',$sub);
                 }else{
                     $mo[$key]=array();
                     $mo[$key]= new \stdClass();
@@ -86,6 +87,16 @@ class perms extends Controller
             return false;
         }
     }
+    //right side nav bar
+    public static function get_module_nav(){
+        if(self::check_perm()){
+            $mo=DB::select("SELECT * from public.exec_get_access_module_of(".$_SESSION['userid'].",'".$_GET['_mo']."')");
+            return self::output_sub_nav($mo);
+        }else{
+            return false;
+        }
+    }
+    //not using
     private static function get_sub_modul($a,$module){
         // session_start();
         if(!is_array($a)){
@@ -110,6 +121,7 @@ class perms extends Controller
             }
         }
     }
+    //not using
     private static function get_sub_module_of($module){//code
         if(self::check_perm_module($module)){
             $sub=DB::select("SELECT * from public.exec_get_access_module_of(".$_SESSION['userid'].",'{$module}')");
@@ -118,6 +130,7 @@ class perms extends Controller
             return false;
         }
     }
+    //not using
     private static function check_sub($a,$sub){
         session_start();
         if(!empty($_SESSION['userid'])){
@@ -152,9 +165,10 @@ class perms extends Controller
                 foreach ($child as $rr) {
                     if(isset($rr->parent)){
                         $rr->parent->link=(empty($rr->parent->link))?'':"value='{$rr->parent->link}'";
+                        $rr->parent->code=(empty($rr->parent->code))?'':"data-code='{$rr->parent->code}'";
                         $st.= " <ul class='nav nav-treeview sub_menu'> ";
                         $st.= "  <li class='nav-item has-treeview menu'  > ";
-                        $st.= "  <a href='javascript:void(0);' class='nav-link' {$rr->parent->link}  name='menu'> ";
+                        $st.= "  <a href='javascript:void(0);' class='nav-link' {$rr->parent->link} {$rr->parent->code}  name='menu'> ";
                         $st.= "  <i class='{$rr->parent->icon} nav-icon'​></i> <i class='right fas fa-angle-left'></i>";
                         $st.= "  <p>".$rr->parent->module_name."</p> </a>";
                         $st.=self::output_sub($rr->child,'sub');
@@ -162,21 +176,28 @@ class perms extends Controller
                     }else{
                         $sp=($flag=='')?'':'&nbsp&nbsp&nbsp&nbsp';
                         $rr->link=(empty($rr->link))?'':"value='{$rr->link}'";
+                        $rr->code=(empty($rr->code))?'':"data-code='{$rr->code}'";
                         $st.= " <ul class='nav nav-treeview sub_menu'> ";
                         $st.= "  <li class='nav-item menu'  > ";
-                        $st.= "  <a href='javascript:void(0);' class='nav-link' ​$rr->link  name='menu'> ";
+                        $st.= "  <a href='javascript:void(0);' class='nav-link' ​$rr->link ​$rr->code name='menu'> ";
                         $st.= "  $sp<i class='{$rr->icon} nav-icon'​></i> ";
                         $st.= "  <p>$rr->module_name</p> ";
                         $st.= "  </a></li></ul> ";
                     }
                 }
-            }else{
-                foreach ($child as $rr) {
-                    if(isset($rr->link)){
-
-                    }
-                }
             }
+        }
+        return $st;
+    }
+    private static function output_sub_nav($mo){
+        $st='<li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>';
+        foreach ($mo as $rr){
+            // $rr->link=(empty($rr->link))?'':"value='{$rr->link}'";
+            $st.='<li class="nav-item d-none d-sm-inline-block">
+                    <a href="javascript:void(0);" class="nav-link" onclick="go_to(\''.$rr->link.'\')">'.$rr->module_name.'</a>
+                </li>';
         }
         return $st;
     }
