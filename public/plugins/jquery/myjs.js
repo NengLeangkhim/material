@@ -24,9 +24,9 @@ function check_session(){
     }
     e.preventDefault();
     $("#nav_bar_sub_r").html(get_pushmenu());
+    $(".content-wrapper").html(spin());
     var link = $(this).attr("​value");
     if (typeof link !== typeof undefined && link !== false) {
-      $(".content-wrapper").html(spin());
       $.ajax({
         type: 'GET',
         url:link,
@@ -48,6 +48,7 @@ function check_session(){
           success:function(data){
               // $(".content-wrapper").show();
               $("#nav_bar_sub_r").html(data);
+              set_selected_nav('nav_bar_sub_r');
               $(".content-wrapper").show();
               $(".content-wrapper").html('');
           }
@@ -55,6 +56,13 @@ function check_session(){
       }
     }
 });
+//only work on tag a with onclick and go_to
+function set_selected_nav(tar){
+  var s=$("#"+tar).find("a")[1];
+  s=$(s).attr("onclick");
+  s=s.split("'")[1];
+  go_to(s);
+}
 function get_pushmenu(){
   return '<li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></li>';
 }
