@@ -39,7 +39,15 @@ Route::get('/product','crm\ProductsController@getProducts'); //Products
 
 //======================Main=================================
 Route::get('/check_session','perms@check_session_js');
+
+//refresh select after add
+Route::get('/refreshSel','refreshSelect@refresh_sel');
+//end refresh select after add
+
+Route::get('/sub_r_nav','perms@get_module_nav');//,get right side nav bar
+
 //======================Main=================================
+
 //=======================E-request==========================
 Route::get('/ere_test','e_request\ere_approve@test');
 //=======================E-request==========================
@@ -283,9 +291,6 @@ Route::get('/addsupplier','stock\addSupplier@getaddSupplier');
 Route::post('/addsupplier','stock\addSupplier@addSupplier');
 //end supplier
 
-//refresh select after add
-Route::get('/refreshSel','stock\refreshSelect@refresh_sel');
-//end refresh select after add
 //===============================END STOCK SYSTEM
 
 

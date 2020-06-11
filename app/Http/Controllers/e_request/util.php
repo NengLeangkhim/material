@@ -1,4 +1,10 @@
 <?php
+namespace App\Http\Controllers\e_request;
+
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\perms;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 function conv_kh($str){
         $s=array();

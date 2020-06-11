@@ -1,4 +1,10 @@
 <?php
+namespace App\Http\Controllers\e_request;
+
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\perms;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 $e_r_id="";
 $dd='disabled';
 $dd1="";//only for work ot for now

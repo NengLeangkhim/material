@@ -5,10 +5,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 class ere_approve extends Controller
 {
     public function test(){
         dump(perms::get_module());
+        DB::select($sql);
+        $result = array_map(function ($value) {
+            return (array)$value;
+        }, $result);
     }
     // ini_set('display_errors', 1);
     // ini_set('display_startup_errors', 1);
