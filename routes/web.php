@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/check','RouteController@check'); //Check Database Connection
 Route::get('/','RouteController@home');
-Route::post('/login','Login@login');
-Route::get('/login','Login@check_login');
+Route::post('/','Login@login');
+Route::get('/home','Login@check_login');//not using
 Route::get('/logout','Login@logout');
 Route::get('/gm','perms@get_module');
 

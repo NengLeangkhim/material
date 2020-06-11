@@ -125,7 +125,7 @@ class product extends Controller
         if(perms::check_perm_module('STO_01060202')){//module code
             $addp=array();
             if(isset($_GET['pID'])){
-                $v="products.productList.productListDetial";
+                $v="stock.products.productList.productListDetial";
                 $id=$_GET['pID'];
                 $passv="plist";
                 $addp=array();
