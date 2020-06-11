@@ -30,6 +30,7 @@ Route::get('/commune','crm\LeadController@getcommune'); //getcommune
 Route::get('/village','crm\LeadController@getvillage'); //getvillage
 Route::POST('/addleadsource','crm\LeadController@addleadsource'); //addlead source
 Route::POST('/addleadindustry','crm\LeadController@addleadindustry'); //addleadindustry
+Route::POST('/addlead','crm\LeadController@addlead'); //addleadindustry
 
 Route::get('/detaillead','crm\LeadController@detaillead');
 Route::post('/crm_leasdsource','crm\LeadController@savelead');
