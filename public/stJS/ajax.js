@@ -666,6 +666,9 @@ function get_product_comp(s,target,p){
   }
 
   function SubForm (route,form,target){
+    if(check_session()){
+        return;
+    }
    if(SubformValid(form)){
         $.ajax({
             url:route,
@@ -742,6 +745,9 @@ function refresh_sel(target,route) {
 //         );
 //      });
 function go_to(route){
+    if(check_session()){
+        return;
+    }
     $.ajax({
         type: 'GET',
         url:route,
@@ -752,6 +758,9 @@ function go_to(route){
      });
 }
 function submit_form (route,form,goto){
+    if(check_session()){
+        return;
+      }
     if(SubformValid(form))
     {
         if(OnSubmitCofirm('Are You sure ?')){

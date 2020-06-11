@@ -37,20 +37,25 @@ Route::get('/contact','ContactController@getcontact'); //Contact
 Route::get('/organizations','OrganizationController@getorganization'); //Organization
 Route::get('/product','ProductsController@getProducts'); //Products
 
-
+//======================Main=================================
+Route::get('/check_session','perms@check_session_js');
+//======================Main=================================
+//=======================E-request==========================
+Route::get('/ere_test','e_request\ere_approve@test');
+//=======================E-request==========================
 
 //==================STOCK SYSTEM===================================================
-Route::get('PaginationAllCompany','dashboard@PaginationAllCompany');
-Route::get('dashboardDateChange','dashboard@dashboardDateChange');
-Route::get('dashboarhProduct','dashboard@dashboarhProduct');
-Route::get('getChartofProduct','dashbord@getProductDetail');
-Route::get('branchChange','dashboard@BranchChange');
-Route::get('modalCompany','dashboard@dashboard');
+Route::get('PaginationAllCompany','stock\dashboard@PaginationAllCompany');
+Route::get('dashboardDateChange','stock\dashboard@dashboardDateChange');
+Route::get('dashboarhProduct','stock\dashboard@dashboarhProduct');
+Route::get('getChartofProduct','stock\dashbord@getProductDetail');
+Route::get('branchChange','stock\dashboard@BranchChange');
+Route::get('modalCompany','stock\dashboard@dashboard');
 // Route::get('/main',function(){
 //     return view('Main');
 // });
-Route::post('/dashbord','dashbord@LogIn');
-Route::get('/dashbord','dashbord@Dashbord');
+Route::post('/dashbord','stock\dashbord@LogIn');
+Route::get('/dashbord','stock\dashbord@Dashbord');
 // Route::get('/','login@checkSession');
 // Route::get('/logout','login@logout');
 
@@ -70,71 +75,71 @@ Route::get('productlist',function(){
 
 
 // customer Product
-Route::get('/customerproductreturn','CustomerProduct@getCustomerProductReturn');
-Route::get('/customerproductrequest','CustomerProduct@getCustomerProductRequest');
-Route::get('/addCustomerProduct','CustomerProduct@addCustomerProduct');
-Route::get('/customerproductdetail','CustomerProduct@customerProductDetail');
-Route::get('/getcustomer','CustomerProduct@get_customer_branch');//get customer branch
-Route::get('/getcustomercon','CustomerProduct@get_customer_con');//get customer connection
+Route::get('/customerproductreturn','stock\CustomerProduct@getCustomerProductReturn');
+Route::get('/customerproductrequest','stock\CustomerProduct@getCustomerProductRequest');
+Route::get('/addCustomerProduct','stock\CustomerProduct@addCustomerProduct');
+Route::get('/customerproductdetail','stock\CustomerProduct@customerProductDetail');
+Route::get('/getcustomer','stock\CustomerProduct@get_customer_branch');//get customer branch
+Route::get('/getcustomercon','stock\CustomerProduct@get_customer_con');//get customer connection
 //post
-Route::post('/addCustomerProduct','CustomerProduct@insert_customer_product');
+Route::post('/addCustomerProduct','stock\CustomerProduct@insert_customer_product');
 // end customer Product
 
 
 
 // Product List
-Route::get('/ProductList','product@getProductList');
-Route::post('/AddProductList','product@addProductList');
-Route::get('/AddProductList','product@addProductList');
-Route::get('/productListDetial','product@getProductByID');
-Route::get('/Updateproductqty','product@update_product_qty');
+Route::get('/ProductList','stock\product@getProductList');
+Route::post('/AddProductList','stock\product@addProductList');
+Route::get('/AddProductList','stock\product@addProductList');
+Route::get('/productListDetial','stock\product@getProductByID');
+Route::get('/Updateproductqty','stock\product@update_product_qty');
 //get supplier branch
-Route::get('/getcompany', 'product@get_company_branch');
-Route::get('/getpcode', 'product@get_product_code');
+Route::get('/getcompany', 'stock\product@get_company_branch');
+Route::get('/getpcode', 'stock\product@get_product_code');
 // End Product List
 
 
 // Product Request
-Route::get('ProductRequest','ProductRequest@getProductRequest');
-Route::get('addProductRequest','ProductRequest@getaddProductRequest');
-Route::get('ProductRequestdetail','ProductRequest@getProductRequestDetail');
-Route::post('addProductRequest','ProductRequest@addProductRequest');
+Route::get('ProductRequest','stock\ProductRequest@getProductRequest');
+Route::get('addProductRequest','stock\ProductRequest@getaddProductRequest');
+Route::get('ProductRequestdetail','stock\ProductRequest@getProductRequestDetail');
+Route::post('addProductRequest','stock\ProductRequest@addProductRequest');
 // end Product Request
 
 
 
 
 // product Return
-Route::get('productReturn','ProductReturn@getProductReturn');
-Route::get('addProductReturn','ProductReturn@getaddProductReturn');
-Route::get('ProductReturndetail','ProductReturn@getProductReturnDetail');
-Route::post('addProductReturn','ProductReturn@addProductReturn');
+Route::get('productReturn','stock\ProductReturn@getProductReturn');
+Route::get('addProductReturn','stock\ProductReturn@getaddProductReturn');
+Route::get('ProductReturndetail','stock\ProductReturn@getProductReturnDetail');
+Route::post('addProductReturn','stock\ProductReturn@addProductReturn');
 // end Product Return
 
 // product Import
-Route::get('productImport','productImport@getProductImport');
-Route::get('addProductImport','productImport@getaddProductImport');
-Route::get('ProductImportdetail','productImport@getProductImportDetail');
-Route::post('addProductImport','productImport@addProductImport');
+Route::get('productImport','stock\productImport@getProductImport');
+Route::get('addProductImport','stock\productImport@getaddProductImport');
+Route::get('ProductImportdetail','stock\productImport@getProductImportDetail');
+Route::post('addProductImport','stock\productImport@addProductImport');
 // end Product Import
 
 // product Assign
-Route::get('productAssign','productAssign@getProductAssign');
-Route::get('addProductAssign','productAssign@getaddProductAssign');
-Route::get('ProductAssigndetail','productAssign@getProductAssignDetail');
-Route::post('addProductAssign','productAssign@addProductAssign');
+Route::get('productAssign','stock\productAssign@getProductAssign');
+Route::get('addProductAssign','stock\productAssign@getaddProductAssign');
+Route::get('ProductAssigndetail','stock\productAssign@getProductAssignDetail');
+Route::post('addProductAssign','stock\productAssign@addProductAssign');
 // end Product Assign
 
 // product other company
-Route::get('productCompanyrequest','productCompany@getProductCompanyrequest');
-Route::get('productCompanyimport','productCompany@getProductCompanyimport');
-Route::get('addProductCompanyrequest','productCompany@getaddProductCompanyrequest');
-Route::get('addProductCompanyimport','productCompany@getaddProductCompanyimport');
-Route::get('ProductCompanydetail','productCompany@getProductCompanyDetail');
-Route::post('addProductCompany','productCompany@addProductCompany');
-Route::post('approveProductCompany','productCompany@approveProductCompany');
-Route::get('productCompanyReport','productCompany@productCompanyReport');
-Route::get('companyDashboard','productCompany@companyDashboard');
+Route::get('productCompanyrequest','stock\productCompany@getProductCompanyrequest');
+Route::get('productCompanyimport','stock\productCompany@getProductCompanyimport');
+Route::get('addProductCompanyrequest','stock\productCompany@getaddProductCompanyrequest');
+Route::get('addProductCompanyimport','stock\productCompany@getaddProductCompanyimport');
+Route::get('ProductCompanydetail','stock\productCompany@getProductCompanyDetail');
+Route::post('addProductCompany','stock\productCompany@addProductCompany');
+Route::post('approveProductCompany','stock\productCompany@approveProductCompany');
+Route::get('productCompanyReport','stock\productCompany@productCompanyReport');
+Route::get('companyDashboard','stock\productCompany@companyDashboard');
 // end Product other company
 
 
@@ -192,12 +197,12 @@ Route::get('addpurchaseproduct',function(){
 
 
 // Stock Report
-Route::get('stockreport1','Reports@getStockReport');
-Route::get('stockreport2','Reports@getReport2');
-Route::get('purchasereport','Reports@getPurchaseReport');
+Route::get('stockreport1','stock\Reports@getStockReport');
+Route::get('stockreport2','stock\Reports@getReport2');
+Route::get('purchasereport','stock\Reports@getPurchaseReport');
 
-Route::get('requestreport','Reports@getRequestReport');
-Route::get('returnreport','Reports@getReturnReport');
+Route::get('requestreport','stock\Reports@getRequestReport');
+Route::get('returnreport','stock\Reports@getReturnReport');
 Route::get('unusablereport',function(){
     return view('StockReport.unusablereport');
 });
@@ -207,23 +212,23 @@ Route::get('recorderreport',function(){
 // end Stock Report
 
 //get table route
-Route::get('/gettable','gettable@getT');
-Route::get('/gettables','gettable@getTT');
-Route::get('/gettableold','gettable@getTTOld');
+Route::get('/gettable','stock\gettable@getT');
+Route::get('/gettables','stock\gettable@getTT');
+Route::get('/gettableold','stock\gettable@getTTOld');
 
 //modal
-Route::get('/modalyesno','modal@yes_no');
-Route::get('/modalok','modal@o_k');
+Route::get('/modalyesno','stock\modal@yes_no');
+Route::get('/modalok','stock\modal@o_k');
 //end modal
 
 //add product to view
-Route::get('/get_product','addproduct_to_view@get_product');
-Route::get('/get_product_comp','addproduct_to_view@get_product_comp');
-Route::get('/add_product','addproduct_to_view@add_product');
+Route::get('/get_product','stock\addproduct_to_view@get_product');
+Route::get('/get_product_comp','stock\addproduct_to_view@get_product_comp');
+Route::get('/add_product','stock\addproduct_to_view@add_product');
 //end add product to view
 
 //get storage location
-Route::get('/get_s_location','get_storage_location@get_loc');
+Route::get('/get_s_location','stock\get_storage_location@get_loc');
 //end get storage location
 
 Route::post('yes',array('as'=>'yes',function(){
@@ -231,55 +236,55 @@ Route::post('yes',array('as'=>'yes',function(){
 }));
 
 //add customer
-Route::get('/addcustomer','addCustomer@getaddCustomer');
-Route::post('/addcustomer','addCustomer@addCustomer');
-Route::get('/addcustomerbranch','addCustomer@getaddCustomerbranch');
+Route::get('/addcustomer','stock\addCustomer@getaddCustomer');
+Route::post('/addcustomer','stock\addCustomer@addCustomer');
+Route::get('/addcustomerbranch','stock\addCustomer@getaddCustomerbranch');
 //end add customer
 
 //add company
-Route::get('/addcompany','addCompany@getaddCompany');
-Route::post('/addcompany','addCompany@addCompany');
-Route::get('/addcompanybranch','addCompany@getaddCompanybranch');
+Route::get('/addcompany','stock\addCompany@getaddCompany');
+Route::post('/addcompany','stock\addCompany@addCompany');
+Route::get('/addcompanybranch','stock\addCompany@getaddCompanybranch');
 //end add company
 
 //add staff
-Route::get('/addstaff','addStaff@getaddStaff');
-Route::post('/addstaff','addStaff@addStaff');
+Route::get('/addstaff','stock\addStaff@getaddStaff');
+Route::post('/addstaff','stock\addStaff@addStaff');
 //end add customer
 
 //add product-brand
-Route::get('/addproductbrand','addProductBrand@getaddProductBrand');
-Route::post('/addproductbrand','addProductBrand@addProductBrand');
+Route::get('/addproductbrand','stock\addProductBrand@getaddProductBrand');
+Route::post('/addproductbrand','stock\addProductBrand@addProductBrand');
 //end add product brand
 
 //add measurement or unit type
-Route::get('/addmeasurement','addMeasurement@getaddMeasurement');
-Route::post('/addmeasurement','addMeasurement@addMeasurement');
+Route::get('/addmeasurement','stock\addMeasurement@getaddMeasurement');
+Route::post('/addmeasurement','stock\addMeasurement@addMeasurement');
 //end measurement or unit type
 
 //add currency
-Route::get('/addcurrency','addCurrency@getaddCurrency');
-Route::post('/addcurrency','addCurrency@addCurrency');
+Route::get('/addcurrency','stock\addCurrency@getaddCurrency');
+Route::post('/addcurrency','stock\addCurrency@addCurrency');
 //end currency
 
 //add product type
-Route::get('/addptype','addproduct_type@getaddproduct_type');
-Route::post('/addptype','addproduct_type@addptype');
+Route::get('/addptype','stock\addproduct_type@getaddproduct_type');
+Route::post('/addptype','stock\addproduct_type@addptype');
 //end product type
 
 //add currency
-Route::get('/addstorage','addStorage@getaddStorage');
-Route::get('/addstoragelocation','addStorage@getaddStorageLocation');
-Route::post('/addstorage','addStorage@addStorage');
+Route::get('/addstorage','stock\addStorage@getaddStorage');
+Route::get('/addstoragelocation','stock\addStorage@getaddStorageLocation');
+Route::post('/addstorage','stock\addStorage@addStorage');
 //end currency
 
 //add supplier
-Route::get('/addsupplier','addSupplier@getaddSupplier');
-Route::post('/addsupplier','addSupplier@addSupplier');
+Route::get('/addsupplier','stock\addSupplier@getaddSupplier');
+Route::post('/addsupplier','stock\addSupplier@addSupplier');
 //end supplier
 
 //refresh select after add
-Route::get('/refreshSel','refreshSelect@refresh_sel');
+Route::get('/refreshSel','stock\refreshSelect@refresh_sel');
 //end refresh select after add
 //===============================END STOCK SYSTEM
 

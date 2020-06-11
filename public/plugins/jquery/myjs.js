@@ -2,8 +2,26 @@ function mydemo(){
     alert("dsvfd");
 
 }
-
+function check_session(){
+	$.ajax({
+        type:'GET',
+        url: "check_session",
+        async:false,
+        success: function(data){
+            if(parseInt(data)==0){
+                alert("session expired!");
+                location.replace('/logout');
+                return true;
+            }else{
+                return false;
+            }
+      }
+    });
+}
   jQuery(".menu a").click(function(e){
+    if(check_session()){
+      return;
+    }
     e.preventDefault();
     var link = $(this).attr("​value");
     if (typeof link !== typeof undefined && link !== false) {
@@ -18,7 +36,7 @@ function mydemo(){
     }
 });
 // function addlead(){
-//   var link = $(this).attr("​value");   
+//   var link = $(this).attr("​value");
 //   alert(link);
 // }
 
