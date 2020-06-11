@@ -12,7 +12,7 @@ class RouteController extends Controller
     // $_SESSION['userid']=1;
         // $_SESSION['module']=perms:: get_module();
         if(perms::check_perm()){
-            return view('start');
+            return view('index');
         }else{
             return redirect('/logout');
         }

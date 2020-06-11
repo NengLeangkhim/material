@@ -23,19 +23,19 @@ Route::get('/logout','Login@logout');
 Route::get('/gm','perms@get_module');
 
 // =========================CRM SYSTEM==========================
-Route::get('/lead','LeadController@getlead'); 
-Route::get('/addlead','LeadController@lead');
-Route::get('/district','LeadController@getdistrict'); //getdistrict
-Route::get('/commune','LeadController@getcommune'); //getcommune
-Route::get('/village','LeadController@getvillage'); //getvillage
-Route::POST('/addleadsource','LeadController@addleadsource'); //addlead source
-Route::POST('/addleadindustry','LeadController@addleadindustry'); //addleadindustry
+Route::get('/lead','crm\LeadController@getlead'); 
+Route::get('/addlead','crm\LeadController@lead');
+Route::get('/district','crm\LeadController@getdistrict'); //getdistrict
+Route::get('/commune','crm\LeadController@getcommune'); //getcommune
+Route::get('/village','crm\LeadController@getvillage'); //getvillage
+Route::POST('/addleadsource','crm\LeadController@addleadsource'); //addlead source
+Route::POST('/addleadindustry','crm\LeadController@addleadindustry'); //addleadindustry
 
-Route::get('/detaillead','LeadController@detaillead');
-Route::post('/crm_leasdsource','LeadController@savelead');
-Route::get('/contact','ContactController@getcontact'); //Contact
-Route::get('/organizations','OrganizationController@getorganization'); //Organization
-Route::get('/product','ProductsController@getProducts'); //Products
+Route::get('/detaillead','crm\LeadController@detaillead');
+Route::post('/crm_leasdsource','crm\LeadController@savelead');
+Route::get('/contact','crm\ContactController@getcontact'); //Contact
+Route::get('/organizations','crm\OrganizationController@getorganization'); //Organization
+Route::get('/product','crm\ProductsController@getProducts'); //Products
 
 //======================Main=================================
 Route::get('/check_session','perms@check_session_js');
