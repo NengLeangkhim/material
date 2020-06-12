@@ -111,26 +111,22 @@ function get_list_view(target,tar){
 function spin(tar){
     document.getElementById(tar).innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
 }
-function get_approve_view(tar,tt){//top management
+function get_approve_view(tar){//top management
         if(check_session()){
         return;
     }
     $('[data-toggle="tooltip"]').tooltip('dispose');
-    document.getElementById('submenuchange').innerHTML="";
-    // document.getElementById('left_list').innerHTML="";
-    // document.getElementById('title').innerHTML="";
-    spin(tar);
+    $(tar).html(spinner());
     $.ajax({
-        type:'POST',
-        url: "controller/get_datatable_value.php",
+        type:'GET',
+        url: "",
         data:{
-            _tt:tt,
             _tar:tar,
         },
         success: function(data){
-            document.getElementById(tar).innerHTML=data;
-            $('#dttable').DataTable().destroy();
-            $('#dttable').DataTable({
+            $(tar).html(data);
+            $('.display').DataTable().destroy();
+            $('.display').DataTable({
                 responsive: true
             });
             $('[data-toggle="tooltip"]').tooltip();

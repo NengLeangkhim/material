@@ -748,7 +748,7 @@ function go_to(route){
     if(check_session()){
         return;
     }
-    $(".content-wrapper").html(spin());
+    $(".content-wrapper").html(spinner());
     $.ajax({
         type: 'GET',
         url:route,

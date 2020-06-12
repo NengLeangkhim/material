@@ -56,6 +56,7 @@ Route::get('/ere_get_view_val','e_request\get_value_to_view@get_val_view');
 Route::get('/ere_get_view_formleave','e_request\view_formleave@formleave');
 Route::get('/ere_allform','e_request\view_allform@allform');
 Route::get('/ere_ownreq','e_request\ere_get_datatable_value@get_own_req');
+Route::get('/ere_ownreq','e_request\ere_get_datatable_value@get_approve_view');
 //=======================E-request==========================
 
 //==================STOCK SYSTEM===================================================

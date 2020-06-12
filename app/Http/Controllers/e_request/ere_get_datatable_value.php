@@ -14,57 +14,7 @@ class ere_get_datatable_value extends Controller{//post method
         return;
         }
         if(isset($_POST['_tt'])){//from js get_approve_view
-            // echo $_SESSION['userid'];
-            $cc=new check_perm();
-            if(isset($_SESSION['userid'])&&$cc->permi_check($_SESSION['userid'])){
-                $c=$cc->permi_get($_SESSION['userid']);
-                $tar=$_POST['_tar'];
-                $ceth='';
-                $cetd='';
-                if($c&&($c[0]['type'])=='top'){
-                    $ceth='<th>យល់ព្រមដោយ</th>';
-                }
-                $st='<table class="table display responsive nowrap" width="100%" id="dttable">';
-                $st.="<thead class='word-thead'><th>លេខរៀង</th><th>ស្នើសំុដោយ</th><th>ទម្រង់ស្នើសុំ</th>".$ceth."<th>កាលបរិច្ឆេទ</th><th>មតិយោបល់</th><th>សកម្មភាព</th></thead>
-                    <tbody class='word-tbody'>";
-                $i=0;
-                foreach($c as $r){
-                    if(isset($r['type'])){
-                        if($r['type']=='mid')
-                        {
-                            $pending='&nbsp<a href="javascript:void(0);" class="btn btn-primary word-tbody" onclick=\'approve("'.$tar.'",'.$r['id'].',"ta'.$r['id'].'","pending","'.$_POST['_tt'].'")\'>រង់ចាំ</a>';
-                        }else{
-                            $pending='';
-                            $cetd='<td>'.$r['action_by'].'</td>';
-                        }
-                        $appr='&nbsp<a href="javascript:void(0);" class="btn btn-success word-tbody" onclick=\'approve("'.$tar.'",'.$r['id'].',"ta'.$r['id'].'","approve","'.$_POST['_tt'].'")\'>អនុម័ត</a>';
-                        $reject='&nbsp<a href="javascript:void(0);" class="btn btn-danger word-tbody" onclick=\'approve("'.$tar.'",'.$r['id'].',"ta'.$r['id'].'","reject","'.$_POST['_tt'].'")\'>បដិសេធ</a>';
-                    }else{
-                        $pending='';
-                        $appr='';
-                        $reject='';
-                    }
-                    $tar='modal_content_detail';
-                    $st.='<tr >'.
-                        '<td>'.(++$i).'</td>
-                        <td>'.$r['name'].'</td>
-                        <td>'.$r['form_name'].'</td>
-                        '.$cetd.'
-                        <td>'.util::conv_datetime($r['create_date']).'</td>
-                        <td><textarea class="form-control" id="ta'.$r['id'].'" rows="1"></textarea></td>
-                        <td>
-                        <a href="javascript:void(0);" class="btn btn-info" onclick=\'ShowFormAPR("'.$r['e_request_form_id'].",".$r['file_name'].'",'.$r['id'].',"'.$tar.'")\'>ព័ត៌មានលំអិត</a>
-                        '.$appr.
-                        $pending.
-                        $reject.
-                        '</td>
-                        </tr>';
-                    }
-                    $st.='</tbody></table>';
-                    echo $st;
-                }else{
-                    echo '';
-                }
+
             }
             else if(isset($_POST['_type'])){//from js get_view type own
             }else if(isset($_POST['_typehr'])){ //get_view_hr
@@ -264,5 +214,59 @@ class ere_get_datatable_value extends Controller{//post method
             return view('e_request.showdata', compact('st'));
         }
 
+    }
+    public function get_approve_view(){
+        // echo $_SESSION['userid'];
+        $cc=new check_perm();
+        if(isset($_SESSION['userid'])&&$cc->permi_check($_SESSION['userid'])){
+            $c=$cc->permi_get($_SESSION['userid']);
+            $tar='.content-wrapper';
+            if(isset($_GET['_tar'])){
+                $tar=$_GET['_tar'];
+            }
+            $ceth='';
+            $cetd='';
+            if($c&&($c[0]['type'])=='top'){
+                $ceth='<th>យល់ព្រមដោយ</th>';
+            }
+            $st='<table class="table display responsive nowrap" width="100%" id="dttable">';
+            $st.="<thead class='word-thead'><th>លេខរៀង</th><th>ស្នើសំុដោយ</th><th>ទម្រង់ស្នើសុំ</th>".$ceth."<th>កាលបរិច្ឆេទ</th><th>មតិយោបល់</th><th>សកម្មភាព</th></thead>
+                <tbody class='word-tbody'>";
+            $i=0;
+            foreach($c as $r){
+                if(isset($r['type'])){
+                    if($r['type']=='mid')
+                    {
+                        $pending='&nbsp<a href="javascript:void(0);" class="btn btn-primary word-tbody" onclick=\'approve("'.$tar.'",'.$r['id'].',"ta'.$r['id'].'","pending")\'>រង់ចាំ</a>';
+                    }else{
+                        $pending='';
+                        $cetd='<td>'.$r['action_by'].'</td>';
+                    }
+                    $appr='&nbsp<a href="javascript:void(0);" class="btn btn-success word-tbody" onclick=\'approve("'.$tar.'",'.$r['id'].',"ta'.$r['id'].'","approve")\'>អនុម័ត</a>';
+                    $reject='&nbsp<a href="javascript:void(0);" class="btn btn-danger word-tbody" onclick=\'approve("'.$tar.'",'.$r['id'].',"ta'.$r['id'].'","reject")\'>បដិសេធ</a>';
+                }else{
+                    $pending='';
+                    $appr='';
+                    $reject='';
+                }
+                $tar='modal_content_detail';
+                $st.='<tr >'.
+                    '<td>'.(++$i).'</td>
+                    <td>'.$r['name'].'</td>
+                    <td>'.$r['form_name'].'</td>
+                    '.$cetd.'
+                    <td>'.util::conv_datetime($r['create_date']).'</td>
+                    <td><textarea class="form-control" id="ta'.$r['id'].'" rows="1"></textarea></td>
+                    <td>
+                    <a href="javascript:void(0);" class="btn btn-info" onclick=\'ShowFormAPR("'.$r['e_request_form_id'].",".$r['file_name'].'",'.$r['id'].',"'.$tar.'")\'>ព័ត៌មានលំអិត</a>
+                    '.$appr.
+                    $pending.
+                    $reject.
+                    '</td>
+                    </tr>';
+                }
+                $st.='</tbody></table>';
+                return view('e_request.showdata', compact('st'));
+            }
     }
 }
