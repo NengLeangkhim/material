@@ -19,69 +19,7 @@ class ere_get_datatable_value extends Controller{//post method
             else if(isset($_POST['_type'])){//from js get_view type own
             }else if(isset($_POST['_typehr'])){ //get_view_hr
 
-                $cc=new check_perm();
-                $rr=false;
-                if(isset($_SESSION['userid'])){
-                    $chhr=$cc->permi_check($_SESSION['userid']);
-                    if($chhr){
-                        $c=$cc->get_view_val('all',$chhr,0);
-                        $ap=$cc->get_view_val('approve',$chhr,0);
-                        $pen=$cc->get_view_val('pending',$chhr,0);
-                        $rej=$cc->get_view_val('reject',$chhr,0);
-                        $wait=$cc->get_view_val('wait',$chhr,0);
-                        switch($_POST['_typehr']){
-                            case 'approve':
-                                $rr=$ap;
-                            break;
-                            case 'pending':
-                                $rr=$pen;
-                            break;
-                            case 'reject':
-                                $rr=$rej;
-                            break;
-                            case 'wait':
-                                $rr=$wait;
-                            break;
-                            case 'hr':
-                                $rr=$c;
-                            break;
-                        }
-                    }
-                    $tar=$_POST['_tar'];
-                    $ty=$_POST['_typehr'];
-                    $st="";
-                    // $st='<div style="margin-bottom:2%;">';
-                    $st.='<a href="javascript:void(0);" style="margin-bottom:2%;" onclick="get_view_hr(\''.$tar.'\',\'hr\')" class="btn btn-info">All ('.count($c).')</a>';
-                    $st.='&nbsp<a href="javascript:void(0);" style="margin-bottom:2%;" onclick="get_view_hr(\''.$tar.'\',\'wait\')" class="btn btn-secondary word-tbody">សំណើថ្មី ('.count($wait).')</a>';
-                    $st.='&nbsp<a href="javascript:void(0);" style="margin-bottom:2%;" onclick="get_view_hr(\''.$tar.'\',\'approve\')" class="btn btn-success word-tbody">បានអនុម័ត ('.count($ap).')</a>';
-                    $st.='&nbsp<a href="javascript:void(0);" style="margin-bottom:2%;" onclick="get_view_hr(\''.$tar.'\',\'pending\')" class="btn btn-primary word-tbody">កំពុងរង់ចាំ ('.count($pen).')</a>';
-                    $st.='&nbsp<a href="javascript:void(0);" style="margin-bottom:2%;" onclick="get_view_hr(\''.$tar.'\',\'reject\')" class="btn btn-danger word-tbody">បានបដិសេធ ('.count($rej).')</a>';
-                    $st.='<h4 class="word-thead">'.util::conv_ty($ty).'</h4><hr><br>';
-                    // $st.'</div>';
-                    $st.='<table style="margin-top:2%;" class="table display responsive nowrap" width="100%" id="dttable">';
-                    $st.="<thead class='word-thead'><th>លេខរៀង</th><th>ស្នើសំុដោយ</th><th>ទម្រង់ស្នើសុំ</th><th>កាលបរិច្ឆេទ</th><th>អនុញ្ញាតដោយ</th><th>ស្ថានភាព</th><th>សកម្មភាព</th></thead>
-                            <tbody class='word-tbody'>";
-                    $tar='modal_content_detail';
-                    if($rr){
-                        $i=0;
-                        foreach($rr as $r){
-                            $cmt=(empty($r['comment']))?'':'មតិរបស់អ្នកអនុញ្ញាត : '.$r['comment'];
-                            $st.='<tr data-toggle="tooltip" data-placement="top" title="'.$cmt.'">';
-                            $st.='<td>'.(++$i).'</td>
-                                <td>'.$r['request_by'].'</td>
-                                <td>'.$r['form_name'].'</td>
-                                <td>'.util::conv_datetime($r['create_date']).'</td>
-                                <td>'.$r['action_by'].'</td>
-                                <td>'.util::conv_stat($r['e_request_status']).'</td>
-                                <td><a href="javascript:void(0);" class="btn btn-info" onclick=\'ShowFormView("'.$r['e_request_form_id'].",".$r['file_name'].'",'.$r['id'].',"'.$tar.'")\'>ព័ត៌មានលំអិត</a></td>
-                                </tr>';
-                        }
-                    }
-                    $st.='</tbody></table>';
-                    echo $st;
-                }else{
-                    echo '';
-                }
+
             }else if(isset($_POST['_tar_id'])){//get_view by search then click staff
 
                 $cc=new check_perm();
@@ -217,6 +155,7 @@ class ere_get_datatable_value extends Controller{//post method
     }
     public function get_approve_view(){
         // echo $_SESSION['userid'];
+        session_start();
         $cc=new check_perm();
         if(isset($_SESSION['userid'])&&$cc->permi_check($_SESSION['userid'])){
             $c=$cc->permi_get($_SESSION['userid']);
@@ -268,5 +207,76 @@ class ere_get_datatable_value extends Controller{//post method
                 $st.='</tbody></table>';
                 return view('e_request.showdata', compact('st'));
             }
+    }
+    public function get_all_req_view(){
+        session_start();
+        $cc=new check_perm();
+                $rr=false;
+                if(isset($_SESSION['userid'])){
+                    $chhr=$cc->permi_check($_SESSION['userid']);
+                    if($chhr){
+                        $c=$cc->get_view_val('all',$chhr,0);
+                        $ap=$cc->get_view_val('approve',$chhr,0);
+                        $pen=$cc->get_view_val('pending',$chhr,0);
+                        $rej=$cc->get_view_val('reject',$chhr,0);
+                        $wait=$cc->get_view_val('wait',$chhr,0);
+                        $type='hr';
+                        if(isset($_POST['_typehr'])){
+                            $type=$_POST['_typehr'];
+                        }
+                        switch($type){
+                            case 'approve':
+                                $rr=$ap;
+                            break;
+                            case 'pending':
+                                $rr=$pen;
+                            break;
+                            case 'reject':
+                                $rr=$rej;
+                            break;
+                            case 'wait':
+                                $rr=$wait;
+                            break;
+                            case 'hr':
+                                $rr=$c;
+                            break;
+                        }
+                    }
+                    $tar='.content-wrapper';
+                    if(isset($_POST['_tar'])){
+                        $tar=$_POST['_tar'];
+                    }
+                    $ty=$type;
+                    $st="";
+                    // $st='<div style="margin-bottom:2%;">';
+                    $st.='<a href="javascript:void(0);" style="margin-bottom:2%;" onclick="get_view_hr(\''.$tar.'\',\'hr\')" class="btn btn-info">All ('.count($c).')</a>';
+                    $st.='&nbsp<a href="javascript:void(0);" style="margin-bottom:2%;" onclick="get_view_hr(\''.$tar.'\',\'wait\')" class="btn btn-secondary word-tbody">សំណើថ្មី ('.count($wait).')</a>';
+                    $st.='&nbsp<a href="javascript:void(0);" style="margin-bottom:2%;" onclick="get_view_hr(\''.$tar.'\',\'approve\')" class="btn btn-success word-tbody">បានអនុម័ត ('.count($ap).')</a>';
+                    $st.='&nbsp<a href="javascript:void(0);" style="margin-bottom:2%;" onclick="get_view_hr(\''.$tar.'\',\'pending\')" class="btn btn-primary word-tbody">កំពុងរង់ចាំ ('.count($pen).')</a>';
+                    $st.='&nbsp<a href="javascript:void(0);" style="margin-bottom:2%;" onclick="get_view_hr(\''.$tar.'\',\'reject\')" class="btn btn-danger word-tbody">បានបដិសេធ ('.count($rej).')</a>';
+                    $st.='<h4 class="word-thead">'.util::conv_ty($ty).'</h4><hr><br>';
+                    // $st.'</div>';
+                    $st.='<table style="margin-top:2%;" class="table display responsive nowrap" width="100%" id="dttable">';
+                    $st.="<thead class='word-thead'><th>លេខរៀង</th><th>ស្នើសំុដោយ</th><th>ទម្រង់ស្នើសុំ</th><th>កាលបរិច្ឆេទ</th><th>អនុញ្ញាតដោយ</th><th>ស្ថានភាព</th><th>សកម្មភាព</th></thead>
+                            <tbody class='word-tbody'>";
+                    $tar='modal_content_detail';
+                    if($rr){
+                        $i=0;
+                        foreach($rr as $r){
+                            $cmt=(empty($r['comment']))?'':'មតិរបស់អ្នកអនុញ្ញាត : '.$r['comment'];
+                            $st.='<tr data-toggle="tooltip" data-placement="top" title="'.$cmt.'">';
+                            $st.='<td>'.(++$i).'</td>
+                                <td>'.$r['request_by'].'</td>
+                                <td>'.$r['form_name'].'</td>
+                                <td>'.util::conv_datetime($r['create_date']).'</td>
+                                <td>'.$r['action_by'].'</td>
+                                <td>'.util::conv_stat($r['e_request_status']).'</td>
+                                <td><a href="javascript:void(0);" class="btn btn-info" onclick=\'ShowFormView("'.$r['e_request_form_id'].",".$r['file_name'].'",'.$r['id'].',"'.$tar.'")\'>ព័ត៌មានលំអិត</a></td>
+                                </tr>';
+                        }
+                    }
+                    $st.='</tbody></table>';
+                    return view('e_request.showdata', compact('st'));
+                }
     }
 }

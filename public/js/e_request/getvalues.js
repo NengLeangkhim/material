@@ -119,7 +119,7 @@ function get_approve_view(tar){//top management
     $(tar).html(spinner());
     $.ajax({
         type:'GET',
-        url: "",
+        url: "ere_apr_view",
         data:{
             _tar:tar,
         },
@@ -230,11 +230,10 @@ function get_report_val(tar,from,to){
         if(check_session()){
         return;
     }
-    document.getElementById('submenuchange').innerHTML="";
     spin(tar);
     $.ajax({
         type:'GET',
-        url: "controller/get_report.php",
+        url: "/ere_report",
         data:{
             _from:from,
             _to:to,
@@ -254,8 +253,8 @@ function get_report_val(tar,from,to){
                     } catch (e) {
                         document.getElementById(tar).innerHTML=data;
                     }
-                    $('#dttable').DataTable().destroy();
-                    $('#dttable').DataTable({
+                    $('.display').DataTable().destroy();
+                    $('.display').DataTable({
                         responsive: true
                     });
                     $('[data-toggle="tooltip"]').tooltip();
@@ -270,11 +269,10 @@ function get_report_val_detail(tar,type,from,to,id){
         if(check_session()){
         return;
     }
-    document.getElementById('submenuchange').innerHTML="";
     spin(tar);
     $.ajax({
         type:'GET',
-        url: "controller/get_report.php",
+        url: "/ere_report",
         data:{
             _from:from,
             _to:to,
@@ -287,7 +285,7 @@ function get_report_val_detail(tar,type,from,to,id){
             document.getElementById(tar).innerHTML=data;
             // return JSON.parse(data);
             // chart(JSON.parse(data));
-            $('#dttable').DataTable({
+            $('.display').DataTable({
                 responsive: true
             });
             $('[data-toggle="tooltip"]').tooltip();

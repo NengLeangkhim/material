@@ -9,7 +9,9 @@ use App\Http\Controllers\util;
 
 class ere_get_report extends Controller{
     public function ere_report(){//get method
+
         session_start();
+        $cc=new check_perm();
         $s="";
         $outputstring='';
         $id=0;
@@ -19,13 +21,13 @@ class ere_get_report extends Controller{
             $id=$_GET['_id'];
         }
         if(isset($_GET['_from'])){
-            $from=to_pgdate($_GET['_from']);
+            $from=util::to_pgdate($_GET['_from']);
             if(empty($from)){
                 $from='1999-01-01';
             }
         }
         if(isset($_GET['_to'])){
-            $to=to_pgdate($_GET['_to']);
+            $to=util::to_pgdate($_GET['_to']);
             if(empty($to)){
                 $to=date("Y-m-d");
             }
@@ -36,6 +38,15 @@ class ere_get_report extends Controller{
             $to=$f;
         }
         $c=$cc->permi_check($_SESSION['userid']);
+        if(!isset($_GET['_report'])){
+            if(!isset($_GET['_reportdetail'])){
+                return view('e_request.report', compact('c'));
+            }
+        }else if(!isset($_GET['_reportdetail'])){
+            if(!isset($_GET['_report'])){
+                return view('e_request.report', compact('c'));
+            }
+        }
         if($c&&($c['type']=='top'||$c['company_dept_id']==4)){
             if(isset($_GET['_report'])){
                 $sql="SELECT cd.id as company_dept_id,cd.name,count(er.* )
@@ -92,7 +103,7 @@ class ere_get_report extends Controller{
                     $st.='&nbsp<a href="javascript:void(0);" style="margin-bottom:2%;" onclick="get_report_val_detail(\''.$tar.'\',\'approve\',\''.$from.'\',\''.$to.'\',\''.$dept.'\')" class="btn btn-success word-tbody">បានអនុម័ត ('.count($ap).')</a>';
                     $st.='&nbsp<a href="javascript:void(0);" style="margin-bottom:2%;" onclick="get_report_val_detail(\''.$tar.'\',\'pending\',\''.$from.'\',\''.$to.'\',\''.$dept.'\')" class="btn btn-primary word-tbody">កំពុងរង់ចាំ ('.count($pen).')</a>';
                     $st.='&nbsp<a href="javascript:void(0);" style="margin-bottom:2%;" onclick="get_report_val_detail(\''.$tar.'\',\'reject\',\''.$from.'\',\''.$to.'\',\''.$dept.'\')" class="btn btn-danger word-tbody" >បានបដិសេធ ('.count($rej).')</a>';
-                    $st.='<h4 class="word-thead">'.utill::conv_ty($ty).'</h4><hr><br>';
+                    $st.='<h4 class="word-thead">'.util::conv_ty($ty).'</h4><hr><br>';
                     // $st.'</div>';
                     $st.='<table style="margin-top:2%;" class="table display responsive nowrap" width="100%" id="dttable">';
                     $st.="<thead class='word-thead'><th>លេខរៀង</th><th>ស្នើសំុដោយ</th><th>ទម្រង់ស្នើសុំ</th><th>កាលបរិច្ឆេទ</th><th>អនុញ្ញាតដោយ</th><th>ស្ថានភាព</th><th>សកម្មភាព</th></thead>
@@ -108,7 +119,7 @@ class ere_get_report extends Controller{
                                 <td>'.$r['form_name'].'</td>
                                 <td>'.util::conv_datetime($r['create_date']).'</td>
                                 <td>'.$r['action_by'].'</td>
-                                <td>'.conv_stat($r['e_request_status']).'</td>
+                                <td>'.util::conv_stat($r['e_request_status']).'</td>
                                 <td><a href="javascript:void(0);" class="btn btn-info" onclick=\'ShowFormView("'.$r['e_request_form_id'].",".$r['file_name'].'",'.$r['id'].',"'.$tar.'")\'>ព័ត៌មានលំអិត</a></td>
                                 </tr>';
                         }
@@ -183,7 +194,7 @@ class ere_get_report extends Controller{
                                 <td>'.$r['form_name'].'</td>
                                 <td>'.util::conv_datetime($r['create_date']).'</td>
                                 <td>'.$r['action_by'].'</td>
-                                <td>'.utill::conv_stat($r['e_request_status']).'</td>
+                                <td>'.util::conv_stat($r['e_request_status']).'</td>
                                 <td><a href="javascript:void(0);" class="btn btn-info" onclick=\'ShowFormView("'.$r['e_request_form_id'].",".$r['file_name'].'",'.$r['id'].',"'.$tar.'")\'>ព័ត៌មានលំអិត</a></td>
                                 </tr>';
                         }

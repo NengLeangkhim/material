@@ -13,7 +13,11 @@ class check_perm{
         $sql="select id,type,company_dept_id
         from company_dept_manager
         where position_id=".$r['position_id']." and group_id=".$r['group_id']." and company_dept_id=".$r['company_dept_id'];
-        $r=ere_get_assoc::assoc_(DB::select($sql))[0];
+        if(isset(ere_get_assoc::assoc_(DB::select($sql))[0])){
+            $r=ere_get_assoc::assoc_(DB::select($sql))[0];
+        }else{
+            $r=null;
+        }
         return $r;
     }
     public function permi_get($id){
