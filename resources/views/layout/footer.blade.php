@@ -47,6 +47,10 @@
 <!-- Select2 -->
 <script src="plugins/select2/js/select2.full.min.js"></script>
 
+{{-- datetime picker --}}
+<script src="plugins/DateStyle/analytics.js"></script>
+<script src="plugins/DateStyle/moment-with-locales.js"></script>
+<script src="plugins/DateStyle/bootstrap-datetimepicker.js"></script>
 
 <script>
   $(function () {
@@ -66,4 +70,6 @@
   });
 </script>
 <!-- My js -->
-<script src="plugins/jquery/myjs.js"></script>
+<script src="js/myjs.js"></script>
+<script src="js/e_request/addRow.js"></script>
+<script src="js/e_request/getvalues.js"></script>

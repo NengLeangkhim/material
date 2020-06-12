@@ -92,7 +92,7 @@ class perms extends Controller
     //right side nav bar
     public static function get_module_nav(){
         if(self::check_perm()){
-            $mo=DB::select("SELECT * from public.exec_get_access_module_of(".$_SESSION['userid'].",'".$_GET['_mo']."')");
+            $mo=DB::select("SELECT * from public.exec_get_access_module_of(".$_SESSION['userid'].",'".$_POST['_mo']."')");
             return self::output_sub_nav($mo);
         }else{
             return false;

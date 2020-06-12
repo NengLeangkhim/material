@@ -86,13 +86,14 @@ class dashbord extends Controller
                 (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=8 and q.action_type='in') as import,
                 (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=8 and q.action_type='out') as request,
                 (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=8 and q.action_type='return') as return
-                 from product p join product_qty q on p.id=q.product_id join company_detail cd on cd.id=q.company_detail_id where 't' and cd.company_id=8 group by p.id having (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=8) is not null");
+                 from product p join product_qty q on p.id=q.product_id join company_detail cd on cd.id=q.company_detail_id join product_company pc on pc.product_id=p.id where 't' and cd.company_id=8 group by p.id having (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=8) is not null");
                 foreach($arr[0] as $sproduct){
 
-                    $a=DB::select("select count(*),$sproduct->id as id	from (select q.product_id from product_qty q
-                    join company_detail cd on cd.id=q.company_detail_id
-                    join product p on p.id=q.product_id
-                    where p.id is not null and cd.company_id=$sproduct->id) as foo");
+                    $a=DB::select("select count(*),$sproduct->id as id	from product_company where company_id=$sproduct->id");
+                    // $a=DB::select("select count(*),$sproduct->id as id	from (select q.product_id from product_qty q
+                    // join company_detail cd on cd.id=q.company_detail_id
+                    // join product p on p.id=q.product_id
+                    // where p.id is not null and cd.company_id=$sproduct->id) as foo");
                     array_push($arr[2],$a);
                 }
                 $arr[4]=DB::select("select id,name from storage where status='t'");
@@ -112,6 +113,7 @@ class dashbord extends Controller
         p.name ,date_trunc('day', q.create_date) create_date
         from product_qty q
         join product p on p.id=q.product_id
+        join product_company pc on pc.product_id=p.id
         join company_detail cd on q.company_detail_id=cd.id
         where p.id=$pid and cd.company_id=".$cmid[0]->id." order by create_date";
         // echo $sql;

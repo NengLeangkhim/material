@@ -5,14 +5,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-include_once ("../../controller/getvalues-sql.php");
-include_once ("../../connection/DB-connection.php");
-class run{
-    private function conn(){
-        $db = new Database();
-        $con=$db->dbConnection();
-        return $con;
-    }
+
+class get_row{
     private function init_q($fid,$start_from,$id,$sid){
         $con=$this->conn();
         $st=array();
@@ -30,45 +24,36 @@ class run{
         if($sid>0){
             $sql.=" and er.create_by=$sid";
         }
-        $q=$con->prepare($sql." order by er.id desc limit 1 offset $start_from");
-        $q->execute();
-        $rr=$q->fetch(PDO::FETCH_ASSOC);
-        $st[]=$rr;
+        $rr=DB::select($sql." order by er.id desc limit 1 offset $start_from");
+        $st[]=ere_get_assoc::assoc_($rr);
 
-        $q=$con->prepare("select count(*) from ($sql) as foo");//row count for pagonation
-        $q->execute();
-        $r=$q->fetch(PDO::FETCH_ASSOC);
-        $st[]=$r;
+        $r=DB::select("select count(*) from ($sql) as foo");//row count for pagonation
+        $st[]=ere_get_assoc::assoc_($r);
 
-        $q=$con->prepare("SELECT s.name,e.create_date,e.comment
-                    from e_request_detail e
-                    join staff s on s.id=e.action_by
-                    where e.e_request_status='approve' and e.status='t' and e.e_request_id=".$rr['id']);//row count for pagonation
-        $q->execute();
-        $r=$q->fetch(PDO::FETCH_ASSOC);
-        $st[]=$r;
+        $r=DB::select("SELECT s.name,e.create_date,e.comment
+        from e_request_detail e
+        join staff s on s.id=e.action_by
+        where e.e_request_status='approve' and e.status='t' and e.e_request_id=".$rr['id']);
+        $st[]=ere_get_assoc::assoc_($r);
 
-        $q=$con->prepare("SELECT s.name,e.create_date,e.comment
-                    from e_request_detail e
-                    join staff s on s.id=e.action_by
-                    where e.e_request_status='pending' and e.status='t' and e.e_request_id=".$rr['id']);//row count for pagonation
-        $q->execute();
-        $r=$q->fetch(PDO::FETCH_ASSOC);
-        $st[]=$r;
-        $q=$con->prepare("SELECT s.name,e.create_date,e.comment
-                    from e_request_detail e
-                    join staff s on s.id=e.action_by
-                    where e.e_request_status='reject' and e.status='t' and e.e_request_id=".$rr['id']);//row count for pagonation
-        $q->execute();
-        $r=$q->fetch(PDO::FETCH_ASSOC);
-        $st[]=$r;
+        $r=DB::select("SELECT s.name,e.create_date,e.comment
+        from e_request_detail e
+        join staff s on s.id=e.action_by
+        where e.e_request_status='pending' and e.status='t' and e.e_request_id=".$rr['id']);
+        $st[]=ere_get_assoc::assoc_($r);
+
+        $r=DB::select("SELECT s.name,e.create_date,e.comment
+        from e_request_detail e
+        join staff s on s.id=e.action_by
+        where e.e_request_status='reject' and e.status='t' and e.e_request_id=".$rr['id']);
+        $st[]=ere_get_assoc::assoc_($r);
 
         return $st;
     }
     private function init_a($fid,$start_from,$id,$sid){
         $con=$this->conn();
         $rs=$this->init_q($fid,$start_from,$id,$sid);
-        $sql=new Sql();
+        $sql=new getvalues_sql();
         $rst=array();
         $rst['id']=$rs[0]['id'];
         $rst['row_id']=$rs[0]['form_table_row_id'];
@@ -89,7 +74,7 @@ class run{
     }
     public function get_row($fid,$start_from){
         $con=$this->conn();
-        $sql=new Sql();
+        $sql=new getvalues_sql();
         $rst=$this->init_a($fid,$start_from,0,0);
         $table=$rst['table_name'];
         $row_id=$rst['row_id'];
@@ -98,11 +83,10 @@ class run{
         $sql=$sql->sqlst($table,$row_id);
         if(!empty($sql)){
             foreach($sql as $key=>$s){
-                $q=$con->prepare($s);
-                $q->execute();
-                if($q->rowCount()>0){
+                $q=ere_get_assoc::assoc_(DB::select($s));
+                if(count($q)>0){
                     $rst[$key]=array();
-                    $rr=$q->fetchAll(PDO::FETCH_ASSOC);
+                    $rr=$q;
                     foreach($rr as $rrr=>$rrx){
                         $rst[$key][$rrr]=$rrx;
                     }
@@ -113,7 +97,7 @@ class run{
     }
     public function get_related_row($fid,$id){
         $con=$this->conn();
-        $sql=new Sql();
+        $sql=new getvalues_sql();
         $rst=$this->init_a($fid,0,$id,0);
         $table=$rst['table_name'];
         $row_id=$rst['row_id'];
@@ -122,11 +106,10 @@ class run{
         $sql=$sql->sqlst($table,$row_id);
         if(!empty($sql)){
             foreach($sql as $key=>$s){
-                $q=$con->prepare($s);
-                $q->execute();
-                if($q->rowCount()>0){
+                $q=ere_get_assoc::assoc_(DB::select($s));
+                if(count($q)>0){
                     $rst[$key]=array();
-                    $rr=$q->fetchAll(PDO::FETCH_ASSOC);
+                    $rr=$q;
                     foreach($rr as $rrr=>$rrx){
                         $rst[$key][$rrr]=$rrx;
                     }
@@ -137,7 +120,7 @@ class run{
     }
     public function get_own_row($fid,$start_from,$id){
         $con=$this->conn();
-        $sql=new Sql();
+        $sql=new getvalues_sql();
         $rst=$this->init_a($fid,$start_from,0,$id);
         $table=$rst['table_name'];
         $row_id=$rst['row_id'];
@@ -146,11 +129,10 @@ class run{
         $sql=$sql->sqlst($table,$row_id);
         if(!empty($sql)){
             foreach($sql as $key=>$s){
-                $q=$con->prepare($s);
-                $q->execute();
-                if($q->rowCount()>0){
+                $q=ere_get_assoc::assoc_(DB::select($s));
+                if(count($q)>0){
                     $rst[$key]=array();
-                    $rr=$q->fetchAll(PDO::FETCH_ASSOC);
+                    $rr=$q;
                     foreach($rr as $rrr=>$rrx){
                         $rst[$key][$rrr]=$rrx;
                     }
@@ -160,5 +142,3 @@ class run{
         return $rst;
     }
 }
-
-?>

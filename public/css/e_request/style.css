@@ -1,0 +1,166 @@
+	.container {
+	    background: #ffffff;
+	    height: auto;
+	    box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, .2);
+	}
+
+	.logo {
+	    width: 250px;
+	    height: 130px;
+	}
+
+	.font_khcom {
+	    font-family: "Khmer OS Muol Light";
+	    margin-top: 20px;
+	    color: #1fa8e0;
+	}
+
+	.font_khcom1 {
+	    font-family: "Khmer OS Muol Light";
+	    font-size: 13px;
+	}
+	.font{
+	    font-family: "Khmer OS Muol Light";
+
+	}
+	.font_engcom {
+	    margin-top: 20px;
+	    color: #1fa8e0;
+	    font-family: "Time New Roman";
+	    font-weight: bold;
+	}
+
+	.title_khleave {
+	    font-family: "Khmer OS Muol Light";
+	}
+
+	.english {
+	    font-family: "Bell MT";
+	    font-weight: bold;
+	}
+
+	.inputinfokh {
+	    margin-top: -8px;
+	    font-family: "Khmer OS Content";
+	    font-size: 14px;
+	}
+
+	.inputinfoen {
+	    margin-top: -20px;
+	}
+
+	.during {
+	    font-family: "Khmer OS Content";
+	}
+
+	.hand {
+	    height: 20px;
+	}
+
+	.footer {
+	    font-family: "Khmer OS Content";
+	    color: #1fa8e0;
+	}
+
+	input.largerCheckbox {
+	    width: 40px;
+	    height: 40px;
+	    /* transform: translateY(); */
+	}
+
+	.inputemploymentkh {
+	    margin-top: -8px;
+	    font-family: "Khmer OS Content";
+	    font-size: 14px;
+	}
+
+	.inputemploymentkh1 {
+	    /* margin-top: -8px; */
+	    font-family: "Khmer OS Content";
+	    font-size: 11px;
+	}
+
+	.inputemploymenten {
+	    font-family: "Khmer OS Content";
+	    font-size: 14px;
+	    margin-top: -20px;
+	}
+
+	.inputemploymenten1 {
+	    font-family: "Khmer OS Content";
+	    font-size: 12px;
+	    margin-top: -10px;
+	}
+
+	.table {
+	    border-color: #00a8ff;
+	    margin: 0;
+	    padding: 0;
+	}
+
+	.headertitle {
+	    font-family: "Khmer OS Content"!important;
+	}
+
+	.style_td {
+	    text-align: left;
+	    border-top-color: black!important;
+	}
+
+	.td_style {
+	    background-color: red;
+	}
+
+	.word {
+	    font-family: "Khmer OS Content";
+	    font-size: 12px;
+	    /* margin-top: 1px!important; */
+	}
+
+	.font_khcom2 {
+	    font-family: "Khmer OS Muol Light";
+	    font-size: 11px;
+	}
+
+	.hide_cmt {
+	    display: none;
+	}
+
+
+	@media (min-width: 360px) and (max-width: 640px) {
+	    .AA {
+	        margin-left: 90px;
+	        margin-top: 20px;
+	    }
+	}
+	@media (min-width: 360px) and (max-width: 640px) {
+	    .BB {
+	        margin-left: 140px;
+	        margin-top: 20px;
+	    }
+	}
+	/*@media (min-width: 640px) and (max-width: 992px) {
+	    .BB {
+	        margin-left: 230px;
+	        margin-top: 20px;
+	        height: 100%;
+	        background-color:red;
+	    }
+	}*/
+
+	.word-tbody {
+	    font-family: "Khmer OS Content";
+	}
+
+	.word-thead {
+	    font-family: "Khmer OS Muol Light";
+	}
+	.modal-xl{
+		max-width: 85%;
+	}
+	.form-control{
+		font-family: khmer OS Content !important;
+	}
+
+
+

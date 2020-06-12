@@ -180,23 +180,18 @@ function ShowForm(id,name) {
         if(check_session()){
         return;
     }
-    $('[data-toggle="tooltip"]').tooltip('dispose');
-    // document.getElementById('dropdownsearchallform').style.display="none";
-    // document.getElementById("searchallform").value = name;
     id=id.split(",");
-    var fname = "views/layouts/" + id[1] + '?id=' + id[0];
+    var fname = "/" + id[1] + '?id=' + id[0];
     var x = new XMLHttpRequest();
-    spin('submenuchange');
     x.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("submenuchange").innerHTML = this.responseText;
+            $(".content-wrapper").html('');
+            $(".content-wrapper").html(this.responseText);
             datetime();
         }
     };
     x.open("GET", fname, true);
     x.send();
-    document.getElementById('dropdownsearchallform').style.display="none";
-    document.getElementById("searchallform").value = name;
 }
 
 // function ShowFormView(id, offset) {

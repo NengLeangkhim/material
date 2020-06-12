@@ -138,23 +138,20 @@ function get_approve_view(tar,tt){//top management
     });
 }
 function get_view(tar,tt){//normal view
-        if(check_session()){
+    if(check_session()){
         return;
     }
     $('[data-toggle="tooltip"]').tooltip('dispose');
-    document.getElementById('submenuchange').innerHTML="";
-    // document.getElementById('left_list').innerHTML="";
-    // document.getElementById('title').innerHTML="";
-    spin(tar);
+    $(tar).html(spinner());
     $.ajax({
-        type:'POST',
-        url: "controller/get_datatable_value.php",
+        type:'GET',
+        url: "ere_ownreq",
         data:{
             _type:tt,
             _tar:tar,
         },
         success: function(data){
-            document.getElementById(tar).innerHTML=data;
+            $(tar).html(data);
             $('#dttable').DataTable({
                 responsive: true
             });
@@ -220,7 +217,7 @@ function approve(tar,erid,comment,type,tt){
     comment=document.getElementById(comment).value;
     $.ajax({
         type:'POST',
-        url: "controller/approve.php",
+        url: "/ere_approve",
         data:{
             erid:erid,
             type:type,
@@ -411,24 +408,24 @@ function login(a,b){
     });
 }
 
-function check_session(){
-    $.ajax({
-        type:'GET',
-        url: "controller/check_session.php",
-        async:false,
-        data:{
-            _session:'check',
-        },
-        success: function(data){
-            if(parseInt(data)==0){
-                location.replace('../main-app/index.php');
-                return true;
-            }else{
-                return false;
-            }
-      }
-    });
-}
+// function check_session(){
+//     $.ajax({
+//         type:'GET',
+//         url: "controller/check_session.php",
+//         async:false,
+//         data:{
+//             _session:'check',
+//         },
+//         success: function(data){
+//             if(parseInt(data)==0){
+//                 location.replace('../main-app/index.php');
+//                 return true;
+//             }else{
+//                 return false;
+//             }
+//       }
+//     });
+// }
 function img_upload (form){
     var formElement = document.getElementById(form);
     var formData = new FormData(formElement);

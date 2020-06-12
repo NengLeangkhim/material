@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
     include_once ("getvalues-sql.php");
     $db = new Database();
     $con=$db->dbConnection();
-    $sql=new Sql();
+    $sql=new getvalues_sql();
     $s="";
     $id=0;
     if(isset($_GET['_sql'])){

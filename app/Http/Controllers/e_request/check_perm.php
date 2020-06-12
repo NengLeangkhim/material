@@ -5,31 +5,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-// include_once ("../connection/DB-connection.php");
-// include_once ("../../controller/getvalues-sql.php");
+
 class check_perm{
-    private function conn(){
-        $db = new Database();
-        $con=$db->dbConnection();
-        return $con;
-    }
     public function permi_check($id){
         $sql="select s.position_id,s.company_dept_id,p.group_id from staff s join \"position\" p on p.id=s.position_id where s.id =$id";
-        $con=$this->conn();
-        $q=$con->prepare($sql);
-        $q->execute();
-        $r=$q->fetch(PDO::FETCH_ASSOC);
-
+        $r=ere_get_assoc::assoc_(DB::select($sql))[0];
         $sql="select id,type,company_dept_id
         from company_dept_manager
         where position_id=".$r['position_id']." and group_id=".$r['group_id']." and company_dept_id=".$r['company_dept_id'];
-        $q=$con->prepare($sql);
-        $q->execute();
-        $r=$q->fetch(PDO::FETCH_ASSOC);
+        $r=ere_get_assoc::assoc_(DB::select($sql))[0];
         return $r;
     }
     public function permi_get($id){
-        $con=$this->conn();
         $r=false;
         $r=$this->permi_check($id);
         if($r){
@@ -63,15 +50,11 @@ class check_perm{
                 and er.company_dept_id=".$r['company_dept_id']."
                 ORDER BY er.ID DESC";
             }
-            $q=$con->prepare($sql);
-            $q->execute();
-            $r=$q->fetchAll(PDO::FETCH_ASSOC);
+            $r=ere_get_assoc::assoc_(DB::select($sql));
         }
         return $r;
     }
     public function get_view_val($s,$hr,$id){
-        $con=$this->conn();
-        // session_start();
         $wh="";
         $req="";
         if($hr){
@@ -116,13 +99,10 @@ class check_perm{
                 $sql="select * from ($sql) as foo where e_request_status is null";
             break;
         }
-        $q=$con->prepare($sql);
-        $q->execute();
-        $r=$q->fetchAll(PDO::FETCH_ASSOC);
+        $r=ere_get_assoc::assoc_(DB::select($sql));
         return $r;
     }
     public function get_report_val($s,$id,$f,$t){
-        $con=$this->conn();
         // session_start();
         $wh="";
         $req="";
@@ -158,10 +138,7 @@ class check_perm{
                 $sql="select * from ($sql) as foo where e_request_status is null";
             break;
         }
-        $q=$con->prepare($sql);
-        $q->execute();
-        $r=$q->fetchAll(PDO::FETCH_ASSOC);
+        $r=ere_get_assoc::assoc_(DB::select($sql));
         return $r;
     }
 }
-?>

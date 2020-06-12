@@ -27,8 +27,14 @@
 {{-- STOCK --}}
   <link rel="stylesheet" type="text/css" href="css/STOCK.css">
 {{-- STOCK --}}
-
+{{-- E-Requests --}}
+<link rel="stylesheet" type="text/css" href="css/e_request/style.css">
+<link rel="stylesheet" type="text/css" href="css/e_request/styles.css">
+{{-- E-Requests --}}
 <!-- Select2 -->
 <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
 <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+{{-- datetime picker --}}
+<link href="plugins/DateStyle/bootstrap-datetimepicker.css" rel="stylesheet">
+<link rel="stylesheet" href="plugins/bootstrap/css/bootstrap-glyphicons.css">
 </head>

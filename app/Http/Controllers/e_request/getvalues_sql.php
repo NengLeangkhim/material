@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-    class Sql {
+    class getvalues_sql{
         public function sqlst($s,$id){
             $sql=array();
             $sql['get_pos']="select p.name from position p join staff s on s.position_id=p.id where s.id=$id";
@@ -64,4 +64,3 @@ use Illuminate\Support\Facades\DB;
             }
         }
     }
-?>

@@ -24,7 +24,7 @@ function check_session(){
     }
     e.preventDefault();
     $("#nav_bar_sub_r").html(get_pushmenu());
-    $(".content-wrapper").html(spin());
+    $(".content-wrapper").html(spinner());
     var link = $(this).attr("​value");
     if (typeof link !== typeof undefined && link !== false) {
       $.ajax({
@@ -33,17 +33,18 @@ function check_session(){
         success:function(data){
             $(".content-wrapper").show();
             $(".content-wrapper").html(data);
+            $(".select2").select2();
         }
      });
     }else{
       var code = $(this).attr("​data-code");
       if (typeof code !== typeof undefined && code !== false) {
         $.ajax({
-          type: 'GET',
+          type: 'POST',
           url:'sub_r_nav',
           data:{
             _mo:code,
-            _token : '{!! csrf_token() !!}',
+            _token : $('meta[name="csrf-token"]').attr('content'),
           },
           success:function(data){
               // $(".content-wrapper").show();
@@ -51,6 +52,7 @@ function check_session(){
               set_selected_nav('nav_bar_sub_r');
               $(".content-wrapper").show();
               $(".content-wrapper").html('');
+              $(".select2").select2();
           }
        });
       }
@@ -70,4 +72,7 @@ function get_pushmenu(){
 //   var link = $(this).attr("​value");
 //   alert(link);
 // }
+function spinner(){
+  return'<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+}
 

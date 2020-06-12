@@ -797,6 +797,3 @@ function submit_form (route,form,goto){
       });
 
 }
-function spin(){
-    return'<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
-}

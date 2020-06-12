@@ -1,65 +1,4 @@
-<?php
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-include_once ("../../connection/DB-connection.php");
-include_once ("../../controller/util.php");
-include_once ("../../controller/get_row.php");
-include_once ("../../controller/permission_check.php");
-$db = new Database();
-$con=$db->dbConnection();
-$user_id=null;
-session_start();
-if(isset($_SESSION['userid'])){
-    $user_id=$_SESSION['userid'];
-}else{
-    return;
-}
-$_SESSION['form_id']=$_GET['id'];
-$trans_to='';
-$leave_kind='';
-
-include_once '../../controller/get_value_to_view.php';
-if(isset($v[0])){
-    $create_date=$v[0][0]['create_date'];
-    $req_by=$v[0][0]['request_by'];
-    $leave_kind=$v[0][0]['kind_of_leave_id'];
-    $date_from=explode(' ',$v[0][0]['date_from'])[0];
-    $time_from=explode(' ',$v[0][0]['date_from'])[1];
-    $date_to=explode(' ',$v[0][0]['date_to'])[0];
-    $time_to=explode(' ',$v[0][0]['date_to'])[1];
-    $date_resume=explode(' ',$v[0][0]['date_resume'])[0];
-    $leave_number=$v[0][0]['number_date_leave'];
-    $trans_to=$v[0][0]['transfer_job_to'];
-    $reason=$v[0][0]['reason'];
-    $user_id=$v[0][0]['request_by'];
-}
-// echo $time_from;
-$q=$con->prepare("select s.name,s.id_number,p.name as position,d.name as dept from position p join staff s on s.position_id=p.id join company_dept d on s.company_dept_id=d.id where s.id=$user_id");
-$q->execute();
-$r=$q->fetch(PDO::FETCH_ASSOC);
-$pos=$r['position'];
-$name=$r['name'];
-$id_number=$r['id_number'];
-$dept=$r['dept'];
-
-$q=$con->prepare("select id,name,name_kh from e_request_leaveapplicationform_leave_kind where status='t'");
-$q->execute();
-$r=$q->fetchAll(PDO::FETCH_ASSOC);
-$kindof=$r;
-
-$q=$con->prepare("select s.id, s.name from staff s
-join position p on p.id=s.position_id
-where p.group_id <>1 and s.id_number is not null and s.company_dept_id=(select company_dept_id from staff where id=$user_id)
-order by name ");
-$q->execute();
-$r=$q->fetchAll(PDO::FETCH_ASSOC);
-$transfer_to=$r;
-
-
-include 'header.php';
-?>
+@include('e_request.header');
 <div class="row">
     <div class="col-12" style="text-align: center;margin-top: 10px">
         <h5 class="title_khleave"><u>ពាក្យសុំអនុញ្ញាតច្បាប់ឈប់សម្រាក</u></h5>
@@ -116,7 +55,7 @@ include 'header.php';
                             $i=0;
                             foreach ($kindof as $rr){
                                 $i++;
-                                $ikh=conv_kh($i);
+                                $ikh=$i;//conv_kh($i);
                                 $sel="";
                                 if($rr['id']==$leave_kind){
                                     $sel='checked';
@@ -287,15 +226,15 @@ include 'header.php';
                     <div class="row">
                         <div class="col-4" >
                             <p class="inputinfokh">ឈ្មោះ/Name  : <?php echo(isset($approve_by))?'<b>'.$approve_by.'</b>':'...............';?></p>
-                            <p class="inputinfokh">​កាលបរិច្ឆេទ  : <?php echo (isset($approve_date))?conv_datetime($approve_date):'..................'; ?></p>
+                            <p class="inputinfokh">​កាលបរិច្ឆេទ  : <?php// echo (isset($approve_date))?conv_datetime($approve_date):'..................'; ?></p>
                         </div>
                         <div class="col-4" >
                             <p class="inputinfokh">ឈ្មោះ/Name  : <?php echo(isset($pending_by))?'<b>'.$pending_by.'</b>':'...............';?></p>
-                            <p class="inputinfokh">​កាលបរិច្ឆេទ  : <?php echo (isset($pending_date))?conv_datetime($pending_date):'..................'; ?></p>
+                            <p class="inputinfokh">​កាលបរិច្ឆេទ  : <?php// echo (isset($pending_date))?conv_datetime($pending_date):'..................'; ?></p>
                         </div>
                         <div class="col-4" >
                             <p class="inputinfokh">ឈ្មោះ/Name  : <?php echo(isset($req_by))?'<b>'.$name.'</b>':'...............';?></p>
-                            <p class="inputinfokh">​កាលបរិច្ឆេទ  : <?php echo (isset($create_date))?conv_datetime($create_date):'..................'; ?></p>
+                            <p class="inputinfokh">​កាលបរិច្ឆេទ  : <?php //echo (isset($create_date))?conv_datetime($create_date):'..................'; ?></p>
                         </div>
                     </div>
                 </div>
@@ -359,8 +298,6 @@ include 'header.php';
         </form>
     </div>
 </div>
-<?php
-    include  'footer.php';
-?>
+@include('e_request.footer')
 
 
