@@ -34,6 +34,9 @@ function check_session(){
             $(".content-wrapper").show();
             $(".content-wrapper").html(data);
             $(".select2").select2();
+            $('.display').DataTable({
+              responsive: true
+            });
         }
      });
     }else{

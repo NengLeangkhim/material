@@ -1,9 +1,9 @@
 <section class="content">
-<div class="container-fluid" >
-    <div class="row">
+{{-- <div class="container-fluid" >
+    <div class="row"> --}}
         @php
             echo $st;
         @endphp
-    </div>
-</div>
+    {{-- </div>
+</div> --}}
 </section>
