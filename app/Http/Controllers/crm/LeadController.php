@@ -87,6 +87,10 @@ class LeadController extends Controller
             return view('no_perm');
         }
     }
+
+    public function addlead(){
+        session_start();
+    }
     public function detaillead(){
         return view('crm.Lead.detaillead');
     }
