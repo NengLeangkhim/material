@@ -109,7 +109,9 @@ function get_list_view(target,tar){
     });
 }
 function spin(tar){
-    document.getElementById(tar).innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    if( document.getElementById(tar)){
+        document.getElementById(tar).innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    }
 }
 function get_approve_view(tar){//top management
         if(check_session()){

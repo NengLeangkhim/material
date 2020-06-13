@@ -1,4 +1,9 @@
 @include('e_request.header');
+@php
+    use App\Http\Controllers\util;
+    extract($val, EXTR_PREFIX_SAME, "wddx");
+@endphp
+<section class="content">
 <div class="row">
     <div class="col-12" style="text-align: center;margin-top: 10px">
         <h5 class="title_khleave"><u>ពាក្យសុំអនុញ្ញាតច្បាប់ឈប់សម្រាក</u></h5>
@@ -55,7 +60,7 @@
                             $i=0;
                             foreach ($kindof as $rr){
                                 $i++;
-                                $ikh=$i;//conv_kh($i);
+                                $ikh=util::conv_kh($i);
                                 $sel="";
                                 if($rr['id']==$leave_kind){
                                     $sel='checked';
@@ -226,15 +231,15 @@
                     <div class="row">
                         <div class="col-4" >
                             <p class="inputinfokh">ឈ្មោះ/Name  : <?php echo(isset($approve_by))?'<b>'.$approve_by.'</b>':'...............';?></p>
-                            <p class="inputinfokh">​កាលបរិច្ឆេទ  : <?php// echo (isset($approve_date))?conv_datetime($approve_date):'..................'; ?></p>
+                            <p class="inputinfokh">​កាលបរិច្ឆេទ  : <?php echo (isset($approve_date))?util::conv_datetime($approve_date):'..................'; ?></p>
                         </div>
                         <div class="col-4" >
                             <p class="inputinfokh">ឈ្មោះ/Name  : <?php echo(isset($pending_by))?'<b>'.$pending_by.'</b>':'...............';?></p>
-                            <p class="inputinfokh">​កាលបរិច្ឆេទ  : <?php// echo (isset($pending_date))?conv_datetime($pending_date):'..................'; ?></p>
+                            <p class="inputinfokh">​កាលបរិច្ឆេទ  : <?php echo (isset($pending_date))?util::conv_datetime($pending_date):'..................'; ?></p>
                         </div>
                         <div class="col-4" >
                             <p class="inputinfokh">ឈ្មោះ/Name  : <?php echo(isset($req_by))?'<b>'.$name.'</b>':'...............';?></p>
-                            <p class="inputinfokh">​កាលបរិច្ឆេទ  : <?php //echo (isset($create_date))?conv_datetime($create_date):'..................'; ?></p>
+                            <p class="inputinfokh">​កាលបរិច្ឆេទ  : <?php echo (isset($create_date))?util::conv_datetime($create_date):'..................'; ?></p>
                         </div>
                     </div>
                 </div>
@@ -299,5 +304,5 @@
     </div>
 </div>
 @include('e_request.footer')
-
+</section>
 

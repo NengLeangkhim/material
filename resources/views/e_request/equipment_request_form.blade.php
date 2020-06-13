@@ -1,25 +1,9 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-include_once ("../../connection/DB-connection.php");
-include_once ("../../controller/util.php");
-include_once ("../../controller/get_row.php");
-include_once ("../../controller/permission_check.php");
-$db = new Database();
-$con=$db->dbConnection();
-$user_id=null;
-$add='<th class="style_td"><button id="" onclick="addrow_requsest()">Add Row</button></th>';
-session_start();
-if(isset($_SESSION['userid'])){
-    $user_id=$_SESSION['userid'];
-}else{
-    return;
-}
-$_SESSION['form_id']=$_GET['id'];
-include '../../controller/get_value_to_view.php';
-include 'header.php';
+    use App\Http\Controllers\util;
+    extract($val, EXTR_PREFIX_SAME, "wddx");
 ?>
+<section class="content">
+@include('e_request.header')
 <form action="controller/insert_equipment_request_form.php" method="post">
     <div class="row">
         <div class="col-12" style="text-align: center;margin-top: 10px">
@@ -63,7 +47,7 @@ include 'header.php';
                     <td  class="style_td">
                         <p class="during">កាលបរិច្ឆេទ​/​Date :</p>                        
                          <div class="input-group">
-                              <input id="date_top" type="date" value="<?php echo (isset($v0))?explode(" ",$v0['creat_date'])[0]:date("Y-m-d")?>" disabled class ="form-control">
+                              <input id="date_top" type="date" value="<?php echo (isset($v0))?explode(" ",$v0['create_date'])[0]:date("Y-m-d")?>" disabled class ="form-control">
                               <div class="input-group-append">
                                 <span class="input-group-text fa fa-calendar" id="basic-addon2"></span>
                               </div>
@@ -303,6 +287,5 @@ include 'header.php';
     </div>
     <br>
 </form>
-<?php
-    include  'footer.php';
-?>
+@include('e_request.footer');
+</section>

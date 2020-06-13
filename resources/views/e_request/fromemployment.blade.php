@@ -1,72 +1,9 @@
 <?php
-echo "<script>alert();</script>";
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-include_once ("../../connection/DB-connection.php");
-include_once ("../../controller/get_row.php");
-include_once ("../../controller/permission_check.php");
-include_once ("../../controller/util.php");
-session_start();
-$db = new Database();
-$con=$db->dbConnection();
-
-if(isset($_SESSION['userid'])){
-    $user_id=$_SESSION['userid'];
-}else{
-    return;
-}
-$_SESSION['form_id']=$_GET['id'];
-
-include_once '../../controller/get_value_to_view.php';
-if(isset($v[0])){
-    $req_by=$v[0][0]['request_by'];
-    $q=$con->prepare("select name from staff where id=$req_by");
-    $q->execute();
-    $r=$q->fetch(PDO::FETCH_ASSOC);
-    $req_by=$r['name'];
-}
-if(isset($v[1])){
-    $v1=$v[1][0];
-}
-if(isset($v[2])){
-    $v2=$v[2][0];
-}
-if(isset($v[3])){
-    $v3=$v[3];
-}
-if(isset($v[4])){
-    $v4=$v[4][0];
-}
-if(isset($v[5])){
-    $v5=$v[5];
-}
-if(isset($v[6])){
-    if($v[6][0]['parent_gender']=='male'){
-        $father=$v[6][0];
-    }else{
-        $father=$v[6][1];
-    }
-    if($v[6][0]['parent_gender']=='female'){
-        $mother=$v[6][0];
-    }else{
-        $mother=$v[6][1];
-    }
-}
-$q=$con->prepare("select id,name from position where group_id<>1 and group_id<>6");
-$q->execute();
-$r=$q->fetchAll(PDO::FETCH_ASSOC);
-$pos=$r;
-
-$q=$con->prepare("select id,name from company_dept where company_id=8");
-$q->execute();
-$r=$q->fetchAll(PDO::FETCH_ASSOC);
-$dept=$r;
-
-include  'header.php';
+    use App\Http\Controllers\util;
+    extract($val, EXTR_PREFIX_SAME, "wddx");
 ?>
-
+<section class="content">
+    @include('e_request.header')
 <div class="row">
     <div class="col-12" style="text-align: center">
         <h5 class="title_khleave">ប្រវត្តិរូបសង្ខេបនិយោជិក</h5>
@@ -141,7 +78,7 @@ include  'header.php';
                 </div>
                 <div class="col-1">
                     <div class="row">
-                        <input type="number" min="0" step="0.01" name="height" value="0" class="form-control" value="<?php echo (isset($v0))?$v0['heigth']:'';?>" <?php echo $d1;?> >
+                        <input type="number" min="0" step="0.01" name="height" value="0" class="form-control" value="<?php echo (isset($v0))?$v0['height']:'';?>" <?php echo $d1;?> >
                     </div>
                 </div>
                 <div class="col-1">
@@ -1100,7 +1037,7 @@ include  'header.php';
             <div class="row">
                 <div class="col-6"></div>
                 <div class="col-6" align="center">
-                    <h6 class="inputinfokh">ធ្វើនៅ...................ថ្ងៃទី <?php echo (isset($create_date))?' '.conv_kh(date_format(date_create($create_date),"d")).' ':'.........';?> ខែ <?php echo (isset($create_date))?' '.conv_month(date_format(date_create($create_date),"m")).' ':'.........';?> ឆ្នាំ <?php echo (isset($create_date))?' '.conv_kh(date_format(date_create($create_date),"Y")).' ':'.........';?> </h6>
+                    <h6 class="inputinfokh">ធ្វើនៅ...................ថ្ងៃទី <?php echo (isset($create_date))?' '.util::conv_kh(date_format(date_create($create_date),"d")).' ':'.........';?> ខែ <?php echo (isset($create_date))?' '.util::conv_month(date_format(date_create($create_date),"m")).' ':'.........';?> ឆ្នាំ <?php echo (isset($create_date))?' '.util::conv_kh(date_format(date_create($create_date),"Y")).' ':'.........';?> </h6>
                     <h6 class="inputinfokh" style="margin-top:10px">Date : <?php echo (isset($create_date))?date_format(date_create($create_date),"d"):'        ';?> Month: <?php echo (isset($create_date))?date_format(date_create($create_date),"M"):'        ';?> Year: <?php echo (isset($create_date))?date_format(date_create($create_date),"Y"):'        ';?></h6>
                     <h6 class="inputinfokh" style="margin-top:10px">ហត្ថលេខា/Signature </h6>
                 </div>
@@ -1133,6 +1070,5 @@ include  'header.php';
         <br>
     </div>
 <form>
-<?php
-    include  'footer.php';
-?>
+    @include('e_request.footer');
+</section>

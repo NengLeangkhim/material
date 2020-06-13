@@ -1,37 +1,9 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-include_once ("../../connection/DB-connection.php");
-include_once ("../../controller/util.php");
-include_once ("../../controller/get_row.php");
-include_once ("../../controller/permission_check.php");
-$db = new Database();
-$con=$db->dbConnection();
-$user_id=null;
-session_start();
-if(isset($_SESSION['userid'])){
-    $user_id=$_SESSION['userid'];
-}else{
-    return;
-}
-$_SESSION['form_id']=$_GET['id'];
-
-include_once '../../controller/get_value_to_view.php';
-if(isset($v0)){//this from the above
-    $via=$v[0][0]['via'];
-    $object=$v[0][0]['object'];
-    $reason=$v[0][0]['reason'];
-    $create_date=$v[0][0]['create_date'];
-    $user_id=$v[0][0]['request_by'];
-}
-$q=$con->prepare("select s.name,p.name as position,d.name as dept,s.sex,s.id_number from staff s join position p on p.id=s.position_id join company_dept d on d.id=s.company_dept_id where s.id=$user_id");
-$q->execute();
-$r=$q->fetch(PDO::FETCH_ASSOC);
-$pos=$r;
-
-include  'header.php';
+    use App\Http\Controllers\util;
+    extract($val, EXTR_PREFIX_SAME, "wddx");
 ?>
+<section class="content">
+    @include('e_request.header')
 <div class="row" style="margin-top: 10px">
     <div class="col-12" style="text-align: center">
         <h5 class="title_khleave"><u>ទម្រង់ស្មើសុំលិខិតបញ្ជាក់ការងារ</u></h5>
@@ -53,7 +25,7 @@ include  'header.php';
                     <p class="during"> ភេទ </p>
                 </div>
                 <div class="col-1">
-                    <input type="text" name="sex" value="<?php echo conv_sex($pos['sex']);?>" class="form-control" disabled>
+                    <input type="text" name="sex" value="<?php echo util::conv_sex($pos['sex']);?>" class="form-control" disabled>
                 </div>
                 <div class="col-2">
                     <p class="during">មានមុខងារជា</p>
@@ -139,7 +111,7 @@ include  'header.php';
                 <div class="col-4"></div>
                 <div class="col-8" align="center">
                     <h6 class="inputinfokh">ថ្ងៃ.......ខែ.......ឆ្នាំ........ឯកស័ក ព.ស២៥៦....</h6>
-                    <h6 class="inputinfokh" style="margin-top:10px">រាជធានីភ្នំពេញ,ថ្ងៃទី <?php echo (isset($create_date))?conv_kh(date_format(date_create($create_date),"d")):'.......'; ?> ខែ <?php echo (isset($create_date))?' '.conv_month(date_format(date_create($create_date),"m")).' ':'.......'; ?> ឆ្នាំ <?php echo (isset($create_date))?' '.conv_kh(date_format(date_create($create_date),"Y")).' ':'.......'; ?> </h6>
+                    <h6 class="inputinfokh" style="margin-top:10px">រាជធានីភ្នំពេញ,ថ្ងៃទី <?php echo (isset($create_date))?util::conv_kh(date_format(date_create($create_date),"d")):'.......'; ?> ខែ <?php echo (isset($create_date))?' '.util::conv_month(date_format(date_create($create_date),"m")).' ':'.......'; ?> ឆ្នាំ <?php echo (isset($create_date))?' '.util::conv_kh(date_format(date_create($create_date),"Y")).' ':'.......'; ?> </h6>
                     <h6 class="inputinfokh" style="margin-top:10px">ហត្ថលេខា </h6>
                     <h6 class="inputinfokh" style="margin-top:10px"><?php echo(isset($create_date))?'<b>'.$pos['name'].'</b>':'';?></h6>
                 </div>
@@ -167,6 +139,5 @@ include  'header.php';
     </div>
 <br>
 </form>
-<?php
-    include  'footer.php';
-?>
+@include('e_request.footer')
+</section>

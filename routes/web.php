@@ -52,8 +52,17 @@ Route::post('/sub_r_nav','perms@get_module_nav');//,get right side nav bar
 //=======================E-request==========================
 Route::get('/ere_test','e_request\ere_approve@test');
 Route::post('/ere_approve','e_request\ere_approve@approve');
+
+//get form view
 Route::get('/ere_get_view_val','e_request\get_value_to_view@get_val_view');
 Route::get('/ere_get_view_formleave','e_request\view_formleave@formleave');
+Route::get('/ere_get_view_equipment_request_form','e_request\view_equipment_request_form@equipment_request_form');
+Route::get('/ere_get_view_requestform','e_request\view_requestform@requestform');
+Route::get('/ere_get_view_fromemployment','e_request\view_fromemployment@fromemployment');
+Route::get('/ere_get_view_formconfirmwork','e_request\view_formconfirmwork@formconfirmwork');
+Route::get('/ere_get_view_workoertime','e_request\view_workovertimeform@workovertimeform');
+//end get form view
+
 Route::get('/ere_allform','e_request\view_allform@allform');
 Route::get('/ere_ownreq','e_request\ere_get_datatable_value@get_own_req');
 Route::get('/ere_apr_view','e_request\ere_get_datatable_value@get_approve_view');

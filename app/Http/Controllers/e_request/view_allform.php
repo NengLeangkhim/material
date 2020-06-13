@@ -10,7 +10,7 @@ class view_allform extends Controller
 {
     function allform(){
         session_start();
-        $sql="select id,name_kh,link from e_request_form where status='t'";
+        $sql="select id,name_kh,link from e_request_form where status='t' order by name_kh";
         $q=DB::select($sql);
         if(count($q)>0){
             $r=ere_get_assoc::assoc_($q);

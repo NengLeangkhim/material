@@ -27,7 +27,7 @@ class get_value_to_view extends Controller{
             $btn_sub='';
             $d1=$d;
             $add='';
-            $run=new getvalues_sql();
+            $run=new get_row();
             $v=$run->get_related_row($_GET['id'],$_GET['offset']);
             // print_r($v);
             if($v['total_row']>0){
@@ -75,7 +75,7 @@ class get_value_to_view extends Controller{
             $btn_sub='';
             $d1=$d;
             $add='';
-            $run=new getvalues_sql();
+            $run=new get_row();
             $v=$run->get_related_row($_GET['id'],$_GET['erid']);
             // print_r($v);
             if($v['total_row']>0){
@@ -107,10 +107,17 @@ class get_value_to_view extends Controller{
                 $user_id=0;
             }
         }
-        if(isset($v)){
-            return compact("dd","dd1","d","d1","btn_sub","comment","comment_ap","comment_pd","comment_re","approve","reject","pending","user_id","v","v0","v1","approve_by","approve_date","pending_by","pending_date","reject_by","reject_date");
-        }else{
-            return compact("dd","dd1","d","d1","btn_sub","comment","comment_ap","comment_pd","comment_re","approve","reject","pending");
-        }
+        $val=get_defined_vars();
+        // dump($val);
+        return compact("val");
+        // if(isset($v)){
+        //     if(isset($v1)){
+        //         return compact("dd","dd1","d","d1","btn_sub","comment","comment_ap","comment_pd","comment_re","approve","reject","pending","user_id","v","v0","v1","approve_by","approve_date","pending_by","pending_date","reject_by","reject_date");
+        //     }
+        //     return compact("dd","dd1","d","d1","btn_sub","comment","comment_ap","comment_pd","comment_re","approve","reject","pending","user_id","v","v0","approve_by","approve_date","pending_by","pending_date","reject_by","reject_date");
+        // }
+        // else{
+        //     return compact("dd","dd1","d","d1","btn_sub","comment","comment_ap","comment_pd","comment_re","approve","reject","pending");
+        // }
     }
 }

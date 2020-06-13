@@ -209,12 +209,12 @@ function ShowForm(id,name) {
 //     x.send();
 // }
 function ShowFormView(id,erid,tar) {
-        if(check_session()){
+    if(check_session()){
         return;
     }
     $('[data-toggle="tooltip"]').tooltip('dispose');
     id=id.split(",");
-    var fname = "views/layouts/" + id[1] + '?id=' + id[0] + '&offset=' + erid;
+    var fname = "/"+id[1] + '?id=' + id[0] + '&offset=' + erid;
     var x = new XMLHttpRequest();
     setTimeout(function(){$('#more_detail').modal('show')},200);
     spin(tar);

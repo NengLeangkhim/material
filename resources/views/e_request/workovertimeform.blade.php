@@ -1,121 +1,8 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-include_once ("../../connection/DB-connection.php");
-include_once ("../../controller/util.php");
-include_once ("../../controller/get_row.php");
-include_once ("../../controller/permission_check.php");
-$db = new Database();
-$con=$db->dbConnection();
-$user_id=1;
-session_start();
-if(isset($_SESSION['userid'])){
-    $user_id=$_SESSION['userid'];
-}else{
-    return;
-}
-$_SESSION['form_id']=$_GET['id'];
-$type='request';
-include_once '../../controller/get_value_to_view.php';
-if(isset($v[1])){
-    $e_r_id=$v['id'];
-    if($v[1][0]['type']=='request'){
-    $type='actual';
-    $req_date=explode(' ',$v[1][0]['date'])[0];
-    $req_start=explode(' ',$v[1][0]['start_time'])[1];
-    $req_end=explode(' ',$v[1][0]['end_time'])[1];
-    $req_t=date_diff(date_create($v[1][0]['start_time']), date_create($v[1][0]['end_time']))->format('%H:%I:%S');
-    $req_rest_s=explode(' ',$v[1][0]['rest_time_start'])[1];
-    $req_rest_e=explode(' ',$v[1][0]['rest_time_end'])[1];
-    $req_t_r=date_diff(date_create($v[1][0]['rest_time_start']), date_create($v[1][0]['rest_time_end']))->format('%H:%I:%S');
-    $req_act_work=$v[1][0]['actual_work_time'];
-    $req_reason=$v[1][0]['reason'];
-    $req_create_date=$v[0][0]['create_date'];
-    $req_apr_by=$v['approve_by'];
-    $req_apr_date=$v['approve_date'];
-    $user_id=$v[0][0]['request_by'];
-    if(empty($req_apr_by)){
-        $btn_sub="";
-        $d1='disabled';
-    }else{
-        if($_SESSION['userid']!=$v[0][0]['request_by']){
-            $btn_sub="";
-            $dd1='disabled';
-        }else{
-            $btn_sub='<input type="submit" class="btn btn-primary">';
-            $dd1='';
-        }
-    }
-    if(!empty($v[0][0]['related_to_e_request_id'])){
-        $e_r_id=$v[0][0]['related_to_e_request_id'];
-        $btn_sub="";
-        $dd1='disabled';
-        $vv=$run->get_related_row($_GET['id'],$v[0][0]['related_to_e_request_id']);
-        if(isset($v[1])){
-            $act_date=explode(' ',$vv[1][0]['date'])[0];
-            $act_start=explode(' ',$vv[1][0]['start_time'])[1];
-            $act_end=explode(' ',$vv[1][0]['end_time'])[1];
-            $act_t=date_diff(date_create($vv[1][0]['start_time']), date_create($v[1][0]['end_time']))->format('%H:%I:%S');
-            $act_rest_s=explode(' ',$vv[1][0]['rest_time_start'])[1];
-            $act_rest_e=explode(' ',$vv[1][0]['rest_time_end'])[1];
-            $act_t_r=date_diff(date_create($vv[1][0]['rest_time_start']), date_create($v[1][0]['rest_time_end']))->format('%H:%I:%S');
-            $act_work=$vv[1][0]['actual_work_time'];
-            $act_reason=$vv[1][0]['reason'];
-        }
-        $act_create_date=$vv[0][0]['create_date'];
-        $act_apr_by=$vv['approve_by'];
-        $act_apr_date=$vv['approve_date'];
-    }
-}else{
-    $btn_sub="";
-    $d1="disabled";
-    $vv=$run->get_related_row($_GET['id'],$v[0][0]['related_to_e_request_id']);
-    $e_r_id=$v['id'];
-    if(isset($vv[1])){
-        $req_date=explode(' ',$vv[1][0]['date'])[0];
-        $req_start=explode(' ',$vv[1][0]['start_time'])[1];
-        $req_end=explode(' ',$vv[1][0]['end_time'])[1];
-        $req_t=date_diff(date_create($vv[1][0]['start_time']), date_create($vv[1][0]['end_time']))->format('%H:%I:%S');
-        $req_rest_s=explode(' ',$vv[1][0]['rest_time_start'])[1];
-        $req_rest_e=explode(' ',$vv[1][0]['rest_time_end'])[1];
-        $req_t_r=date_diff(date_create($v[1][0]['rest_time_start']), date_create($vv[1][0]['rest_time_end']))->format('%H:%I:%S');
-        $req_act_work=$vv[1][0]['actual_work_time'];
-        $req_reason=$vv[1][0]['reason'];
-        $req_create_date=$vv[0][0]['create_date'];
-        $req_apr_by=$vv['approve_by'];
-        $req_apr_date=$vv['approve_date'];
-        $user_id=$vv[0][0]['request_by'];
-    }
-    if(isset($v[1])){
-        $act_date=explode(' ',$v[1][0]['date'])[0];
-        $act_start=explode(' ',$v[1][0]['start_time'])[1];
-        $act_end=explode(' ',$v[1][0]['end_time'])[1];
-        $act_t=date_diff(date_create($v[1][0]['start_time']), date_create($v[1][0]['end_time']))->format('%H:%I:%S');
-        $act_rest_s=explode(' ',$v[1][0]['rest_time_start'])[1];
-        $act_rest_e=explode(' ',$v[1][0]['rest_time_end'])[1];
-        $act_t_r=date_diff(date_create($v[1][0]['rest_time_start']), date_create($v[1][0]['rest_time_end']))->format('%H:%I:%S');
-        $act_work=$v[1][0]['actual_work_time'];
-        $act_reason=$v[1][0]['reason'];
-    }
-    $act_create_date=$v[0][0]['create_date'];
-    $act_apr_by=$v['approve_by'];
-    $act_apr_date=$v['approve_date'];
-}
-$q=$con->prepare("select s.name from staff s where s.id=".$v[0][0]['request_by']);
-$q->execute();
-$r=$q->fetch(PDO::FETCH_ASSOC);
-$req_by=$r['name'];
-}
-
-$q=$con->prepare("select s.name,p.name as position,d.name as dept from staff s join position p on p.id=s.position_id join company_dept d on d.id=s.company_dept_id where s.id=$user_id");
-$q->execute();
-$r=$q->fetch(PDO::FETCH_ASSOC);
-$pos=empty($r['position'])?'':$r['position'];
-$name=empty($r['name'])?'':$r['name'];
-$dept=empty($r['dept'])?'':$r['dept'];
-
+    use App\Http\Controllers\util;
+    extract($val, EXTR_PREFIX_SAME, "wddx");
 ?>
+<section class="content">
 <br>
 <form action="controller/insert_workovertimeform.php" method="post">
 <input type="hidden" name="erid" value="<?php echo (isset($_GET['erid']))?$_GET['erid']:'';?>">
@@ -405,10 +292,10 @@ $dept=empty($r['dept'])?'':$r['dept'];
                 <td style=" width: 250px ;text-align: center;background:#dfe6e9"> <p class="during"><b>ហត្ថលេខានាយកដ្ឋាន</b></p></td>
             </tr>
             <tr height="80px">
-                <td class=" style_td"><?php echo (isset($req_create_date))? '<b>'.$req_by.'</b><br> '.conv_datetime($req_create_date):'';?></td>
-                <td class=" style_td"><?php echo (!empty($req_apr_by))?'<b>'.$req_apr_by.'</b><br> '.conv_datetime($req_apr_date):'';?></td>
-                <td class=" style_td"><?php echo (!empty($act_create_date))? '<b>'.$req_by.'</b><br> '.conv_datetime($act_create_date):'';?></td>
-                <td class=" style_td"><?php echo (!empty($act_apr_by))?'<b>'.$act_apr_by.'</b><br> '.conv_datetime($act_apr_date):'';?></td>
+                <td class=" style_td"><?php echo (isset($req_create_date))? '<b>'.$req_by.'</b><br> '.util::conv_datetime($req_create_date):'';?></td>
+                <td class=" style_td"><?php echo (!empty($req_apr_by))?'<b>'.$req_apr_by.'</b><br> '.util::conv_datetime($req_apr_date):'';?></td>
+                <td class=" style_td"><?php echo (!empty($act_create_date))? '<b>'.$req_by.'</b><br> '.util::conv_datetime($act_create_date):'';?></td>
+                <td class=" style_td"><?php echo (!empty($act_apr_by))?'<b>'.$act_apr_by.'</b><br> '.util::conv_datetime($act_apr_date):'';?></td>
             </tr>
         </table>
     </div>
@@ -424,6 +311,5 @@ $dept=empty($r['dept'])?'':$r['dept'];
 <br>
 
 </form>
-<?php
-    include  'footer.php';
-?>
+@include('e_request.footer');
+</section>

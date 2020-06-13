@@ -33,7 +33,7 @@ function check_session(){
         success:function(data){
             $(".content-wrapper").show();
             $(".content-wrapper").html(data);
-            $(".select2").select2();
+            // $(".select2").select2();
             $('.display').DataTable({
               responsive: true
             });
@@ -55,7 +55,7 @@ function check_session(){
               set_selected_nav('nav_bar_sub_r');
               $(".content-wrapper").show();
               $(".content-wrapper").html('');
-              $(".select2").select2();
+              // $(".select2").select2();
           }
        });
       }

@@ -1,55 +1,8 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-include_once ("../../connection/DB-connection.php");
-include_once ("../../controller/get_row.php");
-include_once ("../../controller/util.php");
-include_once ("../../controller/permission_check.php");
-$db = new Database();
-$con=$db->dbConnection();
-$user_id=1;
-session_start();
-
-$add='<th><button id="rowFornRequestAdd" onclick="addrow()">Add Row</button></th>';
-if(isset($_SESSION['userid'])){
-    $user_id=$_SESSION['userid'];
-}else{
-    return;
-}
-$_SESSION['form_id']=$_GET['id'];
-
-include_once '../../controller/get_value_to_view.php';
-if(isset($v0)){
-    $q=$con->prepare("select s.name,p.name as position,d.name as dept from staff s join position p on p.id=s.position_id join company_dept d on d.id=s.company_dept_id where s.id=".$v0['to']);
-    $q->execute();
-    $r=$q->fetch(PDO::FETCH_ASSOC);
-    $topos=$r['position'];
-    $toname=$r['name'];
-    $todept=$r['dept'];
-}
-$q=$con->prepare("select id,name from e_request_requestform_subject where status='t'");
-$q->execute();
-$r=$q->fetchAll(PDO::FETCH_ASSOC);
-$sub=$r;
-$q=$con->prepare("select s.name,p.name as position,d.name as dept from staff s join position p on p.id=s.position_id join company_dept d on d.id=s.company_dept_id where s.id=$user_id");
-$q->execute();
-$r=$q->fetch(PDO::FETCH_ASSOC);
-if($r){
-    $pos=$r['position'];
-    $name=$r['name'];
-    $dept=$r['dept'];
-}
-
-$q=$con->prepare("select s.id, s.name from staff s
-join position p on p.id=s.position_id
-where p.group_id <>1 and s.id_number is not null and s.company_dept_id=(select company_dept_id from staff where id=$user_id)
-order by name ");
-$q->execute();
-$r=$q->fetchAll(PDO::FETCH_ASSOC);
-$staff=$r;
-
+    use App\Http\Controllers\util;
+    extract($val, EXTR_PREFIX_SAME, "wddx");
 ?>
+<section class="content">
 <form action="controller/insert_requestform.php" method="post" id='requestform' onsubmit="return valid_row('dynamic_fields')">
 <input type="hidden" name="erid" value="<?php echo (isset($_GET['erid']))?$_GET['erid']:'';?>">
 <div class="container-fluid border">
@@ -210,11 +163,11 @@ $staff=$r;
                     <div class="row">
                         <div class="col-6 text-center">
                             <p class="inputinfokh">ឈ្មោះ/Name  : <?php echo (isset($approve_by))?"<b>".$approve_by."</b>":'...............';?></p>
-                            <p class="inputinfokh">&#8203;កាលបរិច្ឆេទ  : <?php echo (isset($approve_date))?conv_datetime($approve_date):'...............';?></p>
+                            <p class="inputinfokh">&#8203;កាលបរិច្ឆេទ  : <?php echo (isset($approve_date))?util::conv_datetime($approve_date):'...............';?></p>
                         </div>
                         <div class="col-6 text-center">
                             <p class="inputinfokh">ឈ្មោះ/Name  : <?php echo (isset($req_by))?"<b>".$name."</b>":'...............';?></p>
-                            <p class="inputinfokh">&#8203;កាលបរិច្ឆេទ  : <?php echo (isset($create_date))?conv_datetime($create_date):'...............';?></p>
+                            <p class="inputinfokh">&#8203;កាលបរិច្ឆេទ  : <?php echo (isset($create_date))?util::conv_datetime($create_date):'...............';?></p>
                         </div>
                     </div>
                 </div>
@@ -254,6 +207,5 @@ $staff=$r;
     </div>
   </div>
 </div>
-<?php
-    include  'footer.php';
-?>
+@include('e_request.footer');
+</section>

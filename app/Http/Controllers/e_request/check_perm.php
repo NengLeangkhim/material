@@ -29,7 +29,7 @@ class check_perm{
                 $sql="SELECT er.ID,'top' as type
                 ,s.NAME,er.create_date,erfd.e_request_form_id,erd.e_request_status,
                 (select name from staff where id=erd.action_by) as action_by,
-                erfd.form_table_row_id,erf.name_kh AS form_name,erf.file_name
+                erfd.form_table_row_id,erf.name_kh AS form_name,erf.link as file_name
                 FROM e_request er
                 LEFT JOIN e_request_detail erd ON er.id = e_request_id
                 JOIN staff s ON er.create_by = s.ID
@@ -43,7 +43,7 @@ class check_perm{
                 ORDER BY er.ID DESC";
             }else if($r['type']=='mid'){
                 $sql="SELECT er.ID,'mid' as type,s.NAME,er.create_date,erfd.e_request_form_id,
-                erfd.form_table_row_id,erf.name_kh AS form_name,erf.file_name
+                erfd.form_table_row_id,erf.name_kh AS form_name,erf.link as file_name
                 FROM e_request er
                 LEFT JOIN e_request_detail erd ON er.\"id\" = e_request_id
                 JOIN staff s ON er.create_by = s.ID
@@ -80,7 +80,7 @@ class check_perm{
         }else{
             $wh=" and er.create_by=".$_SESSION['userid'];
         }
-        $sql="SELECT er.id,$req erf.name_kh as form_name,er.create_date,erf.file_name,erfd.e_request_form_id,
+        $sql="SELECT er.id,$req erf.name_kh as form_name,er.create_date,erf.link as file_name,erfd.e_request_form_id,
         (select e_request_status from e_request_detail where e_request_id=er.id ORDER BY id desc limit 1 offset 0),
         (select \"comment\" from e_request_detail where e_request_id=er.id ORDER BY id desc limit 1 offset 0),
         (select s.name from e_request_detail e join staff s on s.id=e.action_by where e.e_request_id=er.id ORDER BY e.id desc limit 1 offset 0) as action_by
@@ -116,7 +116,7 @@ class check_perm{
             $wh=" and er.company_dept_id=$id";
         }
         $sql="SELECT er.id,(select name from staff where id=er.create_by) as request_by,
-                    erf.name_kh as form_name,er.create_date,erf.file_name,erfd.e_request_form_id,
+                    erf.name_kh as form_name,er.create_date,erf.link as file_name,erfd.e_request_form_id,
             (select e_request_status from e_request_detail where e_request_id=er.id ORDER BY id desc limit 1 offset 0),
             (select comment from e_request_detail where e_request_id=er.id ORDER BY id desc limit 1 offset 0),
             (select s.name from e_request_detail e join staff s on s.id=e.action_by where e.e_request_id=er.id ORDER BY e.id desc limit 1 offset 0) as action_by
