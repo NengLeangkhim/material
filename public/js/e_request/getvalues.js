@@ -24,7 +24,7 @@ function getval_sel(st,target){
     }
     $.ajax({
         type:'GET',
-        url: "controller/get_values.php",
+        url: "/ere_get_values",
         data:{
             _sql:st,
         },
@@ -470,9 +470,9 @@ function valid_img(img){
     }
     return true;
 }
-function OnSubmitCofirm(st){
-    return confirm(st);
-  }
+// function OnSubmitCofirm(st){
+//     return confirm(st);
+//   }
   //use on profile
   function up_img(img,form){
     if(OnSubmitCofirm('បញ្ចាក់អ្នកនឺងប្តូររូបភាពរបស់អ្នក!')){

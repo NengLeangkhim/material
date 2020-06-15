@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\util;
 
-class insert_requestform extends Controllerស{
+class insert_requestform extends Controller{
     function in_requestform(){
         session_start();
         if(isset($_SESSION['userid'])){

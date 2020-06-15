@@ -72,7 +72,7 @@ class insert_workovertimeform extends Controller {
             $id=1;
             $q=DB::select($sql);
 
-            if($q->rowCount()>0){
+            if(count($q)>0){
                 $r=ere_get_assoc::assoc_($q)[0];
                 $id=$r['id'];
                 $sql="SELECT public.insert_e_request_overtime_detail(

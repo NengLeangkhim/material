@@ -62,7 +62,7 @@ class insert_formuseElectronic extends Controller{
                         VALUES ('".$_POST['useof_other']."', $rr) returning id;";
                     $q=DB::select($sql);
 
-                    $r=$q->fetch(PDO::FETCH_ASSOC);
+                    $r=ere_get_assoc::assoc_($q)[0];
                     $rr=$r['id'];
                 }
                 $sql="SELECT public.insert_e_request_use_electronic_detail(

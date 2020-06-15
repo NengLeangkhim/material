@@ -52,6 +52,7 @@ Route::post('/sub_r_nav','perms@get_module_nav');//,get right side nav bar
 //=======================E-request==========================
 Route::get('/ere_test','e_request\ere_approve@test');
 Route::post('/ere_approve','e_request\ere_approve@approve');
+Route::get('/ere_get_values','e_request\ere_get_values@get_values');
 
 //get form view
 Route::get('/ere_get_view_val','e_request\get_value_to_view@get_val_view');

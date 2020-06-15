@@ -4,6 +4,7 @@
 ?>
 <section class="content">
 <form id='frm_ere_insert_requestform'>
+    @csrf
 <input type="hidden" name="erid" value="<?php echo (isset($_GET['erid']))?$_GET['erid']:'';?>">
 <div class="container-fluid border">
     <div class="row">
