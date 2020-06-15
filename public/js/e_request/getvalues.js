@@ -328,10 +328,11 @@ function change_password(old,n,f){//,n,confirm,message
     // },100);
     $.ajax({
         type:'POST',
-        url: "controller/change_password.php",
+        url: "change_pass",
         async: false,
         data:{
             _oldpass:old.value,
+            _token : $('meta[name="csrf-token"]').attr('content'),
         },
         success: function(data){
             setTimeout(function(){$('#prload').hide();},100);
@@ -346,10 +347,11 @@ function change_password(old,n,f){//,n,confirm,message
                 if(n.value==f.value){
                     $.ajax({
                         type:'POST',
-                        url: "controller/change_password.php",
+                        url: "change_pass",
                         async: false,
                         data:{
                             _newpass:n.value,
+                            _token : $('meta[name="csrf-token"]').attr('content'),
                         },
                         success: function(data){
                             setTimeout(function(){
@@ -360,7 +362,7 @@ function change_password(old,n,f){//,n,confirm,message
                                 $('#prmsg').hide();
                                 $('body').removeClass('modal-open');
                                 $('.modal-backdrop').remove();
-                                get_profile_menu('big-guy');
+                                go_to('profile');
                             },3000);
                             $t=true;
                         }
@@ -376,6 +378,12 @@ function change_password(old,n,f){//,n,confirm,message
                 document.getElementById('cpasswordHelpBlock').innerHTML='';
                 t= false;
             }
+        },
+        error:function(){
+            setTimeout(function(){$('#prload').hide();},100);
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            alert('មានបញ្ហាកើតឡើងនៅពេលប្តូរលេខសំងាត់');
         }
     });
     return t;
@@ -427,7 +435,7 @@ function img_upload (form){
     var formElement = document.getElementById(form);
     var formData = new FormData(formElement);
     var request = new XMLHttpRequest();
-    request.open("POST", "controller/upload_img.php");
+    request.open("POST", "upload_img_profile");
     // formData.append("serialnumber", 111);
     request.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -436,8 +444,10 @@ function img_upload (form){
                 alert('មានបញ្ហាកើតឡើងនៅពេលប្តូររូបភាព');
             }else{
                 alert('រូបភាពបានប្តូររួចរាល់');
-                get_profile_menu('big-guy');
+                go_to('profile');
             }
+        }else  if (this.readyState == 4 &&this.status == 500){
+            alert('មានបញ្ហាកើតឡើងនៅពេលប្តូររូបភាព');
         }
     };
     request.send(formData);
@@ -483,19 +493,19 @@ function valid_img(img){
     }
     return false;
 }
-function img_exist(){
-    $( "img" ).each(function( index,item ) {
-        console.log(item);
-        $.ajax({
-            type:'GET',
-            url: $(item).attr('src'),
-            error: function(data){
-                $(item).attr('src','/media/file/e_request/img/not-found-image-15383864787lu.jpg') ;
-            },
-        });
-      });
+// function img_exist(){
+//     $( "img" ).each(function( index,item ) {
+//         console.log(item);
+//         $.ajax({
+//             type:'GET',
+//             url: $(item).attr('src'),
+//             error: function(data){
+//                 $(item).attr('src','/media/file/e_request/img/not-found-image-15383864787lu.jpg') ;
+//             },
+//         });
+//       });
 
-}
+// }
 function calulate_date_next(s){
     s=$("#"+s).val();
 

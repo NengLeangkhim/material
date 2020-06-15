@@ -47,6 +47,9 @@ Route::get('/refreshSel','refreshSelect@refresh_sel');
 
 Route::post('/sub_r_nav','perms@get_module_nav');//,get right side nav bar
 
+Route::get('/profile','profile@get_profile');//profile
+Route::post('/change_pass','change_password@change_pass');//profile change_password
+Route::post('/upload_img_profile','upload_img_profile@upload_img_pro');//profile upload_img_profile
 //======================Main=================================
 
 //=======================E-request==========================

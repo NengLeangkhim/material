@@ -9,7 +9,9 @@ class path_config extends Controller
 {
     //
     public static function stock_img_path(){
-
         return '/media/file/stock/img/';
+    }
+    public static function profile_img_path(){
+        return '/media/file/main_app/profile/img/';
     }
 }

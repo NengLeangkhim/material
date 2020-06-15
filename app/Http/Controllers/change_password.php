@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\e_request\ere_get_assoc;
 
 class change_password extends Controller{
     public function change_pass(){
@@ -17,18 +18,20 @@ class change_password extends Controller{
     $pass='';
     if(isset($_POST['_oldpass'])){
         $pass=$_POST['_oldpass'];
-        $q=$con->prepare("select username from staff_detail where status='t' and staff_id=$user_id and password='".en($pass)."'");
-        $q->execute();
-        echo json_encode($q->fetch(PDO::FETCH_ASSOC));
+        $q=DB::select("select username from staff_detail where status='t' and staff_id=$user_id and password='".en_de::en($pass)."'");
+        if(isset(ere_get_assoc::assoc_($q)[0])){
+            echo json_encode(ere_get_assoc::assoc_($q)[0]);
+        }
     }
     if(isset($_POST['_newpass'])){
         $pass=$_POST['_newpass'];
-        $q=$con->prepare("SELECT public.exec_change_password(
+        $q=DB::select("SELECT public.exec_change_password(
             $user_id,
-            '".en($pass)."'
+            '".en_de::en($pass)."'
         )");
-        $q->execute();
-        echo json_encode($q->fetch(PDO::FETCH_ASSOC));
+        if(isset(ere_get_assoc::assoc_($q)[0])){
+            echo json_encode(ere_get_assoc::assoc_($q)[0]);
+        }
     }
         }
 }

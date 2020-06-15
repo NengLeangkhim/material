@@ -9,7 +9,7 @@ class Login extends Controller
 {
     public function login(){
         $id_=str_replace("'","''",$_POST['username']);
-        $pa_=$this->en($_POST['password']);
+        $pa_=en_de::en($_POST['password']);
         $q=DB::select("SELECT public.exec_check_password_main_app('$id_','$pa_') as id");
         // dump($q);
         $user=$q[0]->id;
@@ -44,12 +44,5 @@ class Login extends Controller
             return view('login',['message'=>'Permission Denied!','old'=>$id_]);
         }
     }
-    private function en($st){
-        $r="";
-        for($i=0;$i<strlen($st);$i++){
-            $r.=ord(substr($st,$i,1));
-        }
-        $rr=md5($r);
-        return $rr;
-    }
+
 }

@@ -786,7 +786,6 @@ function submit_form (route,form,goto){
  }
  function img_exist(){
     $( "img" ).each(function( index,item ) {
-        console.log(item);
         $.ajax({
             type:'GET',
             url: $(item).attr('src'),

@@ -142,8 +142,9 @@ class perms extends Controller
     private static function output_module($mo){
         $st='';
         foreach ($mo as $item){
+            $item->parent->link=(!empty($item->parent->link))?'onclick=go_to("'.$item->parent->link.'")':'';
               $st.= "<li class='nav-item has-treevie'>";
-              $st.= "<a href='javascript:void(0);' class='nav-link active'>";
+              $st.= "<a href='javascript:void(0);' class='nav-link active' {$item->parent->link}>";
               $st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
               $st.= " <p>";
               $st.=  $item->parent->module_name;

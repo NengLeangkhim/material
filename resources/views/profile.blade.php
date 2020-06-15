@@ -238,41 +238,15 @@ a.text-lightred:hover {
 }
 
 </style>
-<?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-include_once ("../../connection/DB-connection.php");
-include_once ("../../controller/util.php");
-session_start();
-$db = new Database();
-$con=$db->dbConnection();
-if(isset($_SESSION['userid'])){
-    $user_id=$_SESSION['userid'];
-}else{
-    return;
-}
-$q=$con->prepare("select s.name,s.name_kh,s.sex, s.email,s.contact,s.address,p.name as position,cd.company,cd.branch,s.create_Date,s.image,s.id_number,s.office_phone
-                from staff s
-                join position p on p.id=s.position_id
-                join company_detail cd on cd.id=s.company_detail_id where s.id=$user_id");
-$q->execute();
-$r=$q->fetch(PDO::FETCH_ASSOC);
-$pro=$r;
-// var_dump($r);
-?>
-
-
-
-
-
-<div class="container" style="margin-top:30px">
+<section class="content">
+<div class="container-fluid" style="margin-top:30px">
     <div class="team-single">
         <div class="row">
             <div class="col-lg-4 col-md-5 xs-margin-30px-bottom">
                 <div class="team-single-img">
                     <label for="img"​ style="font-family: 'Khmer'; cursor:pointer;" title="Change"><img id='image_' style="width:350px; height:350px" src="<?php echo (isset($pro)&&!empty($pro['image']))?$pro['image']:"https://bootdey.com/img/Content/avatar/avatar7.png";?>" alt=""></label>
                     <form method="post"  enctype="multipart/form-data" id='form_img' >
+                        @csrf
                         <center><label for="sub" style="margin-top:2%;" class="btn btn-primary">ប្តូររូបភាព</label></center>
                         <input type="file"  accept="image/*" name="_img" id="img" style="display:none;" onchange="readURL(this,'image_')">
                         <input type="button" onclick="up_img('img','form_img')" value="" id="sub" style="display:none;">
@@ -437,6 +411,7 @@ $pro=$r;
             <hr>
             <div class="col-md-8 offset-4">
                     <form method="post" id='form1' name='form1' onsubmit="return change_password(document.form1.old_pass,document.form1.new_pass,document.form1.con_pass)">
+                        @csrf
                         <div class="form-group">
                             <h5 for="" style="font-family: 'Khmer', cursive; font-size:19px;" >អ្នកអាចផ្លាស់ប្តូរលេខសំងាត់ដោយបញ្ចូលលេខសំងាត់នៅខាងក្រោម</h5>
                             <div class="container-fluid"> <hr>
@@ -466,11 +441,11 @@ $pro=$r;
                             </div>
                         </div>
                     </form>
-                    <form action="controller/logout.php">
+                    {{-- <form action="controller/logout.php">
                         <div class="form-group" style="float:right">
                             <input type="submit" value="Logout" class="btn btn-danger">
                         </div>
-                    </form>
+                    </form> --}}
             </div>
         </div>
     </div>
@@ -502,3 +477,8 @@ $pro=$r;
     </div>
   </div>
 </div>
+</section>
+<script>
+
+img_exist();
+</script>
