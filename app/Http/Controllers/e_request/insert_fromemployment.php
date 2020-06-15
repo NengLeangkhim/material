@@ -72,22 +72,23 @@ class insert_fromemployment extends Controller{
 
             $r=ere_get_assoc::assoc_($q)[0];
             $id=$r['id'];
-                $sql="SELECT public.insert_e_request_employment_biography_spouse(
-                    $id,
-                    '".$_POST['spouse_name']."',
-                    '".util::to_pgdate($_POST['spouse_birth_date'])."',
-                    '".$_POST['spouse_nationality']."',
-                    '".$_POST['spouse_nation']."',
-                    '".$_POST['spouse_religion']."',
-                    '".$_POST['spouse_birth_place']."',
-                    '".$_POST['spouse_current_address']."',
-                    '".$_POST['spouse_phone']."',
-                    '".$_POST['spouse_work_place']."',
-                    '".$_POST['spouse_phone']."',
-                    '".$_POST['spouse_id_number']."',
-                    '".$_POST['children_count']."'
-                )";
-                $q=DB::select($sql);
+                if(!empty($_POST['spouse_name'])){
+                    $sql="SELECT public.insert_e_request_employment_biography_spouse(
+                        $id,
+                        '".$_POST['spouse_name']."',
+                        '".util::to_pgdate($_POST['spouse_birth_date'])."',
+                        '".$_POST['spouse_nationality']."',
+                        '".$_POST['spouse_nation']."',
+                        '".$_POST['spouse_religion']."',
+                        '".$_POST['spouse_birth_place']."',
+                        '".$_POST['spouse_current_address']."',
+                        '".$_POST['spouse_phone']."',
+                        '".$_POST['spouse_work_place']."',
+                        '".$_POST['spouse_phone']."',
+                        '".$_POST['spouse_id_number']."',
+                        ".$_POST['children_count'].")";
+                    $q=DB::select($sql);
+                }
 
                 foreach($_POST['relate_name'] as $key=>$re_name){
                     if(!empty($re_name)){
