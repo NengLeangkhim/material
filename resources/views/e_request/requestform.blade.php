@@ -3,7 +3,7 @@
     extract($val, EXTR_PREFIX_SAME, "wddx");
 ?>
 <section class="content">
-<form id='frm_ere_insert_requestform'>
+<form id='{{ $frm_id }}'>
     @csrf
 <input type="hidden" name="erid" value="<?php echo (isset($_GET['erid']))?$_GET['erid']:'';?>">
 <div class="container-fluid border">

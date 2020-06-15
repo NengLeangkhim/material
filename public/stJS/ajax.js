@@ -766,6 +766,7 @@ function submit_form (route,form,goto){
     {
         if(OnSubmitCofirm('Are You sure ?')){
             var formElement = document.getElementById(form);
+            console.log(formElement);
             var formData = new FormData(formElement);
             var request = new XMLHttpRequest();
             request.open("POST", route);

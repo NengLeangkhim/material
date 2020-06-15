@@ -20,7 +20,7 @@ class view_fromemployment extends Controller
         $trans_to='';
         $leave_kind='';
         $route="ere_insert_fromemployment";
-        $frm_id="frm_ere_insert_fromemployment";
+        $frm_id="frm_ere_insert_fromemployments";
 
         $val=get_value_to_view::get_val_view($route,$frm_id);//insert route and form id
         extract($val['val'], EXTR_PREFIX_SAME, "wddx");

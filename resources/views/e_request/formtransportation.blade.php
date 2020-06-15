@@ -9,7 +9,7 @@
         <h5 class="title_khleave"><u>សំណើសុំប្រើប្រាស់មធ្យោបាយធ្វើដំណើរ</u></h5>
     </div>
 </div>
-<form id="frm_ere_insert_formtransportation">
+<form id="{{ $frm_id }}">
     @csrf
 <input type="hidden" name="erid" value="<?php echo (isset($_GET['erid']))?$_GET['erid']:'';?>">
     <div class="row">

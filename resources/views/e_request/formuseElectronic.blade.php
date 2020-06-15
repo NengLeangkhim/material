@@ -20,7 +20,7 @@
     </div>
     <div class="row" style="margin-top:15px">
         <div class="col-12">
-            <form id="frm_ere_insert_formuseElectronic">
+            <form id="{{ $frm_id }}">
                 @csrf
             <input type="hidden" name="erid" value="<?php echo (isset($_GET['erid']))?$_GET['erid']:'';?>">
                 <div class="row">

@@ -220,6 +220,7 @@ function approve(tar,erid,comment,type,tt){
             erid:erid,
             type:type,
             comment:comment,
+            _token : $('meta[name="csrf-token"]').attr('content'),
         },
         success: function(data){
             if(data.length>0){

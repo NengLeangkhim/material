@@ -4,7 +4,7 @@
 ?>
 <section class="content">
 <br>
-<form id="frm_ere_insert_workovertimeform">
+<form id="{{ $frm_id }}">
     @csrf
 <input type="hidden" name="erid" value="<?php echo (isset($_GET['erid']))?$_GET['erid']:'';?>">
 <input type="hidden" name="type" value="<?php echo $type;?>">

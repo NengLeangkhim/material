@@ -10,7 +10,7 @@
         <h6 class="english">EMPLOYMENT BIOGRAPHY</h6>
     </div>
 </div>
-<form id="frm_ere_insert_fromemployments">
+<form id="{{ $frm_id }}">
     @csrf
     <input type="hidden" name="erid" value="<?php echo (isset($_GET['erid']))?$_GET['erid']:'';?>">
     <div class="row" style="margin-top:10px">
