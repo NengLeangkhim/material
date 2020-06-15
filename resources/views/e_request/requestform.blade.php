@@ -3,7 +3,7 @@
     extract($val, EXTR_PREFIX_SAME, "wddx");
 ?>
 <section class="content">
-<form action="controller/insert_requestform.php" method="post" id='requestform' onsubmit="return valid_row('dynamic_fields')">
+<form id='frm_ere_insert_requestform'>
 <input type="hidden" name="erid" value="<?php echo (isset($_GET['erid']))?$_GET['erid']:'';?>">
 <div class="container-fluid border">
     <div class="row">

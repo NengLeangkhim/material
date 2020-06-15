@@ -7,13 +7,35 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class get_value_to_view extends Controller{
-    public static function get_val_view(){
+    public static function get_val_view($route,$frm_id){
         $e_r_id="";
         $dd='disabled';
         $dd1="";//only for work ot for now
         $d='required';//for required control
         $d1="";//for non required control
-        $btn_sub='<input type="submit" class="btn btn-primary">';
+        $btn_sub='<input type="button" value="Submit" id="frm_ere_btn_sub" class="btn btn-primary">
+                <script>
+                    $("#frm_ere_btn_sub").click(
+                    function(){
+                        if(document.getElementById("dynamic_field")){
+                            if(!valid_row("dynamic_field")){
+                                return false;
+                            }
+                        }else if(document.getElementById("dynamic_fields")){
+                            if(!valid_row("dynamic_fields")){
+                                return false;
+                            }
+                        }
+                        if(document.getElementsByName("use")){
+                            if(!valid_check("use")){
+                                return false;
+                            }
+                        }
+                        submit_form("'.$route.'","'.$frm_id.'","ere_ownreq");
+                    }
+                    );
+                </script>
+        ';
         $comment='';
         $comment_ap='';
         $comment_pd='';
@@ -66,7 +88,6 @@ class get_value_to_view extends Controller{
                 if($ch['type']=='mid'){
                     $pending='<a href="javascript:void(0);" onclick=\'approve("big-guy",'.$_GET['erid'].',"cmt'.$_GET['erid'].'","pending","apr");$(".modal").modal("hide");\' class="btn btn-primary" name="pending">Pending</a>';
                 }
-                $btn_sub='<button type="submit" class="btn btn-success">Submit</button>';
                 $comment='<p>បញ្ចេញមតិទីនេះ</p><textarea class="form-control" name="comment" id="cmt'.$_GET['erid'].'" rows="3"></textarea><br>';
                 $approve='<a href="javascript:void(0);" onclick=\'approve("big-guy",'.$_GET['erid'].',"cmt'.$_GET['erid'].'","approve","apr");$(".modal").modal("hide");\' class="btn btn-success" name="approve">Approve</a>';
                 $reject='<a href="javascript:void(0);" onclick=\'approve("big-guy",'.$_GET['erid'].',"cmt'.$_GET['erid'].'","reject","apr");$(".modal").modal("hide");\' class="btn btn-danger" name="reject">Reject</a>';

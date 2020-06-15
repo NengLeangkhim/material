@@ -13,7 +13,8 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <form action="controller/insert_formleave.php" method="post">
+        <form id="frm_ere_insert_formleave" action="ere_insert_formleave" method="post">
+            @csrf
         <input type="hidden" name="erid" value="<?php echo (isset($_GET['erid']))?$_GET['erid']:'';?>">
             <div class="row" style="margin-top:10px">
                 <div class="col-2">

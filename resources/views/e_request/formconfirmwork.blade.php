@@ -9,7 +9,8 @@
         <h5 class="title_khleave"><u>ទម្រង់ស្មើសុំលិខិតបញ្ជាក់ការងារ</u></h5>
     </div>
 </div>
- <form action="controller/insert_formconfirmwork.php" method="post">
+ <form id="frm_ere_insert_formconfirmwork">
+    @csrf
  <input type="hidden" name="erid" value="<?php echo (isset($_GET['erid']))?$_GET['erid']:'';?>">
     <div class="row" style="margin-top:10px;">
         <div class="col-12">

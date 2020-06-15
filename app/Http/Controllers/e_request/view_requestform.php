@@ -18,8 +18,10 @@ class view_requestform extends Controller
         }
         $_SESSION['form_id']=$_GET['id'];
         $add='<th><button id="rowFornRequestAdd" onclick="addrow()">Add Row</button></th>';
+        $route="ere_insert_requestform";
+        $frm_id="frm_ere_insert_requestform";
 
-        $val=get_value_to_view::get_val_view();
+        $val=get_value_to_view::get_val_view($route,$frm_id);//insert route and form id
         extract($val['val'], EXTR_PREFIX_SAME, "wddx");
         if(isset($v0)){
             $q=DB::select("select s.name,p.name as position,d.name as dept from staff s join position p on p.id=s.position_id join company_dept d on d.id=s.company_dept_id where s.id=".$v0['to']);

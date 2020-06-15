@@ -4,7 +4,7 @@
 ?>
 <section class="content">
 <br>
-<form action="controller/insert_workovertimeform.php" method="post">
+<form id="frm_ere_insert_workovertimeform">
 <input type="hidden" name="erid" value="<?php echo (isset($_GET['erid']))?$_GET['erid']:'';?>">
 <input type="hidden" name="type" value="<?php echo $type;?>">
 <input type="hidden" name="e_request_id" value="<?php echo $e_r_id;?>">

@@ -18,8 +18,9 @@ class view_equipment_request_form extends Controller
         }
         $_SESSION['form_id']=$_GET['id'];
         $add='<th class="style_td"><button id="" onclick="addrow_requsest()">Add Row</button></th>';
-
-        $val=get_value_to_view::get_val_view();
+        $route="ere_insert_equipment_request_form";
+        $frm_id="frm_ere_insert_equipment_request";
+        $val=get_value_to_view::get_val_view($route,$frm_id);//insert route and form id
         extract($val['val'], EXTR_PREFIX_SAME, "wddx");
 
         $add=$wddx_add??$add;

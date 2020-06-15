@@ -30,6 +30,7 @@ function check_session(){
       $.ajax({
         type: 'GET',
         url:link,
+        async:false,
         success:function(data){
             $(".content-wrapper").show();
             $(".content-wrapper").html(data);
@@ -45,6 +46,7 @@ function check_session(){
         $.ajax({
           type: 'POST',
           url:'sub_r_nav',
+          async:false,
           data:{
             _mo:code,
             _token : $('meta[name="csrf-token"]').attr('content'),

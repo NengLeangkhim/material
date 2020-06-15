@@ -19,8 +19,10 @@ class view_formconfirmwork extends Controller
         $_SESSION['form_id']=$_GET['id'];
         $trans_to='';
         $leave_kind='';
+        $route="ere_insert_formconfirmwork";
+        $frm_id="frm_ere_insert_formconfirmwork";
 
-        $val=get_value_to_view::get_val_view();
+        $val=get_value_to_view::get_val_view($route,$frm_id);//insert route and form id
         extract($val['val'], EXTR_PREFIX_SAME, "wddx");
 
         if(isset($v0)){//this from the above

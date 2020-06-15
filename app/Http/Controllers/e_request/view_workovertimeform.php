@@ -18,8 +18,11 @@ class view_workovertimeform extends Controller
         }
         $_SESSION['form_id']=$_GET['id'];
         $type='request';
+        $route="ere_insert_workovertimeform";
+        $frm_id="frm_ere_insert_workovertimeform";
+
         $run=new get_row();
-        $val=get_value_to_view::get_val_view();
+        $val=get_value_to_view::get_val_view($route,$frm_id);//insert route and form id
         extract($val['val'], EXTR_PREFIX_SAME, "wddx");
         if(isset($v[1])){
             $e_r_id=$v['id'];

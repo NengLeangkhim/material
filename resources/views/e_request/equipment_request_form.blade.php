@@ -4,7 +4,8 @@
 ?>
 <section class="content">
 @include('e_request.header')
-<form action="controller/insert_equipment_request_form.php" method="post">
+<form id="frm_ere_insert_equipment_request">
+    @csrf
     <div class="row">
         <div class="col-12" style="text-align: center;margin-top: 10px">
             <h5 class="title_khleave"><u>ទម្រង់ស្នើសុំបើកសម្ភារៈ</u></h5>

@@ -19,8 +19,10 @@ class view_formleave extends Controller
         $_SESSION['form_id']=$_GET['id'];
         $trans_to='';
         $leave_kind='';
+        $route="ere_insert_formleave";
+        $frm_id="frm_ere_insert_formleave";
 
-        $val=get_value_to_view::get_val_view();
+        $val=get_value_to_view::get_val_view($route,$frm_id);//insert route and form id
         extract($val['val'], EXTR_PREFIX_SAME, "wddx");
         if(isset($v[0])){
             $create_date=$v[0][0]['create_date'];
