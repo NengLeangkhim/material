@@ -162,8 +162,8 @@
         <div style="overflow-x: auto">
             <table class="table" border=1 style=" width:1300px; border-color: black">
                 <tr style="">
-                    <td colspan="6" class="style_td" style="background:#dfe6e9; text-align: center;">
-                        <p class="during">៣.ឈ្មោះសម្ភារៈ/Item's Name</p>
+                    <td colspan="6" class="style_td" style="background:#dfe6e9;">
+                        <p class="during"><b>៣.ឈ្មោះសម្ភារៈ/Item's Name</b></p>
                     </td>
                 </tr>
                 <tr>
