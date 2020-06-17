@@ -194,7 +194,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-12" >
+            <div class="col-sm-12" align="center" >
                 <?php echo $approve;?>
                 <?php echo $pending;?>
                 <?php echo $reject;?>
