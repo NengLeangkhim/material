@@ -4361,6 +4361,7 @@ input[type="button"].btn-block {
 .nav-link {
     display: block;
     padding: 0.5rem 1rem;
+    font-family: khmer OS Content,cursive;
 }
 
 .nav-link:hover,
