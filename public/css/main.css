@@ -1812,6 +1812,7 @@ pre code {
 .table-bordered th,
 .table-bordered td {
     border: 1px solid #dee2e6;
+    padding: 10px !important;
 }
 
 .table-bordered thead th,
