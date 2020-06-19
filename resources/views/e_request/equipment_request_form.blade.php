@@ -12,7 +12,7 @@
             <h4 class="title_engleave">EQUIPMENT REQUEST FORM</h4>
         </div>
     </div>
-    <br>
+    {{-- <br> --}}
     <div class="row">
         <div class="col-sm-1">
             <p class="during">No.</p>
@@ -27,7 +27,7 @@
             <input type="text" name="" class="form-control">
         </div>
     </div>
-    <br>
+    {{-- <br> --}}
     <div class="row">
         <div class="col-md-12">
             <p class="during"><b>១.ព័ត៌មានរបស់អ្នកបច្ចេកទេស / Technician information</b></p>
@@ -61,13 +61,13 @@
             </div>
         </div>
     </div>
-    <br>
+    {{-- <br> --}}
     <div class="row">
         <div class="col-sm-12">
             <p class="during"><b>២.ព័ត៌មានរបស់អតិថិជន/ Customer Information</b></p>
         </div>
     </div>
-    <br>
+    {{-- <br> --}}
     <div class="row">
         <div class="col-md-12">
             <div class="row">
@@ -80,7 +80,7 @@
             </div>
         </div>
     </div>
-    <br>
+    {{-- <br> --}}
     <div class="row">
         <div class="col-md-12">
             <div class="row">
@@ -93,7 +93,7 @@
             </div>
         </div>
     </div>
-    <br>
+    {{-- <br> --}}
     <div class="row">
         <div class="col-md-12">
             <div class="row">
@@ -106,7 +106,7 @@
             </div>
         </div>
     </div>
-    <br>
+    {{-- <br> --}}
     <div class="row">
         <div class="col-md-12">
             <div class="row">
@@ -119,7 +119,7 @@
             </div>
         </div>
     </div>
-    <br>
+    {{-- <br> --}}
     <div class="row">
         <div class="col-md-12">
             <div class="row">
@@ -132,7 +132,7 @@
             </div>
         </div>
     </div>
-    <br>
+    {{-- <br> --}}
     <div class="row">
         <div class="col-md-7">
             <div class="row">
@@ -155,7 +155,7 @@
             </div>
         </div>
     </div>
-    <br>
+    {{-- <br> --}}
 
     {{-- ================================ Scroll Table =================================== --}}
     <div class="row">
@@ -199,7 +199,7 @@
             </table>
         </div>
     </div>
-    <br>
+    {{-- <br> --}}
     {{-- =========== End ============== --}}
 
 

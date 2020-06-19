@@ -17,7 +17,7 @@ class view_formtransportation extends Controller
             return;
         }
         $_SESSION['form_id']=$_GET['id'];
-        $add='<th style="text-align:center" ><button type="button" name="add" id="add" class="btn btn-success" onclick="addrow_vehicle()">Add More</button></th>';
+        $add='<th class="bpd" style="text-align:center; width:90px" ><button type="button" name="add" id="add" class="btn btn-success" onclick="addrow_vehicle()">Add</button></th>';
         $route="ere_insert_formtransportation";
         $frm_id="frm_ere_insert_formtransportation";
 

@@ -125,17 +125,19 @@
             </div>
         </div>
         <br>
-        <div class="row" style="overflow-x: auto">
-            <table class="table table-bordered" width="1300px">
+</div>
+
+        <div class="myScroll" style="overflow-x: auto; width: 100%">
+            <table class="table-bordered" width="1300px">
                 <thead class="text-center title_khleave">
-                    <th width="10px">ល.រ<br>No</th>
+                    <th>ល.រ<br>No</th>
                     <th>បរិយាយ<br>Description</th>
                     <th>ចំនួន<br>QTY</th>
                     <th>ផ្សេងៗ<br>Other</th>
                     <th>អ្នកទទួល<br>Receiver</th>
                     <?php echo $add;?>
                 </thead>
-                <tbody id="dynamic_fields">
+                <tbody id="dynamic_fields" align="center">
                      <?php $i=0;
                          if(isset($v1)){
                              foreach($v1 as $rr){
@@ -151,7 +153,10 @@
                      ?>
                 </tbody>
             </table>
+            <br>
         </div>
+        
+<div class="container-fluid border">
         <div class="row">
             <div class="col-md-6" align="center">
                 <div class="row">
