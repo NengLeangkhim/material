@@ -88,9 +88,12 @@ class productImport extends Controller
                     join company_detail cd on cd.id=ia.company_detail_id
                     left join supplier sp on sp.id=ia.supplier_id
                     where cd.status='t' and ia.id=$id";
-                $sql1="SELECT b.name as brand,p.name,p.part_number,p.barcode,m.name as measurement,c.name as currency,iad.qty,p.price,(iad.qty*p.price) as amount
+                $sql1="SELECT b.name as brand,p.name,p.part_number,p.barcode,m.name as measurement,c.name as currency,iad.qty,p.price,(iad.qty*p.price) as amount,
+                    get_code_prefix_ibuild(p.code,ia.company_detail_id,p.code_prefix_owner_id,pt.code) as product_code
                     from invoice_arrival_detail iad
+                    left join invoice_arrival ia on ia.id=iad.invoice_arrival_id
                     left join product p on p.id=iad.product_id
+                    left join product_type pt on pt.id=p.product_type_id
                     join product_brand b on b.id=p.brand_id
                     join currency c on p.currency_id=c.id
                     join measurement m on p.measurement_id=m.id

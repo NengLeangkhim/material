@@ -17,15 +17,15 @@ class addproduct_to_view extends Controller
             $s=strtolower($s);
             $pn=$_GET['page'];
             $start_from=($pn-1)*$limit;
-            $sql="SELECT id, name, qty, price, barcode, part_number,product_code
-                    FROM public.product where 't'";
+            $sql="SELECT p.id, p.name,pt.name_en as type, p.qty, p.price, p.barcode, p.part_number,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code
+                    FROM public.product p left join product_type pt on pt.id=p.product_type_id where 't'";
             if(isset($_GET['assign'])){
-                $sql.=" and id NOT iN (select product_id from product_company where company_id=".$_GET['assign'].")";
+                $sql.=" and p.id NOT iN (select product_id from product_company where company_id=".$_GET['assign'].")";
             }
-            $action=DB::select("$sql and (lower(name) like '%$s%'
-                                or lower(barcode) like '%$s%' or lower(part_number) like '%$s%' or lower(product_code) like '%$s%') limit $limit offset $start_from ;");
-            $pagi=DB::select("SELECT count(*) from ($sql and( lower(name) like '%$s%'
-                    or lower(barcode) like '%$s%' or lower(part_number) like '%$s%' or lower(product_code) like '%$s%'))as foo");
+            $action=DB::select("select * from ($sql) as fee where 't' and (lower(name) like '%$s%'
+                                or lower(barcode) like '%$s%' or lower(part_number) like '%$s%' or lower(product_code) like '%$s%' or lower(type) like '%$s%') limit $limit offset $start_from ;");
+            $pagi=DB::select("SELECT count(*) from (select * from ($sql) as fee where 't' and( lower(name) like '%$s%'
+                    or lower(barcode) like '%$s%' or lower(part_number) like '%$s%' or lower(product_code) like '%$s%' or lower(type) like '%$s%'))as foo");
             $total_row=$pagi[0]->count;
             $total_page=ceil($total_row/$limit);
             $next=($pn<$total_page)?'<li class="page-item"><a class="page-link" onclick="get_product(\''.$s.'\',\'tbody_a\','.($pn+1).')" href="javascript:void(0);">Next</a></li>':'';
@@ -57,6 +57,7 @@ class addproduct_to_view extends Controller
                 $tb.="<tr onclick='add_row($t->id)' style='cursor: pointer'>
                     <td>$i</td>
                     <td>$t->product_code</td>
+                    <td>$t->type</td>
                     <td>$t->name</td>
                     <td>$t->barcode</td>
                     <td>$t->part_number</td>
@@ -89,7 +90,7 @@ class addproduct_to_view extends Controller
             $c=$_GET['comp_id'];
             $company_id="(select id from company_detail where status='t' and company_id=$c and branch_id=$b)";
         }
-        $sql="SELECT p.id, p.name, p.price, p.barcode, p.part_number,p.product_code,
+        $sql="SELECT p.id, p.name, p.price, p.barcode, p.part_number,get_code_prefix_ibuild(p.code,$company_id,p.code_prefix_owner_id,pt.code) as product_code,
                 c.name as currency,m.name as measurement,
                 (select sum(q.qty) from product_qty q where q.product_id=p.id and q.company_detail_id=$company_id) as qty,
                 (select s.location from product_qty q join storage_detail s on s.id=q.storage_detail_id where q.product_id=p.id and q.company_detail_id=$company_id limit 1) as location,
@@ -97,6 +98,7 @@ class addproduct_to_view extends Controller
                 (select s.storage_id from product_qty q join storage_detail s on s.id=q.storage_detail_id where q.product_id=p.id and q.company_detail_id=$company_id limit 1) as storage_id,
                 (select s.storage from product_qty q join storage_detail s on s.id=q.storage_detail_id where q.product_id=p.id and q.company_detail_id=$company_id limit 1) as storage
                 FROM public.product p
+                left join product_type pt on pt.id=p.product_type_id
                 join currency c on c.id=p.currency_id
                 join measurement m on m.id=p.measurement_id
                 where p.id=$id";
@@ -115,20 +117,20 @@ class addproduct_to_view extends Controller
         if(isset($_GET['search'])){
             $st_id=$_SESSION['userid'];
             $company_id="(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=$st_id)";
+            $cdi="(select company_detail_id from staff where id=$st_id)";
             $s=str_replace("'","''",$_GET['search']);
             $s=strtolower($s);
             $pn=$_GET['page'];
             $start_from=($pn-1)*$limit;
-            $action=DB::select("SELECT distinct p.id, p.name, p.barcode, p.part_number,p.product_code
+            $sql="SELECT distinct p.id, p.name,pt.name_en as type ,p.barcode, p.part_number,get_code_prefix_ibuild(p.code,$cdi,p.code_prefix_owner_id,pt.code) as product_code
                                 FROM public.product p
                                 join product_company pc on pc.product_id=p.id
-                                where pc.company_id=$company_id and
-                                (lower(p.name) like '%$s%' or lower(p.barcode) like '%$s%' or lower(p.part_number) like '%$s%') limit $limit offset $start_from");
-            $pagi=DB::select("SELECT count(*) from (SELECT distinct p.id, p.name, p.barcode, p.part_number,p.product_code
-                                FROM public.product p
-                                join product_company pc on pc.product_id=p.id
-                                where pc.company_id=$company_id and
-                            (lower(p.name) like '%$s%' or lower(p.barcode) like '%$s%' or lower(p.part_number) like '%$s%' ))as foo");
+                                left join product_type pt on pt.id=p.product_type_id
+                                where pc.company_id=$company_id ";
+            $action=DB::select("select * from ($sql) as fee where 't' and
+                                (lower(name) like '%$s%' or lower(barcode) like '%$s%' or lower(part_number) like '%$s%' or lower(product_code) like '%$s%' or lower(type) like '%$s%') limit $limit offset $start_from");
+            $pagi=DB::select("SELECT count(*) from (select * from ($sql) as fee where 't' and
+                            (lower(name) like '%$s%' or lower(barcode) like '%$s%' or lower(part_number) like '%$s%' or lower(product_code) like '%$s%' or lower(type) like '%$s%'))as foo");
             $total_row=$pagi[0]->count;
             $total_page=ceil($total_row/$limit);
             $next=($pn<$total_page)?'<li class="page-item"><a class="page-link" onclick="get_product_comp(\''.$s.'\',\'tbody_a\','.($pn+1).')" href="javascript:void(0);">Next</a></li>':'';
@@ -160,6 +162,7 @@ class addproduct_to_view extends Controller
                 $tb.="<tr onclick='add_row($t->id)' style='cursor: pointer'>
                     <td>$i</td>
                     <td>$t->product_code</td>
+                    <td>$t->type</td>
                     <td>$t->name</td>
                     <td>$t->barcode</td>
                     <td>$t->part_number</td>

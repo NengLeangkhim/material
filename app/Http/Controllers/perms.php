@@ -29,9 +29,7 @@ class perms extends Controller
                 return true;
             }
         }
-        $lg = new Login();
-        $lg->logout();
-        header('Location:/logout');
+        header('Location:/');
         exit;
         //
         // return false;

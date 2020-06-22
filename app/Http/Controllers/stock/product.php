@@ -129,10 +129,10 @@ class product extends Controller
                 $id=$_GET['pID'];
                 $passv="plist";
                 $addp=array();
-                $addp[]=DB::select("SELECT p.id,b.name as brand ,p.name,p.name_kh, p.part_number,p.product_code, p.barcode,m.name as measurement, p.qty, p.price,(p.qty*p.price)as amount,p.image
-                FROM public.product p join measurement m on m.id=p.measurement_id join product_brand b on b.id=p.brand_id where p.id=".$id);
+                $addp[]=DB::select("SELECT p.id,b.name as brand ,p.name,p.name_kh, p.part_number,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code, p.barcode,m.name as measurement, p.qty, p.price,(p.qty*p.price)as amount,p.image
+                FROM public.product p join measurement m on m.id=p.measurement_id join product_brand b on b.id=p.brand_id left join product_type pt on pt.id=p.product_type_id where p.id=".$id);
                 $addp[]=DB::select("SELECT distinct sum(q.qty)over(partition by q.company_detail_id) as qty,q.company_detail_id,s.storage,s.location,cd.company,cd.branch
-                                    ,(select code from company_branch where id=cd.branch_id) as company_code,(select product_code from product where id=q.product_id) as product_code
+                                    ,(select code from company_branch where id=cd.branch_id) as company_code,(select get_code_prefix_ibuild(p.code,q.company_detail_id,p.code_prefix_owner_id,pt.code) from product p left join product_type pt on pt.id=p.product_type_id where p.id=q.product_id) as product_code
                                     from product_qty q
                                     left join company_detail cd on cd.id=q.company_detail_id
                                     left join storage_detail s on s.id=q.storage_detail_id

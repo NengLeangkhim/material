@@ -79,7 +79,7 @@
                         $sumamount=0;
                         foreach($plist[1] as $a){
                             $q=(empty($a->qty))?0:$a->qty;
-                            $a->product_code=(!empty($a->product_code)&&!empty($a->company_code))?$a->company_code.'-'.$a->product_code:"";
+                            // $a->product_code=(!empty($a->product_code)&&!empty($a->company_code))?$a->company_code.'-'.$a->product_code:"";
                             echo '<tr class="even pointer">';
                             echo '<td class=" ">'.$i++.'</td>';
                             echo '<td class=" ">'.$a->product_code.'</td>';

@@ -91,6 +91,7 @@
                             <tr>
                                 <th style="width: 2%">No</th>
                                 <th>Product Code</th>
+                                <th>Product Type</th>
                                 <th>Product Name</th>
                                 <th >Barcode</th>
                                 <th>Part Number</th>
