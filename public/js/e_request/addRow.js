@@ -142,6 +142,7 @@ function addrow_vehicle() {
         '</tr>';
     console.log(tblRow);
     $('#dynamic_field').append(tblRow);
+    // $('.display').DataTable();
     datetime();
 };
 

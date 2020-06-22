@@ -16,10 +16,14 @@
     <title>Turbotech System</title>
     <style>
         .material-half-bg{
-            background-image: url("images/Layer-1704-1920x840.jpg");/*OBBPNP0*/
+            background-image: url("images/company_logo.png");/*OBBPNP0*/
+            background-color: black;
             background-repeat: no-repeat;
             background-size: cover;
+            background-position: center;
+            opacity: 70%;
         }
+
     </style>
 </head>
 <body>
@@ -29,7 +33,7 @@
         </section>
     </div>
     <section class="login-content">
-        <div class="login-box ">
+        <div class="login-box">
             <form class="login-form " action="/" method="post">
                 @csrf
                 <h3 class="login-head"><img src="images/turbotech.png" width="100%" height="100%" alt=""></h3>
@@ -68,7 +72,7 @@
                     </div>
                 </div> --}}
                 <div class="form-group btn-container">
-                    <button class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>SIGN IN</button>
+                    <button class="btn btn-primary btn-block">SIGN IN</button>
                 </div>
             </form>
             <form class="forget-form" action="index.html">

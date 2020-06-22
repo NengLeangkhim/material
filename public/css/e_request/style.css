@@ -1,7 +1,7 @@
 	.container {
-	    background: #ffffff;
+	    /* background: #ffffff; */
 	    height: auto;
-	    box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, .2);
+	    /* box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, .2); */
 	}
 
 	.logo {
@@ -31,7 +31,8 @@
 	}
 
 	.title_khleave {
-	    font-family: "Khmer OS Muol Light";
+		font-family: "Khmer OS Muol Light";
+		padding-top:10px
 	}
 
 	.english {
@@ -40,7 +41,7 @@
 	}
 
 	.inputinfokh {
-	    margin-top: -8px;
+	    /* margin-top: -8px; */
 	    font-family: "Khmer OS Content";
 	    font-size: 14px;
 	}
@@ -69,7 +70,7 @@
 	}
 
 	.inputemploymentkh {
-	    margin-top: -8px;
+	    /* margin-top: -8px; */
 	    font-family: "Khmer OS Content";
 	    font-size: 14px;
 	}
@@ -163,4 +164,21 @@
 	}
 
 
-
+/* new add */
+a.nav-link{
+	font-family: khmer OS Content,cursive;
+}
+.select2-selection,.select2-results__option {
+	font-family: khmer OS Content, cursive;
+}
+.bpd{
+	padding: 10px !important;
+}
+.bold{
+	font-weight: bold;
+	/* text-align: center; */
+}
+.title_version{
+	font-size: 20px;
+	text-indent: 7px;
+}
