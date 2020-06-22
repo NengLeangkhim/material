@@ -189,8 +189,8 @@ class product extends Controller
             // $id=$_GET['_id'];//set up same for ajax
             $tid=$_GET['_tid'];
             // $get_branch=DB::select('select name from product_code where status=\'t\' and company_id='.$id);
-            $t=DB::select("select code,digit from product_type where status='t' and id=$tid");
-            $max=DB::select("select max(case when code is null then 0 else code end) as code ,digit from product where product_type_id=$tid group by digit");
+            $t=DB::select("select icode,digit from product_type where status='t' and id=$tid");
+            $max=DB::select("select max(case when icode is null then 0 else icode end) as code ,digit from product where product_type_id=$tid group by digit");
             // $get_branch='select name from product_code where status=\'t\' and company_id='.$id;
             // $max=DB::select('select product_code from product where id=(select max(id) from product)');
             $type=$t[0]->code;

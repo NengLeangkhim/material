@@ -31,8 +31,10 @@ class perms extends Controller
         }
         $lg = new Login();
         $lg->logout();
-        // header('Location:/logout');
-        // exit;
+        header('Location:/logout');
+        exit;
+        //
+        // return false;
     }
     public static function check_perm(){
         if(self::check_session()){
