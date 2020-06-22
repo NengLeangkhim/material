@@ -6816,6 +6816,8 @@ button.bg-dark:focus {
 }
 
 .border {
+    margin-left: 10px !important;
+    padding-top: 10px !important;
     border: 1px solid #dee2e6 !important;
 }
 
@@ -13918,12 +13920,12 @@ be a descendant of the grid when it is being dragged.
 
 ::-moz-selection {
     color: #FFF;
-    background-color: #00635a;
+    background-color: #1fa8e0;
 }
 
 ::selection {
     color: #FFF;
-    background-color: #00635a;
+    background-color: #1fa8e0;
 }
 
 @media (min-width: 768px) {
@@ -15052,7 +15054,7 @@ app-nav__item.dropdown-menu {
 
 .material-half-bg {
     height: 100vh;
-    background-color: #e7e7e7;
+    /* background-color: #e7e7e7; */
     position: fixed;
     top: 0;
     left: 0;
@@ -15063,7 +15065,7 @@ app-nav__item.dropdown-menu {
 }
 
 .material-half-bg .cover {
-    background-color: #009688;
+    /* background-color: #009688; */
     height: 50%;
 
 }
@@ -15445,8 +15447,8 @@ app-nav__item.dropdown-menu {
     min-width: 350px;
     min-height: 390px;
     background-color: #fff;
-    -webkit-box-shadow: 0px 29px 147.5px 102.5px rgba(0, 0, 0, 0.05), 0px 29px 95px 0px rgba(0, 0, 0, 0.16);
-    box-shadow: 0px 29px 147.5px 102.5px rgba(0, 0, 0, 0.05), 0px 29px 95px 0px rgba(0, 0, 0, 0.16);
+    /* -webkit-box-shadow: 0px 29px 147.5px 102.5px rgba(0, 0, 0, 0.05), 0px 29px 95px 0px rgba(0, 0, 0, 0.16); */
+    /* box-shadow: 0px 29px 147.5px 102.5px rgba(0, 0, 0, 0.05), 0px 29px 95px 0px rgba(0, 0, 0, 0.16); */
     -webkit-perspective: 800px;
     perspective: 800px;
     -webkit-transition: all 0.5s ease-in-out;

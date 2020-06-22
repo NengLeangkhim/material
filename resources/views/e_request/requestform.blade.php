@@ -6,10 +6,10 @@
 <form id='{{ $frm_id }}'>
     @csrf
     <input type="hidden" name="erid" value="<?php echo (isset($_GET['erid']))?$_GET['erid']:'';?>">
-    <div class="container-fluid border">
+    <div class="container">
 
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4" align="center">
                 <div class="logo">
                     <img src="storage/img/turbotech.png"  class="logo">
                 </div>
@@ -18,11 +18,11 @@
                 <div class="title"><h2 class="font_khcom">ទម្រង់ស្នើសុំ</h2></div>
                 <div class="title"><h2 class="font_engcom">REQUEST FORM</h2></div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" style="margin-bottom: -20px">
                 <div class="row">
                     <div class="col-sml-12">
                         <div>
-                            <h4 class="title_engleave">TT-ADM-001-version3-Feb 2018</h4>
+                            <h4 class="title_version">TT-ADM-001-version3-Feb 2018</h4>
                         </div>
                     </div>
                 </div>
@@ -38,69 +38,87 @@
                 </div>
             </div>
         </div>
+        <br>
+        <br>
         <div class="row">
-            <div class="col-sm-12">
-                <p class="during">ការិយាល័យកណ្ដាល</p>
+            <div class="col-sm-12" style="margin-bottom: -20px">
+                <p class="during bold">ការិយាល័យកណ្ដាល</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
-                <p class="during">អ្នកស្នើសុំ(From)</p>
+            <div class="col-md-6" style="margin-top: 10px; padding-top: 10px">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p class="during">អ្នកស្នើសុំ(From)</p>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" value="<?php echo $name?>" disabled>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p class="during">តួនាទី(Title):</p>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" value="<?php echo $pos?>" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <p class="during">ការិយាល័យ(Office):</p>
+                    </div>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" value="<?php echo $dept?>" disabled>
+                    </div>
+                </div>
+
             </div>
-            <div class="col-md-4">
-                <input type="text" class="form-control" value="<?php echo $name?>" disabled>
-            </div>
-            <div class="col-md-2">
-                <p class="during">ជូនចំពោះ(To):</p>
-            </div>
-            <div class="col-md-4">
-                <select name="to" id='to' class="form-control" <?php echo $d?> onchange="getval('get_company_dept','to_dept',this);getval('get_pos','to_pos',this)">
-                    <?php
-                       foreach($staff as $key=>$rr){
-                        $sel='';
-                        if(isset($v0)){
-                            if($v0['to']==$rr['id']){
-                                $sel='selected';
+            <div class="col-md-6" style="margin-top: 10px; padding-top: 10px">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p class="during">ជូនចំពោះ(To):</p>
+                    </div>
+                    <div class="col-sm-8">
+                        <select name="to" id='to' class="form-control" <?php echo $d?> onchange="getval('get_company_dept','to_dept',this);getval('get_pos','to_pos',this)">
+                            <?php
+                               foreach($staff as $key=>$rr){
+                                $sel='';
+                                if(isset($v0)){
+                                    if($v0['to']==$rr['id']){
+                                        $sel='selected';
+                                    }
+                                }else{
+                                    if($key==0){
+                                        echo '<option value="-1" selected hidden disabled></option>';
+                                    }
+                                }
+                                echo '<option value="'.$rr['id'].'" '.$sel.'>'.$rr['name'].'</option>';
                             }
-                        }else{
-                            if($key==0){
-                                echo '<option value="-1" selected hidden disabled></option>';
-                            }
-                        }
-                        echo '<option value="'.$rr['id'].'" '.$sel.'>'.$rr['name'].'</option>';
-                    }
-                    ?>
-                </select>
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">  
+                        <p class="during">តួនាទី(Title):</p>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id='to_pos' disabled value="<?php echo (isset($v0))?$topos:'';?>" >
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <p class="during">ការិយាល័យ(Office):</p>
+                    </div>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id='to_dept' disabled value="<?php echo (isset($v0))?$todept:'';?>" >
+                    </div>
+                </div>
+
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-2">
-                <p class="during">តួនាទី(Title):</p>
-            </div>
-            <div class="col-md-4">
-                <input type="text" class="form-control" value="<?php echo $pos?>" disabled>
-            </div>
-            <div class="col-md-2">  
-                <p class="during">តួនាទី(Title):</p>
-            </div>
-            <div class="col-md-4">
-                <input type="text" class="form-control" id='to_pos' disabled value="<?php echo (isset($v0))?$topos:'';?>" >
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2">
-                <p class="during">ការិយាល័យ(Office):</p>
-            </div>
-            <div class="col-md-4">
-                <input type="text" class="form-control" value="<?php echo $dept?>" disabled>
-            </div>
-            <div class="col-md-2">
-                <p class="during">ការិយាល័យ(Office):</p>
-            </div>
-            <div class="col-md-4">
-                <input type="text" class="form-control" id='to_dept' disabled value="<?php echo (isset($v0))?$todept:'';?>" >
-            </div>
-        </div>
+
         <br>
         <div class="row">
             <div class="col-md-12">
@@ -125,7 +143,7 @@
             </div>
         </div>
         <br>
-</div>
+{{-- </div> --}}
 
         <div class="myScroll" style="overflow-x: auto; width: 100%">
             <table class="table-bordered" width="1300px">
@@ -156,7 +174,7 @@
             <br>
         </div>
         
-<div class="container-fluid border">
+{{-- <div class="container"> --}}
         <div class="row">
             <div class="col-md-6" align="center">
                 <div class="row">
