@@ -15510,8 +15510,8 @@ app-nav__item.dropdown-menu {
 
 .login-content .login-box .forget-form {
     opacity: 0;
-    /* -webkit-transform: rotateY(180deg); */
-    /* transform: rotateY(180deg); */
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
 }
 
 .login-content .login-box.flipped {
