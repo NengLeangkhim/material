@@ -8,12 +8,16 @@ use Illuminate\Support\Facades\DB;
 class RouteController extends Controller
 {
     public function home(){
-    // session_start();
-    // $_SESSION['userid']=1;
-        //
-        if(perms::check_perm()){
-            $_SESSION['module']=perms:: get_module();
-            return view('index');
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if(isset($_SESSION['userid'])&&!empty($_SESSION['userid'])){
+            if(perms::check_perm()){
+                $_SESSION['module']=perms:: get_module();
+                return view('index');
+            }else{
+                return view('login');
+            }
         }else{
             return view('login');
         }

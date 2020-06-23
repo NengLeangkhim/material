@@ -448,6 +448,8 @@ function img_upload (form){
             }
         }else  if (this.readyState == 4 &&this.status == 500){
             alert('មានបញ្ហាកើតឡើងនៅពេលប្តូររូបភាព');
+        }else  if (this.readyState == 4 &&this.status == 419){
+            alert('មានបញ្ហាកើតឡើងនៅពេលប្តូររូបភាពសូមព្យាយាមម្តងទៀត!');
         }
     };
     request.send(formData);

@@ -119,7 +119,7 @@ document.approveproductcompany.onsubmit = function(){
         {
             var tbody = document.getElementById("tbody_b");
                 if(tbody.rows.length<1){
-                    ok_dialog('You can not approve this!','No product!')
+                    ok_dialog('You can not approve this!','No product!');
                     return false;
                 }
                 return true;
@@ -128,9 +128,10 @@ document.approveproductcompany.onsubmit = function(){
     }
 </script>
 @php
-$script='<script type="text/javascript">';
+
+$script='<script src="stJS/ajaxcompanyview.js"></script><script type="text/javascript">';
     foreach($plist[1] as $p){
-        $script.='add_row_qty('.$p->product_id.','.$p->qty.');';
+        $script.='add_row_qty('.$p->product_id.','.$p->qty.','.$p->price.');';
     }
     $script.='</script>';
     echo $script;

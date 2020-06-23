@@ -39,6 +39,7 @@
                         <tr class="headings">
                           <th class="column-title" >No </th>
                           <th class="column-title" style="display: table-cell;">Brand</th>
+                          <th class="column-title" style="display: table-cell;">Product Code</th>
                           <th class="column-title" style="display: table-cell;">Name</th>
                           <th class="column-title" style="display: table-cell;">Part Number</th>
                           <th class="column-title" style="display: table-cell;">Barcode</th>
@@ -59,6 +60,7 @@
                             echo '<tr>';
                             echo '<td class=" ">'.$i++.'</td>';
                             echo '<td class=" ">'.$a->brand.'</td>';
+                            echo '<td class=" ">'.$a->product_code.'</td>';
                             echo '<td class=" ">'.$a->name.'</td>';
                             echo '<td class=" ">'.$a->part_number.'</td>';
                             echo '<td class=" ">'.$a->barcode.'</td>';
