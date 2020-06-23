@@ -1,9 +1,3 @@
-	.container {
-	    /* background: #ffffff; */
-	    height: auto;
-	    /* box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, .2); */
-	}
-
 	.logo {
 	    width: 250px;
 	    height: 130px;
@@ -92,13 +86,6 @@
 	    font-size: 12px;
 	    margin-top: -10px;
 	}
-
-	.table {
-	    border-color: #00a8ff;
-	    margin: 0;
-	    padding: 0;
-	}
-
 	.headertitle {
 	    font-family: "Khmer OS Content"!important;
 	}

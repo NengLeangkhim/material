@@ -670,9 +670,9 @@ class gettable extends Controller
         $sqlstr['productlist']='SELECT * from (SELECT p.id,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as "Product Code",pt.name_en as "Type",b.name as "Brand" ,p.name as "Name (EN)",p.name_kh as "Name (KHMR)", p.part_number as "Part number", p.barcode as "Barcode",
             m.name as "Measurement",cu.name as "Currency", p.price as "Base Price",p.qty as "QTY",(p.qty*p.price)as "Amount",description as "Description"
             FROM public.product p
-            join measurement m on m.id=p.measurement_id
-            join product_brand b on b.id=p.brand_id
-            join currency cu on cu.id=p.currency_id
+            left join measurement m on m.id=p.measurement_id
+            left join product_brand b on b.id=p.brand_id
+            left join currency cu on cu.id=p.currency_id
             left join product_type pt on pt.id=p.product_type_id) as feee
             where lower("Product Code") like \'%'.$sr.'%\' or lower("Name (EN)") like \'%'.$sr.'%\' or lower("Name (KHMR)") like \'%'.$sr.'%\'
                 or lower("Part number") like \'%'.$sr.'%\' or lower("Barcode") like \'%'.$sr.'%\' or lower("Brand") like \'%'.$sr.'%\'

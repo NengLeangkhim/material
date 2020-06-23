@@ -1,7 +1,7 @@
 @php
     if($action[0]=='out'){
         $title='Request';
-        $act='out';
+        $act='cout';
         $route='productCompanyrequest';
     }else if($action[0]=='in'){
         $title='Import';
@@ -36,7 +36,7 @@
                     <div class="form-group col-md-4">
                         <label>Company Branch<i class="text-danger">*</i></label>
                         <div class="input-group">
-                            <select name="company_branch" id="company_branch" class="form-control select2" onchange="clear_row()" required>
+                            <select name="company_branch" id="company_branch" class="form-control select2" onchange="clear_row();" required>
                             @php
                                 foreach($action[2] as $branch){
                                     echo '<option value="'.$branch->id.'">'.$branch->branch.'</option>';
@@ -58,11 +58,11 @@
                 </div>
                 <br>
 
-                <div class="container">
+                <div class="container-fluid">
                     <div class="form-group col-3 col-xs-push-8">
-                        <input type="text" name="" class="form-control" placeholder="search..." onkeyup="get_product_comp(this.value,'tbody_a',1)">
+                        <input type="text" name="" class="form-control" placeholder="search..." onkeyup="get_product(this.value,'tbody_a',1)">
                     </div>
-                    <div class="table">
+                    <div class="table table-overflow">
                         <table class="table table-bordered table-hover"  >
                             <thead class="head-sticky">
                             <tr>
@@ -74,15 +74,15 @@
                                 <th>Part Number</th>
                             </tr>
                         </thead>
-                        <tbody id='tbody_a' style="overflow: auto;">
+                        <tbody id='tbody_a'>
 
                         </tbody>
                     </table>
                     </div>
                     <div id="tbody_a_pagi"></div>
                     {{-- second table --}}
-                    <div class="table">
-                        <table id="table-cart" class="table table-bordered" >
+                    <div class="table table-overflow">
+                        <table id="table-cart" class="table table-bordered table-stock" >
                             <thead class="head-sticky">
                             <tr>
                                 <th style="width: 2%">No</th>
@@ -139,7 +139,7 @@
 <script type="text/javascript">
     $(document).ready(
         function(){
-            get_product_comp('','tbody_a',1);
+            get_product('','tbody_a',1);
         }
     );
     $('#frm_btn_subaddcop').click( function(){

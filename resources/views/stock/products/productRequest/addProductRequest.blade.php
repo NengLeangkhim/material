@@ -62,11 +62,11 @@
                     </div>
                     <div class="clearfix"></div>
                 <br>
-                <div class="container">
+                <div class="container-fluid">
                     <div class="form-group col-3 col-xs-push-8">
                         <input type="text" name="" id="product_search" class="form-control" placeholder="search...">
                     </div>
-                    <div class="table">
+                    <div class="table table-overflow">
                         <table class="table table-bordered table-hover"  >
                             <thead class="head-sticky">
                             <tr>
@@ -85,8 +85,8 @@
                     </div>
                     <div id="tbody_a_pagi"></div>
                     {{-- second table --}}
-                    <div class="table">
-                        <table id="table-cart" class="table table-bordered" >
+                    <div class="table table-overflow">
+                        <table id="table-cart" class="table table-bordered table-stock">
                             <thead class="head-sticky">
                                 <tr>
                                     <th style="width: 2%">No</th>
@@ -98,8 +98,8 @@
                                     <th>Storage location</th>
                                     <th style="width:12% ">Available Qty</th>
                                     <th style="width:12% ">Qty</th>
-                                    <th>Price</th>
-                                    <th>Amount</th>
+                                    <th style="width:12% ">Price</th>
+                                    <th >Amount</th>
                                     <th style="width: 1%;"></th>
                                 </tr>
                             </thead>

@@ -52,6 +52,7 @@ class ProductReturn extends Controller
             $pid=$_POST['pid'];
             $qty=$_POST['qty'];
             $price=$_POST['price'];
+            $currency=$_POST['currency'];
             $location=$_POST['storage_location'];
             $storage=$_POST['storage'];
 
@@ -63,7 +64,7 @@ class ProductReturn extends Controller
             $id=$q[0]->id;
             for($i=0;$i<count($pid);$i++){
                 // echo $pid[$i].' '.$qty[$i].' '.$location[$i].' '.$storage[$i].'<br>';
-                $dsql=$ds."($id,".$pid[$i].",".$storage[$i].",".$location[$i].",".$qty[$i].",".$price[$i].");";
+                $dsql=$ds."($id,".$pid[$i].",".$storage[$i].",".$location[$i].",".$qty[$i].",".$price[$i].",".$currency[$i].");";
                 $q=DB::select("SELECT ".$dsql);
             }
         }else{
@@ -81,11 +82,11 @@ class ProductReturn extends Controller
                     from returned_request rp
                     join company_detail cd on cd.id=rp.company_detail_id
                     where cd.status='t' and rp.id=$id";
-                $sql1="SELECT b.name as brand,p.name,p.part_number,p.barcode,m.name as measurement,c.name as currency,rrd.qty,p.price,(rrd.qty*p.price) as amount
+                $sql1="SELECT b.name as brand,p.name,p.part_number,p.barcode,m.name as measurement,c.name as currency,rrd.qty,rrd.price,(rrd.qty*rrd.price) as amount
                 from returned_request_detail rrd
                 join product p on p.id=rrd.product_id
                 join product_brand b on b.id=p.brand_id
-                join currency c on p.currency_id=c.id
+                join currency c on rrd.currency_id=c.id
                 join measurement m on p.measurement_id=m.id
                 where rrd.returned_request_id=$id";
             $plist=array();

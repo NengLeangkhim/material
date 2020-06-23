@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\stock;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\path_config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\perms;
@@ -88,7 +89,9 @@ class product extends Controller
                 $barcode=$_POST['barcode'];
                 if(!empty($_POST['pid'])){//update
                     $pid=$_POST['pid'];
-                    $img=DB::select("select image from product where id=$pid")[0]->image;
+                    if(empty($img)){
+                        $img=DB::select("select image from product where id=$pid")[0]->image;
+                    }
                     $sql="update_product(
                             $pid,'$pname','$pname_kh',$cost,$unitType,$company,$company_branch,
                             $staff,'$ppartNumber','$img',$brand,$currency,'$barcode',
@@ -148,7 +151,7 @@ class product extends Controller
             }
             else{
                 $passv="addp";
-                $v="products.productList.addproduct";
+                $v="stock.products.productList.addproduct";
                 $id=$_GET['edit'];
                 // $addp[0]=DB::select("select id,name from company");
                 $addp[1]=DB::select("select id,name from measurement where status='t'");
@@ -156,9 +159,10 @@ class product extends Controller
                 // $addp[3]=DB::select("select id,name from storage where status='t'");
                 $addp[4]=DB::select("select id,name from currency where status='t'");
                 // $addp[5]=DB::select("select id,name from supplier where status='t'");
-                $addp[6]=DB::select("SELECT p.id, p.name,p.name_kh, p.qty, p.price,p.product_code,p.product_type_id,
+                $addp[6]=DB::select("SELECT p.id, p.name,p.name_kh, p.qty, p.price,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code,p.product_type_id,
                 p.measurement_id, p.brand_id, p.barcode, p.image, p.part_number, p.currency_id,p.description
                 FROM public.product p
+                left join product_type pt on pt.id=p.product_type_id
                 where p.id=$id");
                 $addp[7]=DB::select("select id,name_en from product_type where status='t'");
             }
