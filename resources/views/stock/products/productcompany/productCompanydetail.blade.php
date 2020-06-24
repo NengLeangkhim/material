@@ -19,14 +19,14 @@
             </section>
         </div>
     </div>
-        <form action="approveProductCompany" name="approveproductcompany" method="POST" >
+        <form action="approveProductCompany" name="approveproductcompany" method="POST" id='frm_aprcop'>
         @csrf
         <div class="pull-right" style="margin-top: -1.3%;">
             <a  href="javascript:void(0);" onclick="window.print();" class="text-danger"><i class="fa fa-print"></i> Print</a>
             @php
                 echo $apr;
             @endphp
-            <input type="submit" value="approve" id='sub' style="display:none;">
+            <input type="button" value="approve" id='sub' style="display:none;">
             {{-- <a href="/productListDetial?edit={{$plist[0][0]->id}}" title="Update" class="text-custom"><i class="fa fa-pencil-square"></i> Update</a>|
             <a href="#" onclick="yesno_dialog('/productListDetial?delete={{$plist[0][0]->id}}','Are you sure to delete this?','Delete')" title="Update" class="text-custom"><i class="fa fa-trash"></i> Delete</a> --}}
         </div>
@@ -114,18 +114,14 @@
         $("#okmodal").modal("show");
    }
 });
-document.approveproductcompany.onsubmit = function(){
-     if(OnSubmitCofirm('Are you sure to approve?'))
-        {
-            var tbody = document.getElementById("tbody_b");
-                if(tbody.rows.length<1){
-                    ok_dialog('You can not approve this!','No product!');
-                    return false;
-                }
-                return true;
+$('#sub').click( function(){
+        var tbody = document.getElementById("tbody_b");
+        if(tbody.rows.length<1){
+            ok_dialog('Please Select product first!','No product!');
+        }else{
+            submit_form('/approveProductCompany','frm_aprcop','productCompanyimport');
         }
-        return false;
-    }
+    });
 </script>
 @php
 

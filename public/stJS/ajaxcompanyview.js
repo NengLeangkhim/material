@@ -36,7 +36,8 @@ function add_row_qty(id,qtya,pricea){//get value to view of company
                 var qty='<input type="number" class="form-control input-sm text-center number" min="1" step="1" name="qty[]" onkeypress="valid_number(event)" value="'+qtya+'" style="margin:0" disabled>'+
                             '<input type="hidden" name="qty[]" value="'+qtya+'">';
                 var price='<input type="number" class="form-control input-sm text-center number" min="0.0001" step="0.0001" onkeypress="valid_float(event)" value="'+pricea+'" style="margin:0" disabled>'+
-                            '<input type="hidden" name="price[]" value="'+pricea+'">';
+                            '<input type="hidden" name="price[]" value="'+pricea+'">'+
+                            '<input type="hidden" name="currency[]" value="'+val['currency_id']+'">';
                 var all_qty='<input type="text" class="form-control input-sm text-center" name="a_qty[]" value="'+val['qty']+'" disabled >'+
                             '<input type="hidden" name="all_qty[]" value="'+val['qty']+'">';
                 var sc="";
