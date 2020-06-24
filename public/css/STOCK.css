@@ -49,3 +49,6 @@
     background-color: #3c8dbc;
     font-size: 15px;
 }
+.pull-right{
+    float: right;
+}

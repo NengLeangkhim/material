@@ -2,8 +2,10 @@
     $ap="";
     if($plist[0][0]->action_type=="out"){
         $act='Request';
+        $route='productCompanyrequest';
     }else if($plist[0][0]->action_type=="in"){
         $act='Import';
+        $route='productCompanyimport';
     }
 @endphp
 {{-- @include('../otherUser/header') --}}
@@ -21,7 +23,8 @@
     </div>
         <form action="approveProductCompany" name="approveproductcompany" method="POST" id='frm_aprcop'>
         @csrf
-        <div class="pull-right" style="margin-top: -1.3%;">
+        <div class="pull-right" style="margin-top: -2.3%;">
+            <a  href="javascript:void(0);" onclick="go_to('<?php echo $route;?>')" class="text-info"><i class="fa fa-arrow-left"></i> Back</a> |
             <a  href="javascript:void(0);" onclick="window.print();" class="text-danger"><i class="fa fa-print"></i> Print</a>
             @php
                 echo $apr;
