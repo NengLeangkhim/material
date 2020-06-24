@@ -144,7 +144,7 @@ body {
     margin: auto;
     width: 200px;
     height: 200px;
-    border: 8px solid rgba(255, 255, 255, 0.7);
+    border:8px solid #f4f6f9;
     margin-top: 50px
 
 }
@@ -178,7 +178,6 @@ body {
 
 </style>
 <section class="content">
-
 
     <div class="container-fluid">
         <div class="row">
@@ -239,7 +238,6 @@ body {
         
                                     </li>
                                     <li>
-        
                                         <div class="row">
                                             <div class="col-md-5 col-5">
                                                 <i class="far fa-id-badge"></i>
@@ -249,10 +247,8 @@ body {
                                                 <p><?php echo (isset($pro))?$pro['id_number']:"";?></p>
                                             </div>
                                         </div>
-        
                                     </li>
                                     <li>
-        
                                         <div class="row">
                                             <div class="col-md-5 col-5">
                                                 <i class="far fa-building"></i>
@@ -264,7 +260,6 @@ body {
                                         </div>
         
                                     </li>
-        
                                     <li>
                                         <div class="row">
                                             <div class="col-md-5 col-5">
