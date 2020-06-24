@@ -23,6 +23,9 @@
             background-position: center;
             opacity: 70%;
         }
+        .form-control{
+            font-family: khmer OS Content, cursive​​​;
+        }
 
     </style>
 </head>

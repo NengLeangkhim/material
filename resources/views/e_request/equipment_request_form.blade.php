@@ -31,7 +31,7 @@
         {{-- <br> --}}
         <div class="row">
             <div class="col-md-12">
-                <p class="during"><b>១.ព័ត៌មានរបស់អ្នកបច្ចេកទេស / Technician information</b></p>
+                <p class="during"><b>១.ព័ត៌មានរបស់អ្នកបច្ចេកទេស / TECHNICIAN INFORMATION</b></p>
             </div>
         </div>
         {{-- <br> --}}
@@ -65,7 +65,7 @@
         {{-- <br> --}}
         <div class="row">
             <div class="col-sm-12">
-                <p class="during"><b>២.ព័ត៌មានរបស់អតិថិជន/ Customer Information</b></p>
+                <p class="during"><b>២.ព័ត៌មានរបស់អតិថិជន/ CUSTOMER INFORMATION</b></p>
             </div>
         </div>
         {{-- <br> --}}
@@ -164,24 +164,24 @@
                 <table class="table" border=1 style=" width:1300px; border-color: black">
                     <tr style="">
                         <td colspan="6" class="style_td" style="background:#dfe6e9;">
-                            <p class="during"><b>៣.ឈ្មោះសម្ភារៈ/Item's Name</b></p>
+                            <p class="during"><b>៣.ឈ្មោះសម្ភារៈ/ITEM'S NAME</b></p>
                         </td>
                     </tr>
                     <tr>
                         <td class="style_td" style=" text-align: center;">
-                            <p class="during">ឈ្មោះសម្ភារៈ/Item's Name</p>
+                            <p class="during bold">ឈ្មោះសម្ភារៈ/ITEM'S NAME</p>
                         </td>
                         <td class="style_td" style=" text-align: center;">
-                            <p class="during">Modal/SN</p>
+                            <p class="during bold">MODAL/SN</p>
                         </td>
                         <td class="style_td" style=" text-align: center;">
-                            <p class="during">ចំនួន/Quantity</p>
+                            <p class="during bold">ចំនួន/QUANTITY</p>
                         </td>
                         <td class="style_td" style=" text-align: center;">
-                            <p class="during">ប្រភេទ/Type</p>
+                            <p class="during bold">ប្រភេទ/TYPE</p>
                         </td>
                         <td class="style_td" style=" text-align: center;">
-                            <p class="during">តម្លៃ/Price</p>
+                            <p class="during bold">តម្លៃ/PRICE</p>
                         </td>
                         <?php echo $add;?>
                     </tr>
@@ -202,13 +202,22 @@
         </div>
         {{-- <br> --}}
         {{-- =========== End ============== --}}
+
+        {{-- ======================= POP ======================== --}}
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <input style="text-align: center;" type="text" name="pop" class="form-control">
+            </div>
+        </div>
+        <br>
     
     
         <div class="row">
             <div class="col-md-3" align="center">
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="during">អតិថិជន/Customer</p>
+                        <p class="during bold">អតិថិជន/CUSTOMER</p>
                     </div>
                 </div>
                 <div class="row">
@@ -221,7 +230,7 @@
             <div class="col-md-3" align="center">
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="during">អ្នកប្រគល់/Provider</p>
+                        <p class="during bold">អ្នកប្រគល់/PROVIDER</p>
                     </div>
                 </div>
                 <div class="row">
@@ -234,7 +243,7 @@
             <div class="col-md-3" align="center">
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="during">អ្នកបច្ចេកទេស(Technician)</p>
+                        <p class="during bold">អ្នកបច្ចេកទេស(TECHNICIAN)</p>
                     </div>
                 </div>
                 <div class="row">
@@ -247,7 +256,7 @@
             <div class="col-md-3" align="center">
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="during">អ្នកស្នើឧបករណ៍(Request By)</p>
+                        <p class="during bold">អ្នកស្នើឧបករណ៍(REQUEST BY)</p>
                     </div>
                 </div>
                 <div class="row">
@@ -294,7 +303,7 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-sm-3">
-                        <p class="during"><b>កំណត់ចំណាំ/Note:</b></p>
+                        <p class="during"><b>កំណត់ចំណាំ / NOTE:</b></p>
                     </div>
                     <div class="col-sm-9">
                         <input id="time" type="text" name="note" value="<?php echo (isset($v0))?$v0['note']:'';?>" <?php echo $d1;?> class='form-control'>
