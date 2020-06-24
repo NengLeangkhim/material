@@ -139,7 +139,9 @@ class gettable extends Controller
                                 </td><td class=" ">'.$num_row.'</td>';
                             }else{
                                 if (strpos(strtolower($t), 'date')) {
-                                    $t_value= date_format(date_create($t_value), 'd-M-Y h:i:s A');
+                                    if(!empty($t_value)){
+                                        $t_value= date_format(date_create($t_value), 'd-M-Y h:i:s A');
+                                    }
                                 }
                                 $Tbody.='<td class=" ">'.$t_value.'</td>';
                             }
@@ -338,7 +340,9 @@ class gettable extends Controller
                                 $Tbody.='<td class=" ">'.$num_row.'</td>';
                             }else{
                                 if (strpos(strtolower($t), 'date')) {
-                                    $t_value= date_format(date_create($t_value), 'd-M-Y h:i:s A');
+                                    if(!empty($t_value)){
+                                        $t_value= date_format(date_create($t_value), 'd-M-Y h:i:s A');
+                                    }
                                 }
                                 $Tbody.='<td class=" ">'.$t_value.'</td>';
                             }
