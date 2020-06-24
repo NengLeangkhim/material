@@ -193,52 +193,14 @@ class product extends Controller
             // $id=$_GET['_id'];//set up same for ajax
             $tid=$_GET['_tid'];
             // $get_branch=DB::select('select name from product_code where status=\'t\' and company_id='.$id);
-            $t=DB::select("select icode,digit from product_type where status='t' and id=$tid");
-            $max=DB::select("select max(case when icode is null then 0 else icode end) as code ,digit from product where product_type_id=$tid group by digit");
-            // $get_branch='select name from product_code where status=\'t\' and company_id='.$id;
-            // $max=DB::select('select product_code from product where id=(select max(id) from product)');
-            $type=$t[0]->code;
-            $get_branch=array();
-            // $get_branch[0]=null;
-            $get_branch[0]= new \stdClass();
-            $get_branch[0]->name='';
-            for($i=strlen($type);$i<$t[0]->digit;$i++){
-                $type="0".$type;
-            }
-            if(count($max)>0){
-                $limit=$max[0]->digit;
-                if(!is_null($max[0]->code)){
-                    $max=intval($max[0]->code)+1;
-                    if(strlen($max)<$limit){
-                        for($i=strlen($max);$i<$limit;$i++){
-                            $max='0'.$max;
-                        }
-                    }
-                    $get_branch[0]->name.=$type.'-'.$max;
-                }else{
-                    $n="";
-                    for($i=strlen($n);$i<$limit-1;$i++){
-                        $n.="0";
-                    }
-                    $get_branch[0]->name.=$type."-".$n."1";
-                    // $get_branch[0]->name=$get_branch[0]->name;
-                }
-            }else{
-                $max=DB::select("select max(digit) as digit from product");
-                $limit=$max[0]->digit;
-                $n="";
-                for($i=strlen($n);$i<$limit-1;$i++){
-                    $n.="0";
-                }
-                $get_branch[0]->name.=$type."-".$n."1";
-            }
-            // else{
-            //     $get_branch=array();
-            //     // $get_branch[0]=null;
-            //     $get_branch[0]= new \stdClass();
-            //     $get_branch[0]->name='';
-            // }
-            return response()->json(array('response'=> $get_branch), 200);//set up same for ajax
+            $max=DB::select("SELECT * from public.get_code_ibuild(null,1,$tid);");
+            $t=DB::select("select get_code_prefix_ibuild({$max[0]->code},null,{$max[0]->code_prefix_owner_id},(select code from product_type where id=$tid)) as name");
+            // $get_branch=array();
+            // // $get_branch[0]=null;
+            // $get_branch[0]= new \stdClass();
+            // $get_branch[0]->name='';
+
+            return response()->json(array('response'=> $t), 200);//set up same for ajax
         }else{
             return view('no_perms');
         }
