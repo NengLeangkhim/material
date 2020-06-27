@@ -90,11 +90,11 @@ class get_value_to_view extends Controller{
             if(isset($ch['type'])){
                 $pending="";
                 if($ch['type']=='mid'){
-                    $pending='<a href="javascript:void(0);" onclick=\'approve("big-guy",'.$_GET['erid'].',"cmt'.$_GET['erid'].'","pending","apr");$(".modal").modal("hide");\' class="btn btn-primary" name="pending">Pending</a>';
+                    $pending='<a href="javascript:void(0);" onclick=\'approve(".content-wrapper",'.$_GET['erid'].',"cmt'.$_GET['erid'].'","pending","apr");$(".modal").modal("hide");\' class="btn btn-primary" name="pending">Pending</a>';
                 }
                 $comment='<p>បញ្ចេញមតិទីនេះ</p><textarea class="form-control" name="comment" id="cmt'.$_GET['erid'].'" rows="3"></textarea><br>';
-                $approve='<a href="javascript:void(0);" onclick=\'approve("big-guy",'.$_GET['erid'].',"cmt'.$_GET['erid'].'","approve","apr");$(".modal").modal("hide");\' class="btn btn-success" name="approve">Approve</a>';
-                $reject='<a href="javascript:void(0);" onclick=\'approve("big-guy",'.$_GET['erid'].',"cmt'.$_GET['erid'].'","reject","apr");$(".modal").modal("hide");\' class="btn btn-danger" name="reject">Reject</a>';
+                $approve='<a href="javascript:void(0);" onclick=\'approve(".content-wrapper",'.$_GET['erid'].',"cmt'.$_GET['erid'].'","approve","apr");$(".modal").modal("hide");\' class="btn btn-success" name="approve">Approve</a>';
+                $reject='<a href="javascript:void(0);" onclick=\'approve(".content-wrapper",'.$_GET['erid'].',"cmt'.$_GET['erid'].'","reject","apr");$(".modal").modal("hide");\' class="btn btn-danger" name="reject">Reject</a>';
             }
             $d='disabled';
             $btn_sub='';
