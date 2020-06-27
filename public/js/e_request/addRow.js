@@ -234,7 +234,7 @@ function ShowFormAPR(id,erid,tar) {
         return;
     }
     id=id.split(",");
-    var fname = "views/layouts/" + id[1] + '?id=' + id[0] + '&erid=' + erid;
+    var fname =id[1] + '?id=' + id[0] + '&erid=' + erid;
     var x = new XMLHttpRequest();
     setTimeout(function(){$('#more_detail').modal('show')},200);
     spin(tar);

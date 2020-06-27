@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\DB;
 
 class get_value_to_view extends Controller{
     public static function get_val_view($route,$frm_id){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $user_id=$_SESSION['userid'];
         $e_r_id="";
         $dd='disabled';
         $dd1="";//only for work ot for now
