@@ -168,6 +168,7 @@ body.os-dragging * {
     padding: 0;
     margin: 0;
     -webkit-overflow-scrolling: touch;
+    background: #1fa8e0;
 }
 .os-content-arrange {
     position: absolute;
@@ -186,6 +187,7 @@ body.os-dragging * {
     height: 100%;
     width: 100%;
     visibility: visible;
+    background: #1fa8e0 !important;
 }
 .os-content > .os-textarea {
     box-sizing: border-box !important;
