@@ -1,8 +1,8 @@
  <!-- Main Sidebar Container -->
  <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="/" class="brand-link white-bg" style="background: #fff">
-      <img src="dist/img/favicon.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <a href="/" class="brand-link" style="background: #fff">
+      <img src="dist/img/favicon.png" alt="TURBOTECH Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light"><b><span style="color: red !important">TURBO</span><span style="color: #1fa8e0 !important">TECH</span></b></span>
     </a>
     <!-- Sidebar -->
