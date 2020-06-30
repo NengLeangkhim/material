@@ -6,7 +6,7 @@
       <span class="brand-text font-weight-light"><b><span style="color: red !important">TURBO</span><span style="color: #1fa8e0 !important">TECH</span></b></span>
     </a>
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar" style="background:#1fa8e0">
     <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
