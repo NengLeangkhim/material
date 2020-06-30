@@ -30,19 +30,19 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Customer Name English <b style="color:red">*</b></label>
+                                            <label for="exampleInputEmail1">Company Name English <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                    <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="Customer Name English"  name='custEng'  >
+                                                <input type="text" class="form-control" placeholder="Customer Name English"  name='custEng'  required>
                                             </div>
                                         </div>
                                          <div class="col-md-6">
-                                             <label for="exampleInputEmail1">Customer Name khmer <b style="color:red">*</b></label>
+                                             <label for="exampleInputEmail1">Company Name khmer <b style="color:red">*</b></label>
                                              <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                    <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                 </div>
                                                 <input type="text" class="form-control" name="custkh" id="exampleInputEmail1" placeholder="Customer Name khmer" >
                                             </div>
@@ -246,7 +246,7 @@
                                             <label for="exampleInputEmail1">Position</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fab fa-chrome"></i></span>
+                                                    <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                                 </div>
                                                 <input type="text" class="form-control" name="cposition" id="exampleInputEmail1" placeholder="Website">
                                             </div>
