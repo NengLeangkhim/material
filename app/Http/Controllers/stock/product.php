@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\stock;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\path_config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\perms;
@@ -88,7 +89,9 @@ class product extends Controller
                 $barcode=$_POST['barcode'];
                 if(!empty($_POST['pid'])){//update
                     $pid=$_POST['pid'];
-                    $img=DB::select("select image from product where id=$pid")[0]->image;
+                    if(empty($img)){
+                        $img=DB::select("select image from product where id=$pid")[0]->image;
+                    }
                     $sql="update_product(
                             $pid,'$pname','$pname_kh',$cost,$unitType,$company,$company_branch,
                             $staff,'$ppartNumber','$img',$brand,$currency,'$barcode',
@@ -129,10 +132,10 @@ class product extends Controller
                 $id=$_GET['pID'];
                 $passv="plist";
                 $addp=array();
-                $addp[]=DB::select("SELECT p.id,b.name as brand ,p.name,p.name_kh, p.part_number,p.product_code, p.barcode,m.name as measurement, p.qty, p.price,(p.qty*p.price)as amount,p.image
-                FROM public.product p join measurement m on m.id=p.measurement_id join product_brand b on b.id=p.brand_id where p.id=".$id);
-                $addp[]=DB::select("SELECT distinct sum(q.qty)over(partition by q.company_detail_id) as qty,q.company_detail_id,s.storage,s.location,cd.company,cd.branch
-                                    ,(select code from company_branch where id=cd.branch_id) as company_code,(select product_code from product where id=q.product_id) as product_code
+                $addp[]=DB::select("SELECT p.id,b.name as brand ,p.name,p.name_kh, p.part_number,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code, p.barcode,m.name as measurement, p.qty, p.price,(p.qty*p.price)as amount,p.image
+                FROM public.product p join measurement m on m.id=p.measurement_id join product_brand b on b.id=p.brand_id left join product_type pt on pt.id=p.product_type_id where p.id=".$id);
+                $addp[]=DB::select("SELECT distinct sum(q.qty)over(partition by q.company_detail_id,q.storage_detail_id) as qty,q.company_detail_id,s.storage,s.location,cd.company,cd.branch
+                                    ,(select code from company_branch where id=cd.branch_id) as company_code,(select get_code_prefix_ibuild(p.code,q.company_detail_id,p.code_prefix_owner_id,pt.code) from product p left join product_type pt on pt.id=p.product_type_id where p.id=q.product_id) as product_code
                                     from product_qty q
                                     left join company_detail cd on cd.id=q.company_detail_id
                                     left join storage_detail s on s.id=q.storage_detail_id
@@ -148,7 +151,7 @@ class product extends Controller
             }
             else{
                 $passv="addp";
-                $v="products.productList.addproduct";
+                $v="stock.products.productList.addproduct";
                 $id=$_GET['edit'];
                 // $addp[0]=DB::select("select id,name from company");
                 $addp[1]=DB::select("select id,name from measurement where status='t'");
@@ -156,9 +159,10 @@ class product extends Controller
                 // $addp[3]=DB::select("select id,name from storage where status='t'");
                 $addp[4]=DB::select("select id,name from currency where status='t'");
                 // $addp[5]=DB::select("select id,name from supplier where status='t'");
-                $addp[6]=DB::select("SELECT p.id, p.name,p.name_kh, p.qty, p.price,p.product_code,p.product_type_id,
+                $addp[6]=DB::select("SELECT p.id, p.name,p.name_kh, p.qty, p.price,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code,p.product_type_id,
                 p.measurement_id, p.brand_id, p.barcode, p.image, p.part_number, p.currency_id,p.description
                 FROM public.product p
+                left join product_type pt on pt.id=p.product_type_id
                 where p.id=$id");
                 $addp[7]=DB::select("select id,name_en from product_type where status='t'");
             }
@@ -189,52 +193,14 @@ class product extends Controller
             // $id=$_GET['_id'];//set up same for ajax
             $tid=$_GET['_tid'];
             // $get_branch=DB::select('select name from product_code where status=\'t\' and company_id='.$id);
-            $t=DB::select("select code,digit from product_type where status='t' and id=$tid");
-            $max=DB::select("select max(case when code is null then 0 else code end) as code ,digit from product where product_type_id=$tid group by digit");
-            // $get_branch='select name from product_code where status=\'t\' and company_id='.$id;
-            // $max=DB::select('select product_code from product where id=(select max(id) from product)');
-            $type=$t[0]->code;
-            $get_branch=array();
-            // $get_branch[0]=null;
-            $get_branch[0]= new \stdClass();
-            $get_branch[0]->name='';
-            for($i=strlen($type);$i<$t[0]->digit;$i++){
-                $type="0".$type;
-            }
-            if(count($max)>0){
-                $limit=$max[0]->digit;
-                if(!is_null($max[0]->code)){
-                    $max=intval($max[0]->code)+1;
-                    if(strlen($max)<$limit){
-                        for($i=strlen($max);$i<$limit;$i++){
-                            $max='0'.$max;
-                        }
-                    }
-                    $get_branch[0]->name.=$type.'-'.$max;
-                }else{
-                    $n="";
-                    for($i=strlen($n);$i<$limit-1;$i++){
-                        $n.="0";
-                    }
-                    $get_branch[0]->name.=$type."-".$n."1";
-                    // $get_branch[0]->name=$get_branch[0]->name;
-                }
-            }else{
-                $max=DB::select("select max(digit) as digit from product");
-                $limit=$max[0]->digit;
-                $n="";
-                for($i=strlen($n);$i<$limit-1;$i++){
-                    $n.="0";
-                }
-                $get_branch[0]->name.=$type."-".$n."1";
-            }
-            // else{
-            //     $get_branch=array();
-            //     // $get_branch[0]=null;
-            //     $get_branch[0]= new \stdClass();
-            //     $get_branch[0]->name='';
-            // }
-            return response()->json(array('response'=> $get_branch), 200);//set up same for ajax
+            $max=DB::select("SELECT * from public.get_code_ibuild(null,1,$tid);");
+            $t=DB::select("select get_code_prefix_ibuild({$max[0]->code},null,{$max[0]->code_prefix_owner_id},(select code from product_type where id=$tid)) as name");
+            // $get_branch=array();
+            // // $get_branch[0]=null;
+            // $get_branch[0]= new \stdClass();
+            // $get_branch[0]->name='';
+
+            return response()->json(array('response'=> $t), 200);//set up same for ajax
         }else{
             return view('no_perms');
         }

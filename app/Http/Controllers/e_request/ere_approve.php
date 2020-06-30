@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\DB;
 class ere_approve extends Controller
 {
     function approve(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $user_id=$_SESSION['userid'];
         $sql="SELECT public.insert_e_request_detail(
             ".$_POST['erid'].",
             $user_id,

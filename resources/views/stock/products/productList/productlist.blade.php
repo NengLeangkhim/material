@@ -24,8 +24,10 @@
                     </div>
                 </div>
             </div>
-            <div class="table-responsive" id='tablediv'>
-            </div>
+                <div class="table-overflow">
+                    <div class="table-stock" id='tablediv'>
+                    </div>
+                </div>
         </div>
     </div>
 </div>
@@ -35,6 +37,7 @@
   $(document).ready(
       function(){
           getTable('productlist','id');
+          $(".table-overflow").doubleScroll();
       }
   );
 </script>

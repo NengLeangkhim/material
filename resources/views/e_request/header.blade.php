@@ -16,6 +16,7 @@
     <script src="../../storage/js/getvalues.js"></script> -->
 <!-- </head>
 <body> -->
+{{-- 
     <div class="container-fluid" style="">
         <div class="col-md-12" style="">
             <div class="row" style="">
@@ -31,9 +32,33 @@
                 <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
                    
                 </div>
-            <!-- </div>             -->
+            <!-- </div>  -->
+        </div> --}}
+
+        <div class="container-fluid" >
+            <br>
+            <div class="row" align="center">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-3" align="center">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img src="storage/img/turbotech.png"  class="logo">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5" align="center">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="font_khcom">ក្រុមហ៊ុន ធើបូថេក​ ឯ.ក </h2>
+                            <h3 class="font_engcom">TURBOTECH CO., LTD</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2"></div>
+            </div>
         </div>
-  
+    
+        <br>
      <!-- ==========end container-fluid============== -->
 
 

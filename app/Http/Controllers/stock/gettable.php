@@ -139,7 +139,9 @@ class gettable extends Controller
                                 </td><td class=" ">'.$num_row.'</td>';
                             }else{
                                 if (strpos(strtolower($t), 'date')) {
-                                    $t_value= date_format(date_create($t_value), 'd-M-Y h:i:s A');
+                                    if(!empty($t_value)){
+                                        $t_value= date_format(date_create($t_value), 'd-M-Y h:i:s A');
+                                    }
                                 }
                                 $Tbody.='<td class=" ">'.$t_value.'</td>';
                             }
@@ -338,7 +340,9 @@ class gettable extends Controller
                                 $Tbody.='<td class=" ">'.$num_row.'</td>';
                             }else{
                                 if (strpos(strtolower($t), 'date')) {
-                                    $t_value= date_format(date_create($t_value), 'd-M-Y h:i:s A');
+                                    if(!empty($t_value)){
+                                        $t_value= date_format(date_create($t_value), 'd-M-Y h:i:s A');
+                                    }
                                 }
                                 $Tbody.='<td class=" ">'.$t_value.'</td>';
                             }
@@ -667,17 +671,16 @@ class gettable extends Controller
         $ii=(is_numeric($sr))?$sr:0;
         // $ii=0;
         $sqlstr= array();
-        $sqlstr['productlist']='SELECT p.id,p.product_code as "Product Code",pt.name_en as "Type",b.name as "Brand" ,p.name as "Name (EN)",p.name_kh as "Name (KHMR)", p.part_number as "Part number", p.barcode as "Barcode",
+        $sqlstr['productlist']='SELECT * from (SELECT p.id,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as "Product Code",pt.name_en as "Type",b.name as "Brand" ,p.name as "Name (EN)",p.name_kh as "Name (KHMR)", p.part_number as "Part number", p.barcode as "Barcode",
             m.name as "Measurement",cu.name as "Currency", p.price as "Base Price",p.qty as "QTY",(p.qty*p.price)as "Amount",description as "Description"
             FROM public.product p
-            join measurement m on m.id=p.measurement_id
-            join product_brand b on b.id=p.brand_id
-            join currency cu on cu.id=p.currency_id
-            join product_type pt on pt.id=p.product_type_id
-            -- join company_detail cd on cd.id=p.company_detail_id
-            where lower(b.name) like \'%'.$sr.'%\' or lower(p.name) like \'%'.$sr.'%\' or lower(p.name_kh) like \'%'.$sr.'%\'
-                or lower(p.part_number) like \'%'.$sr.'%\' or lower(p.barcode) like \'%'.$sr.'%\'
-                or lower(p.product_code) like \'%'.$sr.'%\' or lower(pt.name_en) like \'%'.$sr.'%\'';
+            left join measurement m on m.id=p.measurement_id
+            left join product_brand b on b.id=p.brand_id
+            left join currency cu on cu.id=p.currency_id
+            left join product_type pt on pt.id=p.product_type_id) as feee
+            where lower("Product Code") like \'%'.$sr.'%\' or lower("Name (EN)") like \'%'.$sr.'%\' or lower("Name (KHMR)") like \'%'.$sr.'%\'
+                or lower("Part number") like \'%'.$sr.'%\' or lower("Barcode") like \'%'.$sr.'%\' or lower("Brand") like \'%'.$sr.'%\'
+                or lower("Type") like \'%'.$sr.'%\'';
         $sqlstr['productAssign']='SELECT distinct c.id,c.code as "Company Code", c.name as "Company",(select count(id) from company_branch where company_id=c.id) as "Branches",count(pc.product_id)over (partition by pc.company_id) as "Assigned Product"  from product_company pc right join company c on c.id=pc.company_id
             where lower(c.name) like \'%'.$sr.'%\' or  lower(c.code) like \'%'.$sr.'%\'';
         $sqlstr['customerproductrequest']='SELECT * from (SELECT c.id,
@@ -815,7 +818,7 @@ class gettable extends Controller
 
     private function sqlreport($s,$sr,$from,$to){
         $sqlstr= array();
-        $sqlstr['stockreport2']="SELECT p.id,p.product_code as \"Product Code\",b.name as \"Brand\" ,p.name as \"Name\",p.name_kh as \"Name KH\", p.part_number as \"Part number\", p.barcode as \"Barcode\",cd.company as \"Company\",p.qty as \"Qty\",
+        $sqlstr['stockreport2']="SELECT * from (SELECT p.id,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as \"Product Code\",b.name as \"Brand\" ,p.name as \"Name\",p.name_kh as \"Name KH\", p.part_number as \"Part number\", p.barcode as \"Barcode\",p.qty as \"Qty\",
                 (select sum(qty) from product_qty where product_id=p.id and create_date<'$from') as \"Beginning\",
                 (select sum(qty) from product_qty where product_id=p.id and action_type='in' and create_date between '$from' and '$to') as \"Import\",
                 (select sum(qty) from product_qty where product_id=p.id and action_type='out' and create_date between '$from' and '$to') as \"Request\",
@@ -825,36 +828,40 @@ class gettable extends Controller
                     join measurement m on m.id=p.measurement_id
                     join product_brand b on b.id=p.brand_id
                     join currency cu on cu.id=p.currency_id
-                    join company_detail cd on cd.id=p.company_detail_id where lower(p.name) like '%$sr%' or lower(p.name_kh) like '%$sr%' or lower(b.name) like '%$sr%' or lower(p.part_number) like '%$sr%'
-                    or lower(p.barcode) like '%$sr%' or lower(cd.company) like '%$sr%' or lower(p.product_code) like '%$sr%'";
-        $sqlstr['purchasereport']="SELECT p.id,p.product_code as \"Product Code\", p.barcode as \"Barcode\",b.name as \"Brand\",p.name as \"Name\" ,p.name_kh as \"Name KH\",p.part_number as \"Part Number\",cd.company as \"Company\",pq.create_date as \"Create Date\",m.name as \"Measurement\",pq.qty as \"Qty\",p.price as \"Price\",(p.price*pq.qty) as \"Amount\",pq.action_type as \"Action Type\"
+                    left join product_type pt on pt.id=p.product_type_id) as fee
+                    where lower(\"Name\") like '%$sr%' or lower(\"Name KH\") like '%$sr%' or lower(\"Brand\") like '%$sr%' or lower(\"Part number\") like '%$sr%'
+                    or lower(\"Barcode\") like '%$sr%' or lower(\"Product Code\") like '%$sr%'";
+        $sqlstr['purchasereport']="SELECT * from (SELECT p.id,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as \"Product Code\", p.barcode as \"Barcode\",b.name as \"Brand\",p.name as \"Name\" ,p.name_kh as \"Name KH\",p.part_number as \"Part Number\",pq.create_date as \"Create Date\",m.name as \"Measurement\",pq.qty as \"Qty\",p.price as \"Price\",(p.price*pq.qty) as \"Amount\",pq.action_type as \"Action Type\"
                         from product p
                     join product_qty pq on p.id=pq.product_id
                     join product_brand b on p.brand_id=b.id
-                    join company_detail cd on cd.id=pq.company_detail_id
                     join measurement m on m.id=p.measurement_id
-                    where pq.create_date between '$from' and '$to' and action_type='in'
-                    and (lower(p.name) like '%$sr%' or lower(p.name_kh) like '%$sr%' or lower(b.name) like '%$sr%' or lower(p.part_number) like '%$sr%' or lower(p.product_code) like '%$sr%')";
+                    join product_type pt on pt.id=p.product_type_id) as fee
+                    where \"Create Date\" between '$from' and '$to' and \"Action Type\"='in'
+                    and (lower(\"Name\") like '%$sr%' or lower(\"Name KH\") like '%$sr%' or lower(\"Brand\") like '%$sr%' or lower(\"Part Number\") like '%$sr%'
+                    or lower(\"Barcode\") like '%$sr%' or lower(\"Product Code\") like '%$sr%')";
 
-        $sqlstr['requestreport']="SELECT p.id,p.product_code as \"Product Code\", p.barcode as \"Barcode\",b.name as \"Brand\",p.name as \"Name\" ,p.name_kh as \"Name KH\",p.part_number as \"Part Number\",cd.company as \"Company\",pq.create_date as \"Create Date\",m.name as \"Measurement\",(pq.qty*-1) as \"Qty\",p.price as \"Price\",(p.price*pq.qty*-1) as \"Amount\",pq.action_type as \"Action Type\"
-                        from product p
-                    join product_qty pq on p.id=pq.product_id
-                    join product_brand b on p.brand_id=b.id
-                    join company_detail cd on cd.id=pq.company_detail_id
-                    join measurement m on m.id=p.measurement_id
-                    where pq.create_date between '$from' and '$to' and action_type='out'
-                    and (lower(p.name) like '%$sr%' or lower(p.name_kh) like '%$sr%' or lower(b.name) like '%$sr%' or lower(p.part_number) like '%$sr%' or lower(p.product_code) like '%$sr%')";
+        $sqlstr['requestreport']="SELECT * from (SELECT p.id,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as \"Product Code\", p.barcode as \"Barcode\",b.name as \"Brand\",p.name as \"Name\" ,p.name_kh as \"Name KH\",p.part_number as \"Part Number\",pq.create_date as \"Create Date\",m.name as \"Measurement\",pq.qty as \"Qty\",p.price as \"Price\",(p.price*pq.qty) as \"Amount\",pq.action_type as \"Action Type\"
+        from product p
+    join product_qty pq on p.id=pq.product_id
+    join product_brand b on p.brand_id=b.id
+    join measurement m on m.id=p.measurement_id
+    left join product_type pt on pt.id=p.product_type_id) as fee
+    where \"Create Date\" between '$from' and '$to' and \"Action Type\"='out'
+    and (lower(\"Name\") like '%$sr%' or lower(\"Name KH\") like '%$sr%' or lower(\"Brand\") like '%$sr%' or lower(\"Part Number\") like '%$sr%'
+    or lower(\"Barcode\") like '%$sr%' or lower(\"Product Code\") like '%$sr%')";
 
-        $sqlstr['returnreport']="SELECT p.id,p.product_code as \"Product Code\", p.barcode as \"Barcode\",b.name as \"Brand\",p.name as \"Name\" ,p.name_kh as \"Name KH\",p.part_number as \"Part Number\",cd.company as \"Company\",pq.create_date as \"Create Date\",m.name as \"Measurement\",pq.qty as \"Qty\",p.price as \"Price\",(p.price*pq.qty) as \"Amount\",pq.action_type as \"Action Type\"
-                    from product p
-                    join product_qty pq on p.id=pq.product_id
-                    join product_brand b on p.brand_id=b.id
-                    join company_detail cd on cd.id=pq.company_detail_id
-                    join measurement m on m.id=p.measurement_id
-                    where pq.create_date between '$from' and '$to' and action_type='return'
-                    and (lower(p.name) like '%$sr%' or lower(p.name_kh) like '%$sr%' or lower(b.name) like '%$sr%' or lower(p.part_number) like '%$sr%' or lower(p.product_code) like '%$sr%')";
+        $sqlstr['returnreport']="SELECT * from (SELECT p.id,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as \"Product Code\", p.barcode as \"Barcode\",b.name as \"Brand\",p.name as \"Name\" ,p.name_kh as \"Name KH\",p.part_number as \"Part Number\",pq.create_date as \"Create Date\",m.name as \"Measurement\",pq.qty as \"Qty\",p.price as \"Price\",(p.price*pq.qty) as \"Amount\",pq.action_type as \"Action Type\"
+        from product p
+    join product_qty pq on p.id=pq.product_id
+    join product_brand b on p.brand_id=b.id
+    join measurement m on m.id=p.measurement_id
+    left join product_type pt on pt.id=p.product_type_id) as fee
+    where \"Create Date\" between '$from' and '$to' and \"Action Type\"='return'
+    and (lower(\"Name\") like '%$sr%' or lower(\"Name KH\") like '%$sr%' or lower(\"Brand\") like '%$sr%' or lower(\"Part Number\") like '%$sr%'
+    or lower(\"Barcode\") like '%$sr%' or lower(\"Product Code\") like '%$sr%')";
 
-        $sqlstr['stockreport1']="SELECT p.id,p.product_code,b.name as brand ,p.name,p.name_kh, p.part_number, p.barcode,cd.company,p.qty,
+        $sqlstr['stockreport1']="SELECT * from (SELECT p.id,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code,b.name as brand ,p.name,p.name_kh, p.part_number, p.barcode,p.qty,
                     (select sum(qty) from product_qty where product_id=p.id and create_date<'$from') as beginning,
                     (select sum(qty) from product_qty where product_id=p.id and action_type='in' and create_date between '$from' and '$to') as import,
                     (select sum(qty) from product_qty where product_id=p.id and action_type='out' and create_date between '$from' and '$to') as request,
@@ -864,15 +871,21 @@ class gettable extends Controller
                         join measurement m on m.id=p.measurement_id
                         join product_brand b on b.id=p.brand_id
                         join currency cu on cu.id=p.currency_id
-                        join company_detail cd on cd.id=p.company_detail_id where lower(p.name) like '%$sr%' or lower(p.name_kh) like '%$sr%' or lower(b.name) like '%$sr%' or lower(p.part_number) like '%$sr%'
-                        or lower(p.barcode) like '%$sr%' or lower(p.product_code) like '%$sr%' or cd.company like '%$sr%'";
-        $sqlstr['productcompanydashbord']="SELECT p.id,((select cb.code from company_branch cb join company_detail cd on cd.branch_id=cb.id where cd.id=(select company_detail_id from staff where id=".$_SESSION['userid']."))||'-'||p.product_code) as \"Product Code\",(select name_en from product_type where id=p.product_type_id) as \"Type\",p.name as \"Name\",
+                        left join product_type pt on pt.id=p.product_type_id) as fea
+                        where lower(name) like '%$sr%' or lower(name_kh) like '%$sr%' or lower(name) like '%$sr%' or lower(part_number) like '%$sr%'
+                        or lower(barcode) like '%$sr%' or lower(product_code) like '%$sr%'";
+        $sqlstr['productcompanydashbord']="SELECT * from (SELECT p.id,(select get_code_prefix_ibuild(p.code,(select company_detail_id from staff where id=".$_SESSION['userid']."),p.code_prefix_owner_id,(select code from product_type where id=p.product_type_id))) as \"Product Code\",(select name_en from product_type where id=p.product_type_id) as \"Type\",p.name as \"Name\",
                     (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to')) as \"QTY\",
                     (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to') and q.action_type='in') as \"Import\",
                     (select (sum(q.qty)*-1) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to') and q.action_type='out') as \"Request\"
-                    from product p join product_qty q on p.id=q.product_id join company_detail cd on cd.id=q.company_detail_id join product_company pc on pc.product_id=p.id where 't' and pc.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to')
-                    group by p.id having (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id right join product p on p.id=q.product_id where q.product_id=p.id and cd.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid'].")) is not null
-                    and (lower(p.name) like '%$sr%' or lower(p.product_code) like '%$sr%')";
+                    from product p
+                    join product_qty q on p.id=q.product_id
+                    join company_detail cd on cd.id=q.company_detail_id
+                    join product_company pc on pc.product_id=p.id
+                    where 't' and
+                    pc.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to')
+                    group by p.id having (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id right join product p on p.id=q.product_id where q.product_id=p.id and cd.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid'].")) is not null) as fee
+                    where 't' and (lower(\"Name\") like '%$sr%' or lower(\"Product Code\") like '%$sr%' or lower(\"Type\") like '%$sr%')";
         return $sqlstr[$s];
     }
 }

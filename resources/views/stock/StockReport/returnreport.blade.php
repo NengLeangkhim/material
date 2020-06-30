@@ -22,8 +22,11 @@
             </div>
             </form>
                 <!-- table -->
-                <div class="table-responsive reporttable" id="tablediv">
-                    </div>
+                <div class="table-overflow">
+                  <div class="reporttable table-stock" id='tablediv'>
+
+                  </div>
+                </div>
                 <!-- end table -->
             </div>
         </div>
@@ -35,6 +38,7 @@
   $(document).ready(
       function(){
           getTableReport('returnreport');
+          $(".table-overflow").doubleScroll();
       }
   );
   document.getElementById("ft").onclick=function(){

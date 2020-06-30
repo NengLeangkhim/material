@@ -1,18 +1,22 @@
-.title{
+.title
+{
     font-size: 50px;
     /*margin-left: 10%;*/
     font-weight: bold;
     margin-top: 10px;
     font-family: "AKbalthom TNRB";
 }
-.nav_menus{
+
+.nav_menus
+{
     font-size:22px;
     color: white !important;
     font-family: "Khmer OS Muol Light";
 }
 
 /* Sweep To Right */
-.hvr-sweep-to-right {
+.hvr-sweep-to-right 
+{
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -24,7 +28,9 @@
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
-.hvr-sweep-to-right:before {
+
+.hvr-sweep-to-right:before 
+{
   content: "";
   position: absolute;
   z-index: -1;
@@ -44,31 +50,44 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.hvr-sweep-to-right:hover, .hvr-sweep-to-right:focus, .hvr-sweep-to-right:active {
+
+.hvr-sweep-to-right:hover, 
+.hvr-sweep-to-right:focus, 
+.hvr-sweep-to-right:active 
+{
   color: white;
 }
-.hvr-sweep-to-right:hover:before, .hvr-sweep-to-right:focus:before, .hvr-sweep-to-right:active:before {
+.hvr-sweep-to-right:hover:before, 
+.hvr-sweep-to-right:focus:before, 
+.hvr-sweep-to-right:active:before 
+{
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
 }
 /* .actives a{
     color: #d42931!important;
 } */
-.subcategory a{
+.subcategory a
+{
     font-family: "AKbalthom KhmerLer";
     color: white;
     font-size: 20px;
     padding: 5px 5px 5px 5px;
 }
-.bg-blue{
+
+.bg-blue
+{
     background-color: #1fa8e0 !important;
     padding: 0px 20px;
 }
-.bg-red{
+
+.bg-red
+{
     background-color: #d42931;
 }
 
-.showSearch{
+.showSearch
+{
   width:100%;
   height:auto;
   background-color: #f1f1f1;
@@ -78,50 +97,63 @@
   margin-top: none;
   padding-left: 20px;
 }
-.hideSearch{
+
+.hideSearch
+{
   display: none;
 }
 
-.text-center-td{
+.text-center-td
+{
     font-family: "Khmer OS Content" !important;
     border-top-color: black !important;
     text-align: center; 
     vertical-align: middle !important;
     font-size: 15px;
 }
-.chooseForm{
+
+.chooseForm
+{
     font-size: 25px;
     font-family: "Khmer OS Content";
     margin-left: 5px;
 }
-.selectOption{
+
+.selectOption
+{
     height: 30px;
     width: 80%;
 }
-.btn-respone{
+
+.btn-respone
+{
     width: 100%;
 }
-.btn-outline-secondary:hover{
+
+.btn-outline-secondary:hover
+{
     background-color: transparent;
     color: black;
 }
-.showformitems{
-    font-family: "Khmer OS Content";
-    font-size: 20px;
-    
-}
-.searchAllForm{
+
+.showformitems
+{
     font-family: "Khmer OS Content";
     font-size: 20px;
 }
-.title_khleaves{
+
+.searchAllForm
+{
+    font-family: "Khmer OS Content";
+    font-size: 20px;
+}
+
+.title_khleaves
+{
     font-family: "Khmer OS Muol Light";
     font-size: 20px;
     background-color:#e6e6e6 !important;
     height: 40px;
     padding-top: 5px;
+
 }
-
-
-
-

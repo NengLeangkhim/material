@@ -47,13 +47,40 @@ Route::get('/refreshSel','refreshSelect@refresh_sel');
 
 Route::post('/sub_r_nav','perms@get_module_nav');//,get right side nav bar
 
+Route::get('/profile','profile@get_profile');//profile
+Route::post('/change_pass','change_password@change_pass');//profile change_password
+Route::post('/upload_img_profile','upload_img_profile@upload_img_pro');//profile upload_img_profile
 //======================Main=================================
 
 //=======================E-request==========================
 Route::get('/ere_test','e_request\ere_approve@test');
 Route::post('/ere_approve','e_request\ere_approve@approve');
+Route::get('/ere_get_values','e_request\ere_get_values@get_values');
+
+//get form view
 Route::get('/ere_get_view_val','e_request\get_value_to_view@get_val_view');
 Route::get('/ere_get_view_formleave','e_request\view_formleave@formleave');
+Route::get('/ere_get_view_equipment_request_form','e_request\view_equipment_request_form@equipment_request_form');
+Route::get('/ere_get_view_requestform','e_request\view_requestform@requestform');
+Route::get('/ere_get_view_fromemployment','e_request\view_fromemployment@fromemployment');
+Route::get('/ere_get_view_formconfirmwork','e_request\view_formconfirmwork@formconfirmwork');
+Route::get('/ere_get_view_workoertime','e_request\view_workovertimeform@workovertimeform');
+Route::get('/ere_get_view_formtransportation','e_request\view_formtransportation@formtransportation');
+Route::get('/ere_get_view_formuseElectronic','e_request\view_formuseElectronic@formuseElectronic');
+//end get form view
+
+//  insert /approve /pending /reject
+Route::post('/ere_insert_equipment_request_form','e_request\insert_equipment_request_form@in_equipment_request_form');
+Route::post('/ere_insert_formconfirmwork','e_request\insert_formconfirmwork@in_formconfirmwork');
+Route::post('/ere_insert_formleave','e_request\insert_formleave@in_formleave');
+Route::post('/ere_insert_formtransportation','e_request\insert_formtransportation@in_formtransportation');
+Route::post('/ere_insert_formuseElectronic','e_request\insert_formuseElectronic@in_formuseElectronic');
+Route::post('/ere_insert_fromemployment','e_request\insert_fromemployment@in_fromemployment');
+Route::post('/ere_insert_requestform','e_request\insert_requestform@in_requestform');
+Route::post('/ere_insert_workovertimeform','e_request\insert_workovertimeform@in_workovertimeform');
+// Route::post('/ere_insert_formworkingapplication','e_request\insert_formworkingapplication@in_formworkingapplication');
+// end insert /approve /pending /reject
+
 Route::get('/ere_allform','e_request\view_allform@allform');
 Route::get('/ere_ownreq','e_request\ere_get_datatable_value@get_own_req');
 Route::get('/ere_apr_view','e_request\ere_get_datatable_value@get_approve_view');

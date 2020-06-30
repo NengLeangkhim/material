@@ -92,7 +92,8 @@ print_r($r);
             </div>
             
         </div>
-        <form action="controller/insert_formworkingapplication.php" method="post">                          
+        <form action="controller/insert_formworkingapplication.php" method="post">
+        @csrf
              <div class="col-12" style="margin-top: 10px">
                 <table class="table  " border=1 style="text-aling:center;border-color: black">
                     <tr>

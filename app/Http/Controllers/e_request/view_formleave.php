@@ -19,17 +19,20 @@ class view_formleave extends Controller
         $_SESSION['form_id']=$_GET['id'];
         $trans_to='';
         $leave_kind='';
+        $route="ere_insert_formleave";
+        $frm_id="frm_ere_insert_formleave";
 
-        extract(get_value_to_view::get_val_view(), EXTR_PREFIX_SAME, "wddx");
+        $val=get_value_to_view::get_val_view($route,$frm_id);//insert route and form id
+        extract($val['val'], EXTR_PREFIX_SAME, "wddx");
         if(isset($v[0])){
             $create_date=$v[0][0]['create_date'];
             $req_by=$v[0][0]['request_by'];
             $leave_kind=$v[0][0]['kind_of_leave_id'];
-            $date_from=explode(' ',$v[0][0]['date_from'])[0];
+            $date_from=date('d-m-Y',strtotime   (explode(' ',$v[0][0]['date_from'])[0]));
             $time_from=explode(' ',$v[0][0]['date_from'])[1];
-            $date_to=explode(' ',$v[0][0]['date_to'])[0];
+            $date_to=date('d-m-Y',strtotime(explode(' ',$v[0][0]['date_to'])[0]));
             $time_to=explode(' ',$v[0][0]['date_to'])[1];
-            $date_resume=explode(' ',$v[0][0]['date_resume'])[0];
+            $date_resume=date('d-m-Y',strtotime(explode(' ',$v[0][0]['date_resume'])[0]));
             $leave_number=$v[0][0]['number_date_leave'];
             $trans_to=$v[0][0]['transfer_job_to'];
             $reason=$v[0][0]['reason'];
@@ -52,10 +55,9 @@ class view_formleave extends Controller
         order by name ");
         $r=ere_get_assoc::assoc_($q);
         $transfer_to=$r;
-        if(isset($v)){
-            return view('e_request.formleave',compact("dd","dd1","d","d1","btn_sub","comment","comment_ap","comment_pd","comment_re","approve","reject","pending","user_id","v","v0","v1","approve_by","approve_date","pending_by","pending_date","reject_by","reject_date"));
-        }else{
-            return view('e_request.formleave',compact("dd","dd1","d","d1","btn_sub","comment","comment_ap","comment_pd","comment_re","approve","reject","pending","user_id","pos","name","id_number","dept","kindof","transfer_to","leave_kind","trans_to"));
-        }
+
+        $user_id=$wddx_user_id??$user_id;
+        $val=get_defined_vars();
+        return view('e_request.formleave',compact("val"));//,"pos","name","id_number","dept","kindof","transfer_to","leave_kind","trans_to","date_from","time_from","date_to","time_to","date_resume","leave_number","reason","req_by","create_date"));
     }
 }

@@ -214,15 +214,15 @@ class ere_get_datatable_value extends Controller{//post method
                 $rr=false;
                 if(isset($_SESSION['userid'])){
                     $chhr=$cc->permi_check($_SESSION['userid']);
+                    $type='hr';
                     if($chhr){
                         $c=$cc->get_view_val('all',$chhr,0);
                         $ap=$cc->get_view_val('approve',$chhr,0);
                         $pen=$cc->get_view_val('pending',$chhr,0);
                         $rej=$cc->get_view_val('reject',$chhr,0);
                         $wait=$cc->get_view_val('wait',$chhr,0);
-                        $type='hr';
-                        if(isset($_POST['_typehr'])){
-                            $type=$_POST['_typehr'];
+                        if(isset($_GET['_typehr'])){
+                            $type=$_GET['_typehr'];
                         }
                         switch($type){
                             case 'approve':
@@ -241,10 +241,12 @@ class ere_get_datatable_value extends Controller{//post method
                                 $rr=$c;
                             break;
                         }
+                    }else{
+                        return;
                     }
                     $tar='.content-wrapper';
-                    if(isset($_POST['_tar'])){
-                        $tar=$_POST['_tar'];
+                    if(isset($_GET['_tar'])){
+                        $tar=$_GET['_tar'];
                     }
                     $ty=$type;
                     $st="";

@@ -29,10 +29,10 @@ class perms extends Controller
                 return true;
             }
         }
-        $lg = new Login();
-        $lg->logout();
-        // header('Location:/logout');
-        // exit;
+        header('Location:/');
+        exit;
+        //
+        // return false;
     }
     public static function check_perm(){
         if(self::check_session()){
@@ -142,8 +142,9 @@ class perms extends Controller
     private static function output_module($mo){
         $st='';
         foreach ($mo as $item){
+            $item->parent->link=(!empty($item->parent->link))?'onclick=go_to("'.$item->parent->link.'")':'';
               $st.= "<li class='nav-item has-treevie'>";
-              $st.= "<a href='javascript:void(0);' class='nav-link active'>";
+              $st.= "<a href='javascript:void(0);' class='nav-link active' {$item->parent->link}>";
               $st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
               $st.= " <p>";
               $st.=  $item->parent->module_name;
@@ -169,7 +170,7 @@ class perms extends Controller
                         $rr->parent->link=(empty($rr->parent->link))?'':"value='{$rr->parent->link}'";
                         $rr->parent->code=(empty($rr->parent->code))?'':"data-code='{$rr->parent->code}'";
                         $st.= " <ul class='nav nav-treeview sub_menu'> ";
-                        $st.= "  <li class='nav-item has-treeview menu'  > ";
+                        $st.= "  <li class='nav-item has-treeview menu mybg'  > ";
                         $st.= "  <a href='javascript:void(0);' class='nav-link' {$rr->parent->link} {$rr->parent->code}  name='menu'> ";
                         $st.= "  <i class='{$rr->parent->icon} nav-icon'​></i> <i class='right fas fa-angle-left'></i>";
                         $st.= "  <p>".$rr->parent->module_name."</p> </a>";
@@ -180,7 +181,7 @@ class perms extends Controller
                         $rr->link=(empty($rr->link))?'':"value='{$rr->link}'";
                         $rr->code=(empty($rr->code))?'':"data-code='{$rr->code}'";
                         $st.= " <ul class='nav nav-treeview sub_menu'> ";
-                        $st.= "  <li class='nav-item menu'  > ";
+                        $st.= "  <li class='nav-item menu mybg'  > ";
                         $st.= "  <a href='javascript:void(0);' class='nav-link' ​$rr->link ​$rr->code name='menu'> ";
                         $st.= "  $sp<i class='{$rr->icon} nav-icon'​></i> ";
                         $st.= "  <p>$rr->module_name</p> ";

@@ -30,10 +30,11 @@ function check_session(){
       $.ajax({
         type: 'GET',
         url:link,
+        async:false,
         success:function(data){
             $(".content-wrapper").show();
             $(".content-wrapper").html(data);
-            $(".select2").select2();
+            // $(".select2").select2();
             $('.display').DataTable({
               responsive: true
             });
@@ -45,6 +46,7 @@ function check_session(){
         $.ajax({
           type: 'POST',
           url:'sub_r_nav',
+          async:false,
           data:{
             _mo:code,
             _token : $('meta[name="csrf-token"]').attr('content'),
@@ -55,7 +57,7 @@ function check_session(){
               set_selected_nav('nav_bar_sub_r');
               $(".content-wrapper").show();
               $(".content-wrapper").html('');
-              $(".select2").select2();
+              // $(".select2").select2();
           }
        });
       }

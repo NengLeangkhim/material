@@ -8,9 +8,10 @@
 .cmt_txt{font-style: italic; color: #f00;}
 </style>
 <?php
-echo (empty($pending_by))?'':'<label class="panding_label"><u style="color:#000">បានដាក់ក្នុងការរង់ចាំដោយ ៖</u> <span class="action_by">'.$pending_by.'</span> នៅថ្ងៃទី ៖ '.conv_datetime($pending_date).'</label><br><label class="comment_label"><u>មតិយោបល់ ៖ </u> <span class="cmt_txt">'.$comment_pd.'</span></label><br>';
-echo (empty($approve_by))?'':'<label class="approve_label"><u style="color:#000">បានអនុម័តដោយ ៖</u> <span class="action_by">'.$approve_by.'</span> នៅថ្ងៃទី ៖ '.conv_datetime($approve_date).'</label><br><label class="comment_label"><u>មតិយោបល់ ៖ </u> <span class="cmt_txt">'.$comment_ap.'</span></label><br>';
-echo (empty($reject_by))?'':'<label class="reject_label"><u style="color:#000">បានបដិសេធដោយ ៖</u> <span class="action_by">'.$reject_by.'</span> នៅថ្ងៃទី ៖ '.conv_datetime($reject_date).'</label><br><label  class="comment_label"><u>មតិយោបល់ ៖ </u> <span class="cmt_txt">'.$comment_re.'</span></label><br>';
+use App\Http\Controllers\util;
+echo (empty($pending_by))?'':'<label class="panding_label"><u style="color:#000">បានដាក់ក្នុងការរង់ចាំដោយ ៖</u> <span class="action_by">'.$pending_by.'</span> នៅថ្ងៃទី ៖ '.util::conv_datetime($pending_date).'</label><br><label class="comment_label"><u>មតិយោបល់ ៖ </u> <span class="cmt_txt">'.$comment_pd.'</span></label><br>';
+echo (empty($approve_by))?'':'<label class="approve_label"><u style="color:#000">បានអនុម័តដោយ ៖</u> <span class="action_by">'.$approve_by.'</span> នៅថ្ងៃទី ៖ '.util::conv_datetime($approve_date).'</label><br><label class="comment_label"><u>មតិយោបល់ ៖ </u> <span class="cmt_txt">'.$comment_ap.'</span></label><br>';
+echo (empty($reject_by))?'':'<label class="reject_label"><u style="color:#000">បានបដិសេធដោយ ៖</u> <span class="action_by">'.$reject_by.'</span> នៅថ្ងៃទី ៖ '.util::conv_datetime($reject_date).'</label><br><label  class="comment_label"><u>មតិយោបល់ ៖ </u> <span class="cmt_txt">'.$comment_re.'</span></label><br>';
 ?>
     <div class="row">
         <div class="col-12">

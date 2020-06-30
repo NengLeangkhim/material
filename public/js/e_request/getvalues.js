@@ -24,7 +24,7 @@ function getval_sel(st,target){
     }
     $.ajax({
         type:'GET',
-        url: "controller/get_values.php",
+        url: "/ere_get_values",
         data:{
             _sql:st,
         },
@@ -109,7 +109,9 @@ function get_list_view(target,tar){
     });
 }
 function spin(tar){
-    document.getElementById(tar).innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    if( document.getElementById(tar)){
+        document.getElementById(tar).innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    }
 }
 function get_approve_view(tar){//top management
         if(check_session()){
@@ -218,6 +220,7 @@ function approve(tar,erid,comment,type,tt){
             erid:erid,
             type:type,
             comment:comment,
+            _token : $('meta[name="csrf-token"]').attr('content'),
         },
         success: function(data){
             if(data.length>0){
@@ -325,10 +328,11 @@ function change_password(old,n,f){//,n,confirm,message
     // },100);
     $.ajax({
         type:'POST',
-        url: "controller/change_password.php",
+        url: "change_pass",
         async: false,
         data:{
             _oldpass:old.value,
+            _token : $('meta[name="csrf-token"]').attr('content'),
         },
         success: function(data){
             setTimeout(function(){$('#prload').hide();},100);
@@ -343,10 +347,11 @@ function change_password(old,n,f){//,n,confirm,message
                 if(n.value==f.value){
                     $.ajax({
                         type:'POST',
-                        url: "controller/change_password.php",
+                        url: "change_pass",
                         async: false,
                         data:{
                             _newpass:n.value,
+                            _token : $('meta[name="csrf-token"]').attr('content'),
                         },
                         success: function(data){
                             setTimeout(function(){
@@ -357,7 +362,7 @@ function change_password(old,n,f){//,n,confirm,message
                                 $('#prmsg').hide();
                                 $('body').removeClass('modal-open');
                                 $('.modal-backdrop').remove();
-                                get_profile_menu('big-guy');
+                                go_to('profile');
                             },3000);
                             $t=true;
                         }
@@ -373,6 +378,12 @@ function change_password(old,n,f){//,n,confirm,message
                 document.getElementById('cpasswordHelpBlock').innerHTML='';
                 t= false;
             }
+        },
+        error:function(){
+            setTimeout(function(){$('#prload').hide();},100);
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            alert('មានបញ្ហាកើតឡើងនៅពេលប្តូរលេខសំងាត់');
         }
     });
     return t;
@@ -424,7 +435,7 @@ function img_upload (form){
     var formElement = document.getElementById(form);
     var formData = new FormData(formElement);
     var request = new XMLHttpRequest();
-    request.open("POST", "controller/upload_img.php");
+    request.open("POST", "upload_img_profile");
     // formData.append("serialnumber", 111);
     request.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -433,8 +444,12 @@ function img_upload (form){
                 alert('មានបញ្ហាកើតឡើងនៅពេលប្តូររូបភាព');
             }else{
                 alert('រូបភាពបានប្តូររួចរាល់');
-                get_profile_menu('big-guy');
+                go_to('profile');
             }
+        }else  if (this.readyState == 4 &&this.status == 500){
+            alert('មានបញ្ហាកើតឡើងនៅពេលប្តូររូបភាព');
+        }else  if (this.readyState == 4 &&this.status == 419){
+            alert('មានបញ្ហាកើតឡើងនៅពេលប្តូររូបភាពសូមព្យាយាមម្តងទៀត!');
         }
     };
     request.send(formData);
@@ -468,9 +483,9 @@ function valid_img(img){
     }
     return true;
 }
-function OnSubmitCofirm(st){
-    return confirm(st);
-  }
+// function OnSubmitCofirm(st){
+//     return confirm(st);
+//   }
   //use on profile
   function up_img(img,form){
     if(OnSubmitCofirm('បញ្ចាក់អ្នកនឺងប្តូររូបភាពរបស់អ្នក!')){
@@ -480,19 +495,19 @@ function OnSubmitCofirm(st){
     }
     return false;
 }
-function img_exist(){
-    $( "img" ).each(function( index,item ) {
-        console.log(item);
-        $.ajax({
-            type:'GET',
-            url: $(item).attr('src'),
-            error: function(data){
-                $(item).attr('src','/media/file/e_request/img/not-found-image-15383864787lu.jpg') ;
-            },
-        });
-      });
+// function img_exist(){
+//     $( "img" ).each(function( index,item ) {
+//         console.log(item);
+//         $.ajax({
+//             type:'GET',
+//             url: $(item).attr('src'),
+//             error: function(data){
+//                 $(item).attr('src','/media/file/e_request/img/not-found-image-15383864787lu.jpg') ;
+//             },
+//         });
+//       });
 
-}
+// }
 function calulate_date_next(s){
     s=$("#"+s).val();
 

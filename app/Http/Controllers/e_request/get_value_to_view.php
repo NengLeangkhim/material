@@ -7,13 +7,39 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class get_value_to_view extends Controller{
-    public static function get_val_view(){
+    public static function get_val_view($route,$frm_id){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $user_id=$_SESSION['userid'];
         $e_r_id="";
         $dd='disabled';
         $dd1="";//only for work ot for now
         $d='required';//for required control
         $d1="";//for non required control
-        $btn_sub='<input type="submit" class="btn btn-primary">';
+        $btn_sub='<input type="button" value="Submit" id="frm_ere_btn_sub" class="btn btn-primary">
+                <script>
+                    $("#frm_ere_btn_sub").click(
+                    function(){
+                        if(document.getElementById("dynamic_field")){
+                            if(!valid_row("dynamic_field")){
+                                return false;
+                            }
+                        }else if(document.getElementById("dynamic_fields")){
+                            if(!valid_row("dynamic_fields")){
+                                return false;
+                            }
+                        }
+                        if(document.getElementsByName("use")){
+                            if(!valid_check("use")){
+                                return false;
+                            }
+                        }
+                        submit_form("'.$route.'","'.$frm_id.'","ere_ownreq");
+                    }
+                    );
+                </script>
+        ';
         $comment='';
         $comment_ap='';
         $comment_pd='';
@@ -27,7 +53,7 @@ class get_value_to_view extends Controller{
             $btn_sub='';
             $d1=$d;
             $add='';
-            $run=new getvalues_sql();
+            $run=new get_row();
             $v=$run->get_related_row($_GET['id'],$_GET['offset']);
             // print_r($v);
             if($v['total_row']>0){
@@ -64,18 +90,17 @@ class get_value_to_view extends Controller{
             if(isset($ch['type'])){
                 $pending="";
                 if($ch['type']=='mid'){
-                    $pending='<a href="javascript:void(0);" onclick=\'approve("big-guy",'.$_GET['erid'].',"cmt'.$_GET['erid'].'","pending","apr");$(".modal").modal("hide");\' class="btn btn-primary" name="pending">Pending</a>';
+                    $pending='<a href="javascript:void(0);" onclick=\'approve(".content-wrapper",'.$_GET['erid'].',"cmt'.$_GET['erid'].'","pending","apr");$(".modal").modal("hide");\' class="btn btn-primary" name="pending">Pending</a>';
                 }
-                $btn_sub='<button type="submit" class="btn btn-success">Submit</button>';
                 $comment='<p>បញ្ចេញមតិទីនេះ</p><textarea class="form-control" name="comment" id="cmt'.$_GET['erid'].'" rows="3"></textarea><br>';
-                $approve='<a href="javascript:void(0);" onclick=\'approve("big-guy",'.$_GET['erid'].',"cmt'.$_GET['erid'].'","approve","apr");$(".modal").modal("hide");\' class="btn btn-success" name="approve">Approve</a>';
-                $reject='<a href="javascript:void(0);" onclick=\'approve("big-guy",'.$_GET['erid'].',"cmt'.$_GET['erid'].'","reject","apr");$(".modal").modal("hide");\' class="btn btn-danger" name="reject">Reject</a>';
+                $approve='<a href="javascript:void(0);" onclick=\'approve(".content-wrapper",'.$_GET['erid'].',"cmt'.$_GET['erid'].'","approve","apr");$(".modal").modal("hide");\' class="btn btn-success" name="approve">Approve</a>';
+                $reject='<a href="javascript:void(0);" onclick=\'approve(".content-wrapper",'.$_GET['erid'].',"cmt'.$_GET['erid'].'","reject","apr");$(".modal").modal("hide");\' class="btn btn-danger" name="reject">Reject</a>';
             }
             $d='disabled';
             $btn_sub='';
             $d1=$d;
             $add='';
-            $run=new getvalues_sql();
+            $run=new get_row();
             $v=$run->get_related_row($_GET['id'],$_GET['erid']);
             // print_r($v);
             if($v['total_row']>0){
@@ -107,10 +132,17 @@ class get_value_to_view extends Controller{
                 $user_id=0;
             }
         }
-        if(isset($v)){
-            return compact("dd","dd1","d","d1","btn_sub","comment","comment_ap","comment_pd","comment_re","approve","reject","pending","user_id","v","v0","v1","approve_by","approve_date","pending_by","pending_date","reject_by","reject_date");
-        }else{
-            return compact("dd","dd1","d","d1","btn_sub","comment","comment_ap","comment_pd","comment_re","approve","reject","pending");
-        }
+        $val=get_defined_vars();
+        // dump($val);
+        return compact("val");
+        // if(isset($v)){
+        //     if(isset($v1)){
+        //         return compact("dd","dd1","d","d1","btn_sub","comment","comment_ap","comment_pd","comment_re","approve","reject","pending","user_id","v","v0","v1","approve_by","approve_date","pending_by","pending_date","reject_by","reject_date");
+        //     }
+        //     return compact("dd","dd1","d","d1","btn_sub","comment","comment_ap","comment_pd","comment_re","approve","reject","pending","user_id","v","v0","approve_by","approve_date","pending_by","pending_date","reject_by","reject_date");
+        // }
+        // else{
+        //     return compact("dd","dd1","d","d1","btn_sub","comment","comment_ap","comment_pd","comment_re","approve","reject","pending");
+        // }
     }
 }

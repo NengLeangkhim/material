@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class get_row{
     private function init_q($fid,$start_from,$id,$sid){
-        $con=$this->conn();
+
         $st=array();
         $sql="SELECT er.id,
         erf.table_name, erfd.form_table_row_id ,erd.e_request_status
@@ -25,33 +25,44 @@ class get_row{
             $sql.=" and er.create_by=$sid";
         }
         $rr=DB::select($sql." order by er.id desc limit 1 offset $start_from");
-        $st[]=ere_get_assoc::assoc_($rr);
+        $rr=ere_get_assoc::assoc_($rr)[0];
+        $st[]=$rr;
 
         $r=DB::select("select count(*) from ($sql) as foo");//row count for pagonation
-        $st[]=ere_get_assoc::assoc_($r);
+        $st[]=ere_get_assoc::assoc_($r)[0];
 
         $r=DB::select("SELECT s.name,e.create_date,e.comment
         from e_request_detail e
         join staff s on s.id=e.action_by
         where e.e_request_status='approve' and e.status='t' and e.e_request_id=".$rr['id']);
-        $st[]=ere_get_assoc::assoc_($r);
+
+        if(isset(ere_get_assoc::assoc_($r)[0])){
+            $st[]=ere_get_assoc::assoc_($r)[0];
+        }
 
         $r=DB::select("SELECT s.name,e.create_date,e.comment
         from e_request_detail e
         join staff s on s.id=e.action_by
         where e.e_request_status='pending' and e.status='t' and e.e_request_id=".$rr['id']);
-        $st[]=ere_get_assoc::assoc_($r);
+        // $st[]=ere_get_assoc::assoc_($r);
+        if(isset(ere_get_assoc::assoc_($r)[0])){
+            $st[]=ere_get_assoc::assoc_($r)[0];
+        }
 
         $r=DB::select("SELECT s.name,e.create_date,e.comment
         from e_request_detail e
         join staff s on s.id=e.action_by
         where e.e_request_status='reject' and e.status='t' and e.e_request_id=".$rr['id']);
-        $st[]=ere_get_assoc::assoc_($r);
+        // $st[]=ere_get_assoc::assoc_($r);
+
+        if(isset(ere_get_assoc::assoc_($r)[0])){
+            $st[]=ere_get_assoc::assoc_($r)[0];
+        }
 
         return $st;
     }
     private function init_a($fid,$start_from,$id,$sid){
-        $con=$this->conn();
+
         $rs=$this->init_q($fid,$start_from,$id,$sid);
         $sql=new getvalues_sql();
         $rst=array();
@@ -73,7 +84,7 @@ class get_row{
         return $rst;
     }
     public function get_row($fid,$start_from){
-        $con=$this->conn();
+
         $sql=new getvalues_sql();
         $rst=$this->init_a($fid,$start_from,0,0);
         $table=$rst['table_name'];
@@ -96,7 +107,7 @@ class get_row{
         return $rst;
     }
     public function get_related_row($fid,$id){
-        $con=$this->conn();
+
         $sql=new getvalues_sql();
         $rst=$this->init_a($fid,0,$id,0);
         $table=$rst['table_name'];
@@ -119,7 +130,7 @@ class get_row{
         return $rst;
     }
     public function get_own_row($fid,$start_from,$id){
-        $con=$this->conn();
+
         $sql=new getvalues_sql();
         $rst=$this->init_a($fid,$start_from,0,$id);
         $table=$rst['table_name'];

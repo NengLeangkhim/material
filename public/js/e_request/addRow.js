@@ -81,8 +81,8 @@ function addrow() {
         '<td>' +
         '<input type="text" class="form-control" name="other[]" required>' +
         '</td>' +
-        '<td>' +
-        '<select class="form-control" id="sel_receiver' + a + '" name="receiver[]" required><option value="-1" disabled hidden selected></option></select>' +
+        '<td style="width:22%">' +
+        '<select class="form-control select2" id="sel_receiver' + a + '" name="receiver[]" required><option value="-1" disabled hidden selected></option></select>' +
         '</td>' +
         '<td style="text-align:center">' +
         '<button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button>' +
@@ -90,6 +90,7 @@ function addrow() {
         '</tr>';
     $('#dynamic_fields').append(tblRow);
     getval_sel('get_all_staff', 'sel_receiver' + a);
+    $('.select2').select2();
 };
 
 function addrow_vehicle() {
@@ -141,6 +142,7 @@ function addrow_vehicle() {
         '</tr>';
     console.log(tblRow);
     $('#dynamic_field').append(tblRow);
+    // $('.display').DataTable();
     datetime();
 };
 
@@ -209,12 +211,12 @@ function ShowForm(id,name) {
 //     x.send();
 // }
 function ShowFormView(id,erid,tar) {
-        if(check_session()){
+    if(check_session()){
         return;
     }
     $('[data-toggle="tooltip"]').tooltip('dispose');
     id=id.split(",");
-    var fname = "views/layouts/" + id[1] + '?id=' + id[0] + '&offset=' + erid;
+    var fname = "/"+id[1] + '?id=' + id[0] + '&offset=' + erid;
     var x = new XMLHttpRequest();
     setTimeout(function(){$('#more_detail').modal('show')},200);
     spin(tar);
@@ -232,7 +234,7 @@ function ShowFormAPR(id,erid,tar) {
         return;
     }
     id=id.split(",");
-    var fname = "views/layouts/" + id[1] + '?id=' + id[0] + '&erid=' + erid;
+    var fname =id[1] + '?id=' + id[0] + '&erid=' + erid;
     var x = new XMLHttpRequest();
     setTimeout(function(){$('#more_detail').modal('show')},200);
     spin(tar);

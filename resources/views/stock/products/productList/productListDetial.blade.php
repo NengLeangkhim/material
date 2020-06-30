@@ -9,6 +9,7 @@
             </section>
         </div>
         <div class="pull-right" style="margin-top: -1.3%;">
+            <a  href="javascript:void(0);" onclick="go_to('ProductList')" class="text-info"><i class="fa fa-arrow-left"></i> Back</a> |
             <a  href="javascript:void(0);" onclick="window.print();" class="text-danger"><i class="fa fa-print"></i> Print</a> |
             {{-- <a href="#" title="Add New" class="text-custom"><i class="fa fa-plus-square"></i> Create New </a> | --}}
             <a href='javascript:void(0);' onclick="go_to('/productListDetial?edit={{$plist[0][0]->id}}')" title="Update" class="text-custom"><i class="fa fa-pencil-square"></i> Update</a>|
@@ -79,7 +80,7 @@
                         $sumamount=0;
                         foreach($plist[1] as $a){
                             $q=(empty($a->qty))?0:$a->qty;
-                            $a->product_code=(!empty($a->product_code)&&!empty($a->company_code))?$a->company_code.'-'.$a->product_code:"";
+                            // $a->product_code=(!empty($a->product_code)&&!empty($a->company_code))?$a->company_code.'-'.$a->product_code:"";
                             echo '<tr class="even pointer">';
                             echo '<td class=" ">'.$i++.'</td>';
                             echo '<td class=" ">'.$a->product_code.'</td>';

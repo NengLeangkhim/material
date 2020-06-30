@@ -2,9 +2,11 @@
     if($plist[0][0]->action_type=='out'){
         $re='Request By';
         $d='Request Date';
+        $route="customerproductrequest";
     }elseif($plist[0][0]->action_type=='return'){
         $re='Return By';
         $d='Return Date';
+        $route="customerproductreturn";
     }
 @endphp
 <section class="content">
@@ -20,6 +22,7 @@
         </div>
     </div>
         <div class="pull-right" style="margin-top: -1.3%;">
+            <a  href="javascript:void(0);" onclick="go_to('<?php echo $route;?>')" class="text-info"><i class="fa fa-arrow-left"></i> Back</a> |
             <a  href="javascript:void(0);" onclick="window.print();" class="text-danger"><i class="fa fa-print"></i> Print</a>
             {{-- <a href="#" title="Add New" class="text-custom"><i class="fa fa-plus-square"></i> Create New </a> | --}}
             {{-- <a href="/productListDetial?edit={{$plist[0][0]->id}}" title="Update" class="text-custom"><i class="fa fa-pencil-square"></i> Update</a>|

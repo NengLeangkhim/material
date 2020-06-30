@@ -91,11 +91,13 @@ class productCompany extends Controller
             $pid=$_POST['pid'];
             $qty=$_POST['qty'];
             $price=$_POST['price'];
+            $currency=$_POST['currency'];
             $location=$_POST['storage_location'];
             $storage=$_POST['storage'];
             $action=$_POST['action_type'];
             $ds="insert_invoice_before_arrival_detail";
-            if($action=='out'){
+            if($action=='cout'){
+                $action='out';
                 $ss="insert_invoice_before_arrival('$invoice_number',$staff,$company,$company_branch,'$action','$des')";
             }else if($action=='cin'){
                 $ss="insert_invoice_before_arrival('$invoice_number',$staff,$company,$company_branch,'in','$des')";
@@ -105,7 +107,7 @@ class productCompany extends Controller
             $id=$q[0]->id;
             for($i=0;$i<count($pid);$i++){
                 // echo $pid[$i].' '.$qty[$i].' '.$location[$i].' '.$storage[$i].'<br>';
-                $dsql=$ds."($id,".$storage[$i].",".$location[$i].",".$pid[$i].",".$qty[$i].",".$price[$i].");";
+                $dsql=$ds."($id,".$storage[$i].",".$location[$i].",".$pid[$i].",".$qty[$i].",".$price[$i].",".$currency[$i].");";
                 $q=DB::select("SELECT ".$dsql);
             }
             if(count($q)>0){
@@ -135,14 +137,18 @@ class productCompany extends Controller
                 join company_detail cd on cd.id=ia.company_detail_id
                 left join supplier sp on sp.id=ia.supplier_id
                 where cd.status='t' and ia.id=$id";
-                $sql1="SELECT iad.product_id,iad.qty
+                $sql1="SELECT iad.product_id,iad.qty,iad.price,iad.currency_id
                     from invoice_before_arrival_detail iad
                     where iad.invoice_before_arrival_id=$id";
             $plist=array();
             $plist[]=DB::select($sql);
             $plist[]=DB::select($sql1);
             if(perms::check_perm_module('STO_010103')){
-                $apr='| <label for="sub" style="cursor: pointer"><i class="fa fa-check-square"></i> Approve</label>';
+                if($plist[0][0]->approve=='FALSE'){
+                    $apr='| <label for="sub" style="cursor: pointer"><i class="fa fa-check-square"></i> Approve</label>';
+                }else{
+                    $apr="";
+                }
             }else{
                 $apr="";
             }
@@ -163,6 +169,7 @@ class productCompany extends Controller
             $pid=$_POST['pid'];
             $qty=$_POST['qty'];
             $price=$_POST['price'];
+            $currency=$_POST['currency'];
             $location=$_POST['storage_location'];
             $storage=$_POST['storage'];
             $action=$_POST['action_type'];
@@ -180,18 +187,11 @@ class productCompany extends Controller
             for($i=0;$i<count($pid);$i++){
                 // echo $pid[$i].' '.$qty[$i].' '.$location[$i].' '.$storage[$i].'<br>';
                 if($action=='in'){
-                    $dsql=$ds."($id,".$storage[$i].",".$location[$i].",".$pid[$i].",".$qty[$i].",".$price[$i].");";
+                   echo $dsql=$ds."($id,".$storage[$i].",".$location[$i].",".$pid[$i].",".$qty[$i].",".$price[$i].",".$currency[$i].");";
                 }else if($action=='out'){
-                    $dsql=$ds."($id,".$pid[$i].",".$storage[$i].",".$location[$i].",".$qty[$i].",".$price[$i].");";
+                    $dsql=$ds."($id,".$pid[$i].",".$storage[$i].",".$location[$i].",".$qty[$i].",".$price[$i].",".$currency[$i].");";
                 }
                 $q=DB::select("SELECT ".$dsql);
-            }
-            if(count($q)>0){
-                if($action=='out'){
-                    return redirect('/productCompanyrequest');
-                }else{
-                    return redirect('/productCompanyimport');
-                }
             }
         }else{
             return view('no_perms');
