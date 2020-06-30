@@ -88,9 +88,9 @@ class LeadController extends Controller
         }
     }
 
-    public function addlead(){
-        session_start();
-    }
+    // public function addlead(){
+    //     session_start();
+    // }
     public function detaillead(){
         return view('crm.Lead.detaillead');
     }
