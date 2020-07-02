@@ -373,6 +373,8 @@ body {
                     </div>
                     <div class="col-md-8">
                         <input type="password" name="old_pass" id="" class="form-control" required style="font-family:Arial, Helvetica, sans-serif">
+                        <small id="opasswordHelpBlock" class="form-text" style="color:red">
+                        </small>
                     </div>
                 </div>
                 <div class="row">
@@ -402,6 +404,8 @@ body {
                     </div>
                     <div class="col-md-8">
                         <input type="password" name="con_pass" id="" class="form-control" required>
+                        <small id="cpasswordHelpBlock" class="form-text" style="color:red">
+                        </small>
                     </div>
                 </div>
                 <br>
@@ -425,7 +429,7 @@ body {
                 <div class="row">
                     {{-- <div class="team-single-img">
                     <label for="img"​ style="font-family: 'Khmer'; cursor:pointer;" title="Change">
-                        <img id='image_' class="pfImg" style="width: 352px; height: 352px;" src="<?php echo (isset($pro)&&!empty($pro['image']))?$pro['image']:"https://bootdey.com/img/Content/avatar/avatar7.png";?>" alt=""></label>
+                        <img id='image_' class="pfImg" style="width: 352px; height: 352px;" src="<?php //echo (isset($pro)&&!empty($pro['image']))?$pro['image']:"https://bootdey.com/img/Content/avatar/avatar7.png";?>" alt=""></label>
                     <form method="post"  enctype="multipart/form-data" id='form_img' >
                         @csrf
                         <label for="sub" style="margin-top:2%; font-family:'Chenla',cursive;" class="btn btn-primary">ប្តូររូបភាព</label>
@@ -464,7 +468,7 @@ body {
 
            {{-- <div class="col-lg-8 col-md-7">
                 <div class="team-single-text padding-50px-left sm-no-padding-left">
-                    <h4 class="font-size38 sm-font-size32 xs-font-size30"><?php echo (isset($pro))?$pro['name']:"";?></h4>
+                    <h4 class="font-size38 sm-font-size32 xs-font-size30"><?php //echo (isset($pro))?$pro['name']:"";?></h4>
                     <p class="no-margin-bottom"></p>
                     <div class="contact-info-section margin-40px-tb">
                         <ul class="list-style9 no-margin">
@@ -475,7 +479,7 @@ body {
                                         <strong class="margin-10px-left text-orange">KHMER NAME :</strong>
                                     </div>
                                     <div class="col-md-7 col-7">
-                                        <p><?php echo (isset($pro))?$pro['name_kh']:"";?></p>
+                                        <p><?php// echo (isset($pro))?$pro['name_kh']:"";?></p>
                                     </div>
                                 </div>
 
@@ -488,7 +492,7 @@ body {
                                         <strong class="margin-10px-left text-orange">ID NUMBER :</strong>
                                     </div>
                                     <div class="col-md-7 col-7">
-                                        <p><?php echo (isset($pro))?$pro['id_number']:"";?></p>
+                                        <p><?php //echo (isset($pro))?$pro['id_number']:"";?></p>
                                     </div>
                                 </div>
 
@@ -501,7 +505,7 @@ body {
                                         <strong class="margin-10px-left text-orange">COMPANY :</strong>
                                     </div>
                                     <div class="col-md-7 col-7">
-                                        <p><?php echo (isset($pro))?$pro['company']:"";?></p>
+                                        <p><?php //echo (isset($pro))?$pro['company']:"";?></p>
                                     </div>
                                 </div>
 
@@ -514,7 +518,7 @@ body {
                                         <strong class="margin-10px-left text-orange">BRANCH:</strong>
                                     </div>
                                     <div class="col-md-7 col-7">
-                                        <p><?php echo (isset($pro))?$pro['branch']:"";?></p>
+                                        <p><?php// echo (isset($pro))?$pro['branch']:"";?></p>
                                     </div>
                                 </div>
 
@@ -527,7 +531,7 @@ body {
                                         <strong class="margin-10px-left text-orange">POSITION :</strong>
                                     </div>
                                     <div class="col-md-7 col-7">
-                                        <p><?php echo (isset($pro))?$pro['position']:"";?></p>
+                                        <p><?php //echo (isset($pro))?$pro['position']:"";?></p>
                                     </div>
                                 </div>
 
@@ -541,7 +545,7 @@ body {
                                         <strong class="margin-10px-left text-orange">GENDER :</strong>
                                     </div>
                                     <div class="col-md-7 col-7">
-                                        <p><?php echo (isset($pro))?($pro['sex']=='male')?'Male':'Female':"";?></p>
+                                        <p><?php //echo (isset($pro))?($pro['sex']=='male')?'Male':'Female':"";?></p>
                                     </div>
                                 </div>
 
@@ -555,7 +559,7 @@ body {
                                         <strong class="margin-10px-left text-orange">ADDRESS:</strong>
                                     </div>
                                     <div class="col-md-7 col-7">
-                                        <p><?php echo (isset($pro))?$pro['address']:"";?></p>
+                                        <p><?php //echo (isset($pro))?$pro['address']:"";?></p>
                                     </div>
                                 </div>
 
@@ -568,7 +572,7 @@ body {
                                         <strong class="margin-10px-left xs-margin-four-left text-orange">CONTACT :</strong>
                                     </div>
                                     <div class="col-md-7 col-7">
-                                        <p><?php echo (isset($pro))?$pro['contact']:"";?></p>
+                                        <p><?php //echo (isset($pro))?$pro['contact']:"";?></p>
                                     </div>
                                 </div>
 
@@ -581,7 +585,7 @@ body {
                                         <strong class="margin-10px-left text-orange">OFFICE PHONE :</strong>
                                     </div>
                                     <div class="col-md-7 col-7">
-                                        <p><?php echo (isset($pro))?$pro['office_phone']:"";?></p>
+                                        <p><?php //echo (isset($pro))?$pro['office_phone']:"";?></p>
                                     </div>
                                 </div>
 
@@ -593,7 +597,7 @@ body {
                                         <strong class="margin-10px-left xs-margin-four-left text-orange">EMAIL :</strong>
                                     </div>
                                     <div class="col-md-7 col-7">
-                                        <p><a href="javascript:void(0)"><?php echo (isset($pro))?$pro['email']:"";?></a></p>
+                                        <p><a href="javascript:void(0)"><?php //echo (isset($pro))?$pro['email']:"";?></a></p>
                                     </div>
                                 </div>
                             </li>
@@ -626,7 +630,6 @@ body {
                                     <label for="" class="col-md-4" style="font-family: 'Khmer', cursive; font-size:18px;" ><i class="fas fa-lock"></i>បញ្ចាក់លេខសំងាត់ថ្មី :</label>
                                     <input type="password" name="con_pass" id="" class="form-control col-md-7" required>
                                     <small id="cpasswordHelpBlock" class="form-text offset-4" style="color:red">
-
                                     </small>
                                 </div><br>
                                 <div class="row">
