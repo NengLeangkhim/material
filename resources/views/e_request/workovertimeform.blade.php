@@ -361,14 +361,16 @@
       </div>
 </div>
 
-<div class="col-md-12 text-right" style="width: 100%;margin-top:20px;margin-bottom:20px">
-        <?php echo $comment;?>
-        <?php echo $approve;?>
-        <?php echo $pending;?>
-        <?php echo $reject;?>
-        <?php echo $btn_sub;?>
-      <!-- <button class="btn btn-danger">Cancel</button> -->
-  </div>
+<div class="row">
+  <div class="col-md-12" align="center">
+    <?php echo $comment;?>
+    <?php echo $approve;?>
+    <?php echo $pending;?>
+    <?php echo $reject;?>
+    <?php echo $btn_sub;?>
+  <!-- <button class="btn btn-danger">Cancel</button> -->
+</div>
+</div>
 <br>
 
 </form>
