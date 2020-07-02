@@ -4,7 +4,7 @@ function getval(st,target,id){
     }
     $.ajax({
         type:'GET',
-        url: "controller/get_values.php",
+        url: "ere_get_values",
         data:{
             _sql:st,
             _id:id.value,
@@ -162,19 +162,16 @@ function get_view_hr(tar,tt){//normal view hr
         return;
     }
     $('[data-toggle="tooltip"]').tooltip('dispose');
-    document.getElementById('submenuchange').innerHTML="";
-    // document.getElementById('left_list').innerHTML="";
-    // document.getElementById('title').innerHTML="";
-    spin(tar);
+    spinner(tar);
     $.ajax({
-        type:'POST',
-        url: "controller/get_datatable_value.php",
+        type:'GET',
+        url: "ere_all_req_view",
         data:{
             _typehr:tt,
             _tar:tar,
         },
         success: function(data){
-            document.getElementById(tar).innerHTML=data;
+            $(tar).html(data);
             $('#dttable').DataTable({
                 responsive: true
             });

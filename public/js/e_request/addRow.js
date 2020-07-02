@@ -603,6 +603,8 @@ function date_view(){
     $( "input[type='date']" ).each(function( index,item ) {
         console.log(item);
         $(item).attr("type","text");
+        $(item).val($(item).attr("value"));
+        console.log();
         // $(item).attr("autocomplete","off");
       });
 }

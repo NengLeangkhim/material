@@ -26,10 +26,10 @@ class get_row{
         }
         $rr=DB::select($sql." order by er.id desc limit 1 offset $start_from");
         $rr=ere_get_assoc::assoc_($rr)[0];
-        $st[]=$rr;
+        $st[0]=$rr;
 
         $r=DB::select("select count(*) from ($sql) as foo");//row count for pagonation
-        $st[]=ere_get_assoc::assoc_($r)[0];
+        $st[1]=ere_get_assoc::assoc_($r)[0];
 
         $r=DB::select("SELECT s.name,e.create_date,e.comment
         from e_request_detail e
@@ -37,7 +37,7 @@ class get_row{
         where e.e_request_status='approve' and e.status='t' and e.e_request_id=".$rr['id']);
 
         if(isset(ere_get_assoc::assoc_($r)[0])){
-            $st[]=ere_get_assoc::assoc_($r)[0];
+            $st[2]=ere_get_assoc::assoc_($r)[0];
         }
 
         $r=DB::select("SELECT s.name,e.create_date,e.comment
@@ -46,7 +46,7 @@ class get_row{
         where e.e_request_status='pending' and e.status='t' and e.e_request_id=".$rr['id']);
         // $st[]=ere_get_assoc::assoc_($r);
         if(isset(ere_get_assoc::assoc_($r)[0])){
-            $st[]=ere_get_assoc::assoc_($r)[0];
+            $st[3]=ere_get_assoc::assoc_($r)[0];
         }
 
         $r=DB::select("SELECT s.name,e.create_date,e.comment
@@ -56,7 +56,7 @@ class get_row{
         // $st[]=ere_get_assoc::assoc_($r);
 
         if(isset(ere_get_assoc::assoc_($r)[0])){
-            $st[]=ere_get_assoc::assoc_($r)[0];
+            $st[4]=ere_get_assoc::assoc_($r)[0];
         }
 
         return $st;
