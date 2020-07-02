@@ -1,6 +1,13 @@
 <section class="content">
-<div class="row" style="margin-top:1%">
-    <div class="col-md-12 row">
+    <div class="header">
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="title_khleave"​​​ style="margin-top: 10px;margin-left: 20px;font-size: 23px">របាយការណ៍</p>
+            </div>
+        </div>
+    </div>
+<div class="row">
+    <div class="col-md-12 row"​ style="margin-left: 15px;">
         <!-- <p class="word-tbody col-1 text-center">ចាប់ពី</p> -->
         <div class="input-group col-md-4">
             <label for="" class="word-tbody" style="margin-top:1%">ចាប់ពី</label>&nbsp&nbsp
