@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 class perms extends Controller
 {
     //
+    private static $key='perms20';
     public static function check_session_js(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -92,7 +93,7 @@ class perms extends Controller
     //right side nav bar
     public static function get_module_nav(){
         if(self::check_perm()){
-            $mo=DB::select("SELECT * from public.exec_get_access_module_of(".$_SESSION['userid'].",'".$_POST['_mo']."')");
+            $mo=DB::select("SELECT * from public.exec_get_access_module_of(".$_SESSION['userid'].",'".en_de::aes_de($_POST['_mo'],self::$key)."')");
             return self::output_sub_nav($mo);
         }else{
             return false;
@@ -168,7 +169,7 @@ class perms extends Controller
                 foreach ($child as $rr) {
                     if(isset($rr->parent)){
                         $rr->parent->link=(empty($rr->parent->link))?'':"value='{$rr->parent->link}'";
-                        $rr->parent->code=(empty($rr->parent->code))?'':"data-code='{$rr->parent->code}'";
+                        $rr->parent->code=(empty($rr->parent->code))?'':"data-code='".en_de::aes_en($rr->parent->code,self::$key)."'";
                         $st.= " <ul class='nav nav-treeview sub_menu'> ";
                         $st.= "  <li class='nav-item has-treeview menu mybg'  > ";
                         $st.= "  <a href='javascript:void(0);' class='nav-link' {$rr->parent->link} {$rr->parent->code}  name='menu'> ";
@@ -179,7 +180,7 @@ class perms extends Controller
                     }else{
                         $sp=($flag=='')?'':'&nbsp&nbsp&nbsp&nbsp';
                         $rr->link=(empty($rr->link))?'':"value='{$rr->link}'";
-                        $rr->code=(empty($rr->code))?'':"data-code='{$rr->code}'";
+                        $rr->code=(empty($rr->code))?'':"data-code='".en_de::aes_en($rr->code,self::$key)."'";
                         $st.= " <ul class='nav nav-treeview sub_menu'> ";
                         $st.= "  <li class='nav-item menu mybg'  > ";
                         $st.= "  <a href='javascript:void(0);' class='nav-link' ​$rr->link ​$rr->code name='menu'> ";

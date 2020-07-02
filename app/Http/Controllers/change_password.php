@@ -27,7 +27,7 @@ class change_password extends Controller{
         $pass=$_POST['_newpass'];
         $q=DB::select("SELECT public.exec_change_password(
             $user_id,
-            '".en_de::en($pass)."'
+            '".en_de::aes_en($pass,'1941a39eed11fdef7f9de6d597df9f4b')."'
         )");
         if(isset(ere_get_assoc::assoc_($q)[0])){
             echo json_encode(ere_get_assoc::assoc_($q)[0]);

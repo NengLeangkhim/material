@@ -16,4 +16,14 @@ class en_de extends Controller
         $rr=md5($r);
         return $rr;
     }
+    public static function aes_en($inputText,$inputKey){
+        $blockSize = 256;
+        $aes = new AES($inputText, $inputKey, $blockSize);
+        return $aes->encrypt();
+    }
+    public static function aes_de($inputText,$inputKey){
+        $blockSize = 256;
+        $aes = new AES($inputText, $inputKey, $blockSize);
+        return $aes->decrypt();
+    }
 }
