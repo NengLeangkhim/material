@@ -11,7 +11,9 @@ class addCurrency extends Controller
 {
     //
     public function getaddCurrency(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $m='<form action="/addcurrency" id="form1" method="POST" name="addcurrency">
             <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -48,7 +50,9 @@ class addCurrency extends Controller
     }
 
     public function addCurrency(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $name=$_POST['name'];

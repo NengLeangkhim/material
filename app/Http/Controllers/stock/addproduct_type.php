@@ -11,7 +11,9 @@ class addproduct_type extends Controller
 {
     //
     public function getaddproduct_type(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $m='<form action="/addptype" id="form1" method="POST" name="addproduct_type">
             <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -48,7 +50,9 @@ class addproduct_type extends Controller
     }
 
     public function addptype(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $name=$_POST['name'];

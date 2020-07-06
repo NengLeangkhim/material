@@ -12,7 +12,9 @@ class gettable extends Controller
 {
     //
     public function getT(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             //get table for which route/view
             $table=$_GET['table'];
@@ -201,7 +203,9 @@ class gettable extends Controller
     }
 
     public function getTT(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $table=$_GET['table'];
             if(!isset($_SESSION['old_route'])){
@@ -402,7 +406,9 @@ class gettable extends Controller
     }
 
     public function getTTOld(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $table=$_GET['table'];
             if(!isset($_SESSION['old_route'])){

@@ -10,7 +10,9 @@ use App\Http\Controllers\util;
 class ere_get_report extends Controller{
     public function ere_report(){//get method
 
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $cc=new check_perm();
         $s="";
         $outputstring='';

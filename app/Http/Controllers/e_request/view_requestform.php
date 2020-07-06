@@ -10,11 +10,8 @@ class view_requestform extends Controller
 {
     function requestform(){
         $user_id=0;
-        session_start();
-        if(isset($_SESSION['userid'])){
-            $user_id=$_SESSION['userid'];
-        }else{
-            return;
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
         }
         $_SESSION['form_id']=$_GET['id'];
         $add='<th><button id="rowFornRequestAdd" onclick="addrow()">Add Row</button></th>';
@@ -22,7 +19,11 @@ class view_requestform extends Controller
         $frm_id="frm_ere_insert_requestform";
 
         $val=get_value_to_view::get_val_view($route,$frm_id);//insert route and form id
+
         extract($val['val'], EXTR_PREFIX_SAME, "wddx");
+        $add=$wddx_add??$add;
+        $user_id=$wddx_user_id??$user_id;
+
         if(isset($v0)){
             $q=DB::select("select s.name,p.name as position,d.name as dept from staff s join position p on p.id=s.position_id join company_dept d on d.id=s.company_dept_id where s.id=".$v0['to']);
             $r=ere_get_assoc::assoc_($q)[0];
@@ -49,8 +50,6 @@ class view_requestform extends Controller
         $r=ere_get_assoc::assoc_($q);
         $staff=$r;
 
-        $add=$wddx_add??$add;
-        $user_id=$wddx_user_id??$user_id;
         $val=get_defined_vars();
         return view('e_request.requestform',compact("val"));//,"pos","name","id_number","dept","kindof","transfer_to","leave_kind","trans_to","date_from","time_from","date_to","time_to","date_resume","leave_number","reason","req_by","create_date"));
     }

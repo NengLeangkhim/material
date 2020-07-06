@@ -19,7 +19,9 @@ class Login extends Controller
             return view('login',['message'=>'BLOCKED!','old'=>$id_]);
         }else{
             // return view('login');
+            if (session_status() == PHP_SESSION_NONE) {
             session_start();
+        }
             $_SESSION['userid']=$user;
             if(perms::check_perm()){
                 $_SESSION['module']=perms::get_module();
@@ -31,7 +33,9 @@ class Login extends Controller
     }
     public function logout(){
         if (session_status() == PHP_SESSION_NONE) {
+            if (session_status() == PHP_SESSION_NONE) {
             session_start();
+        }
         }
         session_destroy();
         return view('login');

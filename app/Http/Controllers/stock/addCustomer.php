@@ -11,7 +11,9 @@ class addCustomer extends Controller
 {
     //modal to show add dialog
     public function getaddCustomer(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $m='<form action="/addcustomer" id="form1" method="POST">
             <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -64,7 +66,9 @@ class addCustomer extends Controller
         }
     }
     public function getaddCustomerbranch(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $q=DB::select("SELECT id,name from customer");
             $m='<form action="/addcustomer" id="form1" method="POST">
@@ -123,7 +127,9 @@ class addCustomer extends Controller
         }
     }
     public function addCustomer(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $name=$_POST['name'];

@@ -10,11 +10,8 @@ class view_workovertimeform extends Controller
 {
     function workovertimeform(){
         $user_id=0;
-        session_start();
-        if(isset($_SESSION['userid'])){
-            $user_id=$_SESSION['userid'];
-        }else{
-            return;
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
         }
         $_SESSION['form_id']=$_GET['id'];
         $type='request';
@@ -24,6 +21,8 @@ class view_workovertimeform extends Controller
         $run=new get_row();
         $val=get_value_to_view::get_val_view($route,$frm_id);//insert route and form id
         extract($val['val'], EXTR_PREFIX_SAME, "wddx");
+        $user_id=$wddx_user_id??$user_id;
+
         if(isset($v[1])){
             $e_r_id=$v['id'];
             if($v[1][0]['type']=='request'){
@@ -119,7 +118,7 @@ class view_workovertimeform extends Controller
         $name=empty($r['name'])?'':$r['name'];
         $dept=empty($r['dept'])?'':$r['dept'];
 
-        $user_id=$wddx_user_id??$user_id;
+
         $val=get_defined_vars();
         return view('e_request.workovertimeform',compact("val"));//,"pos","name","id_number","dept","kindof","transfer_to","leave_kind","trans_to","date_from","time_from","date_to","time_to","date_resume","leave_number","reason","req_by","create_date"));
     }

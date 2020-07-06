@@ -11,7 +11,9 @@ class addSupplier extends Controller
 {
     //
     public function getaddSupplier(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $m='<form action="/addsupplier" id="form1" method="POST" name="addsupplier">
             <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -64,7 +66,9 @@ class addSupplier extends Controller
     }
 
     public function addSupplier(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $name=$_POST['name'];

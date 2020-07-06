@@ -10,7 +10,9 @@ use App\Http\Controllers\perms;
 class addMeasurement extends Controller
 {
     public function getaddMeasurement(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $m='<form action="/addmeasurement" id="form1" method="POST" name="addmeasurement">
             <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -47,7 +49,9 @@ class addMeasurement extends Controller
     }
 
     public function addMeasurement(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $name=$_POST['name'];

@@ -11,7 +11,9 @@ class productImport extends Controller
 {
     //
     public function getProductImport(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_010604')){//module codes
             // $productImport=DB::select("SELECT ia.id,
             //             (select name from staff where id=ia.deliver_by) as deliver_by,
@@ -27,7 +29,9 @@ class productImport extends Controller
         }
     }
     public function getaddProductImport(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01060401')){//module codes
             $r=array();
             $r[]=DB::select("SELECT id,name from company");
@@ -39,7 +43,9 @@ class productImport extends Controller
         }
     }
     public function addProductImport(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $company=$_POST['company'];
@@ -78,7 +84,9 @@ class productImport extends Controller
         }
     }
     public function getProductImportDetail(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01060402')){//module codes
                 $id=$_GET['_id'];
                 $sql="SELECT ia.id,

@@ -11,7 +11,9 @@ class productCompany extends Controller
 {
     //
     public function getProductCompanyrequest(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_0102')){//module codes
             // $productCompany=DB::select("SELECT ia.id,
             //             (select name from staff where id=ia.deliver_by) as deliver_by,
@@ -29,7 +31,9 @@ class productCompany extends Controller
         }
     }
     public function getProductCompanyimport(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_0101')){//module codes
             // $productCompany=DB::select("SELECT ia.id,
             //             (select name from staff where id=ia.deliver_by) as deliver_by,
@@ -47,7 +51,9 @@ class productCompany extends Controller
         }
     }
     public function getaddProductCompanyrequest(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_010201')){//module codes
             $st_id=$_SESSION['userid'];
             $company_id="(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where cd.status='t' and s.id=$st_id)";
@@ -63,7 +69,9 @@ class productCompany extends Controller
         }
     }
     public function getaddProductCompanyimport(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_010101')){//module codes
             $st_id=$_SESSION['userid'];
             $company_id="(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where cd.status='t' and s.id=$st_id)";
@@ -77,7 +85,9 @@ class productCompany extends Controller
         }
     }
     public function addProductCompany(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $company=$_POST['company'];
@@ -122,7 +132,9 @@ class productCompany extends Controller
         }
     }
     public function getProductCompanyDetail(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_010102')){//module codes
                 $id=$_GET['_id'];
                 $sql="SELECT ia.id,
@@ -158,7 +170,9 @@ class productCompany extends Controller
         }
     }
     public function approveProductCompany(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_010103')){//module codes
             $staff=$_SESSION['userid'];
             $before_id=$_POST['before_id'];
@@ -205,7 +219,9 @@ class productCompany extends Controller
         }
     }
     public function companyDashboard(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         // $sql="SELECT p.id,p.name as name,
         // (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." )) as qty,
         // (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." ) and q.action_type='in') as import,

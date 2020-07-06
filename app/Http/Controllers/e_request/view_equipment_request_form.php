@@ -10,12 +10,10 @@ class view_equipment_request_form extends Controller
 {
     function equipment_request_form(){
         $user_id=0;
-        session_start();
-        if(isset($_SESSION['userid'])){
-            $user_id=$_SESSION['userid'];
-        }else{
-            return;
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
         }
+
         $_SESSION['form_id']=$_GET['id'];
         $add='<th class="style_td"><button id="" onclick="addrow_requsest()">Add Row</button></th>';
         $route="ere_insert_equipment_request_form";

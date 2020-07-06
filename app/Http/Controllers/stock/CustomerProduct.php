@@ -10,7 +10,9 @@ use App\Http\Controllers\Controller;
 class CustomerProduct extends Controller
 {
     public function getCustomerProductRequest(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_010401')){//module codes
             $customerProduct=array();
             $customerProduct[]='out';
@@ -20,7 +22,9 @@ class CustomerProduct extends Controller
         }
     }
     public function getCustomerProductReturn(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_010402')){//module codes
             $customerProduct=array();
             $customerProduct[]="return";
@@ -30,7 +34,9 @@ class CustomerProduct extends Controller
         }
     }
     public function addCustomerProduct(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_010403')){//module codes
             $action=array();
             if(isset($_GET['action'])&&!empty($_GET['action'])){
@@ -49,7 +55,9 @@ class CustomerProduct extends Controller
     }
     //this function are same as any other get branch function patterns just to match with ajax function
     public function get_customer_branch(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $id=$_GET['_id'];//set up same for ajax
             $get_branch=DB::select('select id,branch as name from customer_branch where status=\'t\' and customer_id='.$id);
@@ -57,7 +65,9 @@ class CustomerProduct extends Controller
         }
     }
     public function get_customer_con(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $id=$_GET['customer_id'];
             $branch_id=$_GET['branch_id'];
@@ -66,7 +76,9 @@ class CustomerProduct extends Controller
         }
     }
     public function insert_customer_product(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $action_type=$_POST['action_type'];
@@ -110,7 +122,9 @@ class CustomerProduct extends Controller
         }
     }
     public function customerProductDetail(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_010404')){//module codes
             $id=$_GET['_id'];
             $sql="SELECT c.id,cd.branch,

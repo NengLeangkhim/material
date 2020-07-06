@@ -20,7 +20,9 @@ class dashbord extends Controller
        }elseif($users==0){
         return view('login',['message'=>'BLOCKED!']);
        }else{
-           session_start();
+           if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
            $_SESSION['username']=$name;
            $_SESSION['password']=$pas;
            $_SESSION['userid']=$users;
@@ -74,7 +76,9 @@ class dashbord extends Controller
 
     }
     public function Dashbord(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_0103')){//module code
                 // return view('start');
                 $arr[]=array();
@@ -129,7 +133,9 @@ class dashbord extends Controller
         return $rr;
     }
     public function checkSession(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm()){
             return view('start');
             // $arr[]=array();
@@ -158,7 +164,9 @@ class dashbord extends Controller
     }
     public function logout(){
         if (session_status() == PHP_SESSION_NONE) {
+            if (session_status() == PHP_SESSION_NONE) {
             session_start();
+        }
         }
         session_destroy();
         return view('login');

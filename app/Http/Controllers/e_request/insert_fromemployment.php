@@ -9,7 +9,9 @@ use App\Http\Controllers\util;
 
 class insert_fromemployment extends Controller{
     function in_fromemployment(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(isset($_SESSION['userid'])){
             $user_id=$_SESSION['userid'];
         }else{

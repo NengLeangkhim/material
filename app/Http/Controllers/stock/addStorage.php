@@ -11,7 +11,9 @@ class addStorage extends Controller
 {
     //
     public function getaddStorage(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $m='<form action="/addstorage" id="form1" method="POST" name="addstorage">
             <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -48,7 +50,9 @@ class addStorage extends Controller
     }
 
     public function getaddStorageLocation(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $q=DB::select("SELECT id,name from storage");
             $m='<form action="/addstorage" id="form1" method="POST" name="addstoragelocation">
@@ -99,7 +103,9 @@ class addStorage extends Controller
     }
 
     public function addstorage(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $name=$_POST['name'];

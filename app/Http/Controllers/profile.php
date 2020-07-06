@@ -11,7 +11,9 @@ class profile extends Controller
 {
     function get_profile(){
         $user_id=0;
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(isset($_SESSION['userid'])){
             $user_id=$_SESSION['userid'];
         }else{

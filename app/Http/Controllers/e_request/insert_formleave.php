@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class insert_formleave extends Controller{
 	function in_formleave(){
-		session_start();
+		if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 		if(isset($_SESSION['userid'])){
 			$user_id=$_SESSION['userid'];
 		}else{

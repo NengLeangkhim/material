@@ -9,7 +9,9 @@ use App\Http\Controllers\e_request\ere_get_assoc;
 
 class change_password extends Controller{
     public function change_pass(){
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
     if(isset($_SESSION['userid'])){
         $user_id=$_SESSION['userid'];
     }else{

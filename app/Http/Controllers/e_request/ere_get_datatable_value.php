@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\DB;
 
 class ere_get_datatable_value extends Controller{//post method
     public function get_dt_val(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(!isset($_SESSION['userid'])){
         return;
         }
@@ -91,7 +93,9 @@ class ere_get_datatable_value extends Controller{//post method
     public function get_own_req(){
         $cc=new check_perm();
         $rr=false;
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(isset($_SESSION['userid'])){
             $c=$cc->get_view_val('all',false,0);
             $ap=$cc->get_view_val('approve',false,0);
@@ -155,7 +159,9 @@ class ere_get_datatable_value extends Controller{//post method
     }
     public function get_approve_view(){
         // echo $_SESSION['userid'];
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $cc=new check_perm();
         if(isset($_SESSION['userid'])&&$cc->permi_check($_SESSION['userid'])){
             $c=$cc->permi_get($_SESSION['userid']);
@@ -209,7 +215,9 @@ class ere_get_datatable_value extends Controller{//post method
             }
     }
     public function get_all_req_view(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $cc=new check_perm();
                 $rr=false;
                 if(isset($_SESSION['userid'])){

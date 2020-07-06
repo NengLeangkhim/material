@@ -10,7 +10,9 @@ use App\Http\Controllers\perms;
 class productAssign extends Controller
 {
     public function getProductAssign(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_010605')){//module codes
             // $pRequest=DB::select("SELECT rp.id,
             //                     (select name from staff where id=rp.request_by) as request_by,
@@ -25,7 +27,9 @@ class productAssign extends Controller
         }
     }
     public function getaddProductAssign(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01060501')){//module codes
             $r=array();
             $r[]=DB::select("SELECT id,name from company");
@@ -36,7 +40,9 @@ class productAssign extends Controller
         }
     }
     public function addProductAssign(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             // $action_type=$_POST['action_type'];
@@ -67,7 +73,9 @@ class productAssign extends Controller
         }
     }
     public function getProductAssignDetail(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01060502')){//module codes
                 $id=$_GET['_id'];
                 $sql="select * from company where id=$id";

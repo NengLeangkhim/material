@@ -11,7 +11,9 @@ use App\Http\Controllers\perms;
 class product extends Controller
 {
     public function getProductList(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_010602')){//module code
             // $plist=DB::select("SELECT p.id,b.name as brand ,p.name, p.part_number, p.barcode,cd.company,
             // m.name as measurement,cu.name as currency, p.qty, p.price,(p.qty*p.price)as amount,description
@@ -26,7 +28,9 @@ class product extends Controller
         }
     }
     public function addProductList(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01060201')){//module code
             if(isset($_POST['name'])){
                 $staff=$_SESSION['userid'];
@@ -124,7 +128,9 @@ class product extends Controller
         }
     }
     public function getProductByID(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01060202')){//module code
             $addp=array();
             if(isset($_GET['pID'])){
@@ -178,7 +184,9 @@ class product extends Controller
     }
 //this function are same as any other get branch function patterns just to match with ajax function
     public function get_company_branch(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $id=$_GET['_id'];//set up same for ajax
             $get_branch=DB::select('select id,branch as name from company_branch where status=\'t\' and company_id='.$id);
@@ -188,7 +196,9 @@ class product extends Controller
         }
     }
     public function get_product_code(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             // $id=$_GET['_id'];//set up same for ajax
             $tid=$_GET['_tid'];
@@ -206,7 +216,9 @@ class product extends Controller
         }
     }
     public function update_product_qty(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             if(isset($_GET['id'])){
                 $id=$_GET['id'];

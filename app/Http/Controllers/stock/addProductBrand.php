@@ -11,7 +11,9 @@ class addProductBrand extends Controller
 {
     //modal to show add dialog
     public function getaddProductBrand(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $m='<form action="" id="form1" method="POST" name="addproductbrand">
             <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -48,7 +50,9 @@ class addProductBrand extends Controller
     }
 
     public function addProductBrand(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $name=$_POST['name'];

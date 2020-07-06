@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\DB;
 
 class upload_img_profile extends Controller {
     public function upload_img_pro(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(isset($_SESSION['userid'])){
             $user_id=$_SESSION['userid'];
         }else{

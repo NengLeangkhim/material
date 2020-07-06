@@ -13,7 +13,9 @@ class addproduct_to_view extends Controller
     public function get_product(){
         $limit=5;
         if(isset($_GET['search'])){
+            if (session_status() == PHP_SESSION_NONE) {
             session_start();
+        }
             $st_id=$_SESSION['userid'];
             $s=str_replace("'","''",$_GET['search']);
             $s=strtolower($s);
@@ -97,7 +99,9 @@ class addproduct_to_view extends Controller
     }
     public function add_product(){
         $limit=5;
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $id=$_GET['_id'];
         $st_id=$_SESSION['userid'];
         $cdi="(select company_detail_id from staff where id=$st_id)";
@@ -135,7 +139,9 @@ class addproduct_to_view extends Controller
 
     // public function get_product_comp(){
     //     $limit=5;
-    //     session_start();
+    //     if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
     //     if(isset($_GET['search'])){
     //         $st_id=$_SESSION['userid'];
     //         $company_id="(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=$st_id)";

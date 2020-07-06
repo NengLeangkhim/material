@@ -10,12 +10,10 @@ class view_formleave extends Controller
 {
     function formleave(){
         $user_id=0;
-        session_start();
-        if(isset($_SESSION['userid'])){
-            $user_id=$_SESSION['userid'];
-        }else{
-            return;
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
         }
+
         $_SESSION['form_id']=$_GET['id'];
         $trans_to='';
         $leave_kind='';
@@ -24,6 +22,8 @@ class view_formleave extends Controller
 
         $val=get_value_to_view::get_val_view($route,$frm_id);//insert route and form id
         extract($val['val'], EXTR_PREFIX_SAME, "wddx");
+        $user_id=$wddx_user_id??$user_id;
+
         if(isset($v[0])){
             $create_date=$v[0][0]['create_date'];
             $req_by=$v[0][0]['request_by'];
@@ -56,7 +56,6 @@ class view_formleave extends Controller
         $r=ere_get_assoc::assoc_($q);
         $transfer_to=$r;
 
-        $user_id=$wddx_user_id??$user_id;
         $val=get_defined_vars();
         return view('e_request.formleave',compact("val"));//,"pos","name","id_number","dept","kindof","transfer_to","leave_kind","trans_to","date_from","time_from","date_to","time_to","date_resume","leave_number","reason","req_by","create_date"));
     }

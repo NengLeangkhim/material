@@ -8,7 +8,9 @@ include_once ("../../controller/get_row.php");
 $db = new Database();
 $con=$db->dbConnection();
 $user_id=1;
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 if(isset($_SESSION['userid'])){
     $user_id=$_SESSION['userid'];
 }else{

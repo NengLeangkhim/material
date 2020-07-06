@@ -12,7 +12,9 @@ class addStaff extends Controller
     //
     //modal to show add dialog
     public function getaddStaff(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $q=DB::select("SELECT id,name from company");
             $m='<form action="/addstaff" id="form1" method="POST" name="addStaff">
@@ -86,7 +88,9 @@ class addStaff extends Controller
     }
 
     public function addStaff(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
             $name=$_POST['name'];

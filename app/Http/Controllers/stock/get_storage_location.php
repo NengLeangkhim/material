@@ -11,7 +11,9 @@ class get_storage_location extends Controller
 {
     //
     public function get_loc(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(perms::check_perm_module('STO_01')){
             // $storage=$_SESSION['warehouse'];
             // $sql="SELECT id,name from storage_location where storage_id=$storage";

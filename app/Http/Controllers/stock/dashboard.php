@@ -10,7 +10,9 @@ use App\Http\Controllers\Controller;
 class dashboard extends Controller
 {
     public function dashboardDateChange(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $company_id=8;
         $start_date=$_GET['start_date'];
         $end_date=$_GET['end_date'];
@@ -181,7 +183,9 @@ class dashboard extends Controller
         }else{
             $page=1;
         }
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $cID=$_GET['cID'];
         $_SESSION['cid']=$cID;
         $companyName=DB::select("select name from company where id=".$cID);
@@ -377,7 +381,9 @@ class dashboard extends Controller
         </div>';
     }
     public function BranchChange(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(isset($_GET['pages'])){
             $page=$_GET['pages'];
         }else{

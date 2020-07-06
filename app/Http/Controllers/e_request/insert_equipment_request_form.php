@@ -9,7 +9,9 @@ use App\Http\Controllers\util;
 
 class insert_equipment_request_form extends Controller{
 	public function in_equipment_request_form(){
-		session_start();
+		if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 		if(isset($_SESSION['userid'])){
 			$user_id=$_SESSION['userid'];
 		}else{
