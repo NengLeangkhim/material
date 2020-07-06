@@ -77,7 +77,7 @@
                     </div>
                 </div> --}}
                 <div class="form-group btn-container">
-                    <button class="btn btn-primary btn-block">SIGN IN</button>
+                    <button class="btn btn-danger btn-block">SIGN IN</button>
                 </div>
             </form>
             <form class="forget-form" action="index.html">

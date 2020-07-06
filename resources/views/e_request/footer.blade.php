@@ -25,7 +25,7 @@ echo (empty($reject_by))?'':'<label class="reject_label"><u style="color:#000">á
                 Street 598, Sangkat Chrang Chamreh 2, Khan Russey Keo, Phnom Penh, Kingdom of Cambodia.
             </p>
             <p class="footer">                                     
-                Tel: (855) 23 999 998, E-mail: info@turbotech.com, Website: www.turbotech.com
+                Tel: <a class="footer" href="tel:+85523999998">(855) 23 999 998</a>, E-mail: <a  class="footer" href="info@turbotech.com">info@turbotech.com</a>, Website: <a class="footer" href="www.turbotech.com">www.turbotech.com</a>
             </p>
         </div>
     </div>

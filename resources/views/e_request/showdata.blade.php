@@ -2,7 +2,7 @@
     <div class="header">
         <div class="row">
             <div class="col-sm-12">
-                <p class="title_khleave"​​​ style="margin-top: 10px;margin-left: 0px;font-size: 23px">មើលសំណើផ្ទាល់ខ្លួន</p>
+                <p class="title_khleave"​​​ style="margin-top: 10px;margin-left: 0px;font-size: 23px">មើលសំណើផ្ទាល់ខ្លួន:</p>
             </div>
         </div>
     </div>

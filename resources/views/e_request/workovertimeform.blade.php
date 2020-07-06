@@ -28,9 +28,6 @@
         </div>
         <div class="col-md-1"></div>
     </div>
-
-
-
       <div class="row" style="margin-top: 20px; padding: .72rem;">
         <div class="col-md-4">
           <div class="row">
@@ -177,7 +174,7 @@
   <div class="row">
     <div class="col-lg-12">
       <p class="during"><b>មូលហេតុ៖</b></p>
-      <textarea name="req_reason" id="text-area" cols="100px" rows="10"  class="form-control" <?php echo $d.' '.$d1 ;?>><?php echo (isset($req_reason))?$req_reason:'';?></textarea>
+      <textarea name="req_reason" id="text-area" style="height: 60px" cols="100px" rows="10"  class="form-control" <?php echo $d.' '.$d1 ;?>><?php echo (isset($req_reason))?$req_reason:'';?></textarea>
     </div>
   </div>
   <div class="row">
@@ -188,7 +185,7 @@
         </div>
       </div>
       <div class="row" style="margin-top: 20px;">
-        <div class="col-xl-12">
+        <div class="col-xl-12 during" align="center">
           <!-- empty space  -->
           <?php echo (isset($req_create_date))? '<b>'.$req_by.'</b><br> '.util::conv_datetime($req_create_date):'';?>
         </div>
@@ -201,7 +198,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xl-12" style="margin-top: 20px;">
+        <div class="col-xl-12 during" style="margin-top: 20px;"​ align="center">
           <!-- empty space  -->
           <?php echo (!empty($req_apr_by))?'<b>'.$req_apr_by.'</b><br> '.util::conv_datetime($req_apr_date):'';?>
         </div>
@@ -326,7 +323,7 @@
         <div class="row">
           <div class="col-lg-12">
             <p class="during"><b>មូលហេតុ៖</b></p>
-            <textarea name="act_reason" id="text-area" cols="100px" rows="10" class="form-control"  <?php echo $dd.' '.$dd1;?>><?php echo (isset($act_reason))?$act_reason:'';?></textarea>
+            <textarea name="act_reason" id="text-area" style="height: 60px" cols="100px" rows="10" class="form-control"  <?php echo $dd.' '.$dd1;?>><?php echo (isset($act_reason))?$act_reason:'';?></textarea>
           </div>
         </div>
         <div class="row">
@@ -337,7 +334,7 @@
               </div>
             </div>
             <div class="row" style="margin-top: 20px;">
-              <div class="col-xl-12">
+              <div class="col-xl-12 during" align="center">
                 <!-- empty space  -->
                 <?php echo (!empty($act_create_date))? '<b>'.$req_by.'</b><br> '.util::conv_datetime($act_create_date):'';?>
               </div>
@@ -350,7 +347,7 @@
               </div>
             </div>
             <div class="row" style="margin-top: 20px;">
-              <div class="col-xl-12">
+              <div class="col-xl-12 during" align="center">
                 <!-- empty space  -->
                 <?php echo (!empty($act_apr_by))?'<b>'.$act_apr_by.'</b><br> '.util::conv_datetime($act_apr_date):'';?>
               </div>

@@ -2,7 +2,7 @@
     <div class="header">
         <div class="row">
             <div class="col-sm-12">
-                <p class="title_khleave"​​​ style="margin-top: 10px;margin-left: 20px;font-size: 23px">របាយការណ៍</p>
+                <p class="title_khleave"​​​ style="margin-top: 10px;margin-left: 20px;font-size: 23px">របាយការណ៍:</p>
             </div>
         </div>
     </div>
