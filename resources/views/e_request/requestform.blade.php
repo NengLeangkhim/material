@@ -19,21 +19,23 @@
                 <div class="title"><h2 class="font_engcom">REQUEST FORM</h2></div>
             </div>
             <div class="col-md-4" style="margin-bottom: -20px">
-                <div class="row">
-                    <div class="col-sml-12">
-                        <div>
-                            <h4 class="title_version">TT-ADM-001-version3-Feb 2018</h4>
+                <div style="margin-top: 40px">
+                    <div class="row">
+                        <div class="col-sml-12">
+                            <div>
+                                <h4 class="title_version">TT-ADM-001-version3-Feb 2018</h4>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-5">
-                        <p class="during">
-                            លេខរៀង/No.:
-                        </p>
-                    </div>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" name="no" value="<?php echo (isset($v0))?$v0['request_number']:''; ?>" <?php echo $d1?>>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <p class="during">
+                                លេខរៀង/No.:
+                            </p>
+                        </div>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" name="no" value="<?php echo (isset($v0))?$v0['request_number']:''; ?>" <?php echo $d1?>>
+                        </div>
                     </div>
                 </div>
             </div>
