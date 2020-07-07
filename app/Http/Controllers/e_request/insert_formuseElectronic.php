@@ -69,8 +69,10 @@ class insert_formuseElectronic extends Controller{
                 }
                 $sql="SELECT public.insert_e_request_use_electronic_detail(
                     $id,
-                    $rr
+                    $rr,
+                    $user_id
                 )";
+
                 $q=DB::select($sql);
             }
         }

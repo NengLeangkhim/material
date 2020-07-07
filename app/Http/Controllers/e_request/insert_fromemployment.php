@@ -86,9 +86,12 @@ class insert_fromemployment extends Controller{
                         '".$_POST['spouse_current_address']."',
                         '".$_POST['spouse_phone']."',
                         '".$_POST['spouse_work_place']."',
-                        '".$_POST['spouse_phone']."',
+                        '".$_POST['children_count']."',
+                        '".$_POST['spouse_postion']."',
                         '".$_POST['spouse_id_number']."',
-                        ".$_POST['children_count'].")";
+                        null,
+                        $user_id
+                        )";
                     $q=DB::select($sql);
                 }
 
@@ -100,7 +103,8 @@ class insert_fromemployment extends Controller{
                             '".$_POST['relate_id_number'][$key]."',
                             ".$_POST['relate_position'][$key].",
                             ".$_POST['relate_dept'][$key].",
-                            '".$_POST['relation'][$key]."'
+                            '".$_POST['relation'][$key]."',
+                            $user_id
                         )";
                         $q=DB::select($sql);
 
@@ -111,10 +115,11 @@ class insert_fromemployment extends Controller{
                     '".$_POST['father_name']."',
                     'male',
                     '".$_POST['father_age']."',
-                    '".$_POST['father_stat']."',
                     '".$_POST['father_job']."',
                     '".$_POST['father_current_address']."',
-                    '".$_POST['father_phone']."'
+                    '".$_POST['father_phone']."',
+                    '".$_POST['father_stat']."',
+                    $user_id
                 )";
                 $q=DB::select($sql);
 
@@ -124,10 +129,11 @@ class insert_fromemployment extends Controller{
                     '".$_POST['mother_name']."',
                     'female',
                     '".$_POST['mother_age']."',
-                    '".$_POST['mother_stat']."',
                     '".$_POST['mother_job']."',
                     '".$_POST['mother_current_address']."',
-                    '".$_POST['mother_phone']."'
+                    '".$_POST['mother_phone']."',
+                    '".$_POST['mother_stat']."',
+                    $user_id
                 )";
                 $q=DB::select($sql);
 
@@ -137,10 +143,11 @@ class insert_fromemployment extends Controller{
                         $sql="SELECT public.insert_e_request_employment_biography_children(
                             $id,
                             '$child_name',
+                            '".$_POST['child_sex'][$key]."',
                             '".util::to_pgdate($_POST['child_birth_date'][$key])."',
                             '".$_POST['child_marital'.$key]."',
-                            '".$_POST['child_sex'][$key]."',
-                            '".$_POST['child_job'][$key]."'
+                            '".$_POST['child_job'][$key]."',
+                            $user_id
                         )";
                         $q=DB::select($sql);
 
@@ -155,7 +162,8 @@ class insert_fromemployment extends Controller{
                     '".$_POST['commune']."',
                     '".$_POST['village']."',
                     '".$_POST['district']."',
-                    '".$_POST['province']."'
+                    '".$_POST['province']."',
+                    $user_id
                 )";
                 $q=DB::select($sql);
 
@@ -165,13 +173,14 @@ class insert_fromemployment extends Controller{
                     '".$_POST['carrer']."',
                     ".$_POST['position'].",
                     ".$_POST['dept'].",
-                    '".$_POST['id_number']."',
                     '".util::to_pgdate($_POST['start_work_date'])."',
                     '".$_POST['id_card_r_passport']."',
                     '".util::to_pgdate($_POST['id_card_r_passport_date'])."',
                     '".$_POST['family_book_number']."',
                     '".util::to_pgdate($_POST['family_book_number_date'])."',
-                    ''
+                    '',
+                    '".$_POST['id_number']."',
+                    $user_id
                 )";//".$_POST['image']."
                 $q=DB::select($sql);
 

@@ -15,7 +15,7 @@
         <form id="{{ $frm_id }}">
             @csrf
             <input type="hidden" name="erid" value="<?php echo (isset($_GET['erid']))?$_GET['erid']:'';?>">
-        
+
             <div class="row">
                 <div class="col-md-1"><p class="bold">1 - </p></div>
                 <div class="col-md-5">
@@ -112,7 +112,7 @@
                             <p class="inputemploymenten">Religion :</p>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" name="religion" class="form-control" value="<?php echo (isset($v0))?$v0['religion']:'';?>" <?php echo $d;?>>  
+                            <input type="text" name="religion" class="form-control" value="<?php echo (isset($v0))?$v0['religion']:'';?>" <?php echo $d;?>>
                         </div>
                     </div>
                 </div>
@@ -168,7 +168,7 @@
                             <p class="inputemploymenten">Homeland Address :</p>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" name="nationality" class="form-control" value="<?php echo (isset($v0))?$v0['nationality']:'';?>" <?php echo $d;?>>
+                            <input type="text" name="birth_village" class="form-control" value="<?php echo (isset($v0))?$v0['nationality']:'';?>" <?php echo $d;?>>
                         </div>
                     </div>
                 </div>
@@ -294,7 +294,7 @@
                             <p class="inputemploymenten">Province: </p>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" name="province" class="form-control" value="<?php echo (isset($v1))?$v1['province']:'';?>" <?php echo $d1;?>>    
+                            <input type="text" name="province" class="form-control" value="<?php echo (isset($v1))?$v1['province']:'';?>" <?php echo $d1;?>>
                         </div>
                     </div>
                 </div>
@@ -321,7 +321,7 @@
                             <p class="inputemploymenten">Education: </p>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" name="education" class="form-control" value="<?php echo (isset($v0))?$v0['education']:'';?>" <?php echo $d;?>>   
+                            <input type="text" name="education" class="form-control" value="<?php echo (isset($v0))?$v0['education']:'';?>" <?php echo $d;?>>
                         </div>
                     </div>
                 </div>
@@ -496,9 +496,9 @@
                     </div>
                 </div>
             </div>
-        
-        
-          
+
+
+
             <div class="row"​>
                 <div class="col-md-1"></div>
                 <div class="col-md-6">
@@ -518,7 +518,7 @@
                             <p class="inputemploymentkh">ការបរិច្ចេទចូលបម្រើការងារ:</p>
                             <p class="inputemploymenten">Wrok Start Date : </p>
                         </div>
-                        <div class="col-sm-6">                     
+                        <div class="col-sm-6">
                             <div class="input-group">
                                 <input type="date" name="start_work_date" class="form-control" value="<?php echo (isset($v2))?explode(" ",$v2['start_work_date'])[0]:'';?>" <?php echo $d;?>>
                                 <div class="input-group-append">
@@ -529,7 +529,7 @@
                     </div>
                 </div>
             </div>
-          
+
             <div class="row"​>
                 <div class="col-md-1">
                     <p class="bold"> 8 - </p>
@@ -551,7 +551,7 @@
                             <p class="inputemploymentkh">ធ្វើនៅថ្ងៃ :</p>
                             <p class="inputemploymenten">Date of identity card or Passport : </p>
                         </div>
-                        <div class="col-sm-6">                     
+                        <div class="col-sm-6">
                             <div class="input-group">
                                 <input type="date" name="id_card_r_passport_date" class="form-control" value="<?php echo (isset($v2))?explode(" ",$v2['id_card_r_passport_date'])[0]:'';?>" <?php echo $d;?>>
                                 <div class="input-group-append">
@@ -583,7 +583,7 @@
                             <p class="inputemploymentkh">ធ្វើនៅថ្ងៃ  :</p>
                             <p class="inputemploymenten">Date of Living Book or Familty Book : </p>
                         </div>
-                        <div class="col-sm-6">                     
+                        <div class="col-sm-6">
                             <div class="input-group">
                                 <input type="date" name="family_book_number_date" class="form-control" value="<?php echo (isset($v2))?explode(" ",$v2['family_book_date'])[0]:'';?>" <?php echo $d;?>>
                                 <div class="input-group-append">
@@ -594,9 +594,9 @@
                     </div>
                 </div>
             </div>
-        
+
         {{-- =========================================== Table ================================================ --}}
-        
+
             <div class="row" >
                 <div class="col-md-12">
                     <div class="row">
@@ -701,8 +701,8 @@
             </div>
             <br>
         {{-- ============================================== End ================================================== --}}
-            
-        
+
+
             <div class="row">
                 <div class="col-md-1">
                     <p class="bold"> 11 - </p>
@@ -714,7 +714,7 @@
                             <p class="inputemploymenten">Spouse's Name :</p>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" name="spouse_name" class="form-control" value="<?php echo (isset($v4))?$v4['spouse_name']:'';?>" <?php echo $d1;?>>  
+                            <input type="text" name="spouse_name" class="form-control" value="<?php echo (isset($v4))?$v4['spouse_name']:'';?>" <?php echo $d1;?>>
                         </div>
                     </div>
                 </div>
@@ -870,7 +870,7 @@
                     <p class="inputemploymenten">Please descrip name,sex,date of birth & job  :</p>
                 </div>
             </div>
-        
+
         {{-- ======================================== Table  ========================================= --}}
             <div class="row" >
                 <div class="col-md-12">
@@ -918,7 +918,7 @@
                                         </select>
                                     </td>
                                     <td style="text-align:center;border-color: #00a8ff">
-                                       
+
                                          <div class="input-group">
                                             <input type="date" name="child_birth_date[]" class="form-control" value="<?php echo (isset($v5[$i]))?explode(" ",$v5[$i]['child_birth_date'])[0]:'';?>" <?php echo $d1;?>>
                                             <div class="input-group-append">
@@ -947,8 +947,8 @@
             </div>
             <br>
         {{-- ====================================== End ======================================= --}}
-        
-        
+
+
             <div class="row">
                 <div class="col-md-1">
                     <p class="bold"> 12 - </p>
@@ -997,7 +997,7 @@
                                 <input type="radio"  name="father_stat" id="father_stat" value="dead" <?php echo (isset($father))?(($father['parent_dead_live']=='dead')?'checked':''):'';?> <?php echo $d;?>>
                                     <div style="float:right;">
                                     <p class="inputinfokh"> ស្លាប់/<span style="margin-top: -20px;">Death</span></p>
-                                    
+
                                     </div>
                            </label>
                         </div>
@@ -1091,13 +1091,13 @@
                                 <input type="radio"  name="mother_stat" id="mother_stat" value="dead" <?php echo (isset($mother))?(($mother['parent_dead_live']=='dead')?'checked':''):'';?> <?php echo $d;?>>
                                     <div style="float:right;">
                                     <p class="inputinfokh"> ស្លាប់/<span style="margin-top: -20px;">Death</span></p>
-                                    
+
                                     </div>
                            </label>
                         </div>
                     </div>
                 </div>
-        
+
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-sm-4">

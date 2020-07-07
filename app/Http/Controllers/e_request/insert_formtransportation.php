@@ -60,13 +60,14 @@ class insert_formtransportation extends Controller{
 			foreach($_POST['date'] as $key=>$value){
 			 $sql="SELECT public.insert_e_request_vehicle_usage_detail(
 					$id,
-					'".util::to_pgdate($value)."',
 					'".util::to_pgdate($value) ." ".util::to_24($_POST['departure_time'][$key])."',
 					'".util::to_pgdate($value) ." ".util::to_24($_POST['return_time'][$key])."',
 					'".$_POST['destination'][$key]."',
 					'".$_POST['objective'][$key]."',
-					'".$_POST['other'][$key]."'
-				)";
+					'".$_POST['other'][$key]."',
+                    '".util::to_pgdate($value)."',
+                    $user_id
+                )";
 				$q=DB::select($sql);
 			}
 		}

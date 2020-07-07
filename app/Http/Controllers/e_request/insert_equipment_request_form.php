@@ -72,11 +72,12 @@ class insert_equipment_request_form extends Controller{
 					 $sql="SELECT public.insert_e_request_equipment_request_form_detail(
 						$id,
 						'$value',
-						'".$_POST['qty'][$key]."',
-						'".$_POST['price'][$key]."',
+						".$_POST['qty'][$key].",
+						".$_POST['price'][$key].",
 						'".$_POST['type'][$key]."',
-						'".$_POST['modal'][$key]."'
-					)";
+						'".$_POST['modal'][$key]."',
+                        $user_id
+                    )";
 					$q=DB::select($sql);
 				}
 			}

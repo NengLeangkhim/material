@@ -82,11 +82,12 @@ class insert_workovertimeform extends Controller {
                     '$date',
                     '$start_time',
                     '$end_time',
-                    $actual_work_time,
+                    '$reason',
+                    '$type',
                     '$rest_time_start',
                     '$rest_time_end',
-                    '$reason',
-                    '$type'
+                    $actual_work_time,
+                    $user_id
                 )";
                 $q=DB::select($sql);
 

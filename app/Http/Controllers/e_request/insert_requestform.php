@@ -66,7 +66,8 @@ class insert_requestform extends Controller{
                     '$value',
                     ".$_POST['qty'][$key].",
                     '".$_POST['other'][$key]."',
-                    ".$_POST['receiver'][$key]."
+                    ".$_POST['receiver'][$key].",
+                    $user_id
                 )";
                 $q=DB::select($sql);
 
