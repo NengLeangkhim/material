@@ -18,31 +18,38 @@ function check_session(){
       }
     });
 }
-  jQuery(".menu a").click(function(e){
+  jQuery("a").click(function(e){
     if(check_session()){
       return;
     }
     e.preventDefault();
     $("#nav_bar_sub_r").html(get_pushmenu());
-    $(".content-wrapper").html(spinner());
-    var link = $(this).attr("​value");
+    var link = $(this).attr("value");
+    var code = $(this).attr("​data-code");
     if (typeof link !== typeof undefined && link !== false) {
+      $(".content-wrapper").html(spinner());
       $.ajax({
         type: 'GET',
         url:link,
         async:false,
         success:function(data){
             $(".content-wrapper").show();
-            $(".content-wrapper").html(data);
+            if(data.length>0){
+              $(".content-wrapper").html(data);
+            }else{
+              $(".content-wrapper").html(jnot_found());
+            }
             // $(".select2").select2();
             $('.display').DataTable({
               responsive: true
             });
+        },
+        error:function(){
+          $(".content-wrapper").html(jerror());
         }
      });
-    }else{
-      var code = $(this).attr("​data-code");
-      if (typeof code !== typeof undefined && code !== false) {
+    }else if (typeof code !== typeof undefined && code !== false) {
+        $(".content-wrapper").html(spinner());
         $.ajax({
           type: 'POST',
           url:'sub_r_nav',
@@ -61,14 +68,15 @@ function check_session(){
           }
        });
       }
-    }
 });
 //only work on tag a with onclick and go_to
 function set_selected_nav(tar){
   var s=$("#"+tar).find("a")[1];
   s=$(s).attr("onclick");
   s=s.split("'")[1];
-  go_to(s);
+  if(s.length>0){
+    go_to(s);
+  }
 }
 function get_pushmenu(){
   return '<li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></li>';
@@ -79,5 +87,11 @@ function get_pushmenu(){
 // }
 function spinner(){
   return'<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+}
+function jerror(){
+  return'<center><label style="font-weight:bold;font-size:16px;">Error</label></center>';
+}
+function jnot_found(){
+  return'<center><label style="font-weight:bold;font-size:16px;">Not Found</label></center>';
 }
 

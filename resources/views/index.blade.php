@@ -1,7 +1,7 @@
-@extends('master')
+{{-- @extends('master') --}}
 
-@section('content')
-  
+{{-- @section('content') --}}
+
     <div class="content-header"> <!-- Content Header (Page header) -->
                 <div class="container-fluid">
                     <div class="row mb-2">
@@ -222,4 +222,4 @@
                 </div><!--/. container-fluid -->
             </section>
   
-@stop
+{{-- @stop --}}

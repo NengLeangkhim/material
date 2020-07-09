@@ -143,7 +143,7 @@ class perms extends Controller
     private static function output_module($mo){
         $st='';
         foreach ($mo as $item){
-            $item->parent->link=(!empty($item->parent->link))?'onclick=go_to("'.$item->parent->link.'")':'';
+            $item->parent->link=(!empty($item->parent->link))?"value='".$item->parent->link."'":"";
               $st.= "<li class='nav-item has-treevie'>";
               $st.= "<a href='javascript:void(0);' class='nav-link active' {$item->parent->link}>";
               $st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
@@ -183,7 +183,7 @@ class perms extends Controller
                         $rr->code=(empty($rr->code))?'':"data-code='".en_de::aes_en($rr->code,self::$key)."'";
                         $st.= " <ul class='nav nav-treeview sub_menu'> ";
                         $st.= "  <li class='nav-item menu mybg'  > ";
-                        $st.= "  <a href='javascript:void(0);' class='nav-link' ​$rr->link ​$rr->code name='menu'> ";
+                        $st.= "  <a href='javascript:void(0);' class='nav-link' $rr->link ​$rr->code name='menu'> ";
                         $st.= "  $sp<i class='{$rr->icon} nav-icon'​></i> ";
                         $st.= "  <p>$rr->module_name</p> ";
                         $st.= "  </a></li></ul> ";

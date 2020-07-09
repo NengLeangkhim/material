@@ -14,7 +14,7 @@ class RouteController extends Controller
         if(isset($_SESSION['userid'])&&!empty($_SESSION['userid'])){
             if(perms::check_perm()){
                 $_SESSION['module']=perms:: get_module();
-                return view('index');
+                return view('start');
             }else{
                 return view('login');
             }
