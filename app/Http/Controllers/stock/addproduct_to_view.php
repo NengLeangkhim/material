@@ -140,8 +140,8 @@ class addproduct_to_view extends Controller
     // public function get_product_comp(){
     //     $limit=5;
     //     if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        //     session_start();
+        // }
     //     if(isset($_GET['search'])){
     //         $st_id=$_SESSION['userid'];
     //         $company_id="(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=$st_id)";

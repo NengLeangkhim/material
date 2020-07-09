@@ -12,7 +12,7 @@ class check_perm{
         $r=ere_get_assoc::assoc_(DB::select($sql))[0];
         $sql="select id,type,company_dept_id
         from company_dept_manager
-        where position_id=".$r['position_id']." and group_id=".$r['group_id']." and company_dept_id=".$r['company_dept_id'];
+        where position_id=".$r['position_id']." and is_deleted='f' and group_id=".$r['group_id']." and company_dept_id=".$r['company_dept_id'];
         if(isset(ere_get_assoc::assoc_(DB::select($sql))[0])){
             $r=ere_get_assoc::assoc_(DB::select($sql))[0];
         }else{
@@ -36,7 +36,7 @@ class check_perm{
                 JOIN e_request_form_detail erfd ON erfd.ID = er.e_request_form_detail_id
                 JOIN e_request_form erf ON erf.ID = erfd.e_request_form_id
                 WHERE 't'
-                AND er.status = 't'
+                AND er.status = 't' and er.is_deleted='f'
                 and er.company_dept_manager_id=".$r['id']."
                 and (erd.e_request_status='pending' or erd.e_request_status is null)
                 or ((select count(id) from e_request_detail where e_request_id=er.id and (erd.e_request_status='pending' or erd.e_request_status is null) )=1)
@@ -50,7 +50,7 @@ class check_perm{
                 JOIN e_request_form_detail erfd ON erfd.ID = er.e_request_form_detail_id
                 JOIN e_request_form erf ON erf.ID = erfd.e_request_form_id
                 WHERE erd.e_request_id IS NULL
-                AND er.status = 't'
+                AND er.status = 't' and er.is_deleted='f'
                 and er.company_dept_id=".$r['company_dept_id']."
                 ORDER BY er.ID DESC";
             }
@@ -87,7 +87,7 @@ class check_perm{
         from e_request er
         join e_request_form_detail erfd on erfd.id=er.e_request_form_detail_id
         join e_request_form erf on erf.id=erfd.e_request_form_id
-        where 't'$wh and er.status='t'
+        where 't'$wh and er.is_deleted='f'
         ORDER BY er.id desc limit 1000 offset 0";
         switch($s){
             case 'reject':

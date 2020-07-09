@@ -18,13 +18,12 @@ class upload_img_profile extends Controller {
         }
         $img_path=path_config::profile_img_path();
         $url_path=getcwd();
-        $t=time();
         if($_FILES["_img"]["error"]==4){
             echo 'error';
         }else{
-            $file_path=$img_path.$t.basename($_FILES["_img"]["name"]);
+            $file_path=$img_path.path_config::img_en(basename($_FILES["_img"]["name"]));
             $p=$url_path.$file_path;
-            $file_path=str_replace("'","''",$file_path);
+            // $file_path=str_replace("'","''",$file_path);
             if(move_uploaded_file($_FILES["_img"]["tmp_name"],$p)){
             $sql=" SELECT public.update_staff_img(
                         $user_id,

@@ -12,7 +12,16 @@ use Illuminate\Support\Facades\DB;
             $sql['get_company_dept']="select d.name from company_dept d join staff s on s.company_dept_id=d.id where s.id=$id";
             $sql['get_all_staff']="select id,name from staff order by name";
             $sql['get_id_number']="select id_number as name from staff where id=$id";
-
+//===============================example====================================
+// $sql['table_name'][]="SELECT request_by, create_date, related_to_e_request_id
+//             FROM public.table_name where id=$id;";
+// $sql['table_name'][]="SELECT date, start_time, end_time, reason, type, rest_time_start, rest_time_end, actual_work_time
+//             FROM public.table_name_detail where table_name_id=$id;";
+//
+//  the where statement means to find exact row of the request which come from the the view list
+//this is just where it tell system to get data for a certain form
+//
+//===============================example====================================
             $sql['e_request_employment_biography']=array();
             $sql['e_request_employment_biography'][]="SELECT name, name_kh, birth_date, height, nation, nationality, religion, marital_status, birth_village, birth_district, birth_province, phone, education, major, school, shool_start_date, school_end_date, language_skill, request_by, create_date, birth_commune
             FROM public.e_request_employment_biography where id=$id;";
@@ -59,6 +68,12 @@ use Illuminate\Support\Facades\DB;
             FROM public.e_request_equipment_request_form where id=$id;";
             $sql['e_request_equipment_request_form'][]="SELECT product_id, qty, price, type, product_name, model_sn
             FROM public.e_request_equipment_request_form_detail where e_request_equipment_request_form_id=$id;";
+
+            $sql['e_request_stand_by'][]="SELECT description, create_date, create_by as request_by, is_deleted
+            FROM public.e_request_stand_by where id=$id;";
+            $sql['e_request_stand_by'][]="SELECT staff_id, stand_by_date, time_start, time_end, create_date, create_by, is_deleted
+            FROM public.e_request_stand_by_detail where e_request_stand_by_id=$id;";
+
             if(isset($sql[$s])){
                 return $sql[$s];
             }

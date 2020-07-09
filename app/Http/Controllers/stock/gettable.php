@@ -678,68 +678,79 @@ class gettable extends Controller
         // $ii=0;
         $sqlstr= array();
         $sqlstr['productlist']='SELECT * from (SELECT p.id,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as "Product Code",pt.name_en as "Type",b.name as "Brand" ,p.name as "Name (EN)",p.name_kh as "Name (KHMR)", p.part_number as "Part number", p.barcode as "Barcode",
-            m.name as "Measurement",cu.name as "Currency", p.price as "Base Price",p.qty as "QTY",(p.qty*p.price)as "Amount",description as "Description"
-            FROM public.product p
-            left join measurement m on m.id=p.measurement_id
-            left join product_brand b on b.id=p.brand_id
-            left join currency cu on cu.id=p.currency_id
-            left join product_type pt on pt.id=p.product_type_id) as feee
+        m.name as "Measurement",cu.name as "Currency", p.price as "Base Price",p.qty as "QTY",(p.qty*p.price)as "Amount",description as "Description"
+        FROM public.product p
+        left join measurement m on m.id=p.measurement_id
+        left join product_brand b on b.id=p.brand_id
+        left join currency cu on cu.id=p.currency_id
+        left join product_type pt on pt.id=p.product_type_id
+        where p.is_deleted=\'f\' and m.is_deleted=\'f\' and b.is_deleted=\'f\' and cu.is_deleted=\'f\'
+        and pt.is_deleted=\'f\' and b.is_deleted=\'f\') as feee
             where lower("Product Code") like \'%'.$sr.'%\' or lower("Name (EN)") like \'%'.$sr.'%\' or lower("Name (KHMR)") like \'%'.$sr.'%\'
                 or lower("Part number") like \'%'.$sr.'%\' or lower("Barcode") like \'%'.$sr.'%\' or lower("Brand") like \'%'.$sr.'%\'
                 or lower("Type") like \'%'.$sr.'%\'';
-        $sqlstr['productAssign']='SELECT distinct c.id,c.code as "Company Code", c.name as "Company",(select count(id) from company_branch where company_id=c.id) as "Branches",count(pc.product_id)over (partition by pc.company_id) as "Assigned Product"  from product_company pc right join company c on c.id=pc.company_id
-            where lower(c.name) like \'%'.$sr.'%\' or  lower(c.code) like \'%'.$sr.'%\'';
+        $sqlstr['productAssign']='SELECT distinct c.id,c.code as "Company Code", c.name as "Company",
+        (select count(id)from company_branch where company_id=c.id and is_deleted=\'f\') as "Branches",
+        count(pc.product_id)over (partition by pc.company_id) as "Assigned Product"
+        from product_company pc
+        right join company c on c.id=pc.company_id
+        where  c.is_deleted=\'f\' and (lower(c.name) like \'%'.$sr.'%\' or  lower(c.code) like \'%'.$sr.'%\')';
         $sqlstr['customerproductrequest']='SELECT * from (SELECT c.id,
         cd.customer as "Customer",cd.branch as "Branch",
-        (select name from staff where id=c._by) as "Request by",
-        (select name from staff where id=c.approve_by) as "Approve by",
+        (select name from staff where id=c._by and is_deleted=\'f\') as "Request by",
+        (select name from staff where id=c.approve_by and is_deleted=\'f\') as "Approve by",
         c.request_date as "Request Date", c.action_type as "Action Type"
             FROM public.product_customer_ c
             join customer_detail cd on cd.id=c.customer_detail_id
-            where action_type=\'out\' and cd.status=\'t\') as foo
+            where action_type=\'out\'
+			and cd.is_deleted=\'f\'
+			and c.is_deleted=\'f\') as foo
             where lower("Customer") like \'%'.$sr.'%\' or lower("Request by") like \'%'.$sr.'%\'
                     or lower("Approve by") like \'%'.$sr.'%\' or lower("Branch") like \'%'.$sr.'%\'';
 
         $sqlstr['customerproductreturn']='SELECT * FROM (SELECT c.id,
-                cd.customer as "Customer",cd.branch as "Branch",
-                (select name from staff where id=c._by) as "Return by",
-                (select name from staff where id=c.approve_by) as "Approve by",
-                c.request_date as "Return Date", c.action_type as "Action Type"
-                    FROM public.product_customer_ c
-                    join customer_detail cd on cd.id=c.customer_detail_id
-                    where action_type=\'return\' and cd.status=\'t\') as foo
+        cd.customer as "Customer",cd.branch as "Branch",
+        (select name from staff where id=c._by and is_deleted=\'f\') as "Return by",
+        (select name from staff where id=c.approve_by and is_deleted=\'f\') as "Approve by",
+        c.request_date as "Request Date", c.action_type as "Action Type"
+            FROM public.product_customer_ c
+            join customer_detail cd on cd.id=c.customer_detail_id
+            where action_type=\'return\'
+			and cd.is_deleted=\'f\'
+			and c.is_deleted=\'f\') as foo
                     where lower("Customer") like \'%'.$sr.'%\' or lower("Return by") like \'%'.$sr.'%\'
                     or lower("Approve by") like \'%'.$sr.'%\' or lower("Branch") like \'%'.$sr.'%\'';
 
         $sqlstr['ProductRequest']="SELECT * from (SELECT rp.id,
-                    (select name from staff where id=rp.request_by) as \"Request By\",
-                    (select name from staff where id=rp.approve_by) as \"Approve By\",
-                    cd.company as \"Company\",cd.branch as \"Branch\", rp.request_date as \"Request Date\",rp.description as \"Description\"
-                    from request_product rp
-                    join company_detail cd on cd.id=rp.company_detail_id
-                    where cd.status='t') as foo where lower(\"Request By\") like '%$sr%'
+        (select name from staff where id=rp.request_by and is_deleted='f') as \"Request By\",
+        (select name from staff where id=rp.approve_by and is_deleted='f') as \"Approve By\",
+        cd.company as \"Company\",cd.branch as \"Branch\",
+        rp.request_date as \"Request Date\",rp.description as \"Description\"
+        from request_product rp
+        join company_detail cd on cd.id=rp.company_detail_id
+        where cd.is_deleted='f' and rp.is_deleted='f') as foo where lower(\"Request By\") like '%$sr%'
                     or lower(\"Approve By\") like '%$sr%' or lower(\"Company\") like '%$sr%'
                     or lower(\"Description\") like '%$sr%' or lower(\"Branch\") like '%$sr%'";
 
         $sqlstr['productImport']="SELECT * from (SELECT ia.id,
-                    (select name from staff where id=ia.deliver_by) as \"Deliver By\",
-                    (select name from staff where id=ia.approve_by) as \"Approve By\",
+                    (select name from staff where id=ia.deliver_by and is_deleted='f') as \"Deliver By\",
+                    (select name from staff where id=ia.approve_by and is_deleted='f') as \"Approve By\",
                     cd.company as \"Company\",cd.branch as \"Branch\",ia.arrival_date as \"Arrival Date\",sp.name as \"Supplier\",ia.description as \"Description\"
                     from invoice_arrival ia
                     join company_detail cd on cd.id=ia.company_detail_id
                     left join supplier sp on sp.id=ia.supplier_id
-                    where cd.status='t') as foo where lower(\"Approve By\") like '%$sr%'
+                    where cd.is_deleted='f' and sp.is_deleted='f' and ia.is_deleted='f') as foo where lower(\"Approve By\") like '%$sr%'
                     or lower(\"Deliver By\") like '%$sr%' or lower(\"Company\") like '%$sr%'
                     or lower(\"Supplier\") like '%$sr%' or lower(\"Description\") like '%$sr%'
                     or lower(\"Branch\") like '%$sr%'";
 
         $sqlstr['productReturn']="SELECT * from (SELECT rp.id,
-                    (select name from staff where id=rp.return_by) as \"Return By\",
-                    (select name from staff where id=rp.approve_by) as \"Approve By\",
+                    (select name from staff where id=rp.return_by and is_deleted='f') as \"Return By\",
+                    (select name from staff where id=rp.approve_by and is_deleted='f') as \"Approve By\",
                     cd.company as \"Company\",cd.branch as \"Branch\",rp.create_date as \"Create Date\",rp.request_product_id as \"Request Product ID\" ,rp.description as \"Description\"
                     from returned_request rp
                     join company_detail cd on cd.id=rp.company_detail_id
-                    where cd.status='t') as foo where lower(\"Approve By\") like '%$sr%'
+                    where cd.is_deleted='f' and rp.is_deleted='f') as foo where lower(\"Approve By\") like '%$sr%'
                     or lower(\"Return By\") like '%$sr%' or lower(\"Company\") like '%$sr%'
                     or lower(\"Description\") like '%$sr%' or \"Request Product ID\"=$ii
                     or lower(\"Branch\") like '%$sr%'";
@@ -748,17 +759,17 @@ class gettable extends Controller
         }else{
             $apr="and ia.deliver_by=".$_SESSION['userid'];
         }
-        $sqlstr['productCompanyimport']="SELECT * from (SELECT ia.id,
-                    (select name from staff where id=ia.deliver_by) as \"Deliver By\",
+       $sqlstr['productCompanyimport']="SELECT * from (SELECT ia.id,
+                    (select name from staff where id=ia.deliver_by and is_deleted='f') as \"Deliver By\",
                     cd.company as \"Company\",cd.branch as \"Branch\",
                     ia.create_date as \"Create Date\",(case when ia.approve='t' then 'TRUE' else 'FALSE' end) as \"Approve\",
-                    (select name from staff where id=ia.approve_by) as \"Approve By\",
+                    (select name from staff where id=ia.approve_by and is_deleted='f') as \"Approve By\",
                     ia.approve_date as \"Approve Date\",
                     ia.description as \"Description\"
                     from invoice_before_arrival ia
                     join company_detail cd on cd.id=ia.company_detail_id
                     left join supplier sp on sp.id=ia.supplier_id
-                    where cd.status='t' and ia.action_type='in' $apr) as foo
+                    where ia.is_deleted='f' and ia.action_type='in' $apr) as foo
                     where lower(\"Approve By\") like '%$sr%'
                     or lower(\"Deliver By\") like '%$sr%' or lower(\"Company\") like '%$sr%'
                     or lower(\"Branch\") like '%$sr%' or lower(\"Description\") like '%$sr%'";
@@ -773,7 +784,7 @@ class gettable extends Controller
                     from invoice_before_arrival ia
                     join company_detail cd on cd.id=ia.company_detail_id
                     left join supplier sp on sp.id=ia.supplier_id
-                    where cd.status='t' and ia.action_type='out' $apr) as foo
+                    where ia.is_deleted='f' and ia.action_type='out' $apr) as foo
                     where lower(\"Approve By\") like '%$sr%'
                     or lower(\"Deliver By\") like '%$sr%' or lower(\"Company\") like '%$sr%'
                     or lower(\"Branch\") like '%$sr%' or lower(\"Description\") like '%$sr%'";
@@ -825,16 +836,17 @@ class gettable extends Controller
     private function sqlreport($s,$sr,$from,$to){
         $sqlstr= array();
         $sqlstr['stockreport2']="SELECT * from (SELECT p.id,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as \"Product Code\",b.name as \"Brand\" ,p.name as \"Name\",p.name_kh as \"Name KH\", p.part_number as \"Part number\", p.barcode as \"Barcode\",p.qty as \"Qty\",
-                (select sum(qty) from product_qty where product_id=p.id and create_date<'$from') as \"Beginning\",
-                (select sum(qty) from product_qty where product_id=p.id and action_type='in' and create_date between '$from' and '$to') as \"Import\",
-                (select sum(qty) from product_qty where product_id=p.id and action_type='out' and create_date between '$from' and '$to') as \"Request\",
-                (select sum(qty) from product_qty where product_id=p.id and action_type='return' and create_date between '$from' and '$to') as \"Return\",
+                (select sum(qty) from product_qty where is_deleted='f' and product_id=p.id and create_date<'$from') as \"Beginning\",
+                (select sum(qty) from product_qty where is_deleted='f' and product_id=p.id and action_type='in' and create_date between '$from' and '$to') as \"Import\",
+                (select sum(qty) from product_qty where is_deleted='f' and product_id=p.id and action_type='out' and create_date between '$from' and '$to') as \"Request\",
+                (select sum(qty) from product_qty where is_deleted='f' and product_id=p.id and action_type='return' and create_date between '$from' and '$to') as \"Return\",
                 m.name as \"Measurement\",cu.name as \"Currency\", p.qty as \"Qty\",p.price as \"Price\",description as \"Description\"
                     FROM public.product p
                     join measurement m on m.id=p.measurement_id
                     join product_brand b on b.id=p.brand_id
                     join currency cu on cu.id=p.currency_id
-                    left join product_type pt on pt.id=p.product_type_id) as fee
+                    left join product_type pt on pt.id=p.product_type_id
+                    where p.is_deleted='f') as fee
                     where lower(\"Name\") like '%$sr%' or lower(\"Name KH\") like '%$sr%' or lower(\"Brand\") like '%$sr%' or lower(\"Part number\") like '%$sr%'
                     or lower(\"Barcode\") like '%$sr%' or lower(\"Product Code\") like '%$sr%'";
         $sqlstr['purchasereport']="SELECT * from (SELECT p.id,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as \"Product Code\", p.barcode as \"Barcode\",b.name as \"Brand\",p.name as \"Name\" ,p.name_kh as \"Name KH\",p.part_number as \"Part Number\",pq.create_date as \"Create Date\",m.name as \"Measurement\",pq.qty as \"Qty\",p.price as \"Price\",(p.price*pq.qty) as \"Amount\",pq.action_type as \"Action Type\"
@@ -842,7 +854,8 @@ class gettable extends Controller
                     join product_qty pq on p.id=pq.product_id
                     join product_brand b on p.brand_id=b.id
                     join measurement m on m.id=p.measurement_id
-                    join product_type pt on pt.id=p.product_type_id) as fee
+                    join product_type pt on pt.id=p.product_type_id
+                    where pq.is_deleted='f' and p.is_deleted='f') as fee
                     where \"Create Date\" between '$from' and '$to' and \"Action Type\"='in'
                     and (lower(\"Name\") like '%$sr%' or lower(\"Name KH\") like '%$sr%' or lower(\"Brand\") like '%$sr%' or lower(\"Part Number\") like '%$sr%'
                     or lower(\"Barcode\") like '%$sr%' or lower(\"Product Code\") like '%$sr%')";
@@ -852,7 +865,8 @@ class gettable extends Controller
     join product_qty pq on p.id=pq.product_id
     join product_brand b on p.brand_id=b.id
     join measurement m on m.id=p.measurement_id
-    left join product_type pt on pt.id=p.product_type_id) as fee
+    left join product_type pt on pt.id=p.product_type_id
+    where pq.is_deleted='f' and p.is_deleted='f') as fee
     where \"Create Date\" between '$from' and '$to' and \"Action Type\"='out'
     and (lower(\"Name\") like '%$sr%' or lower(\"Name KH\") like '%$sr%' or lower(\"Brand\") like '%$sr%' or lower(\"Part Number\") like '%$sr%'
     or lower(\"Barcode\") like '%$sr%' or lower(\"Product Code\") like '%$sr%')";
@@ -862,7 +876,8 @@ class gettable extends Controller
     join product_qty pq on p.id=pq.product_id
     join product_brand b on p.brand_id=b.id
     join measurement m on m.id=p.measurement_id
-    left join product_type pt on pt.id=p.product_type_id) as fee
+    left join product_type pt on pt.id=p.product_type_id
+    where pq.is_deleted='f' and p.is_deleted='f') as fee
     where \"Create Date\" between '$from' and '$to' and \"Action Type\"='return'
     and (lower(\"Name\") like '%$sr%' or lower(\"Name KH\") like '%$sr%' or lower(\"Brand\") like '%$sr%' or lower(\"Part Number\") like '%$sr%'
     or lower(\"Barcode\") like '%$sr%' or lower(\"Product Code\") like '%$sr%')";
@@ -877,7 +892,8 @@ class gettable extends Controller
                         join measurement m on m.id=p.measurement_id
                         join product_brand b on b.id=p.brand_id
                         join currency cu on cu.id=p.currency_id
-                        left join product_type pt on pt.id=p.product_type_id) as fea
+                        left join product_type pt on pt.id=p.product_type_id
+                        where p.is_deleted='f') as fea
                         where lower(name) like '%$sr%' or lower(name_kh) like '%$sr%' or lower(name) like '%$sr%' or lower(part_number) like '%$sr%'
                         or lower(barcode) like '%$sr%' or lower(product_code) like '%$sr%'";
         $sqlstr['productcompanydashbord']="SELECT * from (SELECT p.id,(select get_code_prefix_ibuild(p.code,(select company_detail_id from staff where id=".$_SESSION['userid']."),p.code_prefix_owner_id,(select code from product_type where id=p.product_type_id))) as \"Product Code\",(select name_en from product_type where id=p.product_type_id) as \"Type\",p.name as \"Name\",
@@ -889,6 +905,7 @@ class gettable extends Controller
                     join company_detail cd on cd.id=q.company_detail_id
                     join product_company pc on pc.product_id=p.id
                     where 't' and
+                    p.is_deleted='f' and 
                     pc.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to')
                     group by p.id having (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id right join product p on p.id=q.product_id where q.product_id=p.id and cd.company_id=(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid'].")) is not null) as fee
                     where 't' and (lower(\"Name\") like '%$sr%' or lower(\"Product Code\") like '%$sr%' or lower(\"Type\") like '%$sr%')";

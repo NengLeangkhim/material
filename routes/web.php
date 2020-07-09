@@ -69,6 +69,7 @@ Route::get('/ere_get_view_formconfirmwork','e_request\view_formconfirmwork@formc
 Route::get('/ere_get_view_workoertime','e_request\view_workovertimeform@workovertimeform');
 Route::get('/ere_get_view_formtransportation','e_request\view_formtransportation@formtransportation');
 Route::get('/ere_get_view_formuseElectronic','e_request\view_formuseElectronic@formuseElectronic');
+Route::get('/ere_get_view_stand_by','e_request\view_stand_by@stand_by');
 //end get form view
 
 //  insert /approve /pending /reject
@@ -80,7 +81,7 @@ Route::post('/ere_insert_formuseElectronic','e_request\insert_formuseElectronic@
 Route::post('/ere_insert_fromemployment','e_request\insert_fromemployment@in_fromemployment');
 Route::post('/ere_insert_requestform','e_request\insert_requestform@in_requestform');
 Route::post('/ere_insert_workovertimeform','e_request\insert_workovertimeform@in_workovertimeform');
-// Route::post('/ere_insert_formworkingapplication','e_request\insert_formworkingapplication@in_formworkingapplication');
+Route::post('/ere_insert_stand_by','e_request\insert_stand_by@in_stand_by');
 // end insert /approve /pending /reject
 
 Route::get('/ere_allform','e_request\view_allform@allform');

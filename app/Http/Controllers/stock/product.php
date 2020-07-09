@@ -73,22 +73,13 @@ class product extends Controller
                 if($_FILES["image"]["error"]==4){
                     $img="";
                 }else{
-                    $file_path=path_config::stock_img_path().$t.basename($_FILES["image"]["name"]);
+                    $file_path=$img_path.path_config::img_en(basename($_FILES["image"]["name"]));
                     $p=$url_path.$file_path;
-                    $file_path=str_replace("'","''",$file_path);
                     if(move_uploaded_file($_FILES["image"]["tmp_name"],$p)){
                         $img=$file_path;
                     }
                 }
-                // if(isset($_POST['reorder_qty'])){
-                //     $record_qty=$_POST['reorder_qty'];
-                // }
                 $description=$_POST['description'];
-                if(isset($_POST['u_description'])){
-                    $udescription=$_POST['u_description'];
-                }else{
-                    $udescription="";
-                }
                 $currency=$_POST['currency'];
                 $barcode=$_POST['barcode'];
                 if(!empty($_POST['pid'])){//update
@@ -99,7 +90,7 @@ class product extends Controller
                     $sql="update_product(
                             $pid,'$pname','$pname_kh',$cost,$unitType,$company,$company_branch,
                             $staff,'$ppartNumber','$img',$brand,$currency,'$barcode',
-                            '$description','$udescription')";
+                            '$description')";
                 }else{//insert
                     $sql="insert_product(
                         '$pname','$pname_kh',$cost,0,$staff,$company_branch,$company,$unitType,$storage,$storage_location,$supplier,$brand,$currency,'$ppartNumber','$img','$barcode',$ptype,'$description')";
@@ -145,7 +136,7 @@ class product extends Controller
                                     from product_qty q
                                     left join company_detail cd on cd.id=q.company_detail_id
                                     left join storage_detail s on s.id=q.storage_detail_id
-                                    where q.product_id=$id and s.status='t' and cd.status='t'");
+                                    where q.product_id=$id and s.is_deleted='f' and cd.is_deleted='f'");
             }elseif(isset($_GET['delete'])){
                 // $id=$_GET['delete'];
                 // $staff=$_SESSION['userid'];
