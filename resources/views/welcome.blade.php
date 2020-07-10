@@ -10,7 +10,7 @@
                         <div class="row" style="padding: 1%;">
                             <div class="col-md-3">
                                 <div class="card" style="padding: 3%;">
-                                    <img class="profile-pic" src="<?php echo (isset($pro)&&!empty($pro['image']))?$pro['image']:"../media/img/n";?>" style="width:100%" id='image_'>
+                                    <img class="profile-pic" src="<?php echo $uself[0]->image??"/storage/avatar7.png";?>" style="width:100%" id='image_'>
                                     <p>{{ $uself[0]->name??'' }}</p>
                                     <p>{{ $uself[0]->position??'' }}</p>
                                     <p>{{ $uself[0]->name??'' }}</p>
@@ -22,7 +22,7 @@
                             </div>
                             <div class="col-md-3 ">
                                 <div class="card" style="padding: 3%;">
-                                    <img class="profile-pic" src="<?php echo (isset($pro)&&!empty($pro['image']))?$pro['image']:"../media/img/n";?>" style="width:100%" id='image_'>
+                                    <img class="profile-pic" src="<?php echo $head[0]->image??"/storage/avatar7.png";?>" style="width:100%" id='image_'>
                                     <p>{{ $head[0]->name??'' }}</p>
                                     <p>{{ $head[0]->position??'' }}</p>
                                     <p>{{ $head[0]->name??'' }}</p>
