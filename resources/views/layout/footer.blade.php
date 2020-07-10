@@ -75,3 +75,10 @@
 <script src="js/myjs.js"></script>
 <script src="js/e_request/addRow.js"></script>
 <script src="js/e_request/getvalues.js"></script>
+<script>
+  $(document).ready(
+    function(){
+      go_to('welcome');
+    }
+  );
+</script>

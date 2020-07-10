@@ -32,6 +32,9 @@
 <link rel="stylesheet" type="text/css" href="css/e_request/style.css">
 <link rel="stylesheet" type="text/css" href="css/e_request/styles.css">
 {{-- E-Requests --}}
+{{--  mainapp custome --}}
+<link rel="stylesheet" type="text/css" href="css/custom.css">
+{{--  mainapp custome --}}
 <!-- Select2 -->
 <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
 <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">

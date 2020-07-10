@@ -21,6 +21,7 @@ Route::post('/','Login@login');
 Route::get('/home','Login@check_login');//not using
 Route::get('/logout','Login@logout');
 Route::get('/gm','perms@get_module');
+Route::get('/welcome','RouteController@welcome');
 Route::get('/dashboard',function(){
     return view('index');
 });

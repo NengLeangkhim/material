@@ -1,0 +1,6 @@
+.welcome-bg{
+    background-image: url('../images/turbotech.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.5;
+}
