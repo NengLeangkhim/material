@@ -25,7 +25,8 @@ function check_session(){
     e.preventDefault();
     $("#nav_bar_sub_r").html(get_pushmenu());
     var link = $(this).attr("value");
-    var code = $(this).attr("​data-code");
+    var code = $(this).attr("data-code");
+    var href = $(this).attr("href");
     if (typeof link !== typeof undefined && link !== false) {
       $(".content-wrapper").html(spinner());
       $.ajax({
@@ -67,6 +68,9 @@ function check_session(){
               // $(".select2").select2();
           }
        });
+      }
+      else if (typeof href !== typeof undefined && href !== false) {
+        window.location.href = href;
       }
 });
 //only work on tag a with onclick and go_to

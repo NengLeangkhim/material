@@ -171,8 +171,8 @@ class perms extends Controller
                         $rr->parent->link=(empty($rr->parent->link))?'':"value='{$rr->parent->link}'";
                         $rr->parent->code=(empty($rr->parent->code))?'':"data-code='".en_de::aes_en($rr->parent->code,self::$key)."'";
                         $st.= " <ul class='nav nav-treeview sub_menu'> ";
-                        $st.= "  <li class='nav-item has-treeview menu mybg'  > ";
-                        $st.= "  <a href='javascript:void(0);' class='nav-link' {$rr->parent->link} {$rr->parent->code}  name='menu'> ";
+                        $st.= "  <li class='nav-item has-treeview menu mybg> ";
+                        $st.= "  <a href='javascript:void(0);' class='nav-link'{$rr->parent->link}{$rr->parent->code}  name='menu'> ";
                         $st.= "  <i class='{$rr->parent->icon} nav-icon'​></i> <i class='right fas fa-angle-left'></i>";
                         $st.= "  <p>".$rr->parent->module_name."</p> </a>";
                         $st.=self::output_sub($rr->child,'sub');
@@ -183,7 +183,7 @@ class perms extends Controller
                         $rr->code=(empty($rr->code))?'':"data-code='".en_de::aes_en($rr->code,self::$key)."'";
                         $st.= " <ul class='nav nav-treeview sub_menu'> ";
                         $st.= "  <li class='nav-item menu mybg'  > ";
-                        $st.= "  <a href='javascript:void(0);' class='nav-link' $rr->link ​$rr->code name='menu'> ";
+                        $st.= "  <a href='javascript:void(0);' class='nav-link' $rr->link $rr->code name='menu'> ";
                         $st.= "  $sp<i class='{$rr->icon} nav-icon'​></i> ";
                         $st.= "  <p>$rr->module_name</p> ";
                         $st.= "  </a></li></ul> ";
