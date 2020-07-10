@@ -458,8 +458,8 @@ function img_upload (form){
         reader.onload = function (e) {
             $('#'+tar)
                 .attr('src', e.target.result)
-                .width(350)
-                .height(350);
+                // .width(350)
+                // .height(350);
         };
         reader.readAsDataURL(input.files[0]);
     }

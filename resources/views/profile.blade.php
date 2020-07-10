@@ -18,8 +18,15 @@
 .team-single-text .section-heading.half {
     margin-bottom: 20px
 }
-
+@media screen and (min-width: 1199px) {
+    .pen-hover{
+        margin-top: -17% !important;
+    }
+}
 @media screen and (max-width: 1199px) {
+    .pen-hover{
+        margin-top: -16% !important;
+    }
     .team-single-text .section-heading h4,
     .section-heading h5 {
         font-size: 32px
@@ -37,12 +44,18 @@
     .team-single-text .section-heading.half {
         margin-bottom: 10px
     }
+    .pen-hover{
+        margin-top: -10% !important;
+    }
 }
 
 @media screen and (max-width: 767px) {
     .team-single-text .section-heading h4,
     .section-heading h5 {
         font-size: 24px
+    }
+    .pen-hover{
+        margin-top: -10% !important;
     }
 }
 
@@ -132,9 +145,10 @@ body {
 }
 
 .profile-pic {
-    max-width: 200px;
-    max-height: 200px;
-    display: block;
+    max-width: 300px;
+    height: 300px;
+    /* max-height: 200px; */
+    /* display: block; */
 }
 
 .file-upload {
@@ -142,27 +156,30 @@ body {
 }
 .MyPfFrame {
     margin: auto;
-    width: 200px;
-    height: 200px;
-    border:8px solid #f4f6f9;
-    margin-top: 50px
-
+    width: 300px;
+    height: 300px;
+    /* border:1px solid #d42931;#f4f6f9; */
+    margin-top: 2%;
+    overflow: hidden;
 }
-
-.penframe {
-    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
-    width: 186px;
-    height: 181px;
-    padding-top: 140px;
-    margin: auto;
-    text-align: center;
-    margin-top: -191px;
-
+.MyPfFrame:hover .upload-button .pen-hover{
+    display: block;
+    overflow: hidden;
 }
-.p-image:hover {
-  transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+.pen-hover{
+    padding: 0 !important;
+    width: 100%;
+    margin-top:-20%;
+    height: 50px;
+    display: none;
+    position: relative;
+    transition: all .1s ;
+    color: white;
+    background-color: #000000b5;
+    cursor: pointer;
+    z-index: 2;
+    overflow: hidden;
 }
-
 .upload-button {
   font-size: 1.2em;
   color: #00000000;
@@ -170,10 +187,7 @@ body {
 }
 
 .upload-button:hover {
-  transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
-  color: #595959;
-  background-color: #00000010;
-  cursor: pointer;
+    cursor: pointer;
 }
 
 </style>
@@ -189,28 +203,19 @@ body {
                 <div class="row">
                     <div class="col-md-12">
                         <div class="MyPfFrame">
-                            <img class="profile-pic" src="<?php echo (isset($pro)&&!empty($pro['image']))?$pro['image']:"https://bootdey.com/img/Content/avatar/avatar7.png";?>" width="186px" id='image_'>
-                        </div>
-
-                        <div class="penframe" align="center">
-                            <i class="penframe fas fa-pencil-alt upload-button"></i>
+                            <label for="img" class="upload-button"><img class="profile-pic" src="<?php echo (isset($pro)&&!empty($pro['image']))?$pro['image']:"https://bootdey.com/img/Content/avatar/avatar7.png";?>" id='image_'>
+                                <label for="img" class="pen-hover"><label for="img" class="fas fa-pencil-alt"></label></label><br>
+                            </label>
                             <input class="file-upload" type="file" id='img' name="_img" accept="image/*"/>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-1"></div>
-                    <div class="col-sm-10" style="margin-top: 40px" align="center">
-
-                            <input class="btn btn-default" type="button"  onclick="up_img('img','form_img')" value="Change">
-
+                    <div class="col-sm-10" align="center">
+                        <input class="btn btn-default" style="margin-top:2%" type="button"  onclick="up_img('img','form_img')" value="Change">
                     </div>
                     <div class="col-sm-1"></div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12" style="margin-top: 40px" align="center">
-                        <h4 class="title_En"> <?php echo (isset($pro))?$pro['name']:"";?></h4>
-                    </div>
                 </div>
             </form>
             </div>
@@ -454,32 +459,11 @@ body {
 </div>
 </section>
 <script>
-    $(document).ready(function() {
-
-
-var readURL = function(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            $('.profile-pic').attr('src', e.target.result)
-            .width(186)
-            ;
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
-
-$(".file-upload").on('change', function(){
-    readURL(this);
-    // readURL(this,'image_')
-});
-
-$(".upload-button").on('click', function() {
-   $(".file-upload").click();
-});
+$(document).ready(function() {
+    $("#img").on('change', function(){
+        // readURL(this);
+        readURL(this,'image_')
+    });
 });
 </script>
 <script>
