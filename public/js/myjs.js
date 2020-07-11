@@ -23,12 +23,12 @@ function check_session(){
       return;
     }
     e.preventDefault();
-    $("#nav_bar_sub_r").html(get_pushmenu());
     var link = $(this).attr("value");
     var code = $(this).attr("data-code");
     var href = $(this).attr("href");
     if (typeof link !== typeof undefined && link !== false) {
       $(".content-wrapper").html(spinner());
+      $("#nav_bar_sub_r").html(get_pushmenu());
       $.ajax({
         type: 'GET',
         url:link,
@@ -51,6 +51,7 @@ function check_session(){
      });
     }else if (typeof code !== typeof undefined && code !== false) {
         $(".content-wrapper").html(spinner());
+        $("#nav_bar_sub_r").html(get_pushmenu());
         $.ajax({
           type: 'POST',
           url:'sub_r_nav',
