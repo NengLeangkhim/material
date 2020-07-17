@@ -337,6 +337,12 @@ Route::post('/addsupplier','stock\addSupplier@addSupplier');
 
 //===============================END STOCK SYSTEM
 
+//================== START HRMS ==============///
+
+//======== SUGGESTION=======//
+
+/////// Question Type ///////
+Route::get('/hrm_question_type_sugg','hrms\suggestion\question_typeController@tbl_suggestion_question_type');
 
 
 
