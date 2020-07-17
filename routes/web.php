@@ -335,6 +335,10 @@ Route::get('/addsupplier','stock\addSupplier@getaddSupplier');
 Route::post('/addsupplier','stock\addSupplier@addSupplier');
 //end supplier
 
+
+Route::get('/login','Login@login');
+
+
 //===============================END STOCK SYSTEM
 
 //================== START HRMS ==============///

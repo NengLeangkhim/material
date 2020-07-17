@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Login extends Controller
 {
     public function login(){
+        
         $id_=str_replace("'","''",$_POST['username']);
         $pa_=en_de::aes_en($_POST['password'],'1941a39eed11fdef7f9de6d597df9f4b');
         $q=DB::select("SELECT public.exec_check_password_main_app('$id_','$pa_') as id");
