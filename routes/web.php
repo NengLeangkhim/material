@@ -335,12 +335,26 @@ Route::get('/addsupplier','stock\addSupplier@getaddSupplier');
 Route::post('/addsupplier','stock\addSupplier@addSupplier');
 //end supplier
 
+
+Route::get('/login','Login@login');
+
+
 //===============================END STOCK SYSTEM
 
+//================== START HRMS ==============///
+
+//======== SUGGESTION=======//
+
+/////// Question Type ///////
+Route::get('/hrm_question_type_sugg','hrms\suggestion\question_typeController@tbl_suggestion_question_type');
+/// Route Show modal for add and edit//
+Route::get('/hrm_question_type_sugg/modal', 'hrms\suggestion\question_typeController@modal_question_type_sugg');
+///Route for insert and update ///
+Route::post('/hrm_question_type_sugg/store','hrms\suggestion\question_typeController@add_suggestion_question_type');
 
 
 
-
+//================== End HRMS ==============///
 
 
 

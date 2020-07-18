@@ -142,13 +142,14 @@
                 '</tr>'
                 );
         }
-        // time();
+    // time();
     });
     function stand_by_add(id){// plus button on table
         // console.log($(id).val());
         $('#mselected_staff').html('');
         $('#madd_staff_id').attr('value',$(id).val());
         $('#madd_staff').modal('show');
+
 
     }
     function mstand_by_add(){ // add to table on modal

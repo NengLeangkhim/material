@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 
     <link rel="stylesheet" href="css/animate.css">
+    
     <title>Turbotech System</title>
     <style>
         .material-half-bg{
@@ -100,11 +101,12 @@
     {{-- <script src="js/admin/jquery-3.2.1.min.js"></script> --}}
     <script src="plugins/popper/popper.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    {{-- <script src="js/main.js"></script> --}}
+    {{-- <script src="/js/main.js"></script> --}}
     <!-- The javascript plugin to display page loading on top-->
     {{-- <script src="js/admin/plugins/pace.min.js"></script> --}}
 
     <!--  -->
+
 </body>
 </html>
 
