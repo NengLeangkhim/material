@@ -74,7 +74,12 @@ function check_session(){
        });
       }
       else if (typeof href !== typeof undefined && href !== false) {
-        window.location.href = href;
+        var target = $(this).attr("target");
+        if (typeof target !== typeof undefined && target !== false) {
+          window.open(href, target);
+        }else{
+          window.location.href = href;
+        }
       }
 });
 //only work on tag a with onclick and go_to

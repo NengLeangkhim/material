@@ -33,8 +33,10 @@ class RouteController extends Controller
                 from company_dept_manager cdm
                 join staff s on s.position_id=cdm.position_id
                 join position p on p.id=s.position_id
-                where (cdm.type='mid' or cdm.type='top') and s.status='t'
-                and s.company_dept_id=(select company_dept_id from staff where id=$user_id)");
+                where 't'
+				and cdm.id=(select get_dept_manager($user_id))
+				and cdm.type<>'normal'
+				and s.status='t'");
                 $uself=DB::select("select s.name,s.name_kh,s.id_number,s.image,p.name as position,s.contact from staff s join position p on p.id=s.position_id where s.id=$user_id");
                 $dept=DB::select("select name from company_dept where id=(select company_dept_id from staff where id=$user_id)");
                 return view('welcome',compact("head","uself","dept"));
