@@ -11,8 +11,9 @@ class AllemployeeController extends Controller
     //
     
     function Employees(){
-        $s = Employee::all();
-        print_r($s);
+        // $s = Employee::AllEmployees();
+        // var_dump($s);
+        return view('hrms/Employee/AllEmployees/AllEmployees');
     }
     
 }

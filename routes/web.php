@@ -348,7 +348,7 @@ Route::get('/login','Login@login');
 /////// Question Type ///////
 Route::get('/hrm_question_type_sugg','hrms\suggestion\question_typeController@tbl_suggestion_question_type');
 
-
+Route::get('hrm_allemployee','hrms\Employee\AllemployeeController@Employees');
 
 //================== End HRMS ==============///
 
