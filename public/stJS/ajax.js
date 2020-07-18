@@ -670,6 +670,9 @@ function go_to(route){
         success:function(data){
             $(".content-wrapper").show();
             $(".content-wrapper").html(data);
+        },
+        error:function(){
+          $(".content-wrapper").html(jerror());
         }
      });
 }
