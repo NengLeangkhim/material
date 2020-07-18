@@ -67,6 +67,9 @@ function check_session(){
               $(".content-wrapper").show();
               $(".content-wrapper").html('');
               // $(".select2").select2();
+          },
+          error:function(){
+            $(".content-wrapper").html(jerror());
           }
        });
       }
