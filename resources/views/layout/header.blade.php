@@ -41,4 +41,7 @@
 {{-- datetime picker --}}
 <link href="plugins/DateStyle/bootstrap-datetimepicker.css" rel="stylesheet">
 <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap-glyphicons.css">
+
+<!-- hrm style -->
+        <link rel="stylesheet" href="css/hrm/hrm.css">
 </head>

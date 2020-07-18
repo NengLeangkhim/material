@@ -7,12 +7,13 @@ use Illuminate\Support\Facades\DB;
 
 class Employee extends Model
 {
-    private function tlb(){
-        return DB::table('users');
-    }
-    public static function all(){
-        $tbl=self::tlb();
-        return 1;
+    // private static function tlb(){
+    //     return DB::table('staff');
+    // }
+    public static function AllEmployees(){
+        // $tbl=self::tlb();
+        $x= DB::table('staff')->get();
+        return $x;
     }
     
     
