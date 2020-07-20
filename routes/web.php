@@ -352,7 +352,13 @@ Route::get('/hrm_question_type_sugg/modal', 'hrms\suggestion\question_typeContro
 ///Route for insert and update ///
 Route::post('/hrm_question_type_sugg/store','hrms\suggestion\question_typeController@add_suggestion_question_type');
 
-Route::get('hrm_allemployee','hrms\Employee\AllemployeeController@Employees');
+
+
+// Seng Kimsros //
+// Employee
+    Route::get('hrm_allemployee','hrms\Employee\AllemployeeController@Employees');
+    Route::get('hrm_holiday', 'hrms\Employee\AllemployeeController@Holiday');
+// End Employee
 
 //================== End HRMS ==============///
 
