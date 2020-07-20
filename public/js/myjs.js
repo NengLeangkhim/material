@@ -67,11 +67,19 @@ function check_session(){
               $(".content-wrapper").show();
               $(".content-wrapper").html('');
               // $(".select2").select2();
+          },
+          error:function(){
+            $(".content-wrapper").html(jerror());
           }
        });
       }
       else if (typeof href !== typeof undefined && href !== false) {
-        window.location.href = href;
+        var target = $(this).attr("target");
+        if (typeof target !== typeof undefined && target !== false) {
+          window.open(href, target);
+        }else{
+          window.location.href = href;
+        }
       }
 });
 //only work on tag a with onclick and go_to

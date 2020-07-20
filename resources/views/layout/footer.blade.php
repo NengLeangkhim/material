@@ -82,3 +82,8 @@
     }
   );
 </script>
+<!-- HRMS -->
+<script src="js/hrms/recruitment.js"></script>
+<script src="js/hrms/policy.js"></script>
+<script src="js/hrms/performance.js"></script>
+<script src="js/hrms/suggestion.js"></script>
