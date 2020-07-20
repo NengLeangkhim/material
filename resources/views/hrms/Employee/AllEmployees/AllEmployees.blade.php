@@ -10,32 +10,33 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="tbl_employee" style="width:100%">
                   <thead>                  
                     <tr>
-                      <th style="width: 10px">#</th>
-                      <th>Name</th>
+                      <th style="">#</th>
+                      <th style="">Name</th>
                       <th>Khmer Name</th>
                       <th>Employee ID</th>
-                      <th>Email</th>
                       <th>Mobile</th>
-                      <th>Join Date</th>
                       <th>Role</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>Seng Kimsros</td>
-                        <td>សេង គឹមស្រស់</td>
-                        <td>TT-0082</td>
-                        <td>seng@gmail.com</td>
-                        <td>011206889</td>
-                        <td>10-10-2020</td>
-                        <td>Web Developer</td>
+                    @php
+                        $i=0;
+                    @endphp
+                    @foreach ($employee as $e)
+                      <tr>
+                      <th>{{ ++$i }}</th>
+                      <td> {{ $e->name }} </td>
+                      <td> {{$e->name_kh }} </td>
+                      <td>{{ $e->id_number }}</td>
+                      <td>{{ $e->contact}}</td>
+                      <td>{{ $e->position }}</td>
                         <td></td>
                     </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
@@ -44,3 +45,10 @@
             <!-- /.card -->
     </div>
 </div>
+<script>
+  $(document).ready(function() {
+    $('#tbl_employee').DataTable({
+      responsive: true
+    });
+} );
+</script>

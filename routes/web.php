@@ -364,8 +364,12 @@ Route::get('hrm_question_answer_sugg','hrms\suggestion\QuestionAnswerController@
 
 // Seng Kimsros //
 // Employee
-    Route::get('hrm_allemployee','hrms\Employee\AllemployeeController@Employees');
-    Route::get('hrm_holiday', 'hrms\Employee\AllemployeeController@Holiday');
+    Route::get('hrm_allemployee','hrms\Employee\AllemployeeController@AllEmployee');
+    Route::get('hrm_holiday', 'hrms\Employee\HolidayController@Holiday');
+    Route::get('hrm_attendance', 'hrms\Employee\AllemployeeController@Attendance');
+    Route::get('hrm_mission_outside', 'hrms\Employee\AllemployeeController@MissionAndOutSide');
+    Route::get('hrm_department', 'hrms\Employee\AllemployeeController@DepartmentAndPosition');
+    Route::get('hrm_overtime', 'hrms\Employee\AllemployeeController@StaffOverTime');
 // End Employee
 
 //================== End HRMS ==============///
