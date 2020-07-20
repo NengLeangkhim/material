@@ -346,11 +346,19 @@ Route::get('/login','Login@login');
 //======== SUGGESTION=======//
 
 /////// Question Type ///////
-Route::get('/hrm_question_type_sugg','hrms\suggestion\question_typeController@tbl_suggestion_question_type');
+Route::get('hrm_question_type_sugg','hrms\suggestion\question_typeController@tbl_suggestion_question_type');
 /// Route Show modal for add and edit//
-Route::get('/hrm_question_type_sugg/modal', 'hrms\suggestion\question_typeController@modal_question_type_sugg');
+Route::get('hrm_question_type_sugg/modal', 'hrms\suggestion\question_typeController@modal_question_type_sugg');
 ///Route for insert and update ///
-Route::post('/hrm_question_type_sugg/store','hrms\suggestion\question_typeController@add_suggestion_question_type');
+Route::post('hrm_question_type_sugg/store','hrms\suggestion\question_typeController@add_suggestion_question_type');
+///// END QUESTION TYPE ////
+///////Question & Answer//////
+// Route::get('hrm_question_answer_sugg',function(){
+//     return view('hrms/suggestion/question_type/QuestionAnswerSugg');
+// });
+Route::get('hrm_question_answer_sugg','hrms\suggestion\QuestionAnswerController@tbl_suggestion_question_answer');
+//////END QUESTION & Answer/////
+//=======END SUGGESTION=====//
 
 
 
