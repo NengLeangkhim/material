@@ -16,4 +16,7 @@ class AllemployeeController extends Controller
         return view('hrms/Employee/AllEmployees/AllEmployees');
     }
     
+    function Holiday(){
+        return view('hrms/Employee/Holiday/Holiday');
+    }
 }

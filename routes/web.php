@@ -360,7 +360,13 @@ Route::get('hrm_question_answer_sugg','hrms\suggestion\QuestionAnswerController@
 //////END QUESTION & Answer/////
 //=======END SUGGESTION=====//
 
-Route::get('hrm_allemployee','hrms\Employee\AllemployeeController@Employees');
+
+
+// Seng Kimsros //
+// Employee
+    Route::get('hrm_allemployee','hrms\Employee\AllemployeeController@Employees');
+    Route::get('hrm_holiday', 'hrms\Employee\AllemployeeController@Holiday');
+// End Employee
 
 //================== End HRMS ==============///
 
