@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\DB;
 class model_question_type extends Model
 {
     protected $table = 'hr_suggestion_question_type';
-    protected $fillable = ['name', 'create_by', 'is_deleted'];
+    protected $primaryKey = 'id';
+    protected $fillable = ['name', 'create_by'];
     // ===== Function get data for table =====////
      public static function get_tbl_suggestion_question_type(){
         $sql="SELECT qt.*,s.username from hr_suggestion_question_type qt

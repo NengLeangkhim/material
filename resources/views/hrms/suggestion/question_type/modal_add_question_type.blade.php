@@ -8,7 +8,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form id="question_type_sugg_form">
+          <form method="POST" id="question_type_sugg_form">
             @csrf
           <div class="modal-body">
                 <div class="row">
@@ -22,7 +22,7 @@
           </div>
           <div class="modal-footer">
               <input type="hidden" name="action_q_t_sugg_id" id="action_q_t_sugg_id"/>
-              <input type="button" name="action_q_t_sugg" id="action_q_t_sugg" onclick="action_q_t_sugg()" class="btn btn-outline-primary" />
+              <input type="submit" name="action_q_t_sugg" id="action_q_t_sugg" class="btn btn-outline-primary" />
               </div>
             </form>
           </div>

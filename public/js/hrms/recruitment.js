@@ -639,30 +639,30 @@ function view_all_normal_q(id){
     }  
 });  
 }
-function approve(userid,type){
-  // if(check_session()){
-  //     return;
-  // }
-  comment=$('textarea#comment').val();
-  $.ajax({
-      type:'POST',
-      url: "../controller/recruitment/approval.php",
-      data:{
-        userid:userid,
-          type:type,
-          comment:comment,
-      },
-      success: function(data){
-      //     if(data.length>0){
-      //         get_approve_view(tar,tt);
-      //     }
-           console.log(data);
-           //location.reload();
-           setTimeout(Reload_recruitment,1000);
-           notify_recruitment('Successfully !!','success');
-       }
-  });
-}
+// function approve(userid,type){
+//   // if(check_session()){
+//   //     return;
+//   // }
+//   comment=$('textarea#comment').val();
+//   $.ajax({
+//       type:'POST',
+//       url: "../controller/recruitment/approval.php",
+//       data:{
+//         userid:userid,
+//           type:type,
+//           comment:comment,
+//       },
+//       success: function(data){
+//       //     if(data.length>0){
+//       //         get_approve_view(tar,tt);
+//       //     }
+//            console.log(data);
+//            //location.reload();
+//            setTimeout(Reload_recruitment,1000);
+//            notify_recruitment('Successfully !!','success');
+//        }
+//   });
+// }
 function view_result_condidate_top(id,top){// View result function Top manager
   
   $.ajax({  
