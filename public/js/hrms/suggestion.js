@@ -2,7 +2,7 @@
 function AddNewQ_type_sugg(){
    var id=1;
     $.ajax({
-      url:"/hrm_quest`ion_type_sugg/modal",
+      url:"/hrm_question_type_sugg/modal",
       method:'GET',
       data:{id:id},
       success:function(data)
@@ -17,8 +17,9 @@ function AddNewQ_type_sugg(){
     });  
 } 
 /// ADD Question Type /////
-$('#action_q_t_sugg').click(function(){
+function action_q_t_sugg(){
     event.preventDefault();
+    var token =  $('input[name="csrfToken"]').attr('value'); 
     var question_name = $('#question_type').val();
     var id = $('#action_q_t_sugg_id').val();
     if(question_name!= '')
@@ -26,10 +27,10 @@ $('#action_q_t_sugg').click(function(){
      $.ajax({
       url:"/hrm_question_type_sugg/store",
       method:'POST',
-      data:{
-        question_name:question_name,
-        id:id,
+      headers: {
+        'X-CSRF-Token': token 
       },
+      data:$(this).serialize(),
       success:function(data)
       {
          console.log(data);
@@ -46,7 +47,7 @@ $('#action_q_t_sugg').click(function(){
     alert('Question Type Fields are Required !!');
     }
  
-   });
+   }
     //Function Update
     $(document).on('click', '.update_q_t_sugg', function(){
         var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method

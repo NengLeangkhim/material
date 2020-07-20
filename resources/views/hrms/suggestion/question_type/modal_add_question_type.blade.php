@@ -8,7 +8,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form  id="question_type_sugg">
+          <form method="POST" id="question_type_sugg_form">
             @csrf
           <div class="modal-body">
                 <div class="row">
