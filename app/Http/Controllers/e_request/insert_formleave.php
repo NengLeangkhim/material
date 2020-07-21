@@ -45,7 +45,6 @@ class insert_formleave extends Controller{
 		else{
 			$form_id=$_SESSION['form_id'];
 			$kindof=$_POST['kindof'];
-			echo $_POST['end_hour'];
 			$date_from=util::to_pgdate($_POST['start_date']).' '.util::to_24($_POST['start_hour']);
 			$date_to=util::to_pgdate($_POST['end_date']).' '.util::to_24($_POST['end_hour']);
 			$date_resume=util::to_pgdate($_POST['date_resume']);
