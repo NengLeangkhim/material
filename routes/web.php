@@ -341,7 +341,7 @@ Route::get('/login','Login@login');
 
 //===============================END STOCK SYSTEM
 
-//================== START HRMS ==============///
+//============================================================> START HRMS <===============================================================///
 
 //======== SUGGESTION=======//
 
@@ -362,21 +362,40 @@ Route::get('hrm_question_answer_sugg','hrms\suggestion\QuestionAnswerController@
 
 
 
-// Seng Kimsros //
+// ========================================================> SENG KIMSROS <======================================================== //
 // Employee
-    //All Employee
+
+    // Start All Employee
         Route::get('hrm_allemployee', 'hrms\Employee\AllemployeeController@AllEmployee');
         Route::get('hrm_add_edit_employee', 'hrms\Employee\AllemployeeController@AddAndEditEmployee');
     //End All Employee
-    
-    Route::get('hrm_holiday', 'hrms\Employee\HolidayController@Holiday');
-    Route::get('hrm_attendance', 'hrms\Employee\AttendanceController@AllAttendance');
-    Route::get('hrm_mission_outside', 'hrms\Employee\MissionAndOutSideController@MissionAndOutSide');
-    Route::get('hrm_department', 'hrms\Employee\DepartmentAndPositionController@DepartmentAndPosition');
-    Route::get('hrm_overtime', 'hrms\Employee\OverTimeController@StaffOverTime');
+
+    // Start Holiday
+        Route::get('hrm_holiday', 'hrms\Employee\HolidayController@Holiday');
+        Route::get('hrm_add_edit_holiday', 'hrms\Employee\HolidayController@AddAndEditHoliday');
+    // End Holiday
+
+    // Start Attendance
+        Route::get('hrm_attendance', 'hrms\Employee\AttendanceController@AllAttendance');
+    // End Attendance
+
+    // Start Mission And Out Side
+        Route::get('hrm_mission_outside', 'hrms\Employee\MissionAndOutSideController@AllMissionAndOutSide');
+    // End Mission And OutSide
+
+    // Start Departement and Position
+        Route::get('hrm_department', 'hrms\Employee\DepartmentAndPositionController@DepartmentAndPosition');
+    // End Department And Position
+
+    // Stat Overtime
+        Route::get('hrm_overtime', 'hrms\Employee\OverTimeController@StaffOverTime');
+    // End Overtime
+
 // End Employee
 
-//================== End HRMS ==============///
+// ========================================================> END SENG KIMSROS <======================================================== //
+
+//==========================================================> End HRMS <===============================================================///
 
 
 
