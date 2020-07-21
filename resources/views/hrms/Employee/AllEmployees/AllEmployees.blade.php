@@ -1,11 +1,12 @@
 <div style="padding:10px 10px 10px 10px">
     <div class="row">
+      <div id="testt"></div>
         <div class="col-md-12">
             <div class="card">
               <div class="card-header">
                 <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Employees</strong></h1>
                 <div class="col-md-12 text-right">
-                    <button type="button" class="btn bg-gradient-primary"><i class="fas fa-user-plus"></i> Add Employee</button>
+                    <a href="javascript:;" class="btn bg-turbo-color" onclick="HRM_AddEditEmployee()"><i class="fas fa-user-plus"></i> Add Employee</a>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -34,7 +35,13 @@
                       <td>{{ $e->id_number }}</td>
                       <td>{{ $e->contact}}</td>
                       <td>{{ $e->position }}</td>
-                        <td></td>
+                        <td>
+                          <div class="row">
+                            <div class="col-md-4"><a href="javascrip:;"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-4"><a href="javascrip:;"><i class="fas fa-info"></i></a></div>
+                            <div class="col-md-4"><a href="javascrip:;"><i class="far fa-trash-alt"></i></a></div>
+                          </div>
+                        </td>
                     </tr>
                     @endforeach
                   </tbody>

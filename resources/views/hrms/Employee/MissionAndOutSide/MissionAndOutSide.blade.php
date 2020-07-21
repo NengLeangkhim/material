@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Mission and Outside</strong></h1>
+                <h1 class="card-title hrm-title"><strong><i class="fas fa-route"></i> Mission and Outside</strong></h1>
                 <div class="col-md-12 text-right">
                     <button type="button" class="btn bg-gradient-primary"><i class="fas fa-user-plus"></i> Add Employee</button>
                 </div>

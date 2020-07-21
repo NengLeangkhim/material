@@ -19,4 +19,17 @@ class AllemployeeController extends Controller
     public function InsertEmployee(){
 
     }
+    public function AddAndEditEmployee(){
+        if(isset($_GET['id'])){
+            $id=$_GET['id'];
+            if($id>0){
+                return view('hrms/Employee/AllEmployees/AddAndEditEmployee');
+            }else{
+                return view('hrms/Employee/AllEmployees/AddAndEditEmployee');
+            }
+            
+        }
+        
+        
+    }
 }
