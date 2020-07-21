@@ -199,10 +199,10 @@ class util extends Controller{
         $time=explode(" ",$st);
         if($time[1]=="AM"||$time[1]=="am"){
             return $time[0];
-        }else{
+        }else if($time[1]=="PM"||$time[1]=="pm"){
             $h=explode(":",$time[0]);
             $hr=intval($h[0]);
-            if($hr>12){
+            if($hr!=12){
                 $hr+=12;
             }
             return $hr.":".$h[1];

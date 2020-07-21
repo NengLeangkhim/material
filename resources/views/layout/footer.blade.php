@@ -29,6 +29,8 @@
 <script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
 <!-- ChartJS -->
 <script src="plugins/chart.js/Chart.min.js"></script>
+<!-- Alert Sweetalert2 -->
+<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 
 <!-- PAGE SCRIPTS -->
 
@@ -83,8 +85,5 @@
   );
 </script>
 <!-- HRMS -->
-<script src="js/hrms/recruitment.js"></script>
-<script src="js/hrms/policy.js"></script>
-<script src="js/hrms/performance.js"></script>
-<script src="js/hrms/suggestion.js"></script>
+<script src="js/hrms/hrmssambo.js"></script>
 <script src="js/hrms/hrms.js"></script>
