@@ -69,18 +69,22 @@
 <div class="col-xl-12">
   <p class="during"  align="center"><b>កាលបរិច្ឆេទសុំធ្វើការបន្ថែមម៉ោង</b></p>
   <div class="row">
-    <div class="col-lg-2">
-      <p class="during">កាលបរិច្ឆេទ</p>
-    </div>
-    <div class="col-lg-9">
-        <div class="input-group">
-            <input type="date" name="request_date" class="form-control"value="<?php echo (isset($req_date))?$req_date:'';?>" <?php echo $d.' '.$d1 ;?>>
-            <div class="input-group-append">
-                <span class="input-group-text fa fa-calendar" id="basic-addon2"></span>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-sm-2">
+          <p class="during">កាលបរិច្ឆេទ</p>
+        </div>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="date" name="request_date" class="form-control"value="<?php echo (isset($req_date))?$req_date:'';?>" <?php echo $d.' '.$d1 ;?>>
+                <div class="input-group-append">
+                    <span class="input-group-text fa fa-calendar" id="basic-addon2"></span>
+                </div>
             </div>
         </div>
+        <div class="col-sm-7"></div>
+      </div>
     </div>
-    <div class="col-lg-1"></div>
   </div>
   <div class="row" style="margin-top: 25px;">
     <div class="col-lg-2">
@@ -139,13 +143,14 @@
           <p class="during">ដល់ៈ</p>
         </div>
         <div class="col-md-3">
-            <div class="input-group">
+          <div class="input-group">
                 <input type="time" class="form-control" name="time_req_to_rest" value="<?php echo (isset($req_rest_e))?$req_rest_e:'';?>" <?php echo $d.' '.$d1 ;?>>
               <div class="input-group-append">
                    <span class="input-group-text fa fa-clock" id="basic-addon2"></span>
               </div>
           </div> 
         </div>
+
         <div class="col-md-1">
           <p class="during">=</p>
         </div>
@@ -216,19 +221,23 @@
     <div class="col-xl-12">
         <p class="during" align="center" style="margin-top: 10px;"><b>ចំនួនម៉ោងធ្វើការជាក់ស្តែង</b></p>
         <div class="row">
-          <div class="col-lg-2">
-            <p class="during">កាលបរិច្ឆេទ</p>
-          </div>
-          <div class="col-lg-9">
-              <div class="input-group">
-                  <input type="date" name="actual_date" class="form-control"
-                       value="<?php echo (isset($act_date))?$act_date:'';?>" <?php echo $dd.' '.$dd1;?>>
-                   <div class="input-group-append">
-                       <span class="input-group-text fa fa-calendar" id="basic-addon2"></span>
-                   </div>
-               </div>
-          </div>
-          <div class="col-lg-1"></div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-2">
+                  <p class="during">កាលបរិច្ឆេទ</p>
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <input type="date" name="actual_date" class="form-control"
+                             value="<?php echo (isset($act_date))?$act_date:'';?>" <?php echo $dd.' '.$dd1;?>>
+                         <div class="input-group-append">
+                             <span class="input-group-text fa fa-calendar" id="basic-addon2"></span>
+                         </div>
+                     </div>
+                </div>
+                <div class="col-sm-7"></div>
+              </div>
+            </div>
         </div>
         <br>
         <div class="row">

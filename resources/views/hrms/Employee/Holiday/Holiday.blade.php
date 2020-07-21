@@ -3,14 +3,14 @@
         <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Holiday</strong></h1>
+                <h1 class="card-title hrm-title"><strong><i class="fas fa-calendar-times"></i> Holiday</strong></h1>
                 <div class="col-md-12 text-right">
-                    <button type="button" class="btn bg-gradient-primary"><i class="fas fa-user-plus"></i> Add Employee</button>
+                    <button type="button" class="btn bg-gradient-primary"><i class="fas fa-user-plus"></i> Add Holiday</button>
                 </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="tbl_holiday" style="width: 100%">
                   <thead>                  
                     <tr>
                       <th style="width: 10px">#</th>
@@ -23,15 +23,21 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>King Birthday</td>
-                        <td>ខួបកំណើតស្ដេច</td>
-                        <td>10-10-2020</td>
-                        <td>Monday</td>
-                        <td>Holiday</td>
+                    @php
+                        $i=0;
+                    @endphp
+                    @foreach ($holiday as $item)
+                      <tr>
+                      <th>{{ ++$i }}</th>
+                      <td>{{ $item->title }}</td>
+                        <td>{{ $item->title_kh }}</td>
+                      <td>{{ $item->holiday_date }} to {{$item->to_date}}</td>
+                        <td>{{ date('l', strtotime($item->holiday_date)) }}</td>
+                        <td>{{ $item->description }}</td>
                         <td></td>
                     </tr>
+                    @endforeach
+                    
                   </tbody>
                 </table>
               </div>
@@ -40,3 +46,10 @@
             <!-- /.card -->
     </div>
 </div>
+<script>
+  $(document).ready(function() {
+    $('#tbl_holiday').DataTable({
+      responsive: true
+    });
+} );
+</script>

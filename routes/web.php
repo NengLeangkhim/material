@@ -341,6 +341,11 @@ Route::get('/login','Login@login');
 
 //===============================END STOCK SYSTEM
 
+
+
+
+
+
 //================== START HRMS ==============///
 
 //======== SUGGESTION=======//
@@ -364,9 +369,57 @@ Route::get('hrm_question_answer_sugg','hrms\suggestion\QuestionAnswerController@
 
 // Seng Kimsros //
 // Employee
-    Route::get('hrm_allemployee','hrms\Employee\AllemployeeController@Employees');
-    Route::get('hrm_holiday', 'hrms\Employee\AllemployeeController@Holiday');
+    //All Employee
+        Route::get('hrm_allemployee', 'hrms\Employee\AllemployeeController@AllEmployee');
+        Route::get('hrm_add_edit_employee', 'hrms\Employee\AllemployeeController@AddAndEditEmployee');
+    //End All Employee
+    
+    Route::get('hrm_holiday', 'hrms\Employee\HolidayController@Holiday');
+    Route::get('hrm_attendance', 'hrms\Employee\AttendanceController@AllAttendance');
+    Route::get('hrm_mission_outside', 'hrms\Employee\MissionAndOutSideController@MissionAndOutSide');
+    Route::get('hrm_department', 'hrms\Employee\DepartmentAndPositionController@DepartmentAndPosition');
+    Route::get('hrm_overtime', 'hrms\Employee\OverTimeController@StaffOverTime');
 // End Employee
+
+
+
+
+// SOK KIM part //
+    // Shift Promote
+
+        Route::get('hrm_management_shift_promote','hrms\shift_promote\management_promoteController@AllEmployee');
+        // Route::get('hrm_staff_view_promote','hrms');
+        // Route::get('hrm_staff_promote_history','hrms');
+        // Route::get('hrm_shift_promote_report','hrms');
+
+
+
+
+            // Route::get('hrm_management_shift_promote',function(){
+            //     return view('hrms.shift_promote.management_promote.shift_promote_management');
+            // });
+
+
+            Route::get('hrm_staff_view_promote',function(){
+                return view('hrms.shift_promote.staff_view_promote.shift_promote_for_staff_view');
+            });
+
+            Route::get('hrm_staff_promote_history',function(){
+                return view('hrms.shift_promote.management_view_promote_history.shift_promote_staff_history');
+            });
+            Route::get('hrm_shift_promote_report',function(){
+                return view('hrms.shift_promote.promote_report.shift_promote_report');
+            });
+
+    // End Shift promote
+
+
+
+
+
+
+
+
 
 //================== End HRMS ==============///
 
