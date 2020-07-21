@@ -351,9 +351,9 @@ Route::get('/login','Login@login');
 //======== SUGGESTION=======//
 
 /////// Question Type ///////
-Route::get('hrm_question_type_sugg','hrms\suggestion\question_typeController@tbl_suggestion_question_type');
+Route::get('hrm_question_type_sugg','hrms\suggestion\QuestionTypeSuggController@index');
 /// Route Show modal for add and edit//
-Route::get('hrm_question_type_sugg/modal', 'hrms\suggestion\question_typeController@modal_question_type_sugg');
+Route::get('hrm_question_type_sugg/modal', 'hrms\suggestion\QuestionTypeSuggController@modal_question_type_sugg');
 ///Route for insert and update ///
 Route::post('hrm_question_type_sugg/store','hrms\suggestion\question_typeController@add_suggestion_question_type');
 ///// END QUESTION TYPE ////
@@ -369,8 +369,16 @@ Route::get('hrm_question_answer_sugg','hrms\suggestion\QuestionAnswerController@
 
 // Seng Kimsros //
 // Employee
-    Route::get('hrm_allemployee','hrms\Employee\AllemployeeController@Employees');
-    Route::get('hrm_holiday', 'hrms\Employee\AllemployeeController@Holiday');
+    //All Employee
+        Route::get('hrm_allemployee', 'hrms\Employee\AllemployeeController@AllEmployee');
+        Route::get('hrm_add_edit_employee', 'hrms\Employee\AllemployeeController@AddAndEditEmployee');
+    //End All Employee
+    
+    Route::get('hrm_holiday', 'hrms\Employee\HolidayController@Holiday');
+    Route::get('hrm_attendance', 'hrms\Employee\AttendanceController@AllAttendance');
+    Route::get('hrm_mission_outside', 'hrms\Employee\MissionAndOutSideController@MissionAndOutSide');
+    Route::get('hrm_department', 'hrms\Employee\DepartmentAndPositionController@DepartmentAndPosition');
+    Route::get('hrm_overtime', 'hrms\Employee\OverTimeController@StaffOverTime');
 // End Employee
 
 

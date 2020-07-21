@@ -2,6 +2,7 @@
 
 @include('layout.header')
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div id="modal"></div>
     <div class="wrapper">
         @include('menu.right_navbar')
         @include('menu.left_menu')

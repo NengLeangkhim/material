@@ -87,3 +87,4 @@
 <script src="js/hrms/policy.js"></script>
 <script src="js/hrms/performance.js"></script>
 <script src="js/hrms/suggestion.js"></script>
+<script src="js/hrms/hrms.js"></script>

@@ -23,20 +23,23 @@ class question_typeController extends Controller
             }
          //var_dump($question_type_sugg);
     }
-    ///function show modal //
-    public function modal_question_type_sugg(){
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-            }
-        if(perms::check_perm_module('HRM_09080201')){//module code add question type id=129
-                return view('hrms/suggestion/question_type/modal_add_question_type');
-        }else{
-            return view('no_perms');
-        }
-    }
+
+   //function show modal //
+    // public function modal_question_type_sugg(){
+    //     if (session_status() == PHP_SESSION_NONE) {
+    //         session_start();
+    //         }
+    //     if(perms::check_perm_module('HRM_09080201')){//module code add question type id=129
+    //             return view('hrms/suggestion/question_type/modal_add_question_type');
+    //     }else{
+    //         return view('no_perms');
+    //     }
+    // }
     //function insert ////
-    public function add_suggestion_question_type(){
-       
+    public function add_suggestion_question_type(Request $request){
+            $request->validate([
+                'question_type_sugg' => 'bail|required|unique:posts|max:255'
+            ]);
             $userid = $_SESSION['userid'];
             return model_question_type::insert_document_details_Call($name,$userid);
 
