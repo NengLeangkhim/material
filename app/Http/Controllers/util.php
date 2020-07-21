@@ -197,7 +197,7 @@ class util extends Controller{
     }
     public static function to_24($st){
         $time=explode(" ",$st);
-        if($time[1]=="am"){
+        if($time[1]=="AM"||$time[1]=="am"){
             return $time[0];
         }else{
             $h=explode(":",$time[0]);
