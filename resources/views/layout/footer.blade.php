@@ -86,3 +86,4 @@
 </script>
 <!-- HRMS -->
 <script src="js/hrms/hrmssambo.js"></script>
+<script src="js/hrms/hrms.js"></script>

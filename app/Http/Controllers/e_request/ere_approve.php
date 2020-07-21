@@ -17,7 +17,8 @@ class ere_approve extends Controller
             ".$_POST['erid'].",
             $user_id,
             '".$_POST['type']."',
-            '".$_POST['comment']."'
+            '".$_POST['comment']."',
+            $user_id
             )";
         $q=DB::select($sql);
         if(count($q)>0){
