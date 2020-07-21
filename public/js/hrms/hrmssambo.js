@@ -1,68 +1,117 @@
+function sweetalert(type,title){
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+  });
+  Toast.fire({
+    icon: type,
+    title: title
+  })
+}
 /////// Question Type//////// 
-function AddNewQ_type_sugg(){
-   var id=1;
-    $.ajax({
-      url:"/hrm_question_type_sugg/modal",
-      method:'GET',
-      data:{id:id},
-      success:function(data)
-      { //console.log(data);
-      $('#modal_question_type_sugg').html(data);
+function AddNewQ_type_sugg(route){
+  $.ajax({
+    type:'GET',
+    url:route,
+    data:{
+        _token : '<?php echo csrf_token() ?>',
+        },
+    success:function(data) {
+      document.getElementById('modaldiv_type_sugg').innerHTML=data;
       $('#q_type_sugg_modal').modal('show');
       //setTimeout(function(){$('#q_type_sugg_modal').modal("show");},200);
       $('#model_title').text('Add New');
-      $('#question_type').val('');
-      $('#action_q_t_sugg').val('Create');
-      }
-    });  
+      $('#question_type_sugg').val('');
+      $('#action_q_t_sugg').text('Create');
+   }
+});
 } 
+
 /// ADD Question Type /////
-function action_q_t_sugg(){
+function HrmAddQuestionTypeSugg(){
     event.preventDefault();
-    var token =  $('input[name="csrfToken"]').attr('value'); 
-    var question_name = $('#question_type').val();
-    var id = $('#action_q_t_sugg_id').val();
-    if(question_name!= '')
+    if($('#action_q_t_sugg').text()=='Create')
     {
-     $.ajax({
-      url:"/hrm_question_type_sugg/store",
-      method:'POST',
-      headers: {
-        'X-CSRF-Token': token 
-      },
-      data:$(this).serialize(),
-      success:function(data)
-      {
-         console.log(data);
-        // location.reload();
-        // setTimeout(Reload_recruitment,1000);
-        // notify_recruitment('The Question Type has been Successfully !!','success');  
+      //var token =  $('input[name="csrfToken"]').attr('value'); 
+      var question_name = $('#question_type_sugg').val();
+      if(question_name!= '')
+      {      
+      $.ajax({
+        url:'hrm_question_type_sugg/add',
+        type:'POST',
+        //headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
+        data:{ _token: $('#token').val(),
+          question_name:question_name 
+        },
+        success:function(data)
+        {
+          console.log(data);
+          // location.reload();
+          // setTimeout(Reload_recruitment,1000);
+          // sweetalert('success','The Question Type has been Successfully !!');
+        }
+      });
+      
       }
-     });
-     
+      else
+      {
+      //alert('Question Type Fields are Required !!');
+        sweetalert('warning','Question Type Fields are Required !!');
+      }
     }
-    else
+    /// Update action Question Type
+    if($('#action_q_t_sugg').text()=='Update')
     {
-    //  notify_recruitment('"Question Type Fields are Required !!','warn');
-    alert('Question Type Fields are Required !!');
+      //var token =  $('input[name="csrfToken"]').attr('value'); 
+      var question_name = $('#question_type_sugg').val();
+      var id = $('#action_q_t_sugg_id').val();
+      if(question_name!= '')
+      {
+      $.ajax({
+        url:'hrm_question_type_sugg/update',
+        type:'POST',
+        data:{  _token:  $('#token').val(),
+                question_name:question_name,
+                id:id       
+        },
+        success:function(data)
+        {
+          console.log(data);
+          // location.reload();
+          // setTimeout(Reload_recruitment,1000);
+          // sweetalert('success','The Question Type has been Successfully !!');
+        }
+      });
+      
+      }
+      else
+      {
+      //alert('Question Type Fields are Required !!');
+        sweetalert('warning','Question Type Fields are Required !!');
+      }
+
     }
  
-   }
+   };
     //Function Update
     $(document).on('click', '.update_q_t_sugg', function(){
         var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
-        var action = "Select";//We have define action variable value is equal to select
+       // var action = "Select";//We have define action variable value is equal to select
         $.ajax({
-         url:"../controller/suggestion/question_type.php",   //Request send to "action.php page"
-         method:"POST",    //Using of Post method for send data
-         data:{id:id, action:action},//Send data to server
+         url:"hrm_question_type_sugg/edit",   //Request send to "action.php page"
+         type:"GET",    //Using of Post method for send data
+         data:{id:id},//Send data to server
          dataType:"json",   //Here we have define json data type, so server will send data in json format.
          success:function(data){
             $('#q_type_sugg_modal').modal('show');   //It will display modal on webpage
-            $('#action_q_t_sugg').val("Update"); 
+            $('#action_q_t_sugg').text("Update"); 
             $('#model_title').text("Update")     //This code will change Button value to Update
             $('#action_q_t_sugg_id').val(id);     //It will define value of id variable to this customer id hidden field
-            $('#question_type').val(data.question_name); 
+            $.each(data, function(i, e){
+              $('#question_type_sugg').val(data[i].name);     
+              });     
          }
         });
        });
