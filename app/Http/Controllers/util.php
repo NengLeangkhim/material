@@ -106,7 +106,7 @@ class util extends Controller{
     }
     public static function conv_datetime($s){
         //2020-04-25 09:38:16.976336
-    if(!empty($s)){ 
+    if(!empty($s)){
         $d=explode(' ',$s);
             $y=explode('-',$d[0]);
             $h=explode(':',$d[1]);
@@ -202,7 +202,9 @@ class util extends Controller{
         }else{
             $h=explode(":",$time[0]);
             $hr=intval($h[0]);
-            $hr+=12;
+            if($hr>12){
+                $hr+=12;
+            }
             return $hr.":".$h[1];
         }
     }
