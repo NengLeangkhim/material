@@ -342,29 +342,32 @@ Route::get('/login','Login@login');
 //===============================END STOCK SYSTEM
 
 //============================================================> START HRMS <===============================================================///
+// ========================================================> METKEOSAMBO <======================================================== //
+////////////////=============== SUGGESTION==================///////////
 
-//======== SUGGESTION=======//
-
-/////// Question Type ///////
+///////====== Question Type========= ///////
 ///// Route for show table ////
 Route::get('hrm_question_type_sugg','hrms\suggestion\question_typeController@tbl_suggestion_question_type');
 /// Route Show modal for add and edit//
-Route::get('hrm_question_type_sugg/modal','hrms\suggestion\question_typeController@modal_question_type_sugg');
+// Route::get('hrm_question_type_sugg/modal','hrms\suggestion\question_typeController@modal_question_type_sugg');
 // ///Route for insert and update ///
 Route::post('hrm_question_type_sugg/add','hrms\suggestion\question_typeController@AddQuestionTypeSugg');
 Route::post('hrm_question_type_sugg/update','hrms\suggestion\question_typeController@EditQuestionTypeSugg');
 //get value for update//
 Route::get('hrm_question_type_sugg/edit','hrms\suggestion\question_typeController@GetEditQuestionTypeSugg');
-///// END QUESTION TYPE ////
-///////Question & Answer//////
+//Delete question type suggestion//
+Route::get('hrm_question_type_sugg/delete', 'hrms\suggestion\question_typeController@delete_question_type_sugg');
+/////================ END QUESTION TYPE =============////
+
+///////=============Question & Answer=================//////
 // Route::get('hrm_question_answer_sugg',function(){
 //     return view('hrms/suggestion/question_type/QuestionAnswerSugg');
 // });
 Route::get('hrm_question_answer_sugg','hrms\suggestion\QuestionAnswerController@tbl_suggestion_question_answer');
-//////END QUESTION & Answer/////
-//=======END SUGGESTION=====//
+//////========END QUESTION & Answer==========/////
+/////////////////==============END SUGGESTION=============///////////////
 
-
+// ========================================================>END METKEOSAMBO <======================================================== //
 
 // ========================================================> SENG KIMSROS <======================================================== //
 // Employee
