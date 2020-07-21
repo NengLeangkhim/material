@@ -5,37 +5,137 @@
               <div class="card-header">
                 <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i>Staff Overtime</strong></h1>
                 <div class="col-md-12 text-right">
-                    <button type="button" class="btn bg-gradient-primary"><i class="fas fa-user-plus"></i> Add Employee</button>
+                    <button type="button" class="btn bg-gradient-primary"><i class="fas fa-user-plus"></i> Add</button>
                 </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table class="table table-bordered">
+                <div class="col-md-12"> 
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="employeesearch" name="title" value="" placeholder="Employee ......" autocomplete="off" onkeyup="OvertimeBody()">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                            <select name="" id="" class="form-control">
+                              <option value="1">1</option>
+                            </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                            <select name="" id="" class="form-control">
+                              <option value="1">1</option>
+                            </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                            <button class="btn bg-turbo-color form-control">Search</button>
+                        </div>
+                      </div>
+
+
+                      <div class="col-md-3 col-sm-6 col-12">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-info"><i class="fas fa-users"></i></span>
+
+                          <div class="info-box-content">
+                            <span class="info-box-text">Overtime Employee</span></span>
+                            <span class="info-box-number">1,410</span>
+                          </div>
+                          <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                      </div>
+
+                      <div class="col-md-3 col-sm-6 col-12">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-info"><i class="fas fa-user-clock"></i></span>
+
+                          <div class="info-box-content">
+                            <span class="info-box-text">Overtime Hours</span>
+                            <span class="info-box-number">1,410</span>
+                          </div>
+                          <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                      </div>
+
+
+
+                      <div class="col-md-3 col-sm-6 col-12">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-info"><i class="fas fa-spinner"></i></span>
+
+                          <div class="info-box-content">
+                            <span class="info-box-text">Pending Request</span>
+                            <span class="info-box-number">1,410</span>
+                          </div>
+                          <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                      </div>
+
+
+
+
+                      <div class="col-md-3 col-sm-6 col-12">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-info"><i class="far fa-times-hexagon"></i></span>
+
+                          <div class="info-box-content">
+                            <span class="info-box-text">Rejected</span>
+                            <span class="info-box-number">1,410</span>
+                          </div>
+                          <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                      </div>
+
+
+
+                    </div>
+
+                </div>
+
+
+                
+
+
+                <table class="table table-bordered" id="tbl_overtime" style="width: 100%">
                   <thead>                  
                     <tr>
                       <th style="width: 10px">#</th>
                       <th>Name</th>
-                      <th>Khmer Name</th>
-                      <th>Employee ID</th>
-                      <th>Email</th>
-                      <th>Mobile</th>
-                      <th>Join Date</th>
-                      <th>Role</th>
+                      <th>OT Date</th>
+                      <th>OT Hours</th>
+                      <th>Description</th>
+                      <th>Approve By</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    @foreach ($ot as $item)
+                      <tr>
                         <th>1</th>
-                        <td>Seng Kimsros</td>
-                        <td>សេង គឹមស្រស់</td>
-                        <td>TT-0082</td>
-                        <td>seng@gmail.com</td>
-                        <td>011206889</td>
-                        <td>10-10-2020</td>
-                        <td>Web Developer</td>
-                        <td></td>
-                    </tr>
+                        <td>{{$item->otname}}</td>
+                        <td>{{$item->overtime_date}}</td>
+                        <td>{{$item->hour}}</td>
+                        <td>{{$item->description}}</td>
+                        <td>{{$item->approve}}</td>
+                        <td>
+                          <div class="row">
+                            <div class="col-md-4"><a href="javascrip:;"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-4"><a href="javascrip:;"><i class="fas fa-info"></i></a></div>
+                            <div class="col-md-4"><a href="javascrip:;"><i class="far fa-trash-alt"></i></a></div>
+                          </div>
+                        </td>
+                      </tr>
+                    @endforeach
+                    
                   </tbody>
                 </table>
               </div>
@@ -44,3 +144,10 @@
             <!-- /.card -->
     </div>
 </div>
+<script>
+  $(document).ready(function() {
+    $('#tbl_overtime').DataTable({
+      responsive: true
+    });
+} );
+</script>

@@ -6,3 +6,6 @@
     background-color: #1fa8e0;
     color: white;
 }
+thead tr th{
+    text-align: center;
+}
