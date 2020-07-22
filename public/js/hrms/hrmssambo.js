@@ -174,8 +174,9 @@ function detele_q_t_sugg(id) {
 };
 ////========== END Question Type Suggestion============//// 
 
-/////// Question Sugggestion/////
-function AddNewQuestion_sugg(){
+////==========Question Suggestion============//// 
+//========= function popup modal for add =======//
+function AddNewQuestionSugg(){
     $('#q_sugg_modal').modal('show');
     $('#question_name').val('');
     $('#question_type').val('');

@@ -7,7 +7,7 @@
               <div class="card-header">
                 <h1 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i>Question Type</strong></h1>
                 <div class="col-md-12 text-right">
-                    <button type="button" id="Add_Q_Type_Sugg" onclick="AddNewQ_type_sugg('/hrm_question_type_sugg/modal')" class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Question Type</button>
+                    <button type="button" id="Add_Q_Type_Sugg" onclick="AddNewQ_type_sugg()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Question Type</button>
                 </div>
               </div>
               <!-- /.card-header -->

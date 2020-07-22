@@ -22,5 +22,12 @@ class ModelQuestionAnswer extends Model
                              ->get(); 
           return $question_sugg_get;
        }
-    //
+     // ===== Function get data Question Type =====////
+     public static function get_question_type(){
+        $question_type_sugg_get = DB::table('hr_suggestion_question_type')
+                           ->select('id','name')
+                           ->where('is_deleted','=','f')
+                           ->get(); 
+        return $question_type_sugg_get;
+     }
 }
