@@ -13,7 +13,6 @@ class DepartmentAndPositionController extends Controller
         $depart_position[]=array();
         $depart_position[0]=$dp->AllDepartment();
         $depart_position[1]=$dp->AllPosition();
-        // print_r($depart_position[1]);
         return view('hrms/Employee/DepartementAndPosition/DepartementAndPosition')->with('de_po',$depart_position);
     }
 }
