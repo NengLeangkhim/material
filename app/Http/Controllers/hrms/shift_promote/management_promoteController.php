@@ -11,10 +11,36 @@ class management_promoteController extends Controller
 
 
     public function AllEmployee(){
-        
         $AllEmployee = management_promoteModel::AllEmployee();
         return view('hrms\shift_promote\management_promote\shift_promote_management', ['allEmployee' => $AllEmployee]);
     }
+
+
+    public function Edit_staff_promote(){
+
+        if(isset($_GET['id'])){
+            $staffid = $_GET['id'];
+            $StaffByID = management_promoteModel::AllEmployeeByID($staffid);
+            $get_postion = management_promoteModel::position();
+            // print_r($get_postion);
+
+            return view('hrms\shift_promote\management_promote\shift_promote_manager_edit', ['staffbyid' => $StaffByID, 'get_position' =>  $get_postion]);
+        }
+
+    }
+
+    public function Submit_staff_promote(){
+    
+        if(isset($_GET['txt_position']) && isset($_GET['txt_salary']) && isset($_GET['txt_comment'])){
+
+            $update_shift = management_promoteModel::update_staff_shift();
+            // $update_shift = management_promoteModel::update_staff_shift();
+
+        }
+    }
+    
+
+
 
 
 
