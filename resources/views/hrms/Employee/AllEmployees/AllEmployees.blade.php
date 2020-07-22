@@ -37,7 +37,7 @@
                       <td>{{ $e->position }}</td>
                         <td>
                           <div class="row">
-                            <div class="col-md-4"><a href="javascrip:;"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-4"><a href="javascrip:;" onclick="HRM_AddEditEmployee({{$e->id}})"><i class="far fa-edit"></i></a></div>
                             <div class="col-md-4"><a href="javascrip:;"><i class="fas fa-info"></i></a></div>
                             <div class="col-md-4"><a href="javascrip:;"><i class="far fa-trash-alt"></i></a></div>
                           </div>
