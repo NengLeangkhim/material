@@ -84,6 +84,14 @@
     }
   );
 </script>
+
 <!-- HRMS -->
+<script src="js/hrms/recruitment.js"></script>
+<script src="js/hrms/policy.js"></script>
+<script src="js/hrms/performance.js"></script>
+<script src="js/hrms/suggestion.js"></script>
+<script src="js/hrms/hrms.js"></script>
+
+<script src="stJS/hrms/shift_promote_js/shift_promote.js"></script>
 <script src="js/hrms/hrmssambo.js"></script>
 <script src="js/hrms/hrms.js"></script>

@@ -676,6 +676,7 @@ function go_to(route){
         }
      });
 }
+
 function submit_form (route,form,goto){
     if(check_session()){
         return;
