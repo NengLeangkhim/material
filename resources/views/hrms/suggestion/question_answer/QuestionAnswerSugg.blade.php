@@ -18,7 +18,6 @@
                         <th scope="col">#</th>
                         <th scope="col">Question</th>
                         <th scope="col">Question Type</th>
-                        <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
                   </thead>
@@ -31,13 +30,18 @@
                         <th>{{$i++}}</th>
                         <td>{{$row->question}}</td>
                         <td>{{$row->question_type}}</td>
-                        <td>@if($row->status=='t')
-                            {{'Active'}}
-                            @else 
-                            {{'Disactive'}}
-                            @endif
+                        <td class="text-center">
+                          <div class="dropdown">
+                            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action
+                            </button>
+                            <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">
+                            <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item">View Detail</button>
+                            <button type="button" id="{{$row->id}}" onclick="add_plan_follow_up({{$row->id}})" class="dropdown-item hrm_item add_plan_follow_up">Add Choice</button>
+                            <button type="button" id="{{$row->id}}" onclick="add_plan_follow_up({{$row->id}})" class="dropdown-item hrm_item add_plan_follow_up">Update</button>
+                            </div>
+                            </div>
                         </td>
-                        <td class="text-center"><a href="#" id="{{$row->id}}" class="btn btn-info"><i class="far fa-edit"></i></a></td>
                     </tr>
                     @endforeach
                   </tbody>

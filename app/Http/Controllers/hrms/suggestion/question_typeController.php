@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\hrms\suggestion;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\model\hrms\suggestion\model_question_type;
 use App\Http\Controllers\perms;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Validation\Rule;
 class question_typeController extends Controller
 {  
     //function show table//
@@ -25,33 +24,61 @@ class question_typeController extends Controller
          //var_dump($question_type_sugg);
     }
     //function insert //
-    public function AddQuestionTypeSugg(){
+    public function AddQuestionTypeSugg(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
             }
-        //     $validator= $request->validate([
-        //     'question_type_sugg' => 'bail|required|unique:hr_suggestion_question_type,name|max:255'
-        // ]);
-        if(perms::check_perm_module('HRM_090801')){//module code list data tables id=129
-        $name= $_POST['question_name'];
-        $userid = $_SESSION['userid'];
-        $question_type= model_question_type::hrm_insert_question_type($name,$userid); //get function insert from model
+            $validator = \Validator::make($request->all(), [
+                'question_type_sugg' => 'bail|required|unique:hr_suggestion_question_type,name|max:255',
+            ],
+            [
+                'question_type_sugg.unique' => 'The Question Type is aleady exist',   //massage validator
+                ]
+            );
+        if ($validator->fails()) //check validator for fail
+        {
+            return response()->json(['errors'=>$validator->errors()->all()]);
         }else{
-            return view('no_perms');
+            if(perms::check_perm_module('HRM_090801')){//module code list data tables id=129
+                $name= $request->question_type_sugg;
+                $userid = $_SESSION['userid'];
+                $question_type= model_question_type::hrm_insert_question_type($name,$userid); //get function insert from model
+                return response()->json(['success'=>'Record is successfully added']);
+                }else{
+                    return view('no_perms');
+                }
         }
     }
     //function update question type //
-    public function EditQuestionTypeSugg(){
+    public function EditQuestionTypeSugg(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
             }
-            // $validator= $request->validate([
-            //     'question_type_sugg' => 'bail|required|unique:hr_suggestion_question_type,name|max:255'
-            // ]);
-            $id=$_POST['id'];
-            $name= $_POST['question_name'];
-            $userid = $_SESSION['userid'];
-            $question_type= model_question_type::hrm_update_question_type($id,$userid,$name); //get function insert from model
+            $validator = \Validator::make($request->all(), [
+                'question_type_sugg' => ['required',
+                                         'max:255',
+                                         Rule::unique('hr_suggestion_question_type','name')->ignore($request->action_q_t_sugg_id)],//validate update for ignore unique if leave field not update
+            ]
+            ,
+            [
+                'question_type_sugg.unique' => 'The Question Type is aleady exist',   //massage validator
+                ]
+            );
+            if ($validator->fails()) //check validator for fail
+            {
+                return response()->json(['errors'=>$validator->errors()->all()]); 
+            }else{
+                // if(perms::check_perm_module('HRM_090801')){//module code list data tables id=129
+                    $id=$request->action_q_t_sugg_id;
+                    $name= $request->question_type_sugg;
+                    $userid = $_SESSION['userid'];
+                    $question_type= model_question_type::hrm_update_question_type($id,$userid,$name); //get function insert from model
+                    return response()->json(['success'=>'Record is successfully update']);
+                    // }else{
+                    //     return view('no_perms');
+                    // }
+            }
+         
     }
     // function get value to show on modal when update //
     public function GetEditQuestionTypeSugg(){
@@ -60,7 +87,7 @@ class question_typeController extends Controller
             }
             $id = $_GET['id'];
             $question_type = array();
-            $question_type= model_question_type::hrm_get_update_question_type($id);
+            $question_type= model_question_type::hrm_get_update_question_type($id); 
             return response()->json($question_type);
     }
     // function deleted question type //
