@@ -38,11 +38,6 @@ function submit_staff_promote(id){
     var txtsalary = document.getElementsByName('txtsalary')[0].value;
     var txtposition = document.getElementsByName('sel_position')[0].value;
     var txtcomment = document.getElementsByName('txtcomment')[0].value;
-
-    // alert(txtsalary);
-    alert(txtposition);
-    // alert(txtcomment);
-
     $.ajax({
 
         type:'GET',
@@ -50,14 +45,14 @@ function submit_staff_promote(id){
         data:{
             
             _token:'<?php echo csrf_token() ?>',
-            _id:id,
+            s_id:id,
             txt_position:txtposition,
             txt_salary:txtsalary,
             txt_comment:txtcomment,
         },
     
         success:function(data) { 
-            alert("success !!!");
+            // alert("success !!!");
             // return data;
             // document.getElementById("content").innerHTML = data; 
         }

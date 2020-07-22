@@ -4,7 +4,7 @@
     // print_r($staffbyid);
     // print_r($get_position);
     foreach ($staffbyid as $key => $val1) {
-
+        
         $staffid = $val1->id;
         $staff_posid = $val1->position_id;
         $staff_name =  $val1->name;
@@ -104,7 +104,7 @@
                 <div class="col-md-12 text-right">
                     {{-- <button  name="btn Commit" class="btn btn-info" onclick="submit_staff_promote();" >Commit</button> --}}
                     <?php
-                        echo  $get_pos;
+                        // echo  $get_pos;
                         echo '
                             <a class="btn btn-outline-primary" href="#" onclick="submit_staff_promote('.$staffid.');" >Commit</a>
                         ';
