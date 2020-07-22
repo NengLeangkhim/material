@@ -11,8 +11,9 @@
             </div>
           </div>
           <!-- /.card-header -->
-          <form id="fm-employee" onsubmit="HRM_SubmitEmployee(this.id)" method="POST">
+          
           <div class="card-body" style="display: block;">
+            <form id="fm-employee" onsubmit="HRM_SubmitEmployee(this.id)" method="POST">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
@@ -98,10 +99,11 @@
               </div>
               <!-- /.col -->
             </div>
+            </form>
             <!-- /.row -->
           </div>
           <!-- /.card-body -->
-          </form>
+          
         </div>
         </div>
     </div>
