@@ -342,29 +342,32 @@ Route::get('/login','Login@login');
 //===============================END STOCK SYSTEM
 
 //============================================================> START HRMS <===============================================================///
+// ========================================================> METKEOSAMBO <======================================================== //
+////////////////=============== SUGGESTION==================///////////
 
-//======== SUGGESTION=======//
-
-/////// Question Type ///////
+///////====== Question Type========= ///////
 ///// Route for show table ////
 Route::get('hrm_question_type_sugg','hrms\suggestion\question_typeController@tbl_suggestion_question_type');
 /// Route Show modal for add and edit//
-Route::get('hrm_question_type_sugg/modal','hrms\suggestion\question_typeController@modal_question_type_sugg');
+// Route::get('hrm_question_type_sugg/modal','hrms\suggestion\question_typeController@modal_question_type_sugg');
 // ///Route for insert and update ///
 Route::post('hrm_question_type_sugg/add','hrms\suggestion\question_typeController@AddQuestionTypeSugg');
 Route::post('hrm_question_type_sugg/update','hrms\suggestion\question_typeController@EditQuestionTypeSugg');
 //get value for update//
 Route::get('hrm_question_type_sugg/edit','hrms\suggestion\question_typeController@GetEditQuestionTypeSugg');
-///// END QUESTION TYPE ////
-///////Question & Answer//////
+//Delete question type suggestion//
+Route::get('hrm_question_type_sugg/delete', 'hrms\suggestion\question_typeController@delete_question_type_sugg');
+/////================ END QUESTION TYPE =============////
+
+///////=============Question & Answer=================//////
 // Route::get('hrm_question_answer_sugg',function(){
 //     return view('hrms/suggestion/question_type/QuestionAnswerSugg');
 // });
 Route::get('hrm_question_answer_sugg','hrms\suggestion\QuestionAnswerController@tbl_suggestion_question_answer');
-//////END QUESTION & Answer/////
-//=======END SUGGESTION=====//
+//////========END QUESTION & Answer==========/////
+/////////////////==============END SUGGESTION=============///////////////
 
-
+// ========================================================>END METKEOSAMBO <======================================================== //
 
 // ========================================================> SENG KIMSROS <======================================================== //
 // Employee
@@ -404,33 +407,37 @@ Route::get('hrm_question_answer_sugg','hrms\suggestion\QuestionAnswerController@
 
 
 // SOK KIM part //
-    // Shift Promote
+// Shift Promote
 
-        Route::get('hrm_management_shift_promote','hrms\shift_promote\management_promoteController@AllEmployee');
-        // Route::get('hrm_staff_view_promote','hrms');
-        // Route::get('hrm_staff_promote_history','hrms');
-        // Route::get('hrm_shift_promote_report','hrms');
-
+Route::get('hrm_management_shift_promote','hrms\shift_promote\management_promoteController@AllEmployee');
+Route::get('hrm_management_edit_promote','hrms\shift_promote\management_promoteController@Edit_staff_promote');
+Route::get('hrm_submit_staff_promote','hrms\shift_promote\management_promoteController@Submit_staff_promote');
 
 
+// Route::get('hrm_staff_view_promote','hrms');
+// Route::get('hrm_staff_promote_history','hrms');
+// Route::get('hrm_shift_promote_report','hrms');
 
-            // Route::get('hrm_management_shift_promote',function(){
-            //     return view('hrms.shift_promote.management_promote.shift_promote_management');
-            // });
 
 
-            Route::get('hrm_staff_view_promote',function(){
-                return view('hrms.shift_promote.staff_view_promote.shift_promote_for_staff_view');
-            });
 
-            Route::get('hrm_staff_promote_history',function(){
-                return view('hrms.shift_promote.management_view_promote_history.shift_promote_staff_history');
-            });
-            Route::get('hrm_shift_promote_report',function(){
-                return view('hrms.shift_promote.promote_report.shift_promote_report');
-            });
+// Route::get('hrm_management_edit_promote',function(){
+//     return view('hrms.shift_promote.management_promote.shift_promote_manager_edit');
+// });
 
-    // End Shift promote
+
+Route::get('hrm_staff_view_promote',function(){
+    return view('hrms.shift_promote.staff_view_promote.shift_promote_for_staff_view');
+});
+
+Route::get('hrm_staff_promote_history',function(){
+    return view('hrms.shift_promote.management_view_promote_history.shift_promote_staff_history');
+});
+Route::get('hrm_shift_promote_report',function(){
+    return view('hrms.shift_promote.promote_report.shift_promote_report');
+});
+
+// End Shift promote
 
 
 

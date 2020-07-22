@@ -16,13 +16,13 @@
     
 <section class="content">
 
-    <div id="prmote_modal">
+    <div id="prmote_modal_id">
     </div>
     <div class="container-fluid">
         
         <div class="row-12" style="padding-bottom: 10px; margin-bottom: 10px; border-bottom: 2px solid gray;">
             <div class="col-6" >
-                <h2 class="title">Management Promter</h2>
+                <h1 class=""><strong>  Management Promter  </strong></h1>
             </div>
         </div>
 
@@ -56,29 +56,16 @@
                                         <td>'.$var->id_number.'</td>
                                         <td>'.$var->position.'</td>
                                         <td>'.$var->base_salary.'</td>
-
+                                        <td>'.$var->create_date.'</td>
+                                        <td >
+                                            <a class="btn btn-outline-primary" href="#" onclick="Edit_Promote_Staff('.$var->id.', '.$var->position_id.')"><i class="fas fa-user-edit"></i>Promote</a>
+                                        </td>
                                     </tr>
                                 ';
                                 $i++;
                             }
                         }
-                        // for($i=0; $i <count($allEmployee); $i++) { 
-                        //     if (is_array($allEmployee[$i])) {
-                        //         $allEmployee->name;
-                            //     echo '<tr>
-                            //     <th scope="row">'.($i+1).'</th>
-                            //     <td>'.$allEmployee[$i]->name.'</td>
-                            //     <td>'.$allEmployee[$i]->id_number.'</td>
-                            //     <td>'.$allEmployee[$i]->position.'</td>           
-                            //     <td>'.$allEmployee[$i]->base_salary.'</td>
-                            //     <td>'.$allEmployee[$i]->create_date.'</td>
-                            //     <td >
-                            //         <a class="btn btn-outline-primary" href="#" onclick="Edit_Promote('.$allEmployee[$i]->id.', '.$allEmployee[$i]->position_id.')"><i class="mdi mdi-pencil-box-outline"></i>Promote</a>
-                            //     </td>
-                            // </tr>';
-
-                        //     }
-                        // }
+        
                         
                     @endphp
 
@@ -90,11 +77,11 @@
     
 
 
-    {{-- <script>
+    <script>
         $(document).ready(function() {
             var table=$('#tbl_employee').DataTable();
         } );
-    </script> --}}
+    </script>
     
 
 </section>
