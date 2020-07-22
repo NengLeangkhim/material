@@ -9,3 +9,10 @@
 thead tr th{
     text-align: center;
 }
+
+
+.title_promote{
+    background-color: powderblue;
+    color: blue;
+    font-weight: bold;
+}

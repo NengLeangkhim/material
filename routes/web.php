@@ -408,10 +408,20 @@ Route::get('hrm_question_answer_sugg','hrms\suggestion\QuestionAnswerController@
 
 // SOK KIM part //
 // Shift Promote
-
+// management promote
 Route::get('hrm_management_shift_promote','hrms\shift_promote\management_promoteController@AllEmployee');
 Route::get('hrm_management_edit_promote','hrms\shift_promote\management_promoteController@Edit_staff_promote');
 Route::get('hrm_submit_staff_promote','hrms\shift_promote\management_promoteController@Submit_staff_promote');
+// end management promte
+
+//staff view their promote
+Route::get('hrm_staff_view_promote','hrms\shift_promote\management_promoteController@view_promoteByID');
+
+Route::get('hrm_staff_view_promote_detail',function(){
+    return view('hrms.shift_promote.staff_view_promote.staff_view_promote_detail');
+});
+// end staff view their promote
+
 
 
 // Route::get('hrm_staff_view_promote','hrms');
@@ -421,14 +431,6 @@ Route::get('hrm_submit_staff_promote','hrms\shift_promote\management_promoteCont
 
 
 
-// Route::get('hrm_management_edit_promote',function(){
-//     return view('hrms.shift_promote.management_promote.shift_promote_manager_edit');
-// });
-
-
-Route::get('hrm_staff_view_promote',function(){
-    return view('hrms.shift_promote.staff_view_promote.shift_promote_for_staff_view');
-});
 
 Route::get('hrm_staff_promote_history',function(){
     return view('hrms.shift_promote.management_view_promote_history.shift_promote_staff_history');

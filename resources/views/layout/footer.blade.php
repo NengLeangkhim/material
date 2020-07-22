@@ -95,3 +95,7 @@
 <script src="stJS/hrms/shift_promote_js/shift_promote.js"></script>
 <script src="js/hrms/hrmssambo.js"></script>
 <script src="js/hrms/hrms.js"></script>
+
+
+
+<script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>

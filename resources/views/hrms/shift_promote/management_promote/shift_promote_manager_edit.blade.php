@@ -4,7 +4,7 @@
     // print_r($staffbyid);
     // print_r($get_position);
     foreach ($staffbyid as $key => $val1) {
-        
+
         $staffid = $val1->id;
         $staff_posid = $val1->position_id;
         $staff_name =  $val1->name;
@@ -40,19 +40,19 @@
                             <p class="modal-title" id="">Current Position</p>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Name <span class="text-danger">*</span>
+                            <label for="exampleInputEmail1">Name <span class="text-danger">  </span>
                             </label>
                             <input type="text" class="form-control" value="<?php echo $staff_name;   ?>" placeholder="" name="nameshow" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Position <span class="text-danger">*</span>
+                            <label for="exampleInputEmail1">Position <span class="text-danger"> </span>
                             </label>
                                 <?php
                                     echo ' <input type="text" class="form-control" value="'.$staff_position.'" placeholder="" name="nameshow" readonly>';
                                 ?>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Salary<span class="text-danger">*</span>
+                        <label for="exampleInputEmail1">Salary<span class="text-danger">  </span>
                         </label>
                         <input type="text" class="form-control" value="<?php echo $staff_salary; ?>" placeholder="" name="salaryshow" readonly>
                     </div>
@@ -62,12 +62,12 @@
                             <p class="modal-title" id="">Upgrade Position</p>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Name <span class="text-danger">*</span>
+                            <label for="exampleInputEmail1">Name <span class="text-danger">  </span>
                             </label>
                             <input type="text" class="form-control" value="<?php echo $staff_name;   ?>" placeholder="" name="nameshow" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Position <span class="text-danger">*</span>
+                            <label for="exampleInputEmail1">Position <span class="text-danger"> * </span>
                             </label>
                             <select name="sel_position" id="" class="form-control">
                                 <?php
@@ -90,9 +90,9 @@
                             </select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Salary<span class="text-danger">*</span>
+                        <label for="exampleInputEmail1">Salary<span class="text-danger">  *</span>
                         </label>
-                        <input type="text" class="form-control" placeholder="" name="txtsalary" required>
+                        <input type="text" class="form-control" placeholder="Enter Salary"  name="txtsalary"  required>
                     </div>
                 </div>
                 <div class="col-md-12">
