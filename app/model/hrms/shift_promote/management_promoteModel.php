@@ -16,7 +16,7 @@ class management_promoteModel extends Model
                     ON s.id = pa.staff_id)
                 INNER JOIN position p 
                     ON s.position_id = p.id) 
-                WHERE s.status='t' order by s.name ";
+                WHERE s.status='t' AND pa.status = 't'  order by s.name ";
 
         $em = DB::select($sql);
         return $em;
@@ -34,7 +34,7 @@ class management_promoteModel extends Model
                     ON s.id = pa.staff_id)
                 INNER JOIN position p 
                     ON s.position_id = p.id) 
-                WHERE s.status='t' AND s.id = $id order by s.name";
+                WHERE s.status='t' AND pa.status = 't' AND s.id = $id order by s.name";
         $em = DB::select($sql);
         return $em;
     }
@@ -43,6 +43,7 @@ class management_promoteModel extends Model
 
 
 
+    
 
     //Select cell from table: position only
     public static function position(){
@@ -54,12 +55,18 @@ class management_promoteModel extends Model
 
 
 
-    public static function update_staff_shift(){
-        // $userid = 262;
+    public static function update_staff_shift($id, $position,$salary,$comment){
 
-        DB::table('hr_payroll')->where('staff_id', 262)->update(['base_salary' => '8888']);
-        DB::table('staff')->where('id', 262)->update(['position_id' => '777']);
-        
+        try{
+            $sql = " SELECT public.insert_hr_shift($id, $position, $salary, '1', '$comment')";
+            DB::select($sql);
+            DB::table('hr_payroll')->where('staff_id', $id)->update(['base_salary' => $salary]);
+            return 1;
+        }
+        catch(\Illuminate\Database\QueryException $e){
+            return 0;
+        }
+     
 
     }
 

@@ -28,15 +28,32 @@ class management_promoteController extends Controller
         }
 
     }
+    
+
 
     public function Submit_staff_promote(){
-    
-        if(isset($_GET['txt_position']) && isset($_GET['txt_salary']) && isset($_GET['txt_comment'])){
 
-            $update_shift = management_promoteModel::update_staff_shift();
-            // $update_shift = management_promoteModel::update_staff_shift();
+        if( isset($_GET['s_id'])  && isset($_GET['txt_position']) && isset($_GET['txt_salary']) && isset($_GET['txt_comment'])){
+            $id = $_GET['s_id'];
+            $pos = $_GET['txt_position'];
+            $sa = $_GET['txt_salary'];
+            $com = $_GET['txt_comment'];
+            $r = management_promoteModel::update_staff_shift($id,$pos,$sa,$com);
+            if($r > 0){
+                // return 1;
+                echo '<script language="javascript">';
+                echo '$.notify(
+                       "Promote Successful!", 
+                       { position:"top center" }
+                   );';
+                echo '</script>';
+
+            }else{
+                return 0;
+            }
 
         }
+
     }
     
 
