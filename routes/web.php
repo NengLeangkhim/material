@@ -375,6 +375,7 @@ Route::get('hrm_question_answer_sugg','hrms\suggestion\QuestionAnswerController@
     // Start All Employee
         Route::get('hrm_allemployee', 'hrms\Employee\AllemployeeController@AllEmployee');
         Route::get('hrm_add_edit_employee', 'hrms\Employee\AllemployeeController@AddAndEditEmployee');
+        Route::post('hrm_insert_update_employee', 'hrms\Employee\AllemployeeController@InsertUpdateEmployee');
     //End All Employee
 
     // Start Holiday

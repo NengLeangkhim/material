@@ -694,7 +694,7 @@ function submit_form (route,form,goto){
                     if(data=='error'){
                         alert('មានបញ្ហាកើតឡើងនៅពេលបញ្ចូលទិន្នន័យ');
                     }else{
-                        alert('ទិន្នន័យបានប្តូររួចរាល់');
+                        alert(this.responseText);
                         go_to(goto);
                     }
                 }

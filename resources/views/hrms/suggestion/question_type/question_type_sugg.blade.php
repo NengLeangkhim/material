@@ -7,7 +7,7 @@
               <div class="card-header">
                 <h1 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i>Question Type</strong></h1>
                 <div class="col-md-12 text-right">
-                    <button type="button" id="Add_Q_Type_Sugg" onclick="AddNewQ_type_sugg('/hrm_question_type_sugg/modal')" class="btn bg-gradient-primary"><i class="fas fa-question-circle"></i> Add Question Type</button>
+                    <button type="button" id="Add_Q_Type_Sugg" onclick="AddNewQ_type_sugg()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Question Type</button>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -58,7 +58,7 @@
      );
    </script>
 <!-- modal -->
-   <form method="post" name="question_type_sugg_form" id="question_type_sugg_form">
+   <form id="question_type_sugg_form">
     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
     <div class="modal fade" id="q_type_sugg_modal" tabindex="-1" role="dialog" aria-labelledby="QuestionLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -70,18 +70,21 @@
             </button>
         </div>
         <div class="modal-body">
+            <div class="alert alert-danger print-error-msg" style="display:none"> {{-- div for show error --}}
+              <ul></ul>
+            </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="question_type_sugg">Question Type<span class="text-danger">*</span></label>
-                            <input type="text" required class="form-control" id="question_type_sugg" aria-describedby="question_type" placeholder="" name="question_type_sugg">
+                            <input type="text" required class="form-control" id="question_type_sugg" placeholder="" name="question_type_sugg">
                         </div>
                     </div>
                 </div> 
         </div>
         <div class="modal-footer">
             <input type="hidden" name="action_q_t_sugg_id" id="action_q_t_sugg_id"/>
-            <button type="button" onclick="HrmAddQuestionTypeSugg()" name="action_q_t_sugg" id="action_q_t_sugg" class="btn btn-outline-primary">Create</button>
+            <button type="submit" onclick="HrmAddQuestionTypeSugg()" name="action_q_t_sugg" id="action_q_t_sugg" class="btn btn-outline-primary">Create</button>
             </div>
         </div>
     </div>

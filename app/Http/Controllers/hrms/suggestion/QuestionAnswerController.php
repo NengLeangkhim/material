@@ -16,7 +16,8 @@ class QuestionAnswerController extends Controller
              }
              if(perms::check_perm_module('HRM_090802')){//module code list data tables id=104
                   $question_sugg = ModelQuestionAnswer::get_tbl_suggestion_question();
-                 return view('hrms/suggestion/question_answer/QuestionAnswerSugg', ['question_sugg' => $question_sugg]);
+                  $question_type = ModelQuestionAnswer::get_question_type();
+                 return view('hrms/suggestion/question_answer/QuestionAnswerSugg', ['question_sugg' => $question_sugg,'question_type'=>$question_type]);
              }else{
                  return view('no_perms');
              }

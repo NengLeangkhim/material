@@ -17,10 +17,12 @@
             });
         }
 
-        function HRM_SubmitEmployee(e){
-            var fm = document.getElementById('fm-employee');
+        function HRM_SubmitEmployee(fm_id){
+            alert();
+            var fm = document.getElementById(fm_id);
             var fd=new FormData(fm);
-            console.log(fd);
+            // console.log(fd);
+            alert(fd);
             // $.ajax({
             //     type: 'POST',
             //     url: '/hrm_add_edit_employee',

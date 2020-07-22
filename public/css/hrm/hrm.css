@@ -16,3 +16,6 @@ thead tr th{
     color: blue;
     font-weight: bold;
 }
+.hrm_dropdown-menu .hrm_item:hover{
+    background-color: #1fa8e0;
+}
