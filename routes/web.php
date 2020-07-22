@@ -341,45 +341,67 @@ Route::get('/login','Login@login');
 
 //===============================END STOCK SYSTEM
 
+//============================================================> START HRMS <===============================================================///
+// ========================================================> METKEOSAMBO <======================================================== //
+////////////////=============== SUGGESTION==================///////////
 
-
-
-
-
-//================== START HRMS ==============///
-
-//======== SUGGESTION=======//
-
-/////// Question Type ///////
-Route::get('hrm_question_type_sugg','hrms\suggestion\QuestionTypeSuggController@index');
+///////====== Question Type========= ///////
+///// Route for show table ////
+Route::get('hrm_question_type_sugg','hrms\suggestion\question_typeController@tbl_suggestion_question_type');
 /// Route Show modal for add and edit//
-Route::get('hrm_question_type_sugg/modal', 'hrms\suggestion\QuestionTypeSuggController@modal_question_type_sugg');
-///Route for insert and update ///
-Route::post('hrm_question_type_sugg/store','hrms\suggestion\question_typeController@add_suggestion_question_type');
-///// END QUESTION TYPE ////
-///////Question & Answer//////
+// Route::get('hrm_question_type_sugg/modal','hrms\suggestion\question_typeController@modal_question_type_sugg');
+// ///Route for insert and update ///
+Route::post('hrm_question_type_sugg/add','hrms\suggestion\question_typeController@AddQuestionTypeSugg');
+Route::post('hrm_question_type_sugg/update','hrms\suggestion\question_typeController@EditQuestionTypeSugg');
+//get value for update//
+Route::get('hrm_question_type_sugg/edit','hrms\suggestion\question_typeController@GetEditQuestionTypeSugg');
+//Delete question type suggestion//
+Route::get('hrm_question_type_sugg/delete', 'hrms\suggestion\question_typeController@delete_question_type_sugg');
+/////================ END QUESTION TYPE =============////
+
+///////=============Question & Answer=================//////
 // Route::get('hrm_question_answer_sugg',function(){
 //     return view('hrms/suggestion/question_type/QuestionAnswerSugg');
 // });
 Route::get('hrm_question_answer_sugg','hrms\suggestion\QuestionAnswerController@tbl_suggestion_question_answer');
-//////END QUESTION & Answer/////
-//=======END SUGGESTION=====//
+//////========END QUESTION & Answer==========/////
+/////////////////==============END SUGGESTION=============///////////////
 
+// ========================================================>END METKEOSAMBO <======================================================== //
 
-
-// Seng Kimsros //
+// ========================================================> SENG KIMSROS <======================================================== //
 // Employee
-    //All Employee
+
+    // Start All Employee
         Route::get('hrm_allemployee', 'hrms\Employee\AllemployeeController@AllEmployee');
         Route::get('hrm_add_edit_employee', 'hrms\Employee\AllemployeeController@AddAndEditEmployee');
     //End All Employee
-    
-    Route::get('hrm_holiday', 'hrms\Employee\HolidayController@Holiday');
-    Route::get('hrm_attendance', 'hrms\Employee\AttendanceController@AllAttendance');
-    Route::get('hrm_mission_outside', 'hrms\Employee\MissionAndOutSideController@MissionAndOutSide');
-    Route::get('hrm_department', 'hrms\Employee\DepartmentAndPositionController@DepartmentAndPosition');
-    Route::get('hrm_overtime', 'hrms\Employee\OverTimeController@StaffOverTime');
+
+    // Start Holiday
+        Route::get('hrm_holiday', 'hrms\Employee\HolidayController@Holiday');
+        Route::get('hrm_add_edit_holiday', 'hrms\Employee\HolidayController@AddAndEditHoliday');
+    // End Holiday
+
+    // Start Attendance
+        Route::get('hrm_attendance', 'hrms\Employee\AttendanceController@AllAttendance');
+    // End Attendance
+
+    // Start Mission And Out Side
+        Route::get('hrm_mission_outside', 'hrms\Employee\MissionAndOutSideController@AllMissionAndOutSide');
+    // End Mission And OutSide
+
+    // Start Departement and Position
+        Route::get('hrm_department', 'hrms\Employee\DepartmentAndPositionController@DepartmentAndPosition');
+    // End Department And Position
+
+    // Stat Overtime
+        Route::get('hrm_overtime', 'hrms\Employee\OverTimeController@StaffOverTime');
+    // End Overtime
+
 // End Employee
+
+// ========================================================> END SENG KIMSROS <======================================================== //
+
 
 
 
@@ -425,7 +447,7 @@ Route::get('hrm_shift_promote_report',function(){
 
 
 
-//================== End HRMS ==============///
+//==========================================================> End HRMS <===============================================================///
 
 
 

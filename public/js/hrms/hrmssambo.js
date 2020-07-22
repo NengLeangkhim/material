@@ -1,72 +1,147 @@
-/////// Question Type//////// 
+//====== Fuction Alert ======//
+function sweetalert(type,title){
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+  });
+  Toast.fire({
+    icon: type,
+    title: title
+  })
+}
+//==== Function refresh content hrm_question_type_sugg ==//
+function goto_hrm_q_type(){
+  go_to('hrm_question_type_sugg')
+}
+////==========Question Type Suggestion============//// 
+
+//======View Modal for Question Type Suggestion =====//
 function AddNewQ_type_sugg(){
-   var id=1;
-    $.ajax({
-      url:"/hrm_question_type_sugg/modal",
-      method:'GET',
-      data:{id:id},
-      success:function(data)
-      { //console.log(data);
-      $('#modal_question_type_sugg').html(data);
-      $('#q_type_sugg_modal').modal('show');
-      //setTimeout(function(){$('#q_type_sugg_modal').modal("show");},200);
+      $('#q_type_sugg_modal').modal('show');//Modal show
       $('#model_title').text('Add New');
-      $('#question_type').val('');
-      $('#action_q_t_sugg').val('Create');
-      }
-    });  
+      $('#question_type_sugg').val('');
+      $('#action_q_t_sugg').text('Create'); // Give value to button action of question type submit
 } 
-/// ADD Question Type /////
-function action_q_t_sugg(){
+//======= ADD and update Question Type ========//
+function HrmAddQuestionTypeSugg(){
     event.preventDefault();
-    var token =  $('input[name="csrfToken"]').attr('value'); 
-    var question_name = $('#question_type').val();
-    var id = $('#action_q_t_sugg_id').val();
-    if(question_name!= '')
+    /// Insert question type 
+    if($('#action_q_t_sugg').text()=='Create') //check condition for create question type 
     {
-     $.ajax({
-      url:"/hrm_question_type_sugg/store",
-      method:'POST',
-      headers: {
-        'X-CSRF-Token': token 
-      },
-      data:$(this).serialize(),
-      success:function(data)
-      {
-         console.log(data);
-        // location.reload();
-        // setTimeout(Reload_recruitment,1000);
-        // notify_recruitment('The Question Type has been Successfully !!','success');  
+      var question_name = $('#question_type_sugg').val(); // get value from textbox
+      if(question_name!= '')
+      {      
+      $.ajax({
+        url:'hrm_question_type_sugg/add',
+        type:'POST',
+        data:{ _token: $('#token').val(),
+          question_name:question_name 
+        },
+        success:function(data)
+        {
+          console.log(data);
+          $('#q_type_sugg_modal').modal('hide');
+          sweetalert('success','The Question Type has been Insert Successfully !!');
+          setTimeout(goto_hrm_q_type,300); // Set timeout for refresh content 
+        }
+      });
+      
       }
-     });
-     
+      else
+      {
+        sweetalert('warning','Question Type Fields are Required !!');
+      }
     }
-    else
+    /// Update action Question Type
+    if($('#action_q_t_sugg').text()=='Update') // Check Condition for update question type
     {
-    //  notify_recruitment('"Question Type Fields are Required !!','warn');
-    alert('Question Type Fields are Required !!');
+      var question_name = $('#question_type_sugg').val();
+      var id = $('#action_q_t_sugg_id').val();
+      if(question_name!= '')
+      {
+      $.ajax({
+        url:'hrm_question_type_sugg/update',
+        type:'POST',
+        data:{  _token:  $('#token').val(),
+                question_name:question_name,
+                id:id       
+        },
+        success:function(data)
+        {
+          console.log(data);
+          $('#q_type_sugg_modal').modal('hide');
+          sweetalert('success','The Question Type has been Update Successfully !!');
+          setTimeout(goto_hrm_q_type,300);
+        }
+      });
+      
+      }
+      else
+      {
+        sweetalert('warning','Question Type Fields are Required !!');
+      }
+
     }
  
-   }
-    //Function Update
+   };
+//======= END ADD and update Question Type ========//
+
+//======= Funtion get value from database to show on modal update =======//
     $(document).on('click', '.update_q_t_sugg', function(){
         var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
-        var action = "Select";//We have define action variable value is equal to select
         $.ajax({
-         url:"../controller/suggestion/question_type.php",   //Request send to "action.php page"
-         method:"POST",    //Using of Post method for send data
-         data:{id:id, action:action},//Send data to server
+         url:"hrm_question_type_sugg/edit",   //Request send to "action.php page"
+         type:"GET",    //Using of Post method for send data
+         data:{id:id},//Send data to server
          dataType:"json",   //Here we have define json data type, so server will send data in json format.
          success:function(data){
             $('#q_type_sugg_modal').modal('show');   //It will display modal on webpage
-            $('#action_q_t_sugg').val("Update"); 
-            $('#model_title').text("Update")     //This code will change Button value to Update
-            $('#action_q_t_sugg_id').val(id);     //It will define value of id variable to this customer id hidden field
-            $('#question_type').val(data.question_name); 
+            $('#action_q_t_sugg').text("Update"); //This code will change Button value to Update
+            $('#model_title').text("Update")  
+            $('#action_q_t_sugg_id').val(id);     //It will define value of id variable for update 
+            $.each(data, function(i, e){ //read array json for show to textbox
+              $('#question_type_sugg').val(data[i].name);     
+              });     
          }
         });
        });
-/////// END Question Type//////
+//======= END Funtion get value from database to show on modal update =======//
+
+//======= Funtion delete question type suggestion =======//
+function detele_q_t_sugg(id) {
+  event.preventDefault();
+ // const url = $(this).attr('href');
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.value) {
+      $.ajax({
+        url:"hrm_question_type_sugg/delete",   //Request send to "action.php page"
+        data:{id:id},
+        type:"GET",    //Using of Post method for send data
+        success:function(data){
+         console.log(data)
+        Swal.fire(
+          'Deleted!',
+          'Your Question Type has been deleted.',
+          'success'
+        )
+        }
+       });
+      
+    }
+  })
+ 
+};
+////========== END Question Type Suggestion============//// 
 
 /////// Question Sugggestion/////
 function AddNewQuestion_sugg(){

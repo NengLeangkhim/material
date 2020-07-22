@@ -1,4 +1,4 @@
-<div class="modal fade show" id="modal-xl" style="display: block; padding-right: 17px;" aria-modal="true">
+<div class="modal fade show" id="modal_employee" style="display: block; padding-right: 17px;" aria-modal="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="card card-default">
@@ -11,6 +11,7 @@
             </div>
           </div>
           <!-- /.card-header -->
+          <form id="fm-employee" onsubmit="HRM_SubmitEmployee(this.id)" method="POST">
           <div class="card-body" style="display: block;">
             <div class="row">
               <div class="col-md-6">
@@ -100,6 +101,7 @@
             <!-- /.row -->
           </div>
           <!-- /.card-body -->
+          </form>
         </div>
         </div>
     </div>

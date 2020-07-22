@@ -14,4 +14,7 @@ class HolidayController extends Controller
         $holiday['holiday']=$h->Holiday_All();
         return view('hrms/Employee/Holiday/Holiday')->with($holiday);
     }
+    function AddAndEditHoliday(){
+        return view('hrms/Employee/Holiday/AddAndEditHolidayModal');
+    }
 }

@@ -29,6 +29,8 @@
 <script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
 <!-- ChartJS -->
 <script src="plugins/chart.js/Chart.min.js"></script>
+<!-- Alert Sweetalert2 -->
+<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 
 <!-- PAGE SCRIPTS -->
 
@@ -91,3 +93,5 @@
 <script src="js/hrms/hrms.js"></script>
 
 <script src="stJS/hrms/shift_promote_js/shift_promote.js"></script>
+<script src="js/hrms/hrmssambo.js"></script>
+<script src="js/hrms/hrms.js"></script>

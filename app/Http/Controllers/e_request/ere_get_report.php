@@ -51,7 +51,7 @@ class ere_get_report extends Controller{
         }
         if($c&&($c['type']=='top'||$c['company_dept_id']==4)){
             if(isset($_GET['_report'])){
-                $sql="SELECT cd.id as company_dept_id,cd.name,count(er.* )
+               $sql="SELECT cd.id as company_dept_id,cd.name,count(er.* )
                     from e_request er
                     join company_dept cd on cd.id=er.company_dept_id
                     where er.status='t'
@@ -137,8 +137,8 @@ class ere_get_report extends Controller{
                 $rr=false;
                 // $dept=$_GET['_dept'];
                 $sql='select company_dept_id from staff where id='.$_SESSION['userid'];
-                $dept=ere_get_assoc::assoc_(DB::select($sql)[0]);
-                $dept=$dept['company_dept_id'];
+                $dept=ere_get_assoc::assoc_(DB::select($sql));
+                $dept=$dept[0]['company_dept_id'];
                 $type='all';
                 $tar='report-div';
                 if(isset($_GET['_type'])){

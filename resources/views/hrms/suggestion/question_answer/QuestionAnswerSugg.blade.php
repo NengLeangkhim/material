@@ -12,7 +12,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="question_sugg">
                   <thead>                  
                     <tr>
                         <th scope="col">#</th>
@@ -22,14 +22,24 @@
                         <th scope="col">Action</th>
                     </tr>
                   </thead>
+                  @php
+                   $i=1;   
+                  @endphp
                   <tbody>
+                    @foreach ($question_sugg as $row)
                     <tr>
-                        <th>1</th>
-                        <td>Is u happy ?</td>
-                        <td>Option</td>
-                        <td>Active</td>
-                        <td class="text-center"><a href="#" class="btn btn-info" onClick="EditQuestionType()">Edit</a></td>
+                        <th>{{$i++}}</th>
+                        <td>{{$row->question}}</td>
+                        <td>{{$row->question_type}}</td>
+                        <td>@if($row->status=='t')
+                            {{'Active'}}
+                            @else 
+                            {{'Disactive'}}
+                            @endif
+                        </td>
+                        <td class="text-center"><a href="#" id="{{$row->id}}" class="btn btn-info"><i class="far fa-edit"></i></a></td>
                     </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
@@ -39,3 +49,11 @@
     </div>
 </div>
    </section>
+   <script type='text/javascript'>
+    $(document).ready(
+        function(){
+           // getTable('productlist','id');
+            $('#question_sugg').DataTable();
+        }
+    );
+  </script>
