@@ -64,19 +64,6 @@ class management_promoteController extends Controller
 
 
 
-    /* function to select staff who was promoted by id */
-    public function view_promoteByID(){
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        // $userid = $_SESSION['userid'];
-        $userid = 262;
-        $r = management_promoteModel::get_shift_promoteByID($userid);
-        return view('hrms\shift_promote\staff_view_promote\shift_promote_for_staff_view', ['shift_promoteByID' => $r]);
-        
-    }
-
 
 
 

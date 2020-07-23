@@ -416,11 +416,11 @@ Route::get('hrm_submit_staff_promote','hrms\shift_promote\management_promoteCont
 // end management promte
 
 //staff view their promote
-Route::get('hrm_staff_view_promote','hrms\shift_promote\management_promoteController@view_promoteByID');
+Route::get('hrm_staff_view_promote','hrms\shift_promote\staff_view_promoteController@view_promoteByID');
+Route::get('hrm_staff_view_promote_detail','hrms\shift_promote\staff_view_promoteController@staff_view_detail');
 
-Route::get('hrm_staff_view_promote_detail',function(){
-    return view('hrms.shift_promote.staff_view_promote.staff_view_promote_detail');
-});
+
+
 // end staff view their promote
 
 

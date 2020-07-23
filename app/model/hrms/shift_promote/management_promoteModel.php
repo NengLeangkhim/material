@@ -82,11 +82,21 @@ class management_promoteModel extends Model
                 ((hr_shift  hs inner join staff s ON hs.staff_id = s.id) inner join position p ON hs.position_id = p.id) 
                 WHERE hs.create_date = (SELECT MAX(create_date) FROM hr_shift  WHERE staff_id= $id)";
         $r = DB::select($sql);
-        
         return $r;
     }
 
 
+    /* function get detail to staff view thier promote */
+
+    public static function get_promote_staff_detail($id){
+
+        $sql = "SELECT s.name, p.name as position_name, hs.salary, hs.create_date, hs.comment
+        FROM ((hr_shift hs INNER JOIN staff s ON hs.staff_id = s.id ) INNER JOIN position p ON hs.position_id = p.id) 
+        WHERE staff_id = $id order by create_date ASC";
+
+        $r = DB::select($sql);
+        return $r; 
+    }
 
 
 

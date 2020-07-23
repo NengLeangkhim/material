@@ -651,6 +651,8 @@ function refresh_sel(target,route) {
 //             }
 //         );
 //      });
+
+
 function go_to(route){
     $(".content-wrapper").html(spinner());
     if(check_session()){
@@ -676,6 +678,7 @@ function go_to(route){
         }
      });
 }
+
 
 function submit_form (route,form,goto){
     if(check_session()){
@@ -703,6 +706,9 @@ function submit_form (route,form,goto){
         }
     }
  }
+
+
+ 
  function img_exist(){
     $( "img" ).each(function( index,item ) {
         $.ajax({
