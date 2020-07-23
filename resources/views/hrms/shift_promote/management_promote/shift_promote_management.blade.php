@@ -16,8 +16,8 @@
     
 <section class="content">
 
-    <div id="prmote_modal_id">
-    </div>
+<div id="prmote_modal_id">
+</div>
 <div style="padding:10px 10px 10px 10px">
     <div class="row">
         
@@ -32,6 +32,7 @@
                 </div>
 
                 <div class="card-body">
+                <div class="table-responsive"> 
                     <table class="table table-bordered" id="tbl_employee">
                         <thead>
                         <tr>
@@ -78,6 +79,7 @@
                         </tbody>
                     </table>
                 </div>
+                </div>
             </div>
 
         </div>
@@ -86,11 +88,11 @@
         
 
 
-    <script>
-        $(document).ready(function() {
-            var table=$('#tbl_employee').DataTable();
-        } );
-    </script>
+<script>
+    $(document).ready(function() {
+        var table=$('#tbl_employee').DataTable();
+    } );
+</script>
     
 
 </section>

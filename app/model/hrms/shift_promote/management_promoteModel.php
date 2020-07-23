@@ -55,6 +55,7 @@ class management_promoteModel extends Model
 
 
 
+    /* function to update shift when management comment promote*/
     public static function update_staff_shift($id, $position,$salary,$comment){
 
         try{
@@ -69,6 +70,34 @@ class management_promoteModel extends Model
      
 
     }
+
+
+
+
+    /* function to info staff promote by his id*/
+
+    public static function get_shift_promoteByID($id){
+
+        $sql = "SELECT hs.id, s.id as staff_id, s.name, p.name as position, hs.salary, hs.create_date, hs.comment FROM 
+                ((hr_shift  hs inner join staff s ON hs.staff_id = s.id) inner join position p ON hs.position_id = p.id) 
+                WHERE hs.create_date = (SELECT MAX(create_date) FROM hr_shift  WHERE staff_id= $id)";
+        $r = DB::select($sql);
+        return $r;
+    }
+
+
+    /* function get detail to staff view thier promote */
+
+    public static function get_promote_staff_detail($id){
+
+        $sql = "SELECT s.name, p.name as position_name, hs.salary, hs.create_date, hs.comment
+        FROM ((hr_shift hs INNER JOIN staff s ON hs.staff_id = s.id ) INNER JOIN position p ON hs.position_id = p.id) 
+        WHERE staff_id = $id order by create_date ASC";
+
+        $r = DB::select($sql);
+        return $r; 
+    }
+
 
 
 

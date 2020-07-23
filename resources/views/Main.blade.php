@@ -32,6 +32,8 @@
 
         
 
+        
+
   </head>
 
   <body class="nav-md bg-white">
@@ -212,6 +214,9 @@
     <!-- bootstrap-daterangepicker -->
     <script src="moment/min/moment.min.js"></script>
     <script src="bootstrap-daterangepicker/daterangepicker.js"></script>
+        
+
+
 
     <!-- Custom Theme Scripts -->
     <script src="build/js/custom.min.js"></script>
