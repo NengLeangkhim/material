@@ -10,9 +10,7 @@ class ModelQuestionAnswer extends Model
     protected $table = 'hr_suggestion_question_type';
     protected $primaryKey = 'id';
      // ===== Function get data for table =====////
-     public static function get_tbl_suggestion_question(){
-        //   $sql="SELECT qt.*,s.username from hr_suggestion_question_type qt
-        //   left join staff_detail s on qt.create_by = s.staff_id where qt.is_deleted='f' order by qt.id";
+      public static function hrm_get_tbl_suggestion_question(){
           $question_sugg_get = DB::table('hr_suggestion_question as q')
                              ->select('q.*','staff_detail.username','qt.name as  question_type')
                              ->leftjoin('staff_detail','q.create_by','=','staff_detail.staff_id')
@@ -22,12 +20,33 @@ class ModelQuestionAnswer extends Model
                              ->get(); 
           return $question_sugg_get;
        }
-     // ===== Function get data Question Type =====////
-     public static function get_question_type(){
+      // ===== Function get data Question Type =====////
+      public static function hrm_get_question_type(){
         $question_type_sugg_get = DB::table('hr_suggestion_question_type')
                            ->select('id','name')
                            ->where('is_deleted','=','f')
                            ->get(); 
         return $question_type_sugg_get;
      }
+      // ===== Function Insert data Question =====////
+      public static function hrm_insert_question_sugg($question_name,$id_type,$userid){
+         
+         return DB::select('SELECT public.insert_hr_suggestion_question(?,?,?)',array($question_name,$id_type,$userid));
+      }
+      // ===== Function model get data question for update =====////
+      public static function hrm_get_update_question($id){
+      return  DB::table('hr_suggestion_question')
+      ->select('question','id_type')
+      ->where('id','=',$id)
+      ->get(); 
+      }
+       // ===== function model update question ===== //
+      public static function hrm_update_questions($id,$userid,$question_name,$id_type){
+         return DB::select('SELECT public.update_hr_suggestion_question(?,?,?,?)',array($id,$userid,$question_name,$id_type));
+      }
+      // ===== function model deleted question type ===== //
+      public static function hrm_delete_question($id,$userid){
+         return DB::select('SELECT public.delete_hr_suggestion_question(?,?)',array($id,$userid));
+      }
+      
 }

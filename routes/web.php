@@ -360,10 +360,16 @@ Route::get('hrm_question_type_sugg/delete', 'hrms\suggestion\question_typeContro
 /////================ END QUESTION TYPE =============////
 
 ///////=============Question & Answer=================//////
-// Route::get('hrm_question_answer_sugg',function(){
-//     return view('hrms/suggestion/question_type/QuestionAnswerSugg');
-// });
+//show index page //
 Route::get('hrm_question_answer_sugg','hrms\suggestion\QuestionAnswerController@tbl_suggestion_question_answer');
+//insert question //
+Route::post('hrm_question_answer_sugg/store', 'hrms\suggestion\QuestionAnswerController@AddQuestionSugg');
+//get data for update //
+Route::get('hrm_question_answer_sugg/edit','hrms\suggestion\QuestionAnswerController@GetEditQuestionSugg');
+//update question //
+Route::post('hrm_question_answer_sugg/update','hrms\suggestion\QuestionAnswerController@EditQuestionSugg');
+//Delete question suggestion//
+Route::get('hrm_question_answer_sugg/delete', 'hrms\suggestion\QuestionAnswerController@delete_question_sugg');
 //////========END QUESTION & Answer==========/////
 /////////////////==============END SUGGESTION=============///////////////
 
