@@ -1,4 +1,7 @@
 <div style="padding:10px 10px 10px 10px">
+  @php
+      print_r($a);
+  @endphp
     <div class="row">
         <div class="col-md-12">
             <div class="card">
