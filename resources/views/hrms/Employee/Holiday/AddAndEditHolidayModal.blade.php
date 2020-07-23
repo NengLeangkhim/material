@@ -12,6 +12,8 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
+            <form id="fm_holiday">
+              @csrf
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
@@ -46,6 +48,11 @@
               <!-- /.col -->
             </div>
             <!-- /.row -->
+            <div class="col-md-12 text-right">
+                <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button class="btn bg-turbo-color" data-dismiss="modal" onclick="submit_form ('hrm_insert_update_holiday','fm_holiday','hrm_holiday')">Save</button>
+            </div>
+            </form>
           </div>
           <!-- /.card-body -->
         </div>

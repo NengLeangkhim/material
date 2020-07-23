@@ -1,30 +1,19 @@
-// All
-function Delete(routes) {
-    $(".content-wrapper").html(spinner());
-    if (check_session()) {
-        return;
-    }
-    if (route.length <= 0) {
-        $(".content-wrapper").html(jnot_found());
-        return;
-    }
-    if (route == '/') {
-        $(".content-wrapper").html(jnot_found());
-        return;
-    }
+
+function HRM_ShowDetail(id,rout,modalName){
     $.ajax({
         type: 'GET',
-        url: route,
-        success: function (data) {
-            $(".content-wrapper").show();
-            $(".content-wrapper").html(data);
+        url: rout,
+        data: {
+            _token: '<?php echo csrf_token() ?>',
+            id: id
         },
-        error: function () {
-            $(".content-wrapper").html(jerror());
+        success: function (data) {
+            document.getElementById('modal').innerHTML = data;
+            $('#'+modalName).modal('show');
         }
     });
 }
-// End All
+
 
 // All Employee
     // Add modal Employee in View
@@ -42,7 +31,6 @@ function Delete(routes) {
                 }
             });
         }
-
 
     // End Employee
 

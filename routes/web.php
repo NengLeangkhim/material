@@ -382,12 +382,14 @@ Route::get('hrm_question_answer_sugg/delete', 'hrms\suggestion\QuestionAnswerCon
         Route::get('hrm_allemployee', 'hrms\Employee\AllemployeeController@AllEmployee');
         Route::get('hrm_add_edit_employee', 'hrms\Employee\AllemployeeController@AddAndEditEmployee');
         Route::post('hrm_insert_update_employee', 'hrms\Employee\AllemployeeController@InsertUpdateEmployee');
-        Route::post('hrm_delete_', 'hrms\Employee\AllemployeeController@DeleteEmployee');
+        Route::get('hrm_delete_employee', 'hrms\Employee\AllemployeeController@DeleteEmployee');
+        Route::get('hrm_detail_employee', 'hrms\Employee\AllemployeeController@EmployeeDetail');
     //End All Employee
 
     // Start Holiday
         Route::get('hrm_holiday', 'hrms\Employee\HolidayController@Holiday');
         Route::get('hrm_add_edit_holiday', 'hrms\Employee\HolidayController@AddAndEditHoliday');
+        Route::post('hrm_insert_update_holiday', 'hrms\Employee\HolidayController@InsertUpdateHoliday');
     // End Holiday
 
     // Start Attendance

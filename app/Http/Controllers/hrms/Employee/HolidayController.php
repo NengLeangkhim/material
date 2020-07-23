@@ -17,4 +17,8 @@ class HolidayController extends Controller
     function AddAndEditHoliday(){
         return view('hrms/Employee/Holiday/AddAndEditHolidayModal');
     }
+
+    function InsertUpdateHoliday(){
+        echo "ffvv";
+    }
 }
