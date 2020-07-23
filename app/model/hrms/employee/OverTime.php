@@ -14,4 +14,28 @@ class OverTime extends Model
                                 order by s.name");
         return $ot_time;
     }
+
+    // Get one row of Overtime
+    function OvertimeOneRow($id){
+        $data=DB::table('hr_overtime')
+        ->select('hr_overtime.id','staff.id as stid','hr_overtime.overtime_date','hr_overtime.start_time','hr_overtime.end_time','hr_overtime.description')
+        ->join('staff','hr_overtime.user_id','=','staff.id')
+        ->where('hr_overtime.id','=',$id)
+        ->get();
+        return $data;
+    }
+
+
+    //Insert Overtime
+    function InsertOverTime($id,$overtimDate,$description,$approve,$overtimeHour,$upby){
+        // wrong with sql
+        $sql= "SELECT public.insert_hr_overtime(
+            <nuser_id integer>, 
+            <novertime_date date>, 
+            <ndescription character varying>, 
+            <napproved_by integer>, 
+            <novertime_houre real>, 
+            <ncreate_by integer>
+        )";
+    }
 }

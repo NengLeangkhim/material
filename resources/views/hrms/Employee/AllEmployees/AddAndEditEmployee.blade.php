@@ -16,6 +16,14 @@
             <form id="fm-employee" method="POST" onsubmit="return false">
               @csrf
             <div class="row">
+              @php
+                  if(isset($data[1])){
+                    $date=new DateTime($data[1][0]->join_date);
+                    $join_date=$date->format('Y-m-d');
+                  }else {
+                    $join_date="";
+                  }
+              @endphp
               <input type="text" class="d-none" value="@php echo $_GET['id']; @endphp" name="id">
               <div class="col-md-6">
                 <div class="form-group">
@@ -70,7 +78,7 @@
                 </div>
                 <div class="form-group">
                   <label>Join Date <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" name="emJoinDate" value="@php if(isset($data[1])){ echo $data[1][0]->join_date; } @endphp" required>
+                  <input type="date" class="form-control" name="emJoinDate" value="@php echo $join_date; @endphp" required>
                 </div>
                 <div class="form-group">
                   <label>Office Phone</label>

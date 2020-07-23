@@ -1,5 +1,5 @@
 
-function HRM_ShowDetail(id,rout,modalName){
+function HRM_ShowDetail(rout,modalName,id=-1){
     $.ajax({
         type: 'GET',
         url: rout,
@@ -13,7 +13,6 @@ function HRM_ShowDetail(id,rout,modalName){
         }
     });
 }
-
 
 // All Employee
     // Add modal Employee in View
