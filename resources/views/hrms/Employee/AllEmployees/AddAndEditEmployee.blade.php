@@ -16,15 +16,16 @@
             <form id="fm-employee" method="POST" onsubmit="return false">
               @csrf
             <div class="row">
+              <input type="text" class="d-none" value="@php echo $_GET['id']; @endphp" name="id">
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Name <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="emName" value="@php if(isset($data[1])){ echo $data[1][0]->name; } @endphp" >
+                <input type="text" class="form-control" name="emName" value="@php if(isset($data[1])){ echo $data[1][0]->name; } @endphp"  required>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Khmer Name <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="emKhmerName" value="@php if(isset($data[1])){ echo $data[1][0]->name_kh; } @endphp">
+                  <input type="text" class="form-control" name="emKhmerName" value="@php if(isset($data[1])){ echo $data[1][0]->name_kh; } @endphp" required>
                 </div>
                 <!-- /.form-group -->
               </div>
@@ -32,12 +33,12 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>ID Number <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="emIdNumber" value="@php if(isset($data[1])){ echo $data[1][0]->id_number; } @endphp">
+                  <input type="text" class="form-control" name="emIdNumber" value="@php if(isset($data[1])){ echo $data[1][0]->id_number; } @endphp" required>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Sex <span class="text-danger">*</span></label>
-                  <select name="" id="" class="form-control" name="emGender">
+                  <select id="" class="form-control" name="emGender" required>
                     @php
                       if(isset($data[1])){
                         if($data[1][0]->sex=='male'){
@@ -65,11 +66,11 @@
               <div class="col-12 col-sm-6">
                 <div class="form-group">
                   <label>Email <span class="text-danger">*</span></label>
-                  <input type="email" class="form-control" name="emEmail" value="@php if(isset($data[1])){ echo $data[1][0]->email; } @endphp">
+                  <input type="email" class="form-control" name="emEmail" value="@php if(isset($data[1])){ echo $data[1][0]->email; } @endphp" required>
                 </div>
                 <div class="form-group">
                   <label>Join Date <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" name="emJoinDate" value="@php if(isset($data[1])){ echo $data[1][0]->join_date; } @endphp">
+                  <input type="date" class="form-control" name="emJoinDate" value="@php if(isset($data[1])){ echo $data[1][0]->join_date; } @endphp" required>
                 </div>
                 <div class="form-group">
                   <label>Office Phone</label>
@@ -77,7 +78,7 @@
                 </div>
                 <div class="form-group">
                   <label>Address <span class="text-danger">*</span></label>
-                  <textarea name="emAddress" id="" rows="5" class="form-control">@php if(isset($data[1])){ echo $data[1][0]->address; } @endphp</textarea>
+                  <textarea name="emAddress" id="" rows="5" class="form-control" required>@php if(isset($data[1])){ echo $data[1][0]->address; } @endphp</textarea>
                 </div>
                 <!-- /.form-group -->
               </div>
@@ -85,11 +86,11 @@
               <div class="col-12 col-sm-6">
                 <div class="form-group">
                   <label>Phone Number</label>
-                  <input type="tel" class="form-control" name="emPhoneNumber" value="@php if(isset($data[1])){ echo $data[1][0]->contact; } @endphp">
+                  <input type="tel" class="form-control" name="emPhoneNumber" value="@php if(isset($data[1])){ echo $data[1][0]->contact; } @endphp" required>
                 </div>
                 <div class="form-group">
                   <label>Position <span class="text-danger">*</span></label>
-                  <select name="emPosition" id="" class="form-control">
+                  <select name="emPosition" id="" class="form-control" required>
                     @php
                       $f1='';
                       $f2='';
@@ -116,7 +117,7 @@
                 </div>
                 <div class="form-group">
                   <label>Salary <span class="text-danger">*</span></label>
-                  <input type="number" class="form-control" name="emSalary">
+                  <input type="number" class="form-control" name="emSalary" @php if(!isset($data[0])){ echo 'required'; } @endphp>
                 </div>
                 <div class="form-group">
                   <label>Description</label>

@@ -50,8 +50,34 @@ class AllemployeeController extends Controller
     }
 
     public function InsertUpdateEmployee(){
-        if(isset($_POST['emName'])){
-            echo 'error';
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
         }
+        $userid = $_SESSION['userid'];
+        $id=$_POST['id'];
+        $emName=$_POST['emName'];
+        $emKhmerName=$_POST['emKhmerName'];
+        $emIDNumber=$_POST['emIdNumber'];
+        $gender=$_POST['emGender'];
+        $email=$_POST['emEmail'];
+        $emJoinDate=$_POST['emJoinDate'];
+        $emOfficePhone=$_POST['emOfficePhone'];
+        $emAddress=$_POST['emAddress'];
+        $emPhone=$_POST['emPhoneNumber'];
+        $emPosition=$_POST['emPosition'];
+        $emSalary=$_POST['emSalary'];
+        $emDescription=$_POST['emDescription'];
+        $company_detail_id=6;
+        $em = new Employee();
+        if($id>0){
+
+        }else{
+            $lastid=$em->InsertEmployee($emName,$email,$emPhone,$emAddress,$emPosition,$company_detail_id,$userid,$emIDNumber,$gender,$emKhmerName,'',$emOfficePhone,$emJoinDate);
+            $latID=$lastid[0]->insert_staff_;
+            $salary = $em->InsertBaseSalary($latID,$emSalary,$userid);
+            echo "Eployee Inserted ";
+        }
+
+
     }
 }
