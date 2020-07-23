@@ -29,17 +29,28 @@ class question_typeController extends Controller
             session_start();
             }
             $validator = \Validator::make($request->all(), [
-                'question_type_sugg' => 'bail|required|unique:hr_suggestion_question_type,name|max:255',
+                'question_type_sugg' =>  [  'required',
+                                            'max:255',
+                                            Rule::unique('hr_suggestion_question_type','name')
+                                            ->where(function ($query) use ($request) {
+                                            return $query->where('is_deleted', 'f');})
+                                        ],//validate update for ignore unique if leave field not update,
             ],
             [
                 'question_type_sugg.unique' => 'The Question Type is aleady exist',   //massage validator
+                'question_type_sugg.required' => 'The Question Type is Require !!'
                 ]
             );
         if ($validator->fails()) //check validator for fail
         {
-            return response()->json(['errors'=>$validator->errors()->all()]);
+            // $error = array();
+            // $error= $validator->messages()->all();
+            // return response()->json(['errors'=>$error]);
+            return response()->json(array(
+                'errors' => $validator->getMessageBag()->toArray() 
+            ));
         }else{
-            if(perms::check_perm_module('HRM_090801')){//module code list data tables id=129
+            if(perms::check_perm_module('HRM_09080201')){//module code list data tables id=129
                 $name= $request->question_type_sugg;
                 $userid = $_SESSION['userid'];
                 $question_type= model_question_type::hrm_insert_question_type($name,$userid); //get function insert from model
@@ -57,16 +68,22 @@ class question_typeController extends Controller
             $validator = \Validator::make($request->all(), [
                 'question_type_sugg' => ['required',
                                          'max:255',
-                                         Rule::unique('hr_suggestion_question_type','name')->ignore($request->action_q_t_sugg_id)],//validate update for ignore unique if leave field not update
+                                         Rule::unique('hr_suggestion_question_type','name')->ignore($request->action_q_t_sugg_id)
+                                         ->where(function ($query) use ($request) {
+                                            return $query->where('is_deleted', 'f');})
+                                        ],//validate update for ignore unique if leave field not update
             ]
             ,
             [
                 'question_type_sugg.unique' => 'The Question Type is aleady exist',   //massage validator
+                'question_type_sugg.required' => 'The Question Type is Require !!'
                 ]
             );
             if ($validator->fails()) //check validator for fail
             {
-                return response()->json(['errors'=>$validator->errors()->all()]); 
+                return response()->json(array(
+                    'errors' => $validator->getMessageBag()->toArray() 
+                ));
             }else{
                 // if(perms::check_perm_module('HRM_090801')){//module code list data tables id=129
                     $id=$request->action_q_t_sugg_id;
@@ -99,7 +116,7 @@ class question_typeController extends Controller
         $id = $_GET['id'];
         $userid = $_SESSION['userid'];   
         $question_type_sugg=model_question_type::hrm_delete_question_type($id,$userid);
-        var_dump($question_type_sugg);
+        //var_dump($question_type_sugg);
         }else{
             return view('no_perms');
         }
