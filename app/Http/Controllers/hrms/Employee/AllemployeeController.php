@@ -70,14 +70,33 @@ class AllemployeeController extends Controller
         $company_detail_id=6;
         $em = new Employee();
         if($id>0){
-
+            $stm=$em->UpdateEmployee($id,$userid,$emName,$email,$emPhone,$emAddress,$emPosition,$emIDNumber,$gender,$emKhmerName,'',$emOfficePhone,$emJoinDate,'t');
+            if($stm[0]->update_staff>0){
+                echo "Employee Update Successfully !";
+            }else{
+                echo "error";
+            }
         }else{
             $lastid=$em->InsertEmployee($emName,$email,$emPhone,$emAddress,$emPosition,$company_detail_id,$userid,$emIDNumber,$gender,$emKhmerName,'',$emOfficePhone,$emJoinDate);
             $latID=$lastid[0]->insert_staff_;
-            $salary = $em->InsertBaseSalary($latID,$emSalary,$userid);
-            echo "Eployee Inserted ";
+            if($latID>0){
+                $salary = $em->InsertBaseSalary($latID, $emSalary, $userid);
+                if($salary[0]->insert_hr_payroll_base_salary>0){
+                    echo "Employee Update Successfully !";
+                }else{
+                    $deletem=$em->DeleteEmployee($latID,$userid);
+                    echo 'error';
+                }
+            }else{
+                echo "error";
+            }
         }
 
 
+    }
+
+
+    function DeleteEmployee(){
+        
     }
 }
