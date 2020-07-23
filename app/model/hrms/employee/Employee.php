@@ -48,23 +48,8 @@ class Employee extends Model
     }
 
     function UpdateEmployee($id,$updateID,$emName,$emEmail,$emContact,$emAddress,$emPosition,$emIdNumber,$emGender,$emKhmerName,$emImage,$emOfficePhone,$emJoinDate,$emStatus){
-        $sql= "SELECT public.update_staff(
-	                    $id, 
-	                    $updateID, 
-	                    $emName, 
-	                    $emEmail, 
-	                    $emContact, 
-	                    $emAddress, 
-	                    $emPosition, 
-	                    8, 
-	                    16, 
-	                    $emIdNumber, 
-	                    $emGender, 
-	                    $emKhmerName, 
-	                    $emImage, 
-	                    $emOfficePhone, 
-	                    $emJoinDate, 
-	                    $emStatus
-                )";
+        $sql= "SELECT public.update_staff($id,$updateID,'$emName','$emEmail','$emContact','$emAddress',$emPosition,8,16,'$emIdNumber','$emGender','$emKhmerName','$emImage','$emOfficePhone','$emJoinDate','$emStatus')";
+        $stm = DB::select($sql);
+        return $stm;
     }
 }

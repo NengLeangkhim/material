@@ -1,4 +1,30 @@
-
+// All
+function Delete(routes) {
+    $(".content-wrapper").html(spinner());
+    if (check_session()) {
+        return;
+    }
+    if (route.length <= 0) {
+        $(".content-wrapper").html(jnot_found());
+        return;
+    }
+    if (route == '/') {
+        $(".content-wrapper").html(jnot_found());
+        return;
+    }
+    $.ajax({
+        type: 'GET',
+        url: route,
+        success: function (data) {
+            $(".content-wrapper").show();
+            $(".content-wrapper").html(data);
+        },
+        error: function () {
+            $(".content-wrapper").html(jerror());
+        }
+    });
+}
+// End All
 
 // All Employee
     // Add modal Employee in View
@@ -17,28 +43,7 @@
             });
         }
 
-        function HRM_SubmitEmployee(fm_id){
-            alert();
-            var fm = document.getElementById(fm_id);
-            var fd=new FormData(fm);
-            // console.log(fd);
-            alert(fd);
-            // $.ajax({
-            //     type: 'POST',
-            //     url: '/hrm_add_edit_employee',
-            //     data: {
-            //         _token: '<?php echo csrf_token() ?>',
-            //         data:fd
-            //     },
-            //     cache: false,
-            //     processData: false,
-            //     contentType: false,
-            //     success: function (data) {
-            //         document.getElementById('modal').innerHTML = data;
-            //         $('#modal-xl').modal('show');
-            //     }
-            // });
-        }
+
     // End Employee
 
     // Start Holiday
