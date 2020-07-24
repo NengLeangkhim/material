@@ -127,3 +127,66 @@ function staff_view_promote_detail(id){
 
 
 
+// function to click list row chaid of table promote history
+var jj = 0;
+var a = 0;
+
+function list_staff_promote_hisotry(st_id,ii){
+    
+    if(jj == a){     
+        a++; 
+        s="staffid="+st_id;
+        var url= "/hrm_staff_promote_history_list";
+        var x=new XMLHttpRequest();
+        x.onreadystatechange=function(){
+            if(this.readyState==4 && this.status==200){
+                alert("success");
+                document.getElementById('list_promote_view_'+ ii +'').innerHTML=this.responseText;
+                // $('#add_edit_employees').modal('show');
+            }
+        }
+        x.open("GET", url + "?"+ s , true);
+        x.send();
+    }
+    // else {
+    //     document.getElementById('list_promote_view_'+ ii +'').style.display = "block";
+    //     jj = 0;
+    // }
+
+}
+
+
+// end view shift promote history
+
+function exit_list_history(ii){
+    alert(ii);
+    // document.getElementById('list_promote_view_'+ ii +'').style.display = "none";
+    // jj += 1;
+}
+
+
+
+
+
+
+
+
+function staff_promote_history_detail(id,i){
+
+        s="staffid="+id;
+        m="number="+i;
+        alert(m);
+        var url= "/hrm_shift_history_listDetail";
+        var x=new XMLHttpRequest();
+        x.onreadystatechange=function(){
+            if(this.readyState==4 && this.status==200){
+                alert("view detail history");
+                document.getElementById('prmote_modal_id').innerHTML=this.responseText;
+                $('#shift_view_history_detail').modal('show');
+            }
+        }
+        x.open("GET", url + "?"+ s + "&" + m, true);
+        x.send();
+  
+
+}

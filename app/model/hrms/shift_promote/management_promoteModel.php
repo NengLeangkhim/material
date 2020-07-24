@@ -84,6 +84,10 @@ class management_promoteModel extends Model
         $r = DB::select($sql);
         return $r;
     }
+    // end
+
+
+
 
 
     /* function get detail to staff view thier promote */
@@ -97,6 +101,40 @@ class management_promoteModel extends Model
         $r = DB::select($sql);
         return $r; 
     }
+
+    // end 
+
+
+
+
+
+
+    /* function to get all staff was promote from table: shift  */
+
+    public static function all_shift_promote(){
+        $sql = "SELECT hs.id, s.id as staff_id, s.name, p.name as position, hs.salary, hs.create_date, hs.comment FROM 
+            ((hr_shift  hs inner join staff s ON hs.staff_id = s.id) 
+            inner join position p ON hs.position_id = p.id) order by s.name ASC ";
+        $r = DB::select($sql);
+        return $r; 
+    }
+
+    // end
+
+
+
+    
+    /* function to get all staff was promote by staff id from table: shift  */
+    public static function all_shift_promoteByID($id){
+        $sql = "SELECT hs.id, s.id as staff_id, s.name, p.name as position, hs.salary, hs.create_date, hs.comment FROM 
+            ((hr_shift  hs inner join staff s ON hs.staff_id = s.id) 
+            inner join position p ON hs.position_id = p.id) WHERE s.id = $id order by hs.create_date DESC ";
+        $r = DB::select($sql);
+        return $r; 
+    }
+
+    // end
+
 
 
 
