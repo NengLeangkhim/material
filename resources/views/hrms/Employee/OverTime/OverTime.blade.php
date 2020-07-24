@@ -5,7 +5,7 @@
               <div class="card-header">
                 <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i>Staff Overtime</strong></h1>
                 <div class="col-md-12 text-right">
-                    <button type="button" class="btn bg-gradient-primary"><i class="fas fa-user-plus"></i> Add</button>
+                    <button type="button" class="btn bg-gradient-primary" onclick="HRM_ShowDetail('hrm_modal_add_edit','modal_overtime')"><i class="fas fa-user-plus"></i> Add</button>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -128,7 +128,7 @@
                         <td>{{$item->approve}}</td>
                         <td>
                           <div class="row">
-                            <div class="col-md-4"><a href="javascrip:;"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_modal_add_edit','modal_overtime',{{$item->id}})"><i class="far fa-edit"></i></a></div>
                             <div class="col-md-4"><a href="javascrip:;"><i class="fas fa-info"></i></a></div>
                             <div class="col-md-4"><a href="javascrip:;"><i class="far fa-trash-alt"></i></a></div>
                           </div>

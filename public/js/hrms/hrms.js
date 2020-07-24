@@ -1,4 +1,18 @@
 
+function HRM_ShowDetail(rout,modalName,id=-1){
+    $.ajax({
+        type: 'GET',
+        url: rout,
+        data: {
+            _token: '<?php echo csrf_token() ?>',
+            id: id
+        },
+        success: function (data) {
+            document.getElementById('modal').innerHTML = data;
+            $('#'+modalName).modal('show');
+        }
+    });
+}
 
 // All Employee
     // Add modal Employee in View
@@ -17,28 +31,6 @@
             });
         }
 
-        function HRM_SubmitEmployee(fm_id){
-            alert();
-            var fm = document.getElementById(fm_id);
-            var fd=new FormData(fm);
-            // console.log(fd);
-            alert(fd);
-            // $.ajax({
-            //     type: 'POST',
-            //     url: '/hrm_add_edit_employee',
-            //     data: {
-            //         _token: '<?php echo csrf_token() ?>',
-            //         data:fd
-            //     },
-            //     cache: false,
-            //     processData: false,
-            //     contentType: false,
-            //     success: function (data) {
-            //         document.getElementById('modal').innerHTML = data;
-            //         $('#modal-xl').modal('show');
-            //     }
-            // });
-        }
     // End Employee
 
     // Start Holiday

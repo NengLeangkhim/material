@@ -695,9 +695,10 @@ function submit_form (route,form,goto){
                 if (this.readyState == 4 && this.status == 200) {
                     data=this.responseText;
                     if(data=='error'){
-                        alert('មានបញ្ហាកើតឡើងនៅពេលបញ្ចូលទិន្នន័យ');
+                        sweetalert('error', 'Data has Problem');
                     }else{
-                        alert(this.responseText);
+                        sweetalert('success',this.responseText);
+                        // alert(this.responseText);
                         go_to(goto);
                     }
                 }

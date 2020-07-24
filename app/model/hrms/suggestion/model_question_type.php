@@ -24,7 +24,7 @@ class model_question_type extends Model
      public static function hrm_insert_question_type($question_type,$userid){
         return DB::select('SELECT public.insert_hr_suggestion_question_type(?,?)',array($question_type,$userid));
      }
-    // ===== Function model get data question type =====////
+    // ===== Function model get data question type for update =====////
      public static function hrm_get_update_question_type($id){
       return  DB::table('hr_suggestion_question_type')
       ->select('name')

@@ -360,10 +360,16 @@ Route::get('hrm_question_type_sugg/delete', 'hrms\suggestion\question_typeContro
 /////================ END QUESTION TYPE =============////
 
 ///////=============Question & Answer=================//////
-// Route::get('hrm_question_answer_sugg',function(){
-//     return view('hrms/suggestion/question_type/QuestionAnswerSugg');
-// });
+//show index page //
 Route::get('hrm_question_answer_sugg','hrms\suggestion\QuestionAnswerController@tbl_suggestion_question_answer');
+//insert question //
+Route::post('hrm_question_answer_sugg/store', 'hrms\suggestion\QuestionAnswerController@AddQuestionSugg');
+//get data for update //
+Route::get('hrm_question_answer_sugg/edit','hrms\suggestion\QuestionAnswerController@GetEditQuestionSugg');
+//update question //
+Route::post('hrm_question_answer_sugg/update','hrms\suggestion\QuestionAnswerController@EditQuestionSugg');
+//Delete question suggestion//
+Route::get('hrm_question_answer_sugg/delete', 'hrms\suggestion\QuestionAnswerController@delete_question_sugg');
 //////========END QUESTION & Answer==========/////
 /////////////////==============END SUGGESTION=============///////////////
 
@@ -376,11 +382,15 @@ Route::get('hrm_question_answer_sugg','hrms\suggestion\QuestionAnswerController@
         Route::get('hrm_allemployee', 'hrms\Employee\AllemployeeController@AllEmployee');
         Route::get('hrm_add_edit_employee', 'hrms\Employee\AllemployeeController@AddAndEditEmployee');
         Route::post('hrm_insert_update_employee', 'hrms\Employee\AllemployeeController@InsertUpdateEmployee');
+        Route::get('hrm_delete_employee', 'hrms\Employee\AllemployeeController@DeleteEmployee');
+        Route::get('hrm_detail_employee', 'hrms\Employee\AllemployeeController@EmployeeDetail');
     //End All Employee
 
     // Start Holiday
         Route::get('hrm_holiday', 'hrms\Employee\HolidayController@Holiday');
         Route::get('hrm_add_edit_holiday', 'hrms\Employee\HolidayController@AddAndEditHoliday');
+        Route::post('hrm_insert_update_holiday', 'hrms\Employee\HolidayController@InsertUpdateHoliday');
+        Route::get('hrm_delete_holiday', 'hrms\Employee\HolidayController@DeleteHoliday');
     // End Holiday
 
     // Start Attendance
@@ -397,6 +407,7 @@ Route::get('hrm_question_answer_sugg','hrms\suggestion\QuestionAnswerController@
 
     // Stat Overtime
         Route::get('hrm_overtime', 'hrms\Employee\OverTimeController@StaffOverTime');
+        Route::get('hrm_modal_add_edit', 'hrms\Employee\OverTimeController@ShowModalAddAndEdit');
     // End Overtime
 
 // End Employee

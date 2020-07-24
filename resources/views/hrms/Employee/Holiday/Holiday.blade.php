@@ -5,7 +5,7 @@
               <div class="card-header">
                 <h1 class="card-title hrm-title"><strong><i class="fas fa-calendar-times"></i> Holiday</strong></h1>
                 <div class="col-md-12 text-right">
-                    <a href="javascrip:;" class="btn bg-gradient-primary" onclick="HRM_AddAndEditHoliday()"><i class="fas fa-user-plus"></i> Add Holiday</a>
+                    <a href="javascrip:;" class="btn bg-gradient-primary" onclick="HRM_AddAndEditHoliday()"><i class="fas fa-calendar-plus"></i> Add Holiday</a>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -36,8 +36,8 @@
                         <td>{{ $item->description }}</td>
                         <td class="text-center">
                           <div class="row">
-                            <div class="col-md-6"><a href="javascrip:;"><i class="far fa-edit"></i></a></div>
-                            <div class="col-md-6"><a href="javascrip:;"><i class="fas fa-info"></i></a></div>
+                            <div class="col-md-6"><a href="javascrip:;" onclick="HRM_AddAndEditHoliday({{$item->id}})"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-6"><a href="javascrip:;" onclick="hrm_delete({{$item->id}},'hrm_delete_holiday','hrm_holiday','Holiday is Deleted ')"><i class="far fa-trash-alt"></i></a></div>
                           </div>
                         </td>
                     </tr>
