@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class ModelQuestionAnswer extends Model
 {
-    protected $table = 'hr_suggestion_question_type';
+    protected $table = 'hr_suggestion_question';
     protected $primaryKey = 'id';
      // ===== Function get data for table =====////
       public static function hrm_get_tbl_suggestion_question(){

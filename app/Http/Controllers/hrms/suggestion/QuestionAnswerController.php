@@ -199,9 +199,7 @@ class QuestionAnswerController extends Controller
             ],
             [   
                 'question_name1.required' => 'The Question Field is Required !!',   //massage validator
-                'statusType1.required'=> 'Please Select Status Question !!',
-                'answer_name.required' => 'The Answer Field is Required !!',
-                'status_answer.required' => 'Please Select Status Answer !!',
+                'answer_name.*.required' => 'The Answer Field is Required !!',
                 ]
             );
         if ($validator->fails()) //check validator for fail

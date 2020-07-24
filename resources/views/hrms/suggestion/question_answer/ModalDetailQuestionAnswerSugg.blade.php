@@ -35,7 +35,7 @@
                                     @foreach ($answer_sugg as $row)
                                         <tr>
                                             <td>{{$row->answer}}</td>
-                                            <td>
+                                            <td class="text-center">
                                             @if ($row->status=='t')
                                                {{'Active'}} 
                                             @else

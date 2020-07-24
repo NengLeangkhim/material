@@ -53,6 +53,7 @@ function AddNewQ_type_sugg(){
       $('#q_type_sugg_modal').modal('show');//Modal show
       $('.print-error-msg').hide(); // hide div show error
       $("#question_type_sugg_form input").removeClass("is-invalid");
+      $('#card_title').text('Add Question Type');
       $('#question_type_sugg').val('');
       $('#action_q_t_sugg').text('Create'); // Give value to button action of question type submit
 } 
@@ -458,3 +459,200 @@ $(document).on('click', '.hrm_delete_question_answer', function(){
 })
 ///////============== End Answer Suggestion ==============///////////
 /////////////================================= END EMPLOYEE SUGGESTION =============================///////////////
+
+/////////////================================= Policy =============================//////////////////
+/////==== List Policy ====//////
+
+//function show modal add //
+function HrmAddPolicy(){
+  $('#hrm_policy_modal').modal('show');
+  $('#policy_name').val('');
+  $('#policy_file').val(''); 
+  $('#policy_name').removeClass("is-invalid");
+  $('#policy_file').removeClass("is-invalid");
+  $('#card_title').text('Add Policy');
+  $('#action_policy').text('Create');
+} 
+//function insert policy //
+function HrmSubmitPolicy(){
+  event.preventDefault();
+  var formElement = document.getElementById('hrm_policy_form');
+  var formData = new FormData(formElement);
+  $('#policy_name').removeClass("is-invalid");
+  $('#policy_file').removeClass("is-invalid");
+  /// Insert question type 
+  if($('#action_policy').text()=='Create') //check condition for create question type 
+  {
+   
+    $.ajax({
+      url:'hrm_list_policy/store',
+      type:'POST',
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+       data: //_token: $('#token').val(),
+       formData,
+       processData: false,
+       contentType: false,
+      success:function(data)
+      {
+        if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+          console.log(data);
+          $('#hrm_policy_modal').modal('hide');
+          sweetalert('success','The Policy has been Insert Successfully !!');
+          setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content 
+      }else{
+        // $(".print-error-msg").find("ul").html(''); 
+
+        // $(".print-error-msg").css('display','block');
+
+        $.each( data.errors, function( key, value ) {//foreach show error
+            $("#" + key).addClass("is-invalid"); //give read border to input field
+            // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            //  sweetalert('warning',value);
+            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+        });
+      }
+      }
+    });
+  }
+  /// Update action Question Type
+  if($('#action_policy').text()=='Update') // Check Condition for update question type
+  {
+    $.ajax({
+      url:'hrm_list_policy/update',
+      type:'POST',
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data: //_token:  $('#token').val(),
+      formData,
+      processData: false,
+      contentType: false,
+      success:function(data)
+      {
+        if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+          console.log(data);
+          $('#hrm_policy_modal').modal('hide');
+          sweetalert('success','The Policy has been Update Successfully !!');
+          setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content 
+      }else{
+        // $(".print-error-msg").find("ul").html('');
+
+        // $(".print-error-msg").css('display','block');
+
+        $.each( data.errors, function( key, value ) {
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+            // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            //sweetalert('warning',value);
+            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+        });
+      }
+      }
+    });
+  }
+
+ };
+ //Function Update
+ $(document).on('click', '.hrm_update_policy_list', function(){
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  $.ajax({
+   url:"hrm_list_policy/getedit",   //Request send to "action.php page"
+   type:"POST",    //Using of Post method for send data
+   headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+   data:{id:id},//Send data to server
+   dataType:"json",   //Here we have define json data type, so server will send data in json format.
+   success:function(data){
+      $('#hrm_policy_modal').modal('show');   //It will display modal on webpage
+      $('#action_policy').text("Update"); 
+      $('#card_title').text("Update Policy")     //This code will change Button value to Update
+      $('#policy_id').val(id);     //It will define value of id variable to this customer id hidden field
+      $('#operation').val('Update');
+      $('#policy_name').removeClass("is-invalid");
+      $('#policy_file').removeClass("is-invalid");
+      $.each(data, function(i, e){ //read array json for show to textbox
+        $('#hidden_pdf').val(data[i].file_path)// Set to span and get hidden for value 
+        $('#policy_name').val(data[i].name);    
+        });     
+     
+   }
+  });
+ });
+ //Function View Modal Policy
+ $(document).on('click', '.hrm_view_policy', function(){
+  var currentdate = new Date();
+  var start_time =currentdate.getFullYear() + "-"
+  + (currentdate.getMonth()+1)  + "-" 
+  + currentdate.getDate() + "   "  
+  + currentdate.getHours() + ":"  
+  + currentdate.getMinutes() + ":" 
+  + currentdate.getSeconds();
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  $.ajax({
+   url:"hrm_list_policy/modal",   //Request send to "action.php page"
+   type:"GET",    //Using of Post method for send data
+   data:{id:id},//Send data to server
+   success:function(data){
+      $('#ShowModalPolicy').html(data);
+      $('#hrm_view_policy_modal').modal('show');   //It will display modal on webpage
+      $('#start_time').val(start_time);
+      $("#verify_policy").removeClass("is-invalid");//remove all error message
+      $(".invalid-feedback").children("strong").text("");
+   }
+  });
+});
+/// Function Submit User Reading Policy ///
+function sumbit_policy(){
+  event.preventDefault();
+  $.ajax({
+    url:'hrm_list_policy/storeuser',
+    type:'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+     data: //_token: $('#token').val(),
+    $('#hrm_policy_view_form').serialize(), 
+    
+    success:function(data)
+    {
+      if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+        console.log(data);
+        $('#hrm_view_policy_modal').modal('hide');
+        sweetalert('success','Thanks for reading policy !!');
+        setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content 
+    }else{
+      // $(".print-error-msg").find("ul").html(''); 
+
+      // $(".print-error-msg").css('display','block');
+
+      $.each( data.errors, function( key, value ) {//foreach show error
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+          // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+          $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+          // sweetalert('warning',value);
+
+      });
+    }
+    }
+  });
+}
+/////==== END List Policy ====//////
+/////==== Policy User ====//////
+///Get modal show question and answer for update detail//
+$(document).on('click', '.hrm_view_policy_user', function(){
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  $.ajax({
+   url:"hrm_list_policy_user/modal",   //Request send to "action.php page"
+   type:"GET",    //Using of Post method for send data
+   data:{id:id},//Send data to server
+   success:function(data){
+      $('#ShowModalPolicyUser').html(data);
+      $('#hrm_view_policy_user_modal').modal('show');   //It will display modal on webpage
+   }
+  });
+});
+/////==== END Policy User ====//////
+/////////////================================= END Policy =============================///////////////

@@ -398,6 +398,38 @@ Route::get('hrm_question_answer_sugg/deletedetail','hrms\suggestion\QuestionAnsw
 //////========END QUESTION & Answer==========/////
 /////////////////==============END SUGGESTION=============///////////////
 
+/////////////////==============Policies=============///////////////
+
+//////========List Policy==========/////
+//route index policy//
+Route::get('hrm_list_policy', 'hrms\policy\HrmPolicyController@hrm_index_policy_list');
+
+//route insert policy//
+Route::post('hrm_list_policy/store','hrms\policy\HrmPolicyController@hrm_insert_policy');
+
+//route get data for update //
+Route::post('hrm_list_policy/getedit','hrms\policy\HrmPolicyController@get_data_policy');
+
+//route update policy//
+Route::post('hrm_list_policy/update','hrms\policy\HrmPolicyController@HrmUpdatePolicy');
+
+//route Delete policy//
+Route::get('hrm_list_policy/delete','hrms\policy\HrmPolicyController@HrmDeletePolicy');
+
+//route View policy//
+Route::get('hrm_list_policy/modal','hrms\policy\HrmPolicyController@HrmViewPolicy');
+
+//route Insert Policy User//
+Route::post('hrm_list_policy/storeuser','hrms\policy\HrmPolicyController@HrmInsertPolicyUser');
+
+//route Index Policy User//
+Route::get('hrm_list_policy_user','hrms\policy\HrmPolicyController@HrmIndexUserPolicy');
+
+//route Modal Policy User//
+Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModalUserPolicy');
+/////////////////==============END Policies=============///////////////
+
+
 // ========================================================>END METKEOSAMBO <======================================================== //
 
 // ========================================================> SENG KIMSROS <======================================================== //
