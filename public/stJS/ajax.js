@@ -695,9 +695,10 @@ function submit_form (route,form,goto){
                 if (this.readyState == 4 && this.status == 200) {
                     data=this.responseText;
                     if(data=='error'){
-                        sweetalert('error', this.responseText);
+                        sweetalert('error', 'Data has Problem');
                     }else{
                         sweetalert('success',this.responseText);
+                        // alert(this.responseText);
                         go_to(goto);
                     }
                 }

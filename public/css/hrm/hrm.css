@@ -20,3 +20,31 @@ thead tr th{
     background-color: #1fa8e0;
     
 }
+
+
+.btn-plus {
+    background-color: green;
+    text-align: center;
+    padding-top: 5%;
+    padding-left: 5%;
+    border-radius: 50%;
+    
+}
+
+.btn-minus {
+    background-color: red;
+    text-align: center;
+    /* padding-top: 5%; */
+    padding-top: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+    border-radius: 50%;
+    margin-left: 2px;
+}
+
+.row_tb_style {
+    font-size: 13px;
+    padding: 0px;
+    text-align: center;
+    vertical-align: center;
+}

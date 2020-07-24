@@ -407,12 +407,15 @@ Route::get('hrm_question_answer_sugg/deletedetail','hrms\suggestion\QuestionAnsw
         Route::get('hrm_allemployee', 'hrms\Employee\AllemployeeController@AllEmployee');
         Route::get('hrm_add_edit_employee', 'hrms\Employee\AllemployeeController@AddAndEditEmployee');
         Route::post('hrm_insert_update_employee', 'hrms\Employee\AllemployeeController@InsertUpdateEmployee');
-        Route::post('hrm_delete_', 'hrms\Employee\AllemployeeController@DeleteEmployee');
+        Route::get('hrm_delete_employee', 'hrms\Employee\AllemployeeController@DeleteEmployee');
+        Route::get('hrm_detail_employee', 'hrms\Employee\AllemployeeController@EmployeeDetail');
     //End All Employee
 
     // Start Holiday
         Route::get('hrm_holiday', 'hrms\Employee\HolidayController@Holiday');
         Route::get('hrm_add_edit_holiday', 'hrms\Employee\HolidayController@AddAndEditHoliday');
+        Route::post('hrm_insert_update_holiday', 'hrms\Employee\HolidayController@InsertUpdateHoliday');
+        Route::get('hrm_delete_holiday', 'hrms\Employee\HolidayController@DeleteHoliday');
     // End Holiday
 
     // Start Attendance
@@ -429,6 +432,7 @@ Route::get('hrm_question_answer_sugg/deletedetail','hrms\suggestion\QuestionAnsw
 
     // Stat Overtime
         Route::get('hrm_overtime', 'hrms\Employee\OverTimeController@StaffOverTime');
+        Route::get('hrm_modal_add_edit', 'hrms\Employee\OverTimeController@ShowModalAddAndEdit');
     // End Overtime
 
 // End Employee
@@ -447,13 +451,21 @@ Route::get('hrm_management_edit_promote','hrms\shift_promote\management_promoteC
 Route::get('hrm_submit_staff_promote','hrms\shift_promote\management_promoteController@Submit_staff_promote');
 // end management promte
 
+
+
 //staff view their promote
 Route::get('hrm_staff_view_promote','hrms\shift_promote\staff_view_promoteController@view_promoteByID');
 Route::get('hrm_staff_view_promote_detail','hrms\shift_promote\staff_view_promoteController@staff_view_detail');
-
-
-
 // end staff view their promote
+
+
+// view staff promote history (for management)
+Route::get('hrm_staff_promote_history','hrms\shift_promote\shift_promote_historyController@all_staff_promote');
+Route::get('hrm_staff_promote_history_list','hrms\shift_promote\shift_promote_historyController@all_staff_promoteByID');
+
+Route::get('hrm_shift_history_listDetail','hrms\shift_promote\shift_promote_historyController@view_shift_history_detail');
+
+// end view history
 
 
 
@@ -465,9 +477,11 @@ Route::get('hrm_staff_view_promote_detail','hrms\shift_promote\staff_view_promot
 
 
 
-Route::get('hrm_staff_promote_history',function(){
-    return view('hrms.shift_promote.management_view_promote_history.shift_promote_staff_history');
-});
+// Route::get('hrm_shift_history_listDetail',function(){
+//     return view('hrms.shift_promote.management_view_promote_history.shift_history_listDetail');
+// });
+
+
 Route::get('hrm_shift_promote_report',function(){
     return view('hrms.shift_promote.promote_report.shift_promote_report');
 });

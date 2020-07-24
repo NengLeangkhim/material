@@ -97,6 +97,20 @@ class AllemployeeController extends Controller
 
 
     function DeleteEmployee(){
-        
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $id=$_GET['id'];
+        $userid = $_SESSION['userid'];
+        $em=new Employee();
+        $em->DeleteEmployee($id,$userid);
+    }
+
+
+    function EmployeeDetail(){
+        $em=new Employee();
+        $id=$_GET['id'];
+        $employee=$em->EmployeeOnRow($id);
+        return view('hrms/Employee/AllEmployees/ModalEmployeeDetail')->with('emd',$employee);
     }
 }
