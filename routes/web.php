@@ -429,7 +429,15 @@ Route::get('hrm_list_policy_user','hrms\policy\HrmPolicyController@HrmIndexUserP
 Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModalUserPolicy');
 /////////////////==============END Policies=============///////////////
 
+/////////////////============== Performance =============///////////////
+/////Performance Plan
+    ///index plan
+    Route::get('hrm_list_plan_performance', 'hrms\performance\HrmPlanController@HrmIndexPerformPlanDetail');
 
+     ///get table plan
+     Route::get('hrm_list_plan_performance/plan', 'hrms\performance\HrmPlanController@HrmTablePerformPlan');
+
+/////////////////============== END Performance =============///////////////
 // ========================================================>END METKEOSAMBO <======================================================== //
 
 // ========================================================> SENG KIMSROS <======================================================== //

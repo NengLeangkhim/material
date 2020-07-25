@@ -656,3 +656,41 @@ $(document).on('click', '.hrm_view_policy_user', function(){
 });
 /////==== END Policy User ====//////
 /////////////================================= END Policy =============================///////////////
+
+/////////////================================= Performance =============================///////////////
+
+/////==== Performance Plan ====//////
+  //function show modal add
+  function HrmAddPerformPlan(){
+    $('#hrm_perform_plan_modal').modal('show');
+    $('#plan_name').val('');hrm_perform_plan_form
+    $('#plan_from').val('');
+    $('#plan_to').val('');
+    $('#hrm_perform_plan_form input').removeClass("is-invalid");//remove valid all input field
+    $('#action_plan').text('Create');
+  }
+ ////view Table plan///////
+  function view_table_plan(){
+    $.ajax({  
+        url:"hrm_list_plan_performance/plan",  
+        type:"get",  
+        data:{},  
+        success:function(data){  
+          $('#table_show_plan').html(data);  
+  }  
+  });  
+  }
+  ////view Table plan detail///////
+  function view_table_plan_detail(){
+  $.ajax({  
+      url:"../controller/performance/view_table_plan_detail.php",  
+      method:"post",  
+      data:{},  
+      success:function(data){  
+        $('#table_show_plan').html(data);  
+  }  
+  });  
+  }
+/////==== END Performance Plan ====//////
+
+/////////////================================= END Performance =============================///////////////

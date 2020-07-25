@@ -18,7 +18,7 @@
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">Name</th>
-                                {{-- <th scope="col">Current page</th> --}}
+                                <th scope="col">Position</th>
                                 <th scope="col">Time</th>
                                 <th scope="col">Policy Name</th>
                                 <th scope="col">Create Date</th>
@@ -40,6 +40,7 @@
                             <tr>
                                 <th>{{$i++}}</th>
                                 <td>{{$row->name}}</td>
+                                <td>{{$row->position_name}}</td>
                                 <td>{{$interval->format('%H h %i mn %s sec')}}</td>
                                 <td>{{$row->name_policy}}</td>
                                 <td>{{$ts2->format('Y-M-d H:i:s')}}</td>
