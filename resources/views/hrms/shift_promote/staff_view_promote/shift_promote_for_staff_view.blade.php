@@ -36,12 +36,7 @@
                                 @php
                                   
                                     $i = 0;
-                                    // $var = "test1";
-                                    // if (session_status() == PHP_SESSION_NONE) {
-                                    //         session_start();
-                                    //     }
-
-                                    //     $userid = $_SESSION['userid'];
+ 
                                     if(is_array($shift_promoteByID))
                                     {
                                         foreach($shift_promoteByID as $key=>$val)

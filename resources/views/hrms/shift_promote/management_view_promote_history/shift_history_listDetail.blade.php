@@ -1,4 +1,7 @@
 
+
+
+
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="shift_view_history_detail">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -24,27 +27,27 @@
                           <div class="form-group">
                               <label for="exampleInputEmail1">Staff Name <span class="text-danger">*</span>
                               </label>
-                              <input type="text" class="form-control" value="<?php echo "dara"; ?>" placeholder="" name="" readonly >        
+                              <input type="text" class="form-control" value="<?php echo $his_listDetail->name; ?>" placeholder="" name="" readonly >        
                           </div>
                           <div class="form-group">
                               <label for="exampleInputEmail1">Get Position <span class="text-danger">*</span>
                               </label>
-                              <input type="text" class="form-control" value="<?php echo 'IT Pro'; ?>" placeholder="" name="" readonly >        
+                              <input type="text" class="form-control" value="<?php echo $his_listDetail->position; ?>" placeholder="" name="" readonly >        
                           </div>
                           <div class="form-group">
                               <label for="exampleInputEmail1">Get Salary<span class="text-danger">*</span>
                               </label>
-                              <input type="text" class="form-control" value="<?php echo "55000$";?>" readonly>
+                              <input type="text" class="form-control" value="<?php echo $his_listDetail->salary;?>" readonly>
                           </div>
                           <div class="form-group">
-                              <label for="exampleInputEmail1">Date Approved<span class="text-danger">*</span>
+                              <label for="exampleInputEmail1">Approved Date<span class="text-danger">*</span>
                               </label>
-                              <input type="text" class="form-control" value="<?php echo "202020" ?> " readonly>
+                              <input type="text" class="form-control" value="<?php echo $his_listDetail->create_date; ?> " readonly>
                           </div>
                           <div class="form-group">
                               <h6 >Comment</h6>
                               <div style="padding: 15px; border: 1px solid green; border-radius: 4px;">
-                                  <p><?php echo "hello"; ?></p>
+                                  <p><?php echo $his_listDetail->comment; ?></p>
                               </div>
                           </div>
                   </div>

@@ -32,24 +32,12 @@ class shift_promote_historyController extends Controller
 
         if( isset($_GET['staffid'])){
             $id = $_GET['staffid'];
-            $all_promote2 = management_promoteModel::all_shift_promoteByID($id);
-            // $get_arr[] = '';
-            // $i = 0;
-            // foreach ($all_promote2 as $key => $val) {
-            //     if($val->staff_id == $id){
-            //         $get_arr[$i] = $val;
-            //         $i+=1;
-            //     }
-                
-            // }
-            
+            $all_promote2 = management_promoteModel::all_shift_promoteByID($id); 
         }
-        // print_r($all_promote2);
-        
         return view('hrms\shift_promote\management_view_promote_history\shift_history_listByID', ['allshiftByID' => $all_promote2]);
     
-        
     }
+    // end function
 
 
 
@@ -57,14 +45,23 @@ class shift_promote_historyController extends Controller
 
 
     // get all info staff promote by staff id
-    public function view_shift_history_detail(){
-        echo "out isset of id & num";
-        echo $_GET['number'];
-        if(isset($_GET['number']) ){
-            echo "in isset 213213";
+    public function view_shift_history_detail(){  
+        if(isset($_GET['number']) && isset($_GET['staffid']) ){
+            $id = $_GET['staffid'];
+            $num = $_GET['number'];
+            $all_promote3 = management_promoteModel::all_shift_promoteByID($id); 
+            for($i=0; $i<count($all_promote3); $i++){
+                if( $num == $i){
+                    $r = $all_promote3[$i]; 
+                }
+
+            }
+            return view('hrms\shift_promote\management_view_promote_history\shift_history_listDetail', ['his_listDetail' => $r]);
+
         }
 
     }
+    // end function
 
 
 
