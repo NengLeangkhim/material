@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class ModelQuestionAnswer extends Model
 {
-    protected $table = 'hr_suggestion_question_type';
+    protected $table = 'hr_suggestion_question';
     protected $primaryKey = 'id';
      // ===== Function get data for table =====////
       public static function hrm_get_tbl_suggestion_question(){
@@ -48,5 +48,43 @@ class ModelQuestionAnswer extends Model
       public static function hrm_delete_question($id,$userid){
          return DB::select('SELECT public.delete_hr_suggestion_question(?,?)',array($id,$userid));
       }
-      
+        // ===== Function get data Question for Answer =====////
+        public static function hrm_get_question_sugg($id){
+         $question_sugg_get = DB::table('hr_suggestion_question as sq')
+                            ->select('sq.id','sq.question','sq.id_type','sqt.name')
+                            ->leftjoin('hr_suggestion_question_type as sqt','sq.id_type','=','sqt.id')
+                            ->where('sq.id','=',$id)
+                            ->get(); 
+         return $question_sugg_get;
+      }
+      // ===== Function Insert data Question =====////
+      public static function hrm_insert_answer_sugg($id_question,$answer_name,$userid){
+         
+         return DB::select('SELECT public.insert_hr_suggestion_answer(?,?,?)',array($id_question,$answer_name,$userid));
+      }
+      // ===== Function get data Question for Answer =====////
+      public static function hrm_get_answer_sugg($id){
+         $answer_sugg_get = DB::table('hr_suggestion_answer')
+                               ->select('*')
+                               ->where('question_id','=',$id)
+                               ->get(); 
+         return $answer_sugg_get;
+      }
+      // ===== function update question and answer ========//
+      //question model update
+      public static function hrm_edit_question_option_sugg($question_edit,$status_question,$id_q,$userid){
+         return DB::update('UPDATE hr_suggestion_question set question = ? ,status= ? ,
+                            create_by= ? where id = ?',["$question_edit" , "$status_question",$userid,$id_q]);
+      }
+      //answer model update
+      public static function hrm_edit_answer_sugg($answer_edit,$status_answer,$id_answer,$userid){
+         return DB::update('update hr_suggestion_answer set answer = ? ,
+                           status= ?,create_by= ?
+                           where id = ?',["$answer_edit","$status_answer",$userid,$id_answer]);
+      }
+       // ===== function Delete question and answer ========//
+      //answer model delete
+      public static function hrm_delete_answer_sugg($id,$userid){
+         return DB::select('SELECT public.delete_hr_suggestion_answer(?,?)',array($id,$userid));
+      }
 }

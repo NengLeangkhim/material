@@ -18,6 +18,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Question</th>
                         <th scope="col">Question Type</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
                   </thead>
@@ -29,7 +30,14 @@
                     <tr>
                         <th>{{$i++}}</th>
                         <td>{{$row->question}}</td>
-                        <td>{{$row->question_type}}</td>
+                        <td class="text-center">{{$row->question_type}}</td>
+                        <td class="text-center">
+                          @if ($row->status=='t')
+                              {{'Active'}}
+                          @else
+                              {{'Disactive'}}
+                          @endif
+                        </td>
                       @if ($row->id_type==1) {{-- Permission check for option type --}}
                         <td class="text-center">
                           <div class="dropdown">
@@ -37,9 +45,10 @@
                                 Action
                             </button>
                             <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">
-                            <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item">View Detail</button>
-                            <button type="button" id="{{$row->id}}" onclick="add_plan_follow_up({{$row->id}})" class="dropdown-item hrm_item add_plan_follow_up">Add Choice</button>
-                            <button type="button" id="{{$row->id}}" onclick="add_plan_follow_up({{$row->id}})" class="dropdown-item hrm_item add_plan_follow_up">Update</button>
+                            <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_view_detail_question_answer">View Detail</button>
+                            <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item add_answer_sugg">Add Choice</button>
+                            <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_question_answer">Update Detail</button>
+                            <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_delete_question_answer">Delete</button>
                             </div>
                             </div>
                         </td>
@@ -50,7 +59,6 @@
                                 Action
                             </button>
                             <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">
-                            <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item">View Detail</button>
                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item update_q_sugg">Update</button>
                             <button type="button" id="{{$row->id}}" onclick="hrm_detele('{{$row->id}}','hrm_question_answer_sugg/delete','/hrm_question_answer_sugg','Question Has Been Deleted')"  class="dropdown-item hrm_item delete_q_sugg">Delete</button>
                             </div>
@@ -69,6 +77,7 @@
     </div>
 </div>
    </section>
+<div id='ShowModalSuggestion'></div>
    <script type='text/javascript'>
     $(document).ready(
         function(){

@@ -53,6 +53,7 @@ function AddNewQ_type_sugg(){
       $('#q_type_sugg_modal').modal('show');//Modal show
       $('.print-error-msg').hide(); // hide div show error
       $("#question_type_sugg_form input").removeClass("is-invalid");
+      $('#card_title').text('Add Question Type');
       $('#question_type_sugg').val('');
       $('#action_q_t_sugg').text('Create'); // Give value to button action of question type submit
 } 
@@ -173,7 +174,7 @@ function detele_q_t_sugg(id) {
         type:"GET",    //Using of Post method for send data
         success:function(data){
          console.log(data);
-         sweetalert('success','The Question Type has been Update Successfully !!');
+       //  sweetalert('success','The Question Type has been Update Successfully !!');
          setTimeout(function(){ go_to('hrm_question_type_sugg'); }, 300);// Set timeout for refresh content
         Swal.fire(
           'Deleted!',
@@ -193,13 +194,14 @@ function detele_q_t_sugg(id) {
 //========= function popup modal for add =======//
 function AddNewQuestionSugg(){
     $('#q_sugg_modal').modal('show');
-    $('#question_name').val('');
-    $('#question_type').val('');
+    $('#question_name_sugg').val('');
+    $('#question_type_id_sugg').val('');
     $("#question_sugggestion_form textarea").removeClass("is-invalid");
     $("#question_sugggestion_form #question_type_id_sugg").removeClass("is-invalid");
     $(".invalid-feedback").children("strong").text("");
+    $('#card_title').text("Create Questions");
     $('#statusType').val('1');
-    $('#action_q_sugg').val('Create');
+    $('#action_q_sugg').text('Create');
 } 
 
 function HrmSubmitQuestionSugg(){
@@ -305,5 +307,352 @@ $(document).on('click', '.update_q_sugg', function(){
 //======= END Funtion get value from database to show on modal update =======//
 ////========== END Question Suggestion============//// 
 ////========== Answer Suggestion============////
+///Get modal show for add answer //
+$(document).on('click', '.add_answer_sugg', function(){
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  $.ajax({
+   url:"hrm_question_answer_sugg/answer/modal",   //Request send to "action.php page"
+   type:"GET",    //Using of Post method for send data
+   data:{id:id},//Send data to server
+   success:function(data){
+      $('#ShowModalSuggestion').html(data);
+      $('#answer_add_sugg_modal').modal('show');   //It will display modal on webpage
+      $("#answer_sugggestion_form input").removeClass("is-invalid");//remove all error message
+      $(".invalid-feedback").children("strong").text("");
+   }
+  });
+});
+/// Function Add Answer Suggestion ///
+function HrmSubmitAnswerSugg(){
+  event.preventDefault();
+  $.ajax({
+    url:'hrm_question_answer_sugg/answer/store',
+    type:'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+     data: //_token: $('#token').val(),
+    $('#answer_sugggestion_form').serialize(), 
+    
+    success:function(data)
+    {
+      if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+        console.log(data);
+        $('#answer_add_sugg_modal').modal('hide');
+        sweetalert('success','The Answer has been Insert Successfully !!');
+        setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 300);// Set timeout for refresh content 
+    }else{
+      // $(".print-error-msg").find("ul").html(''); 
 
+      // $(".print-error-msg").css('display','block');
+
+      $.each( data.errors, function( key, value ) {//foreach show error
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+          // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+          $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+          // sweetalert('warning',value);
+
+      });
+    }
+    }
+  });
+}
+///Get modal show Detail question and answer //
+$(document).on('click', '.hrm_view_detail_question_answer', function(){
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  $.ajax({
+   url:"hrm_question_answer_sugg/answer/view",   //Request send to "action.php page"
+   type:"GET",    //Using of Post method for send data
+   data:{id:id},//Send data to server
+   success:function(data){
+      $('#ShowModalSuggestion').html(data);
+      $('#modal_detail_queston_answer_sugg').modal('show');   //It will display modal on webpage
+   }
+  });
+});
+///Get modal show question and answer for update detail//
+$(document).on('click', '.hrm_question_answer', function(){
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  $.ajax({
+   url:"hrm_question_answer_sugg/updatedetail",   //Request send to "action.php page"
+   type:"GET",    //Using of Post method for send data
+   data:{id:id},//Send data to server
+   success:function(data){
+      $('#ShowModalSuggestion').html(data);
+      $('#modal_update_queston_answer_sugg').modal('show');   //It will display modal on webpage
+      $("#question_answer_sugg_form textarea").removeClass("is-invalid");//remove all error message
+      $("#question_answer_sugg_form select").removeClass("is-invalid");
+   }
+  });
+});
+/// Function Update Suggestion Detail ///
+function HrmUpdateQuestionAnswerSugg(){
+  event.preventDefault();
+  $.ajax({
+    url:'hrm_question_answer_sugg/editdetail',
+    type:'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+     data: //_token: $('#token').val(),
+    $('#question_answer_sugg_form').serialize(), 
+    
+    success:function(data)
+    {
+      if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+        console.log(data);
+        $('#modal_update_queston_answer_sugg').modal('hide');
+        sweetalert('success','The Answer And Question has been Update Successfully !!');
+        setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 300);// Set timeout for refresh content 
+    }else{
+      $(".print-error-msg").find("ul").html(''); 
+
+      $(".print-error-msg").css('display','block');
+
+      $.each( data.errors, function( key, value ) {//foreach show error
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+        //  $("#answer_name.0").addClass("is-invalid");
+          var name = $("textarea[name='"+key+"']");
+          if(key.indexOf(".") != -1){
+            var arr = key.split(".");
+            name = $("textarea[name='"+arr[0]+"[]']:eq("+arr[1]+")");
+          }
+          name.addClass("is-invalid");
+          $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+      });
+    }
+    }
+  });
+}
+// Function Delete Detail Question And Answer //
+$(document).on('click', '.hrm_delete_question_answer', function(){
+  event.preventDefault();
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  Swal.fire({ //get from sweetalert function
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.value) {
+      $.ajax({
+        url:"hrm_question_answer_sugg/deletedetail",   //Request send to "action.php page"
+        data:{id:id},
+        type:"GET",    //Using of Post method for send data
+        success:function(data){
+         console.log(data);
+      //   sweetalert('success','The Question Type has been Update Successfully !!');
+         setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 300);// Set timeout for refresh content
+        Swal.fire(
+          'Deleted!',
+          'Your Question has been deleted.',
+          'success'
+        )
+        }
+       });
+      
+    }
+  })
+})
+///////============== End Answer Suggestion ==============///////////
 /////////////================================= END EMPLOYEE SUGGESTION =============================///////////////
+
+/////////////================================= Policy =============================//////////////////
+/////==== List Policy ====//////
+
+//function show modal add //
+function HrmAddPolicy(){
+  $('#hrm_policy_modal').modal('show');
+  $('#policy_name').val('');
+  $('#policy_file').val(''); 
+  $('#policy_name').removeClass("is-invalid");
+  $('#policy_file').removeClass("is-invalid");
+  $('#card_title').text('Add Policy');
+  $('#action_policy').text('Create');
+} 
+//function insert policy //
+function HrmSubmitPolicy(){
+  event.preventDefault();
+  var formElement = document.getElementById('hrm_policy_form');
+  var formData = new FormData(formElement);
+  $('#policy_name').removeClass("is-invalid");
+  $('#policy_file').removeClass("is-invalid");
+  /// Insert question type 
+  if($('#action_policy').text()=='Create') //check condition for create question type 
+  {
+   
+    $.ajax({
+      url:'hrm_list_policy/store',
+      type:'POST',
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+       data: //_token: $('#token').val(),
+       formData,
+       processData: false,
+       contentType: false,
+      success:function(data)
+      {
+        if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+          console.log(data);
+          $('#hrm_policy_modal').modal('hide');
+          sweetalert('success','The Policy has been Insert Successfully !!');
+          setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content 
+      }else{
+        // $(".print-error-msg").find("ul").html(''); 
+
+        // $(".print-error-msg").css('display','block');
+
+        $.each( data.errors, function( key, value ) {//foreach show error
+            $("#" + key).addClass("is-invalid"); //give read border to input field
+            // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            //  sweetalert('warning',value);
+            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+        });
+      }
+      }
+    });
+  }
+  /// Update action Question Type
+  if($('#action_policy').text()=='Update') // Check Condition for update question type
+  {
+    $.ajax({
+      url:'hrm_list_policy/update',
+      type:'POST',
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data: //_token:  $('#token').val(),
+      formData,
+      processData: false,
+      contentType: false,
+      success:function(data)
+      {
+        if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+          console.log(data);
+          $('#hrm_policy_modal').modal('hide');
+          sweetalert('success','The Policy has been Update Successfully !!');
+          setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content 
+      }else{
+        // $(".print-error-msg").find("ul").html('');
+
+        // $(".print-error-msg").css('display','block');
+
+        $.each( data.errors, function( key, value ) {
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+            // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            //sweetalert('warning',value);
+            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+        });
+      }
+      }
+    });
+  }
+
+ };
+ //Function Update
+ $(document).on('click', '.hrm_update_policy_list', function(){
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  $.ajax({
+   url:"hrm_list_policy/getedit",   //Request send to "action.php page"
+   type:"POST",    //Using of Post method for send data
+   headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+   data:{id:id},//Send data to server
+   dataType:"json",   //Here we have define json data type, so server will send data in json format.
+   success:function(data){
+      $('#hrm_policy_modal').modal('show');   //It will display modal on webpage
+      $('#action_policy').text("Update"); 
+      $('#card_title').text("Update Policy")     //This code will change Button value to Update
+      $('#policy_id').val(id);     //It will define value of id variable to this customer id hidden field
+      $('#operation').val('Update');
+      $('#policy_name').removeClass("is-invalid");
+      $('#policy_file').removeClass("is-invalid");
+      $.each(data, function(i, e){ //read array json for show to textbox
+        $('#hidden_pdf').val(data[i].file_path)// Set to span and get hidden for value 
+        $('#policy_name').val(data[i].name);    
+        });     
+     
+   }
+  });
+ });
+ //Function View Modal Policy
+ $(document).on('click', '.hrm_view_policy', function(){
+  var currentdate = new Date();
+  var start_time =currentdate.getFullYear() + "-"
+  + (currentdate.getMonth()+1)  + "-" 
+  + currentdate.getDate() + "   "  
+  + currentdate.getHours() + ":"  
+  + currentdate.getMinutes() + ":" 
+  + currentdate.getSeconds();
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  $.ajax({
+   url:"hrm_list_policy/modal",   //Request send to "action.php page"
+   type:"GET",    //Using of Post method for send data
+   data:{id:id},//Send data to server
+   success:function(data){
+      $('#ShowModalPolicy').html(data);
+      $('#hrm_view_policy_modal').modal('show');   //It will display modal on webpage
+      $('#start_time').val(start_time);
+      $("#verify_policy").removeClass("is-invalid");//remove all error message
+      $(".invalid-feedback").children("strong").text("");
+   }
+  });
+});
+/// Function Submit User Reading Policy ///
+function sumbit_policy(){
+  event.preventDefault();
+  $.ajax({
+    url:'hrm_list_policy/storeuser',
+    type:'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+     data: //_token: $('#token').val(),
+    $('#hrm_policy_view_form').serialize(), 
+    
+    success:function(data)
+    {
+      if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+        console.log(data);
+        $('#hrm_view_policy_modal').modal('hide');
+        sweetalert('success','Thanks for reading policy !!');
+        setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content 
+    }else{
+      // $(".print-error-msg").find("ul").html(''); 
+
+      // $(".print-error-msg").css('display','block');
+
+      $.each( data.errors, function( key, value ) {//foreach show error
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+          // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+          $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+          // sweetalert('warning',value);
+
+      });
+    }
+    }
+  });
+}
+/////==== END List Policy ====//////
+/////==== Policy User ====//////
+///Get modal show question and answer for update detail//
+$(document).on('click', '.hrm_view_policy_user', function(){
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  $.ajax({
+   url:"hrm_list_policy_user/modal",   //Request send to "action.php page"
+   type:"GET",    //Using of Post method for send data
+   data:{id:id},//Send data to server
+   success:function(data){
+      $('#ShowModalPolicyUser').html(data);
+      $('#hrm_view_policy_user_modal').modal('show');   //It will display modal on webpage
+   }
+  });
+});
+/////==== END Policy User ====//////
+/////////////================================= END Policy =============================///////////////

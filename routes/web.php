@@ -348,30 +348,87 @@ Route::get('/login','Login@login');
 ///////====== Question Type========= ///////
 ///// Route for show table ////
 Route::get('hrm_question_type_sugg','hrms\suggestion\question_typeController@tbl_suggestion_question_type');
-/// Route Show modal for add and edit//
-// Route::get('hrm_question_type_sugg/modal','hrms\suggestion\question_typeController@modal_question_type_sugg');
+
 // ///Route for insert and update ///
 Route::post('hrm_question_type_sugg/add','hrms\suggestion\question_typeController@AddQuestionTypeSugg');
 Route::post('hrm_question_type_sugg/update','hrms\suggestion\question_typeController@EditQuestionTypeSugg');
+
 //get value for update//
 Route::get('hrm_question_type_sugg/edit','hrms\suggestion\question_typeController@GetEditQuestionTypeSugg');
+
 //Delete question type suggestion//
 Route::get('hrm_question_type_sugg/delete', 'hrms\suggestion\question_typeController@delete_question_type_sugg');
+
 /////================ END QUESTION TYPE =============////
 
 ///////=============Question & Answer=================//////
+
 //show index page //
 Route::get('hrm_question_answer_sugg','hrms\suggestion\QuestionAnswerController@tbl_suggestion_question_answer');
+
 //insert question //
 Route::post('hrm_question_answer_sugg/store', 'hrms\suggestion\QuestionAnswerController@AddQuestionSugg');
+
 //get data for update //
 Route::get('hrm_question_answer_sugg/edit','hrms\suggestion\QuestionAnswerController@GetEditQuestionSugg');
+
 //update question //
 Route::post('hrm_question_answer_sugg/update','hrms\suggestion\QuestionAnswerController@EditQuestionSugg');
+
 //Delete question suggestion//
 Route::get('hrm_question_answer_sugg/delete', 'hrms\suggestion\QuestionAnswerController@delete_question_sugg');
+
+// get modal for add answer //
+Route::get('hrm_question_answer_sugg/answer/modal','hrms\suggestion\QuestionAnswerController@hrm_modal_add_answer');
+
+// get modal for add answer //
+Route::post('hrm_question_answer_sugg/answer/store','hrms\suggestion\QuestionAnswerController@AddAnswerSugg');
+
+// get modal for view detail question and answer //
+Route::get('hrm_question_answer_sugg/answer/view','hrms\suggestion\QuestionAnswerController@hrm_view_detail_qestion_answer');
+
+// get modal for Update detail question and answer //
+Route::get('hrm_question_answer_sugg/updatedetail','hrms\suggestion\QuestionAnswerController@hrm_update_detail_qestion_answer');
+
+// Route Update detail question and answer //
+Route::post('hrm_question_answer_sugg/editdetail','hrms\suggestion\QuestionAnswerController@hrm_edit_detail_qestion_answer');
+
+// Route Delete detail question and answer //
+Route::get('hrm_question_answer_sugg/deletedetail','hrms\suggestion\QuestionAnswerController@delete_detail_question_answer_sugg');
 //////========END QUESTION & Answer==========/////
 /////////////////==============END SUGGESTION=============///////////////
+
+/////////////////==============Policies=============///////////////
+
+//////========List Policy==========/////
+//route index policy//
+Route::get('hrm_list_policy', 'hrms\policy\HrmPolicyController@hrm_index_policy_list');
+
+//route insert policy//
+Route::post('hrm_list_policy/store','hrms\policy\HrmPolicyController@hrm_insert_policy');
+
+//route get data for update //
+Route::post('hrm_list_policy/getedit','hrms\policy\HrmPolicyController@get_data_policy');
+
+//route update policy//
+Route::post('hrm_list_policy/update','hrms\policy\HrmPolicyController@HrmUpdatePolicy');
+
+//route Delete policy//
+Route::get('hrm_list_policy/delete','hrms\policy\HrmPolicyController@HrmDeletePolicy');
+
+//route View policy//
+Route::get('hrm_list_policy/modal','hrms\policy\HrmPolicyController@HrmViewPolicy');
+
+//route Insert Policy User//
+Route::post('hrm_list_policy/storeuser','hrms\policy\HrmPolicyController@HrmInsertPolicyUser');
+
+//route Index Policy User//
+Route::get('hrm_list_policy_user','hrms\policy\HrmPolicyController@HrmIndexUserPolicy');
+
+//route Modal Policy User//
+Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModalUserPolicy');
+/////////////////==============END Policies=============///////////////
+
 
 // ========================================================>END METKEOSAMBO <======================================================== //
 
