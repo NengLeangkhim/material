@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\hrms\Employee;
 use App\model\hrms\employee\Attendance;
 use App\Http\Controllers\Controller;
+use App\model\hrms\employee\Employee;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -10,7 +11,16 @@ class AttendanceController extends Controller
     //
     function AllAttendance(){
         $att=new Attendance();
-        $a=$att->AllAttendance();
-        return view('hrms/Employee/Attendance/Attendance')->with('a',$a);
+        $em=new Employee();
+        $allem=$em->AllEmployee();
+        $a=$att->AttendanceToday($allem);
+        if(isset($_POST['attendanceDate'])){
+
+        }else{
+            $date=date('d-m-Y');
+            echo $date
+            ;
+        }
+        return view('hrms/Employee/Attendance/Attendance')->with('attendance',$a);
     }
 }

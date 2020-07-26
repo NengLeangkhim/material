@@ -48,3 +48,12 @@ thead tr th{
     text-align: center;
     vertical-align: center;
 }
+.bg-late{
+    background-color: #F8B867;
+}
+.bg-present{
+    background-color: #34ACE1;
+}
+.bg-absent{
+    background-color: #F95A8B;
+}
