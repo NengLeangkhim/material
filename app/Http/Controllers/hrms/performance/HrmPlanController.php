@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\model\hrms\performance\ModelHrmPlan;
 use App\Http\Controllers\perms;
 use App\model\hrms\ModelHrmPermission;
+use Illuminate\Validation\Rule;
+use App\model\hrms\performance\ModelHrmPlanDetail;
 
 class HrmPlanController extends Controller
 {
@@ -42,5 +44,123 @@ class HrmPlanController extends Controller
         }else{
             return view('no_perms');
         }
+    } 
+    //function insert plan //
+    public function hrm_insert_perform_plan(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+            }
+            $validator = \Validator::make($request->all(), [
+                'plan_name' =>  [  'required',
+                                    'max:255',
+                                    Rule::unique('hr_performance_plan','name')
+                                            ->where(function ($query) use ($request) {
+                                            return $query->where('is_deleted', 'f');})
+                                        ],
+                'plan_from' => [ 'required',
+                                 'date'
+                                        ],
+                'plan_to' => [ 'required',
+                                'date',
+                                'after:plan_from'
+                                        ],
+            ],
+            [
+                'plan_name.required' => 'The Plan Name is Required !!',   //massage validator
+                'plan_from.required' => 'Please Select Date !!',
+                'plan_to.required' => 'Please Select Date !!',
+                'plan_name.unique' => 'The Plan Name is Already exist !!',   //massage validator
+                'plan_to.after' => 'Please Select Date Larger than Date From!!'
+                ]
+            );
+        if ($validator->fails()) //check validator for fail
+        {
+            return response()->json(array(
+                'errors' => $validator->getMessageBag()->toArray() 
+            ));
+        }else{
+            if(perms::check_perm_module('HRM_09070401')){//module code list data tables id=139
+            $userid= $_SESSION['userid'];
+            $plan_name = $request->plan_name;
+            $start = $request->plan_from;
+            $to = $request->plan_to;
+            $insert_plan = ModelHrmPlan::hrm_insert_perform_plan($plan_name,$start,$to,$userid); //insert data
+            return response()->json(['success'=>'Record is successfully added']);
+            }else{
+                return view('no_perms');
+            }
+        }
+    }
+    //function get data for update plan
+    public function hrm_get_data_perform_plan()
+    {
+         if (session_status() == PHP_SESSION_NONE) {
+             session_start();
+             }
+             $id = $_GET['id'];
+             $plan_get = array();
+             $plan_get= ModelHrmPlan::hrm_get_plan($id); 
+             return response()->json($plan_get);
+    }
+    //function update plan //
+    public function hrm_update_perform_plan(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+            }
+            $validator = \Validator::make($request->all(), [
+                'plan_name' =>  [  'required',
+                                    'max:255',
+                                    Rule::unique('hr_performance_plan','name')->ignore($request->plan_id)// ingore by id 
+                                         ->where(function ($query) use ($request) {
+                                            return $query->where('is_deleted', 'f');})
+                                        ],
+                'plan_from' => [ 'required',
+                                 'date'
+                                        ],
+                'plan_to' => [ 'required',
+                                'date',
+                                'after:plan_from'
+                                        ],
+            ],
+            [
+                'plan_name.required' => 'The Plan Name is Required !!',   //massage validator
+                'plan_from.required' => 'Please Select Date !!',
+                'plan_to.required' => 'Please Select Date !!',
+                'plan_name.unique' => 'The Plan Name is Already exist !!',   //massage validator
+                'plan_to.after' => 'Please Select Date Larger than Date From!!'
+                ]
+            );
+        if ($validator->fails()) //check validator for fail
+        {
+            return response()->json(array(
+                'errors' => $validator->getMessageBag()->toArray() 
+            ));
+        }else{
+            if(perms::check_perm_module('HRM_09070402')){//module code list data tables id=140
+            $userid= $_SESSION['userid'];
+            $id_plan = $request->plan_id;
+            $plan_name = $request->plan_name;
+            $start = $request->plan_from;
+            $to = $request->plan_to;
+            $insert_plan = ModelHrmPlan::hrm_update_perform_plan($id_plan,$userid,$plan_name,$start,$to); //insert data
+            return response()->json(['success'=>'Record is successfully updated']);
+            }else{
+                return view('no_perms');
+            }
+        }
+    }
+    // function View Plan Detail//
+    public function HrmViewPerformPlan(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+            } 
+            $id = $_GET['id'];
+            $plan = ModelHrmPlan::hrm_get_plan($id);
+            foreach($plan as $row){
+                $id_plan = $row->id;
+            }
+            $plan_detail_get = ModelHrmPlanDetail::hrm_get_plan_detail($id_plan); 
+
+            return view('hrms/performance/performance_plan/HrmViewPerformPlan', ['perform_plan' => $plan,'perform_plan_detail' =>$plan_detail_get]);
     } 
 }
