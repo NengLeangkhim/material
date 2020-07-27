@@ -42,21 +42,37 @@ class ModelHrmPolicy extends Model
     public static function hrm_insert_policy_user($userid,$start,$end,$id_policy,$current){
         return DB::select('SELECT public.insert_hr_policy_user(?,?,?,?,?,?)',array($userid,$start,$end,$id_policy,$current,$userid));
     }
-    //====== Function show index user policy ====//
+    //====== Function show index user policy for CEO ====//
     public static function hrm_get_tbl_policy_user(){
         return DB::table('hr_policy_user as p_u')
-        ->select('p_u.*','p.name as name_policy','s.name','s.id_number')
+        ->select('p_u.*','p.name as name_policy','s.name','s.id_number','s.position_id','po.name as position_name')
         ->join('staff as s','p_u.id_user','=','s.id')
+        ->join('position as po','s.position_id','=','po.id')
         ->join('hr_policy as p','p_u.id_policy','=','p.id')
         ->where('p_u.is_deleted','=','f')
+        ->orderBy('p_u.id','ASC')
+        ->get(); 
+    }
+    //====== Function show index user policy for Head of Each Departement ====//
+    public static function hrm_get_tbl_policy_user_dept($dept){
+        return DB::table('hr_policy_user as p_u')
+        ->select('p_u.*','p.name as name_policy','s.name','s.id_number','s.company_dept_id','s.position_id','po.name as position_name')
+        ->join('staff as s','p_u.id_user','=','s.id')
+        ->join('position as po','s.position_id','=','po.id')
+        ->join('hr_policy as p','p_u.id_policy','=','p.id')
+        ->where([
+            ['p_u.is_deleted', '=', 'f'],
+            ['s.company_dept_id', '=', $dept],
+        ])
         ->orderBy('p_u.id','ASC')
         ->get(); 
     }
     //====== Function select user policy ====//
     public static function hrm_get_policy_user($id){
         return DB::table('hr_policy_user as p_u')
-        ->select('p_u.*','p.name as name_policy','s.name','s.id_number')
+        ->select('p_u.*','p.name as name_policy','s.name','s.id_number','s.position_id','po.name as position_name')
         ->join('staff as s','p_u.id_user','=','s.id')
+        ->join('position as po','s.position_id','=','po.id')
         ->join('hr_policy as p','p_u.id_policy','=','p.id')
         ->where('p_u.id','=',$id)
         ->orderBy('p_u.id','ASC')

@@ -177,9 +177,19 @@ class HrmPolicyController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
             } 
-            $policy_user = ModelHrmPolicy::hrm_get_tbl_policy_user(); //query policy user
-            return view('hrms/policy/policy_reader/HrmListUserPolicy', ['policy_user' => $policy_user]);  
-    }
+            $userid = $_SESSION['userid'];
+            $permission = ModelHrmPermission::hrm_get_permission($userid);
+            foreach($permission as $row){
+                $dept = $row->company_dept_id;
+                $group = $row->group_id;
+            }
+            if($group==5){ //permission check for CEO
+                $policy_user = ModelHrmPolicy::hrm_get_tbl_policy_user(); //query policy user 
+            }else{//permission each departement
+                $policy_user = ModelHrmPolicy::hrm_get_tbl_policy_user_dept($dept);
+            }
+            return view('hrms/policy/policy_reader/HrmListUserPolicy', ['policy_user' => $policy_user]); 
+    } 
     // function Show table User read Policy //
     public function HrmModalUserPolicy(){
         if (session_status() == PHP_SESSION_NONE) {
