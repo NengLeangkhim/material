@@ -1,0 +1,70 @@
+/* Product-list Search field */
+#productSearch-input {
+	padding: 3px;
+	margin-left: 0;
+	border: 1px solid #ccc;
+	font-size: 1em;
+	line-height: 1.071em;
+	-moz-box-shadow: 0 1px 2px #eee inset;
+	-webkit-box-shadw: 0 1px 2px #eee inset;
+	box-shadow: 0 1px 2px #eee inset;
+	position: absolute;
+	top: -38px;
+	right: 0px;
+	padding-left: 10px;
+	background-image: url(https://cdn.jotfor.ms/assets/img/builder/search_icon.png);
+	background-size: 14px;
+	background-position: right 4px center;
+	background-repeat: no-repeat;
+	width: unset;
+	min-width: unset;
+}
+
+/*.isBuilder #productSearch-input {
+	top: -30px;
+}*/
+
+.form-label-top.search-enabled {
+	padding-right: 144px;
+}
+
+.search-enabled ~ div {
+	position: relative;
+}
+
+.form-label-top.search-enabled ~ .form-input-wide {
+	border-top: 1px solid;
+	border-color: rgba(0,0,0,0.1);
+	padding-top: 10px;
+	margin-top: 16px;
+}
+
+.form-label-left.search-enabled ~ .form-input,
+.form-label-right.search-enabled ~ .form-input {
+	padding-top: 12px;
+	margin-top: 36px;
+	width: calc(100% - 160px);
+	border-top: 1px solid;
+	border-color: rgba(0,0,0,0.1);
+}
+
+.form-product-item {
+	box-sizing: border-box;
+}
+
+.form-product-item.not-found,
+.form-product-item.not-found ~ br {
+	display: none !important;
+}
+
+.search-subproduct-selection-hightlight {
+	-webkit-box-shadow: -2px 3px 5px 0px rgba(141,183,199,0.27);
+	-moz-box-shadow: -2px 3px 5px 0px rgba(141,183,199,0.27);
+	box-shadow: -2px 3px 5px 0px rgba(141,183,199,0.27);
+}
+
+.search-subproduct-selection-show {
+	display:block !important;
+}
+
+/* E.O. Product-list Search field */

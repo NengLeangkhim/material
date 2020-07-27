@@ -10,12 +10,6 @@ class shift_promote_reportController extends Controller
 {
     
 
-
-
- 
-
-    
-
     public function promote_report_view(){
         if(isset($_GET['_from']) && isset($_GET['_to'])){
             $date_from = $_GET['_from'];
