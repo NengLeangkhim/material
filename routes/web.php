@@ -515,41 +515,43 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
 
 // ===========================================================START SOK KIM PART ==================================== //
-// Shift Promote
+//================ Shift Promote
 // management promote
 Route::get('hrm_management_shift_promote','hrms\shift_promote\management_promoteController@AllEmployee');
 Route::get('hrm_management_edit_promote','hrms\shift_promote\management_promoteController@Edit_staff_promote');
 Route::get('hrm_submit_staff_promote','hrms\shift_promote\management_promoteController@Submit_staff_promote');
 // end management promte
 
-
-
 //staff view their promote
 Route::get('hrm_staff_view_promote','hrms\shift_promote\staff_view_promoteController@view_promoteByID');
 Route::get('hrm_staff_view_promote_detail','hrms\shift_promote\staff_view_promoteController@staff_view_detail');
 // end staff view their promote
 
-
 // view staff promote history (for management)
 Route::get('hrm_staff_promote_history','hrms\shift_promote\shift_promote_historyController@all_staff_promote');
 Route::get('hrm_staff_promote_history_list','hrms\shift_promote\shift_promote_historyController@all_staff_promoteByID');
 Route::get('hrm_shift_history_listDetail','hrms\shift_promote\shift_promote_historyController@view_shift_history_detail');
-
 // end view history
 
 // shift promote report
-
 Route::get('hrm_shift_promote_report',function(){
     return view('hrms.shift_promote.promote_report.shift_promote_report');
 });
-
 Route::get('hrm_shift_promote_report_search_view','hrms\shift_promote\shift_promote_reportController@promote_report_view');
-
 Route::get('hrm_shift_promote_report_search_view_detail','hrms\shift_promote\shift_promote_reportController@promote_report_view_detail');
-
 // end shift promote report
 
-// End Shift promote
+//============End Shift promote
+
+//============Recruitment User=============
+
+Route::get('hrm_index_user_register',function(){
+    return view('hrms.recruitment_user.index_recruitment_register');
+});
+
+
+
+
 
 
 

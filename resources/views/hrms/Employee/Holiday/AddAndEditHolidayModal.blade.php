@@ -15,7 +15,7 @@
             <form id="fm_holiday">
               @csrf
             <div class="row">
-              <input type="text" name="id" id="" value="@php if(isset($holiday)){echo $holiday[0]->id;} @endphp">
+              <input type="hidden" name="id" id="" value="@php if(isset($holiday)){echo $holiday[0]->id;} @endphp">
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Title <span class="text-danger">*</span></label>

@@ -1,6 +1,7 @@
 <div style="padding:10px 10px 10px 10px">
   @php
-      print_r($a);
+      // print_r($attendance);
+      var_dump($attendance);
   @endphp
     <div class="row">
         <div class="col-md-12">
@@ -34,10 +35,10 @@
 
                       <div class="col-md-3 col-sm-6 col-12">
                         <div class="info-box">
-                          <span class="info-box-icon bg-info"><i class="fas fa-users"></i></span>
+                          <span class="info-box-icon bg-late"><i class="fas fa-users"></i></span>
 
                           <div class="info-box-content">
-                            <span class="info-box-text"></span>Employee Late</span></span>
+                            <span class="info-box-text"></span>Late</span></span>
                             <span class="info-box-number">1,410</span>
                           </div>
                           <!-- /.info-box-content -->
@@ -47,16 +48,32 @@
 
                       <div class="col-md-3 col-sm-6 col-12">
                         <div class="info-box">
-                          <span class="info-box-icon bg-info"><i class="fas fa-user-clock"></i></span>
+                          <span class="info-box-icon bg-absent"><i class="fas fa-user-clock"></i></span>
 
                           <div class="info-box-content">
-                            <span class="info-box-text">Not Come</span>
+                            <span class="info-box-text">Absent</span>
                             <span class="info-box-number">1,410</span>
                           </div>
                           <!-- /.info-box-content -->
                         </div>
                         <!-- /.info-box -->
                       </div>
+
+
+
+                      <div class="col-md-3 col-sm-6 col-12">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-present"><i class="fas fa-spinner"></i></span>
+
+                          <div class="info-box-content">
+                            <span class="info-box-text">Present</span>
+                            <span class="info-box-number">1,410</span>
+                          </div>
+                          <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                      </div>
+
 
 
 
@@ -65,23 +82,7 @@
                           <span class="info-box-icon bg-info"><i class="fas fa-spinner"></i></span>
 
                           <div class="info-box-content">
-                            <span class="info-box-text">Pending Request</span>
-                            <span class="info-box-number">1,410</span>
-                          </div>
-                          <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                      </div>
-
-
-
-
-                      <div class="col-md-3 col-sm-6 col-12">
-                        <div class="info-box">
-                          <span class="info-box-icon bg-info"><i class="far fa-times-hexagon"></i></span>
-
-                          <div class="info-box-content">
-                            <span class="info-box-text">Rejected</span>
+                            <span class="info-box-text">Request</span>
                             <span class="info-box-number">1,410</span>
                           </div>
                           <!-- /.info-box-content -->
@@ -118,15 +119,16 @@
                     </tr>
                   </thead>
                   <tbody>
-                      <tr>
+                    @foreach ($attendance as $e)
+                        <tr>
                         <td>
                           <div class="row">
                             <div class="col-md-6"><a href="javascrip:;"><i class="far fa-edit"></i></a></div>
                             <div class="col-md-6"><a href="javascrip:;"><i class="fas fa-info"></i></a></div>
                           </div>
                         </td>
-                        <th>1</th>
-                        <td>1</td>
+                      <th>{{$e[0]}}</th>
+                      <td>{{$e[1]}}</td>
                         <td>1</td>
                         <td>1</td>
                         <td>1</td>
@@ -134,6 +136,8 @@
                         <td>1</td>
                         
                       </tr>
+                    @endforeach
+                      
                   
                     
                   </tbody>
