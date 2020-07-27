@@ -5,7 +5,7 @@
             $name_policy = $row->name_policy;
             $start_time = $row->start_time;
             $end_time = $row->end_time;
-            $current_page = $row->current_page;
+            $position = $row->position_name;
         }
         $ts1 = new DateTime($start_time);
         $ts2 = new DateTime($end_time);  
@@ -50,8 +50,8 @@
                         </div><!-- End Row -->
                     <div class="row" style="height:70px">
                         <div class="col-6" style="text-align:center;width:50px;">
-                            <span class="text-center" style="font-size:15px;color:#d42931;float:left">Current Page:</span>
-                            <p style="display:inline;color:black;font-family: Khmer UI;width:50px;" id="name_kh"><?=$current_page?></p>
+                            <span class="text-center" style="font-size:15px;color:#d42931;float:left">Position:</span>
+                            <p style="display:inline;color:black;font-family: Khmer UI;width:50px;" id="name_kh"><?=$position?></p>
                         </div>
                         <div class="col-6"  style="text-align:center">
                             <span class="text-center" style="font-size:15px;color:#d42931;float:left">Create Date:</span>

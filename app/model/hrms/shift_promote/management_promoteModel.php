@@ -93,7 +93,6 @@ class management_promoteModel extends Model
     /* function get detail to staff view thier promote */
 
     public static function get_promote_staff_detail($id){
-
         $sql = "SELECT s.name, p.name as position_name, hs.salary, hs.create_date, hs.comment
         FROM ((hr_shift hs INNER JOIN staff s ON hs.staff_id = s.id ) INNER JOIN position p ON hs.position_id = p.id) 
         WHERE staff_id = $id order by create_date ASC";
@@ -123,6 +122,8 @@ class management_promoteModel extends Model
 
 
 
+
+
     
     /* function to get all staff was promote by staff id from table: shift  */
     public static function all_shift_promoteByID($id){
@@ -134,6 +135,37 @@ class management_promoteModel extends Model
     }
 
     // end
+
+
+
+
+
+    /*  function to get all staff promote between two date for report search*/
+    public static function get_promoteByDate($from,$to){
+        $sql = "SELECT hs.id, s.id as staff_id, s.name, p.name as position, hs.salary, hs.create_date, hs.create_by, hs.comment FROM 
+            ((hr_shift  hs inner join staff s ON hs.staff_id = s.id) 
+            inner join position p ON hs.position_id = p.id) 
+            WHERE hs.create_date Between  '$from 00:00:00'  AND  '$to 11:59:59'
+            ORDER BY hs.create_date DESC";
+        $r = DB::select($sql);
+        return $r; 
+    }
+    //end
+
+
+
+
+
+    /*  function to select view shift promte report detail by staff id*/
+    public static function promote_report_detailByID_Date($id,$date){
+        $sql = "SELECT hs.id, s.id as staff_id, s.name, p.name as position, hs.salary, hs.create_date, hs.create_by, hs.comment FROM 
+        ((hr_shift  hs inner join staff s ON hs.staff_id = s.id) 
+        inner join position p ON hs.position_id = p.id) WHERE hs.create_date = '$date' AND s.id = $id ";
+        $r = DB::select($sql);
+        return $r; 
+    }
+    //end
+
 
 
 

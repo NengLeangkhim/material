@@ -128,41 +128,31 @@ function staff_view_promote_detail(id){
 
 
 // function to click list row chaid of table promote history
-var jj = 0;
-var a = 0;
-
 function list_staff_promote_hisotry(st_id,ii){
-    
-    if(jj == a){     
-        a++; 
         s="staffid="+st_id;
         var url= "/hrm_staff_promote_history_list";
         var x=new XMLHttpRequest();
         x.onreadystatechange=function(){
-            if(this.readyState==4 && this.status==200){
-                alert("success");
+            if(this.readyState==4 && this.status==200){    
                 document.getElementById('list_promote_view_'+ ii +'').innerHTML=this.responseText;
-                // $('#add_edit_employees').modal('show');
+                document.getElementById('list_promote_view_'+ ii +'').style.display = "block";
             }
         }
         x.open("GET", url + "?"+ s , true);
         x.send();
-    }
-    // else {
-    //     document.getElementById('list_promote_view_'+ ii +'').style.display = "block";
-    //     jj = 0;
-    // }
 
 }
-
-
 // end view shift promote history
 
+
+
+
+
+// function to exit row list
 function exit_list_history(ii){
-    alert(ii);
-    // document.getElementById('list_promote_view_'+ ii +'').style.display = "none";
-    // jj += 1;
+    document.getElementById('list_promote_view_'+ ii +'').style.display = "none";
 }
+// end
 
 
 
@@ -170,17 +160,15 @@ function exit_list_history(ii){
 
 
 
-
+// function to click view detail in shift promote history detail
 function staff_promote_history_detail(id,i){
 
         s="staffid="+id;
         m="number="+i;
-        alert(m);
         var url= "/hrm_shift_history_listDetail";
         var x=new XMLHttpRequest();
         x.onreadystatechange=function(){
             if(this.readyState==4 && this.status==200){
-                alert("view detail history");
                 document.getElementById('prmote_modal_id').innerHTML=this.responseText;
                 $('#shift_view_history_detail').modal('show');
             }
@@ -188,5 +176,64 @@ function staff_promote_history_detail(id,i){
         x.open("GET", url + "?"+ s + "&" + m, true);
         x.send();
   
+}
+// end function
+
+
+
+
+
+
+
+
+
+// Function to search shift report by period of date time
+
+function get_shift_report(from,to){
+
+    $.ajax({
+        type:'get',
+        url: "/hrm_shift_promote_report_search_view",
+        data:{
+                 _token:'<?php echo csrf_token() ?>',
+                 _from:from,
+                 _to:to,
+             },
+     success: function(data){
+        
+             document.getElementById("report_promote").innerHTML = data; 
+              
+     }
+     });
+
+
+ }
+
+//end 
+
+
+
+
+
+
+
+// function to click view detail shift promote report
+function staff_promote_report_detail(id,date){
+    // alert(id);
+    // alert(date);
+    s="staffid="+id;
+    d="date="+date;
+    var url= "/hrm_shift_promote_report_search_view_detail";
+    var x=new XMLHttpRequest();
+    x.onreadystatechange=function(){
+        if(this.readyState==4 && this.status==200){
+
+            document.getElementById('prmote_modal_id').innerHTML=this.responseText;
+            $('#shift_view_report_detail').modal('show');
+        }
+    }
+    x.open("GET", url + "?"+ s + "&" + d, true);
+    x.send();
 
 }
+// end function

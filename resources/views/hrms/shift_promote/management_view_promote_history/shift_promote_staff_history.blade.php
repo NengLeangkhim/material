@@ -20,7 +20,7 @@
     
                     <div class="card-body">
                         <div class="table-responsive"> 
-                        <table id="example" class="table table-bordered" id="tbl_employee">
+                        <table id="tbl_employee" class="table table-bordered" >
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -53,12 +53,12 @@
                                                     <td>'.$val->create_date.'</td>
                                                     <td>
                                                         <div style="text-align: center;">
-                                                            <a class="btn-plus" href="javascript:void(0);" onclick="list_staff_promote_hisotry('.$val->staff_id.','.$i.')">
-                                                                <span ><i class="fa fa-plus" style="font-size:20px; color: white;"></i></span>
+                                                            <a  href="javascript:void(0);" onclick="list_staff_promote_hisotry('.$val->staff_id.','.$i.')">
+                                                                <span ><img src="/img/icons/plus_icon1.png" style="width: 22px; hight: 22px;"></span>
                                                             </a>
                                                       
-                                                            <a class="btn-minus" href="javascript:void(0);" onclick="exit_list_history('.$i.')">
-                                                                <span ><i class="fa fa-minus" style="font-size:20px; color: white;"></i></span>
+                                                            <a  href="javascript:void(0);" onclick="exit_list_history('.$i.')">
+                                                                <span ><img src="/img/icons/subtract_icon1.png" style="width: 25px; hight: 25px;"></span>
                                                             </a>
                                                         </div>
                                                     </td>
@@ -86,11 +86,6 @@
         </div>
     </div>
             
-    {{-- <a class="btn btn-outline-primary" href="#" onclick="staff_view_promote_detail('.$val->staff_id.')"><i class="fas fa-user-edit"></i>Detail</a> --}}
-
-    
-  
-
 
 
     
