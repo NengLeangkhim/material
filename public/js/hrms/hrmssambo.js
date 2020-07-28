@@ -209,7 +209,7 @@ function HrmSubmitQuestionSugg(){
   $("#question_sugggestion_form textarea").removeClass("is-invalid");
   $("#question_sugggestion_form #question_type_id_sugg").removeClass("is-invalid");
   $(".invalid-feedback").children("strong").text("");
-  /// Insert question type 
+  /// Insert question 
   if($('#action_q_sugg').text()=='Create') //check condition for create question type 
   {
    
@@ -245,7 +245,7 @@ function HrmSubmitQuestionSugg(){
       }
     });
   }
-  /// Update action Question Type
+  /// Update action Question 
   if($('#action_q_sugg').text()=='Update') // Check Condition for update question type
   {
     $.ajax({
@@ -470,6 +470,7 @@ function HrmAddPolicy(){
   $('#policy_file').val(''); 
   $('#policy_name').removeClass("is-invalid");
   $('#policy_file').removeClass("is-invalid");
+  $(".invalid-feedback").children("strong").text("");
   $('#card_title').text('Add Policy');
   $('#action_policy').text('Create');
 } 
@@ -480,7 +481,7 @@ function HrmSubmitPolicy(){
   var formData = new FormData(formElement);
   $('#policy_name').removeClass("is-invalid");
   $('#policy_file').removeClass("is-invalid");
-  /// Insert question type 
+  /// Insert function 
   if($('#action_policy').text()=='Create') //check condition for create question type 
   {
    
@@ -517,7 +518,7 @@ function HrmSubmitPolicy(){
       }
     });
   }
-  /// Update action Question Type
+  /// Update action
   if($('#action_policy').text()=='Update') // Check Condition for update question type
   {
     $.ajax({
@@ -663,10 +664,11 @@ $(document).on('click', '.hrm_view_policy_user', function(){
   //function show modal add
   function HrmAddPerformPlan(){
     $('#hrm_perform_plan_modal').modal('show');
-    $('#plan_name').val('');hrm_perform_plan_form
+    $('#plan_name').val('');
     $('#plan_from').val('');
     $('#plan_to').val('');
     $('#hrm_perform_plan_form input').removeClass("is-invalid");//remove valid all input field
+    $(".invalid-feedback").children("strong").text("");
     $('#action_plan').text('Create');
   }
  ////view Table plan///////
@@ -683,14 +685,281 @@ $(document).on('click', '.hrm_view_policy_user', function(){
   ////view Table plan detail///////
   function view_table_plan_detail(){
   $.ajax({  
-      url:"../controller/performance/view_table_plan_detail.php",  
-      method:"post",  
+      url:"hrm_list_plan_performance/plandetail",  
+      type:"get",  
       data:{},  
       success:function(data){  
         $('#table_show_plan').html(data);  
   }  
   });  
   }
-/////==== END Performance Plan ====//////
+  ///// Function insert plan ///////
+  function HrmSubmitPerformPlan(){
+    event.preventDefault();
+  $('#hrm_perform_plan_form input').removeClass("is-invalid");//remove valid all input field
+  /// Insert function
+  if($('#action_plan').text()=='Create') //check condition for create question type 
+  {
+   
+    $.ajax({
+      url:'hrm_list_plan_performance/addplan',
+      type:'POST',
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+       data: //_token: $('#token').val(),
+       $('#hrm_perform_plan_form').serialize(),
+      success:function(data)
+      {
+        if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+          console.log(data);
+          $('#hrm_perform_plan_modal').modal('hide');
+          sweetalert('success','The Plan has been Insert Successfully !!');
+          setTimeout(function(){ go_to('hrm_list_plan_performance'); }, 300);// Set timeout for refresh content 
+      }else{
+        // $(".print-error-msg").find("ul").html(''); 
 
+        // $(".print-error-msg").css('display','block');
+
+        $.each( data.errors, function( key, value ) {//foreach show error
+            $("#" + key).addClass("is-invalid"); //give read border to input field
+            // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            //  sweetalert('warning',value);
+            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+        });
+      }
+      }
+    });
+  }
+  /// Update action 
+  if($('#action_plan').text()=='Update') // Check Condition for update question type
+  {
+    $.ajax({
+      url:'hrm_list_plan_performance/updateplan',
+      type:'POST',
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data: //_token:  $('#token').val(),
+      $('#hrm_perform_plan_form').serialize(),
+      success:function(data)
+      {
+        if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+          console.log(data);
+          $('#hrm_perform_plan_modal').modal('hide');
+          sweetalert('success','The Plan has been Update Successfully !!');
+          setTimeout(function(){ go_to('hrm_list_plan_performance'); }, 300);// Set timeout for refresh content 
+      }else{
+        // $(".print-error-msg").find("ul").html(''); 
+
+        // $(".print-error-msg").css('display','block');
+
+        $.each( data.errors, function( key, value ) {//foreach show error
+            $("#" + key).addClass("is-invalid"); //give read border to input field
+            // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            //  sweetalert('warning',value);
+            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+        });
+      }
+      }
+    });
+    }
+  }
+
+  //// Get Data Performance Plan for modal update///
+  $(document).on('click', '.hrm_update_perform_plan', function(){
+    var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+    $.ajax({
+    url:"hrm_list_plan_performance/editplan",   //Request send to "action.php page"
+    type:"GET",    //Using of Post method for send data
+    data:{id:id},//Send data to server
+    dataType:"json",   //Here we have define json data type, so server will send data in json format.
+    success:function(data){
+        $('#hrm_perform_plan_modal').modal('show');   //It will display modal on webpage
+        $('#action_plan').text("Update"); //This code will change Button value to Update
+        $('#card_title').text("Update Plan");
+        $('.print-error-msg').hide();
+        $('#hrm_perform_plan_form input').removeClass("is-invalid");//remove valid all input field
+        $(".invalid-feedback").children("strong").text("");
+        $('#plan_id').val(id);     //It will define value of id variable for update 
+        $.each(data, function(i, e){ //read array json for show to textbox
+          $('#plan_name').val(data[i].name);
+          $('#plan_from').val(data[i].date_from);
+          $('#plan_to').val(data[i].date_to);
+          });     
+    }
+    });
+  });
+  //// View modal Plan and Plan Detail///
+  $(document).on('click', '.hrm_view_plan_detail', function(){
+    var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+    $.ajax({
+    url:"hrm_list_plan_performance/plan/modal",   //Request send to "action.php page"
+    type:"GET",    //Using of Post method for send data
+    data:{id:id},//Send data to server
+    success:function(data){
+        $('#ShowModalPlan').html(data);
+        $('#hrm_view_plan_modal').modal('show');   //It will display modal on webpage   
+    }
+    });
+  });
+/////==== END Performance Plan ====//////
+////===== Performance plan Detail====/////////
+///// Show Modal Add Plan detail /////
+$(document).on('click','.hrm_add_plan_detail', function(){
+  var id = $(this).attr("id"); 
+  $.ajax({
+    url:"hrm_list_plan_performance/modalplandetail",
+    type:"GET",
+    data:{id:id},
+    success:function(data){
+      $('#ShowModalPlan').html(data);
+      $('#hrm_perform_plan_detail_modal').modal('show');
+      $('#plan_detail_name').val(''); //clear fields
+      $('#plan_detail_task').val(''); 
+      $('#plan_detail_from').val(''); 
+      $('#plan_detail_to').val(''); 
+      $('#plan_detail_parent').val(''); 
+      $('#plan_detail_name').removeClass("is-invalid"); //remove border red for error
+      $('#plan_detail_task').removeClass("is-invalid");
+      $('#plan_detail_from').removeClass("is-invalid");
+      $('#plan_detail_to').removeClass("is-invalid");
+      $('#plan_detail_to').removeClass("is-invalid");
+      $(".invalid-feedback").children("strong").text("");
+      $('#card_title').text('Add Plan Detail');
+      $('#action_plan_detail').text('Create');
+    }
+  })
+})
+///// Function insert plan detail //////
+function HrmAddPlanDetail(){
+  event.preventDefault();
+  $('#hrm_perform_plan_detail_form input').removeClass("is-invalid");//remove valid all input field
+  $('#plan_detail_task').removeClass("is-invalid");
+  /// Insert function
+  if($('#action_plan_detail').text()=='Create') //check condition for create 
+  {
+   
+    $.ajax({
+      url:'hrm_list_plan_performance/addplandetail',
+      type:'POST',
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+       data: //_token: $('#token').val(),
+       $('#hrm_perform_plan_detail_form').serialize(),
+      success:function(data)
+      {
+        if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+          console.log(data);
+          $('#hrm_perform_plan_detail_modal').modal('hide');
+          sweetalert('success','The Plan Detail has been Insert Successfully !!');
+          setTimeout(function(){ go_to('hrm_list_plan_performance'); }, 300);// Set timeout for refresh content 
+      }else{
+        // $(".print-error-msg").find("ul").html(''); 
+
+        // $(".print-error-msg").css('display','block');
+
+        $.each( data.errors, function( key, value ) {//foreach show error
+            $("#" + key).addClass("is-invalid"); //give read border to input field
+            // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            //  sweetalert('warning',value);
+            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+        });
+      }
+      }
+    });
+  }
+  /// Update action 
+  if($('#action_plan_detail').text()=='Update') // Check Condition for update 
+  {
+    $.ajax({
+      url:'hrm_list_plan_performance/updateplandetail',
+      type:'POST',
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data: //_token:  $('#token').val(),
+      $('#hrm_perform_plan_detail_form').serialize(),
+      success:function(data)
+      {
+        if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+          console.log(data);
+          $('#hrm_perform_plan_detail_modal').modal('hide');
+          sweetalert('success','The Plan Detail has been Update Successfully !!');
+          setTimeout(function(){ go_to('hrm_list_plan_performance'); }, 300);// Set timeout for refresh content 
+      }else{
+        // $(".print-error-msg").find("ul").html(''); 
+
+        // $(".print-error-msg").css('display','block');
+
+        $.each( data.errors, function( key, value ) {//foreach show error
+            $("#" + key).addClass("is-invalid"); //give read border to input field
+            // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            //  sweetalert('warning',value);
+            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+        });
+      }
+      }
+    });
+    }
+}
+////// Update plan detail ////////
+function hrm_update_perform_plan_detail(id,id_plan){
+  $.ajax({
+    url:"hrm_list_plan_performance/editplandetail",   //Request send to "action.php page"
+    type:"GET",    //Using of Post method for send data
+    data:{id:id},//Send data to server
+    dataType:"json",   //Here we have define json data type, so server will send data in json format.
+    success:function(data){
+         data1= data;
+         $.ajax({
+          url:"hrm_list_plan_performance/modalplandetail",
+          type:"GET",
+          data:{id:id_plan},
+          success:function(data){
+            $('#ShowModalPlan').html(data);
+            setTimeout(function(){$('#hrm_perform_plan_detail_modal').modal("show");},200);
+            // $('#hrm_perform_plan_detail_modal').modal('show');
+            $('#card_title').text('Update Plan Detail');
+            $('#action_plan_detail').text('Update');
+            $('#plan_datail_id').val(id);
+            var show = data1;
+            $.each(show, function(i, e){ //read array json for show to textbox
+              $('#plan_detail_name').val(show[i].name);
+              $('#plan_detail_task').val(show[i].task); 
+              $('#plan_detail_from').val(show[i].date_from); 
+              $('#plan_detail_to').val(show[i].date_to); 
+              $('#plan_detail_parent').val(show[i].parent_id);
+              });    
+            $('#plan_detail_name').removeClass("is-invalid"); //remove border red for error
+            $('#plan_detail_task').removeClass("is-invalid");
+            $('#plan_detail_from').removeClass("is-invalid");
+            $('#plan_detail_to').removeClass("is-invalid");
+            $('#plan_detail_to').removeClass("is-invalid");
+            $(".invalid-feedback").children("strong").text("");
+          }
+        })
+    }
+  })  
+};
+
+//// View modal Plan Detail///
+$(document).on('click', '.hrm_view_perform_plan_detail', function(){
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  $.ajax({
+  url:"hrm_list_plan_performance/plandetail/view",   //Request send to "action.php page"
+  type:"GET",    //Using of Post method for send data
+  data:{id:id},//Send data to server
+  success:function(data){
+      $('#ShowModalPlan').html(data);
+      $('#hrm_view_plan_detail_modal').modal('show');   //It will display modal on webpage   
+  }
+  });
+});
+////===== End Performance Plan Detail =====////////
 /////////////================================= END Performance =============================///////////////

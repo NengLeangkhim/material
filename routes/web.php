@@ -434,9 +434,40 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     ///index plan
     Route::get('hrm_list_plan_performance', 'hrms\performance\HrmPlanController@HrmIndexPerformPlanDetail');
 
-     ///get table plan
-     Route::get('hrm_list_plan_performance/plan', 'hrms\performance\HrmPlanController@HrmTablePerformPlan');
+    ///get table plan
+    Route::get('hrm_list_plan_performance/plan', 'hrms\performance\HrmPlanController@HrmTablePerformPlan');
 
+    ///insert table plan
+    Route::post('hrm_list_plan_performance/addplan', 'hrms\performance\HrmPlanController@hrm_insert_perform_plan');
+    
+    ///get data plan for update
+    Route::get('hrm_list_plan_performance/editplan', 'hrms\performance\HrmPlanController@hrm_get_data_perform_plan');
+
+    ///update plan
+    Route::post('hrm_list_plan_performance/updateplan', 'hrms\performance\HrmPlanController@hrm_update_perform_plan');
+
+    ///view modal plan
+    Route::get('hrm_list_plan_performance/plan/modal', 'hrms\performance\HrmPlanController@HrmViewPerformPlan');
+
+//////Performance Plan Detail 
+    
+    ///get data table plan detail
+    Route::get('hrm_list_plan_performance/plandetail', 'hrms\performance\HrmPlanDetailController@HrmTablePerformPlanDetail');
+    
+    ///get data plan for update
+    Route::get('hrm_list_plan_performance/modalplandetail', 'hrms\performance\HrmPlanDetailController@hrm_modal_data_perform_plan_detail');
+    
+    ///Insert Plan Detail
+    Route::post('hrm_list_plan_performance/addplandetail', 'hrms\performance\HrmPlanDetailController@hrm_insert_perform_plan_detail'); 
+    
+    ///get data plan detail for update
+    Route::get('hrm_list_plan_performance/editplandetail', 'hrms\performance\HrmPlanDetailController@hrm_get_data_perform_plan_detail');
+
+     ///update plan detail
+     Route::post('hrm_list_plan_performance/updateplandetail', 'hrms\performance\HrmPlanDetailController@hrm_update_perform_plan_detail');
+
+     ///get data plan detail for update
+    Route::get('hrm_list_plan_performance/plandetail/view', 'hrms\performance\HrmPlanDetailController@HrmViewPlanDetail');
 /////////////////============== END Performance =============///////////////
 // ========================================================>END METKEOSAMBO <======================================================== //
 

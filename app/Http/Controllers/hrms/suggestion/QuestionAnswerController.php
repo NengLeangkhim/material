@@ -213,14 +213,14 @@ class QuestionAnswerController extends Controller
             $name_question= $request->question_name1;
             $status_question = $request->statusType1;
             $id_question= $request->question_id1;
-            $question_update= ModelQuestionAnswer::hrm_edit_question_option_sugg($name_question,$status_question,$id_question,$userid); //get function insert from model
+            $question_update= ModelQuestionAnswer::hrm_edit_question_option_sugg($name_question,$status_question,$id_question,$userid); //get function update from model
             //update answer
             $answer_name_edit= $request->answer_name;
             $answer_status = $request->status_answer;
             $answer_id = $request->answer_id;
             $userid = $_SESSION['userid'];
             foreach( $answer_name_edit as $key => $answer ) {
-            $answer= ModelQuestionAnswer::hrm_edit_answer_sugg($answer,$answer_status[$key],$answer_id[$key],$userid); //get function insert from model
+            $answer= ModelQuestionAnswer::hrm_edit_answer_sugg($answer,$answer_status[$key],$answer_id[$key],$userid); //get function update from model
             }
             return response()->json(['success'=>'Record is successfully Update']);   
         }
