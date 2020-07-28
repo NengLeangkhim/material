@@ -450,7 +450,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_delete_employee', 'hrms\Employee\AllemployeeController@DeleteEmployee');
         Route::get('hrm_detail_employee', 'hrms\Employee\AllemployeeController@EmployeeDetail');
     //End All Employee
-
+ 
     // Start Holiday
         Route::get('hrm_holiday', 'hrms\Employee\HolidayController@Holiday');
         Route::get('hrm_add_edit_holiday', 'hrms\Employee\HolidayController@AddAndEditHoliday');

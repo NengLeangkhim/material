@@ -13,7 +13,7 @@ class AttendanceController extends Controller
         $att=new Attendance();
         $em=new Employee();
         $allem=$em->AllEmployee();
-        $a=$att->AttendanceToday($allem);
+        $a=$att->AttendanceToday($allem,'2020-07-02');
         if(isset($_POST['attendanceDate'])){
 
         }else{
