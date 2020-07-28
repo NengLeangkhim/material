@@ -33,7 +33,7 @@
      </div>
  </div>
     </section>
- <div id='ShowModalPolicy'></div>
+ <div id='ShowModalPlan'></div>
    <script>
     $(document).ready(function(){
         view_table_plan();
@@ -72,18 +72,27 @@
                         <div class="form-group">
                             <label for="plan_name">Plan Name<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="plan_name" aria-describedby="plan_name" placeholder="" name="plan_name">
+                            <span class="invalid-feedback" role="alert" id="plan_nameError"> {{--span for alert--}}
+                              <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="col-md-6">
                     <div class="form-group">
                         <label for="plan_from">Date From<span class="text-danger">*</span></label>
                         <input type="text" name="plan_from" id="plan_from" placeholder="Please Select Date" class="form-control">
+                        <span class="invalid-feedback" role="alert" id="plan_fromError"> {{--span for alert--}}
+                          <strong></strong>
+                        </span>
                     </div>
                     </div>
                     <div class="col-md-6">
                     <div class="form-group">
                         <label for="plan_to">Date To<span class="text-danger">*</span></label>
                         <input type="text" name="plan_to" id="plan_to" placeholder="Please Select Date" class="form-control">
+                        <span class="invalid-feedback" role="alert" id="plan_toError"> {{--span for alert--}}
+                          <strong></strong>
+                        </span>
                     </div>
                     </div>
                 </div>  {{-- END ROW--}}
@@ -100,6 +109,15 @@
    </div>
  </form>
    <!-- end modal -->
-<script>
-     $('#plan_from,#plan_to').datetimepicker();
+   <script>
+    $(function () {
+    $('#plan_from').datetimepicker({
+      format: 'YYYY-MM-D HH:mm',
+      sideBySide: true,
+    });
+    $('#plan_to').datetimepicker({
+      format: 'YYYY-MM-D HH:mm',
+      sideBySide: true,
+    });
+  });
 </script>

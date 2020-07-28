@@ -1,0 +1,1172 @@
+
+    .style_text {
+        width : 267px;
+        height : 30px;
+        padding: 0px;
+    }
+    .input-name {
+      height : 30px;
+    }
+    .firstname {
+      width: 120px;
+    }
+    .lastname {
+      width: 137px;
+    }
+    .textarea-width {
+        width: 267px;
+        padding: 10px;
+    }
+
+    .col1 {
+      border: 2px solid red;
+    }
+    .col2 {
+      border: 2px solid blue;
+    }
+    .col3 {
+      border: 2px solid yellow;
+    }
+    
+   
+    input:focus+label {
+      font-family: 'Roboto Medium', sans-serif;
+      font-family: "Khmer OS Battambang";
+      font-size: 16px;
+      color: #000;
+      font-weight: 500;
+    }
+    .form-control {
+        display: block;
+        /* width: 100%; */
+        height: calc(2.25rem + 2px);
+        padding: .375rem .75rem;
+            padding-top: 0.375rem;
+            padding-right: 0.75rem;
+            padding-bottom: 0.375rem;
+            padding-left: 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #1fa8e0;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+    /* .row p {
+      font-size: 16px;
+      margin-bottom: 0;
+      }   
+      .phone p {
+      color: #007bff;
+      }
+      .phone b {
+      color: #007bff;
+      } */
+      .h6 {
+        color: blue;
+      }
+      .head-style {
+          padding-top:15px; 
+          background: powderblue;
+          padding: 20px;
+      }
+      .padding-15 {
+          padding: 15px 0;
+          background-color:#d42931; 
+          margin-bottom: 20px;
+      }
+      .padding-20 {
+        padding: 20px;
+        background-color:#d42931; 
+        margin-bottom: 20px;
+      }
+      /* .buttom_header{
+        margin-bottom: 15px;
+        background-color:#f5f5f5 ;
+      } */
+      .cover_color {
+          background-color:#f5f5f5;
+      }
+      .register-main {
+
+        align-items: center;
+        /* background-color: rgba(25, 40, 37, 0.704); */
+        background-color: rgba(182, 182, 182, 0.704);
+        /* padding-right: 15px; */
+        border-radius: 8px;
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+          border-bottom-right-radius: 8px;
+          border-bottom-left-radius: 8px;
+        box-shadow: 0px 1px 1px 1.5px rgba(0,0,0,0.37);
+
+        /* padding-top: 35px; */
+        /* background-color: rgba(37, 1, 1, 0.322); */
+      }
+
+    .profile {
+        padding-left: 100px;
+        /* text-align: right; */
+    }
+    .profile img {
+        margin-top: 0px;
+        margin-bottom: 15px;
+        border-radius: 50%;
+        border: 3px solid #008fb3;
+    }
+
+    .form-btn {
+      font-family: Poppins-Medium;
+      font-size: 16px;
+      color: #FFF;
+      line-height: 1.2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20px;
+      width: auto;
+      height: 30px;
+      border-radius: 25px;
+      background: #d42931;
+      position: relative;
+      z-index: 1;
+      -webkit-transition: all 0.4s;
+      -o-transition: all 0.4s;
+      -moz-transition: all 0.4s;
+      transition: all 0.4s;
+  }
+  .form-btn::before {
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: -1;
+      padding: 0 20px;
+      width: 100%;
+      height: 30px;
+      border-radius: 25px;
+      background-color: #1fa8e0;
+      top: 0;
+      left: 0;
+      opacity: 1;
+      -webkit-transition: all 0.4s;
+      -o-transition: all 0.4s;
+      -moz-transition: all 0.4s;
+      transition: all 0.4s;
+  }
+  
+  .form-btn:hover {
+      color: #fff;
+  }
+  
+  .form-btn:hover:before {
+      opacity: 0;
+  }
+
+  .side-between {
+    /* padding: 5px; */
+    padding-left: 105px;
+    /* text-align: center; */
+    /* background-color: powderblue; */
+  }
+
+  .login-Quiz {
+    /* background-color: powderblue; */
+    border-radius: 2px;
+    border: 0.5px solid white;
+    font-size: 18px;
+    font-family: Poppins-Medium;
+    color: #1919ff;
+    
+  }
+  /* .login-Quiz::before {
+    display: block;
+    position: absolute;
+  } */
+  .login-Quiz:hover {
+    border-radius: 2px;
+    color: white;
+    border: 0.5px solid blue;
+  }
+
+  .active, .a_manu:hover {
+    /* background-color: powderblue ; */
+    /* font-size: 18px; */
+    color: white;
+    border-radius: 5px;
+    border-bottom-left-radius: 1px;
+    border-bottom-right-radius: 1px;  
+    border-bottom: 2.5px solid #1fa8e0;
+    background-color: gray ;
+  }
+  td {
+    padding: 5px;
+  }
+  .span_style {
+    line-height: 34px;
+    background-color: rgba(33,37,41,1.0);
+    color: rgba(4,124,252,1.0);
+    display: block;
+    font-size: 14px;
+    text-align: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0 10px;
+    line-height: 44px;
+    font-family: bullet8;
+    background-color: rgba(33,37,41,1.0);
+    border-top-left-radius: 19px;
+    border-top-right-radius: 19px;
+    border-bottom-right-radius: 19px;
+    border-bottom-left-radius: 19px;
+    height: 34px;
+    margin-top: 6px;
+    margin-right: 7px;
+    box-shadow: rgba(66,66,66,0.5) 0 0 9px 0;
+  }
+  .a_manu {
+    height: 90%;
+    width: 100%;
+    position: relative;
+    display: block;
+    /* background-color: white; */
+    /* border: gray solid 1px; */
+    /* border-bottom: 2px solid gray; */
+    border-radius: 5px;
+    padding: 11px 15px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    outline-color: initial;
+    outline-style: none;
+    outline-width: initial;
+    color: white;
+    text-decoration: none;
+    text-decoration-line: none;
+    text-decoration-style: initial;
+    text-decoration-color: initial;
+  }
+
+  ul {
+    width: 100%;
+    list-style: none;
+    list-style-position: initial;
+    list-style-image: initial;
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .td_style_candidate {
+    /* width: 200px; */
+    /* background-color: #1fa8e0; */
+    width: auto;
+    height: 70px;
+    padding: 3px;
+    /* border: 1px solid green; */
+  }
+  .td_style_candidate2 {
+    /* width: 200px; */
+    /* background-color: #1fa8e0; */
+    width: auto;
+    height: 70px;
+  }
+  .td_style_qt {
+    background-color:#f6f6f6;
+    font-size: 18px;
+    font-weight: bold;
+    width: 1%;
+    height: 45px;
+    padding: 3px;
+    /* border: 1px solid green; */
+  }
+  .td_style_qt2 {
+    font-size: 18px;
+    font-weight: bold;
+    width: 1%;
+    height: 45px;
+    padding: 3px;
+    /* border: 1px solid green; */
+  }
+
+
+  .txtarea {
+    font-size: 14px;
+    width: 90%;
+    height: 150px;
+    padding: 10px;
+    margin: 2px;
+    border: 1px solid gray;
+    border-radius: 5px;
+  }
+  .txtarea:hover {
+    border-radius: 5px;
+    background-color: 2px solid green;
+  }
+  .txtarea:active {
+    border-radius: 5px;
+    background-color: 2px solid green;
+  }
+  .txtarea:visited {
+    border-radius: 5px;
+    background-color: 2px solid green;
+  }
+
+
+  h6{
+    color: blue;
+  }
+.manu-content {
+    background-color: white;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 30px;
+}
+
+
+.btn-submit-answer {
+  font-family: Poppins-Medium;
+  font-size: 14px;
+  color: #FFF;
+  line-height: 1.2;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  width: 100%;
+  max-width: 130px;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: #d42931;
+  position: relative;
+  z-index: 1;
+  /* -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s; */
+  transition: all 0.7s; 
+}
+
+.btn-submit-answer::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: #1fa8e0;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  /* -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s; */
+  transition: all 0.7s; 
+}
+
+.btn-submit-answer:hover {
+  color: white;
+}
+
+.btn-submit-answer:hover:before {
+  opacity: 0;
+}
+
+
+.line-form {
+    padding-left: 30px;
+    padding-right: 15px;
+    /* padding-top: 5px; */
+    padding-bottom: 15px;
+    width: 100%;
+}
+
+.logout-text {
+  color: blue;
+  font-weight: bold;
+  /* font-size: 18px; */
+}
+
+.kh-font-koulen {
+  font-family: "Khmer OS Koulen";
+  font-size: 18px;
+}
+.kh-font-batt {
+  font-family: "Khmer OS Battambang";
+  font-size: 16px;
+}
+.font-size {
+  font-size: 16px;
+}
+
+.font-size-max-13 {
+  font-size: 13px;
+}
+.responsive-col {
+  padding-left: 15%;
+  padding-right: 5%;
+  
+}
+.font-head-menu {
+  font-size: 36px;
+}
+.font-size-max-12 {
+  font-size: 12px;
+}
+
+
+
+
+
+
+/* ----------------------------------SET Media Size by Screen----------------------------- */
+ @media only screen and (max-width: 1200px) {
+    .font_header {
+      font-size: 32px;
+    }
+    .font_sub_header{
+      font-weight: bold;
+      font-family: "Khmer OS Battambang";
+      font-size: 14px;
+    }
+    .font_q_chice {
+      font-family: "Khmer OS Battambang";
+      font-size: 12px;
+    }
+    .kh-font-koulen {
+      font-family: "Khmer OS Koulen";
+      font-size: 14px;
+    }
+    .kh-font-batt {
+      font-family: "Khmer OS Battambang";
+      font-size: 16px;
+    }
+    td {
+      font-size: 16px;
+    }
+    .font-size {
+      font-size: 14px;
+    }
+    .font-size-max-13 {
+      font-size: 12px;
+    }
+    .font-size-max-12 {
+      font-size: 12px;
+    }
+  
+  }
+
+  @media only screen and (max-width: 1140px) {
+    .responsive-col {
+      padding-left: 7%;
+      padding-right: 7%;
+    }
+    /* .dropdown-content {
+      right: 55%;
+    } */
+    div.uploadcv {
+      width: 40%;
+      max-width: 100%;
+    }
+    .font-size-max-13 {
+      font-size: 11px;
+    }
+    .font-size-max-12 {
+      font-size: 11px;
+    }
+
+  }
+
+
+
+
+  @media only screen and (max-width: 1000px) {
+    .responsive-col {
+      padding-left: 7%;
+      padding-right: 5%;
+    }
+    /* .dropdown-content a {
+      right: 55%;
+    } */
+    .font-head-menu {
+      font-size: 32px;
+    }
+    .font-size-max-13 {
+      font-size: 10px;
+    }
+
+  }
+  /* ------------------------------------- */
+  @media only screen and (max-width: 1000px) {
+    .responsive-col {
+      padding-left: 7%;
+      padding-right: 5%;
+    }
+    /* .dropdown-content a {
+      right: 55%;
+    } */
+    .font-head-menu {
+      font-size: 26px;
+    }
+  
+
+  }
+/* ------------------------------------------------- */
+@media only screen and (max-width: 800px) {
+
+  /* .dropdown-content a {
+    right: 50%;
+  } */
+  
+  .responsive-col {
+    padding-left: 5%;
+    padding-right: 5%;
+    
+  }
+  .font-size-max-13 {
+    font-size: 9px;
+  }
+
+  .font_header {
+  	font-size: 18px;
+  }
+  .font_sub_header{
+    font-weight: bold;
+    font-family: "Khmer OS Battambang";
+    font-size: 14px;
+    
+  }
+  .font_q_chice {
+    font-family: "Khmer OS Battambang";
+    font-size: 12px;
+  }
+  .kh-font-koulen {
+    font-family: "Khmer OS Koulen";
+    font-size: 14px;
+  }
+  .kh-font-batt {
+    font-family: "Khmer OS Battambang";
+    font-size: 14px;
+  }
+  td {
+    font-size: 14px;
+  }
+  .font-size {
+    font-size: 13px;
+  }
+  .font-head-menu {
+    font-size: 24px;
+  }
+  .font-size-max-12 {
+    font-size: 10px;
+  }
+
+}
+
+
+@media only screen and (max-width: 600px) {
+
+
+  /* .dropdown-content a {
+    right: 50%;
+  } */
+  .responsive-col {
+
+    padding-left: 2%;
+    padding-right: 2%;
+    
+  }
+
+  .font_header {
+  	font-size: 14px;
+  }
+  .font_sub_header{
+    font-weight: bold;
+    font-family: "Khmer OS Battambang";
+    font-size: 12px;
+    
+  }
+  .font_q_chice {
+    font-family: "Khmer OS Battambang";
+    font-size: 10px;
+  }
+  .kh-font-koulen {
+    font-family: "Khmer OS Koulen";
+    font-size: 12px;
+  }
+
+  .kh-font-batt {
+    font-family: "Khmer OS Battambang";
+    font-size: 12px;
+  }
+  td {
+    font-size: 14px;
+  }
+  .font-size {
+    font-size: 11px;
+  }
+  .col-respon {
+    width: 33.2%;
+  }
+  .font-size-max-12 {
+    font-size: 12px;
+
+  }
+
+  
+}
+/* -------------------------------------- */
+
+@media only screen and (max-width: 400px) {
+
+  .responsive-col {
+    padding-left: 2%;
+    padding-right: 2%;
+    
+  }
+  .font_header {
+  	font-size: 12px;
+  }
+  .font_sub_header{
+    font-weight: bold;
+    font-family: "Khmer OS Battambang";
+    font-size: 10px;
+    
+  }
+  .font_q_chice {
+    font-family: "Khmer OS Battambang";
+    font-size: 8px;
+    
+  }
+  .kh-font-koulen {
+    font-family: "Khmer OS Koulen";
+    font-size: 10px;
+  }
+  td {
+    font-size: 14px;
+  }
+  .font-size {
+    font-size: 10px;
+  }
+  
+}
+
+  .box-logout
+  {
+    display: none;
+    width: 230px;
+    position: fixed;
+    margin-top: 20%;
+    /* margin-bottom: 20%; */
+    margin-left: 32%;
+    margin-right: 34%;
+  }
+
+
+ .logout-form {
+    background-color:  #f6f6f6;
+    border-radius: 20px;
+    height: auto;
+    box-shadow: 0px 1px 1px 1px gray;
+ }
+ .message-head{
+  text-align: center;
+  padding: 5px;
+  padding-top: 10px;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  background-color: rgb(182, 221, 223);
+  border-bottom: 1.5px solid gray;
+}
+
+ .btn-start {
+    padding-top: 30px;
+    padding-left: 40%;
+    padding-right: 40%;
+ }
+ 
+ .form-review {
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-top: 5px;
+  padding-bottom: 35px;
+  background-color: white;
+  border-radius: 25px;
+  padding: 20px;
+  height: auto;
+  box-shadow: 0px 1px 1px 1px gray;
+}
+
+  .td-manu {
+    
+    padding-bottom: 20px;
+    padding-left: 10%;
+    padding-right: 10%;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+  }
+
+  .td-label {
+    width: 40%;
+    padding: 20px;
+  }
+  .td-txtbox {
+    width: 60%;
+    padding: 20px;
+  }
+  .td-review-info {
+    width: 50%;
+    padding: 15px;
+  }
+  .tr-review {
+    border-bottom: 0.1px solid  #d3d3d3;
+  }
+  .output-field {
+    background-color: #fbfbfb;
+    width: 100%;
+    padding: 7px;
+    border: 0.5px solid gray;
+    border-radius: 4px;
+  }
+
+  .tr-start-quiz {
+    border-bottom: 0.1px solid  #d3d3d3;
+  }
+  .td-start-quiz {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+
+  .btn-next {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12px;
+    background-color:  #f5f5dc;
+    line-height: 1.2;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+    max-width: 140px;
+    min-width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    color: #d42931;
+    position: relative;
+    z-index: 1;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+  }
+  
+  .btn-next::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    /* background-color:  #f5f5dc; */
+    top: 0;
+    left: 0;
+    opacity: 1;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+  }
+  .btn-next:hover {
+    background-color: greenyellow;
+    color: blue;
+    font-size: 13px;
+  }
+
+  .row-style-1{
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+  }
+  .row-style-1-2{
+    padding-left: 30%;
+    padding-top: 10px;
+    padding-right: 30%;
+    padding-bottom: 10px;
+  }
+  
+  .btn-form-create {
+    padding-left: 40%;
+    padding-right: 40%;
+    padding-top: 5px;
+    padding-bottom: 15px;
+  }
+
+  .dropbtn {
+    /* background-color: #4CAF50; */
+    color: white;
+    padding: 2px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    position: relative;
+    top: 15px;
+    right: 30%;
+    /* margin-right: 50px; */
+    background-color: #f9f9f9;
+    /* left: 1%; */
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #9999ff
+
+  }
+
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+    text-align: left;
+  }
+  
+  .dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+  }
+
+  .user-login-quiz {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+  }
+
+  .menu-control {
+    position: relative;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+  .listdown-style {
+    border-top: 0.5px solid green;
+  }
+  /* .listdown-style2 {
+    height: 40px;
+    padding: 5px;
+  } */
+
+
+  .create-manu-icon {
+    width: 35px;
+    height: 5px;
+    background-color: black;
+    margin: 6px 0;
+  }
+
+
+
+  .sidenav {
+    height: auto;
+    width: 0;
+    position: relative;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #2f4f4f;
+    border-radius: 4px;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  
+  .sidenav .style-a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidenav :hover {
+    color: #f1f1f1;
+  }
+  /* .style-a:hover {
+    ;
+  } */
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav .style-a {font-size: 14px;}
+  }
+
+
+  .menu-icon {
+    background-color: floralwhite;
+    border-radius: 3px;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
+  .overlay-color {
+    position: relative;
+    background-color: rgba(182, 182, 182, 0.604);
+    /* overflow: hidden; */
+    z-index: 2;
+    height: 100%;
+}
+.back-img {
+    /* position: absolute; */
+    background-image: url("../../img/background-img/quiz_back1.jpg");
+    background-position: center; 
+        /* background-repeat: no-repeat; */
+    background-size: cover;
+    /* overflow: hidden; */
+    height: 100%;
+    width: 100%;
+}
+
+.img-fluid {
+    min-width: 110px;
+    min-height: 70px;
+}
+
+
+div.uploadcover, div.uploadcv  {
+  border-radius:5px;
+  display:inline-block;
+  padding:3px 5px 3px 3px;
+  position: relative;
+  width: 42%;
+  max-width: 100%;
+}
+
+div.uploadcv ,div.uploadcover:hover {
+  opacity:0.95;
+}
+
+div.uploadcv div.uploadcover , input[type="file"] {
+  display: input-block;
+  width: 42%;
+  /* height: auto; */
+  opacity: 0;
+  cursor:pointer;
+  position: absolute;
+  height: auto;
+  left:0;
+}
+.uploadButton {
+  background-color: #425F9C;
+  border: none;
+  border-radius: 3px;
+  color: #FFF;
+  cursor:pointer;
+  display: inline-block;
+  height: 30px;
+  width: auto;
+  padding:0 20px;
+  box-sizing: content-box;
+}
+
+.fileName {
+  color: white;
+  font-family: Arial;
+  font-size:14px;
+}
+
+.uploadcv + .uploadButton {
+  width: 100%;
+  height:38px;
+}
+
+.uploadcover + .uploadButton {
+  width: 100%;
+  height:38px;
+}
+
+  .close-icon{
+    padding-left: 98%;
+  }
+
+  /* -----------------Style For Button Next & Back question---------------- */
+  .button-style {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 16px;
+    padding: 10px;
+    width: 100px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+  }
+  
+  .button-style .span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .button-style .span:after {
+    content: '\00ab';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .button-style:hover .span {
+    padding-right: 25px;
+  }
+  
+  .button-style:hover .span:after {
+    opacity: 1;
+    right: 0;
+  }
+
+  /* -----------------Style Radio Button--------------------- */
+
+  /* body */
+
+  .label-radio:hover {
+    color: blue;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+    position: relative;
+    transition: 0.5s;
+    
+  }
+  
+  .user-result-title {
+    background-color: wheat;
+    border-bottom: 1.5px solid gray; 
+  }
+
+  
+  .title_promote{
+    background-color: powderblue;
+    color: blue;
+    font-weight: bold;
+  }
+
+  .img_dashboard {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .img_can_dashboard {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
+    height: auto;
+  }
+
+  .table_style1 {
+   width: 100%;
+   height: auto;
+  }
+
+  .li_manu{
+
+    border-radius: 5px;
+    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
+
+  }
+
+  .li_manu_dashboard {
+    border-radius: 5px;
+    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
+  }
+
+
+  .sub_manu_hr::before{
+    border-radius: 5px;
+    background-color: rgba(90, 139, 189, 0.404);
+  }
+
+
+  .sub_manu_hr:hover{
+    border-radius: 5px;
+    background-color: rgba(40, 158, 194, 0.521);
+    /* background-color: blue; */
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+  }
+
+
+  .logo_manu_hr{
+    width: 20%;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
+    
+  }
+
+
+  .cover_manu_hr{
+    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
+  }
+
+  .cover_sub_manu_hr{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+
+  }
+
+
+  /* .sidebar-toggle {
+    width: 35px;
+    height: 5px;
+    background-color: black;
+    margin: 6px 0;
+  } */

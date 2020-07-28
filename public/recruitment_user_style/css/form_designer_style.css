@@ -1,0 +1,113 @@
+.form-all {
+    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Verdana,Tahoma,sans-serif, sans-serif;
+  }
+  .form-all .qq-upload-button,
+  .form-all .form-submit-button,
+  .form-all .form-submit-reset,
+  .form-all .form-submit-print {
+    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Verdana,Tahoma,sans-serif, sans-serif;
+  }
+  .form-all .form-pagebreak-back-container,
+  .form-all .form-pagebreak-next-container {
+    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Verdana,Tahoma,sans-serif, sans-serif;
+  }
+  .form-header-group {
+    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Verdana,Tahoma,sans-serif, sans-serif;
+  }
+  .form-label {
+    font-family: Khmer OS Battambang;
+  }
+
+  .form-label2 {
+    font-family: Khmer OS Battambang;
+  }
+
+  .form-label.form-label-auto {
+    
+    display: inline-block;
+    float: left;
+    text-align: left;
+
+  }
+
+  .form-line {
+    margin-top: 12px 36px 12px 36px px;
+    margin-bottom: 12px 36px 12px 36px px;
+  }
+
+  .form-all {
+    width: 590px;
+  }
+
+  .form-label-left,
+  .form-label-right {
+    width: 40%;
+  }
+
+  .form-all {
+    font-size: 14pxpx
+  }
+  .form-all .qq-upload-button,
+  .form-all .qq-upload-button,
+  .form-all .form-submit-button,
+  .form-all .form-submit-reset,
+  .form-all .form-submit-print {
+    font-size: 14pxpx
+  }
+  .form-all .form-pagebreak-back-container,
+  .form-all .form-pagebreak-next-container {
+    font-size: 14pxpx
+  }
+
+  .supernova .form-all, .form-all {
+    background-color: ;
+    border: 1px solid transparent;
+  }
+
+  .form-all {
+    color: Black;
+  }
+  .form-header-group .form-header {
+    color: Black;
+  }
+  .form-header-group .form-subHeader {
+    color: Black;
+  }
+  .form-label-top,
+  .form-label-left,
+  .form-label-right,
+  .form-html,
+  .form-checkbox-item label,
+  .form-radio-item label {
+    color: Black;
+  }
+  .form-sub-label {
+    color: 1a1a25;
+  }
+
+  .supernova {
+    background-color: undefined;
+  }
+  .supernova body {
+    background: transparent;
+  }
+
+  .form-textbox,
+  .form-textarea,
+  .form-radio-other-input,
+  .form-checkbox-other-input,
+  .form-captcha input,
+  .form-spinner input {
+    background-color: undefined;
+  }
+
+  .supernova {
+    background-image: none;
+  }
+  #stage {
+    background-image: none;
+  }
+
+  .form-all {
+    background-image: none;
+  }

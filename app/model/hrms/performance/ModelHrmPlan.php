@@ -33,4 +33,20 @@ class ModelHrmPlan extends Model
                            ->get(); 
         return $plan_dept;
      }
+      // ===== Function Insert plan  ======//
+      public static function hrm_insert_perform_plan($plan_name,$start,$to,$userid){
+      return DB::select('SELECT public.insert_hr_performance_plan(?,?,?,?)',array($plan_name,$start,$to,$userid));
+      }   
+      // ===== Function get data for plan ======//
+      public static function hrm_get_plan($id){
+         return  DB::table('hr_performance_plan')
+       ->select('*')
+       ->where('id','=',$id)
+       ->get(); 
+      }
+      // ===== Function Update plan  ======//
+      public static function hrm_update_perform_plan($id_plan,$userid,$plan_name,$start,$to){
+         return DB::select('SELECT public.update_hr_performance_plan(?,?,?,?,?)',array($id_plan,$userid,$plan_name,$start,$to));
+         }  
+
 }
