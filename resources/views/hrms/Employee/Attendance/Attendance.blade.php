@@ -1,7 +1,6 @@
 <div style="padding:10px 10px 10px 10px">
   @php
-      // print_r($attendance);
-      var_dump($attendance);
+      // var_dump($attendance);
   @endphp
     <div class="row">
         <div class="col-md-12">
@@ -16,12 +15,7 @@
               <div class="card-body">
                 <div class="col-md-12"> 
                     <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="employeesearch" name="title" value="" placeholder="Employee ......" autocomplete="off" onkeyup="OvertimeBody()">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
+                      <div class="col-md-8">
                         <div class="form-group">
                             <input type="date" name="" id="" class="form-control">
                         </div>
@@ -48,7 +42,7 @@
 
                       <div class="col-md-3 col-sm-6 col-12">
                         <div class="info-box">
-                          <span class="info-box-icon bg-absent"><i class="fas fa-user-clock"></i></span>
+                          <span class="info-box-icon bg-absent"><i class="fas fa-users"></i></span>
 
                           <div class="info-box-content">
                             <span class="info-box-text">Absent</span>
@@ -63,7 +57,7 @@
 
                       <div class="col-md-3 col-sm-6 col-12">
                         <div class="info-box">
-                          <span class="info-box-icon bg-present"><i class="fas fa-spinner"></i></span>
+                          <span class="info-box-icon bg-present"><i class="fas fa-users"></i></span>
 
                           <div class="info-box-content">
                             <span class="info-box-text">Present</span>
@@ -95,10 +89,54 @@
                     </div>
 
                 </div>
+                @php
+                    function MorningCheck($time){
+                      if(strlen($time)>1){
+                        if(strtotime($time)>=strtotime('08:01:00')){
+                            $st='bg-late';
+                        }else{
+                          $st='bg-present';
+                        }
+                        $s= '<div class="col-md-12">
+                                <div class="row">
+                                  <div class="col-md-4 '.$st.' text-center">
+                                    <i class="fas fa-users"></i>
+                                  </div>
+                                  <div class="col-md-8">
+                                      '.$time.'
+                                  </div>
+                                </div>
+                            </div>';
+                      }else {
+                        $s='';
+                      }
+                      return $s;
+                    }
 
-
+                    function EveningCheck($time){
+                      if(strlen($time)>1){
+                        if(strtotime($time)>=strtotime('13:31:00')){
+                            $st='bg-late';
+                        }else{
+                          $st='bg-present';
+                        }
+                        $s= '<div class="col-md-12">
+                                <div class="row">
+                                  <div class="col-md-4 '.$st.' text-center">
+                                    <i class="fas fa-users"></i>
+                                  </div>
+                                  <div class="col-md-8">
+                                      '.$time.'
+                                  </div>
+                                </div>
+                            </div>';
+                      }else {
+                        $s='';
+                      }
+                      return $s;
+                    }
+                @endphp
                 
-
 
                 <table class="table table-bordered" id="tbl_overtime" style="width: 100%">
                   <thead>                  
@@ -119,6 +157,9 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @php
+                        $i=0;
+                    @endphp
                     @foreach ($attendance as $e)
                         <tr>
                         <td>
@@ -127,13 +168,13 @@
                             <div class="col-md-6"><a href="javascrip:;"><i class="fas fa-info"></i></a></div>
                           </div>
                         </td>
-                      <th>{{$e[0]}}</th>
+                      <th>{{++$i}}</th>
                       <td>{{$e[1]}}</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
+                      <td>{{$e[2]}}</td>
+                      <td>@php echo MorningCheck($e[3]); @endphp</td>
+                      <td>{{$e[4]}}</td>
+                        <td>@php echo EveningCheck($e[5]); @endphp</td>
+                      <td>{{$e[6]}}</td>
                         
                       </tr>
                     @endforeach
