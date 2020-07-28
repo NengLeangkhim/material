@@ -17,8 +17,17 @@
     <link rel="stylesheet" href="recruitment_user_style/css/nova.css">
     <link rel="stylesheet" href="recruitment_user_style/css/printForm.css">
     <link rel="stylesheet" href="recruitment_user_style/css/styles1.css">
-    {{-- JS file --}}
+    <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 
+    <script src="plugins/jquery/jquery.min.js" ></script>
+    <script src="plugins/jquery/jquery.doubleScroll.js" ></script>
+
+    <!-- Bootstrap -->
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
 
     <style>
         h6 {
@@ -69,8 +78,49 @@
 </body>
 </html>
 
+{{-- JS file --}}
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js" ></script>
+
+<script src="plugins/jquery/jquery.doubleScroll.js" ></script>
+
+<!-- Bootstrap -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+
+<!-- DataTables -->
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.js"></script>
+
+<!-- OPTIONAL SCRIPTS -->
+<script src="dist/js/demo.js"></script>
+
+<!-- PAGE PLUGINS -->
+<!-- jQuery Mapael -->
+<script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+<script src="plugins/raphael/raphael.min.js"></script>
+<script src="plugins/jquery-mapael/jquery.mapael.min.js"></script>
+<script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<script src="plugins/jquery/jquery.min.js" ></script>
+<script src="js/hrms/hrms.js"></script>
+
+<script src="stJS/hrms/shift_promote_js/shift_promote.js"></script>
+<script src="js/hrms/hrmssambo.js"></script>
+<script src="js/hrms/hrms.js"></script>
 <script>$('input[type=file]').change(function(e) {
     $in = $(this);
     $in.next().html($in.val());  
+
+    
 }); 
 </script>
+
+

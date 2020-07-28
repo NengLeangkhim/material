@@ -514,10 +514,27 @@ Route::get('hrm_shift_promote_report_search_view_detail','hrms\shift_promote\shi
 
 //============Recruitment User=============
 
+// candidate register account submit info
+Route::post('hrm_recruitment_user_register','hrms\recruitment_user\recruitment_userController@register_candidate');
+// end andidate register account
+
+// view user entry info to register
 Route::get('hrm_index_user_register',function(){
     return view('hrms.recruitment_user.index_recruitment_register');
 });
 
+// view candidate login 
+Route::get('hrm_recruitment_login',function(){
+    return view('hrms.recruitment_user.login_user');
+});
+
+// view test
+Route::get('hrm_recruitment_MainApp',function(){
+    return view('hrms.recruitment_user.main_app_user');
+});
+
+
+//=============End recruitment user===========
 
 
 
