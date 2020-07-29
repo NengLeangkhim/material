@@ -71,7 +71,7 @@ class HrmPlanDetailController extends Controller
                                         ],
                 'plan_detail_to' => [ 'required',
                                 'date',
-                                'after:plan_from'
+                                'after:plan_detail_from'
                                         ],
             ],
             [
@@ -133,7 +133,7 @@ class HrmPlanDetailController extends Controller
                                         ],
                 'plan_detail_to' => [ 'required',
                                 'date',
-                                'after:plan_from'
+                                'after:plan_detail_from'
                                         ],
             ],
             [
