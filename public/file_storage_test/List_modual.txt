@@ -1,0 +1,14 @@
+*Recruitment for user
+-------------------------
+> Register form(Index)
+	> Create Account 
+		> submit info to database
+	> Login candidate
+		> Main Page
+			> Menu
+				> Review Info (View info created)
+				> Do Quiz (Display all question and random with radio and textarea, Set time to expire)
+				> Result (Progress are processing)
+			> Logout
+				> Call back to Create Account Form
+		

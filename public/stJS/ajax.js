@@ -680,6 +680,8 @@ function go_to(route){
 }
 
 
+
+
 function submit_form (route,form,goto){
     if(check_session()){
         return;
@@ -721,4 +723,10 @@ function submit_form (route,form,goto){
         });
       });
 
+}
+
+
+
+function submit_form222(){
+    alert("helokkk");
 }

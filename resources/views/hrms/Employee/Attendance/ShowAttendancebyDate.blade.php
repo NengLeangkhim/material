@@ -1,3 +1,4 @@
+
  @php
     function MorningCheck($time){
         if(strlen($time)>1){
@@ -50,36 +51,7 @@
                       return $s;
                     }
                 @endphp
-<div style="padding:10px 10px 10px 10px">
-  @php
-      // var_dump($attendance);
-  @endphp
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-              <div class="card-header">
-                <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Attendance</strong></h1>
-                <div class="col-md-12 text-right">
-                    {{-- <button type="button" class="btn bg-gradient-primary"><i class="fas fa-user-plus"></i> Add</button> --}}
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <div class="col-md-12"> 
-                    <div class="row">
-                      <div class="col-md-8">
-                        <div class="form-group">
-                            <input type="date" name="" id="attendance_date" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                            <button class="btn bg-turbo-color form-control" onclick="HRM_ShowAttendanceByDate()">Search</button>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-                <div class="col-md-12" id="attendance_by_date"> 
+
                     <div class="row">
                       <div class="col-md-3 col-sm-6 col-12">
                         <div class="info-box">
@@ -151,7 +123,7 @@
                             <span class="info-box-text"><h5><strong>Permission</strong></h5></span>
                             <span class="info-box-number">@php
                                 echo $attendance[3];
-                            @endphp</span>
+                            @endphp </span>
                           </div>
                           <!-- /.info-box-content -->
                         </div>
@@ -193,7 +165,7 @@
                         <td>
                           <div class="row">
                             <div class="col-md-6"><a href="javascrip:;"><i class="far fa-edit"></i></a></div>
-                            <div class="col-md-6"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_attendance_detail','modal_attendance_detail',{{$e[0]}})"><i class="fas fa-info"></i></a></div>
+                            <div class="col-md-6"><a href="javascrip:;"><i class="fas fa-info"></i></a></div>
                           </div>
                         </td>
                       <th>{{++$i}}</th>
@@ -212,17 +184,3 @@
                   </tbody>
                 </table>
               </div>
-            </div>
-            </div>
-              <!-- /.card-body -->
-              
-            <!-- /.card -->
-    </div>
-</div>
-<script>
-  $(document).ready(function() {
-    $('#tbl_overtime').DataTable({
-      responsive: true
-    });
-} );
-</script>

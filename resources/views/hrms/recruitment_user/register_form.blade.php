@@ -7,7 +7,11 @@ $r = DB::select($sql);
 
 ?>
 
-        <form role="form" action="  " method="POST" accept-charset="utf-8" enctype="multipart/form-data" >
+        <form role="form" action="hrm_recruitment_user_register" method="POST" accept-charset="utf-8" enctype="multipart/form-data" >
+        
+        @csrf  
+            
+
             <div class="row">
             <div class= "col-lg-4 col-md-4 col-sm-4" style="background-color: rgba(37, 1, 1, 0.322); padding: 5px; border-right: 2px solid red;">
                 <!-- ---------------Logo Image------------------- -->
@@ -25,7 +29,7 @@ $r = DB::select($sql);
                     <img src="recruitment_user_style/img/user_login.png" alt="" width="35px" height="35px">
                 </div>
                 <div class="row" style="text-align:center; padding-left: 45%; padding-right: 47%; font-szie: 18px; ">
-                <a class="login-Quiz " style="" href="view/login_form_candidate.php" ><b>Login</b></a>
+                <a class="login-Quiz " style="" href="/hrm_recruitment_login" ><b>Login</b></a>
                 </div>
                 {{-- <div class="row" style="padding-top: 10px; padding-left: 40%; padding-right: 35%;">
                 <img class="" src="storage/img/icon_logo/fb_logo1.png" style=" padding: 10px; width: 40px; height: 40px;">
@@ -83,8 +87,9 @@ $r = DB::select($sql);
                     </label>
                     <div id="cid_5" class="form-input ">
                         <input type="email" id="email" name="emailaddress" data-type="input-textbox" class="style_text form-control kh-font-batt validate[required, Email]" size="20" value="" data-component="textbox" aria-labelledby="label_5" placeholder="Email" required="" />
+                        <h6 id="error_email" style="color:#d42931; display: none;">Email alreay taken !</h6>
                     </div>
-                    <p id='mail_taken' style="color:blue;">Email already taken !!!</p>
+                    
                 </li>
                 <li class="line-form " data-type="control_textbox" id="id_11">
                 <label class="form-label form-label-left " style="color: black;"> 
@@ -152,6 +157,7 @@ $r = DB::select($sql);
                     <button id="input_2" type="submit" name="btnSubmit" class="form-btn" data-component="button" data-content="">
                         Create
                     </button>
+
                 </div>
                 </li>
             </ul>
@@ -160,13 +166,44 @@ $r = DB::select($sql);
             <!-- <div class= "col-lg-2"></div> -->
             </div>
         </form>
-            <?php 
-                $sites = 'hello12345';
-            ?>
-        <script>
-            // alert('<?php  echo $xx;   ?>');
-            var sites = {!! json_encode($sites->toArray()) !!};
-            // if(var x == 1){
-            //         document.getElementById('mail_taken').style.display = 'none';
-            // }
-        </script>
+
+<?php 
+        $x = '';
+        if(isset($em_error)){
+            $x =  $em_error;
+        }  
+        $xx = '';
+        if(isset($success)){
+            $xx = $success;
+        }
+
+?>
+
+<script>
+
+    var p = {!! json_encode($x) !!};
+    if(p == 1){
+        document.getElementById('error_email').style.display = 'block';
+        setTimeout(function(){ 
+            document.getElementById('error_email').style.display = 'none';
+         }, 5000);
+    }
+
+    var j = {!! json_encode($xx) !!};
+    if(j == 1){
+        Swal.fire({
+        title: 'Account create successfully !',
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+        }
+        })
+    }
+
+</script>
+
+
+
+

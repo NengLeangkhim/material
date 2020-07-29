@@ -555,7 +555,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_delete_employee', 'hrms\Employee\AllemployeeController@DeleteEmployee');
         Route::get('hrm_detail_employee', 'hrms\Employee\AllemployeeController@EmployeeDetail');
     //End All Employee
-
+ 
     // Start Holiday
         Route::get('hrm_holiday', 'hrms\Employee\HolidayController@Holiday');
         Route::get('hrm_add_edit_holiday', 'hrms\Employee\HolidayController@AddAndEditHoliday');
@@ -565,6 +565,8 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     // Start Attendance
         Route::get('hrm_attendance', 'hrms\Employee\AttendanceController@AllAttendance');
+        Route::get('hrm_show_attendance_by_date', 'hrms\Employee\AttendanceController@ShowAttendanceByDate');
+        Route::get('hrm_attendance_detail', 'hrms\Employee\AttendanceController@ShowAttendanceDetail');
     // End Attendance
 
     // Start Mission And Out Side
@@ -619,10 +621,44 @@ Route::get('hrm_shift_promote_report_search_view_detail','hrms\shift_promote\shi
 
 //============Recruitment User=============
 
+// candidate register account submit info
+Route::post('hrm_recruitment_user_register','hrms\recruitment_user\recruitment_userController@register_candidate');
+// end andidate register account
+
+// view user entry info to register
 Route::get('hrm_index_user_register',function(){
     return view('hrms.recruitment_user.index_recruitment_register');
 });
 
+// view candidate login 
+Route::get('hrm_recruitment_login',function(){
+    return view('hrms.recruitment_user.login_user');
+});
+
+// view test
+Route::get('hrm_recruitment_MainApp',function(){
+    return view('hrms.recruitment_user.main_app_user');
+});
+
+
+// route go to view start quiz
+Route::get('hrm_recruitment_start_quiz',function(){
+    return view('hrms.recruitment_user.frm_info_start_quiz');
+});
+
+
+
+
+// route go to user question form
+Route::get('hrm_recruitment_question',function(){
+    return view('hrms.recruitment_user.frm_quiz');
+});
+
+
+Route::get('hrm_recruitment_get_question','hrms\recruitment_user\recruitment_userController@get_user_question');
+
+
+//=============End recruitment user===========
 
 
 
