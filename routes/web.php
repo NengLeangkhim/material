@@ -491,6 +491,8 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     // Start Attendance
         Route::get('hrm_attendance', 'hrms\Employee\AttendanceController@AllAttendance');
+        Route::get('hrm_show_attendance_by_date', 'hrms\Employee\AttendanceController@ShowAttendanceByDate');
+        Route::get('hrm_attendance_detail', 'hrms\Employee\AttendanceController@ShowAttendanceDetail');
     // End Attendance
 
     // Start Mission And Out Side
