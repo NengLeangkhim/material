@@ -45,5 +45,8 @@
 <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap-glyphicons.css">
 
 <!-- hrm style -->
-        <link rel="stylesheet" href="css/hrm/hrm.css">
+<link rel="stylesheet" href="css/hrm/hrm.css">
+<link rel="stylesheet" href="recruitment_user_style/css/mystyle_owner.css">
+
+
 </head>

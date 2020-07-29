@@ -12,6 +12,7 @@ class recruitment_userController extends Controller
     
 
     // function candidate create account & submit info
+
     public function register_candidate(){
 
         if(isset($_POST['btnSubmit']) && isset($_POST['emailaddress']) && isset($_POST['password']) ){
@@ -56,8 +57,22 @@ class recruitment_userController extends Controller
                     }
                 }
 
-            
         }
+
+    }
+
+    // end function account submit
+
+
+
+
+
+
+    // function to get question from hr_user
+    public function get_user_question(){
+        
+        $user_question = recruitment_userModel::select_user_question(154);
+        return view('hrms\recruitment_user\frm_quiz', compact('user_question'));
 
     }
 

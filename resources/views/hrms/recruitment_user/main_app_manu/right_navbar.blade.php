@@ -28,9 +28,11 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="" class="nav-link"><i class="fas fa-power-off "></i></a>
-      </li>
+      </li> --}}
+
+
       {{-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
@@ -88,37 +90,65 @@
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
       </li> --}}
+
+
       <!-- Notifications Dropdown Menu -->
-      {{-- <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">159</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
-      </li> --}}
+
+
+
+      <li class="nav-item dropdown">
+          
+        
+              <a style="margin-right: 20px;" class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <img src="img/icons/user_icon2.png" style="position: relative;  width: 40px; height: 40px;" class="user-image" alt="User Image" />
+                <span style="font-weight: bold; color: black;" class="d-none d-lg-inline-block"><?php echo 'សុខ ដារា'; ?></span>
+              </a>
+         
+              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <div style="background-color: skyblue" class="dropdown-item">
+                          <h6 style="font-size: 18px;">Sok Dara</h6>
+                          <p>sokdara@gamil.com</p>
+                    </div>
+                    
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                      <i class="fas fa-envelope mr-2"></i> View Profile
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                      <i class="fas fa-users mr-2"></i> Setting Account
+                      
+                    </a>
+                    
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item dropdown-footer">Logout</a>
+              </div>
+
+      </li>
+
+
+
+
       {{-- <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i
-            class="fas fa-th-large"></i></a>
+          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+              <i class="fas fa-th-large"></i>
+          </a>
+
+           
       </li> --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
     </ul>
   </nav>
   <!-- /.navbar -->

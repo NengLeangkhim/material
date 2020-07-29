@@ -79,10 +79,9 @@
 
 <!-- HRMS -->
 <script src="js/hrms/hrms.js"></script>
+<script src="js/hrms/hrm_recruitment_user.js"></script>
 
-<script src="stJS/hrms/shift_promote_js/shift_promote.js"></script>
-<script src="js/hrms/hrmssambo.js"></script>
-<script src="js/hrms/hrms.js"></script>
+
 
 
 

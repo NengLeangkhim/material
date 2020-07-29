@@ -565,6 +565,23 @@ Route::get('hrm_recruitment_MainApp',function(){
 });
 
 
+// route go to view start quiz
+Route::get('hrm_recruitment_start_quiz',function(){
+    return view('hrms.recruitment_user.frm_info_start_quiz');
+});
+
+
+
+
+// route go to user question form
+Route::get('hrm_recruitment_question',function(){
+    return view('hrms.recruitment_user.frm_quiz');
+});
+
+
+Route::get('hrm_recruitment_get_question','hrms\recruitment_user\recruitment_userController@get_user_question');
+
+
 //=============End recruitment user===========
 
 

@@ -190,16 +190,16 @@
     border: 0.5px solid blue;
   }
 
-  .active, .a_manu:hover {
-    /* background-color: powderblue ; */
-    /* font-size: 18px; */
+  /* .active, .a_manu:hover {
+    background-color: powderblue ;
+    font-size: 18px;
     color: white;
     border-radius: 5px;
     border-bottom-left-radius: 1px;
     border-bottom-right-radius: 1px;  
     border-bottom: 2.5px solid #1fa8e0;
     background-color: gray ;
-  }
+  } */
   td {
     padding: 5px;
   }
@@ -742,6 +742,7 @@
   .td-start-quiz {
     font-size: 14px;
     padding: 10px;
+    color: black;
   }
 
 
@@ -766,6 +767,7 @@
     color: #d42931;
     position: relative;
     z-index: 1;
+    box-shadow: 0px 0px 2.5px 2.5px rgba(1,10,100,0.5);
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
@@ -1164,9 +1166,6 @@ div.uploadcv div.uploadcover , input[type="file"] {
   }
 
 
-  /* .sidebar-toggle {
-    width: 35px;
-    height: 5px;
-    background-color: black;
-    margin: 6px 0;
-  } */
+    .main_question{
+      text-align: left;
+    }

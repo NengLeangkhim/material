@@ -1,5 +1,17 @@
 
 
+
+@php
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    $_SESSION['userid'] = 011;
+    
+@endphp
+
+
+
+
 @include('hrms.recruitment_user.layout.re_header')
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div id="modal"></div>

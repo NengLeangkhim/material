@@ -15,14 +15,36 @@
 
         
 
+          <li class="nav-item has-treevie">
+                <a href="javascript:void(0);" class="nav-link active" onclick='user_dashboard()'>
+                    <i class="nav-icon fas fa-book-open"></i> 
+                    <p>Home Page</p>
+                </a> 
+          </li>
+          
+         <li class="nav-item has-treevie">
+                <a href="javascript:void(0);" class="nav-link active" onclick="go_to('hrm_recruitment_start_quiz')">
+                    <i class="nav-icon fas fa-book-open"></i> 
+                    <p>Do Quiz</p>
+                </a> 
+          </li>
 
-              <li class="nav-item ">
-                    <a href="javascript:void(0);" class="nav-link active">
-                        <i class="nav-icon fas fa-boxes"></i> 
-                        <p>Create Quiz<i class="right fas fa-angle-left"></i></p>
-                    </a> <ul class="nav nav-treeview sub_menu"> 
-                        <li class="nav-item menu mybg"> 
-              </li>
+          <li class="nav-item has-treevie">
+                <a href="javascript:void(0);" class="nav-link active" onclick='user_view_quiz()'>
+                    <i class="nav-icon fa fa-list-alt"></i> 
+                    <p>View Your Quiz Test</p>
+                </a> 
+          </li>
+
+          <li class="nav-item has-treevie">
+                <a href="javascript:void(0);" class="nav-link active" onclick='user_view_hr_result()'>
+                    <i class="nav-icon fa fa-address-card"></i> 
+                    <p>Result From HR</p>
+                </a> 
+          </li>
+              
+
+
 
 
 

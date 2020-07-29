@@ -51,3 +51,6 @@ function HRM_ShowDetail(rout,modalName,id=-1){
         }
     // End Holiday
 // End Employee
+
+
+
