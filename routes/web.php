@@ -463,11 +463,85 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     ///get data plan detail for update
     Route::get('hrm_list_plan_performance/editplandetail', 'hrms\performance\HrmPlanDetailController@hrm_get_data_perform_plan_detail');
 
-     ///update plan detail
-     Route::post('hrm_list_plan_performance/updateplandetail', 'hrms\performance\HrmPlanDetailController@hrm_update_perform_plan_detail');
+    ///update plan detail
+    Route::post('hrm_list_plan_performance/updateplandetail', 'hrms\performance\HrmPlanDetailController@hrm_update_perform_plan_detail');
 
-     ///get data plan detail for update
+    ///get data plan detail for update
     Route::get('hrm_list_plan_performance/plandetail/view', 'hrms\performance\HrmPlanDetailController@HrmViewPlanDetail');
+
+///////Performance Schedule 
+    /// index performance schedule
+    Route::get('hrm_performance_staff_schedule','hrms\performance\HrmPerformScheduleController@HrmIndexPerformSchedule');
+
+    /// get combobox plan detail
+    Route::get('hrm_performance_staff_schedule/plandetail/select','hrms\performance\HrmPerformScheduleController@hrm_get_plan_detail');
+
+    /// get show detail plan performance
+    Route::get('hrm_performance_staff_schedule/plan','hrms\performance\HrmPerformScheduleController@hrm_get_data_perform_plan');
+
+    /// get combobox plan detail
+    Route::get('hrm_performance_staff_schedule/plandetail','hrms\performance\HrmPerformScheduleController@hrm_get_data_perform_plan_detail');
+    
+    /// insert schecule performance
+    Route::post('hrm_performance_staff_schedule/store','hrms\performance\HrmPerformScheduleController@hrm_insert_perform_schedule');
+
+    /// get data for update schedule
+    Route::get('hrm_performance_staff_schedule/getdata','hrms\performance\HrmPerformScheduleController@hrm_get_data_perform_schedule');
+
+    /// Update schecule performance
+    Route::post('hrm_performance_staff_schedule/update','hrms\performance\HrmPerformScheduleController@hrm_update_perform_schedule');
+
+    /// modal view detail performance schedule
+    Route::get('hrm_performance_staff_schedule/modal','hrms\performance\HrmPerformScheduleController@HrmViewPerformSchedule');
+
+///////Performance Staff Follow Up
+
+    /// index performance Staff Follow Up
+    Route::get('hrm_performance_follow_up','hrms\performance\HrmStaffFollowUpController@HrmIndexPerformFollowUp');
+
+    /// go to add Follow Up
+    Route::get('/hrm_performance_follow_up/modal/action','hrms\performance\HrmStaffFollowUpController@HrmActionStaffFollowUp');
+
+    /// Insert follow up
+    Route::post('/hrm_performance_follow_up/store','hrms\performance\HrmStaffFollowUpController@hrm_insert_staff_follow_up');
+
+    /// Update follow up
+    Route::post('/hrm_performance_follow_up/update','hrms\performance\HrmStaffFollowUpController@hrm_update_staff_follow_up');
+
+    /// view detail staff follow up
+    Route::get('hrm_performance_follow_up/modal/view','hrms\performance\HrmStaffFollowUpController@HrmViewStaffFollowUp');
+
+////// Performane Manager Follow Up
+    /// Index manager Follow up
+    Route::get('/hrm_performance_follow_up_manager','hrms\performance\HrmManagerFollowUpController@HrmIndexManagerFollowUp');
+
+    /// go to manager Follow up
+    Route::get('/hrm_performance_follow_up_manager/action','hrms\performance\HrmManagerFollowUpController@HrmActionManagerFollowUp');
+
+    ///Insert manager follow up
+    Route::post('/hrm_performance_follow_up_manager/store','hrms\performance\HrmManagerFollowUpController@hrm_insert_manager_follow_up');
+
+    ///Update manager follow up
+    Route::post('/hrm_performance_follow_up_manager/update','hrms\performance\HrmManagerFollowUpController@hrm_update_manager_follow_up');
+
+    ///Modal View Detail manager follow up
+    Route::get('hrm_performance_follow_up_manager/modal/view','hrms\performance\HrmManagerFollowUpController@HrmViewManagerFollowUp');
+
+////// Performane Score
+    /// Index Performance SCore
+    Route::get('hrm_performance_score','hrms\performance\HrmPerformScoreController@HrmIndexPerformScore');
+
+    /// Insert Performance SCore
+    Route::post('hrm_performance_score/store','hrms\performance\HrmPerformScoreController@hrm_insert_perform_score');
+
+    /// Get Performance SCore
+    Route::get('hrm_performance_score/get','hrms\performance\HrmPerformScoreController@hrm_get_data_perform_score');
+
+    /// Update Performance SCore
+    Route::post('hrm_performance_score/update','hrms\performance\HrmPerformScoreController@hrm_update_perform_score');
+
+    /// Delete Performance SCore
+    Route::get('hrm_performance_score/delete','hrms\performance\HrmPerformScoreController@hrm_delete_perform_score');
 /////////////////============== END Performance =============///////////////
 // ========================================================>END METKEOSAMBO <======================================================== //
 
@@ -491,6 +565,8 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     // Start Attendance
         Route::get('hrm_attendance', 'hrms\Employee\AttendanceController@AllAttendance');
+        Route::get('hrm_show_attendance_by_date', 'hrms\Employee\AttendanceController@ShowAttendanceByDate');
+        Route::get('hrm_attendance_detail', 'hrms\Employee\AttendanceController@ShowAttendanceDetail');
     // End Attendance
 
     // Start Mission And Out Side

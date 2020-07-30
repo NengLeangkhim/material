@@ -669,6 +669,7 @@ $(document).on('click', '.hrm_view_policy_user', function(){
     $('#plan_to').val('');
     $('#hrm_perform_plan_form input').removeClass("is-invalid");//remove valid all input field
     $(".invalid-feedback").children("strong").text("");
+    $("#card_title").text('Add Plan');
     $('#action_plan').text('Create');
   }
  ////view Table plan///////
@@ -962,4 +963,510 @@ $(document).on('click', '.hrm_view_perform_plan_detail', function(){
   });
 });
 ////===== End Performance Plan Detail =====////////
+
+////===== Performance Schedule =====////////
+ //function show modal add
+ function HrmAddSchedule(){
+  $('#hrm_perform_schedule_modal').modal('show');
+  //performance plan
+  $('#plan_schedule').val('');
+  $('#plan_from_schedule').val('');
+  $('#plan_to_schedule').val('');
+  //performance plan detail
+  $('#plan_detail_schedule').val('');
+  $('#schedule_detail_task').val('');
+  $('#schedule_detail_from').val('');
+  $('#schedule_detail_to').val('');
+  // schedule plan
+  $('#staff_schedule').val('');
+  $('#staff_from_schedule').val('');
+  $('#staff_to_schedule').val('');
+  $('#staff_comment_schedule').val('');
+  $('#hrm_perform_schedule_form input').removeClass("is-invalid");//remove valid all input field
+  $('#hrm_perform_schedule_form textarea').removeClass("is-invalid");//remove valid all input field
+  $('#hrm_perform_schedule_form select').removeClass("is-invalid");//remove valid all input field
+  $(".invalid-feedback").children("strong").text("");
+  $('#card_title').text('Add Schedule');
+  $('#action_schedule_staff').text('Create');
+}
+///// Function query combobox plan detail 
+////// Fuction get_plan_schedule//////
+function get_plan_schedule(id){
+  $.ajax({
+    url:"hrm_performance_staff_schedule/plandetail/select",   //Request send to "action.php page"
+    type:"GET",    //Using of Post method for send data
+    data:{id:id},//Send data to server
+    success:function(data){
+      data1 = data;
+      $.ajax({
+        url:"hrm_performance_staff_schedule/plan",   //Request send to "action.php page"
+        type:"GET",    //Using of Post method for send data
+        data:{id:id},//Send data to server
+        dataType:"json",   //Here we have define json data type, so server will send data in json format.
+        success:function(data){
+              // console.log(data);  combobox_plan_detail
+              $.each(data, function(i, e){ //read array json for show to textbox
+                $('#plan_from_schedule').val(data[i].date_from); 
+                $('#plan_to_schedule').val(data[i].date_to); 
+                });    
+               $('#schedule_plan_detail').html(data1);  
+        }
+       });
+    }
+  });
+}
+////// function get_plan_detail_schedule//////
+function get_plan_detail_schedule(id){
+  var action = "Select_Plan_Detail";
+  $.ajax({
+    url:"hrm_performance_staff_schedule/plandetail",   //Request send to "action.php page"
+    type:"GET",    //Using of Post method for send data
+    data:{id:id},//Send data to server
+    dataType:"json",   //Here we have define json data type, so server will send data in json format.
+    success:function(data){
+          // console.log(data);  combobox_plan_detail
+          $.each(data, function(i, e){ //read array json for show to textbox
+           $('#schedule_detail_task').text(data[i].task); 
+           $('#schedule_detail_from').val(data[i].date_from);   
+           $('#schedule_detail_to').val(data[i].date_to);   
+        })
+    }
+   });
+}
+///// Function insert and Update Schedule Performance ///////
+function HrmSubmitPerformSchedule(){
+  event.preventDefault();
+/// Insert function
+if($('#action_schedule_staff').text()=='Create') //check condition for create question type 
+{
+ 
+  $.ajax({
+    url:'hrm_performance_staff_schedule/store',
+    type:'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+     data: //_token: $('#token').val(),
+     $('#hrm_perform_schedule_form').serialize(),
+    success:function(data)
+    {
+      if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+        console.log(data);
+        $('#hrm_perform_schedule_modal').modal('hide');
+        sweetalert('success','The Schedule has been Insert Successfully !!');
+        setTimeout(function(){ go_to('hrm_performance_staff_schedule'); }, 300);// Set timeout for refresh content 
+    }else{
+      // $(".print-error-msg").find("ul").html(''); 
+
+      // $(".print-error-msg").css('display','block');
+
+      $.each( data.errors, function( key, value ) {//foreach show error
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+          // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+          //  sweetalert('warning',value);
+          $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+      });
+    }
+    }
+  });
+}
+/// Update action 
+if($('#action_schedule_staff').text()=='Update') // Check Condition for update question type
+{
+  $.ajax({
+    url:'hrm_performance_staff_schedule/update',
+    type:'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+     data: //_token: $('#token').val(),
+     $('#hrm_perform_schedule_form').serialize(),
+    success:function(data)
+    {
+      if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+        console.log(data);
+        $('#hrm_perform_schedule_modal').modal('hide');
+        sweetalert('success','The Schedule has been Update Successfully !!');
+        setTimeout(function(){ go_to('hrm_performance_staff_schedule'); }, 300);// Set timeout for refresh content 
+    }else{
+      // $(".print-error-msg").find("ul").html(''); 
+
+      // $(".print-error-msg").css('display','block');
+
+      $.each( data.errors, function( key, value ) {//foreach show error
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+          // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+          //  sweetalert('warning',value);
+          $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+      });
+    }
+    }
+  });
+  }
+}
+////Function get value for update
+//// Get Data Performance Schedule for modal update///
+function hrm_update_perform_schedule(id,id_plan){
+  get_plan_schedule(id_plan);
+  setTimeout(function(){ //set time out for show run functino get_plan_schedule first
+  $.ajax({
+  url:"hrm_performance_staff_schedule/getdata",   //Request send to "action.php page"
+  type:"GET",    //Using of Post method for send data
+  data:{id:id},//Send data to server
+  dataType:"json",   //Here we have define json data type, so server will send data in json format.
+  success:function(data){
+      $('#hrm_perform_schedule_modal').modal('show');   //It will display modal on webpage
+      $('#action_schedule_staff').text("Update"); //This code will change Button value to Update
+      $('#card_title').text("Update Schedule");
+      $('.print-error-msg').hide();
+      $('#hrm_perform_schedule_form input').removeClass("is-invalid");//remove valid all input field
+      $('#hrm_perform_schedule_form textarea').removeClass("is-invalid");//remove valid all input field
+      $('#hrm_perform_schedule_form select').removeClass("is-invalid");//remove valid all input field
+      $('#schedule_plan_id').val(id);     //It will define value of id variable for update 
+      $.each(data, function(i, e){ //read array json for show to textbox
+        $('#plan_schedule').val(data[i].plan_id);
+        $('#plan_from_schedule').val(data[i].plan_from);
+        $('#plan_to_schedule').val(data[i].plan_to);
+        $('#plan_detail_schedule').val(data[i].pd_id);
+        // $('#plan_detail_schedule option').text(data.pd_name);
+        $('#schedule_detail_task').text(data[i].pd_task);
+        $('#schedule_detail_from').val(data[i].pd_from);
+        $('#schedule_detail_to').val(data[i].pd_to);
+        $('#staff_schedule').val(data[i].staff_id);
+        $('#staff_from_schedule').val(data[i].date_from);
+        $('#staff_to_schedule').val(data[i].date_to);
+        $('#staff_comment_schedule').text(data[i].comment);  
+        });     
+  }
+  });
+},300);
+};
+//// View modal Plan Detail///
+$(document).on('click', '.hrm_view_perform_schedule', function(){
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  $.ajax({
+  url:"hrm_performance_staff_schedule/modal",   //Request send to "action.php page"
+  type:"GET",    //Using of Post method for send data
+  data:{id:id},//Send data to server
+  success:function(data){
+      $('#modal_for_view_schedule').html(data);
+      $('#hrm_view_perform_schedule_modal').modal('show');   //It will display modal on webpage   
+  }
+  });
+});
+////===== END Performance Schedule =====//////
+
+////===== Performance Follow Up Staff ====//////
+// //// Modal For add follow up schedule
+// $(document).on('click', '.hrm_add_perform_follow_up', function(){
+//   var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+//   $.ajax({
+//   url:"hrm_performance_follow_up/modal/add",   //Request send to "action.php page"
+//   type:"GET",    //Using of Post method for send data
+//   data:{id:id},//Send data to server
+//   success:function(data){
+//       $('#modal_for_view_schedule').html(data);
+//       $('#hrm_perform_follow_modal').modal('show');   //It will display modal on webpage  
+//       $('#action_follow_up').text("Create"); //This code will change Button value to Update
+//       $('#card_title').text("Add Follow Up");
+//       $('.print-error-msg').hide();
+//       $('#hrm_perform_schedule_form input').removeClass("is-invalid");//remove valid all input field
+//       $('#hrm_perform_schedule_form textarea').removeClass("is-invalid");//remove valid all input field
+//       $('#follow_up_percentage').text('');
+//       $('#follow_up_reason').text('');
+//       $('#follow_up_challenge').text('');
+//       $('#follow_up_comment').text('');  
+
+//   }
+//   });
+// });
+///// Function insert and Update Staff Follow Performance ///////
+function HrmSubmitStaffFollowUp(){
+  event.preventDefault();
+/// Insert function
+if($('#action_follow_up').val()=='Create') //check condition for create question type 
+{
+ 
+  $.ajax({
+    url:'/hrm_performance_follow_up/store',
+    type:'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+     data: //_token: $('#token').val(),
+     $('#hrm_perform_follow_form').serialize(),
+    success:function(data)
+    {
+      if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+        console.log(data);
+        sweetalert('success','The Staff Follow Up has been Insert Successfully !!');
+        setTimeout(function(){ go_to('/hrm_performance_follow_up'); }, 300);// Set timeout for refresh content 
+    }else{
+      // $(".print-error-msg").find("ul").html(''); 
+
+      // $(".print-error-msg").css('display','block');
+
+      $.each( data.errors, function( key, value ) {//foreach show error
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+          // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+          //  sweetalert('warning',value);
+          $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+      });
+    }
+    }
+  });
+}
+/// Update action 
+if($('#action_follow_up').val()=='Update') // Check Condition for update question type
+{
+  $.ajax({
+    url:'/hrm_performance_follow_up/update',
+    type:'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+     data: //_token: $('#token').val(),
+     $('#hrm_perform_follow_form').serialize(),
+    success:function(data)
+    {
+      if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+        console.log(data);
+        sweetalert('success','The Staff Follow Up has been Updated Successfully !!');
+        setTimeout(function(){ go_to('/hrm_performance_follow_up'); }, 300);// Set timeout for refresh content 
+    }else{
+      // $(".print-error-msg").find("ul").html(''); 
+
+      // $(".print-error-msg").css('display','block');
+
+      $.each( data.errors, function( key, value ) {//foreach show error
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+          // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+          //  sweetalert('warning',value);
+          $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+      });
+    }
+    }
+  });
+  }
+}
+//// View modal Staff Follow Up Detail///
+$(document).on('click', '.hrm_view_perform_staff_follow_up', function(){
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  $.ajax({
+  url:"hrm_performance_follow_up/modal/view",   //Request send to "action.php page"
+  type:"GET",    //Using of Post method for send data
+  data:{id:id},//Send data to server
+  success:function(data){
+      $('#modal_for_view_follow_up').html(data);
+      $('#hrm_view_staff_follow_up_modal').modal('show');   //It will display modal on webpage   
+  }
+  });
+});
+////===== END Performance Follow Up Staff ====//////
+
+////===== Performance Manager Follow Up  ====///////
+///// Function insert and Update Manager Follow Performance ///////
+function HrmSubmitManagerFollowUp(){
+  event.preventDefault();
+/// Insert function
+if($('#action_manage_follow_up').val()=='Create') //check condition for create question type 
+{
+ 
+  $.ajax({
+    url:'/hrm_performance_follow_up_manager/store',
+    type:'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+     data: //_token: $('#token').val(),
+     $('#hrm_manager_follow_form').serialize(),
+    success:function(data)
+    {
+      if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+        console.log(data);
+        sweetalert('success','The Manager Follow Up has been Insert Successfully !!');
+        setTimeout(function(){ go_to('/hrm_performance_follow_up_manager'); }, 300);// Set timeout for refresh content 
+    }else{
+      // $(".print-error-msg").find("ul").html(''); 
+
+      // $(".print-error-msg").css('display','block');
+
+      $.each( data.errors, function( key, value ) {//foreach show error
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+          // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+          //  sweetalert('warning',value);
+          $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+      });
+    }
+    }
+  });
+}
+/// Update action 
+if($('#action_manage_follow_up').val()=='Update') // Check Condition for update question type
+{
+  $.ajax({
+    url:'/hrm_performance_follow_up_manager/update',
+    type:'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+     data: //_token: $('#token').val(),
+     $('#hrm_manager_follow_form').serialize(),
+    success:function(data)
+    {
+      if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+        console.log(data);
+        sweetalert('success','The Manager Follow Up has been Update Successfully !!');
+        setTimeout(function(){ go_to('/hrm_performance_follow_up_manager'); }, 300);// Set timeout for refresh content 
+    }else{
+      // $(".print-error-msg").find("ul").html(''); 
+
+      // $(".print-error-msg").css('display','block');
+
+      $.each( data.errors, function( key, value ) {//foreach show error
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+          // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+          //  sweetalert('warning',value);
+          $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+      });
+    }
+    }
+  });
+  }
+}
+//// View modal Manager Follow Up Detail///
+$(document).on('click', '.hrm_view_manager_follow_up', function(){
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  $.ajax({
+  url:"hrm_performance_follow_up_manager/modal/view",   //Request send to "action.php page"
+  type:"GET",    //Using of Post method for send data
+  data:{id:id},//Send data to server
+  success:function(data){
+      $('#modal_view_manager_follow_up').html(data);
+      $('#hrm_view_manager_follow_up_modal').modal('show');   //It will display modal on webpage   
+  }
+  });
+});
+////===== END Performance Manager Follow Up  ====//////
+
+////=================== Performance Score =============//////
+//function show modal add
+function HrmAddPerformScore(){
+  $('#hrm_perform_score_modal').modal('show');
+  $('#score_name').val('');
+  $('#score_value').val('');
+  $('#hrm_perform_score_form input').removeClass("is-invalid");//remove valid all input field
+  $(".invalid-feedback").children("strong").text("");
+  $("#card_title").text('Add Score');
+  $('#action_performance_score').text('Create');
+}
+///// Function insert plan ///////
+function HrmSubmitPerformScore(){
+  event.preventDefault();
+  $('#hrm_perform_score_form input').removeClass("is-invalid");//remove valid all input field
+/// Insert function
+if($('#action_performance_score').text()=='Create') //check condition for create  
+{
+ 
+  $.ajax({
+    url:'hrm_performance_score/store',
+    type:'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+     data: //_token: $('#token').val(),
+     $('#hrm_perform_score_form').serialize(),
+    success:function(data)
+    {
+      if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+        console.log(data);
+        $('#hrm_perform_score_modal').modal('hide');
+        sweetalert('success','The Score has been Insert Successfully !!');
+        setTimeout(function(){ go_to('hrm_performance_score'); }, 300);// Set timeout for refresh content 
+    }else{
+      // $(".print-error-msg").find("ul").html(''); 
+
+      // $(".print-error-msg").css('display','block');
+
+      $.each( data.errors, function( key, value ) {//foreach show error
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+          // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+          //  sweetalert('warning',value);
+          $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+      });
+    }
+    }
+  });
+}
+/// Update action 
+if($('#action_performance_score').text()=='Update') // Check Condition for update 
+{
+  $.ajax({
+    url:'hrm_performance_score/update',
+    type:'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+     data: //_token: $('#token').val(),
+     $('#hrm_perform_score_form').serialize(),
+    success:function(data)
+    {
+      if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+        console.log(data);
+        $('#hrm_perform_score_modal').modal('hide');
+        sweetalert('success','The Score has been Updated Successfully !!');
+        setTimeout(function(){ go_to('hrm_performance_score'); }, 300);// Set timeout for refresh content 
+    }else{
+      // $(".print-error-msg").find("ul").html(''); 
+
+      // $(".print-error-msg").css('display','block');
+
+      $.each( data.errors, function( key, value ) {//foreach show error
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+          // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+          //  sweetalert('warning',value);
+          $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+      });
+    }
+    }
+  });
+  }
+}
+//Function Update
+$(document).on('click', '.hrm_update_perform_score', function(){
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  $.ajax({
+   url:"hrm_performance_score/get",   //Request send to "action.php page"
+   type:"GET",    //Using of Post method for send data
+   headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+   data:{id:id},//Send data to server
+   dataType:"json",   //Here we have define json data type, so server will send data in json format.
+   success:function(data){
+      $('#hrm_perform_score_modal').modal('show');   //It will display modal on webpage
+      $('#action_performance_score').text('Update');
+      $("#card_title").text('Update Score');     //This code will change Button value to Update
+      $('#performance_score_id').val(id);     //It will define value of id variable to this customer id hidden field
+      $('#hrm_perform_score_form input').removeClass("is-invalid");//remove valid all input field
+      $(".invalid-feedback").children("strong").text("");
+      $.each(data, function(i, e){ //read array json for show to textbox
+        $('#score_name').val(data[i].name)// Set to span and get hidden for value 
+        value_score = parseInt(data[i].value);
+        $('#score_value').val(value_score);    
+        });     
+     
+   }
+  });
+ });
+////================== END Performance Score ============/////
+
 /////////////================================= END Performance =============================///////////////
