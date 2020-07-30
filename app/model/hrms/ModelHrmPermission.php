@@ -21,7 +21,7 @@ class ModelHrmPermission extends Model
                    ->where("is_deleted","=","f")
                    ->get();
      }
-    //=== Function Get data from staff for ceo===//
+    //=== Function Get data from staff for Dept===//
     public static function hrm_get_staff_dept($dept){
         return DB::table('staff')
                    ->select("id","name","id_number")
@@ -31,4 +31,21 @@ class ModelHrmPermission extends Model
                    ])
                    ->get();
      }
+    //=== Function Get data from table Department for ceo===//
+     public static function hrm_get_dept_ceo(){
+        return DB::table('company_dept')
+                   ->select("id","name","is_deleted")
+                   ->where("is_deleted","=","f")
+                   ->get();
+    }
+    //=== Function Get data from table Department for Head Dept===//
+    public static function hrm_get_dept_dept($id){
+        return DB::table('company_dept')
+                   ->select("id","name","is_deleted")
+                   ->where([
+                    ["is_deleted","=","f"],
+                    ["id","=",$id]
+                   ])
+                   ->get();
+    }
 }

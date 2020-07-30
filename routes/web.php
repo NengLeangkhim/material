@@ -542,7 +542,38 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// Delete Performance SCore
     Route::get('hrm_performance_score/delete','hrms\performance\HrmPerformScoreController@hrm_delete_perform_score');
+
+////// Performane Report
+    /// Index performance report
+    Route::get('hrm_report_performance_manage','hrms\performance\HrmPerformReportController@HrmIndexPerformReport');
+
+     /// Action performance report
+     Route::post('hrm_report_performance_manage/action','hrms\performance\HrmPerformReportController@hrm_action_perform_report');
 /////////////////============== END Performance =============///////////////
+
+/////////////////============== Recruitment =============///////////////
+
+////// Question Type Recruitment
+    /// Index Question Type Recruitment
+    Route::get('hrm_questiontype','hrms\recruitment\HrmReQuestionTypeController@tbl_recruitment_question_type');
+
+    /// Insert Question Type Recruitment
+    Route::post('hrm_questiontype/store','hrms\recruitment\HrmReQuestionTypeController@AddQuestionTypeRe');
+
+    /// Get Show for update Question Type Recruitment
+    Route::get('hrm_questiontype/modal','hrms\recruitment\HrmReQuestionTypeController@GetEditQuestionTypeRe');
+
+    /// Update Question Type Recruitment
+    Route::post('hrm_questiontype/update','hrms\recruitment\HrmReQuestionTypeController@UpdateQuestionTypeRe');
+
+    /// Get Delete Question Type Recruitment
+    Route::get('hrm_questiontype/delete','hrms\recruitment\HrmReQuestionTypeController@delete_question_type_re');
+
+////// Question and Answer Recruitment
+    /// Index Question Type Recruitment
+    Route::get('hrm_question','hrms\recruitment\HrmQuestionAnswerController@tbl_recruitment_question');
+
+/////////////////============== END Recruitment =============///////////////
 // ========================================================>END METKEOSAMBO <======================================================== //
 
 // ========================================================> SENG KIMSROS <======================================================== //

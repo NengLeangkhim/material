@@ -15,6 +15,8 @@ class ModelHrmStaffFollowUp extends Model
                            ->join('staff as s','ps.staff_id','=','s.id')
                            ->join('hr_performance_plan_detail as pd','ps.plan_detail_id','=','pd.id')
                            ->where('pf.is_deleted','=','f')
+                           ->orderBy('ps.staff_id','ASC')
+                           ->orderBy('ps.plan_detail_id','ASC')
                            ->orderBy('pf.id','ASC')
                            ->get(); 
         return $follow_up_ceo;
@@ -30,6 +32,8 @@ class ModelHrmStaffFollowUp extends Model
                                 ['pf.is_deleted', '=', 'f'],
                                 ['s.company_dept_id', '=', $dept],
                             ])
+                            ->orderBy('ps.staff_id','ASC')
+                            ->orderBy('ps.plan_detail_id','ASC')
                             ->orderBy('pf.id','ASC')
                             ->get(); 
         return $follow_up_dept;
@@ -77,5 +81,16 @@ class ModelHrmStaffFollowUp extends Model
     public static function hrm_update_staff_follow_up($id_follow_up,$userid,$schedule_id,$percent,$reason,$challenge,$cmt,$from,$to){
         return DB::select('SELECT public.update_hr_performance_follow_up(?,?,?,?,?,?,?,?,?)',array($id_follow_up,$userid,$schedule_id,$percent,$reason,$challenge,$cmt,$from,$to));
     } 
+    // ===== Function count for permission manager follow up ====//
+    public static function hrm_count_manager_follow_up($id){
+            $count_follow = DB::table('hr_performance_manager_follow_up')
+            ->select(DB::raw('count(id)'))
+            ->where([
+                ['is_deleted', '=', 'f'],
+                ['hr_performance_follow_up_id', '=', $id],
+            ])
+            ->get(); 
+    return $count_follow;
+    }
 
 }
