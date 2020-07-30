@@ -49,8 +49,41 @@ class OverTimeController extends Controller
 
 
     // Insert Overtime
-    function InsertOvertime(){
-        
+    function InsertUpdateOvertime(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (perms::check_perm_module('HRM_090107')) {
+            $ot = new OverTime();
+            $id=$_POST['id'];
+            $userid = $_SESSION['userid'];
+            $staffid=$_POST['emName'];
+            $otDate=$_POST['otDate'];
+            $start=$_POST['start_h'];
+            $end=$_POST['end_h'];
+            $description=$_POST['description'];
+            if($id>0){
+                $ot->UpdateOvertime($staffid,$otDate,$description,$userid,0,$userid,$start,$end,$id);
+            }else{
+                $overtime = $ot->InsertOverTime($staffid,$otDate,$description,$userid,0,$userid,$start,$end);
+                echo $overtime;
+            }
+            
+        } else {
+            return view('noperms');
+        }
     }
-
+    function DeleteOvertime(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (perms::check_perm_module('HRM_090107')) {
+            $ot = new OverTime();
+            $id=$_GET['id'];
+            $userid = $_SESSION['userid'];
+            $ot->DeleteOvertime($id,$userid);
+        } else {
+            return view('noperms');
+        }
+    }
 }

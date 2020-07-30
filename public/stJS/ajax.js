@@ -699,8 +699,8 @@ function submit_form (route,form,goto){
                     if(data=='error'){
                         sweetalert('error', 'Data has Problem');
                     }else{
-                        sweetalert('success',this.responseText);
-                        // alert(this.responseText);
+                        // sweetalert('success',this.responseText);
+                        alert(this.responseText);
                         go_to(goto);
                     }
                 }
