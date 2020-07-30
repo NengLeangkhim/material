@@ -10,7 +10,7 @@ use App\model\hrms\recruitment_user\recruitment_userModel;
 class recruitment_userController extends Controller
 {
     
-
+    
     // function candidate create account & submit info
 
     public function register_candidate(){
@@ -73,6 +73,62 @@ class recruitment_userController extends Controller
         
         $user_question = recruitment_userModel::select_user_question(154);
         return view('hrms\recruitment_user\frm_quiz', compact('user_question'));
+
+    }
+
+
+
+
+    public function submit_user_answer(){
+
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        // declear start time & end time
+        $starttime = $_SESSION['start_time'];
+        date_default_timezone_set("Asia/Phnom_Penh");
+        $endtime = date("Y-m-d h:i:s ");
+
+
+        // isset cache button submit user answer
+        if(isset($_POST['btnSubmitAnswer'])){
+
+                if(!empty($_POST['id_question'])){
+                    $radio_name = $_POST['id_question'];
+                }else{
+                    $radio_name = '';
+                }
+                $txtarea = $_POST['txtarea-name'];
+              
+                // foreach insert question option
+                if(is_array($radio_name)){
+                    foreach($radio_name as $key=> $val){
+                        // $choice_id = $val;
+                        // $question_id = $key;
+                        recruitment_userModel::submit_answer($val,$key,null,$starttime,$endtime,$_SESSION['userid']);
+                    }
+                }
+                
+                // foreach insert question writing
+                if(is_array($txtarea)){
+                    foreach($txtarea as $key=> $val){
+                        // $answer_text = $val;
+                        // $question_id = $key;
+                        recruitment_userModel::submit_answer('null',$key,$val,$starttime,$endtime,$_SESSION['userid']);
+
+                    }
+                }else{
+                        recruitment_userModel::submit_answer('null','null',null,$starttime,$endtime,$_SESSION['userid']);
+                }
+
+
+                return view();
+
+
+
+
+
+        }
 
     }
 
