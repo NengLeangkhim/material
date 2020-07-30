@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class ModelHrmPlan extends Model
 {
-    //
+    // 
     protected $table = 'hr_performance_plan';
     protected $primaryKey = 'id';
      // ===== Function get data for table for CEO =====////
@@ -42,6 +42,23 @@ class ModelHrmPlan extends Model
          return  DB::table('hr_performance_plan')
        ->select('*')
        ->where('id','=',$id)
+       ->get(); 
+      }
+      // ===== Function get data for plan for each user ======//
+      public static function hrm_get_plan_detial_user($userid){
+         return  DB::table('hr_performance_plan')
+       ->select('*')
+       ->where([
+         ['is_deleted', '=', 'f'],
+         ['create_by', '=',$userid]
+       ])
+       ->get(); 
+      }
+      // ===== Function get data for plan for ceo ======//
+      public static function hrm_get_plan_detial_ceo(){
+         return  DB::table('hr_performance_plan')
+       ->select('*')
+       ->where('is_deleted', '=', 'f')
        ->get(); 
       }
       // ===== Function Update plan  ======//

@@ -18,7 +18,7 @@ class ModelHrmPlanDetail extends Model
                            ->where('pd.is_deleted','=','f')
                            ->orderBy('p.id','ASC')
                            ->orderBy('pd.id','ASC')
-                           ->get(); 
+                           ->get();  
         return $plan_detail_ceo;
     }
     // ===== Function get data for table for Head Each departement =====////
@@ -41,7 +41,10 @@ class ModelHrmPlanDetail extends Model
     public static function hrm_get_plan_detail($id){
         return  DB::table('hr_performance_plan_detail')
       ->select('*')
-      ->where('hr_performance_plan_id','=',$id)
+      ->where([
+          ['hr_performance_plan_id','=',$id],
+          ['is_deleted','=','f']
+      ])
       ->get(); 
     }
     // ===== Function get data for plan detail update ======//
