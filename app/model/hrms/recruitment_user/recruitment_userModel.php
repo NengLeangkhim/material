@@ -79,6 +79,16 @@ class recruitment_userModel extends Model
 
 
 
+    public static  function submit_answer($c_id,$q_id,$an_text,$start,$end,$userid){
+
+        $sql = "INSERT INTO hr_user_answer(choice_id, question_id, answer_text, is_right, start_time, end_time, status, user_id ) 
+                VALUES($c_id, '$q_id', '$an_text', null, '$start', '$end', 't', '$userid')";
+        DB::insert($sql);
+        
+    }
+
+
+
 
 
 
