@@ -58,7 +58,35 @@ class AttendanceController extends Controller
         
     }
 
+
+    // function to show form detail of attendance
     function ShowAttendanceDetail(){
-        return view('hrms/Employee/Attendance/AttendanceDetail');
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (perms::check_perm_module('HRM_090103')) {
+            $att = new Attendance();
+            $id=$_GET['id'];
+            $date = date('Y-m-d') . '';
+            $att_detail=$att->AttendanceDetail($id,'',$date);
+            $detail=array();
+            array_push($detail,$att_detail);
+            $d= $att->CheckInfoStaff($detail);
+            if(count($d[9])>0){
+                $late=0;
+            }else{
+                $late=0;
+            }
+            // $det=array();
+            // $det[0]=$d[0];
+            // $det[1]=$d[1];
+            return view('hrms/Employee/Attendance/AttendanceDetail')->with('tt_detail',$d);
+        } else {
+            return view('noperms');
+        }
+    }
+
+    function CalculateAttendanceDetail(){
+        return view('hrms/Employee/Attendance/CalculateAttendanceDetail');
     }
 }

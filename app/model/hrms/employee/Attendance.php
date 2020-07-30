@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use DateTime;
+use Throwable;
 
 class Attendance extends Model
 {
@@ -21,16 +22,20 @@ class Attendance extends Model
         $staffdetail[5] = 0; // Absent
         $staffdetail[6] = 0; // Present
         $staffdetail[7] = 0; // Permission
+
+        $staffdetail[8]=array();
+        $staffdetail[9]= array();
         foreach($s as $e){
-            // echo $e[3]."<br>";
             if($e[3]== 'Absent'){
                 $staffdetail[1] += 1;
             } elseif ($e[3] == 'Permission') {
                 $staffdetail[3] += 1;
             }elseif(strtotime($e[3])>=strtotime('08:01:00')){
                 $staffdetail[0]+=1;
+                array_push($staffdetail[8],$e[3]);
             }elseif(strtotime($e[3]) < strtotime('08:01:00') && strtotime($e[3]) < strtotime('08:01:00')){
                 $staffdetail[2]+=1;
+                array_push($staffdetail[9], $e[3]);
             }
 
             if ($e[5] == 'Absent') {
@@ -45,6 +50,8 @@ class Attendance extends Model
         }
         return $staffdetail;
     }
+
+    // function for check attendance today
     function AttendanceToday($em,$date){
         $allData=array();
         $attendance=array();
@@ -198,5 +205,19 @@ class Attendance extends Model
                             </div>
                         </div>';
         return $st;
+    }
+
+    function CheckMinuteOfLate($em){
+        try {
+            foreach($em as $s){
+
+            }
+        } catch (Throwable $e) {
+            report($e);
+            return false;
+        }
+    }
+    function CheckMinutOfCheckOut($em){
+
     }
 }

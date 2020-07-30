@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use PhpParser\Node\Stmt\TryCatch;
 
 /*
 |--------------------------------------------------------------------------
@@ -577,6 +578,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 // ========================================================>END METKEOSAMBO <======================================================== //
 
 // ========================================================> SENG KIMSROS <======================================================== //
+
 // Employee
 
     // Start All Employee
@@ -598,6 +600,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_attendance', 'hrms\Employee\AttendanceController@AllAttendance');
         Route::get('hrm_show_attendance_by_date', 'hrms\Employee\AttendanceController@ShowAttendanceByDate');
         Route::get('hrm_attendance_detail', 'hrms\Employee\AttendanceController@ShowAttendanceDetail');
+        Route::get('hrm_calculate_attendance_detail', 'hrms\Employee\AttendanceController@CalculateAttendanceDetail');
     // End Attendance
 
     // Start Mission And Out Side
@@ -611,6 +614,8 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     // Stat Overtime
         Route::get('hrm_overtime', 'hrms\Employee\OverTimeController@StaffOverTime');
         Route::get('hrm_modal_add_edit', 'hrms\Employee\OverTimeController@ShowModalAddAndEdit');
+        Route::post('hrm_insert_update_overtime','hrms\Employee\OverTimeController@InsertUpdateOvertime');
+        Route::get('hrm_delete_overtime', 'hrms\Employee\OverTimeController@DeleteOvertime');
     // End Overtime
 
 // End Employee
@@ -654,7 +659,11 @@ Route::get('hrm_shift_promote_report_search_view_detail','hrms\shift_promote\shi
 
 // candidate register account submit info
 Route::post('hrm_recruitment_user_register','hrms\recruitment_user\recruitment_userController@register_candidate');
-// end andidate register account
+// end 
+
+// route controller to user submit quiz answer
+Route::post('hrm_recruitment_user_submit_answer','hrms\recruitment_user\recruitment_userController@submit_user_answer');
+// end
 
 // view user entry info to register
 Route::get('hrm_index_user_register',function(){

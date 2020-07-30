@@ -82,6 +82,27 @@ function HRM_ShowDetail(rout,modalName,id=-1){
             }
             
         }
+
+        function HRM_CalculateAttendanceDetail(){
+            var date1 = document.getElementById('attendance_date1').value;
+            var date2 = document.getElementById('attendance_date2').value;
+            if(date1.length<=0 || date2.length<=0){
+                alert('Please select all date');
+            }else{
+                $("#hrm_calculate_detail").html(spinner());
+                $.ajax({
+                    type: 'GET',
+                    url: '/hrm_calculate_attendance_detail',
+                    data: {
+                        _token: '<?php echo csrf_token() ?>',
+                        id: 1
+                    },
+                    success: function (data) {
+                        document.getElementById('hrm_calculate_detail').innerHTML = data;
+                    }
+                });
+            }
+        }
     // End Attendance
 // End Employee
 

@@ -767,7 +767,7 @@
     color: #d42931;
     position: relative;
     z-index: 1;
-    box-shadow: 0px 0px 2.5px 2.5px rgba(1,10,100,0.5);
+    box-shadow: 0px 1px 1px 1px rgba(1,10,100,0.5);
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
@@ -792,7 +792,7 @@
     transition: all 0.4s;
   }
   .btn-next:hover {
-    background-color: greenyellow;
+   
     color: blue;
     font-size: 13px;
   }
@@ -1077,7 +1077,9 @@ div.uploadcv div.uploadcover , input[type="file"] {
     color: blue;
     font-weight: bold;
     border-radius: 5px;
-    margin-top: 5px;
+    /* margin-top: 5px; */
+    font-weight: 600;
+    font-size: 17px;
     cursor: pointer;
     position: relative;
     transition: 0.5s;
