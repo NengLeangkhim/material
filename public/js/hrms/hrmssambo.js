@@ -1469,4 +1469,166 @@ $(document).on('click', '.hrm_update_perform_score', function(){
  });
 ////================== END Performance Score ============/////
 
+////================ Performance Report ============//////
+//// Function Report Performance //////
+function ReportPerformance(){
+  event.preventDefault();
+  $.ajax({
+    url:'hrm_report_performance_manage/action',
+    type:'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+     data: //_token: $('#token').val(),
+     $('#performance_report_form').serialize(),
+    success:function(data)
+    {
+      if(typeof(data.errors) != "undefined" && data.errors !== null) { //condition for check success
+         // $(".print-error-msg").find("ul").html(''); 
+
+      // $(".print-error-msg").css('display','block');
+
+      $.each( data.errors, function( key, value ) {//foreach show error
+        $("#" + key).addClass("is-invalid"); //give read border to input field
+        // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+          sweetalert('warning',value);
+        //$("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+    });
+      
+    }else{
+      console.log(data);
+      $('#report_table_performance').html(data);
+      $('#report_tbl_performance').DataTable({
+      });
+      $('[data-toggle="tooltip"]').tooltip(); 
+    }
+    }
+   }); 
+}
+ //// View Detail Report //////
+ function view_detail_report(id){
+  $.ajax({  
+      url:"hrm_performance_follow_up_manager/modal/view",  
+      method:"GET",  
+      data:{id:id},  
+      success:function(data){  
+       $('#modal_report_performance').html(data);  
+       setTimeout(function(){$('#hrm_view_manager_follow_up_modal').modal("show");},200);
+  }  
+  }); 
+   
+ }
+////================ END Performance Report ============//////
 /////////////================================= END Performance =============================///////////////
+/////////////================================= Recruitment =============================///////////////
+////====== Question Type Recruitment ====/////
+    //======View Modal for Question Type Recruitment =====//
+    function AddNewQuestionType(){
+      $('#q_type_re_modal').modal('show');//Modal show
+      $('.print-error-msg').hide(); // hide div show error
+      $("#question_type_re_form input").removeClass("is-invalid");
+      $(".invalid-feedback").children("strong").text("");/// remove errror massage
+      $('#card_title').text('Add Question Type');
+      $('#question_type').val('');
+      $('#action_question_type').text('Create'); // Give value to button action of question type submit
+    } 
+
+    ///// Function insert plan ///////
+    function HrmAddQuestionTypeRe(){
+      event.preventDefault();
+      $('#question_type_re_form input').removeClass("is-invalid");//remove valid all input field
+    /// Insert function
+    if($('#action_question_type').text()=='Create') //check condition for create  
+    {
+    
+      $.ajax({
+        url:'hrm_questiontype/store',
+        type:'POST',
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+        data: //_token: $('#token').val(),
+        $('#question_type_re_form').serialize(),
+        success:function(data)
+        {
+          if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+            console.log(data);
+            $('#q_type_re_modal').modal('hide');
+            sweetalert('success','The Question Type has been Insert Successfully !!');
+            setTimeout(function(){ go_to('hrm_questiontype'); }, 300);// Set timeout for refresh content 
+        }else{
+          // $(".print-error-msg").find("ul").html(''); 
+
+          // $(".print-error-msg").css('display','block');
+
+          $.each( data.errors, function( key, value ) {//foreach show error
+              $("#" + key).addClass("is-invalid"); //give read border to input field
+              // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+              //  sweetalert('warning',value);
+              $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+          });
+        }
+        }
+      });
+    }
+    /// Update action 
+    if($('#action_question_type').text()=='Update') // Check Condition for update 
+    {
+      $.ajax({
+        url:'hrm_questiontype/update',
+        type:'POST',
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+        data: //_token: $('#token').val(),
+        $('#question_type_re_form').serialize(),
+        success:function(data)
+        {
+          if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+            console.log(data);
+            $('#q_type_re_modal').modal('hide');
+            sweetalert('success','The Question Type has been Updated Successfully !!');
+            setTimeout(function(){ go_to('hrm_questiontype'); }, 300);// Set timeout for refresh content 
+        }else{
+          // $(".print-error-msg").find("ul").html(''); 
+
+          // $(".print-error-msg").css('display','block');
+
+          $.each( data.errors, function( key, value ) {//foreach show error
+              $("#" + key).addClass("is-invalid"); //give read border to input field
+              // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+              //  sweetalert('warning',value);
+              $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+          });
+        }
+        }
+      });
+      }
+    }
+    //======= Funtion get value from database to show on modal update =======//
+    $(document).on('click', '.update_qestion_type', function(){
+      var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+      $.ajax({
+       url:"hrm_questiontype/modal",   //Request send to "action.php page"
+       type:"GET",    //Using of Post method for send data
+       data:{id:id},//Send data to server
+       dataType:"json",   //Here we have define json data type, so server will send data in json format.
+       success:function(data){
+          $('#q_type_re_modal').modal('show');   //It will display modal on webpage
+          $('#action_question_type').text("Update"); //This code will change Button value to Update
+          $('#card_title').text("Update Question Type");
+          $('.print-error-msg').hide();
+          $('#question_type_re_form input').removeClass("is-invalid");//remove valid all input field
+          $('#question_type_id').val(id);     //It will define value of id variable for update 
+          $.each(data, function(i, e){ //read array json for show to textbox
+            $('#question_type').val(data[i].name);     
+            });     
+       }
+      });
+     });
+    //======= END Funtion get value from database to show on modal update =======//
+////====== END Question Type Recruitment ====///
+
+/////////////================================= END Recruitment =============================///////////////

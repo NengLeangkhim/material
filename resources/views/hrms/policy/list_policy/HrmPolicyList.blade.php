@@ -45,7 +45,7 @@
                                 <th>{{$i++}}</th>
                                 <td>{{$row->name}}</td>
                                 <td>{{$row->username}}</td>
-                                <td>{{$ts1->format('d-M-Y H:i:s A')}}</td>
+                                <td>{{$ts1->format('d-M-Y H:i:s')}}</td>
                                 <td class="text-center">
                                 <div class="dropdown">
                                     <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

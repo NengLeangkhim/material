@@ -26,10 +26,13 @@ class HrmStaffFollowUpController extends Controller
             }
             if($group==5 || $group==1){ //permission check for CEO and Admin
                 $follow_up = ModelHrmStaffFollowUp::hrm_get_tbl_follow_up_top(); //query database
+                
             }else if($group==4){//permission each departement
                 $follow_up = ModelHrmStaffFollowUp::hrm_get_tbl_follow_up_dept($dept); //query database
+                
             }else{//permission check user
                 $follow_up = ModelHrmStaffFollowUp::hrm_get_tbl_follow_up_staff($userid); //query database
+              
             }
             return view('hrms/performance/performance_staff_follow_up/HrmPerformStaffFollowUp',['follow_up'=>$follow_up,'permission'=>$permission]); 
         }else{

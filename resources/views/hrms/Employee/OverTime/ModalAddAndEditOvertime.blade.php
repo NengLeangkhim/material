@@ -48,32 +48,32 @@
                   <!-- /.form-group -->
                   <div class="form-group">
                     <label>Overtime Date <span class="text-danger">*</span></label>
-                    <input type="date" class="form-control" name="emOT" value="@php if(isset($data[1])){echo $data[1][0]->overtime_date;} @endphp">
+                    <input type="date" class="form-control" name="otDate" value="@php if(isset($data[1])){echo $data[1][0]->overtime_date;} @endphp">
                   </div>
                   <!-- /.form-group -->
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                     <label>Start Hour <span class="text-danger">*</span></label>
-                    <input type="time" class="form-control" name="hStart" value="@php if(isset($data[1])){echo $data[1][0]->start_time;} @endphp">
+                    <input type="time" class="form-control" name="start_h" value="@php if(isset($data[1])){echo $data[1][0]->start_time;} @endphp">
                   </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                     <label>End Hour <span class="text-danger">*</span></label>
-                    <input type="time" class="form-control" name="hEnd" value="@php if(isset($data[1])){echo $data[1][0]->end_time;} @endphp">
+                    <input type="time" class="form-control" name="end_h" value="@php if(isset($data[1])){echo $data[1][0]->end_time;} @endphp">
                   </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                     <label>Description <span class="text-danger">*</span></label>
-                    <textarea name="description" id="" rows="5" class="form-control">value="@php if(isset($data[1])){echo $data[1][0]->description;} @endphp"</textarea>
+                    <textarea name="description" id="" rows="5" class="form-control">@php if(isset($data[1])){echo $data[1][0]->description;} @endphp</textarea>
                   </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-md-12 text-right">
                   <a href="javascrip;:" class="btn btn-danger" data-dismiss="modal">Cancel</a>
-                  <a href="javascrip;:" class="btn bg-turbo-color" data-dismiss="modal">Save</a>
+                  <a href="javascrip;:" class="btn bg-turbo-color" data-dismiss="modal" onclick="submit_form ('hrm_insert_update_overtime','fm_holiday','hrm_overtime')">Save</a>
                 </div>
               </div>
             </form>

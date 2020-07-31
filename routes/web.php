@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use PhpParser\Node\Stmt\TryCatch;
 
 /*
 |--------------------------------------------------------------------------
@@ -542,10 +543,42 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// Delete Performance SCore
     Route::get('hrm_performance_score/delete','hrms\performance\HrmPerformScoreController@hrm_delete_perform_score');
+
+////// Performane Report
+    /// Index performance report
+    Route::get('hrm_report_performance_manage','hrms\performance\HrmPerformReportController@HrmIndexPerformReport');
+
+     /// Action performance report
+     Route::post('hrm_report_performance_manage/action','hrms\performance\HrmPerformReportController@hrm_action_perform_report');
 /////////////////============== END Performance =============///////////////
+
+/////////////////============== Recruitment =============///////////////
+
+////// Question Type Recruitment
+    /// Index Question Type Recruitment
+    Route::get('hrm_questiontype','hrms\recruitment\HrmReQuestionTypeController@tbl_recruitment_question_type');
+
+    /// Insert Question Type Recruitment
+    Route::post('hrm_questiontype/store','hrms\recruitment\HrmReQuestionTypeController@AddQuestionTypeRe');
+
+    /// Get Show for update Question Type Recruitment
+    Route::get('hrm_questiontype/modal','hrms\recruitment\HrmReQuestionTypeController@GetEditQuestionTypeRe');
+
+    /// Update Question Type Recruitment
+    Route::post('hrm_questiontype/update','hrms\recruitment\HrmReQuestionTypeController@UpdateQuestionTypeRe');
+
+    /// Get Delete Question Type Recruitment
+    Route::get('hrm_questiontype/delete','hrms\recruitment\HrmReQuestionTypeController@delete_question_type_re');
+
+////// Question and Answer Recruitment
+    /// Index Question Type Recruitment
+    Route::get('hrm_question','hrms\recruitment\HrmQuestionAnswerController@tbl_recruitment_question');
+
+/////////////////============== END Recruitment =============///////////////
 // ========================================================>END METKEOSAMBO <======================================================== //
 
 // ========================================================> SENG KIMSROS <======================================================== //
+
 // Employee
 
     // Start All Employee
@@ -567,6 +600,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_attendance', 'hrms\Employee\AttendanceController@AllAttendance');
         Route::get('hrm_show_attendance_by_date', 'hrms\Employee\AttendanceController@ShowAttendanceByDate');
         Route::get('hrm_attendance_detail', 'hrms\Employee\AttendanceController@ShowAttendanceDetail');
+        Route::get('hrm_calculate_attendance_detail', 'hrms\Employee\AttendanceController@CalculateAttendanceDetail');
     // End Attendance
 
     // Start Mission And Out Side
@@ -580,6 +614,8 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     // Stat Overtime
         Route::get('hrm_overtime', 'hrms\Employee\OverTimeController@StaffOverTime');
         Route::get('hrm_modal_add_edit', 'hrms\Employee\OverTimeController@ShowModalAddAndEdit');
+        Route::post('hrm_insert_update_overtime','hrms\Employee\OverTimeController@InsertUpdateOvertime');
+        Route::get('hrm_delete_overtime', 'hrms\Employee\OverTimeController@DeleteOvertime');
     // End Overtime
 
 // End Employee
