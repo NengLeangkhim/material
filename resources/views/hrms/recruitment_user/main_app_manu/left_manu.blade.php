@@ -16,8 +16,8 @@
         
 
           <li class="nav-item has-treevie">
-                <a href="javascript:void(0);" class="nav-link active" onclick='user_dashboard()'>
-                    <i class="nav-icon fas fa-book-open"></i> 
+                <a href="javascript:void(0);" class="nav-link active" onclick="go_to('hrm_recruitment_homepage')">
+                    <i class="nav-icon fa fa-home"></i>
                     <p>Home Page</p>
                 </a> 
           </li>
@@ -30,14 +30,14 @@
           </li>
 
           <li class="nav-item has-treevie">
-                <a href="javascript:void(0);" class="nav-link active" onclick='user_view_quiz()'>
+                <a href="javascript:void(0);" class="nav-link active" onclick='go_to("hrm_recruitment_user_quiz_result")'>
                     <i class="nav-icon fa fa-list-alt"></i> 
                     <p>View Your Quiz Test</p>
                 </a> 
           </li>
 
           <li class="nav-item has-treevie">
-                <a href="javascript:void(0);" class="nav-link active" onclick='user_view_hr_result()'>
+                <a href="javascript:void(0);" class="nav-link active" onclick="">
                     <i class="nav-icon fa fa-address-card"></i> 
                     <p>Result From HR</p>
                 </a> 

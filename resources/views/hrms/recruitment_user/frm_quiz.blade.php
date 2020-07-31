@@ -28,7 +28,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i> User Do Quiz</strong></h1>
+                                    <h1 class="card-title hrm-title"><strong>Testing Form</strong></h1>
                                 </div>
                                 <div class="col-md-4">
                                     <div style="padding: 0px 10px 0px 40%;">
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div style="padding: 0px 10px 0px 40%;">
-                                        Started:<h6 id="starttime_quiz" class="font-size" style=""></h6>
+                                        <label> Started: </label><h6 id="starttime_quiz" class="font-size" style=""></h6>
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                                                                     echo '
 
                                                                             <tr id="q_option_id'.$x.'" >
-                                                                                <th class="main_question" colspan="4">
+                                                                                <th class="main_question kh-font-batt" colspan="4">
                                                                                     '.($i+1).'. '.$question_option[$i]->question.'
                                                                                 </th>                                
                                                                             </tr>
@@ -96,7 +96,7 @@
                                                                             echo '  
                                                                                     
                                                                                 <td>
-                                                                                    <label style="font-weight: 500;"  class="label-radio"><span class="radio"></span> <input type="radio" class="show-box" id="radio-id-'.$i.'" name="id_question['.$question_option[$i]->id.']"  value="'.$value->id.'"> <span >'.$value->choice.'</span></label>
+                                                                                    <label style="font-weight: 500;"  class="label-radio"><span class="radio"></span> <input type="radio" class="show-box" id="radio-id-'.$i.'" name="id_question['.$question_option[$i]->id.']"  value="'.$value->id.'"> <span class="kh-font-batt">'.$value->choice.'</span></label>
                                                                                 </td>
                                                                                 
                                                                                             
@@ -125,18 +125,17 @@
                                                             ';
                                                         
                                                         
-
                                                         $xx = 1;
                                                         for ($i=0; $i < count($question_writing) ; $i++){
                                                                 echo '
                                                                         <tr id="q_writing_id'.$xx.'">
-                                                                            <th class="main_question" colspan="4">
+                                                                            <th class="main_question kh-font-batt" colspan="4">
                                                                                 '.($i+1).'. '.$question_writing[$i]->question.'
                                                                             </th>                                
                                                                         </tr>
                                                                         <tr id="q_writing_id'.($xx+1).'">
                                                                             <td colspan="4">
-                                                                                <textarea name="txtarea-name['.$question_writing[$i]->id.']" rows="5" class="form-control"​​    placeholder ="Answer here..." ></textarea>
+                                                                                <textarea name="txtarea-name['.$question_writing[$i]->id.']" rows="5" class="form-control kh-font-batt"​​    placeholder ="Answer here..." ></textarea>
                                                                             </td>
                                                                         </tr>
 
