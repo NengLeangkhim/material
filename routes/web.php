@@ -609,6 +609,14 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     // Start Departement and Position
         Route::get('hrm_department', 'hrms\Employee\DepartmentAndPositionController@DepartmentAndPosition');
+
+        Route::get('hrm_modal_add_edit_department', 'hrms\Employee\DepartmentAndPositionController@AddModalDepartment');
+        Route::post('hrm_add_edit_department', 'hrms\Employee\DepartmentAndPositionController@AddEditDepartment');
+        Route::get('hrm_delete_department', 'hrms\Employee\DepartmentAndPositionController@DeleteDepartment');
+
+        Route::get('hrm_add_modal_position', 'hrms\Employee\DepartmentAndPositionController@AddModalAddEditDepartment');
+        Route::post('hrm_add_edit_position', 'hrms\Employee\DepartmentAndPositionController@AddAndEditPosition');
+        Route::get('hrm_delete_position', 'hrms\Employee\DepartmentAndPositionController@DeletePosition');
     // End Department And Position
 
     // Stat Overtime

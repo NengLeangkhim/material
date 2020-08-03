@@ -14,7 +14,7 @@
                     <div class="row">
                       <div class="col-md-4">
                         <div class="form-group">
-                            <select name="" id="" class="form-control">
+                            <select name="" id="otMonth" class="form-control">
                               <option value="1">January</option>
                               <option value="2">Febbruary</option>
                               <option value="3">March</option>
@@ -32,7 +32,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                            <select name="" id="" class="form-control">
+                            <select name="" id="otYear" class="form-control">
                               @php
                                   $date=date('Y');
                                   for($i=2016;$i<=$date;$i++){
@@ -45,18 +45,23 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                            <button class="btn bg-turbo-color form-control">Search</button>
+                            <button class="btn bg-turbo-color form-control" onclick="OvertimeDetail()">Search</button>
                         </div>
                       </div>
-
-
+                    </div>
+                  </div>
+                  <div class="col-md-12" id="otDetail"> 
+                    <div class="row">
                       <div class="col-md-6 col-sm-6 col-12">
                         <div class="info-box">
                           <span class="info-box-icon bg-info"><i class="fas fa-users"></i></span>
 
                           <div class="info-box-content">
                             <span class="info-box-text">Overtime Employee</span></span>
-                            <span class="info-box-number">1,410</span>
+                          <span class="info-box-number">@php
+                              print_r($ot[1][0]->count);
+                        
+                          @endphp</span>
                           </div>
                           <!-- /.info-box-content -->
                         </div>
@@ -69,7 +74,9 @@
 
                           <div class="info-box-content">
                             <span class="info-box-text">Overtime Hours</span>
-                            <span class="info-box-number">1,410</span>
+                            <span class="info-box-number">@php
+                                print_r($ot[2]);
+                            @endphp</span>
                           </div>
                           <!-- /.info-box-content -->
                         </div>
@@ -78,15 +85,13 @@
 
 
 
-                    </div>
-
-                </div>
+                   
 
 
                 
 
-
-                <table class="table table-bordered" id="tbl_overtime" style="width: 100%">
+                <div class="col-md-12">
+                    <table class="table table-bordered" id="tbl_overtime" style="width: 100%">
                   <thead>                  
                     <tr>
                       <th style="width: 10px">#</th>
@@ -102,7 +107,7 @@
                     @php
                         $i=0;
                     @endphp
-                    @foreach ($ot as $item)
+                    @foreach ($ot[0] as $item)
                       <tr>
                       <th>{{++$i}}</th>
                         <td>{{$item->otname}}</td>
@@ -113,7 +118,7 @@
                         <td>
                           <div class="row">
                             <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_modal_add_edit','modal_overtime',{{$item->id}})"><i class="far fa-edit"></i></a></div>
-                            <div class="col-md-4"><a href="javascrip:;"><i class="fas fa-info"></i></a></div>
+                            {{-- <div class="col-md-4"><a href="javascrip:;"><i class="fas fa-info"></i></a></div> --}}
                             <div class="col-md-4"><a href="javascrip:;" onclick="hrm_delete({{$item->id}},'hrm_delete_overtime','hrm_overtime','Overtime Delete Successfully')"><i class="far fa-trash-alt"></i></a></div>
                           </div>
                         </td>
@@ -122,7 +127,12 @@
                     
                   </tbody>
                 </table>
+                </div>
+                
               </div>
+              </div>
+
+                </div>
               <!-- /.card-body -->
               
             <!-- /.card -->
@@ -134,4 +144,10 @@
       responsive: true
     });
 } );
+var d = new Date();
+var n = d.getMonth()+1;
+var s=d.getFullYear();
+$("#otMonth").val(n);
+$("#otYear").val(s);
+
 </script>

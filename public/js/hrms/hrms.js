@@ -1,4 +1,5 @@
 
+// function to show modal add and edit
 function HRM_ShowDetail(rout,modalName,id=-1){
     $.ajax({
         type: 'GET',
@@ -104,6 +105,25 @@ function HRM_ShowDetail(rout,modalName,id=-1){
             }
         }
     // End Attendance
+   // Overtime
+        function OvertimeDetail(){
+            var m=document.getElementById('otMonth').value;
+            var y=document.getElementById('otYear').value;
+            $("#otDetail").html(spinner());
+            $.ajax({
+                type: 'GET',
+                url: '/hrm_overtime',
+                data: {
+                    _token: '<?php echo csrf_token() ?>',
+                    month : m,
+                    year : y
+                },
+                success: function (data) {
+                    document.getElementById('otDetail').innerHTML = data;
+                }
+            });
+        }
+   // End Overtime
 // End Employee
 
 

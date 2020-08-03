@@ -17,8 +17,20 @@ class OverTimeController extends Controller
         }
         if (perms::check_perm_module('HRM_090107')) {
             $ot=new OverTime();
-            $ot_all=$ot->AllOvertime();
-            return view('hrms/Employee/OverTime/OverTime')->with('ot',$ot_all);
+            $overtime=array();
+            if(isset($_GET['month']) && isset($_GET['year'])){
+                $month=$_GET['month'];
+                $year=$_GET['year'];
+                $view= "hrms/Employee/OverTime/OvertimeDetail";
+            }else{
+                $month = date('m');
+                $year = date('Y');
+                $view= "hrms/Employee/OverTime/OverTime";
+            }
+            $overtime[0] = $ot->AllOvertime($month,$year);
+            $overtime[1]=$ot->OvertimeEmploye($month,$year);
+            $overtime[2]=$ot->OvertimeHoure($month,$year);
+            return view($view)->with('ot',$overtime);
         } else {
             return view('noperms');
         }

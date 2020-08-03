@@ -1,4 +1,4 @@
-<div class="modal fade show" id="modal_holiday" style="display: block; padding-right: 17px;" aria-modal="true">
+<div class="modal fade show" id="modal_position" style="display: block; padding-right: 17px;" aria-modal="true">
     <div class="modal-dialog modal-ls">
         <div class="modal-content">
             <div class="card card-default">
@@ -12,42 +12,54 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
-            <form id="fm_holiday" onsubmit="return false">
+            @php
+                // print_r($data);
+            @endphp
+            <form id="fm_position" onsubmit="return false">
+              @csrf
               <div class="row">
+                
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label>Title <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="emName">
+                    <label>Groupe <span class="text-danger">*</span></label>
+                    <select id="" class="form-control" name="g">
+                      @php
+                        $f1='';
+                        $f2='';
+                        foreach ($data[0] as $g) {
+                          if(isset($data[1])){
+                            if($g->id==$data[1][0]->group_id){
+                              $f1=$f1.'<option value="'.$g->id.'">'.$g->name.'</option>';
+                            }else {
+                              $f2=$f2.'<option value="'.$g->id.'">'.$g->name.'</option>';
+                            }
+
+                          }else {
+                            $f1=$f1.'<option value="'.$g->id.'">'.$g->name.'</option>';
+                          }
+                        }
+                        echo $f1.$f2;
+                      @endphp
+                    </select>
                   </div>
                   <!-- /.form-group -->
                   <div class="form-group">
-                    <label>Khmer Title <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="emKhmerName">
+                    <label>Position Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="position" value="@php if(isset($data[1])){echo $data[1][0]->name;} @endphp">
                   </div>
                   <!-- /.form-group -->
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                    <label>Start Date <span class="text-danger">*</span></label>
-                    <input type="date" class="form-control" name="emKhmerName">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                    <label>End Date <span class="text-danger">*</span></label>
-                    <input type="date" class="form-control" name="emKhmerName">
-                  </div>
-                </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                    <label>Description <span class="text-danger">*</span></label>
-                    <textarea name="description" id="" rows="5" class="form-control"></textarea>
+                    <label>Khmer Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="khPosition" value="@php if(isset($data[1])){echo $data[1][0]->name_kh;} @endphp">
                   </div>
                 </div>
                 <!-- /.col -->
+                <input type="hidden" name="id" value="@php if(isset($data[1])){echo $data[1][0]->id;} @endphp ">
                 <div class="col-md-12 text-right">
-                  <a href="javascrip;:" class="btn btn-danger">Cancel</a>
-                  <a href="javascrip;:" class="btn bg-turbo-color">Save</a>
+                  <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                  <button class="btn bg-turbo-color" data-dismiss="modal" onClick="submit_form ('hrm_add_edit_position','fm_position','hrm_department')">Save</button>
                 </div>
               </div>
             </form>
