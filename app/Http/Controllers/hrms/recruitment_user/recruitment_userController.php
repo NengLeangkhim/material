@@ -13,6 +13,24 @@ class recruitment_userController extends Controller
     
     // function candidate create account & submit info
 
+
+    // function for encrypt user password
+    public function en($st){
+        $r="";
+        for($i=0;$i<strlen($st);$i++){
+            $r.=ord(substr($st,$i,1));
+        }
+        $rr=md5($r);
+        return $rr;
+    }
+    // end
+
+
+
+
+
+
+
     public function register_candidate(){
 
         if(isset($_POST['btnSubmit']) && isset($_POST['emailaddress']) && isset($_POST['password']) ){
@@ -23,6 +41,7 @@ class recruitment_userController extends Controller
                 $l_name=    $_POST['lastname'];
                 $email=     $_POST['emailaddress'];
                 $pass=      $_POST['password'];
+                $p = recruitment_userController::en($pass);
                 $pos=       $_POST['position'];
 
                 $targetDir = "file_storage_test/";
@@ -43,7 +62,7 @@ class recruitment_userController extends Controller
                             }
                             else {
                                 $success = 1;
-                                recruitment_userModel::insert_user_info($f_name, $l_name, $kh_name, $cv, $email, $pass, $pos, $cover);
+                                recruitment_userModel::insert_user_info($f_name, $l_name, $kh_name, $cv, $email, $p, $pos, $cover);
                                 return view('hrms\recruitment_user\index_recruitment_register', compact('success'));
                             }
 
@@ -70,20 +89,27 @@ class recruitment_userController extends Controller
 
     // function to get question from hr_user
     public function get_user_question(){
-        
-        $user_question = recruitment_userModel::select_user_question(154);
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $id = $_SESSION['userid'][0]->id;
+        $user_question = recruitment_userModel::select_user_question($id);
         return view('hrms\recruitment_user\frm_quiz', compact('user_question'));
 
     }
+    // end
 
 
 
 
+
+    // function user submit answer quiz
     public function submit_user_answer(){
 
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        $id = $_SESSION['userid'][0]->id;
         // declear start time & end time
         $starttime = $_SESSION['start_time'];
         date_default_timezone_set("Asia/Phnom_Penh");
@@ -91,52 +117,200 @@ class recruitment_userController extends Controller
 
 
         // isset cache button submit user answer
-        if(isset($_POST['btnSubmitAnswer'])){
+        if( isset($_POST['id_question'])){
 
-                if(!empty($_POST['id_question'])){
-                    $radio_name = $_POST['id_question'];
+                $radio_name = $_POST['id_question'];
+                if(isset($_POST['txtarea-name'])){
+                    $txtarea = $_POST['txtarea-name'];
                 }else{
-                    $radio_name = '';
+                    $txtarea = '';
                 }
-                $txtarea = $_POST['txtarea-name'];
-              
+
+
                 // foreach insert question option
                 if(is_array($radio_name)){
-                    foreach($radio_name as $key=> $val){
-                        // $choice_id = $val;
-                        // $question_id = $key;
-                        recruitment_userModel::submit_answer($val,$key,null,$starttime,$endtime,$_SESSION['userid']);
-                    }
+                        $i = 0;
+                        foreach($radio_name as $key=> $val){
+                            
+                            // $choice_id = $val;
+                            // $question_id = $key;
+                            $x = recruitment_userModel::check_true_faile($val, $key);
+                            if($x[0]->is_right_choice == 1){
+                                $ans = '1';
+                            }else{
+                                $ans = '0';
+                            }
+                            $r = recruitment_userModel::submit_answer($val,$key,'null',$ans,$starttime,$endtime,$id);
+                            $i++;
+                            print_r($r);
+                        }  
                 }
                 
                 // foreach insert question writing
                 if(is_array($txtarea)){
-                    foreach($txtarea as $key=> $val){
-                        // $answer_text = $val;
-                        // $question_id = $key;
-                        recruitment_userModel::submit_answer('null',$key,$val,$starttime,$endtime,$_SESSION['userid']);
 
-                    }
+                        foreach($txtarea as $key=> $val){
+                            // $answer_text = $val;
+                            // $question_id = $key;
+                            $rr = recruitment_userModel::submit_answer('null',$key,$val,'f',$starttime,$endtime,$id);
+                        }
+
                 }else{
-                        recruitment_userModel::submit_answer('null','null',null,$starttime,$endtime,$_SESSION['userid']);
+                        recruitment_userModel::submit_answer('null','null',null,null,$starttime,$endtime,$id);
+                }
+                
+                
+                //check if insert success
+                if($r == 1 && $rr == 1){
+                    $data_success = 1;
+                    return view('hrms\recruitment_user\main_app_user', compact('data_success'));
+                }else{
+                    $data_faile = 0;
+                    return view('hrms\recruitment_user\main_app_user', compact('data_faile'));
                 }
 
-
-                return view();
-
-
-
-
-
+        }else{
+            $data_faile = 0;
+            return view('hrms\recruitment_user\main_app_user', compact('data_faile'));
         }
 
+    }
+    // end submit
+
+
+
+
+
+
+
+
+
+
+
+
+    // function user login 
+
+    public function user_login(){
+
+        if(isset($_POST['btn_userLogin']) && isset($_POST['user_email']) && isset($_POST['password']) ){
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $pass = $_POST['password'];
+            $em = $_POST['user_email'];
+            $p = recruitment_userController::en($pass);
+            $r = recruitment_userModel::login_check($em,$p);
+            $_SESSION['userid'] = $r;
+
+            if(count($r) > 0){
+                return view('hrms\recruitment_user\main_app_user');
+            }else{
+                $login_faile = 1;
+                return view('hrms\recruitment_user\login_user', compact('login_faile'));
+            }
+            
+        }
+    }
+
+
+
+
+    // function get view user profile
+    public function user_profile()
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $id = $_SESSION['userid'][0]->id;
+        $userdata = recruitment_userModel::user_info($id);
+
+        if( count($userdata) > 0){
+            return view('hrms\recruitment_user\user_profile', compact('userdata'));
+        }
+        
     }
 
 
 
 
 
+    // function to view quiz result for user
+    public function user_view_quiz_result(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $id = $_SESSION['userid'][0]->id;
+        $quiz_result = recruitment_userModel::user_quiz_result($id);
 
+        if(count($quiz_result) > 0){
+
+            return view('hrms\recruitment_user\user_view_quiz_result', compact('quiz_result'));
+        }else{
+            return view('hrms\recruitment_user\user_view_quiz_result', compact('quiz_result'));
+            
+        }
+       
+    }
+
+
+
+
+    public static function check_duration($start,$end){
+
+            $date1 = strtotime($start);
+            $date2 = strtotime($end);
+            
+            // Formulate the Difference between two dates 
+            $diff = abs($date2 - $date1);  
+
+            // To get the year divide the resultant date into 
+            // total seconds in a year (365*60*60*24) 
+            $years = floor($diff / (365*60*60*24));  
+            
+            // To get the month, subtract it with years and 
+            // divide the resultant date into 
+            // total seconds in a month (30*60*60*24) 
+            $months = floor(($diff - $years * 365*60*60*24) 
+                                        / (30*60*60*24));  
+                
+            // To get the day, subtract it with years and  
+            // months and divide the resultant date into 
+            // total seconds in a days (60*60*24) 
+            $days = floor(($diff - $years * 365*60*60*24 -  
+                        $months*30*60*60*24)/ (60*60*24)); 
+            
+            
+            // To get the hour, subtract it with years,  
+            // months & seconds and divide the resultant 
+            // date into total seconds in a hours (60*60) 
+            $hours = floor(($diff - $years * 365*60*60*24  
+                - $months*30*60*60*24 - $days*60*60*24) 
+                                            / (60*60));  
+            
+            // To get the minutes, subtract it with years, 
+            // months, seconds and hours and divide the  
+            // resultant date into total seconds i.e. 60 
+            $minutes = floor(($diff - $years * 365*60*60*24  
+                    - $months*30*60*60*24 - $days*60*60*24  
+                                    - $hours*60*60)/ 60);  
+            
+            // To get the minutes, subtract it with years, 
+            // months, seconds, hours and minutes  
+            $seconds = floor(($diff - $years * 365*60*60*24  
+                    - $months*30*60*60*24 - $days*60*60*24 
+                            - $hours*60*60 - $minutes*60));  
+            // Print the result 
+            if($hours > 0){
+                // printf(" %d:%d:%ds", $hours, $minutes, $seconds); 
+                $duration = $hours."h:".$minutes."m:".$seconds."s";
+                return $duration;
+            }else {
+                //  printf(" %d:%ds", $minutes, $seconds); 
+                $duration = $minutes."m:".$seconds."s";
+                return $duration;
+            }
+
+    }
 
 
 

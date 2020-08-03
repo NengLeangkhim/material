@@ -8,6 +8,41 @@
 
 
 
+
+
+// function onclick user start quiz
+
+function go_to(route){
+
+    $.ajax({
+        type: 'GET',
+        url:route,
+        success:function(data){
+
+            $(".content-wrapper").show();
+            $(".content-wrapper").html(data);
+            
+        },
+        error:function(){
+          $(".content-wrapper").html(jerror());
+        }
+    });
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // function auto submit for user quiz
 
 function autoSubmit() {
@@ -35,12 +70,14 @@ function autoSubmit() {
   setTimeout(function(){ alert10min(); }, (1000 * 60 * 50));
   setTimeout(function(){ alert5min(); }, (1000 * 60 * 55));
 
+
+
   function submitform(){
       document.getElementById("myFormQuestion").submit();
       var formElement = document.getElementById("myFormQuestion");
       var formData = new FormData(formElement);
       var request = new XMLHttpRequest();
-      request.open("POST", "controller/recruitment_user/insert_user_answer.php" ,true);
+      request.open("POST", "/hrm_recruitment_user_submit_answer" ,true);
       request.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
                   window.reload();
@@ -49,6 +86,7 @@ function autoSubmit() {
       }
       request.send(formData);
   }
+
   function autoRefresh(){
      clearTimeout(auto);
      auto = setTimeout(function(){ submitform(); }, (1000 * 60 * 60));
@@ -60,9 +98,10 @@ function autoSubmit() {
 
 
 
-  // function btn submit user answer quiz
+  // function user click start quiz & auto submit answer
   var xxx = 1;
-  function go_to(route){
+  function user_start_quiz(route){
+    
     var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     var today = new Date();
     var dd = today.getDate();
@@ -72,7 +111,8 @@ function autoSubmit() {
     var myTime = dd + '-' + mm +'-'+ yyyy + '/' + n; 
 
     if(xxx == 1){
-    
+
+      autoSubmit();
       $.ajax({
           type: 'GET',
           url:route,
@@ -81,6 +121,7 @@ function autoSubmit() {
               $(".content-wrapper").show();
               $(".content-wrapper").html(data);
               document.getElementById("starttime_quiz").innerHTML = myTime;
+              
  
           },
           error:function(){
@@ -113,9 +154,9 @@ function autoSubmit() {
                         document.getElementById("countdown").innerHTML = "EXPIRED";
                     }
             }, 1000); 
+        xxx += 1;
     }
-    
-    
+      
 
   }
 

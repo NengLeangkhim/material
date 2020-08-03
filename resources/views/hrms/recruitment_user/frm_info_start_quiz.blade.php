@@ -43,7 +43,7 @@
                                     </tr>
                                 </table>
                                 <div class="btn-start">
-                                    <a class="form-btn" name="btnStartQuiz" href="#" onclick= "go_to('hrm_recruitment_get_question');" >Start</a>
+                                    <a class="form-btn" name="btnStartQuiz" href="#" onclick= "user_start_quiz('hrm_recruitment_get_question');" >Start</a>
                                 </div>
                             </div> 
                         </div>

@@ -740,7 +740,28 @@ Route::get('hrm_recruitment_question',function(){
 });
 
 
+// route to select question for user from controller
 Route::get('hrm_recruitment_get_question','hrms\recruitment_user\recruitment_userController@get_user_question');
+
+
+// route to login user 
+Route::post('hrm_recruitment_login','hrms\recruitment_user\recruitment_userController@user_login');
+
+
+// route to home page user
+Route::get('hrm_recruitment_homepage',function(){
+    return view('hrms.recruitment_user.homepage_user');
+});
+
+// route for user profile
+Route::get('hrm_recruitment_user_profile','hrms\recruitment_user\recruitment_userController@user_profile');
+
+
+
+// route for user view quiz result 
+Route::get('hrm_recruitment_user_quiz_result','hrms\recruitment_user\recruitment_userController@user_view_quiz_result');
+
+
 
 
 //=============End recruitment user===========

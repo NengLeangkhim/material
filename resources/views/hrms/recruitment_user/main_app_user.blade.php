@@ -5,7 +5,6 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
-    $_SESSION['userid'] = 011;
     
 @endphp
 
@@ -21,10 +20,10 @@
 
         <div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
             @yield('content_user')
-            <h1>hello user dashboard 2</h1>
+            @include('hrms.recruitment_user.homepage_user')
         </div><!-- end Content Wrapper. Contains page content -->
 
-        <footer class="main-footer">
+        <footer class="main-footer" style="padding: 5px;">
             <strong>Copyright &copy;2020-<?php echo date("Y"); ?> <a href="https://turbotech.com">TURBOTECH CO.,LTD</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
@@ -43,3 +42,27 @@
 </body>
 
 </html>
+
+{{-- >>======get value from controller to alert user submit answer success --}}
+<?php
+    $x = -1;
+    if(isset($data_success)){
+        $x = $data_success;
+    }
+    if(isset($data_faile)){
+        $x = $data_faile;
+    }
+?>
+<script type="text/javascript">
+    var p = {!! json_encode($x) !!};
+    if(p == 1){
+        $.notify("Answer submit successfully !", "success");
+    }
+    if(p == 0){
+        $.notify("Failed to submit answer !", "error");
+    }
+</script>
+
+{{-- >>====end alert --}}
+
+
