@@ -37,5 +37,12 @@ class ModelHrmReQuestionType extends Model
     // ===== function model deleted question type ===== //
    public static function hrm_delete_question_type($id,$userid){
     return DB::select('SELECT public.delete_hr_question_type(?,?)',array($id,$userid));
+    }
+    // ===== Function model get data question type  =====////
+   public static function hrm_get_question_type(){
+    return  DB::table('hr_question_type')
+    ->select('*')
+    ->where('is_deleted','=','f')
+    ->get(); 
  }
 }

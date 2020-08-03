@@ -39,4 +39,5 @@ class model_question_type extends Model
    public static function hrm_delete_question_type($id,$userid){
       return DB::select('SELECT public.delete_hr_suggestion_question_type(?,?)',array($id,$userid));
    }
+   
 }

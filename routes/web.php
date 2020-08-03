@@ -571,9 +571,54 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     Route::get('hrm_questiontype/delete','hrms\recruitment\HrmReQuestionTypeController@delete_question_type_re');
 
 ////// Question and Answer Recruitment
-    /// Index Question Type Recruitment
+    /// Index Question Recruitment
     Route::get('hrm_question','hrms\recruitment\HrmQuestionAnswerController@tbl_recruitment_question');
 
+    /// Insert Question Recruitment
+    Route::post('hrm_question/store','hrms\recruitment\HrmQuestionAnswerController@AddQuestionRecruitment');
+
+    /// Get data Question for update Recruitment
+    Route::get('hrm_question/edit','hrms\recruitment\HrmQuestionAnswerController@GetEditQuestion');
+
+    /// Update Question Recruitment
+    Route::post('hrm_question/update','hrms\recruitment\HrmQuestionAnswerController@UpdateQuestionRecruitment');
+
+    /// Delete Question Recruitment
+    Route::get('hrm_question/delete','hrms\recruitment\HrmQuestionAnswerController@delete_question');
+
+    /// Get data Question for Insert Answer
+    Route::get('hrm_question/answer','hrms\recruitment\HrmQuestionAnswerController@hrm_modal_add_answer');
+
+    /// Insert Answer Recruitment
+    Route::post('hrm_question/answer/store','hrms\recruitment\HrmQuestionAnswerController@HrmAddAnswer');
+
+    /// Modal View Question and Answer Detail
+    Route::get('hrm_question/modal/detail','hrms\recruitment\HrmQuestionAnswerController@hrm_re_detail_qestion_answer');
+
+    /// Modal View Question and Answer Detail for Update
+    Route::get('hrm_question/modal/update','hrms\recruitment\HrmQuestionAnswerController@hrm_update_detail_qestion_answer');
+
+    /// Update Question Recruitment
+    Route::post('hrm_question/update/detail','hrms\recruitment\HrmQuestionAnswerController@UpdateQuestionAnswerRecruitment');
+
+    /// Delete Quesion and Answer
+    Route::get('hrm_question/deletedetail','hrms\recruitment\HrmQuestionAnswerController@delete_detail_question_answer');
+
+///// Question KnowLedge 
+    /// Index Question Knowledge
+    Route::get('hrm_list_knowledge_question','hrms\recruitment\HrmQuestionKnowledgeController@tbl_question_knowledge'); 
+
+    /// Insert Question Knowledge
+    Route::post('hrm_list_knowledge_question/store','hrms\recruitment\HrmQuestionKnowledgeController@AddQuestionKnowledge'); 
+
+    /// Get data for update Question Knowledge
+    Route::get('hrm_list_knowledge_question/modal','hrms\recruitment\HrmQuestionKnowledgeController@GetEditQuestionKnowledge'); 
+
+    /// Update Question Knowledge
+    Route::post('hrm_list_knowledge_question/update','hrms\recruitment\HrmQuestionKnowledgeController@UpdateQuestionKnowledge'); 
+
+    /// Delete Question Knowledge
+    Route::get('hrm_list_knowledge_question/delete','hrms\recruitment\HrmQuestionKnowledgeController@delete_question_knowledge'); 
 /////////////////============== END Recruitment =============///////////////
 // ========================================================>END METKEOSAMBO <======================================================== //
 
