@@ -1,5 +1,11 @@
    
-   
+@php
+    // define call controller in view
+    use \App\Http\Controllers\hrms\recruitment_user\recruitment_userController; 
+    
+@endphp
+ 
+
 
 
 <section class="content">
@@ -38,28 +44,43 @@
                                 
                                 
                                 @php
-                                    // $i = 0;
-                                    // if(is_array($allEmployee))
-                                    // {
-                                    //     foreach($allEmployee as $key=>$var)
-                                    //     {   
-                                            $var = "hello1";
-                                            echo '
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>'.$var.'</td>
-                                                    <td>'.$var.'</td>
-                                                    <td>'.$var.'</td>
-                                                    <td>'.$var.'</td>
-                                                    <td>'.$var.'</td>
-                                                    <td >'.$var.'</td>
-                                                    <td >'.$var.'</td>
-                                                    
-                                                </tr>
-                                            ';
-                                    //         $i++;
-                                    //     }
-                                    // }
+
+                                    
+                                    if(isset($quiz_result)){
+                                        
+                                        if($quiz_result > 0){
+                                            
+                                            $i = 1;
+                                            foreach ($quiz_result as $key => $val) {
+                                                $take_time = recruitment_userController::check_duration($val->start_time, $val->end_time);
+                                                if($val->is_right == 1){
+                                                    $ans = 'True';
+                                                }else{
+                                                    $ans = 'False';
+                                                }
+                                                if($val->q_type_id == 2){
+                                                    $ans = '';
+                                                }
+                                                echo '
+                                                    <tr>
+                                                        <th scope="row">'.$i.'</th>
+                                                        <td>'.$val->question.'</td>
+                                                        <td>'.$val->question_type.'</td>
+                                                        <td>'.$val->user_answer.'</td>
+                                                        <td>'.$ans .'</td>
+                                                        <td>'. $take_time.'</td>
+                                                        <td >'.$val->start_time.'</td>
+                                                     
+                                                    </tr>
+                                                ';
+                                                $i++;
+                                            }
+
+                                        }else{
+
+                                        }
+                                    }
+                                    
                     
                                     
                                 @endphp

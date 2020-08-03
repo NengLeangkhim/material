@@ -89,8 +89,11 @@ class recruitment_userController extends Controller
 
     // function to get question from hr_user
     public function get_user_question(){
-        
-        $user_question = recruitment_userModel::select_user_question(154);
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $id = $_SESSION['userid'][0]->id;
+        $user_question = recruitment_userModel::select_user_question($id);
         return view('hrms\recruitment_user\frm_quiz', compact('user_question'));
 
     }
@@ -122,14 +125,24 @@ class recruitment_userController extends Controller
                 }else{
                     $txtarea = '';
                 }
-                
-              
+
+
                 // foreach insert question option
                 if(is_array($radio_name)){
+                        $i = 0;
                         foreach($radio_name as $key=> $val){
+                            
                             // $choice_id = $val;
                             // $question_id = $key;
-                            $r = recruitment_userModel::submit_answer($val,$key,null,$starttime,$endtime,$id);
+                            $x = recruitment_userModel::check_true_faile($val, $key);
+                            if($x[0]->is_right_choice == 1){
+                                $ans = '1';
+                            }else{
+                                $ans = '0';
+                            }
+                            $r = recruitment_userModel::submit_answer($val,$key,'null',$ans,$starttime,$endtime,$id);
+                            $i++;
+                            print_r($r);
                         }  
                 }
                 
@@ -139,11 +152,11 @@ class recruitment_userController extends Controller
                         foreach($txtarea as $key=> $val){
                             // $answer_text = $val;
                             // $question_id = $key;
-                            $rr = recruitment_userModel::submit_answer('null',$key,$val,$starttime,$endtime,$id);
+                            $rr = recruitment_userModel::submit_answer('null',$key,$val,'f',$starttime,$endtime,$id);
                         }
 
                 }else{
-                        recruitment_userModel::submit_answer('null','null',null,$starttime,$endtime,$id);
+                        recruitment_userModel::submit_answer('null','null',null,null,$starttime,$endtime,$id);
                 }
                 
                 
@@ -221,9 +234,82 @@ class recruitment_userController extends Controller
 
 
 
+    // function to view quiz result for user
     public function user_view_quiz_result(){
-        
-        echo "dsafjsadf";
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $id = $_SESSION['userid'][0]->id;
+        $quiz_result = recruitment_userModel::user_quiz_result($id);
+
+        if(count($quiz_result) > 0){
+
+            return view('hrms\recruitment_user\user_view_quiz_result', compact('quiz_result'));
+        }else{
+            return view('hrms\recruitment_user\user_view_quiz_result', compact('quiz_result'));
+            
+        }
+       
+    }
+
+
+
+
+    public static function check_duration($start,$end){
+
+            $date1 = strtotime($start);
+            $date2 = strtotime($end);
+            
+            // Formulate the Difference between two dates 
+            $diff = abs($date2 - $date1);  
+
+            // To get the year divide the resultant date into 
+            // total seconds in a year (365*60*60*24) 
+            $years = floor($diff / (365*60*60*24));  
+            
+            // To get the month, subtract it with years and 
+            // divide the resultant date into 
+            // total seconds in a month (30*60*60*24) 
+            $months = floor(($diff - $years * 365*60*60*24) 
+                                        / (30*60*60*24));  
+                
+            // To get the day, subtract it with years and  
+            // months and divide the resultant date into 
+            // total seconds in a days (60*60*24) 
+            $days = floor(($diff - $years * 365*60*60*24 -  
+                        $months*30*60*60*24)/ (60*60*24)); 
+            
+            
+            // To get the hour, subtract it with years,  
+            // months & seconds and divide the resultant 
+            // date into total seconds in a hours (60*60) 
+            $hours = floor(($diff - $years * 365*60*60*24  
+                - $months*30*60*60*24 - $days*60*60*24) 
+                                            / (60*60));  
+            
+            // To get the minutes, subtract it with years, 
+            // months, seconds and hours and divide the  
+            // resultant date into total seconds i.e. 60 
+            $minutes = floor(($diff - $years * 365*60*60*24  
+                    - $months*30*60*60*24 - $days*60*60*24  
+                                    - $hours*60*60)/ 60);  
+            
+            // To get the minutes, subtract it with years, 
+            // months, seconds, hours and minutes  
+            $seconds = floor(($diff - $years * 365*60*60*24  
+                    - $months*30*60*60*24 - $days*60*60*24 
+                            - $hours*60*60 - $minutes*60));  
+            // Print the result 
+            if($hours > 0){
+                // printf(" %d:%d:%ds", $hours, $minutes, $seconds); 
+                $duration = $hours."h:".$minutes."m:".$seconds."s";
+                return $duration;
+            }else {
+                //  printf(" %d:%ds", $minutes, $seconds); 
+                $duration = $minutes."m:".$seconds."s";
+                return $duration;
+            }
+
     }
 
 

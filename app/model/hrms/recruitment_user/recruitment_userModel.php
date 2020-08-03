@@ -83,11 +83,17 @@ class recruitment_userModel extends Model
 
 
     // function insert user answer
-    public static  function submit_answer($c_id,$q_id,$an_text,$start,$end,$userid){
+    public static  function submit_answer($c_id,$q_id,$an_text,$is_true,$start,$end,$userid){
         $sql = "INSERT INTO hr_user_answer(choice_id, question_id, answer_text, is_right, start_time, end_time, status, user_id ) 
-                VALUES($c_id, '$q_id', '$an_text', null, '$start', '$end', 't', '$userid')";
+                VALUES($c_id, ".$q_id.", '$an_text', '$is_true', '$start', '$end', 't', '$userid')";
+        
         try {
             $r = DB::insert($sql);
+            if($r == true){
+                return $r;
+            }else{
+                return 0;
+            }
         }catch(\Illuminate\Database\QueryException $ex){
             dump($ex->getMessage());
             echo '<br><a href="/">go back</a><br>';
@@ -95,13 +101,7 @@ class recruitment_userModel extends Model
             exit;
         // Note any method of class PDOException can be called on $ex.
         }
-        
-        if(empty($r)){    
-            // Log::error('Failed to insert row into database.');
-            return 0;
-        }else{
-            return 1;
-        }
+    
         
     }
     // end function
@@ -133,7 +133,7 @@ class recruitment_userModel extends Model
     // function select table hr_user 
 
     public static function user_info($id){
-
+        
         $sql = "SELECT hu.*, p.name as position FROM hr_user hu
              JOIN position p ON hu.position_id = p.id  WHERE  hu.id = ".$id." ";
         $r = DB::select($sql);
@@ -150,10 +150,10 @@ class recruitment_userModel extends Model
 
     public static function user_quiz_result($id){
 
-        $sql = "SELECT  q.question, q_t.name as question_type, CONCAT(q_c.choice, u_a.answer_text) as user_answer, u_a.is_right, u_a.start_time, u_a.end_time  
-            FROM ((hr_user_answer u_a LEFT JOIN hr_question_choice q_c ON  u_a.choice_id = q_c.id) 
-            JOIN hr_question q ON u_a.question_id = q.id) 
-            LEFT JOIN hr_question_type q_t ON q.question_type_id = q_t.id  where u_a.user_id = ".$id." ";
+        $sql = "SELECT  q.question, q_t.id as q_type_id, q_t.name as question_type, CONCAT(q_c.choice, u_a.answer_text) as user_answer, u_a.is_right, u_a.start_time, u_a.end_time  
+                FROM ((hr_user_answer u_a LEFT JOIN hr_question_choice q_c ON  u_a.choice_id = q_c.id) 
+                JOIN hr_question q ON u_a.question_id = q.id) 
+                LEFT JOIN hr_question_type q_t ON q.question_type_id = q_t.id  where u_a.user_id = ".$id." ";
             
             try{
                 $r = DB::select($sql);
@@ -169,6 +169,14 @@ class recruitment_userModel extends Model
 
 
 
+    }
+
+
+    // functon for check true faile question option
+    public static function check_true_faile($ch_id, $q_id){
+        $sql = "SELECT id, question_id, is_right_choice FROM hr_question_choice WHERE id = $ch_id AND  question_id = $q_id";
+        $r = DB::select($sql);
+        return $r;
     }
 
 
