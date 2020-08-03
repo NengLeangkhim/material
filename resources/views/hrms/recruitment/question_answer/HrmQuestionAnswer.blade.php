@@ -29,12 +29,16 @@
                    @endphp
                    <tbody>
                      @foreach ($question as $row)
+                     @php
+                     $create = $row->create_date;
+                     $ts1 = new DateTime($create); //convert string to date format 
+                     @endphp
                      <tr>
                          <th>{{$i++}}</th>
                          <td>{{$row->question}}</td>
                          <td class="text-center">{{$row->question_type}}</td>
                          <td class="text-center">{{$row->name}}</td>
-                         <td class="text-center">{{$row->create_date}}</td>
+                         <td class="text-center">{{$ts1->format('d-M-Y H:i:s')}}</td>
                          <td class="text-center">{{$row->username}}</td>
                        @if ($row->question_type_id==1) {{-- Permission check for option type --}}
                          <td class="text-center">
@@ -43,10 +47,12 @@
                                  Action
                              </button>
                              <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">
-                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_view_detail_question_answer">View Detail</button>
-                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item add_answer_sugg">Add Choice</button>
-                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_question_answer">Update Detail</button>
-                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_delete_question_answer">Delete</button>
+                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_re_detail_question_answer">View Detail</button>
+                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_question_answer_re">Update Detail</button>
+                             <button type="button" id="{{$row->id}}" onclick="hrm_delete('{{$row->id}}','hrm_question/deletedetail','/hrm_question','Question And Answer Has Been Deleted')" class="dropdown-item hrm_item hrm_delete_question_answer_re">Delete</button>
+                             @if (is_null($row->delete)||$row->delete == 1) {{-- Check answer create already or not  --}}
+                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item add_answer_re">Add Choice</button>
+                             @endif
                              </div>
                              </div>
                          </td>
@@ -57,13 +63,12 @@
                                  Action
                              </button>
                              <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">
-                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item update_q_sugg">Update</button>
-                             <button type="button" id="{{$row->id}}" onclick="hrm_detele('{{$row->id}}','hrm_question_answer_sugg/delete','/hrm_question_answer_sugg','Question Has Been Deleted')"  class="dropdown-item hrm_item delete_q_sugg">Delete</button>
+                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item update_question">Update</button>
+                             <button type="button" id="{{$row->id}}" onclick="hrm_delete('{{$row->id}}','hrm_question/delete','/hrm_question','Question Has Been Deleted')"  class="dropdown-item hrm_item delete_question">Delete</button>
                              </div>
                              </div>
                          </td>
-                       @endif
-                        
+                       @endif 
                      </tr>
                      @endforeach
                    </tbody>
@@ -75,7 +80,7 @@
      </div>
  </div>
     </section>
- <div id='ShowModalSuggestion'></div>
+ <div id='ShowModalQuestionAnswer'></div>
     <script type='text/javascript'>
      $(document).ready(
          function(){
@@ -99,41 +104,74 @@
                </div>
            </div><!-- /.card-header -->
            <div class="card-body" style="display: block;">
-                 <div class="alert alert-danger print-error-msg" style="display:none"> {{-- div for show error --}}
+                <div class="alert alert-danger print-error-msg" style="display:none"> {{-- div for show error --}}
                    <ul></ul>
-                 </div>
-                 <div class="row">
-                   <div class="col-md-12">
-                       <div class="form-group">
-                           <label for="question_name_sugg">Question Name<span class="text-danger">*</span></label>
-                           <textarea class="form-control" id="question_name_sugg" aria-describedby="question" placeholder="" name="question_name_sugg" cols="20" rows="6"></textarea>
-                           <span class="invalid-feedback" role="alert" id="question_name_suggError"> {{--span for alert--}}
-                             <strong></strong>
-                           </span>
-                       </div>
-                   </div>
-                   <div class="col-md-12">
-                     <div class="form-group">
-                         <label for="question_type_id_sugg">Question Type <span class="text-danger">*</span></label>
-                         <select name="question_type_id_sugg" id="question_type_id_sugg" class="form-control">
-                         <option value="">Please Select Option</option>
-                         @foreach ($question_type as $item)
-                         <option value='{{$item->id}}'>{{$item->name}}</option>
-                         @endforeach
-                     </select>
-                     <span class="invalid-feedback" role="alert" id="question_type_id_suggError"> {{--span for alert--}}
-                       <strong></strong>
-                     </span>
-                     </div>
-                   </div>
-                 </div> 
-                 <div class="row text-right">
-                   <div class="col-md-12 text-right">
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                      <div class="form-group">
+                          <label for="question">Question Name<span class="text-danger">*</span></label>
+                          <textarea class="form-control" id="question_name" name="question_name" cols="3"></textarea>
+                          <span class="invalid-feedback" role="alert" id="question_nameError"> {{--span for alert--}}
+                            <strong></strong>
+                          </span>
+                      </div>
+                  </div>
+                  <div class="col-md-12">
+                  <div class="form-group">
+                      <label for="question_type">Question Type <span class="text-danger">*</span></label>
+                      <select name="question_type" id="question_type" class="form-control">
+                        <option value="">Please Select Option</option>
+                        <?php
+                        foreach($question_type as $row ){ 
+                        echo "<option value='$row->id'>$row->name</option>";
+                        }
+                        ?>
+                      </select>
+                      <span class="invalid-feedback" role="alert" id="question_typeError"> {{--span for alert--}}
+                        <strong></strong>
+                      </span>
+                  </div>
+                  </div>
+                  <div class="col-md-12">
+                      <div class="form-group">
+                          <label for="departement">Departement<span class="text-danger">*</span></label>
+                          <select name="departement" id="departement" class="form-control">
+                            <option value="">Please Select Option</option>
+                            <?php
+                                foreach($dept as $row ){ 
+                                echo "<option value='$row->id'>$row->name</option>";
+                                }
+                            ?>
+                          </select>
+                          <span class="invalid-feedback" role="alert" id="departementError"> {{--span for alert--}}
+                            <strong></strong>
+                          </span>
+                      </div>
+                  </div>
+                  <div class="col-md-12">
+                      <div class="form-group">
+                          <label for="position">Position<span class="text-danger">*</span></label>
+                          <select name="position" id="position" class="form-control">
+                            <option value="">Please Select Option</option>
+                            <?php
+                            foreach($position as $row ){ 
+                            echo "<option value='$row->id'>$row->name</option>";
+                            }
+                            ?>
+                          </select>
+                          <span class="invalid-feedback" role="alert" id="positionError"> {{--span for alert--}}
+                            <strong></strong>
+                          </span>
+                      </div>
+                  </div>
+                </div>  
+                <div class="row text-right">
+                  <div class="col-md-12 text-right">
                      <input type="hidden" name="question_id" id="question_id"/>
                      <button type="submit" onclick="HrmSubmitQuestion()" name="action_question" id="action_question" class="btn btn-primary">Create</button>
-                   </div>
-                   
-                 </div>
+                  </div>  
+                </div>
            </div><!-- /.END card-body -->
          </div><!-- /.END card-Default -->
        </div>

@@ -50,7 +50,7 @@ class QuestionAnswerController extends Controller
                 $name= $request->question_name_sugg;
                 $question_type_id = $request->question_type_id_sugg;
                 $userid = $_SESSION['userid'];
-                $question_type= ModelQuestionAnswer::hrm_insert_question_sugg($name,$question_type_id,$userid); //get function insert from model
+                $question= ModelQuestionAnswer::hrm_insert_question_sugg($name,$question_type_id,$userid); //get function insert from model
                 return response()->json(['success'=>'Record is successfully added']);
                 }else{
                     return view('no_perms');

@@ -48,4 +48,11 @@ class ModelHrmPermission extends Model
                    ])
                    ->get();
     }
+    //=== Function Get data from table Position===//
+    public static function hrm_get_position(){
+        return DB::table('position')
+                   ->select("id","name","is_deleted")
+                   ->where("is_deleted","=","f")
+                   ->get();
+    }
 }

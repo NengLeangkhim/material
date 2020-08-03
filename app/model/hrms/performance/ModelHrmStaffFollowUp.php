@@ -10,11 +10,13 @@ class ModelHrmStaffFollowUp extends Model
     // ===== Function get data for table for CEO =====////
     public static function hrm_get_tbl_follow_up_top(){
         $follow_up_ceo= DB::table('hr_performance_follow_up as pf')
-                           ->select('pf.*','ps.plan_detail_id','ps.staff_id','s.name','pd.name as name_plan','pd.id as id_pd')
+                           ->select('pf.*','ps.plan_detail_id','ps.staff_id','s.name','pd.name as name_plan','pd.id as id_pd','pfm.is_deleted as delete')
                            ->join('hr_performance_schedule as ps','pf.hr_performance_schedule_id','=','ps.id')
                            ->join('staff as s','ps.staff_id','=','s.id')
                            ->join('hr_performance_plan_detail as pd','ps.plan_detail_id','=','pd.id')
+                           ->leftjoin('hr_performance_manager_follow_up as pfm','pf.id','=','pfm.hr_performance_follow_up_id')
                            ->where('pf.is_deleted','=','f')
+                           ->groupBy(['pf.id','ps.plan_detail_id','ps.staff_id','s.name','pd.name','pd.id','pfm.is_deleted'])
                            ->orderBy('ps.staff_id','ASC')
                            ->orderBy('ps.plan_detail_id','ASC')
                            ->orderBy('pf.id','ASC')
@@ -24,14 +26,16 @@ class ModelHrmStaffFollowUp extends Model
     // ===== Function get data for table for Head Each departement =====////
     public static function hrm_get_tbl_follow_up_dept($dept){
         $follow_up_dept = DB::table('hr_performance_follow_up as pf')
-                            ->select('pf.*','ps.plan_detail_id','ps.staff_id','s.company_dept_id','s.name','pd.name as name_plan','pd.id as id_pd')
+                            ->select('pf.*','ps.plan_detail_id','ps.staff_id','s.company_dept_id','s.name','pd.name as name_plan','pd.id as id_pd','pfm.is_deleted as delete')
                             ->join('hr_performance_schedule as ps','pf.hr_performance_schedule_id','=','ps.id')
                             ->join('staff as s','ps.staff_id','=','s.id')
                             ->join('hr_performance_plan_detail as pd','ps.plan_detail_id','=','pd.id')
+                            ->leftjoin('hr_performance_manager_follow_up as pfm','pf.id','=','pfm.hr_performance_follow_up_id')
                             ->where([
                                 ['pf.is_deleted', '=', 'f'],
                                 ['s.company_dept_id', '=', $dept],
                             ])
+                            ->groupBy(['pf.id','ps.plan_detail_id','ps.staff_id','s.company_dept_id','s.name','pd.name','pd.id','pfm.is_deleted'])
                             ->orderBy('ps.staff_id','ASC')
                             ->orderBy('ps.plan_detail_id','ASC')
                             ->orderBy('pf.id','ASC')
@@ -41,14 +45,16 @@ class ModelHrmStaffFollowUp extends Model
     // ===== Function get data for table for invidual user =====////
       public static function hrm_get_tbl_follow_up_staff($userid){
         $follow_up_user = DB::table('hr_performance_follow_up as pf')
-                            ->select('pf.*','ps.plan_detail_id','ps.staff_id','s.company_dept_id','s.name','pd.name as name_plan','pd.id as id_pd')
+                            ->select('pf.*','ps.plan_detail_id','ps.staff_id','s.company_dept_id','s.name','pd.name as name_plan','pd.id as id_pd','pfm.is_deleted as delete')
                             ->join('hr_performance_schedule as ps','pf.hr_performance_schedule_id','=','ps.id')
                             ->join('staff as s','ps.staff_id','=','s.id')
                             ->join('hr_performance_plan_detail as pd','ps.plan_detail_id','=','pd.id')
+                            ->leftjoin('hr_performance_manager_follow_up as pfm','pf.id','=','pfm.hr_performance_follow_up_id')
                             ->where([
                                 ['pf.is_deleted', '=', 'f'],
                                 ['ps.staff_id', '=', $userid],
                             ])
+                            ->groupBy(['pf.id','ps.plan_detail_id','ps.staff_id','s.company_dept_id','s.name','pd.name','pd.id','pfm.is_deleted'])
                             ->orderBy('pf.id','DESC')
                             ->get(); 
         return $follow_up_user;

@@ -57,7 +57,7 @@ class ModelQuestionAnswer extends Model
                             ->get(); 
          return $question_sugg_get;
       }
-      // ===== Function Insert data Question =====////
+      // ===== Function Insert data Answer =====////
       public static function hrm_insert_answer_sugg($id_question,$answer_name,$userid){
          
          return DB::select('SELECT public.insert_hr_suggestion_answer(?,?,?)',array($id_question,$answer_name,$userid));
@@ -88,3 +88,4 @@ class ModelQuestionAnswer extends Model
          return DB::select('SELECT public.delete_hr_suggestion_answer(?,?)',array($id,$userid));
       }
 }
+

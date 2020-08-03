@@ -18,7 +18,7 @@
                       <th style="width: 10px">#</th>
                       <th scope="col">Question Type</th>
                       <th scope="col">Create_By</th>
-                      <th scope="col">Action</th>
+                      <th width="15%" scope="col">Action</th>
                     </tr>
                   </thead>
                   <tbody>
