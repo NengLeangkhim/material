@@ -149,8 +149,6 @@ class hr_dashboardController extends Controller
 
   // function to get daliy, monthly, weekly number of staff new promote
     public static function monthly_shift(){
-
-
         $y = 0;
         $m = 0;
         $d = 0;
@@ -186,66 +184,59 @@ class hr_dashboardController extends Controller
 
 
 
+     // function to convert staff id_number
+     public static function ConvertIdToNumber($id_number){
+        $rest = substr($id_number, 3, 30);  // returns "cde"
+        $int = (int)$rest;
+        return $int;
+    }
 
 
 
+    // check attendance staff by today
+    public static function check_in_morning(){
 
-
-
-
-
-
-
-
-    // check who absent today
-    public static function em_absent_today(){
-
-        $all_atten = hr_dashboardModel::staff_attendance();
         $all_em = hr_dashboardModel::em_all();
-        // declear time to check late staff
-        $f_in = date('Y-m-d 08:00:00');
-        $l_in = date('Y-m-d 12:00:00');
-
-
-
-        // declear time to check staff in time
-        $f_intime = date('Y-m-d 00:00:00');
-        $l_intime = date('Y-m-d 17:30:00');
-
-        $late = 0;
         $intime = 0;
-        $all_staff = count($all_em);
+        $late = 0;
+        $absent = 0;
 
-        echo count($all_atten);
-        
-        // print_r($all_atten);
-        // if($all_atten > 0){
-        //     foreach($all_atten as $key=> $val1){
-        //         $time_check = $val1->deviceStamp;
-        //         // check number late
-        //         if( $time_check > $f_in && $time_check < $l_in) {
-        //             $late++;
-        //         }
-        //         // check number early or intime
-        //         if( $time_check > $f_intime && $time_check < $l_intime) {
-        //             $intime++;
-        //         } 
-        //     }
-        //     $absent = $all_staff - $intime;
-        //     $array = [
-        //         'intime'=>$intime,
-        //         'late'=>$late,
-        //         'absent'=>$absent
-        //     ];
-        //     return $array;
-        // }else {
-        //     $array = [
-        //         'intime'=>'0',
-        //         'late'=>'0',
-        //         'absent'=>'0'
-        //     ];
-        //     return $array;
-        // }
+
+        // check staff check-in intime in the morning
+        $f_m = date('Y-m-d 00:00:00');
+        $l_m = date('Y-m-d 12:00:00');
+        foreach($all_em as $key=>$val){
+            $id = self::ConvertIdToNumber($val->id_number);
+            $morning_check = hr_dashboardModel::staff_attendance($f_m, $l_m, $id);
+            if(count($morning_check) > 0){
+                $intime++;
+            }
+        }
+
+
+
+        // check staff late in the morning
+        $f_m = date('Y-m-d 08:10:00');
+        $l_m = date('Y-m-d 12:00:00');
+        foreach($all_em as $key=>$val){
+            $id = self::ConvertIdToNumber($val->id_number);
+            $morning_check = hr_dashboardModel::staff_attendance($f_m, $l_m, $id);
+            if(count($morning_check) > 0){
+                $late++;
+            }
+        }
+
+
+
+        // check staff absent today
+        $absent = count($all_em) - $intime;
+
+        return $data = [
+                'all_em' => count($all_em),
+                'intime' => $intime,
+                'late' => $late,
+                'absent' => $absent
+            ];
 
         
     }
@@ -254,9 +245,68 @@ class hr_dashboardController extends Controller
 
 
 
+    //get data staff by each department
+    public static function num_staff_byDept(){
+
+        // $it = 0;
+        // $op = 0;
+        // $bus = 0;
+        // $aud = 0;
+        // $fin = 0;
+
+            $em =  hr_dashboardModel::staff_byDept();
+
+                foreach ($em as $key => $val) {
+                    if($val->dept_id == 3){
+                        // print_r($val); echo "<br>";
+                        $it[] = $val;
+                        // $it++;
+                    }
+                    if($val->dept_id == 4){
+                        $op[] = $val;
+                        // $op++;
+                    }
+                    if($val->dept_id == 5){
+                        $bus[] = $val;
+                        // $bus++;
+                    }
+                    if($val->dept_id == 7){
+                        $aud[] = $val;
+                        // $aud++;
+                    }
+                    if($val->dept_id == 10){
+                        $fin[] = $val;
+                        // $fin++;
+                    }
+                }
+
+            $post_data=[
+                'ITD' =>$it,
+                'OPD' =>$op,
+                'BSD' =>$bus,
+                'ACD' =>$aud,
+                'FND' =>$fin
+            ];
+            return $post_data;
 
 
+    }
 
+    public static function staff_type(){
+        $all_em = hr_dashboardModel::em_all();
+        $m = '';
+        $f = '';
+        foreach($all_em as $val){
+           if($val->sex == 'male'){
+               $m++;
+           }
+           if($val->sex == 'female'){
+                $f++;
+           }
+        }
+        return $data = ['male'=>$m, 'female'=>$f];
+    }
+    
 
 
 
