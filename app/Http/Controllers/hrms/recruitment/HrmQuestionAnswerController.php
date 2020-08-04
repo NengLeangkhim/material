@@ -227,7 +227,7 @@ class HrmQuestionAnswerController extends Controller
                 return view('no_perms');
             }
     }
-    //function insert Question //
+    //function Update Question and anwer //
     public function UpdateQuestionAnswerRecruitment(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();

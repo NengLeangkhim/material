@@ -6,29 +6,76 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\model\hrms\employee\MissionAndOutSide;
 use Illuminate\Support\Facades\DB;
+use App\model\hrms\employee;
 use App\Http\Controllers\perms;
+use App\model\hrms\employee\Attendance;
+use App\model\hrms\employee\Employee as EmployeeEmployee;
 
 class MissionAndOutsideController extends Controller
 {
     function AllMissionAndOutSide()
     {
         $ms=new MissionAndOutSide();
-        $mission['mis_out']=$ms->AllMissionAndOutSide();
+        $mission['mis_out']=$ms->MissionOutside();
         return view('hrms/Employee/MissionAndOutSide/MissionAndOutSide')->with($mission);
     }
-    function AddAndEditMissionOutside(){
+    function AddModalMissionOutside(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if (perms::check_perm_module('HRM_090104')) {
+            $em=new EmployeeEmployee();
+            $ms = new MissionAndOutSide();
             $id=$_GET['id'];
             $data=array();
+            $data[0]=$em->AllEmployee();
             if($id>0){
-                echo "Update";
-            }else{
-                echo "add";
+                $data[1]=$ms->MissionOutside($id);
             }
-            return view('hrms/Employee/MissionAndOutSide/ModalAddAndEditMissionAndOutSide');
+            return view('hrms/Employee/MissionAndOutSide/ModalAddAndEditMissionAndOutSide')->with('data',$data);
+        } else {
+            return view('noperms');
+        }
+    }
+
+    function InsertUpdateMissionOutside(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (perms::check_perm_module('HRM_090104')) {
+            $ms = new MissionAndOutSide();
+            $att=new Attendance();
+            $userid = $_SESSION['userid'];
+            $id=$_POST['id'];
+            $type=$_POST['type'];
+            $emid=$att->ConvertIdToNumber($_POST['staff']);
+            $location=$_POST['location'];
+            $f_date=$_POST['from_date'];
+            $t_date=$_POST['to_date'];
+            $shift=$_POST['shift'];
+            $description=$_POST['description'];
+            $date=date('Y-m-d');
+            if($id>0){
+                $stm=$ms->UpdateMissionOutside($location,$f_date,$t_date,$description,$type,$shift,$emid,$id);
+            }else{
+                $stm=$ms->InsertMissionOutSide($location,$f_date,$t_date,$date,$description,$userid,$type,$shift,$emid);
+            }
+
+            echo $stm;
+        } else {
+            return view('noperms');
+        }
+    }
+
+    function DeleteMissionOutSide(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (perms::check_perm_module('HRM_090104')) {
+            $ms = new MissionAndOutSide();
+            $userid = $_SESSION['userid'];
+            $id=$_GET['id'];
+            $ms->DeleteMissionOutSide($id,$userid);
         } else {
             return view('noperms');
         }

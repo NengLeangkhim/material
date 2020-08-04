@@ -46,9 +46,10 @@
                             </button>
                             <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">
                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_view_detail_question_answer">View Detail</button>
-                            <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item add_answer_sugg">Add Choice</button>
                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_question_answer">Update Detail</button>
                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_delete_question_answer">Delete</button>
+                            <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item add_answer_sugg">Add Choice</button>
+                            <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item view_result_sugg">Result</button>
                             </div>
                             </div>
                         </td>
@@ -61,6 +62,7 @@
                             <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">
                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item update_q_sugg">Update</button>
                             <button type="button" id="{{$row->id}}" onclick="hrm_delete('{{$row->id}}','hrm_question_answer_sugg/delete','/hrm_question_answer_sugg','Question Has Been Deleted')"  class="dropdown-item hrm_item delete_q_sugg">Delete</button>
+                            <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item view_result_sugg">Result</button>
                             </div>
                             </div>
                         </td>

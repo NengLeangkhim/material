@@ -396,7 +396,24 @@ Route::post('hrm_question_answer_sugg/editdetail','hrms\suggestion\QuestionAnswe
 
 // Route Delete detail question and answer //
 Route::get('hrm_question_answer_sugg/deletedetail','hrms\suggestion\QuestionAnswerController@delete_detail_question_answer_sugg');
+
+// Route View Result submit suggestion //
+Route::get('hrm_question_answer_sugg/modal/result','hrms\suggestion\QuestionAnswerController@hrm_view_result_suggestion');
 //////========END QUESTION & Answer==========/////
+
+//////======== SUGGESTION BOX =============///////
+    // Route View suggestion comment //
+    Route::get('hrm_employee_sugg','hrms\suggestion\HrmSuggestionController@index_suggestion');
+
+    // Submit Suggestion employee //
+    Route::post('hrm_employee_sugg/store','hrms\suggestion\HrmSuggestionController@SubmitSuggEmployee');
+
+    // Route View Suggestion Survey //
+    Route::get('hrm_survey_sugg','hrms\suggestion\HrmSuggestionController@index_suggestion_survey');
+
+    // Submit Suggestion employee //
+    Route::post('hrm_survey_sugg/store','hrms\suggestion\HrmSuggestionController@SubmitSuggSurvey');
+//////======== END SUGGESTION BOX ========////////
 /////////////////==============END SUGGESTION=============///////////////
 
 /////////////////==============Policies=============///////////////
@@ -650,7 +667,9 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     // Start Mission And Out Side
         Route::get('hrm_mission_outside', 'hrms\Employee\MissionAndOutSideController@AllMissionAndOutSide');
-        Route::get('hrm_modal_add_edit_missionoutside', 'hrms\Employee\MissionAndOutSideController@AddAndEditMissionOutside');
+        Route::get('hrm_modal_add_edit_missionoutside', 'hrms\Employee\MissionAndOutSideController@AddModalMissionOutside');
+        Route::post('hrm_insertmissionoutside', 'hrms\Employee\MissionAndOutSideController@InsertUpdateMissionOutside');
+        Route::get('hrm_delete_missionoutside', 'hrms\Employee\MissionAndOutSideController@DeleteMissionOutSide');
     // End Mission And OutSide
 
     // Start Departement and Position
@@ -673,6 +692,30 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     // End Overtime
 
 // End Employee
+
+// Start Training
+
+    // Training List
+        Route::get('hrm_traininglist','hrms\Training\TrainingListController@TrainingList');
+        Route::get('hrm_modal_traininglist', 'hrms\Training\TrainingListController@ModalTrainingList');
+    // End Traning List
+
+    // Training Type
+        Route::get('hrm_trainingtype','hrms\Training\TrainingTypeController@TrainingType');
+        Route::get('hrm_modal_trainingtype', 'hrms\Training\TrainingTypeController@AddModalTrainingType');
+        Route::post('hrm_add_edit_trainingtype', 'hrms\Training\TrainingTypeController@AddEditTrainingType');
+        Route::get('hrm_delete_trainingtype', 'hrms\Training\TrainingTypeController@DeleteTrainingType');
+    // End Training Type
+
+    // Trainer
+        Route::get('hrm_trainer','hrms\Training\TrainerController@Trainer');
+        Route::get('hrm_modal_add_edit_trainer', 'hrms\Training\TrainerController@ModalTrainerAddAndEdit');
+        Route::post('hrm_add_edit_trainer', 'hrms\Training\TrainerController@AddAndEditTrainer');
+        Route::get('hrm_delete_trainer', 'hrms\Training\TrainerController@DeleteTrainer');
+    // End Trainer
+
+
+// End Training
 
 // ========================================================> END SENG KIMSROS <======================================================== //
 

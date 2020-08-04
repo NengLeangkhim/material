@@ -87,5 +87,12 @@ class ModelQuestionAnswer extends Model
       public static function hrm_delete_answer_sugg($id,$userid){
          return DB::select('SELECT public.delete_hr_suggestion_answer(?,?)',array($id,$userid));
       }
+      // Get submit result
+      public static function hrm_result_suggestion($id){
+         return DB::select('SELECT s.*,a.answer,q.question from hr_suggestion_submited s 
+         left join hr_suggestion_answer a on s.answer_id=a.id
+         left join hr_suggestion_question q on s.question_id = q.id
+         where s.question_id=? order by s.create_date DESC', [$id]);
+      }
 }
 

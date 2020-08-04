@@ -246,4 +246,13 @@ class QuestionAnswerController extends Controller
             return view('no_perms');
         }
     }
+    // function view modal detail result suggestion //
+    public function hrm_view_result_suggestion(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+            } 
+            $id= $_GET['id'];
+            $result = ModelQuestionAnswer::hrm_result_suggestion($id); //query result suggestion
+            return view('hrms/suggestion/question_answer/ModalResultSuggestion', ['result' => $result]);    
+    }
 }
