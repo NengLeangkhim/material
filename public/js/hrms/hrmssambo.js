@@ -457,7 +457,97 @@ $(document).on('click', '.hrm_delete_question_answer', function(){
     }
   })
 })
+///Get modal show Result Suggestion //
+$(document).on('click', '.view_result_sugg', function(){
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  $.ajax({
+   url:"hrm_question_answer_sugg/modal/result",   //Request send to "action.php page"
+   type:"GET",    //Using of Post method for send data
+   data:{id:id},//Send data to server
+   success:function(data){
+      $('#ShowModalSuggestion').html(data);
+      $('#hrm_view_result_sugg').modal('show');   //It will display modal on webpage
+   }
+  });
+});
 ///////============== End Answer Suggestion ==============///////////
+
+///////============== Suggestion Comment ==============/////////////
+/// Function Submit Suggestion Employee ///
+function HrmSubmitSuggestion(){
+  event.preventDefault();
+  $("#suggestion_comment_form textarea").removeClass("is-invalid");//remove all error message
+  $.ajax({
+    url:'hrm_employee_sugg/store',
+    type:'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+     data: //_token: $('#token').val(),
+    $('#suggestion_comment_form').serialize(), 
+    
+    success:function(data)
+    {
+      if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+        console.log(data);
+        sweetalert('success','The Submit has been Submit Successfully !!');
+        go_to('/welcome');// refresh content 
+    }else{ 
+      $.each( data.errors, function( key, value ) {//foreach show error
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+          // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+          $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+          // sweetalert('warning',value);
+      });
+    }
+    }
+  });
+}
+
+///////============== END Suggestion Comment ==============///////////
+///////============== Suggestion Survey ==============/////////////
+/// Function Submit Suggestion Employee ///
+function HrmSubmitSurvey(){
+  event.preventDefault();
+  $("#suggestion_survey_form textarea").removeClass("is-invalid");//remove all error message
+  $("#suggestion_survey_form input").removeClass("is-invalid");//remove all error message
+  $.ajax({
+    url:'hrm_survey_sugg/store',
+    type:'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+     data: //_token: $('#token').val(),
+    $('#suggestion_survey_form').serialize(), 
+    
+    success:function(data)
+    {
+      if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+        console.log(data);
+        sweetalert('success','The Submit has been Submit Successfully !!');
+        go_to('/welcome');// refresh content  
+    }else{ 
+       $(".print-error-msg").find("ul").html(''); 
+
+       $(".print-error-msg").css('display','block');
+      $.each( data.errors, function( key, value ) {//foreach show error
+          //$("#radio_ans").addClass("was-validated"); //give read border to input field
+          $(".print-error-msg").find("ul").append('<li>'+'Please Fill All The Fields'+'</li>');
+          // $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+          // sweetalert('warning',value);
+          var name = $("textarea[name='"+key+"']");
+          if(key.indexOf(".") != -1){
+            var arr = key.split(".");
+            name = $("textarea[name='"+arr[0]+"[]']:eq("+arr[1]+")");
+          }
+          name.addClass("is-invalid");
+      });
+    }
+    }
+  });
+}
+
+///////============== END Suggestion Survey ==============///////////
 /////////////================================= END EMPLOYEE SUGGESTION =============================///////////////
 
 /////////////================================= Policy =============================//////////////////
