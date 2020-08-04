@@ -396,7 +396,24 @@ Route::post('hrm_question_answer_sugg/editdetail','hrms\suggestion\QuestionAnswe
 
 // Route Delete detail question and answer //
 Route::get('hrm_question_answer_sugg/deletedetail','hrms\suggestion\QuestionAnswerController@delete_detail_question_answer_sugg');
+
+// Route View Result submit suggestion //
+Route::get('hrm_question_answer_sugg/modal/result','hrms\suggestion\QuestionAnswerController@hrm_view_result_suggestion');
 //////========END QUESTION & Answer==========/////
+
+//////======== SUGGESTION BOX =============///////
+    // Route View suggestion comment //
+    Route::get('hrm_employee_sugg','hrms\suggestion\HrmSuggestionController@index_suggestion');
+
+    // Submit Suggestion employee //
+    Route::post('hrm_employee_sugg/store','hrms\suggestion\HrmSuggestionController@SubmitSuggEmployee');
+
+    // Route View Suggestion Survey //
+    Route::get('hrm_survey_sugg','hrms\suggestion\HrmSuggestionController@index_suggestion_survey');
+
+    // Submit Suggestion employee //
+    Route::post('hrm_survey_sugg/store','hrms\suggestion\HrmSuggestionController@SubmitSuggSurvey');
+//////======== END SUGGESTION BOX ========////////
 /////////////////==============END SUGGESTION=============///////////////
 
 /////////////////==============Policies=============///////////////
