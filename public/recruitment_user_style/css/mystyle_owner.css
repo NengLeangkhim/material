@@ -251,7 +251,7 @@
   }
 
   ul {
-    width: 100%;
+    width: auto;
     list-style: none;
     list-style-position: initial;
     list-style-image: initial;

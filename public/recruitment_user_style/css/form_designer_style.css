@@ -25,7 +25,7 @@
   .form-label.form-label-auto {
     
     display: inline-block;
-    float: left;
+    /* float: left; */
     text-align: left;
 
   }
@@ -60,7 +60,7 @@
   }
 
   .supernova .form-all, .form-all {
-    background-color: ;
+    background-color:  none;
     border: 1px solid transparent;
   }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\hrms\recruitment_user;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use App\model\hrms\recruitment_user\recruitment_userModel; 
 
 
@@ -92,7 +93,7 @@ class recruitment_userController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $id = $_SESSION['userid'][0]->id;
+        $id = $_SESSION['user_id'][0]->id;
         $user_question = recruitment_userModel::select_user_question($id);
         return view('hrms\recruitment_user\frm_quiz', compact('user_question'));
 
@@ -109,7 +110,7 @@ class recruitment_userController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $id = $_SESSION['userid'][0]->id;
+        $id = $_SESSION['user_id'][0]->id;
         // declear start time & end time
         $starttime = $_SESSION['start_time'];
         date_default_timezone_set("Asia/Phnom_Penh");
@@ -142,7 +143,7 @@ class recruitment_userController extends Controller
                             }
                             $r = recruitment_userModel::submit_answer($val,$key,'null',$ans,$starttime,$endtime,$id);
                             $i++;
-                            print_r($r);
+                            
                         }  
                 }
                 
@@ -166,7 +167,9 @@ class recruitment_userController extends Controller
                     return view('hrms\recruitment_user\main_app_user', compact('data_success'));
                 }else{
                     $data_faile = 0;
-                    return view('hrms\recruitment_user\main_app_user', compact('data_faile'));
+                    return redirect()->route('/hrm_recruitment_login');
+                    // return view('hrms\recruitment_user\main_app_user', compact('data_faile'));
+                    
                 }
 
         }else{
@@ -200,7 +203,7 @@ class recruitment_userController extends Controller
             $em = $_POST['user_email'];
             $p = recruitment_userController::en($pass);
             $r = recruitment_userModel::login_check($em,$p);
-            $_SESSION['userid'] = $r;
+            $_SESSION['user_id'] = $r;
 
             if(count($r) > 0){
                 return view('hrms\recruitment_user\main_app_user');
@@ -221,7 +224,7 @@ class recruitment_userController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $id = $_SESSION['userid'][0]->id;
+        $id = $_SESSION['user_id'][0]->id;
         $userdata = recruitment_userModel::user_info($id);
 
         if( count($userdata) > 0){
@@ -239,7 +242,7 @@ class recruitment_userController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $id = $_SESSION['userid'][0]->id;
+        $id = $_SESSION['user_id'][0]->id;
         $quiz_result = recruitment_userModel::user_quiz_result($id);
 
         if(count($quiz_result) > 0){
@@ -254,7 +257,7 @@ class recruitment_userController extends Controller
 
 
 
-
+    // function to check duration between two date
     public static function check_duration($start,$end){
 
             $date1 = strtotime($start);
@@ -312,6 +315,39 @@ class recruitment_userController extends Controller
 
     }
 
+
+
+
+
+
+
+    // function to check get result from hr to candidate do quiz 
+    public function check_hr_resultContrl(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $id = $_SESSION['user_id'][0]->id;
+        $hr_result = recruitment_userModel::check_hr_resultModel($id);
+        
+        if(count($hr_result) > 0){
+            $approve = '';
+            $pending = '';
+            $reject = '';
+
+            if($hr_result[0]->hr_approval_status == "approve"){
+                $approve = "Approved";
+            }else if($hr_result[0]->hr_approval_status == "pending"){
+                $pending = "Pending";
+            }else {
+                $reject = "Reject";
+            }
+
+            return view('hrms\recruitment_user\user_view_from_hr_result', compact('hr_result','approve', 'pending', 'reject') );
+        }else{
+            return view('hrms\recruitment_user\user_view_from_hr_result', compact('hr_result'));
+            
+        }
+    }
 
 
 

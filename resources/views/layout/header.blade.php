@@ -47,3 +47,4 @@
 <!-- hrm style -->
         <link rel="stylesheet" href="css/hrm/hrm.css">
 </head>
+<link rel="stylesheet" href="recruitment_user_style/css/mystyle_owner.css">

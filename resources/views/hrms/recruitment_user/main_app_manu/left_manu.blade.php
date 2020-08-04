@@ -37,7 +37,7 @@
           </li>
 
           <li class="nav-item has-treevie">
-                <a href="javascript:void(0);" class="nav-link active" onclick="">
+                <a href="javascript:void(0);" class="nav-link active" onclick="go_to('hrm_recruitment_get_hr_result')">
                     <i class="nav-icon fa fa-address-card"></i> 
                     <p>Result From HR</p>
                 </a> 

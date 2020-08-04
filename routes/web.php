@@ -719,12 +719,27 @@ Route::get('hrm_recruitment_user_quiz_result','hrms\recruitment_user\recruitment
 
 
 
+// route for user get hr result 
+Route::get('hrm_recruitment_get_hr_result','hrms\recruitment_user\recruitment_userController@check_hr_resultContrl');
+
+
+
+
+
 //=============End recruitment user===========
 
 
+//=============HR Dashboard==============
+
+Route::get('hrm_dashborad',function(){
+    return view('hrms.dashboard.hr_dashboard');
+});
+
+// Route::get('hrm_dashboard','hrms\dashboard\hr_dashboardController@hr_dashboard');
 
 
 
+//===========END Dashboard===============
 
 // =============================================== END SOKKIM PART ====================================================//
 
