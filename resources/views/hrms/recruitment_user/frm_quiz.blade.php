@@ -74,32 +74,24 @@
                                                          // loop for echo question option
                                                         $x = 1;
                                                         for ($i=0; $i < count($question_option) ; $i++){
-
                                                                     echo '
-
                                                                             <tr id="q_option_id'.$x.'" >
                                                                                 <th class="main_question kh-font-batt" colspan="4">
                                                                                     '.($i+1).'. '.$question_option[$i]->question.'
                                                                                 </th>                                
                                                                             </tr>
-
                                                                             <tr id="q_option_id'.($x+1).'" >
-
                                                                         '; 
 
                                                                         $x +=2;
                                                                         // echo question option answer choice
                                                                         
                                                                         foreach ($question_option_choice[$i] as $key => $value) 
-                                                                        {
-                                                    
-                                                                            echo '  
-                                                                                    
+                                                                        {                                                    
+                                                                            echo '                                                                                      
                                                                                 <td>
                                                                                     <label style="font-weight: 500;"  class="label-radio"><span class="radio"></span> <input type="radio" class="show-box" id="radio-id-'.$i.'" name="id_question['.$question_option[$i]->id.']"  value="'.$value->id.'"> <span class="kh-font-batt">'.$value->choice.'</span></label>
-                                                                                </td>
-                                                                                
-                                                                                            
+                                                                                </td>                                                                                            
                                                                             ';
                                                                         }
                                                                     echo    '</tr>
@@ -169,9 +161,11 @@
 
                                     </div>
                                     <div class="col-sm-4" style="padding-left: 10%;">
+                                        
                                         <button type="submit" id="submitbutton" class="btn btn-info btn-lg" name="btnSubmitAnswer" style="padding: 1px; width: 120px;"> 
                                             <span class="glyphicon glyphicon-send"></span> Submit
                                         </button>
+
                                         
                                     </div>
                                 </div>
@@ -187,11 +181,12 @@
     
     
     {{-- <script>
-        $(document).ready(function() {
-            var table=$('#tbl_employee').DataTable();
-        } );
+            if ( window.history.replaceState ) {
+                window.history.replaceState( null, null, window.location.href );
+            }
     </script> --}}
-    
+ 
+
 
     <script type="text/javascript">
         for(var x=1; x<=40; x++){

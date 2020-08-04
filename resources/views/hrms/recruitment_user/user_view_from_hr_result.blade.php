@@ -22,30 +22,34 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Approve</th>
-                                <th scope="col">Pending</th>
-                                <th scope="col">Reject</th>
+                                <th style=" background-color: #0a7ef1;" scope="col">Approve</th>
+                                <th style=" background-color: #F4A460" scope="col">Pending</th>
+                                <th style=" background-color: #B22222" scope="col">Reject</th>
                                 <th scope="col">Comment</th>
                             </tr>
                             </thead>
                             <tbody>
-    
-                                   
+
                                 @php
 
-                                        $val = "hell123";
+                                        if(count($hr_result) > 0){
+                                            foreach ($hr_result as $key => $val) {
                                                 echo '
-                                                    <tr>
-                                                        <th scope="row">'.$val.'</th>
-                                                        <td>'.$val.'</td>
-                                                        <td>'.$val.'</td>
-                                                        <td>'.$val.'</td>
-                                                        <td>'.$val .'</td>
-                                                        <td>'. $val.'</td>
-                                                        <td >'.$val.'</td>
+                                                    <tr style="text-align: center; font-weight: bold;">
+                                                        <th scope="row">'.($key+1).'</th>
+                                                        <td class="kh-font-batt">'.$val->name_kh.'</td>
+                                                        <td>Your status are</td>
+                                                        <td style="color: blue;">'.$approve.'</td>
+                                                        <td style="color: blue;">'.$pending.'</td>
+                                                        <td style="color: blue;">'.$reject.'</td>
+                                                        <td >'.$val->comment.'</td>
                                                      
                                                     </tr>
                                                 ';
+                                            }
+                                        }else{
+                                            echo '<tr> <td style="text-align:center;" colspan="7"> Data not avilable in table.</td></tr> ';
+                                        }
               
                     
                                     
@@ -53,6 +57,22 @@
     
     
                             </tbody>
+                        </table>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th>*Remark:</th>
+                            </tr>
+                            <tr>
+                                <td>1. Approved -> You was passed to this test !</td>
+                            </tr>
+                            <tr>
+                                <td> 2. Pending -> The internal processing !</td>
+                            </tr>
+                            <tr>
+                                <td> 3. Reject -> You can not pass to this test !</td>
+                            </tr>
                         </table>
                     </div>
                     </div>
@@ -64,11 +84,11 @@
             
     
     
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             var table=$('#tbl_employee').DataTable();
         } );
-    </script>
+    </script> --}}
         
     
 </section>

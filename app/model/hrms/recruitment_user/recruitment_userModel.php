@@ -182,6 +182,27 @@ class recruitment_userModel extends Model
 
 
 
+    // function to check get result from hr to candidate do quiz
+    public static function  check_hr_resultModel($id){
+
+        $sql = " SELECT hu.id, hu.name_kh, ap.hr_approval_status, ap.create_date, ap.comment 
+                FROM hr_approval_detail ap FULL JOIN hr_user hu ON  ap.hr_user_id = hu.id
+                WHERE ap.create_date=(SELECT MAX(ap.create_date) 
+                FROM hr_approval_detail ap WHERE ap.hr_user_id = $id) ";
+                
+        try{
+            $r = DB::select($sql);
+            return $r;
+            
+        }catch(\Illuminate\Database\QueryException $ex){
+            dump($ex->getMessage());
+            echo '<br><a href="/">go back</a><br>';
+            echo 'exited';
+            exit;
+        // Note any method of class PDOException can be called on $ex.
+        }
+
+    }
 
 
 

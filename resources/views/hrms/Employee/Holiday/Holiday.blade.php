@@ -5,7 +5,7 @@
               <div class="card-header">
                 <h1 class="card-title hrm-title"><strong><i class="fas fa-calendar-times"></i> Holiday</strong></h1>
                 <div class="col-md-12 text-right">
-                    <a href="javascrip:;" class="btn bg-gradient-primary" onclick="HRM_AddAndEditHoliday()"><i class="fas fa-calendar-plus"></i> Add Holiday</a>
+                    <a href="javascrip:;" class="btn bg-gradient-primary" onclick="HRM_AddAndEditHoliday()"><i class="fas fa-plus"></i> Add Holiday</a>
                 </div>
               </div>
               <!-- /.card-header -->

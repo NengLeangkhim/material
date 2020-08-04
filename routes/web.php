@@ -667,10 +667,21 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     // Start Mission And Out Side
         Route::get('hrm_mission_outside', 'hrms\Employee\MissionAndOutSideController@AllMissionAndOutSide');
+        Route::get('hrm_modal_add_edit_missionoutside', 'hrms\Employee\MissionAndOutSideController@AddModalMissionOutside');
+        Route::post('hrm_insertmissionoutside', 'hrms\Employee\MissionAndOutSideController@InsertUpdateMissionOutside');
+        Route::get('hrm_delete_missionoutside', 'hrms\Employee\MissionAndOutSideController@DeleteMissionOutSide');
     // End Mission And OutSide
 
     // Start Departement and Position
         Route::get('hrm_department', 'hrms\Employee\DepartmentAndPositionController@DepartmentAndPosition');
+
+        Route::get('hrm_modal_add_edit_department', 'hrms\Employee\DepartmentAndPositionController@AddModalDepartment');
+        Route::post('hrm_add_edit_department', 'hrms\Employee\DepartmentAndPositionController@AddEditDepartment');
+        Route::get('hrm_delete_department', 'hrms\Employee\DepartmentAndPositionController@DeleteDepartment');
+
+        Route::get('hrm_add_modal_position', 'hrms\Employee\DepartmentAndPositionController@AddModalAddEditDepartment');
+        Route::post('hrm_add_edit_position', 'hrms\Employee\DepartmentAndPositionController@AddAndEditPosition');
+        Route::get('hrm_delete_position', 'hrms\Employee\DepartmentAndPositionController@DeletePosition');
     // End Department And Position
 
     // Stat Overtime
@@ -681,6 +692,30 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     // End Overtime
 
 // End Employee
+
+// Start Training
+
+    // Training List
+        Route::get('hrm_traininglist','hrms\Training\TrainingListController@TrainingList');
+        Route::get('hrm_modal_traininglist', 'hrms\Training\TrainingListController@ModalTrainingList');
+    // End Traning List
+
+    // Training Type
+        Route::get('hrm_trainingtype','hrms\Training\TrainingTypeController@TrainingType');
+        Route::get('hrm_modal_trainingtype', 'hrms\Training\TrainingTypeController@AddModalTrainingType');
+        Route::post('hrm_add_edit_trainingtype', 'hrms\Training\TrainingTypeController@AddEditTrainingType');
+        Route::get('hrm_delete_trainingtype', 'hrms\Training\TrainingTypeController@DeleteTrainingType');
+    // End Training Type
+
+    // Trainer
+        Route::get('hrm_trainer','hrms\Training\TrainerController@Trainer');
+        Route::get('hrm_modal_add_edit_trainer', 'hrms\Training\TrainerController@ModalTrainerAddAndEdit');
+        Route::post('hrm_add_edit_trainer', 'hrms\Training\TrainerController@AddAndEditTrainer');
+        Route::get('hrm_delete_trainer', 'hrms\Training\TrainerController@DeleteTrainer');
+    // End Trainer
+
+
+// End Training
 
 // ========================================================> END SENG KIMSROS <======================================================== //
 
@@ -781,12 +816,27 @@ Route::get('hrm_recruitment_user_quiz_result','hrms\recruitment_user\recruitment
 
 
 
+// route for user get hr result 
+Route::get('hrm_recruitment_get_hr_result','hrms\recruitment_user\recruitment_userController@check_hr_resultContrl');
+
+
+
+
+
 //=============End recruitment user===========
 
 
+//=============HR Dashboard==============
+
+Route::get('hrm_dashborad',function(){
+    return view('hrms.dashboard.hr_dashboard');
+});
+
+// Route::get('hrm_dashboard','hrms\dashboard\hr_dashboardController@hr_dashboard');
 
 
 
+//===========END Dashboard===============
 
 // =============================================== END SOKKIM PART ====================================================//
 
