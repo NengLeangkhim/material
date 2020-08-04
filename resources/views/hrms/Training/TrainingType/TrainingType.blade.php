@@ -6,7 +6,7 @@
               <div class="card-header">
                 <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Training Type</strong></h1>
                 <div class="col-md-12 text-right">
-                    <a href="javascript:;" class="btn bg-turbo-color" onclick="HRM_AddEditEmployee()"><i class="fas fa-plus"></i> Add</a>
+                    <a href="javascript:;" class="btn bg-turbo-color" onclick="HRM_ShowDetail('hrm_modal_trainingtype','modal_trainingType')"><i class="fas fa-plus"></i> Add</a>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -17,25 +17,27 @@
                       <th style="">#</th>
                       <th style="">Training Type</th>
                       <th>Description</th>
-                      <th>Status</th>
-                      <th>Action</th>
+                      <th>Action</>
                     </tr>
                   </thead>
                   <tbody>
-                   
-                      <tr>
-                      <td>  </td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                        <td>
-                          <div class="row">
-                            <div class="col-md-4"><a href="javascrip:;" onclick=""><i class="far fa-edit"></i></a></div>
-                            <div class="col-md-4"><a href="javascrip:;" onclick=""><i class="fas fa-info"></i></a></div>
-                            <div class="col-md-4"><a href="javascrip:;"><i class="far fa-trash-alt" onclick=""></i></a></div>
-                          </div>
-                        </td>
-                    </tr>
+                    @php
+                        $i=0;
+                    @endphp
+                      @foreach ($data as $t)
+                        <tr>
+                        <td>{{++$i}}</td>
+                        <td>{{$t->name}}</td>
+                        <td>{{$t->description}}</td>
+                            <td>
+                              <div class="row text-center">
+                                <div class="col-md-6"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_modal_trainingtype','modal_trainingType',{{$t->id}})"><i class="far fa-edit"></i></a></div>
+                                <div class="col-md-6"><a href="javascrip:;" onclick="hrm_delete({{$t->id}},'hrm_delete_trainingtype','hrm_trainingtype','Training Type Delete Successfully')"><i class="far fa-trash-alt" onclick=""></i></a></div>
+                              </div>
+                            </td>
+                        </tr>
+                      @endforeach
+                      
                   </tbody>
                 </table>
               </div>

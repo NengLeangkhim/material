@@ -6,7 +6,7 @@
               <div class="card-header">
                 <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Training List</strong></h1>
                 <div class="col-md-12 text-right">
-                    <a href="javascript:;" class="btn bg-turbo-color" onclick="HRM_AddEditEmployee()"><i class="fas fa-plus"></i> Add</a>
+                    <a href="javascript:;" class="btn bg-turbo-color" onclick="HRM_ShowDetail('hrm_modal_traininglist','modal_traininglist')"><i class="fas fa-plus"></i> Add</a>
                 </div>
               </div>
               <!-- /.card-header -->

@@ -680,15 +680,24 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     // Training List
         Route::get('hrm_traininglist','hrms\Training\TrainingListController@TrainingList');
+        Route::get('hrm_modal_traininglist', 'hrms\Training\TrainingListController@ModalTrainingList');
     // End Traning List
 
     // Training Type
         Route::get('hrm_trainingtype','hrms\Training\TrainingTypeController@TrainingType');
+        Route::get('hrm_modal_trainingtype', 'hrms\Training\TrainingTypeController@AddModalTrainingType');
+        Route::post('hrm_add_edit_trainingtype', 'hrms\Training\TrainingTypeController@AddEditTrainingType');
+        Route::get('hrm_delete_trainingtype', 'hrms\Training\TrainingTypeController@DeleteTrainingType');
     // End Training Type
 
     // Trainer
         Route::get('hrm_trainer','hrms\Training\TrainerController@Trainer');
+        Route::get('hrm_modal_add_edit_trainer', 'hrms\Training\TrainerController@ModalTrainerAddAndEdit');
+        Route::post('hrm_add_edit_trainer', 'hrms\Training\TrainerController@AddAndEditTrainer');
+        Route::get('hrm_delete_trainer', 'hrms\Training\TrainerController@DeleteTrainer');
     // End Trainer
+
+
 // End Training
 
 // ========================================================> END SENG KIMSROS <======================================================== //
