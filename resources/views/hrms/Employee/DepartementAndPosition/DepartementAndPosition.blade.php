@@ -5,7 +5,7 @@
               <div class="card-header">
                 <h1 class="card-title hrm-title"><strong><i class="far fa-building"></i> Department</strong></h1>
                 <div class="col-md-12 text-right">
-                    <button type="button" class="btn bg-gradient-primary"><i class="fas fa-user-plus"></i> Add Department</button>
+                    <button type="button" class="btn bg-gradient-primary" onclick="HRM_ShowDetail('hrm_modal_add_edit_department','modal_department')"><i class="fas fa-plus"></i> Add Department</button>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -32,8 +32,8 @@
                         <td>{{$depart->name_kh}}</td>
                         <td>
                           <div class="row">
-                            <div class="col-md-6"><a href="javascrip:;"><i class="far fa-edit"></i></a></div>
-                            <div class="col-md-6"><a href="javascrip:;"><i class="far fa-trash-alt"></i></a></div>
+                            <div class="col-md-6 text-center"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_modal_add_edit_department','modal_department',{{$depart->id}})"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-6 text-center"><a href="javascrip:;" onclick="hrm_delete({{$depart->id}},'hrm_delete_department','hrm_department','Department is deleted !')"><i class="far fa-trash-alt"></i></a></div>
                           </div>
                         </td>
                       </tr>
@@ -56,7 +56,7 @@
               <div class="card-header">
                 <h1 class="card-title hrm-title"><strong><i class="fas fa-map-pin"></i> Position</strong></h1>
                 <div class="col-md-12 text-right">
-                    <button type="button" class="btn bg-gradient-primary"><i class="fas fa-user-plus"></i> Add Position</button>
+                    <button type="button" class="btn bg-gradient-primary" onclick="HRM_ShowDetail('hrm_add_modal_position','modal_position')"><i class="fas fa-plus"></i> Add Position</button>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -79,8 +79,8 @@
                         <td>{{$position->name_kh}}</td>
                         <td>
                           <div class="row">
-                            <div class="col-md-6"><a href="javascrip:;"><i class="far fa-edit"></i></a></div>
-                            <div class="col-md-6"><a href="javascrip:;"><i class="far fa-trash-alt"></i></a></div>
+                            <div class="col-md-6"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_add_modal_position','modal_position',{{$position->id}})"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-6"><a href="javascrip:;" onclick="hrm_delete({{$position->id}},'hrm_delete_position','hrm_department','Position is deleted !')"><i class="far fa-trash-alt"></i></a></div>
                           </div></td>
                       </tr>
                     @endforeach

@@ -60,7 +60,7 @@
                             </button>
                             <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">
                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item update_q_sugg">Update</button>
-                            <button type="button" id="{{$row->id}}" onclick="hrm_detele('{{$row->id}}','hrm_question_answer_sugg/delete','/hrm_question_answer_sugg','Question Has Been Deleted')"  class="dropdown-item hrm_item delete_q_sugg">Delete</button>
+                            <button type="button" id="{{$row->id}}" onclick="hrm_delete('{{$row->id}}','hrm_question_answer_sugg/delete','/hrm_question_answer_sugg','Question Has Been Deleted')"  class="dropdown-item hrm_item delete_q_sugg">Delete</button>
                             </div>
                             </div>
                         </td>

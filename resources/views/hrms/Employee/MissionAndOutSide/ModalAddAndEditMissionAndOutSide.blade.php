@@ -1,4 +1,4 @@
-<div class="modal fade show" id="modal_holiday" style="display: block; padding-right: 17px;" aria-modal="true">
+<div class="modal fade show" id="modal_missionoutside" style="display: block; padding-right: 17px;" aria-modal="true">
     <div class="modal-dialog modal-ls">
         <div class="modal-content">
             <div class="card card-default">
@@ -16,25 +16,37 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label>Title <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="emName">
+                    <label>Type <span class="text-danger">*</span></label>
+                    <select name="type" id="" class="form-control">
+                      <option value="Outside">Outside</option>
+                      <option value="Mission">Mission</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Staff <span class="text-danger">*</span></label>
+                    <select name="type" id="" class="form-control">
+                      <option value="Outside">ABC</option>
+                      <option value="Mission">Achor</option>
+                      <option value="Other">Cambodia</option>
+                    </select>
                   </div>
                   <!-- /.form-group -->
                   <div class="form-group">
-                    <label>Khmer Title <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="emKhmerName">
+                    <label>Location <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="location">
                   </div>
                   <!-- /.form-group -->
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                    <label>Start Date <span class="text-danger">*</span></label>
+                    <label>From Date <span class="text-danger">*</span></label>
                     <input type="date" class="form-control" name="emKhmerName">
                   </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                    <label>End Date <span class="text-danger">*</span></label>
+                    <label>To Date <span class="text-danger">*</span></label>
                     <input type="date" class="form-control" name="emKhmerName">
                   </div>
                 </div>
