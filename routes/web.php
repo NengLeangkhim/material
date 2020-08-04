@@ -650,7 +650,9 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     // Start Mission And Out Side
         Route::get('hrm_mission_outside', 'hrms\Employee\MissionAndOutSideController@AllMissionAndOutSide');
-        Route::get('hrm_modal_add_edit_missionoutside', 'hrms\Employee\MissionAndOutSideController@AddAndEditMissionOutside');
+        Route::get('hrm_modal_add_edit_missionoutside', 'hrms\Employee\MissionAndOutSideController@AddModalMissionOutside');
+        Route::post('hrm_insertmissionoutside', 'hrms\Employee\MissionAndOutSideController@InsertUpdateMissionOutside');
+        Route::get('hrm_delete_missionoutside', 'hrms\Employee\MissionAndOutSideController@DeleteMissionOutSide');
     // End Mission And OutSide
 
     // Start Departement and Position
@@ -673,6 +675,21 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     // End Overtime
 
 // End Employee
+
+// Start Training
+
+    // Training List
+        Route::get('hrm_traininglist','hrms\Training\TrainingListController@TrainingList');
+    // End Traning List
+
+    // Training Type
+        Route::get('hrm_trainingtype','hrms\Training\TrainingTypeController@TrainingType');
+    // End Training Type
+
+    // Trainer
+        Route::get('hrm_trainer','hrms\Training\TrainerController@Trainer');
+    // End Trainer
+// End Training
 
 // ========================================================> END SENG KIMSROS <======================================================== //
 
