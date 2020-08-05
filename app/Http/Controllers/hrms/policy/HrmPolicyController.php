@@ -74,7 +74,7 @@ class HrmPolicyController extends Controller
             return response()->json($policy_get);
     }
 
-    //function update question type //
+    //function update Policy //
     public function HrmUpdatePolicy(Request $request)
     {
         if (session_status() == PHP_SESSION_NONE) 
@@ -143,7 +143,7 @@ class HrmPolicyController extends Controller
             $policy_get = ModelHrmPolicy::hrm_get_policy($id); //query question suggestion
             return view('hrms/policy/list_policy/HrmModalViewPolicy', ['policy_get' => $policy_get]);  
     }
-    //function insert policy //
+    //function insert policy user //
     public function HrmInsertPolicyUser(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();

@@ -636,6 +636,20 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// Delete Question Knowledge
     Route::get('hrm_list_knowledge_question/delete','hrms\recruitment\HrmQuestionKnowledgeController@delete_question_knowledge'); 
+
+///// List Candidate 
+    /// Index List Candidate
+    Route::get('hrm_list_condidate','hrms\recruitment\HrmListCandidateController@hrm_index_list_candidate'); 
+
+    /// Modal Show List Candidate
+    Route::get('hrm_list_condidate/modal','hrms\recruitment\HrmListCandidateController@hrm_detail_candidate');
+    
+///// Result Candidate
+    /// Index Result Candidate
+    Route::get('hrm_list_result_condidate','hrms\recruitment\HrmResultCandidateController@HrmIndexResultCandidate');
+
+    /// Go to Action Result Candidate
+    Route::get('/hrm_list_result_condidate/action','hrms\recruitment\HrmResultCandidateController@HrmIndexResultCandidate');
 /////////////////============== END Recruitment =============///////////////
 // ========================================================>END METKEOSAMBO <======================================================== //
 
