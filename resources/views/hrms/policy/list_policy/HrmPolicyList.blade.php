@@ -114,8 +114,9 @@
                             {{-- <label for="policy_file">File PDF only<span class="text-danger">*</span></label>
                             <input type="file" class="form-control"  name="policy_file" id="policy_file" accept="application/pdf"> --}}
                             <div class="custom-file">
-                                <label for="policy_file">File PDF only<span class="text-danger">*</span></label>
-                                <input type="file" class="form-control-file"  name="policy_file" id="policy_file" accept="application/pdf">
+                                {{-- <label for="policy_file">File PDF only<span class="text-danger">*</span></label> --}}
+                                <input type="file" class="custom-file-input" onchange="hrm_get_name_file('policy_file','policy_file_name')" name="policy_file" id="policy_file" accept="application/pdf">
+                                <label class="custom-file-label" id="policy_file_name" for="policy_file">Choose file</label>
                                 <span class="invalid-feedback" role="alert" id="policy_fileError"> {{--span for alert--}}
                                     <strong></strong>
                                 </span>

@@ -44,6 +44,11 @@ function hrm_delete(id,route,goto,alert) {
   })
  
 };
+/// Function Get Name For Input Type 'FIle'//
+function hrm_get_name_file(name_input,id_label){
+  var filename = $('input[type=file][name='+name_input+']').val().split('\\').pop();
+                $('#'+id_label).text(filename);
+}
 /////////////=================================EMPLOYEE SUGGESTION =============================///////////////
 
 ////==========Question Type Suggestion============//// 
@@ -2092,5 +2097,27 @@ $(document).on('click', '.update_qestion_knowledge', function(){
   });
 });
 ////===== END Question Knowledge ====/////
+
+////===== List Candidate ==== ///////
+
+///Get modal show detail candidate//
+$(document).on('click', '.hrm_view_list_candidate', function(){
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  $.ajax({
+   url:"hrm_list_condidate/modal",   //Request send to "action.php page"
+   type:"GET",    //Using of Post method for send data
+   data:{id:id},//Send data to server
+   success:function(data){
+      $('#ShowModalCandidate').html(data);
+      $('#hrm_view_candidate_modal').modal('show');   //It will display modal on webpage
+   }
+  });
+});
+////===== END List Candidate======/////
+
+////===== Result Candidate =====//////
+
+
+////===== END Result Candidate =====//////
 
 /////////////================================= END Recruitment =============================///////////////
