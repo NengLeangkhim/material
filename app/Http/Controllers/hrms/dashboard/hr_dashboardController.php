@@ -292,6 +292,8 @@ class hr_dashboardController extends Controller
 
     }
 
+
+    //generate staff by type gender
     public static function staff_type(){
         $all_em = hr_dashboardModel::em_all();
         $m = '';

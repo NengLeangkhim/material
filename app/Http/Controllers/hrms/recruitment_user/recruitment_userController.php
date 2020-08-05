@@ -31,7 +31,7 @@ class recruitment_userController extends Controller
 
 
 
-
+    // function candidate register data
     public function register_candidate(){
 
         if(isset($_POST['btnSubmit']) && isset($_POST['emailaddress']) && isset($_POST['password']) ){
@@ -88,7 +88,7 @@ class recruitment_userController extends Controller
 
 
 
-    // function to get question from hr_user
+    // function to get question for candidate quiz
     public function get_user_question(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -96,7 +96,7 @@ class recruitment_userController extends Controller
         $id = $_SESSION['user_id'][0]->id;
         $user_question = recruitment_userModel::select_user_question($id);
         return view('hrms\recruitment_user\frm_quiz', compact('user_question'));
-
+        
     }
     // end
 
@@ -104,7 +104,7 @@ class recruitment_userController extends Controller
 
 
 
-    // function user submit answer quiz
+    // function candiate submit answer quiz 
     public function submit_user_answer(){
 
         if (session_status() == PHP_SESSION_NONE) {

@@ -1,8 +1,12 @@
 
 @php
-    $question_option = $user_question['question_option'];
-    $question_option_choice = $user_question['question_option_choice'];
-    $question_writing = $user_question['question_writing'];
+
+    if(!empty($user_question)){
+        $question_option = $user_question['question_option'];
+        $question_option_choice = $user_question['question_option_choice'];
+        $question_writing = $user_question['question_writing'];
+    }
+    
 
 
     if (session_status() == PHP_SESSION_NONE) {

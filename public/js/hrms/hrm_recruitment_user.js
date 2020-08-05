@@ -117,15 +117,16 @@ function autoSubmit() {
           type: 'GET',
           url:route,
           success:function(data){
-            
+
               $(".content-wrapper").show();
               $(".content-wrapper").html(data);
               document.getElementById("starttime_quiz").innerHTML = myTime;
-              
  
           },
           error:function(){
-            $(".content-wrapper").html(jerror());
+            Swal.fire('មិនមានការរៀបចំសំនួរ សម្រាប់មុខដំណែងការងារនេះ !')
+            // $(".content-wrapper").html(jerror());
+            
           }
       });
 
