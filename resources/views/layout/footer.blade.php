@@ -91,6 +91,7 @@
 <script src="stJS/hrms/shift_promote_js/shift_promote.js"></script>
 <script src="js/hrms/hrmssambo.js"></script>
 <script src="js/hrms/hrms.js"></script>
+<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js" ></script>
 
 
 
