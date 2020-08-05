@@ -20,9 +20,8 @@
                     <?php 
                     } 
                     ?>
-                </ul>
-                 
-                  <div class="row text-right">
+                </ul> 
+                  <div class="row text-right" style="margin-top: 5px;">
                     <div class="col-md-12 text-right">
                         <button class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>   

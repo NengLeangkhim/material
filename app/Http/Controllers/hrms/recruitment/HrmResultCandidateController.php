@@ -88,7 +88,11 @@ class HrmResultCandidateController extends Controller
             session_start();
             } 
         if(perms::check_perm_module('HRM_090902')){//module code list data tables id=107
-            $id = $_SESSION['userid'];
+            $userid = $_SESSION['userid'];
+            $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
+            foreach($permission as $row){
+                $dept = $row->company_dept_id;
+            }
             $knowledge = ModelHrmResultCandidate::get_knowledge_question_dept($dept);
             return view('hrms/recruitment/result_candidate/HrmModalKnowledgeQuestion',['knowledge'=>$knowledge]); 
         }else{
