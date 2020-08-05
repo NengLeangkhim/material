@@ -113,6 +113,7 @@ class HrmReQuestionTypeController extends Controller
         $id = $_GET['id'];
         $userid = $_SESSION['userid'];   
         $question_type=ModelHrmReQuestionType::hrm_delete_question_type($id,$userid);
+        echo $question_type;
         }else{
             return view('no_perms');
         }

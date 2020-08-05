@@ -649,7 +649,13 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     Route::get('hrm_list_result_condidate','hrms\recruitment\HrmResultCandidateController@HrmIndexResultCandidate');
 
     /// Go to Action Result Candidate
-    Route::get('/hrm_list_result_condidate/action','hrms\recruitment\HrmResultCandidateController@HrmIndexResultCandidate');
+    Route::get('/hrm_list_result_condidate/action','hrms\recruitment\HrmResultCandidateController@HrmGotoResultCandidate');
+
+    /// View CV and Resume detail
+    Route::get('hrm_list_result_condidate/modal/cv','hrms\recruitment\HrmResultCandidateController@HrmModalViewCv');
+
+    /// View CV and Resume detail
+    Route::get('hrm_list_result_condidate/modal/knowledge','hrms\recruitment\HrmResultCandidateController@HrmModalViewKnowledgeQuestion');
 /////////////////============== END Recruitment =============///////////////
 // ========================================================>END METKEOSAMBO <======================================================== //
 

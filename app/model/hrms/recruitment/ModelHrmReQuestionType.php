@@ -4,6 +4,7 @@ namespace App\model\hrms\recruitment;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class ModelHrmReQuestionType extends Model
 {
@@ -36,7 +37,17 @@ class ModelHrmReQuestionType extends Model
     }
     // ===== function model deleted question type ===== //
    public static function hrm_delete_question_type($id,$userid){
-    return DB::select('SELECT public.delete_hr_question_type(?,?)',array($id,$userid));
+       try{
+        $result =DB::select('SELECT public.delete_hr_question_type(?,?)',array($id,$userid));
+        if($result[0]->delete_hr_question_type>0){
+            return 'OK';
+        }else{
+            return 'error';
+        }
+       }catch(Throwable $e){
+            report($e);
+       }
+      
     }
     // ===== Function model get data question type  =====////
    public static function hrm_get_question_type(){
