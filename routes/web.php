@@ -718,6 +718,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     // Training List
         Route::get('hrm_traininglist','hrms\Training\TrainingListController@TrainingList');
         Route::get('hrm_modal_traininglist', 'hrms\Training\TrainingListController@ModalTrainingList');
+        Route::post('hrm_insert_update_traininglist', 'hrms\Training\TrainingListController@InsertUpdateTrainingList');
     // End Traning List
 
     // Training Type

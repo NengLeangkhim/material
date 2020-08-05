@@ -56,7 +56,8 @@
             </div>
         <!-- --------------End Header-------------- -->
         <!-- -----------------Start Input Body------------- -->
-            <div class="row " style="padding: 10px;">
+            <div class="row" style="padding: 10px;">
+                
                 <div class="col-xl-1 col-md-1 col ">
                     <Input type="hidden" name=""> 
                 </div>

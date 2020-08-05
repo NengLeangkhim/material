@@ -11,6 +11,9 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
+                @php
+                    print_r($data);
+                @endphp
                 <table class="table table-bordered" id="tbl_employee" style="width:100%">
                   <thead>                  
                     <tr>
@@ -25,14 +28,24 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @php
+                        $i=0;
+                    @endphp
+                    @foreach ($data as $tl)
                       <tr>
-                      <th></th>
-                      <td>  </td>
-                      <td>  </td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <th>{{++$i}}</th>
+                      <td>{{$tl->type}}</td>
+                      <td>{{$tl->trainer}}</td>
+                      <td>{{$tl->schet_f_date}}</td>
+                      <td>@php
+                          if($tl->status==1){
+                            echo "Trainted";
+                          }else {
+                            echo "Not Trained";
+                          }
+                      @endphp</td>
+                        <td></td>
+                        <td>{{$tl->actual_description}}</td>
                         <td>
                           <div class="row">
                             <div class="col-md-4"><a href="javascrip:;" onclick=""><i class="far fa-edit"></i></a></div>
@@ -41,6 +54,8 @@
                           </div>
                         </td>
                     </tr>
+                    @endforeach
+                      
                   </tbody>
                 </table>
               </div>

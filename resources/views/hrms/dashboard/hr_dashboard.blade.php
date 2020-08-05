@@ -127,7 +127,7 @@ $staff_byDept = hr_dashboardController::num_staff_byDept();
               </div>
             </div>
           </div>
-      
+          
           <div class="col-xl-4 col-sm-6">
               <div class="card card-mini mb-4">
                 <div class="card-body">

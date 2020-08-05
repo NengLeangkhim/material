@@ -25,16 +25,18 @@ $r = DB::select($sql);
                     <b>Email : info@turbotech.com</b>
                 </div>
                 <!-- --------------------------Profile AnD login--------------------- -->
-                <div class="row  row-style-1-2 profile" style="text-align:center; padding-left: 45%;padding-right: 45%;">
+                <div class="row  row-style-1-2 profile" style="text-align:center; padding-left: 48%;padding-right: 0%;">
                     <img src="recruitment_user_style/img/user_login.png" alt="" width="35px" height="35px">
                 </div>
-                <div class="row" style="text-align:center; padding-left: 45%; padding-right: 47%; font-szie: 18px; ">
-                <a class="login-Quiz " style="" href="/hrm_recruitment_login" ><b>Login</b></a>
+                <div class="row" style="text-align:center; padding-left: 0%; padding-right: 0%; font-szie: 18px; ">
+                        {{-- <a class="login-Quiz " style="" href="/hrm_recruitment_login" ><b>Login</b></a> --}}
+                
+                        <div class="container">
+                            <a class="btn btn-primary " style="" href="/hrm_recruitment_login" ><b>Login</b></a>
+                          </div>
                 </div>
-                {{-- <div class="row" style="padding-top: 10px; padding-left: 40%; padding-right: 35%;">
-                <img class="" src="storage/img/icon_logo/fb_logo1.png" style=" padding: 10px; width: 40px; height: 40px;">
-                <img class="" src="storage/img/icon_logo/instagram2.png" style="padding: 10px;  width: 40px; height: 40px;">
-                </div> --}}
+                
+                
             </div>
             <div class= "col-lg-8 col-md-8 col-sm-8">
             <!-- <center> -->

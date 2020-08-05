@@ -15,7 +15,7 @@
             @php
                 // print_r($data);
             @endphp
-            <form id="fm_holiday" onsubmit="return false">
+            <form id="fm_training_list" onsubmit="return false" enctype="multipart/form-data">
                @csrf
               <div class="row">
                 <input type="text" name="id" id="" value="@php if(isset($data[10])){echo $data[1][0]->id;} @endphp">
@@ -55,8 +55,8 @@
                 </div>
                 
                 <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="document" id="document" onchange="hrm_get_name_file('document','documentFile')">
+                        <label class="custom-file-label" for="exampleInputFile" id="documentFile">Choose file</label>
                       </div>
                  
                 <div class="col-md-12">
@@ -68,7 +68,7 @@
                 <!-- /.col -->
                 <div class="col-md-12 text-right">
                   <a href="javascrip;:" class="btn btn-danger" data-dismiss="modal">Cancel</a>
-                  <a href="javascrip;:" class="btn bg-turbo-color" data-dismiss="modal" onclick="submit_form ('hrm_insert_update_overtime','fm_holiday','hrm_overtime')">Save</a>
+                  <a href="javascrip;:" class="btn bg-turbo-color" data-dismiss="modal" onclick="submit_form ('hrm_insert_update_traininglist','fm_training_list','hrm_traininglist')">Save</a>
                 </div>
               </div>
             </form>

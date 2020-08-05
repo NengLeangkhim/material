@@ -100,7 +100,7 @@
           if (session_status() == PHP_SESSION_NONE) {
               session_start();
           }
-          $r = $_SESSION['userid'];
+          $r = $_SESSION['user_id'];
           // print_r($r);
       @endphp
       
