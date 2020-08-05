@@ -49,20 +49,98 @@ class hr_dashboardModel extends Model
 
 
 
-    // select number of staff attendance by today
-    public static function staff_attendance(){
 
-        $first = date('Y-m-d 02:00:00');
-        $last = date('Y-m-d 12:00:00');
-        // $first = '2020-07-04 07:00:00';
-        // $last = '2020-07-04 07:30:00';
+
+
+
+
+
+
+   
+
+    
+
+
+
+
+    // select number of staff attendance by today
+    public static function staff_attendance($first,$last,$id){
+
         $f="'".$first."'";
         $l="'".$last."'";
-        $check_in = 'Check-in';
-        $sql= 'SELECT name, "typeName", "deviceStamp" FROM hr_attendance 
-                    WHERE "deviceStamp" BETWEEN '.$f.' AND  '.$l.' AND "typeName" = "'.$check_in.'" ';
-        return DB::select($sql);            
+        $check_in = "'Check-in'";
+        $sql= 'SELECT name, "deviceID", "typeName", "deviceStamp" FROM hr_attendance 
+            WHERE "deviceStamp" BETWEEN '.$f.' AND  '.$l.' AND 
+                    "typeName" =  '.$check_in.' AND  "deviceID" = '.$id.' order by "deviceStamp" asc ';
+        return DB::select($sql);    
+
     }
+
+
+
+    
+    
+    // public static function staff_check_in(){
+    //     $f_m = date('Y-m-d 02:00:00');
+    //     $l_m = date('Y-m-d 12:00:00');
+    //     $morning_check = self::staff_attendance($f_m,$l_m);
+    //     return $morning_check;
+
+    // }
+
+
+
+
+    // select number of staff attendance by today
+    // public static function all_staff_attendance(){
+
+    //     $first = date('Y-m-d 00:00:00');
+    //     $last = date('Y-m-d 24:00:00');
+
+    //     $f="'".$first."'";
+    //     $l="'".$last."'";
+    //     $check_in = "'Check-in'";
+    //     $sql= 'SELECT name, "typeName", "deviceStamp" FROM hr_attendance 
+    //         WHERE "deviceStamp" BETWEEN '.$f.' AND  '.$l.' AND 
+    //         "typeName" =  '.$check_in.' ';
+
+    //     return DB::select($sql);    
+
+    // }
+
+
+
+    // public static function get_check_in(){
+
+    
+    //     self::all_staff_attendance();
+    //     $data = self::staff_attendanceByID($first,$last,$id_num);
+
+
+    //     print_r($data);
+        
+    // }
+
+
+    
+
+
+
+
+
+
+
+
+    // $sql= 'SELECT name, "typeName", "deviceStamp" FROM hr_attendance 
+    // WHERE "deviceStamp" BETWEEN '.$f.' AND  '.$l.' AND 
+    // "typeName" =  '.$check_in.'  AND    ';
+
+
+
+       // $first = date('Y-m-d 02:00:00');
+        // $last = date('Y-m-d 12:00:00');
+        // // $first = '2020-07-04 07:00:00';
+        // // $last = '2020-07-04 07:30:00';
 
 
 

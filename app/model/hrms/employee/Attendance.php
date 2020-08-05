@@ -62,7 +62,7 @@ class Attendance extends Model
         }
         $staffDetail=self::CheckInfoStaff($attendance);
         // veriable for morning
-        $allData[0]=$staffDetail[0];//late
+        $allData[0]= $staffDetail[0];//late
         $allData[1]= $staffDetail[1];//absent
         $allData[2]= $staffDetail[2];//present
         $allData[3]= $staffDetail[3]; //permission
