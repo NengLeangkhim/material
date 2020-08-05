@@ -2159,7 +2159,26 @@ function hrm_view_all_normal_q(){
          $('#HrmModalKnowledgeQuestion').modal('show');  
 }
 });     
-}  
-////===== END Result Candidate =====//////HrmModalKnowledgeQuestion
+}
+function hrm_recruitment_approve(userid,type){
+  comment=$('textarea#recruitment_approve_comment').val();
+  $.ajax({
+      type:'POST',
+      url: "hrm_list_result_condidate/submit",
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data:{
+        user_id:userid,
+          type:type,
+          comment:comment,
+      },
+      success: function(data){
+        sweetalert('success','The Approval has been Submit Successfully !!');
+       // go_to('hrm_list_result_condidate');//refresh content  
+       }
+  });
+}
+////===== END Result Candidate =====//////
 
 /////////////================================= END Recruitment =============================///////////////

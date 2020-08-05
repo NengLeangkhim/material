@@ -166,5 +166,10 @@ class ModelHrmResultCandidate extends Model
                 ->orderBy('qk.id','ASC')
                 ->get(); 
     }
+     // ===== Function model Submit Approval =====////
+     public static function hrm_submit_approval($candidate_id,$userid,$appr_type,$comment){
+        return DB::select('SELECT public.insert_hr_approval_detail(?,?,?,?,?)',array($candidate_id,$userid,$appr_type,$comment,$userid));
+    }
+
 
 }
