@@ -29,21 +29,42 @@ function hrm_delete(id,route,goto,alert) {
         data:{id:id},
         type:"GET",    //Using of Post method for send data
         success:function(data){
-         console.log(data);
-         //sweetalert('success',alert);
-         setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
-        Swal.fire(
-          'Deleted!',
-            alert,
-          'success'
-        )
+          console.log(data);
+          if(data =='error'){
+               //sweetalert('success',alert);
+             //  setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
+               Swal.fire(
+                 'Deleted!',
+                   'Delete Error',
+                 'error'
+               )
+          }else{
+              //sweetalert('success',alert);
+            //setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
+            Swal.fire(
+              'Deleted!',
+                alert,
+              'success'
+            )
+          }
         }
+        
        });
       
     }
   })
  
 };
+/// Function Get Name For Input Type 'FIle'//
+function hrm_get_name_file(name_input,id_label){
+  var filename = $('input[type=file][name='+name_input+']').val().split('\\').pop();
+    if(filename !=''){
+      $('#'+id_label).text(filename);
+    }else{
+      $('#'+id_label).text('Choose File'); 
+    }
+                
+}
 /////////////=================================EMPLOYEE SUGGESTION =============================///////////////
 
 ////==========Question Type Suggestion============//// 
@@ -2092,5 +2113,53 @@ $(document).on('click', '.update_qestion_knowledge', function(){
   });
 });
 ////===== END Question Knowledge ====/////
+
+////===== List Candidate ==== ///////
+
+///Get modal show detail candidate//
+$(document).on('click', '.hrm_view_list_candidate', function(){
+  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  $.ajax({
+   url:"hrm_list_condidate/modal",   //Request send to "action.php page"
+   type:"GET",    //Using of Post method for send data
+   data:{id:id},//Send data to server
+   success:function(data){
+      $('#ShowModalCandidate').html(data);
+      $('#hrm_view_candidate_modal').modal('show');   //It will display modal on webpage
+   }
+  });
+});
+////===== END List Candidate======/////
+
+////===== Result Candidate =====//////
+///Function View CV
+function hrm_view_cv_detail(id){
+  $.ajax({  
+    url:"hrm_list_result_condidate/modal/cv",  
+    type:"get",  
+    data:{id:id},  
+    success:function(data){  
+        // get id of div in admincheck.php for show modal 
+         $('#ModalShowResult').html(data);  
+         // set time out for modal view
+         $('#HrmModalViewCv').modal('show');
+}
+});     
+}  
+///Function View Knowledge Question
+function hrm_view_all_normal_q(){
+  $.ajax({  
+    url:"hrm_list_result_condidate/modal/knowledge",  
+    type:"get",  
+    data:{},  
+    success:function(data){  
+        // get id of div in admincheck.php for show modal 
+         $('#ModalShowResult').html(data);  
+         // set time out for modal view
+         $('#HrmModalKnowledgeQuestion').modal('show');  
+}
+});     
+}  
+////===== END Result Candidate =====//////HrmModalKnowledgeQuestion
 
 /////////////================================= END Recruitment =============================///////////////

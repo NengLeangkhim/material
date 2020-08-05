@@ -636,6 +636,26 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// Delete Question Knowledge
     Route::get('hrm_list_knowledge_question/delete','hrms\recruitment\HrmQuestionKnowledgeController@delete_question_knowledge'); 
+
+///// List Candidate 
+    /// Index List Candidate
+    Route::get('hrm_list_condidate','hrms\recruitment\HrmListCandidateController@hrm_index_list_candidate'); 
+
+    /// Modal Show List Candidate
+    Route::get('hrm_list_condidate/modal','hrms\recruitment\HrmListCandidateController@hrm_detail_candidate');
+    
+///// Result Candidate
+    /// Index Result Candidate
+    Route::get('hrm_list_result_condidate','hrms\recruitment\HrmResultCandidateController@HrmIndexResultCandidate');
+
+    /// Go to Action Result Candidate
+    Route::get('/hrm_list_result_condidate/action','hrms\recruitment\HrmResultCandidateController@HrmGotoResultCandidate');
+
+    /// View CV and Resume detail
+    Route::get('hrm_list_result_condidate/modal/cv','hrms\recruitment\HrmResultCandidateController@HrmModalViewCv');
+
+    /// View CV and Resume detail
+    Route::get('hrm_list_result_condidate/modal/knowledge','hrms\recruitment\HrmResultCandidateController@HrmModalViewKnowledgeQuestion');
 /////////////////============== END Recruitment =============///////////////
 // ========================================================>END METKEOSAMBO <======================================================== //
 
@@ -698,6 +718,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     // Training List
         Route::get('hrm_traininglist','hrms\Training\TrainingListController@TrainingList');
         Route::get('hrm_modal_traininglist', 'hrms\Training\TrainingListController@ModalTrainingList');
+        Route::post('hrm_insert_update_traininglist', 'hrms\Training\TrainingListController@InsertUpdateTrainingList');
     // End Traning List
 
     // Training Type
