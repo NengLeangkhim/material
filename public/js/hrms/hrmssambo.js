@@ -30,15 +30,21 @@ function hrm_delete(id,route,goto,alert) {
         type:"GET",    //Using of Post method for send data
         success:function(data){
          console.log(data);
-         //sweetalert('success',alert);
+         if(data=='error'){
+
+         }else{
+            //sweetalert('success',alert);
          setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
         Swal.fire(
           'Deleted!',
             alert,
           'success'
-        )
+            )
+          });
         }
-       });
+         }
+         
+       
       
     }
   })
