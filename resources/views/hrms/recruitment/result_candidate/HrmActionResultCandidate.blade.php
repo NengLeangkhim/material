@@ -68,7 +68,7 @@
                                         <h2 class="hrm-title" style="font-weight: bold;font-size:23px;"><i class="fas fa-clipboard"></i> Question And Answer</h2>
                                     </div> 
                                     <div class="col-6" style="width:100%;text-align:right;margin-top:7px;">
-                                        <button type="button" onclick="hrm_view_all_normal_q('<?='ok'?>')" class="btn btn-primary">Check General Question</button>
+                                        <button type="button" onclick="hrm_view_all_normal_q()" class="btn btn-primary">Check General Question</button>
                                     </div>   
                                 </div><!-- End Row Header -->
                                 <div class="row" style="height:50px">
@@ -177,40 +177,60 @@
                                    </div><!-- End Show Comment -->
                                    <?php 
                                              }
-                                                 ?>
-                                   <div class="col-12">
-                                   <p style="font-family:khmer UI;">បញ្ចេញមតិទីនេះ៖</p>
-                                   </div>
-                                   <div class="col-12">
-                                  
-                                             <textarea class="form-control" name="comment" id="comment" rows="4"></textarea>
-                                   </div>
-                                      <div class="col-12 text-center" style="margin-top:10px;">
+                                                 ?>              
                                       <?php
                                             foreach($button as $row_app){
                                               $stt= $row_app->hr_approval_status;
                                             }
                                             if($stt=='approve'){
-                                             ?>
-                                                   <h5 style="color:green">Already Approval</h5>     
+                                             ?><div class="col-12 text-center" style="margin-top:10px;">
+                                                   <h5 style="color:green">Already Approval</h5>   
+                                                </div>   
                                               <?php 
                                               }elseif($stt=='pending'){ ?>
-                                                   <button type="submit" onclick='approve("<?=$id_candidate?>","approve")' class="btn btn-success">Approve</button>  
-                                                   <button type="submit" onclick='approve("<?=$id_candidate?>","reject")' class="btn btn-danger">Reject</button>
+                                                <div class="col-12">
+                                                    <p style="font-family:khmer UI;">បញ្ចេញមតិទីនេះ៖</p>
+                                                </div>
+                                                <div class="col-12">
+                                                
+                                                         <textarea class="form-control" name="recruitment_approve_comment" id="recruitment_approve_comment" rows="4"></textarea>
+                                                </div>
+                                                <div class="col-12 text-center" style="margin-top:10px;">
+                                                    <button type="button" onclick='hrm_recruitment_approve("<?=$id_candidate?>","approve")' class="btn btn-success">Approve</button>  
+                                                    <button type="button" onclick='hrm_recruitment_approve("<?=$id_candidate?>","reject")' class="btn btn-danger">Reject</button>
+                                                </div>    
                                               <?php 
                                               }elseif($stt=='reject'){ ?>
-                                                <button type="submit" onclick='approve("<?=$id_candidate?>","approve")' class="btn btn-success">Approve</button>
-                                                <button type="submit" onclick='approve("<?=$id_candidate?>","pending")' class="btn btn-warning">Pending</button>
+                                                <div class="col-12">
+                                                    <p style="font-family:khmer UI;">បញ្ចេញមតិទីនេះ៖</p>
+                                                </div>
+                                                <div class="col-12">
+                                                
+                                                         <textarea class="form-control" name="recruitment_approve_comment" id="recruitment_approve_comment" rows="4"></textarea>
+                                                </div>
+                                                <div class="col-12 text-center" style="margin-top:10px;">
+                                                    <button type="button" onclick='hrm_recruitment_approve("<?=$id_candidate?>","approve")' class="btn btn-success">Approve</button>
+                                                    <button type="button" onclick='hrm_recruitment_approve("<?=$id_candidate?>","pending")' class="btn btn-warning">Pending</button>
+                                                </div>    
                                               <?php
                                               }elseif($stt==''){
                                               ?>
-                                                <button type="submit" onclick='approve("<?=$id_candidate?>","approve")' class="btn btn-success">Approve</button>
-                                                <button type="submit" onclick='approve("<?=$id_candidate?>","pending")' class="btn btn-warning">Pending</button>
-                                                <button type="submit" onclick='approve("<?=$id_candidate?>","reject")' class="btn btn-danger">Reject</button>
+                                                <div class="col-12">
+                                                    <p style="font-family:khmer UI;">បញ្ចេញមតិទីនេះ៖</p>
+                                                </div>
+                                                <div class="col-12">
+                                                
+                                                         <textarea class="form-control" name="recruitment_approve_comment" id="recruitment_approve_comment" rows="4"></textarea>
+                                                </div>
+                                                <div class="col-12 text-center" style="margin-top:10px;">
+                                                    <button type="button" onclick='hrm_recruitment_approve("<?=$id_candidate?>","approve")' class="btn btn-success">Approve</button>
+                                                    <button type="button" onclick='hrm_recruitment_approve("<?=$id_candidate?>","pending")' class="btn btn-warning">Pending</button>
+                                                    <button type="button" onclick='hrm_recruitment_approve("<?=$id_candidate?>","reject")' class="btn btn-danger">Reject</button>
+                                                </div>    
                                               <?php
                                               }
                                               ?>
-                                      </div>   
+                                        
                                 </div><!-- End Row Button -->
                             </div>
                         </div><!-- /.END MD -->

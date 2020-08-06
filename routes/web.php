@@ -656,6 +656,9 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// View CV and Resume detail
     Route::get('hrm_list_result_condidate/modal/knowledge','hrms\recruitment\HrmResultCandidateController@HrmModalViewKnowledgeQuestion');
+
+    /// Submit Approval
+    Route::post('hrm_list_result_condidate/submit','hrms\recruitment\HrmResultCandidateController@HrmSubmitApproval');
 /////////////////============== END Recruitment =============///////////////
 // ========================================================>END METKEOSAMBO <======================================================== //
 
