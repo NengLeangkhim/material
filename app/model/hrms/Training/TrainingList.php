@@ -27,29 +27,39 @@ class TrainingList extends Model
         
     }
 
-    function InsertTrainingList($file,$filename,$trainType,$date_from,$date_to,$description,$schetule_status,$by,$trainer){
+    function InsertTrainingList($file,$filename,$trainType,$date_from,$date_to,$description,$schetule_status,$by,$trainer,$staff){
         try{
-            $uploaddir = public_path('/media/hrms/Training/');
-            $uploadfile = $uploaddir . basename($file);
-            $filedirectory = '/media/hrms/Training/' . $file;
-            if (move_uploaded_file($filename, $uploadfile)) {
-                $sql = "SELECT public.insert_hr_training_schedule($trainType,'$date_from','$date_to','$description','$schetule_status',$by,$trainer,'$filedirectory')";
-                $stm = DB::select($sql);
-                if ($stm[0]->insert_hr_training_schedule > 0) {
-                    return "Insert Training List Successfully";
-                } else {
-                    return "error";
-                }
-            } else {
-                echo "error";
-            }
+            
             
         }catch(Throwable $e){
             report($e);
         }
+        $uploaddir = public_path('/media/hrms/Training/');
+        $uploadfile = $uploaddir . basename($file);
+        $filedirectory = '/media/hrms/Training/' . $file;
+        if (move_uploaded_file($filename, $uploadfile)) {
+            $sql = "SELECT public.insert_hr_training_schedule($trainType,'$date_from','$date_to','$description','$schetule_status',$by,$trainer,'$filedirectory')";
+            $stm = DB::select($sql);
+            if ($stm[0]->insert_hr_training_schedule > 0) {
+                if ($schetule_status == 't') {
+                    $training_hr = self::InsertTrainingHr($stm[0]->insert_hr_training_schedule, $date_from, $date_to, $description, $by, $staff);
+                    if ($training_hr == 'error') {
+                        return 'error';
+                    } else {
+                        return "Training List Insert Successfully";
+                    }
+                } else {
+                    return "Training List Insert Successfully";
+                }
+            } else {
+                return "error";
+            }
+        } else {
+            echo "error";
+        }
     }
 
-    function UpdateTrainingList($file, $filename, $trainType, $date_from, $date_to, $description, $schetule_status, $by, $trainer,$id,$namefile){
+    function UpdateTrainingList($file, $filename, $trainType, $date_from, $date_to, $description, $schetule_status, $by, $trainer,$id,$namefile,$staff){
         if(strlen($file)>0){
             $uploaddir = public_path('/media/hrms/Training/');
             $uploadfile = $uploaddir . basename($file);
@@ -76,5 +86,44 @@ class TrainingList extends Model
             }
         }
         
+    }
+
+
+    function InsertStaffTraining($id,$staffid,$by){
+        try{
+            
+        }catch(Throwable $e){
+            report($e);
+        }
+        foreach ($staffid as $sid) {
+            $sql = "SELECT public.insert_hr_training_staff($id,$sid,$by)";
+            $stm = DB::select($sql);
+        }
+        if ($stm[0]->insert_hr_training_staff > 0) {
+            return "Successfully";
+        } else {
+            return "error";
+        }
+    }
+
+    function InsertTrainingHr($id,$date_from,$date_to,$description,$by,$staff){
+        
+        try{
+            
+        }catch(Throwable $e){
+            report($e);
+        }
+        $sql = "SELECT public.insert_hr_training($id,'$date_from','$date_to','$description',$by)";
+        $stm = DB::select($sql);
+        if ($stm[0]->insert_hr_training > 0) {
+            $trainingstaff = self::InsertStaffTraining($stm[0]->insert_hr_training, $staff, $by);
+            if ($trainingstaff == 'errer') {
+                return "error";
+            } else {
+                return "Successfull";
+            }
+        } else {
+            return "error";
+        }
     }
 }

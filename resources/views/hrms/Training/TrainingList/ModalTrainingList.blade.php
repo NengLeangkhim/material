@@ -13,7 +13,7 @@
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
             @php
-                // print_r($data[2]);
+                // print_r($data[3]);
             @endphp
             <form id="fm_training_list" onsubmit="return false" enctype="multipart/form-data">
                @csrf
@@ -96,24 +96,31 @@
                 <div class="col-md-12">
                   <div class="form-group">
                      <label>Please Select Staff <span class="text-danger">*</span></label>
-                     <table class="table">
-                        <thead>
-                          <tr>
-                            <th>Name</th>
-                            <th>Check All <input type="checkbox" name="check"></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                         <tr>
-                          <td>Seng Kimsros</td>
-                          <th class="text-right"><input type="checkbox" name="check"></th>
-                         </tr> 
-                         <tr>
-                          <td>Seng Kimsros</td>
-                          <th class="text-right"><input type="checkbox" name="check"></th>
-                         </tr>  
-                        </tbody>
-                     </table>
+                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                      <table class="table table-bordered table-striped mb-0" id="tbl_training_list_add">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Name</th>
+                              <th>Check All <input type="checkbox" name="check"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @php
+                              $i=0;
+                              $a=0;
+                            @endphp
+                            @foreach($data[3] as $em)
+                              <tr>
+                                <td>{{++$a}}</td>
+                                <td>{{$em->name}}</td>
+                                <th class="text-right"><input type="checkbox" name="check[{{$i++}}]" value="{{$em->id}}"></th>
+                              </tr> 
+                            @endforeach
+                          
+                          </tbody>
+                      </table>
+                      </div>
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -140,5 +147,10 @@
 <script type="text/javascript">
   $(document).ready(function () {
     bsCustomFileInput.init();
+    $('#tbl_training_list_add').dataTable({
+      scrollY: 300,
+      scrollCollapse: true
+    });
   });
+  
 </script>

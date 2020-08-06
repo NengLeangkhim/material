@@ -4,6 +4,7 @@ namespace App\Http\Controllers\hrms\Training;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\perms;
+use App\model\hrms\employee\Employee;
 use App\model\hrms\Training\Trainer;
 use App\model\hrms\Training\TrainingList;
 use App\model\hrms\Training\TrainingType;
@@ -33,11 +34,13 @@ class TrainingListController extends Controller
             $trainType=new TrainingType();
             $trainer=new Trainer();
             $trainList=new TrainingList();
+            $em=new Employee();
             $data[0]=$trainType->TrainingType();
             $data[1]=$trainer->Trainer();
             if($id>0){
                 $data[2]=$trainList->TrainingList($id);
             }
+            $data[3]=$em->AllEmployee();
             return view('hrms/Training/TrainingList/ModalTrainingList')->with('data',$data);
         } else {
             return view('noperms');
@@ -61,14 +64,15 @@ class TrainingListController extends Controller
             $description=$_POST['description'];
             $namefile=$_POST['namefile'];
             $chech_status=$_POST['schet_status'];
+            $staff=$_POST['check'];
             $trainList = new TrainingList();
-            
+            // print_r($staff);
             if($id>0){
-                $stm=$trainList->UpdateTrainingList($filename,$file,$trainingType,$startdate,$enddate,$description,$chech_status,$userid,$trainer,$id,$namefile);
+                $stm=$trainList->UpdateTrainingList($filename,$file,$trainingType,$startdate,$enddate,$description,$chech_status,$userid,$trainer,$id,$namefile,$staff);
             }else{
-                $stm=$trainList->InsertTrainingList($filename, $file, $trainingType, $startdate, $enddate, $description,$chech_status, $userid, $trainer);
+                $stm=$trainList->InsertTrainingList($filename, $file, $trainingType, $startdate, $enddate, $description,$chech_status, $userid, $trainer,$staff);
             }
-            print_r($stm);
+            echo $stm;
         } else {
             return view('noperms');
         }
