@@ -29,10 +29,15 @@ class TrainingListController extends Controller
         }
         if (perms::check_perm_module('HRM_090501')) {
             $data = array();
+            $id=$_GET['id'];
             $trainType=new TrainingType();
             $trainer=new Trainer();
+            $trainList=new TrainingList();
             $data[0]=$trainType->TrainingType();
             $data[1]=$trainer->Trainer();
+            if($id>0){
+                $data[2]=$trainList->TrainingList($id);
+            }
             return view('hrms/Training/TrainingList/ModalTrainingList')->with('data',$data);
         } else {
             return view('noperms');
@@ -54,14 +59,16 @@ class TrainingListController extends Controller
             $filename = $_FILES['document']['name'];
             $file= $_FILES['document']['tmp_name'];
             $description=$_POST['description'];
-            // print_r($filename);
+            $namefile=$_POST['namefile'];
+            $chech_status=$_POST['schet_status'];
             $trainList = new TrainingList();
             
             if($id>0){
-
+                $stm=$trainList->UpdateTrainingList($filename,$file,$trainingType,$startdate,$enddate,$description,$chech_status,$userid,$trainer,$id,$namefile);
             }else{
-                $trainList->InsertTrainingList($filename, $file, $trainingType, $startdate, $enddate, $description, 'f', $userid, $trainer);
+                $stm=$trainList->InsertTrainingList($filename, $file, $trainingType, $startdate, $enddate, $description,$chech_status, $userid, $trainer);
             }
+            print_r($stm);
         } else {
             return view('noperms');
         }
