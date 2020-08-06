@@ -46,19 +46,21 @@ class TrainingListController extends Controller
         }
         if (perms::check_perm_module('HRM_090501')) {
             $id=$_POST['id'];
+            $userid = $_SESSION['userid'];
             $trainingType=$_POST['trainingtype'];
             $trainer=$_POST['trainer'];
             $startdate=$_POST['startdate'];
             $enddate=$_POST['enddate'];
             $filename = $_FILES['document']['name'];
+            $file= $_FILES['document']['tmp_name'];
             $description=$_POST['description'];
             // print_r($filename);
             $trainList = new TrainingList();
-            $trainList->InsertTrainingList($filename);
+            
             if($id>0){
 
             }else{
-
+                $trainList->InsertTrainingList($filename, $file, $trainingType, $startdate, $enddate, $description, 'f', $userid, $trainer);
             }
         } else {
             return view('noperms');

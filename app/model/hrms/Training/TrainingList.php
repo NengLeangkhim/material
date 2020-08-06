@@ -4,6 +4,7 @@ namespace App\model\hrms\Training;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class TrainingList extends Model
@@ -26,17 +27,27 @@ class TrainingList extends Model
         
     }
 
-    function InsertTrainingList($file){
+    function InsertTrainingList($file,$filename,$trainType,$date_from,$date_to,$description,$schetule_status,$by,$trainer){
         try{
 
-            $destinationPath = public_path('/media/hrms/file/'); //path for move
-            if($filemove = $file->move($destinationPath, $file)){  // move file to directory
-                echo "Moved";
-            }else{
-                echo "Not Moved";
-            }
+            
         }catch(Throwable $e){
             report($e);
+        }
+
+
+        $uploaddir = public_path('/media/hrms/Training/');
+        $uploadfile = $uploaddir . basename($file);
+        if (move_uploaded_file($filename, $uploadfile)) {
+            $sql= "SELECT public.insert_hr_training_schedule($trainType,'$date_from','$date_to','$description','$schetule_status',$by,$trainer,'$uploadfile')";
+            $stm=DB::select($sql);
+            if($stm[0]->insert_hr_training_schedule>0){
+                return "Insert Training List Successfully";
+            }else{
+                return "error";
+            }
+        } else {
+            echo "error";
         }
     }
 }
