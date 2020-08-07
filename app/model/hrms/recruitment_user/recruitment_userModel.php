@@ -47,7 +47,7 @@ class recruitment_userModel extends Model
 
             $get_array[] = '';
             // select table user question where question type = 1  (option)
-            $q1 = DB::select("SELECT id, question, question_type_id FROM hr_question 
+            $q1 = DB::select("SELECT id, question, question_type_id FROM hr_recruitment_question 
                 WHERE position_id = '".$pos_id."' AND question_type_id=1 AND is_deleted = 'false' ORDER BY RANDOM() LIMIT 20 ");
             if(count($q1) > 0){
                 $get_array['question_option'] = $q1;
@@ -64,7 +64,7 @@ class recruitment_userModel extends Model
                 
             }
             // select table user question where question type = 2   (writing)
-            $q2 = DB::select("SELECT id, question, question_type_id FROM hr_question 
+            $q2 = DB::select("SELECT id, question, question_type_id FROM hr_recruitment_question 
                 WHERE position_id = '".$pos_id."' AND question_type_id = 2 AND status = 'true' ORDER BY RANDOM() LIMIT 10");
             if(count($q1) > 0){
                 $get_array['question_writing'] = $q2;
@@ -154,7 +154,7 @@ class recruitment_userModel extends Model
         $sql = "SELECT  q.question, q_t.id as q_type_id, q_t.name as question_type, CONCAT(q_c.choice, u_a.answer_text) as user_answer, u_a.is_right, u_a.start_time, u_a.end_time  
                 FROM ((hr_user_answer u_a LEFT JOIN hr_question_choice q_c ON  u_a.hr_recruitment_question_choice_id
  = q_c.id) 
-                JOIN hr_question q ON u_a.hr_recruitment_question_id = q.id) 
+                JOIN hr_recruitment_question q ON u_a.hr_recruitment_question_id = q.id) 
                 LEFT JOIN hr_question_type q_t ON q.question_type_id = q_t.id  where u_a.hr_recruitment_candidate_id = ".$id." ";
             
             try{

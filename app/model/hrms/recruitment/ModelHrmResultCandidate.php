@@ -87,7 +87,7 @@ class ModelHrmResultCandidate extends Model
     public static function get_candidate_score($id){
         return DB::select("SELECT COUNT(ua.hr_recruitment_question_choice_id
 ),ua.is_right,ua.hr_recruitment_candidate_id,q.question_type_id from hr_user_answer ua
-        left join hr_question q on ua.hr_recruitment_question_id=q.id 
+        left join hr_recruitment_question q on ua.hr_recruitment_question_id=q.id 
         left join hr_question_choice an on ua.hr_recruitment_question_choice_id
 =an.id where ua.hr_recruitment_candidate_id=? and q.question_type_id=?
         group by ua.is_right,ua.hr_recruitment_candidate_id,q.question_type_id",[$id,1]);
@@ -101,7 +101,7 @@ class ModelHrmResultCandidate extends Model
     public static function get_result_choice($id){
         return DB::select("SELECT ua.hr_recruitment_question_choice_id
 ,ua.hr_recruitment_question_id,ua.is_right,ua.hr_recruitment_candidate_id,q.question,q.id as hr_recruitment_question_id,q.question_type_id,an.id,an.choice,an.is_right_choice from hr_user_answer ua
-        left join hr_question q on ua.hr_recruitment_question_id=q.id 
+        left join hr_recruitment_question q on ua.hr_recruitment_question_id=q.id 
         left join hr_question_choice an on ua.hr_recruitment_question_choice_id
 =an.id where ua.hr_recruitment_candidate_id=? and q.question_type_id=?",[$id,1]);
     }
@@ -112,9 +112,9 @@ class ModelHrmResultCandidate extends Model
     // ===== Function model get data Answer Text=====////
     public static function get_answer_text($id){
         return DB::select("SELECT ua.answer_text,ua.hr_recruitment_question_id,ua.hr_recruitment_candidate_id,ua.is_right,q.question,q.question_type_id 
-                        from hr_user_answer ua left join hr_question q on ua.hr_recruitment_question_id=q.id where ua.hr_recruitment_candidate_id= $id
+                        from hr_user_answer ua left join hr_recruitment_question q on ua.hr_recruitment_question_id=q.id where ua.hr_recruitment_candidate_id= $id
                         Except SELECT ua.answer_text,ua.hr_recruitment_question_id,ua.hr_recruitment_candidate_id,ua.is_right,q.question,q.question_type_id from hr_user_answer ua
-                        left join hr_question q on ua.hr_recruitment_question_id=q.id where ua.hr_recruitment_candidate_id= $id and q.question_type_id=1");
+                        left join hr_recruitment_question q on ua.hr_recruitment_question_id=q.id where ua.hr_recruitment_candidate_id= $id and q.question_type_id=1");
     }
     // ===== Function model get comment of approval=====////
     public static function get_comment_approval($id){

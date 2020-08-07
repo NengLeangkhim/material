@@ -9,7 +9,7 @@ class ModelHrmQuestionAnswer extends Model
     //
     // ===== Function get data for table =====////
     public static function hrm_get_tbl_recruitment_question(){
-        $question_get = DB::table('hr_question as q')
+        $question_get = DB::table('hr_recruitment_question as q')
                            ->select('q.*','staff_detail.username','qt.name as  question_type','p.name','qc.is_deleted as delete')
                            ->leftjoin('staff_detail','q.create_by','=','staff_detail.ma_user_id')
                            ->leftjoin('position as p','q.position_id','=','p.id')
@@ -27,7 +27,7 @@ class ModelHrmQuestionAnswer extends Model
     }
     // ===== Function model get data question for update =====////
     public static function hrm_get_update_question($id){
-        return  DB::table('hr_question')
+        return  DB::table('hr_recruitment_question')
         ->select('*')
         ->where('id','=',$id)
         ->get(); 
@@ -42,7 +42,7 @@ class ModelHrmQuestionAnswer extends Model
     }
     // ===== Function get data Question for Answer =====////
     public static function hrm_get_question($id){
-        $question_get = DB::table('hr_question')
+        $question_get = DB::table('hr_recruitment_question')
                            ->select('question','id')
                            ->where('id','=',$id)
                            ->get(); 
@@ -63,7 +63,7 @@ class ModelHrmQuestionAnswer extends Model
     }
     // ===== Function get data Question Detail =====////
     public static function hrm_get_recruitment_question($id){
-        $question_get = DB::table('hr_question as q')
+        $question_get = DB::table('hr_recruitment_question as q')
                            ->select('q.*','dept.name','qt.name as  question_type','p.name as position')
                            ->leftjoin('ma_company_dept as dept','q.dapartement_id','=','dept.id')
                            ->leftjoin('position as p','q.position_id','=','p.id')
