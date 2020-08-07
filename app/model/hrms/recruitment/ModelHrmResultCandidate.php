@@ -18,14 +18,14 @@ class ModelHrmResultCandidate extends Model
                                 hr_approval_status,
                                 comment
                             FROM 
-                                hr_approval_detail
+                                hr_recruitment_candidate_detail
                             where hr_approval_status ='pending' and ( hr_user_id, create_date) IN
                         (
                             SELECT 
                                 hr_user_id, 
                                 MAX(create_date)
                             FROM 
-                                hr_approval_detail
+                                hr_recruitment_candidate_detail
                             GROUP BY 
                                 hr_user_id
                         ) 
@@ -53,14 +53,14 @@ class ModelHrmResultCandidate extends Model
                                 hr_approval_status,
                                 comment
                             FROM 
-                                hr_approval_detail
+                                hr_recruitment_candidate_detail
                             where  ( hr_user_id, create_date) IN
                         (
                             SELECT 
                                 hr_user_id, 
                                 MAX(create_date)
                             FROM 
-                                hr_approval_detail
+                                hr_recruitment_candidate_detail
                             GROUP BY 
                                 hr_user_id
                         ) 
@@ -114,7 +114,7 @@ class ModelHrmResultCandidate extends Model
     }
     // ===== Function model get comment of approval=====////
     public static function get_comment_approval($id){
-        return DB::select("SELECT appd.comment,appd.action_by,s.name from hr_approval_detail appd
+        return DB::select("SELECT appd.comment,appd.action_by,s.name from hr_recruitment_candidate_detail appd
                             join ma_user s on appd.action_by= s.id 
                             where hr_user_id=$id and ( hr_user_id,appd.create_date) IN
                             (
@@ -122,7 +122,7 @@ class ModelHrmResultCandidate extends Model
                                     hr_user_id, 
                                     MAX(create_date)
                                 FROM 
-                                    hr_approval_detail
+                                    hr_recruitment_candidate_detail
                                 GROUP BY 
                                     hr_user_id
                             ) ");
@@ -137,14 +137,14 @@ class ModelHrmResultCandidate extends Model
                                     hr_approval_status,
                                     comment
                                 FROM 
-                                    hr_approval_detail
+                                    hr_recruitment_candidate_detail
                                 where  ( hr_user_id, create_date) IN
                             (
                                 SELECT 
                                     hr_user_id, 
                                     MAX(create_date)
                                 FROM 
-                                    hr_approval_detail
+                                    hr_recruitment_candidate_detail
                                 GROUP BY 
                                     hr_user_id
                             ) 

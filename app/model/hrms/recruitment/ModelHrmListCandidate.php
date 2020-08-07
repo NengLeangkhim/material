@@ -17,14 +17,14 @@ class ModelHrmListCandidate extends Model
                                     hr_user_id, 
                                     hr_approval_status
                                 FROM 
-                                    hr_approval_detail
+                                    hr_recruitment_candidate_detail
                                 where  ( hr_user_id, create_date) IN
                             (
                                 SELECT 
                                     hr_user_id, 
                                     MAX(create_date)
                                 FROM 
-                                    hr_approval_detail
+                                    hr_recruitment_candidate_detail
                                 GROUP BY 
                                     hr_user_id
                             ) 
