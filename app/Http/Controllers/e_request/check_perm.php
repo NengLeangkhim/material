@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class check_perm{
     public function permi_check($id){
-        $sql="select s.ma_position_id,s.ma_company_dept_id,p.group_id from ma_user s join \"position\" p on p.id=s.ma_position_id where s.id =$id";
+        $sql="select s.ma_position_id,s.ma_company_dept_id,p.group_id from ma_user s join \"ma_position\" p on p.id=s.ma_position_id where s.id =$id";
         $r=ere_get_assoc::assoc_(DB::select($sql))[0];
         $sql="select id,type,ma_company_dept_id
         from ma_company_dept_manager

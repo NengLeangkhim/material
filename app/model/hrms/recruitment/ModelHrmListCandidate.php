@@ -11,7 +11,7 @@ class ModelHrmListCandidate extends Model
     // ===== Function model get data for table =====////
     public static function get_tbl_recruitment_candidate(){
         return DB::select("SELECT c.*,p.name,appr.hr_approval_status from hr_user c
-                            left join position p on c.ma_position_id=p.id
+                            left join ma_position p on c.ma_position_id=p.id
                             left join (
                             SELECT 
                                     hr_user_id, 
@@ -37,7 +37,7 @@ class ModelHrmListCandidate extends Model
     // ===== Function model get detail candidate =====////
     public static function get_detail_candidate($id){
         return DB::select("SELECT c.*,p.name from hr_user c
-                        left join position p on c.ma_position_id=p.id
+                        left join ma_position p on c.ma_position_id=p.id
                         WHERE c.id =?",[$id]);
     }
 }

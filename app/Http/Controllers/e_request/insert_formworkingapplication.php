@@ -25,7 +25,7 @@ class insert_formworkingapplication extends Controller{
         $image="";
         $sql="SELECT public.insert_e_request_working_application(
             '".$_POST['app_id']."',
-            ".$_POST['position'].",
+            ".$_POST['ma_position'].",
             ".$_POST['salary'].",
             ".$_POST['expected_salary'].",
             '".$_POST['phone']."',

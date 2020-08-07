@@ -40,14 +40,14 @@ class DepartmentAndPosition extends Model
     function AllPosition($id=0){
         try {
             if($id>0){
-                $position = DB::table('position')
+                $position = DB::table('ma_position')
                 ->where([
                     ['status', '=', 't'],
                     ['is_deleted', '=', 'f'],
                     ['id','=',$id]
                 ])->orderBy('name')->get();
             }else{
-                $position = DB::table('position')
+                $position = DB::table('ma_position')
                 ->where([
                     ['status', '=', 't'],
                     ['is_deleted', '=', 'f']

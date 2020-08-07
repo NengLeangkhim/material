@@ -135,8 +135,8 @@ class recruitment_userModel extends Model
 
     public static function user_info($id){
         
-        $sql = "SELECT hu.*, p.name as position FROM hr_user hu
-             JOIN position p ON hu.ma_position_id = p.id  WHERE  hu.id = ".$id." ";
+        $sql = "SELECT hu.*, p.name as ma_position FROM hr_user hu
+             JOIN ma_position p ON hu.ma_position_id = p.id  WHERE  hu.id = ".$id." ";
         $r = DB::select($sql);
         return $r;
     }
@@ -155,7 +155,7 @@ class recruitment_userModel extends Model
                 FROM ((hr_user_answer u_a LEFT JOIN hr_question_choice q_c ON  u_a.hr_recruitment_question_choice_id
  = q_c.id) 
                 JOIN hr_recruitment_question q ON u_a.hr_recruitment_question_id = q.id) 
-                LEFT JOIN hr_question_type q_t ON q.question_type_id = q_t.id  where u_a.hr_recruitment_candidate_id = ".$id." ";
+                LEFT JOIN hr_recruitment_question_type q_t ON q.question_type_id = q_t.id  where u_a.hr_recruitment_candidate_id = ".$id." ";
             
             try{
                 $r = DB::select($sql);

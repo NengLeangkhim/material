@@ -33,7 +33,7 @@ class HrmReQuestionTypeController extends Controller
             $validator = \Validator::make($request->all(), [
                 'question_type' =>  [  'required',
                                             'max:255',
-                                            Rule::unique('hr_question_type','name')
+                                            Rule::unique('hr_recruitment_question_type','name')
                                             ->where(function ($query) use ($request) {
                                             return $query->where('is_deleted', 'f');})
                                         ],//validate update for ignore unique if leave field not update,
@@ -77,7 +77,7 @@ class HrmReQuestionTypeController extends Controller
             $validator = \Validator::make($request->all(), [
                 'question_type' =>  [  'required',
                                             'max:255',
-                                            Rule::unique('hr_question_type','name')->ignore($request->question_type_id)
+                                            Rule::unique('hr_recruitment_question_type','name')->ignore($request->question_type_id)
                                             ->where(function ($query) use ($request) {
                                             return $query->where('is_deleted', 'f');})
                                         ],//validate update for ignore unique if leave field not update,

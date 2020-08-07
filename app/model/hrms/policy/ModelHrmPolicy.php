@@ -47,7 +47,7 @@ class ModelHrmPolicy extends Model
         return DB::table('hr_policy_user as p_u')
         ->select('p_u.*','p.name as name_policy','s.name','s.id_number','s.ma_position_id','po.name as position_name')
         ->join('ma_user as s','p_u.id_user','=','s.id')
-        ->join('position as po','s.ma_position_id','=','po.id')
+        ->join('ma_position as po','s.ma_position_id','=','po.id')
         ->join('hr_policy as p','p_u.id_policy','=','p.id')
         ->where('p_u.is_deleted','=','f')
         ->orderBy('p_u.id','ASC')
@@ -58,7 +58,7 @@ class ModelHrmPolicy extends Model
         return DB::table('hr_policy_user as p_u')
         ->select('p_u.*','p.name as name_policy','s.name','s.id_number','s.ma_company_dept_id','s.ma_position_id','po.name as position_name')
         ->join('ma_user as s','p_u.id_user','=','s.id')
-        ->join('position as po','s.ma_position_id','=','po.id')
+        ->join('ma_position as po','s.ma_position_id','=','po.id')
         ->join('hr_policy as p','p_u.id_policy','=','p.id')
         ->where([
             ['p_u.is_deleted', '=', 'f'],
@@ -72,7 +72,7 @@ class ModelHrmPolicy extends Model
         return DB::table('hr_policy_user as p_u')
         ->select('p_u.*','p.name as name_policy','s.name','s.id_number','s.ma_position_id','po.name as position_name')
         ->join('ma_user as s','p_u.id_user','=','s.id')
-        ->join('position as po','s.ma_position_id','=','po.id')
+        ->join('ma_position as po','s.ma_position_id','=','po.id')
         ->join('hr_policy as p','p_u.id_policy','=','p.id')
         ->where('p_u.id','=',$id)
         ->orderBy('p_u.id','ASC')

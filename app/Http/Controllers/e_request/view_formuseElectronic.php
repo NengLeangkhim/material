@@ -30,7 +30,7 @@ class view_formuseElectronic extends Controller
             $create_date=$v[0][0]['create_date'];
             $req_by=$v[0][0]['request_to'];
             $user_id=$req_by;
-            $q=DB::select("select s.name,p.name as position,d.name as dept,s.id_number from ma_user s join position p on p.id=s.ma_position_id join ma_company_dept d on d.id=s.ma_company_dept_id where s.id=$user_id");
+            $q=DB::select("select s.name,p.name as position,d.name as dept,s.id_number from ma_user s join ma_position p on p.id=s.ma_position_id join ma_company_dept d on d.id=s.ma_company_dept_id where s.id=$user_id");
             $r=ere_get_assoc::assoc_($q)[0];
            if($r){
                 $pos=$r['position'];
@@ -52,7 +52,7 @@ class view_formuseElectronic extends Controller
         $useof=$r;
 
         $q=DB::select("select s.id, s.name from ma_user s
-        join position p on p.id=s.ma_position_id
+        join ma_position p on p.id=s.ma_position_id
         where p.group_id <>1 and s.id_number is not null order by s.name");
         $r=ere_get_assoc::assoc_($q);
         $req=$r;

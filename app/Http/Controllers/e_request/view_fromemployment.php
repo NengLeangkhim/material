@@ -56,7 +56,7 @@ class view_fromemployment extends Controller
                 $mother=$v[6][1];
             }
         }
-        $q=DB::select("select id,name from position where group_id<>1 and group_id<>6");
+        $q=DB::select("select id,name from ma_position where group_id<>1 and group_id<>6");
         $r=ere_get_assoc::assoc_($q);
         $pos=$r;
 

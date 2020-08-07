@@ -11,7 +11,7 @@ class ModelHrmReQuestionType extends Model
     //
     // ===== Function model get data for table =====////
     public static function get_tbl_recruitment_question_type(){
-        $question_type_get = DB::table('hr_question_type as qt')
+        $question_type_get = DB::table('hr_recruitment_question_type as qt')
                            ->select('qt.*','staff_detail.username')
                            ->leftjoin('staff_detail','qt.create_by','=','staff_detail.ma_user_id')
                            ->where('qt.is_deleted','=','f')
@@ -26,7 +26,7 @@ class ModelHrmReQuestionType extends Model
     }
     // ===== Function model get data question type for update =====////
     public static function hrm_get_update_question_type($id){
-        return  DB::table('hr_question_type')
+        return  DB::table('hr_recruitment_question_type')
         ->select('name')
         ->where('id','=',$id)
         ->get(); 
@@ -51,7 +51,7 @@ class ModelHrmReQuestionType extends Model
     }
     // ===== Function model get data question type  =====////
    public static function hrm_get_question_type(){
-    return  DB::table('hr_question_type')
+    return  DB::table('hr_recruitment_question_type')
     ->select('*')
     ->where('is_deleted','=','f')
     ->get(); 
