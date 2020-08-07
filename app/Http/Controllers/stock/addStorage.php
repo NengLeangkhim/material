@@ -54,7 +54,7 @@ class addStorage extends Controller
             session_start();
         }
         if(perms::check_perm_module('STO_01')){
-            $q=DB::select("SELECT id,name from storage");
+            $q=DB::select("SELECT id,name from stock_storage");
             $m='<form action="/addstorage" id="form1" method="POST" name="addstoragelocation">
             <input type="hidden" name="_token" value="'.csrf_token().'">
             <div class="modal fade" id="modaladd" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

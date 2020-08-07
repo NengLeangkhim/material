@@ -22,7 +22,8 @@ class hr_dashboardModel extends Model
 
     //select all candidate status = true
     public static function candidate(){
-        $sql = "SELECT id, fname, lname, name_kh, register_date FROM hr_user WHERE status='t' ";
+        $sql = "SELECT id, fname, lname, name_kh, register_date FROM hr_recruitment_candidate
+        WHERE status='t' ";
         return DB::select($sql);
     }
 

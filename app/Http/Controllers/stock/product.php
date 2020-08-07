@@ -131,7 +131,7 @@ class product extends Controller
                 $addp=array();
                 $addp[]=DB::select("SELECT p.id,b.name as brand ,p.name,p.name_kh, p.part_number,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code, p.barcode,m.name as measurement, p.qty, p.price,(p.qty*p.price)as amount,p.image
                 FROM public.product p join measurement m on m.id=p.measurement_id join product_brand b on b.id=p.brand_id left join product_type pt on pt.id=p.product_type_id where p.id=".$id);
-                $addp[]=DB::select("SELECT distinct sum(q.qty)over(partition by q.company_detail_id,q.storage_detail_id) as qty,q.company_detail_id,s.storage,s.location,cd.company,cd.branch
+                $addp[]=DB::select("SELECT distinct sum(q.qty)over(partition by q.company_detail_id,q.storage_detail_id) as qty,q.company_detail_id,s.stock_storage,s.location,cd.company,cd.branch
                                     ,(select code from company_branch where id=cd.ma_company_branch_id) as company_code,(select get_code_prefix_ibuild(p.code,q.company_detail_id,p.code_prefix_owner_id,pt.code) from product p left join product_type pt on pt.id=p.product_type_id where p.id=q.product_id) as product_code
                                     from product_qty q
                                     left join ma_company_detail cd on cd.id=q.company_detail_id
@@ -153,7 +153,7 @@ class product extends Controller
                 // $addp[0]=DB::select("select id,name from ma_company");
                 $addp[1]=DB::select("select id,name from measurement where status='t'");
                 $addp[2]=DB::select("select id,name from product_brand where status='t'");
-                // $addp[3]=DB::select("select id,name from storage where status='t'");
+                // $addp[3]=DB::select("select id,name from stock_storage where status='t'");
                 $addp[4]=DB::select("select id,name from currency where status='t'");
                 // $addp[5]=DB::select("select id,name from supplier where status='t'");
                 $addp[6]=DB::select("SELECT p.id, p.name,p.name_kh, p.qty, p.price,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code,p.product_type_id,
