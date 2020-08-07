@@ -195,8 +195,8 @@ class perms extends Controller
     }
     private static function output_sub_nav($mo){
         $st='<li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>';
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>';
         foreach ($mo as $rr){
             // $rr->link=(empty($rr->link))?'':"value='{$rr->link}'";
             $st.='<li class="nav-item d-none d-sm-inline-block">
