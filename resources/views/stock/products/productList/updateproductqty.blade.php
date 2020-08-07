@@ -8,7 +8,7 @@
 //     $id=$edit->id;
 //     $pname=$edit->name;
 //     $ppartNumber=$edit->part_number;
-//     $supplier=$edit->company_id;
+//     $supplier=$edit->ma_company_id;
 //     $supplier_branch=$edit->branch_id;
 //     $unitType=$edit->measurement_id;
 //     $brand=$edit->brand_id;

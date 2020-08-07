@@ -31,7 +31,7 @@
                         <div class="form-group col-md-4">
                             <label>Company</label>
                             <input type="text" class="form-control" value="{{$action[1][0]->company}}" disabled>
-                            <input type="hidden" name="company" value="{{$action[1][0]->company_id}}">
+                            <input type="hidden" name="company" value="{{$action[1][0]->ma_company_id}}">
                         </div>
                     <div class="form-group col-md-4">
                         <label>Company Branch<i class="text-danger">*</i></label>

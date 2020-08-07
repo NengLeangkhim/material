@@ -180,7 +180,7 @@ class product extends Controller
         }
         if(perms::check_perm_module('STO_01')){
             $id=$_GET['_id'];//set up same for ajax
-            $get_branch=DB::select('select id,branch as name from company_branch where status=\'t\' and company_id='.$id);
+            $get_branch=DB::select('select id,branch as name from company_branch where status=\'t\' and ma_company_id='.$id);
             return response()->json(array('response'=> $get_branch), 200);//set up same for ajax
         }else{
             return view('no_perms');
@@ -193,7 +193,7 @@ class product extends Controller
         if(perms::check_perm_module('STO_01')){
             // $id=$_GET['_id'];//set up same for ajax
             $tid=$_GET['_tid'];
-            // $get_branch=DB::select('select name from product_code where status=\'t\' and company_id='.$id);
+            // $get_branch=DB::select('select name from product_code where status=\'t\' and ma_company_id='.$id);
             $max=DB::select("SELECT * from public.get_code_ibuild(null,1,$tid);");
             $t=DB::select("select get_code_prefix_ibuild({$max[0]->code},null,{$max[0]->code_prefix_owner_id},(select code from product_type where id=$tid)) as name");
             // $get_branch=array();

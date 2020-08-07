@@ -23,7 +23,7 @@ $q->execute();
 $r=$q->fetchAll(PDO::FETCH_ASSOC);
 $pos=$r;
 
-$q=$con->prepare("SELECT id, branch FROM public.company_branch where company_id=8;");
+$q=$con->prepare("SELECT id, branch FROM public.company_branch where ma_company_id=8;");
 $q->execute();
 $r=$q->fetchAll(PDO::FETCH_ASSOC);
 $branch=$r;

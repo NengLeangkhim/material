@@ -20,7 +20,7 @@ if(count($addp)==5){
     $currency=$edit->currency_id;
     $bbarcode=$edit->barcode;
     $ptype=$edit->product_type_id;
-    // $company=$edit->company_id;
+    // $company=$edit->ma_company_id;
     // $company_branch=$edit->branch_id;
     // $storage_location=0;
     $e='disabled';

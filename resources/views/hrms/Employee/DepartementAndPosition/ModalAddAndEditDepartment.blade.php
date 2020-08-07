@@ -31,7 +31,7 @@
                         @php
                             
                             if(isset($data[1])){
-                                if($data[1][0]->company_id==$c->id){
+                                if($data[1][0]->ma_company_id==$c->id){
                                 $f1=$f1.'<option value="'.$c->id.'">'.$c->name.'</option>';
                               }else {
                                 $f2=$f2.'<option value="'.$c->id.'">'.$c->name.'</option>';

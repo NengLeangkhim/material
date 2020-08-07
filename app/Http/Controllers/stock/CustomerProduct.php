@@ -94,7 +94,7 @@ class CustomerProduct extends Controller
             $currency=$_POST['currency'];
             $location=$_POST['storage_location'];
             $storage=$_POST['storage'];
-            $company="(select cd.company_id from company_detail cd join staff s on s.company_detail_id=cd.id where cd.status='t' and s.id=$staff)";
+            $company="(select cd.ma_company_id from company_detail cd join staff s on s.company_detail_id=cd.id where cd.status='t' and s.id=$staff)";
             $company_branch="(select cd.branch_id from company_detail cd join staff s on s.company_detail_id=cd.id where cd.status='t' and s.id=$staff)";
             $sql="insert_product_customer($customer,$customer_branch,$company,$company_branch,$_by,'$action_type',$staff,'$des') as id";
             $q=DB::select("SELECT ".$sql);

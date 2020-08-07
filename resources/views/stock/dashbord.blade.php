@@ -17,7 +17,7 @@
                   @foreach($company[1] as $brand)
                   @php
                     $b=0;
-                    if($companys->id==$brand->company_id){
+                    if($companys->id==$brand->ma_company_id){
                       $b=$brand->count;
                       break;
                     }

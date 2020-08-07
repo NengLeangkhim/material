@@ -27,18 +27,18 @@ class addproduct_to_view extends Controller
                 $company_id=$_GET['comp_id'];
             }
             if(isset($_GET['branch'])){
-                    $cdi="(select id from company_detail where status='t' and company_id=$company_id and branch_id={$_GET['branch']})";
+                    $cdi="(select id from company_detail where status='t' and ma_company_id=$company_id and branch_id={$_GET['branch']})";
             }
             $sql="SELECT p.id, p.name,pt.name_en as type, p.qty, p.price, p.barcode, p.part_number,get_code_prefix_ibuild(p.code,$cdi,p.code_prefix_owner_id,pt.code) as product_code
                     FROM public.product p
                     left join product_type pt on pt.id=p.product_type_id
                     join product_company pc on pc.product_id=p.id
-                    where 't' and pc.company_id=$company_id";
+                    where 't' and pc.ma_company_id=$company_id";
             if(isset($_GET['assign'])){
                     $sql="SELECT p.id, p.name,pt.name_en as type, p.qty, p.price, p.barcode, p.part_number,get_code_prefix_ibuild(p.code,$cdi,p.code_prefix_owner_id,pt.code) as product_code
                         FROM public.product p
                         left join product_type pt on pt.id=p.product_type_id
-                        where 't' and p.id NOT iN (select distinct product_id from product_company where company_id=".$_GET['assign'].")";
+                        where 't' and p.id NOT iN (select distinct product_id from product_company where ma_company_id=".$_GET['assign'].")";
             }
             $action=DB::select("select * from ($sql) as fee where 't' and (lower(name) like '%$s%'
                                 or lower(barcode) like '%$s%' or lower(part_number) like '%$s%' or lower(product_code) like '%$s%' or lower(type) like '%$s%') limit $limit offset $start_from ;");
@@ -105,15 +105,15 @@ class addproduct_to_view extends Controller
         $id=$_GET['_id'];
         $st_id=$_SESSION['userid'];
         $cdi="(select company_detail_id from staff where id=$st_id)";
-        $company_id="(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=$st_id)";
+        $company_id="(select cd.ma_company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=$st_id)";
         if(isset($_GET['branch'])){
             if(isset($_GET['comp_id'])){
                 $b=$_GET['branch'];
                 $c=$_GET['comp_id'];
-                $cdi="(select id from company_detail where status='t' and company_id=$c and branch_id=$b)";
+                $cdi="(select id from company_detail where status='t' and ma_company_id=$c and branch_id=$b)";
             }else{
                 $b=$_GET['branch'];
-                $cdi="(select id from company_detail where status='t' and company_id=$company_id and branch_id=$b)";
+                $cdi="(select id from company_detail where status='t' and ma_company_id=$company_id and branch_id=$b)";
             }
         }
         $sql="SELECT p.id, p.name, p.price, p.barcode, p.part_number,get_code_prefix_ibuild(p.code,$cdi,p.code_prefix_owner_id,pt.code) as product_code,
@@ -144,11 +144,11 @@ class addproduct_to_view extends Controller
         // }
     //     if(isset($_GET['search'])){
     //         $st_id=$_SESSION['userid'];
-    //         $company_id="(select cd.company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=$st_id)";
+    //         $company_id="(select cd.ma_company_id from staff s join company_detail cd on cd.id=s.company_detail_id where s.id=$st_id)";
     //         $cdi="(select company_detail_id from staff where id=$st_id)";
     //         if(isset($_GET['branch'])){
     //             $b=$_GET['branch'];
-    //             $cdi="(select id from company_detail where status='t' and company_id=$company_id and branch_id=$b)";
+    //             $cdi="(select id from company_detail where status='t' and ma_company_id=$company_id and branch_id=$b)";
     //         }
     //         $s=str_replace("'","''",$_GET['search']);
     //         $s=strtolower($s);
@@ -158,7 +158,7 @@ class addproduct_to_view extends Controller
     //                             FROM public.product p
     //                             join product_company pc on pc.product_id=p.id
     //                             left join product_type pt on pt.id=p.product_type_id
-    //                             where pc.company_id=$company_id ";
+    //                             where pc.ma_company_id=$company_id ";
     //         $action=DB::select("select * from ($sql) as fee where 't' and
     //                             (lower(name) like '%$s%' or lower(barcode) like '%$s%' or lower(part_number) like '%$s%' or lower(product_code) like '%$s%' or lower(type) like '%$s%') limit $limit offset $start_from");
     //         $pagi=DB::select("SELECT count(*) from (select * from ($sql) as fee where 't' and

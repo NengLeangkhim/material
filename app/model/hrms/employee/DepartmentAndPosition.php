@@ -10,9 +10,9 @@ class DepartmentAndPosition extends Model
         try {
             if($id>0){
                 $department = DB::table('ma_company_dept')
-                ->select('id', 'name', 'name_kh', 'company_id')
+                ->select('id', 'name', 'name_kh', 'ma_company_id')
                 ->where([
-                    ['company_id', '=', 8],
+                    ['ma_company_id', '=', 8],
                     ['status', '=', 't'],
                     ['is_deleted', '=', 'f'],
                     ['id','=',$id]
@@ -20,9 +20,9 @@ class DepartmentAndPosition extends Model
                 ->orderBy('name')->get();
             }else{
                 $department = DB::table('ma_company_dept')
-                ->select('id', 'name', 'name_kh', 'company_id')
+                ->select('id', 'name', 'name_kh', 'ma_company_id')
                 ->where([
-                    ['company_id', '=', 8],
+                    ['ma_company_id', '=', 8],
                     ['status', '=', 't'],
                     ['is_deleted', '=', 'f']
                 ])
