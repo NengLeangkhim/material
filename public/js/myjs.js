@@ -6,7 +6,6 @@ function check_session(){
 	$.ajax({
         type:'GET',
         url: "check_session",
-        async:false,
         success: function(data){
             if(parseInt(data)==0){
                 alert("session expired!");
@@ -32,7 +31,6 @@ function check_session(){
       $.ajax({
         type: 'GET',
         url:link,
-        async:false,
         success:function(data){
             $(".content-wrapper").show();
             if(data.length>0){
@@ -55,7 +53,6 @@ function check_session(){
         $.ajax({
           type: 'POST',
           url:'sub_r_nav',
-          async:false,
           data:{
             _mo:code,
             _token : $('meta[name="csrf-token"]').attr('content'),

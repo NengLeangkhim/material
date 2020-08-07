@@ -30,15 +30,15 @@ class RouteController extends Controller
                 // $_SESSION['module']=perms:: get_module();
                 $user_id=$_SESSION['userid'];
                 $head=DB::select("select s.name,s.name_kh,s.id_number,s.image ,cdm.type,p.name as position,s.contact
-                from company_dept_manager cdm
-                join staff s on s.position_id=cdm.position_id
-                join position p on p.id=s.position_id
+                from ma_company_dept_manager cdm
+                join ma_user s on s.ma_position_id=cdm.ma_position_id
+                join ma_position p on p.id=s.ma_position_id
                 where 't'
 				and cdm.id=(select get_dept_manager($user_id))
 				and cdm.type<>'normal'
 				and s.status='t'");
-                $uself=DB::select("select s.name,s.name_kh,s.id_number,s.image,p.name as position,s.contact from staff s join position p on p.id=s.position_id where s.id=$user_id");
-                $dept=DB::select("select name from company_dept where id=(select company_dept_id from staff where id=$user_id)");
+                $uself=DB::select("select s.name,s.name_kh,s.id_number,s.image,p.name as position,s.contact from ma_user s join ma_position p on p.id=s.ma_position_id where s.id=$user_id");
+                $dept=DB::select("select name from ma_company_dept where id=(select ma_company_dept_id from ma_user where id=$user_id)");
                 return view('welcome',compact("head","uself","dept"));
             }else{
                 return view('login');

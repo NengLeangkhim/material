@@ -44,9 +44,9 @@
                 @csrf
                 <h3 class="login-head"><img src="images/turbotech.png" width="100%" height="100%" alt=""></h3>
                 <div class="form-group" >
-                    <label class="control-label">User ID</label>
+                    <label class="control-label">Email</label>
                     <div class="inputWithIcon">
-                        <input class="form-control " name="username" type="text" placeholder="User ID:" value="{{ $old??'' }}" autofocus required>
+                        <input class="form-control " name="username" type="text" placeholder="Email:" value="{{ $old??'' }}" autofocus required>
                         <i class="fa fa-lg fa-fw fa-envelope-square"></i>
                     </div>
                 </div>
