@@ -128,9 +128,9 @@ class DepartmentAndPosition extends Model
     function Groupe($id=0){
         try {
             if ($id > 0) {
-                $sql = "SELECT id,name FROM \"group\" where status='t' and is_deleted='f' and id=$id order by name";
+                $sql = "SELECT id,name FROM \"ma_group\" where status='t' and is_deleted='f' and id=$id order by name";
             } else {
-                $sql = "SELECT id,name FROM \"group\" where status='t' and is_deleted='f' order by name";
+                $sql = "SELECT id,name FROM \"ma_group\" where status='t' and is_deleted='f' order by name";
             }
             return DB::select($sql);
         } catch (Throwable $e) {
