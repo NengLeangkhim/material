@@ -125,6 +125,11 @@ function HRM_ShowDetail(rout,modalName,id=-1){
         }
    // End Overtime
 // End Employee
+// Training
+    function HRM_TrainedOrNot(e){
+        alert(e.value);
+    }
+// End Training
 
 
 

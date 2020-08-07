@@ -126,3 +126,11 @@ thead tr th{
     color: #333;
     font-weight: 600;
 }
+.my-custom-scrollbar {
+position: relative;
+height: 200px;
+overflow: auto;
+}
+.table-wrapper-scroll-y {
+display: block;
+}
