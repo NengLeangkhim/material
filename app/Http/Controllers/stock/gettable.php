@@ -701,7 +701,7 @@ class gettable extends Controller
         (select name from staff where id=c.approve_by and is_deleted=\'f\') as "Approve by",
         c.request_date as "Request Date", c.action_type as "Action Type"
             FROM public.product_customer_ c
-            join customer_detail cd on cd.id=c.customer_detail_id
+            join ma_customer_detail cd on cd.id=c.customer_detail_id
             where action_type=\'out\'
 			and cd.is_deleted=\'f\'
 			and c.is_deleted=\'f\') as foo
@@ -714,7 +714,7 @@ class gettable extends Controller
         (select name from staff where id=c.approve_by and is_deleted=\'f\') as "Approve by",
         c.request_date as "Request Date", c.action_type as "Action Type"
             FROM public.product_customer_ c
-            join customer_detail cd on cd.id=c.customer_detail_id
+            join ma_customer_detail cd on cd.id=c.customer_detail_id
             where action_type=\'return\'
 			and cd.is_deleted=\'f\'
 			and c.is_deleted=\'f\') as foo

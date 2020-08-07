@@ -60,7 +60,7 @@ class CustomerProduct extends Controller
         }
         if(perms::check_perm_module('STO_01')){
             $id=$_GET['_id'];//set up same for ajax
-            $get_branch=DB::select('select id,branch as name from customer_branch where status=\'t\' and ma_customer_id='.$id);
+            $get_branch=DB::select('select id,branch as name from ma_customer_branch where status=\'t\' and ma_customer_id='.$id);
             return response()->json(array('response'=> $get_branch), 200);//set up same for ajax
         }
     }
@@ -71,7 +71,7 @@ class CustomerProduct extends Controller
         if(perms::check_perm_module('STO_01')){
             $id=$_GET['customer_id'];
             $branch_id=$_GET['branch_id'];
-            $get_branch=DB::select("select connection_id as name from customer_branch where status='t' and ma_customer_id=$id and id=$branch_id");
+            $get_branch=DB::select("select connection_id as name from ma_customer_branch where status='t' and ma_customer_id=$id and id=$branch_id");
             return response()->json(array('response'=> $get_branch), 200);//set up same for ajax
         }
     }
@@ -132,7 +132,7 @@ class CustomerProduct extends Controller
                     (select name from staff where id=c.approve_by) as approve_by,
                     c.request_date, c.action_type,c.description
                         FROM public.product_customer_ c
-                        join customer_detail cd on cd.id=c.customer_detail_id
+                        join ma_customer_detail cd on cd.id=c.customer_detail_id
                         where c.id=$id and cd.status='t'";
             $sql1="SELECT b.name as brand,get_code_prefix_ibuild(p.code,pc.company_detail_id,p.code_prefix_owner_id,(select code from product_type where id=p.product_type_id)) as product_code,p.name,p.part_number,p.barcode,m.name as measurement,c.name as currency,pd.qty,pd.price,(pd.qty*pd.price) as amount
                     from product_customer_detail pd
