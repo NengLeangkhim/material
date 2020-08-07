@@ -84,7 +84,8 @@ class recruitment_userModel extends Model
 
     // function insert user answer
     public static  function submit_answer($c_id,$q_id,$an_text,$is_true,$start,$end,$userid){
-        $sql = "INSERT INTO hr_user_answer(choice_id, question_id, answer_text, is_right, start_time, end_time, status, user_id ) 
+        $sql = "INSERT INTO hr_user_answer(hr_recruitment_question_choice_id
+, question_id, answer_text, is_right, start_time, end_time, status, user_id ) 
                 VALUES($c_id, ".$q_id.", '$an_text', '$is_true', '$start', '$end', 't', '$userid')";
         
         try {
@@ -151,7 +152,8 @@ class recruitment_userModel extends Model
     public static function user_quiz_result($id){
 
         $sql = "SELECT  q.question, q_t.id as q_type_id, q_t.name as question_type, CONCAT(q_c.choice, u_a.answer_text) as user_answer, u_a.is_right, u_a.start_time, u_a.end_time  
-                FROM ((hr_user_answer u_a LEFT JOIN hr_question_choice q_c ON  u_a.choice_id = q_c.id) 
+                FROM ((hr_user_answer u_a LEFT JOIN hr_question_choice q_c ON  u_a.hr_recruitment_question_choice_id
+ = q_c.id) 
                 JOIN hr_question q ON u_a.question_id = q.id) 
                 LEFT JOIN hr_question_type q_t ON q.question_type_id = q_t.id  where u_a.user_id = ".$id." ";
             

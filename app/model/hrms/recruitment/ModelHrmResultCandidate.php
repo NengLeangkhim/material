@@ -85,9 +85,11 @@ class ModelHrmResultCandidate extends Model
     }
     // ===== Function model get data for calculate time=====////
     public static function get_candidate_score($id){
-        return DB::select("SELECT COUNT(ua.choice_id),ua.is_right,ua.user_id,q.question_type_id from hr_user_answer ua
+        return DB::select("SELECT COUNT(ua.hr_recruitment_question_choice_id
+),ua.is_right,ua.user_id,q.question_type_id from hr_user_answer ua
         left join hr_question q on ua.question_id=q.id 
-        left join hr_question_choice an on ua.choice_id=an.id where ua.user_id=? and q.question_type_id=?
+        left join hr_question_choice an on ua.hr_recruitment_question_choice_id
+=an.id where ua.user_id=? and q.question_type_id=?
         group by ua.is_right,ua.user_id,q.question_type_id",[$id,1]);
     }
     // ===== Function Count True Answer =======//
@@ -97,9 +99,11 @@ class ModelHrmResultCandidate extends Model
     }
     // ===== Function model get data Question Choice=====////
     public static function get_result_choice($id){
-        return DB::select("SELECT ua.choice_id,ua.question_id,ua.is_right,ua.user_id,q.question,q.id as question_id,q.question_type_id,an.id,an.choice,an.is_right_choice from hr_user_answer ua
+        return DB::select("SELECT ua.hr_recruitment_question_choice_id
+,ua.question_id,ua.is_right,ua.user_id,q.question,q.id as question_id,q.question_type_id,an.id,an.choice,an.is_right_choice from hr_user_answer ua
         left join hr_question q on ua.question_id=q.id 
-        left join hr_question_choice an on ua.choice_id=an.id where ua.user_id=? and q.question_type_id=?",[$id,1]);
+        left join hr_question_choice an on ua.hr_recruitment_question_choice_id
+=an.id where ua.user_id=? and q.question_type_id=?",[$id,1]);
     }
     // ===== Function model get data Right Choice=====////
     public static function get_true_choice(){
