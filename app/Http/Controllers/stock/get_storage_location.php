@@ -16,7 +16,7 @@ class get_storage_location extends Controller
         }
         if(perms::check_perm_module('STO_01')){
             // $storage=$_SESSION['warehouse'];
-            // $sql="SELECT id,name from storage_location where stock_storage_id=$storage";
+            // $sql="SELECT id,name from storage_location where storage_id=$storage";
             $sql="";
             if(isset($_GET['pid'])){
                 $id=$_GET['pid'];
@@ -26,7 +26,7 @@ class get_storage_location extends Controller
             }
             if(isset($_GET['_id'])){
                 $id=$_GET['_id'];
-                $sql="select id, name from storage_location where stock_storage_id=$id and status='t'";
+                $sql="select id, name from storage_location where storage_id=$id and status='t'";
             }
             $q=DB::select($sql);
             return response()->json(array('response'=> $q), 200);

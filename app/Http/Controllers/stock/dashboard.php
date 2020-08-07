@@ -50,19 +50,19 @@ class dashboard extends Controller
              from product p join product_qty q on p.id=q.product_id join ma_company_detail cd on cd.id=q.company_detail_id join product_company pc on pc.product_id=p.id where 't' and cd.ma_company_id=$company_id group by p.id having (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id) is not null";
         }else{
             $sql="select p.id,p.name,
-            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.stock_storage_id=$location and q.action_type='in') as import,
-            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.stock_storage_id=$location and q.action_type='out') as request,
-            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.stock_storage_id=$location and q.action_type='return') as return,
-            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.stock_storage_id=$location ) as total
+            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.storage_id=$location and q.action_type='in') as import,
+            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.storage_id=$location and q.action_type='out') as request,
+            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.storage_id=$location and q.action_type='return') as return,
+            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.storage_id=$location ) as total
             from product p
             join product_qty q on p.id=q.product_id
             join product_company pc on pc.product_id=p.id
             join ma_company_detail cd on cd.id=q.company_detail_id
             join storage_detail sd on sd.id=q.storage_detail_id
             where lower(p.name) like '%$search%'
-            and cd.ma_company_id=$company_id and sd.stock_storage_id=$location
+            and cd.ma_company_id=$company_id and sd.storage_id=$location
             group by p.id
-            having (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.stock_storage_id=$location) is not null";
+            having (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.storage_id=$location) is not null";
         }
         $totalRow=DB::select($sql);
         $limit=10;

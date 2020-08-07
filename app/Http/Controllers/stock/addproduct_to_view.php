@@ -121,8 +121,8 @@ class addproduct_to_view extends Controller
                 (select sum(q.qty) from product_qty q where q.product_id=p.id and q.company_detail_id=$cdi) as qty,
                 (select s.location from product_qty q join storage_detail s on s.id=q.storage_detail_id where q.product_id=p.id and q.company_detail_id=$cdi limit 1) as location,
                 (select s.storage_location_id from product_qty q join storage_detail s on s.id=q.storage_detail_id where q.product_id=p.id and q.company_detail_id=$cdi limit 1) as location_id,
-                (select s.stock_storage_id from product_qty q join storage_detail s on s.id=q.storage_detail_id where q.product_id=p.id and q.company_detail_id=$cdi limit 1) as stock_storage_id,
-                (select s.stock_storage from product_qty q join storage_detail s on s.id=q.storage_detail_id where q.product_id=p.id and q.company_detail_id=$cdi limit 1) as stock_storage
+                (select s.storage_id from product_qty q join storage_detail s on s.id=q.storage_detail_id where q.product_id=p.id and q.company_detail_id=$cdi limit 1) as storage_id,
+                (select s.storage from product_qty q join storage_detail s on s.id=q.storage_detail_id where q.product_id=p.id and q.company_detail_id=$cdi limit 1) as storage
                 FROM public.product p
                 left join product_type pt on pt.id=p.product_type_id
                 join currency c on c.id=p.currency_id
@@ -131,7 +131,7 @@ class addproduct_to_view extends Controller
         $q=array();
         $q[]=DB::select($sql);
         if(isset($_GET['act'])){
-            $sql1="select id ,name from stock_storage where status='t'";
+            $sql1="select id ,name from storage where status='t'";
             $q[]=DB::select($sql1);
         }
          return response()->json(array('response'=> $q), 200);//set up same for ajax

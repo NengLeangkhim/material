@@ -50,7 +50,7 @@ function add_row_qty(id,qtya,pricea){//get value to view of company
                     var storage='<input type="hidden" id="s_loc'+val['id']+'" value="'+val['location_id']+'"'+apr+'>';
                     storage+='<select name="storage[]" id="storage'+val['id']+'" class="form-control input-sm text-center" onchange="getbranch(this,\'storage_location'+val['id']+'\',\'s_loc'+val['id']+'\',\'/get_s_location\')" required '+apr+'>';
                     for(i=0;i<s.length;i++){
-                        if(s[i]['id']==val['stock_storage_id']){
+                        if(s[i]['id']==val['storage_id']){
                             sc="checked";
                         }
                         storage+='<option value="'+s[i]['id']+'"'+sc+'>'+s[i]['name']+'</option>';
@@ -62,7 +62,7 @@ function add_row_qty(id,qtya,pricea){//get value to view of company
 
                     var location='<select name="storage_location[]" id="storage_location'+val['id']+'" class="form-control input-sm text-center" required '+apr+'><select>';
                 }else{
-                    var storage='<input type="hidden" name="storage[]" value="'+val['stock_storage_id']+'">'+s;
+                    var storage='<input type="hidden" name="storage[]" value="'+val['storage_id']+'">'+s;
                     var location='<input type="hidden" name="storage_location[]" value="'+val['location_id']+'">'+l;
                 }
                 // for(i=0;i<storage_location.length;i++){
