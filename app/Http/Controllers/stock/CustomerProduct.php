@@ -60,7 +60,7 @@ class CustomerProduct extends Controller
         }
         if(perms::check_perm_module('STO_01')){
             $id=$_GET['_id'];//set up same for ajax
-            $get_branch=DB::select('select id,branch as name from customer_branch where status=\'t\' and customer_id='.$id);
+            $get_branch=DB::select('select id,branch as name from customer_branch where status=\'t\' and ma_customer_id='.$id);
             return response()->json(array('response'=> $get_branch), 200);//set up same for ajax
         }
     }
@@ -71,7 +71,7 @@ class CustomerProduct extends Controller
         if(perms::check_perm_module('STO_01')){
             $id=$_GET['customer_id'];
             $branch_id=$_GET['branch_id'];
-            $get_branch=DB::select("select connection_id as name from customer_branch where status='t' and customer_id=$id and id=$branch_id");
+            $get_branch=DB::select("select connection_id as name from customer_branch where status='t' and ma_customer_id=$id and id=$branch_id");
             return response()->json(array('response'=> $get_branch), 200);//set up same for ajax
         }
     }
