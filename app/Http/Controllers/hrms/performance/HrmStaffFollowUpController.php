@@ -22,7 +22,7 @@ class HrmStaffFollowUpController extends Controller
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
             foreach($permission as $row){
                 $group = $row->group_id;
-                $dept = $row->company_dept_id;
+                $dept = $row->ma_company_dept_id;
             }
             if($group==5 || $group==1){ //permission check for CEO and Admin
                 $follow_up = ModelHrmStaffFollowUp::hrm_get_tbl_follow_up_top(); //query database

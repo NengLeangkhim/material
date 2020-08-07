@@ -56,13 +56,13 @@ class ModelHrmPolicy extends Model
     //====== Function show index user policy for Head of Each Departement ====//
     public static function hrm_get_tbl_policy_user_dept($dept){
         return DB::table('hr_policy_user as p_u')
-        ->select('p_u.*','p.name as name_policy','s.name','s.id_number','s.company_dept_id','s.position_id','po.name as position_name')
+        ->select('p_u.*','p.name as name_policy','s.name','s.id_number','s.ma_company_dept_id','s.position_id','po.name as position_name')
         ->join('staff as s','p_u.id_user','=','s.id')
         ->join('position as po','s.position_id','=','po.id')
         ->join('hr_policy as p','p_u.id_policy','=','p.id')
         ->where([
             ['p_u.is_deleted', '=', 'f'],
-            ['s.company_dept_id', '=', $dept],
+            ['s.ma_company_dept_id', '=', $dept],
         ])
         ->orderBy('p_u.id','ASC')
         ->get(); 

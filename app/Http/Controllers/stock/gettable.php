@@ -690,7 +690,7 @@ class gettable extends Controller
                 or lower("Part number") like \'%'.$sr.'%\' or lower("Barcode") like \'%'.$sr.'%\' or lower("Brand") like \'%'.$sr.'%\'
                 or lower("Type") like \'%'.$sr.'%\'';
         $sqlstr['productAssign']='SELECT distinct c.id,c.code as "Company Code", c.name as "Company",
-        (select count(id)from company_branch where ma_company_id=c.id and is_deleted=\'f\') as "Branches",
+        (select count(id)from ma_company_branch where ma_company_id=c.id and is_deleted=\'f\') as "Branches",
         count(pc.product_id)over (partition by pc.ma_company_id) as "Assigned Product"
         from product_company pc
         right join ma_company c on c.id=pc.ma_company_id

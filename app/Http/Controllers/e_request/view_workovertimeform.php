@@ -112,7 +112,7 @@ class view_workovertimeform extends Controller
         $req_by=$r['name'];
         }
 
-        $q=DB::select("select s.name,p.name as position,d.name as dept from staff s join position p on p.id=s.position_id join ma_company_dept d on d.id=s.company_dept_id where s.id=$user_id");
+        $q=DB::select("select s.name,p.name as position,d.name as dept from staff s join position p on p.id=s.position_id join ma_company_dept d on d.id=s.ma_company_dept_id where s.id=$user_id");
         $r=ere_get_assoc::assoc_($q)[0];
         $pos=empty($r['position'])?'':$r['position'];
         $name=empty($r['name'])?'':$r['name'];

@@ -27,13 +27,13 @@ class dashbord extends Controller
            $_SESSION['password']=$pas;
            $_SESSION['userid']=$users;
            $_SESSION['warehouse']=1;
-           $positionID=DB::select("select position_id,company_dept_id from staff where id=$users");
+           $positionID=DB::select("select position_id,ma_company_dept_id from staff where id=$users");
            $_SESSION['position_id']=$positionID;
            //    $id=DB::select("SELECT public.insert_login_detail($users)");
            $_SESSION['module']=perms::get_module();
             if(perms::check_perm()){
                 return view('start');
-                // if($positionID[0]->position_id==1 || $positionID[0]->company_dept_id==10){
+                // if($positionID[0]->position_id==1 || $positionID[0]->ma_company_dept_id==10){
                 //     $arr[]=array();
                 //     $arr[0]=DB::select('select id,name from ma_company');
                 //     $arr[1]=DB::select('SELECT COUNT(cd.branch_id),cd.ma_company_id from ma_company c INNER JOIN company_detail cd on c."id"=cd.ma_company_id GROUP BY cd.ma_company_id');

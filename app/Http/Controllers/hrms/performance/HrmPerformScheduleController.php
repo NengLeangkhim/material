@@ -24,7 +24,7 @@ class HrmPerformScheduleController extends Controller
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
             foreach($permission as $row){
                 $group = $row->group_id;
-                $dept = $row->company_dept_id;
+                $dept = $row->ma_company_dept_id;
             }
             if($group==5 || $group==1){ //permission check for CEO and Admin
                 $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_top(); //query policy user 

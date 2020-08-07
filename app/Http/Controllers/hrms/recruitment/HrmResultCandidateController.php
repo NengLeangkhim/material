@@ -21,7 +21,7 @@ class HrmResultCandidateController extends Controller
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
             foreach($permission as $row){
                 $group = $row->group_id;
-                $dept = $row->company_dept_id;
+                $dept = $row->ma_company_dept_id;
             }
             if($group==5 || $group==1){ //permission check for CEO and Admin
                 $result = ModelHrmResultCandidate::get_tbl_result_candidate_ceo(); //query Result for Top CEO 
@@ -47,7 +47,7 @@ class HrmResultCandidateController extends Controller
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
             foreach($permission as $row){
                 $group = $row->group_id;
-                $dept = $row->company_dept_id;
+                $dept = $row->ma_company_dept_id;
             }
             if($group==5 || $group==1){ //permission check for CEO and Admin
                 $candidate = ModelHrmResultCandidate::get_candidate($id_candidate); //query Result for Top CEO
@@ -97,7 +97,7 @@ class HrmResultCandidateController extends Controller
             $userid = $_SESSION['userid'];
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
             foreach($permission as $row){
-                $dept = $row->company_dept_id;
+                $dept = $row->ma_company_dept_id;
             }
             $knowledge = ModelHrmResultCandidate::get_knowledge_question_dept($dept);
             return view('hrms/recruitment/result_candidate/HrmModalKnowledgeQuestion',['knowledge'=>$knowledge]); 

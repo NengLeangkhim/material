@@ -180,7 +180,7 @@ class HrmPolicyController extends Controller
             $userid = $_SESSION['userid'];
             $permission = ModelHrmPermission::hrm_get_permission($userid);
             foreach($permission as $row){
-                $dept = $row->company_dept_id;
+                $dept = $row->ma_company_dept_id;
                 $group = $row->group_id;
             }
             if($group==5){ //permission check for CEO

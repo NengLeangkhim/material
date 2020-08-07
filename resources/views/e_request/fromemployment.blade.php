@@ -480,7 +480,7 @@
                                     foreach($dept as $key=>$rr){
                                         $sel='';
                                         if(isset($v2)){
-                                            if($v2['company_dept_id']==$rr['id']){
+                                            if($v2['ma_company_dept_id']==$rr['id']){
                                                 $sel='selected';
                                             }
                                         }else{

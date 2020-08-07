@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
         public function sqlst($s,$id){
             $sql=array();
             $sql['get_pos']="select p.name from position p join staff s on s.position_id=p.id where s.id=$id";
-            $sql['get_company_dept']="select d.name from ma_company_dept d join staff s on s.company_dept_id=d.id where s.id=$id";
+            $sql['get_company_dept']="select d.name from ma_company_dept d join staff s on s.ma_company_dept_id=d.id where s.id=$id";
             $sql['get_all_staff']="select id,name from staff order by name";
             $sql['get_id_number']="select id_number as name from staff where id=$id";
 //===============================example====================================
@@ -27,9 +27,9 @@ use Illuminate\Support\Facades\DB;
             FROM public.e_request_employment_biography where id=$id;";
             $sql['e_request_employment_biography'][]="SELECT country, \"group\", home_number, street, commune, village, district, province
             FROM public.e_request_employment_biography_address where e_request_employment_biography=$id;";
-            $sql['e_request_employment_biography'][]="SELECT carrier as carrer, position_id, company_dept_id, start_work_date, id_card_r_passport, id_card_r_passport_date, family_book_number, family_book_date, image, id_number
+            $sql['e_request_employment_biography'][]="SELECT carrier as carrer, position_id, ma_company_dept_id, start_work_date, id_card_r_passport, id_card_r_passport_date, family_book_number, family_book_date, image, id_number
             FROM public.e_request_employment_biography_ where e_request_employment_biography=$id;";
-            $sql['e_request_employment_biography'][]="SELECT name as relative_name, id_number as relative_id_number, position_id as relative_positionid, company_dept_id as relative_company_dept_id, relation as relative_relation
+            $sql['e_request_employment_biography'][]="SELECT name as relative_name, id_number as relative_id_number, position_id as relative_positionid, ma_company_dept_id as relative_company_dept_id, relation as relative_relation
             FROM public.e_request_employment_biography_relative where e_request_employment_biography=$id;";
             $sql['e_request_employment_biography'][]="SELECT name as spouse_name, birth_date as spouse_birth_date, nationality as spouse_nationality, nation as spouse_nation, religion as spouse_religion, birth_place as spouse_birth_place, current_address as spouse_current_address, phone as spouse_phone, work_place as spouse_work_place, children_count as spouse_children_count, \"position\" as spouse_position, id_number as spouse_id_number, sex as spouse_sex
             FROM public.e_request_employment_biography_spouse where e_request_employment_biography=$id;";

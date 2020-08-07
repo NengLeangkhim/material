@@ -28,7 +28,7 @@
     </div>
 </div><br>
 <?php
-    if($c&&($c['type']=='normal'||$c['type']=='top'||($c['type']=='mid'&&$c['company_dept_id']==4))){
+    if($c&&($c['type']=='normal'||$c['type']=='top'||($c['type']=='mid'&&$c['ma_company_dept_id']==4))){
         echo '<div class="col-8 offset-2"><canvas id="bar-chart" width="400" height="120"></canvas></div>';
     }
 ?>

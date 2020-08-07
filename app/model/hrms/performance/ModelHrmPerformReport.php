@@ -10,7 +10,7 @@ class ModelHrmPerformReport extends Model
     // ===== Function get data for table report =====////
     public static function hrm_get_tbl_perform_report($dept,$from,$to){
         $report= DB::table('hr_performance_manager_follow_up as pfm')
-                    ->select('pfm.*','s.name as name_staff','s.company_dept_id','sd.username','pscore.name as pfm_score',
+                    ->select('pfm.*','s.name as name_staff','s.ma_company_dept_id','sd.username','pscore.name as pfm_score',
                     'pf.hr_performance_schedule_id',
                     'ps.plan_detail_id','ps.staff_id',
                     'pd.name as name_plan','pd.id as id_pd')
@@ -22,7 +22,7 @@ class ModelHrmPerformReport extends Model
                     ->join('hr_performance_plan_detail as pd','ps.plan_detail_id','=','pd.id')
                     ->where([
                         ['pfm.is_deleted', '=', 'f'],
-                        ['s.company_dept_id', '=', $dept],
+                        ['s.ma_company_dept_id', '=', $dept],
                     ])
                     ->whereBetween('pfm.create_date',[$from, $to])
                     ->orderBy('pfm.id','ASC')

@@ -29,7 +29,7 @@ class ModelHrmManagerFollowUp extends Model
     // ===== Function get data for table for Head Each departement =====////
     public static function hrm_get_manager_follow_up_dept($dept){
         $follow_up_dept = DB::table('hr_performance_manager_follow_up as pfm')
-                            ->select('pfm.*','s.name as staff_name','s.company_dept_id','sd.username','pscore.name as score',
+                            ->select('pfm.*','s.name as staff_name','s.ma_company_dept_id','sd.username','pscore.name as score',
                             'pf.hr_performance_schedule_id',
                             'ps.plan_detail_id','ps.staff_id',
                             'pd.name as name_plan','pd.id as id_pd')
@@ -41,7 +41,7 @@ class ModelHrmManagerFollowUp extends Model
                             ->join('hr_performance_plan_detail as pd','ps.plan_detail_id','=','pd.id')
                             ->where([
                                 ['pfm.is_deleted', '=', 'f'],
-                                ['s.company_dept_id', '=', $dept],
+                                ['s.ma_company_dept_id', '=', $dept],
                             ])
                             ->orderBy('pfm.id','ASC')
                             ->get(); 
@@ -50,7 +50,7 @@ class ModelHrmManagerFollowUp extends Model
     // ===== Function get data for table for invidual user =====////
     public static function hrm_get_manager_follow_up_staff($userid){
         $follow_up_user = DB::table('hr_performance_manager_follow_up as pfm')
-                            ->select('pfm.*','s.name as staff_name','s.company_dept_id','sd.username','pscore.name as score',
+                            ->select('pfm.*','s.name as staff_name','s.ma_company_dept_id','sd.username','pscore.name as score',
                             'pf.hr_performance_schedule_id',
                             'ps.plan_detail_id','ps.staff_id',
                             'pd.name as name_plan','pd.id as id_pd')
@@ -71,7 +71,7 @@ class ModelHrmManagerFollowUp extends Model
     // ===== Function get data all Manager Follow up Update =====////
     public static function hrm_get_edit_manager_follow_up($id){
         $follow_up_user = DB::table('hr_performance_manager_follow_up as pfm')
-                            ->select('pfm.*','s.name as staff_name','s.company_dept_id','sd.username as user_ps','sdd.username as user_pfm','pscore.name as score',
+                            ->select('pfm.*','s.name as staff_name','s.ma_company_dept_id','sd.username as user_ps','sdd.username as user_pfm','pscore.name as score',
                             'pf.hr_performance_schedule_id','pf.percentage as pf_percent','pf.reason','pf.action_date_from','pf.action_date_to','pf.challenge','pf.comment as pf_cmt',
                             'ps.plan_detail_id','ps.staff_id','ps.create_by as ps_create_by','ps.id as ps_id','ps.date_from as ps_from','ps.date_to as ps_to','ps.create_date as ps_create_date','ps.comment as ps_cmt',
                             'pd.name as pd_name','pd.hr_performance_plan_id','pd.id as pd_id','pd.task as pd_task','pd.date_from as pd_from','pd.date_to as pd_to',

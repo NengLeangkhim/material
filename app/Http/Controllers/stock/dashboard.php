@@ -189,7 +189,7 @@ class dashboard extends Controller
         $cID=$_GET['cID'];
         $_SESSION['cid']=$cID;
         $companyName=DB::select("select name from ma_company where id=".$cID);
-        $branch=DB::select("SELECT id,branch from company_branch where status='t' and ma_company_id=".$cID);
+        $branch=DB::select("SELECT id,branch from ma_company_branch where status='t' and ma_company_id=".$cID);
         $totalRow=DB::select("select p.name,(select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid'].") as qty,
         (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$cID and q.action_type='in') as import,
         (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$cID and q.action_type='out') as request
@@ -562,7 +562,7 @@ class dashboard extends Controller
                 <div>
                     <p>
                         Branch :';
-            $branch=DB::select("SELECT count(*) from company_branch where ma_company_id=$cm->id");
+            $branch=DB::select("SELECT count(*) from ma_company_branch where ma_company_id=$cm->id");
             echo $branch[0]->count;
             echo '</p>
                 </div>

@@ -49,11 +49,11 @@ class ere_get_report extends Controller{
                 return view('e_request.report', compact('c'));
             }
         }
-        if($c&&($c['type']=='top'||$c['company_dept_id']==4)){
+        if($c&&($c['type']=='top'||$c['ma_company_dept_id']==4)){
             if(isset($_GET['_report'])){
-               $sql="SELECT cd.id as company_dept_id,cd.name,count(er.* )
+               $sql="SELECT cd.id as ma_company_dept_id,cd.name,count(er.* )
                     from e_request er
-                    join ma_company_dept cd on cd.id=er.company_dept_id
+                    join ma_company_dept cd on cd.id=er.ma_company_dept_id
                     where er.status='t'
                     and er.create_date BETWEEN '$from 00:00:00' and '$to 23:59:59'
                     GROUP BY cd.id";
@@ -61,7 +61,7 @@ class ere_get_report extends Controller{
                 $re='';
                 // $tar=$_GET['_tar'];
                 foreach($r as $rr){
-                    $re.='&nbsp<a href="javascript:void(0);" onclick="get_report_val_detail(\'report-table\',\'all\',\''.$from.'\',\''.$to.'\',\''.$rr['company_dept_id'].'\')" class="btn btn-primary word-tbody">'.$rr['name'].'('.$rr['count'].')</a>';
+                    $re.='&nbsp<a href="javascript:void(0);" onclick="get_report_val_detail(\'report-table\',\'all\',\''.$from.'\',\''.$to.'\',\''.$rr['ma_company_dept_id'].'\')" class="btn btn-primary word-tbody">'.$rr['name'].'('.$rr['count'].')</a>';
                 }
                 $rr=array();
                 $rr[]=$r;
@@ -136,9 +136,9 @@ class ere_get_report extends Controller{
             if(isset($_GET['_report'])||isset($_GET['_reportdetail'])){
                 $rr=false;
                 // $dept=$_GET['_dept'];
-                $sql='select company_dept_id from staff where id='.$_SESSION['userid'];
+                $sql='select ma_company_dept_id from staff where id='.$_SESSION['userid'];
                 $dept=ere_get_assoc::assoc_(DB::select($sql));
-                $dept=$dept[0]['company_dept_id'];
+                $dept=$dept[0]['ma_company_dept_id'];
                 $type='all';
                 $tar='report-div';
                 if(isset($_GET['_type'])){
@@ -212,7 +212,7 @@ class ere_get_report extends Controller{
             if(isset($_GET['_report'])||isset($_GET['_reportdetail'])){
                 $rr=false;
                 // $dept=$_GET['_dept'];
-                // $q=$con->prepare('select company_dept_id from staff where id='.$_SESSION['userid']);
+                // $q=$con->prepare('select ma_company_dept_id from staff where id='.$_SESSION['userid']);
                 // $q->execute();
                 // $dept=$q->fetch(PDO::FETCH_ASSOC);
                 $dept=0;

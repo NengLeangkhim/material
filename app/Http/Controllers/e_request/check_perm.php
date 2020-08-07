@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class check_perm{
     public function permi_check($id){
-        $sql="select s.position_id,s.company_dept_id,p.group_id from staff s join \"position\" p on p.id=s.position_id where s.id =$id";
+        $sql="select s.position_id,s.ma_company_dept_id,p.group_id from staff s join \"position\" p on p.id=s.position_id where s.id =$id";
         $r=ere_get_assoc::assoc_(DB::select($sql))[0];
-        $sql="select id,type,company_dept_id
+        $sql="select id,type,ma_company_dept_id
         from company_dept_manager
-        where position_id=".$r['position_id']." and is_deleted='f' and group_id=".$r['group_id']." and company_dept_id=".$r['company_dept_id'];
+        where position_id=".$r['position_id']." and is_deleted='f' and group_id=".$r['group_id']." and ma_company_dept_id=".$r['ma_company_dept_id'];
         if(isset(ere_get_assoc::assoc_(DB::select($sql))[0])){
             $r=ere_get_assoc::assoc_(DB::select($sql))[0];
         }else{
@@ -51,7 +51,7 @@ class check_perm{
                 JOIN e_request_form erf ON erf.ID = erfd.e_request_form_id
                 WHERE erd.e_request_id IS NULL
                 AND er.status = 't' and er.is_deleted='f'
-                and er.company_dept_id=".$r['company_dept_id']."
+                and er.ma_company_dept_id=".$r['ma_company_dept_id']."
                 ORDER BY er.ID DESC";
             }
             $r=ere_get_assoc::assoc_(DB::select($sql));
@@ -65,11 +65,11 @@ class check_perm{
             if($hr['type']=='top'){
                 $wh=" and er.create_by=".$id;
                 $req='(select name from staff where id=er.create_by) as request_by,';
-            }else if(($hr['type']=='mid'&&$hr['company_dept_id']!=4)&&$id>0){//search for each dept
-                $wh=" and er.company_dept_id=(select company_dept_id from staff where id=".$_SESSION['userid'].") and er.create_by=".$id;
+            }else if(($hr['type']=='mid'&&$hr['ma_company_dept_id']!=4)&&$id>0){//search for each dept
+                $wh=" and er.ma_company_dept_id=(select ma_company_dept_id from staff where id=".$_SESSION['userid'].") and er.create_by=".$id;
                 $req='(select name from staff where id=er.create_by) as request_by,';
             }
-            else if($hr['type']=='normal'||($hr['type']=='mid'&&$hr['company_dept_id']==4)){//for hr search all
+            else if($hr['type']=='normal'||($hr['type']=='mid'&&$hr['ma_company_dept_id']==4)){//for hr search all
                 if($id<=0){
                     $req='(select name from staff where id=er.create_by) as request_by,';
                 }else{
@@ -113,7 +113,7 @@ class check_perm{
         if($id<=0){
             $wh=' and er.create_by='.$_SESSION['userid'];
         }else{
-            $wh=" and er.company_dept_id=$id";
+            $wh=" and er.ma_company_dept_id=$id";
         }
         $sql="SELECT er.id,(select name from staff where id=er.create_by) as request_by,
                     erf.name_kh as form_name,er.create_date,erf.link as file_name,erfd.e_request_form_id,

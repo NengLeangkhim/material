@@ -60,7 +60,7 @@ class productCompany extends Controller
             $r=array();
             $r[]='out';
             $r[]=DB::select("select cd.ma_company_id,cd.company from staff s join company_detail cd on cd.id=s.company_detail_id where cd.status='t' and s.id=$st_id");
-            $r[]=DB::select("SELECT id,branch from company_branch where status='t' and ma_company_id=$company_id");
+            $r[]=DB::select("SELECT id,branch from ma_company_branch where status='t' and ma_company_id=$company_id");
             // $r[]=DB::select("SELECT id,name from staff");
             // $r[]=DB::select("SELECT id,name from supplier");
             return view('stock.products.productcompany.addproductCompany',["action"=>$r]);
@@ -78,7 +78,7 @@ class productCompany extends Controller
             $r=array();
             $r[]='in';
             $r[]=DB::select("select cd.ma_company_id,cd.company from staff s join company_detail cd on cd.id=s.company_detail_id where cd.status='t' and s.id=$st_id");
-            $r[]=DB::select("SELECT id,branch from company_branch where ma_company_id=$company_id");
+            $r[]=DB::select("SELECT id,branch from ma_company_branch where ma_company_id=$company_id");
             return view('stock.products.productcompany.addproductCompany',["action"=>$r]);
         }else{
             return view('no_perms');
