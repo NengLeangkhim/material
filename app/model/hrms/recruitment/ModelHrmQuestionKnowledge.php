@@ -12,7 +12,7 @@ class ModelHrmQuestionKnowledge extends Model
     public static function hrm_get_tbl_question_knowledge(){
         $knowledge_ceo= DB::table('hr_question_knowledge as qk')
                            ->select('qk.*','staff_detail.username','d.name')
-                           ->join('ma_company_dept as d','qk.dapartement_id','=','d.id')
+                           ->join('ma_company_dept as d','qk.ma_company_dept_id','=','d.id')
                            ->join('staff_detail','qk.create_by','=','staff_detail.ma_user_id')
                            ->where('qk.is_deleted','=','f')
                            ->orderBy('qk.id','ASC')
@@ -23,11 +23,11 @@ class ModelHrmQuestionKnowledge extends Model
     public static function hrm_get_tbl_question_knowledge_dept($dept){
         $knowledge_dept = DB::table('hr_question_knowledge as qk')
                             ->select('qk.*','staff_detail.username','d.name')
-                            ->join('ma_company_dept as d','qk.dapartement_id','=','d.id')
+                            ->join('ma_company_dept as d','qk.ma_company_dept_id','=','d.id')
                             ->join('staff_detail','qk.create_by','=','staff_detail.ma_user_id')
                             ->where([
                                 ['qk.is_deleted', '=', 'f'],
-                                ['qk.dapartement_id', '=',$dept],
+                                ['qk.ma_company_dept_id', '=',$dept],
                             ])
                             ->orderBy('qk.id','ASC')
                             ->get(); 

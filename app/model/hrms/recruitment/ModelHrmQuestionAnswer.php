@@ -65,7 +65,7 @@ class ModelHrmQuestionAnswer extends Model
     public static function hrm_get_recruitment_question($id){
         $question_get = DB::table('hr_recruitment_question as q')
                            ->select('q.*','dept.name','qt.name as  question_type','p.name as position')
-                           ->leftjoin('ma_company_dept as dept','q.dapartement_id','=','dept.id')
+                           ->leftjoin('ma_company_dept as dept','q.ma_company_dept_id','=','dept.id')
                            ->leftjoin('position as p','q.position_id','=','p.id')
                            ->leftjoin('hr_question_type as qt','q.question_type_id','=','qt.id')
                            ->where('q.id','=',$id)

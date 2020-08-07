@@ -1850,7 +1850,7 @@ function ReportPerformance(){
           $.each(data, function(i, e){ //read array json for show to textbox 
             $('#question_name').val(data[i].question);
             $('#question_type').val(data[i].question_type_id);
-            $('#departement').val(data[i].dapartement_id);
+            $('#departement').val(data[i].ma_company_dept_id);
             $('#position').val(data[i].position_id);   
             });  
        }
@@ -1953,7 +1953,7 @@ $(document).on('click', '.hrm_question_answer_re', function(){
           $.each(data1, function(i, e){ //read array json for show to textbox 
             $('#question_name_edit').val(data1[i].question);
             $('#question_type_edit').val(data1[i].question_type_id);
-            $('#departement_edit').val(data1[i].dapartement_id);
+            $('#departement_edit').val(data1[i].ma_company_dept_id);
             $('#position_edit').val(data1[i].position_id);   
             });
             }
@@ -2107,7 +2107,7 @@ $(document).on('click', '.update_qestion_knowledge', function(){
           $('#question_knowledge_id').val(id);     //It will define value of id variable for update 
           $.each(data, function(i, e){ //read array json for show to textbox 
             $('#question_knowledge').val(data[i].question);
-            $('#departement_knowledge').val(data[i].dapartement_id); 
+            $('#departement_knowledge').val(data[i].ma_company_dept_id); 
             });  
    }
   });
