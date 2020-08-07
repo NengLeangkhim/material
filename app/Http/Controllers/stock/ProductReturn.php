@@ -19,7 +19,7 @@ class ProductReturn extends Controller
             // (select name from staff where id=rp.approve_by) as approve_by,
             // cd.company,rp.create_date,rp.request_product_id,rp.description
             // from returned_request rp
-            // join company_detail cd on cd.id=rp.company_detail_id
+            // join ma_company_detail cd on cd.id=rp.company_detail_id
             // where cd.status='t'");
             return view('stock.products.productReturn.productReturn');
         }else{
@@ -88,7 +88,7 @@ class ProductReturn extends Controller
                     (select name from staff where id=rp.approve_by) as approve_by,
                     cd.company,rp.create_date,rp.request_product_id,rp.description
                     from returned_request rp
-                    join company_detail cd on cd.id=rp.company_detail_id
+                    join ma_company_detail cd on cd.id=rp.company_detail_id
                     where cd.status='t' and rp.id=$id";
                 $sql1="SELECT b.name as brand,p.name,p.part_number,p.barcode,m.name as measurement,c.name as currency,rrd.qty,rrd.price,(rrd.qty*rrd.price) as amount
                 from returned_request_detail rrd

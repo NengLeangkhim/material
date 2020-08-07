@@ -11,7 +11,7 @@ class check_perm{
         $sql="select s.position_id,s.ma_company_dept_id,p.group_id from staff s join \"position\" p on p.id=s.position_id where s.id =$id";
         $r=ere_get_assoc::assoc_(DB::select($sql))[0];
         $sql="select id,type,ma_company_dept_id
-        from company_dept_manager
+        from ma_company_dept_manager
         where position_id=".$r['position_id']." and is_deleted='f' and group_id=".$r['group_id']." and ma_company_dept_id=".$r['ma_company_dept_id'];
         if(isset(ere_get_assoc::assoc_(DB::select($sql))[0])){
             $r=ere_get_assoc::assoc_(DB::select($sql))[0];

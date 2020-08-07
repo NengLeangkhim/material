@@ -19,7 +19,7 @@ class ProductRequest extends Controller
             //                     (select name from staff where id=rp.approve_by) as approve_by,
             //                     cd.company,rp.request_date,rp.description
             //                     from request_product rp
-            //                     join company_detail cd on cd.id=rp.company_detail_id
+            //                     join ma_company_detail cd on cd.id=rp.company_detail_id
             //                     where cd.status='t'");
             return view('stock.products.productRequest.productRequest');
         }else{
@@ -87,7 +87,7 @@ class ProductRequest extends Controller
                     (select name from staff where id=rp.approve_by) as approve_by,
                     cd.company,rp.request_date,rp.description
                     from request_product rp
-                    join company_detail cd on cd.id=rp.company_detail_id
+                    join ma_company_detail cd on cd.id=rp.company_detail_id
                     where cd.status='t' and rp.id=$id";
                 $sql1="SELECT b.name as brand,p.name,p.part_number,p.barcode,m.name as measurement,c.name as currency,rpd.qty,rpd.price,(rpd.qty*rpd.price) as amount,
                     get_code_prefix_ibuild(p.code,rp.company_detail_id,p.code_prefix_owner_id,pt.code) as product_code

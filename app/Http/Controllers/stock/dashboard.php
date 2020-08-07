@@ -19,15 +19,15 @@ class dashboard extends Controller
         $date="and q.create_date between '".$start_date." 00:00:00' and '".$end_date." 23:59:59'";
         $dates="and qq.create_date between '".$start_date." 00:00:00' and '".$end_date." 23:59:59'";
         $productDetail=DB::select("select distinct
-        (select sum(qq.qty) from product_qty qq join company_detail ccd on qq.company_detail_id=ccd.id where qq.product_id=q.product_id $dates and qq.action_type='in' and ccd.ma_company_id=$company_id and date_trunc('day', qq.create_date)=date_trunc('day', q.create_date)) as import,
-        (select sum(qq.qty) from product_qty qq join company_detail ccd on qq.company_detail_id=ccd.id where qq.product_id=q.product_id $dates and qq.action_type='out' and ccd.ma_company_id=$company_id and date_trunc('day', qq.create_date)=date_trunc('day', q.create_date)) as request,
-        (select sum(qq.qty) from product_qty qq join company_detail ccd on qq.company_detail_id=ccd.id where qq.product_id=q.product_id $dates and qq.action_type='return' and ccd.ma_company_id=$company_id and date_trunc('day', qq.create_date)=date_trunc('day', q.create_date)) as return,
-        (select sum(qq.qty) from product_qty qq join company_detail ccd on qq.company_detail_id=ccd.id where qq.product_id=q.product_id $dates and ccd.ma_company_id=$company_id and date_trunc('day', qq.create_date)=date_trunc('day', q.create_date)) as total,
+        (select sum(qq.qty) from product_qty qq join ma_company_detail ccd on qq.company_detail_id=ccd.id where qq.product_id=q.product_id $dates and qq.action_type='in' and ccd.ma_company_id=$company_id and date_trunc('day', qq.create_date)=date_trunc('day', q.create_date)) as import,
+        (select sum(qq.qty) from product_qty qq join ma_company_detail ccd on qq.company_detail_id=ccd.id where qq.product_id=q.product_id $dates and qq.action_type='out' and ccd.ma_company_id=$company_id and date_trunc('day', qq.create_date)=date_trunc('day', q.create_date)) as request,
+        (select sum(qq.qty) from product_qty qq join ma_company_detail ccd on qq.company_detail_id=ccd.id where qq.product_id=q.product_id $dates and qq.action_type='return' and ccd.ma_company_id=$company_id and date_trunc('day', qq.create_date)=date_trunc('day', q.create_date)) as return,
+        (select sum(qq.qty) from product_qty qq join ma_company_detail ccd on qq.company_detail_id=ccd.id where qq.product_id=q.product_id $dates and ccd.ma_company_id=$company_id and date_trunc('day', qq.create_date)=date_trunc('day', q.create_date)) as total,
         p.name ,date_trunc('day', q.create_date) create_date
         from product_qty q
         join product p on p.id=q.product_id
         join product_company pc on pc.product_id=p.id
-        join company_detail cd on q.company_detail_id=cd.id
+        join ma_company_detail cd on q.company_detail_id=cd.id
         where p.id=".$_SESSION['productID']." $date and cd.ma_company_id=$company_id order by create_date");
         dump($productDetail);
         return response()->json(array('response'=> $productDetail), 200);
@@ -43,26 +43,26 @@ class dashboard extends Controller
         $company_id=8;
         if($location=='all'){
             $sql="select p.id,p.name,
-            (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id) as total,
-            (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and q.action_type='in') as import,
-            (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and q.action_type='out') as request,
-            (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and q.action_type='return') as return
-             from product p join product_qty q on p.id=q.product_id join company_detail cd on cd.id=q.company_detail_id join product_company pc on pc.product_id=p.id where 't' and cd.ma_company_id=$company_id group by p.id having (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id) is not null";
+            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id) as total,
+            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and q.action_type='in') as import,
+            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and q.action_type='out') as request,
+            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and q.action_type='return') as return
+             from product p join product_qty q on p.id=q.product_id join ma_company_detail cd on cd.id=q.company_detail_id join product_company pc on pc.product_id=p.id where 't' and cd.ma_company_id=$company_id group by p.id having (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id) is not null";
         }else{
             $sql="select p.id,p.name,
-            (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.storage_id=$location and q.action_type='in') as import,
-            (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.storage_id=$location and q.action_type='out') as request,
-            (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.storage_id=$location and q.action_type='return') as return,
-            (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.storage_id=$location ) as total
+            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.storage_id=$location and q.action_type='in') as import,
+            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.storage_id=$location and q.action_type='out') as request,
+            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.storage_id=$location and q.action_type='return') as return,
+            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.storage_id=$location ) as total
             from product p
             join product_qty q on p.id=q.product_id
             join product_company pc on pc.product_id=p.id
-            join company_detail cd on cd.id=q.company_detail_id
+            join ma_company_detail cd on cd.id=q.company_detail_id
             join storage_detail sd on sd.id=q.storage_detail_id
             where lower(p.name) like '%$search%'
             and cd.ma_company_id=$company_id and sd.storage_id=$location
             group by p.id
-            having (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.storage_id=$location) is not null";
+            having (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id join storage_detail sd on sd.id=q.storage_detail_id where q.product_id=p.id and cd.ma_company_id=$company_id and sd.storage_id=$location) is not null";
         }
         $totalRow=DB::select($sql);
         $limit=10;
@@ -190,34 +190,34 @@ class dashboard extends Controller
         $_SESSION['cid']=$cID;
         $companyName=DB::select("select name from ma_company where id=".$cID);
         $branch=DB::select("SELECT id,branch from ma_company_branch where status='t' and ma_company_id=".$cID);
-        $totalRow=DB::select("select p.name,(select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid'].") as qty,
-        (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$cID and q.action_type='in') as import,
-        (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$cID and q.action_type='out') as request
+        $totalRow=DB::select("select p.name,(select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid'].") as qty,
+        (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$cID and q.action_type='in') as import,
+        (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$cID and q.action_type='out') as request
         from product p
         join product_qty q on p.id=q.product_id
         join product_company pc on pc.product_id=p.id
-        join company_detail cd on cd.id=q.company_detail_id
+        join ma_company_detail cd on cd.id=q.company_detail_id
         where 't'
         and cd.ma_company_id=".$cID."
         group by p.id
-        having (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$cID) is not null");
+        having (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$cID) is not null");
         $limit=10;
         $prev_page = $page-1;
         $next_page = $page+1;
         $co=count($totalRow);
         $total_page=ceil($co/$limit);
         $start_from=($page-1)*$limit;
-        $sql="select p.name,(select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid'].") as qty,
-        (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$cID and q.action_type='in') as import,
-        (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$cID and q.action_type='out') as request
+        $sql="select p.name,(select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid'].") as qty,
+        (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$cID and q.action_type='in') as import,
+        (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$cID and q.action_type='out') as request
         from product p
         join product_qty q on p.id=q.product_id
         join product_company pc on pc.product_id=p.id
-        join company_detail cd on cd.id=q.company_detail_id
+        join ma_company_detail cd on cd.id=q.company_detail_id
         where 't'
         and cd.ma_company_id=".$cID."
         group by p.id
-        having (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$cID) is not null OFFSET $start_from LIMIT 10";
+        having (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=$cID) is not null OFFSET $start_from LIMIT 10";
         $getNameQty=DB::select($sql);
         echo '<div class="modal-header">
         <h4 class="modal-title">'.$companyName[0]->name.'</h4>
@@ -399,29 +399,29 @@ class dashboard extends Controller
         }
         $search=$_GET['searchs'];
         if($branch=='all'){
-            $sql="select p.name,(select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid'].") as qty,
-            (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid']." and q.action_type='in') as import,
-            (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid']." and q.action_type='out') as request
+            $sql="select p.name,(select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid'].") as qty,
+            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid']." and q.action_type='in') as import,
+            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid']." and q.action_type='out') as request
             from product p
             join product_qty q on p.id=q.product_id
             join product_company pc on pc.product_id=p.id
-            join company_detail cd on cd.id=q.company_detail_id
+            join ma_company_detail cd on cd.id=q.company_detail_id
             where 't'
             and cd.ma_company_id=".$_SESSION['cid']." and name like '%$search%' $date
             group by p.id
-            having (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid'].") is not null";
+            having (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid'].") is not null";
         }else{
-            $sql="select p.name,(select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid']." and cd.branch_id=$branch) as qty,
-            (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid']." and cd.branch_id=$branch and q.action_type='in') as import,
-            (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid']." and cd.branch_id=$branch and q.action_type='out') as request
+            $sql="select p.name,(select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid']." and cd.ma_company_branch_id=$branch) as qty,
+            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid']." and cd.ma_company_branch_id=$branch and q.action_type='in') as import,
+            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid']." and cd.ma_company_branch_id=$branch and q.action_type='out') as request
             from product p
             join product_qty q on p.id=q.product_id
             join product_company pc on pc.product_id=p.id
-            join company_detail cd on cd.id=q.company_detail_id
+            join ma_company_detail cd on cd.id=q.company_detail_id
             where name like '%$search%'
             $date
             and cd.ma_company_id=".$_SESSION['cid']."
-            and cd.branch_id=$branch group by p.id having (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid']." and cd.branch_id=$branch) is not null";
+            and cd.ma_company_branch_id=$branch group by p.id having (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=".$_SESSION['cid']." and cd.ma_company_branch_id=$branch) is not null";
         }
         $totalRow=DB::select($sql);
         $limit=10;
@@ -570,7 +570,7 @@ class dashboard extends Controller
                     <p>
                         Products :';
             $product=DB::select("select count(*),$cm->id as id	from (select q.product_id from product_qty q
-                        join company_detail cd on cd.id=q.company_detail_id
+                        join ma_company_detail cd on cd.id=q.company_detail_id
                         where cd.ma_company_id=$cm->id group by q.product_id) as foo");
             echo $product[0]->count;
                         

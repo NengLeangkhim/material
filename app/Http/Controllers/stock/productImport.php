@@ -20,7 +20,7 @@ class productImport extends Controller
             //             (select name from staff where id=ia.approve_by) as approve_by,
             //             cd.company,cd.branch,ia.arrival_date,sp.name as supplier,ia.description
             //             from invoice_arrival ia
-            //             join company_detail cd on cd.id=ia.company_detail_id
+            //             join ma_company_detail cd on cd.id=ia.company_detail_id
             //             left join supplier sp on sp.id=ia.supplier_id
 			//             where cd.status='t'");
             return view('stock.products.productImport.productimport');
@@ -94,7 +94,7 @@ class productImport extends Controller
                     (select name from staff where id=ia.approve_by) as approve_by,
                     cd.company,cd.branch,cd.id,ia.arrival_date,sp.name as supplier,ia.description
                     from invoice_arrival ia
-                    join company_detail cd on cd.id=ia.company_detail_id
+                    join ma_company_detail cd on cd.id=ia.company_detail_id
                     left join supplier sp on sp.id=ia.supplier_id
                     where cd.status='t' and ia.id=$id";
                 $sql1="SELECT b.name as brand,p.name,p.part_number,p.barcode,m.name as measurement,c.name as currency,iad.qty,iad.price,(iad.qty*iad.price) as amount,

@@ -60,7 +60,7 @@
                             <span class="text-primary">Description</span>: {{$plist[0][0]->description}}<br>
                         </h4>
                         <input type="hidden" name="company" id="icompany" value="{{$plist[0][0]->ma_company_id}}">
-                        <input type="hidden" name="compan_branch" id="company_branch" value="{{$plist[0][0]->branch_id}}">
+                        <input type="hidden" name="compan_branch" id="company_branch" value="{{$plist[0][0]->ma_company_branch_id}}">
                         <input type="hidden" name="action_type" id="action_type" value="{{$plist[0][0]->action_type}}">
                         <input type="hidden" name="approve" id="approve" value="{{$plist[0][0]->approve}}">
                         <input type="hidden" name="before_id" value="{{$plist[0][0]->id}}">

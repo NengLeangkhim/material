@@ -19,7 +19,7 @@ class productAssign extends Controller
             //                     (select name from staff where id=rp.approve_by) as approve_by,
             //                     cd.company,rp.request_date,rp.description
             //                     from request_product rp
-            //                     join company_detail cd on cd.id=rp.company_detail_id
+            //                     join ma_company_detail cd on cd.id=rp.company_detail_id
             //                     where cd.status='t'");
             return view('stock.products.productAssign.productassign');
         }else{
@@ -90,8 +90,8 @@ class productAssign extends Controller
                 //     join currency cu on cu.id=p.currency_id
                 //     where c.id=$id";
                 $sql1="Select p.id,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code ,b.name as brand ,p.name ,p.name_kh , p.part_number , p.barcode ,
-                                m.name as measurement,cu.name as currency, (select avg(q.price) from product_qty q join company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id) as price ,(select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id) as qty,
-                                ((select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id)*(select avg(q.price) from product_qty q join company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id)) as amount,description
+                                m.name as measurement,cu.name as currency, (select avg(q.price) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id) as price ,(select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id) as qty,
+                                ((select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id)*(select avg(q.price) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id)) as amount,description
                             from product_company pc
                     join ma_company c on pc.ma_company_id=c.id
                     join product p on p.id=pc.product_id
