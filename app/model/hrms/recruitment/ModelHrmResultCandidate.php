@@ -32,14 +32,14 @@ class ModelHrmResultCandidate extends Model
                             GROUP BY 
                                 hr_user_id,hr_approval_status,comment
                         )appr on (u.id=appr.hr_user_id) 
-                    join hr_user_answer ua on u.id=ua.user_id where (user_id,start_time) in 
+                    join hr_user_answer ua on u.id=ua.hr_recruitment_candidate_id where (hr_recruitment_candidate_id,start_time) in 
                     (  Select 
-                                user_id,
+                                hr_recruitment_candidate_id,
                                 MAX(start_time)
                         from 
                                 hr_user_answer
                         group by 
-                                user_id
+                                hr_recruitment_candidate_id
                     )  
                     group by u.id,ua.start_time,pp.name,appr.hr_approval_status,appr.comment");
     }
@@ -67,14 +67,14 @@ class ModelHrmResultCandidate extends Model
                             GROUP BY 
                                 hr_user_id,hr_approval_status,comment
                         )appr on (u.id=appr.hr_user_id) 
-                    join hr_user_answer ua on u.id=ua.user_id where (user_id,start_time) in 
+                    join hr_user_answer ua on u.id=ua.hr_recruitment_candidate_id where (hr_recruitment_candidate_id,start_time) in 
                     (  Select 
-                                user_id,
+                                hr_recruitment_candidate_id,
                                 MAX(start_time)
                         from 
                                 hr_user_answer
                         group by 
-                                user_id
+                                hr_recruitment_candidate_id
                     )
                     group by u.id,ua.start_time,pp.name,appr.hr_approval_status,appr.comment");
     }
@@ -86,24 +86,24 @@ class ModelHrmResultCandidate extends Model
     // ===== Function model get data for calculate time=====////
     public static function get_candidate_score($id){
         return DB::select("SELECT COUNT(ua.hr_recruitment_question_choice_id
-),ua.is_right,ua.user_id,q.question_type_id from hr_user_answer ua
+),ua.is_right,ua.hr_recruitment_candidate_id,q.question_type_id from hr_user_answer ua
         left join hr_question q on ua.hr_recruitment_question_id=q.id 
         left join hr_question_choice an on ua.hr_recruitment_question_choice_id
-=an.id where ua.user_id=? and q.question_type_id=?
-        group by ua.is_right,ua.user_id,q.question_type_id",[$id,1]);
+=an.id where ua.hr_recruitment_candidate_id=? and q.question_type_id=?
+        group by ua.is_right,ua.hr_recruitment_candidate_id,q.question_type_id",[$id,1]);
     }
     // ===== Function Count True Answer =======//
     public static function get_candidate_time($id){
         return DB::select("SELECT u.id,ua.start_time,ua.end_time from hr_user u
-        left join hr_user_answer ua on u.id=ua.user_id where u.id=? limit 1",[$id]);
+        left join hr_user_answer ua on u.id=ua.hr_recruitment_candidate_id where u.id=? limit 1",[$id]);
     }
     // ===== Function model get data Question Choice=====////
     public static function get_result_choice($id){
         return DB::select("SELECT ua.hr_recruitment_question_choice_id
-,ua.hr_recruitment_question_id,ua.is_right,ua.user_id,q.question,q.id as hr_recruitment_question_id,q.question_type_id,an.id,an.choice,an.is_right_choice from hr_user_answer ua
+,ua.hr_recruitment_question_id,ua.is_right,ua.hr_recruitment_candidate_id,q.question,q.id as hr_recruitment_question_id,q.question_type_id,an.id,an.choice,an.is_right_choice from hr_user_answer ua
         left join hr_question q on ua.hr_recruitment_question_id=q.id 
         left join hr_question_choice an on ua.hr_recruitment_question_choice_id
-=an.id where ua.user_id=? and q.question_type_id=?",[$id,1]);
+=an.id where ua.hr_recruitment_candidate_id=? and q.question_type_id=?",[$id,1]);
     }
     // ===== Function model get data Right Choice=====////
     public static function get_true_choice(){
@@ -111,10 +111,10 @@ class ModelHrmResultCandidate extends Model
     }
     // ===== Function model get data Answer Text=====////
     public static function get_answer_text($id){
-        return DB::select("SELECT ua.answer_text,ua.hr_recruitment_question_id,ua.user_id,ua.is_right,q.question,q.question_type_id 
-                        from hr_user_answer ua left join hr_question q on ua.hr_recruitment_question_id=q.id where ua.user_id= $id
-                        Except SELECT ua.answer_text,ua.hr_recruitment_question_id,ua.user_id,ua.is_right,q.question,q.question_type_id from hr_user_answer ua
-                        left join hr_question q on ua.hr_recruitment_question_id=q.id where ua.user_id= $id and q.question_type_id=1");
+        return DB::select("SELECT ua.answer_text,ua.hr_recruitment_question_id,ua.hr_recruitment_candidate_id,ua.is_right,q.question,q.question_type_id 
+                        from hr_user_answer ua left join hr_question q on ua.hr_recruitment_question_id=q.id where ua.hr_recruitment_candidate_id= $id
+                        Except SELECT ua.answer_text,ua.hr_recruitment_question_id,ua.hr_recruitment_candidate_id,ua.is_right,q.question,q.question_type_id from hr_user_answer ua
+                        left join hr_question q on ua.hr_recruitment_question_id=q.id where ua.hr_recruitment_candidate_id= $id and q.question_type_id=1");
     }
     // ===== Function model get comment of approval=====////
     public static function get_comment_approval($id){

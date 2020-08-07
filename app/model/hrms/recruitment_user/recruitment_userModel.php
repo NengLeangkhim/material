@@ -85,7 +85,7 @@ class recruitment_userModel extends Model
     // function insert user answer
     public static  function submit_answer($c_id,$q_id,$an_text,$is_true,$start,$end,$userid){
         $sql = "INSERT INTO hr_user_answer(hr_recruitment_question_choice_id
-, hr_recruitment_question_id, answer_text, is_right, start_time, end_time, status, user_id ) 
+, hr_recruitment_question_id, answer_text, is_right, start_time, end_time, status, hr_recruitment_candidate_id ) 
                 VALUES($c_id, ".$q_id.", '$an_text', '$is_true', '$start', '$end', 't', '$userid')";
         
         try {
@@ -155,7 +155,7 @@ class recruitment_userModel extends Model
                 FROM ((hr_user_answer u_a LEFT JOIN hr_question_choice q_c ON  u_a.hr_recruitment_question_choice_id
  = q_c.id) 
                 JOIN hr_question q ON u_a.hr_recruitment_question_id = q.id) 
-                LEFT JOIN hr_question_type q_t ON q.question_type_id = q_t.id  where u_a.user_id = ".$id." ";
+                LEFT JOIN hr_question_type q_t ON q.question_type_id = q_t.id  where u_a.hr_recruitment_candidate_id = ".$id." ";
             
             try{
                 $r = DB::select($sql);
