@@ -1851,7 +1851,7 @@ function ReportPerformance(){
             $('#question_name').val(data[i].question);
             $('#question_type').val(data[i].question_type_id);
             $('#departement').val(data[i].ma_company_dept_id);
-            $('#position').val(data[i].position_id);   
+            $('#position').val(data[i].ma_position_id);   
             });  
        }
       });
@@ -1954,7 +1954,7 @@ $(document).on('click', '.hrm_question_answer_re', function(){
             $('#question_name_edit').val(data1[i].question);
             $('#question_type_edit').val(data1[i].question_type_id);
             $('#departement_edit').val(data1[i].ma_company_dept_id);
-            $('#position_edit').val(data1[i].position_id);   
+            $('#position_edit').val(data1[i].ma_position_id);   
             });
             }
           });

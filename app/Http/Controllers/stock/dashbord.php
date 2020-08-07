@@ -27,13 +27,13 @@ class dashbord extends Controller
            $_SESSION['password']=$pas;
            $_SESSION['userid']=$users;
            $_SESSION['warehouse']=1;
-           $positionID=DB::select("select position_id,ma_company_dept_id from ma_user where id=$users");
-           $_SESSION['position_id']=$positionID;
+           $positionID=DB::select("select ma_position_id,ma_company_dept_id from ma_user where id=$users");
+           $_SESSION['ma_position_id']=$positionID;
            //    $id=DB::select("SELECT public.insert_login_detail($users)");
            $_SESSION['module']=perms::get_module();
             if(perms::check_perm()){
                 return view('start');
-                // if($positionID[0]->position_id==1 || $positionID[0]->ma_company_dept_id==10){
+                // if($positionID[0]->ma_position_id==1 || $positionID[0]->ma_company_dept_id==10){
                 //     $arr[]=array();
                 //     $arr[0]=DB::select('select id,name from ma_company');
                 //     $arr[1]=DB::select('SELECT COUNT(cd.ma_company_branch_id),cd.ma_company_id from ma_company c INNER JOIN ma_company_detail cd on c."id"=cd.ma_company_id GROUP BY cd.ma_company_id');
@@ -56,10 +56,10 @@ class dashbord extends Controller
                 //     // dump($arr);
                 //     return view('dashbord',["company"=>$arr]);
                 // }
-                // // elseif($positionID[0]->position_id==3){
+                // // elseif($positionID[0]->ma_position_id==3){
                 // //         return "user";
                 // // }
-                // else{//($positionID[0]->position_id==2)
+                // else{//($positionID[0]->ma_position_id==2)
                 //     $com='out';
                 //     $com=DB::select("SELECT p.id,p.name ,
                 //             (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid'].")) as qty,

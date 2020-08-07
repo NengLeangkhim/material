@@ -38,7 +38,7 @@ class view_formleave extends Controller
             $reason=$v[0][0]['reason'];
             $user_id=$v[0][0]['request_by'];
         }
-        $q=DB::select("select s.name,s.id_number,p.name as position,d.name as dept from position p join ma_user s on s.position_id=p.id join ma_company_dept d on s.ma_company_dept_id=d.id where s.id=$user_id");
+        $q=DB::select("select s.name,s.id_number,p.name as position,d.name as dept from position p join ma_user s on s.ma_position_id=p.id join ma_company_dept d on s.ma_company_dept_id=d.id where s.id=$user_id");
         $r=ere_get_assoc::assoc_($q)[0];
         $pos=$r['position'];
         $name=$r['name'];
@@ -50,7 +50,7 @@ class view_formleave extends Controller
         $kindof=$r;
 
         $q=DB::select("select s.id, s.name from ma_user s
-        join position p on p.id=s.position_id
+        join position p on p.id=s.ma_position_id
         where p.group_id <>1 and s.id_number is not null and s.ma_company_dept_id=(select ma_company_dept_id from ma_user where id=$user_id)
         order by name ");
         $r=ere_get_assoc::assoc_($q);

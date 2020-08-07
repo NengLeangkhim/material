@@ -103,7 +103,7 @@
                       $f1='';
                       $f2='';
                       if(isset($data[1])){
-                        $id=$data[1][0]->position_id;
+                        $id=$data[1][0]->ma_position_id;
                       }else {
                           $id=-1;
                       }

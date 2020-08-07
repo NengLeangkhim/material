@@ -25,7 +25,7 @@ class view_stand_by extends Controller
         $user_id=$wddx_user_id??$user_id;
 
         if(isset($v0)){
-            // $q=DB::select("select s.name,p.name as position,d.name as dept from staff s join position p on p.id=s.position_id join ma_company_dept d on d.id=s.ma_company_dept_id where s.id=".$v0['to']);
+            // $q=DB::select("select s.name,p.name as position,d.name as dept from staff s join position p on p.id=s.ma_position_id join ma_company_dept d on d.id=s.ma_company_dept_id where s.id=".$v0['to']);
             // $r=ere_get_assoc::assoc_($q)[0];
             // $topos=$r['position'];
             // $toname=$r['name'];
@@ -33,7 +33,7 @@ class view_stand_by extends Controller
         }
 
         $q=DB::select("select s.id, s.name from ma_user s
-        join position p on p.id=s.position_id
+        join position p on p.id=s.ma_position_id
         where p.group_id <>1 and s.id_number is not null
         order by name ");
         $r=ere_get_assoc::assoc_($q);

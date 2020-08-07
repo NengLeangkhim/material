@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class check_perm{
     public function permi_check($id){
-        $sql="select s.position_id,s.ma_company_dept_id,p.group_id from ma_user s join \"position\" p on p.id=s.position_id where s.id =$id";
+        $sql="select s.ma_position_id,s.ma_company_dept_id,p.group_id from ma_user s join \"position\" p on p.id=s.ma_position_id where s.id =$id";
         $r=ere_get_assoc::assoc_(DB::select($sql))[0];
         $sql="select id,type,ma_company_dept_id
         from ma_company_dept_manager
-        where position_id=".$r['position_id']." and is_deleted='f' and group_id=".$r['group_id']." and ma_company_dept_id=".$r['ma_company_dept_id'];
+        where ma_position_id=".$r['ma_position_id']." and is_deleted='f' and group_id=".$r['group_id']." and ma_company_dept_id=".$r['ma_company_dept_id'];
         if(isset(ere_get_assoc::assoc_(DB::select($sql))[0])){
             $r=ere_get_assoc::assoc_(DB::select($sql))[0];
         }else{

@@ -12,7 +12,7 @@ class ModelHrmQuestionAnswer extends Model
         $question_get = DB::table('hr_recruitment_question as q')
                            ->select('q.*','staff_detail.username','qt.name as  question_type','p.name','qc.is_deleted as delete')
                            ->leftjoin('staff_detail','q.create_by','=','staff_detail.ma_user_id')
-                           ->leftjoin('position as p','q.position_id','=','p.id')
+                           ->leftjoin('position as p','q.ma_position_id','=','p.id')
                            ->leftjoin('hr_question_type as qt','q.question_type_id','=','qt.id')
                            ->leftjoin('hr_question_choice as qc','q.id','=','qc.hr_recruitment_question_id')
                            ->where('q.is_deleted','=','f')
@@ -66,7 +66,7 @@ class ModelHrmQuestionAnswer extends Model
         $question_get = DB::table('hr_recruitment_question as q')
                            ->select('q.*','dept.name','qt.name as  question_type','p.name as position')
                            ->leftjoin('ma_company_dept as dept','q.ma_company_dept_id','=','dept.id')
-                           ->leftjoin('position as p','q.position_id','=','p.id')
+                           ->leftjoin('position as p','q.ma_position_id','=','p.id')
                            ->leftjoin('hr_question_type as qt','q.question_type_id','=','qt.id')
                            ->where('q.id','=',$id)
                            ->get(); 

@@ -11,7 +11,7 @@ class ModelHrmResultCandidate extends Model
     // ===== Function model get data for table for CEO AND ADMIN=====////
     public static function get_tbl_result_candidate_ceo(){
         return DB::select("SELECT u.*,ua.start_time,pp.name,appr.hr_approval_status as status_appr,appr.comment from hr_user u 
-                        left join position pp on u.position_id=pp.id 
+                        left join position pp on u.ma_position_id=pp.id 
                         join (
                         SELECT 
                                 hr_user_id, 
@@ -46,7 +46,7 @@ class ModelHrmResultCandidate extends Model
     // ===== Function model get data for table for Head Of Department=====////
     public static function get_tbl_result_candidate_dept(){
         return DB::select("SELECT u.*,ua.start_time,pp.name,appr.hr_approval_status as status_appr,appr.comment from hr_user u 
-                        left join position pp on u.position_id=pp.id 
+                        left join position pp on u.ma_position_id=pp.id 
                         left join (
                         SELECT 
                                 hr_user_id, 
@@ -81,7 +81,7 @@ class ModelHrmResultCandidate extends Model
     // ===== Function model get data Candidate Detail=====////
     public static function get_candidate($id){
         return DB::select("SELECT u.*,p.name from hr_user u
-        left join position p on u.position_id=p.id where u.id=$id");
+        left join position p on u.ma_position_id=p.id where u.id=$id");
     }
     // ===== Function model get data for calculate time=====////
     public static function get_candidate_score($id){

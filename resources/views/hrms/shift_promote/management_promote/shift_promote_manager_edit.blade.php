@@ -6,7 +6,7 @@
     foreach ($staffbyid as $key => $val1) {
 
         $staffid = $val1->id;
-        $staff_posid = $val1->position_id;
+        $staff_posid = $val1->ma_position_id;
         $staff_name =  $val1->name;
         $staff_position =  $val1->position;
         $staff_salary =  $val1->base_salary;

@@ -41,14 +41,14 @@ class recruitment_userModel extends Model
     public static  function select_user_question($id)
     {
 
-        $r = DB::select("SELECT id, position_id FROM hr_user WHERE id = $id");
+        $r = DB::select("SELECT id, ma_position_id FROM hr_user WHERE id = $id");
         if(count($r) > 0){
-            $pos_id = $r['0']->position_id;
+            $pos_id = $r['0']->ma_position_id;
 
             $get_array[] = '';
             // select table user question where question type = 1  (option)
             $q1 = DB::select("SELECT id, question, question_type_id FROM hr_recruitment_question 
-                WHERE position_id = '".$pos_id."' AND question_type_id=1 AND is_deleted = 'false' ORDER BY RANDOM() LIMIT 20 ");
+                WHERE ma_position_id = '".$pos_id."' AND question_type_id=1 AND is_deleted = 'false' ORDER BY RANDOM() LIMIT 20 ");
             if(count($q1) > 0){
                 $get_array['question_option'] = $q1;
                 
@@ -65,7 +65,7 @@ class recruitment_userModel extends Model
             }
             // select table user question where question type = 2   (writing)
             $q2 = DB::select("SELECT id, question, question_type_id FROM hr_recruitment_question 
-                WHERE position_id = '".$pos_id."' AND question_type_id = 2 AND status = 'true' ORDER BY RANDOM() LIMIT 10");
+                WHERE ma_position_id = '".$pos_id."' AND question_type_id = 2 AND status = 'true' ORDER BY RANDOM() LIMIT 10");
             if(count($q1) > 0){
                 $get_array['question_writing'] = $q2;
             }
@@ -136,7 +136,7 @@ class recruitment_userModel extends Model
     public static function user_info($id){
         
         $sql = "SELECT hu.*, p.name as position FROM hr_user hu
-             JOIN position p ON hu.position_id = p.id  WHERE  hu.id = ".$id." ";
+             JOIN position p ON hu.ma_position_id = p.id  WHERE  hu.id = ".$id." ";
         $r = DB::select($sql);
         return $r;
     }

@@ -64,7 +64,7 @@
                                                 <td>'.$var->base_salary.'</td>
                                                 <td>'.$var->create_date.'</td>
                                                 <td >
-                                                    <a class="btn btn-outline-primary" href="#" onclick="Edit_Promote_Staff('.$var->id.', '.$var->position_id.')"><i class="fas fa-user-edit"></i>Promote</a>
+                                                    <a class="btn btn-outline-primary" href="#" onclick="Edit_Promote_Staff('.$var->id.', '.$var->ma_position_id.')"><i class="fas fa-user-edit"></i>Promote</a>
                                                 </td>
                                             </tr>
                                         ';
