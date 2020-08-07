@@ -47,13 +47,13 @@
                                                 <tr>
                                                     <th scope="row">'.($i+1).'</th>
                                                     <td>'.$val->name.'</td>
-                                                    <td>'.$val->staff_id.'</td>
+                                                    <td>'.$val->ma_user_id.'</td>
                                                     <td>'.$val->position.'</td>
                                                     <td>'.$val->salary.'</td>
                                                     <td>'.$val->create_date.'</td>
                                                     <td>
                                                         <div style="text-align: center;">
-                                                            <a  href="javascript:void(0);" onclick="list_staff_promote_hisotry('.$val->staff_id.','.$i.')">
+                                                            <a  href="javascript:void(0);" onclick="list_staff_promote_hisotry('.$val->ma_user_id.','.$i.')">
                                                                 <span ><img src="/img/icons/plus_icon1.png" style="width: 22px; hight: 22px;"></span>
                                                             </a>
                                                       

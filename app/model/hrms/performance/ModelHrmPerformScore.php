@@ -11,7 +11,7 @@ class ModelHrmPerformScore extends Model
     public static function hrm_get_tbl_perform_score(){
         $score= DB::table('hr_performance_score as ps')
                            ->select('ps.*','staff_detail.username')
-                           ->leftjoin('staff_detail','ps.create_by','=','staff_detail.staff_id')
+                           ->leftjoin('staff_detail','ps.create_by','=','staff_detail.ma_user_id')
                            ->where('ps.is_deleted','=','f')
                            ->orderBy('ps.id','ASC')
                            ->get(); 

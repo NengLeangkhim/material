@@ -13,7 +13,7 @@ class ModelHrmPolicy extends Model
       public static function hrm_get_tbl_policy(){
           $policy = DB::table('hr_policy as p')
                              ->select('p.*','staff_detail.username')
-                             ->leftjoin('staff_detail','p.create_by','=','staff_detail.staff_id')
+                             ->leftjoin('staff_detail','p.create_by','=','staff_detail.ma_user_id')
                              ->where('p.is_deleted','=','f')
                              ->orderBy('p.id','ASC')
                              ->get(); 

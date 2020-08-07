@@ -30,7 +30,7 @@ class hr_dashboardModel extends Model
 
     //select all staff promote
     public static function all_shift(){
-        $sql = "SELECT id, staff_id, create_date FROM hr_shift WHERE status='t'  order by create_date ASC";
+        $sql = "SELECT id, ma_user_id, create_date FROM hr_shift WHERE status='t'  order by create_date ASC";
         return DB::select($sql);
     }
 

@@ -25,7 +25,7 @@
                                 <td class="row_tb_style">'.$val->salary.'</td>
                                 <td class="row_tb_style">'.$val->create_date.'</td>
                                 <td>
-                                    <a class="btn" style="color: blue;"href="javascript:void(0);" onclick="staff_promote_history_detail('.$val->staff_id.', '.$i.');">Detail</a>
+                                    <a class="btn" style="color: blue;"href="javascript:void(0);" onclick="staff_promote_history_detail('.$val->ma_user_id.', '.$i.');">Detail</a>
                                 </td>
                             </tr>';
                             $i++;

@@ -11,9 +11,9 @@ class ModelHrmPerformSchedule extends Model
     // ===== Function get data for table for CEO =====////
     public static function hrm_get_tbl_schedule_top(){
         $schedule_ceo= DB::table('hr_performance_schedule as ps')
-                           ->select('ps.*','pd.name as name_plan','staff_detail.username','pd.hr_performance_plan_id','s.name as name_staff','s.id as staff_id')
-                           ->join('ma_user as s','ps.staff_id','=','s.id')
-                           ->join('staff_detail','ps.create_by','=','staff_detail.staff_id')
+                           ->select('ps.*','pd.name as name_plan','staff_detail.username','pd.hr_performance_plan_id','s.name as name_staff','s.id as ma_user_id')
+                           ->join('ma_user as s','ps.ma_user_id','=','s.id')
+                           ->join('staff_detail','ps.create_by','=','staff_detail.ma_user_id')
                            ->join('hr_performance_plan_detail as pd','ps.plan_detail_id','=','pd.id')
                            ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')
                            ->where('ps.is_deleted','=','f')
@@ -24,9 +24,9 @@ class ModelHrmPerformSchedule extends Model
     // ===== Function get data for table for Head Each departement =====////
     public static function hrm_get_tbl_schedule_dept($userid){
         $schedule_dept = DB::table('hr_performance_schedule as ps')
-                            ->select('ps.*','pd.name as name_plan','staff_detail.username','pd.hr_performance_plan_id','s.name as name_staff','s.id as staff_id')
-                            ->join('ma_user as s','ps.staff_id','=','s.id')
-                            ->join('staff_detail','ps.create_by','=','staff_detail.staff_id')
+                            ->select('ps.*','pd.name as name_plan','staff_detail.username','pd.hr_performance_plan_id','s.name as name_staff','s.id as ma_user_id')
+                            ->join('ma_user as s','ps.ma_user_id','=','s.id')
+                            ->join('staff_detail','ps.create_by','=','staff_detail.ma_user_id')
                             ->join('hr_performance_plan_detail as pd','ps.plan_detail_id','=','pd.id')
                             ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')
                             ->where([
@@ -40,14 +40,14 @@ class ModelHrmPerformSchedule extends Model
     // ===== Function get data for table for invidual user =====////
       public static function hrm_get_tbl_schedule_staff($userid){
         $schedule_user = DB::table('hr_performance_schedule as ps')
-                            ->select('ps.*','pd.name as name_plan','staff_detail.username','pd.hr_performance_plan_id','s.name as name_staff','s.id as staff_id')
-                            ->join('ma_user as s','ps.staff_id','=','s.id')
-                            ->join('staff_detail','ps.create_by','=','staff_detail.staff_id')
+                            ->select('ps.*','pd.name as name_plan','staff_detail.username','pd.hr_performance_plan_id','s.name as name_staff','s.id as ma_user_id')
+                            ->join('ma_user as s','ps.ma_user_id','=','s.id')
+                            ->join('staff_detail','ps.create_by','=','staff_detail.ma_user_id')
                             ->join('hr_performance_plan_detail as pd','ps.plan_detail_id','=','pd.id')
                             ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')
                             ->where([
                                 ['ps.is_deleted', '=', 'f'],
-                                ['ps.staff_id', '=', $userid],
+                                ['ps.ma_user_id', '=', $userid],
                             ])
                             ->orderBy('ps.id','ASC')
                             ->get(); 
@@ -63,8 +63,8 @@ class ModelHrmPerformSchedule extends Model
                             ->select('ps.*','staff_detail.username','s.name as name_staff',
                              'pd.name as pd_name','pd.hr_performance_plan_id','pd.id as pd_id','pd.task as pd_task','pd.date_from as pd_from','pd.date_to as pd_to',
                              'p.name as plan_name','p.date_from as plan_from','p.date_to as plan_to','p.id as plan_id')
-                            ->join('ma_user as s','ps.staff_id','=','s.id')
-                            ->join('staff_detail','ps.create_by','=','staff_detail.staff_id')
+                            ->join('ma_user as s','ps.ma_user_id','=','s.id')
+                            ->join('staff_detail','ps.create_by','=','staff_detail.ma_user_id')
                             ->join('hr_performance_plan_detail as pd','ps.plan_detail_id','=','pd.id')
                             ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')
                             ->where('ps.id', '=', $id)

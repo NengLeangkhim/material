@@ -13,7 +13,7 @@ class model_question_type extends Model
      public static function get_tbl_suggestion_question_type(){
         $question_type_get = DB::table('hr_suggestion_question_type as qt')
                            ->select('qt.*','staff_detail.username')
-                           ->leftjoin('staff_detail','qt.create_by','=','staff_detail.staff_id')
+                           ->leftjoin('staff_detail','qt.create_by','=','staff_detail.ma_user_id')
                            ->where('qt.is_deleted','=','f')
                            ->orderBy('qt.id','ASC')
                            ->get();  

@@ -71,7 +71,7 @@ use Illuminate\Support\Facades\DB;
 
             $sql['e_request_stand_by'][]="SELECT description, create_date, create_by as request_by, is_deleted
             FROM public.e_request_stand_by where id=$id;";
-            $sql['e_request_stand_by'][]="SELECT staff_id, stand_by_date, time_start, time_end, create_date, create_by, is_deleted
+            $sql['e_request_stand_by'][]="SELECT ma_user_id, stand_by_date, time_start, time_end, create_date, create_by, is_deleted
             FROM public.e_request_stand_by_detail where e_request_stand_by_id=$id;";
 
             if(isset($sql[$s])){

@@ -16,7 +16,7 @@ class shift_promote_historyController extends Controller
         $get_array[] = ''; 
         for($i=0; $i< count($all_promote); $i++){
             $get_array[0] = $all_promote[0];
-            if($get_array[$x]->staff_id != $all_promote[$i]->staff_id){
+            if($get_array[$x]->ma_user_id != $all_promote[$i]->ma_user_id){
                 $get_array[$x+=1] = $all_promote[$i];
                 
             }

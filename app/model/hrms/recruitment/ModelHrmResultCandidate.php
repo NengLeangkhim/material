@@ -158,7 +158,7 @@ class ModelHrmResultCandidate extends Model
         return DB::table('hr_question_knowledge as qk')
                 ->select('qk.*','staff_detail.username','d.name')
                 ->join('ma_company_dept as d','qk.dapartement_id','=','d.id')
-                ->join('staff_detail','qk.create_by','=','staff_detail.staff_id')
+                ->join('staff_detail','qk.create_by','=','staff_detail.ma_user_id')
                 ->where([
                     ['qk.is_deleted', '=', 'f'],
                     ['qk.dapartement_id', '=',$dept],

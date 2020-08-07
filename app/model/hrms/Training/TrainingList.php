@@ -19,7 +19,7 @@ class TrainingList extends Model
             $sql = "SELECT hts.id,htl.id as typeid,htt.id as trainerid,htl.name as type,htt.name as trainer,hts.training_date_from as schet_f_date,hts.training_date_to as schet_t_date,ht.actual_date_from as actual_f_date,ht.actual_date_to as actual_t_date,hts.schedule_status,hts.description as schet_description, ht.description as actual_description,hts.file
             from hr_training_schedule hts LEFT JOIN hr_training ht on hts.id=ht.training_schedule_id 
             JOIN hr_training_list htl on hts.training_list_id=htl.id
-            JOIN hr_training_trainer htt on htt.id=staff_id WHERE hts.is_deleted='f'".$st;
+            JOIN hr_training_trainer htt on htt.id=ma_user_id WHERE hts.is_deleted='f'".$st;
             return DB::select($sql);
         }catch(Throwable $e){
             report($e);

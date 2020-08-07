@@ -20,7 +20,7 @@ class change_password extends Controller{
     $pass='';
     if(isset($_POST['_oldpass'])){
         $pass=$_POST['_oldpass'];
-        $q=DB::select("select username from staff_detail where status='t' and staff_id=$user_id and password='".en_de::aes_en($pass,'1941a39eed11fdef7f9de6d597df9f4b')."'");
+        $q=DB::select("select username from staff_detail where status='t' and ma_user_id=$user_id and password='".en_de::aes_en($pass,'1941a39eed11fdef7f9de6d597df9f4b')."'");
         if(isset(ere_get_assoc::assoc_($q)[0])){
             echo json_encode(ere_get_assoc::assoc_($q)[0]);
         }

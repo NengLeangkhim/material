@@ -13,7 +13,7 @@ class ModelQuestionAnswer extends Model
       public static function hrm_get_tbl_suggestion_question(){
           $question_sugg_get = DB::table('hr_suggestion_question as q')
                              ->select('q.*','staff_detail.username','qt.name as  question_type')
-                             ->leftjoin('staff_detail','q.create_by','=','staff_detail.staff_id')
+                             ->leftjoin('staff_detail','q.create_by','=','staff_detail.ma_user_id')
                              ->leftjoin('hr_suggestion_question_type as qt','q.id_type','=','qt.id')
                              ->where('q.is_deleted','=','f')
                              ->orderBy('q.id','ASC')

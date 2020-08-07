@@ -1245,7 +1245,7 @@ function hrm_update_perform_schedule(id,id_plan){
         $('#schedule_detail_task').text(data[i].pd_task);
         $('#schedule_detail_from').val(data[i].pd_from);
         $('#schedule_detail_to').val(data[i].pd_to);
-        $('#staff_schedule').val(data[i].staff_id);
+        $('#staff_schedule').val(data[i].ma_user_id);
         $('#staff_from_schedule').val(data[i].date_from);
         $('#staff_to_schedule').val(data[i].date_to);
         $('#staff_comment_schedule').text(data[i].comment);  

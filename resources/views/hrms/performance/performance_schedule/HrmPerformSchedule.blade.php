@@ -59,7 +59,7 @@ foreach($permission as $row){
                                                 @if ($level==4 || $level==5 || $level==1){{-- check permission manager --}}
                                                     <button type="button" id="{{$row->id}}" onclick="hrm_update_perform_schedule({{$row->id}},{{$row->hr_performance_plan_id}})" class="dropdown-item hrm_item hrm_update_perform_schedule">Update</button>  
                                                 @endif           
-                                                @if ($row->staff_id == $id_user) {{-- can add follow up only by ur schedule --}}
+                                                @if ($row->ma_user_id == $id_user) {{-- can add follow up only by ur schedule --}}
                                                     <button type="button" id="{{$row->id}}" onclick="go_to('/hrm_performance_follow_up/modal/action?add={{$row->id}}')" class="dropdown-item hrm_item hrm_add_perform_follow_up">Add Follow Up</button>
                                                 @endif  
                                             </div>

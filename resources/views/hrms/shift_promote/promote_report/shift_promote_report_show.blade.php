@@ -29,7 +29,7 @@
                                         <td> '. $val[$i]->create_date.'</td>
                                         <td> '. $val[$i]->create_by.'</td>  
                                         <td> 
-                                            <a class="btn btn-outline-primary" href="javascript:void(0);"   onclick="staff_promote_report_detail('.$val[$i]->staff_id.', \''.$val[$i]->create_date.'\');">Detail</a>
+                                            <a class="btn btn-outline-primary" href="javascript:void(0);"   onclick="staff_promote_report_detail('.$val[$i]->ma_user_id.', \''.$val[$i]->create_date.'\');">Detail</a>
                                         </td>
                                         
                                          </tr> ';

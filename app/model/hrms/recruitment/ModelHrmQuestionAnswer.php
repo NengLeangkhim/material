@@ -11,7 +11,7 @@ class ModelHrmQuestionAnswer extends Model
     public static function hrm_get_tbl_recruitment_question(){
         $question_get = DB::table('hr_question as q')
                            ->select('q.*','staff_detail.username','qt.name as  question_type','p.name','qc.is_deleted as delete')
-                           ->leftjoin('staff_detail','q.create_by','=','staff_detail.staff_id')
+                           ->leftjoin('staff_detail','q.create_by','=','staff_detail.ma_user_id')
                            ->leftjoin('position as p','q.position_id','=','p.id')
                            ->leftjoin('hr_question_type as qt','q.question_type_id','=','qt.id')
                            ->leftjoin('hr_question_choice as qc','q.id','=','qc.question_id')
