@@ -16,7 +16,7 @@ class addStaff extends Controller
             session_start();
         }
         if(perms::check_perm_module('STO_01')){
-            $q=DB::select("SELECT id,name from company");
+            $q=DB::select("SELECT id,name from ma_company");
             $m='<form action="/addstaff" id="form1" method="POST" name="addStaff">
             <input type="hidden" name="_token" value="'.csrf_token().'">
             <div class="modal fade" id="modaladd" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -97,10 +97,10 @@ class addStaff extends Controller
             $email=$_POST['email'];
             $contact=$_POST['contact'];
             $address=$_POST['address'];
-            $company=$_POST['a_company'];
+            $ma_company=$_POST['a_company'];
             $branch=$_POST['a_branch'];
 
-            $sql="insert_staff('$name','$email','$contact','$address',null,$company,$branch,null,$staff)";
+            $sql="insert_staff('$name','$email','$contact','$address',null,$ma_company,$branch,null,$staff)";
             $q=DB::select("SELECT ".$sql);
         }
     }

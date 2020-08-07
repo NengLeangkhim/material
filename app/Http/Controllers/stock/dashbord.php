@@ -35,8 +35,8 @@ class dashbord extends Controller
                 return view('start');
                 // if($positionID[0]->position_id==1 || $positionID[0]->company_dept_id==10){
                 //     $arr[]=array();
-                //     $arr[0]=DB::select('select id,name from company');
-                //     $arr[1]=DB::select('SELECT COUNT(cd.branch_id),cd.company_id from company c INNER JOIN company_detail cd on c."id"=cd.company_id GROUP BY cd.company_id');
+                //     $arr[0]=DB::select('select id,name from ma_company');
+                //     $arr[1]=DB::select('SELECT COUNT(cd.branch_id),cd.company_id from ma_company c INNER JOIN company_detail cd on c."id"=cd.company_id GROUP BY cd.company_id');
                 //     $arr[2]=array();
                 //     $arr[3]=DB::select("select p.id,p.name,
                 //     (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=8) as qty,
@@ -82,8 +82,8 @@ class dashbord extends Controller
         if(perms::check_perm_module('STO_0103')){//module code
                 // return view('start');
                 $arr[]=array();
-                $arr[0]=DB::select('select id,name from company');
-                $arr[1]=DB::select('SELECT COUNT(cd.branch_id),cd.company_id from company c INNER JOIN company_detail cd on c."id"=cd.company_id GROUP BY cd.company_id');
+                $arr[0]=DB::select('select id,name from ma_company');
+                $arr[1]=DB::select('SELECT COUNT(cd.branch_id),cd.company_id from ma_company c INNER JOIN company_detail cd on c."id"=cd.company_id GROUP BY cd.company_id');
                 $arr[2]=array();
                 $arr[3]=DB::select("select p.id,p.name,
                 (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=8) as qty,
@@ -108,7 +108,7 @@ class dashbord extends Controller
     }
     public function getProductDetail(){
         $pid=$_GET['pids'];
-        $cmid=DB::select("select id from company where name='TURBOTECH CO., LTD'");
+        $cmid=DB::select("select id from ma_company where name='TURBOTECH CO., LTD'");
         $sql="select distinct
         (select sum(qq.qty) from product_qty qq join company_detail ccd on qq.company_detail_id=ccd.id where qq.product_id=q.product_id and qq.action_type='in' and ccd.company_id=".$cmid[0]->id." and date_trunc('day', qq.create_date)=date_trunc('day', q.create_date)) as import,
         (select sum(qq.qty) from product_qty qq join company_detail ccd on qq.company_detail_id=ccd.id where qq.product_id=q.product_id and qq.action_type='out' and ccd.company_id=".$cmid[0]->id." and date_trunc('day', qq.create_date)=date_trunc('day', q.create_date)) as request,
@@ -139,8 +139,8 @@ class dashbord extends Controller
         if(perms::check_perm()){
             return view('start');
             // $arr[]=array();
-            //     $arr[0]=DB::select('select id,name from company');
-            //     $arr[1]=DB::select('SELECT COUNT(cd.branch_id),cd.company_id from company c INNER JOIN company_detail cd on c."id"=cd.company_id GROUP BY cd.company_id');
+            //     $arr[0]=DB::select('select id,name from ma_company');
+            //     $arr[1]=DB::select('SELECT COUNT(cd.branch_id),cd.company_id from ma_company c INNER JOIN company_detail cd on c."id"=cd.company_id GROUP BY cd.company_id');
             //     $arr[2]=array();
             //     $arr[3]=DB::select("select p.id,p.name,
             //     (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=8) as qty,

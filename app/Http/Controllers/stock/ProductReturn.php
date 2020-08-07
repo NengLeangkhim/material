@@ -32,7 +32,7 @@ class ProductReturn extends Controller
         }
         if(perms::check_perm_module('STO_01060301')){//module codes
             $r=array();
-            $r[]=DB::select("SELECT id,name from company");
+            $r[]=DB::select("SELECT id,name from ma_company");
             $r[]=DB::select("SELECT id,name from staff");
             return view('stock.products.productReturn.addProductReturn')->with("action",$r);
         }else{

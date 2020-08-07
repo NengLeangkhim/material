@@ -34,7 +34,7 @@ class productImport extends Controller
         }
         if(perms::check_perm_module('STO_01060401')){//module codes
             $r=array();
-            $r[]=DB::select("SELECT id,name from company");
+            $r[]=DB::select("SELECT id,name from ma_company");
             $r[]=DB::select("SELECT id,name from staff");
             $r[]=DB::select("SELECT id,name from supplier where status='t'");
             return view('stock.products.productImport.addProductImport')->with("action",$r);

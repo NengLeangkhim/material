@@ -104,7 +104,7 @@ class product extends Controller
             else{
                 // $storage= $_SESSION['warehouse'];
                 $addp=array();
-                // $addp[0]=DB::select("select id,name from company");
+                // $addp[0]=DB::select("select id,name from ma_company");
                 $addp[1]=DB::select("select id,name from measurement where status='t'");
                 $addp[2]=DB::select("select id,name from product_brand where status='t'");
                 // $addp[3]=DB::select("select id,name from storage where status='t'");
@@ -150,7 +150,7 @@ class product extends Controller
                 $passv="addp";
                 $v="stock.products.productList.addproduct";
                 $id=$_GET['edit'];
-                // $addp[0]=DB::select("select id,name from company");
+                // $addp[0]=DB::select("select id,name from ma_company");
                 $addp[1]=DB::select("select id,name from measurement where status='t'");
                 $addp[2]=DB::select("select id,name from product_brand where status='t'");
                 // $addp[3]=DB::select("select id,name from storage where status='t'");

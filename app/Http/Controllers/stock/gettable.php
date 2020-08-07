@@ -693,7 +693,7 @@ class gettable extends Controller
         (select count(id)from company_branch where company_id=c.id and is_deleted=\'f\') as "Branches",
         count(pc.product_id)over (partition by pc.company_id) as "Assigned Product"
         from product_company pc
-        right join company c on c.id=pc.company_id
+        right join ma_company c on c.id=pc.company_id
         where  c.is_deleted=\'f\' and (lower(c.name) like \'%'.$sr.'%\' or  lower(c.code) like \'%'.$sr.'%\')';
         $sqlstr['customerproductrequest']='SELECT * from (SELECT c.id,
         cd.customer as "Customer",cd.branch as "Branch",

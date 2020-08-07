@@ -188,7 +188,7 @@ class dashboard extends Controller
         }
         $cID=$_GET['cID'];
         $_SESSION['cid']=$cID;
-        $companyName=DB::select("select name from company where id=".$cID);
+        $companyName=DB::select("select name from ma_company where id=".$cID);
         $branch=DB::select("SELECT id,branch from company_branch where status='t' and company_id=".$cID);
         $totalRow=DB::select("select p.name,(select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=".$_SESSION['cid'].") as qty,
         (select sum(q.qty) from product_qty q join company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.company_id=$cID and q.action_type='in') as import,
@@ -547,7 +547,7 @@ class dashboard extends Controller
             $limit=6;
             $next_page=$page+1;
             $prev_page=$page-1;
-            $sql='select id,name from company';
+            $sql='select id,name from ma_company';
             $companys=DB::select($sql);
             $total_page=ceil(count($companys)/$limit);
             $start_from=($page-1)*$limit;
