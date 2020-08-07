@@ -897,17 +897,17 @@ class gettable extends Controller
                         where lower(name) like '%$sr%' or lower(name_kh) like '%$sr%' or lower(name) like '%$sr%' or lower(part_number) like '%$sr%'
                         or lower(barcode) like '%$sr%' or lower(product_code) like '%$sr%'";
         $sqlstr['productcompanydashbord']="SELECT * from (SELECT p.id,(select get_code_prefix_ibuild(p.code,(select company_detail_id from staff where id=".$_SESSION['userid']."),p.code_prefix_owner_id,(select code from product_type where id=p.product_type_id))) as \"Product Code\",(select name_en from product_type where id=p.product_type_id) as \"Type\",p.name as \"Name\",
-                    (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to')) as \"QTY\",
-                    (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to') and q.action_type='in') as \"Import\",
-                    (select (sum(q.qty)*-1) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to') and q.action_type='out') as \"Request\"
+                    (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to')) as \"QTY\",
+                    (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to') and q.action_type='in') as \"Import\",
+                    (select (sum(q.qty)*-1) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to') and q.action_type='out') as \"Request\"
                     from product p
                     join product_qty q on p.id=q.product_id
                     join ma_company_detail cd on cd.id=q.company_detail_id
                     join product_company pc on pc.product_id=p.id
                     where 't' and
                     p.is_deleted='f' and 
-                    pc.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to')
-                    group by p.id having (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id right join product p on p.id=q.product_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid'].")) is not null) as fee
+                    pc.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to')
+                    group by p.id having (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id right join product p on p.id=q.product_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid'].")) is not null) as fee
                     where 't' and (lower(\"Name\") like '%$sr%' or lower(\"Product Code\") like '%$sr%' or lower(\"Type\") like '%$sr%')";
         return $sqlstr[$s];
     }
