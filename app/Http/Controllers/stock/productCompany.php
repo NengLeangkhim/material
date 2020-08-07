@@ -101,7 +101,7 @@ class productCompany extends Controller
             $pid=$_POST['pid'];
             $qty=$_POST['qty'];
             $price=$_POST['price'];
-            $currency=$_POST['currency'];
+            $ma_currency=$_POST['ma_currency'];
             $location=$_POST['storage_location'];
             $storage=$_POST['storage'];
             $action=$_POST['action_type'];
@@ -117,7 +117,7 @@ class productCompany extends Controller
             $id=$q[0]->id;
             for($i=0;$i<count($pid);$i++){
                 // echo $pid[$i].' '.$qty[$i].' '.$location[$i].' '.$storage[$i].'<br>';
-                $dsql=$ds."($id,".$storage[$i].",".$location[$i].",".$pid[$i].",".$qty[$i].",".$price[$i].",".$currency[$i].",$staff);";
+                $dsql=$ds."($id,".$storage[$i].",".$location[$i].",".$pid[$i].",".$qty[$i].",".$price[$i].",".$ma_currency[$i].",$staff);";
                 $q=DB::select("SELECT ".$dsql);
             }
             if(count($q)>0){
@@ -183,7 +183,7 @@ class productCompany extends Controller
             $pid=$_POST['pid'];
             $qty=$_POST['qty'];
             $price=$_POST['price'];
-            $currency=$_POST['currency'];
+            $ma_currency=$_POST['ma_currency'];
             $location=$_POST['storage_location'];
             $storage=$_POST['storage'];
             $action=$_POST['action_type'];
@@ -201,9 +201,9 @@ class productCompany extends Controller
             for($i=0;$i<count($pid);$i++){
                 // echo $pid[$i].' '.$qty[$i].' '.$location[$i].' '.$storage[$i].'<br>';
                 if($action=='in'){
-                   $dsql=$ds."($id,".$storage[$i].",".$location[$i].",".$pid[$i].",".$qty[$i].",".$price[$i].",".$currency[$i].");";
+                   $dsql=$ds."($id,".$storage[$i].",".$location[$i].",".$pid[$i].",".$qty[$i].",".$price[$i].",".$ma_currency[$i].");";
                 }else if($action=='out'){
-                    $dsql=$ds."($id,".$pid[$i].",".$storage[$i].",".$location[$i].",".$qty[$i].",".$price[$i].",".$currency[$i].");";
+                    $dsql=$ds."($id,".$pid[$i].",".$storage[$i].",".$location[$i].",".$qty[$i].",".$price[$i].",".$ma_currency[$i].");";
                 }
                 $q=DB::select("SELECT ".$dsql);
             }

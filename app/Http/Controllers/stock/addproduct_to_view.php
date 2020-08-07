@@ -117,7 +117,7 @@ class addproduct_to_view extends Controller
             }
         }
         $sql="SELECT p.id, p.name, p.price, p.barcode, p.part_number,get_code_prefix_ibuild(p.code,$cdi,p.code_prefix_owner_id,pt.code) as product_code,
-                c.name as currency,m.name as measurement,p.currency_id,
+                c.name as ma_currency,m.name as ma_measurement,p.currency_id,
                 (select sum(q.qty) from product_qty q where q.product_id=p.id and q.company_detail_id=$cdi) as qty,
                 (select s.location from product_qty q join storage_detail s on s.id=q.storage_detail_id where q.product_id=p.id and q.company_detail_id=$cdi limit 1) as location,
                 (select s.storage_location_id from product_qty q join storage_detail s on s.id=q.storage_detail_id where q.product_id=p.id and q.company_detail_id=$cdi limit 1) as location_id,
@@ -125,8 +125,8 @@ class addproduct_to_view extends Controller
                 (select s.storage from product_qty q join storage_detail s on s.id=q.storage_detail_id where q.product_id=p.id and q.company_detail_id=$cdi limit 1) as storage
                 FROM public.product p
                 left join product_type pt on pt.id=p.product_type_id
-                join currency c on c.id=p.currency_id
-                join measurement m on m.id=p.measurement_id
+                join ma_currency c on c.id=p.currency_id
+                join ma_measurement m on m.id=p.measurement_id
                 where p.id=$id";
         $q=array();
         $q[]=DB::select($sql);

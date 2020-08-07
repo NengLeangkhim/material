@@ -93,7 +93,7 @@ class dashbord extends Controller
                  from product p join product_qty q on p.id=q.product_id join ma_company_detail cd on cd.id=q.company_detail_id join product_company pc on pc.product_id=p.id where 't' and cd.ma_company_id=8 group by p.id having (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=8) is not null");
                 foreach($arr[0] as $sproduct){
 
-                    $a=DB::select("select count(*),$sproduct->id as id	from product_company where ma_company_id=$sproduct->id");
+                    $a=DB::select("select count(*),$sproduct->id as id	from product_company where company_id=$sproduct->id");
                     // $a=DB::select("select count(*),$sproduct->id as id	from (select q.product_id from product_qty q
                     // join ma_company_detail cd on cd.id=q.company_detail_id
                     // join product p on p.id=q.product_id

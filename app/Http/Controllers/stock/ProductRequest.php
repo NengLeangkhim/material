@@ -54,7 +54,7 @@ class ProductRequest extends Controller
             $pid=$_POST['pid'];
             $qty=$_POST['qty'];
             $price=$_POST['price'];
-            $currency=$_POST['currency'];
+            $ma_currency=$_POST['ma_currency'];
             $location=$_POST['storage_location'];
             $storage=$_POST['storage'];
 
@@ -66,7 +66,7 @@ class ProductRequest extends Controller
             $id=$q[0]->id;
             for($i=0;$i<count($pid);$i++){
                 // echo $pid[$i].' '.$qty[$i].' '.$location[$i].' '.$storage[$i].'<br>';
-                $dsql=$ds."($id,".$pid[$i].",".$storage[$i].",".$location[$i].",".$qty[$i].",".$price[$i].",".$currency[$i].",$staff);";
+                $dsql=$ds."($id,".$pid[$i].",".$storage[$i].",".$location[$i].",".$qty[$i].",".$price[$i].",".$ma_currency[$i].",$staff);";
                 $q=DB::select("SELECT ".$dsql);
             }
             if(count($q)>0){
@@ -89,15 +89,15 @@ class ProductRequest extends Controller
                     from request_product rp
                     join ma_company_detail cd on cd.id=rp.company_detail_id
                     where cd.status='t' and rp.id=$id";
-                $sql1="SELECT b.name as brand,p.name,p.part_number,p.barcode,m.name as measurement,c.name as currency,rpd.qty,rpd.price,(rpd.qty*rpd.price) as amount,
+                $sql1="SELECT b.name as brand,p.name,p.part_number,p.barcode,m.name as ma_measurement,c.name as ma_currency,rpd.qty,rpd.price,(rpd.qty*rpd.price) as amount,
                     get_code_prefix_ibuild(p.code,rp.company_detail_id,p.code_prefix_owner_id,pt.code) as product_code
                     from request_product_detail rpd
                     left join request_product rp on rp.id=rpd.request_product_id
                     join product p on p.id=rpd.product_id
                     left join product_type pt on pt.id=p.product_type_id
                     join product_brand b on b.id=p.brand_id
-                    join currency c on rpd.currency_id=c.id
-                    join measurement m on p.measurement_id=m.id
+                    join ma_currency c on rpd.currency_id=c.id
+                    join ma_measurement m on p.measurement_id=m.id
                     where rpd.request_product_id=$id";
             $plist=array();
             $plist[]=DB::select($sql);

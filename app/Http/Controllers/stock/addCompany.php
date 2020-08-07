@@ -109,7 +109,7 @@ class addCompany extends Controller
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onclick="close_modal_edge()" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" onclick="SubForm(\'/addcompany\',\'form1\',\'company_branch\')">Save</button>
+                            <button type="button" class="btn btn-primary" onclick="SubForm(\'/addcompany\',\'form1\',\'ma_company_branch\')">Save</button>
                         </div>
                 </div>
             </div>

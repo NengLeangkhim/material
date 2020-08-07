@@ -16,11 +16,11 @@ class product extends Controller
         }
         if(perms::check_perm_module('STO_010602')){//module code
             // $plist=DB::select("SELECT p.id,b.name as brand ,p.name, p.part_number, p.barcode,cd.company,
-            // m.name as measurement,cu.name as currency, p.qty, p.price,(p.qty*p.price)as amount,description
+            // m.name as ma_measurement,cu.name as ma_currency, p.qty, p.price,(p.qty*p.price)as amount,description
             //     FROM public.product p
-            //     join measurement m on m.id=p.measurement_id
+            //     join ma_measurement m on m.id=p.measurement_id
             //     join product_brand b on b.id=p.brand_id
-            //     join currency cu on cu.id=p.currency_id
+            //     join ma_currency cu on cu.id=p.currency_id
             //     join ma_company_detail cd on cd.id=p.company_detail_id");
             return view('stock.products.productList.productlist');
         }else{
@@ -80,7 +80,7 @@ class product extends Controller
                     }
                 }
                 $description=$_POST['description'];
-                $currency=$_POST['currency'];
+                $ma_currency=$_POST['ma_currency'];
                 $barcode=$_POST['barcode'];
                 if(!empty($_POST['pid'])){//update
                     $pid=$_POST['pid'];
@@ -89,11 +89,11 @@ class product extends Controller
                     }
                     $sql="update_product(
                             $pid,'$pname','$pname_kh',$cost,$unitType,$company,$company_branch,
-                            $staff,'$ppartNumber','$img',$brand,$currency,'$barcode',
+                            $staff,'$ppartNumber','$img',$brand,$ma_currency,'$barcode',
                             '$description')";
                 }else{//insert
                     $sql="insert_product(
-                        '$pname','$pname_kh',$cost,0,$staff,$company_branch,$company,$unitType,$storage,$storage_location,$supplier,$brand,$currency,'$ppartNumber','$img','$barcode',$ptype,'$description')";
+                        '$pname','$pname_kh',$cost,0,$staff,$company_branch,$company,$unitType,$storage,$storage_location,$supplier,$brand,$ma_currency,'$ppartNumber','$img','$barcode',$ptype,'$description')";
                 }
                 echo $sql;
                 $plist=DB::select("select ".$sql);
@@ -105,10 +105,10 @@ class product extends Controller
                 // $storage= $_SESSION['warehouse'];
                 $addp=array();
                 // $addp[0]=DB::select("select id,name from ma_company");
-                $addp[1]=DB::select("select id,name from measurement where status='t'");
+                $addp[1]=DB::select("select id,name from ma_measurement where status='t'");
                 $addp[2]=DB::select("select id,name from product_brand where status='t'");
                 // $addp[3]=DB::select("select id,name from storage where status='t'");
-                $addp[4]=DB::select("select id,name from currency where status='t'");
+                $addp[4]=DB::select("select id,name from ma_currency where status='t'");
                 // $addp[5]=DB::select("select id,name from supplier where status='t'");
                 $addp[7]=DB::select("select id,name_en from product_type where status='t'");
                 return view('stock.products.productList.addproduct',['addp'=>$addp]);
@@ -129,10 +129,10 @@ class product extends Controller
                 $id=$_GET['pID'];
                 $passv="plist";
                 $addp=array();
-                $addp[]=DB::select("SELECT p.id,b.name as brand ,p.name,p.name_kh, p.part_number,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code, p.barcode,m.name as measurement, p.qty, p.price,(p.qty*p.price)as amount,p.image
-                FROM public.product p join measurement m on m.id=p.measurement_id join product_brand b on b.id=p.brand_id left join product_type pt on pt.id=p.product_type_id where p.id=".$id);
+                $addp[]=DB::select("SELECT p.id,b.name as brand ,p.name,p.name_kh, p.part_number,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code, p.barcode,m.name as ma_measurement, p.qty, p.price,(p.qty*p.price)as amount,p.image
+                FROM public.product p join ma_measurement m on m.id=p.measurement_id join product_brand b on b.id=p.brand_id left join product_type pt on pt.id=p.product_type_id where p.id=".$id);
                 $addp[]=DB::select("SELECT distinct sum(q.qty)over(partition by q.company_detail_id,q.storage_detail_id) as qty,q.company_detail_id,s.storage,s.location,cd.company,cd.branch
-                                    ,(select code from company_branch where id=cd.ma_company_branch_id) as company_code,(select get_code_prefix_ibuild(p.code,q.company_detail_id,p.code_prefix_owner_id,pt.code) from product p left join product_type pt on pt.id=p.product_type_id where p.id=q.product_id) as product_code
+                                    ,(select code from ma_company_branch where id=cd.ma_company_branch_id) as company_code,(select get_code_prefix_ibuild(p.code,q.company_detail_id,p.code_prefix_owner_id,pt.code) from product p left join product_type pt on pt.id=p.product_type_id where p.id=q.product_id) as product_code
                                     from product_qty q
                                     left join ma_company_detail cd on cd.id=q.company_detail_id
                                     left join storage_detail s on s.id=q.storage_detail_id
@@ -151,10 +151,10 @@ class product extends Controller
                 $v="stock.products.productList.addproduct";
                 $id=$_GET['edit'];
                 // $addp[0]=DB::select("select id,name from ma_company");
-                $addp[1]=DB::select("select id,name from measurement where status='t'");
+                $addp[1]=DB::select("select id,name from ma_measurement where status='t'");
                 $addp[2]=DB::select("select id,name from product_brand where status='t'");
                 // $addp[3]=DB::select("select id,name from storage where status='t'");
-                $addp[4]=DB::select("select id,name from currency where status='t'");
+                $addp[4]=DB::select("select id,name from ma_currency where status='t'");
                 // $addp[5]=DB::select("select id,name from supplier where status='t'");
                 $addp[6]=DB::select("SELECT p.id, p.name,p.name_kh, p.qty, p.price,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code,p.product_type_id,
                 p.measurement_id, p.brand_id, p.barcode, p.image, p.part_number, p.currency_id,p.description
@@ -180,7 +180,7 @@ class product extends Controller
         }
         if(perms::check_perm_module('STO_01')){
             $id=$_GET['_id'];//set up same for ajax
-            $get_branch=DB::select('select id,branch as name from company_branch where status=\'t\' and ma_company_id='.$id);
+            $get_branch=DB::select('select id,branch as name from ma_company_branch where status=\'t\' and ma_company_id='.$id);
             return response()->json(array('response'=> $get_branch), 200);//set up same for ajax
         }else{
             return view('no_perms');

@@ -86,18 +86,18 @@ class productAssign extends Controller
                 //     join company c on pc.ma_company_id=c.id
                 //     join product p on p.id=pc.product_id
                 //     join product_brand b on p.brand_id=b.id
-                //     join measurement m on m.id=p.measurement_id
-                //     join currency cu on cu.id=p.currency_id
+                //     join ma_measurement m on m.id=p.measurement_id
+                //     join ma_currency cu on cu.id=p.currency_id
                 //     where c.id=$id";
                 $sql1="Select p.id,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code ,b.name as brand ,p.name ,p.name_kh , p.part_number , p.barcode ,
-                                m.name as measurement,cu.name as currency, (select avg(q.price) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id) as price ,(select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id) as qty,
+                                m.name as ma_measurement,cu.name as ma_currency, (select avg(q.price) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id) as price ,(select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id) as qty,
                                 ((select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id)*(select avg(q.price) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id)) as amount,description
                             from product_company pc
                     join ma_company c on pc.ma_company_id=c.id
                     join product p on p.id=pc.product_id
                     left join product_brand b on p.brand_id=b.id
-                    left join measurement m on m.id=p.measurement_id
-                    left join currency cu on cu.id=p.currency_id
+                    left join ma_measurement m on m.id=p.measurement_id
+                    left join ma_currency cu on cu.id=p.currency_id
                     left join product_type pt on pt.id=p.product_type_id
                     where c.id=$id";
             $plist=array();

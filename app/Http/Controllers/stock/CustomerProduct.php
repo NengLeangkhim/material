@@ -91,7 +91,7 @@ class CustomerProduct extends Controller
             $pid=$_POST['pid'];
             $qty=$_POST['qty'];
             $price=$_POST['price'];
-            $currency=$_POST['currency'];
+            $ma_currency=$_POST['ma_currency'];
             $location=$_POST['storage_location'];
             $storage=$_POST['storage'];
             $company="(select cd.ma_company_id from ma_company_detail cd join ma_user s on s.ma_company_detail_id=cd.id where cd.status='t' and s.id=$staff)";
@@ -107,7 +107,7 @@ class CustomerProduct extends Controller
             }
             for($i=0;$i<count($pid);$i++){
                 // echo $pid[$i].' '.$qty[$i].' '.$location[$i].' '.$storage[$i].'<br>';
-                $dsql=$ds."($p_customer,".$pid[$i].",".$storage[$i].",".$location[$i].",".$qty[$i].",".$price[$i].",".$currency[$i].");";
+                $dsql=$ds."($p_customer,".$pid[$i].",".$storage[$i].",".$location[$i].",".$qty[$i].",".$price[$i].",".$ma_currency[$i].");";
                 $q=DB::select("SELECT ".$dsql);
             }
             // if(count($q)>0){
@@ -134,13 +134,13 @@ class CustomerProduct extends Controller
                         FROM public.product_customer_ c
                         join ma_customer_detail cd on cd.id=c.customer_detail_id
                         where c.id=$id and cd.status='t'";
-            $sql1="SELECT b.name as brand,get_code_prefix_ibuild(p.code,pc.company_detail_id,p.code_prefix_owner_id,(select code from product_type where id=p.product_type_id)) as product_code,p.name,p.part_number,p.barcode,m.name as measurement,c.name as currency,pd.qty,pd.price,(pd.qty*pd.price) as amount
+            $sql1="SELECT b.name as brand,get_code_prefix_ibuild(p.code,pc.company_detail_id,p.code_prefix_owner_id,(select code from product_type where id=p.product_type_id)) as product_code,p.name,p.part_number,p.barcode,m.name as ma_measurement,c.name as ma_currency,pd.qty,pd.price,(pd.qty*pd.price) as amount
                     from product_customer_detail pd
                     left join public.product_customer_ pc on pc.id=pd.product_customer_id
                     join product p on p.id=pd.product_id
                     join product_brand b on b.id=p.brand_id
-                    join currency c on pd.currency_id=c.id
-                    join measurement m on p.measurement_id=m.id
+                    join ma_currency c on pd.currency_id=c.id
+                    join ma_measurement m on p.measurement_id=m.id
                     where product_customer_id=$id";
             $plist=array();
             $plist[]=DB::select($sql);

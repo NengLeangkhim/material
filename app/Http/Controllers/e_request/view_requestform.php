@@ -45,7 +45,7 @@ class view_requestform extends Controller
 
         $q=DB::select("select s.id, s.name from ma_user s
         join ma_position p on p.id=s.ma_position_id
-        where p.group_id <>1 and s.id_number is not null and s.ma_company_dept_id=(select ma_company_dept_id from ma_user where id=$user_id)
+        where p.ma_group_id <>1 and s.id_number is not null and s.ma_company_dept_id=(select ma_company_dept_id from ma_user where id=$user_id)
         order by name ");
         $r=ere_get_assoc::assoc_($q);
         $staff=$r;

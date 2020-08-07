@@ -578,7 +578,7 @@ class gettable extends Controller
                                 <td class=" ">'.$st->name.'</td>
                                 <td class=" ">'.$st->name_kh.'</td>
                                 <td class=" ">'.$st->brand.'</td>
-                                <td class="">'.$st->measurement.'</td>
+                                <td class="">'.$st->ma_measurement.'</td>
                                 <td></td>
                                 <td class="">'.$st->beginning.'</td>
                                 <td class="">'.$st->price.'</td>
@@ -680,9 +680,9 @@ class gettable extends Controller
         $sqlstr['productlist']='SELECT * from (SELECT p.id,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as "Product Code",pt.name_en as "Type",b.name as "Brand" ,p.name as "Name (EN)",p.name_kh as "Name (KHMR)", p.part_number as "Part number", p.barcode as "Barcode",
         m.name as "Measurement",cu.name as "Currency", p.price as "Base Price",p.qty as "QTY",(p.qty*p.price)as "Amount",description as "Description"
         FROM public.product p
-        left join measurement m on m.id=p.measurement_id
+        left join ma_measurement m on m.id=p.measurement_id
         left join product_brand b on b.id=p.brand_id
-        left join currency cu on cu.id=p.currency_id
+        left join ma_currency cu on cu.id=p.currency_id
         left join product_type pt on pt.id=p.product_type_id
         where p.is_deleted=\'f\' and m.is_deleted=\'f\' and b.is_deleted=\'f\' and cu.is_deleted=\'f\'
         and pt.is_deleted=\'f\' and b.is_deleted=\'f\') as feee
@@ -842,9 +842,9 @@ class gettable extends Controller
                 (select sum(qty) from product_qty where is_deleted='f' and product_id=p.id and action_type='return' and create_date between '$from' and '$to') as \"Return\",
                 m.name as \"Measurement\",cu.name as \"Currency\", p.qty as \"Qty\",p.price as \"Price\",description as \"Description\"
                     FROM public.product p
-                    join measurement m on m.id=p.measurement_id
+                    join ma_measurement m on m.id=p.measurement_id
                     join product_brand b on b.id=p.brand_id
-                    join currency cu on cu.id=p.currency_id
+                    join ma_currency cu on cu.id=p.currency_id
                     left join product_type pt on pt.id=p.product_type_id
                     where p.is_deleted='f') as fee
                     where lower(\"Name\") like '%$sr%' or lower(\"Name KH\") like '%$sr%' or lower(\"Brand\") like '%$sr%' or lower(\"Part number\") like '%$sr%'
@@ -853,7 +853,7 @@ class gettable extends Controller
                         from product p
                     join product_qty pq on p.id=pq.product_id
                     join product_brand b on p.brand_id=b.id
-                    join measurement m on m.id=p.measurement_id
+                    join ma_measurement m on m.id=p.measurement_id
                     join product_type pt on pt.id=p.product_type_id
                     where pq.is_deleted='f' and p.is_deleted='f') as fee
                     where \"Create Date\" between '$from' and '$to' and \"Action Type\"='in'
@@ -864,7 +864,7 @@ class gettable extends Controller
         from product p
     join product_qty pq on p.id=pq.product_id
     join product_brand b on p.brand_id=b.id
-    join measurement m on m.id=p.measurement_id
+    join ma_measurement m on m.id=p.measurement_id
     left join product_type pt on pt.id=p.product_type_id
     where pq.is_deleted='f' and p.is_deleted='f') as fee
     where \"Create Date\" between '$from' and '$to' and \"Action Type\"='out'
@@ -875,7 +875,7 @@ class gettable extends Controller
         from product p
     join product_qty pq on p.id=pq.product_id
     join product_brand b on p.brand_id=b.id
-    join measurement m on m.id=p.measurement_id
+    join ma_measurement m on m.id=p.measurement_id
     left join product_type pt on pt.id=p.product_type_id
     where pq.is_deleted='f' and p.is_deleted='f') as fee
     where \"Create Date\" between '$from' and '$to' and \"Action Type\"='return'
@@ -887,11 +887,11 @@ class gettable extends Controller
                     (select sum(qty) from product_qty where product_id=p.id and action_type='in' and create_date between '$from' and '$to') as import,
                     (select sum(qty) from product_qty where product_id=p.id and action_type='out' and create_date between '$from' and '$to') as request,
                     (select sum(qty) from product_qty where product_id=p.id and action_type='return' and create_date between '$from' and '$to') as return,
-                    m.name as measurement,cu.name as currency, p.qty, p.price,description
+                    m.name as ma_measurement,cu.name as ma_currency, p.qty, p.price,description
                         FROM public.product p
-                        join measurement m on m.id=p.measurement_id
+                        join ma_measurement m on m.id=p.measurement_id
                         join product_brand b on b.id=p.brand_id
-                        join currency cu on cu.id=p.currency_id
+                        join ma_currency cu on cu.id=p.currency_id
                         left join product_type pt on pt.id=p.product_type_id
                         where p.is_deleted='f') as fea
                         where lower(name) like '%$sr%' or lower(name_kh) like '%$sr%' or lower(name) like '%$sr%' or lower(part_number) like '%$sr%'

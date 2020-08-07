@@ -58,19 +58,19 @@ class ProductReturn extends Controller
             $pid=$_POST['pid'];
             $qty=$_POST['qty'];
             $price=$_POST['price'];
-            $currency=$_POST['currency'];
+            $ma_currency=$_POST['ma_currency'];
             $location=$_POST['storage_location'];
             $storage=$_POST['storage'];
 
             $ds="insert_returned_request_detail";
-            $ss="insert_returned_request($request_id,$_by,$company,$company_branch,$staff,'$des')";
+            $ss="insert_returned_request($request_id,$_by,$company,$ma_company_branch,$staff,'$des')";
 
             $sql=$ss." as id";
             $q=DB::select("SELECT ".$sql);
             $id=$q[0]->id;
             for($i=0;$i<count($pid);$i++){
                 // echo $pid[$i].' '.$qty[$i].' '.$location[$i].' '.$storage[$i].'<br>';
-                $dsql=$ds."($id,".$pid[$i].",".$storage[$i].",".$location[$i].",".$qty[$i].",".$price[$i].",".$currency[$i].");";
+                $dsql=$ds."($id,".$pid[$i].",".$storage[$i].",".$location[$i].",".$qty[$i].",".$price[$i].",".$ma_currency[$i].");";
                 $q=DB::select("SELECT ".$dsql);
             }
         }else{
@@ -90,12 +90,12 @@ class ProductReturn extends Controller
                     from returned_request rp
                     join ma_company_detail cd on cd.id=rp.company_detail_id
                     where cd.status='t' and rp.id=$id";
-                $sql1="SELECT b.name as brand,p.name,p.part_number,p.barcode,m.name as measurement,c.name as currency,rrd.qty,rrd.price,(rrd.qty*rrd.price) as amount
+                $sql1="SELECT b.name as brand,p.name,p.part_number,p.barcode,m.name as ma_measurement,c.name as ma_currency,rrd.qty,rrd.price,(rrd.qty*rrd.price) as amount
                 from returned_request_detail rrd
                 join product p on p.id=rrd.product_id
                 join product_brand b on b.id=p.brand_id
-                join currency c on rrd.currency_id=c.id
-                join measurement m on p.measurement_id=m.id
+                join ma_currency c on rrd.currency_id=c.id
+                join ma_measurement m on p.measurement_id=m.id
                 where rrd.returned_request_id=$id";
             $plist=array();
             $plist[]=DB::select($sql);

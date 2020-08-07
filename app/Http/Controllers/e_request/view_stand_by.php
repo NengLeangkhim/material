@@ -34,7 +34,7 @@ class view_stand_by extends Controller
 
         $q=DB::select("select s.id, s.name from ma_user s
         join ma_position p on p.id=s.ma_position_id
-        where p.group_id <>1 and s.id_number is not null
+        where p.ma_group_id <>1 and s.id_number is not null
         order by name ");
         $r=ere_get_assoc::assoc_($q);
         $staff=$r;
