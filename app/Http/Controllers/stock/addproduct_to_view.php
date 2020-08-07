@@ -21,7 +21,7 @@ class addproduct_to_view extends Controller
             $s=strtolower($s);
             $pn=$_GET['page'];
             $start_from=($pn-1)*$limit;
-            $company_id="(select cd.company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=$st_id)";
+            $company_id="(select cd.company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=$st_id)";
             $cdi="null";
             if(isset($_GET['comp_id'])){
                 $company_id=$_GET['comp_id'];
@@ -104,8 +104,8 @@ class addproduct_to_view extends Controller
         }
         $id=$_GET['_id'];
         $st_id=$_SESSION['userid'];
-        $cdi="(select ma_company_detail_id from staff where id=$st_id)";
-        $company_id="(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=$st_id)";
+        $cdi="(select ma_company_detail_id from ma_user where id=$st_id)";
+        $company_id="(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=$st_id)";
         if(isset($_GET['branch'])){
             if(isset($_GET['comp_id'])){
                 $b=$_GET['branch'];

@@ -697,8 +697,8 @@ class gettable extends Controller
         where  c.is_deleted=\'f\' and (lower(c.name) like \'%'.$sr.'%\' or  lower(c.code) like \'%'.$sr.'%\')';
         $sqlstr['customerproductrequest']='SELECT * from (SELECT c.id,
         cd.customer as "Customer",cd.branch as "Branch",
-        (select name from staff where id=c._by and is_deleted=\'f\') as "Request by",
-        (select name from staff where id=c.approve_by and is_deleted=\'f\') as "Approve by",
+        (select name from ma_user where id=c._by and is_deleted=\'f\') as "Request by",
+        (select name from ma_user where id=c.approve_by and is_deleted=\'f\') as "Approve by",
         c.request_date as "Request Date", c.action_type as "Action Type"
             FROM public.product_customer_ c
             join ma_customer_detail cd on cd.id=c.customer_detail_id
@@ -710,8 +710,8 @@ class gettable extends Controller
 
         $sqlstr['customerproductreturn']='SELECT * FROM (SELECT c.id,
         cd.customer as "Customer",cd.branch as "Branch",
-        (select name from staff where id=c._by and is_deleted=\'f\') as "Return by",
-        (select name from staff where id=c.approve_by and is_deleted=\'f\') as "Approve by",
+        (select name from ma_user where id=c._by and is_deleted=\'f\') as "Return by",
+        (select name from ma_user where id=c.approve_by and is_deleted=\'f\') as "Approve by",
         c.request_date as "Request Date", c.action_type as "Action Type"
             FROM public.product_customer_ c
             join ma_customer_detail cd on cd.id=c.customer_detail_id
@@ -722,8 +722,8 @@ class gettable extends Controller
                     or lower("Approve by") like \'%'.$sr.'%\' or lower("Branch") like \'%'.$sr.'%\'';
 
         $sqlstr['ProductRequest']="SELECT * from (SELECT rp.id,
-        (select name from staff where id=rp.request_by and is_deleted='f') as \"Request By\",
-        (select name from staff where id=rp.approve_by and is_deleted='f') as \"Approve By\",
+        (select name from ma_user where id=rp.request_by and is_deleted='f') as \"Request By\",
+        (select name from ma_user where id=rp.approve_by and is_deleted='f') as \"Approve By\",
         cd.company as \"Company\",cd.branch as \"Branch\",
         rp.request_date as \"Request Date\",rp.description as \"Description\"
         from request_product rp
@@ -733,8 +733,8 @@ class gettable extends Controller
                     or lower(\"Description\") like '%$sr%' or lower(\"Branch\") like '%$sr%'";
 
         $sqlstr['productImport']="SELECT * from (SELECT ia.id,
-                    (select name from staff where id=ia.deliver_by and is_deleted='f') as \"Deliver By\",
-                    (select name from staff where id=ia.approve_by and is_deleted='f') as \"Approve By\",
+                    (select name from ma_user where id=ia.deliver_by and is_deleted='f') as \"Deliver By\",
+                    (select name from ma_user where id=ia.approve_by and is_deleted='f') as \"Approve By\",
                     cd.company as \"Company\",cd.branch as \"Branch\",ia.arrival_date as \"Arrival Date\",sp.name as \"Supplier\",ia.description as \"Description\"
                     from invoice_arrival ia
                     join ma_company_detail cd on cd.id=ia.company_detail_id
@@ -745,8 +745,8 @@ class gettable extends Controller
                     or lower(\"Branch\") like '%$sr%'";
 
         $sqlstr['productReturn']="SELECT * from (SELECT rp.id,
-                    (select name from staff where id=rp.return_by and is_deleted='f') as \"Return By\",
-                    (select name from staff where id=rp.approve_by and is_deleted='f') as \"Approve By\",
+                    (select name from ma_user where id=rp.return_by and is_deleted='f') as \"Return By\",
+                    (select name from ma_user where id=rp.approve_by and is_deleted='f') as \"Approve By\",
                     cd.company as \"Company\",cd.branch as \"Branch\",rp.create_date as \"Create Date\",rp.request_product_id as \"Request Product ID\" ,rp.description as \"Description\"
                     from returned_request rp
                     join ma_company_detail cd on cd.id=rp.company_detail_id
@@ -760,10 +760,10 @@ class gettable extends Controller
             $apr="and ia.deliver_by=".$_SESSION['userid'];
         }
        $sqlstr['productCompanyimport']="SELECT * from (SELECT ia.id,
-                    (select name from staff where id=ia.deliver_by and is_deleted='f') as \"Deliver By\",
+                    (select name from ma_user where id=ia.deliver_by and is_deleted='f') as \"Deliver By\",
                     cd.company as \"Company\",cd.branch as \"Branch\",
                     ia.create_date as \"Create Date\",(case when ia.approve='t' then 'TRUE' else 'FALSE' end) as \"Approve\",
-                    (select name from staff where id=ia.approve_by and is_deleted='f') as \"Approve By\",
+                    (select name from ma_user where id=ia.approve_by and is_deleted='f') as \"Approve By\",
                     ia.approve_date as \"Approve Date\",
                     ia.description as \"Description\"
                     from invoice_before_arrival ia
@@ -775,10 +775,10 @@ class gettable extends Controller
                     or lower(\"Branch\") like '%$sr%' or lower(\"Description\") like '%$sr%'";
 
         $sqlstr['productCompanyrequest']="SELECT * from (SELECT ia.id,
-                    (select name from staff where id=ia.deliver_by) as \"Deliver By\",
+                    (select name from ma_user where id=ia.deliver_by) as \"Deliver By\",
                     cd.company as \"Company\",cd.branch as \"Branch\",
                     ia.create_date as \"Create Date\",(case when ia.approve='t' then 'TRUE' else 'FALSE' end) as \"Approve\",
-                    (select name from staff where id=ia.approve_by) as \"Approve By\",
+                    (select name from ma_user where id=ia.approve_by) as \"Approve By\",
                     ia.approve_date as \"Approve Date\",
                     ia.description as \"Description\"
                     from invoice_before_arrival ia
@@ -896,18 +896,18 @@ class gettable extends Controller
                         where p.is_deleted='f') as fea
                         where lower(name) like '%$sr%' or lower(name_kh) like '%$sr%' or lower(name) like '%$sr%' or lower(part_number) like '%$sr%'
                         or lower(barcode) like '%$sr%' or lower(product_code) like '%$sr%'";
-        $sqlstr['productcompanydashbord']="SELECT * from (SELECT p.id,(select get_code_prefix_ibuild(p.code,(select company_detail_id from staff where id=".$_SESSION['userid']."),p.code_prefix_owner_id,(select code from product_type where id=p.product_type_id))) as \"Product Code\",(select name_en from product_type where id=p.product_type_id) as \"Type\",p.name as \"Name\",
-                    (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to')) as \"QTY\",
-                    (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to') and q.action_type='in') as \"Import\",
-                    (select (sum(q.qty)*-1) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to') and q.action_type='out') as \"Request\"
+        $sqlstr['productcompanydashbord']="SELECT * from (SELECT p.id,(select get_code_prefix_ibuild(p.code,(select company_detail_id from ma_user where id=".$_SESSION['userid']."),p.code_prefix_owner_id,(select code from product_type where id=p.product_type_id))) as \"Product Code\",(select name_en from product_type where id=p.product_type_id) as \"Type\",p.name as \"Name\",
+                    (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to')) as \"QTY\",
+                    (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to') and q.action_type='in') as \"Import\",
+                    (select (sum(q.qty)*-1) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to') and q.action_type='out') as \"Request\"
                     from product p
                     join product_qty q on p.id=q.product_id
                     join ma_company_detail cd on cd.id=q.company_detail_id
                     join product_company pc on pc.product_id=p.id
                     where 't' and
                     p.is_deleted='f' and 
-                    pc.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to')
-                    group by p.id having (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id right join product p on p.id=q.product_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid'].")) is not null) as fee
+                    pc.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to')
+                    group by p.id having (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id right join product p on p.id=q.product_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid'].")) is not null) as fee
                     where 't' and (lower(\"Name\") like '%$sr%' or lower(\"Product Code\") like '%$sr%' or lower(\"Type\") like '%$sr%')";
         return $sqlstr[$s];
     }

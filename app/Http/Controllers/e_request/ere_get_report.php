@@ -136,7 +136,7 @@ class ere_get_report extends Controller{
             if(isset($_GET['_report'])||isset($_GET['_reportdetail'])){
                 $rr=false;
                 // $dept=$_GET['_dept'];
-                $sql='select ma_company_dept_id from staff where id='.$_SESSION['userid'];
+                $sql='select ma_company_dept_id from ma_user where id='.$_SESSION['userid'];
                 $dept=ere_get_assoc::assoc_(DB::select($sql));
                 $dept=$dept[0]['ma_company_dept_id'];
                 $type='all';

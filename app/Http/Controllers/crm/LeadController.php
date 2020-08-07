@@ -29,7 +29,7 @@ class LeadController extends Controller
             $lead_source=DB::select("SELECT * from  crm_lead_source");
             $lead_status=DB::select("SELECT * from  crm_lead_status");
             $lead_industry=DB::select("SELECT * from  crm_lead_industry");
-            $assig_to=DB::select("SELECT * from  staff");
+            $assig_to=DB::select("SELECT * from  ma_user");
             $province=DB::select("SELECT * FROM key_gazetteers WHERE LENGTH(gzcode)=2");
 
             return view('crm.Lead.addlead',['lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province]);

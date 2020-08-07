@@ -17,7 +17,7 @@ class ModelHrmPerformReport extends Model
                     ->join('hr_performance_score as pscore','pfm.score_id','=','pscore.id')
                     ->join('hr_performance_follow_up as pf','pfm.hr_performance_follow_up_id','=','pf.id')
                     ->join('hr_performance_schedule as ps','pf.hr_performance_schedule_id','=','ps.id')
-                    ->join('staff as s','ps.staff_id','=','s.id')
+                    ->join('ma_user as s','ps.staff_id','=','s.id')
                     ->join('staff_detail as sd','pfm.create_by','=','sd.staff_id')
                     ->join('hr_performance_plan_detail as pd','ps.plan_detail_id','=','pd.id')
                     ->where([

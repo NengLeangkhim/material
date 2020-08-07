@@ -45,7 +45,7 @@ class insert_formuseElectronic extends Controller{
         else{
             $form_id=$_SESSION['form_id'];
             $useof=$_POST['use'];
-            $q=DB::select("select id_number from staff where id=".$_POST['req_to']);
+            $q=DB::select("select id_number from ma_user where id=".$_POST['req_to']);
 
             $r=ere_get_assoc::assoc_($q)[0];
             $id_number=$r['id_number'];

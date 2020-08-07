@@ -36,7 +36,7 @@
             <div class="col-12 text-center title_khleaves">បុគ្គលិក</div>
             <div style="margin-top: 20px">
             <?php
-                $sql="SELECT staff.id,name from staff INNER JOIN staff_detail on staff.id=staff_detail.staff_id where status='t' and lower(name) like '%$search%'";
+                $sql="SELECT ma_user.id,name from ma_user INNER JOIN staff_detail on ma_user.id=staff_detail.staff_id where status='t' and lower(name) like '%$search%'";
                 $formName=$con->prepare($sql);
                 $formName->execute();
                 if($formName->rowCount()>0){

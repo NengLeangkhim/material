@@ -27,7 +27,7 @@ class dashbord extends Controller
            $_SESSION['password']=$pas;
            $_SESSION['userid']=$users;
            $_SESSION['warehouse']=1;
-           $positionID=DB::select("select position_id,ma_company_dept_id from staff where id=$users");
+           $positionID=DB::select("select position_id,ma_company_dept_id from ma_user where id=$users");
            $_SESSION['position_id']=$positionID;
            //    $id=DB::select("SELECT public.insert_login_detail($users)");
            $_SESSION['module']=perms::get_module();

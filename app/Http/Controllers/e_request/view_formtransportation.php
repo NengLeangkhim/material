@@ -27,7 +27,7 @@ class view_formtransportation extends Controller
         if(isset($v[0])){
             $create_date=$v[0][0]['create_date'];
             $req_by=$v[0][0]['request_by'];
-            $q=DB::select("select name from staff where id=$req_by");
+            $q=DB::select("select name from ma_user where id=$req_by");
             $req_by=ere_get_assoc::assoc_($q)[0];
         }
         if(isset($v[1])){

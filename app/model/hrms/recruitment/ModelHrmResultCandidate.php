@@ -115,7 +115,7 @@ class ModelHrmResultCandidate extends Model
     // ===== Function model get comment of approval=====////
     public static function get_comment_approval($id){
         return DB::select("SELECT appd.comment,appd.action_by,s.name from hr_approval_detail appd
-                            join staff s on appd.action_by= s.id 
+                            join ma_user s on appd.action_by= s.id 
                             where hr_user_id=$id and ( hr_user_id,appd.create_date) IN
                             (
                                 SELECT 

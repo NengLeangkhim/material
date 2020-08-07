@@ -30,7 +30,7 @@ class view_formuseElectronic extends Controller
             $create_date=$v[0][0]['create_date'];
             $req_by=$v[0][0]['request_to'];
             $user_id=$req_by;
-            $q=DB::select("select s.name,p.name as position,d.name as dept,s.id_number from staff s join position p on p.id=s.position_id join ma_company_dept d on d.id=s.ma_company_dept_id where s.id=$user_id");
+            $q=DB::select("select s.name,p.name as position,d.name as dept,s.id_number from ma_user s join position p on p.id=s.position_id join ma_company_dept d on d.id=s.ma_company_dept_id where s.id=$user_id");
             $r=ere_get_assoc::assoc_($q)[0];
            if($r){
                 $pos=$r['position'];
@@ -38,7 +38,7 @@ class view_formuseElectronic extends Controller
                 $dept=$r['dept'];
                 $id_number=$r['id_number'];
             }
-            $q=DB::select("select s.name from staff s where s.id=".$v[0][0]['request_by']);
+            $q=DB::select("select s.name from ma_user s where s.id=".$v[0][0]['request_by']);
             $r=ere_get_assoc::assoc_($q)[0];
             $req_by=$r['name'];
             if(isset($v[1])){
@@ -51,7 +51,7 @@ class view_formuseElectronic extends Controller
         $r=ere_get_assoc::assoc_($q);
         $useof=$r;
 
-        $q=DB::select("select s.id, s.name from staff s
+        $q=DB::select("select s.id, s.name from ma_user s
         join position p on p.id=s.position_id
         where p.group_id <>1 and s.id_number is not null order by s.name");
         $r=ere_get_assoc::assoc_($q);

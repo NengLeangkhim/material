@@ -13,8 +13,8 @@ class OverTime extends Model
         $start_date = $year . "-" . $month . "-01";
         $end_date = $year . "-" . $month . "-" . $d;
         $ot_time=DB::select("SELECT ho.id,s.name as otname,ho.overtime_date,ho.description,st.name,st.name as approve,ho.user_id,DATE_PART('hour', ho.end_time::time ) - DATE_PART('hour', ho.start_time::time) as hour from hr_overtime ho 
-                                INNER JOIN staff s on ho.user_id=s.id 
-                                INNER JOIN staff st ON ho.approved_by=st.id and ho.is_deleted='f' and ho.overtime_date BETWEEN '$start_date' and '$end_date'
+                                INNER JOIN ma_user s on ho.user_id=s.id 
+                                INNER JOIN ma_user st ON ho.approved_by=st.id and ho.is_deleted='f' and ho.overtime_date BETWEEN '$start_date' and '$end_date'
                                 order by s.name");
         return $ot_time;
     }
@@ -22,8 +22,8 @@ class OverTime extends Model
     // Get one row of Overtime
     function OvertimeOneRow($id){
         $data=DB::table('hr_overtime')
-        ->select('hr_overtime.id','staff.id as stid','hr_overtime.overtime_date','hr_overtime.start_time','hr_overtime.end_time','hr_overtime.description')
-        ->join('staff','hr_overtime.user_id','=','staff.id')
+        ->select('hr_overtime.id','ma_user.id as stid','hr_overtime.overtime_date','hr_overtime.start_time','hr_overtime.end_time','hr_overtime.description')
+        ->join('ma_user','hr_overtime.user_id','=','ma_user.id')
         ->where('hr_overtime.id','=',$id)
         ->get();
         return $data;

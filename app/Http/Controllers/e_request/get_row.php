@@ -33,7 +33,7 @@ class get_row{
 
         $r=DB::select("SELECT s.name,e.create_date,e.comment
         from e_request_detail e
-        join staff s on s.id=e.action_by
+        join ma_user s on s.id=e.action_by
         where e.e_request_status='approve' and e.status='t' and e.e_request_id=".$rr['id']);
 
         if(isset(ere_get_assoc::assoc_($r)[0])){
@@ -42,7 +42,7 @@ class get_row{
 
         $r=DB::select("SELECT s.name,e.create_date,e.comment
         from e_request_detail e
-        join staff s on s.id=e.action_by
+        join ma_user s on s.id=e.action_by
         where e.e_request_status='pending' and e.status='t' and e.e_request_id=".$rr['id']);
         // $st[]=ere_get_assoc::assoc_($r);
         if(isset(ere_get_assoc::assoc_($r)[0])){
@@ -51,7 +51,7 @@ class get_row{
 
         $r=DB::select("SELECT s.name,e.create_date,e.comment
         from e_request_detail e
-        join staff s on s.id=e.action_by
+        join ma_user s on s.id=e.action_by
         where e.e_request_status='reject' and e.status='t' and e.e_request_id=".$rr['id']);
         // $st[]=ere_get_assoc::assoc_($r);
 

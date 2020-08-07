@@ -107,12 +107,12 @@ class view_workovertimeform extends Controller
             $act_apr_by=$v['approve_by'];
             $act_apr_date=$v['approve_date'];
         }
-        $q=DB::select("select s.name from staff s where s.id=".$v[0][0]['request_by']);
+        $q=DB::select("select s.name from ma_user s where s.id=".$v[0][0]['request_by']);
         $r=ere_get_assoc::assoc_($q)[0];
         $req_by=$r['name'];
         }
 
-        $q=DB::select("select s.name,p.name as position,d.name as dept from staff s join position p on p.id=s.position_id join ma_company_dept d on d.id=s.ma_company_dept_id where s.id=$user_id");
+        $q=DB::select("select s.name,p.name as position,d.name as dept from ma_user s join position p on p.id=s.position_id join ma_company_dept d on d.id=s.ma_company_dept_id where s.id=$user_id");
         $r=ere_get_assoc::assoc_($q)[0];
         $pos=empty($r['position'])?'':$r['position'];
         $name=empty($r['name'])?'':$r['name'];

@@ -8,21 +8,21 @@ class MissionAndOutSide extends Model
 {
     function AllMissionAndOutSide(){
         $m=DB::table('hr_mission')
-        ->select('hr_mission.id','hr_mission.location','hr_mission.date_from','hr_mission.date_to','hr_mission.type','hr_mission.description','staff.name')
+        ->select('hr_mission.id','hr_mission.location','hr_mission.date_from','hr_mission.date_to','hr_mission.type','hr_mission.description','ma_user.name')
         ->join('hr_mission_detail','hr_mission_detail.mission_id','=','hr_mission.id')
-        ->join('staff','hr_mission_detail.member','=','staff.id')
+        ->join('ma_user','hr_mission_detail.member','=','ma_user.id')
         ->where([
             ['hr_mission.status','=','t'],
             ['hr_mission.is_deleted','=','f']
-        ])->orderBy('staff.name')->get();
+        ])->orderBy('ma_user.name')->get();
         return $m;
     }
 
     function MissionOutside($id=0){
         if($id>0){
-            $sql= "SELECT hr.id,hr.shift,s.id_number,hr.location,hr.date_from,hr.date_to,hr.description,hr.type,hr.shift,s.name from hr_mission hr INNER JOIN staff s on split_part( s.id_number, '-',2)::INTEGER=hr.staff_id_number where hr.status='t' and hr.is_deleted='f' and s.status='t' and s.is_deleted='f' and hr.id=$id";
+            $sql= "SELECT hr.id,hr.shift,s.id_number,hr.location,hr.date_from,hr.date_to,hr.description,hr.type,hr.shift,s.name from hr_mission hr INNER JOIN ma_user s on split_part( s.id_number, '-',2)::INTEGER=hr.staff_id_number where hr.status='t' and hr.is_deleted='f' and s.status='t' and s.is_deleted='f' and hr.id=$id";
         }else{
-            $sql= "SELECT hr.id,hr.shift,hr.location,hr.date_from,hr.date_to,hr.description,hr.type,hr.shift,s.name from hr_mission hr INNER JOIN staff s on split_part( s.id_number, '-',2)::INTEGER=hr.staff_id_number where hr.status='t' and hr.is_deleted='f' and s.status='t' and s.is_deleted='f'";
+            $sql= "SELECT hr.id,hr.shift,hr.location,hr.date_from,hr.date_to,hr.description,hr.type,hr.shift,s.name from hr_mission hr INNER JOIN ma_user s on split_part( s.id_number, '-',2)::INTEGER=hr.staff_id_number where hr.status='t' and hr.is_deleted='f' and s.status='t' and s.is_deleted='f'";
         }
         return DB::select($sql);
     }

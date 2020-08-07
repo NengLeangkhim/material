@@ -32,7 +32,7 @@ class view_stand_by extends Controller
             // $todept=$r['dept'];
         }
 
-        $q=DB::select("select s.id, s.name from staff s
+        $q=DB::select("select s.id, s.name from ma_user s
         join position p on p.id=s.position_id
         where p.group_id <>1 and s.id_number is not null
         order by name ");

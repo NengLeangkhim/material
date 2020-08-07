@@ -45,7 +45,7 @@ class CustomerProduct extends Controller
                 return redirect('/');
             }
             $action[]=DB::select("SELECT id, name FROM public.ma_customer;");
-            $action[]=DB::select("SELECT id, name FROM public.staff;");
+            $action[]=DB::select("SELECT id, name FROM public.ma_user;");
             $action[]=DB::select("SELECT id, name, qty, price, barcode, part_number
                                 FROM public.product;");
             return view('stock.products.CustomerProduct.addcustomer')->with("action",$action);
@@ -94,8 +94,8 @@ class CustomerProduct extends Controller
             $currency=$_POST['currency'];
             $location=$_POST['storage_location'];
             $storage=$_POST['storage'];
-            $company="(select cd.ma_company_id from ma_company_detail cd join staff s on s.ma_company_detail_id=cd.id where cd.status='t' and s.id=$staff)";
-            $company_branch="(select cd.ma_company_branch_id from ma_company_detail cd join staff s on s.ma_company_detail_id=cd.id where cd.status='t' and s.id=$staff)";
+            $company="(select cd.ma_company_id from ma_company_detail cd join ma_user s on s.ma_company_detail_id=cd.id where cd.status='t' and s.id=$staff)";
+            $company_branch="(select cd.ma_company_branch_id from ma_company_detail cd join ma_user s on s.ma_company_detail_id=cd.id where cd.status='t' and s.id=$staff)";
             $sql="insert_product_customer($customer,$customer_branch,$company,$company_branch,$_by,'$action_type',$staff,'$des') as id";
             $q=DB::select("SELECT ".$sql);
             $p_customer=$q[0]->id;
@@ -128,8 +128,8 @@ class CustomerProduct extends Controller
         if(perms::check_perm_module('STO_010404')){//module codes
             $id=$_GET['_id'];
             $sql="SELECT c.id,cd.branch,
-                    cd.customer,(select name from staff where id=c._by) as _by,
-                    (select name from staff where id=c.approve_by) as approve_by,
+                    cd.customer,(select name from ma_user where id=c._by) as _by,
+                    (select name from ma_user where id=c.approve_by) as approve_by,
                     c.request_date, c.action_type,c.description
                         FROM public.product_customer_ c
                         join ma_customer_detail cd on cd.id=c.customer_detail_id

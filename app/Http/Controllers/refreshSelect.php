@@ -23,7 +23,7 @@ class refreshSelect extends Controller
         $tar['isupplier']="SELECT id, name from supplier";
         $tar['istorage']="SELECT id, name from storage";
         $tar['icustomer']="SELECT id, name from ma_customer";
-        $tar['istaff']="SELECT id, name from staff";
+        $tar['istaff']="SELECT id, name from ma_user";
         $tar['iptype']="SELECT id, name_en as name from product_type";
         $tar['ileadsource']="SELECT id, name_en as name from crm_lead_source";
         $tar['iindustry']="SELECT id, name_en as name from crm_lead_industry";

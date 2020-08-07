@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\DB;
     class getvalues_sql{
         public function sqlst($s,$id){
             $sql=array();
-            $sql['get_pos']="select p.name from position p join staff s on s.position_id=p.id where s.id=$id";
-            $sql['get_company_dept']="select d.name from ma_company_dept d join staff s on s.ma_company_dept_id=d.id where s.id=$id";
-            $sql['get_all_staff']="select id,name from staff order by name";
-            $sql['get_id_number']="select id_number as name from staff where id=$id";
+            $sql['get_pos']="select p.name from position p join ma_user s on s.position_id=p.id where s.id=$id";
+            $sql['get_company_dept']="select d.name from ma_company_dept d join ma_user s on s.ma_company_dept_id=d.id where s.id=$id";
+            $sql['get_all_staff']="select id,name from ma_user order by name";
+            $sql['get_id_number']="select id_number as name from ma_user where id=$id";
 //===============================example====================================
 // $sql['table_name'][]="SELECT request_by, create_date, related_to_e_request_id
 //             FROM public.table_name where id=$id;";
@@ -61,7 +61,7 @@ use Illuminate\Support\Facades\DB;
 
             $sql['e_request_requestform'][]="SELECT request_number, request_by, \"to\", subject_id, create_date
             FROM public.e_request_requestform where id=$id;";
-            $sql['e_request_requestform'][]="SELECT description, qty, other, receiver,(select name from staff where id=receiver) as rec
+            $sql['e_request_requestform'][]="SELECT description, qty, other, receiver,(select name from ma_user where id=receiver) as rec
             FROM public.e_request_requestform_detail where e_request_requestform_id=$id;";
 
             $sql['e_request_equipment_request_form'][]="SELECT request_by, technician_name, creat_date as create_date, customer_name, customer_account_name, customer_address, customer_phone, customer_email, connection, speed, finish_date, note, pop

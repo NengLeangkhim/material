@@ -12,7 +12,7 @@ class ModelHrmStaffFollowUp extends Model
         $follow_up_ceo= DB::table('hr_performance_follow_up as pf')
                            ->select('pf.*','ps.plan_detail_id','ps.staff_id','s.name','pd.name as name_plan','pd.id as id_pd','pfm.is_deleted as delete')
                            ->join('hr_performance_schedule as ps','pf.hr_performance_schedule_id','=','ps.id')
-                           ->join('staff as s','ps.staff_id','=','s.id')
+                           ->join('ma_user as s','ps.staff_id','=','s.id')
                            ->join('hr_performance_plan_detail as pd','ps.plan_detail_id','=','pd.id')
                            ->leftjoin('hr_performance_manager_follow_up as pfm','pf.id','=','pfm.hr_performance_follow_up_id')
                            ->where('pf.is_deleted','=','f')
@@ -28,7 +28,7 @@ class ModelHrmStaffFollowUp extends Model
         $follow_up_dept = DB::table('hr_performance_follow_up as pf')
                             ->select('pf.*','ps.plan_detail_id','ps.staff_id','s.ma_company_dept_id','s.name','pd.name as name_plan','pd.id as id_pd','pfm.is_deleted as delete')
                             ->join('hr_performance_schedule as ps','pf.hr_performance_schedule_id','=','ps.id')
-                            ->join('staff as s','ps.staff_id','=','s.id')
+                            ->join('ma_user as s','ps.staff_id','=','s.id')
                             ->join('hr_performance_plan_detail as pd','ps.plan_detail_id','=','pd.id')
                             ->leftjoin('hr_performance_manager_follow_up as pfm','pf.id','=','pfm.hr_performance_follow_up_id')
                             ->where([
@@ -47,7 +47,7 @@ class ModelHrmStaffFollowUp extends Model
         $follow_up_user = DB::table('hr_performance_follow_up as pf')
                             ->select('pf.*','ps.plan_detail_id','ps.staff_id','s.ma_company_dept_id','s.name','pd.name as name_plan','pd.id as id_pd','pfm.is_deleted as delete')
                             ->join('hr_performance_schedule as ps','pf.hr_performance_schedule_id','=','ps.id')
-                            ->join('staff as s','ps.staff_id','=','s.id')
+                            ->join('ma_user as s','ps.staff_id','=','s.id')
                             ->join('hr_performance_plan_detail as pd','ps.plan_detail_id','=','pd.id')
                             ->leftjoin('hr_performance_manager_follow_up as pfm','pf.id','=','pfm.hr_performance_follow_up_id')
                             ->where([
@@ -72,7 +72,7 @@ class ModelHrmStaffFollowUp extends Model
                                     'p.name as plan_name','p.date_from as plan_from','p.date_to as plan_to','p.id as plan_id'
                                     )
                             ->join('hr_performance_schedule as ps','pf.hr_performance_schedule_id','=','ps.id')
-                            ->join('staff as s','ps.staff_id','=','s.id')
+                            ->join('ma_user as s','ps.staff_id','=','s.id')
                             ->join('staff_detail','ps.create_by','=','staff_detail.staff_id')
                             ->join('hr_performance_plan_detail as pd','ps.plan_detail_id','=','pd.id')
                             ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')

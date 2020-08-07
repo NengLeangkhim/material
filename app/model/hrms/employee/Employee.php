@@ -7,25 +7,25 @@ use Illuminate\Support\Facades\DB;
 
 class Employee extends Model
 {
-    protected $table="staff";
+    protected $table="ma_user";
     public $timestamps = false;
     function AllEmployee(){
-        $employee = DB::table('staff')->select('staff.id','staff.name as name', 'staff.name_kh', 'staff.id_number', 'staff.email', 'staff.contact', 'staff.join_date', 'position.name as position')
-        ->join('position', 'position.id', '=', 'staff.position_id')
+        $employee = DB::table('ma_user')->select('ma_user.id','ma_user.name as name', 'ma_user.name_kh', 'ma_user.id_number', 'ma_user.email', 'ma_user.contact', 'ma_user.join_date', 'position.name as position')
+        ->join('position', 'position.id', '=', 'ma_user.position_id')
         ->where([
-            ['staff.status', '=', 't'],
-            ['staff.is_deleted', '=', 'f']
-        ])->orderBy('staff.name')->get();
+            ['ma_user.status', '=', 't'],
+            ['ma_user.is_deleted', '=', 'f']
+        ])->orderBy('ma_user.name')->get();
         return $employee;
     }
     function EmployeeOnRow($id){
-        $employee = DB::table('staff')->select('staff.id', 'position.id as position_id','staff.name as name', 'staff.name_kh', 'staff.id_number', 'staff.email', 'staff.contact', 'staff.join_date', 'position.name as position','staff.sex','staff.office_phone','staff.address','staff.contact')
-        ->join('position', 'position.id', '=', 'staff.position_id')
+        $employee = DB::table('ma_user')->select('ma_user.id', 'position.id as position_id','ma_user.name as name', 'ma_user.name_kh', 'ma_user.id_number', 'ma_user.email', 'ma_user.contact', 'ma_user.join_date', 'position.name as position','ma_user.sex','ma_user.office_phone','ma_user.address','ma_user.contact')
+        ->join('position', 'position.id', '=', 'ma_user.position_id')
         ->where([
-            ['staff.status', '=', 't'],
-            ['staff.is_deleted', '=', 'f'],
-            ['staff.id', '=', $id]
-        ])->orderBy('staff.name')->get();
+            ['ma_user.status', '=', 't'],
+            ['ma_user.is_deleted', '=', 'f'],
+            ['ma_user.id', '=', $id]
+        ])->orderBy('ma_user.name')->get();
         return $employee;
     }
 

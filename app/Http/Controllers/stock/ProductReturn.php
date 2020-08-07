@@ -33,7 +33,7 @@ class ProductReturn extends Controller
         if(perms::check_perm_module('STO_01060301')){//module codes
             $r=array();
             $r[]=DB::select("SELECT id,name from ma_company");
-            $r[]=DB::select("SELECT id,name from staff");
+            $r[]=DB::select("SELECT id,name from ma_user");
             return view('stock.products.productReturn.addProductReturn')->with("action",$r);
         }else{
             return view('no_perms');
@@ -84,8 +84,8 @@ class ProductReturn extends Controller
         if(perms::check_perm_module('STO_01060302')){//module codes
                 $id=$_GET['_id'];
                 $sql="SELECT rp.id,
-                    (select name from staff where id=rp.return_by) as _by,
-                    (select name from staff where id=rp.approve_by) as approve_by,
+                    (select name from ma_user where id=rp.return_by) as _by,
+                    (select name from ma_user where id=rp.approve_by) as approve_by,
                     cd.company,rp.create_date,rp.request_product_id,rp.description
                     from returned_request rp
                     join ma_company_detail cd on cd.id=rp.company_detail_id

@@ -35,7 +35,7 @@ class productImport extends Controller
         if(perms::check_perm_module('STO_01060401')){//module codes
             $r=array();
             $r[]=DB::select("SELECT id,name from ma_company");
-            $r[]=DB::select("SELECT id,name from staff");
+            $r[]=DB::select("SELECT id,name from ma_user");
             $r[]=DB::select("SELECT id,name from supplier where status='t'");
             return view('stock.products.productImport.addProductImport')->with("action",$r);
         }else{
@@ -90,8 +90,8 @@ class productImport extends Controller
         if(perms::check_perm_module('STO_01060402')){//module codes
                 $id=$_GET['_id'];
                 $sql="SELECT ia.id,
-                    (select name from staff where id=ia.deliver_by) as _by,
-                    (select name from staff where id=ia.approve_by) as approve_by,
+                    (select name from ma_user where id=ia.deliver_by) as _by,
+                    (select name from ma_user where id=ia.approve_by) as approve_by,
                     cd.company,cd.branch,cd.id,ia.arrival_date,sp.name as supplier,ia.description
                     from invoice_arrival ia
                     join ma_company_detail cd on cd.id=ia.company_detail_id
