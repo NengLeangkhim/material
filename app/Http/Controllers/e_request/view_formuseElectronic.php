@@ -30,7 +30,7 @@ class view_formuseElectronic extends Controller
             $create_date=$v[0][0]['create_date'];
             $req_by=$v[0][0]['request_to'];
             $user_id=$req_by;
-            $q=DB::select("select s.name,p.name as position,d.name as dept,s.id_number from staff s join position p on p.id=s.position_id join company_dept d on d.id=s.company_dept_id where s.id=$user_id");
+            $q=DB::select("select s.name,p.name as position,d.name as dept,s.id_number from staff s join position p on p.id=s.position_id join ma_company_dept d on d.id=s.company_dept_id where s.id=$user_id");
             $r=ere_get_assoc::assoc_($q)[0];
            if($r){
                 $pos=$r['position'];

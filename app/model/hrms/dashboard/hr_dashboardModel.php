@@ -12,7 +12,7 @@ class hr_dashboardModel extends Model
     public static function em_all(){
         $sql="	SELECT s.id, s.name, s.email, s.name_kh,c_d.id as dept_id, c_d.name, s.contact,s.position_id, s.address,s.sex,s.id_number,s.join_date,p.name as position,s.office_phone as office
                     FROM staff s JOIN position p ON s.position_id = p.id
-                        INNER JOIN company_dept c_d ON c_d.id = s.company_dept_id
+                        INNER JOIN ma_company_dept c_d ON c_d.id = s.company_dept_id
                         WHERE s.status='t'  order by s.create_date ASC ";
         return DB::select($sql);
    
@@ -40,7 +40,7 @@ class hr_dashboardModel extends Model
     // select satff by each department
     public static function staff_byDept(){
         $sql = "SELECT s.id, s.name, s.create_date, c_d.id as dept_id, c_d.name as dept_name
-            FROM staff s INNER JOIN company_dept c_d
+            FROM staff s INNER JOIN ma_company_dept c_d
                 ON c_d.id = s.company_dept_id
                 WHERE s.status='t'  order by s.create_date ASC";
         return DB::select($sql);     

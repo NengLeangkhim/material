@@ -9,7 +9,7 @@ class DepartmentAndPosition extends Model
     function AllDepartment($id=0){
         try {
             if($id>0){
-                $department = DB::table('company_dept')
+                $department = DB::table('ma_company_dept')
                 ->select('id', 'name', 'name_kh', 'company_id')
                 ->where([
                     ['company_id', '=', 8],
@@ -19,7 +19,7 @@ class DepartmentAndPosition extends Model
                 ])
                 ->orderBy('name')->get();
             }else{
-                $department = DB::table('company_dept')
+                $department = DB::table('ma_company_dept')
                 ->select('id', 'name', 'name_kh', 'company_id')
                 ->where([
                     ['company_id', '=', 8],

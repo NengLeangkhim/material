@@ -60,7 +60,7 @@ class view_fromemployment extends Controller
         $r=ere_get_assoc::assoc_($q);
         $pos=$r;
 
-        $q=DB::select("select id,name from company_dept where company_id=8");
+        $q=DB::select("select id,name from ma_company_dept where company_id=8");
         $r=ere_get_assoc::assoc_($q);
         $dept=$r;
 

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
         public function sqlst($s,$id){
             $sql=array();
             $sql['get_pos']="select p.name from position p join staff s on s.position_id=p.id where s.id=$id";
-            $sql['get_company_dept']="select d.name from company_dept d join staff s on s.company_dept_id=d.id where s.id=$id";
+            $sql['get_company_dept']="select d.name from ma_company_dept d join staff s on s.company_dept_id=d.id where s.id=$id";
             $sql['get_all_staff']="select id,name from staff order by name";
             $sql['get_id_number']="select id_number as name from staff where id=$id";
 //===============================example====================================

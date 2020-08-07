@@ -38,7 +38,7 @@ class view_formleave extends Controller
             $reason=$v[0][0]['reason'];
             $user_id=$v[0][0]['request_by'];
         }
-        $q=DB::select("select s.name,s.id_number,p.name as position,d.name as dept from position p join staff s on s.position_id=p.id join company_dept d on s.company_dept_id=d.id where s.id=$user_id");
+        $q=DB::select("select s.name,s.id_number,p.name as position,d.name as dept from position p join staff s on s.position_id=p.id join ma_company_dept d on s.company_dept_id=d.id where s.id=$user_id");
         $r=ere_get_assoc::assoc_($q)[0];
         $pos=$r['position'];
         $name=$r['name'];

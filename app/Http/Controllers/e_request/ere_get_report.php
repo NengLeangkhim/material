@@ -53,7 +53,7 @@ class ere_get_report extends Controller{
             if(isset($_GET['_report'])){
                $sql="SELECT cd.id as company_dept_id,cd.name,count(er.* )
                     from e_request er
-                    join company_dept cd on cd.id=er.company_dept_id
+                    join ma_company_dept cd on cd.id=er.company_dept_id
                     where er.status='t'
                     and er.create_date BETWEEN '$from 00:00:00' and '$to 23:59:59'
                     GROUP BY cd.id";
