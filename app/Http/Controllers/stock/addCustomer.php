@@ -70,7 +70,7 @@ class addCustomer extends Controller
             session_start();
         }
         if(perms::check_perm_module('STO_01')){
-            $q=DB::select("SELECT id,name from customer");
+            $q=DB::select("SELECT id,name from ma_customer");
             $m='<form action="/addcustomer" id="form1" method="POST">
             <input type="hidden" name="_token" value="'.csrf_token().'">
             <div class="modal fade" id="modaladd" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

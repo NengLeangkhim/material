@@ -44,7 +44,7 @@ class CustomerProduct extends Controller
             }else{
                 return redirect('/');
             }
-            $action[]=DB::select("SELECT id, name FROM public.customer;");
+            $action[]=DB::select("SELECT id, name FROM public.ma_customer;");
             $action[]=DB::select("SELECT id, name FROM public.staff;");
             $action[]=DB::select("SELECT id, name, qty, price, barcode, part_number
                                 FROM public.product;");
