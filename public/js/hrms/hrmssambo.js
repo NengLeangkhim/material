@@ -29,7 +29,7 @@ function hrm_delete(id,route,goto,alert) {
         data:{id:id},
         type:"GET",    //Using of Post method for send data
         success:function(data){
-          console.log(data);
+          // console.log(data);
           if(data =='error'){
                //sweetalert('success',alert);
              //  setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
@@ -40,7 +40,7 @@ function hrm_delete(id,route,goto,alert) {
                )
           }else{
               //sweetalert('success',alert);
-            //setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
+            setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
             Swal.fire(
               'Deleted!',
                 alert,

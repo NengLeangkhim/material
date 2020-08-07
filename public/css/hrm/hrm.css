@@ -134,3 +134,8 @@ overflow: auto;
 .table-wrapper-scroll-y {
 display: block;
 }
+
+.stafftrained{
+    font-size: 20px;
+    margin-top: 10px;
+}
