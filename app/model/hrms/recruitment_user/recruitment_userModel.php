@@ -55,8 +55,8 @@ class recruitment_userModel extends Model
                     // foreach to get answer choice by question id
                     $x = 0;
                     foreach($q1 as $key=>$val){
-                        $get_answer_choice[$x] = DB::select("SELECT id, choice, question_id, is_right_choice FROM hr_question_choice 
-                                WHERE question_id = '".$val->id."' AND status = 'true' ORDER BY choice ASC");
+                        $get_answer_choice[$x] = DB::select("SELECT id, choice, hr_recruitment_question_id, is_right_choice FROM hr_question_choice 
+                                WHERE hr_recruitment_question_id = '".$val->id."' AND status = 'true' ORDER BY choice ASC");
                         
                         $x++;
                     }
@@ -85,7 +85,7 @@ class recruitment_userModel extends Model
     // function insert user answer
     public static  function submit_answer($c_id,$q_id,$an_text,$is_true,$start,$end,$userid){
         $sql = "INSERT INTO hr_user_answer(hr_recruitment_question_choice_id
-, question_id, answer_text, is_right, start_time, end_time, status, user_id ) 
+, hr_recruitment_question_id, answer_text, is_right, start_time, end_time, status, user_id ) 
                 VALUES($c_id, ".$q_id.", '$an_text', '$is_true', '$start', '$end', 't', '$userid')";
         
         try {
@@ -154,7 +154,7 @@ class recruitment_userModel extends Model
         $sql = "SELECT  q.question, q_t.id as q_type_id, q_t.name as question_type, CONCAT(q_c.choice, u_a.answer_text) as user_answer, u_a.is_right, u_a.start_time, u_a.end_time  
                 FROM ((hr_user_answer u_a LEFT JOIN hr_question_choice q_c ON  u_a.hr_recruitment_question_choice_id
  = q_c.id) 
-                JOIN hr_question q ON u_a.question_id = q.id) 
+                JOIN hr_question q ON u_a.hr_recruitment_question_id = q.id) 
                 LEFT JOIN hr_question_type q_t ON q.question_type_id = q_t.id  where u_a.user_id = ".$id." ";
             
             try{
@@ -176,7 +176,7 @@ class recruitment_userModel extends Model
 
     // functon for check true faile question option
     public static function check_true_faile($ch_id, $q_id){
-        $sql = "SELECT id, question_id, is_right_choice FROM hr_question_choice WHERE id = $ch_id AND  question_id = $q_id";
+        $sql = "SELECT id, hr_recruitment_question_id, is_right_choice FROM hr_question_choice WHERE id = $ch_id AND  hr_recruitment_question_id = $q_id";
         $r = DB::select($sql);
         return $r;
     }

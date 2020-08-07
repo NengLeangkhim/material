@@ -38,7 +38,7 @@
                                             @elseif($item->id_type==1)
                                                 <input type='hidden' name='question_radio[]' value='{{$item->id}}'/>
                                                 @foreach ($answer as $row)
-                                                    @if ($row->question_id==$item->id)
+                                                    @if ($row->hr_recruitment_question_id==$item->id)
                                                         <td>
                                                             <input required type="radio" id="radio_ans" name="radio_ans[{{$item->id}}]" value="{{$row->id}}">&nbsp;{{$row->answer}}
                                                         </td>

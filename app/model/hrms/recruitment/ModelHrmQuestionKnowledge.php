@@ -50,6 +50,6 @@ class ModelHrmQuestionKnowledge extends Model
     } 
     // ===== Function Delete Question Knowledge ======//
     public static function hrm_delete_question_knowledge($question_id,$userid){
-        return DB::select('SELECT public.delete_hr_question_knowledge(?,?)',array($question_id,$userid));
+        return DB::select('SELECT public.delete_hr_question_knowledge(?,?)',array($hr_recruitment_question_id,$userid));
     } 
 }

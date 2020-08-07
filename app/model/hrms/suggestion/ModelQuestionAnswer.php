@@ -66,7 +66,7 @@ class ModelQuestionAnswer extends Model
       public static function hrm_get_answer_sugg($id){
          $answer_sugg_get = DB::table('hr_suggestion_answer')
                                ->select('*')
-                               ->where('question_id','=',$id)
+                               ->where('hr_recruitment_question_id','=',$id)
                                ->get(); 
          return $answer_sugg_get;
       }
@@ -91,8 +91,8 @@ class ModelQuestionAnswer extends Model
       public static function hrm_result_suggestion($id){
          return DB::select('SELECT s.*,a.answer,q.question from hr_suggestion_submited s 
          left join hr_suggestion_answer a on s.answer_id=a.id
-         left join hr_suggestion_question q on s.question_id = q.id
-         where s.question_id=? order by s.create_date DESC', [$id]);
+         left join hr_suggestion_question q on s.hr_recruitment_question_id = q.id
+         where s.hr_recruitment_question_id=? order by s.create_date DESC', [$id]);
       }
 }
 

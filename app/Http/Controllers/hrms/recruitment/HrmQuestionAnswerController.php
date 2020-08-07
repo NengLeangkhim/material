@@ -128,7 +128,7 @@ class HrmQuestionAnswerController extends Controller
             ));
         }else{
             if(perms::check_perm_module('HRM_09090402')){//module code list data tables id=161
-                $id_question = $request->question_id;
+                $id_question = $request->hr_recruitment_question_id;
                 $question= $request->question_name;
                 $question_type = $request->question_type;
                 $dept = $request->departement;

@@ -14,7 +14,7 @@ class ModelHrmQuestionAnswer extends Model
                            ->leftjoin('staff_detail','q.create_by','=','staff_detail.ma_user_id')
                            ->leftjoin('position as p','q.position_id','=','p.id')
                            ->leftjoin('hr_question_type as qt','q.question_type_id','=','qt.id')
-                           ->leftjoin('hr_question_choice as qc','q.id','=','qc.question_id')
+                           ->leftjoin('hr_question_choice as qc','q.id','=','qc.hr_recruitment_question_id')
                            ->where('q.is_deleted','=','f')
                            ->groupBy(['q.id','staff_detail.username','qt.name','p.name','qc.is_deleted'])
                            ->orderBy('q.id','ASC')
@@ -57,7 +57,7 @@ class ModelHrmQuestionAnswer extends Model
     public static function hrm_get_answer($id){
         $answer_get = DB::table('hr_question_choice')
                               ->select('*')
-                              ->where('question_id','=',$id)
+                              ->where('hr_recruitment_question_id','=',$id)
                               ->get(); 
         return $answer_get;
     }

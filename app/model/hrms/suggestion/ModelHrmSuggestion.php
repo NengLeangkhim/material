@@ -27,7 +27,7 @@ class ModelHrmSuggestion extends Model
     // ===== Function get data Question sugg by type =====////
     public static function hrm_get_answer_sugg(){
         $question = DB::table('hr_suggestion_answer')
-                           ->select('id','answer','question_id')
+                           ->select('id','answer','hr_recruitment_question_id')
                            ->where('is_deleted','=','f')
                            ->get(); 
         return $question;
@@ -35,6 +35,6 @@ class ModelHrmSuggestion extends Model
     // ===== Function Insert data Question =====////
     public static function hrm_submit_suggestion($question_id,$anwer_id,$answer_text,$userid){
          
-        return DB::select('SELECT public.insert_hr_suggestion_submited(?,?,?,?)',array($question_id,$anwer_id,$answer_text,$userid));
+        return DB::select('SELECT public.insert_hr_suggestion_submited(?,?,?,?)',array($hr_recruitment_question_id,$anwer_id,$answer_text,$userid));
      }
 }
