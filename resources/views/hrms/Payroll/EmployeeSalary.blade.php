@@ -37,22 +37,9 @@
                         <td>{{$em->position}}</td>
                         <td>{{$salary}}</td>
                         <td class="text-right">
-                          {{-- <div class="col-md-12">
-                              <div class="row">
-                                <div class="col-md-4">
-                                  <a href="" class="btn btn-info btn-sm">Generate Slip</a>
-                                </div>
-                                <div class="col-md-4">
-                                  <a href="" class="btn btn-info btn-sm">Payroll Items</a>
-                                </div>  
-                                <div class="col-md-4">
-                                  <a href="" class="btn btn-info btn-sm">Approve</a>
-                                </div>    
-                              </div>
-                          </div> --}}
-                          <a href="" class="btn btn-info btn-sm">Generate Slip</a>
-                          <a href="" class="btn btn-info btn-sm">Payroll Items</a>
-                          <a href="" class="btn btn-info btn-sm">Approve</a>
+                          <a href="javascrip:;" class="btn btn-info btn-sm" onclick="HRM_ShowDetail('hrm_payslip','modal_payslip',{{$em->id}})">Generate Slip</a>
+                          <a href="javascrip:;" class="btn btn-info btn-sm" onclick="HRM_ShowDetail('hrm_payrollitems','modal_payrollitems',{{$em->id}})">Payroll Items</a>
+                          <a href="javascrip:;" class="btn btn-info btn-sm">Approve</a>
                         </td>
                     </tr>
                     @endforeach

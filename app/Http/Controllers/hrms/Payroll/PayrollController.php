@@ -14,4 +14,12 @@ class PayrollController extends Controller
         $data[0]=$em->AllEmployee();
         return view('hrms/Payroll/EmployeeSalary')->with('data',$data);
     }
+
+    function ModalPayslip(){
+        return view('hrms/Payroll/Payslip');
+    }
+
+    function ModalPayrollItems(){
+        return view('hrms/Payroll/PayrollItems');
+    }
 }
