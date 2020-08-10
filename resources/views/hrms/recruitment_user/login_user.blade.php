@@ -43,21 +43,21 @@
         {{-- <div class="login-box"> --}}
         <div class="">
             
-            <form class="login-form" action="/hrm_recruitment_login" method="post" style="width: 120%;">
+            <form class="login-form" action="/hrm_recruitment_login" method="post" style="padding: 15px; border-radius: 3px; width: 120%; box-shadow: 0px 1px 5px 5px rgba(56, 54, 54, 0.5)">
                 @csrf
                 <h3 class="login-head" style="text-align: center;">
-                    <img src="img/icons/user_icon3.png" width="35%" height="35%"  alt="" style="border-radius: 50%; border: 1px solid wheat;">
+                    <img src="img/icons/user_icon3.png" width="35%" height="35%"  alt="" style=" border-radius: 50%; border: 1px solid rgb(126, 115, 94);">
                 </h3>
                 <h4 style="text-align: center; color: blue;">User Login</h4>
                 <div class="form-group" style="width: 100%;" >
-                    <label class="control-label">User Email</label>
+                    <label class="control-label"><b>User Email</b></label>
                     <div class="inputWithIcon">
                         <input class="form-control " name="user_email" type="text" placeholder="User Email:" autofocus required>
                         <i class="fa fa-lg fa-fw fa-envelope-square"></i>
                     </div>
                 </div>
                 <div class="form-group" style="width: 100%;">
-                    <label class="control-label">Password</label>
+                    <label class="control-label"><b>Password</b></label>
                     <div class="inputWithIcon">
                         <input class="form-control " name="password" type="password" placeholder="Password:" required>
                         <i class="fa fa-lg fa-fw fa-key"></i>

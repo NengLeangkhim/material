@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\model\hrms\ModelHrmPermission;
 use App\model\hrms\policy\ModelHrmPolicy;
 use App\Http\Controllers\perms;
+use Illuminate\Validation\Rule;
 class HrmPolicyController extends Controller
 {
     //function show table//
@@ -33,13 +34,17 @@ class HrmPolicyController extends Controller
                 'policy_name' =>  [  'required',
                                             'max:255',
                                         ],
-                'policy_file' => [ 'required','mimes:pdf'
+                'policy_file' => [ 'required','mimes:pdf','file',
+                                    Rule::unique('hr_policy','file_path')
+                                    ->where(function ($query) use ($request) {
+                                    return $query->where('is_deleted', 'f');})
                                         ],
             ],
             [
                 'policy_name.required' => 'The Policy Name is Required !!',   //massage validator
                 'policy_file.required' => 'Please Select File !!',
-                'policy_file.mimes' => 'Please Select Pdf File Only !!'
+                'policy_file.mimes' => 'Please Select Pdf File Only !!',
+                'policy_file.unique' => 'The file name is aready exist so please rename file name'
                 ]
             );
         if ($validator->fails()) //check validator for fail
@@ -85,12 +90,16 @@ class HrmPolicyController extends Controller
             'policy_name' =>  [  'required',
                                         'max:255',
                                     ],
-            'policy_file' => [ 'mimes:pdf'
+            'policy_file' => [ 'mimes:pdf',
+                                Rule::unique('hr_policy','file_path')->ignore($request->policy_id)
+                                ->where(function ($query) use ($request) {
+                                return $query->where('is_deleted', 'f');})
                                     ],
         ],
         [
             'policy_name.required' => 'The Policy Name is Required !!',   //massage validator
-            'policy_file.mimes' => 'Please Select Pdf File Only !!'
+            'policy_file.mimes' => 'Please Select Pdf File Only !!',
+            'policy_file.unique' => 'The file name is aready exist so please rename file name'
             ]
         );
         if ($validator->fails()) //check validator for fail
