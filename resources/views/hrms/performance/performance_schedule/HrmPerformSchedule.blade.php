@@ -1,6 +1,6 @@
 @php
 foreach($permission as $row){
-  $level = $row->group_id;
+  $level = $row->ma_group_id;
   $id_user = $row->id;  
 }
 @endphp

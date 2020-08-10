@@ -39,8 +39,11 @@ class TrainingListController extends Controller
             $data[1]=$trainer->Trainer();
             if($id>0){
                 $data[2]=$trainList->TrainingList($id);
+                if($data[2][0]->schedule_status==1){
+                    $data[3]=$trainList->TrainingStaff($data[2][0]->hrid);
+                }
             }
-            $data[3]=$em->AllEmployee();
+            $data[4]=$em->AllEmployee();
             return view('hrms/Training/TrainingList/ModalTrainingList')->with('data',$data);
         } else {
             return view('noperms');
@@ -65,7 +68,7 @@ class TrainingListController extends Controller
             $namefile=$_POST['namefile'];
             $chech_status=$_POST['schet_status'];
             $staff=array();
-            if(isset($_POST['check'])){
+            if (isset($_POST['check'])) {
                 $staff = $_POST['check'];
             }
             $trainList = new TrainingList();
@@ -79,5 +82,31 @@ class TrainingListController extends Controller
         } else {
             return view('noperms');
         }
+    }
+
+
+    function DeleteTrainingStaff(){
+        $staffid=$_GET['staffid'];
+        $hrid=$_GET['trainid'];
+        $trainList=new TrainingList();
+        $d= $trainList->DeleteTrainingStaff($staffid,$hrid);
+        echo $d;
+    }
+
+    function TrainingListDetail(){
+        $id=$_GET['id'];
+        $trainList=new TrainingList();
+        $data=array();
+        $data[0]=$trainList->TrainingList($id);
+        $data[1]=$trainList->TrainingStaff($data[0][0]->hrid);
+        return view('hrms/Training/TrainingList/TrainingListDetail')->with('data',$data);
+    }
+
+    function DeleteTrainingList(){
+        session_start();
+        $id=$_GET['id'];
+        $userid = $_SESSION['userid'];
+        $trainList=new TrainingList();
+        $data=$trainList->DeleteTrainingList($id,$userid);
     }
 }

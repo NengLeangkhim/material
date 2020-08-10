@@ -12,8 +12,8 @@ class ModelHrmPolicy extends Model
      // ===== Function get data for table =====////
       public static function hrm_get_tbl_policy(){
           $policy = DB::table('hr_policy as p')
-                             ->select('p.*','staff_detail.username')
-                             ->leftjoin('staff_detail','p.create_by','=','staff_detail.ma_user_id')
+                             ->select('p.*','ma_user_detail.username')
+                             ->leftjoin('ma_user_detail','p.create_by','=','ma_user_detail.ma_user_id')
                              ->where('p.is_deleted','=','f')
                              ->orderBy('p.id','ASC')
                              ->get(); 
@@ -31,8 +31,8 @@ class ModelHrmPolicy extends Model
       ->get(); 
       }
       // ===== Function Update policy ======//
-      public static function hrm_update_policy($id_policy,$userid,$policy_name,$path){
-        return DB::select('SELECT public.update_hr_policy(?,?,?,?)',array($id_policy,$userid,$policy_name,$path));
+      public static function hrm_update_policy($id_policy,$userid,$policy_name,$path,$status){
+        return DB::select('SELECT public.update_hr_policy(?,?,?,?,?)',array($id_policy,$userid,$policy_name,$path,$status));
     }
      // ===== Function Delete policy ======//
      public static function hrm_delete_policy($id_policy,$userid){
@@ -57,9 +57,9 @@ class ModelHrmPolicy extends Model
     public static function hrm_get_tbl_policy_user_dept($dept){
         return DB::table('hr_policy_user as p_u')
         ->select('p_u.*','p.name as name_policy','s.name','s.id_number','s.ma_company_dept_id','s.ma_position_id','po.name as position_name')
-        ->join('ma_user as s','p_u.id_user','=','s.id')
+        ->join('ma_user as s','p_u.ma_user_id','=','s.id')
         ->join('ma_position as po','s.ma_position_id','=','po.id')
-        ->join('hr_policy as p','p_u.id_policy','=','p.id')
+        ->join('hr_policy as p','p_u.hr_policy_id','=','p.id')
         ->where([
             ['p_u.is_deleted', '=', 'f'],
             ['s.ma_company_dept_id', '=', $dept],
@@ -71,9 +71,9 @@ class ModelHrmPolicy extends Model
     public static function hrm_get_policy_user($id){
         return DB::table('hr_policy_user as p_u')
         ->select('p_u.*','p.name as name_policy','s.name','s.id_number','s.ma_position_id','po.name as position_name')
-        ->join('ma_user as s','p_u.id_user','=','s.id')
+        ->join('ma_user as s','p_u.ma_user_id','=','s.id')
         ->join('ma_position as po','s.ma_position_id','=','po.id')
-        ->join('hr_policy as p','p_u.id_policy','=','p.id')
+        ->join('hr_policy as p','p_u.hr_policy_id','=','p.id')
         ->where('p_u.id','=',$id)
         ->orderBy('p_u.id','ASC')
         ->get(); 

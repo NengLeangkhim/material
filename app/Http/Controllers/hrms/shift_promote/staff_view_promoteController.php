@@ -8,7 +8,7 @@ use App\model\hrms\shift_promote\management_promoteModel;
 
 class staff_view_promoteController extends Controller
 {
-        /* function to select staff who was promoted by id */
+        /* function to select staff was promote by staff id */
         public function view_promoteByID(){
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -24,7 +24,7 @@ class staff_view_promoteController extends Controller
 
 
 
-        
+        // function staff to view their promote
         public function staff_view_detail(){
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();

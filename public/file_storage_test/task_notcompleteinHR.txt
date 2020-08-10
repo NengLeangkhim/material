@@ -1,0 +1,9 @@
+
+* Something not yet complete in HRSM
+1/ Recruitment user
+	- Storage File in database
+
+3/ Dashborad HRMS
+	- View Graphic For Sale each year
+ 	- what are more ?
+

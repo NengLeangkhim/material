@@ -21,7 +21,7 @@ class HrmStaffFollowUpController extends Controller
             $userid = $_SESSION['userid'];
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
             foreach($permission as $row){
-                $group = $row->group_id;
+                $group = $row->ma_group_id;
                 $dept = $row->ma_company_dept_id;
             }
             if($group==5 || $group==1){ //permission check for CEO and Admin
@@ -115,7 +115,7 @@ class HrmStaffFollowUpController extends Controller
             }
         }
     } 
-    //function insert Performance Staff Follow Up //
+    //function update Performance Staff Follow Up //
     public function hrm_update_staff_follow_up(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -159,7 +159,7 @@ class HrmStaffFollowUpController extends Controller
             $cmt = $request->follow_up_comment;
             $reason = $request->follow_up_reason;
             $challenge = $request->follow_up_challenge;
-            $update_follow_up = ModelHrmStaffFollowUp::hrm_update_staff_follow_up($id_follow_up,$userid,$schedule_id,$percent,$reason,$challenge,$cmt,$from,$to); //Update data
+            $update_follow_up = ModelHrmStaffFollowUp::hrm_update_staff_follow_up($id_follow_up,$userid,$schedule_id,$percent,$reason,$challenge,$cmt,'t',$from,$to); //Update data
             return response()->json(['success'=>'Record is successfully update']);
             }else{
                 return view('no_perms');

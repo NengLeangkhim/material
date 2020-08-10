@@ -30,23 +30,23 @@ function hrm_delete(id,route,goto,alert) {
         type:"GET",    //Using of Post method for send data
         success:function(data){
           console.log(data);
-          if(data =='error'){
-               //sweetalert('success',alert);
-             //  setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
-               Swal.fire(
-                 'Deleted!',
-                   'Delete Error',
-                 'error'
-               )
-          }else{
+          // if(data =='error'){
+          //      //sweetalert('success',alert);
+          //    //  setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
+          //      Swal.fire(
+          //        'Deleted!',
+          //          'Delete Error',
+          //        'error'
+          //      )
+          // }else{
               //sweetalert('success',alert);
-            //setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
+            setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
             Swal.fire(
               'Deleted!',
                 alert,
               'success'
             )
-          }
+          // }
         }
         
        });
@@ -686,8 +686,9 @@ function HrmSubmitPolicy(){
       $('#policy_name').removeClass("is-invalid");
       $('#policy_file').removeClass("is-invalid");
       $.each(data, function(i, e){ //read array json for show to textbox
-        $('#hidden_pdf').val(data[i].file_path)// Set to span and get hidden for value 
-        $('#policy_name').val(data[i].name);    
+        $('#hidden_pdf').val(data[i].file_path);// Set to span and get hidden for value 
+        $('#policy_name').val(data[i].name);
+        $('#policy_file_name').text(data[i].file_path);    
         });     
      
    }

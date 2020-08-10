@@ -1,6 +1,6 @@
 @php
      foreach($permission as $item){// get group id for permission
-        $level=$item->group_id;
+        $level=$item->ma_group_id;
      }
 @endphp
 
@@ -104,26 +104,16 @@
                         <div class="form-group">
                             <label for="policy_name">Name Policy<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="policy_name" aria-describedby="policy_name" placeholder="" name="policy_name">
-                            <span class="invalid-feedback" role="alert" id="policy_nameError"> {{--span for alert--}}
-                                <strong></strong>
-                            </span>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            {{-- <label for="policy_file">File PDF only<span class="text-danger">*</span></label>
-                            <input type="file" class="form-control"  name="policy_file" id="policy_file" accept="application/pdf"> --}}
                             <div class="custom-file">
                                 {{-- <label for="policy_file">File PDF only<span class="text-danger">*</span></label> --}}
                                 <input type="file" class="custom-file-input" onchange="hrm_get_name_file('policy_file','policy_file_name')" name="policy_file" id="policy_file" accept="application/pdf">
                                 <label class="custom-file-label" id="policy_file_name" for="policy_file">Choose file</label>
-                                <span class="invalid-feedback" role="alert" id="policy_fileError"> {{--span for alert--}}
-                                    <strong></strong>
-                                </span>
-                            </div>
-                            <span id="upload_pdf">
                                 <input type="hidden" id="hidden_pdf" name="hidden_pdf" value="" />  {{--for update--}}
-                            </span>
+                            </div>
                         </div>
                     </div>
                  </div> {{-- END ROW--}}

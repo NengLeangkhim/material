@@ -60,7 +60,7 @@
                                                 <th scope="row">'.($i+1).'</th>
                                                 <td>'.$var->name.'</td>
                                                 <td>'.$var->id_number.'</td>
-                                                <td>'.$var->position.'</td>
+                                                <td>'.$var->ma_position.'</td>
                                                 <td>'.$var->base_salary.'</td>
                                                 <td>'.$var->create_date.'</td>
                                                 <td >
