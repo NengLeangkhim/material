@@ -320,7 +320,7 @@ $(document).on('click', '.update_q_sugg', function(){
       $('#q_sugg_id').val(id);     //It will define value of id variable for update 
       $.each(data, function(i, e){ //read array json for show to textbox
         $('#question_name_sugg').val(data[i].question);  
-        $('#question_type_id_sugg').val(data[i].id_type)   
+        $('#question_type_id_sugg').val(data[i].hr_suggestion_question_type_id)   
         });     
    }
   });
