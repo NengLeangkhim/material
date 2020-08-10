@@ -20,7 +20,7 @@ class profile extends Controller
             return;
         }
         if(perms::check_perm_module('PRO_07')){//module codes
-            $q=DB::select("select s.name,s.name_kh,s.sex, s.email,s.contact,s.address,p.name as ma_position,cd.company,cd.branch,s.create_Date,s.image,s.id_number,s.office_phone
+            $q=DB::select("select s.name,s.name_kh,s.sex, s.email,s.contact,s.address,p.name as position,cd.company,cd.branch,s.create_Date,s.image,s.id_number,s.office_phone
                             from ma_user s
                             join ma_position p on p.id=s.ma_position_id
                             join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=$user_id");
