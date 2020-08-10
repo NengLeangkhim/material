@@ -12,8 +12,8 @@ class OverTime extends Model
         $d = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         $start_date = $year . "-" . $month . "-01";
         $end_date = $year . "-" . $month . "-" . $d;
-        $ot_time=DB::select("SELECT ho.id,s.name as otname,ho.overtime_date,ho.description,st.name,st.name as approve,ho.hr_recruitment_candidate_id,DATE_PART('hour', ho.end_time::time ) - DATE_PART('hour', ho.start_time::time) as hour from hr_overtime ho 
-                                INNER JOIN ma_user s on ho.hr_recruitment_candidate_id=s.id 
+        $ot_time=DB::select("SELECT ho.id,s.name as otname,ho.overtime_date,ho.description,st.name,st.name as approve,ho.ma_user_id,DATE_PART('hour', ho.end_time::time ) - DATE_PART('hour', ho.start_time::time) as hour from hr_overtime ho 
+                                INNER JOIN ma_user s on ho.ma_user_id=s.id 
                                 INNER JOIN ma_user st ON ho.approved_by=st.id and ho.is_deleted='f' and ho.overtime_date BETWEEN '$start_date' and '$end_date'
                                 order by s.name");
         return $ot_time;
@@ -34,7 +34,7 @@ class OverTime extends Model
     function InsertOverTime($id,$overtimDate,$description,$approve,$overtimeHour,$upby,$start_time,$end_time){
         // wrong with sql
         try{
-            $sql = "SELECT public.insert_hr_overtime($id,'$overtimDate','$description',$approve,$overtimeHour,$upby,'$start_time','$end_time')";
+            return $sql = "SELECT public.insert_hr_overtime($id,'$overtimDate','$description',$approve,$overtimeHour,$upby,'$start_time','$end_time')";
             $stm = DB::select($sql);
             echo 'Successfully ';
         }catch(Throwable $e){
