@@ -29,7 +29,7 @@ function hrm_delete(id,route,goto,alert) {
         data:{id:id},
         type:"GET",    //Using of Post method for send data
         success:function(data){
-          console.log(data);
+          // console.log(data);
           if(data =='error'){
                //sweetalert('success',alert);
              //  setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
@@ -40,7 +40,7 @@ function hrm_delete(id,route,goto,alert) {
                )
           }else{
               //sweetalert('success',alert);
-            //setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
+            setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
             Swal.fire(
               'Deleted!',
                 alert,
@@ -579,9 +579,7 @@ function HrmAddPolicy(){
   $('#hrm_policy_modal').modal('show');
   $('#policy_name').val('');
   $('#policy_file').val(''); 
-  $('#policy_name').removeClass("is-invalid");
-  $('#policy_file').removeClass("is-invalid");
-  $(".invalid-feedback").children("strong").text("");
+  $('.print-error-msg').hide(); // hide div show error
   $('#card_title').text('Add Policy');
   $('#action_policy').text('Create');
 } 
@@ -614,15 +612,15 @@ function HrmSubmitPolicy(){
           sweetalert('success','The Policy has been Insert Successfully !!');
           setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content 
       }else{
-        // $(".print-error-msg").find("ul").html(''); 
+         $(".print-error-msg").find("ul").html(''); 
 
-        // $(".print-error-msg").css('display','block');
+         $(".print-error-msg").css('display','block');
 
         $.each( data.errors, function( key, value ) {//foreach show error
             $("#" + key).addClass("is-invalid"); //give read border to input field
-            // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+             $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
             //  sweetalert('warning',value);
-            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+          //  $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
 
         });
       }
@@ -650,15 +648,15 @@ function HrmSubmitPolicy(){
           sweetalert('success','The Policy has been Update Successfully !!');
           setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content 
       }else{
-        // $(".print-error-msg").find("ul").html('');
+         $(".print-error-msg").find("ul").html('');
 
-        // $(".print-error-msg").css('display','block');
+         $(".print-error-msg").css('display','block');
 
         $.each( data.errors, function( key, value ) {
-          $("#" + key).addClass("is-invalid"); //give read border to input field
-            // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+         // $("#" + key).addClass("is-invalid"); //give read border to input field
+             $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
             //sweetalert('warning',value);
-            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+           // $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
         });
       }
       }
@@ -683,11 +681,11 @@ function HrmSubmitPolicy(){
       $('#card_title').text("Update Policy")     //This code will change Button value to Update
       $('#policy_id').val(id);     //It will define value of id variable to this customer id hidden field
       $('#operation').val('Update');
-      $('#policy_name').removeClass("is-invalid");
-      $('#policy_file').removeClass("is-invalid");
-      $.each(data, function(i, e){ //read array json for show to textbox
-        $('#hidden_pdf').val(data[i].file_path)// Set to span and get hidden for value 
-        $('#policy_name').val(data[i].name);    
+      $('.print-error-msg').hide(); // hide div show error
+      $.each(data, function(i, e){ //read array json for show to textbox 
+        $('#hidden_pdf').val(data[i].file_path);// Set to span and get hidden for value 
+        $('#policy_name').val(data[i].name);   
+        $('#policy_file_name').text(data[i].file_path);// set text for user saw
         });     
      
    }
@@ -2180,5 +2178,121 @@ function hrm_recruitment_approve(userid,type){
   });
 }
 ////===== END Result Candidate =====//////
+
+////===== Report Recruitment =====//////
+
+  ///// Get Report Value for Button and Chart
+  function hrm_recruitment_get_report_val(from,to){
+    $.ajax({
+      type:'POST',
+      url: "hrm_report_recruitment/report",
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data:{
+          _from:from,
+          _to:to,
+          _report:'hi'
+      },
+      dataType:"json",
+      success: function(data){
+        $('#re_all').val('អ្នកដាក់ពាក្យ'+' '+'( '+data.all+' )');
+        $('#re_app').val('អ្នកជាប់'+' '+'( '+data.app+' )');
+        $('#re_pen').val('អ្នករង់ចាំ'+' '+'( '+data.pen+' )');
+        $('#re_rej').val('អ្នកបដិសេដ'+' '+'( '+data.rej+' )');
+        var data1 = [data.all,data.app,data.pen,data.rej];
+        new Chart(document.getElementById("chart-area"), {
+          type: 'pie',
+          data: {
+            labels:["Applies", "Approve", "Pending", "Reject"], //["Africa", "Asia", "Europe", "Latin America", "North America"],
+            datasets: [
+              {
+                label: "Request",
+                backgroundColor: ["#007bff", "#28a745","#ffc107","#dc3545"],
+                data: data1,//[2478,5267,734,784,433]
+              }
+            ]
+          },
+          options: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: 'Total Condidate'
+            },
+          responsive: true,
+          }
+        });
+      }
+    });
+  }
+  ///// Get Report Table Detail Pass Pending and Reject
+  function get_report_recruitment_detail(type,from,to){
+    //   if(check_session()){
+    //   return;
+    // }
+    $.ajax({
+      type:'POST',
+      url: "hrm_report_recruitment/report",
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data:{
+          _from:from,
+          _to:to,
+          _reportdetail:'hello',
+          _type:type,
+      },
+      success: function(data){
+          document.getElementById("hrm_recruitment_report_table").innerHTML = data;
+          $('#recruitment_report_tbl').DataTable({
+          });
+          $('[data-toggle="tooltip"]').tooltip();
+      }
+    });
+  }
+  //// Function Modal Get Result Candidate
+  function view_result_condidate_report(id){
+    $.ajax({  
+      url:'hrm_report_recruitment/report/modal/result',  
+      type:"GET",
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data:{id:id},  
+      success:function(data){  
+        // get id of div in admincheck.php for show modal  
+        document.getElementById("modal_report_recruitment").innerHTML = data;
+         // set time out for modal view
+         setTimeout(function(){$('#view_result_candidate_modal').modal("show");},200);
+      }  
+    });  
+  }
+  ///// Function Show table candidate applied
+  function get_report_cv_detail(from,to){
+    //   if(check_session()){
+    //   return;
+    // }
+    $.ajax({
+      type:'POST',
+      url: "hrm_report_recruitment/report",
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data:{
+          _from:from,
+          _to:to,
+          _report_cv_detail:'hello'
+      },
+      success: function(data){
+          document.getElementById("hrm_recruitment_report_table").innerHTML = data
+          $('#recruitment_candidate_tbl').DataTable({
+          });
+      }
+    });
+    }
+
+
+////===== END Report Recruitment =====//////
+
 
 /////////////================================= END Recruitment =============================///////////////

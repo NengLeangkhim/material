@@ -70,26 +70,28 @@
                                //  echo "<option value='$row[id]'>$row[name]</option>";
                                 $output[] = array('id' => $row->id, 'name' => $row->name,'parent' => $row->parent_id);
                                 }
-                                $tree = buildTree($output);
-                                function printTree($tree, $r = 0, $p = null) {
-                                    $k=1; 
-                                    foreach ($tree as $i => $t) {
-                                        $dash = ($t['parent'] == 0) ? "$k".'/'.' ' : '  '.str_repeat("  -", $r).' ';
-    
-                                        printf("\t<pre>%s%s</pre>\n",$dash, $t['name']);
-                                       
-                                        if ($t['parent'] == $p) {
-                                            // reset $r
-                                            $r = 0;
+                                if(isset($output)){
+                                    $tree = buildTree($output);
+                                    function printTree($tree, $r = 0, $p = null) {
+                                        $k=1; 
+                                        foreach ($tree as $i => $t) {
+                                            $dash = ($t['parent'] == 0) ? "$k".'/'.' ' : '  '.str_repeat("  -", $r).' ';
+        
+                                            printf("\t<pre>%s%s</pre>\n",$dash, $t['name']);
+                                        
+                                            if ($t['parent'] == $p) {
+                                                // reset $r
+                                                $r = 0;
+                                            }
+                                            if (isset($t['_children'])) {
+                                                printTree($t['_children'], ++$r, $t['parent']);
+                                            }
+                                            $k++;
                                         }
-                                        if (isset($t['_children'])) {
-                                            printTree($t['_children'], ++$r, $t['parent']);
-                                        }
-                                        $k++;
+                                        
                                     }
-                                    
-                                }
-                                printTree($tree);                            
+                                    printTree($tree);    
+                                }                        
                                 ?>
                         </div>
                     </div><!-- End Row -->

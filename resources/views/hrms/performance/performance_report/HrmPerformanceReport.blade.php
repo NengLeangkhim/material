@@ -42,7 +42,7 @@
                                         </span>
                                     </div><br>
                             <div class="col-12 text-center">
-                                <button type="submit" class="form-control col-1 btn btn-info" onclick="ReportPerformance()" id="search_report_performance">Submit</button>
+                                <button type="submit" class="btn btn-info" onclick="ReportPerformance()" id="search_report_performance">Submit</button>
                             </div>
                             </form>
                             </div><br>
