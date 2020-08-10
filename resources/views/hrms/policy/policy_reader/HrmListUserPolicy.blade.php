@@ -5,7 +5,7 @@
          <div class="col-md-12">
              <div class="card">
                <div class="card-header">
-                 <h1 class="card-title hrm-title"><strong><i class="fas fa-book-open"></i> Policies</strong></h1>
+                 <h1 class="card-title hrm-title"><strong><i class="fas fa-book-open"></i> List Users Read Policy</strong></h1>
                  <div class="col-md-12 text-right">
 
                  </div>
