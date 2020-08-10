@@ -659,6 +659,15 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// Submit Approval
     Route::post('hrm_list_result_condidate/submit','hrms\recruitment\HrmResultCandidateController@HrmSubmitApproval');
+///// Report Recruitment
+    /// Index Report 
+    Route::get('hrm_report_recruitment','hrms\recruitment\HrmRecruitmentReportController@HrmIndexRecruitmentReport');
+
+    /// Show Report Recruitment 
+    Route::post('hrm_report_recruitment/report','hrms\recruitment\HrmRecruitmentReportController@HrmRecruitmentReport');
+
+    /// Show Modal Result Candidate
+    Route::get('hrm_report_recruitment/report/modal/result','hrms\recruitment\HrmRecruitmentReportController@HrmModalResultCandidate');
 /////////////////============== END Recruitment =============///////////////
 // ========================================================>END METKEOSAMBO <======================================================== //
 
