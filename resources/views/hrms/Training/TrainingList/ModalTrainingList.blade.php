@@ -13,7 +13,11 @@
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
             @php
-                // print_r($data[3]);
+                if(isset($data[2])){
+                  $hrid=$data[2][0]->hrid;
+                }else {
+                  $hrid=0;
+                }
             @endphp
             <form id="fm_training_list" onsubmit="return false" enctype="multipart/form-data">
                @csrf
@@ -82,18 +86,36 @@
                     <div class="form-group">
                     <label>Trained or Not <span class="text-danger">*</span></label>
                     <select name="schet_status" id="" class="form-control" onchange="HRM_TrainedOrNot(this)">
-                      <option value="f">Not Trained</option>
-                      <option value="t">Trained</option>  
+                      @php
+                        $displaytbl="d-none";
+                        if(isset($data[2])){
+                          if($data[2][0]->schedule_status==1){
+                            $displaytbl="";
+                            echo '<option value="t">Trained</option>
+                            <option value="f">Not Trained</option>
+                                 ';
+                            }else {
+                              echo '<option value="f">Not Trained</option>
+                      <option value="t">Trained</option> ';
+                      $displaytbl="d-none";
+                            }
+                        }else {
+                          echo '<option value="f">Not Trained</option>
+                      <option value="t">Trained</option> ';
+                        }
+                      @endphp
+                      
                     </select>
                   </div>
                 </div>
                 <div class="col-md-12">
+                      <label>File <span class="text-danger">*</span></label>
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="document" id="document" onchange="hrm_get_name_file('document','documentFile')">
                         <label class="custom-file-label" for="exampleInputFile" id="documentFile" name='labelfile'>@php if(isset($data[2])){echo substr($data[2][0]->file,21);}else {echo 'Choose file';} @endphp</label>
                       </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 @php echo $displaytbl; @endphp" id="divtabletrainingstaff">
                   <div class="form-group">
                      <label>Please Select Staff <span class="text-danger">*</span></label>
                      <div class="table-wrapper-scroll-y my-custom-scrollbar">
@@ -102,7 +124,7 @@
                             <tr>
                               <th>#</th>
                               <th>Name</th>
-                              <th>Check All <input type="checkbox" name="check"></th>
+                              <th>Check All <input type="checkbox" name="check" id="checkstaffid" onchange="hrm_training_checkAll(this)"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -110,11 +132,28 @@
                               $i=0;
                               $a=0;
                             @endphp
-                            @foreach($data[3] as $em)
+                            @foreach($data[4] as $em)
                               <tr>
                                 <td>{{++$a}}</td>
                                 <td>{{$em->name}}</td>
-                                <th class="text-right"><input type="checkbox" name="check[{{$i++}}]" value="{{$em->id}}"></th>
+                                @php
+                                  if(isset($data[3])){
+                                    $checktrue=0;
+                                    foreach ($data[3] as $st) {
+                                      if($em->id==$st->staff_id){
+                                        $checktrue++;
+                                      }
+                                    }
+                                    if($checktrue>0){
+                                      $ch="Checked";
+                                    }else {
+                                      $ch='';
+                                    }
+                                    echo '<th class="text-right"><input type="checkbox" name="check['.$i++.']" value="'.$em->id.'" '.$ch.' onchange="HRM_CheckStaffTrain(this,'.$hrid.')"></th>';
+                                  }else {
+                                    echo '<th class="text-right"><input type="checkbox" name="check['.$i++.']" value="'.$em->id.'" onchange="HRM_CheckStaffTrain(this,'.$hrid.')"></th>';
+                                  }
+                                @endphp
                               </tr> 
                             @endforeach
                           
@@ -147,10 +186,9 @@
 <script type="text/javascript">
   $(document).ready(function () {
     bsCustomFileInput.init();
-    $('#tbl_training_list_add').dataTable({
-      scrollY: 300,
-      scrollCollapse: true
-    });
+
+
+    
   });
   
 </script>
