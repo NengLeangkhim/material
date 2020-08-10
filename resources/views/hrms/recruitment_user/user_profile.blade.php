@@ -28,7 +28,7 @@
                         </tr class="tr-review">
                         <tr class="tr-review">
                             <td class="td-label kh-font-batt">មុខដំណែងការងារបានដាក់</td>
-                            <td class="td-txtbox"><div class="output-field"> <?php echo $userdata[0]->position; ?> </div></td>
+                            <td class="td-txtbox"><div class="output-field"> <?php echo $userdata[0]->ma_position; ?> </div></td>
                         </tr>
                         <tr class="tr-review">
                             <td class="td-label kh-font-batt">ថ្ងៃចុះឈ្មោះ</td>

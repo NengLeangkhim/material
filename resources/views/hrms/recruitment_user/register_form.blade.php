@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\DB;
 // sql select position to show in select box
-$sql = "SELECT id, name FROM position ORDER BY name ASC";
+$sql = "SELECT id, name FROM ma_position ORDER BY name ASC";
 $r = DB::select($sql);
 
 ?>
