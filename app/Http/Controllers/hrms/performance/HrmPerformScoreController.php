@@ -119,7 +119,7 @@ class HrmPerformScoreController extends Controller
             $id_score = $request->performance_score_id;
             $score_name = $request->score_name;
             $value = $request->score_value;
-            $update_score = ModelHrmPerformScore::hrm_update_perform_score($id_score,$userid,$score_name,$value); //Update data
+            $update_score = ModelHrmPerformScore::hrm_update_perform_score($id_score,$userid,$score_name,$value,'t'); //Update data
             return response()->json(['success'=>'Record is successfully Update']);
             }else{
                 return view('no_perms');

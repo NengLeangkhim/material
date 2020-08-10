@@ -22,7 +22,7 @@ class HrmPlanDetailController extends Controller
             $userid = $_SESSION['userid'];
             $permission = ModelHrmPermission::hrm_get_permission($userid);
             foreach($permission as $row){
-                $group = $row->group_id;
+                $group = $row->ma_group_id;
             }
             if($group==5 || $group==1){ //permission check for CEO and Admin
                 $plan_detail = ModelHrmPlanDetail::hrm_get_tbl_perform_plan_detail(); //query policy user 
@@ -159,7 +159,7 @@ class HrmPlanDetailController extends Controller
             $to = $request->plan_detail_to;
             $task = $request->plan_detail_task;
             $parent = $request->plan_detail_parent;
-            $insert_plan_datail = ModelHrmPlanDetail::hrm_update_perform_plan_detail($id_plan_detail,$userid,$id_plan,$p_detail_name,$task,$start,$to,$parent); //insert data
+            $insert_plan_datail = ModelHrmPlanDetail::hrm_update_perform_plan_detail($id_plan_detail,$userid,$id_plan,$p_detail_name,$task,$start,$to,$parent,'t'); //insert data
             return response()->json(['success'=>'Record is successfully update']);
         }
     }

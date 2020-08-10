@@ -11,8 +11,8 @@ class ModelHrmPlanDetail extends Model
     // ===== Function get data for table for CEO =====////
     public static function hrm_get_tbl_perform_plan_detail(){
         $plan_detail_ceo= DB::table('hr_performance_plan_detail as pd')
-                           ->select('pd.*','p.name as name_plan','pd1.name as name_parent','staff_detail.username')
-                           ->join('staff_detail','pd.create_by','=','staff_detail.ma_user_id')
+                           ->select('pd.*','p.name as name_plan','pd1.name as name_parent','ud.username')
+                           ->join('ma_user_detail as ud','pd.create_by','=','ud.ma_user_id')
                            ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')
                            ->leftjoin('hr_performance_plan_detail as pd1','pd.parent_id','=','pd1.id')
                            ->where('pd.is_deleted','=','f')
@@ -24,8 +24,8 @@ class ModelHrmPlanDetail extends Model
     // ===== Function get data for table for Head Each departement =====////
     public static function hrm_get_tbl_perform_plan_detail_dept($userid){
         $plan_detail= DB::table('hr_performance_plan_detail as pd')
-                           ->select('pd.*','p.name as name_plan','pd1.name as name_parent','staff_detail.username')
-                           ->join('staff_detail','pd.create_by','=','staff_detail.ma_user_id')
+                           ->select('pd.*','p.name as name_plan','pd1.name as name_parent','ud.username')
+                           ->join('ma_user_detail as ud','pd.create_by','=','ud.ma_user_id')
                            ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')
                            ->leftjoin('hr_performance_plan_detail as pd1','pd.parent_id','=','pd1.id')
                            ->where([
@@ -59,15 +59,15 @@ class ModelHrmPlanDetail extends Model
         return DB::select('SELECT public.insert_hr_performance_plan_detail(?,?,?,?,?,?,?)',array($id_plan,$p_detail_name,$task,$start,$to,$userid,$parent));
         } 
     // ===== Function Update plan Detail ======//
-    public static function hrm_update_perform_plan_detail($id_plan_detail,$userid,$id_plan,$p_detail_name,$task,$start,$to,$parent){
-        return DB::select('SELECT public.update_hr_performance_plan_detail(?,?,?,?,?,?,?,?)',array($id_plan_detail,$userid,$id_plan,$p_detail_name,$task,$start,$to,$parent));
+    public static function hrm_update_perform_plan_detail($id_plan_detail,$userid,$id_plan,$p_detail_name,$task,$start,$to,$parent,$status){
+        return DB::select('SELECT public.update_hr_performance_plan_detail(?,?,?,?,?,?,?,?,?)',array($id_plan_detail,$userid,$id_plan,$p_detail_name,$task,$start,$to,$parent,$status));
         } 
      // ===== Function get data for table for Head Each departement =====////
      public static function hrm_get_plan_detail_view($id){
         $plan_detail= DB::table('hr_performance_plan_detail as pd')
                            ->select('pd.*','p.name as name_plan','p.date_from as plan_from',
-                            'p.date_to as plan_to','pd1.name as parent_name','staff_detail.username')
-                           ->join('staff_detail','pd.create_by','=','staff_detail.ma_user_id')
+                            'p.date_to as plan_to','pd1.name as parent_name','ud.username')
+                           ->join('ma_user_detail as ud','pd.create_by','=','ud.ma_user_id')
                            ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')
                            ->leftjoin('hr_performance_plan_detail as pd1','pd.parent_id','=','pd1.id')
                            ->where('pd.id','=',$id)
