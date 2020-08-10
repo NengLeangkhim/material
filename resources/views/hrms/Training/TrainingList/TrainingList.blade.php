@@ -12,7 +12,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                 @php
-                    print_r($data);
+                    // print_r($data);
                 @endphp
                 <table class="table table-bordered" id="tbl_employee" style="width:100%">
                   <thead>                  
@@ -38,19 +38,19 @@
                       <td>{{$tl->trainer}}</td>
                       <td>{{$tl->schet_f_date}}</td>
                       <td>@php
-                          if($tl->status==1){
+                          if($tl->schedule_status==1){
                             echo "Trainted";
                           }else {
                             echo "Not Trained";
                           }
                       @endphp</td>
-                        <td></td>
-                        <td>{{$tl->actual_description}}</td>
+                        <td><a href="{{$tl->file}}" target="blank">document</a></td>
+                        <td>{{$tl->schet_description}}</td>
                         <td>
                           <div class="row">
-                            <div class="col-md-4"><a href="javascrip:;" onclick=""><i class="far fa-edit"></i></a></div>
-                            <div class="col-md-4"><a href="javascrip:;" onclick=""><i class="fas fa-info"></i></a></div>
-                            <div class="col-md-4"><a href="javascrip:;"><i class="far fa-trash-alt"></i></a></div>
+                            <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_modal_traininglist','modal_traininglist',{{$tl->id}})"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_traininglist_detail','modal_traininglist_detail',{{$tl->id}})"><i class="fas fa-info"></i></a></div>
+                            <div class="col-md-4"><a href="javascrip:;" onclick="hrm_delete({{$tl->id}},'hrm_delete_traininglist','hrm_traininglist','Training List is Delete !')"><i class="far fa-trash-alt"></i></a></div>
                           </div>
                         </td>
                     </tr>
@@ -69,5 +69,7 @@
     $('#tbl_employee').DataTable({
       responsive: true
     });
+
+  
 } );
 </script>

@@ -125,6 +125,53 @@ function HRM_ShowDetail(rout,modalName,id=-1){
         }
    // End Overtime
 // End Employee
+// Training
+    function HRM_TrainedOrNot(e){
+        if(e.value=='t'){
+            document.getElementById("divtabletrainingstaff").classList.remove("d-none");
+            document.getElementById("divtabletrainingstaff").style.display = "block";
+        }else{
+            document.getElementById("divtabletrainingstaff").style.display = "none";
+        }
+    }
+
+function hrm_training_checkAll(ele) {
+    var checkboxes = document.getElementsByTagName('input');
+    if (ele.checked) {
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].type == 'checkbox') {
+                checkboxes[i].checked = true;
+            }
+        }
+    } else {
+        for (var i = 0; i < checkboxes.length; i++) {
+            console.log(i)
+            if (checkboxes[i].type == 'checkbox') {
+                checkboxes[i].checked = false;
+            }
+        }
+    }
+}
+
+
+function HRM_CheckStaffTrain(e,trainid){
+    if(e.checked==false){
+        // alert(e.value);
+        $.ajax({
+            type: 'GET',
+            url: '/hrm_delete_trainingstaff',
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                staffid: e.value,
+                trainid: trainid
+            },
+            success: function (data) {
+                document.getElementById('otDetail').innerHTML = data;
+            }
+        });
+    }
+}
+// End Training
 
 
 
