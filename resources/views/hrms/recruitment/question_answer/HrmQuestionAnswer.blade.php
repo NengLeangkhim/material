@@ -40,7 +40,7 @@
                          <td class="text-center">{{$row->name}}</td>
                          <td class="text-center">{{$ts1->format('d-M-Y H:i:s')}}</td>
                          <td class="text-center">{{$row->username}}</td>
-                       @if ($row->question_type_id==1) {{-- Permission check for option type --}}
+                       @if ($row->hr_recruitment_question_type_id==1) {{-- Permission check for option type --}}
                          <td class="text-center">
                            <div class="dropdown">
                              <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -168,7 +168,7 @@
                 </div>  
                 <div class="row text-right">
                   <div class="col-md-12 text-right">
-                     <input type="hidden" name="question_id" id="question_id"/>
+                     <input type="hidden" name="hr_recruitment_question_id" id="hr_recruitment_question_id"/>
                      <button type="submit" onclick="HrmSubmitQuestion()" name="action_question" id="action_question" class="btn btn-primary">Create</button>
                   </div>  
                 </div>

@@ -1847,10 +1847,10 @@ function ReportPerformance(){
           $("#question_recruitment_form textarea").removeClass("is-invalid");
           $("#question_recruitment_form select").removeClass("is-invalid");
           $(".invalid-feedback").children("strong").text("");/// remove errror massage
-          $('#question_id').val(id);     //It will define value of id variable for update 
+          $('#hr_recruitment_question_id').val(id);     //It will define value of id variable for update 
           $.each(data, function(i, e){ //read array json for show to textbox 
             $('#question_name').val(data[i].question);
-            $('#question_type').val(data[i].question_type_id);
+            $('#question_type').val(data[i].hr_recruitment_question_type_id);
             $('#departement').val(data[i].ma_company_dept_id);
             $('#position').val(data[i].ma_position_id);   
             });  
@@ -1953,7 +1953,7 @@ $(document).on('click', '.hrm_question_answer_re', function(){
           $('#question_id_edit').val(id);     //It will define value of id variable for update 
           $.each(data1, function(i, e){ //read array json for show to textbox 
             $('#question_name_edit').val(data1[i].question);
-            $('#question_type_edit').val(data1[i].question_type_id);
+            $('#question_type_edit').val(data1[i].hr_recruitment_question_type_id);
             $('#departement_edit').val(data1[i].ma_company_dept_id);
             $('#position_edit').val(data1[i].ma_position_id);   
             });
@@ -2176,10 +2176,125 @@ function hrm_recruitment_approve(userid,type){
       },
       success: function(data){
         sweetalert('success','The Approval has been Submit Successfully !!');
-       // go_to('hrm_list_result_condidate');//refresh content  
+        go_to('hrm_list_result_condidate');//refresh content  
        }
   });
 }
 ////===== END Result Candidate =====//////
+////===== Report Recruitment =====//////
+
+  ///// Get Report Value for Button and Chart
+  function hrm_recruitment_get_report_val(from,to){
+    $.ajax({
+      type:'POST',
+      url: "hrm_report_recruitment/report",
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data:{
+          _from:from,
+          _to:to,
+          _report:'hi'
+      },
+      dataType:"json",
+      success: function(data){
+        $('#re_all').val('អ្នកដាក់ពាក្យ'+' '+'( '+data.all+' )');
+        $('#re_app').val('អ្នកជាប់'+' '+'( '+data.app+' )');
+        $('#re_pen').val('អ្នករង់ចាំ'+' '+'( '+data.pen+' )');
+        $('#re_rej').val('អ្នកបដិសេដ'+' '+'( '+data.rej+' )');
+        var data1 = [data.all,data.app,data.pen,data.rej];
+        new Chart(document.getElementById("chart-area"), {
+          type: 'pie',
+          data: {
+            labels:["Applies", "Approve", "Pending", "Reject"], //["Africa", "Asia", "Europe", "Latin America", "North America"],
+            datasets: [
+              {
+                label: "Request",
+                backgroundColor: ["#007bff", "#28a745","#ffc107","#dc3545"],
+                data: data1,//[2478,5267,734,784,433]
+              }
+            ]
+          },
+          options: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: 'Total Condidate'
+            },
+          responsive: true,
+          }
+        });
+      }
+    });
+  }
+  ///// Get Report Table Detail Pass Pending and Reject
+  function get_report_recruitment_detail(type,from,to){
+    //   if(check_session()){
+    //   return;
+    // }
+    $.ajax({
+      type:'POST',
+      url: "hrm_report_recruitment/report",
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data:{
+          _from:from,
+          _to:to,
+          _reportdetail:'hello',
+          _type:type,
+      },
+      success: function(data){
+          document.getElementById("hrm_recruitment_report_table").innerHTML = data;
+          $('#recruitment_report_tbl').DataTable({
+          });
+          $('[data-toggle="tooltip"]').tooltip();
+      }
+    });
+  }
+  //// Function Modal Get Result Candidate
+  function view_result_condidate_report(id){
+    $.ajax({  
+      url:'hrm_report_recruitment/report/modal/result',  
+      type:"GET",
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data:{id:id},  
+      success:function(data){  
+        // get id of div in admincheck.php for show modal  
+        document.getElementById("modal_report_recruitment").innerHTML = data;
+         // set time out for modal view
+         setTimeout(function(){$('#view_result_candidate_modal').modal("show");},200);
+      }  
+    });  
+  }
+  ///// Function Show table candidate applied
+  function get_report_cv_detail(from,to){
+    //   if(check_session()){
+    //   return;
+    // }
+    $.ajax({
+      type:'POST',
+      url: "hrm_report_recruitment/report",
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data:{
+          _from:from,
+          _to:to,
+          _report_cv_detail:'hello'
+      },
+      success: function(data){
+          document.getElementById("hrm_recruitment_report_table").innerHTML = data
+          $('#recruitment_candidate_tbl').DataTable({
+          });
+      }
+    });
+    }
+
+
+////===== END Report Recruitment =====//////
+
 
 /////////////================================= END Recruitment =============================///////////////

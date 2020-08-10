@@ -97,7 +97,7 @@ class HrmReQuestionTypeController extends Controller
                 $id = $request->question_type_id;
                 $name= $request->question_type;
                 $userid = $_SESSION['userid'];
-                $question_type_update= ModelHrmReQuestionType::hrm_update_question_type($id,$userid,$name); //get function update from model
+                $question_type_update= ModelHrmReQuestionType::hrm_update_question_type($id,$userid,$name,'t'); //get function update from model
                 return response()->json(['success'=>'Record is successfully Update']);
                 }else{
                     return view('no_perms');

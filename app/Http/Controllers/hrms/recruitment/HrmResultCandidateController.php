@@ -20,7 +20,7 @@ class HrmResultCandidateController extends Controller
             $userid = $_SESSION['userid'];
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
             foreach($permission as $row){
-                $group = $row->group_id;
+                $group = $row->ma_group_id;
                 $dept = $row->ma_company_dept_id;
             }
             if($group==5 || $group==1){ //permission check for CEO and Admin
@@ -46,7 +46,7 @@ class HrmResultCandidateController extends Controller
             $userid = $_SESSION['userid'];
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
             foreach($permission as $row){
-                $group = $row->group_id;
+                $group = $row->ma_group_id;
                 $dept = $row->ma_company_dept_id;
             }
             if($group==5 || $group==1){ //permission check for CEO and Admin
@@ -114,7 +114,7 @@ class HrmResultCandidateController extends Controller
             $id_candidate= $_POST['user_id'];
             $appr_type= $_POST['type'];
             $comment = $_POST['comment'];
-            $knowledge = ModelHrmResultCandidate::hrm_submit_approval($id_candidate,$userid,$appr_type,$comment,$userid);
+            $knowledge = ModelHrmResultCandidate::hrm_submit_approval($id_candidate,$appr_type,$comment,$userid);
             return 'successfully submit'; 
         }else{
             return view('no_perms');

@@ -32,8 +32,8 @@ class ModelHrmReQuestionType extends Model
         ->get(); 
     }
     // ===== Function model Update question type =====////
-    public static function hrm_update_question_type($id,$userid,$question_type){
-        return DB::select('SELECT public.update_hr_recruitment_question_type(?,?,?)',array($id,$userid,$question_type));
+    public static function hrm_update_question_type($id,$userid,$question_type,$status){
+        return DB::select('SELECT public.update_hr_recruitment_question_type(?,?,?,?)',array($id,$userid,$question_type,$status));
     }
     // ===== function model deleted question type ===== //
    public static function hrm_delete_question_type($id,$userid){
