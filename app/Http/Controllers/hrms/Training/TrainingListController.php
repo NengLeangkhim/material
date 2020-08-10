@@ -64,7 +64,10 @@ class TrainingListController extends Controller
             $description=$_POST['description'];
             $namefile=$_POST['namefile'];
             $chech_status=$_POST['schet_status'];
-            $staff=$_POST['check'];
+            $staff=array();
+            if(isset($_POST['check'])){
+                $staff = $_POST['check'];
+            }
             $trainList = new TrainingList();
             // print_r($staff);
             if($id>0){

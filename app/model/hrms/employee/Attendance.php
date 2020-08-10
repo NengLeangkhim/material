@@ -153,7 +153,7 @@ class Attendance extends Model
     function CheckOutside($id,$date){
         $dd = new DateTime($date);
         $d = $dd->format('Y-m-d H:i:s');
-        $sql="SELECT hm.type from hr_mission hm INNER JOIN hr_mission_detail hmd on hm.id=hmd.mission_id and '$d' BETWEEN hm.date_from and hm.date_to and hmd.member=$id";
+        $sql= "SELECT hm.type from hr_mission hm INNER JOIN hr_mission_detail hmd on hm.id=hmd.hr_mission_id and '$d' BETWEEN hm.date_from and hm.date_to and hmd.ma_user_id=$id";
         $permission = DB::select($sql);
         if (count($permission) > 0) {
             return 1;
