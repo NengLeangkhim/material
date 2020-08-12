@@ -28,7 +28,7 @@ class recruitment_userModel extends Model
 
     // function to input user create account to table hr_recruitment_candidate
     public static function insert_user_info($f_n, $l_n, $kh_n, $cv, $em, $pass, $pos, $cov){
-        echo $sql = "SELECT public.insert_hr_recruitment_candidate('$f_n', '$l_n', '$kh_n', '$cv', '$em', '$pass' ,'$pos', '$cov','')";
+        $sql = "SELECT public.insert_hr_recruitment_candidate('$f_n', '$l_n', '$kh_n', '$cv', '$em', '$pass' ,'$pos', '$cov','')";
         DB::insert($sql);
     }
 
@@ -69,8 +69,6 @@ class recruitment_userModel extends Model
             if(count($q1) > 0){
                 $get_array['question_writing'] = $q2;
             }
-
-
             
             return $get_array;
         }
