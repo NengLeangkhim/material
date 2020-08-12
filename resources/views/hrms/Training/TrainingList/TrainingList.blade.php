@@ -38,7 +38,7 @@
                       <td>{{$tl->trainer}}</td>
                       <td>{{$tl->schet_f_date}}</td>
                       <td>@php
-                          if($tl->schedule_status==1){
+                          if($tl->status==1){
                             echo "Trainted";
                           }else {
                             echo "Not Trained";

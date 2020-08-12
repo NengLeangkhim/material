@@ -120,7 +120,8 @@ class HrmPolicyController extends Controller
                 $userid= $_SESSION['userid'];
                 $policy_name = $request->policy_name;
                 $id_policy = $request->policy_id;
-                $insert_policy = ModelHrmPolicy::hrm_update_policy($id_policy,$userid,$policy_name,$filepdf); //insert data
+                $status= 't';
+                $update_policy = ModelHrmPolicy::hrm_update_policy($id_policy,$userid,$policy_name,$filepdf,$status); //insert data
                 return response()->json(['success'=>'Record is successfully Update']);
                 }else{
                     return view('no_perms');
@@ -190,7 +191,7 @@ class HrmPolicyController extends Controller
             $permission = ModelHrmPermission::hrm_get_permission($userid);
             foreach($permission as $row){
                 $dept = $row->ma_company_dept_id;
-                $group = $row->group_id;
+                $group = $row->ma_group_id;
             }
             if($group==5){ //permission check for CEO
                 $policy_user = ModelHrmPolicy::hrm_get_tbl_policy_user(); //query policy user 

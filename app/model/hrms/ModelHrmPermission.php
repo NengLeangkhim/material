@@ -9,7 +9,7 @@ class ModelHrmPermission extends Model
     //=== Function Get data from staff ma_position for permission===//
     public static function hrm_get_permission($userid){
        return DB::table('ma_user as s')
-                  ->select("s.id","s.name","s.id_number","s.ma_position_id","p.group_id","s.ma_company_dept_id")
+                  ->select("s.id","s.name","s.id_number","s.ma_position_id","p.ma_group_id","s.ma_company_dept_id")
                   ->join("ma_position as p","s.ma_position_id","=","p.id")
                   ->where("s.id","=",$userid)
                   ->get();

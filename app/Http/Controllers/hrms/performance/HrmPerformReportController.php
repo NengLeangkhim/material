@@ -21,7 +21,7 @@ class HrmPerformReportController extends Controller
             $userid = $_SESSION['userid'];
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
             foreach($permission as $row){
-                $group = $row->group_id;
+                $group = $row->ma_group_id;
                 $dept = $row->ma_company_dept_id;
             }
             if($group==5 || $group==1){ //permission check for CEO and Admin
@@ -68,7 +68,7 @@ class HrmPerformReportController extends Controller
             $dept = $request->dept_performance;
             $from = $request->from_performance;
             $to = $request->to_performance;
-            $report = ModelHrmPerformReport::hrm_get_tbl_perform_report($dept,$from,$to); //query
+            $report = ModelHrmPerformReport::hrm_get_tbl_perform_report($dept,$from.' '.'00:00:00',$to.' '.'23:59:59'); //query
             return view('hrms/performance/performance_report/HrmTableReportPerform',['report'=>$report]);
             }else{
                 return view('no_perms');

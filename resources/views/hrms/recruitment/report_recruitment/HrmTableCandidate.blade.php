@@ -10,8 +10,8 @@
     </thead>
     <tbody class='word-tbody'>
     <?php
+        $i=1;
         foreach($candidate as $row){
-            $i=1;
             $create = $row->register_date;
             $ts1 = new DateTime($create);
         ?>

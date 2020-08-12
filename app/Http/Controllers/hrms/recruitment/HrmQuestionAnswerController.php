@@ -24,7 +24,7 @@ class HrmQuestionAnswerController extends Controller
             $userid = $_SESSION['userid'];
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
             foreach($permission as $row){
-                $group = $row->group_id;
+                $group = $row->ma_group_id;
                 $dept = $row->ma_company_dept_id;
             }
             if($group==5 || $group==1){ //permission check for CEO and Admin
@@ -134,7 +134,7 @@ class HrmQuestionAnswerController extends Controller
                 $dept = $request->departement;
                 $position = $request->position;
                 $userid = $_SESSION['userid'];
-                $question= ModelHrmQuestionAnswer::hrm_update_question($id_question,$userid,$question,$dept,$question_type,$position); //get function Update from model
+                $question= ModelHrmQuestionAnswer::hrm_update_question($id_question,$userid,$question,$dept,$question_type,'t',$position); //get function Update from model
                 return response()->json(['success'=>'Record is successfully Update']);
                 }else{
                     return view('no_perms');
@@ -268,7 +268,7 @@ class HrmQuestionAnswerController extends Controller
                 $dept = $request->departement_edit;
                 $position = $request->position_edit;
                 $userid = $_SESSION['userid'];
-                $question= ModelHrmQuestionAnswer::hrm_update_question($id_question,$userid,$question,$dept,$question_type,$position); //get function Update from model
+                $question= ModelHrmQuestionAnswer::hrm_update_question($id_question,$userid,$question,$dept,$question_type,'t',$position); //get function Update from model
                 // Update Anwer
                 $id_choice = $request->answer_id_edit;
                 $answer_name= $request->answer_name_edit;
@@ -276,7 +276,7 @@ class HrmQuestionAnswerController extends Controller
                 $userid = $_SESSION['userid'];
                 foreach( $answer_name as $key => $answer ) 
                 {
-                    $answer= ModelHrmQuestionAnswer::hrm_edit_answer($id_choice[$key],$userid,$answer_name[$key],$id_question,$right_wrong[$key]); //get function insert from model
+                    $answer= ModelHrmQuestionAnswer::hrm_edit_answer($id_choice[$key],$userid,$answer_name[$key],$id_question,$right_wrong[$key],'t'); //get function insert from model
                 }
                 return response()->json(['success'=>'Record is successfully Update']);
                 }else{

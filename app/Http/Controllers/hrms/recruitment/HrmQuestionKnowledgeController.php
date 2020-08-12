@@ -22,7 +22,7 @@ class HrmQuestionKnowledgeController extends Controller
             $userid = $_SESSION['userid'];
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
             foreach($permission as $row){
-                $group = $row->group_id;
+                $group = $row->ma_group_id;
                 $dept = $row->ma_company_dept_id;
             }
             if($group==5 || $group==1){ //permission check for CEO and Admin
@@ -112,7 +112,7 @@ class HrmQuestionKnowledgeController extends Controller
                 $question_name= $request->question_knowledge;
                 $dept_id = $request->departement_knowledge;
                 $userid = $_SESSION['userid'];
-                $question= ModelHrmQuestionKnowledge::hrm_update_question_knowledge($question_id,$userid,$question_name,$dept_id); //get function insert from model
+                $question= ModelHrmQuestionKnowledge::hrm_update_question_knowledge($question_id,$userid,$question_name,$dept_id,'t'); //get function insert from model
                 return response()->json(['success'=>'Record is successfully Update']);
                 }else{
                     return view('no_perms');

@@ -23,7 +23,7 @@ class HrmPerformScheduleController extends Controller
             $userid = $_SESSION['userid'];
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
             foreach($permission as $row){
-                $group = $row->group_id;
+                $group = $row->ma_group_id;
                 $dept = $row->ma_company_dept_id;
             }
             if($group==5 || $group==1){ //permission check for CEO and Admin
@@ -186,7 +186,7 @@ class HrmPerformScheduleController extends Controller
             $start = $request->staff_from_schedule;
             $to = $request->staff_to_schedule;
             $cmt = $request->staff_comment_schedule;
-            $insert_schedule = ModelHrmPerformSchedule::hrm_update_perform_schedule($id_schedule,$userid,$staff_id,$start,$to,$plan_detail_id,$cmt); //Update data
+            $insert_schedule = ModelHrmPerformSchedule::hrm_update_perform_schedule($id_schedule,$userid,$staff_id,$start,$to,$plan_detail_id,$cmt,'t'); //Update data
             return response()->json(['success'=>'Record is successfully Updated']);
             }else{
                 return view('no_perms');

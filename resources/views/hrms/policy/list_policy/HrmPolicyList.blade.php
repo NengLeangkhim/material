@@ -1,6 +1,6 @@
 @php
      foreach($permission as $item){// get group id for permission
-        $level=$item->group_id;
+        $level=$item->ma_group_id;
      }
 @endphp
 

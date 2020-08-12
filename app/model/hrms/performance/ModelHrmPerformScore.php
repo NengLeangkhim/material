@@ -10,8 +10,8 @@ class ModelHrmPerformScore extends Model
     // ===== Function get data for table =====////
     public static function hrm_get_tbl_perform_score(){
         $score= DB::table('hr_performance_score as ps')
-                           ->select('ps.*','staff_detail.username')
-                           ->leftjoin('staff_detail','ps.create_by','=','staff_detail.ma_user_id')
+                           ->select('ps.*','ma_user_detail.username')
+                           ->leftjoin('ma_user_detail','ps.create_by','=','ma_user_detail.ma_user_id')
                            ->where('ps.is_deleted','=','f')
                            ->orderBy('ps.id','ASC')
                            ->get(); 
@@ -38,8 +38,8 @@ class ModelHrmPerformScore extends Model
       ->get(); 
     }
     // ===== Function Update Performance Score  ======//
-    public static function hrm_update_perform_score($id_score,$userid,$score_name,$value){
-        return DB::select('SELECT public.update_hr_performance_score(?,?,?,?)',array($id_score,$userid,$score_name,$value));
+    public static function hrm_update_perform_score($id_score,$userid,$score_name,$value,$status){
+        return DB::select('SELECT public.update_hr_performance_score(?,?,?,?,?)',array($id_score,$userid,$score_name,$value,$status));
     } 
     // ===== Function Delete Performance Score  ======//
     public static function hrm_delete_perform_score($id_score,$userid){

@@ -59,7 +59,7 @@
                                 $pf_challenge = $row->challenge;
                                 /// Manager Follow Up
                                 $pmf_percentage = intval($row->percentage);
-                                $pmf_score = $row->score_id;
+                                $pmf_score = $row->hr_performance_score_id;
                                 $pmf_cmt = $row->comment; 
                                 $button = "Update";
                                 $follow_up_id = $row->id; // set id for update

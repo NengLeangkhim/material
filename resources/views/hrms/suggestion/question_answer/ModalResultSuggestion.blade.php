@@ -41,7 +41,7 @@
                     </div><!-- /.card-header -->
                     <div class="card-body" style="display: block;">
                                 <?php  	
-							 if($result[0]->answer_id==null){
+							 if($result[0]->hr_suggestion_answer_id==null){
                         echo '<div class="table-responsive">
                                 <table class="table table-bordered" id="writing_result">
                                  <thead>

@@ -3,7 +3,7 @@
       <div class="modal-content">
           <div class="card card-default">
             <div class="card-header">
-                <h3 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i></strong></h3>
+                <h3 class="card-title hrm-title"><strong><i class="far fa-file"></i></i></strong></h3>
                 <h2 class="card-title hrm-title" style="font-weight: bold;font-size:25px" id="card_title">Resume Detail</h2>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>

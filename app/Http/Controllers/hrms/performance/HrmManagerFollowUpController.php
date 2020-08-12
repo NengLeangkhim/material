@@ -23,7 +23,7 @@ class HrmManagerFollowUpController extends Controller
             $userid = $_SESSION['userid'];
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
             foreach($permission as $row){
-                $group = $row->group_id;
+                $group = $row->ma_group_id;
                 $dept = $row->ma_company_dept_id;
             }
             if($group==5 || $group==1){ //permission check for CEO and Admin
@@ -134,7 +134,7 @@ class HrmManagerFollowUpController extends Controller
             $percent = $request->follow_manage_up_percentage;
             $score = $request->follow_manage_up_score;
             $cmt = $request->follow_manage_up_comment;
-            $update_follow_up = ModelHrmManagerFollowUp::hrm_update_Manager_follow_up($id_manager,$userid,$follow_up_id,$percent,$score,$cmt); //update data
+            $update_follow_up = ModelHrmManagerFollowUp::hrm_update_Manager_follow_up($id_manager,$userid,$follow_up_id,$percent,$score,$cmt,'t'); //update data
             return response()->json(['success'=>'Record is successfully Updated']);
             }else{
                 return view('no_perms');

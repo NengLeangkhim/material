@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-6"  style="text-align:center">
                                 <span class="text-center" style="font-size:15px;color:#d42931;float:left">Position:</span>
-                                <p style="display:inline;color:black;" id="position">{{$item->position}}</p>
+                                <p style="display:inline;color:black;" id="position">{{$item->ma_position}}</p>
                             </div>
                             </div><!-- End Row -->
                         @endforeach

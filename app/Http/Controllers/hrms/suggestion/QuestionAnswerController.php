@@ -97,7 +97,7 @@ class QuestionAnswerController extends Controller
                 $question_type_id = $request->question_type_id_sugg;
                 $userid = $_SESSION['userid'];
                 $id= $request->q_sugg_id;
-                $question_type= ModelQuestionAnswer::hrm_update_questions($id,$userid,$name,$question_type_id); //get function insert from model
+                $question_type= ModelQuestionAnswer::hrm_update_questions($id,$userid,$name,'t',$question_type_id); //get function insert from model
                 return response()->json(['success'=>'Record is successfully Update']);
                 }else{
                     return view('no_perms');

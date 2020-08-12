@@ -29,16 +29,16 @@ function hrm_delete(id,route,goto,alert) {
         data:{id:id},
         type:"GET",    //Using of Post method for send data
         success:function(data){
-          // console.log(data);
-          if(data =='error'){
-               //sweetalert('success',alert);
-             //  setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
-               Swal.fire(
-                 'Deleted!',
-                   'Delete Error',
-                 'error'
-               )
-          }else{
+          console.log(data);
+          // if(data =='error'){
+          //      //sweetalert('success',alert);
+          //    //  setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
+          //      Swal.fire(
+          //        'Deleted!',
+          //          'Delete Error',
+          //        'error'
+          //      )
+          // }else{
               //sweetalert('success',alert);
             setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
             Swal.fire(
@@ -46,7 +46,7 @@ function hrm_delete(id,route,goto,alert) {
                 alert,
               'success'
             )
-          }
+          // }
         }
         
        });
@@ -320,7 +320,7 @@ $(document).on('click', '.update_q_sugg', function(){
       $('#q_sugg_id').val(id);     //It will define value of id variable for update 
       $.each(data, function(i, e){ //read array json for show to textbox
         $('#question_name_sugg').val(data[i].question);  
-        $('#question_type_id_sugg').val(data[i].id_type)   
+        $('#question_type_id_sugg').val(data[i].hr_suggestion_question_type_id)   
         });     
    }
   });
@@ -579,7 +579,9 @@ function HrmAddPolicy(){
   $('#hrm_policy_modal').modal('show');
   $('#policy_name').val('');
   $('#policy_file').val(''); 
-  $('.print-error-msg').hide(); // hide div show error
+  $('#policy_name').removeClass("is-invalid");
+  $('#policy_file').removeClass("is-invalid");
+  $(".invalid-feedback").children("strong").text("");
   $('#card_title').text('Add Policy');
   $('#action_policy').text('Create');
 } 
@@ -612,15 +614,15 @@ function HrmSubmitPolicy(){
           sweetalert('success','The Policy has been Insert Successfully !!');
           setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content 
       }else{
-         $(".print-error-msg").find("ul").html(''); 
+        // $(".print-error-msg").find("ul").html(''); 
 
-         $(".print-error-msg").css('display','block');
+        // $(".print-error-msg").css('display','block');
 
         $.each( data.errors, function( key, value ) {//foreach show error
             $("#" + key).addClass("is-invalid"); //give read border to input field
-             $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
             //  sweetalert('warning',value);
-          //  $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
 
         });
       }
@@ -648,15 +650,15 @@ function HrmSubmitPolicy(){
           sweetalert('success','The Policy has been Update Successfully !!');
           setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content 
       }else{
-         $(".print-error-msg").find("ul").html('');
+        // $(".print-error-msg").find("ul").html('');
 
-         $(".print-error-msg").css('display','block');
+        // $(".print-error-msg").css('display','block');
 
         $.each( data.errors, function( key, value ) {
-         // $("#" + key).addClass("is-invalid"); //give read border to input field
-             $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+            // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
             //sweetalert('warning',value);
-           // $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
         });
       }
       }
@@ -681,11 +683,12 @@ function HrmSubmitPolicy(){
       $('#card_title').text("Update Policy")     //This code will change Button value to Update
       $('#policy_id').val(id);     //It will define value of id variable to this customer id hidden field
       $('#operation').val('Update');
-      $('.print-error-msg').hide(); // hide div show error
-      $.each(data, function(i, e){ //read array json for show to textbox 
+      $('#policy_name').removeClass("is-invalid");
+      $('#policy_file').removeClass("is-invalid");
+      $.each(data, function(i, e){ //read array json for show to textbox
         $('#hidden_pdf').val(data[i].file_path);// Set to span and get hidden for value 
-        $('#policy_name').val(data[i].name);   
-        $('#policy_file_name').text(data[i].file_path);// set text for user saw
+        $('#policy_name').val(data[i].name);
+        $('#policy_file_name').text(data[i].file_path);    
         });     
      
    }
@@ -1844,10 +1847,10 @@ function ReportPerformance(){
           $("#question_recruitment_form textarea").removeClass("is-invalid");
           $("#question_recruitment_form select").removeClass("is-invalid");
           $(".invalid-feedback").children("strong").text("");/// remove errror massage
-          $('#question_id').val(id);     //It will define value of id variable for update 
+          $('#hr_recruitment_question_id').val(id);     //It will define value of id variable for update 
           $.each(data, function(i, e){ //read array json for show to textbox 
             $('#question_name').val(data[i].question);
-            $('#question_type').val(data[i].question_type_id);
+            $('#question_type').val(data[i].hr_recruitment_question_type_id);
             $('#departement').val(data[i].ma_company_dept_id);
             $('#position').val(data[i].ma_position_id);   
             });  
@@ -1950,7 +1953,7 @@ $(document).on('click', '.hrm_question_answer_re', function(){
           $('#question_id_edit').val(id);     //It will define value of id variable for update 
           $.each(data1, function(i, e){ //read array json for show to textbox 
             $('#question_name_edit').val(data1[i].question);
-            $('#question_type_edit').val(data1[i].question_type_id);
+            $('#question_type_edit').val(data1[i].hr_recruitment_question_type_id);
             $('#departement_edit').val(data1[i].ma_company_dept_id);
             $('#position_edit').val(data1[i].ma_position_id);   
             });
@@ -2173,12 +2176,11 @@ function hrm_recruitment_approve(userid,type){
       },
       success: function(data){
         sweetalert('success','The Approval has been Submit Successfully !!');
-       // go_to('hrm_list_result_condidate');//refresh content  
+        go_to('hrm_list_result_condidate');//refresh content  
        }
   });
 }
 ////===== END Result Candidate =====//////
-
 ////===== Report Recruitment =====//////
 
   ///// Get Report Value for Button and Chart

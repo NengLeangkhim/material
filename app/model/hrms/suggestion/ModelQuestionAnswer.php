@@ -12,9 +12,9 @@ class ModelQuestionAnswer extends Model
      // ===== Function get data for table =====////
       public static function hrm_get_tbl_suggestion_question(){
           $question_sugg_get = DB::table('hr_suggestion_question as q')
-                             ->select('q.*','staff_detail.username','qt.name as  question_type')
-                             ->leftjoin('staff_detail','q.create_by','=','staff_detail.ma_user_id')
-                             ->leftjoin('hr_suggestion_question_type as qt','q.id_type','=','qt.id')
+                             ->select('q.*','ma_user_detail.username','qt.name as  question_type')
+                             ->leftjoin('ma_user_detail','q.create_by','=','ma_user_detail.ma_user_id')
+                             ->leftjoin('hr_suggestion_question_type as qt','q.hr_suggestion_question_type_id','=','qt.id')
                              ->where('q.is_deleted','=','f')
                              ->orderBy('q.id','ASC')
                              ->get(); 
@@ -36,13 +36,13 @@ class ModelQuestionAnswer extends Model
       // ===== Function model get data question for update =====////
       public static function hrm_get_update_question($id){
       return  DB::table('hr_suggestion_question')
-      ->select('question','id_type')
+      ->select('question','hr_suggestion_question_type_id')
       ->where('id','=',$id)
       ->get(); 
       }
        // ===== function model update question ===== //
-      public static function hrm_update_questions($id,$userid,$question_name,$id_type){
-         return DB::select('SELECT public.update_hr_suggestion_question(?,?,?,?)',array($id,$userid,$question_name,$id_type));
+      public static function hrm_update_questions($id,$userid,$question_name,$status,$id_type){
+         return DB::select('SELECT public.update_hr_suggestion_question(?,?,?,?,?)',array($id,$userid,$question_name,$status,$id_type));
       }
       // ===== function model deleted question type ===== //
       public static function hrm_delete_question($id,$userid){
@@ -51,8 +51,8 @@ class ModelQuestionAnswer extends Model
         // ===== Function get data Question for Answer =====////
         public static function hrm_get_question_sugg($id){
          $question_sugg_get = DB::table('hr_suggestion_question as sq')
-                            ->select('sq.id','sq.question','sq.id_type','sqt.name')
-                            ->leftjoin('hr_suggestion_question_type as sqt','sq.id_type','=','sqt.id')
+                            ->select('sq.id','sq.question','sq.hr_suggestion_question_type_id','sqt.name')
+                            ->leftjoin('hr_suggestion_question_type as sqt','sq.hr_suggestion_question_type_id','=','sqt.id')
                             ->where('sq.id','=',$id)
                             ->get(); 
          return $question_sugg_get;
@@ -66,7 +66,7 @@ class ModelQuestionAnswer extends Model
       public static function hrm_get_answer_sugg($id){
          $answer_sugg_get = DB::table('hr_suggestion_answer')
                                ->select('*')
-                               ->where('hr_recruitment_question_id','=',$id)
+                               ->where('hr_suggestion_question_id','=',$id)
                                ->get(); 
          return $answer_sugg_get;
       }
@@ -90,9 +90,9 @@ class ModelQuestionAnswer extends Model
       // Get submit result
       public static function hrm_result_suggestion($id){
          return DB::select('SELECT s.*,a.answer,q.question from hr_suggestion_submited s 
-         left join hr_suggestion_answer a on s.answer_id=a.id
-         left join hr_suggestion_question q on s.hr_recruitment_question_id = q.id
-         where s.hr_recruitment_question_id=? order by s.create_date DESC', [$id]);
+         left join hr_suggestion_answer a on s.hr_suggestion_answer_id=a.id
+         left join hr_suggestion_question q on s.hr_suggestion_question_id = q.id
+         where s.hr_suggestion_question_id=? order by s.create_date DESC', [$id]);
       }
 }
 
