@@ -7,32 +7,45 @@ use Illuminate\Database\Eloquent\Model;
 class MissionAndOutSide extends Model
 {
     function AllMissionAndOutSide(){
-        $m=DB::table('hr_mission')
-        ->select('hr_mission.id','hr_mission.location','hr_mission.date_from','hr_mission.date_to','hr_mission.type','hr_mission.description','ma_user.name')
-        ->join('hr_mission_detail','hr_mission_detail.mission_id','=','hr_mission.id')
-        ->join('ma_user','hr_mission_detail.member','=','ma_user.id')
-        ->where([
-            ['hr_mission.status','=','t'],
-            ['hr_mission.is_deleted','=','f']
-        ])->orderBy('ma_user.name')->get();
-        return $m;
+        $m=DB::select("SELECT hr.street,hr.latlg,hr.gazetteers_code,hr.id,hr.shift,hr.date_from,hr.date_to,hr.description,hr.type,s.name from hr_mission hr 
+                        INNER JOIN hr_mission_detail hmd on hr.id=hmd.hr_mission_id
+                        INNER JOIN ma_user s on split_part( s.id_number, '-',2)::INTEGER=hmd.staff_id_number where hr.status='t' and hr.is_deleted='f' and s.status='t' and s.is_deleted='f'");
+        print_r($m);
     }
 
     function MissionOutside($id=0){
         if($id>0){
-            $sql= "SELECT hr.id,hr.shift,s.id_number,hr.location,hr.date_from,hr.date_to,hr.description,hr.type,hr.shift,s.name from hr_mission hr INNER JOIN ma_user s on split_part( s.id_number, '-',2)::INTEGER=hr.staff_id_number where hr.status='t' and hr.is_deleted='f' and s.status='t' and s.is_deleted='f' and hr.id=$id";
+            $sql= "SELECT hr.shift,hr.home_number,hr.latlg,hr.street,hr.latlg,hr.gazetteers_code,hr.id,hr.shift,hr.date_from,hr.date_to,hr.description,hr.type,s.name from hr_mission hr 
+                        INNER JOIN hr_mission_detail hmd on hr.id=hmd.hr_mission_id
+                        INNER JOIN ma_user s on split_part( s.id_number, '-',2)::INTEGER=hmd.staff_id_number where hr.status='t' and hr.is_deleted='f' and s.status='t' and s.is_deleted='f' and hr.id=$id";
         }else{
-            $sql= "SELECT hr.id,hr.shift,hr.location,hr.date_from,hr.date_to,hr.description,hr.type,hr.shift,s.name from hr_mission hr INNER JOIN ma_user s on split_part( s.id_number, '-',2)::INTEGER=hr.staff_id_number where hr.status='t' and hr.is_deleted='f' and s.status='t' and s.is_deleted='f'";
+            $sql= "SELECT hr.street,hr.latlg,hr.gazetteers_code,hr.id,hr.shift,hr.date_from,hr.date_to,hr.description,hr.type,s.name from hr_mission hr 
+                        INNER JOIN hr_mission_detail hmd on hr.id=hmd.hr_mission_id
+                        INNER JOIN ma_user s on split_part( s.id_number, '-',2)::INTEGER=hmd.staff_id_number where hr.status='t' and hr.is_deleted='f' and s.status='t' and s.is_deleted='f'";
         }
         return DB::select($sql);
     }
 
-    function InsertMissionOutSide($location,$f_date,$t_date,$date,$description,$by,$type,$shift,$id_number){
-        $sql="INSERT INTO public.hr_mission (location,date_from,date_to,date,description,status,update_by,type,is_deleted,shift,staff_id_number) 
-        VALUES ('$location', '$f_date', '$t_date', '$date', '$description', 't', $by,'$type','f','$shift',$id_number) RETURNING id";
+    function InsertMissionOutSide($date_from,$date_to,$date,$description,$update_by,$type,$create_by,$shift,$street,$home_number,$latlg,$gazetteers_code,$emid){
+        $sql= "SELECT public.insert_hr_mission('$date_from','$date_to','$date','$description',$update_by,'$type',$create_by,'$shift','$street','$home_number','$latlg','$gazetteers_code')";
         $stm=DB::select($sql);
-        if($stm[0]->id>0){
-            return "Insert Successfully !";
+        if($stm[0]->insert_hr_mission>0){
+            return self::InsertMissionOutsideDetail($stm[0]->insert_hr_mission,1,$create_by,$emid);
+        }else{
+            return "error";
+        }
+    }
+
+    function InsertMissionOutsideDetail($hr_mission_id,$ma_user_id,$create_by,$staff_id){
+        $att=new Attendance();
+        foreach($staff_id as $modetail){
+            $id_number=self::ConvertIdToNumber($modetail);
+            $sql = "SELECT public.insert_hr_mission_detail($hr_mission_id,$ma_user_id,$create_by,$id_number)";
+            $stm = DB::select($sql);
+        }
+        
+        if($stm[0]->insert_hr_mission_detail>0){
+            return "Insert Successfully";
         }else{
             return "error";
         }
@@ -51,5 +64,12 @@ class MissionAndOutSide extends Model
     function DeleteMissionOutSide($id,$by){
         $sql= "SELECT public.delete_hr_mission($id,$by)";
         DB::select($sql);
+    }
+
+    function ConvertIdToNumber($id_number)
+    {
+        $rest = substr($id_number, 3, 30);  // returns "cde"
+        $int = (int)$rest;
+        return $int;
     }
 }

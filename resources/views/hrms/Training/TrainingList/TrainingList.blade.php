@@ -12,7 +12,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                 @php
-                    // print_r($data);
+                    print_r($data);
                 @endphp
                 <table class="table table-bordered" id="tbl_employee" style="width:100%">
                   <thead>                  

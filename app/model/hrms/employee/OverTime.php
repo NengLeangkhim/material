@@ -12,8 +12,8 @@ class OverTime extends Model
         $d = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         $start_date = $year . "-" . $month . "-01";
         $end_date = $year . "-" . $month . "-" . $d;
-        $ot_time=DB::select("SELECT ho.id,s.name as otname,ho.overtime_date,ho.description,st.name,st.name as approve,ho.ma_user_id,DATE_PART('hour', ho.end_time::time ) - DATE_PART('hour', ho.start_time::time) as hour from hr_overtime ho 
-                                INNER JOIN ma_user s on ho.ma_user_id=s.id 
+        $ot_time=DB::select("SELECT ho.id,s.name as otname,ho.overtime_date,ho.description,st.name,st.name as approve,ho.user_id,DATE_PART('hour', ho.end_time::time ) - DATE_PART('hour', ho.start_time::time) as hour from hr_overtime ho 
+                                INNER JOIN ma_user s on ho.user_id=s.id 
                                 INNER JOIN ma_user st ON ho.approved_by=st.id and ho.is_deleted='f' and ho.overtime_date BETWEEN '$start_date' and '$end_date'
                                 order by s.name");
         return $ot_time;
@@ -21,11 +21,7 @@ class OverTime extends Model
 
     // Get one row of Overtime
     function OvertimeOneRow($id){
-        $data=DB::table('hr_overtime')
-        ->select('hr_overtime.id','ma_user.id as stid','hr_overtime.overtime_date','hr_overtime.start_time','hr_overtime.end_time','hr_overtime.description')
-        ->join('ma_user','hr_overtime.hr_recruitment_candidate_id','=','ma_user.id')
-        ->where('hr_overtime.id','=',$id)
-        ->get();
+        $data=DB::select("SELECT ho.id,mu.name,mu.id as stid,ho.overtime_date,ho.start_time,ho.end_time,ho.description from hr_overtime ho INNER JOIN ma_user mu on ho.user_id=mu.id where ho.id=$id");
         return $data;
     }
 
@@ -34,9 +30,13 @@ class OverTime extends Model
     function InsertOverTime($id,$overtimDate,$description,$approve,$overtimeHour,$upby,$start_time,$end_time){
         // wrong with sql
         try{
-            return $sql = "SELECT public.insert_hr_overtime($id,'$overtimDate','$description',$approve,$overtimeHour,$upby,'$start_time','$end_time')";
+            $sql = "SELECT public.insert_hr_overtime($id,'$overtimDate','$description',$approve,$overtimeHour,$upby,'$start_time','$end_time')";
             $stm = DB::select($sql);
-            echo 'Successfully ';
+            if($stm[0]->insert_hr_overtime>0){
+                return "Insert Successfully ";
+            }else{
+                return 'error';
+            }
         }catch(Throwable $e){
             report($e);
         }

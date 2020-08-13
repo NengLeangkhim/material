@@ -8,7 +8,6 @@ use App\model\hrms\employee\MissionAndOutSide;
 use Illuminate\Support\Facades\DB;
 use App\model\hrms\employee;
 use App\Http\Controllers\perms;
-use App\model\hrms\employee\Attendance;
 use App\model\hrms\employee\Employee as EmployeeEmployee;
 
 class MissionAndOutsideController extends Controller
@@ -16,6 +15,7 @@ class MissionAndOutsideController extends Controller
     function AllMissionAndOutSide()
     {
         $ms=new MissionAndOutSide();
+        $data=array();
         $mission['mis_out']=$ms->MissionOutside();
         return view('hrms/Employee/MissionAndOutSide/MissionAndOutSide')->with($mission);
     }
@@ -44,21 +44,23 @@ class MissionAndOutsideController extends Controller
         }
         if (perms::check_perm_module('HRM_090104')) {
             $ms = new MissionAndOutSide();
-            $att=new Attendance();
             $userid = $_SESSION['userid'];
             $id=$_POST['id'];
             $type=$_POST['type'];
-            $emid=$att->ConvertIdToNumber($_POST['staff']);
-            $location=$_POST['location'];
+            $emid=$_POST['missioncheck'];
             $f_date=$_POST['from_date'];
             $t_date=$_POST['to_date'];
             $shift=$_POST['shift'];
             $description=$_POST['description'];
             $date=date('Y-m-d');
+            $street=$_POST['street'];
+            $home_number=$_POST['home_number'];
+            $gazetteers_code=$_POST['gazetteers_code'];
+            $latelong=$_POST['latelong'];
             if($id>0){
-                $stm=$ms->UpdateMissionOutside($location,$f_date,$t_date,$description,$type,$shift,$emid,$id);
+                // $stm=$ms->UpdateMissionOutside($location,$f_date,$t_date,$description,$type,$shift,$emid,$id);
             }else{
-                $stm=$ms->InsertMissionOutSide($location,$f_date,$t_date,$date,$description,$userid,$type,$shift,$emid);
+                $stm=$ms->InsertMissionOutSide($f_date,$t_date,$date,$description,$userid,$type,$userid,$shift,$street,$home_number,$latelong,$gazetteers_code,$emid);
             }
 
             echo $stm;
@@ -80,4 +82,6 @@ class MissionAndOutsideController extends Controller
             return view('noperms');
         }
     }
+
+    
 }

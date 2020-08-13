@@ -14,7 +14,7 @@
           <div class="card-body" style="display: block;">
             @php
                 if(isset($data[2])){
-                  $hrid=$data[2][0]->hrid;
+                  $hrid=$data[2][0]->trainerid;
                 }else {
                   $hrid=0;
                 }
@@ -89,7 +89,7 @@
                       @php
                         $displaytbl="d-none";
                         if(isset($data[2])){
-                          if($data[2][0]->schedule_status==1){
+                          if($data[2][0]->status==1){
                             $displaytbl="";
                             echo '<option value="t">Trained</option>
                             <option value="f">Not Trained</option>

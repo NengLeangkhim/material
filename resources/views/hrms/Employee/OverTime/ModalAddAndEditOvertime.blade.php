@@ -12,6 +12,9 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
+            @php
+                // print_r($data[1]);
+            @endphp
             <form id="fm_holiday" onsubmit="return false">
                @csrf
               <div class="row">

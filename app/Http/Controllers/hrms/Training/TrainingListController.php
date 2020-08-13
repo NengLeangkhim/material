@@ -39,8 +39,8 @@ class TrainingListController extends Controller
             $data[1]=$trainer->Trainer();
             if($id>0){
                 $data[2]=$trainList->TrainingList($id);
-                if($data[2][0]->schedule_status==1){
-                    $data[3]=$trainList->TrainingStaff($data[2][0]->hrid);
+                if($data[2][0]->status==1){
+                    $data[3]=$trainList->TrainingStaff($data[2][0]->trainerid);
                 }
             }
             $data[4]=$em->AllEmployee();
