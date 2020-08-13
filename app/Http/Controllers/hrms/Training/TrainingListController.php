@@ -39,8 +39,10 @@ class TrainingListController extends Controller
             $data[1]=$trainer->Trainer();
             if($id>0){
                 $data[2]=$trainList->TrainingList($id);
-                if($data[2][0]->status==1){
-                    $data[3]=$trainList->TrainingStaff($data[2][0]->trainerid);
+                if(strlen($data[2][0]->hrid)>0){
+                    $data[3]=$trainList->TrainingStaff($data[2][0]->hrid);
+                }else{
+                    $data[3] = $trainList->TrainingStaff(0);
                 }
             }
             $data[4]=$em->AllEmployee();
@@ -98,7 +100,11 @@ class TrainingListController extends Controller
         $trainList=new TrainingList();
         $data=array();
         $data[0]=$trainList->TrainingList($id);
-        $data[1]=$trainList->TrainingStaff($data[0][0]->hrid);
+        if(strlen($data[0][0]->hrid)>0){
+            $data[1] = $trainList->TrainingStaff($data[0][0]->hrid);
+        }else{
+            $data[1]= $trainList->TrainingStaff(0);
+        }
         return view('hrms/Training/TrainingList/TrainingListDetail')->with('data',$data);
     }
 

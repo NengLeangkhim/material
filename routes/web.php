@@ -757,6 +757,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_employee_salary', 'hrms\Payroll\PayrollController@Payroll');
         Route::get('hrm_payslip', 'hrms\Payroll\PayrollController@ModalPayslip');
         Route::get('hrm_payrollitems', 'hrms\Payroll\PayrollController@ModalPayrollItems');
+        Route::get('taxation', 'hrms\Payroll\PayrollController@Taxation');
 // End Payroll
 
 // ========================================================> END SENG KIMSROS <======================================================== //

@@ -38,7 +38,7 @@
                       <td>{{$tl->trainer}}</td>
                       <td>{{$tl->schet_f_date}}</td>
                       <td>@php
-                          if($tl->status==1){
+                          if(Str::length($tl->hrid)>0){
                             echo "Trainted";
                           }else {
                             echo "Not Trained";
