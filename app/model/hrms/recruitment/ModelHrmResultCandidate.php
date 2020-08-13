@@ -174,6 +174,10 @@ class ModelHrmResultCandidate extends Model
      public static function hrm_submit_approval($candidate_id,$appr_type,$comment,$userid){
         return DB::select('SELECT public.insert_hr_recruitment_candidate_detail(?,?,?,?)',array($candidate_id,$appr_type,$comment,$userid));
     }
+    // ===== Function model move candidate to staff =====////
+    public static function hrm_move_candidate($name,$email,$position_id,$name_kh,$userid){
+        return DB::select("SELECT public.insert_ma_user('$name','$email','', '',$position_id,Null,Null,Null,$userid,'',Null,'$name_kh','','',Null)");
+    }
 
 
 }
