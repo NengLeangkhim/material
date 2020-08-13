@@ -30,15 +30,15 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            @if ($item->id_type==2)
+                                            @if ($item->hr_suggestion_question_type_id==2)
                                             <td>
                                                 <input type='hidden' name='question_text[]' value='{{$item->id}}'/>
                                                 <textarea class='form-control' required name='answer_text[]' id='answer' rows='4'></textarea>    
                                             </td> 
-                                            @elseif($item->id_type==1)
+                                            @elseif($item->hr_suggestion_question_type_id==1)
                                                 <input type='hidden' name='question_radio[]' value='{{$item->id}}'/>
                                                 @foreach ($answer as $row)
-                                                    @if ($row->hr_recruitment_question_id==$item->id)
+                                                    @if ($row->hr_suggestion_question_id==$item->id)
                                                         <td>
                                                             <input required type="radio" id="radio_ans" name="radio_ans[{{$item->id}}]" value="{{$row->id}}">&nbsp;{{$row->answer}}
                                                         </td>

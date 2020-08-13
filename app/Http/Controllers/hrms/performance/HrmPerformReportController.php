@@ -68,7 +68,7 @@ class HrmPerformReportController extends Controller
             $dept = $request->dept_performance;
             $from = $request->from_performance;
             $to = $request->to_performance;
-            $report = ModelHrmPerformReport::hrm_get_tbl_perform_report($dept,$from,$to); //query
+            $report = ModelHrmPerformReport::hrm_get_tbl_perform_report($dept,$from.' '.'00:00:00',$to.' '.'23:59:59'); //query
             return view('hrms/performance/performance_report/HrmTableReportPerform',['report'=>$report]);
             }else{
                 return view('no_perms');

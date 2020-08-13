@@ -192,7 +192,6 @@ class recruitment_userController extends Controller
 
 
     // function user login 
-
     public function user_login(){
 
         if(isset($_POST['btn_userLogin']) && isset($_POST['user_email']) && isset($_POST['password']) ){
@@ -217,7 +216,7 @@ class recruitment_userController extends Controller
 
 
 
-    
+
 
     // function get view user profile
     public function user_profile()

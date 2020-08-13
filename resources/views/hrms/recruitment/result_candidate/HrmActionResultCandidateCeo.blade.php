@@ -95,7 +95,7 @@
                                          <div class="col-12" style="width:100%;display:inline;">
                                             <?php 
                                                     foreach($score as $row_pt){
-                                                        if($row_pt->is_right=='t'){
+                                                        if($row_pt->is_right_choice=='t'){
                                                         $c = $row_pt->count;
                                                         }else{
                                                             $c='0';

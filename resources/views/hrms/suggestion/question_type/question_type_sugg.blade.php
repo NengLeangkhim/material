@@ -88,7 +88,7 @@
                       </div> 
                       <div class="row text-right">
                         <div class="col-md-12 text-right">
-                          <input type="hidden" name="action_q_a_sugg_id" id="action_q_a_sugg_id"/>
+                          <input type="hidden" name="action_q_t_sugg_id" id="action_q_t_sugg_id"/>
                           <button type="submit" onclick="HrmAddQuestionTypeSugg()" name="action_q_t_sugg" id="action_q_t_sugg" class="btn btn-primary">Create</button>
                         </div>
                         

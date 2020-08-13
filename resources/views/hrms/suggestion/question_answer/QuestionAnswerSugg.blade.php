@@ -38,7 +38,7 @@
                               {{'Disactive'}}
                           @endif
                         </td>
-                      @if ($row->id_type==1) {{-- Permission check for option type --}}
+                      @if ($row->hr_suggestion_question_type_id==1) {{-- Permission check for option type --}}
                         <td class="text-center">
                           <div class="dropdown">
                             <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

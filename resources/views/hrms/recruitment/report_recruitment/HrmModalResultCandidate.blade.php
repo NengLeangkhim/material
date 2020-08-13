@@ -89,7 +89,7 @@
                                  <div class="col-12" style="width:100%;display:inline;">
                                     <?php 
                                             foreach($score as $row_pt){
-                                                if($row_pt->is_right=='t'){
+                                                if($row_pt->is_right_choice=='t'){
                                                 $c = $row_pt->count;
                                                 }else{
                                                     $c='0';
@@ -123,7 +123,7 @@
                                            <td width="50%" style="padding:5px;font-family: khmer UI;"><i style="color:red;font-size:18px" class="fas fa-times"></i> <?=$row_q_a->choice?> <span style="font-family: khmer UI;color:red;">ជាចម្លើយខុស</span></td>
                                              <?php 
                                               foreach($true_choice as $row_a_f){
-                                                  if($row_a_f->question_id==$row_q_a->question_id){
+                                                  if($row_a_f->hr_recruitment_question_id==$row_q_a->hr_recruitment_question_id){
                                                     echo '<td width="50%" style="padding:5px;font-family: khmer UI;"> <i style="color:green;font-size:18px" class="far fa-check-square"></i> '.$row_a_f->choice.' <span style="font-family: khmer UI;color:green;">នេះជាចម្លើយត្រឹមត្រូវ</span></td>';
                                                   }
                                               }
