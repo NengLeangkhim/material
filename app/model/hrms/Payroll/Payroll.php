@@ -70,8 +70,12 @@ class Payroll extends Model
         $stm=DB::select($sql);
         if($stm[0]->marital_status==='married'){
             $son =self::CountChildren($stm[0]->id);
+            return $son+1;
         }elseif($stm[0]->marital_status==='divorced'){
             $son = self::CountChildren($stm[0]->id);
+            return $son;
+        }else{
+            return 0;
         }
     }
 
