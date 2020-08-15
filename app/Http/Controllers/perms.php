@@ -143,12 +143,29 @@ class perms extends Controller
     private static function output_module($mo){
         $st='';
         foreach ($mo as $item){
-            $item->parent->link=(!empty($item->parent->link))?"value='".$item->parent->link."'":"";
-              $st.= "<li class='nav-item has-treevie'>";
-              $st.= "<a href='javascript:void(0);' class='nav-link active' {$item->parent->link}>";
-              $st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
-              $st.= " <p>";
-              $st.=  $item->parent->module_name;
+            if(!empty($item->parent->link)){
+                if(isset(explode("_", $item->parent->link)[1])){
+                       $item->parent->link=explode("_", $item->parent->link)[1];
+                       $st.= "<li class='nav-item has-treevie'>";
+                       $st.= "<a href='{$item->parent->link}' target='_blank' class='nav-link active' >";
+                       $st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
+                       $st.= " <p>";
+                       $st.=  $item->parent->module_name;
+                       $item->child=false;
+                   }else{
+                       $st.= "<li class='nav-item has-treevie'>";
+                       $st.= "<a href='javascript:void(0);' class='nav-link active' onclick=go_to('{$item->parent->link}')>";
+                       $st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
+                       $st.= " <p>";
+                       $st.=  $item->parent->module_name;
+                   }
+               }else{
+                   $st.= "<li class='nav-item has-treevie'>";
+                   $st.= "<a href='javascript:void(0);' class='nav-link active'>";
+                   $st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
+                   $st.= " <p>";
+                   $st.=  $item->parent->module_name;
+               }
               if(($item->child))
                 {
                   $st.= "<i class='right fas fa-angle-left'></i>";

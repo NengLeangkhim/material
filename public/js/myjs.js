@@ -99,9 +99,10 @@ function spinner(){
   return'<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
 }
 function jerror(){
+  // return get_maintain_page();
   return'<center><label style="font-weight:bold;font-size:16px;">Error</label></center>';
 }
 function jnot_found(){
+  // return get_not_found_page();
   return'<center><label style="font-weight:bold;font-size:16px;">Not Found</label></center>';
 }
-
