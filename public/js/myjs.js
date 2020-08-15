@@ -72,6 +72,7 @@ function check_session(){
       }
       else if (typeof href !== typeof undefined && href !== false) {
         var target = $(this).attr("target");
+        $("#nav_bar_sub_r").html(get_pushmenu());
         if (typeof target !== typeof undefined && target !== false) {
           window.open(href, target);
         }else{
