@@ -31,8 +31,8 @@
                       <th>{{ ++$i }}</th>
                       <td>{{ $item->title }}</td>
                         <td>{{ $item->title_kh }}</td>
-                      <td>{{ $item->holiday_date }} to {{$item->to_date}}</td>
-                        <td>{{ date('l', strtotime($item->holiday_date)) }}</td>
+                      <td>{{ $item->from_date }} to {{$item->to_date}}</td>
+                        <td>{{ date('l', strtotime($item->from_date)) }}</td>
                         <td>{{ $item->description }}</td>
                         <td class="text-center">
                           <div class="row">

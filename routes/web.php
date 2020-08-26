@@ -57,7 +57,11 @@ Route::post('/change_pass','change_password@change_pass');//profile change_passw
 Route::post('/upload_img_profile','upload_img_profile@upload_img_pro');//profile upload_img_profile
 
 Route::get('/aes_test','aes_example@example');//AES test
-
+//route for clear cache
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});
 Route::get('/page/maintain',function(){
     return view('page_under_maintain');
 });//Maintain page
@@ -705,10 +709,10 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     // End Attendance
 
     // Start Mission And Out Side
-        Route::get('hrm_mission_outside', 'hrms\Employee\MissionAndOutSideController@AllMissionAndOutSide');
-        Route::get('hrm_modal_add_edit_missionoutside', 'hrms\Employee\MissionAndOutSideController@AddModalMissionOutside');
-        Route::post('hrm_insertmissionoutside', 'hrms\Employee\MissionAndOutSideController@InsertUpdateMissionOutside');
-        Route::get('hrm_delete_missionoutside', 'hrms\Employee\MissionAndOutSideController@DeleteMissionOutSide');
+        Route::get('hrm_mission_outside', 'hrms\Employee\MissionAndOutsideController@AllMissionAndOutSide');
+        Route::get('hrm_modal_add_edit_missionoutside', 'hrms\Employee\MissionAndOutsideController@AddModalMissionOutside');
+        Route::post('hrm_insertmissionoutside', 'hrms\Employee\MissionAndOutsideController@InsertUpdateMissionOutside');
+        Route::get('hrm_delete_missionoutside', 'hrms\Employee\MissionAndOutsideController@DeleteMissionOutSide');
     // End Mission And OutSide
 
     // Start Departement and Position

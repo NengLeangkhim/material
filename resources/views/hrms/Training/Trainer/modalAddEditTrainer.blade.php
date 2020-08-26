@@ -1,4 +1,4 @@
-<div class="modal fade show" id="modal_trainer" style="display: block; padding-right: 17px;" aria-modal="true">
+<div class="modal fade show" id="modal_trainer" style="display: block; padding-right: 17px;" aria-modal="true" data-backdrop="static">
     <div class="modal-dialog modal-ls">
         <div class="modal-content">
             <div class="card card-default">
@@ -13,7 +13,7 @@
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
             @php
-                print_r($data);
+                // print_r($data);
             @endphp
             <form id="fm_trainer">
               @csrf

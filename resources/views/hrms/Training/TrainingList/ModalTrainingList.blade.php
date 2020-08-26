@@ -1,4 +1,4 @@
-<div class="modal fade show" id="modal_traininglist" style="display: block; padding-right: 17px;" aria-modal="true">
+<div class="modal fade show" id="modal_traininglist" style="display: block; padding-right: 17px;" aria-modal="true" data-backdrop="static">
     <div class="modal-dialog modal-ls">
         <div class="modal-content">
             <div class="card card-default">
@@ -13,7 +13,7 @@
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
             @php
-                print_r($data[3]);
+                // print_r($data[3]);
                 if(isset($data[2])){
                   $hrid=$data[2][0]->trainerid;
                 }else {

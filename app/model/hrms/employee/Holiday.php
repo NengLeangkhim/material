@@ -8,7 +8,7 @@ class Holiday extends Model
 {
     //
     function Holiday_All(){
-        $holiday=DB::table('hr_attendance_holiday')->select('id','title','title_kh','holiday_date','to_date','description')
+        $holiday=DB::table('hr_attendance_holiday')->select('id','title','title_kh','from_date','to_date','description')
         ->where([
             ['status','=','t'],
             ['is_deleted','=','f']
@@ -18,7 +18,7 @@ class Holiday extends Model
 
 
     function HolidayOneRow($id){
-        $holiday = DB::table('hr_attendance_holiday')->select('id','title', 'title_kh', 'holiday_date', 'to_date', 'description')
+        $holiday = DB::table('hr_attendance_holiday')->select('id','title', 'title_kh', 'from_date', 'to_date', 'description')
         ->where([
             ['status', '=', 't'],
             ['is_deleted', '=', 'f'],
