@@ -152,7 +152,6 @@ $staff_byDept = hr_dashboardController::num_staff_byDept();
                       <td>0 <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
                     </tr>
                   </table>
-
                   <div class="media py-3 align-items-center justify-content-between">      
                             <div style="padding-right: 15px">
                               <canvas id="staff_dougnutchart"></canvas>
@@ -162,7 +161,7 @@ $staff_byDept = hr_dashboardController::num_staff_byDept();
                             </div>
                             
                   </div>
-                   
+
                 </div>
               </div>
           </div>

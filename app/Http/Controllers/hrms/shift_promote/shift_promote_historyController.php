@@ -22,7 +22,7 @@ class shift_promote_historyController extends Controller
             }
         }        
        
-        return view('hrms\shift_promote\management_view_promote_history\shift_promote_staff_history', ['allstaffpromote' => $get_array]);
+        return view('hrms/shift_promote/management_view_promote_history/shift_promote_staff_history', ['allstaffpromote' => $get_array]);
     }
 
 
@@ -34,7 +34,7 @@ class shift_promote_historyController extends Controller
             $id = $_GET['staffid'];
             $all_promote2 = management_promoteModel::all_shift_promoteByID($id); 
         }
-        return view('hrms\shift_promote\management_view_promote_history\shift_history_listByID', ['allshiftByID' => $all_promote2]);
+        return view('hrms/shift_promote/management_view_promote_history/shift_history_listByID', ['allshiftByID' => $all_promote2]);
     
     }
     // end function
@@ -56,7 +56,7 @@ class shift_promote_historyController extends Controller
                 }
 
             }
-            return view('hrms\shift_promote\management_view_promote_history\shift_history_listDetail', ['his_listDetail' => $r]);
+            return view('hrms/shift_promote/management_view_promote_history/shift_history_listDetail', ['his_listDetail' => $r]);
 
         }
 
