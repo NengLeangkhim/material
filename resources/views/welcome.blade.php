@@ -7,7 +7,10 @@
                           <h3 class="card-title">{{ $dept[0]->name??'' }}</h3>
                         </div>
                         <!-- /.card-header -->
-                        <div class="row welcome-bg" style="padding: 1%;">
+                        <div class="row" style="padding: 1%;">
+                            <div class="col-md-12" style="height: auto;text-align: center;">
+                                <img src="../images/turbotech.png">
+                            </div>
                             <div class="col-md-3 ">
                                 <div class="card" style="padding: 3%;">
                                     <img class="profile-pic" src="<?php echo $head[0]->image??"/storage/avatar7.png";?>" style="width:100%" id='image_'>
