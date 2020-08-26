@@ -162,7 +162,7 @@ class Attendance extends Model
         }
     }
     function CheckPublicHoliday($date){
-        $sql="SELECT id FROM hr_attendance_holiday WHERE is_deleted='f' and '$date' BETWEEN holiday_date and to_date";
+        $sql="SELECT id FROM hr_attendance_holiday WHERE is_deleted='f' and '$date' BETWEEN from_date and to_date";
         $stm=DB::select($sql);
         if(isset($stm[0]->id)){
             return 1;

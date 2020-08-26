@@ -22,7 +22,7 @@ class AllemployeeController extends Controller
             $employee['employee'] = $em->AllEmployee();
             return view('hrms/Employee/AllEmployees/AllEmployees')->with($employee);
         }else{
-            return view('noperms');
+            return view('no_perms');
         }
     }
     public function InsertEmployee(){

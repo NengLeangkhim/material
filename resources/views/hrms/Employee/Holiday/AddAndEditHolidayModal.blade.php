@@ -31,7 +31,7 @@
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Start Date <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" name="startDate" value="@php if(isset($holiday)){echo $holiday[0]->holiday_date;} @endphp">
+                  <input type="date" class="form-control" name="startDate" value="@php if(isset($holiday)){echo $holiday[0]->from_date;} @endphp">
                 </div>
               </div>
               <div class="col-md-6">
