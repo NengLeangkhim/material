@@ -19,7 +19,7 @@
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="dist/css/adminlte.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- SweetAlert2 -->
@@ -48,5 +48,19 @@
 <link rel="stylesheet" href="css/hrm/hrm.css">
 <link rel="stylesheet" href="recruitment_user_style/css/mystyle_owner.css">
 
+<style>
+
+  .back-img1{
+
+      background-image: url("{{ asset('recruitment_user_style/img/exam2.jpg') }}");
+      height: auto; 
+      background-position: center; 
+      background-repeat: no-repeat;
+      background-size: cover;
+    
+  }
+
+
+</style>
 
 </head>

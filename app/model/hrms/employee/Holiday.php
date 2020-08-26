@@ -16,6 +16,7 @@ class Holiday extends Model
         return $holiday;
     }
 
+
     function HolidayOneRow($id){
         $holiday = DB::table('hr_attendance_holiday')->select('id','title', 'title_kh', 'holiday_date', 'to_date', 'description')
         ->where([
@@ -26,7 +27,7 @@ class Holiday extends Model
         return $holiday;
     }
 
-    // Function for insert holiday
+    //
     function InsertHoliday($title,$khmertitle,$date,$description,$start_date,$end_date,$up_by){
         $sql= "SELECT public.insert_hr_attendance_holiday('$title','$khmertitle','$date','$description','$start_date','$end_date',$up_by)";
         $stm=DB::select($sql);
@@ -46,7 +47,6 @@ class Holiday extends Model
         }else{
             return "error";
         }
-        
     }
 
 

@@ -141,6 +141,7 @@ class recruitment_userController extends Controller
                             }else{
                                 $ans = '0';
                             }
+                            
                             $r = recruitment_userModel::submit_answer($val,$key,'null',$ans,$starttime,$endtime,$id);
                             $i++;
                             
@@ -153,6 +154,7 @@ class recruitment_userController extends Controller
                         foreach($txtarea as $key=> $val){
                             // $answer_text = $val;
                             // $question_id = $key;
+
                             $rr = recruitment_userModel::submit_answer('null',$key,$val,'f',$starttime,$endtime,$id);
                         }
 
@@ -167,8 +169,8 @@ class recruitment_userController extends Controller
                     return view('hrms\recruitment_user\main_app_user', compact('data_success'));
                 }else{
                     $data_faile = 0;
-                    return redirect()->route('/hrm_recruitment_login');
-                    // return view('hrms\recruitment_user\main_app_user', compact('data_faile'));
+                    // return redirect()->route('/hrm_recruitment_login');
+                    return view('hrms\recruitment_user\main_app_user', compact('data_faile'));
                     
                 }
 
