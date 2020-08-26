@@ -57,7 +57,11 @@ Route::post('/change_pass','change_password@change_pass');//profile change_passw
 Route::post('/upload_img_profile','upload_img_profile@upload_img_pro');//profile upload_img_profile
 
 Route::get('/aes_test','aes_example@example');//AES test
-
+//route for clear cache
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});
 Route::get('/page/maintain',function(){
     return view('page_under_maintain');
 });//Maintain page
