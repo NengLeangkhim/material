@@ -12,7 +12,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                 @php
-                    // print_r($data);
+                    print_r($data);
                 @endphp
                 <table class="table table-bordered" id="tbl_employee" style="width:100%">
                   <thead>                  
@@ -38,7 +38,7 @@
                       <td>{{$tl->trainer}}</td>
                       <td>{{$tl->schet_f_date}}</td>
                       <td>@php
-                          if($tl->status==1){
+                          if(Str::length($tl->hrid)>0){
                             echo "Trainted";
                           }else {
                             echo "Not Trained";

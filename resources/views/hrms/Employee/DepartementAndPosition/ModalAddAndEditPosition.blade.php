@@ -13,7 +13,7 @@
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
             @php
-                // print_r($data);
+                // print_r($data[1]);
             @endphp
             <form id="fm_position" onsubmit="return false">
               @csrf
@@ -28,7 +28,7 @@
                         $f2='';
                         foreach ($data[0] as $g) {
                           if(isset($data[1])){
-                            if($g->id==$data[1][0]->group_id){
+                            if($g->id==$data[1][0]->ma_group_id){
                               $f1=$f1.'<option value="'.$g->id.'">'.$g->name.'</option>';
                             }else {
                               $f2=$f2.'<option value="'.$g->id.'">'.$g->name.'</option>';

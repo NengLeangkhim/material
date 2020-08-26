@@ -9,7 +9,7 @@
             </div>
           </div>
           <!-- /.card-header -->
-          <div class="card-body" style="display: block;">
+          <div class="card-body" style="display: block;" id="payslipPrint">
             <div class="col-md-12">
                 <div class="receipt-header">
                     <div class="row">
@@ -136,7 +136,7 @@
                 </div>
             </div>
             <div class="col-md-12 text-right" style="margin-top: 20px">
-                <button class="btn btn-default bg-turbo-color">Print</button>
+                <button class="btn btn-default bg-turbo-color" onclick="PrintDiv('payslipPrint')">Print</button>
                 <button class="btn btn-danger">Cancel</button>
             </div>
           </div>

@@ -11,25 +11,24 @@ class TrainingList extends Model
 {
     function TrainingList($id=0){
         try{
-            if($id>0){
-                $st=" and hts.id=".$id;
-            }else{
-                $st = "";
-            }
-            $sql = "SELECT hts.id,htl.id as typeid,htt.id as trainerid,htl.name as type,htt.name as trainer,hts.training_date_from as schet_f_date,hts.training_date_to as schet_t_date,ht.actual_date_from as actual_f_date,ht.actual_date_to as actual_t_date,hts.status,hts.description as schet_description, ht.description as actual_description,hts.file
-            from hr_training_schedule hts LEFT JOIN hr_training ht on hts.id=ht.hr_training_schedule_id
-            JOIN hr_training_list htl on hts.hr_training_list_id=htl.id
-            JOIN hr_training_trainer htt on htt.id=hts.hr_training_trainer_id WHERE hts.is_deleted='f'".$st;
-            return DB::select($sql);
+            
         }catch(Throwable $e){
             report($e);
         }
-        
+        if ($id > 0) {
+            $st = " and hts.id=" . $id;
+        } else {
+            $st = "";
+        }
+        $sql = "SELECT ht.id as hrid,hts.id,htl.id as typeid,htt.id as trainerid,htl.name as type,htt.name as trainer,hts.training_date_from as schet_f_date,hts.training_date_to as schet_t_date,ht.actual_date_from as actual_f_date,ht.actual_date_to as actual_t_date,hts.status,hts.description as schet_description, ht.description as actual_description,hts.file
+            from hr_training_schedule hts LEFT JOIN hr_training ht on hts.id=ht.hr_training_schedule_id
+            JOIN hr_training_list htl on hts.hr_training_list_id=htl.id
+            JOIN hr_training_trainer htt on htt.id=hts.hr_training_trainer_id WHERE hts.is_deleted='f'" . $st;
+        return DB::select($sql);
     }
 
     function TrainingStaff($hrid){
-        // $sql= "SELECT staff_id FROM hr_training_staff WHERE hr_training_id=$hrid and is_deleted='f'";
-        $sql= "SELECT hts.staff_id,s.name FROM hr_training_staff hts INNER JOIN staff s on hts.staff_id=s.id where hr_training_id=$hrid and hts.is_deleted='f'";
+        $sql= "SELECT hts.ma_user_id,s.name FROM hr_training_staff hts INNER JOIN ma_user s on hts.ma_user_id=s.id where hr_training_id=$hrid and hts.is_deleted='f'";
         return DB::select($sql);
 
     }
@@ -45,7 +44,7 @@ class TrainingList extends Model
         $uploadfile = $uploaddir . basename($file);
         $filedirectory = '/media/hrms/Training/' . $file;
         if (move_uploaded_file($filename, $uploadfile)) {
-            $sql = "SELECT public.insert_hr_training_schedule($trainType,'$date_from','$date_to','$description','$schetule_status',$by,$trainer,'$filedirectory')";
+            $sql = "SELECT public.insert_hr_training_schedule($trainType,'$date_from','$date_to','$description',$by,$trainer,'$filedirectory')";
             $stm = DB::select($sql);
             if ($stm[0]->insert_hr_training_schedule > 0) {
                 if ($schetule_status == 't') {
@@ -138,7 +137,7 @@ class TrainingList extends Model
         }catch(Throwable $e){
             report($e);
         }
-        $script= "SELECT id from hr_training WHERE status='t' and is_deleted='f' and training_schedule_id=$id";
+        $script= "SELECT id from hr_training WHERE status='t' and is_deleted='f' and hr_training_schedule_id=$id";
         $std=DB::select($script);
         if(count($std)>0){
             $trainingstaff = self::InsertStaffTraining($std[0]->id, $staff, $by);

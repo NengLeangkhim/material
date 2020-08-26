@@ -13,7 +13,7 @@
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
             @php
-                // print_r($data);
+                // print_r($data[0]);
             @endphp
              <table class="table">
                  <tbody>
@@ -41,7 +41,7 @@
                          <th>Trained or Not</th>
                          <th>:</th>
                          <td>@php
-                             if($data[0][0]->schedule_status==1){
+                             if(Str::length($data[0][0]->hrid)>0){
                                  echo "Trained";
                              }else {
                                  echo "Not Trained";

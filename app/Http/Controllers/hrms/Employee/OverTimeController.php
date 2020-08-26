@@ -75,11 +75,12 @@ class OverTimeController extends Controller
             $end=$_POST['end_h'];
             $description=$_POST['description'];
             if($id>0){
-                $ot->UpdateOvertime($staffid,$otDate,$description,$userid,0,$userid,$start,$end,$id);
+                $overtime=$ot->UpdateOvertime($staffid,$otDate,$description,$userid,0,$userid,$start,$end,$id);
             }else{
                 $overtime = $ot->InsertOverTime($staffid,$otDate,$description,$userid,0,$userid,$start,$end);
-                echo $overtime;
+                
             }
+            echo $overtime;
             
         } else {
             return view('noperms');

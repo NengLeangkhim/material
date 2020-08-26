@@ -172,6 +172,16 @@ function HRM_CheckStaffTrain(e,trainid){
     }
 }
 // End Training
+// Payroll
+    function PrintDiv(id){
+        var divToPrint = document.getElementById(id);
+        newWin = window.open("");
+        newWin.document.write(divToPrint.outerHTML);
+        newWin.print();
+        newWin.close();
+    }
+
+// End Payroll
 
 
 

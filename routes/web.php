@@ -57,6 +57,13 @@ Route::post('/change_pass','change_password@change_pass');//profile change_passw
 Route::post('/upload_img_profile','upload_img_profile@upload_img_pro');//profile upload_img_profile
 
 Route::get('/aes_test','aes_example@example');//AES test
+
+Route::get('/page/maintain',function(){
+    return view('page_under_maintain');
+});//Maintain page
+Route::get('/page/notfound',function(){
+    return view('page_not_found');
+});//Maintain page
 //======================Main=================================
 
 //=======================E-request==========================
@@ -757,6 +764,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_employee_salary', 'hrms\Payroll\PayrollController@Payroll');
         Route::get('hrm_payslip', 'hrms\Payroll\PayrollController@ModalPayslip');
         Route::get('hrm_payrollitems', 'hrms\Payroll\PayrollController@ModalPayrollItems');
+        Route::get('taxation', 'hrms\Payroll\PayrollController@Taxation');
 // End Payroll
 
 // ========================================================> END SENG KIMSROS <======================================================== //

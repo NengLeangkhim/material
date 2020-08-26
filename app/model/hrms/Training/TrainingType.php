@@ -37,7 +37,7 @@ class TrainingType extends Model
 
     function UpdateTrainingType($trainingType, $description, $by,$id){
         try {
-            $sql= "SELECT public.update_hr_training_list($id,$by,'$trainingType','$description')";
+            $sql= "SELECT public.update_hr_training_list($id,$by,'$trainingType','t','$description')";
             $stm = DB::select($sql);
             if ($stm[0]->update_hr_training_list > 0) {
                 return "Training Type Update Successfully !";

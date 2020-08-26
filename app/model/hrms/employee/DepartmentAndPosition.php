@@ -48,6 +48,7 @@ class DepartmentAndPosition extends Model
                 ])->orderBy('name')->get();
             }else{
                 $position = DB::table('ma_position')
+                ->select('*')
                 ->where([
                     ['status', '=', 't'],
                     ['is_deleted', '=', 'f']
@@ -78,9 +79,9 @@ class DepartmentAndPosition extends Model
 
     function InsertDepartment($company_id,$department,$by,$kherName){
         try {
-            $sql= "SELECT public.insert_company_dept($company_id,'$department',$by,'$kherName')";
+            $sql= "SELECT public.insert_ma_company_dept($company_id,'$department',$by,'$kherName')";
             $stm=DB::select($sql);
-            if($stm[0]->insert_company_dept>0){
+            if($stm[0]->insert_ma_company_dept>0){
                 return "Department insert Successfully";
             }else{
                 return "error";
@@ -93,9 +94,10 @@ class DepartmentAndPosition extends Model
 
     function UpdateDapartment($company_id, $department, $by, $kherName,$department_id){
         try {
-            $sql = "SELECT public.update_company_dept($department_id,$by,$company_id,'$department','$kherName')";
+            // $sql = "SELECT public.update_ma_company_dept($department_id,$by,$company_id,'$department','$kherName')";
+            $sql= "SELECT public.update_ma_company_dept($department_id,$by,$company_id,'$department','t','$kherName')";
             $stm = DB::select($sql);
-            if ($stm[0]->update_company_dept > 0) {
+            if ($stm[0]->update_ma_company_dept > 0) {
                 return "Department Update Successfully";
             } else {
                 return "error";
@@ -110,9 +112,9 @@ class DepartmentAndPosition extends Model
 
     function DeleteDepartment($id,$by){
         try {
-            $sql = "SELECT public.delete_company_dept($id,$by)";
+            $sql = "SELECT public.delete_ma_company_dept($id,$by)";
             $stm = DB::select($sql);
-            if ($stm[0]->delete_company_dept > 0) {
+            if ($stm[0]->delete_ma_company_dept > 0) {
                 return "Department Update Successfully";
             } else {
                 return "error";
@@ -143,9 +145,9 @@ class DepartmentAndPosition extends Model
 
     function InsertPosition($position,$groupid,$kherName,$by){
         try {
-            $sql = "SELECT public.insert_position('$position',$groupid,'$kherName',$by)";
+            $sql = "SELECT public.insert_ma_position('$position',$groupid,'$kherName',$by)";
             $stm = DB::select($sql);
-            if ($stm[0]->insert_position > 0) {
+            if ($stm[0]->insert_ma_position > 0) {
                 return "Position Insert Successfully";
             } else {
                 return "error";
@@ -158,9 +160,9 @@ class DepartmentAndPosition extends Model
 
     function UpdatePosition($position, $groupid, $kherName, $by,$id){
         try {
-            $sql= "SELECT public.update_position($id,$by,'$position',$groupid,'$kherName')";
+            $sql= "SELECT public.update_ma_position($id,$by,'$position',$groupid,'t','$kherName')";
             $stm = DB::select($sql);
-            if ($stm[0]->update_position > 0) {
+            if ($stm[0]->update_ma_position > 0) {
                 return "Position Update Successfully";
             } else {
                 return "error";
@@ -174,7 +176,7 @@ class DepartmentAndPosition extends Model
 
     function DeletePosition($id,$by){
         try{
-            $sql= "SELECT public.delete_position($id,$by)";
+            $sql= "SELECT public.delete_ma_position($id,$by)";
             $stm = DB::select($sql);
         }catch(Throwable $e){
             report($e);
