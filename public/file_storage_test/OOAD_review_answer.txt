@@ -1,0 +1,9 @@
+======Design Pattern=======
+*Three main pattern group:
++ Creational design pattern : when you to create alot of object of many classes 
+	and you need centralized the object creation logic, use this group.
++ Structural design pattern : help and keep the project don't be effect when structure or
+	class changing.
++ Behavioral design pattern : use to change behavior of a class and again to affect to
+	other classes of project.
+

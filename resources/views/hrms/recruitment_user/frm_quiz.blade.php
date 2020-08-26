@@ -78,6 +78,7 @@
                                             @php
                                                          // loop for echo question option
                                                         $x = 1;
+                                                        $j = 0;
                                                         for ($i=0; $i < count($question_option) ; $i++){
                                                                     echo '
                                                                             <tr id="q_option_id'.$x.'" >
@@ -93,11 +94,30 @@
                                                                         
                                                                         foreach ($question_option_choice[$i] as $key => $value) 
                                                                         {                                                    
-                                                                            echo '                                                                                      
+                                                                            // echo '                                                                                      
+                                                                            //     <td>
+                                                                            //         <label style="font-weight: 500;"  class="label-radio"><span class="radio"></span> 
+                                                                            //             <input type="radio" class="" id="radio-id-'.$i.'" name="id_question['.$question_option[$i]->id.']"  value="'.$value->id.'"> 
+                                                                            //             <span class="kh-font-batt">'.$value->choice.'</span>
+                                                                            //         </label>
+                                                                            //     </td>                                                                                            
+                                                                            // ';
+
+                                                                            echo '
                                                                                 <td>
-                                                                                    <label style="font-weight: 500;"  class="label-radio"><span class="radio"></span> <input type="radio" class="show-box" id="radio-id-'.$i.'" name="id_question['.$question_option[$i]->id.']"  value="'.$value->id.'"> <span class="kh-font-batt">'.$value->choice.'</span></label>
-                                                                                </td>                                                                                            
+                                                                                    <div class="input-group" >
+                                                                                        <div class="text-group-field label-radio">
+                                                                                            <div class="inner-block">
+                                                                                            <input type="radio" id="radio-id-'.$j.'" class="radio-custom input-group-field" name="id_question['.$question_option[$i]->id.']"  value="'.$value->id.'">
+                                                                                            <label class="kh-font-batt" for="radio-id-'.$j.'" >'.$value->choice.'</label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            
                                                                             ';
+                                                                            $j++;
+
                                                                         }
                                                                     echo    '</tr>
                                                                         
@@ -153,14 +173,24 @@
 
                                         <div class="form-inline">
                                             <div  style="padding: 5px;">
-                                                <a class="btn-next" id="btn_back_ques" href='#' onclick='BackQuestion()'>
+                                                {{-- <a class="btn-next" id="btn_back_ques" href="#" onclick='BackQuestion()'>
                                                     <span class="span"><i class="fa fa-angle-double-left" style="font-size:24px; color:blue; margin-right: 5px;"></i></span><label>Back</label> 
-                                                </a>
+                                                </a> --}}
+                                                <button  type="button" class="btn btn-success" id="btn_back_ques" href="#" onclick='BackQuestion()'  style="padding: 1px; width: 80px;"><span class="span"><i class="fa fa-angle-double-left" style=" font-size:20px; margin-right: 5px;"></i></span>Back</button>
+
+
+
                                             </div>
                                             <div  style="padding: 5px;">
-                                                <a class="btn-next" id="btn_next_ques" href='#' onclick='NextQuestion()'><label>Next</label>
+                                                {{-- <a class="btn-next" id="btn_next_ques" href='#' onclick='NextQuestion()'><label>Next</label>
                                                     <span ><i class="fa fa-angle-double-right" style="font-size:24px;color:blue; margin-left: 5px;"></i></span>
-                                                </a>
+                                                </a> --}}
+
+
+                                                <button  type="button" class="btn btn-success" id="btn_next_ques" href="#" onclick='NextQuestion()'  style="padding: 1px; width: 80px;">Next
+                                                    <span ><i class="fa fa-angle-double-right" style="font-size:20px; margin-left: 5px;"></i></span></button>
+        
+
                                             </div>
                                         </div>
 
@@ -171,7 +201,6 @@
                                             <span class="glyphicon glyphicon-send"></span> Submit
                                         </button>
 
-                                        
                                     </div>
                                 </div>
                             </form>
@@ -183,14 +212,8 @@
         </div>
     </div>
             
-    
-    
-    {{-- <script>
-            if ( window.history.replaceState ) {
-                window.history.replaceState( null, null, window.location.href );
-            }
-    </script> --}}
- 
+
+  
 
 
     <script type="text/javascript">
@@ -206,7 +229,7 @@
         $('#sub_title_q_writing').hide();
         $('#title_q_writing').hide();
         $('#submitbutton').hide();
-        document.getElementById('btn_back_ques').style.backgroundColor = 'gray';
+        document.getElementById("btn_back_ques").disabled = true;
 
     </script>
     

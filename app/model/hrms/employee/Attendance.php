@@ -193,6 +193,7 @@ class Attendance extends Model
         return $newformat;
     }
 
+    
     public static function abc(){
         $st= '<div class="col-md-12">
                             <div class="row">
