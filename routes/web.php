@@ -709,10 +709,10 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     // End Attendance
 
     // Start Mission And Out Side
-        Route::get('hrm_mission_outside', 'hrms\Employee\MissionAndOutSideController@AllMissionAndOutSide');
-        Route::get('hrm_modal_add_edit_missionoutside', 'hrms\Employee\MissionAndOutSideController@AddModalMissionOutside');
-        Route::post('hrm_insertmissionoutside', 'hrms\Employee\MissionAndOutSideController@InsertUpdateMissionOutside');
-        Route::get('hrm_delete_missionoutside', 'hrms\Employee\MissionAndOutSideController@DeleteMissionOutSide');
+        Route::get('hrm_mission_outside', 'hrms\Employee\MissionAndOutsideController@AllMissionAndOutSide');
+        Route::get('hrm_modal_add_edit_missionoutside', 'hrms\Employee\MissionAndOutsideController@AddModalMissionOutside');
+        Route::post('hrm_insertmissionoutside', 'hrms\Employee\MissionAndOutsideController@InsertUpdateMissionOutside');
+        Route::get('hrm_delete_missionoutside', 'hrms\Employee\MissionAndOutsideController@DeleteMissionOutSide');
     // End Mission And OutSide
 
     // Start Departement and Position
