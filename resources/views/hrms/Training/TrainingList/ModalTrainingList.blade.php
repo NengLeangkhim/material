@@ -13,7 +13,7 @@
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
             @php
-                print_r($data[3]);
+                // print_r($data[3]);
                 if(isset($data[2])){
                   $hrid=$data[2][0]->trainerid;
                 }else {

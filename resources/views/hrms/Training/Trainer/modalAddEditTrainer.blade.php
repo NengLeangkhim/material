@@ -13,7 +13,7 @@
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
             @php
-                print_r($data);
+                // print_r($data);
             @endphp
             <form id="fm_trainer">
               @csrf
