@@ -34,7 +34,7 @@ class MissionAndOutsideController extends Controller
             }
             return view('hrms/Employee/MissionAndOutSide/ModalAddAndEditMissionAndOutSide')->with('data',$data);
         } else {
-            return view('noperms');
+            return view('no_perms');
         }
     }
 
@@ -65,7 +65,7 @@ class MissionAndOutsideController extends Controller
 
             echo $stm;
         } else {
-            return view('noperms');
+            return view('no_perms');
         }
     }
 
@@ -79,9 +79,7 @@ class MissionAndOutsideController extends Controller
             $id=$_GET['id'];
             $ms->DeleteMissionOutSide($id,$userid);
         } else {
-            return view('noperms');
+            return view('no_perms');
         }
     }
-
-    
 }
