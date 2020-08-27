@@ -26,7 +26,7 @@ class shift_promote_reportController extends Controller
                 $date_to=$f;
             }
             $promote_report = management_promoteModel::get_promoteByDate($date_from, $date_to);
-            return view('hrms\shift_promote\promote_report\shift_promote_report_show', ['promote_report' => $promote_report]);
+            return view('hrms/shift_promote/promote_report/shift_promote_report_show', ['promote_report' => $promote_report]);
         }
         
     }
@@ -42,7 +42,7 @@ class shift_promote_reportController extends Controller
             $id = $_GET['staffid'];
             $date = $_GET['date'];
             $r =  management_promoteModel::promote_report_detailByID_Date($id,$date);
-            return view('hrms\shift_promote\promote_report\shift_promote_report_detail', ['report_detail' => $r]);
+            return view('hrms/shift_promote/promote_report/shift_promote_report_detail', ['report_detail' => $r]);
 
         }   
         

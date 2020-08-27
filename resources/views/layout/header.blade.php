@@ -12,7 +12,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <link rel="icon" href="img/icon.png">
-  <title>Turbotech System</title>
+  <title>Turbotech System DEV</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -46,5 +46,6 @@
 
 <!-- hrm style -->
         <link rel="stylesheet" href="css/hrm/hrm.css">
+        <link rel="stylesheet" href="recruitment_user_style/css/mystyle_owner.css">
 </head>
-<link rel="stylesheet" href="recruitment_user_style/css/mystyle_owner.css">
+

@@ -25,6 +25,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //======================CRM API==========================
 
 
+
 // Route::get('crm_dashboard');
 
 

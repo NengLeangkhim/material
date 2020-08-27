@@ -101,7 +101,7 @@ $staff_byDept = hr_dashboardController::num_staff_byDept();
 
   <div class="row"> 
 
-          <div class="col-xl-4 col-sm-6 " >
+          {{-- <div class="col-xl-4 col-sm-6 " >
             <div class="card card-mini mb-4 " >
               <div class="card-body">
                 <h2 class="mb-1">777 New customer</h2>
@@ -126,12 +126,13 @@ $staff_byDept = hr_dashboardController::num_staff_byDept();
                 </div> 
               </div>
             </div>
-          </div>
+          </div> --}}
           
+
           <div class="col-xl-4 col-sm-6">
               <div class="card card-mini mb-4">
                 <div class="card-body">
-                  <h2 class="mb-1"><?php   echo $attendancec['all_em'];   ?> Employees</h2>
+                  <h2 class="mb-1"><?php   echo $attendancec['all_em']; ?> Employees</h2>
 
                   <table class="table_style1">
                     <tr class="tr-review">
@@ -151,7 +152,6 @@ $staff_byDept = hr_dashboardController::num_staff_byDept();
                       <td>0 <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
                     </tr>
                   </table>
-
                   <div class="media py-3 align-items-center justify-content-between">      
                             <div style="padding-right: 15px">
                               <canvas id="staff_dougnutchart"></canvas>
@@ -159,8 +159,8 @@ $staff_byDept = hr_dashboardController::num_staff_byDept();
                             <div >
                               <div id="myLegend_staff_chart"></div>
                             </div>
-                            
-                    </div> 
+                  </div>
+
                 </div>
               </div>
           </div>
