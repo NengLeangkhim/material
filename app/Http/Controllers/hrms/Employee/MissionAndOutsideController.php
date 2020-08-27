@@ -82,6 +82,4 @@ class MissionAndOutsideController extends Controller
             return view('no_perms');
         }
     }
-
-    
 }
