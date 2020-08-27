@@ -202,9 +202,9 @@
     border-bottom: 2.5px solid #1fa8e0;
     background-color: gray ;
   } */
-  td {
+  /* td {
     padding: 5px;
-  }
+  } */
   .span_style {
     line-height: 34px;
     background-color: rgba(33,37,41,1.0);
@@ -252,14 +252,14 @@
     text-decoration-color: initial;
   }
 
-  ul {
+  /* ul {
     width: auto;
     list-style: none;
     list-style-position: initial;
     list-style-image: initial;
     list-style-type: none;
     padding-left: 0;
-  }
+  } */
 
   .td_style_candidate {
     /* width: 200px; */
@@ -320,7 +320,7 @@
   /* h6{
     color: blue;
   } */
-  
+
 .manu-content {
     background-color: white;
     padding-left: 25px;
@@ -451,9 +451,9 @@
       font-family: "Khmer OS Battambang";
       font-size: 16px;
     }
-    td {
+    /* td {
       font-size: 16px;
-    }
+    } */
     .font-size {
       font-size: 14px;
     }
@@ -609,9 +609,9 @@
     font-family: "Khmer OS Battambang";
     font-size: 12px;
   }
-  td {
+  /* td {
     font-size: 14px;
-  }
+  } */
   .font-size {
     font-size: 11px;
   }
@@ -652,9 +652,9 @@
     font-family: "Khmer OS Koulen";
     font-size: 10px;
   }
-  td {
+  /* td {
     font-size: 14px;
-  }
+  } */
   .font-size {
     font-size: 10px;
   }
