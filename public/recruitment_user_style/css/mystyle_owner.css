@@ -67,6 +67,8 @@
       .h6 {
         color: blue;
       }
+
+
       .head-style {
           padding-top:15px; 
           background: powderblue;
@@ -315,9 +317,10 @@
   }
 
 
-  h6{
+  /* h6{
     color: blue;
-  }
+  } */
+  
 .manu-content {
     background-color: white;
     padding-left: 25px;
