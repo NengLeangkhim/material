@@ -20,8 +20,8 @@
 
 
 
-<section class="content">
 
+<section class="content">
     <div id="prmote_modal_id">
     </div>
     <div style="padding:10px 10px 10px 10px">
@@ -39,6 +39,8 @@
                                     <div style="padding: 0px 10px 0px 40%;">
                                         <label>Expire: </label><h6 id="countdown" class="font-size" style=""> </h6>
                                     </div>
+                                    <marquee behavior="scroll" direction="left" scrollamount='3'  style='color: orange;'>Answer will be auto submit when time expired​ !</marquee>
+
                                 </div>
                                 <div class="col-md-4">
                                     <div style="padding: 0px 10px 0px 40%;">
@@ -58,111 +60,111 @@
                                     <table class="table table-bordered" id="tbl_employee">
                                         <thead>
 
-                                            @php
-                                                    echo '
-                                                        <tr id="title_q_option">
-                                                            <th colspan="4">
-                                                                <h3><b>I. Question Option</b></h3>
-                                                            </th>
-                                                        </tr>
-                                                        <tr id="sub_title_q_option" ><td colspan="4">   <h5 class="kh-font-batt" >*សូមជ្រើសរើសយកចម្លើយដែលត្រឹមត្រូវនៃសំនួរខាងក្រោម៖</h5></td></tr>
+                                                @php
+                                                        echo '
+                                                            <tr id="title_q_option">
+                                                                <th colspan="4">
+                                                                    <h3><b>I. Question Option</b></h3>
+                                                                </th>
+                                                            </tr>
+                                                            <tr id="sub_title_q_option" ><td colspan="4">   <h5 class="kh-font-batt" >*សូមជ្រើសរើសយកចម្លើយដែលត្រឹមត្រូវនៃសំនួរខាងក្រោម៖</h5></td></tr>
 
-                                                    ';
-                                                        
-                                            @endphp
+                                                        ';
+                                                            
+                                                @endphp
 
                                         </thead>
                                         <tbody>
 
 
-                                            @php
-                                                         // loop for echo question option
-                                                        $x = 1;
-                                                        $j = 0;
-                                                        for ($i=0; $i < count($question_option) ; $i++){
-                                                                    echo '
-                                                                            <tr id="q_option_id'.$x.'" >
-                                                                                <th class="main_question kh-font-batt" colspan="4">
-                                                                                    '.($i+1).'. '.$question_option[$i]->question.'
-                                                                                </th>                                
-                                                                            </tr>
-                                                                            <tr id="q_option_id'.($x+1).'" >
-                                                                        '; 
+                                                @php
+                                                            // loop for echo question option
+                                                            $x = 1;
+                                                            $j = 0;
+                                                            for ($i=0; $i < count($question_option) ; $i++){
+                                                                        echo '
+                                                                                <tr id="q_option_id'.$x.'" >
+                                                                                    <th class="main_question kh-font-batt" colspan="4">
+                                                                                        '.($i+1).'. '.$question_option[$i]->question.'
+                                                                                    </th>                                
+                                                                                </tr>
+                                                                                <tr id="q_option_id'.($x+1).'" >
+                                                                            '; 
 
-                                                                        $x +=2;
-                                                                        // echo question option answer choice
-                                                                        
-                                                                        foreach ($question_option_choice[$i] as $key => $value) 
-                                                                        {                                                    
-                                                                            // echo '                                                                                      
-                                                                            //     <td>
-                                                                            //         <label style="font-weight: 500;"  class="label-radio"><span class="radio"></span> 
-                                                                            //             <input type="radio" class="" id="radio-id-'.$i.'" name="id_question['.$question_option[$i]->id.']"  value="'.$value->id.'"> 
-                                                                            //             <span class="kh-font-batt">'.$value->choice.'</span>
-                                                                            //         </label>
-                                                                            //     </td>                                                                                            
-                                                                            // ';
+                                                                            $x +=2;
+                                                                            // echo question option answer choice
+                                                                            
+                                                                            foreach ($question_option_choice[$i] as $key => $value) 
+                                                                            {                                                    
+                                                                                // echo '                                                                                      
+                                                                                //     <td>
+                                                                                //         <label style="font-weight: 500;"  class="label-radio"><span class="radio"></span> 
+                                                                                //             <input type="radio" class="" id="radio-id-'.$i.'" name="id_question['.$question_option[$i]->id.']"  value="'.$value->id.'"> 
+                                                                                //             <span class="kh-font-batt">'.$value->choice.'</span>
+                                                                                //         </label>
+                                                                                //     </td>                                                                                            
+                                                                                // ';
 
-                                                                            echo '
-                                                                                <td>
-                                                                                    <div class="input-group" >
-                                                                                        <div class="text-group-field label-radio">
-                                                                                            <div class="inner-block">
-                                                                                            <input type="radio" id="radio-id-'.$j.'" class="radio-custom input-group-field" name="id_question['.$question_option[$i]->id.']"  value="'.$value->id.'">
-                                                                                            <label class="kh-font-batt" for="radio-id-'.$j.'" >'.$value->choice.'</label>
+                                                                                echo '
+                                                                                    <td>
+                                                                                        <div class="input-group" >
+                                                                                            <div class="text-group-field label-radio">
+                                                                                                <div class="inner-block">
+                                                                                                <input type="radio" id="radio-id-'.$j.'" class="radio-custom input-group-field" name="id_question['.$question_option[$i]->id.']"  value="'.$value->id.'">
+                                                                                                <label class="kh-font-batt" for="radio-id-'.$j.'" >'.$value->choice.'</label>
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
-                                                                                    </div>
-                                                                                </td>
+                                                                                    </td>
+                                                                                
+                                                                                ';
+                                                                                $j++;
+
+                                                                            }
+                                                                        echo    '</tr>
                                                                             
                                                                             ';
-                                                                            $j++;
-
-                                                                        }
-                                                                    echo    '</tr>
-                                                                        
-                                                                        ';
-                                                                 
-                                                        }
-
-
-
-                                                        // loop for echo question writing
-                                                        echo '
-                    
-                                                                        <tr id="title_q_writing">
-                                                                            <th colspan="4">
-                                                                                <h3 style="text-align:center;"><b>II. Question Writing</b></h3>
-                                                                            </th>
-                                                                        
-                                                                        </tr>
-                                                                        <tr id="sub_title_q_writing" ><td colspan="4">   <h5 class="kh-font-batt" >*សូមបំពេញចម្លើយនូវសំនួរខាងក្រោម៖</h5></td></tr>
                                                                     
-
-                                                            ';
-                                                        
-                                                        
-                                                        $xx = 1;
-                                                        for ($i=0; $i < count($question_writing) ; $i++){
-                                                                echo '
-                                                                        <tr id="q_writing_id'.$xx.'">
-                                                                            <th class="main_question kh-font-batt" colspan="4">
-                                                                                '.($i+1).'. '.$question_writing[$i]->question.'
-                                                                            </th>                                
-                                                                        </tr>
-                                                                        <tr id="q_writing_id'.($xx+1).'">
-                                                                            <td colspan="4">
-                                                                                <textarea name="txtarea-name['.$question_writing[$i]->id.']" rows="5" class="form-control kh-font-batt"​​    placeholder ="Answer here..." ></textarea>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                    ';
-                                                                $xx += 2;
-
-                                                        }
+                                                            }
 
 
-                                            @endphp
+
+                                                            // loop for echo question writing
+                                                            echo '
+                        
+                                                                            <tr id="title_q_writing">
+                                                                                <th colspan="4">
+                                                                                    <h3 style="text-align:center;"><b>II. Question Writing</b></h3>
+                                                                                </th>
+                                                                            
+                                                                            </tr>
+                                                                            <tr id="sub_title_q_writing" ><td colspan="4">   <h5 class="kh-font-batt" >*សូមបំពេញចម្លើយនូវសំនួរខាងក្រោម៖</h5></td></tr>
+                                                                        
+
+                                                                ';
+                                                            
+                                                            
+                                                            $xx = 1;
+                                                            for ($i=0; $i < count($question_writing) ; $i++){
+                                                                    echo '
+                                                                            <tr id="q_writing_id'.$xx.'">
+                                                                                <th class="main_question kh-font-batt" colspan="4">
+                                                                                    '.($i+1).'. '.$question_writing[$i]->question.'
+                                                                                </th>                                
+                                                                            </tr>
+                                                                            <tr id="q_writing_id'.($xx+1).'">
+                                                                                <td colspan="4">
+                                                                                    <textarea name="txtarea-name['.$question_writing[$i]->id.']" rows="5" class="form-control kh-font-batt"​​    placeholder ="Answer here..." ></textarea>
+                                                                                </td>
+                                                                            </tr>
+
+                                                                        ';
+                                                                    $xx += 2;
+
+                                                            }
+
+
+                                                @endphp
                 
                                         </tbody>
                                     </table>
@@ -176,8 +178,9 @@
                                                 {{-- <a class="btn-next" id="btn_back_ques" href="#" onclick='BackQuestion()'>
                                                     <span class="span"><i class="fa fa-angle-double-left" style="font-size:24px; color:blue; margin-right: 5px;"></i></span><label>Back</label> 
                                                 </a> --}}
-                                                <button  type="button" class="btn btn-success" id="btn_back_ques" href="#" onclick='BackQuestion()'  style="padding: 1px; width: 80px;"><span class="span"><i class="fa fa-angle-double-left" style=" font-size:20px; margin-right: 5px;"></i></span>Back</button>
-
+                                                <a href="#">
+                                                    <button  type="button" class="btn btn-success" id="btn_back_ques" onclick='BackQuestion()'  style="padding: 1px; width: 80px;"><span class="span"><i class="fa fa-angle-double-left" style=" font-size:20px; margin-right: 5px;"></i> Back</button>
+                                                </a>
 
 
                                             </div>
@@ -186,10 +189,10 @@
                                                     <span ><i class="fa fa-angle-double-right" style="font-size:24px;color:blue; margin-left: 5px;"></i></span>
                                                 </a> --}}
 
-
-                                                <button  type="button" class="btn btn-success" id="btn_next_ques" href="#" onclick='NextQuestion()'  style="padding: 1px; width: 80px;">Next
-                                                    <span ><i class="fa fa-angle-double-right" style="font-size:20px; margin-left: 5px;"></i></span></button>
-        
+                                                <a href="#">
+                                                    <button  type="button" class="btn btn-success" id="btn_next_ques" href="#" onclick='NextQuestion()'  style="padding: 1px; width: 80px;">Next
+                                                        <span ><i class="fa fa-angle-double-right" style="font-size:20px; margin-left: 5px;"></i></span></button>
+                                                </a>
 
                                             </div>
                                         </div>

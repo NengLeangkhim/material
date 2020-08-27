@@ -159,7 +159,6 @@ $staff_byDept = hr_dashboardController::num_staff_byDept();
                             <div >
                               <div id="myLegend_staff_chart"></div>
                             </div>
-                            
                   </div>
 
                 </div>

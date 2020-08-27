@@ -109,7 +109,7 @@
         
               <a style="margin-right: 20px;" class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <img src="img/icons/user_icon2.png" style="position: relative;  width: 40px; height: 40px;" class="user-image" alt="User Image" />
-                <span style="font-weight: bold; color: black;" class="d-none d-lg-inline-block kh-font-batt"><?php echo $r['0']->name_kh; ?></span>
+                <span style="font-weight: bold; color: white;" class="d-none d-lg-inline-block kh-font-batt"><?php echo $r['0']->name_kh; ?></span>
               </a>
          
               <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
