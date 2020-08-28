@@ -119,10 +119,10 @@
                     </div>
                     
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item" onclick="go_to('hrm_recruitment_user_profile');">
-                      <i class="fas fa-user-check mr-2"></i>
-                       View Profile
-                    </a>
+                      <a href="#" class="dropdown-item" onclick="modal_action();">
+                        <i class="fas fa-user-check mr-2"></i>
+                        View Profile
+                      </a>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item">
                       

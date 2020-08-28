@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div style="padding: 0px 10px 0px 40%;">
-                                        <label>Expire: </label><h6 id="countdown" class="font-size" style=""> </h6>
+                                        <label>Expire: </label><h6 id="countdown" class="h6 font-size" style=""> </h6>
                                     </div>
                                     <marquee behavior="scroll" direction="left" scrollamount='3'  style='color: orange;'>Answer will be auto submit when time expired​ !</marquee>
 
@@ -111,7 +111,7 @@
                                                                                             <div class="text-group-field label-radio">
                                                                                                 <div class="inner-block">
                                                                                                 <input type="radio" id="radio-id-'.$j.'" class="radio-custom input-group-field" name="id_question['.$question_option[$i]->id.']"  value="'.$value->id.'">
-                                                                                                <label class="kh-font-batt" for="radio-id-'.$j.'" >'.$value->choice.'</label>
+                                                                                                <label class="label-radio kh-font-batt" for="radio-id-'.$j.'" >'.$value->choice.'</label>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>

@@ -13,7 +13,6 @@
 // function onclick user start quiz
 
 function go_to(route){
-
     $.ajax({
         type: 'GET',
         url:route,
@@ -29,6 +28,26 @@ function go_to(route){
     });
   
 }
+
+
+
+// function show form in modal id
+
+function modal_action(){
+    var url = 'hrm_recruitment_user_profile';
+    var x=new XMLHttpRequest();
+    x.onreadystatechange=function(){
+        if(this.readyState==4 && this.status==200){
+            document.getElementById('modal').innerHTML=this.responseText;
+            $('#user_profile').modal('show');
+        }
+    }
+    x.open("GET", url, true);
+    x.send();
+
+}
+
+
 
 
 

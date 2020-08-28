@@ -226,3 +226,20 @@ display: block;
 		#container {
 			background-color: #dcdcdc;
 		}
+
+
+		.tr-review {
+			border-bottom: 0.1px solid  #d3d3d3;
+		}
+
+
+		.table_style1 {
+			width: 100%;
+			height: auto;
+		}
+
+		.img_dashboard {
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: contain;
+		}
