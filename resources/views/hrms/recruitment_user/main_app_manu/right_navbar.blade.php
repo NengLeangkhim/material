@@ -1,7 +1,7 @@
 
 
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-white navbar-light" style="background: #1fa8e0">
+<nav class="main-header navbar navbar-expand navbar-white navbar-light" style="background: #d42931">
     <!-- Left navbar links -->
     <ul class="navbar-nav" id='nav_bar_sub_r'>
       <li class="nav-item">
@@ -109,7 +109,7 @@
         
               <a style="margin-right: 20px;" class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <img src="img/icons/user_icon2.png" style="position: relative;  width: 40px; height: 40px;" class="user-image" alt="User Image" />
-                <span style="font-weight: bold; color: black;" class="d-none d-lg-inline-block kh-font-batt"><?php echo $r['0']->name_kh; ?></span>
+                <span style="font-weight: bold; color: white;" class="d-none d-lg-inline-block kh-font-batt"><?php echo $r['0']->name_kh; ?></span>
               </a>
          
               <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
@@ -119,10 +119,10 @@
                     </div>
                     
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item" onclick="go_to('hrm_recruitment_user_profile');">
-                      <i class="fas fa-user-check mr-2"></i>
-                       View Profile
-                    </a>
+                      <a href="#" class="dropdown-item" onclick="modal_action();">
+                        <i class="fas fa-user-check mr-2"></i>
+                        View Profile
+                      </a>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item">
                       

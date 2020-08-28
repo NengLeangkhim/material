@@ -1,4 +1,4 @@
-<div class="modal fade show" id="modal_traininglist" style="display: block; padding-right: 17px;" aria-modal="true">
+<div class="modal fade show" id="modal_traininglist" style="display: block; padding-right: 17px;" aria-modal="true" data-backdrop="static">
     <div class="modal-dialog modal-ls">
         <div class="modal-content">
             <div class="card card-default">
@@ -13,8 +13,9 @@
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
             @php
+                // print_r($data[3]);
                 if(isset($data[2])){
-                  $hrid=$data[2][0]->hrid;
+                  $hrid=$data[2][0]->trainerid;
                 }else {
                   $hrid=0;
                 }
@@ -22,7 +23,9 @@
             <form id="fm_training_list" onsubmit="return false" enctype="multipart/form-data">
                @csrf
               <div class="row">
+                {{-- training schetual ID --}}
                 <input type="hidden" name="id" id="" value="@php if(isset($data[2])){echo $data[2][0]->id;} @endphp">
+                <input type="hidden" name="hrid" value="@php if(isset($data[2])){echo $data[2][0]->hrid;} @endphp">
                 <input type="hidden" name="namefile" value="@php if(isset($data[2])){echo substr($data[2][0]->file,21);} @endphp">
                 <div class="col-md-12">
                   <div class="form-group">
@@ -89,7 +92,7 @@
                       @php
                         $displaytbl="d-none";
                         if(isset($data[2])){
-                          if($data[2][0]->schedule_status==1){
+                          if(Str::length($data[2][0]->hrid)>0){
                             $displaytbl="";
                             echo '<option value="t">Trained</option>
                             <option value="f">Not Trained</option>
@@ -140,7 +143,7 @@
                                   if(isset($data[3])){
                                     $checktrue=0;
                                     foreach ($data[3] as $st) {
-                                      if($em->id==$st->staff_id){
+                                      if($em->id==$st->ma_user_id){
                                         $checktrue++;
                                       }
                                     }

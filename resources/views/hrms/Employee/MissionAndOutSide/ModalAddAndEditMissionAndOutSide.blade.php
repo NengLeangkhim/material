@@ -1,4 +1,4 @@
-<div class="modal fade show" id="modal_missionoutside" style="display: block; padding-right: 17px;" aria-modal="true">
+<div class="modal fade show" id="modal_missionoutside" style="display: block; padding-right: 17px;" aria-modal="true" data-backdrop="static">
     <div class="modal-dialog modal-ls">
         <div class="modal-content">
             <div class="card card-default">
@@ -12,6 +12,9 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
+            @php
+                // print_r($data[1]);
+            @endphp
             <form id="fm_missionoutside" onsubmit="return false">
               @csrf
               <div class="row">
@@ -65,35 +68,56 @@
                   </div>
                   <div class="form-group">
                     <label>Staff <span class="text-danger">*</span></label>
-                    <select name="staff" id="" class="form-control">
-                      @php
-                        $f1='';
-                        $f2='';
-                        foreach ($data[0] as $em) {
-                          if(isset($data[1])){
-                            if($data[1][0]->id_number==$em->id_number){
-                              $f1=$f1.'<option value="'.$em->id_number.'">'.$em->name.'</option>';
-                            }else {
-                              $f2=$f2.'<option value="'.$em->id_number.'">'.$em->name.'</option>';
-                            }
-                          }else {
-                            $f1=$f1.'<option value="'.$em->id_number.'">'.$em->name.'</option>';
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                    <table class="table table-bordered table-striped mb-0">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Name</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @php 
+                          $i=0;
+                          foreach ($data[0] as $em) {
+                            echo '<tr>
+                          <th>'.++$i.'</th>
+                          <td>'.$em->name.'</td>
+                          <th class="text-right"><input type="checkbox" name="missioncheck['.$i.']" id="" value="'.$em->id_number.'"></th>
+                        </tr>';
                           }
-                        }
-                        echo $f1.$f2;
-                      @endphp
-                      // @foreach ($data[0] as $em)
-                          
-                      //     <option value="{{$em->id_number}}">{{$em->name}}</option>
-                      // @endforeach
-                    </select>
+                        @endphp
+                        
+                      </tbody>
+                    </table>
+                    </div>
                   </div>
                   <!-- /.form-group -->
-                  <div class="form-group">
-                    <label>Location <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="location" value="@php if(isset($data[1])){echo $data[1][0]->location;} @endphp">
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <label>Street <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="street" value="@php if(isset($data[1])){echo $data[1][0]->street;} @endphp">
                   </div>
-                  <!-- /.form-group -->
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <label>Home Number</label>
+                    <input type="text" class="form-control" name="home_number" value="@php if(isset($data[1])){echo $data[1][0]->home_number;} @endphp">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <label>Late Long <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="latelong" value="@php if(isset($data[1])){echo $data[1][0]->latlg;} @endphp">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <label>Gazetteers Code</label>
+                    <input type="text" class="form-control" name="gazetteers_code" value="@php if(isset($data[1])){echo $data[1][0]->gazetteers_code;} @endphp">
+                  </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
@@ -136,7 +160,7 @@
                           echo '
                                 <option value="am">AM</option>
                                 <option value="pm">PM</option>
-                                <option value="other">Other</option>
+                                <option value="full">Full</option>
                               ';
                         }
                       @endphp

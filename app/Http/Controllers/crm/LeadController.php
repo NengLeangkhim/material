@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\perms;
 use App\Http\Controllers\Controller;
+
 class LeadController extends Controller
 {
+
     public function getlead(){
         if(perms::check_perm_module('CRM_0205')){//module codes
             $lead=DB::select("SELECT * from  crm_lead");
@@ -18,6 +20,8 @@ class LeadController extends Controller
        
         
     }
+
+    
     public function lead(){
         // if(perms::check_perm_module('08-01-05-01')){//module codes
         //     $lead_source=DB::select("SELECT * from  crm_lead_source");

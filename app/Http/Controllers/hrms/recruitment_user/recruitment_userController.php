@@ -59,12 +59,12 @@ class recruitment_userController extends Controller
                             $r = recruitment_userModel::tbl_hrUser($email);
                             if($r > 0){ // this true when user input the email that already taken
                                 $em_error = 1;
-                                return view('hrms\recruitment_user\index_recruitment_register', compact('em_error'));
+                                return view('hrms/recruitment_user/index_recruitment_register', compact('em_error'));
                             }
                             else {
                                 $success = 1;
                                 recruitment_userModel::insert_user_info($f_name, $l_name, $kh_name, $cv, $email, $p, $pos, $cover);
-                                return view('hrms\recruitment_user\index_recruitment_register', compact('success'));
+                                return view('hrms/recruitment_user/index_recruitment_register', compact('success'));
                             }
 
 
@@ -95,7 +95,7 @@ class recruitment_userController extends Controller
         }
         $id = $_SESSION['user_id'][0]->id;
         $user_question = recruitment_userModel::select_user_question($id);
-        return view('hrms\recruitment_user\frm_quiz', compact('user_question'));
+        return view('hrms/recruitment_user/frm_quiz', compact('user_question'));
         
     }
     // end
@@ -141,6 +141,7 @@ class recruitment_userController extends Controller
                             }else{
                                 $ans = '0';
                             }
+                            
                             $r = recruitment_userModel::submit_answer($val,$key,'null',$ans,$starttime,$endtime,$id);
                             $i++;
                             
@@ -153,6 +154,7 @@ class recruitment_userController extends Controller
                         foreach($txtarea as $key=> $val){
                             // $answer_text = $val;
                             // $question_id = $key;
+
                             $rr = recruitment_userModel::submit_answer('null',$key,$val,'f',$starttime,$endtime,$id);
                         }
 
@@ -164,17 +166,17 @@ class recruitment_userController extends Controller
                 //check if insert success
                 if($r == 1 && $rr == 1){
                     $data_success = 1;
-                    return view('hrms\recruitment_user\main_app_user', compact('data_success'));
+                    return view('hrms/recruitment_user/main_app_user', compact('data_success'));
                 }else{
                     $data_faile = 0;
-                    return redirect()->route('/hrm_recruitment_login');
-                    // return view('hrms\recruitment_user\main_app_user', compact('data_faile'));
+                    // return redirect()->route('/hrm_recruitment_login');
+                    return view('hrms/recruitment_user/main_app_user', compact('data_faile'));
                     
                 }
 
         }else{
             $data_faile = 0;
-            return view('hrms\recruitment_user\main_app_user', compact('data_faile'));
+            return view('hrms/recruitment_user/main_app_user', compact('data_faile'));
         }
 
     }
@@ -192,7 +194,6 @@ class recruitment_userController extends Controller
 
 
     // function user login 
-
     public function user_login(){
 
         if(isset($_POST['btn_userLogin']) && isset($_POST['user_email']) && isset($_POST['password']) ){
@@ -206,10 +207,10 @@ class recruitment_userController extends Controller
             $_SESSION['user_id'] = $r;
 
             if(count($r) > 0){
-                return view('hrms\recruitment_user\main_app_user');
+                return view('hrms/recruitment_user/main_app_user');
             }else{
                 $login_faile = 1;
-                return view('hrms\recruitment_user\login_user', compact('login_faile'));
+                return view('hrms/recruitment_user/login_user', compact('login_faile'));
             }
             
         }
@@ -217,7 +218,7 @@ class recruitment_userController extends Controller
 
 
 
-    
+
 
     // function get view user profile
     public function user_profile()
@@ -229,7 +230,7 @@ class recruitment_userController extends Controller
         $userdata = recruitment_userModel::user_info($id);
 
         if( count($userdata) > 0){
-            return view('hrms\recruitment_user\user_profile', compact('userdata'));
+            return view('hrms/recruitment_user/user_profile', compact('userdata'));
         }
         
     }
@@ -248,9 +249,9 @@ class recruitment_userController extends Controller
 
         if(count($quiz_result) > 0){
 
-            return view('hrms\recruitment_user\user_view_quiz_result', compact('quiz_result'));
+            return view('hrms/recruitment_user/user_view_quiz_result', compact('quiz_result'));
         }else{
-            return view('hrms\recruitment_user\user_view_quiz_result', compact('quiz_result'));
+            return view('hrms/recruitment_user/user_view_quiz_result', compact('quiz_result'));
             
         }
        
@@ -342,11 +343,9 @@ class recruitment_userController extends Controller
             }else {
                 $reject = "Reject";
             }
-
-            return view('hrms\recruitment_user\user_view_from_hr_result', compact('hr_result','approve', 'pending', 'reject') );
+            return view('hrms/recruitment_user/user_view_from_hr_result', compact('hr_result','approve', 'pending', 'reject') );
         }else{
-            return view('hrms\recruitment_user\user_view_from_hr_result', compact('hr_result'));
-            
+            return view('hrms/recruitment_user/user_view_from_hr_result', compact('hr_result'));
         }
     }
 

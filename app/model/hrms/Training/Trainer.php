@@ -32,7 +32,7 @@ class Trainer extends Model
 
     function UpdateTrainer($trainer, $telephone, $type, $description, $by,$id){
         try{
-           $sql= "SELECT public.update_hr_training_trainer($id,$by,'$trainer','$telephone','$type','$description')";
+           $sql= "SELECT public.update_hr_training_trainer($id,$by,'$trainer','$telephone','t','$type','$description')";
             $stm = DB::select($sql);
             if ($stm[0]->update_hr_training_trainer > 0) {
                 return "Trainer Update Successfully !";

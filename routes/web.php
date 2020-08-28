@@ -57,6 +57,17 @@ Route::post('/change_pass','change_password@change_pass');//profile change_passw
 Route::post('/upload_img_profile','upload_img_profile@upload_img_pro');//profile upload_img_profile
 
 Route::get('/aes_test','aes_example@example');//AES test
+//route for clear cache
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});
+Route::get('/page/maintain',function(){
+    return view('page_under_maintain');
+});//Maintain page
+Route::get('/page/notfound',function(){
+    return view('page_not_found');
+});//Maintain page
 //======================Main=================================
 
 //=======================E-request==========================
@@ -703,10 +714,10 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     // End Attendance
 
     // Start Mission And Out Side
-        Route::get('hrm_mission_outside', 'hrms\Employee\MissionAndOutSideController@AllMissionAndOutSide');
-        Route::get('hrm_modal_add_edit_missionoutside', 'hrms\Employee\MissionAndOutSideController@AddModalMissionOutside');
-        Route::post('hrm_insertmissionoutside', 'hrms\Employee\MissionAndOutSideController@InsertUpdateMissionOutside');
-        Route::get('hrm_delete_missionoutside', 'hrms\Employee\MissionAndOutSideController@DeleteMissionOutSide');
+        Route::get('hrm_mission_outside', 'hrms\Employee\MissionAndOutsideController@AllMissionAndOutSide');
+        Route::get('hrm_modal_add_edit_missionoutside', 'hrms\Employee\MissionAndOutsideController@AddModalMissionOutside');
+        Route::post('hrm_insertmissionoutside', 'hrms\Employee\MissionAndOutsideController@InsertUpdateMissionOutside');
+        Route::get('hrm_delete_missionoutside', 'hrms\Employee\MissionAndOutsideController@DeleteMissionOutSide');
     // End Mission And OutSide
 
     // Start Departement and Position
@@ -762,6 +773,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_employee_salary', 'hrms\Payroll\PayrollController@Payroll');
         Route::get('hrm_payslip', 'hrms\Payroll\PayrollController@ModalPayslip');
         Route::get('hrm_payrollitems', 'hrms\Payroll\PayrollController@ModalPayrollItems');
+        Route::get('taxation', 'hrms\Payroll\PayrollController@Taxation');
 // End Payroll
 
 // ========================================================> END SENG KIMSROS <======================================================== //
@@ -770,18 +782,20 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
 
 
-// ===========================================================START SOK KIM PART ==================================== //
-//================ Shift Promote
+// ===========================================================SOK KIM ==================================== //
+//================ Shift Promote Module============
 // management promote
 Route::get('hrm_management_shift_promote','hrms\shift_promote\management_promoteController@AllEmployee');
 Route::get('hrm_management_edit_promote','hrms\shift_promote\management_promoteController@Edit_staff_promote');
 Route::get('hrm_submit_staff_promote','hrms\shift_promote\management_promoteController@Submit_staff_promote');
 // end management promte
 
+
 //staff view their promote
 Route::get('hrm_staff_view_promote','hrms\shift_promote\staff_view_promoteController@view_promoteByID');
 Route::get('hrm_staff_view_promote_detail','hrms\shift_promote\staff_view_promoteController@staff_view_detail');
 // end staff view their promote
+
 
 // view staff promote history (for management)
 Route::get('hrm_staff_promote_history','hrms\shift_promote\shift_promote_historyController@all_staff_promote');
@@ -797,11 +811,11 @@ Route::get('hrm_shift_promote_report_search_view','hrms\shift_promote\shift_prom
 Route::get('hrm_shift_promote_report_search_view_detail','hrms\shift_promote\shift_promote_reportController@promote_report_view_detail');
 // end shift promote report
 
-//============End Shift promote
+//============End Shift promote============
 
-//============Recruitment User=============
+//============Recruitment Candidate=============
 
-// candidate register account submit info
+// candidate register account submit information 
 Route::post('hrm_recruitment_user_register','hrms\recruitment_user\recruitment_userController@register_candidate');
 // end 
 
@@ -819,11 +833,10 @@ Route::get('hrm_recruitment_login',function(){
     return view('hrms.recruitment_user.login_user');
 });
 
-// view test
+// view to main app for candidate
 Route::get('hrm_recruitment_MainApp',function(){
     return view('hrms.recruitment_user.main_app_user');
 });
-
 
 // route go to view start quiz
 Route::get('hrm_recruitment_start_quiz',function(){
@@ -831,21 +844,16 @@ Route::get('hrm_recruitment_start_quiz',function(){
 });
 
 
-
-
 // route go to user question form
 Route::get('hrm_recruitment_question',function(){
     return view('hrms.recruitment_user.frm_quiz');
 });
 
-
 // route to select question for user from controller
 Route::get('hrm_recruitment_get_question','hrms\recruitment_user\recruitment_userController@get_user_question');
 
-
 // route to login user 
 Route::post('hrm_recruitment_login','hrms\recruitment_user\recruitment_userController@user_login');
-
 
 // route to home page user
 Route::get('hrm_recruitment_homepage',function(){
@@ -855,22 +863,15 @@ Route::get('hrm_recruitment_homepage',function(){
 // route for user profile
 Route::get('hrm_recruitment_user_profile','hrms\recruitment_user\recruitment_userController@user_profile');
 
-
-
 // route for user view quiz result 
 Route::get('hrm_recruitment_user_quiz_result','hrms\recruitment_user\recruitment_userController@user_view_quiz_result');
-
-
 
 
 // route for user get hr result 
 Route::get('hrm_recruitment_get_hr_result','hrms\recruitment_user\recruitment_userController@check_hr_resultContrl');
 
 
-
-
-
-//=============End recruitment user===========
+//=============End recruitment candidate===========
 
 
 //=============HR Dashboard==============

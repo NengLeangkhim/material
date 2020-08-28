@@ -12,7 +12,7 @@ class management_promoteController extends Controller
     /* function get all employee from 3 table: staff, position, hr_payroll  */
     public function AllEmployee(){
         $AllEmployee = management_promoteModel::AllEmployee();
-        return view('hrms\shift_promote\management_promote\shift_promote_management', ['allEmployee' => $AllEmployee]);
+        return view('hrms/shift_promote/management_promote/shift_promote_management', ['allEmployee' => $AllEmployee]);
     }
 
 
@@ -25,8 +25,7 @@ class management_promoteController extends Controller
             $StaffByID = management_promoteModel::AllEmployeeByID($staffid);
             $get_postion = management_promoteModel::position();
             // print_r($get_postion);
-
-            return view('hrms\shift_promote\management_promote\shift_promote_manager_edit', ['staffbyid' => $StaffByID, 'get_position' =>  $get_postion]);
+            return view('hrms/shift_promote/management_promote/shift_promote_manager_edit', ['staffbyid' => $StaffByID, 'get_position' =>  $get_postion]);
         }
 
     }

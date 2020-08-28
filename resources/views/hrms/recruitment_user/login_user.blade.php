@@ -43,7 +43,7 @@
         {{-- <div class="login-box"> --}}
         <div class="">
             
-            <form class="login-form" action="/hrm_recruitment_login" method="post" style="padding: 15px; border-radius: 3px; width: 120%; box-shadow: 0px 1px 5px 5px rgba(56, 54, 54, 0.5)">
+            <form class="login-form" action="/hrm_recruitment_login" method="post" style="padding: 15px; border-radius: 3px; width: 100%; box-shadow: 0px 1px 5px 5px rgba(56, 54, 54, 0.5)">
                 @csrf
                 <h3 class="login-head" style="text-align: center;">
                     <img src="img/icons/user_icon3.png" width="35%" height="35%"  alt="" style=" border-radius: 50%; border: 1px solid rgb(126, 115, 94);">

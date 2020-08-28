@@ -12,7 +12,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <link rel="icon" href="img/icon.png">
-  <title>Turbotech System</title>
+  <title>Turbotech System DEV</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -27,7 +27,7 @@
   <!-- Icheck Bootstrap -->
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
    <!-- DataTables -->
-   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 {{-- STOCK --}}
   <link rel="stylesheet" type="text/css" href="css/STOCK.css">
@@ -50,4 +50,4 @@
         <link rel="stylesheet" href="css/hrm/hrm.css">
         <link href='fullcalendar-5.3.0/lib/main.min.css' rel='stylesheet' /> <!-- hrm Calendar -->
 </head>
-<link rel="stylesheet" href="recruitment_user_style/css/mystyle_owner.css">
+

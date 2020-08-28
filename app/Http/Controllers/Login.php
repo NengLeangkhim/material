@@ -31,16 +31,19 @@ class Login extends Controller
                 return view('login',['message'=>'Permission Denied!','old'=>$id_]);
             }
         }
+
     }
+
     public function logout(){
         if (session_status() == PHP_SESSION_NONE) {
             if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+                session_start();
+            }
         }
         session_destroy();
         return view('login');
     }
+
     public function check_login(){
         if(perms::check_perm()){
             $_SESSION['module']=perms::get_module();

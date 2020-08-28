@@ -1,4 +1,4 @@
-<div class="modal fade show" id="modal_holiday" style="display: block; padding-right: 17px;" aria-modal="true">
+<div class="modal fade show" id="modal_holiday" style="display: block; padding-right: 17px;" aria-modal="true" data-backdrop="static">
     <div class="modal-dialog modal-ls">
         <div class="modal-content">
             <div class="card card-default">
@@ -31,7 +31,7 @@
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Start Date <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" name="startDate" value="@php if(isset($holiday)){echo $holiday[0]->holiday_date;} @endphp">
+                  <input type="date" class="form-control" name="startDate" value="@php if(isset($holiday)){echo $holiday[0]->from_date;} @endphp">
                 </div>
               </div>
               <div class="col-md-6">

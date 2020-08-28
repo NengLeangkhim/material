@@ -9,11 +9,8 @@
     <div class="sidebar" style="background:#1fa8e0">
     <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" >
         <!-- ================CRM====================-->
-
-
-        
 
           <li class="nav-item has-treevie">
                 <a href="javascript:void(0);" class="nav-link active" onclick="go_to('hrm_recruitment_homepage')">

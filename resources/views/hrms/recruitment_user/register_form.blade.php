@@ -89,7 +89,7 @@ $r = DB::select($sql);
                     </label>
                     <div id="cid_5" class="form-input ">
                         <input type="email" id="email" name="emailaddress" data-type="input-textbox" class="style_text form-control kh-font-batt validate[required, Email]" size="20" value="" data-component="textbox" aria-labelledby="label_5" placeholder="Email" required="" />
-                        <h6 id="error_email" style="color:#d42931; display: none;">Email alreay taken !</h6>
+                        <h6 id="error_email" style="font-weight:bold; color:#d42931; display: none;">Your email is already taken !</h6>
                     </div>
                     
                 </li>
@@ -111,7 +111,7 @@ $r = DB::select($sql);
                     </span>
                 </label>
                 <div id="cid_9" class="form-input"  required="">
-                    <select name="position" id="position" class="input100 form-control style_text validate[required]">
+                    <select style="color: black; " name="position" id="position" class="input100 form-control style_text validate[required]">
                         <?php
                                 foreach($r as $key=>$rr){
                                     echo ($key<=1)?'<option value="-1" selected disabled hidden>Select position</option>':'';
@@ -129,8 +129,8 @@ $r = DB::select($sql);
                     </span>
                 </label>
                 <div class="uploadcv ">
-                    <input type="button" class="uploadButton" value="Browse" required/>
-                    <input type="file"  class=" validate[required]" name="uploadcv"  data-imagevalidate="yes" data-file-accept="pdf, doc, docx, csv, zip, gif"  id="fileUpload" required />
+                    <input type="button" class="uploadButton" value="Browse"​ ​​  ​autofocus  required/>
+                    <input type="file"  class=" validate[required]" name="uploadcv"  data-imagevalidate="yes" data-file-accept="pdf, doc, docx, csv, zip, gif"  id="fileUpload" autofocus required />
                     <span class="fileName">Select CV..</span>
                 </div>
         
@@ -145,8 +145,8 @@ $r = DB::select($sql);
                     </span>
                 </label>
                 <div class="uploadcover ">
-                    <input type="button" class="uploadButton" value="Browse"  required />
-                    <input type="file"  class=" validate[required]" name="uploadcover"  data-imagevalidate="yes" data-file-accept="pdf, doc, docx, csv, zip, gif"  id="fileUpload"  required/>
+                    <input type="button" class="uploadButton" value="Browse" autofocus  required />
+                    <input type="file"  class=" validate[required]" name="uploadcover"  data-imagevalidate="yes" data-file-accept="pdf, doc, docx, csv, zip, gif"  id="fileUpload"  autofocus required/>
                     <span class="fileName">Select Cover..</span>
                 </div>
         

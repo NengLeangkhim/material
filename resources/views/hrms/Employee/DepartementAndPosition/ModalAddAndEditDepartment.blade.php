@@ -1,4 +1,4 @@
-<div class="modal fade show" id="modal_department" style="display: block; padding-right: 17px;" aria-modal="true">
+<div class="modal fade show" id="modal_department" style="display: block; padding-right: 17px;" aria-modal="true" data-backdrop="static">
     <div class="modal-dialog modal-ls">
         <div class="modal-content">
             <div class="card card-default">
@@ -56,7 +56,7 @@
                   </div>
                   <div class="form-group">
                     <label>Khmer Name<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="khName" value="@php if(isset($data[1])){echo $data[1][0]->name;} @endphp">
+                    <input type="text" class="form-control" name="khName" value="@php if(isset($data[1])){echo $data[1][0]->name_kh;} @endphp">
                   </div>
                   <!-- /.form-group -->
                 </div>

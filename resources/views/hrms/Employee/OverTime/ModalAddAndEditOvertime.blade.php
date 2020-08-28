@@ -1,4 +1,4 @@
-<div class="modal fade show" id="modal_overtime" style="display: block; padding-right: 17px;" aria-modal="true">
+<div class="modal fade show" id="modal_overtime" style="display: block; padding-right: 17px;" aria-modal="true" data-backdrop="static">
     <div class="modal-dialog modal-ls">
         <div class="modal-content">
             <div class="card card-default">
@@ -12,6 +12,9 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
+            @php
+                // print_r($data[1]);
+            @endphp
             <form id="fm_holiday" onsubmit="return false">
                @csrf
               <div class="row">

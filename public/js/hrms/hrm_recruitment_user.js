@@ -13,7 +13,6 @@
 // function onclick user start quiz
 
 function go_to(route){
-
     $.ajax({
         type: 'GET',
         url:route,
@@ -32,6 +31,26 @@ function go_to(route){
 
 
 
+// function show form in modal id
+
+function modal_action(){
+    var url = 'hrm_recruitment_user_profile';
+    var x=new XMLHttpRequest();
+    x.onreadystatechange=function(){
+        if(this.readyState==4 && this.status==200){
+            document.getElementById('modal').innerHTML=this.responseText;
+            $('#user_profile').modal('show');
+        }
+    }
+    x.open("GET", url, true);
+    x.send();
+
+}
+
+
+
+
+
 
 
 
@@ -46,7 +65,8 @@ function go_to(route){
 // function auto submit for user quiz
 
 function autoSubmit() {
-  var auto = setTimeout(function(){ autoRefresh(); }, 100);
+
+  // var auto = setTimeout(function(){ autoRefresh(); }, 100);
   function alert15min(){
       $.notify(
           "Your answer will be auto submit in 15 minutes more !", 
@@ -87,10 +107,16 @@ function autoSubmit() {
       request.send(formData);
   }
 
-  function autoRefresh(){
-     clearTimeout(auto);
-     auto = setTimeout(function(){ submitform(); }, (1000 * 60 * 60));
-  }
+
+  // function autoRefresh(){
+  //    clearTimeout(auto);
+  //    auto = setTimeout(function(){ submitform(); }, (1000 * 10));
+  // }
+
+  setTimeout(function(){ submitform(); }, (1000 * 60 * 60));
+
+
+
 }
 
 
@@ -182,9 +208,8 @@ function autoSubmit() {
 
   function NextQuestion(){
       switch(next){
-
           case next = 1:
-                document.getElementById('btn_back_ques').style.backgroundColor = '';
+                document.getElementById("btn_back_ques").disabled = false;
                 for(var x=1; x<=40; x++){
                     if(x <= 20){
                       var id = "#q_option_id" + x;
@@ -201,7 +226,7 @@ function autoSubmit() {
                 for(var x=1; x<=40; x++){
                     $('#title_q_option').hide();
                     $('#sub_title_q_option').hide();
-                    document.getElementById('btn_next_ques').style.backgroundColor = 'gray';
+                    document.getElementById('btn_next_ques').disabled = true;
                     if(x > 20){
                       var id = "#q_option_id" + x;
                       $(id).hide();
@@ -226,9 +251,7 @@ function autoSubmit() {
   function BackQuestion(){
       switch (back) {
         case back = 1:
-              
-                
-                document.getElementById('btn_back_ques').style.backgroundColor = 'gray';
+                document.getElementById('btn_back_ques').disabled = true;
                 for(var x=1; x<=40; x++){
                     if(x <= 20){
                       var id = "#q_option_id" + x;
@@ -245,11 +268,10 @@ function autoSubmit() {
             
         case back = 2:
             
-              
               for(var x=1; x<=40; x++){
                 $('#title_q_option').show();
                 $('#sub_title_q_option').show();
-                document.getElementById('btn_next_ques').style.backgroundColor = '';
+                document.getElementById('btn_next_ques').disabled = false;
                 if(x > 20){
                   var id = "#q_option_id" + x;
                   $(id).show();
