@@ -32,11 +32,13 @@
                         <td>{{$row->question}}</td>
                         <td class="text-center">{{$row->question_type}}</td>
                         <td class="text-center">
+                          <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
                           @if ($row->status=='t')
-                              {{'Active'}}
+                              <input style="width:20px; height:20px; display:inline-block;" type="checkbox" name="ch_q_a" value="{{$row->id}}" id="checkbox_sugg_q_a" class="custom-control-input checkbox_sugg_q_a" checked> <label class="custom-control-label" for="checkbox_sugg_q_a" style="color:green;"> Active</label>
                           @else
-                              {{'Disactive'}}
+                              <input style="width:20px; height:20px; display:inline-block;" type="checkbox" name="ch_q_a" value="{{$row->id}}" id="checkbox_sugg_q_a" class="custom-control-input checkbox_sugg_q_a"> <label class="custom-control-label" for="checkbox_sugg_q_a" style="color:red;"> Inactive</label>
                           @endif
+                          </div>
                         </td>
                       @if ($row->hr_suggestion_question_type_id==1) {{-- Permission check for option type --}}
                         <td class="text-center">
@@ -44,7 +46,7 @@
                             <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                             </button>
-                            <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-menu hrm_dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_view_detail_question_answer">View Detail</button>
                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_question_answer">Update Detail</button>
                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_delete_question_answer">Delete</button>
@@ -59,7 +61,7 @@
                             <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                             </button>
-                            <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-menu hrm_dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item update_q_sugg">Update</button>
                             <button type="button" id="{{$row->id}}" onclick="hrm_delete('{{$row->id}}','hrm_question_answer_sugg/delete','/hrm_question_answer_sugg','Question Has Been Deleted')"  class="dropdown-item hrm_item delete_q_sugg">Delete</button>
                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item view_result_sugg">Result</button>

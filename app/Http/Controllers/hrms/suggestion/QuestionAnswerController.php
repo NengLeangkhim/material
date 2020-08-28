@@ -176,11 +176,11 @@ class QuestionAnswerController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
             } 
-            if(perms::check_perm_module('HRM_09080105')){ //module code list data tables id=135
-            $id= $_GET['id'];
-            $question_sugg_view = ModelQuestionAnswer::hrm_get_question_sugg($id); //query question suggestion
-            $answer_sugg_get = ModelQuestionAnswer::hrm_get_answer_sugg($id); //query answer suggestion
-            return view('hrms/suggestion/question_answer/ModalUpdateQuestionAnswerSugg', ['question_sugg_view' => $question_sugg_view,'answer_sugg'=>$answer_sugg_get]);    
+                if(perms::check_perm_module('HRM_09080105')){ //module code list data tables id=135
+                $id= $_GET['id'];
+                $question_sugg_view = ModelQuestionAnswer::hrm_get_question_sugg($id); //query question suggestion
+                $answer_sugg_get = ModelQuestionAnswer::hrm_get_answer_sugg($id); //query answer suggestion
+                return view('hrms/suggestion/question_answer/ModalUpdateQuestionAnswerSugg', ['question_sugg_view' => $question_sugg_view,'answer_sugg'=>$answer_sugg_get]);    
             }else{
                 return view('no_perms');
             }
@@ -254,5 +254,19 @@ class QuestionAnswerController extends Controller
             $id= $_GET['id'];
             $result = ModelQuestionAnswer::hrm_result_suggestion($id); //query result suggestion
             return view('hrms/suggestion/question_answer/ModalResultSuggestion', ['result' => $result]);    
+    }
+    // function Update Status Question //
+    public function update_status_question_sugg()
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+            }
+        if(perms::check_perm_module('HRM_09080105')){ //module code list data tables id=135
+        $id = $_GET['id'];
+        $status = $_GET['statusType'];   
+        $question_type_sugg=ModelQuestionAnswer::hrm_checkbox_answer_sugg($status,$id);
+        }else{
+            return view('no_perms');
+        }
     }
 }
