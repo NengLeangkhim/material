@@ -48,7 +48,7 @@ class HrmStaffFollowUpController extends Controller
                 if(perms::check_perm_module('HRM_09070201')){//module code list data tables id=148
                     $id = $_GET['add'];
                     $action = 'create';
-                    $schedule_get= ModelHrmPerformSchedule::hrm_get_date_schedule_update($id); //query form model schedule
+                    $schedule_get= ModelHrmStaffFollowUp::hrm_get_follow_up_staff($id); //query form model schedule
                     return view('hrms/performance/performance_staff_follow_up/HrmModalActionStaffFollowUp', ['schedule_get' => $schedule_get,'action'=>$action]);
                     }else{
                         return view('no_perms');

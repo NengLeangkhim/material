@@ -14,10 +14,12 @@ class ModelHrmSuggestion extends Model
                            ->select('id','question','hr_suggestion_question_type_id')
                            ->where([
                                ['is_deleted','=','f'],
+                               ['status','=','t'],
                                ['hr_suggestion_question_type_id','=',1],
                            ])
                            ->orWhere([
                             ['is_deleted','=','f'],
+                            ['status','=','t'],
                             ['hr_suggestion_question_type_id','=',2],
                             ])
                             ->orderBy('id') 

@@ -63,6 +63,24 @@ class ModelHrmStaffFollowUp extends Model
     public static function hrm_insert_staff_follow_up($schedule_id,$percent,$reason,$challenge,$userid,$cmt,$from,$to){
         return DB::select('SELECT public.insert_hr_performance_follow_up(?,?,?,?,?,?,?,?)',array($schedule_id,$percent,$reason,$challenge,$userid,$cmt,$from,$to));
     } 
+    // ===== Function get follow up =====////
+    public static function hrm_get_follow_up_staff($id){
+        $follow_up_user = DB::table('hr_performance_schedule as ps')
+                        ->select('ps.*','ud.username','s.name as name_staff',
+                        'pd.name as pd_name','pd.hr_performance_plan_id','pd.id as pd_id','pd.task as pd_task','pd.date_from as pd_from','pd.date_to as pd_to',
+                        'p.name as plan_name','p.date_from as plan_from','p.date_to as plan_to','p.id as plan_id',
+                        'pf.percentage','pf.reason','pf.action_date_from','pf.action_date_to','pf.challenge','pf.comment as pf_cmt')
+                        ->join('ma_user as s','ps.ma_user_id','=','s.id')
+                        ->join('ma_user_detail as ud','ps.create_by','=','ud.ma_user_id')
+                        ->join('hr_performance_plan_detail as pd','ps.hr_performance_plan_detail_id','=','pd.id')
+                        ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')
+                        ->leftjoin('hr_performance_follow_up as pf','ps.id','=','pf.hr_performance_schedule_id')
+                        ->where('ps.id', '=', $id)
+                        ->orderBy('pf.id','DESC')
+                        ->take(1)
+                        ->get(); 
+                        return $follow_up_user;
+    }
      // ===== Function get data for edit follow up =====////
      public static function hrm_get_edit_follow_up_staff($id){
         $follow_up_user = DB::table('hr_performance_follow_up as pf')

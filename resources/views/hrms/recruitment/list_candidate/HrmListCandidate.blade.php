@@ -46,10 +46,10 @@
                                     {{'Waiting Result!!'}}
                                 @elseif($row->hr_approval_status=='reject')
                                     {{'Fail!!'}}
-                                @elseif($row->hr_approval_status=='reject')
-                                    {{'Not Yet Interview!!'}}
+                                {{-- @elseif($row->hr_approval_status=='null')
+                                    {{'Not Yet Interview!!'}} --}}
                                 @else 
-                                    {{'Not Yet Do Quiz!!'}}
+                                    {{'Not Yet Interview!!'}}
                                 @endif</td>
                                 
                                 <td class="text-center">

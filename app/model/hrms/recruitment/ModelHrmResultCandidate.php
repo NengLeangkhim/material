@@ -84,13 +84,13 @@ class ModelHrmResultCandidate extends Model
         left join ma_position p on u.ma_position_id=p.id where u.id=$id");
     }
     // ===== Function model get data for calculate time=====////
-    public static function get_candidate_score($id){
+    public static function get_candidate_score($date,$id){
         return DB::select("SELECT COUNT(ua.hr_recruitment_question_choice_id
-),ua.hr_recruitment_candidate_id,q.hr_recruitment_question_type_id,an.is_right_choice from hr_recruitment_candidate_answer ua
-        left join hr_recruitment_question q on ua.hr_recruitment_question_id=q.id 
-        left join hr_recruitment_question_choice an on ua.hr_recruitment_question_choice_id
-=an.id where ua.hr_recruitment_candidate_id=$id and q.hr_recruitment_question_type_id=1
-        group by an.is_right_choice,ua.hr_recruitment_candidate_id,q.hr_recruitment_question_type_id");
+    ),ua.hr_recruitment_candidate_id,q.hr_recruitment_question_type_id,an.is_right_choice,ua.start_time from hr_recruitment_candidate_answer ua
+            left join hr_recruitment_question q on ua.hr_recruitment_question_id=q.id 
+            left join hr_recruitment_question_choice an on ua.hr_recruitment_question_choice_id
+    =an.id where ua.start_time='$date' and ua.hr_recruitment_candidate_id=$id and q.hr_recruitment_question_type_id=1
+        group by an.is_right_choice,ua.hr_recruitment_candidate_id,q.hr_recruitment_question_type_id,ua.start_time");
     }
     // ===== Function Count True Answer =======//
     public static function get_candidate_time($id){
@@ -98,12 +98,12 @@ class ModelHrmResultCandidate extends Model
         left join hr_recruitment_candidate_answer ua on u.id=ua.hr_recruitment_candidate_id where u.id=? limit 1",[$id]);
     }
     // ===== Function model get data Question Choice=====////
-    public static function get_result_choice($id){
+    public static function get_result_choice($date,$id){
         return DB::select("SELECT ua.hr_recruitment_question_choice_id
 ,ua.hr_recruitment_question_id,ua.is_right,ua.hr_recruitment_candidate_id,q.question,q.id as hr_recruitment_question_id,q.hr_recruitment_question_type_id,an.id,an.choice,an.is_right_choice from hr_recruitment_candidate_answer ua
         left join hr_recruitment_question q on ua.hr_recruitment_question_id=q.id 
-        left join hr_recruitment_question_choice an on ua.hr_recruitment_question_choice_id
-=an.id where ua.hr_recruitment_candidate_id=? and q.hr_recruitment_question_type_id=?",[$id,1]);
+        left join hr_recruitment_question_choice an on ua.hr_recruitment_question_choice_id =an.id 
+        where ua.start_time=? and ua.hr_recruitment_candidate_id=? and q.hr_recruitment_question_type_id=?",[$date,$id,1]);
     }
     // ===== Function model get data Right Choice=====////
     public static function get_true_choice(){
@@ -173,6 +173,10 @@ class ModelHrmResultCandidate extends Model
      // ===== Function model Submit Approval =====////
      public static function hrm_submit_approval($candidate_id,$appr_type,$comment,$userid){
         return DB::select('SELECT public.insert_hr_recruitment_candidate_detail(?,?,?,?)',array($candidate_id,$appr_type,$comment,$userid));
+    }
+    // ===== Function model move candidate to staff =====////
+    public static function hrm_move_candidate($name,$email,$position_id,$name_kh,$userid){
+        return DB::select("SELECT public.insert_ma_user('$name','$email','', '',$position_id,Null,Null,Null,$userid,'',Null,'$name_kh','','',Null)");
     }
 
 

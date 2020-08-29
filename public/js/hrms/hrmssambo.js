@@ -326,6 +326,54 @@ $(document).on('click', '.update_q_sugg', function(){
   });
  });
 //======= END Funtion get value from database to show on modal update =======//
+
+//======= Function checkbox update status
+$(document).on('click', '.checkbox_sugg_q_a', function(){
+  var checked = $(this).is(":checked");                 
+                    if(checked)
+                    {
+                      var id = $(this).val();
+                      var statusType = 't';
+                      $.ajax({
+                      url:"hrm_question_answer_sugg/checkbox",
+                      headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                      },
+                      type:'GET',
+                      data:{
+                        id:id,
+                        statusType:statusType
+                      },
+                      success:function(data)
+                      {
+                        setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 100);// Set timeout for refresh content
+                        sweetalert('success','The Question has been Update Status Successfully !!');  
+                      }
+                     });
+                    }
+                    if(!checked)
+                    {
+                      var id = $(this).val();
+                      var statusType = 'f';
+                      $.ajax({
+                      url:"hrm_question_answer_sugg/checkbox",
+                      headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                      },
+                      type:'GET',
+                      data:{
+                        id:id,
+                        statusType:statusType
+                      },
+                      success:function(data)
+                      {
+                        setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 100);// Set timeout for refresh content
+                        sweetalert('warning','The Question has been Update Status Successfully !!');  
+                      }
+                    });
+                    }
+
+});
 ////========== END Question Suggestion============//// 
 ////========== Answer Suggestion============////
 ///Get modal show for add answer //

@@ -55,7 +55,8 @@
 <script src="plugins/DateStyle/analytics.js"></script>
 <script src="plugins/DateStyle/moment-with-locales.js"></script>
 <script src="plugins/DateStyle/bootstrap-datetimepicker.js"></script>
-
+{{--Full Calendar--}}
+<script src="fullcalendar-5.3.0/lib/main.min.js"></script>
 <script>
   $(function () {
     $("#example1").DataTable({
@@ -87,7 +88,6 @@
 
 <!-- HRMS -->
 <script src="js/hrms/hrms.js"></script>
-
 <script src="stJS/hrms/shift_promote_js/shift_promote.js"></script>
 <script src="js/hrms/hrmssambo.js"></script>
 <script src="js/hrms/hrms.js"></script>

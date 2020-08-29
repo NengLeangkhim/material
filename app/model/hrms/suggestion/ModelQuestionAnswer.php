@@ -94,5 +94,9 @@ class ModelQuestionAnswer extends Model
          left join hr_suggestion_question q on s.hr_suggestion_question_id = q.id
          where s.hr_suggestion_question_id=? order by s.create_date DESC', [$id]);
       }
+      //Update Status By Checkbox
+      public static function hrm_checkbox_answer_sugg($status,$id){
+         return DB::select('UPDATE hr_suggestion_question SET  status=? WHERE id =?',["$status",$id]);
+      }
 }
 
