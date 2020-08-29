@@ -51,31 +51,38 @@ class recruitment_userController extends Controller
                 $cv = basename($_FILES['uploadcv']['name']);
                 $cover = basename($_FILES['uploadcover']['name']);
                 $targetFilePath = $targetDir;
+                $allowed =  array('pdf');
+                $cv_ = pathinfo($cv, PATHINFO_EXTENSION);
+                $cover_ = pathinfo($cover, PATHINFO_EXTENSION);
+                if(in_array($cv_, $allowed) && in_array($cover_, $allowed)) {
 
-                if(move_uploaded_file($tmp, $targetFilePath.$cv)){
-                    if(move_uploaded_file($tmp2, $targetFilePath.$cover)){
-                        try{
-                            
-                            $r = recruitment_userModel::tbl_hrUser($email);
-                            if($r > 0){ // this true when user input the email that already taken
-                                $em_error = 1;
-                                return view('hrms/recruitment_user/index_recruitment_register', compact('em_error'));
+                    if(move_uploaded_file($tmp, $targetFilePath.$cv)){
+                        if(move_uploaded_file($tmp2, $targetFilePath.$cover)){
+                            try{
+                                
+                                $r = recruitment_userModel::tbl_hrUser($email);
+                                if($r > 0){ // this true when user input the email that already taken
+                                    $em_error = 1;
+                                    return view('hrms/recruitment_user/index_recruitment_register', compact('em_error'));
+                                }
+                                else {
+                                    $success = 1;
+                                    recruitment_userModel::insert_user_info($f_name, $l_name, $kh_name, $cv, $email, $p, $pos, $cover);
+                                    return view('hrms/recruitment_user/index_recruitment_register', compact('success'));
+                                }
                             }
-                            else {
-                                $success = 1;
-                                recruitment_userModel::insert_user_info($f_name, $l_name, $kh_name, $cv, $email, $p, $pos, $cover);
-                                return view('hrms/recruitment_user/index_recruitment_register', compact('success'));
+                            catch(PDOException $e){
+                                echo "Insert error ".$e->getMessage();
+                                exit;
                             }
-
-
+    
                         }
-                        catch(PDOException $e){
-                            echo "Insert error ".$e->getMessage();
-                            exit;
-                        }
-
-                    }
+                    }          
+                }else{            
+                    $upload_file = 1;
+                    return view('hrms/recruitment_user/index_recruitment_register', compact('upload_file'));
                 }
+            
 
         }
 
