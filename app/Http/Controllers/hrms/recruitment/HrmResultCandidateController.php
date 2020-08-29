@@ -43,6 +43,7 @@ class HrmResultCandidateController extends Controller
             } 
         if(perms::check_perm_module('HRM_090902')){//module code list data tables id=107
             $id_candidate = $_GET['id'];
+            $date = $_GET['date'];
             $userid = $_SESSION['userid'];
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
             foreach($permission as $row){
@@ -51,18 +52,18 @@ class HrmResultCandidateController extends Controller
             }
             if($group==5 || $group==1){ //permission check for CEO and Admin
                 $candidate = ModelHrmResultCandidate::get_candidate($id_candidate); //query Get data Candidate
-                $score = ModelHrmResultCandidate::get_candidate_score($id_candidate);// Query Count true answer
+                $score = ModelHrmResultCandidate::get_candidate_score($date,$id_candidate);// Query Count true answer
                 $time =  ModelHrmResultCandidate::get_candidate_time($id_candidate);// Query Count time candidate did quiz
-                $choice = ModelHrmResultCandidate::get_result_choice($id_candidate);// Query Answer choice
+                $choice = ModelHrmResultCandidate::get_result_choice($date,$id_candidate);// Query Answer choice
                 $true_choice = ModelHrmResultCandidate::get_true_choice();// Query true choice for compare with Answer choice
                 $answer_text = ModelHrmResultCandidate::get_answer_text($id_candidate);//Query answer text
                 $comment = ModelHrmResultCandidate::get_comment_approval($id_candidate);//Query comment of approval
                 return view('hrms/recruitment/result_candidate/HrmActionResultCandidateCeo',['permission'=>$permission,'candidate'=>$candidate,'score'=>$score,'time'=>$time,'choice'=>$choice,'true_choice'=>$true_choice,'answer_text'=>$answer_text,'comment'=>$comment]); 
             }else if($group==4){//permission each departement
                 $candidate = ModelHrmResultCandidate::get_candidate($id_candidate); //query Get data Candidate
-                $score = ModelHrmResultCandidate::get_candidate_score($id_candidate);// Query Count true answer
+                $score = ModelHrmResultCandidate::get_candidate_score($date,$id_candidate);// Query Count true answer
                 $time =  ModelHrmResultCandidate::get_candidate_time($id_candidate);// Query Count time candidate did quiz
-                $choice = ModelHrmResultCandidate::get_result_choice($id_candidate);// Query Answer choice
+                $choice = ModelHrmResultCandidate::get_result_choice($date,$id_candidate);// Query Answer choice
                 $true_choice = ModelHrmResultCandidate::get_true_choice();// Query true choice for compare with Answer choice
                 $answer_text = ModelHrmResultCandidate::get_answer_text($id_candidate);//Query answer text
                 $comment = ModelHrmResultCandidate::get_comment_approval($id_candidate);//Query comment of approval
@@ -105,6 +106,7 @@ class HrmResultCandidateController extends Controller
             return view('no_perms');
         }
     } 
+    /// Function Submit approval
     public function HrmSubmitApproval(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
