@@ -58,7 +58,6 @@ foreach($permission as $row){
                                                 <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_view_perform_staff_follow_up">View</button>           
                                                 @if ($row->ma_user_id == $id_user || $level==5 || $level==1) {{-- can add follow up only by ur schedule --}}
                                                     <button type="button" id="{{$row->id}}" onclick="go_to('/hrm_performance_follow_up/modal/action?edit={{$row->id}}')" class="dropdown-item hrm_item hrm_update_perform_staff_follow_up">Update</button>
-                                                    <button type="button" id="{{$row->id}}" onclick="go_to('/hrm_performance_follow_up/modal/action?add={{$row->hr_performance_schedule_id}}')" class="dropdown-item hrm_item hrm_perform_follow_up">Follow Up</button>
                                                 @endif 
                                                 @if ($level==4 || $level==5 || $level==1){{-- check permission manager --}}
                                                   @if (is_null($row->delete)){{-- check can follow up one time only --}}

@@ -23,7 +23,6 @@ function Edit_Promote_Staff(id=-1,pos_id){
     x.open("GET", url + "?" + v + "&" + j, true);
     x.send();
 
-
 }
 // End promote
 

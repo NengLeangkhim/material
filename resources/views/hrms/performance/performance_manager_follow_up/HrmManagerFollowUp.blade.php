@@ -11,7 +11,7 @@ foreach($permission as $row){
          <div class="col-md-12">
              <div class="card">
                <div class="card-header">
-                 <h1 class="card-title hrm-title"><strong><i class="far fa-clipboard"></i> Performance Staff Follow Up</strong></h1>
+                 <h1 class="card-title hrm-title"><strong><i class="far fa-clipboard"></i> Performance Manager Follow Up</strong></h1>
                  <div class="col-md-12 text-right">
     
                  </div>

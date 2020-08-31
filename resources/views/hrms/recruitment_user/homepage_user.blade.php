@@ -1,5 +1,58 @@
 
 
+<?php
+  use Illuminate\Support\Facades\DB;
+  $r = DB::select("select name, email from ma_user where status='t'");
+  // convert number to khmer number
+  Function conv_kh($str)
+    {
+        $s=array();
+        $st="";
+        for($i=0;$i<strlen($str); $i++){
+            $s[]=substr($str,$i,1);
+        }
+        foreach($s as $ss){
+            switch($ss){
+                case 1:
+                    $st.='១';
+                    break;
+                case 2:
+                    $st.='២';
+                    break;
+                case 3:
+                    $st.='៣';
+                    break;
+                case 4:
+                    $st.='៤';
+                    break;
+                case 5:
+                    $st.='៥';
+                    break;
+                case 6:
+                    $st.='៦';
+                    break;
+                case 7:
+                    $st.='៧';
+                    break;
+                case 8:
+                    $st.='៨';
+                    break;
+                case 9:
+                    $st.='៩';
+                    break;
+                case 0:
+                    $st.='០';
+                    break;
+            }
+        }
+        return $st;
+    }
+
+  $num = conv_kh(count($r));
+  
+
+?>
+
 
 
 <div class="row" style="padding: 15px 10px 10px 10px">
@@ -15,7 +68,7 @@
                   <img class=" d-block w-100" src="images/interview2.png" alt="Second slide">
                 </div>
                 <div class="carousel-item">
-                  <img class="d-block w-100" src="images/network_h1_sp.jpg" alt="Third slide">
+                  <img class="d-block w-100" src="images/networking-760x227.jpg" alt="Third slide">
                 </div>
               </div>
               <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -40,7 +93,7 @@
                   <div style="font-family: Khmer OS Battambang; font-size: 12px;">
                       <div style="margin-left: 10px;">
                       ជាបឋមខ្ញុំសូមឆ្លៀតយកឱកាសនេះស្វាគមន៍អ្នកទាំងអស់គ្នាមកកាន់ក្រុមហ៊ុនធើបូថេកដែលជាក្រុមហ៊ុនផ្តល់នូវសេវាកម្មអុីនធើណេតឈានមុខគេនៅកម្ពុជានិងជាក្រុមហ៊ុនផ្ដល់ដំណោះស្រាយអាជីវកម្មនៅកម្ពុជា។ 
-                      សព្វថ្ងៃធើបូថេកមានបុគ្គលិកដែលមានទេពកោសល្យនិងលះបង់ចំនួន 65 នាក់។ នៅពេលដែលក្រុមហ៊ុនធើបូថេកមានផែនការរីកចម្រើនបុគ្គលិកថ្មីមានតម្រូវការជារៀងរាល់ឆ្នាំ។ សមាជិកបុគ្គលិកថ្មីទាំងនោះ 
+                      សព្វថ្ងៃធើបូថេកមានបុគ្គលិកដែលមានទេពកោសល្យចំនួន <?php echo $num;?> នាក់។ សមាជិកបុគ្គលិកថ្មីទាំងនោះ 
                       ១/៣ នៃពួកគេគឺជានិស្សិតបញ្ចប់ការសិក្សាថ្មីៗ (BA &amp; BBA)។ ។<br>
                       </div>
 
@@ -61,6 +114,6 @@
 <script type="text/javascript">
     $('.carousel').carousel()
     $('.carousel').carousel({
-        interval: 1000
+        interval: 100
     })
 </script>

@@ -410,6 +410,9 @@ Route::get('hrm_question_answer_sugg/deletedetail','hrms\suggestion\QuestionAnsw
 
 // Route View Result submit suggestion //
 Route::get('hrm_question_answer_sugg/modal/result','hrms\suggestion\QuestionAnswerController@hrm_view_result_suggestion');
+
+// Route Update Status Checkbox //
+Route::get('hrm_question_answer_sugg/checkbox','hrms\suggestion\QuestionAnswerController@update_status_question_sugg');
 //////========END QUESTION & Answer==========/////
 
 //////======== SUGGESTION BOX =============///////
@@ -523,6 +526,8 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     /// modal view detail performance schedule
     Route::get('hrm_performance_staff_schedule/modal','hrms\performance\HrmPerformScheduleController@HrmViewPerformSchedule');
 
+    /// calendar show schedule
+    Route::get('hrm_performance_staff_schedule/calendar','hrms\performance\HrmPerformScheduleController@HrmCalendarPerformSchedule');
 ///////Performance Staff Follow Up
 
     /// index performance Staff Follow Up

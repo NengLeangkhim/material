@@ -13,7 +13,6 @@
 // function onclick user start quiz
 
 function go_to(route){
-
     $.ajax({
         type: 'GET',
         url:route,
@@ -32,6 +31,45 @@ function go_to(route){
 
 
 
+// function show form in modal id
+function modal_action(){
+    var url = 'hrm_recruitment_user_profile';
+    var x=new XMLHttpRequest();
+    x.onreadystatechange=function(){
+        if(this.readyState==4 && this.status==200){
+            document.getElementById('modal').innerHTML=this.responseText;
+            $('#user_profile').modal('show');
+        }
+    }
+    x.open("GET", url, true);
+    x.send();
+
+}
+
+
+
+
+// function for alert by sweetalert2
+function show_alert(){
+  Swal.fire({
+    title: '<strong>Your Profile</strong>',
+    // icon: 'info',
+    html:
+      'You can use <b>bold text</b>, ' +
+      '<a href="//sweetalert2.github.io">links</a> ' +
+      'and other HTML tags',
+    showCloseButton: true,
+    showCancelButton: true,
+    focusConfirm: false,
+    confirmButtonText:
+      '<i class="fa fa-thumbs-up"></i> Great!',
+    confirmButtonAriaLabel: 'Thumbs up, great!',
+    cancelButtonText:
+      '<i class="fa fa-thumbs-down"></i>',
+    cancelButtonAriaLabel: 'Thumbs down'
+  })
+
+}
 
 
 

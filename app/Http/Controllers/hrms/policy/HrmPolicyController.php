@@ -32,19 +32,19 @@ class HrmPolicyController extends Controller
             }
             $validator = \Validator::make($request->all(), [
                 'policy_name' =>  [  'required',
-                                            'max:255',
-                                        ],
-                'policy_file' => [ 'required','mimes:pdf','file',
-                                    Rule::unique('hr_policy','file_path')
+                                     'max:255',
+                                     Rule::unique('hr_policy','name')
                                     ->where(function ($query) use ($request) {
                                     return $query->where('is_deleted', 'f');})
+                                        ],
+                'policy_file' => [ 'required','mimes:pdf',
                                         ],
             ],
             [
                 'policy_name.required' => 'The Policy Name is Required !!',   //massage validator
+                'policy_name.unique' => 'The Policy Name is Already Exist !!',   //massage validator
                 'policy_file.required' => 'Please Select File !!',
                 'policy_file.mimes' => 'Please Select Pdf File Only !!',
-                'policy_file.unique' => 'The file name is aready exist so please rename file name'
                 ]
             );
         if ($validator->fails()) //check validator for fail
@@ -56,11 +56,12 @@ class HrmPolicyController extends Controller
             if(perms::check_perm_module('HRM_09060101')){//module code list data tables id=136
             $userid= $_SESSION['userid'];
             $policy_name = $request->policy_name;
+            $rename_file = $policy_name.'.pdf';// rename file as policy name
             $file = $request->file('policy_file');// GET File
             $filepdf = $file->getClientOriginalName(); // GET File name
             $destinationPath = public_path('/media/hrms/file/'); //path for move
-            $filemove = $file->move($destinationPath, $filepdf); // move file to directory
-            $insert_policy = ModelHrmPolicy::hrm_insert_policy($policy_name,$userid,$filepdf); //insert data
+            $filemove = $file->move($destinationPath, $rename_file); // move file to directory
+            $insert_policy = ModelHrmPolicy::hrm_insert_policy($policy_name,$userid,$rename_file); //insert data
             return response()->json(['success'=>'Record is successfully added']);
             }else{
                 return view('no_perms');
@@ -88,16 +89,17 @@ class HrmPolicyController extends Controller
         }
         $validator = \Validator::make($request->all(), [
             'policy_name' =>  [  'required',
-                                        'max:255',
+                                    'max:255',
+                                    Rule::unique('hr_policy','name')->ignore($request->policy_id)
+                                    ->where(function ($query) use ($request) {
+                                    return $query->where('is_deleted', 'f');})
                                     ],
             'policy_file' => [ 'mimes:pdf',
-                                Rule::unique('hr_policy','file_path')->ignore($request->policy_id)
-                                ->where(function ($query) use ($request) {
-                                return $query->where('is_deleted', 'f');})
                                     ],
         ],
         [
             'policy_name.required' => 'The Policy Name is Required !!',   //massage validator
+            'policy_name.unique' => 'The Policy Name is Already Exist !!',   //massage validator
             'policy_file.mimes' => 'Please Select Pdf File Only !!',
             'policy_file.unique' => 'The file name is aready exist so please rename file name'
             ]
@@ -111,17 +113,18 @@ class HrmPolicyController extends Controller
             if(perms::check_perm_module('HRM_09060102')){//module code list data tables id=137
                 if($request->file('policy_file') !=''){
                     $file = $request->file('policy_file');// GET File
+                    $rename_file = $policy_name.'.pdf';// rename file as policy name
                     $filepdf = $file->getClientOriginalName(); // GET File name
                     $destinationPath = public_path('/media/hrms/file/'); //path for move
-                    $filemove = $file->move($destinationPath, $filepdf); // move file to directory
+                    $filemove = $file->move($destinationPath, $rename_file); // move file to directory
                 }else{
-                   $filepdf = $request->hidden_pdf;
+                    $rename_file = $request->hidden_pdf;
                 }
                 $userid= $_SESSION['userid'];
                 $policy_name = $request->policy_name;
                 $id_policy = $request->policy_id;
                 $status= 't';
-                $update_policy = ModelHrmPolicy::hrm_update_policy($id_policy,$userid,$policy_name,$filepdf,$status); //insert data
+                $update_policy = ModelHrmPolicy::hrm_update_policy($id_policy,$userid,$policy_name,$rename_file,$status); //insert data
                 return response()->json(['success'=>'Record is successfully Update']);
                 }else{
                     return view('no_perms');

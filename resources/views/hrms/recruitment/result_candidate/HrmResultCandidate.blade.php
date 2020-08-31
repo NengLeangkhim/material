@@ -45,7 +45,7 @@
                                     @endif</td>
                                 
                                 <td class="text-center">
-                                    <button type="button" id="{{$row->id}}" onclick="go_to('/hrm_list_result_condidate/action?id={{$row->id}}')" class="btn btn-info hrm_view_candidate_result">Action</button> 
+                                    <button type="button" id="{{$row->id}}" onclick="go_to('/hrm_list_result_condidate/action?id={{$row->id}}&date={{$row->start_time}}')" class="btn btn-info hrm_view_candidate_result">Action</button> 
                                 </td>
                             </tr>
                             @endforeach

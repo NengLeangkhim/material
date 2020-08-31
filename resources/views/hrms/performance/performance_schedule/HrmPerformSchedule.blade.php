@@ -4,6 +4,22 @@ foreach($permission as $row){
   $id_user = $row->id;  
 }
 @endphp
+<style>
+    .fc-prev-button:hover,.fc-next-button:hover,.fc-today-button:hover,.fc-month-button:hover,.fc-agendaWeek-button:hover,.fc-agendaDay-button:hover,.fc-listWeek-button:hover{
+    background-color: #1fa8e0;
+    background-image: none;
+    }
+    .fc-day-header{
+        background-color:#d42931;
+    }
+    .fc td{
+        background-color:#e6ffff;
+    }
+    .fc-content{
+        background-color: #1fa8e0;
+    }
+
+</style>
  <!-- page content -->
  <section class="content">
     <div style="padding:10px 10px 10px 10px">
@@ -20,7 +36,10 @@ foreach($permission as $row){
                </div>
                <!-- /.card-header -->
                <div class="card-body">
-                    <div class="table-responsive">
+                    <div id='hrm_calendar_schedule'>
+
+                    </div>
+                    <div class="table-responsive" style="margin-top: 15px">
                         <table class="table table-bordered" id="tbl_schedule_staff">
                             <thead>                  
                               <tr>
@@ -80,13 +99,40 @@ foreach($permission as $row){
     <div id="modal_for_view_schedule"></div>
     <!-- /page content -->
     <script type='text/javascript'>
-      $(document).ready(
-          function(){
-             // getTable('productlist','id');
-              $('#tbl_schedule_staff').DataTable();
-          }
-      );
+      $(document).ready(function(){
+        $('#tbl_schedule_staff').DataTable();
+        //function get full calendar
+        $('#hrm_calendar_schedule').fullCalendar({
+                header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listWeek'
+            },
+            defaultDate: moment().format("YYYY-MM-DD"),
+            navLinks: true,
+            eventLimit: true,
+            themeSystem: 'bootstrap',
+            hour12:false,
+            color:'red',
+            events: 'hrm_performance_staff_schedule/calendar',// get json data from controller
+            eventClick: function(events) {
+                var id = events.id;
+                $.ajax({
+                url:"hrm_performance_staff_schedule/modal",   //Request send to "action.php page"
+                type:"GET",    //Using of Post method for send data
+                data:{id:id},//Send data to server
+                success:function(data){
+                    $('#modal_for_view_schedule').html(data);
+                    $('#hrm_view_perform_schedule_modal').modal('show');   //It will display modal on webpage   
+                }
+                });
+            },  
+            selectable:true,
+            selectHelper:true,
+        });
+      });
     </script>
+    
  <!-- modal -->
  <form id="hrm_perform_schedule_form">
      <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">

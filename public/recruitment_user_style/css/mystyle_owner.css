@@ -1193,11 +1193,11 @@ div.uploadcv div.uploadcover , input[type="file"] {
     /* transition-delay:   */
   }
   
-  /* label {
+  .label-radio {
     cursor: pointer;
     display: block;
     flex: 1;
-  } */
+  }
   
   .input-group {
     display: block;

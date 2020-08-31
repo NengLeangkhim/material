@@ -62,9 +62,9 @@
                         <input class="form-control " name="password" type="password" placeholder="Password:" required>
                         <i class="fa fa-lg fa-fw fa-key"></i>
                     </div>
-                     <div class="text-danger">
-                    
-                </div>
+                    <div class="text-danger">
+                        
+                    </div>
                 </div>
 
                 <div class="form-group btn-container" style="width: 100%;">
