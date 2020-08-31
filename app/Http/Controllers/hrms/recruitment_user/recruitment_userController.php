@@ -33,10 +33,9 @@ class recruitment_userController extends Controller
 
     // function candidate register data
     public function register_candidate(){
-
         if(isset($_POST['btnSubmit']) && isset($_POST['emailaddress']) && isset($_POST['password']) ){
 
-                //declear variable
+                //declear variable 
                 $kh_name =  $_POST['khname'];
                 $f_name=    $_POST['firstname'];
                 $l_name=    $_POST['lastname'];
@@ -44,46 +43,47 @@ class recruitment_userController extends Controller
                 $pass=      $_POST['password'];
                 $p = recruitment_userController::en($pass);
                 $pos=       $_POST['position'];
+                $subdir = $email;
 
-                $targetDir = "file_storage_test/";
+                //part create & upload file
+                $targetDir = "media/file_candidate_recruitment/".$subdir;
                 $tmp= $_FILES['uploadcv']['tmp_name'];
                 $tmp2= $_FILES['uploadcover']['tmp_name'];
                 $cv = basename($_FILES['uploadcv']['name']);
                 $cover = basename($_FILES['uploadcover']['name']);
-                $targetFilePath = $targetDir;
                 $allowed =  array('pdf');
                 $cv_ = pathinfo($cv, PATHINFO_EXTENSION);
                 $cover_ = pathinfo($cover, PATHINFO_EXTENSION);
-                if(in_array($cv_, $allowed) && in_array($cover_, $allowed)) {
 
-                    if(move_uploaded_file($tmp, $targetFilePath.$cv)){
-                        if(move_uploaded_file($tmp2, $targetFilePath.$cover)){
-                            try{
-                                
-                                $r = recruitment_userModel::tbl_hrUser($email);
-                                if($r > 0){ // this true when user input the email that already taken
-                                    $em_error = 1;
-                                    return view('hrms/recruitment_user/index_recruitment_register', compact('em_error'));
-                                }
-                                else {
-                                    $success = 1;
-                                    recruitment_userModel::insert_user_info($f_name, $l_name, $kh_name, $cv, $email, $p, $pos, $cover);
-                                    return view('hrms/recruitment_user/index_recruitment_register', compact('success'));
-                                }
-                            }
-                            catch(PDOException $e){
-                                echo "Insert error ".$e->getMessage();
-                                exit;
-                            }
-    
-                        }
-                    }          
-                }else{            
-                    $upload_file = 1;
-                    return view('hrms/recruitment_user/index_recruitment_register', compact('upload_file'));
+                $r = recruitment_userModel::tbl_hrUser($email);
+                if($r > 0){ // this true when user input the email that already taken
+                    $em_error = 1;
+                    return view('hrms/recruitment_user/index_recruitment_register', compact('em_error'));
                 }
-            
+                else {
+                    $file_size = 5 * 1024 * 1024;
+                    if($_FILES['uploadcv']['size'] > $file_size || $_FILES['uploadcover']['size'] > $file_size) { // check file size if biggest that 5 MB
+                        $error = 'File size too big. Please select file smaller than 5MB';
+                        return view('hrms/recruitment_user/index_recruitment_register', compact('error'));
+  
+                    }else{
+                        
+                        if(in_array($cv_, $allowed) && in_array($cover_, $allowed)) {  // check file is PDF file
+                            mkdir($targetDir, 0777, true);
+                            if(move_uploaded_file($tmp, $targetDir.'/'.$cv)){
+                                if(move_uploaded_file($tmp2, $targetDir.'/'.$cover)){
+                                    $success = 'Create acccount successfully !';
+                                    recruitment_userModel::insert_user_info($f_name, $l_name, $kh_name, $cv, $email, $p, $pos, $cover);
+                                    return view('hrms/recruitment_user/index_recruitment_register', compact('success'));                
+                                }
+                            }    
 
+                        }else{            
+                            $error = 'Please select the PDF file only !';
+                            return view('hrms/recruitment_user/index_recruitment_register', compact('error'));
+                        }
+                    }
+                }
         }
 
     }
@@ -96,14 +96,24 @@ class recruitment_userController extends Controller
 
 
     // function to get question for candidate quiz
-    public function get_user_question(){
+    public function get_user_question(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+
         $id = $_SESSION['user_id'][0]->id;
-        $user_question = recruitment_userModel::select_user_question($id);
-        return view('hrms/recruitment_user/frm_quiz', compact('user_question'));
-        
+            $r = recruitment_userModel::check_user_doQuiz($id);
+            if(count($r) > 0){
+                $error = "user_expire";
+                return $error;
+                // return response()->json(['error'=>'This user already used']);
+                // return response()->json(array('error'=>$error));
+            }else{
+                // get question for user
+                $user_question = recruitment_userModel::select_user_question($id);
+                return view('hrms/recruitment_user/frm_quiz', compact('user_question'));
+            }
+            
     }
     // end
 
@@ -157,7 +167,6 @@ class recruitment_userController extends Controller
                 
                 // foreach insert question writing
                 if(is_array($txtarea)){
-
                         foreach($txtarea as $key=> $val){
                             // $answer_text = $val;
                             // $question_id = $key;
