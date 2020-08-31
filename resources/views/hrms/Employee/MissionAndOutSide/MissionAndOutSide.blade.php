@@ -42,7 +42,7 @@
                         <td>
                           <div class="row">
                             <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_modal_add_edit_missionoutside','modal_missionoutside',{{$item->id}})"><i class="far fa-edit"></i></a></div>
-                            <div class="col-md-4"><a href="javascrip:;"><i class="fas fa-info"></i></a></div>
+                            {{-- <div class="col-md-4"><a href="javascrip:;"><i class="fas fa-info"></i></a></div> --}}
                             <div class="col-md-4"><a href="javascrip:;" onclick="hrm_delete({{$item->id}},'hrm_delete_missionoutside','hrm_mission_outside','Delete Successfully !')"><i class="far fa-trash-alt"></i></a></div>
                           </div>
                         </td>

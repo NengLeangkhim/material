@@ -60,7 +60,7 @@ class MissionAndOutsideController extends Controller
             if($id>0){
                 // $stm=$ms->UpdateMissionOutside($location,$f_date,$t_date,$description,$type,$shift,$emid,$id);
             }else{
-                $stm=$ms->InsertMissionOutSide($f_date,$t_date,$date,$description,$userid,$type,$userid,$shift,$street,$home_number,$latelong,$gazetteers_code,$emid);
+                $stm=$ms->InsertMissionOutSide($f_date,$t_date,$description,$type,$userid,$shift,$street,$home_number,$latelong,$gazetteers_code,$emid);
             }
 
             echo $stm;
