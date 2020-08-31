@@ -36,7 +36,7 @@ class recruitment_userModel extends Model
 
 
 
-    // function to get user question test by position of user 
+    // function to get user question quiz by position of user 
 
     public static  function select_user_question($id)
     {
@@ -203,6 +203,13 @@ class recruitment_userModel extends Model
 
     }
 
+
+
+    // function to check if user already do quiz
+    public static function check_user_doQuiz($id){
+        $r = DB::select("SELECT * FROM hr_recruitment_candidate_answer WHERE hr_recruitment_candidate_id = $id");
+        return $r;
+    }
 
 
 

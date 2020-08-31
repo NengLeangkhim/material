@@ -144,9 +144,9 @@ function autoSubmit() {
 
 
   // function user click start quiz & auto submit answer
-  var xxx = 1;
+  var num_click = 1;
   function user_start_quiz(route){
-    
+
     var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     var today = new Date();
     var dd = today.getDate();
@@ -155,26 +155,31 @@ function autoSubmit() {
     var n = today.toLocaleString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     var myTime = dd + '-' + mm +'-'+ yyyy + '/' + n; 
 
-    if(xxx == 1){
-
+    if(num_click == 1){
       autoSubmit();
       $.ajax({
           type: 'GET',
           url:route,
           success:function(data){
-
-              $(".content-wrapper").show();
-              $(".content-wrapper").html(data);
-              document.getElementById("starttime_quiz").innerHTML = myTime;
- 
+            
+              if(data == 'user_expire'){
+                Swal.fire('This user already take quiz !');
+              }else{
+                
+                $(".content-wrapper").show();
+                $(".content-wrapper").html(data);
+                document.getElementById("starttime_quiz").innerHTML = myTime;
+              }
+              
           },
           error:function(){
-            Swal.fire('មិនមានការរៀបចំសំនួរ សម្រាប់មុខដំណែងការងារនេះ !')
-            // $(".content-wrapper").html(jerror());
-            
-          }
-      });
+            Swal.fire('មិនទាន់មានសំនួរ សម្រាប់មុខដំណែងការងារនេះ !')  
+          },
 
+          
+          
+
+      });
           var d = new Date();
                 // var f = new Date(d.getTime());
                 d.setMinutes(d.getMinutes() + 60);
@@ -200,7 +205,7 @@ function autoSubmit() {
                         document.getElementById("countdown").innerHTML = "EXPIRED";
                     }
             }, 1000); 
-        xxx += 1;
+        num_click += 1;
     }
       
 

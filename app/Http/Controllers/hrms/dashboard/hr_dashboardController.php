@@ -192,7 +192,6 @@ class hr_dashboardController extends Controller
     }
 
 
-
     // check attendance staff by today
     public static function check_in_morning(){
 
@@ -216,21 +215,42 @@ class hr_dashboardController extends Controller
 
 
         // check staff late in the morning
+
+        // select all staff late around 8am-12am
         $f_m = date('Y-m-d 08:01:00');
         $l_m = date('Y-m-d 12:00:00');
+        $arr[] = '';
         foreach($all_em as $key=>$val){
             $id = self::ConvertIdToNumber($val->id_number);
-            $morning_check = hr_dashboardModel::staff_attendance($f_m, $l_m, $id);
-            if(count($morning_check) > 0){
+            $late_check = hr_dashboardModel::staff_attendance($f_m, $l_m, $id);
+            if(count($late_check) > 0){
+                $arr[$late] = $late_check;
                 $late++;
             }
+            
         }
+
+
+        //select staff who check-in 2 times in the morning
+        $f_m1 = date('Y-m-d 00:00:00');
+        $l_m1 = date('Y-m-d 08:00:59');
+        foreach($arr as $key1=>$val1){
+            foreach($val1 as $val2){
+                $id = $val2->deviceID;
+                $early_check = hr_dashboardModel::staff_attendance($f_m1, $l_m1, $id);
+                if(count($early_check) > 0){
+                    // print_r($early_check);
+                    $late--;
+                }
+            }
+        }  
+        
+
 
 
 
         // check staff absent today
         $absent = count($all_em) - $intime;
-
         return $data = [
                 'all_em' => count($all_em),
                 'intime' => $intime,

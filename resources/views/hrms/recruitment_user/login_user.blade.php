@@ -50,10 +50,11 @@
                 </h3>
                 <h4 style="text-align: center; color: blue;">User Login</h4>
                 <div class="form-group" style="width: 100%;" >
-                    <label class="control-label"><b>User Email</b></label>
+                    <label class="control-label"><b>Email</b></label>
                     <div class="inputWithIcon">
                         <input class="form-control " name="user_email" type="text" placeholder="User Email:" autofocus required>
                         <i class="fa fa-lg fa-fw fa-envelope-square"></i>
+                        <p id='msgError' style='color:#cc0000'>Incorrect email or password</p>
                     </div>
                 </div>
                 <div class="form-group" style="width: 100%;">
@@ -94,19 +95,21 @@
 </html>
 
 @php
-
-    $xx = -1;
+    $faile = '';
     if(isset($login_faile)){
-        $xx = $login_faile;
+        $faile = $login_faile;
     }
-    
 @endphp
 
 <script type="text/javascript">
-    var p = {!! json_encode($xx) !!};
+    //show incorrect email & password when user input wrong
+    $('#msgError').hide();
+    var p = {!! json_encode($faile) !!};
     if(p == 1){
-        // $.notify("Please input the correct email or password !", "error");
-        Swal.fire('Please input the correct email or password !')
+        $('#msgError').show();
+        setTimeout(function(){ 
+            $('#msgError').hide();
+         }, 5000);
     }
 </script>
 
