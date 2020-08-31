@@ -93,9 +93,9 @@ class ModelHrmResultCandidate extends Model
         group by an.is_right_choice,ua.hr_recruitment_candidate_id,q.hr_recruitment_question_type_id,ua.start_time");
     }
     // ===== Function Count True Answer =======//
-    public static function get_candidate_time($id){
+    public static function get_candidate_time($date,$id){
         return DB::select("SELECT u.id,ua.start_time,ua.end_time from hr_recruitment_candidate u
-        left join hr_recruitment_candidate_answer ua on u.id=ua.hr_recruitment_candidate_id where u.id=? limit 1",[$id]);
+        left join hr_recruitment_candidate_answer ua on u.id=ua.hr_recruitment_candidate_id where ua.start_time=? and u.id=? limit 1",[$date,$id]);
     }
     // ===== Function model get data Question Choice=====////
     public static function get_result_choice($date,$id){
@@ -110,11 +110,11 @@ class ModelHrmResultCandidate extends Model
         return DB::select("SELECT choice,hr_recruitment_question_id from hr_recruitment_question_choice where is_right_choice='t' and is_deleted='f' ");
     }
     // ===== Function model get data Answer Text=====////
-    public static function get_answer_text($id){
-        return DB::select("SELECT ua.answer_text,ua.hr_recruitment_question_id,ua.hr_recruitment_candidate_id,ua.is_right,q.question,q.hr_recruitment_question_type_id 
-                        from hr_recruitment_candidate_answer ua left join hr_recruitment_question q on ua.hr_recruitment_question_id=q.id where ua.hr_recruitment_candidate_id= $id
-                        Except SELECT ua.answer_text,ua.hr_recruitment_question_id,ua.hr_recruitment_candidate_id,ua.is_right,q.question,q.hr_recruitment_question_type_id from hr_recruitment_candidate_answer ua
-                        left join hr_recruitment_question q on ua.hr_recruitment_question_id=q.id where ua.hr_recruitment_candidate_id= $id and q.hr_recruitment_question_type_id=1");
+    public static function get_answer_text($date,$id){
+        return DB::select("SELECT ua.answer_text,ua.hr_recruitment_question_id,ua.hr_recruitment_candidate_id,ua.is_right,q.question,q.hr_recruitment_question_type_id,ua.start_time 
+                        from hr_recruitment_candidate_answer ua left join hr_recruitment_question q on ua.hr_recruitment_question_id=q.id where ua.start_time='$date' and ua.hr_recruitment_candidate_id= $id
+                        Except SELECT ua.answer_text,ua.hr_recruitment_question_id,ua.hr_recruitment_candidate_id,ua.is_right,q.question,q.hr_recruitment_question_type_id,ua.start_time from hr_recruitment_candidate_answer ua
+                        left join hr_recruitment_question q on ua.hr_recruitment_question_id=q.id where ua.start_time='$date' and ua.hr_recruitment_candidate_id= $id and q.hr_recruitment_question_type_id=1");
     }
     // ===== Function model get comment of approval=====////
     public static function get_comment_approval($id){

@@ -14,7 +14,7 @@ class ModelHrmStaffFollowUp extends Model
                            ->join('hr_performance_schedule as ps','pf.hr_performance_schedule_id','=','ps.id')
                            ->join('ma_user as s','ps.ma_user_id','=','s.id')
                            ->join('hr_performance_plan_detail as pd','ps.hr_performance_plan_detail_id','=','pd.id')
-                           ->leftjoin('hr_performance_manager_follow_up as pfm','pf.id','=','pfm.hr_performance_follow_up_id')
+                           ->leftjoin('hr_performance_manager_follow_up as pfm','pf.hr_performance_schedule_id','=','pfm.hr_performance_schedule_id')
                            ->where('pf.is_deleted','=','f')
                            ->groupBy(['pf.id','ps.hr_performance_plan_detail_id','ps.ma_user_id','s.name','pd.name','pd.id','pfm.is_deleted'])
                            ->orderBy('ps.ma_user_id','ASC')
@@ -30,7 +30,7 @@ class ModelHrmStaffFollowUp extends Model
                             ->join('hr_performance_schedule as ps','pf.hr_performance_schedule_id','=','ps.id')
                             ->join('ma_user as s','ps.ma_user_id','=','s.id')
                             ->join('hr_performance_plan_detail as pd','ps.hr_performance_plan_detail_id','=','pd.id')
-                            ->leftjoin('hr_performance_manager_follow_up as pfm','pf.id','=','pfm.hr_performance_follow_up_id')
+                            ->leftjoin('hr_performance_manager_follow_up as pfm','pf.hr_performance_schedule_id','=','pfm.hr_performance_schedule_id')
                             ->where([
                                 ['pf.is_deleted', '=', 'f'],
                                 ['s.ma_company_dept_id', '=', $dept],
@@ -49,7 +49,7 @@ class ModelHrmStaffFollowUp extends Model
                             ->join('hr_performance_schedule as ps','pf.hr_performance_schedule_id','=','ps.id')
                             ->join('ma_user as s','ps.ma_user_id','=','s.id')
                             ->join('hr_performance_plan_detail as pd','ps.hr_performance_plan_detail_id','=','pd.id')
-                            ->leftjoin('hr_performance_manager_follow_up as pfm','pf.id','=','pfm.hr_performance_follow_up_id')
+                            ->leftjoin('hr_performance_manager_follow_up as pfm','pf.hr_performance_schedule_id','=','pfm.hr_performance_schedule_id')
                             ->where([
                                 ['pf.is_deleted', '=', 'f'],
                                 ['ps.ma_user_id', '=', $userid],
