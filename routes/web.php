@@ -711,6 +711,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_show_attendance_by_date', 'hrms\Employee\AttendanceController@ShowAttendanceByDate');
         Route::get('hrm_attendance_detail', 'hrms\Employee\AttendanceController@ShowAttendanceDetail');
         Route::get('hrm_calculate_attendance_detail', 'hrms\Employee\AttendanceController@CalculateAttendanceDetail');
+        Route::get('hrm_attendance_edit', 'hrms\Employee\AttendanceController@AttendanceEdit');
     // End Attendance
 
     // Start Mission And Out Side
@@ -775,6 +776,18 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_payrollitems', 'hrms\Payroll\PayrollController@ModalPayrollItems');
         Route::get('taxation', 'hrms\Payroll\PayrollController@Taxation');
 // End Payroll
+
+// Setting
+    // Standard Price
+        Route::get('hrm_standard_price', 'hrms\Setting\StandardPriceController@StandardPrice');
+    // End Standard Price
+    // Taxation
+        Route::get('hrm_taxation','hrms\Setting\TaxationController@Taxation');
+    // End Taxation
+    // Currency Rate
+        Route::get('hrm_currency','hrms\Setting\CurrencyRateController@CurrencyRate');
+    // End Currency Rate
+// End Setting
 
 // ========================================================> END SENG KIMSROS <======================================================== //
 

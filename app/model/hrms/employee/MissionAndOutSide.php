@@ -26,8 +26,8 @@ class MissionAndOutSide extends Model
         return DB::select($sql);
     }
 
-    function InsertMissionOutSide($date_from,$date_to,$date,$description,$update_by,$type,$create_by,$shift,$street,$home_number,$latlg,$gazetteers_code,$emid){
-        $sql= "SELECT public.insert_hr_mission('$date_from','$date_to','$date','$description',$update_by,'$type',$create_by,'$shift','$street','$home_number','$latlg','$gazetteers_code')";
+    function InsertMissionOutSide($date_from,$date_to,$description,$type,$create_by,$shift,$street,$home_number,$latlg,$gazetteers_code,$emid){
+        $sql= "SELECT public.insert_hr_mission('$date_from','$date_to','$description','$type',$create_by,'$shift','$street','$home_number','$latlg','$gazetteers_code')";
         $stm=DB::select($sql);
         if($stm[0]->insert_hr_mission>0){
             return self::InsertMissionOutsideDetail($stm[0]->insert_hr_mission,1,$create_by,$emid);
@@ -37,10 +37,10 @@ class MissionAndOutSide extends Model
     }
 
     function InsertMissionOutsideDetail($hr_mission_id,$ma_user_id,$create_by,$staff_id){
-        $att=new Attendance();
         foreach($staff_id as $modetail){
-            $id_number=self::ConvertIdToNumber($modetail);
-            $sql = "SELECT public.insert_hr_mission_detail($hr_mission_id,$ma_user_id,$create_by,$id_number)";
+            // $id_number=self::ConvertIdToNumber($modetail);
+            $sql = "SELECT public.insert_hr_mission_detail($hr_mission_id,$ma_user_id,$create_by)";
+            
             $stm = DB::select($sql);
         }
         

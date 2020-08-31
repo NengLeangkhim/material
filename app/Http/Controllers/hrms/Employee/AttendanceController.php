@@ -45,7 +45,7 @@ class AttendanceController extends Controller
             if (isset($_GET['attendance_date'])) {
                 $date = $_GET['attendance_date'] . '';
                 if ($att->CheckHoliday($date) == 1 || $att->CheckHoliday($date) == 2) {
-                    $a = "Holiday";
+                    return '<center><h1>Holiday !!</h1></center>';
                 } else {
                     $a = $att->AttendanceToday($allem, $date);
                 }
@@ -88,5 +88,9 @@ class AttendanceController extends Controller
 
     function CalculateAttendanceDetail(){
         return view('hrms/Employee/Attendance/CalculateAttendanceDetail');
+    }
+
+    function AttendanceEdit(){
+        return view('hrms/Employee/Attendance/AttendanceEdit');
     }
 }
