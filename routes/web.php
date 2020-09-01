@@ -771,9 +771,21 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 // End Training
 
 // Payroll
-        Route::get('hrm_employee_salary', 'hrms\Payroll\PayrollController@Payroll');
+    // Create Payroll
+        Route::get('hrm_employee_salary', 'hrms\Payroll\PayrollController@CreatePayroll');
+    // End Create Payroll
+
+    // Payroll List
+        Route::get('hrm_payroll_list', 'hrms\Payroll\PayrollController@PayrollList');
         Route::get('hrm_payslip', 'hrms\Payroll\PayrollController@ModalPayslip');
         Route::get('hrm_payrollitems', 'hrms\Payroll\PayrollController@ModalPayrollItems');
+        Route::get('hrm_paroll_detail', 'hrms\Payroll\PayrollController@PayrollDetail');
+    // End Payroll List
+    
+    // Payroll
+        Route::get('hrm_payroll', 'hrms\Payroll\PayrollController@Payroll');
+    // End Payroll
+        
         Route::get('taxation', 'hrms\Payroll\PayrollController@Taxation');
 // End Payroll
 

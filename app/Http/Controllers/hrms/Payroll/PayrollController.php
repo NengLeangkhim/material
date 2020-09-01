@@ -9,11 +9,33 @@ use Illuminate\Http\Request;
 
 class PayrollController extends Controller
 {
-    function Payroll(){
+    function CreatePayroll(){
         $em=new Employee();
         $data=array();
         $data[0]=$em->AllEmployee();
-        return view('hrms/Payroll/EmployeeSalary')->with('data',$data);
+        return view('hrms/Payroll/CreatePayroll')->with('data',$data);
+    }
+
+    function PayrollList(){
+        $em = new Employee();
+        $data = array();
+        $data[0] = $em->AllEmployee();
+        return view('hrms/Payroll/PayrollList')->with('data', $data);
+    }
+
+    function Payroll(){
+        $em = new Employee();
+        $data = array();
+        $data[0] = $em->AllEmployee();
+        return view('hrms/Payroll/Payroll')->with('data', $data);
+    }
+
+    function PayrollDetail(){
+        $id=$_GET['id'];
+        $data=array();
+        $em=new Employee();
+        $data[0]=$em->EmployeeOnRow($id);
+        return view('hrms/Payroll/PayrollDetail')->with('data',$data);
     }
 
     function ModalPayslip(){
