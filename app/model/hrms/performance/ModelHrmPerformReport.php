@@ -11,12 +11,10 @@ class ModelHrmPerformReport extends Model
     public static function hrm_get_tbl_perform_report($dept,$from,$to){
         $report= DB::table('hr_performance_manager_follow_up as pfm')
                     ->select('pfm.*','s.name as name_staff','s.ma_company_dept_id','sd.username','pscore.name as pfm_score',
-                    'pf.hr_performance_schedule_id',
                     'ps.hr_performance_plan_detail_id','ps.ma_user_id',
                     'pd.name as name_plan','pd.id as id_pd')
                     ->join('hr_performance_score as pscore','pfm.hr_performance_score_id','=','pscore.id')
-                    ->join('hr_performance_follow_up as pf','pfm.hr_performance_follow_up_id','=','pf.id')
-                    ->join('hr_performance_schedule as ps','pf.hr_performance_schedule_id','=','ps.id')
+                    ->join('hr_performance_schedule as ps','pfm.hr_performance_schedule_id','=','ps.id')
                     ->join('ma_user as s','ps.ma_user_id','=','s.id')
                     ->join('ma_user_detail as sd','pfm.create_by','=','sd.ma_user_id')
                     ->join('hr_performance_plan_detail as pd','ps.hr_performance_plan_detail_id','=','pd.id')

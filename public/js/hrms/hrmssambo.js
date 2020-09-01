@@ -329,7 +329,7 @@ $(document).on('click', '.update_q_sugg', function(){
 
 //======= Function checkbox update status
 $(document).on('click', '.checkbox_sugg_q_a', function(){
-  var checked = $(this).is(":checked");                 
+  var checked = $(this).is(":checked");             
                     if(checked)
                     {
                       var id = $(this).val();
@@ -347,7 +347,7 @@ $(document).on('click', '.checkbox_sugg_q_a', function(){
                       success:function(data)
                       {
                         setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 100);// Set timeout for refresh content
-                        sweetalert('success','The Question has been Update Status Successfully !!');  
+                        sweetalert('success','The Question has been Update Status Successfully !!'); 
                       }
                      });
                     }
@@ -368,7 +368,8 @@ $(document).on('click', '.checkbox_sugg_q_a', function(){
                       success:function(data)
                       {
                         setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 100);// Set timeout for refresh content
-                        sweetalert('warning','The Question has been Update Status Successfully !!');  
+                        sweetalert('warning','The Question has been Update Status Successfully !!');
+                       
                       }
                     });
                     }

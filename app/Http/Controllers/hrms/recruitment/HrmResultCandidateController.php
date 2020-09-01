@@ -117,18 +117,18 @@ class HrmResultCandidateController extends Controller
             $appr_type= $_POST['type'];
             $comment = $_POST['comment'];
             $knowledge = ModelHrmResultCandidate::hrm_submit_approval($id_candidate,$appr_type,$comment,$userid);
-            // if($appr_type=='approve'){
-            // $candidate = ModelHrmResultCandidate::get_candidate($id_candidate);
-            // foreach($candidate as $row){
-            //     $fname = $row->fname;
-            //     $lname = $row->lname;
-            //     $email = $row->email;
-            //     $position_id = $row->ma_position_id;
-            //     $name_kh = $row->name_kh;
-            // }
-            // $name = $fname.' '.$lname;
-            // $move =   ModelHrmResultCandidate::hrm_move_candidate($name,$email,$position_id,$name_kh,$userid);
-            // }
+            if($appr_type=='approve'){
+            $candidate = ModelHrmResultCandidate::get_candidate($id_candidate);
+            foreach($candidate as $row){
+                $fname = $row->fname;
+                $lname = $row->lname;
+                $email = $row->email;
+                $position_id = $row->ma_position_id;
+                $name_kh = $row->name_kh;
+            }
+            $name = $fname.' '.$lname;
+            $move =   ModelHrmResultCandidate::hrm_move_candidate($name,$email,$position_id,$name_kh,$userid);
+            }
             return 'successfully submit'; 
         }else{
             return view('no_perms');

@@ -176,7 +176,7 @@ class ModelHrmResultCandidate extends Model
     }
     // ===== Function model move candidate to staff =====////
     public static function hrm_move_candidate($name,$email,$position_id,$name_kh,$userid){
-        return DB::select("SELECT public.insert_ma_user('$name','$email','', '',$position_id,Null,Null,Null,$userid,'',Null,'$name_kh','','',Null)");
+        return DB::select("SELECT public.insert_ma_user('$name','$email','', '',$position_id,8,16,Null,$userid,'',Null,'$name_kh','','',Null)");
     }
 
 
