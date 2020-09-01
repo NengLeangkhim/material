@@ -72,7 +72,7 @@
                     <table class="table table-bordered table-striped mb-0">
                       <thead>
                         <tr>
-                          <th>#</th>
+                          <th>ID Number</th>
                           <th>Name</th>
                           <th>Action</th>
                         </tr>
@@ -82,9 +82,9 @@
                           $i=0;
                           foreach ($data[0] as $em) {
                             echo '<tr>
-                          <th>'.++$i.'</th>
+                          <th>'.$em->id_number.'</th>
                           <td>'.$em->name.'</td>
-                          <th class="text-right"><input type="checkbox" name="missioncheck['.$i.']" id="" value="'.$em->id_number.'"></th>
+                          <th class="text-right"><input type="checkbox" name="missioncheck['.$i++.']" id="" value="'.$em->id_number.'"></th>
                         </tr>';
                           }
                         @endphp
