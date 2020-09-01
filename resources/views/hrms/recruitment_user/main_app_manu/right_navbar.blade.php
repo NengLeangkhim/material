@@ -123,17 +123,11 @@
                         <i class="fas fa-user-check mr-2"></i>
                         View Profile
                       </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                      
-                      <i class="fas fa-user-cog mr-2"></i> Setting Account
-                      
-                    </a>
                     
                     <div class="dropdown-divider"></div>
                     <a href="/hrm_index_user_register" class="dropdown-item dropdown-footer"><i class="fa fa-sign-out mr-2"></i> Logout</a>
+              
               </div>
-
       </li>
 
 

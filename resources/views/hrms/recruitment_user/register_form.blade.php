@@ -106,7 +106,7 @@ $r = DB::select($sql);
                 </div>
                 </li>
                 <li class="line-form " data-type="control_textbox" id="id_9">
-                <label class="form-label kh-font-batt form-label-left "style="color: black;"> មុខដំណែងការងារ 
+                <label class="form-label kh-font-batt form-label-left "style="color: black;"> ជ្រើសមុខដំណែងការងារ 
                 <span class="form-required">
                     *
                     </span>
@@ -131,7 +131,7 @@ $r = DB::select($sql);
                 </label>
                 <div class="uploadcv ">
                     <input type="button" class="uploadButton" value="Browse"​ ​​  ​autofocus  required/>
-                    <input type="file"  class=" validate[required]" name="uploadcv"  data-imagevalidate="yes" data-file-accept="pdf, doc"  accept="application/pdf"  autofocus required />
+                    <input type="file" id='file_cv' class=" validate[required]" name="uploadcv"  data-imagevalidate="yes" data-file-accept="pdf, doc"  onclick='checkFile(this.id);'  accept="application/pdf"  autofocus required />
                     <span class="fileName">Select CV..</span>
                 </div>
         
@@ -147,7 +147,7 @@ $r = DB::select($sql);
                 </label>
                 <div class="uploadcover ">
                     <input type="button" class="uploadButton" value="Browse" autofocus  required />
-                    <input type="file"  class=" validate[required]" name="uploadcover"  data-imagevalidate="yes" data-file-accept="pdf, doc"  accept="application/pdf"    autofocus required/>
+                    <input type="file"  id='file_cover' class=" validate[required]" name="uploadcover"  data-imagevalidate="yes" data-file-accept="pdf, doc" onclick='checkFile(this.id);'  accept="application/pdf"    autofocus required/>
                     <span class="fileName">Select Cover..</span>
                 </div>
         
@@ -175,14 +175,15 @@ $r = DB::select($sql);
         if(isset($em_error)){
             $x =  $em_error;
         }  
-        $xx = '';
+
+        $success_ = '';
         if(isset($success)){
-            $xx = $success;
+            $success_ = $success;
         }
 
-        $xxx = '';
-        if(isset($upload_file)){
-            $xxx = $upload_file;
+        $error_ = '';
+        if(isset($error)){
+            $error_ = $error;
         }
                     
 
@@ -198,10 +199,10 @@ $r = DB::select($sql);
          }, 5000);
     }
 
-    var j = {!! json_encode($xx) !!};
-    if(j == 1){
+    var success = {!! json_encode($success_) !!};
+    if(success){
         Swal.fire({
-        title: 'Account create successfully !',
+        title: success,
         showClass: {
             popup: 'animate__animated animate__fadeInDown'
         },
@@ -211,10 +212,38 @@ $r = DB::select($sql);
         })
     }
 
-    var file = {!! json_encode($xxx) !!};
-    if(file == 1){
-        Swal.fire('Please upload the pdf file extention only!')
+    var error = {!! json_encode($error_) !!};
+    if(error){
+        Swal.fire(error)
     }
+
+
+    function checkFile(id){
+        const input = document.getElementById(id)
+        input.addEventListener('change', (event) => {
+        const target = event.target
+            if (target.files && target.files[0]) {
+            /*Maximum allowed size in bytes
+                5MB Example
+                Change first operand(multiplier) for your needs*/
+            const maxAllowedSize = 5 * 1024 * 1024;
+            if (target.files[0].size > maxAllowedSize) {
+                // Here you can ask your users to load correct file
+                Swal.fire('File size too big. Please select file smaller than 5MB !')
+                target.value = '';
+            }
+        }
+        })
+    }
+
+
+
+
+
+
+
+
+
 
 </script>
 
