@@ -135,7 +135,7 @@
                   </div>
                   <div class="col-md-12">
                       <div class="form-group">
-                          <label for="departement">Departement<span class="text-danger">*</span></label>
+                          <label for="departement">Department<span class="text-danger">*</span></label>
                           <select name="departement" id="departement" class="form-control">
                             <option value="">Please Select Option</option>
                             <?php

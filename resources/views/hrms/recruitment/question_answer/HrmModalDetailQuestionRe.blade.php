@@ -26,7 +26,7 @@
                             </div><!-- End Row -->
                             <div class="row" style="height:70px">
                             <div class="col-6" style="text-align:center;width:50px;">
-                                <span class="text-center" style="font-size:15px;color:#d42931;float:left">Departement:</span>
+                                <span class="text-center" style="font-size:15px;color:#d42931;float:left">Department:</span>
                                 <p style="display:inline;color:black;font-family: Khmer UI;width:50px;" id="name_kh">{{$item->name}}</p>
                             </div>
                             <div class="col-6"  style="text-align:center">

@@ -18,7 +18,7 @@
                               <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Question</th>
-                                <th scope="col">Departement</th>
+                                <th scope="col">Department</th>
                                 <th scope="col">Create_Date</th>
                                 <th scope="col">Create_By</th>
                                 <th width="15%" scope="col">Action</th>
@@ -98,7 +98,7 @@
                            </div>
                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="departement_knowledge">Departement<span class="text-danger">*</span></label>
+                                    <label for="departement_knowledge">Department<span class="text-danger">*</span></label>
                                     <select name="departement_knowledge" id="departement_knowledge" class="form-control">
                                     <option value="">Please Select Option</option>
                                     <?php
