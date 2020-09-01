@@ -19,7 +19,7 @@ class Employee extends Model
         return $employee;
     }
     function EmployeeOnRow($id){
-        $employee = DB::table('ma_user')->select('ma_user.id', 'ma_position.id as ma_position_id','ma_user.name as name', 'ma_user.name_kh', 'ma_user.id_number', 'ma_user.email', 'ma_user.contact', 'ma_user.join_date', 'ma_position.name as ma_position','ma_user.sex','ma_user.office_phone','ma_user.address','ma_user.contact')
+        $employee = DB::table('ma_user')->select('ma_user.id', 'ma_position.id as ma_position_id','ma_user.name as name', 'ma_user.name_kh', 'ma_user.id_number', 'ma_user.email', 'ma_user.contact', 'ma_user.join_date', 'ma_position.name as ma_position','ma_user.sex','ma_user.office_phone','ma_user.address','ma_user.contact','ma_user.image')
         ->join('ma_position', 'ma_position.id', '=', 'ma_user.ma_position_id')
         ->where([
             ['ma_user.status', '=', 't'],
