@@ -11,15 +11,8 @@
           <!-- /.card-header -->
           <div class="card-body" style="display: block;" id="payslipPrint">
             @php
-                print_r($data);
+                // print_r($data);
             @endphp
-                {{-- <div class="container">
-                    <div class="row">
-                        <h2>Create your snippet's HTML, CSS and Javascript in the editor tabs</h2>
-                    </div>
-                </div>
-
-                <nav> --}}
 					<div class="nav nav-tabs" id="nav-tab" role="tablist">
 						<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Payslip</a>
 						<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Overtime</a>
@@ -127,10 +120,7 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                        </div>
-
-
-                                        
+                                        </div> 
                                         <div class="receipt-header receipt-header-mid receipt-footer">
                                             <div class="row">
                                                 <div class="col-xs-8 col-sm-8 col-md-8 text-left">

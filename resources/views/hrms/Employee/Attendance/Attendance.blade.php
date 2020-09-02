@@ -192,8 +192,8 @@
                         <tr>
                         <td>
                           <div class="row">
-                            {{-- <div class="col-md-6"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_attendance_edit','modal_attendance_edit',{{$e[0]}})"><i class="far fa-edit"></i></a></div>
-                            <div class="col-md-6"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_attendance_detail','modal_attendance_detail',{{$e[0]}})"><i class="fas fa-info"></i></a></div> --}}
+                            <div class="col-md-6"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_attendance_edit','modal_attendance_edit',{{$e[0]}})"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-6"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_attendance_detail','modal_attendance_detail',{{$e[0]}})"><i class="fas fa-info"></i></a></div>
                           </div>
                         </td>
                       <th>{{++$i}}</th>
