@@ -134,7 +134,16 @@ class HrmPerformScoreController extends Controller
         if(perms::check_perm_module('HRM_09070503')){//module code list data tables id=156
         $id = $_GET['id'];
         $userid = $_SESSION['userid'];   
-        $question_type_sugg=ModelHrmPerformScore::hrm_delete_perform_score($id,$userid);
+        $check_delete=ModelHrmPerformScore::hrm_check_delete_perform_score($id);
+        foreach($check_delete as $check){
+            $ch = $check->id;
+        }
+        if(!isset($ch)){
+            $delete_score=ModelHrmPerformScore::hrm_delete_perform_score($id,$userid);
+            return response()->json(['success'=>'Record is successfully Delete']);
+        }else{
+            return response()->json(['errors'=>'Record can not Delete']);
+        }
         }else{
             return view('no_perms');
         }

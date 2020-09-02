@@ -194,14 +194,20 @@ function detele_q_t_sugg(id) {
         data:{id:id},
         type:"GET",    //Using of Post method for send data
         success:function(data){
-         console.log(data);
-       //  sweetalert('success','The Question Type has been Update Successfully !!');
-         setTimeout(function(){ go_to('hrm_question_type_sugg'); }, 300);// Set timeout for refresh content
-        Swal.fire(
-          'Deleted!',
-          'Your Question Type has been deleted.',
-          'success'
-        )
+          if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+            setTimeout(function(){ go_to('hrm_question_type_sugg'); }, 300);// Set timeout for refresh content
+            Swal.fire(
+              'Deleted!',
+              'Your Question Type has been deleted.',
+              'success'
+            )
+          }else{
+            Swal.fire(
+              'Deleted Error!',
+              'Your Question Type have Question child already.',
+              'error'
+            )
+          }
         }
        });
       
@@ -1628,6 +1634,45 @@ $(document).on('click', '.hrm_update_perform_score', function(){
    }
   });
  });
+    //======= Funtion delete Performance Score =======//
+    function delete_performance_score(id){
+      event.preventDefault();
+      Swal.fire({ //get from sweetalert function
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          $.ajax({
+            url:"hrm_performance_score/delete",   //Request send to "action.php page"
+            data:{id:id},
+            type:"GET",    //Using of Post method for send data
+            success:function(data){
+              if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+                setTimeout(function(){ go_to('hrm_performance_score'); }, 300);// Set timeout for refresh content
+                Swal.fire(
+                  'Deleted!',
+                  'The Score has been deleted.',
+                  'success'
+                )
+              }else{
+                Swal.fire(
+                  'Deleted Error!',
+                  'The Score Has Been used already.',
+                  'error'
+                )
+              }
+            }
+          });
+          
+        }
+      })
+
+    };
 ////================== END Performance Score ============/////
 
 ////================ Performance Report ============//////
@@ -1790,6 +1835,45 @@ function ReportPerformance(){
       });
     });
     //======= END Funtion get value from database to show on modal update =======//
+    //======= Funtion delete question type Recruitment =======//
+    function delete_q_t_recruitment(id) {
+      event.preventDefault();
+      Swal.fire({ //get from sweetalert function
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          $.ajax({
+            url:"hrm_questiontype/delete",   //Request send to "action.php page"
+            data:{id:id},
+            type:"GET",    //Using of Post method for send data
+            success:function(data){
+              if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+                setTimeout(function(){ go_to('hrm_questiontype'); }, 300);// Set timeout for refresh content
+                Swal.fire(
+                  'Deleted!',
+                  'Your Question Type has been deleted.',
+                  'success'
+                )
+              }else{
+                Swal.fire(
+                  'Deleted Error!',
+                  'Your Question Type have Question child already.',
+                  'error'
+                )
+              }
+            }
+          });
+          
+        }
+      })
+    
+    };
 ////====== END Question Type Recruitment ====///
 
 ////====== Question Recruitment ====///

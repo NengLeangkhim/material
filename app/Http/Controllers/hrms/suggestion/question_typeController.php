@@ -114,8 +114,17 @@ class question_typeController extends Controller
             }
         if(perms::check_perm_module('HRM_09080202')){//module code list data tables id=130
         $id = $_GET['id'];
-        $userid = $_SESSION['userid'];   
-        $question_type_sugg=model_question_type::hrm_delete_question_type($id,$userid);
+        $userid = $_SESSION['userid'];
+        $check_question=model_question_type::hrm_check_delete_question_type_sugg($id);
+        foreach($check_question as $check){
+            $ch = $check->question;
+        }
+        if(!isset($ch)){
+            $question_type_sugg=model_question_type::hrm_delete_question_type($id,$userid);
+            return response()->json(['success'=>'Record is successfully Delete']);
+        }else{
+            return response()->json(['errors'=>'Record can not Delete']);
+        }
         //var_dump($question_type_sugg);
         }else{
             return view('no_perms');

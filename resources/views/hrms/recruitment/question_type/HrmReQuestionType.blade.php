@@ -39,9 +39,7 @@
                                       <td style="color:black;">{{$row->username}} </td>
                                       <td style="color:black;" class="text-center">
                                         <a href="#" id="{{$row->id}}" class="btn btn-info update_qestion_type"><i class="far fa-edit"></i></a>
-                                        @if ($row->id!=1)
-                                          <a href="#" id="{{$row->id}}" onclick="hrm_delete({{$row->id}},'hrm_questiontype/delete','hrm_questiontype','Question Type has been deleted')" class="btn btn-info delete_qestion_type"><i style="color:red" class="fas fa-trash"></i></a>
-                                        @endif
+                                        <a href="#" id="{{$row->id}}" onclick="delete_q_t_recruitment({{$row->id}})" class="btn btn-info delete_qestion_type"><i style="color:red" class="fas fa-trash"></i></a>
                                       </td>
                                   </tr>     
                               @endforeach

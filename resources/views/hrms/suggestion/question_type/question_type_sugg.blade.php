@@ -32,9 +32,7 @@
                             <td style="color:black;">{{$row->username}} </td>
                             <td style="color:black;" class="text-center">
                               <a href="#" id="{{$row->id}}" class="btn btn-info update_q_t_sugg"><i class="far fa-edit"></i></a>
-                              @if ($row->id!=1 && $row->id!=2 && $row->id!=4)
-                                <a href="#" id="{{$row->id}}" onclick="detele_q_t_sugg({{$row->id}})" class="btn btn-info detele_q_t_sugg"><i style="color:red" class="fas fa-trash"></i></a>
-                              @endif
+                              <a href="#" id="{{$row->id}}" onclick="detele_q_t_sugg({{$row->id}})" class="btn btn-info detele_q_t_sugg"><i style="color:red" class="fas fa-trash"></i></a>
                             </td>
                         </tr>     
                     @endforeach
