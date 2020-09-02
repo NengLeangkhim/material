@@ -328,7 +328,7 @@ $(document).on('click', '.update_q_sugg', function(){
 //======= END Funtion get value from database to show on modal update =======//
 
 //======= Function checkbox update status
-$(document).on('click', '.checkbox_sugg_q_a', function(){
+$(document).on('click', '.HrmCheckBoxSuggQA', function(){
   var checked = $(this).is(":checked");             
                     if(checked)
                     {

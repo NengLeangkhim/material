@@ -60,7 +60,7 @@ foreach($permission as $row){
                                                     <button type="button" id="{{$row->id}}" onclick="go_to('/hrm_performance_follow_up/modal/action?edit={{$row->id}}')" class="dropdown-item hrm_item hrm_update_perform_staff_follow_up">Update</button>
                                                 @endif 
                                                 @if ($level==4 || $level==5 || $level==1){{-- check permission manager --}}
-                                                  @if (is_null($row->delete)){{-- check can follow up one time only --}}
+                                                  @if (is_null($row->delete) || $row->delete=='t'){{-- check can follow up one time only --}}
                                                     <button type="button" id="{{$row->id}}" onclick="go_to('/hrm_performance_follow_up_manager/action?add={{$row->id}}')" class="dropdown-item hrm_item hrm_add_manager_follow_up">Follow Up Staff</button>   
                                                   @endif
                                                 @endif    

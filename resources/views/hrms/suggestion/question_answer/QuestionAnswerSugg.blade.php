@@ -23,7 +23,9 @@
                     </tr>
                   </thead>
                   @php
-                   $i=1;   
+                   $i=1;//for ID Table increase 
+                   $j=1;//for ID checkbox increase
+                   $k=1;//for label increase
                   @endphp
                   <tbody>
                     @foreach ($question_sugg as $row)
@@ -34,9 +36,9 @@
                         <td class="text-center">
                           <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
                           @if ($row->status=='t')
-                              <input style="width:20px; height:20px; display:inline-block;" type="checkbox" name="ch_q_a" value="{{$row->id}}" id="checkbox_sugg_q_a" class="custom-control-input checkbox_sugg_q_a" checked> <label class="custom-control-label" for="checkbox_sugg_q_a" style="color:green;"> Active</label>
+                              <input type="checkbox" value="{{$row->id}}" id="checkbox_sugg_q_a{{$j++}}" class="custom-control-input HrmCheckBoxSuggQA" checked> <label class="custom-control-label" for="checkbox_sugg_q_a{{$k++}}" style="color:green;"> Active</label>
                           @else
-                              <input style="width:20px; height:20px; display:inline-block;" type="checkbox" name="ch_q_a" value="{{$row->id}}" id="checkbox_sugg_q_a" class="custom-control-input checkbox_sugg_q_a"> <label class="custom-control-label" for="checkbox_sugg_q_a" style="color:red;"> Inactive</label>
+                              <input type="checkbox" value="{{$row->id}}" id="checkbox_sugg_q_a{{$j++}}" class="custom-control-input HrmCheckBoxSuggQA"> <label class="custom-control-label" for="checkbox_sugg_q_a{{$k++}}" style="color:red;"> Inactive</label>
                           @endif
                           </div>
                         </td>

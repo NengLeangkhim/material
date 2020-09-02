@@ -79,7 +79,9 @@ foreach($permission as $row){
                                                     <button type="button" id="{{$row->id}}" onclick="hrm_update_perform_schedule({{$row->id}},{{$row->hr_performance_plan_id}})" class="dropdown-item hrm_item hrm_update_perform_schedule">Update</button>  
                                                 @endif           
                                                 @if ($row->ma_user_id == $id_user) {{-- can add follow up only by ur schedule --}}
+                                                    @if (is_null($row->deleted) || $row->deleted=='t'){{-- check condition if the schedule already manager follow up so the users can't follow up anymore --}}
                                                     <button type="button" id="{{$row->id}}" onclick="go_to('/hrm_performance_follow_up/modal/action?add={{$row->id}}')" class="dropdown-item hrm_item hrm_add_perform_follow_up">Add Follow Up</button>
+                                                    @endif
                                                 @endif  
                                             </div>
                                         </div>
