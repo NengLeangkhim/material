@@ -15,7 +15,6 @@ foreach($follow_up_get as $row){
                                 $sc_cmt = $row->ps_cmt;
                                 $cmt_by = $row->user_ps;
                                 /// Follow up Staff  
-                                $pf_id = $row->hr_performance_follow_up_id;
                                 $pf_percentage = intval($row->pf_percent);
                                 $pf_reason = $row->reason;
                                 $pf_date_from = $row->action_date_from;

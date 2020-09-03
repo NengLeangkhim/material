@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h1 class="card-title hrm-title"><strong><i class="fas fa-calendar-times"></i> Payroll</strong></h1>
+                <h1 class="card-title hrm-title"><strong>Payroll</strong></h1>
                 <div class="col-md-12 text-right">
                     <a href="javascrip:;" class="btn bg-gradient-primary" onclick="">Export Excel</a>
                 </div>
@@ -25,27 +25,22 @@
                     </tr>
                   </thead>
                   <tbody>
-                      @php
-                          $i=0;
-                          $salary="100 $";
-                      @endphp
-                    @foreach ($data[0] as $em)
-                        <tr>
-                        <th>{{++$i}}</th>
-                        <td>{{$em->name}}</td>
-                        <td>{{$em->id_number}}</td>
-                        <td>{{$em->position}}</td>
-                        <td>{{$salary}}</td>
-                        <td class="text-right">
-                          <a href="javascrip:;" class="btn btn-info btn-sm" onclick="HRM_ShowDetail('hrm_payslip','modal_payslip',{{$em->id}})">Generate Slip</a>
-                          <a href="javascrip:;" class="btn btn-info btn-sm" onclick="HRM_ShowDetail('hrm_payrollitems','modal_payrollitems',{{$em->id}})">Payroll Items</a>
-                          <a href="javascrip:;" class="btn btn-info btn-sm">Approve</a>
-                        </td>
-                    </tr>
-                    @endforeach
-                      
-                    
-                    
+                      <tr>
+                        <td>1</td>
+                        <td>Seng Kimsros</td>
+                        <td>TT-0082</td>
+                        <td>Programmer</td>
+                        <td class="text-center">130$</td>
+                        <td class="text-center text-primary">Paid</td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>Seng Kimsros</td>
+                        <td>TT-0082</td>
+                        <td>Programmer</td>
+                        <td class="text-center">130$</td>
+                        <td class="text-center text-danger">Not Paid</td>
+                      </tr>
                   </tbody>
                 </table>
               </div>

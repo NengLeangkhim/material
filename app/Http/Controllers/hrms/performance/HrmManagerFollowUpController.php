@@ -92,11 +92,11 @@ class HrmManagerFollowUpController extends Controller
         }else{
             if(perms::check_perm_module('HRM_09070301')){//module code list data tables id=151
             $userid= $_SESSION['userid'];
-            $follow_up_id = $request->follow_hidden_up_id;
+            $schedule_id = $request->schedule_hidden_id;
             $percent = $request->follow_manage_up_percentage;
             $score = $request->follow_manage_up_score;
             $cmt = $request->follow_manage_up_comment;
-            $insert_follow_up = ModelHrmManagerFollowUp::hrm_insert_Manager_follow_up($follow_up_id,$percent,$score,$userid,$cmt); //insert data
+            $insert_follow_up = ModelHrmManagerFollowUp::hrm_insert_Manager_follow_up($schedule_id,$percent,$score,$userid,$cmt); //insert data
             return response()->json(['success'=>'Record is successfully added']);
             }else{
                 return view('no_perms');
@@ -130,11 +130,11 @@ class HrmManagerFollowUpController extends Controller
             if(perms::check_perm_module('HRM_09070302')){//module code list data tables id=152
             $userid= $_SESSION['userid'];
             $id_manager = $request->follow_manage_up_id; // id Performance Manager follow up
-            $follow_up_id = $request->follow_hidden_up_id;// id Performance staff follow up
+            $schedule_id = $request->schedule_hidden_id;// id Performance staff follow up
             $percent = $request->follow_manage_up_percentage;
             $score = $request->follow_manage_up_score;
             $cmt = $request->follow_manage_up_comment;
-            $update_follow_up = ModelHrmManagerFollowUp::hrm_update_Manager_follow_up($id_manager,$userid,$follow_up_id,$percent,$score,$cmt,'t'); //update data
+            $update_follow_up = ModelHrmManagerFollowUp::hrm_update_Manager_follow_up($id_manager,$userid,$schedule_id,$percent,$score,$cmt,'t'); //update data
             return response()->json(['success'=>'Record is successfully Updated']);
             }else{
                 return view('no_perms');

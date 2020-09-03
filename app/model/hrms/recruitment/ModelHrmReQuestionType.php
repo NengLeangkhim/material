@@ -35,8 +35,12 @@ class ModelHrmReQuestionType extends Model
     public static function hrm_update_question_type($id,$userid,$question_type,$status){
         return DB::select('SELECT public.update_hr_recruitment_question_type(?,?,?,?)',array($id,$userid,$question_type,$status));
     }
+    // ===== function model check child of question type before delete === ///
+    public static function hrm_check_delete_question_type_re($id){
+    return DB::select("SELECT question from hr_recruitment_question where hr_recruitment_question_type_id=$id and is_deleted='f'");
+    }
     // ===== function model deleted question type ===== //
-   public static function hrm_delete_question_type($id,$userid){
+    public static function hrm_delete_question_type($id,$userid){
        try{
         $result =DB::select('SELECT public.delete_hr_recruitment_question_type(?,?)',array($id,$userid));
         if($result[0]->delete_hr_question_type>0){

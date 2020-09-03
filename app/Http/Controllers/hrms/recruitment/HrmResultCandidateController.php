@@ -53,19 +53,19 @@ class HrmResultCandidateController extends Controller
             if($group==5 || $group==1){ //permission check for CEO and Admin
                 $candidate = ModelHrmResultCandidate::get_candidate($id_candidate); //query Get data Candidate
                 $score = ModelHrmResultCandidate::get_candidate_score($date,$id_candidate);// Query Count true answer
-                $time =  ModelHrmResultCandidate::get_candidate_time($id_candidate);// Query Count time candidate did quiz
+                $time =  ModelHrmResultCandidate::get_candidate_time($date,$id_candidate);// Query Count time candidate did quiz
                 $choice = ModelHrmResultCandidate::get_result_choice($date,$id_candidate);// Query Answer choice
                 $true_choice = ModelHrmResultCandidate::get_true_choice();// Query true choice for compare with Answer choice
-                $answer_text = ModelHrmResultCandidate::get_answer_text($id_candidate);//Query answer text
+                $answer_text = ModelHrmResultCandidate::get_answer_text($date,$id_candidate);//Query answer text
                 $comment = ModelHrmResultCandidate::get_comment_approval($id_candidate);//Query comment of approval
                 return view('hrms/recruitment/result_candidate/HrmActionResultCandidateCeo',['permission'=>$permission,'candidate'=>$candidate,'score'=>$score,'time'=>$time,'choice'=>$choice,'true_choice'=>$true_choice,'answer_text'=>$answer_text,'comment'=>$comment]); 
             }else if($group==4){//permission each departement
                 $candidate = ModelHrmResultCandidate::get_candidate($id_candidate); //query Get data Candidate
                 $score = ModelHrmResultCandidate::get_candidate_score($date,$id_candidate);// Query Count true answer
-                $time =  ModelHrmResultCandidate::get_candidate_time($id_candidate);// Query Count time candidate did quiz
+                $time =  ModelHrmResultCandidate::get_candidate_time($date,$id_candidate);// Query Count time candidate did quiz
                 $choice = ModelHrmResultCandidate::get_result_choice($date,$id_candidate);// Query Answer choice
                 $true_choice = ModelHrmResultCandidate::get_true_choice();// Query true choice for compare with Answer choice
-                $answer_text = ModelHrmResultCandidate::get_answer_text($id_candidate);//Query answer text
+                $answer_text = ModelHrmResultCandidate::get_answer_text($date,$id_candidate);//Query answer text
                 $comment = ModelHrmResultCandidate::get_comment_approval($id_candidate);//Query comment of approval
                 $button = ModelHrmResultCandidate::get_button_approval($id_candidate);// Query for permission button
                 return view('hrms/recruitment/result_candidate/HrmActionResultCandidate',['permission'=>$permission,'candidate'=>$candidate,'score'=>$score,'time'=>$time,'choice'=>$choice,'true_choice'=>$true_choice,'answer_text'=>$answer_text,'comment'=>$comment,'button'=>$button]); 
@@ -117,18 +117,18 @@ class HrmResultCandidateController extends Controller
             $appr_type= $_POST['type'];
             $comment = $_POST['comment'];
             $knowledge = ModelHrmResultCandidate::hrm_submit_approval($id_candidate,$appr_type,$comment,$userid);
-            // if($appr_type=='approve'){
-            // $candidate = ModelHrmResultCandidate::get_candidate($id_candidate);
-            // foreach($candidate as $row){
-            //     $fname = $row->fname;
-            //     $lname = $row->lname;
-            //     $email = $row->email;
-            //     $position_id = $row->ma_position_id;
-            //     $name_kh = $row->name_kh;
-            // }
-            // $name = $fname.' '.$lname;
-            // $move =   ModelHrmResultCandidate::hrm_move_candidate($name,$email,$position_id,$name_kh,$userid);
-            // }
+            if($appr_type=='approve'){
+            $candidate = ModelHrmResultCandidate::get_candidate($id_candidate);
+            foreach($candidate as $row){
+                $fname = $row->fname;
+                $lname = $row->lname;
+                $email = $row->email;
+                $position_id = $row->ma_position_id;
+                $name_kh = $row->name_kh;
+            }
+            $name = $fname.' '.$lname;
+            $move =   ModelHrmResultCandidate::hrm_move_candidate($name,$email,$position_id,$name_kh,$userid);
+            }
             return 'successfully submit'; 
         }else{
             return view('no_perms');
