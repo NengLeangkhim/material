@@ -20,7 +20,7 @@
     <style>
         .material-half-bg{
             /* background-image: url("images/company_logo.png");OBBPNP0 */
-            background-image: url("images/OBBPNP0.jpg");
+            background-image: url("images/company_logo.png");
             background-color: black;
             background-repeat: no-repeat;
             background-size: cover;
@@ -34,22 +34,20 @@
     </style>
 </head>
 <body>
-        <div>
+    <div>
         <section class="material-half-bg" >
             <div class="cover"></div>
         </section>
     </div>
+
+
     <section class="login-content">
-        {{-- <div class="login-box"> --}}
-        <div class="">
-            
-            <form class="login-form" action="/hrm_recruitment_login" method="post" style="padding: 15px; border-radius: 3px; width: 100%; box-shadow: 0px 1px 5px 5px rgba(56, 54, 54, 0.5)">
+        <div class="login-box">    
+            <form class="login-form" action="/hrm_recruitment_login" method="post" style="">
                 @csrf
-                <h3 class="login-head" style="text-align: center;">
-                    <img src="img/icons/user_icon3.png" width="35%" height="35%"  alt="" style=" border-radius: 50%; border: 1px solid rgb(126, 115, 94);">
-                </h3>
-                <h4 style="text-align: center; color: blue;">User Login</h4>
-                <div class="form-group" style="width: 100%;" >
+
+                <h3 class="login-head"><img src="images/turbotech.png" width="100%" height="100%" alt=""></h3>
+                <div class="form-group"  >
                     <label class="control-label"><b>Email</b></label>
                     <div class="inputWithIcon">
                         <input class="form-control " name="user_email" type="text" placeholder="User Email:" autofocus required>
@@ -57,7 +55,7 @@
                         <p id='msgError' style='color:#cc0000'>Incorrect email or password</p>
                     </div>
                 </div>
-                <div class="form-group" style="width: 100%;">
+                <div class="form-group" >
                     <label class="control-label"><b>Password</b></label>
                     <div class="inputWithIcon">
                         <input class="form-control " name="password" type="password" placeholder="Password:" required>
@@ -68,15 +66,13 @@
                     </div>
                 </div>
 
-                <div class="form-group btn-container" style="width: 100%;">
+                <div class="form-group btn-container" >
                     <button type="submit" class="btn btn-danger btn-block" name="btn_userLogin" >SIGN IN</button>
                 </div>
 
-                <div class="form-group btn-container" style="text-align: center	;">
+                <div class="form-group btn-container" style="text-align: center; padding-top: 15px;">
                     <a href="hrm_index_user_register"><h5>Create Account <i style="font-size:18px; "class="fas fa-long-arrow-alt-right"></i></h5></a>
                 </div>
-
-
             </form>
 
         </div>
@@ -85,7 +81,7 @@
     <script src="plugins/jquery/jquery.min.js" ></script>
     <script src="plugins/popper/popper.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+    {{-- <script src="plugins/sweetalert2/sweetalert2.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
 

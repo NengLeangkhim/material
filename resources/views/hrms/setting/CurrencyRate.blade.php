@@ -5,13 +5,13 @@
               <div class="card-header">
                 <h1 class="card-title hrm-title"><strong><i class="fas fa-calendar-times"></i>Currency Rate</strong></h1>
                 <div class="col-md-12 text-right">
-                    <a href="javascrip:;" class="btn bg-gradient-primary" onclick="">Add</a>
+                    <a href="javascrip:;" class="btn bg-gradient-primary" onclick="HRM_ShowDetail('hrm_modal_currencyrate','modal_currencyrate')">Add</a>
                 </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                   @php
-                    //   print_r($data);
+                      print_r($data);
                   @endphp
                 <table class="table table-bordered" id="tbl_payroll" style="width: 100%">
                   <thead>                  
@@ -27,22 +27,23 @@
                   <tbody>
                       @php
                           $i=0;
-                          $salary="100 $";
+                          
                       @endphp
-                    {{-- @foreach ($data[0] as $em)
+                    @foreach ($data[0] as $cu)
                         <tr>
                         <th>{{++$i}}</th>
-                        <td>{{$em->name}}</td>
-                        <td>{{$em->id_number}}</td>
-                        <td>{{$em->position}}</td>
-                        <td>{{$salary}}</td>
-                        <td class="text-right">
-                          <a href="javascrip:;" class="btn btn-info btn-sm" onclick="HRM_ShowDetail('hrm_payslip','modal_payslip',{{$em->id}})">Generate Slip</a>
-                          <a href="javascrip:;" class="btn btn-info btn-sm" onclick="HRM_ShowDetail('hrm_payrollitems','modal_payrollitems',{{$em->id}})">Payroll Items</a>
-                          <a href="javascrip:;" class="btn btn-info btn-sm">Approve</a>
+                        <td>{{$cu->namefrom}}</td>
+                        <td>{{$cu->nameto}}</td>
+                        <td>{{$cu->create_date}}</td>
+                        <td>{{$cu->rate}}</td>
+                        <td class="text-center">
+                          <div class="row">
+                            <div class="col-md-6"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_modal_currencyrate','modal_currencyrate',{{$cu->id}})"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-6"><a href="javascrip:;"><i class="far fa-trash-alt" onclick="hrm_delete({{$cu->id}},'hrm_delete-currencyrate','hrm_currency','Currency Rate Deleted Succseefully !')"></i></a></div>
+                          </div>
                         </td>
                     </tr>
-                    @endforeach --}}
+                    @endforeach
                       
                     
                     

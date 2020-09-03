@@ -3,15 +3,15 @@
         <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h1 class="card-title hrm-title"><strong><i class="fas fa-calendar-times"></i>Taxation</strong></h1>
+                <h1 class="card-title hrm-title"><strong>Taxation</strong></h1>
                 <div class="col-md-12 text-right">
-                    <a href="javascrip:;" class="btn bg-gradient-primary" onclick="">Add</a>
+                    {{-- <a href="javascrip:;" class="btn bg-gradient-primary" onclick="">Add</a> --}}
                 </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                   @php
-                    //   print_r($data);
+                      print_r($data);
                   @endphp
                 <table class="table table-bordered" id="tbl_payroll" style="width: 100%">
                   <thead>                  

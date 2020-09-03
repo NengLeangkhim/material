@@ -49,5 +49,8 @@
 <!-- hrm style -->
         <link rel="stylesheet" href="css/hrm/hrm.css">
         <link href='fullcalendar-5.3.0/lib/main.min.css' rel='stylesheet' /> <!-- hrm Calendar -->
+
+<link href="plugins/chart.js/Chart.min.css" rel="stylesheet">
+      
 </head>
 
