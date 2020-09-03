@@ -61,6 +61,23 @@ class hr_dashboardController extends Controller
     }
 
 
+    // function to add 0 digit to single digit
+    public static function index_num($v1){
+        //v = 1;
+        if($v1 == 0){
+            $arr = '0'.$v1;
+            return  $arr;
+        }
+        if($v1 > 0 && $v1 < 10){
+            $arr = '0'.$v1;
+            return  $arr;
+        }
+        if($v1 > 10 && $v1 < 100){
+            return $v1;
+        }
+        return $v1;
+    }
+
 
 
 
@@ -78,7 +95,6 @@ class hr_dashboardController extends Controller
                    
                     if($r['month'] == 1){
                         $m++;
-                       
                     }
                     if($r['day'] == 1){
                         $d++;
@@ -93,12 +109,16 @@ class hr_dashboardController extends Controller
                     }
                     $i++;
             }
+
+            // $mm = hr_dashboardController::index_num($m);
+            $dd = hr_dashboardController::index_num($d);
+            $ww = hr_dashboardController::index_num($w);
     
             $post_data=[
                 'yyy' =>$y,
                 'mmm' =>$m,
-                'www' =>$w,
-                'ddd' =>$d
+                'www' =>$ww,
+                'ddd' =>$dd
             ];
             return $post_data;
     }
@@ -135,11 +155,15 @@ class hr_dashboardController extends Controller
                         
                 }
         
+                // $mm = hr_dashboardController::index_num($m);
+                $dd = hr_dashboardController::index_num($d);
+                $ww = hr_dashboardController::index_num($w);
+
                 $post_data=[
                     'yyy' =>$y,
                     'mmm' =>$m,
-                    'www' =>$w,
-                    'ddd' =>$d
+                    'www' =>$ww,
+                    'ddd' =>$dd
                 ];
                 return $post_data;
         
@@ -171,12 +195,15 @@ class hr_dashboardController extends Controller
                         $y++;
                     }
             }
-    
+            // $mm = hr_dashboardController::index_num($m);
+            $dd = hr_dashboardController::index_num($d);
+            $ww = hr_dashboardController::index_num($w);
+
             $post_data=[
                 'yyy' =>$y,
                 'mmm' =>$m,
-                'www' =>$w,
-                'ddd' =>$d
+                'www' =>$ww,
+                'ddd' =>$dd
             ];
             return $post_data;
     }
@@ -215,47 +242,48 @@ class hr_dashboardController extends Controller
 
 
         // check staff late in the morning
-
-        // select all staff late around 8am-12am
-        $f_m = date('Y-m-d 08:01:00');
-        $l_m = date('Y-m-d 12:00:00');
-        $arr[] = '';
-        foreach($all_em as $key=>$val){
-            $id = self::ConvertIdToNumber($val->id_number);
-            $late_check = hr_dashboardModel::staff_attendance($f_m, $l_m, $id);
-            if(count($late_check) > 0){
-                $arr[$late] = $late_check;
-                $late++;
-            }
-            
-        }
-
-
-        //select staff who check-in 2 times in the morning
-        $f_m1 = date('Y-m-d 00:00:00');
-        $l_m1 = date('Y-m-d 08:00:59');
-        foreach($arr as $key1=>$val1){
-            foreach($val1 as $val2){
-                $id = $val2->deviceID;
-                $early_check = hr_dashboardModel::staff_attendance($f_m1, $l_m1, $id);
-                if(count($early_check) > 0){
-                    // print_r($early_check);
-                    $late--;
+                // select all staff late around 8am-12am
+                $f_m = date('Y-m-d 08:01:00');
+                $l_m = date('Y-m-d 12:00:00');
+                $arr[] = '';
+                foreach($all_em as $key=>$val){
+                    $id = self::ConvertIdToNumber($val->id_number);
+                    $late_check = hr_dashboardModel::staff_attendance($f_m, $l_m, $id);
+                    if(count($late_check) > 0){
+                        $arr[$late] = $late_check;
+                        $late++;
+                    }
+                    
                 }
-            }
-        }  
-        
+                
 
-
-
+                //select staff who check-in 2 times in the morning
+                $f_m1 = date('Y-m-d 00:00:00');
+                $l_m1 = date('Y-m-d 08:00:59');
+                foreach($arr as $key1=>$val1){
+                    foreach($val1 as $val2){
+                        $id = $val2->deviceID;
+                        $early_check = hr_dashboardModel::staff_attendance($f_m1, $l_m1, $id);
+                        if(count($early_check) > 0){
+                            // print_r($early_check);
+                            $late--;
+                        }
+                    }
+                }  
+    
 
         // check staff absent today
         $absent = count($all_em) - $intime;
+
+        $ab = hr_dashboardController::index_num($absent);
+        $inti = hr_dashboardController::index_num($intime);
+        $lat = hr_dashboardController::index_num($late);
+
         return $data = [
                 'all_em' => count($all_em),
-                'intime' => $intime,
-                'late' => $late,
-                'absent' => $absent
+                'intime' => $inti,
+                'late' => $lat,
+                'absent' => $ab
             ];
 
         
@@ -330,6 +358,108 @@ class hr_dashboardController extends Controller
     }
     
 
+
+    //function to count number of staff, candidate, shift promote by last 1,2,3 month 
+    public static function BylastMonth($date){
+    
+            date_default_timezone_set('Asia/Phnom_Penh');
+            // declear first & last day of current month
+            $f_month = date('Y-m-d 00:00:00', strtotime(date('Y-m-1')));
+            $l_month = date("Y-m-t 23:59:59", strtotime($f_month));
+
+            // declear first & last day of the last month  
+            $f_1_last_month = date('Y-m-01 00:00:00', strtotime('-1 months'));
+            $l_1_last_month = date("Y-m-t 23:59:59", strtotime($f_1_last_month));
+
+            // declear first & last day of the 2 last month  
+            $f_2_last_month = date('Y-m-01 00:00:00', strtotime('-2 months'));
+            $l_2_last_month = date("Y-m-t 23:59:59", strtotime($f_2_last_month));
+
+            // declear first & last day of the 3 last month  
+            $f_3_last_month = date('Y-m-01 00:00:00', strtotime('-3 months'));
+            $l_3_last_month = date("Y-m-t 23:59:59", strtotime($f_3_last_month));
+
+
+            // declear first & last day of the 4 last month  
+            $f_4_last_month = date('Y-m-01 00:00:00', strtotime('-4 months'));
+            $l_4_last_month = date("Y-m-t 23:59:59", strtotime($f_4_last_month));
+
+
+            if($date > $f_month && $date < $l_month ){
+                return 0;
+            }
+            if($date > $f_1_last_month && $date < $l_1_last_month ){
+                return 1;
+            }
+            if($date > $f_2_last_month && $date < $l_2_last_month ){
+                return 2;
+            }
+            if($date > $f_3_last_month && $date < $l_3_last_month ){
+                return 3;
+            }
+
+            if($date > $f_4_last_month && $date < $l_4_last_month ){
+                return 4;
+            }
+
+            return -1; // if out of condition
+
+            // echo $f_month;
+            // echo '<br>';
+            // echo $l_month;
+
+    }
+
+
+    public static function MonthlyCandidate(){
+        // $mm = '2020-05-07 12:00:00';
+        $can = hr_dashboardModel::candidate();
+        $date1 = date('Y-m-d');
+        $current = 0;
+        $l_1month = 0;   // l_1month -> last 1 month
+        $l_2month = 0;
+        $l_3month = 0;
+        $l_4month = 0;
+        foreach($can as $key=> $val1){
+            $date = $val1->register_date;
+            $r = hr_dashboardController::BylastMonth($date); 
+            if($r == 0){
+                $current++;   
+            }
+            if($r == 1){
+                $l_1month++;
+            }
+            if($r == 2){
+                $l_2month++;
+
+            }
+            if($r == 3){
+                $l_3month++;
+
+            }
+            if($r == 4){
+                $l_4month++;
+            }
+        }
+       
+        //declear variable get name of each previus months
+        $current_mon_name = (date('F', strtotime($date1)));
+        $l_1_mon_name = (date('F', strtotime($date1. "-1 Month")));
+        $l_2_mon_name = (date('F', strtotime($date1. "-2 Month")));
+        $l_3_mon_name = (date('F', strtotime($date1. "-3 Month")));
+        $l_4_mon_name = (date('F', strtotime($date1. "-4 Month")));
+
+        
+        $arr= [
+                $l_4_mon_name => $l_4month,
+                $l_3_mon_name => $l_3month,
+                $l_2_mon_name => $l_2month,
+                $l_1_mon_name => $l_1month,
+                $current_mon_name => $current
+            ];
+
+        return  $arr;
+    }
 
 
 

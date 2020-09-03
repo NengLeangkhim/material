@@ -92,7 +92,8 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">Salary<span class="text-danger">  *</span>
                         </label>
-                        <input type="text" class="form-control" placeholder="Enter Salary"  name="txtsalary"  required>
+                        <input type="text" class="form-control" placeholder="Enter Salary"  name="txtsalary"  required=''>
+                        <p id='up_salary' style="color:red; font-style: italic; display:none;">Please Enter Field Salary!</p>
                     </div>
                 </div>
                 <div class="col-md-12">

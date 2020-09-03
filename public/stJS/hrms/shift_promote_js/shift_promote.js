@@ -39,16 +39,8 @@ function submit_staff_promote(id){
     var txtcomment = document.getElementsByName('txtcomment')[0].value;
 
     if(txtsalary == ''){ // if salary emptry field show meessage box alert
-        Swal.fire({
-            title: 'Please enter filed salary !',
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown'
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutUp'
-            }
-        })
-
+        $('#up_salary').show();
+        
     }else{ 
 
         $.ajax({

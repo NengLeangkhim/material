@@ -2360,7 +2360,7 @@ function hrm_recruitment_approve(userid,type){
       }
     });
   }
-  ///// Get Report Table Detail Pass Pending and Reject
+  // Get Report Table Detail Pass Pending and Reject
   function get_report_recruitment_detail(type,from,to){
     //   if(check_session()){
     //   return;

@@ -907,8 +907,13 @@ Route::get('hrm_recruitment_get_hr_result','hrms\recruitment_user\recruitment_us
 
 //=============HR Dashboard==============
 
-Route::get('hrm_dashborad',function(){
+Route::get('hrm_dashboard',function(){
     return view('hrms.dashboard.hr_dashboard');
+});
+
+
+Route::get('test_chart',function(){
+    return view('hrms.dashboard.hrm_dashboard');
 });
 
 // Route::get('hrm_dashboard','hrms\dashboard\hr_dashboardController@hr_dashboard');
