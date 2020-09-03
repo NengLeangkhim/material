@@ -33,7 +33,7 @@
     </style>
 </head>
 <body>
-        <div>
+    <div>
         <section class="material-half-bg" >
             <div class="cover"></div>
         </section>

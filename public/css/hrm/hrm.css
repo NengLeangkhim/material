@@ -67,9 +67,9 @@ thead tr th{
     padding-top: 2px;
     /* padding-bottom: 2px; */
     text-align: center;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     border-radius: 3px;
-    background-color: seagreen;
+    background-color: #1fa8e0;
 }
 
 
