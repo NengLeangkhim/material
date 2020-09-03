@@ -7,9 +7,7 @@
                <div class="card-header">
                  <h1 class="card-title hrm-title"><strong><i class="fas fa-chart-pie"></i> Recruitment Report</strong></h1>
                  <div class="col-md-12 text-right">
-                    {{-- @if ($level==4 || $level==5 || $level==1)
-                    <button type="button" id="HrmAddSchedule" onclick="HrmAddSchedule()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Schedule</button>
-                    @endif --}}
+
                  </div>
                </div>
                <!-- /.card-header -->
@@ -24,8 +22,8 @@
                                     <input type="date" name="" id="recruitment_to" class="form-control col-3" value="<?php echo date('Y-m-d')?>" onchange="hrm_recruitment_get_report_val(document.getElementById('recruitment_from').value,this.value)">
                                 </div><br>
                             </div>
-                            <div class="col-12" style="padding-top:10px">
-                                <canvas style="color:blue;" id="chart-area" width="400" height="120"></canvas>
+                            <div class="col-12" style="padding-top:10px;">
+                                <div id="hrm-recruitment-chart-area" style="width:700px;height:350px;"></div>
                             </div>
                             <div class="col-12 text-left" style="padding-top:10px">
                                 <input type="button" onclick="get_report_cv_detail(document.getElementById('recruitment_from').value,document.getElementById('recruitment_to').value)" style="font-family: khmer UI;font-size:15px" id="re_all" class="btn btn-primary btn-lg" >

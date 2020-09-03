@@ -96,3 +96,6 @@
 
 
 <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
+
+{{--Google Chart--}}
+<script type="text/javascript" src="js/google_chart.js"></script>

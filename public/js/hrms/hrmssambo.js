@@ -2335,28 +2335,55 @@ function hrm_recruitment_approve(userid,type){
         $('#re_app').val('អ្នកជាប់'+' '+'( '+data.app+' )');
         $('#re_pen').val('អ្នករង់ចាំ'+' '+'( '+data.pen+' )');
         $('#re_rej').val('អ្នកបដិសេដ'+' '+'( '+data.rej+' )');
-        var data1 = [data.all,data.app,data.pen,data.rej];
-        new Chart(document.getElementById("chart-area"), {
-          type: 'pie',
-          data: {
-            labels:["Applies", "Approve", "Pending", "Reject"], //["Africa", "Asia", "Europe", "Latin America", "North America"],
-            datasets: [
-              {
-                label: "Request",
-                backgroundColor: ["#007bff", "#28a745","#ffc107","#dc3545"],
-                data: data1,//[2478,5267,734,784,433]
-              }
-            ]
-          },
-          options: {
-            legend: { display: false },
-            title: {
-              display: true,
-              text: 'Total Condidate'
-            },
-          responsive: true,
+        var applies = data.all;
+        var approve = data.app;
+        var pending = data.pen;
+        var reject = data.rej;
+        //var data1 = [data.all,data.app,data.pen,data.rej];
+        // new Chart(document.getElementById("chart-area"), {
+        //   type: 'pie',
+        //   data: {
+        //     labels:["Applies", "Approve", "Pending", "Reject"], //["Africa", "Asia", "Europe", "Latin America", "North America"],
+        //     datasets: [
+        //       {
+        //         label: "Request",
+        //         backgroundColor: ["#007bff", "#28a745","#ffc107","#dc3545"],
+        //         data: data1,//[2478,5267,734,784,433]
+        //       }
+        //     ]
+        //   },
+        //   options: {
+        //     legend: { display: false },
+        //     title: {
+        //       display: true,
+        //       text: 'Total Condidate'
+        //     },
+        //   responsive: true,
+        //   }
+        // });
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Candidate', 'Result'],
+            ['Applies', applies],
+            ['Approve', approve],
+            ['Pending', pending],
+            ['Reject', reject],
+          ]);
+  
+          var options = {
+            is3D: true,
+            pieSliceText: 'value',
+            slices: {0: {color: '#007bff'}, 1:{color: '#28a745'}, 2:{color: '#ffc107'}, 3: {color: '#dc3545'}},
+            tooltip: {
+              text: 'value'
           }
-        });
+          };
+  
+          var chart = new google.visualization.PieChart(document.getElementById('hrm-recruitment-chart-area'));
+          chart.draw(data, options);
+        }
       }
     });
   }
