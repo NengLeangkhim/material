@@ -637,7 +637,7 @@ function HrmAddPolicy(){
   $('#policy_name').removeClass("is-invalid");
   $('#policy_file').removeClass("is-invalid");
   $(".invalid-feedback").children("strong").text("");
-  $('#card_title').text('Add Policy');
+  $('#card_title').text(' Add Policy');
   $('#action_policy').text('Create');
 } 
 //function insert policy //
@@ -2386,14 +2386,16 @@ function hrm_recruitment_approve(userid,type){
     });
   }
   //// Function Modal Get Result Candidate
-  function view_result_condidate_report(id){
+  function view_result_condidate_report(id,date){
     $.ajax({  
       url:'hrm_report_recruitment/report/modal/result',  
       type:"GET",
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      data:{id:id},  
+      data:{id:id,
+            date:date
+      },  
       success:function(data){  
         // get id of div in admincheck.php for show modal  
         document.getElementById("modal_report_recruitment").innerHTML = data;

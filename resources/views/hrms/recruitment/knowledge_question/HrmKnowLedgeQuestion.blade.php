@@ -40,8 +40,8 @@
                                       <td style="color:black;">{{$ts1->format('d-M-Y H:i:s')}}</td>
                                       <td style="color:black;">{{$row->username}} </td>
                                       <td style="color:black;" class="text-center">
-                                        <a href="#" id="{{$row->id}}" class="btn btn-info update_qestion_knowledge"><i class="far fa-edit"></i></a>
-                                        <a href="#" id="{{$row->id}}" onclick="hrm_delete({{$row->id}},'hrm_list_knowledge_question/delete','hrm_list_knowledge_question','Question has been deleted')" class="btn btn-info delete_qestion_knowledge"><i style="color:red" class="fas fa-trash"></i></a>
+                                        <a href="#" id="{{$row->id}}" title="Update" class="update_qestion_knowledge"><i class="far fa-edit"></i></a>
+                                        <a href="#" id="{{$row->id}}" title="Delete" onclick="hrm_delete({{$row->id}},'hrm_list_knowledge_question/delete','hrm_list_knowledge_question','Question has been deleted')" class="delete_qestion_knowledge"><i style="color:red;margin-left:10px;" class="fas fa-trash"></i></a>
                                       </td>
                                   </tr>     
                               @endforeach

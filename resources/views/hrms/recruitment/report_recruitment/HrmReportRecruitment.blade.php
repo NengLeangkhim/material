@@ -47,11 +47,9 @@
  </div>
 </section>
     <script>
-        $(document).ready(function(){
           var e_from= $('#recruitment_from').val();
           var e_to = $('#recruitment_to').val();
-          hrm_recruitment_get_report_val(e_from,e_to);
-      });    
+          hrm_recruitment_get_report_val(e_from,e_to);   
     </script>
     <div id="modal_report_recruitment">
     </div>
