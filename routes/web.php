@@ -792,12 +792,18 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 // Setting
     // Standard Price
         Route::get('hrm_standard_price', 'hrms\Setting\StandardPriceController@StandardPrice');
+        Route::get('hrm_modalstandardprice', 'hrms\Setting\StandardPriceController@AddEditStandardPrice');
+        Route::post('hrm_insert_update_standardprice', 'hrms\Setting\StandardPriceController@InsertUpdateStandardPrice');
+        Route::get('hrm_delete_standardprice', 'hrms\Setting\StandardPriceController@DeleteStandardPrice');
     // End Standard Price
     // Taxation
         Route::get('hrm_taxation','hrms\Setting\TaxationController@Taxation');
     // End Taxation
     // Currency Rate
         Route::get('hrm_currency','hrms\Setting\CurrencyRateController@CurrencyRate');
+        Route::get('hrm_modal_currencyrate', 'hrms\Setting\CurrencyRateController@AddEditModalCurrencyRate');
+        Route::post('hrm_insert_update_currencyrate', 'hrms\Setting\CurrencyRateController@InsertUpdateCurrencyRate');
+        Route::get('hrm_delete-currencyrate', 'hrms\Setting\CurrencyRateController@DeleteCurrencyRate');
     // End Currency Rate
 // End Setting
 
