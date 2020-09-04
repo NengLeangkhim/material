@@ -69,69 +69,111 @@ class hr_dashboardModel extends Model
 
 
 
+
+    // function to select staff submit sugguestion from table hr_suggestion_submite
+    public static function All_staffSuggestion(){
+            $sql = "SELECT * From hr_suggestion_submited WHERE status='t' AND is_deleted = 'f' ";
+            try {
+                
+                $r = DB::select($sql);
+                return $r;
+            }catch(\Illuminate\Database\QueryException $ex){
+                dump($ex->getMessage());
+                echo '<br><a href="/">go back</a><br>';
+                echo 'exited';
+                exit;
+            // Note any method of class PDOException can be called on $ex.
+            }
+    }
+
+
+
+
+    // function to get plan of training list by today
+    public static function plan_training($curret_date){
+            $sql = " SELECT count(id) FROM hr_training_schedule WHERE '$curret_date' >= training_date_from
+                    AND '$curret_date' <= training_date_to AND status = 't' AND is_deleted = 'f' ";
+            try {
+                
+                $r = DB::select($sql);
+                return $r;
+            }catch(\Illuminate\Database\QueryException $ex){
+                dump($ex->getMessage());
+                echo '<br><a href="/">go back</a><br>';
+                echo 'exited';
+                exit;
+            // Note any method of class PDOException can be called on $ex.
+            }
+    }
+
+
+
+
+    // function to get all position available in staff
+    public static function available_position(){
+        $sql = " SELECT count(id) AS count_id FROM ma_user WHERE status='t' AND is_deleted ='f'
+                    GROUP BY ma_position_id ";
+        try {
+            $r = DB::select($sql);
+            return $r;
+        }catch(\Illuminate\Database\QueryException $ex){
+            dump($ex->getMessage());
+            echo '<br><a href="/">go back</a><br>';
+            echo 'exited';
+            exit;
+        }
+    }
+
+
+
+
+    // function to get number of staff go outside or mission today
+    public static function staff_mission($curret_date){
+        $sql= " SELECT count(mis.id) FROM hr_mission mis 
+                JOIN hr_mission_detail mis_de ON mis.id = mis_de.hr_mission_id 
+                WHERE '$curret_date' >= mis.date_from  AND '$curret_date' <= mis.date_to  
+                AND mis.status='t' AND mis.is_deleted = 'f'";
+        try {
+            $r = DB::select($sql);
+            return $r;
+        }catch(\Illuminate\Database\QueryException $ex){
+            dump($ex->getMessage());
+            echo '<br><a href="/">go back</a><br>';
+            echo 'exited';
+            exit;
+        }
+    }
+
+
+    // function to get number of staff submit suggestion or comment
+    public static function staff_suggestion($date1,$date2){
+        $sql= " SELECT count(id) FROM hr_suggestion_submited WHERE create_date Between  
+		        '$date1' AND  '$date2' AND status='t' GROUP BY create_by ";
+        try {
+            $r = DB::select($sql);
+            return $r;
+        }catch(\Illuminate\Database\QueryException $ex){
+            dump($ex->getMessage());
+            echo '<br><a href="/">go back</a><br>';
+            echo 'exited';
+            exit;
+        }
+    }
+
+
     
+
+
+
+
+
+
+
+
+
     
-    // public static function staff_check_in(){
-    //     $f_m = date('Y-m-d 02:00:00');
-    //     $l_m = date('Y-m-d 12:00:00');
-    //     $morning_check = self::staff_attendance($f_m,$l_m);
-    //     return $morning_check;
-
-    // }
-
-
-
-
-    // select number of staff attendance by today
-    // public static function all_staff_attendance(){
-
-    //     $first = date('Y-m-d 00:00:00');
-    //     $last = date('Y-m-d 24:00:00');
-
-    //     $f="'".$first."'";
-    //     $l="'".$last."'";
-    //     $check_in = "'Check-in'";
-    //     $sql= 'SELECT name, "typeName", "deviceStamp" FROM hr_attendance 
-    //         WHERE "deviceStamp" BETWEEN '.$f.' AND  '.$l.' AND 
-    //         "typeName" =  '.$check_in.' ';
-
-    //     return DB::select($sql);    
-
-    // }
-
-
-
-    // public static function get_check_in(){
 
     
-    //     self::all_staff_attendance();
-    //     $data = self::staff_attendanceByID($first,$last,$id_num);
-
-
-    //     print_r($data);
-        
-    // }
-
-
-    
-
-
-
-
-
-
-
-
-    // $sql= 'SELECT name, "typeName", "deviceStamp" FROM hr_attendance 
-    // WHERE "deviceStamp" BETWEEN '.$f.' AND  '.$l.' AND 
-    // "typeName" =  '.$check_in.'  AND    ';
-
-
-
-       // $first = date('Y-m-d 02:00:00');
-        // $last = date('Y-m-d 12:00:00');
-        // // $first = '2020-07-04 07:00:00';
-        // // $last = '2020-07-04 07:30:00';
 
 
 

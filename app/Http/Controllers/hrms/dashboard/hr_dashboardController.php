@@ -361,7 +361,7 @@ class hr_dashboardController extends Controller
 
     //function to count number of staff, candidate, shift promote by last 1,2,3 month 
     public static function BylastMonth($date){
-    
+
             date_default_timezone_set('Asia/Phnom_Penh');
             // declear first & last day of current month
             $f_month = date('Y-m-d 00:00:00', strtotime(date('Y-m-1')));
@@ -411,17 +411,19 @@ class hr_dashboardController extends Controller
     }
 
 
-    public static function MonthlyCandidate(){
-        // $mm = '2020-05-07 12:00:00';
-        $can = hr_dashboardModel::candidate();
+
+
+    //function for divide of each monthly of staff number by data & field create date 
+    public static function separateMonth($data_, $get_date){
+
         $date1 = date('Y-m-d');
         $current = 0;
         $l_1month = 0;   // l_1month -> last 1 month
         $l_2month = 0;
         $l_3month = 0;
         $l_4month = 0;
-        foreach($can as $key=> $val1){
-            $date = $val1->register_date;
+        foreach($data_ as $key=> $val1){
+            $date = $val1->$get_date;
             $r = hr_dashboardController::BylastMonth($date); 
             if($r == 0){
                 $current++;   
@@ -449,7 +451,6 @@ class hr_dashboardController extends Controller
         $l_3_mon_name = (date('F', strtotime($date1. "-3 Month")));
         $l_4_mon_name = (date('F', strtotime($date1. "-4 Month")));
 
-        
         $arr= [
                 $l_4_mon_name => $l_4month,
                 $l_3_mon_name => $l_3month,
@@ -464,6 +465,113 @@ class hr_dashboardController extends Controller
 
 
 
+    // function get last 1,2,3,4 monthly Candidate Register 
+    public static function MonthlyCandidate(){
+
+        $field_name = 'register_date';
+        $data = hr_dashboardModel::candidate();
+        $r = hr_dashboardController::separateMonth($data, $field_name);
+        if(is_array($r)){
+            return $r;
+        }
+        return 0;
+       
+    }
+
+
+
+    //function get last 1,2,3,4 monthly number of staff join work
+    public static function MonthlyJoinMember(){
+        $field_name = 'join_date';
+        $data = hr_dashboardModel::em_all();
+        $r = hr_dashboardController::separateMonth($data, $field_name);
+        if(is_array($r)){
+            return $r;
+        }
+        return 0;
+    }
+
+
+    //function get last 1,2,3,4 monthly number of staff was promoted
+    public static function MonthlyShiftPromote(){
+        $field_name = 'create_date';
+        $data = hr_dashboardModel::all_shift();
+        if($data > 0){
+            $r = hr_dashboardController::separateMonth($data, $field_name);
+            if(is_array($r)){
+                return $r;
+            }
+            return 0;
+        }
+        return 0;
+    }
+    
+
+    //function get last 1,2,3,4 monthly number of staff was submit suggestion
+    public static function MonthlyStaffSuggestion(){
+        $field_name = 'create_date';
+        $data = hr_dashboardModel::All_staffSuggestion();
+        if($data > 0){
+            $r = hr_dashboardController::separateMonth($data, $field_name);
+            if(is_array($r)){
+                return $r;
+            }
+            return 0;
+        }
+        return 0;
+        
+    }
+
+
+
+    //function get plan of training list today
+    public static function plan_trainingToday(){
+        $today = date('Y-m-d');
+        // $today = '2020-08-07';
+        $data = hr_dashboardModel::plan_training($today);
+        if(($data[0]->count) >= 0 && ($data[0]->count) < 10){
+            $r = '0'.$data[0]->count;
+            return $r;
+        }
+        $r = $data[0]->count;
+        return $r;
+    }
+
+    //function get position available in staff 
+    public static function AvailablePosition(){
+        $data = hr_dashboardModel::available_position();
+        $r = count($data);
+        return $r;
+    }
+
+
+    //function to get number of staff go outside or mission work
+    public static function Num_staffMission(){
+        $today = date('Y-m-d');
+        $data = hr_dashboardModel::staff_mission($today);
+        if(($data[0]->count) >= 0 && ($data[0]->count) < 10){
+            $r = '0'.$data[0]->count;
+            return $r;
+        }
+        $r = $data[0]->count;
+        return $r;
+
+    }
+
+    //function to get number of staff submit suggestion or comment
+    public static function Staff_Suggestion(){
+        $d1 = date('Y-m-d 00:00:00');
+        $d2 = date('Y-m-d 23:59:00');
+        $data = hr_dashboardModel::staff_suggestion($d1,$d2);
+        if( count($data) >= 0 && count($data) < 10){
+            $r = '0'.count($data);
+            return $r;
+        }
+        $r = count($data);
+        return $r;
+    }
+
+    
 
 
 
