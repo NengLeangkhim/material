@@ -230,16 +230,18 @@ display: block;
 		
 		#container {
 			background-color: #dcdcdc;
+			/* background-color: #12b9d6; */
+
 		}
 
 
-		.tr-review {
+		/* .tr-review {
 			border-bottom: 0.1px solid  #d3d3d3;
-		}
+		}  */
 
 
 		.table_style1 {
-			width: 100%;
+			width: 30%;
 			height: auto;
 		}
 
