@@ -89,4 +89,27 @@ class Payroll extends Model
     function CheckBonus(){
         return 0;
     }
+
+    // Function Create Payroll
+    function CreatePayroll($userid,$currencyrateid,$companyid,$companybranchid,$by,$from,$to){
+//         $sql= "SELECT public.insert_hr_payroll_component_auto(
+// 	<nma_user_id integer>, 
+// 	<nma_currency_rate_id integer>, 
+// 	<nma_company_id integer>, 
+// 	<nma_company_branch_id integer>, 
+// 	<ncreate_by integer>, 
+// 	<ndate_from date>, 
+// 	<ndate_to date>
+// )";
+        $sql = "SELECT public.insert_hr_payroll_component_auto($userid,$currencyrateid,$companyid,$companybranchid,$by,'$from','$to')";
+        $stm=DB::select($sql);
+        print_r($stm);
+    }
+
+
+    function ShowPayrollList($em){
+        $sql= "select * from hr_payroll_component 
+                where ma_user_id=250 and approve='f' and status='t' and is_deleted='f'";
+        return $stm=DB::select($sql);
+    }
 }

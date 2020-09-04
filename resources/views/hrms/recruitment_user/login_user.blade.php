@@ -46,8 +46,10 @@
             <form class="login-form" action="/hrm_recruitment_login" method="post" style="">
                 @csrf
 
-                <h3 class="login-head"><img src="images/turbotech.png" width="100%" height="100%" alt=""></h3>
+                <h3 class="login-head"><img src="images/turbotech.png" width="70%" height="70%" alt=""></h3>
+                <h2 style="color:rgb(6, 165, 238); text-align: center; font-family:Bahnschrift SemiBold Condensed">User Login</h2>
                 <div class="form-group"  >
+
                     <label class="control-label"><b>Email</b></label>
                     <div class="inputWithIcon">
                         <input class="form-control " name="user_email" type="text" placeholder="User Email:" autofocus required>

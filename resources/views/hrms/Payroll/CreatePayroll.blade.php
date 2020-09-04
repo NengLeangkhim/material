@@ -14,11 +14,12 @@
                     // print_r($data);
                 @endphp
                 <form id="fm-createpayroll" onsubmit="return false">
+                   @csrf
                   <div class="col-md-12">
                     <div class="row">
                       <div class="col-md-2">
                         <label for="">Employee</label>
-                        <select name="" id="" class="form-control">
+                        <select name="employeeid" id="" class="form-control">
                         <option value="-1">All Employee</option>
                           @foreach ($data[0] as $em)
                         <option value="{{$em->id}}">{{$em->name}}</option>
@@ -35,7 +36,7 @@
                       </div>
                       <div class="col-md-2">
                         <label for="">Month</label>
-                        <select name="" id="" class="form-control">
+                        <select name="month" id="" class="form-control">
                           <option value="1">January</option>
                           <option value="2">February</option>
                           <option value="3">March</option>
@@ -52,7 +53,7 @@
                       </div>
                       <div class="col-md-2">
                         <label for="">​</label>
-                        <button type="submit" class="btn btn-default form-control">Create</button>
+                        <button type="submit" class="btn btn-default form-control" onclick="submit_form ('hrm_save_create_payroll','fm-createpayroll','hrm_employee_salary')">Create</button>
                       </div>
                     </div>
                   </div>
