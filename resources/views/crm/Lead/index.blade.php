@@ -22,10 +22,10 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="col-2">
+                                <div class="col-1">
                                     <div class="row  ">
                                         <!-- <a  href="#" class="btn btn-block btn-success lead" value="addlead" onclick="addlead()"><i class="fas fa-wrench"></i> Add Lead</a>  -->
-                                        <a  href="#" class="btn btn-block btn-success lead" ​value="addlead" id="lead"><i class="fas fa-wrench"></i> Add Lead</a> 
+                                        <a  href="#" class="btn btn-block btn-success lead" ​value="addlead" id="lead"><i class="fas fa-plus"></i> Add Lead</a> 
                                     </div>
                                 </div>                               
                             </div>
@@ -37,7 +37,7 @@
                                             <th>Customer/Comapny Name</th>
                                             <th>Email</th>
                                             <th>phone</th>
-                                            <th>Lead Status </th>
+                                            <th>Website </th>
                                             <th>Assigned To </th>
                                             <th>Detail</th>
                                         </tr>
@@ -48,7 +48,7 @@
                                             <td>{{$row->lead_number}}</td>
                                             <td>{{$row->customer_name_en}}</td>
                                             <td>{{$row->email}}</td>
-                                            <td>{{$row->phone}}</td>
+                                            <td>{{$row->website}}</td>
                                             <td>{{$row->status}}</td>
                                             <td>{{$row->create_by}}</td>
                                             <td>

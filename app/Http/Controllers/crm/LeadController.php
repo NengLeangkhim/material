@@ -12,7 +12,7 @@ class LeadController extends Controller
 
     public function getlead(){
         if(perms::check_perm_module('CRM_0205')){//module codes
-            $lead=DB::select("SELECT * from  crm_lead");
+            $lead=DB::select("SELECT * from crm_lead");
             return view('crm.Lead.index',['lead'=>$lead]);
         }else{
             return view('no_perms');
@@ -34,7 +34,7 @@ class LeadController extends Controller
             $lead_status=DB::select("SELECT * from  crm_lead_status");
             $lead_industry=DB::select("SELECT * from  crm_lead_industry");
             $assig_to=DB::select("SELECT * from  ma_user");
-            $province=DB::select("SELECT * FROM key_gazetteers WHERE LENGTH(gzcode)=2");
+            $province=DB::select("SELECT  * from public.get_gazetteers_province()");
 
             return view('crm.Lead.addlead',['lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province]);
     }
@@ -42,19 +42,19 @@ class LeadController extends Controller
     public function getdistrict(){
 
          $id=$_GET['_id'];//set up same for ajax
-        $get_district=DB::select("SELECT gzcode as id,latinname||'/'||khname as name FROM key_gazetteers WHERE LENGTH(gzcode)=4 AND LEFT(gzcode,2)='$id'");
+        $get_district=DB::select("SELECT code as id, name_latin||'/'||name_kh as name from public.get_gazetteers_district('$id')");
             return response()->json(array('response'=> $get_district), 200);//set up same for ajax
     }
     public function getcommune(){
 
         $id=$_GET['_id'];//set up same for ajax
-       $get_district=DB::select("SELECT gzcode as id,latinname||'/'||khname as name FROM key_gazetteers WHERE LENGTH(gzcode)=6 AND LEFT(gzcode,4)='$id'");
+       $get_district=DB::select("SELECT code as id, name_latin||'/'||name_kh as name from public.get_gazetteers_commune('$id')");
            return response()->json(array('response'=> $get_district), 200);//set up same for ajax
     }
     public function getvillage(){
 
         $id=$_GET['_id'];//set up same for ajax
-       $get_district=DB::select("SELECT gzcode as id,latinname||'/'||khname as name FROM key_gazetteers WHERE LENGTH(gzcode)=8 AND LEFT(gzcode,6)='$id'");
+       $get_district=DB::select("SELECT code as id, name_latin||'/'||name_kh as name from public.get_gazetteers_village('$id')");
            return response()->json(array('response'=> $get_district), 200);//set up same for ajax
     }
     public function addleadsource(){

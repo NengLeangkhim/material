@@ -17,27 +17,37 @@
             </section>
 
             <!-- section Main content -->
-            <section class="content">
+            <section class="content"> 
                 <div class="card card-solid">
+                  <div class="card-header">
+                    <div class="col-2">
+                        <div class="row  ">
+                            <!-- <a  href="#" class="btn btn-block btn-success lead" value="addlead" onclick="addlead()"><i class="fas fa-wrench"></i> Add Lead</a>  -->
+                            <a  href="#" class="btn btn-block btn-success lead" ​value="addlead" id="lead"><i class="fas fa-search"></i> Serch Contacts</a> 
+                        </div>
+                    </div>                               
+                </div>  
                     <div class="card-body pb-0">
                       <div class="row d-flex align-items-stretch">
-                        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch" style="border:2px solid red">
-                          <div class="card bg-light">
+                        @foreach ($contact as $row )
+                        <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch" >
+                          <div class="card bg-light" style="width:1000px">
                             <div class="card-header text-muted border-bottom-0">
-                              Digital Strategist
+                              
                             </div>
                             <div class="card-body pt-0">
                               <div class="row">
                                 <div class="col-7">
-                                  <h2 class="lead"><b>Nicole Pearson</b></h2>
-                                  <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
+                                <h2 class="lead"><b>{{($row->name_en)=='Null'? "N/A":$row->name_en}}</b></h2>
+                                <h2 class="lead"><b>{{($row->name_kh)=='Null'? "N/A":$row->name_kh}}</b></h2>
                                   <ul class="ml-4 mb-0 fa-ul text-muted">
-                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
-                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
+                                    <li class="small"><span class="fa-li"><i class="fas fa-at"></i></span> Email : {{($row->email)=='NUll'? "turbotech@gmail.com":$row->email}}                                  </li>
+                                    <li class="small"><span class="fa-li"><i class="fab fa-facebook-f"></i></span> Facbook : {{($row->facebook)=='Null'? "N/A":$row->facebook}}                                  </li>
+                                    <li class="small"><span class="fa-li"><i class="fas fa-phone-alt"></i></span> Phone : {{($row->phone)=='Null'? "N/A":$row->phone}}</li>
                                   </ul>
                                 </div>
                                 <div class="col-5 text-center">
-                                  <img src="../../dist/img/user1-128x128.jpg" alt="" class="img-circle img-fluid">
+                                  <img src="../../dist/img/user8-128x128.jpg" alt="" class="img-circle img-fluid">
                                 </div>
                               </div>
                             </div>
@@ -53,39 +63,8 @@
                             </div>
                           </div>
                         </div>
-                        <!-- ========================== -->
-                        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch" style="border:2px solid red">
-                          <div class="card bg-light">
-                            <div class="card-header text-muted border-bottom-0">
-                              Digital Strategist
-                            </div>
-                            <div class="card-body pt-0">
-                              <div class="row">
-                                <div class="col-7">
-                                  <h2 class="lead"><b>Nicole Pearson</b></h2>
-                                  <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
-                                  <ul class="ml-4 mb-0 fa-ul text-muted">
-                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
-                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
-                                  </ul>
-                                </div>
-                                <div class="col-5 text-center">
-                                  <img src="../../dist/img/user1-128x128.jpg" alt="" class="img-circle img-fluid">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="card-footer">
-                              <div class="text-right">
-                                <a href="#" class="btn btn-sm bg-teal">
-                                  <i class="fas fa-comments"></i>
-                                </a>
-                                <a href="#" class="btn btn-sm btn-primary">
-                                  <i class="fas fa-user"></i> View Profile
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                        @endforeach                      
+                        
                       </div> 
                     </div>
                     <!-- /.card-body -->
