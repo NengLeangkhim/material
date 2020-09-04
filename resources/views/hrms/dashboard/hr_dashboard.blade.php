@@ -46,7 +46,7 @@ Function index_num($v1){
                   <div class=" card card-mini mb-4">
                           <div class="card-body">
                           <h4 class="mb-1" style="font-weight: bold; text-align: center ">
-                              <?php echo 'Training'; ?> </h4>
+                              <?php echo 'Plan For Training'; ?> </h4>
                               <h5 style="text-align: center">Today</h5>
                           
                               <div class="chartjs-wrapper " >
@@ -185,7 +185,7 @@ Function index_num($v1){
       <div class="row">
 
               {{-- // row 2, column 1 --}}
-              <div class="col-xl-04 col-md-4 col-sm-12">
+              <div class="col-xl-4 col-md-4 col-sm-12">
                     <div class=" card card-mini mb-4">
                             <div class="card-body">
                             <h3 class="mb-1" style="font-weight: bold; ">
