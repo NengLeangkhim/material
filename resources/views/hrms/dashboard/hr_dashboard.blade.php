@@ -42,7 +42,7 @@ Function index_num($v1){
       <div class="row">
 
 
-            <div class="col-xl-03 col-md-3 col-sm-6">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
                   <div class=" card card-mini mb-4">
                           <div class="card-body">
                           <h4 class="mb-1" style="font-weight: bold; text-align: center ">
@@ -75,7 +75,7 @@ Function index_num($v1){
             </div>
 
 
-            <div class="col-xl-03 col-md-3 col-sm-6">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
                   <div class=" card card-mini mb-4">
                           <div class="card-body">
                           <h4 class="mb-1" style="font-weight: bold; text-align: center ">
@@ -110,7 +110,7 @@ Function index_num($v1){
                   </div>
             </div>
 
-            <div class="col-xl-03 col-md-3 col-sm-6">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
                   <div class=" card card-mini mb-4">
                           <div class="card-body">
                           <h4 class="mb-1" style="text-align:center; font-weight: bold; ">
@@ -145,7 +145,7 @@ Function index_num($v1){
             </div>
 
 
-            <div class="col-xl-03 col-md-3 col-sm-6">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
               <div class=" card card-mini mb-4">
                       <div class="card-body">
                       <h4 class="mb-1" style="font-weight: bold; text-align: center ">
