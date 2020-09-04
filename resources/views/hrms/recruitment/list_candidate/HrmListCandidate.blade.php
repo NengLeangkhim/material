@@ -20,7 +20,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Position</th>
-                                <th scope="col">Create_Date</th>
+                                <th scope="col">Create Date</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>

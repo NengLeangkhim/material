@@ -19,8 +19,8 @@
                                     <th scope="col">No</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Value</th>
-                                    <th scope="col">Create_Date</th>
-                                    <th scope="col">Create_By</th>
+                                    <th scope="col">Create Date</th>
+                                    <th scope="col">Create By</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
