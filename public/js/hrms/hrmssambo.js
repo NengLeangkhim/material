@@ -194,14 +194,20 @@ function detele_q_t_sugg(id) {
         data:{id:id},
         type:"GET",    //Using of Post method for send data
         success:function(data){
-         console.log(data);
-       //  sweetalert('success','The Question Type has been Update Successfully !!');
-         setTimeout(function(){ go_to('hrm_question_type_sugg'); }, 300);// Set timeout for refresh content
-        Swal.fire(
-          'Deleted!',
-          'Your Question Type has been deleted.',
-          'success'
-        )
+          if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+            setTimeout(function(){ go_to('hrm_question_type_sugg'); }, 300);// Set timeout for refresh content
+            Swal.fire(
+              'Deleted!',
+              'Your Question Type has been deleted.',
+              'success'
+            )
+          }else{
+            Swal.fire(
+              'Deleted Error!',
+              'Your Question Type have Question child already.',
+              'error'
+            )
+          }
         }
        });
       
@@ -326,6 +332,55 @@ $(document).on('click', '.update_q_sugg', function(){
   });
  });
 //======= END Funtion get value from database to show on modal update =======//
+
+//======= Function checkbox update status
+$(document).on('click', '.HrmCheckBoxSuggQA', function(){
+  var checked = $(this).is(":checked");             
+                    if(checked)
+                    {
+                      var id = $(this).val();
+                      var statusType = 't';
+                      $.ajax({
+                      url:"hrm_question_answer_sugg/checkbox",
+                      headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                      },
+                      type:'GET',
+                      data:{
+                        id:id,
+                        statusType:statusType
+                      },
+                      success:function(data)
+                      {
+                        setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 100);// Set timeout for refresh content
+                        sweetalert('success','The Question has been Update Status Successfully !!'); 
+                      }
+                     });
+                    }
+                    if(!checked)
+                    {
+                      var id = $(this).val();
+                      var statusType = 'f';
+                      $.ajax({
+                      url:"hrm_question_answer_sugg/checkbox",
+                      headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                      },
+                      type:'GET',
+                      data:{
+                        id:id,
+                        statusType:statusType
+                      },
+                      success:function(data)
+                      {
+                        setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 100);// Set timeout for refresh content
+                        sweetalert('warning','The Question has been Update Status Successfully !!');
+                       
+                      }
+                    });
+                    }
+
+});
 ////========== END Question Suggestion============//// 
 ////========== Answer Suggestion============////
 ///Get modal show for add answer //
@@ -582,7 +637,7 @@ function HrmAddPolicy(){
   $('#policy_name').removeClass("is-invalid");
   $('#policy_file').removeClass("is-invalid");
   $(".invalid-feedback").children("strong").text("");
-  $('#card_title').text('Add Policy');
+  $('#card_title').text(' Add Policy');
   $('#action_policy').text('Create');
 } 
 //function insert policy //
@@ -905,19 +960,19 @@ $(document).on('click', '.hrm_view_policy_user', function(){
     }
     });
   });
-  //// View modal Plan and Plan Detail///
-  $(document).on('click', '.hrm_view_plan_detail', function(){
-    var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
-    $.ajax({
-    url:"hrm_list_plan_performance/plan/modal",   //Request send to "action.php page"
-    type:"GET",    //Using of Post method for send data
-    data:{id:id},//Send data to server
-    success:function(data){
-        $('#ShowModalPlan').html(data);
-        $('#hrm_view_plan_modal').modal('show');   //It will display modal on webpage   
-    }
-    });
-  });
+  // //// View modal Plan and Plan Detail///
+  // $(document).on('click', '.hrm_view_plan_detail', function(){
+  //   var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  //   $.ajax({
+  //   url:"hrm_list_plan_performance/plan/modal",   //Request send to "action.php page"
+  //   type:"GET",    //Using of Post method for send data
+  //   data:{id:id},//Send data to server
+  //   success:function(data){
+  //       $('#ShowModalPlan').html(data);
+  //       $('#hrm_view_plan_modal').modal('show');   //It will display modal on webpage   
+  //   }
+  //   });
+  // });
 /////==== END Performance Plan ====//////
 ////===== Performance plan Detail====/////////
 ///// Show Modal Add Plan detail /////
@@ -1579,6 +1634,45 @@ $(document).on('click', '.hrm_update_perform_score', function(){
    }
   });
  });
+    //======= Funtion delete Performance Score =======//
+    function delete_performance_score(id){
+      event.preventDefault();
+      Swal.fire({ //get from sweetalert function
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          $.ajax({
+            url:"hrm_performance_score/delete",   //Request send to "action.php page"
+            data:{id:id},
+            type:"GET",    //Using of Post method for send data
+            success:function(data){
+              if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+                setTimeout(function(){ go_to('hrm_performance_score'); }, 300);// Set timeout for refresh content
+                Swal.fire(
+                  'Deleted!',
+                  'The Score has been deleted.',
+                  'success'
+                )
+              }else{
+                Swal.fire(
+                  'Deleted Error!',
+                  'The Score Has Been used already.',
+                  'error'
+                )
+              }
+            }
+          });
+          
+        }
+      })
+
+    };
 ////================== END Performance Score ============/////
 
 ////================ Performance Report ============//////
@@ -1741,6 +1835,45 @@ function ReportPerformance(){
       });
     });
     //======= END Funtion get value from database to show on modal update =======//
+    //======= Funtion delete question type Recruitment =======//
+    function delete_q_t_recruitment(id) {
+      event.preventDefault();
+      Swal.fire({ //get from sweetalert function
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          $.ajax({
+            url:"hrm_questiontype/delete",   //Request send to "action.php page"
+            data:{id:id},
+            type:"GET",    //Using of Post method for send data
+            success:function(data){
+              if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+                setTimeout(function(){ go_to('hrm_questiontype'); }, 300);// Set timeout for refresh content
+                Swal.fire(
+                  'Deleted!',
+                  'Your Question Type has been deleted.',
+                  'success'
+                )
+              }else{
+                Swal.fire(
+                  'Deleted Error!',
+                  'Your Question Type have Question child already.',
+                  'error'
+                )
+              }
+            }
+          });
+          
+        }
+      })
+    
+    };
 ////====== END Question Type Recruitment ====///
 
 ////====== Question Recruitment ====///
@@ -2202,32 +2335,59 @@ function hrm_recruitment_approve(userid,type){
         $('#re_app').val('អ្នកជាប់'+' '+'( '+data.app+' )');
         $('#re_pen').val('អ្នករង់ចាំ'+' '+'( '+data.pen+' )');
         $('#re_rej').val('អ្នកបដិសេដ'+' '+'( '+data.rej+' )');
-        var data1 = [data.all,data.app,data.pen,data.rej];
-        new Chart(document.getElementById("chart-area"), {
-          type: 'pie',
-          data: {
-            labels:["Applies", "Approve", "Pending", "Reject"], //["Africa", "Asia", "Europe", "Latin America", "North America"],
-            datasets: [
-              {
-                label: "Request",
-                backgroundColor: ["#007bff", "#28a745","#ffc107","#dc3545"],
-                data: data1,//[2478,5267,734,784,433]
-              }
-            ]
-          },
-          options: {
-            legend: { display: false },
-            title: {
-              display: true,
-              text: 'Total Condidate'
-            },
-          responsive: true,
+        var applies = data.all;
+        var approve = data.app;
+        var pending = data.pen;
+        var reject = data.rej;
+        //var data1 = [data.all,data.app,data.pen,data.rej];
+        // new Chart(document.getElementById("chart-area"), {
+        //   type: 'pie',
+        //   data: {
+        //     labels:["Applies", "Approve", "Pending", "Reject"], //["Africa", "Asia", "Europe", "Latin America", "North America"],
+        //     datasets: [
+        //       {
+        //         label: "Request",
+        //         backgroundColor: ["#007bff", "#28a745","#ffc107","#dc3545"],
+        //         data: data1,//[2478,5267,734,784,433]
+        //       }
+        //     ]
+        //   },
+        //   options: {
+        //     legend: { display: false },
+        //     title: {
+        //       display: true,
+        //       text: 'Total Condidate'
+        //     },
+        //   responsive: true,
+        //   }
+        // });
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Candidate', 'Result'],
+            ['Applies', applies],
+            ['Approve', approve],
+            ['Pending', pending],
+            ['Reject', reject],
+          ]);
+  
+          var options = {
+            is3D: true,
+            pieSliceText: 'value',
+            slices: {0: {color: '#007bff'}, 1:{color: '#28a745'}, 2:{color: '#ffc107'}, 3: {color: '#dc3545'}},
+            tooltip: {
+              text: 'value'
           }
-        });
+          };
+  
+          var chart = new google.visualization.PieChart(document.getElementById('hrm-recruitment-chart-area'));
+          chart.draw(data, options);
+        }
       }
     });
   }
-  ///// Get Report Table Detail Pass Pending and Reject
+  // Get Report Table Detail Pass Pending and Reject
   function get_report_recruitment_detail(type,from,to){
     //   if(check_session()){
     //   return;
@@ -2253,14 +2413,16 @@ function hrm_recruitment_approve(userid,type){
     });
   }
   //// Function Modal Get Result Candidate
-  function view_result_condidate_report(id){
+  function view_result_condidate_report(id,date){
     $.ajax({  
       url:'hrm_report_recruitment/report/modal/result',  
       type:"GET",
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      data:{id:id},  
+      data:{id:id,
+            date:date
+      },  
       success:function(data){  
         // get id of div in admincheck.php for show modal  
         document.getElementById("modal_report_recruitment").innerHTML = data;

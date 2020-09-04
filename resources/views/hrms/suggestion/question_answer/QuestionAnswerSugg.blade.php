@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h1 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i>Question & Answer</strong></h1>
+                <h1 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i> Question & Answer</strong></h1>
                 <div class="col-md-12 text-right">
                     <button type="button" id="AddQuestionSugg" onclick="AddNewQuestionSugg()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Question</button>
                 </div>
@@ -23,7 +23,9 @@
                     </tr>
                   </thead>
                   @php
-                   $i=1;   
+                   $i=1;//for ID Table increase 
+                   $j=1;//for ID checkbox increase
+                   $k=1;//for label increase
                   @endphp
                   <tbody>
                     @foreach ($question_sugg as $row)
@@ -32,11 +34,13 @@
                         <td>{{$row->question}}</td>
                         <td class="text-center">{{$row->question_type}}</td>
                         <td class="text-center">
+                          <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
                           @if ($row->status=='t')
-                              {{'Active'}}
+                              <input type="checkbox" value="{{$row->id}}" id="checkbox_sugg_q_a{{$j++}}" class="custom-control-input HrmCheckBoxSuggQA" checked> <label class="custom-control-label" for="checkbox_sugg_q_a{{$k++}}" style="color:green;"> Active</label>
                           @else
-                              {{'Disactive'}}
+                              <input type="checkbox" value="{{$row->id}}" id="checkbox_sugg_q_a{{$j++}}" class="custom-control-input HrmCheckBoxSuggQA"> <label class="custom-control-label" for="checkbox_sugg_q_a{{$k++}}" style="color:red;"> Inactive</label>
                           @endif
+                          </div>
                         </td>
                       @if ($row->hr_suggestion_question_type_id==1) {{-- Permission check for option type --}}
                         <td class="text-center">
@@ -44,7 +48,7 @@
                             <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                             </button>
-                            <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-menu hrm_dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_view_detail_question_answer">View Detail</button>
                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_question_answer">Update Detail</button>
                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_delete_question_answer">Delete</button>
@@ -59,7 +63,7 @@
                             <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                             </button>
-                            <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-menu hrm_dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item update_q_sugg">Update</button>
                             <button type="button" id="{{$row->id}}" onclick="hrm_delete('{{$row->id}}','hrm_question_answer_sugg/delete','/hrm_question_answer_sugg','Question Has Been Deleted')"  class="dropdown-item hrm_item delete_q_sugg">Delete</button>
                             <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item view_result_sugg">Result</button>

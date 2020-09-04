@@ -17,6 +17,13 @@
                                 $sc_create  = $ts1->format('Y-m-d H:i:s');
                                 $sc_cmt = $row->comment;
                                 $cmt_by = $row->username;
+                                /// Previous Follow up Staff
+                                $pre_percent_follow = intval($row->percentage).'%';
+                                $pre_reason_follow = $row->reason;
+                                $pre_date_from_follow = $row->action_date_from;
+                                $pre_date_to_follow = $row->action_date_to;
+                                $pre_challenge_follow = $row->challenge;
+                                $pre_comment_follow = $row->pf_cmt;
                                 /// Follow up Staff
                                 $percent_follow = "";
                                 $reason_follow = "";
@@ -67,7 +74,7 @@
                      <h2 class="card-title hrm-title" style="font-weight: bold;font-size:25px" id="card_title"> Add Follow Up</h2>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                      <a  href="javascript:void(0);" onclick="go_to('hrm_performance_follow_up')" class="text-info"><i class="fa fa-arrow-left"></i> Back</a> 
+                      <a  href="javascript:void(0);" onclick="go_to('hrm_performance_staff_schedule')" class="text-info"><i class="fa fa-arrow-left"></i> Back</a> 
                     </div>
                 </div><!-- /.card-header -->
                 <div class="card-body" style="display: block;">
@@ -109,7 +116,7 @@
                         </div><!-- End schedule_plan_detail -->
                         <div class="row">
                             <div class="col-md-12">
-                                <h5>Performance Schedule</h5>
+                                <h5>Performance Schedule Assign By {{$cmt_by}}</h5>
                                 <hr style="border: 1px solid">
                             </div>
                             <div class="col-md-6">
@@ -143,6 +150,55 @@
                                     <textarea  class="form-control" disabled cols="3"><?=$sc_cmt?></textarea>
                                 </div>
                             </div>
+                        </div><!-- End Row -->
+                        <div class="row">
+                            @if (isset($pre_date_from_follow)) {{-- Condition if have previous follow up--}}
+                                <div class="col-md-12">
+                                    <h5>Previous Performance Follow Up</h5>
+                                    <hr style="border: 1px solid">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="follow_up_percentage">Percentage<span class="text-danger"></span></label>
+                                    <input type="text" class="form-control" disabled value="{{$pre_percent_follow}}">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="follow_up_reason">Reason<span class="text-danger"></span></label>
+                                        <textarea class="form-control" disabled cols="4">{{$pre_reason_follow}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="follow_up_from">Date From<span class="text-danger"></span></label>
+                                    <input type="text" class="form-control" disabled value="{{$pre_date_from_follow}}">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="follow_up_to">Date To<span class="text-danger"></span></label>
+                                        <input type="text" disabled class="form-control" value="{{$pre_date_to_follow}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="follow_up_challenge">Challenge<span class="text-danger"></span></label>
+                                        <textarea class="form-control" disabled cols="4">{{$pre_challenge_follow}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="follow_up_comment">Comment<span class="text-danger"></span></label>
+                                        <textarea class="form-control" disabled cols="4">{{$pre_comment_follow}}</textarea>
+                                    </div>
+                                </div>
+                            @elseif($button=='Update') {{--Condition not show for update--}}
+                                <div class="col-md-12">
+                                    <hr style="border: 1px solid">
+                                </div>  
+                            @else {{--Condition for don't have previous follow up--}}
+                                <div class="col-md-12">
+                                    <h5>No Previous Performance Follow Up</h5>
+                                    <hr style="border: 1px solid">
+                                </div>  
+                            @endif
                         </div><!-- End Row -->
                         <div class="row">
                             <div class="col-md-12">

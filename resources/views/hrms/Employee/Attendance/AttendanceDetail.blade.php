@@ -1,5 +1,5 @@
 <div class="modal fade show" id="modal_attendance_detail" style="display: block; padding-right: 17px;" aria-modal="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="card card-default">
                 <div class="card-header">

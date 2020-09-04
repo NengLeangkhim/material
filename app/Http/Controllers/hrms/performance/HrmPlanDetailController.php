@@ -62,7 +62,8 @@ class HrmPlanDetailController extends Controller
                                     'max:255',
                                     Rule::unique('hr_performance_plan_detail','name')
                                             ->where(function ($query) use ($request) {
-                                            return $query->where('is_deleted', 'f');})
+                                            return $query->where([['is_deleted', 'f'],
+                                            ['hr_performance_plan_id',$request ->id_plan]]);})
                                         ],
                 'plan_detail_task' => [ 'required',
                                         ],
@@ -124,7 +125,8 @@ class HrmPlanDetailController extends Controller
                                     'max:255',
                                     Rule::unique('hr_performance_plan_detail','name')->ignore($request->plan_datail_id)
                                     ->where(function ($query) use ($request) {
-                                       return $query->where('is_deleted', 'f');})
+                                       return $query->where([['is_deleted', 'f'],
+                                       ['hr_performance_plan_id',$request ->id_plan]]);})
                                         ],
                 'plan_detail_task' => [ 'required',
                                         ],

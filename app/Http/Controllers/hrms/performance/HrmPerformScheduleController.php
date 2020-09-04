@@ -31,7 +31,7 @@ class HrmPerformScheduleController extends Controller
                 $get_plan = ModelHrmPlan::hrm_get_plan_detial_ceo();// get query from performance plan
                 $staff = ModelHrmPermission::hrm_get_staff_ceo();// get query from staff table
             }else if($group==4){//permission each departement
-                $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_dept($userid);
+                $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_dept($dept);
                 $get_plan = ModelHrmPlan::hrm_get_plan_detial_user($userid);// get query from performance plan 
                 $staff = ModelHrmPermission::hrm_get_staff_dept($dept);// get query from staff table
             }else{//permission check user
@@ -205,6 +205,40 @@ class HrmPerformScheduleController extends Controller
             }else{
                 return view('no_perms');
             }
+    } 
+    // function Show Table Schedule //
+    public function HrmCalendarPerformSchedule(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+            } 
+        if(perms::check_perm_module('HRM_090701')){//module code list data tables id=96
+            $userid = $_SESSION['userid'];
+            $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
+            foreach($permission as $row){
+                $group = $row->ma_group_id;
+                $dept = $row->ma_company_dept_id;
+            }
+            if($group==5 || $group==1){ //permission check for CEO and Admin
+                $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_top(); //query policy user 
+            }else if($group==4){//permission each departement
+                $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_dept($dept);
+            }else{//permission check user
+                $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_staff($userid);
+            }
+            foreach($schedule as $row)
+            {
+            $data[] = array(
+            'id'   => $row->id,
+            'title'   => 'Task:'.' '.$row->name_plan,
+            'start'   => $row->date_from,
+            'end'   => $row->date_to,
+            'constraint' => 'availableForMeeting',
+            );
+            }
+            echo json_encode($data);
+        }else{
+            return view('no_perms');
+        }
     } 
 
 }

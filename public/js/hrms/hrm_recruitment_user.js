@@ -13,7 +13,6 @@
 // function onclick user start quiz
 
 function go_to(route){
-
     $.ajax({
         type: 'GET',
         url:route,
@@ -32,6 +31,45 @@ function go_to(route){
 
 
 
+// function show form in modal id
+function modal_action(){
+    var url = 'hrm_recruitment_user_profile';
+    var x=new XMLHttpRequest();
+    x.onreadystatechange=function(){
+        if(this.readyState==4 && this.status==200){
+            document.getElementById('modal').innerHTML=this.responseText;
+            $('#user_profile').modal('show');
+        }
+    }
+    x.open("GET", url, true);
+    x.send();
+
+}
+
+
+
+
+// function for alert by sweetalert2
+function show_alert(){
+  Swal.fire({
+    title: '<strong>Your Profile</strong>',
+    // icon: 'info',
+    html:
+      'You can use <b>bold text</b>, ' +
+      '<a href="//sweetalert2.github.io">links</a> ' +
+      'and other HTML tags',
+    showCloseButton: true,
+    showCancelButton: true,
+    focusConfirm: false,
+    confirmButtonText:
+      '<i class="fa fa-thumbs-up"></i> Great!',
+    confirmButtonAriaLabel: 'Thumbs up, great!',
+    cancelButtonText:
+      '<i class="fa fa-thumbs-down"></i>',
+    cancelButtonAriaLabel: 'Thumbs down'
+  })
+
+}
 
 
 
@@ -106,9 +144,9 @@ function autoSubmit() {
 
 
   // function user click start quiz & auto submit answer
-  var xxx = 1;
+  var num_click = 1;
   function user_start_quiz(route){
-    
+
     var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     var today = new Date();
     var dd = today.getDate();
@@ -117,26 +155,31 @@ function autoSubmit() {
     var n = today.toLocaleString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     var myTime = dd + '-' + mm +'-'+ yyyy + '/' + n; 
 
-    if(xxx == 1){
-
+    if(num_click == 1){
       autoSubmit();
       $.ajax({
           type: 'GET',
           url:route,
           success:function(data){
-
-              $(".content-wrapper").show();
-              $(".content-wrapper").html(data);
-              document.getElementById("starttime_quiz").innerHTML = myTime;
- 
+            
+              if(data == 'user_expire'){
+                Swal.fire('This user already take quiz !');
+              }else{
+                
+                $(".content-wrapper").show();
+                $(".content-wrapper").html(data);
+                document.getElementById("starttime_quiz").innerHTML = myTime;
+              }
+              
           },
           error:function(){
-            Swal.fire('មិនមានការរៀបចំសំនួរ សម្រាប់មុខដំណែងការងារនេះ !')
-            // $(".content-wrapper").html(jerror());
-            
-          }
-      });
+            Swal.fire('មិនទាន់មានសំនួរ សម្រាប់មុខដំណែងការងារនេះ !')  
+          },
 
+          
+          
+
+      });
           var d = new Date();
                 // var f = new Date(d.getTime());
                 d.setMinutes(d.getMinutes() + 60);
@@ -162,7 +205,7 @@ function autoSubmit() {
                         document.getElementById("countdown").innerHTML = "EXPIRED";
                     }
             }, 1000); 
-        xxx += 1;
+        num_click += 1;
     }
       
 

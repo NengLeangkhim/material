@@ -131,8 +131,9 @@ class ModelHrmRecruitmentReport extends Model
     }
     // ===== Function model get Table Detail Result Candidate=====////
     public static function get_candidate($from,$to){
-        return DB::select("SELECT c.*,p.name,appr.hr_approval_status from hr_recruitment_candidate c
-        left join ma_position p on c.ma_position_id=p.id
+        return DB::select("SELECT c.*,p.name,appr.hr_approval_status,ca.is_deleted as check_quiz from hr_recruitment_candidate c
+        join ma_position p on c.ma_position_id=p.id
+        left join hr_recruitment_candidate_answer ca on c.id = ca.hr_recruitment_candidate_id
         left join (
         SELECT 
                 hr_recruitment_candidate_id, 
@@ -152,7 +153,8 @@ class ModelHrmRecruitmentReport extends Model
             GROUP BY 
                 hr_recruitment_candidate_id,hr_approval_status
         )appr on (c.id=appr.hr_recruitment_candidate_id) 
-        where c.register_date BETWEEN '$from 00:00:00' and '$to 23:59:59'");
+        where c.register_date BETWEEN '$from 00:00:00' and '$to 23:59:59'
+        group by c.id,p.name,appr.hr_approval_status,ca.is_deleted");
     }
 
 

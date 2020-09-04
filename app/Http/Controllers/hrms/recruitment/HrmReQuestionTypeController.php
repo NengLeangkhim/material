@@ -112,8 +112,16 @@ class HrmReQuestionTypeController extends Controller
         if(perms::check_perm_module('HRM_09090503')){//module code list data tables id=159
         $id = $_GET['id'];
         $userid = $_SESSION['userid'];   
-        $question_type=ModelHrmReQuestionType::hrm_delete_question_type($id,$userid);
-        echo $question_type;
+        $check_question=ModelHrmReQuestionType::hrm_check_delete_question_type_re($id);
+        foreach($check_question as $check){
+            $ch = $check->question;
+        }
+        if(!isset($ch)){
+            $question_type=ModelHrmReQuestionType::hrm_delete_question_type($id,$userid);
+            return response()->json(['success'=>'Record is successfully Delete']);
+        }else{
+            return response()->json(['errors'=>'Record can not Delete']);
+        }
         }else{
             return view('no_perms');
         }

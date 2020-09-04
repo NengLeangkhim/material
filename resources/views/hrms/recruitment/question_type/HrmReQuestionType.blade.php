@@ -5,7 +5,7 @@
          <div class="col-md-12">
              <div class="card">
                <div class="card-header">
-                 <h1 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i>Question Type</strong></h1>
+                 <h1 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i> Question Type</strong></h1>
                  <div class="col-md-12 text-right">
                      <button type="button" id="AddNewQuestionType" onclick="AddNewQuestionType()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Question Type</button>
                  </div>
@@ -38,10 +38,8 @@
                                       <td style="color:black;">{{$ts1->format('d-M-Y H:i:s')}}</td>
                                       <td style="color:black;">{{$row->username}} </td>
                                       <td style="color:black;" class="text-center">
-                                        <a href="#" id="{{$row->id}}" class="btn btn-info update_qestion_type"><i class="far fa-edit"></i></a>
-                                        @if ($row->id!=1)
-                                          <a href="#" id="{{$row->id}}" onclick="hrm_delete({{$row->id}},'hrm_questiontype/delete','hrm_questiontype','Question Type has been deleted')" class="btn btn-info delete_qestion_type"><i style="color:red" class="fas fa-trash"></i></a>
-                                        @endif
+                                        <a href="#" id="{{$row->id}}" title="Update" class="update_qestion_type"><i class="far fa-edit"></i></a>
+                                        <a href="#" id="{{$row->id}}" title="Delete" onclick="delete_q_t_recruitment({{$row->id}})" class="delete_qestion_type"><i style="color:red;margin-left:10px;" class="fas fa-trash"></i></a>
                                       </td>
                                   </tr>     
                               @endforeach

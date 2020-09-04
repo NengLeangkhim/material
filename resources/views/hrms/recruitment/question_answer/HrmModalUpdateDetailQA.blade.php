@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="departement_edit">Departement<span class="text-danger">*</span></label>
+                                <label for="departement_edit">Department<span class="text-danger">*</span></label>
                                 <select name="departement_edit" id="departement_edit" class="form-control">
                                 <option value="">Please Select Option</option>
                                 <?php

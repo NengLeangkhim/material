@@ -46,7 +46,7 @@
                                             </button>
                                             <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">              
                                                 <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_update_perform_score">Update</button>
-                                                <button type="button" id="{{$row->id}}" onclick="hrm_delete({{$row->id}},'hrm_performance_score/delete','hrm_performance_score','The Score has been deleted')" class="dropdown-item hrm_item hrm_delete_perform_score">Delete</button>
+                                                <button type="button" id="{{$row->id}}" onclick="delete_performance_score({{$row->id}})" class="dropdown-item hrm_item hrm_delete_perform_score">Delete</button>
                                             </div>
                                         </div>
                                     </td>

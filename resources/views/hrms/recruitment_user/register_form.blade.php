@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\DB;
 // sql select position to show in select box
-$sql = "SELECT id, name FROM ma_position ORDER BY name ASC";
+$sql = "SELECT id, name FROM ma_position WHERE status='t' AND is_deleted = 'f' ORDER BY name ASC";
 $r = DB::select($sql);
 
 ?>
@@ -27,13 +27,14 @@ $r = DB::select($sql);
                 <!-- --------------------------Profile AnD login--------------------- -->
                 <div class="row  row-style-1-2 profile" style="text-align:center; padding-left: 48%;padding-right: 0%;">
                     <img src="recruitment_user_style/img/user_login.png" alt="" width="35px" height="35px">
+                    
                 </div>
-                <div class="row" style="text-align:center; padding-left: 0%; padding-right: 0%; font-szie: 18px; ">
-                        {{-- <a class="login-Quiz " style="" href="/hrm_recruitment_login" ><b>Login</b></a> --}}
+    
                 
+                <div class="row" style="text-align:center; padding-left: 0%; padding-right: 0%; font-szie: 18px; ">                
                         <div class="container">
                             <a class="btn btn-primary " style="" href="/hrm_recruitment_login" ><b>Login</b></a>
-                          </div>
+                        </div>
                 </div>
                 
                 
@@ -105,7 +106,7 @@ $r = DB::select($sql);
                 </div>
                 </li>
                 <li class="line-form " data-type="control_textbox" id="id_9">
-                <label class="form-label kh-font-batt form-label-left "style="color: black;"> មុខដំណែងការងារ 
+                <label class="form-label kh-font-batt form-label-left "style="color: black;"> ជ្រើសមុខដំណែងការងារ 
                 <span class="form-required">
                     *
                     </span>
@@ -114,7 +115,7 @@ $r = DB::select($sql);
                     <select style="color: black; " name="position" id="position" class="input100 form-control style_text validate[required]">
                         <?php
                                 foreach($r as $key=>$rr){
-                                    echo ($key<=1)?'<option value="-1" selected disabled hidden>Select position</option>':'';
+                                    // echo ($key<=1)?'<option value="-1" selected disabled hidden >Select position</option>':'';
                                     echo '<option value="'.$rr->id.'">'.$rr->name.'</option>';
                                 }
                         ?>
@@ -130,7 +131,7 @@ $r = DB::select($sql);
                 </label>
                 <div class="uploadcv ">
                     <input type="button" class="uploadButton" value="Browse"​ ​​  ​autofocus  required/>
-                    <input type="file"  class=" validate[required]" name="uploadcv"  data-imagevalidate="yes" data-file-accept="pdf, doc, docx, csv, zip, gif"  id="fileUpload" autofocus required />
+                    <input type="file" id='file_cv' class=" validate[required]" name="uploadcv"  data-imagevalidate="yes" data-file-accept="pdf, doc"  onclick='checkFile(this.id);'  accept="application/pdf"  autofocus required />
                     <span class="fileName">Select CV..</span>
                 </div>
         
@@ -146,7 +147,7 @@ $r = DB::select($sql);
                 </label>
                 <div class="uploadcover ">
                     <input type="button" class="uploadButton" value="Browse" autofocus  required />
-                    <input type="file"  class=" validate[required]" name="uploadcover"  data-imagevalidate="yes" data-file-accept="pdf, doc, docx, csv, zip, gif"  id="fileUpload"  autofocus required/>
+                    <input type="file"  id='file_cover' class=" validate[required]" name="uploadcover"  data-imagevalidate="yes" data-file-accept="pdf, doc" onclick='checkFile(this.id);'  accept="application/pdf"    autofocus required/>
                     <span class="fileName">Select Cover..</span>
                 </div>
         
@@ -174,10 +175,17 @@ $r = DB::select($sql);
         if(isset($em_error)){
             $x =  $em_error;
         }  
-        $xx = '';
+
+        $success_ = '';
         if(isset($success)){
-            $xx = $success;
+            $success_ = $success;
         }
+
+        $error_ = '';
+        if(isset($error)){
+            $error_ = $error;
+        }
+                    
 
 ?>
 
@@ -191,10 +199,10 @@ $r = DB::select($sql);
          }, 5000);
     }
 
-    var j = {!! json_encode($xx) !!};
-    if(j == 1){
+    var success = {!! json_encode($success_) !!};
+    if(success){
         Swal.fire({
-        title: 'Account create successfully !',
+        title: success,
         showClass: {
             popup: 'animate__animated animate__fadeInDown'
         },
@@ -203,6 +211,39 @@ $r = DB::select($sql);
         }
         })
     }
+
+    var error = {!! json_encode($error_) !!};
+    if(error){
+        Swal.fire(error)
+    }
+
+
+    function checkFile(id){
+        const input = document.getElementById(id)
+        input.addEventListener('change', (event) => {
+        const target = event.target
+            if (target.files && target.files[0]) {
+            /*Maximum allowed size in bytes
+                5MB Example
+                Change first operand(multiplier) for your needs*/
+            const maxAllowedSize = 5 * 1024 * 1024;
+            if (target.files[0].size > maxAllowedSize) {
+                // Here you can ask your users to load correct file
+                Swal.fire('File size too big. Please select file smaller than 5MB !')
+                target.value = '';
+            }
+        }
+        })
+    }
+
+
+
+
+
+
+
+
+
 
 </script>
 

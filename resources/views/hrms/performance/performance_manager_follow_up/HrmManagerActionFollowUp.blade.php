@@ -50,7 +50,6 @@
                                 $sc_cmt = $row->ps_cmt;
                                 $cmt_by = $row->user_ps;
                                 /// Follow up Staff  
-                                $pf_id = $row->hr_performance_follow_up_id;
                                 $pf_percentage = intval($row->pf_percent);
                                 $pf_reason = $row->reason;
                                 $pf_date_from = $row->action_date_from;
@@ -79,7 +78,7 @@
                      <h2 class="card-title hrm-title" style="font-weight: bold;font-size:25px" id="card_title"> Add Manager Follow Up</h2>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                      <a  href="javascript:void(0);" onclick="go_to('hrm_performance_follow_up')" class="text-info"><i class="fa fa-arrow-left"></i> Back</a> 
+                      <a  href="javascript:void(0);" onclick="go_to('hrm_performance_follow_up_manager')" class="text-info"><i class="fa fa-arrow-left"></i> Back</a> 
                     </div>
                 </div><!-- /.card-header -->
                 <div class="card-body" style="display: block;">
@@ -120,6 +119,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <input type="hidden" name="schedule_hidden_id" id="schedule_id" value="<?=$sc_id?>">
                                     <label for="">Staff Name<span class="text-danger"></span></label>
                                     <input type="text" disabled class="form-control" value="<?=$staff_name?>">
                                 </div>
@@ -155,7 +155,6 @@
                                 <hr style="border: 1px solid">
                             </div>
                             <div class="col-md-6">
-                               <input type="hidden" name="follow_hidden_up_id" id="follow_hidden_up_id" value="<?=$pf_id?>">
                                 <label for="follow_up_percentage">Percentage<span class="text-danger"></span></label>
                                 <input type="text" disabled class="form-control" value="<?=$pf_percentage.'%'?>">
                             </div>

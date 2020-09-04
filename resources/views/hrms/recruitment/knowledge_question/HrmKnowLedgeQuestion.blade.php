@@ -5,7 +5,7 @@
          <div class="col-md-12">
              <div class="card">
                <div class="card-header">
-                 <h1 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i>Question Knowledge</strong></h1>
+                 <h1 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i> Question Knowledge</strong></h1>
                  <div class="col-md-12 text-right">
                      <button type="button" id="AddNewQuestionKnowledge" onclick="AddNewQuestionKnowledge()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Question Knowledge</button>
                  </div>
@@ -18,7 +18,7 @@
                               <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Question</th>
-                                <th scope="col">Departement</th>
+                                <th scope="col">Department</th>
                                 <th scope="col">Create_Date</th>
                                 <th scope="col">Create_By</th>
                                 <th width="15%" scope="col">Action</th>
@@ -40,8 +40,8 @@
                                       <td style="color:black;">{{$ts1->format('d-M-Y H:i:s')}}</td>
                                       <td style="color:black;">{{$row->username}} </td>
                                       <td style="color:black;" class="text-center">
-                                        <a href="#" id="{{$row->id}}" class="btn btn-info update_qestion_knowledge"><i class="far fa-edit"></i></a>
-                                        <a href="#" id="{{$row->id}}" onclick="hrm_delete({{$row->id}},'hrm_list_knowledge_question/delete','hrm_list_knowledge_question','Question has been deleted')" class="btn btn-info delete_qestion_knowledge"><i style="color:red" class="fas fa-trash"></i></a>
+                                        <a href="#" id="{{$row->id}}" title="Update" class="update_qestion_knowledge"><i class="far fa-edit"></i></a>
+                                        <a href="#" id="{{$row->id}}" title="Delete" onclick="hrm_delete({{$row->id}},'hrm_list_knowledge_question/delete','hrm_list_knowledge_question','Question has been deleted')" class="delete_qestion_knowledge"><i style="color:red;margin-left:10px;" class="fas fa-trash"></i></a>
                                       </td>
                                   </tr>     
                               @endforeach
@@ -98,7 +98,7 @@
                            </div>
                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="departement_knowledge">Departement<span class="text-danger">*</span></label>
+                                    <label for="departement_knowledge">Department<span class="text-danger">*</span></label>
                                     <select name="departement_knowledge" id="departement_knowledge" class="form-control">
                                     <option value="">Please Select Option</option>
                                     <?php

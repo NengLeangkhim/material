@@ -11,27 +11,29 @@ class ModelHrmPerformSchedule extends Model
     // ===== Function get data for table for CEO =====////
     public static function hrm_get_tbl_schedule_top(){
         $schedule_ceo= DB::table('hr_performance_schedule as ps')
-                           ->select('ps.*','pd.name as name_plan','ud.username','pd.hr_performance_plan_id','s.name as name_staff','s.id as ma_user_id')
+                           ->select('ps.*','pd.name as name_plan','ud.username','pd.hr_performance_plan_id','s.name as name_staff','s.id as ma_user_id','pfm.is_deleted as deleted')
                            ->join('ma_user as s','ps.ma_user_id','=','s.id')
                            ->join('ma_user_detail as ud','ps.create_by','=','ud.ma_user_id')
                            ->join('hr_performance_plan_detail as pd','ps.hr_performance_plan_detail_id','=','pd.id')
                            ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')
+                           ->leftjoin('hr_performance_manager_follow_up as pfm','ps.id','=','pfm.hr_performance_schedule_id')
                            ->where('ps.is_deleted','=','f')
                            ->orderBy('ps.id','ASC')
                            ->get(); 
         return $schedule_ceo;
      }
     // ===== Function get data for table for Head Each departement =====////
-    public static function hrm_get_tbl_schedule_dept($userid){
+    public static function hrm_get_tbl_schedule_dept($dept){
         $schedule_dept = DB::table('hr_performance_schedule as ps')
-                            ->select('ps.*','pd.name as name_plan','ud.username','pd.hr_performance_plan_id','s.name as name_staff','s.id as ma_user_id')
+                            ->select('ps.*','pd.name as name_plan','ud.username','pd.hr_performance_plan_id','s.name as name_staff','s.id as ma_user_id','s.ma_company_dept_id','pfm.is_deleted as deleted')
                             ->join('ma_user as s','ps.ma_user_id','=','s.id')
                             ->join('ma_user_detail as ud','ps.create_by','=','ud.ma_user_id')
                             ->join('hr_performance_plan_detail as pd','ps.hr_performance_plan_detail_id','=','pd.id')
                             ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')
+                            ->leftjoin('hr_performance_manager_follow_up as pfm','ps.id','=','pfm.hr_performance_schedule_id')
                             ->where([
                                 ['ps.is_deleted', '=', 'f'],
-                                ['ps.create_by', '=', $userid],
+                                ['s.ma_company_dept_id', '=', $dept],
                             ])
                             ->orderBy('ps.id','ASC')
                             ->get(); 
@@ -40,11 +42,12 @@ class ModelHrmPerformSchedule extends Model
     // ===== Function get data for table for invidual user =====////
       public static function hrm_get_tbl_schedule_staff($userid){
         $schedule_user = DB::table('hr_performance_schedule as ps')
-                            ->select('ps.*','pd.name as name_plan','ud.username','pd.hr_performance_plan_id','s.name as name_staff','s.id as ma_user_id')
+                            ->select('ps.*','pd.name as name_plan','ud.username','pd.hr_performance_plan_id','s.name as name_staff','s.id as ma_user_id','pfm.is_deleted as deleted')
                             ->join('ma_user as s','ps.ma_user_id','=','s.id')
                             ->join('ma_user_detail as ud','ps.create_by','=','ud.ma_user_id')
                             ->join('hr_performance_plan_detail as pd','ps.hr_performance_plan_detail_id','=','pd.id')
                             ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')
+                            ->leftjoin('hr_performance_manager_follow_up as pfm','ps.id','=','pfm.hr_performance_schedule_id')
                             ->where([
                                 ['ps.is_deleted', '=', 'f'],
                                 ['ps.ma_user_id', '=', $userid],

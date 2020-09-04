@@ -79,7 +79,7 @@
                         <span class="text-center" style="font-size:17px;color:#d42931;font-weight:bold;">Resume</span>
                     </div>
                     <div class="col-12" style="height:1150px">
-                    <!-- <iframe id="iframepdf" src="../storage/file/example.pdf" width="100%" height="100%"></iframe> -->
+                    <iframe id="iframepdf" src="media/file_candidate_recruitment/{{$email}}/{{$zip_file}}" width="100%" height="100%"></iframe>
                     </div>
                     </div><!-- End Row -->
                     <div class="row" style="height:1200px">
@@ -87,11 +87,11 @@
                         <span class="text-center" style="font-size:17px;color:#d42931;font-weight:bold;">Cover Letter</span>
                     </div>
                     <div class="col-12" style="height:1150px">
-                    <!-- <iframe id="iframepdf" src="../storage/file/example.pdf" width="100%" height="100%"></iframe> -->
+                    <iframe id="iframepdf" src="media/file_candidate_recruitment/{{$email}}/{{$coverletter}}" width="100%" height="100%"></iframe> 
                     </div>
                     </div><!-- End Row -->
                 </div><!-- End container-fluid -->
-                    <div class="row text-right">
+                    <div class="row text-right" style="margin-top: 5px">
                       <div class="col-md-12 text-right">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                       </div>

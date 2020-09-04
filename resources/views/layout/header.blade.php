@@ -24,8 +24,10 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- SweetAlert2 -->
   <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <!-- Icheck Bootstrap -->
+  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
    <!-- DataTables -->
-   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 {{-- STOCK --}}
   <link rel="stylesheet" type="text/css" href="css/STOCK.css">
@@ -46,6 +48,9 @@
 
 <!-- hrm style -->
         <link rel="stylesheet" href="css/hrm/hrm.css">
-        <link rel="stylesheet" href="recruitment_user_style/css/mystyle_owner.css">
+        <link href='fullcalendar-5.3.0/lib/main.min.css' rel='stylesheet' /> <!-- hrm Calendar -->
+
+<link href="plugins/chart.js/Chart.min.css" rel="stylesheet">
+      
 </head>
 

@@ -420,6 +420,9 @@ Route::get('hrm_question_answer_sugg/deletedetail','hrms\suggestion\QuestionAnsw
 
 // Route View Result submit suggestion //
 Route::get('hrm_question_answer_sugg/modal/result','hrms\suggestion\QuestionAnswerController@hrm_view_result_suggestion');
+
+// Route Update Status Checkbox //
+Route::get('hrm_question_answer_sugg/checkbox','hrms\suggestion\QuestionAnswerController@update_status_question_sugg');
 //////========END QUESTION & Answer==========/////
 
 //////======== SUGGESTION BOX =============///////
@@ -533,6 +536,8 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     /// modal view detail performance schedule
     Route::get('hrm_performance_staff_schedule/modal','hrms\performance\HrmPerformScheduleController@HrmViewPerformSchedule');
 
+    /// calendar show schedule
+    Route::get('hrm_performance_staff_schedule/calendar','hrms\performance\HrmPerformScheduleController@HrmCalendarPerformSchedule');
 ///////Performance Staff Follow Up
 
     /// index performance Staff Follow Up
@@ -716,6 +721,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_show_attendance_by_date', 'hrms\Employee\AttendanceController@ShowAttendanceByDate');
         Route::get('hrm_attendance_detail', 'hrms\Employee\AttendanceController@ShowAttendanceDetail');
         Route::get('hrm_calculate_attendance_detail', 'hrms\Employee\AttendanceController@CalculateAttendanceDetail');
+        Route::get('hrm_attendance_edit', 'hrms\Employee\AttendanceController@AttendanceEdit');
     // End Attendance
 
     // Start Mission And Out Side
@@ -775,11 +781,41 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 // End Training
 
 // Payroll
-        Route::get('hrm_employee_salary', 'hrms\Payroll\PayrollController@Payroll');
+    // Create Payroll
+        Route::get('hrm_employee_salary', 'hrms\Payroll\PayrollController@CreatePayroll');
+    // End Create Payroll
+
+    // Payroll List
+        Route::get('hrm_payroll_list', 'hrms\Payroll\PayrollController@PayrollList');
         Route::get('hrm_payslip', 'hrms\Payroll\PayrollController@ModalPayslip');
         Route::get('hrm_payrollitems', 'hrms\Payroll\PayrollController@ModalPayrollItems');
+        Route::get('hrm_paroll_detail', 'hrms\Payroll\PayrollController@PayrollDetail');
+    // End Payroll List
+    
+    // Payroll
+        Route::get('hrm_payroll', 'hrms\Payroll\PayrollController@Payroll');
+    // End Payroll
+        
         Route::get('taxation', 'hrms\Payroll\PayrollController@Taxation');
 // End Payroll
+
+// Setting
+    // Standard Price
+        Route::get('hrm_standard_price', 'hrms\Setting\StandardPriceController@StandardPrice');
+        Route::get('hrm_modalstandardprice', 'hrms\Setting\StandardPriceController@AddEditStandardPrice');
+        Route::post('hrm_insert_update_standardprice', 'hrms\Setting\StandardPriceController@InsertUpdateStandardPrice');
+        Route::get('hrm_delete_standardprice', 'hrms\Setting\StandardPriceController@DeleteStandardPrice');
+    // End Standard Price
+    // Taxation
+        Route::get('hrm_taxation','hrms\Setting\TaxationController@Taxation');
+    // End Taxation
+    // Currency Rate
+        Route::get('hrm_currency','hrms\Setting\CurrencyRateController@CurrencyRate');
+        Route::get('hrm_modal_currencyrate', 'hrms\Setting\CurrencyRateController@AddEditModalCurrencyRate');
+        Route::post('hrm_insert_update_currencyrate', 'hrms\Setting\CurrencyRateController@InsertUpdateCurrencyRate');
+        Route::get('hrm_delete-currencyrate', 'hrms\Setting\CurrencyRateController@DeleteCurrencyRate');
+    // End Currency Rate
+// End Setting
 
 // ========================================================> END SENG KIMSROS <======================================================== //
 
@@ -882,8 +918,13 @@ Route::get('hrm_recruitment_get_hr_result','hrms\recruitment_user\recruitment_us
 
 //=============HR Dashboard==============
 
-Route::get('hrm_dashborad',function(){
+Route::get('hrm_dashboard',function(){
     return view('hrms.dashboard.hr_dashboard');
+});
+
+
+Route::get('test_chart',function(){
+    return view('hrms.dashboard.hrm_dashboard');
 });
 
 // Route::get('hrm_dashboard','hrms\dashboard\hr_dashboardController@hr_dashboard');

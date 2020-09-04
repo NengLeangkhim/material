@@ -30,9 +30,9 @@
                                         <span class="invalid-feedback" role="alert" id="to_performanceError"> {{--span for alert--}}
                                             <strong></strong>
                                         </span>
-                                        <p class="word-tbody col-2 text-center">Departement</p>
+                                        <p class="word-tbody col-2 text-center">Department</p>
                                         <select name="dept_performance" id="dept_performance" class="form-control col-4">
-                                        <option value="">Please Select Departement</option>
+                                        <option value="">Please Select Department</option>
                                             @foreach ($dept as $item)
                                                 <option value="{{$item->id}}">{{$item->name}}</option>
                                             @endforeach

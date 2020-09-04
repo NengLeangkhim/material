@@ -5,7 +5,7 @@
          <div class="col-md-12">
              <div class="card">
                <div class="card-header">
-                 <h1 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i>Question & Answer</strong></h1>
+                 <h1 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i> Question & Answer</strong></h1>
                  <div class="col-md-12 text-right">
                      <button type="button" id="AddNewQuestionRe" onclick="AddNewQuestionRe()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Question</button>
                  </div>
@@ -135,7 +135,7 @@
                   </div>
                   <div class="col-md-12">
                       <div class="form-group">
-                          <label for="departement">Departement<span class="text-danger">*</span></label>
+                          <label for="departement">Department<span class="text-danger">*</span></label>
                           <select name="departement" id="departement" class="form-control">
                             <option value="">Please Select Option</option>
                             <?php

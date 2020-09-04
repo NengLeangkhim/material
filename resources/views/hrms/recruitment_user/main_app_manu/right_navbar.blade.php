@@ -119,21 +119,15 @@
                     </div>
                     
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item" onclick="go_to('hrm_recruitment_user_profile');">
-                      <i class="fas fa-user-check mr-2"></i>
-                       View Profile
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                      
-                      <i class="fas fa-user-cog mr-2"></i> Setting Account
-                      
-                    </a>
+                      <a href="#" class="dropdown-item" onclick="modal_action();">
+                        <i class="fas fa-user-check mr-2"></i>
+                        View Profile
+                      </a>
                     
                     <div class="dropdown-divider"></div>
-                    <a href="/hrm_index_user_register" class="dropdown-item dropdown-footer"><i class="fa fa-sign-out mr-2"></i> Logout</a>
+                    <a href="/hrm_recruitment_login" class="dropdown-item dropdown-footer"><i class="fa fa-sign-out mr-2"></i> Logout</a>
+              
               </div>
-
       </li>
 
 

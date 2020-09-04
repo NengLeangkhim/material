@@ -41,6 +41,10 @@ class ModelHrmPerformScore extends Model
     public static function hrm_update_perform_score($id_score,$userid,$score_name,$value,$status){
         return DB::select('SELECT public.update_hr_performance_score(?,?,?,?,?)',array($id_score,$userid,$score_name,$value,$status));
     } 
+    // ===== function model check child of question type before delete === ///
+    public static function hrm_check_delete_perform_score($id){
+        return DB::select("SELECT id from hr_performance_manager_follow_up where hr_performance_score_id=$id and is_deleted='f'");
+    }
     // ===== Function Delete Performance Score  ======//
     public static function hrm_delete_perform_score($id_score,$userid){
         return DB::select('SELECT public.delete_hr_performance_score(?,?)',array($id_score,$userid));

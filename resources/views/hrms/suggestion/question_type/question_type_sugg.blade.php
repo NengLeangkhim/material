@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h1 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i>Question Type</strong></h1>
+                <h1 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i> Question Type</strong></h1>
                 <div class="col-md-12 text-right">
                     <button type="button" id="Add_Q_Type_Sugg" onclick="AddNewQ_type_sugg()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Question Type</button>
                 </div>
@@ -31,10 +31,8 @@
                             <td style="color:black;">{{$row->name}}</td>
                             <td style="color:black;">{{$row->username}} </td>
                             <td style="color:black;" class="text-center">
-                              <a href="#" id="{{$row->id}}" class="btn btn-info update_q_t_sugg"><i class="far fa-edit"></i></a>
-                              @if ($row->id!=1 && $row->id!=2 && $row->id!=4)
-                                <a href="#" id="{{$row->id}}" onclick="detele_q_t_sugg({{$row->id}})" class="btn btn-info detele_q_t_sugg"><i style="color:red" class="fas fa-trash"></i></a>
-                              @endif
+                              <a href="#" id="{{$row->id}}" title="Update" class="update_q_t_sugg"><i class="far fa-edit"></i></a>
+                              <a href="#" id="{{$row->id}}" title="Delete" onclick="detele_q_t_sugg({{$row->id}})" class="detele_q_t_sugg"><i style="color:red;margin-left:10px;" class="fas fa-trash"></i></a>
                             </td>
                         </tr>     
                     @endforeach
