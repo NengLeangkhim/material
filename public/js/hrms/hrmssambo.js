@@ -960,19 +960,19 @@ $(document).on('click', '.hrm_view_policy_user', function(){
     }
     });
   });
-  //// View modal Plan and Plan Detail///
-  $(document).on('click', '.hrm_view_plan_detail', function(){
-    var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
-    $.ajax({
-    url:"hrm_list_plan_performance/plan/modal",   //Request send to "action.php page"
-    type:"GET",    //Using of Post method for send data
-    data:{id:id},//Send data to server
-    success:function(data){
-        $('#ShowModalPlan').html(data);
-        $('#hrm_view_plan_modal').modal('show');   //It will display modal on webpage   
-    }
-    });
-  });
+  // //// View modal Plan and Plan Detail///
+  // $(document).on('click', '.hrm_view_plan_detail', function(){
+  //   var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+  //   $.ajax({
+  //   url:"hrm_list_plan_performance/plan/modal",   //Request send to "action.php page"
+  //   type:"GET",    //Using of Post method for send data
+  //   data:{id:id},//Send data to server
+  //   success:function(data){
+  //       $('#ShowModalPlan').html(data);
+  //       $('#hrm_view_plan_modal').modal('show');   //It will display modal on webpage   
+  //   }
+  //   });
+  // });
 /////==== END Performance Plan ====//////
 ////===== Performance plan Detail====/////////
 ///// Show Modal Add Plan detail /////
