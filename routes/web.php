@@ -784,6 +784,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 // Payroll
     // Create Payroll
         Route::get('hrm_employee_salary', 'hrms\Payroll\PayrollController@CreatePayroll');
+        Route::post('hrm_save_create_payroll', 'hrms\Payroll\PayrollController@AddCreatePayroll');
     // End Create Payroll
 
     // Payroll List
