@@ -46,7 +46,7 @@ Function index_num($v1){
                   <div class=" card card-mini mb-4">
                           <div class="card-body">
                           <h4 class="mb-1" style="font-weight: bold; text-align: center ">
-                              <?php echo 'Plan For Training'; ?> </h4>
+                              <?php echo 'Training'; ?> </h4>
                               <h5 style="text-align: center">Today</h5>
                           
                               <div class="chartjs-wrapper " >
@@ -79,7 +79,7 @@ Function index_num($v1){
                   <div class=" card card-mini mb-4">
                           <div class="card-body">
                           <h4 class="mb-1" style="font-weight: bold; text-align: center ">
-                              <?php echo 'Available Position'; ?> </h4>
+                              <?php echo 'Position'; ?> </h4>
                               <h5 style="text-align: center">Today</h5>
                               
                           
@@ -185,7 +185,7 @@ Function index_num($v1){
       <div class="row">
 
               {{-- // row 2, column 1 --}}
-              <div class="col-xl-6 col-md-6 col-sm-12">
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
                     <div class=" card card-mini mb-4">
                             <div class="card-body">
                             <h3 class="mb-1" style="font-weight: bold; ">
@@ -219,7 +219,7 @@ Function index_num($v1){
               </div>
 
               {{-- // row 2, column 2 --}}
-              <div class="col-xl-6 col-md-6 col-sm-12">
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
                     <div class=" card card-mini mb-4">
                             <div class="card-body">
                             <h3 class="mb-1" style="font-weight: bold; ">
@@ -258,7 +258,7 @@ Function index_num($v1){
 
               {{-- // row 3, column 1 --}}
             
-              <div class="col-xl-6 col-md-6 col-sm-12">
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
                   <div class=" card card-mini mb-4">
                   <div class="card-body">
                       <h3 class="mb-1" style="font-weight: bold; ">
@@ -289,7 +289,7 @@ Function index_num($v1){
               </div>
 
               {{-- // row 3, column 2 --}}
-              <div class="col-xl-6 col-md-6 col-sm-12">
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
                   <div class=" card card-mini mb-4">
                   <div class="card-body">
                       <h3 class="mb-1" style="font-weight: bold; ">
@@ -326,7 +326,7 @@ Function index_num($v1){
       <div class="row"> 
               
               {{-- // row 4, column 1 --}}
-              <div class="col-xl-6 col-md-6 col-sm-12">
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
                   <div class="card card-mini mb-4">
                     <div class="card-body">
                       <h3 class="mb-1" style="font-weight: bold"><?php echo 'Attendence';  ?></h3>
@@ -375,7 +375,7 @@ Function index_num($v1){
 
 
               {{-- // row 4, column 2 --}}
-              <div class="col-xl-6 col-md-6 col-sm-12 " >
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 " >
                 <div class="card card-mini ">
                   <div class="card-body">
                     <h3 class="mb-1" style="font-weight: bold">05 Department</h3>
