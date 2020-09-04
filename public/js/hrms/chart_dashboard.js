@@ -165,9 +165,9 @@
                 label: 'Staff Type',
                 data: data_,
                 backgroundColor: [
-                    "rgb(25, 130, 112)",
+                    "rgb(54, 162, 235)",
+                    // "rgb(25, 130, 112)",
                     "rgb(255, 99, 132)",
-                    // "rgb(54, 162, 235)"
                    
                 ],
                 borderWidth: 1,

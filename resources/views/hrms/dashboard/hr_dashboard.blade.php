@@ -10,7 +10,14 @@ $staff_gender = hr_dashboardController::staff_type();
 $monthly_shift_promote = hr_dashboardController::MonthlyShiftPromote();
 $monthly_new_member = hr_dashboardController::MonthlyJoinMember();
 $monthly_staffSuggestion = hr_dashboardController::MonthlyStaffSuggestion();
-// print_r($monthly_staffSuggestion);
+$plan_training = hr_dashboardController::plan_trainingToday();
+$position_available = hr_dashboardController::AvailablePosition();
+$staff_mission = hr_dashboardController::Num_staffMission();
+$staff_suggestion = hr_dashboardController::Staff_Suggestion();
+
+
+// print_r($staff_suggestion);
+//function divide number to two digits
 Function index_num($v1){
         //v = 1;
         if($v1 == 0){
@@ -39,29 +46,29 @@ Function index_num($v1){
                   <div class=" card card-mini mb-4">
                           <div class="card-body">
                           <h4 class="mb-1" style="font-weight: bold; text-align: center ">
-                              <?php echo 'Staff Training'; ?> </h4>
+                              <?php echo 'Training'; ?> </h4>
                               <h5 style="text-align: center">Today</h5>
-                          {{-- <table class="table_style1" >
-                              <tr class="tr-review">
-                                <td>Today<td>
-                                <td> <?php  echo $can['ddd']; 
-                                      ?> 
-                                      <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span>
-                                <td>
-                              </tr>
-                              <tr class="tr-review">
-                              <td>This Week<td>
-                              <td> <?php  echo $can['www']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
-                              </tr class="tr-review">
-                              <tr>
-                              <td>This Year<td>
-                              <td> <?php  echo $can['yyy']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
-                              </tr>
-                          </table> --}}
+                          
                               <div class="chartjs-wrapper " >
-                                  <h1 style="text-align: center;">00</h1>
+                                  <h1 style="text-align: center;"><?php echo $plan_training; ?> <span><i class='far fa-newspaper' style='font-size:32px; color: #1fa8e0'></i></span></h1>
                                   {{-- <canvas id="pieChart_staffgender" width="100%" height="100px;"></canvas> --}}
-
+                                  {{-- <table class="table_style1" >
+                                        <tr class="tr-review">
+                                          <td>This Month<td>
+                                          <td> <?php  echo $can['ddd']; 
+                                                ?> 
+                                                <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span>
+                                          <td>
+                                        </tr>
+                                        <tr class="tr-review">
+                                        <td>This Week<td>
+                                        <td> <?php  echo $can['www']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
+                                        </tr class="tr-review">
+                                        <tr>
+                                        <td>This Year<td>
+                                        <td> <?php  echo $can['yyy']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
+                                        </tr>
+                                  </table> --}}
                               </div>
                           </div>
                   </div>
@@ -97,7 +104,7 @@ Function index_num($v1){
                               <div class="chartjs-wrapper " >
                                   
                                   {{-- <canvas id="barChart_candidate" width="100%" height="30px;"></canvas> --}}
-                                <h1 style="text-align: center">29</h1>
+                                <h1 style="text-align: center" >{!! $position_available !!} <span><i class='fas fa-table' style='font-size:32px; color: #1fa8e0'></i></span></h1>
                               </div>
                           </div>
                   </div>
@@ -128,7 +135,7 @@ Function index_num($v1){
                               </tr>
                           </table> --}}
                               <div class="chartjs-wrapper" >
-                                <h1 style="text-align: center;">00</h1>
+                                <h1 style="text-align: center;">{!! $staff_mission !!} <span><i class='fas fa-user-tie' style='font-size:32px; color: #1fa8e0'></i></span></h1>
                                   
                                   {{-- <canvas id="barChart_candidate" width="100%" height="30px;"></canvas> --}}
 
@@ -163,7 +170,7 @@ Function index_num($v1){
                           </tr>
                       </table> --}}
                           <div class="chartjs-wrapper " >
-                              <h1 style="text-align: center;">00</h1>
+                              <h1 style="text-align: center;">{!! $staff_suggestion !!} <span><i class='fas fa-user-tie' style='font-size:32px; color: #1fa8e0'></i></span></h1>
                               {{-- <canvas id="idChart_suggestion" width="100%" height="50px;"></canvas> --}}
 
                           </div>
@@ -471,7 +478,6 @@ Function index_num($v1){
 
 ?>
 
-
 <script type="text/javascript">
     //delcare JS variable from php to json
     var staff_byDept = <?php echo json_encode($staff_byDept); ?>;
@@ -482,9 +488,6 @@ Function index_num($v1){
     var monthly_New_Member = <?php echo json_encode($monthly_new_member); ?>;
     var monthly_shift_promote = <?php echo json_encode($monthly_shift_promote); ?>;
     var monthly_staffSuggestion = <?php echo json_encode($monthly_staffSuggestion); ?>;
-
-    
-    
 
 </script>
 

@@ -524,6 +524,57 @@ class hr_dashboardController extends Controller
 
 
 
+    //function get plan of training list today
+    public static function plan_trainingToday(){
+        $today = date('Y-m-d');
+        // $today = '2020-08-07';
+        $data = hr_dashboardModel::plan_training($today);
+        if(($data[0]->count) >= 0 && ($data[0]->count) < 10){
+            $r = '0'.$data[0]->count;
+            return $r;
+        }
+        $r = $data[0]->count;
+        return $r;
+    }
+
+    //function get position available in staff 
+    public static function AvailablePosition(){
+        $data = hr_dashboardModel::available_position();
+        $r = count($data);
+        return $r;
+    }
+
+
+    //function to get number of staff go outside or mission work
+    public static function Num_staffMission(){
+        $today = date('Y-m-d');
+        $data = hr_dashboardModel::staff_mission($today);
+        if(($data[0]->count) >= 0 && ($data[0]->count) < 10){
+            $r = '0'.$data[0]->count;
+            return $r;
+        }
+        $r = $data[0]->count;
+        return $r;
+
+    }
+
+    //function to get number of staff submit suggestion or comment
+    public static function Staff_Suggestion(){
+        $d1 = date('Y-m-d 00:00:00');
+        $d2 = date('Y-m-d 23:59:00');
+        $data = hr_dashboardModel::staff_suggestion($d1,$d2);
+        if( count($data) >= 0 && count($data) < 10){
+            $r = '0'.count($data);
+            return $r;
+        }
+        $r = count($data);
+        return $r;
+    }
+
+    
+
+
+
 
 
 
