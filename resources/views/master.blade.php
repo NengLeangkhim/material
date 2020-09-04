@@ -9,7 +9,7 @@
 
         <div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
             @yield('content')
-            
+
         </div><!-- end Content Wrapper. Contains page content -->
 
         <footer class="main-footer">
@@ -26,8 +26,8 @@
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
-    </div>  
-@include('layout.footer') 
+    </div>
+@include('layout.footer')
 </body>
 
 </html>

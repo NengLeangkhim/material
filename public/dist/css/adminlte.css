@@ -11746,7 +11746,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
   transition: width 0.3s ease-in-out;
   white-space: nowrap;
   background: white;
-  
+
 }
 
 .brand-link:hover {

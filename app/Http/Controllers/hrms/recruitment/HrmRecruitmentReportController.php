@@ -93,6 +93,7 @@ class HrmRecruitmentReportController extends Controller
             if(perms::check_perm_module('HRM_090906')){//module code list data tables id=111
             $id_candidate = $_GET['id'];
             $userid = $_SESSION['userid'];
+            $date = $_GET['date'];
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
             foreach($permission as $row){
                 $group = $row->ma_group_id;
@@ -100,20 +101,20 @@ class HrmRecruitmentReportController extends Controller
             }
             if($group==5 || $group==1){ //permission check for CEO and Admin
                 $candidate = ModelHrmResultCandidate::get_candidate($id_candidate); //query Get data Candidate
-                $score = ModelHrmResultCandidate::get_candidate_score($id_candidate);// Query Count true answer
-                $time =  ModelHrmResultCandidate::get_candidate_time($id_candidate);// Query Count time candidate did quiz
-                $choice = ModelHrmResultCandidate::get_result_choice($id_candidate);// Query Answer choice
+                $score = ModelHrmResultCandidate::get_candidate_score($date,$id_candidate);// Query Count true answer
+                $time =  ModelHrmResultCandidate::get_candidate_time($date,$id_candidate);// Query Count time candidate did quiz
+                $choice = ModelHrmResultCandidate::get_result_choice($date,$id_candidate);// Query Answer choice
                 $true_choice = ModelHrmResultCandidate::get_true_choice();// Query true choice for compare with Answer choice
-                $answer_text = ModelHrmResultCandidate::get_answer_text($id_candidate);//Query answer text
+                $answer_text = ModelHrmResultCandidate::get_answer_text($date,$id_candidate);//Query answer text
                 $comment = ModelHrmResultCandidate::get_comment_approval($id_candidate);//Query comment of approval
                 return view('hrms/recruitment/report_recruitment/HrmModalResultCandidate',['permission'=>$permission,'candidate'=>$candidate,'score'=>$score,'time'=>$time,'choice'=>$choice,'true_choice'=>$true_choice,'answer_text'=>$answer_text,'comment'=>$comment]); 
             }else if($group==4){//permission each departement
                 $candidate = ModelHrmResultCandidate::get_candidate($id_candidate); //query Get data Candidate
-                $score = ModelHrmResultCandidate::get_candidate_score($id_candidate);// Query Count true answer
-                $time =  ModelHrmResultCandidate::get_candidate_time($id_candidate);// Query Count time candidate did quiz
-                $choice = ModelHrmResultCandidate::get_result_choice($id_candidate);// Query Answer choice
+                $score = ModelHrmResultCandidate::get_candidate_score($date,$id_candidate);// Query Count true answer
+                $time =  ModelHrmResultCandidate::get_candidate_time($date,$id_candidate);// Query Count time candidate did quiz
+                $choice = ModelHrmResultCandidate::get_result_choice($date,$id_candidate);// Query Answer choice
                 $true_choice = ModelHrmResultCandidate::get_true_choice();// Query true choice for compare with Answer choice
-                $answer_text = ModelHrmResultCandidate::get_answer_text($id_candidate);//Query answer text
+                $answer_text = ModelHrmResultCandidate::get_answer_text($date,$id_candidate);//Query answer text
                 $comment = ModelHrmResultCandidate::get_comment_approval($id_candidate);//Query comment of approval
                 return view('hrms/recruitment/report_recruitment/HrmModalResultCandidate',['permission'=>$permission,'candidate'=>$candidate,'score'=>$score,'time'=>$time,'choice'=>$choice,'true_choice'=>$true_choice,'answer_text'=>$answer_text,'comment'=>$comment]); 
             }else{//permission check user

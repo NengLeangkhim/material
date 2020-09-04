@@ -28,7 +28,7 @@ Route::get('/dashboard',function(){
 });
 
 // =========================CRM SYSTEM==========================
-Route::get('/lead','crm\LeadController@getlead'); 
+Route::get('/lead','crm\LeadController@getlead');
 Route::get('/addlead','crm\LeadController@lead');
 Route::get('/district','crm\LeadController@getdistrict'); //getdistrict
 Route::get('/commune','crm\LeadController@getcommune'); //getcommune
@@ -47,6 +47,16 @@ Route::get('/product','crm\ProductsController@getProducts'); //Products
 //======================Main=================================
 Route::get('/check_session','perms@check_session_js');
 
+
+// route for user setting
+Route::get('module','SettingController@module');
+Route::get('access','SettingController@access');
+Route::post('add','SettingController@add');
+Route::post('module/edit','SettingController@edit');
+Route::post('update/module','SettingController@update');
+Route::post('access/add','SettingController@add_module_access');
+Route::get('access/json','SettingController@module_access_json');
+Route::post('module/delete','SettingController@delete_module_access');
 //refresh select after add
 Route::get('/refreshSel','refreshSelect@refresh_sel');
 //end refresh select after add
@@ -472,7 +482,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     ///insert table plan
     Route::post('hrm_list_plan_performance/addplan', 'hrms\performance\HrmPlanController@hrm_insert_perform_plan');
-    
+
     ///get data plan for update
     Route::get('hrm_list_plan_performance/editplan', 'hrms\performance\HrmPlanController@hrm_get_data_perform_plan');
 
@@ -482,17 +492,17 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     ///view modal plan
     Route::get('hrm_list_plan_performance/plan/modal', 'hrms\performance\HrmPlanController@HrmViewPerformPlan');
 
-//////Performance Plan Detail 
-    
+//////Performance Plan Detail
+
     ///get data table plan detail
     Route::get('hrm_list_plan_performance/plandetail', 'hrms\performance\HrmPlanDetailController@HrmTablePerformPlanDetail');
-    
+
     ///get data plan for update
     Route::get('hrm_list_plan_performance/modalplandetail', 'hrms\performance\HrmPlanDetailController@hrm_modal_data_perform_plan_detail');
-    
+
     ///Insert Plan Detail
-    Route::post('hrm_list_plan_performance/addplandetail', 'hrms\performance\HrmPlanDetailController@hrm_insert_perform_plan_detail'); 
-    
+    Route::post('hrm_list_plan_performance/addplandetail', 'hrms\performance\HrmPlanDetailController@hrm_insert_perform_plan_detail');
+
     ///get data plan detail for update
     Route::get('hrm_list_plan_performance/editplandetail', 'hrms\performance\HrmPlanDetailController@hrm_get_data_perform_plan_detail');
 
@@ -502,7 +512,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     ///get data plan detail for update
     Route::get('hrm_list_plan_performance/plandetail/view', 'hrms\performance\HrmPlanDetailController@HrmViewPlanDetail');
 
-///////Performance Schedule 
+///////Performance Schedule
     /// index performance schedule
     Route::get('hrm_performance_staff_schedule','hrms\performance\HrmPerformScheduleController@HrmIndexPerformSchedule');
 
@@ -514,7 +524,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// get combobox plan detail
     Route::get('hrm_performance_staff_schedule/plandetail','hrms\performance\HrmPerformScheduleController@hrm_get_data_perform_plan_detail');
-    
+
     /// insert schecule performance
     Route::post('hrm_performance_staff_schedule/store','hrms\performance\HrmPerformScheduleController@hrm_insert_perform_schedule');
 
@@ -638,29 +648,29 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     /// Delete Quesion and Answer
     Route::get('hrm_question/deletedetail','hrms\recruitment\HrmQuestionAnswerController@delete_detail_question_answer');
 
-///// Question KnowLedge 
+///// Question KnowLedge
     /// Index Question Knowledge
-    Route::get('hrm_list_knowledge_question','hrms\recruitment\HrmQuestionKnowledgeController@tbl_question_knowledge'); 
+    Route::get('hrm_list_knowledge_question','hrms\recruitment\HrmQuestionKnowledgeController@tbl_question_knowledge');
 
     /// Insert Question Knowledge
-    Route::post('hrm_list_knowledge_question/store','hrms\recruitment\HrmQuestionKnowledgeController@AddQuestionKnowledge'); 
+    Route::post('hrm_list_knowledge_question/store','hrms\recruitment\HrmQuestionKnowledgeController@AddQuestionKnowledge');
 
     /// Get data for update Question Knowledge
-    Route::get('hrm_list_knowledge_question/modal','hrms\recruitment\HrmQuestionKnowledgeController@GetEditQuestionKnowledge'); 
+    Route::get('hrm_list_knowledge_question/modal','hrms\recruitment\HrmQuestionKnowledgeController@GetEditQuestionKnowledge');
 
     /// Update Question Knowledge
-    Route::post('hrm_list_knowledge_question/update','hrms\recruitment\HrmQuestionKnowledgeController@UpdateQuestionKnowledge'); 
+    Route::post('hrm_list_knowledge_question/update','hrms\recruitment\HrmQuestionKnowledgeController@UpdateQuestionKnowledge');
 
     /// Delete Question Knowledge
-    Route::get('hrm_list_knowledge_question/delete','hrms\recruitment\HrmQuestionKnowledgeController@delete_question_knowledge'); 
+    Route::get('hrm_list_knowledge_question/delete','hrms\recruitment\HrmQuestionKnowledgeController@delete_question_knowledge');
 
-///// List Candidate 
+///// List Candidate
     /// Index List Candidate
-    Route::get('hrm_list_condidate','hrms\recruitment\HrmListCandidateController@hrm_index_list_candidate'); 
+    Route::get('hrm_list_condidate','hrms\recruitment\HrmListCandidateController@hrm_index_list_candidate');
 
     /// Modal Show List Candidate
     Route::get('hrm_list_condidate/modal','hrms\recruitment\HrmListCandidateController@hrm_detail_candidate');
-    
+
 ///// Result Candidate
     /// Index Result Candidate
     Route::get('hrm_list_result_condidate','hrms\recruitment\HrmResultCandidateController@HrmIndexResultCandidate');
@@ -677,10 +687,10 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     /// Submit Approval
     Route::post('hrm_list_result_condidate/submit','hrms\recruitment\HrmResultCandidateController@HrmSubmitApproval');
 ///// Report Recruitment
-    /// Index Report 
+    /// Index Report
     Route::get('hrm_report_recruitment','hrms\recruitment\HrmRecruitmentReportController@HrmIndexRecruitmentReport');
 
-    /// Show Report Recruitment 
+    /// Show Report Recruitment
     Route::post('hrm_report_recruitment/report','hrms\recruitment\HrmRecruitmentReportController@HrmRecruitmentReport');
 
     /// Show Modal Result Candidate
@@ -699,7 +709,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_delete_employee', 'hrms\Employee\AllemployeeController@DeleteEmployee');
         Route::get('hrm_detail_employee', 'hrms\Employee\AllemployeeController@EmployeeDetail');
     //End All Employee
- 
+
     // Start Holiday
         Route::get('hrm_holiday', 'hrms\Employee\HolidayController@Holiday');
         Route::get('hrm_add_edit_holiday', 'hrms\Employee\HolidayController@AddAndEditHoliday');
@@ -847,9 +857,9 @@ Route::get('hrm_shift_promote_report_search_view_detail','hrms\shift_promote\shi
 
 //============Recruitment Candidate=============
 
-// candidate register account submit information 
+// candidate register account submit information
 Route::post('hrm_recruitment_user_register','hrms\recruitment_user\recruitment_userController@register_candidate');
-// end 
+// end
 
 // route controller to user submit quiz answer
 Route::post('hrm_recruitment_user_submit_answer','hrms\recruitment_user\recruitment_userController@submit_user_answer');
@@ -860,7 +870,7 @@ Route::get('hrm_index_user_register',function(){
     return view('hrms.recruitment_user.index_recruitment_register');
 });
 
-// view candidate login 
+// view candidate login
 Route::get('hrm_recruitment_login',function(){
     return view('hrms.recruitment_user.login_user');
 });
@@ -884,7 +894,7 @@ Route::get('hrm_recruitment_question',function(){
 // route to select question for user from controller
 Route::get('hrm_recruitment_get_question','hrms\recruitment_user\recruitment_userController@get_user_question');
 
-// route to login user 
+// route to login user
 Route::post('hrm_recruitment_login','hrms\recruitment_user\recruitment_userController@user_login');
 
 // route to home page user
@@ -895,12 +905,13 @@ Route::get('hrm_recruitment_homepage',function(){
 // route for user profile
 Route::get('hrm_recruitment_user_profile','hrms\recruitment_user\recruitment_userController@user_profile');
 
-// route for user view quiz result 
+// route for user view quiz result
 Route::get('hrm_recruitment_user_quiz_result','hrms\recruitment_user\recruitment_userController@user_view_quiz_result');
 
 
-// route for user get hr result 
+// route for user get hr result
 Route::get('hrm_recruitment_get_hr_result','hrms\recruitment_user\recruitment_userController@check_hr_resultContrl');
+
 
 
 //=============End recruitment candidate===========

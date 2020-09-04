@@ -2,8 +2,8 @@
     <thead class='word-thead'><th>No</th><th>Name</th><th>Position</th><th>Create_date</th><th>Create_by</th><th>Status</th><th>Action</th></thead>
     <tbody class='word-tbody'>
     <?php
+        $i=1;
         foreach($result as $row_tbl){
-            $i=1;
             $create = $row_tbl->create_date;
             $ts = new DateTime($create);
         ?>
@@ -14,8 +14,16 @@
             <td><?=$row_tbl->name?></td>
             <td><?=$ts->format('y-m-d H:i:s')?></td>
             <td><?=$row_tbl->staff?></td>
-            <td><?=$row_tbl->status_appr?></td>
-            <td><a href="javascript:void(0);" class="btn btn-info" onclick="view_result_condidate_report(<?=$row_tbl->id?>)">Action</a></td>
+            <td>
+                @if($row_tbl->status_appr=='approve') 
+                    <i class="fas fa-circle" style="color: green;"></i> <span style="margin-left:10px;">{{ucfirst($row_tbl->status_appr)}}</span>
+                @elseif($row_tbl->status_appr=='pending') 
+                    <i class="fas fa-circle" style="color:darkorange;"></i> <span style="margin-left:10px;">{{ucfirst($row_tbl->status_appr)}}</span>
+                @elseif($row_tbl->status_appr=='reject') 
+                    <i class="fas fa-circle" style="color:red;"></i> <span style="margin-left:10px;">{{ucfirst($row_tbl->status_appr)}}</span>
+                @endif
+            </td>
+            <td><a href="javascript:void(0);" class="btn btn-info" onclick="view_result_condidate_report(<?=$row_tbl->id?>,'{{$row_tbl->start_time}}')">Action</a></td>
             </tr>
       <?php 
         }

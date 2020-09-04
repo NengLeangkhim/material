@@ -39,9 +39,13 @@
                                 <td>{{$row->name}}</td>
                                 <td>{{$ts1->format('Y-M-d H:i:s')}}</td>
                                 <td>@if ($row->status_appr==Null)
-                                    {{'Not Yet!!'}}
-                                    @else 
-                                        {{ucfirst($row->status_appr)}}
+                                        <i class="fas fa-circle" style="color:orangered;"></i> <span style="margin-left:10px;">{{'Not Yet!!'}}</span> 
+                                    @elseif($row->status_appr=='approve') 
+                                        <i class="fas fa-circle" style="color: green;"></i> <span style="margin-left:10px;">{{ucfirst($row->status_appr)}}</span>
+                                    @elseif($row->status_appr=='pending') 
+                                        <i class="fas fa-circle" style="color:darkorange;"></i> <span style="margin-left:10px;">{{ucfirst($row->status_appr)}}</span>
+                                    @elseif($row->status_appr=='reject') 
+                                        <i class="fas fa-circle" style="color:red;"></i> <span style="margin-left:10px;">{{ucfirst($row->status_appr)}}</span>
                                     @endif</td>
                                 
                                 <td class="text-center">
