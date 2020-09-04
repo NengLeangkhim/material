@@ -15,7 +15,7 @@ class HrmSuggestionController extends Controller
     {      if (session_status() == PHP_SESSION_NONE) {
             session_start();
             }
-            if(perms::check_perm_module('SUGG_1001')){//module code list data tables id=169
+            if(perms::check_perm_module('SUG_1001')){//module code list data tables id=169
 
                 return view('hrms/suggestion/suggestion_survey/HrmSuggestionComment');
             }else{
@@ -41,7 +41,7 @@ class HrmSuggestionController extends Controller
                 'errors' => $validator->getMessageBag()->toArray() 
             ));
         }else{
-            if(perms::check_perm_module('SUGG_1001')){//module code list data tables id=169
+            if(perms::check_perm_module('SUG_1001')){//module code list data tables id=169
                 $userid = $_SESSION['userid'];
                 $suggestion= $request->employee_sugg;
                 $submit= ModelHrmSuggestion::hrm_submit_suggestion(12,Null,$suggestion,$userid); //get function insert from model
