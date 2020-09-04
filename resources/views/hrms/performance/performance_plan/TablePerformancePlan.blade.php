@@ -30,7 +30,7 @@
                         Action
                     </button>
                     <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">
-                        <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_view_plan_detail">View</button>              
+                        <button type="button" id="{{$row->id}}" onclick="go_to('/hrm_list_plan_performance/plan/modal?id={{$row->id}}')" class="dropdown-item hrm_item hrm_view_plan_detail">View</button>              
                         <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_update_perform_plan">Update</button>
                         <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_add_plan_detail">Add Plan Detail</button>
                     </div>
