@@ -306,7 +306,7 @@
                                                     <select class="form-control select2 city"  id="icity" name="city" onchange="getbranch(this,'idistrict','s','/district')" >
                                                         <option></option>
                                                      @foreach($province as $row )
-                                                        <option value="{{$row->gzcode}}">{{$row->latinname}}/{{$row->khname}}</option> 
+                                                        <option value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option> 
                                                         @endforeach
                                                     </select>     
                                                 </div>
