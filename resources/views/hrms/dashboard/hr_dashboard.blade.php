@@ -113,7 +113,7 @@ Function index_num($v1){
             <div class="col-xl-03 col-md-3 col-sm-6">
                   <div class=" card card-mini mb-4">
                           <div class="card-body">
-                          <h4 class="mb-1" style="font-weight: bold; ">
+                          <h4 class="mb-1" style="text-align:center; font-weight: bold; ">
                               <?php echo 'Mission&Outside'; ?> </h4>
                               <h5 style="text-align: center">Today</h5>
 
