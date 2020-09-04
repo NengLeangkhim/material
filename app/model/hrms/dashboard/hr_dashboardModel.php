@@ -69,6 +69,31 @@ class hr_dashboardModel extends Model
 
 
 
+
+    // function to select staff submit sugguestion from table hr_suggestion_submite
+    public static function All_staffSuggestion(){
+        $sql = "SELECT * From hr_suggestion_submited WHERE status='t' AND is_deleted = 'f' ";
+            try {
+                
+                $r = DB::select($sql);
+                return $r;
+            }catch(\Illuminate\Database\QueryException $ex){
+                dump($ex->getMessage());
+                echo '<br><a href="/">go back</a><br>';
+                echo 'exited';
+                exit;
+            // Note any method of class PDOException can be called on $ex.
+            }
+    }
+
+
+
+
+
+
+
+
+
     
     
     // public static function staff_check_in(){
