@@ -14,6 +14,9 @@
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="plugins/datatables-rowgroup/js/dataTables.rowGroup.js"></script>
+
+
 
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
@@ -55,42 +58,11 @@
 <script src="plugins/DateStyle/analytics.js"></script>
 <script src="plugins/DateStyle/moment-with-locales.js"></script>
 <script src="plugins/DateStyle/bootstrap-datetimepicker.js"></script>
-
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
 <!-- My js -->
 <script src="js/myjs.js"></script>
 <script src="js/e_request/addRow.js"></script>
 <script src="js/e_request/getvalues.js"></script>
-<script>
-  $(document).ready(
-    function(){
-      go_to('welcome');
-    }
-  );
-</script>
 
-<!-- HRMS -->
-<script src="js/hrms/hrms.js"></script>
-
-<script src="stJS/hrms/shift_promote_js/shift_promote.js"></script>
-<script src="js/hrms/hrmssambo.js"></script>
-<script src="js/hrms/hrms.js"></script>
 <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js" ></script>
 
 
