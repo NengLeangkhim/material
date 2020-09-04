@@ -78,7 +78,7 @@
                      <h2 class="card-title hrm-title" style="font-weight: bold;font-size:25px" id="card_title"> Add Manager Follow Up</h2>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                      <a  href="javascript:void(0);" onclick="go_to('hrm_performance_follow_up')" class="text-info"><i class="fa fa-arrow-left"></i> Back</a> 
+                      <a  href="javascript:void(0);" onclick="go_to('hrm_performance_follow_up_manager')" class="text-info"><i class="fa fa-arrow-left"></i> Back</a> 
                     </div>
                 </div><!-- /.card-header -->
                 <div class="card-body" style="display: block;">

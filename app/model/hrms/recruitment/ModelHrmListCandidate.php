@@ -10,8 +10,9 @@ class ModelHrmListCandidate extends Model
     //
     // ===== Function model get data for table =====////
     public static function get_tbl_recruitment_candidate(){
-        return DB::select("SELECT c.*,p.name,appr.hr_approval_status from hr_recruitment_candidate c
-                            left join ma_position p on c.ma_position_id=p.id
+        return DB::select("SELECT c.*,p.name,appr.hr_approval_status,ca.is_deleted as check_quiz from hr_recruitment_candidate c
+                            join ma_position p on c.ma_position_id=p.id
+                            left join hr_recruitment_candidate_answer ca on c.id = ca.hr_recruitment_candidate_id
                             left join (
                             SELECT 
                                     hr_recruitment_candidate_id, 
@@ -32,6 +33,7 @@ class ModelHrmListCandidate extends Model
                                     hr_recruitment_candidate_id,hr_approval_status
                             )appr on (c.id=appr.hr_recruitment_candidate_id)  
                             where c.is_deleted='f'
+                            group by c.id,p.name,appr.hr_approval_status,ca.is_deleted
                             ");
     }
     // ===== Function model get detail candidate =====////

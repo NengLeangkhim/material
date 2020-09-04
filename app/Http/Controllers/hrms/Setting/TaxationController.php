@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class TaxationController extends Controller
 {
     function Taxation(){
-        return view('hrms/Setting/Taxation');
+        $data=array();
+        return view('hrms/Setting/Taxation')->with('data',$data);
     }
 }

@@ -20,6 +20,11 @@ thead tr th{
     background-color: #1fa8e0;
     
 }
+#card_title{
+	font-weight: bold;
+	font-size:25px;
+	margin-left:5px
+}
 
 
 
