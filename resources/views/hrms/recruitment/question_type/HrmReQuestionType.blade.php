@@ -18,8 +18,8 @@
                               <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Question Type</th>
-                                <th scope="col">Create_Date</th>
-                                <th scope="col">Create_By</th>
+                                <th scope="col">Create Date</th>
+                                <th scope="col">Create By</th>
                                 <th width="15%" scope="col">Action</th>
                               </tr>
                             </thead>
