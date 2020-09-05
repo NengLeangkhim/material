@@ -1,5 +1,5 @@
 <table style="margin-top:2%;" class="table display responsive nowrap" width="100%" id="report_tbl_performance">
-    <thead class='word-thead'><th>#</th><th>Name</th><th>Plan Detail</th><th>Percentage</th><th>Score</th><th>Create_date</th><th>Create_by</th><th>Action</th></thead>
+    <thead class='word-thead'><th>#</th><th>Name</th><th>Plan Detail</th><th>Percentage</th><th>Score</th><th>Create Date</th><th>Create By</th><th>Action</th></thead>
     <tbody class='word-tbody'>
     <?php
         $i=1;

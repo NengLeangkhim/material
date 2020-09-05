@@ -346,6 +346,7 @@ class hr_dashboardController extends Controller
         $all_em = hr_dashboardModel::em_all();
         $m = '';
         $f = '';
+
         foreach($all_em as $val){
            if($val->sex == 'male'){
                $m++;
@@ -354,6 +355,8 @@ class hr_dashboardController extends Controller
                 $f++;
            }
         }
+        
+
         return $data = ['male'=>$m, 'female'=>$f];
     }
     

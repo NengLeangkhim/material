@@ -53,14 +53,14 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="plan_name">Plan Detail<span class="text-danger"></span></label>
-                                <input type="text" disabled class="form-control" aria-describedby="plan_name" value="<?=$name?>">
+                                <label for="plan_to">Parent Plan Detail<span class="text-danger"></span></label>
+                                <input type="text" disabled value="<?=$parent_name?>" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="plan_name">Task<span class="text-danger"></span></label>
-                                <textarea disabled class="form-control" cols="2"><?=$task?></textarea>
+                                <label for="plan_name">Plan Detail<span class="text-danger"></span></label>
+                                <input type="text" disabled class="form-control" aria-describedby="plan_name" value="<?=$name?>">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -77,8 +77,8 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="plan_to">Parent Plan Detail<span class="text-danger"></span></label>
-                                <input type="text" disabled value="<?=$parent_name?>" class="form-control">
+                                <label for="plan_name">Task<span class="text-danger"></span></label>
+                                <textarea disabled class="form-control" cols="2"><?=$task?></textarea>
                             </div>
                         </div>
                     </div><!-- End Row -->

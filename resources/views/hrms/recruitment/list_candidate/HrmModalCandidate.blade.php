@@ -15,6 +15,12 @@
         }
         
 @endphp
+<style>
+    .hrm_candidate_borderless td{
+        border: none;
+        font-family: Khmer UI;
+    }
+</style>
 <!-- modal -->
     <div class="modal fade show" id="hrm_view_candidate_modal" tabindex="-1" role="dialog" aria-labelledby="hrm_view_candidate_modal" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
@@ -32,51 +38,58 @@
                 <div class="container-fluid">
                     <div class="row" style="height:100px">
                     <div class="col-6" style="text-align:center">
-                        <span class="text-center" style="font-size:15px;color:#d42931;font-weight:bold;">ID:</span>
+                        <span class="text-center" style="font-size:18px;font-weight:bold;">ID:</span>
                         <p style="display:inline;color:black;" id="id_condidate">{{$id_candidate}}</p>
                     </div>
                     <div class="col-6"  style="text-align:center">
-                        <span class="text-center" style="font-size:15px;color:#d42931;font-weight:bold;">Date:</span>
+                        <span class="text-center" style="font-size:18px;font-weight:bold;">Date:</span>
                         <p style="display:inline;color:black" id="register_date">{{$ts1->format('Y-M-d H:i:s')}}</p>
                     </div>
                     <div class="col-12">
                      <hr style="border:1px solid">
                     </div>
                     </div><!-- End Row -->
-                    <div class="row" style="height:70px">
-                    <div class="col-6" style="text-align:center">
-                        <span class="text-center" style="font-size:15px;color:#d42931;float:left">FirstName:</span>
-                        <p style="display:inline;color:black;" id="fname">{{$fname}}</p>
-                    </div>
-                    <div class="col-6"  style="text-align:center">
-                        <span class="text-center" style="font-size:15px;color:#d42931;float:left">LastName:</span>
-                        <p style="display:inline;color:black;" id="lname">{{$lname}}</p>
-                    </div>
-                    </div><!-- End Row -->
-                    <div class="row" style="height:70px">
-                    <div class="col-6" style="text-align:center;width:50px;">
-                        <span class="text-center" style="font-size:15px;color:#d42931;float:left">KhmerName:</span>
-                        <p style="display:inline;color:black;font-family: Khmer UI;width:50px;" id="name_kh">{{$name_kh}}</p>
-                    </div>
-                    <div class="col-6"  style="text-align:center">
-                        <span class="text-center" style="font-size:15px;color:#d42931;float:left">Position:</span>
-                        <p style="display:inline;color:black;" id="position">{{$position}}</p>
-                    </div>
-                    </div><!-- End Row -->
-                    <div class="row" style="height:150px">
-                    <div class="col-6" style="text-align:center">
-                        <span class="text-center" style="font-size:15px;color:#d42931;float:left">Email:</span>
-                        <p style="display:inline;color:black;font-family: Khmer UI" id="email">{{$email}}</p>
-                    </div>
-                    <div class="col-6" >
-                        <span class="text-center" style="font-size:15px;color:#d42931;float:left">Interest:</span>
-                        <!-- <p style="display:inline;color:black;" id="interest"></p> -->
-                        <textarea disabled style="display:inline;color:black;border:none;background-color:white;" name="" id="interest" cols="29" rows="4">{{$interest}}</textarea>
-                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-12">
+                            <table class="table hrm_candidate_borderless">
+                                <tbody>
+                                  <tr>
+                                    <td width="30%" class="font-weight-bold">FirstName</td>
+                                    <td>: {{$fname}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td width="30%" class="font-weight-bold">KhmerName</td>
+                                    <td>: {{$name_kh}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td width="30%" class="font-weight-bold">Email</td>
+                                    <td>: {{$email}}</td>
+                                  </tr>
+                                </tbody>
+                            </table>
+                        </div><!-- End Col-6 -->
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-12">
+                            <table class="table hrm_candidate_borderless">
+                                <tbody>
+                                  <tr>
+                                    <td width="30%" class="font-weight-bold ">LastName</td>
+                                    <td>: {{$lname}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td width="30%" class="font-weight-bold">Position:</td>
+                                    <td>: {{$position}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td width="30%" class="font-weight-bold">Interest</td>
+                                    <td>: {{$interest}}</td>
+                                  </tr>
+                                </tbody>
+                            </table>
+                        </div><!-- End Col-6 -->
                     </div><!-- End Row -->
                     <div class="row" style="height:1200px">
                     <div class="col-12" style="text-align:center;height:50px">
-                        <span class="text-center" style="font-size:17px;color:#d42931;font-weight:bold;">Resume</span>
+                        <span class="text-center" style="font-size:18px;font-weight:bold;">Resume</span>
                     </div>
                     <div class="col-12" style="height:1150px">
                     <iframe id="iframepdf" src="media/file_candidate_recruitment/{{$email}}/{{$zip_file}}" width="100%" height="100%"></iframe>
@@ -84,7 +97,7 @@
                     </div><!-- End Row -->
                     <div class="row" style="height:1200px">
                     <div class="col-12" style="text-align:center;height:50px">
-                        <span class="text-center" style="font-size:17px;color:#d42931;font-weight:bold;">Cover Letter</span>
+                        <span class="text-center" style="font-size:18px;font-weight:bold;">Cover Letter</span>
                     </div>
                     <div class="col-12" style="height:1150px">
                     <iframe id="iframepdf" src="media/file_candidate_recruitment/{{$email}}/{{$coverletter}}" width="100%" height="100%"></iframe> 

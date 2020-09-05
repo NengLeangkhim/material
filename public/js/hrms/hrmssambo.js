@@ -586,7 +586,6 @@ function HrmSubmitSuggestion(){
 function HrmSubmitSurvey(){
   event.preventDefault();
   $("#suggestion_survey_form textarea").removeClass("is-invalid");//remove all error message
-  $("#suggestion_survey_form input").removeClass("is-invalid");//remove all error message
   $.ajax({
     url:'hrm_survey_sugg/store',
     type:'POST',
@@ -599,24 +598,26 @@ function HrmSubmitSurvey(){
     success:function(data)
     {
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-        console.log(data);
         sweetalert('success','The Submit has been Submit Successfully !!');
         go_to('/welcome');// refresh content  
     }else{ 
-       $(".print-error-msg").find("ul").html(''); 
+       //$(".print-error-msg").find("ul").html(''); 
 
-       $(".print-error-msg").css('display','block');
+       //$(".print-error-msg").css('display','block');
       $.each( data.errors, function( key, value ) {//foreach show error
           //$("#radio_ans").addClass("was-validated"); //give read border to input field
-          $(".print-error-msg").find("ul").append('<li>'+'Please Fill All The Fields'+'</li>');
+          //$(".print-error-msg").find("ul").append('<li>'+'Please Fill All The Fields'+'</li>');
           // $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
-          // sweetalert('warning',value);
+          sweetalert('warning','Please Fill All The Fields');
           var name = $("textarea[name='"+key+"']");
+          var radio = $("input[name='"+key+"']");
           if(key.indexOf(".") != -1){
             var arr = key.split(".");
             name = $("textarea[name='"+arr[0]+"[]']:eq("+arr[1]+")");
+            radio = $("input[name='"+arr[0]+"[]']:eq("+arr[1]+")");
           }
           name.addClass("is-invalid");
+          radio.css('border-color','red');
       });
     }
     }

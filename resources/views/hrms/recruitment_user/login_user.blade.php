@@ -47,7 +47,7 @@
                 @csrf
 
                 <h3 class="login-head"><img src="images/turbotech.png" width="70%" height="70%" alt=""></h3>
-                <h2 style="color:rgb(7, 168, 243); text-align: center; font-family:Bahnschrift SemiBold Condensed">User Login</h2>
+                <h2 style="color:rgb(6, 165, 238); text-align: center; font-family:Bahnschrift SemiBold Condensed">User Login</h2>
                 <div class="form-group"  >
 
                     <label class="control-label"><b>Email</b></label>

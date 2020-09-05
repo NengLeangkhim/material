@@ -19,7 +19,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Position</th>
-                                <th scope="col">Create_Date</th>
+                                <th scope="col">Create Date</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -30,7 +30,11 @@
                         <tbody>
                             @foreach ($result as $row)
                             @php
-                                $create = $row->start_time;
+                                if(is_null($row->appr_date)){ //condition set create date if not yet action approve,peding,reject,it will set create date follow date do quiz
+                                    $create = $row->start_time;
+                                }else{
+                                    $create = $row->appr_date;
+                                }
                                 $ts1 = new DateTime($create); //convert string to date format
                             @endphp
                             <tr>

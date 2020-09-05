@@ -11,7 +11,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                   @php
-                    //   print_r($data);
+                      print_r($data[1]);
                   @endphp
                 <table class="table table-bordered" id="tbl_payroll" style="width: 100%">
                   <thead>                  

@@ -10,13 +10,14 @@ class ModelHrmResultCandidate extends Model
     //
     // ===== Function model get data for table for CEO AND ADMIN=====////
     public static function get_tbl_result_candidate_ceo(){
-        return DB::select("SELECT u.*,ua.start_time,pp.name,appr.hr_approval_status as status_appr,appr.comment from hr_recruitment_candidate u 
+        return DB::select("SELECT u.*,ua.start_time,pp.name,appr.hr_approval_status as status_appr,appr.comment,appr.create_date as appr_date from hr_recruitment_candidate u 
                         left join ma_position pp on u.ma_position_id=pp.id 
                         join (
                         SELECT 
                                 hr_recruitment_candidate_id, 
                                 hr_approval_status,
-                                comment
+                                comment,
+                                create_date
                             FROM 
                                 hr_recruitment_candidate_detail
                             where hr_approval_status ='pending' and ( hr_recruitment_candidate_id, create_date) IN
@@ -30,7 +31,7 @@ class ModelHrmResultCandidate extends Model
                                 hr_recruitment_candidate_id
                         ) 
                             GROUP BY 
-                                hr_recruitment_candidate_id,hr_approval_status,comment
+                                hr_recruitment_candidate_id,hr_approval_status,comment,create_date
                         )appr on (u.id=appr.hr_recruitment_candidate_id) 
                     join hr_recruitment_candidate_answer ua on u.id=ua.hr_recruitment_candidate_id where (ua.hr_recruitment_candidate_id,start_time) in 
                     (  Select 
@@ -41,17 +42,18 @@ class ModelHrmResultCandidate extends Model
                         group by 
                                 hr_recruitment_candidate_id
                     )  
-                    group by u.id,ua.start_time,pp.name,appr.hr_approval_status,appr.comment");
+                    group by u.id,ua.start_time,pp.name,appr.hr_approval_status,appr.comment,appr.create_date");
     }
     // ===== Function model get data for table for Head Of Department=====////
     public static function get_tbl_result_candidate_dept(){
-        return DB::select("SELECT u.*,ua.start_time,pp.name,appr.hr_approval_status as status_appr,appr.comment from hr_recruitment_candidate u 
+        return DB::select("SELECT u.*,ua.start_time,pp.name,appr.hr_approval_status as status_appr,appr.comment,appr.create_date as appr_date from hr_recruitment_candidate u 
                         left join ma_position pp on u.ma_position_id=pp.id 
                         left join (
                         SELECT 
                                 hr_recruitment_candidate_id, 
                                 hr_approval_status,
-                                comment
+                                comment,
+                                create_date
                             FROM 
                                 hr_recruitment_candidate_detail
                             where  ( hr_recruitment_candidate_id, create_date) IN
@@ -65,7 +67,7 @@ class ModelHrmResultCandidate extends Model
                                 hr_recruitment_candidate_id
                         ) 
                             GROUP BY 
-                                hr_recruitment_candidate_id,hr_approval_status,comment
+                                hr_recruitment_candidate_id,hr_approval_status,comment,create_date
                         )appr on (u.id=appr.hr_recruitment_candidate_id) 
                     join hr_recruitment_candidate_answer ua on u.id=ua.hr_recruitment_candidate_id where (ua.hr_recruitment_candidate_id,start_time) in 
                     (  Select 
@@ -76,7 +78,7 @@ class ModelHrmResultCandidate extends Model
                         group by 
                                 hr_recruitment_candidate_id
                     )
-                    group by u.id,ua.start_time,pp.name,appr.hr_approval_status,appr.comment");
+                    group by u.id,ua.start_time,pp.name,appr.hr_approval_status,appr.comment,appr.create_date");
     }
     // ===== Function model get data Candidate Detail=====////
     public static function get_candidate($id){

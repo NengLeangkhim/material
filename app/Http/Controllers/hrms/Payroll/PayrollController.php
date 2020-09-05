@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class PayrollController extends Controller
 {
+    // Create Payroll
     function CreatePayroll(){
         $em=new Employee();
         $data=array();
@@ -16,10 +17,22 @@ class PayrollController extends Controller
         return view('hrms/Payroll/CreatePayroll')->with('data',$data);
     }
 
+    function AddCreatePayroll(){
+        $pr=new Payroll();
+        $employee=$_POST['employeeid'];
+        $date_from=$_POST['from'];
+        $date_to=$_POST['to'];
+        $month=$_POST['month'];
+        $pr->CreatePayroll($employee,1,8,16,1,$date_from,$date_to);
+    }
+    // End Create Payroll
+
     function PayrollList(){
         $em = new Employee();
+        $pr=new Payroll();
         $data = array();
         $data[0] = $em->AllEmployee();
+        $data[1]=$pr->ShowPayrollList($em);
         return view('hrms/Payroll/PayrollList')->with('data', $data);
     }
 
