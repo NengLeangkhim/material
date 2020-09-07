@@ -40,7 +40,8 @@
                                                 @foreach ($answer as $row)
                                                     @if ($row->hr_suggestion_question_id==$item->id)
                                                         <td>
-                                                            <input required type="radio" id="radio_ans" name="radio_ans[{{$item->id}}]" value="{{$row->id}}">&nbsp;{{$row->answer}}
+                                                            <input required type="radio" id="radio_ans[{{$item->id}}]" name="radio_ans[{{$item->id}}]" value="{{$row->id}}">
+                                                                <label for="radio_ans[{{$item->id}}]">&nbsp;{{$row->answer}}</label>
                                                         </td>
                                                     @endif
                                                 @endforeach      
