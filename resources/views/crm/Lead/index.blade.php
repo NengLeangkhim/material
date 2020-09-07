@@ -40,7 +40,7 @@
                                                 <th>phone</th>
                                                 <th>Website </th>
                                                 <th>Assigned To </th>
-                                                <th>Detail</th>
+                                                <th>Edit</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -53,7 +53,7 @@
                                                 <td>{{$row->status}}</td>
                                                 <td>{{$row->create_by}}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-block btn-info btn-sm edit" ​value="{{$row->id}}"><i class="fas fa-wrench"></i></a>
+                                                <a href="#" class="btn btn-block btn-info btn-sm edit" ​value="editlead" ><i class="fas fa-wrench"></i></a>
                                                 </td>
                                             </tr>                                       
                                         @endforeach
@@ -92,7 +92,7 @@
             $('.edit').click(function(e)
             {
                 var id = $(this).attr("​value");
-                alert(id);
+                go_to(id);
             });
             </script>
             

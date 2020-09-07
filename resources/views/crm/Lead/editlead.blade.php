@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Create New Lead</h1>
+                    <h1>Edit Lead</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -122,9 +122,9 @@
                                                 </div>
                                                 <select class="form-control" name="leadsource" id="ileadsource" >
                                                     <option></option>
-                                                    @foreach($lead_source as $row)
-                                                        <option value="{{$row->id}}">{{$row->lead_source}}</option>                                                  
-                                                    @endforeach
+                                                    {{-- @foreach($lead_source as $row)
+                                                        <option value="{{$row->id}}">{{$row->name_en}}</option>                                                  
+                                                    @endforeach --}}
                                                 </select>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text btn btn-info" data-toggle="modal" data-target="#modal-info"><i class="fas fa-plus"></i></span>
@@ -143,9 +143,9 @@
                                                 </div>
                                                 <select class="form-control" name="leadstatus">
                                                     <option ></option> 
-                                                    @foreach($lead_status as $row)  
+                                                    {{-- @foreach($lead_status as $row)  
                                                         <option value="{{$row->id}}">{{$row->name_en}}</option>   
-                                                    @endforeach
+                                                    @endforeach --}}
                                                 </select>
                                             </div>        
                                         </div>
@@ -157,9 +157,9 @@
                                                 </div>
                                                 <select class="form-control " name="industry" id="iindustry" >
                                                     <option> </option>
-                                                    @foreach($lead_industry as $row )
+                                                    {{-- @foreach($lead_industry as $row )
                                                         <option value="{{$row->id}}">{{$row->name_en}}</option> 
-                                                    @endforeach
+                                                    @endforeach --}}
                                                 </select>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text btn btn-info" data-toggle="modal" data-target="#modal-info-industry"><i class="fas fa-plus"></i></span>
@@ -178,9 +178,9 @@
                                                 </div>
                                                 <select class="form-control select2 to " name="assigendTo"  >
                                                     <option></option>
-                                                    @foreach($assig_to as $row )
+                                                    {{-- @foreach($assig_to as $row )
                                                         <option value="{{$row->id}}">{{$row->name}}</option> 
-                                                    @endforeach
+                                                    @endforeach --}}
                                                 </select>
                                             </div>
                                         </div>
@@ -305,9 +305,9 @@
                                                     </div>
                                                     <select class="form-control select2 city"  id="icity" name="city" onchange="getbranch(this,'idistrict','s','/district')" >
                                                         <option></option>
-                                                     @foreach($province as $row )
+                                                     {{-- @foreach($province as $row )
                                                         <option value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option> 
-                                                        @endforeach
+                                                        @endforeach --}}
                                                     </select>     
                                                 </div>
                                             </div>
@@ -406,7 +406,7 @@
                                 </div>              
                         </div>
                         <div class="card-footer">
-                            <button type="button" class="btn btn-primary save" id="frm_btn_sub_addlead">Save</button>
+                            <button type="button" class="btn btn-primary save" id="frm_btn_sub_addlead">Edit</button>
                             <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
                         </div>       
                     </form>
