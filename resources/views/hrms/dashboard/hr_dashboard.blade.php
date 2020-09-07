@@ -3,7 +3,7 @@ use \App\Http\Controllers\hrms\dashboard\hr_dashboardController;
 $can = hr_dashboardController::monthly_can();
 $member_join = hr_dashboardController::monthly_member();
 $promote = hr_dashboardController::monthly_shift();
-$attendancec = hr_dashboardController::check_in_morning();
+$attendancec = hr_dashboardController::staff_attendence();
 $staff_byDept = hr_dashboardController::num_staff_byDept();
 $monthly_candidte = hr_dashboardController::MonthlyCandidate();
 $staff_gender = hr_dashboardController::staff_type();
@@ -332,6 +332,9 @@ Function index_num($v1){
                       <h3 class="mb-1" style="font-weight: bold"><?php echo 'Attendence';  ?></h3>
                       <table class="table_style1">
                         <tr class="tr-review">
+                          <td><b>This Morning</b></td>
+                        </tr>
+                        <tr class="tr-review">
                           <td>All Employees<td>
                           <td> :<?php   echo $attendancec['all_em'];   ?> 
                             {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
@@ -351,11 +354,11 @@ Function index_num($v1){
                           <td> :<?php   echo $attendancec['absent'];   ?> 
                             {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
                         </tr>
-                        <tr class="tr-review">
+                        {{-- <tr class="tr-review">
                           <td>Permission<td>
                           <td> :<?php   echo '00';   ?> 
-                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
-                        </tr>
+                            <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
+                        </tr> --}}
                         
                       </table>
                       <div class="media py-3 align-items-center justify-content-between">      
