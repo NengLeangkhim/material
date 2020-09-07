@@ -220,12 +220,12 @@ class hr_dashboardController extends Controller
 
 
     // check attendance staff by today
-    public static function check_in_morning(){
-
+    public static function staff_attendence(){
         $all_em = hr_dashboardModel::em_all();
         $intime = 0;
         $late = 0;
         $absent = 0;
+        // $permission = 0;
 
 
         // check staff check-in intime in the morning

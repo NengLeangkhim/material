@@ -68,12 +68,13 @@
                     "rgb(75, 192, 192)",
                     "rgb(255, 205, 86)",
                     "rgb(255, 99, 132)"
+
                 ],
                 showLine: true,
                 pointHoverRadius: 10,
                 pointRadius: 8,
-                borderWidth: 1,
-                borderColor: 'orange'
+                borderWidth: 1
+                // borderColor: 'orange'
  
             }],
         },
@@ -145,16 +146,10 @@
     var data_ = new Array();
     var label_ = new Array();
     var i= 0;
-    for (var key in staff_gender) {
-        
+    for (var key in staff_gender) {    
         data_[i] = staff_gender[key];
         label_[i] = key;
         i++;
-        // if(i == (Object.keys(staff_gender).length)){
-        //     label_[i] = 'Employees';
-        //     data_[i] =  data_[0] + data_[1] ;
-        // }
-        
     }  
     var ctx = document.getElementById('pieChart_staffgender');
     var myChart = new Chart(ctx, {
