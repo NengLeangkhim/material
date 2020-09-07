@@ -51,6 +51,7 @@ Route::get('/test_map', function(){
 
 //contact
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table 
+Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination 
 Route::get('/organizations','crm\OrganizationController@getorganization'); //get all Organization  show in table
 Route::get('/product','crm\ProductsController@getProducts'); //get all Products show in table  
 
