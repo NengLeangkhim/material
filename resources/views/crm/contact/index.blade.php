@@ -24,57 +24,19 @@
                     <div class="card">
                       <div class="card-header p-2">
                         <ul class="nav nav-pills">
-                          <li class="nav-item"><a class="nav-link active" href="#Card" data-toggle="tab">Show Card</a></li>
-                          <li class="nav-item"><a class="nav-link" href="#List" data-toggle="tab">Show List</a></li>
+                          <li class="nav-item"><a class="nav-link active" href="#Crm_Card_Contact" data-toggle="tab">Show Card</a></li>
+                          <li class="nav-item"><a class="nav-link" href="#Crm_List_Contact" data-toggle="tab">Show List</a></li>
                         </ul>
                       </div><!-- /.card-header -->
                       <div class="card-body" >
                         <div class="tab-content">
                             {{-- show contact like card --}}
-                            <div class="active tab-pane" id="Card" >
-                              <div class="col-12 " >
-                                <div class="row d-flex align-items-stretch">
-                                  @foreach ($contact as $row )
-                                  <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch" >
-                                    <div class="card bg-light" style="width:1000px">
-                                      <div class="card-header text-muted border-bottom-0">                                    
-                                      </div>
-                                      <div class="card-body pt-0">
-                                        <div class="row">
-                                          <div class="col-7">
-                                          <h2 class="lead"><b>{{($row->name_en)=='Null'? "N/A":$row->name_en}}</b></h2>
-                                          <h2 class="lead"><b>{{($row->name_kh)=='Null'? "N/A":$row->name_kh}}</b></h2>
-                                            <ul class="ml-4 mb-0 fa-ul text-muted">
-                                              <li class="small"><span class="fa-li"><i class="fas fa-at"></i></span> Email : {{($row->email)=='NUll'? "turbotech@gmail.com":$row->email}}                                  </li>
-                                              <li class="small"><span class="fa-li"><i class="fab fa-facebook-f"></i></span> Facbook : {{($row->facebook)=='Null'? "N/A":$row->facebook}}                                  </li>
-                                              <li class="small"><span class="fa-li"><i class="fas fa-phone-alt"></i></span> Phone : {{($row->phone)=='Null'? "N/A":$row->phone}}</li>
-                                            </ul>
-                                          </div>
-                                          <div class="col-5 text-center">
-                                            <img src="../../dist/img/user8-128x128.jpg" alt="" class="img-circle img-fluid">
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="card-footer">
-                                        <div class="text-right">
-                                          {{-- <a href="#" class="btn btn-sm bg-teal">
-                                            <i class="fas fa-comments"></i>
-                                          </a> --}}
-                                          <a href="#" class="btn btn-sm btn-primary edit" ​value="{{$row->id}}">
-                                            <i class="fas fa-user"></i> View Profile
-                                          </a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  @endforeach                      
-                                  
-                                </div> 
-                              </div>
+                            <div class="active tab-pane" id="Crm_Card_Contact" >
+                              @include('crm.contact.CrmPaginationContact')
                             </div>
                             <!-- /.tab-pane -->
                             <!--show contact like table -->
-                            <div class="tab-pane" id="List">
+                            <div class="tab-pane" id="Crm_List_Contact">
                               <div class="col-12">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
@@ -89,7 +51,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($contact as $row)
+                                    @foreach($contact_table as $row)
                                         <tr>
                                             <td>TT-CON0000002</td>
                                             <td>{{$row->name_en}}</td>
@@ -118,7 +80,25 @@
                 <!-- /.row -->
               </div><!-- /.container-fluid -->
             </section>
-            <script type="text/javascript">            
+            <script type="text/javascript">  
+            $(document).ready(function() {
+              $(document).on('click', '.pagination a', function(event) {// function click on link pagination
+                  event.preventDefault();
+                  var page = $(this).attr('href').split('page=')[1];//get value page number
+                  fetch_data(page);// execute function
+              });
+
+              function fetch_data(page) {// function get data without refresh page 
+                  $.ajax({
+                      url: "/contact/pagination?page=" + page,// URL 
+                      success: function(data) {
+                          $('#Crm_Card_Contact').html(data);// refresh content
+                      }
+                  });
+              }
+
+            });
+                     
             $(function () {
                 $("#example1").DataTable({
                 "responsive": true,
