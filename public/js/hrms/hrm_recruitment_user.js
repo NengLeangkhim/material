@@ -132,7 +132,7 @@ function autoSubmit() {
   //    auto = setTimeout(function(){ submitform(); }, (1000 * 10));
   // }
 
-  setTimeout(function(){ submitform(); }, (1000 * 60 * 60));
+  setTimeout(function(){ submitform(); }, (1000 * 15));
 
 
 

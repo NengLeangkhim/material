@@ -52,7 +52,7 @@
 
   .back-img1{
 
-      background-image: url("{{ asset('recruitment_user_style/img/exam2.jpg') }}");
+      background-image: url("{{ asset('recruitment_user_style/img/exam1.jpg') }}");
       height: auto; 
       background-position: center; 
       background-repeat: no-repeat;

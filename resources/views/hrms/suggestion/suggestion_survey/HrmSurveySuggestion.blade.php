@@ -19,7 +19,9 @@
                             </div>
                             <div class="table-responsive">
                                 @php
-                                    $i=1;
+                                    $i=1;//increase number
+                                    $k=1;
+                                    $j=1;
                                 @endphp
                           @foreach ($question as $item)
                                 <table class="table table-bordered">
@@ -40,7 +42,8 @@
                                                 @foreach ($answer as $row)
                                                     @if ($row->hr_suggestion_question_id==$item->id)
                                                         <td>
-                                                            <input required type="radio" id="radio_ans" name="radio_ans[{{$item->id}}]" value="{{$row->id}}">&nbsp;{{$row->answer}}
+                                                            <input required type="radio" id="radio_ans_{{$j++}}" name="radio_ans[{{$item->id}}]" value="{{$row->id}}">
+                                                                <label id="radio_ans[{{$item->id}}]" for="radio_ans_{{$k++}}">&nbsp;{{$row->answer}}</label>
                                                         </td>
                                                     @endif
                                                 @endforeach      

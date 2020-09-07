@@ -80,7 +80,6 @@ class hr_dashboardController extends Controller
 
 
 
-
     // function to get daliy, monthly, weekly number of candidate register 
     public static function monthly_can(){
         $y = 0;
@@ -92,7 +91,6 @@ class hr_dashboardController extends Controller
             foreach($can as $key=> $val1){
                     $date = $val1->register_date;
                     $r = hr_dashboardController::cal_date_month(0,0,0,0,$date);  
-                   
                     if($r['month'] == 1){
                         $m++;
                     }
@@ -220,8 +218,7 @@ class hr_dashboardController extends Controller
 
 
     // check attendance staff by today
-    public static function check_in_morning(){
-
+    public static function staff_attendence(){
         $all_em = hr_dashboardModel::em_all();
         $intime = 0;
         $late = 0;
@@ -273,8 +270,9 @@ class hr_dashboardController extends Controller
     
 
         // check staff absent today
-        $absent = count($all_em) - $intime;
-
+        $CEO = 1;
+        
+        $absent = count($all_em) - $intime - $CEO;
         $ab = hr_dashboardController::index_num($absent);
         $inti = hr_dashboardController::index_num($intime);
         $lat = hr_dashboardController::index_num($late);

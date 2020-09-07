@@ -18,46 +18,48 @@
 
             <!-- section Main content -->
             <section class="content">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="col-1">
-                                    <div class="row  ">
-                                        <!-- <a  href="#" class="btn btn-block btn-success lead" value="addlead" onclick="addlead()"><i class="fas fa-wrench"></i> Add Lead</a>  -->
-                                        <a  href="#" class="btn btn-block btn-success lead" ​value="addlead" id="lead"><i class="fas fa-plus"></i> Add Lead</a> 
-                                    </div>
-                                </div>                               
-                            </div>
-                            <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
-                                     <thead>
-                                        <tr>
-                                            <th>Lead Number</th>
-                                            <th>Customer/Comapny Name</th>
-                                            <th>Email</th>
-                                            <th>phone</th>
-                                            <th>Website </th>
-                                            <th>Assigned To </th>
-                                            <th>Detail</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($lead as $row)
-                                        <tr>
-                                            <td>{{$row->lead_number}}</td>
-                                            <td>{{$row->customer_name_en}}</td>
-                                            <td>{{$row->email}}</td>
-                                            <td>{{$row->website}}</td>
-                                            <td>{{$row->status}}</td>
-                                            <td>{{$row->create_by}}</td>
-                                            <td>
-                                                <a href="#" class="btn btn-block btn-info btn-sm edit" ​value="{{$row->id}}"><i class="fas fa-wrench"></i></a>
-                                            </td>
-                                        </tr>                                       
-                                    @endforeach
-                                    </tbody>  
-                                </table>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="col-1">
+                                        <div class="row  ">
+                                            <!-- <a  href="#" class="btn btn-block btn-success lead" value="addlead" onclick="addlead()"><i class="fas fa-wrench"></i> Add Lead</a>  -->
+                                            <a  href="#" class="btn btn-block btn-success lead" ​value="addlead" id="lead"><i class="fas fa-plus"></i> Add Lead</a> 
+                                        </div>
+                                    </div>                               
+                                </div>
+                                <div class="card-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Lead Number</th>
+                                                <th>Customer/Comapny Name</th>
+                                                <th>Email</th>
+                                                <th>phone</th>
+                                                <th>Website </th>
+                                                <th>Assigned To </th>
+                                                <th>Edit</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($lead as $row)
+                                            <tr>
+                                                <td>{{$row->lead_number}}</td>
+                                                <td>{{$row->customer_name_en}}</td>
+                                                <td>{{$row->email}}</td>
+                                                <td>{{$row->website}}</td>
+                                                <td>{{$row->status}}</td>
+                                                <td>{{$row->create_by}}</td>
+                                                <td>
+                                                <a href="#" class="btn btn-block btn-info btn-sm edit" ​value="editlead" ><i class="fas fa-wrench"></i></a>
+                                                </td>
+                                            </tr>                                       
+                                        @endforeach
+                                        </tbody>  
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -90,7 +92,7 @@
             $('.edit').click(function(e)
             {
                 var id = $(this).attr("​value");
-                alert(id);
+                go_to(id);
             });
             </script>
             

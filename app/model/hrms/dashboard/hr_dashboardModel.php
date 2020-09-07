@@ -161,6 +161,16 @@ class hr_dashboardModel extends Model
     }
 
 
+
+
+
+
+    // //function to get permission staff from table e_requestion_leaveapplication
+    // public static function get_Permission(){
+
+    // }
+
+
     
 
 
