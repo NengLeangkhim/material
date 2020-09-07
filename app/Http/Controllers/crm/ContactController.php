@@ -17,4 +17,12 @@ class ContactController extends Controller
         }
         
     }
+    public function getchecklist(){
+        if(perms::check_perm_module('CRM_0205')){//module codes
+            $contact=DB::select("SELECT * from crm_lead_contact ORDER BY id ASC");
+            return view('crm.contact.index1',['contact'=>$contact]);
+        }else{
+            return view('no_perms');
+        }
+    }
 }

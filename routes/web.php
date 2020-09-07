@@ -41,6 +41,7 @@ Route::get('/detaillead','crm\LeadController@detaillead');
 Route::post('/crm_leasdsource','crm\LeadController@savelead');
 //contact
 Route::get('/contact','crm\ContactController@getcontact'); //Contact
+Route::get('/checklist','crm\ContactController@getchecklist'); //Contact
 Route::get('/organizations','crm\OrganizationController@getorganization'); //Organization
 Route::get('/product','crm\ProductsController@getProducts'); //Products
 
