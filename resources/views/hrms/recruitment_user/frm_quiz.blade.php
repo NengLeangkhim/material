@@ -216,9 +216,7 @@
     </div>
             
 
-  
-
-
+    
     <script type="text/javascript">
         for(var x=1; x<=40; x++){
             if( x > 20){

@@ -249,9 +249,9 @@
                 pointRadius: 10,
                 pointHoverRadius: 15,
                 lineTension: 0.2,
-                showLine: true, // no line show
+                showLine: true, 
                 borderWidth: 2.5,
-                pointBorderWidth: 1,
+                pointBorderWidth: 0,
                 borderColor: 'pink'
             }]
         },
@@ -311,7 +311,7 @@
                 pointStyle: 'circle',
                 spanGaps: true,
                 borderWidth: 2.5,
-                pointBorderWidth: 1,
+                pointBorderWidth: 0,
                 borderColor: 'powderblue'
             }]
         },

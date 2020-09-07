@@ -39,12 +39,26 @@ Route::POST('/addleadindustry','crm\LeadController@addleadindustry'); //add lead
 Route::POST('/addlead','crm\LeadController@addlead'); //add leadindustry
 Route::get('/editlead','crm\LeadController@detaillead');// edit lead
 Route::post('/crm_leasdsource','crm\LeadController@savelead');
+
+Route::get('/test_map', function(){
+    return view('crm.lead.mapShowLatLong');
+}); 
+
+
 //end lead
+
+
+
 //contact
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table 
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination 
 Route::get('/organizations','crm\OrganizationController@getorganization'); //get all Organization  show in table
 Route::get('/product','crm\ProductsController@getProducts'); //get all Products show in table  
+
+
+//===========================END CRM=================================
+
+
 
 
 

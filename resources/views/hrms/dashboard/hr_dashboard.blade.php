@@ -178,7 +178,6 @@ Function index_num($v1){
               </div>
             </div>
 
-
       </div>
 
       {{-- // row 2 --}}

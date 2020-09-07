@@ -270,7 +270,9 @@ class hr_dashboardController extends Controller
     
 
         // check staff absent today
-        $absent = count($all_em) - $intime;
+        $CEO = 1;
+        
+        $absent = count($all_em) - $intime - $CEO;
         $ab = hr_dashboardController::index_num($absent);
         $inti = hr_dashboardController::index_num($intime);
         $lat = hr_dashboardController::index_num($late);

@@ -29,6 +29,12 @@
    <!-- DataTables -->
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  {{-- style chart JS --}}
+  <link href="plugins/chart.js/Chart.min.css" rel="stylesheet">
+
+
+{{-- ===========Name Style Of Each Project================== --}}
+
 {{-- STOCK --}}
   <link rel="stylesheet" type="text/css" href="css/STOCK.css">
 {{-- STOCK --}}
@@ -47,10 +53,12 @@
 <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap-glyphicons.css">
 
 <!-- hrm style -->
-        <link rel="stylesheet" href="css/hrm/hrm.css">
-        <link href='fullcalendar-5.3.0/lib/main.min.css' rel='stylesheet' /> <!-- hrm Calendar -->
+    <link rel="stylesheet" href="css/hrm/hrm.css">
+    <link href='fullcalendar-5.3.0/lib/main.min.css' rel='stylesheet' /> <!-- hrm Calendar -->
+ {{-- end hrm style --}}
 
-<link href="plugins/chart.js/Chart.min.css" rel="stylesheet">
-      
+{{-- Style for CRM --}}
+    <link rel="stylesheet" href="css/crm/crm.css">
+{{-- End style CRM       --}}
 </head>
 
