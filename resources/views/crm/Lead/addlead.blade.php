@@ -362,7 +362,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name='latlng' id="exampleInputEmail1" placeholder="11.572532,104.898974" >
+                                                    <input type="text" class="form-control"  name='latlng' id="latlong" placeholder="11.123456, 104.123456 Example" >
+
                                                 </div> 
                                             </div>
                                             <div class="col-md-6">
@@ -400,6 +401,8 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-12">
+                                                <div id="map"></div>
+
                                             </div>
                                         </div>
                                     </div> 
@@ -500,4 +503,70 @@
             $('.save').click(function(){
                 submit_form ('/addlead','frm_lead','lead');
             })
-            </script>
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing&key=AIzaSyA4QECK3Tl4Sdl1zPIHiyZaME5mUaSk4WU&callback=initMap" async defer></script>
+    
+    
+    <script>
+        var map;
+        var markers = [];
+
+        function initMap() {
+
+            var haightAshbury = {
+                lat: 11.620803,
+                lng: 104.892215,
+            };
+
+
+            var get_latlng = 0;
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12, // Set the zoom level manually
+                center: haightAshbury,
+                mapTypeId: 'roadmap'
+            });
+
+            //declear default value for latlong on map
+            addMarker(haightAshbury);
+            document.getElementById('latlong').value = '11.620803, 104.892215';
+           
+            // This event listener will call addMarker() when the map is clicked.
+            map.addListener('click', function(event) {
+                if (markers.length >= 1) {
+                    deleteMarkers();
+                }
+
+                addMarker(event.latLng);
+                get_latlng = event.latLng.lat().toFixed(6) +', '+ event.latLng.lng().toFixed(6);
+                document.getElementById('latlong').value = get_latlng;
+            });
+        }
+
+        // Adds a marker to the map and push to the array.
+        function addMarker(location) {
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+            markers.push(marker);
+        }
+
+        // Sets the map on all markers in the array.
+        function setMapOnAll(map) {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(map);
+            }
+        }
+
+        // Removes the markers from the map, but keeps them in the array.
+        function clearMarkers() {
+            setMapOnAll(null);
+        }
+
+        // Deletes all markers in the array by removing references to them.
+        function deleteMarkers() {
+            clearMarkers();
+            markers = [];
+        }
+    </script>
