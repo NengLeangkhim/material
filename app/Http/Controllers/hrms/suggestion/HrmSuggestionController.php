@@ -15,7 +15,7 @@ class HrmSuggestionController extends Controller
     {      if (session_status() == PHP_SESSION_NONE) {
             session_start();
             }
-            if(perms::check_perm_module('SUGG_1001')){//module code list data tables id=169
+            if(perms::check_perm_module('SUG_1001')){//module code list data tables id=169
 
                 return view('hrms/suggestion/suggestion_survey/HrmSuggestionComment');
             }else{
@@ -41,7 +41,7 @@ class HrmSuggestionController extends Controller
                 'errors' => $validator->getMessageBag()->toArray() 
             ));
         }else{
-            if(perms::check_perm_module('SUGG_1001')){//module code list data tables id=169
+            if(perms::check_perm_module('SUG_1001')){//module code list data tables id=169
                 $userid = $_SESSION['userid'];
                 $suggestion= $request->employee_sugg;
                 $submit= ModelHrmSuggestion::hrm_submit_suggestion(12,Null,$suggestion,$userid); //get function insert from model
@@ -56,7 +56,7 @@ class HrmSuggestionController extends Controller
     {      if (session_status() == PHP_SESSION_NONE) {
             session_start();
             }
-            if(perms::check_perm_module('SUGG_1002')){//module code list data tables id=170
+            if(perms::check_perm_module('SUG_1002')){//module code list data tables id=170
                 $question = ModelHrmSuggestion::hrm_get_question_sugg();
                 $answer = ModelHrmSuggestion::hrm_get_answer_sugg();
                 return view('hrms/suggestion/suggestion_survey/HrmSurveySuggestion',['question'=>$question,'answer'=>$answer]);
@@ -90,7 +90,7 @@ class HrmSuggestionController extends Controller
                 'errors' => $validator->getMessageBag()->toArray() 
             ));
         }else{
-            if(perms::check_perm_module('SUGG_1002')){//module code list data tables id=170
+            if(perms::check_perm_module('SUG_1002')){//module code list data tables id=170
                 $userid = $_SESSION['userid'];
                 $question_text = $request->question_text;
                 $answer_text= $request->answer_text;

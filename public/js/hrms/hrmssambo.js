@@ -600,25 +600,23 @@ function HrmSubmitSurvey(){
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
         sweetalert('success','The Submit has been Submit Successfully !!');
         go_to('/welcome');// refresh content  
-    }else{ 
-       //$(".print-error-msg").find("ul").html(''); 
-
-       //$(".print-error-msg").css('display','block');
-      $.each( data.errors, function( key, value ) {//foreach show error
-          //$("#radio_ans").addClass("was-validated"); //give read border to input field
-          //$(".print-error-msg").find("ul").append('<li>'+'Please Fill All The Fields'+'</li>');
-          // $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
-          sweetalert('warning','Please Fill All The Fields');
-          var name = $("textarea[name='"+key+"']");
-          var radio = $("input[name='"+key+"']");
-          if(key.indexOf(".") != -1){
-            var arr = key.split(".");
-            name = $("textarea[name='"+arr[0]+"[]']:eq("+arr[1]+")");
-            radio = $("input[name='"+arr[0]+"[]']:eq("+arr[1]+")");
-          }
-          name.addClass("is-invalid");
-          radio.css('border-color','red');
-      });
+      }else{ 
+       var index_array = $('input[name="question_radio[]"]').map(function(){return $(this).val();}).get();// variable get id index question option
+          $.each(index_array,function(key,value){
+            if ( ! $("input[name='radio_ans["+value+"]']").is(':checked') ){ //condition if radio not check it will set label red
+               $("label[for='radio_ans["+value+"]']").addClass("text-danger");
+            }
+          });
+       
+        $.each( data.errors, function( key, value ) {//foreach show error
+            sweetalert('warning','Please Fill All The Fields');
+            var name = $("textarea[name='"+key+"']");
+            if(key.indexOf(".") != -1){
+              var arr = key.split(".");
+              name = $("textarea[name='"+arr[0]+"[]']:eq("+arr[1]+")");
+            }
+            name.addClass("is-invalid");
+        });
     }
     }
   });
