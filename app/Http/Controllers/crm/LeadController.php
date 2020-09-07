@@ -30,7 +30,7 @@ class LeadController extends Controller
         // }else{
         //     return view('no_perms');
         // }
-            $lead_source=DB::select("SELECT * from  crm_lead_source");
+            $lead_source=DB::select("SELECT * from select_crm_lead_source()");
             $lead_status=DB::select("SELECT * from  crm_lead_status");
             $lead_industry=DB::select("SELECT * from  crm_lead_industry");
             $assig_to=DB::select("SELECT * from  ma_user");
@@ -96,6 +96,6 @@ class LeadController extends Controller
     //     session_start();
     // }
     public function detaillead(){
-        return view('crm.Lead.detaillead');
+        return view('crm.Lead.editlead');
     }
 }
