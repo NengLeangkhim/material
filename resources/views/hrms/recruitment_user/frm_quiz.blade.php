@@ -57,7 +57,9 @@
 
                                 <div class="table-responsive"> 
 
-                                    <table class="table table-bordered" id="tbl_employee">
+                                    {{-- <table class="table table-bordered" id="tbl_employee"> --}}
+                                    <table class="table " id="tbl_employee">
+
                                         <thead>
 
                                                 @php
@@ -105,19 +107,54 @@
                                                                                 //     </td>                                                                                            
                                                                                 // ';
 
+
+                                                                                // Radio button old style
+                                                                                // echo '
+                                                                                //     <td>
+                                                                                //         <div class="input-group" >
+                                                                                //             <div class="text-group-field label-radio">
+                                                                                //                 <div class="inner-block">
+                                                                                //                 <input type="radio" id="radio-id-'.$j.'" class="radio-custom input-group-field" name="id_question['.$question_option[$i]->id.']"  value="'.$value->id.'">
+                                                                                //                 <label style="font-weight: inherit;" class="label-radio kh-font-batt" for="radio-id-'.$j.'" >'.$value->choice.'</label>
+                                                                                //                 </div>
+                                                                                //             </div>
+                                                                                //         </div>
+                                                                                //     </td>
+                                                                                // ';
+                                                                                
+
+
+
+                                                                                // Radio button design new style
                                                                                 echo '
                                                                                     <td>
                                                                                         <div class="input-group" >
                                                                                             <div class="text-group-field label-radio">
-                                                                                                <div class="inner-block">
-                                                                                                <input type="radio" id="radio-id-'.$j.'" class="radio-custom input-group-field" name="id_question['.$question_option[$i]->id.']"  value="'.$value->id.'">
-                                                                                                <label class="label-radio kh-font-batt" for="radio-id-'.$j.'" >'.$value->choice.'</label>
+                                                                                                <div class="inner-block" >
+                                                                                                    <label style="font-weight: inherit;" class="container-radio label-radio kh-font-batt" for="radio-id-'.$j.'">'.$value->choice.'
+                                                                                                            <input type="radio" id="radio-id-'.$j.'"  class="radio-custom input-group-field" name="id_question['.$question_option[$i]->id.']"  value="'.$value->id.'">
+                                                                                                            <span class="checkmark"></span>
+                                                                                                    </label>
+
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </td>
-                                                                                
                                                                                 ';
+
+                                                                                // echo '
+                                                                                //     <tb>
+                                                                                //     <label class="container-radio">One
+                                                                                //         <input type="radio" checked="checked" name="radio">
+                                                                                //         <span class="checkmark"></span>
+                                                                                //     </label>
+
+                                                                                //     <label class="container-radio">Two
+                                                                                //         <input type="radio" name="radio">
+                                                                                //         <span class="checkmark"></span>
+                                                                                //     </label>
+                                                                                //     </tb>
+                                                                                // ';
                                                                                 $j++;
 
                                                                             }

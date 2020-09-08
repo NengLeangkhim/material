@@ -106,8 +106,7 @@ class recruitment_userController extends Controller
             if(count($r) > 0){
                 $error = "user_expire";
                 return $error;
-                // return response()->json(['error'=>'This user already used']);
-                // return response()->json(array('error'=>$error));
+             
             }else{
                 // get question for user
                 $user_question = recruitment_userModel::select_user_question($id);
@@ -144,7 +143,6 @@ class recruitment_userController extends Controller
                     $txtarea = '';
                 }
 
-
                 // foreach insert question option
                 if(is_array($radio_name)){
                         $i = 0;
@@ -158,8 +156,7 @@ class recruitment_userController extends Controller
                             }else{
                                 $ans = '0';
                             }
-                            
-                            $r = recruitment_userModel::submit_answer($val,$key,'null',$ans,$starttime,$endtime,$id);
+                            $r = recruitment_userModel::submit_answer($val,$key,null,$ans,$starttime,$endtime,$id);
                             $i++;
                             
                         }  
@@ -264,7 +261,6 @@ class recruitment_userController extends Controller
         $quiz_result = recruitment_userModel::user_quiz_result($id);
 
         if(count($quiz_result) > 0){
-
             return view('hrms/recruitment_user/user_view_quiz_result', compact('quiz_result'));
         }else{
             return view('hrms/recruitment_user/user_view_quiz_result', compact('quiz_result'));

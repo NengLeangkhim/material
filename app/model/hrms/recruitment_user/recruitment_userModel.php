@@ -152,7 +152,8 @@ class recruitment_userModel extends Model
                 FROM ((hr_recruitment_candidate_answer u_a 
                 LEFT JOIN hr_recruitment_question_choice q_c ON  u_a.hr_recruitment_question_choice_id= q_c.id) 
                 JOIN hr_recruitment_question q ON u_a.hr_recruitment_question_id = q.id) 
-                LEFT JOIN hr_recruitment_question_type q_t ON q.hr_recruitment_question_type_id = q_t.id  where u_a.hr_recruitment_candidate_id = ".$id." ";
+                LEFT JOIN hr_recruitment_question_type q_t ON q.hr_recruitment_question_type_id = q_t.id  
+                WHERE u_a.hr_recruitment_candidate_id = ".$id." AND u_a.status = 't' AND u_a.is_deleted = 'f'";
             
             try{
                 $r = DB::select($sql);
@@ -187,8 +188,7 @@ class recruitment_userModel extends Model
         $sql = " SELECT hu.id, hu.name_kh, ap.hr_approval_status, ap.create_date, ap.comment 
                 FROM hr_recruitment_candidate_detail ap FULL JOIN hr_recruitment_candidate hu ON  ap.hr_recruitment_candidate_id = hu.id
                 WHERE ap.create_date=(SELECT MAX(ap.create_date) 
-                FROM hr_recruitment_candidate_detail ap WHERE ap.hr_recruitment_candidate_id = $id) ";
-                
+                FROM hr_recruitment_candidate_detail ap WHERE ap.hr_recruitment_candidate_id = $id) "; 
         try{
             $r = DB::select($sql);
             return $r;
@@ -207,7 +207,7 @@ class recruitment_userModel extends Model
 
     // function to check if user already do quiz
     public static function check_user_doQuiz($id){
-        $r = DB::select("SELECT * FROM hr_recruitment_candidate_answer WHERE hr_recruitment_candidate_id = $id");
+        $r = DB::select("SELECT * FROM hr_recruitment_candidate_answer WHERE hr_recruitment_candidate_id = $id AND status='t' AND is_deleted='f' ");
         return $r;
     }
 

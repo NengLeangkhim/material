@@ -113,28 +113,10 @@ function autoSubmit() {
 
   function submitform(){
       document.getElementById("myFormQuestion").submit();
-      var formElement = document.getElementById("myFormQuestion");
-      var formData = new FormData(formElement);
-      var request = new XMLHttpRequest();
-      request.open("POST", "/hrm_recruitment_user_submit_answer" ,true);
-      request.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-                  window.reload();
-                  // console.responText();
-              };
-      }
-      request.send(formData);
   }
 
-
-  // function autoRefresh(){
-  //    clearTimeout(auto);
-  //    auto = setTimeout(function(){ submitform(); }, (1000 * 10));
-  // }
-
-  setTimeout(function(){ submitform(); }, (1000 * 15));
-
-
+  // set time out 1 hour to submit form
+  setTimeout(function(){ submitform(); }, (1000 * 60 * 60));
 
 }
 
