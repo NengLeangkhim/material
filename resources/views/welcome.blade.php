@@ -18,15 +18,15 @@
                                     {{-- <p>{{ $head[0]->phone??'' }}</p> --}}
                                     <table style="width:100%">
                                         <tr>
-                                          <td>Name</td>
+                                          <td width="30%">Name</td>
                                           <td>: {{ $head[0]->name??'' }}</td>
                                         </tr>
                                         <tr>
-                                          <td>Position</td>
+                                          <td width="30%">Position</td>
                                           <td>: {{ $head[0]->ma_position??'' }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Contact</td>
+                                            <td width="30%">Contact</td>
                                             <td>: {{ $head[0]->contact??'' }}</td>
                                         </tr>
                                     </table>
@@ -39,15 +39,15 @@
                                     {{-- <p>{{ $uself[0]->contact??'' }}</p> --}}
                                     <table style="width:100%">
                                         <tr>
-                                          <td>Name</td>
+                                          <td width="30%">Name</td>
                                           <td>: {{ $uself[0]->name??'' }}</td>
                                         </tr>
                                         <tr>
-                                          <td>Position</td>
+                                          <td width="30%">Position</td>
                                           <td>: {{ $uself[0]->ma_position??'' }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Contact</td>
+                                            <td width="30%">Contact</td>
                                             <td>: {{ $uself[0]->contact??'' }}</td>
                                         </tr>
                                     </table>
