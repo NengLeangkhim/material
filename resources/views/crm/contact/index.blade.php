@@ -4,7 +4,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Contact</h1>
+                            <h1><i class="fas fa-address-card"></i> <span>Contact</span></h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -24,8 +24,8 @@
                     <div class="card">
                       <div class="card-header p-2">
                         <ul class="nav nav-pills">
-                          <li class="nav-item"><a class="nav-link active" href="#Crm_Card_Contact" data-toggle="tab">Show Card</a></li>
-                          <li class="nav-item"><a class="nav-link" href="#Crm_List_Contact" data-toggle="tab">Show List</a></li>
+                          <li class="nav-item"><a class="nav-link active" href="#Crm_Card_Contact" data-toggle="tab"><i class="far fa-id-card"></i></a></li>
+                          <li class="nav-item"><a class="nav-link" href="#Crm_List_Contact" data-toggle="tab"><i class="fas fa-list"></i></a></li>
                         </ul>
                       </div><!-- /.card-header -->
                       <div class="card-body" >

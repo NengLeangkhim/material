@@ -180,6 +180,79 @@ function HRM_CheckStaffTrain(e,trainid){
         newWin.print();
         newWin.close();
     }
+    // HR Approve Payroll to Finance
+    function HR_Approve_Payroll(id,d_from,d_to,month,e,btn){
+        if(confirm("Do you want to approved ?")){
+            $.ajax({
+                type: 'GET',
+                url: '/hrm_hrapprove_payroll',
+                data: {
+                    _token: '<?php echo csrf_token() ?>',
+                    eid:id ,
+                    edat_from: d_from,
+                    ed_to:d_to,
+                    emonth:month
+                },
+                success: function (data) {
+                    var sbtn=document.getElementById(e);
+                    sbtn.disabled=true;
+                    sbtn.classList.remove("bg-info");
+                    sbtn.classList.add("btn-danger");
+                    // document.getElementById(e).disabled= true;
+                    document.getElementById(btn).disabled= true;
+                    alert(data);
+                }
+            });
+        }
+        
+    }
+
+
+
+    // HR delect create payroll
+    function DeleteComponent(id,date_from,date_to,for_month){
+        if(confirm("Do you want to delete it ?")){
+            $.ajax({
+                type: 'GET',
+                url: '/hrm_hrdelete_component',
+                data: {
+                    _token: '<?php echo csrf_token() ?>',
+                    eid: id,
+                    edat_from: date_from,
+                    ed_to: date_to,
+                    emonth:for_month
+                },
+                success: function (data) {
+                    if(data!='error'){
+                        SearchPayrollByMonthYear();
+                    }
+                }
+            });
+        }
+    }
+
+
+    // List Payroll by month and year
+    function SearchPayrollByMonthYear(){
+        var year = document.getElementById('select_year').value;
+        var month = document.getElementById('select_month').value;
+        $("#paroll_by_month").html(spinner());
+        $.ajax({
+            type: 'GET',
+            url: '/hrm_showpayrollbymonth',
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                eyear: year,
+                emonth:month
+            },
+            success: function (data) {
+                document.getElementById('paroll_by_month').innerHTML=data;
+                $('#tbl_payroll').DataTable({
+                    responsive: true
+                });
+            }
+        });
+    }
 
 // End Payroll
 

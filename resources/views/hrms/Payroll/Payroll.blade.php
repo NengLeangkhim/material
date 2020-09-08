@@ -11,7 +11,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                   @php
-                    //   print_r($data);
+                      // print_r($data);
                   @endphp
                 <table class="table table-bordered" id="tbl_payroll" style="width: 100%">
                   <thead>                  
@@ -21,26 +21,31 @@
                       <th>Employee ID</th>
                       <th>Role</th>
                       <th>Salary</th>
+                      <th>Tax</th>
+                      <th>Net Salary</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Seng Kimsros</td>
-                        <td>TT-0082</td>
-                        <td>Programmer</td>
-                        <td class="text-center">130$</td>
-                        <td class="text-center text-primary">Paid</td>
+                    @php
+                        $i=0;
+                    @endphp
+                    @foreach ($data[0] as $em)
+                        <tr>
+                        <td>{{++$i}}</td>
+                        <td>{{$em->name}}</td>
+                        <td>{{$em->id_number}}</td>
+                        <td>{{$em->position}}</td>
+                          <td class="text-center">{{$em->bonus_value}}</td>
+                          <td class="text-center">{{$em->tax}}</td>
+                          <td class="text-center">{{$em->bonus_value-$em->tax}}</td>
+                          <td class="text-center text-primary">
+                            <button class="btn bg-info btn-sm">Detail</button>
+                            <button class="btn bg-info btn-sm">Approve</button>
+                          </td>
                       </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>Seng Kimsros</td>
-                        <td>TT-0082</td>
-                        <td>Programmer</td>
-                        <td class="text-center">130$</td>
-                        <td class="text-center text-danger">Not Paid</td>
-                      </tr>
+                    @endforeach
+                      
                   </tbody>
                 </table>
               </div>
