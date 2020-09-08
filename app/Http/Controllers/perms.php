@@ -147,21 +147,21 @@ class perms extends Controller
                 if(isset(explode("_", $item->parent->link)[1])){
                        $item->parent->link=explode("_", $item->parent->link)[1];
                        $st.= "<li class='nav-item has-treevie'>";
-                       $st.= "<a href='{$item->parent->link}' target='_blank' class='nav-link active' >";
+                       $st.= "<a href='{$item->parent->link}' target='_blank' class='nav-link' >";
                        $st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
                        $st.= " <p>";
                        $st.=  $item->parent->module_name;
                        $item->child=false;
                    }else{
                        $st.= "<li class='nav-item has-treevie'>";
-                       $st.= "<a href='javascript:void(0);' class='nav-link active' onclick=go_to('{$item->parent->link}')>";
+                       $st.= "<a href='javascript:void(0);' class='nav-link' onclick=go_to('{$item->parent->link}')>";
                        $st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
                        $st.= " <p>";
                        $st.=  $item->parent->module_name;
                    }
                }else{
                    $st.= "<li class='nav-item has-treevie'>";
-                   $st.= "<a href='javascript:void(0);' class='nav-link active'>";
+                   $st.= "<a href='javascript:void(0);' class='nav-link'>";
                    $st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
                    $st.= " <p>";
                    $st.=  $item->parent->module_name;
