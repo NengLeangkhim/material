@@ -603,8 +603,9 @@ function HrmSubmitSurvey(){
       }else{ 
        var index_array = $('input[name="question_radio[]"]').map(function(){return $(this).val();}).get();// variable get id index question option
           $.each(index_array,function(key,value){
+            i++;
             if ( ! $("input[name='radio_ans["+value+"]']").is(':checked') ){ //condition if radio not check it will set label red
-               $("label[for='radio_ans["+value+"]']").addClass("text-danger");
+               $("label[id='radio_ans["+value+"]']").addClass("text-danger");
             }
           });
        

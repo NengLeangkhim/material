@@ -9,15 +9,16 @@
             <div class="row">
               <div class="col-7">
               <h2 class="lead"><b>{{($row->name_en)=='Null'? "N/A":$row->name_en}}</b></h2>
-              <h2 class="lead"><b>{{($row->name_kh)=='Null'? "N/A":$row->name_kh}}</b></h2>
+              <h2 class="lead" style="font-family: khmer UI;"><b>{{($row->name_kh)=='Null'? "N/A":$row->name_kh}}</b></h2>
                 <ul class="ml-4 mb-0 fa-ul text-muted">
-                  <li class="small"><span class="fa-li"><i class="fas fa-at"></i></span> Email : {{($row->email)=='NUll'? "turbotech@gmail.com":$row->email}}                                  </li>
-                  <li class="small"><span class="fa-li"><i class="fab fa-facebook-f"></i></span> Facbook : {{($row->facebook)=='Null'? "N/A":$row->facebook}}                                  </li>
+                  <li class="small"><span class="fa-li"><i class="fas fa-at"></i></span> Email : {{($row->email)=='NUll'? "turbotech@gmail.com":$row->email}}</li>
+                  <li class="small"><span class="fa-li"><i class="fab fa-facebook-f"></i></span> Facbook : {{($row->facebook)=='Null'? "N/A":$row->facebook}}</li>
                   <li class="small"><span class="fa-li"><i class="fas fa-phone-alt"></i></span> Phone : {{($row->phone)=='Null'? "N/A":$row->phone}}</li>
                 </ul>
               </div>
               <div class="col-5 text-center">
-                <img src="../../dist/img/user8-128x128.jpg" alt="" class="img-circle img-fluid">
+                {{-- <img src="../../dist/img/user8-128x128.jpg" alt="" class="img-circle img-fluid"> --}}
+                <i style="font-size:55px" class="fas fa-user-circle"></i>
               </div>
             </div>
           </div>
