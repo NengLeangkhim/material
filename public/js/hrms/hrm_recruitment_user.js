@@ -85,38 +85,36 @@ function show_alert(){
 
 function autoSubmit() {
 
-  // var auto = setTimeout(function(){ autoRefresh(); }, 100);
-  function alert15min(){
-      $.notify(
-          "Your answer will be auto submit in 15 minutes more !", 
-          { position:"top center" }
-      );
-  }
-  function alert10min(){
-      $.notify(
-          "Your answer will be auto submit in 10 minutes more !", 
-          { position:"top center" }
-      );
-  }
-  function alert5min(){
-      $.notify(
-          "Your answer will be auto submit in 5 minutes more !", 
-          { position:"top center" }
-      );
-  }
+    // var auto = setTimeout(function(){ autoRefresh(); }, 100);
+    function alert15min(){
+        $.notify(
+            "Your answer will be auto submit in 15 minutes more !", 
+            { position:"top center" }
+        );
+    }
+    function alert10min(){
+        $.notify(
+            "Your answer will be auto submit in 10 minutes more !", 
+            { position:"top center" }
+        );
+    }
+    function alert5min(){
+        $.notify(
+            "Your answer will be auto submit in 5 minutes more !", 
+            { position:"top center" }
+        );
+    }
 
-  setTimeout(function(){ alert15min(); }, (1000 * 60 * 45));
-  setTimeout(function(){ alert10min(); }, (1000 * 60 * 50));
-  setTimeout(function(){ alert5min(); }, (1000 * 60 * 55));
+    setTimeout(function(){ alert15min(); }, (1000 * 60 * 45));
+    setTimeout(function(){ alert10min(); }, (1000 * 60 * 50));
+    setTimeout(function(){ alert5min(); }, (1000 * 60 * 55));
 
+    function submitform(){
+        document.getElementById("myFormQuestion").submit();
+    }
 
-
-  function submitform(){
-      document.getElementById("myFormQuestion").submit();
-  }
-
-  // set time out 1 hour to submit form
-  setTimeout(function(){ submitform(); }, (1000 * 60 * 60));
+    // set time out 1 hour to submit form
+    setTimeout(function(){ submitform(); }, (1000 * 60 * 60));
 
 }
 
