@@ -175,12 +175,19 @@ class Payroll extends Model
     }
 
     // for finance check 
-    function Payroll($month){
-        $sql="select mu.name,mu.id_number,mp.name as position,hpl.bonus_value,hpl.tax from hr_payroll_list hpl 
+    function Payroll($month,$year){
+        $sql="select hpl.id,hpl.approve,mu.name,mu.id_number,mp.name as position,hpl.bonus_value,hpl.tax from hr_payroll_list hpl 
             INNER JOIN ma_user mu on hpl.ma_user_id=mu.id
             INNER JOIN ma_position mp ON mu.ma_position_id=mp.id 
             where hpl.id in(select hr_payroll_list_id from hr_payroll_list_hr_payroll_component_rel hplhpc 
-            join hr_payroll_component hpc on hplhpc.hr_payroll_component_id=hpc.id where for_month=$month)";
+            join hr_payroll_component hpc on hplhpc.hr_payroll_component_id=hpc.id where for_month=$month and for_year=$year)";
         return $stm=DB::select($sql);
+    }
+
+    // function for finance approve when payroll is correct
+    function FinanceApprovePayroll($id,$by){
+        $sql= "SELECT public.insert_hr_payroll_list_approve_to_payroll($id,$by)";
+        $stm=DB::select($sql);
+        print_r($stm);
     }
 }
