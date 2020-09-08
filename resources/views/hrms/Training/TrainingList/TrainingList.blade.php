@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Training List</strong></h1>
+                <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Training Schedule</strong></h1>
                 <div class="col-md-12 text-right">
                     <a href="javascript:;" class="btn bg-turbo-color" onclick="HRM_ShowDetail('hrm_modal_traininglist','modal_traininglist')"><i class="fas fa-plus"></i> Add</a>
                 </div>
@@ -18,7 +18,7 @@
                   <thead>                  
                     <tr>
                       <th>#</th>
-                      <th>Traning Type</th>
+                      <th>Traning Course</th>
                       <th>Trainer</th>
                       <th>Duration</th>
                       <th>Status</th>

@@ -820,6 +820,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     
     // Payroll
         Route::get('hrm_payroll', 'hrms\Payroll\PayrollController@Payroll');
+        Route::get('hrm_finance_approve_payroll', 'hrms\Payroll\PayrollController@FinanceApprovePayroll');
     // End Payroll
         
         Route::get('taxation', 'hrms\Payroll\PayrollController@Taxation');
