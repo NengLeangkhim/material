@@ -306,6 +306,23 @@ function autoSubmit() {
 
 
 
+  // function to get candidate quiz result
+  function get_quiz_result(){
+    var url= "/hrm_get_quiz_result";
+    var x=new XMLHttpRequest();
+    x.onreadystatechange=function(){
+        if(this.readyState==4 && this.status==200){    
+            document.getElementById('show_result').innerHTML=this.responseText;
+        }
+    }
+    x.open("GET", url , true);
+    x.send();
+
+  }
+
+
+
+
 
 
 
