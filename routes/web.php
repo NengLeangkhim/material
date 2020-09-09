@@ -13,9 +13,6 @@ use PhpParser\Node\Stmt\TryCatch;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-
 Route::get('/check','RouteController@check'); //Check Database Connection
 Route::get('/','RouteController@home');
 Route::post('/','Login@login');
@@ -806,6 +803,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     // Create Payroll
         Route::get('hrm_employee_salary', 'hrms\Payroll\PayrollController@CreatePayroll');
         Route::post('hrm_save_create_payroll', 'hrms\Payroll\PayrollController@AddCreatePayroll');
+        Route::get('hrm_export_payroll', 'ExportExcelController@Excel')->name('export_excel.excel');
     // End Create Payroll
 
     // Payroll List
@@ -820,6 +818,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     
     // Payroll
         Route::get('hrm_payroll', 'hrms\Payroll\PayrollController@Payroll');
+        Route::get('hrm_finance_approve_payroll', 'hrms\Payroll\PayrollController@FinanceApprovePayroll');
     // End Payroll
         
         Route::get('taxation', 'hrms\Payroll\PayrollController@Taxation');
