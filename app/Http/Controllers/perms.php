@@ -148,7 +148,7 @@ class perms extends Controller
                 if(isset(explode("_", $item->parent->link)[1])){
                        $item->parent->link=explode("_", $item->parent->link)[1];
                        $st.= "<li class='nav-item has-treevie'>";
-                       $st.= "<a href='{$item->parent->link}' id=".$id++." target='_blank' class='nav-link' >";
+                       $st.= "<a href='{$item->parent->link}' data-id=".$id++." target='_blank' class='nav-link' >";
                     //    $st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
                        $st.= "<img src=".$item->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'>";
                        $st.= " <p>";
@@ -156,7 +156,7 @@ class perms extends Controller
                        $item->child=false;
                    }else{
                        $st.= "<li class='nav-item has-treevie'>";
-                       $st.= "<a href='javascript:void(0);' id=".$id++." class='nav-link' onclick=go_to('{$item->parent->link}')>";
+                       $st.= "<a href='javascript:void(0);' data-id=".$id++." class='nav-link' onclick=go_to('{$item->parent->link}')>";
                        //$st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
                        $st.= "<img src=".$item->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'>";
                        $st.= " <p>";
@@ -164,7 +164,7 @@ class perms extends Controller
                    }
                }else{
                    $st.= "<li class='nav-item has-treevie'>";
-                   $st.= "<a href='javascript:void(0);' id=".$id++." class='nav-link'>";
+                   $st.= "<a href='javascript:void(0);' data-id=".$id++." class='nav-link'>";
                    //$st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
                    $st.= "<img src=".$item->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'>";
                    $st.= " <p>";
@@ -194,7 +194,7 @@ class perms extends Controller
                         $rr->parent->code=(empty($rr->parent->code))?'':"data-code='".en_de::aes_en($rr->parent->code,self::$key)."'";
                         $st.= " <ul class='nav nav-treeview sub_menu'> ";
                         $st.= "  <li class='nav-item has-treeview menu mybg> ";
-                        $st.= "  <a href='javascript:void(0);' id=".$id++." class='nav-link'{$rr->parent->link}{$rr->parent->code}  name='menu'> ";
+                        $st.= "  <a href='javascript:void(0);' data-id=".$id++." class='nav-link'{$rr->parent->link}{$rr->parent->code}  name='menu'> ";
                         //$st.= "  <i class='{$rr->parent->icon} nav-icon'​></i> <i class='right fas fa-angle-left'></i>";
                         $st.= "  <img src=".$rr->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'> <i class='right fas fa-angle-left'></i>";
                         $st.= "  <p>".$rr->parent->module_name."</p> </a>";
@@ -206,7 +206,7 @@ class perms extends Controller
                         $rr->code=(empty($rr->code))?'':"data-code='".en_de::aes_en($rr->code,self::$key)."'";
                         $st.= " <ul class='nav nav-treeview sub_menu'> ";
                         $st.= "  <li class='nav-item menu mybg'  > ";
-                        $st.= "  <a href='javascript:void(0);' id=".$id++." class='nav-link' $rr->link $rr->code name='menu'> ";
+                        $st.= "  <a href='javascript:void(0);' data-id=".$id++." class='nav-link' $rr->link $rr->code name='menu'> ";
                         //$st.= "  $sp<i class='{$rr->icon} nav-icon'​></i> ";
                         $st.= "  $sp<img src=".$rr->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'> ";
                         $st.= "  <p>$rr->module_name</p> ";

@@ -4,13 +4,10 @@
     background-position: center;
     /* opacity: 0.5; */
 }
-.os-content{
-    padding: 0px 0px;
-}
 #nav_main_app{
     border: 1px solid white;
     width: 35px;
-    height: 35px;
+    height: auto;
 }
 /**** Style Welcome Page  ****/
 #img_profile_company{
@@ -30,11 +27,4 @@
     #row_welcome{
         display: none;
     }
-    .nav-sidebar .nav-item>.nav-link{width:62vw} /* Edit nav link from adminltte.min.css */
-    #img_profile_company{
-        width: 30vh;
     }
-}
-@media only screen and (min-width: 661px) and (max-width: 800px) {
-    .nav-sidebar .nav-item>.nav-link{width:32vw} /* Edit nav link from adminltte.min.css */
-}
