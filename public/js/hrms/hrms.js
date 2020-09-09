@@ -295,6 +295,13 @@ function HRM_CheckStaffTrain(e,trainid){
         });
     }
 
+    function HRM_Export_Payroll(){
+        var year = document.getElementById('select_year_payroll').value;
+        var month = document.getElementById('select_month_payroll').value;
+        hrm_export_payroll=1;
+        window.location.href ="/hrm_export_payroll?emonth="+month+"&&eyear="+year;
+    }
+
 // End Payroll
 
 

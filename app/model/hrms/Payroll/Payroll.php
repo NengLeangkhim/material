@@ -111,7 +111,7 @@ class Payroll extends Model
         $data=array();
         $getdata=array();
         foreach($em as $emp){
-            $getdata=self::GetValueFromComponent($emp->id,$emp->name,$emp->position,1,$month);
+            $getdata=self::GetValueFromComponent($emp->id,$emp->name,$emp->position,1,$month,$year);
             if($getdata!=null){
                 array_push($data,$getdata);
             }
@@ -119,10 +119,10 @@ class Payroll extends Model
         return $data;
     }
 
-    function GetValueFromComponent($id,$name,$role,$baseSalary,$month){
+    function GetValueFromComponent($id,$name,$role,$baseSalary,$month,$year){
         $sql= "select hpc.value,hpct.name,hpc.date_from,hpc.date_to,hpc.for_month,hpc.approve from hr_payroll_component hpc
                 INNER JOIN hr_payroll_component_type hpct on hpct.id=hpc.hr_payroll_component_type_id         
-                where hpc.ma_user_id=$id and hpc.status='t' and hpc.is_deleted='f' and hpc.for_month=$month";
+                where hpc.ma_user_id=$id and hpc.status='t' and hpc.is_deleted='f' and hpc.for_month=$month and for_year=$year";
         $stm = DB::select($sql);
         if(isset($stm[0])){
             $data=array();
@@ -189,5 +189,27 @@ class Payroll extends Model
         $sql= "SELECT public.insert_hr_payroll_list_approve_to_payroll($id,$by)";
         $stm=DB::select($sql);
         print_r($stm);
+    }
+
+
+    function ExportPayroll_Excel($month,$year){
+        $sql= "select mu.name,mu.id_number,hp.base_salary,hp.add_on,hp.tax,(hp.base_salary+hp.add_on)-hp.tax as netsalary from hr_payroll hp INNER JOIN ma_user mu on hp.ma_user_id= mu.id
+                where hp.id in(select hplhp.hr_payroll_id from hr_payroll_list_hr_payroll_component_rel hplhpc join hr_payroll_component hpc on hplhpc.hr_payroll_component_id=hpc.id  join hr_payroll_list_hr_payroll_rel hplhp on hplhp.hr_payroll_list_id=hplhpc.hr_payroll_list_id 
+                where hpc.for_month=$month and hpc.for_year=$year) and hp.status='t' and hp.is_deleted='f'";
+        $stm=DB::select($sql);
+        $data[]=['No','name','ID Number','Base Salary','Add On','Tax','Net Salary'];
+        $i=0;
+        foreach($stm as $ex_payroll){
+            $data[]=[
+                'No'=>++$i,
+                'name'=>$ex_payroll->name,
+                'ID Number'=>$ex_payroll->id_number,
+                'Base Salary'=>$ex_payroll->base_salary,
+                'Add On'=>$ex_payroll->add_on,
+                'Tax'=>$ex_payroll->tax,
+                'Net Salary'=>$ex_payroll->netsalary
+            ];
+        }
+        return $data;
     }
 }

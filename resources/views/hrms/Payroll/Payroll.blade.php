@@ -33,7 +33,7 @@
                       </select>
                     </div>
                     <div class="col-md-3">
-                      <a href="javascrip:;" class="btn bg-gradient-primary form-control" onclick="">Export Excel</a>
+                      <button type="button" class="btn bg-gradient-primary form-control" onclick="HRM_Export_Payroll()">Export Excel</button>
                     </div>
                   </div>
                     
