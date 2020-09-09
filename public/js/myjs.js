@@ -107,3 +107,7 @@ function jnot_found(){
   // return get_not_found_page();
   return'<center><label style="font-weight:bold;font-size:16px;">Not Found</label></center>';
 }
+jQuery("a").click(function(e){
+  var id = $(this).attr("id");
+  $('a[id='+id+']').addClass('active');
+})
