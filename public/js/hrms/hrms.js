@@ -302,6 +302,11 @@ function HRM_CheckStaffTrain(e,trainid){
         window.location.href ="/hrm_export_payroll?emonth="+month+"&&eyear="+year;
     }
 
+
+    function HRM_PayrollDetail(){
+        
+    }
+
 // End Payroll
 
 

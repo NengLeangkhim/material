@@ -35,8 +35,7 @@
                     <div class="col-md-3">
                       <button type="button" class="btn bg-gradient-primary form-control" onclick="HRM_Export_Payroll()">Export Excel</button>
                     </div>
-                  </div>
-                    
+                  </div> 
                 </div>
               </div>
               <!-- /.card-header -->
@@ -80,7 +79,7 @@
                           <td class="text-center">{{$em->tax}}</td>
                           <td class="text-center">{{$em->bonus_value-$em->tax}}</td>
                           <td class="text-center text-primary">
-                            <button class="btn bg-info btn-sm">Detail</button>
+                            <button class="btn bg-info btn-sm" onclick="HRM_ShowDetail('pa',modalName,id=-1)">Detail</button>
                             <button {{$disable}} class="btn {{$btn}} btn-sm" onclick="HRM_Finance_Approve_Payroll(this,{{$em->id}})">Approve</button>
                           </td>
                       </tr>
