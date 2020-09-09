@@ -929,8 +929,13 @@ Route::get('hrm_recruitment_homepage',function(){
 // route for user profile
 Route::get('hrm_recruitment_user_profile','hrms\recruitment_user\recruitment_userController@user_profile');
 
-// route for user view quiz result
-Route::get('hrm_recruitment_user_quiz_result','hrms\recruitment_user\recruitment_userController@user_view_quiz_result');
+// route for user view quiz result as List View
+Route::get('hrm_recruitment_user_quiz_result2','hrms\recruitment_user\recruitment_userController@show_ResumsResult');
+
+//route for get list result for candidate when user click button show quiz answer 
+Route::get('hrm_get_quiz_result','hrms\recruitment_user\recruitment_userController@user_view_quiz_result2');
+
+
 
 
 // route for user get hr result

@@ -264,7 +264,6 @@ class recruitment_userController extends Controller
             return view('hrms/recruitment_user/user_view_quiz_result', compact('quiz_result'));
         }else{
             return view('hrms/recruitment_user/user_view_quiz_result', compact('quiz_result'));
-            
         }
        
     }
@@ -360,6 +359,64 @@ class recruitment_userController extends Controller
             return view('hrms/recruitment_user/user_view_from_hr_result', compact('hr_result'));
         }
     }
+
+
+
+    // function to get show candidate summery result of do quiz
+    public static function show_ResumsResult()
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $id = $_SESSION['user_id'][0]->id;
+        $r = recruitment_userModel::user_quiz_result($id);
+        $ResumsResult[] = '';
+        if(count($r) > 0){
+            foreach($r as $key=>$val){
+                $spent_time = recruitment_userController::check_duration($val->start_time,$val->end_time);
+            }
+            $percent = intval(((count($r)*100) / 30 ));
+            $ResumsResult = [
+                'done_question' => count($r),
+                'percent' => $percent,
+                'spent_time' => $spent_time
+            ];
+            return view('hrms/recruitment_user/user_view_quiz_result2', compact('ResumsResult'));
+        }else{
+            return view('hrms/recruitment_user/user_view_quiz_result2');
+        }
+        
+       
+    }
+
+
+
+    // function to get result for candidate
+    public static function user_view_quiz_result2(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $id = $_SESSION['user_id'][0]->id;
+        $r = recruitment_userModel::user_quiz_result($id);
+
+        if($r > 0){
+
+            foreach($r as $key=>$val){
+                $true_question[] = recruitment_userModel::check_is_right_choice($val->q_id);  //get is_right_choice = true by question id
+            }
+            $quiz_result = $r;
+            return view('hrms/recruitment_user/user_view_quiz_result_list', compact('quiz_result','true_question'));
+        }else{
+            return 0;
+        }
+        
+    }
+
+
+
+
+
+    
 
 
 

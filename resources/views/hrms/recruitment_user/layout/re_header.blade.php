@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="dist/css/adminlte.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- SweetAlert2 -->
   <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
    <!-- DataTables -->
@@ -47,6 +48,7 @@
 <!-- hrm style -->
 <link rel="stylesheet" href="css/hrm/hrm.css">
 <link rel="stylesheet" href="recruitment_user_style/css/mystyle_owner.css">
+
 
 <style>
 

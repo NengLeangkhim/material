@@ -6,17 +6,13 @@
 @endphp
  
 
-
-
 <section class="content">
 
     <div id="prmote_modal_id">
     </div>
-    <div style="padding:10px 10px 10px 10px">
+    <div style="padding:10px 10px 10px 10px;  " >
         <div class="row">
-            
             <div class="col-md-12">
-    
                 <div class="card">
                     <div class="card-header">
                         <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i>Quiz Result</strong></h1>
