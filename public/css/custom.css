@@ -4,6 +4,14 @@
     background-position: center;
     /* opacity: 0.5; */
 }
+.os-content{
+    padding: 0px;
+}
+#nav_main_app{
+    border: 1px solid white;
+    width: 25px;
+    height: 25px;
+}
 /**** Style Welcome Page  ****/
 #img_profile_company{
     width: 50vh;
