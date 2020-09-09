@@ -110,15 +110,8 @@ function jnot_found(){
 jQuery("a").click(function(e){
   var href = $(this).attr("href");
   if (typeof href !== typeof undefined && href !== false) {
-    // if($('a').find('class.active')){
-       $('a').removeClass('active');
-    // }else{
-      
-        var id = $(this).attr("data-id");
+      $('a').removeClass('active');
+      var id = $(this).attr("data-id");
       $('a[data-id='+id+']').addClass('active');
-      
-      
-
-    // }
   }  
 })
