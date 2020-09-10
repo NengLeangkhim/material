@@ -38,7 +38,7 @@
                         <td>
                           <div class="row">
                             <div class="col-md-4"><a href="javascript:;" onclick="HRM_AddEditEmployee({{$e->id}})"><i class="far fa-edit"></i></a></div>
-                            {{-- <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail({{$e->id}},'hrm_detail_employee','modal_employee_detail')"><i class="fas fa-info"></i></a></div> --}}
+                            <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail({{$e->id}},'hrm_detail_employee','modal_employee_detail')"><i class="fas fa-info"></i></a></div>
                             <div class="col-md-4"><a href="javascript:;"><i class="far fa-trash-alt" onclick="hrm_delete({{$e->id}},'hrm_delete_employee','hrm_allemployee','Employee Deleted Succseefully !')"></i></a></div>
                           </div>
                         </td>
@@ -58,4 +58,15 @@
       responsive: true
     });
 } );
+
+<script>
+  $(document).ready(function() {
+    $("#img").on('change', function(){
+        // readURL(this);
+        readURL(this,'image_')
+    });
+    img_exist();
+});
+
+</script>
 </script>
