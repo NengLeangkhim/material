@@ -185,7 +185,7 @@ class perms extends Controller
     }
     private static function output_sub($child,$flag){
         $st='';
-        $id=1;
+        $id=rand(111,999);
         if($child){
             if(is_array($child)){
                 foreach ($child as $rr) {
@@ -196,7 +196,7 @@ class perms extends Controller
                         $st.= "  <li class='nav-item has-treeview menu mybg> ";
                         $st.= "  <a href='javascript:void(0);' data-id=".$id++." class='nav-link'{$rr->parent->link}{$rr->parent->code}  name='menu'> ";
                         //$st.= "  <i class='{$rr->parent->icon} nav-icon'​></i> <i class='right fas fa-angle-left'></i>";
-                        $st.= "  <img src=".$rr->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'> <i class='right fas fa-angle-left'></i>";
+                        $st.= "  <img style='margin-left:9%;' src=".$rr->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'> <i class='right fas fa-angle-left'></i>";
                         $st.= "  <p>".$rr->parent->module_name."</p> </a>";
                         $st.=self::output_sub($rr->child,'sub');
                         $st.= "  </li></ul> ";
@@ -208,7 +208,7 @@ class perms extends Controller
                         $st.= "  <li class='nav-item menu mybg'  > ";
                         $st.= "  <a href='javascript:void(0);' data-id=".$id++." class='nav-link' $rr->link $rr->code name='menu'> ";
                         //$st.= "  $sp<i class='{$rr->icon} nav-icon'​></i> ";
-                        $st.= "  $sp<img src=".$rr->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'> ";
+                        $st.= "  $sp<img style='margin-left:9%;' src=".$rr->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'> ";
                         $st.= "  <p>$rr->module_name</p> ";
                         $st.= "  </a></li></ul> ";
                     }
