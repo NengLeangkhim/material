@@ -110,7 +110,6 @@ function jnot_found(){
 jQuery("a").click(function(e){
   var href = $(this).attr("href");
   if (typeof href !== typeof undefined && href !== false) {
-     // $('li[class="menu-open"]').find('a').toggleClass('active');
       $('a[data-id]').removeClass('active');
       var id = $(this).attr("data-id");
       $('a[data-id='+id+']').toggleClass('active');

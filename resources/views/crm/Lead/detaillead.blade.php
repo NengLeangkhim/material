@@ -1,3 +1,10 @@
+<style>
+    /* @media only screen and (max-width: 500px) {
+    #CrmLeadButtonConvert {
+        font-size: 9px;
+    }
+} */
+</style>
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -32,8 +39,8 @@
                 </div>
                 <div class="col-6 " >
                    <div class="row">
-                        <div class="col-2 " align="right"><button type="button" class="btn btn-block btn-outline-primary btn-sm">Primary</button></div>
-                        <div class="col-2 " align="right"><button type="button" class="btn btn-block btn-outline-primary btn-sm">Primary</button></div>
+                        <div class="col-6 " align="right"><button type="button" ​value="editlead/1" class="btn btn-primary btn-md CrmLeadEdit">Edit</button></div>
+                        <div class="col-6 " align="left"><button type="button"  class="btn btn-success btn-md">Convert</button></div>
                    </div>
                 </div>
               </div>
@@ -134,6 +141,10 @@
                             <dd class="col-sm-8 dd">Tonle Basak </dd>
                             <dt class="col-sm-4 dt">Village</dt>
                             <dd class="col-sm-8 dd">Phum 12 </dd>
+                            <dt class="col-sm-4">LatLg</dt>
+                            <dd class="col-sm-8">
+                                <input type="text" class="form-control"  name='latlng' id="latlong" placeholder="11.123456, 104.123456 Example" >
+                            </dd>
                         </dl>
                     </div>  
                     <div class="card-body">
@@ -194,7 +205,6 @@
                             <hr>
                             <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>            
                             <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-                            <input type="text" class="form-control"  name='latlng' id="latlong" placeholder="11.123456, 104.123456 Example" >
                           </div>
                           <!-- /.card-body -->
                     </div>
@@ -270,4 +280,9 @@
             clearMarkers();
             markers = [];
         }
+        $('.CrmLeadEdit').click(function(e)
+            {
+                var id = $(this).attr("​value");
+                go_to(id);
+            });
     </script>

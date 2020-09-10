@@ -1,4 +1,3 @@
-{{ print_r($lead)}}
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -57,7 +56,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-at"></i></span>
                                                 </div>
-                                                <input type="email" class="form-control"  name="email" id="exampleInputEmail1" placeholder="Primary Email">
+                                                <input type="email" class="form-control"  name="email" value="{{$lead[0]->email}}" id="exampleInputEmail1" placeholder="Primary Email">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -79,7 +78,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="website" id="exampleInputEmail1" placeholder="Website">
+                                                <input type="text" class="form-control" value="{{$lead[0]->website}}" name="website" id="exampleInputEmail1" placeholder="Website">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -88,7 +87,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fab fa-facebook"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="facebook" id="exampleInputEmail1" placeholder="Facebook">
+                                                <input type="text" class="form-control" value="{{$lead[0]->facebook}}" name="facebook" id="exampleInputEmail1" placeholder="Facebook">
                                             </div>
                                         </div>
                                     </div>
