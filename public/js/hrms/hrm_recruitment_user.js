@@ -85,56 +85,36 @@ function show_alert(){
 
 function autoSubmit() {
 
-  // var auto = setTimeout(function(){ autoRefresh(); }, 100);
-  function alert15min(){
-      $.notify(
-          "Your answer will be auto submit in 15 minutes more !", 
-          { position:"top center" }
-      );
-  }
-  function alert10min(){
-      $.notify(
-          "Your answer will be auto submit in 10 minutes more !", 
-          { position:"top center" }
-      );
-  }
-  function alert5min(){
-      $.notify(
-          "Your answer will be auto submit in 5 minutes more !", 
-          { position:"top center" }
-      );
-  }
+    // var auto = setTimeout(function(){ autoRefresh(); }, 100);
+    function alert15min(){
+        $.notify(
+            "Your answer will be auto submit in 15 minutes more !", 
+            { position:"top center" }
+        );
+    }
+    function alert10min(){
+        $.notify(
+            "Your answer will be auto submit in 10 minutes more !", 
+            { position:"top center" }
+        );
+    }
+    function alert5min(){
+        $.notify(
+            "Your answer will be auto submit in 5 minutes more !", 
+            { position:"top center" }
+        );
+    }
 
-  setTimeout(function(){ alert15min(); }, (1000 * 60 * 45));
-  setTimeout(function(){ alert10min(); }, (1000 * 60 * 50));
-  setTimeout(function(){ alert5min(); }, (1000 * 60 * 55));
+    setTimeout(function(){ alert15min(); }, (1000 * 60 * 45));
+    setTimeout(function(){ alert10min(); }, (1000 * 60 * 50));
+    setTimeout(function(){ alert5min(); }, (1000 * 60 * 55));
 
+    function submitform(){
+        document.getElementById("myFormQuestion").submit();
+    }
 
-
-  function submitform(){
-      document.getElementById("myFormQuestion").submit();
-      var formElement = document.getElementById("myFormQuestion");
-      var formData = new FormData(formElement);
-      var request = new XMLHttpRequest();
-      request.open("POST", "/hrm_recruitment_user_submit_answer" ,true);
-      request.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-                  window.reload();
-                  // console.responText();
-              };
-      }
-      request.send(formData);
-  }
-
-
-  // function autoRefresh(){
-  //    clearTimeout(auto);
-  //    auto = setTimeout(function(){ submitform(); }, (1000 * 10));
-  // }
-
-  setTimeout(function(){ submitform(); }, (1000 * 15));
-
-
+    // set time out 1 hour to submit form
+    setTimeout(function(){ submitform(); }, (1000 * 60 * 60));
 
 }
 
@@ -322,6 +302,23 @@ function autoSubmit() {
 
 
 
+
+
+
+
+  // function to get candidate quiz result
+  function get_quiz_result(){
+    var url= "/hrm_get_quiz_result";
+    var x=new XMLHttpRequest();
+    x.onreadystatechange=function(){
+        if(this.readyState==4 && this.status==200){    
+            document.getElementById('show_result').innerHTML=this.responseText;
+        }
+    }
+    x.open("GET", url , true);
+    x.send();
+
+  }
 
 
 

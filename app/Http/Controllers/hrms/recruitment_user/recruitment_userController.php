@@ -106,8 +106,7 @@ class recruitment_userController extends Controller
             if(count($r) > 0){
                 $error = "user_expire";
                 return $error;
-                // return response()->json(['error'=>'This user already used']);
-                // return response()->json(array('error'=>$error));
+             
             }else{
                 // get question for user
                 $user_question = recruitment_userModel::select_user_question($id);
@@ -144,7 +143,6 @@ class recruitment_userController extends Controller
                     $txtarea = '';
                 }
 
-
                 // foreach insert question option
                 if(is_array($radio_name)){
                         $i = 0;
@@ -158,8 +156,7 @@ class recruitment_userController extends Controller
                             }else{
                                 $ans = '0';
                             }
-                            
-                            $r = recruitment_userModel::submit_answer($val,$key,'null',$ans,$starttime,$endtime,$id);
+                            $r = recruitment_userModel::submit_answer($val,$key,null,$ans,$starttime,$endtime,$id);
                             $i++;
                             
                         }  
@@ -264,11 +261,9 @@ class recruitment_userController extends Controller
         $quiz_result = recruitment_userModel::user_quiz_result($id);
 
         if(count($quiz_result) > 0){
-
             return view('hrms/recruitment_user/user_view_quiz_result', compact('quiz_result'));
         }else{
             return view('hrms/recruitment_user/user_view_quiz_result', compact('quiz_result'));
-            
         }
        
     }
@@ -364,6 +359,64 @@ class recruitment_userController extends Controller
             return view('hrms/recruitment_user/user_view_from_hr_result', compact('hr_result'));
         }
     }
+
+
+
+    // function to get show candidate summery result of do quiz
+    public static function show_ResumsResult()
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $id = $_SESSION['user_id'][0]->id;
+        $r = recruitment_userModel::user_quiz_result($id);
+        $ResumsResult[] = '';
+        if(count($r) > 0){
+            foreach($r as $key=>$val){
+                $spent_time = recruitment_userController::check_duration($val->start_time,$val->end_time);
+            }
+            $percent = intval(((count($r)*100) / 30 ));
+            $ResumsResult = [
+                'done_question' => count($r),
+                'percent' => $percent,
+                'spent_time' => $spent_time
+            ];
+            return view('hrms/recruitment_user/user_view_quiz_result2', compact('ResumsResult'));
+        }else{
+            return view('hrms/recruitment_user/user_view_quiz_result2');
+        }
+        
+       
+    }
+
+
+
+    // function to get result for candidate
+    public static function user_view_quiz_result2(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $id = $_SESSION['user_id'][0]->id;
+        $r = recruitment_userModel::user_quiz_result($id);
+
+        if($r > 0){
+
+            foreach($r as $key=>$val){
+                $true_question[] = recruitment_userModel::check_is_right_choice($val->q_id);  //get is_right_choice = true by question id
+            }
+            $quiz_result = $r;
+            return view('hrms/recruitment_user/user_view_quiz_result_list', compact('quiz_result','true_question'));
+        }else{
+            return 0;
+        }
+        
+    }
+
+
+
+
+
+    
 
 
 

@@ -261,7 +261,7 @@ Function index_num($v1){
                   <div class=" card card-mini mb-4">
                   <div class="card-body">
                       <h3 class="mb-1" style="font-weight: bold; ">
-                      <?php echo $member_join['mmm']; ?> Members Join</h3>
+                      <?php echo $member_join['mmm']; ?> Member Join</h3>
                       <p> This Month</p>
                       <table class="table_style1" >
                           <tr class="tr-review">

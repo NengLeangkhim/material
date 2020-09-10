@@ -52,8 +52,17 @@ class PayrollController extends Controller
     function Payroll(){
         $pr=new Payroll();
         $data = array();
-        $data[0] =$pr->Payroll(8);
-        return view('hrms/Payroll/Payroll')->with('data', $data);
+        if(isset($_GET['month']) && isset($_GET['year'])){
+            $month=$_GET['month'];
+            $year=$_GET['year'];
+            $view= "hrms/Payroll/PayrollSearchMonthYear";
+        }else{
+            $month=date('m');
+            $year=date('Y');
+            $view= "hrms/Payroll/Payroll";
+        }
+        $data[0] =$pr->Payroll($month,$year);
+        return view($view)->with('data', $data);
     }
 
     function PayrollDetail(){
@@ -105,5 +114,20 @@ class PayrollController extends Controller
         $month = $_GET['emonth'];
         $pr = new Payroll();
         $pr->DelectComponent($id,$date_from,$date_to,$month,$userid);
+    }
+
+
+    function FinanceApprovePayroll(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userid = $_SESSION['userid'];
+        $id=$_GET['id'];
+        $pr=new Payroll();
+        $pr->FinanceApprovePayroll($id,$userid);
+    }
+
+    function PayrollDetails(){
+        return view('hrms/Payroll/PayrollDetails');
     }
 }

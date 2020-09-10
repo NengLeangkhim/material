@@ -516,7 +516,7 @@
 
             var haightAshbury = {
                 lat: 11.620803,
-                lng: 104.892215,
+                lng: 104.892215
             };
 
 
@@ -526,7 +526,8 @@
                 center: haightAshbury,
                 mapTypeId: 'roadmap'
             });
-
+            
+            
             //declear default value for latlong on map
             addMarker(haightAshbury);
             document.getElementById('latlong').value = '11.620803, 104.892215';

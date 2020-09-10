@@ -13,9 +13,6 @@ use PhpParser\Node\Stmt\TryCatch;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-
 Route::get('/check','RouteController@check'); //Check Database Connection
 Route::get('/','RouteController@home');
 Route::post('/','Login@login');
@@ -808,6 +805,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     // Create Payroll
         Route::get('hrm_employee_salary', 'hrms\Payroll\PayrollController@CreatePayroll');
         Route::post('hrm_save_create_payroll', 'hrms\Payroll\PayrollController@AddCreatePayroll');
+        Route::get('hrm_export_payroll', 'ExportExcelController@Excel')->name('export_excel.excel');
     // End Create Payroll
 
     // Payroll List
@@ -822,6 +820,8 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     
     // Payroll
         Route::get('hrm_payroll', 'hrms\Payroll\PayrollController@Payroll');
+        Route::get('hrm_finance_approve_payroll', 'hrms\Payroll\PayrollController@FinanceApprovePayroll');
+        Route::get('hrm_payroll_detail', 'hrms\Payroll\PayrollController@PayrollDetails');
     // End Payroll
         
         Route::get('taxation', 'hrms\Payroll\PayrollController@Taxation');
@@ -932,8 +932,13 @@ Route::get('hrm_recruitment_homepage',function(){
 // route for user profile
 Route::get('hrm_recruitment_user_profile','hrms\recruitment_user\recruitment_userController@user_profile');
 
-// route for user view quiz result
-Route::get('hrm_recruitment_user_quiz_result','hrms\recruitment_user\recruitment_userController@user_view_quiz_result');
+// route for user view quiz result as List View
+Route::get('hrm_recruitment_user_quiz_result2','hrms\recruitment_user\recruitment_userController@show_ResumsResult');
+
+//route for get list result for candidate when user click button show quiz answer 
+Route::get('hrm_get_quiz_result','hrms\recruitment_user\recruitment_userController@user_view_quiz_result2');
+
+
 
 
 // route for user get hr result

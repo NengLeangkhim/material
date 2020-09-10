@@ -144,15 +144,15 @@ class recruitment_userModel extends Model
 
 
 
-    // fucntion get result quiz for user 
-
+    // fucntion to get user done quiz result
     public static function user_quiz_result($id){
 
-        $sql = "SELECT  q.question, q_t.id as q_type_id, q_t.name as question_type, CONCAT(q_c.choice, u_a.answer_text) as user_answer, u_a.is_right, u_a.start_time, u_a.end_time  
+        $sql = "SELECT  q.id as q_id, q.question, q_t.id as q_type_id, q_t.name as question_type, q_c.choice as choice_name, CONCAT(q_c.choice, u_a.answer_text) as user_answer, u_a.is_right, u_a.start_time, u_a.end_time  
                 FROM ((hr_recruitment_candidate_answer u_a 
                 LEFT JOIN hr_recruitment_question_choice q_c ON  u_a.hr_recruitment_question_choice_id= q_c.id) 
                 JOIN hr_recruitment_question q ON u_a.hr_recruitment_question_id = q.id) 
-                LEFT JOIN hr_recruitment_question_type q_t ON q.hr_recruitment_question_type_id = q_t.id  where u_a.hr_recruitment_candidate_id = ".$id." ";
+                LEFT JOIN hr_recruitment_question_type q_t ON q.hr_recruitment_question_type_id = q_t.id  
+                WHERE u_a.hr_recruitment_candidate_id = ".$id." AND u_a.status = 't' AND u_a.is_deleted = 'f' order by q_t.id ASC ";
             
             try{
                 $r = DB::select($sql);
@@ -165,8 +165,6 @@ class recruitment_userModel extends Model
                 exit;
             // Note any method of class PDOException can be called on $ex.
             }
-
-
 
     }
 
@@ -187,8 +185,7 @@ class recruitment_userModel extends Model
         $sql = " SELECT hu.id, hu.name_kh, ap.hr_approval_status, ap.create_date, ap.comment 
                 FROM hr_recruitment_candidate_detail ap FULL JOIN hr_recruitment_candidate hu ON  ap.hr_recruitment_candidate_id = hu.id
                 WHERE ap.create_date=(SELECT MAX(ap.create_date) 
-                FROM hr_recruitment_candidate_detail ap WHERE ap.hr_recruitment_candidate_id = $id) ";
-                
+                FROM hr_recruitment_candidate_detail ap WHERE ap.hr_recruitment_candidate_id = $id) "; 
         try{
             $r = DB::select($sql);
             return $r;
@@ -207,8 +204,28 @@ class recruitment_userModel extends Model
 
     // function to check if user already do quiz
     public static function check_user_doQuiz($id){
-        $r = DB::select("SELECT * FROM hr_recruitment_candidate_answer WHERE hr_recruitment_candidate_id = $id");
+        $r = DB::select("SELECT * FROM hr_recruitment_candidate_answer WHERE hr_recruitment_candidate_id = $id AND status='t' AND is_deleted='f' ");
         return $r;
+    }
+
+
+
+    // function to get question choice where is_right_choice True
+    public static function check_is_right_choice($id){
+
+        $sql = " SELECT id as choice_id, choice as choice_name, hr_recruitment_question_id as question_id, is_right_choice FROM hr_recruitment_question_choice where hr_recruitment_question_id = $id 
+                AND is_right_choice = 't' AND status= 't' ";
+        try{
+            $r = DB::select($sql);
+            return $r;
+            
+        }catch(\Illuminate\Database\QueryException $ex){
+            dump($ex->getMessage());
+            echo '<br><a href="/">go back</a><br>';
+            echo 'exited';
+            exit;
+        // Note any method of class PDOException can be called on $ex.
+        }
     }
 
 

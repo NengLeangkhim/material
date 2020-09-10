@@ -58,7 +58,7 @@ function HRM_ShowDetail(rout,modalName,id=-1){
 
             if(date.length>0){
                 if(new Date()<new Date(date)){
-                    alert('The Date Must be Smaller or Equal Than Today');
+                    alert('The Date Must be Smaller or Equal Today');
                 }else{
                     $("#attendance_by_date").html(spinner());
                     $.ajax({
@@ -208,7 +208,48 @@ function HRM_CheckStaffTrain(e,trainid){
     }
 
 
+    // finace approve payroll
+    function HRM_Finance_Approve_Payroll(e,eid){
+        if(confirm("Do you want to approve it ?")){
+            $.ajax({
+                type: 'GET',
+                url: '/hrm_finance_approve_payroll',
+                data: {
+                    _token: '<?php echo csrf_token() ?>',
+                    id: eid
+                },
+                success: function (data) {
+                    alert(data);
+                    e.disabled=true;
+                    e.classList.remove("bg-info");
+                    e.classList.add("btn-danger");
+                }
+            });
+        }
+    }
 
+
+    // Search payroll by month and year
+    function HRM_SearchPayrollByMonthYear(){
+        $("#search_payroll_moth_year").html(spinner());
+        var emonth=document.getElementById('select_month_payroll').value;
+        var eyear = document.getElementById('select_year_payroll').value;
+        $.ajax({
+            type: 'GET',
+            url: '/hrm_payroll',
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                month: emonth,
+                year:eyear
+            },
+            success: function (data) {
+                document.getElementById('search_payroll_moth_year').innerHTML=data;
+                $('#tbl_payroll').DataTable({
+                    responsive: true
+                });
+            }
+        });
+    }
     // HR delect create payroll
     function DeleteComponent(id,date_from,date_to,for_month){
         if(confirm("Do you want to delete it ?")){
@@ -252,6 +293,18 @@ function HRM_CheckStaffTrain(e,trainid){
                 });
             }
         });
+    }
+
+    function HRM_Export_Payroll(){
+        var year = document.getElementById('select_year_payroll').value;
+        var month = document.getElementById('select_month_payroll').value;
+        hrm_export_payroll=1;
+        window.location.href ="/hrm_export_payroll?emonth="+month+"&&eyear="+year;
+    }
+
+
+    function HRM_PayrollDetail(){
+        
     }
 
 // End Payroll

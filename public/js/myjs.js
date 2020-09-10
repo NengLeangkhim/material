@@ -107,3 +107,11 @@ function jnot_found(){
   // return get_not_found_page();
   return'<center><label style="font-weight:bold;font-size:16px;">Not Found</label></center>';
 }
+jQuery("a").click(function(e){
+  var href = $(this).attr("href");
+  if (typeof href !== typeof undefined && href !== false) {
+      $('a').removeClass('active');
+      var id = $(this).attr("data-id");
+      $('a[data-id='+id+']').addClass('active');
+  }  
+})

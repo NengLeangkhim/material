@@ -27,7 +27,7 @@
           </li>
 
           <li class="nav-item has-treevie">
-                <a href="javascript:void(0);" class="nav-link active" onclick='go_to("hrm_recruitment_user_quiz_result")'>
+                <a href="javascript:void(0);" class="nav-link active" onclick='go_to("hrm_recruitment_user_quiz_result2")'>
                     <i class="nav-icon fa fa-list-alt"></i> 
                     <p>View Your Quiz Test</p>
                 </a> 
@@ -39,23 +39,13 @@
                     <p>Result From HR</p>
                 </a> 
           </li>
+
+    
               
 
 
 
 
-
-
-              {{-- <li class="nav-item has-treevie">
-                <a href="javascript:void(0);" class="nav-link active">
-                    <i class="nav-icon fas fa-boxes"></i> 
-                    <p>Stock<i class="right fas fa-angle-left"></i></p>
-                </a> <ul class="nav nav-treeview sub_menu"> 
-                    <li class="nav-item menu mybg"> 
-                <a href="javascript:void(0);" class="nav-link" value="dashbord" data-code="/lWzaVimx5WJ2yBMU4Xl9A==" name="menu">   <i class="img/dashboard.png nav-icon" ​="">
-                        </i>   <p>Dashboard</p>   
-                </a>
-          </li> --}}
 
 
 
