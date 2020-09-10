@@ -20,7 +20,7 @@
                             $val = $promote_report;
                             if(count($val) > 0){
                                 for($i=0;$i<count($val);$i++){
-                                    $x = '111Tdkfmaskdf';
+                                    // $x = '111Tdkfmaskdf';
                                         echo '<tr style="text-align: center;">
                                         <th scope="row">'.($i+1).'</th>
                                         <td> '. $val[$i]->name.'</td>

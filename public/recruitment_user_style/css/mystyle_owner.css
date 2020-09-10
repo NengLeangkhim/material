@@ -1286,4 +1286,40 @@ div.uploadcv div.uploadcover , input[type="file"] {
       height: 8px;
       border-radius: 50%;
       background: white;
+      
     }
+
+
+    /* style for table candidate read result quiz */
+    .td-view_quiz_style{
+      padding-left: 10px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .kh_word_answer {
+      font-family: "Kh Muol"; 
+      font-size: 14px; 
+      color: #1fa8e0;
+    }
+
+    .kh_word_question {
+      font-family: "Kh Muol"; 
+      font-size: 14px; 
+      color: #d42931;
+    }
+    .title_q_part {
+      padding-top: 10px;
+      padding-bottom: 15px;
+      font-family: "Kh Muol"; 
+      font-size: 16px; 
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+
+
+
+
+
+
