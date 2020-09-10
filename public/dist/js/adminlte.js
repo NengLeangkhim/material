@@ -822,6 +822,7 @@
           $(_this2._element).trigger(collapsedEvent);
           treeviewMenu.find(Selector.OPEN + " > " + Selector.TREEVIEW_MENU).slideUp();
           treeviewMenu.find(Selector.OPEN).removeClass(ClassName.OPEN);
+          parentLi.find('a').removeClass('active');// add by metkeosambo
         });
       };
 
