@@ -4,7 +4,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Leads</h1>
+                            <h1><i class="fas fa-user"></i> Leads</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -40,7 +40,7 @@
                                                 <th>phone</th>
                                                 <th>Website </th>
                                                 <th>Assigned To </th>
-                                                <th>Edit</th>
+                                                <th>Detail</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -53,7 +53,8 @@
                                                 <td>{{$row->status}}</td>
                                                 <td>{{$row->create_by}}</td>
                                                 <td>
-                                                <a href="#" class="btn btn-block btn-info btn-sm edit" ​value="editlead" ><i class="fas fa-wrench"></i></a>
+                                                {{-- <a href="#" class="btn btn-block btn-info btn-sm edit" ​value="editlead/{{$row->id}}" ><i class="fas fa-wrench"></i></a>detaillead --}}
+                                                <a href="#" class="btn btn-block btn-info btn-sm detail" ​value="detaillead" ><i class="fas fa-info-circle"></i></a>
                                                 </td>
                                             </tr>                                       
                                         @endforeach
@@ -90,6 +91,11 @@
                 go_to(ld);
             })
             $('.edit').click(function(e)
+            {
+                var id = $(this).attr("​value");
+                go_to(id);
+            });
+            $('.detail').click(function(e)
             {
                 var id = $(this).attr("​value");
                 go_to(id);

@@ -1,4 +1,4 @@
-
+{{ print_r($lead)}}
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -35,7 +35,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="Customer Name English"  name='custEng'  required>
+                                            <input type="text" class="form-control" placeholder="Customer Name English"  name='custEng'  value="{{$lead[0]->customer_name_en}}" required>
                                             </div>
                                         </div>
                                          <div class="col-md-6">
@@ -44,7 +44,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="custkh" id="exampleInputEmail1" placeholder="Customer Name khmer" >
+                                                <input type="text" class="form-control" name="custkh"  value="{{$lead[0]->customer_name_kh}}" id="exampleInputEmail1" placeholder="Customer Name khmer" >
                                             </div>
                                          </div>
                                     </div>

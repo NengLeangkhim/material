@@ -17,8 +17,8 @@
                 </ul>
               </div>
               <div class="col-5 text-center">
-                {{-- <img src="../../dist/img/user8-128x128.jpg" alt="" class="img-circle img-fluid"> --}}
-                <i style="font-size:55px" class="fas fa-user-circle"></i>
+                <img src="../../dist/img/user8-128x128.jpg" alt="" class="img-circle img-fluid">
+                {{-- <i style="font-size:55px" class="fas fa-user-circle"></i> --}}
               </div>
             </div>
           </div>

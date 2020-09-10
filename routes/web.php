@@ -37,8 +37,10 @@ Route::get('/village','crm\LeadController@getvillage'); //getvillage
 Route::POST('/addleadsource','crm\LeadController@addleadsource'); //addlead source
 Route::POST('/addleadindustry','crm\LeadController@addleadindustry'); //add leadindustry
 Route::POST('/addlead','crm\LeadController@addlead'); //add leadindustry
-Route::get('/editlead','crm\LeadController@detaillead');// edit lead
-Route::post('/crm_leasdsource','crm\LeadController@savelead');
+Route::get('/detaillead','crm\LeadController@detaillead'); //add leadindustry
+Route::Get('/editlead/{id}','crm\LeadController@editlead');// edit lead
+Route::post('/crm_leasdsource','crm\LeadController@savelead'); // save 
+
 
 Route::get('/test_map', function(){
     return view('crm.lead.mapShowLatLong');
@@ -49,12 +51,12 @@ Route::get('/test_map', function(){
 
 
 
-//contact
+// start contact
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table 
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination 
 Route::get('/organizations','crm\OrganizationController@getorganization'); //get all Organization  show in table
 Route::get('/product','crm\ProductsController@getProducts'); //get all Products show in table  
-
+// end contact
 
 //===========================END CRM=================================
 
