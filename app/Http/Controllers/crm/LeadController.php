@@ -31,7 +31,6 @@ class LeadController extends Controller
     }
 
     public function getdistrict(){
-
          $id=$_GET['_id'];//set up same for ajax
         $get_district=ModelCrmLead::CrmGetLeadDistrict($id);
             return response()->json(array('response'=> $get_district), 200);//set up same for ajax
