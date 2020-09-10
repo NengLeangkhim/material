@@ -16,12 +16,10 @@
                         <?php
                             $done_q = 00;
                             $spent_time = 00;
-                            // $percent = 00;
                             $q_num = 00;
                             if(isset($ResumsResult)){
                                 $done_q = $ResumsResult['done_question'];
                                 $spent_time = $ResumsResult['spent_time'];
-                                // $percent = $ResumsResult['percent'];
                                 $q_num = 30;
                             }
                         ?>
@@ -29,13 +27,10 @@
                         <ul style="list-style-type: none;">
                             <li><b>Your Answer Result</b></li>
                             <li>{{$done_q}} of {{$q_num}}</li>
-                            {{-- <li><b>Percent Get</b></li>
-                            <li>{{ $percent}} %</li> --}}
                             <li><b>Time Spent</b></li>
                             <li>{{ $spent_time}} </li>
-
                         </ul>
-                        
+
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-4">

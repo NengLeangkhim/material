@@ -71,15 +71,15 @@
                           }
                       @endphp
                         <tr>
-                        <td>{{++$i}}</td>
-                        <td>{{$em->name}}</td>
-                        <td>{{$em->id_number}}</td>
-                        <td>{{$em->position}}</td>
+                          <td>{{++$i}}</td>
+                          <td>{{$em->name}}</td>
+                          <td>{{$em->id_number}}</td>
+                          <td>{{$em->position}}</td>
                           <td class="text-center">{{$em->bonus_value}}</td>
                           <td class="text-center">{{$em->tax}}</td>
                           <td class="text-center">{{$em->bonus_value-$em->tax}}</td>
                           <td class="text-center text-primary">
-                            <button class="btn bg-info btn-sm" onclick="HRM_ShowDetail('pa',modalName,id=-1)">Detail</button>
+                            <button class="btn bg-info btn-sm" onclick="HRM_ShowDetail('hrm_payroll_detail','modal_payrolldetails')">Detail</button>
                             <button {{$disable}} class="btn {{$btn}} btn-sm" onclick="HRM_Finance_Approve_Payroll(this,{{$em->id}})">Approve</button>
                           </td>
                       </tr>
