@@ -5,7 +5,13 @@
     /* opacity: 0.5; */
 }
 #nav_main_app{
-    border: 1px solid white;
+    /* border: 2px solid;
+    border-image: linear-gradient(rgb(0,143,104), rgb(250,224,66)) 1; */
+    border: 2px solid transparent;
+    /* border-radius: 80px; */
+    background-image: linear-gradient(white, white), linear-gradient(to right, blue,indigo,violet);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
     width: 35px;
     height: auto;
 }
