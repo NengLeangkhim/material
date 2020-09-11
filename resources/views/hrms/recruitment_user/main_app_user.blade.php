@@ -17,7 +17,6 @@
     <div class="wrapper">
         @include('hrms.recruitment_user.main_app_manu.right_navbar')
         @include('hrms.recruitment_user.main_app_manu.left_manu')
-
         <div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
             @yield('content_user')
             @include('hrms.recruitment_user.homepage_user')

@@ -25,7 +25,7 @@ class view_requestform extends Controller
         $user_id=$wddx_user_id??$user_id;
 
         if(isset($v0)){
-            $q=DB::select("select s.name,p.name as position,d.name as dept from ma_user s join ma_position p on p.id=s.ma_position_id join ma_company_dept d on d.id=s.ma_company_dept_id where s.id=".$v0['to']);
+            $q=DB::select("select concat(s.first_name_en,' ',s.last_name_en) as name ,p.name as position,d.name as dept from ma_user s join ma_position p on p.id=s.ma_position_id join ma_company_dept d on d.id=s.ma_company_dept_id where s.id=".$v0['to']);
             $r=ere_get_assoc::assoc_($q)[0];
             $topos=$r['position'];
             $toname=$r['name'];
@@ -35,7 +35,7 @@ class view_requestform extends Controller
         $r=ere_get_assoc::assoc_($q);
         $sub=$r;
 
-        $q=DB::select("select s.name,p.name as position,d.name as dept from ma_user s join ma_position p on p.id=s.ma_position_id join ma_company_dept d on d.id=s.ma_company_dept_id where s.id=$user_id");
+        $q=DB::select("select concat(s.first_name_en,' ',s.last_name_en) as name,p.name as position,d.name as dept from ma_user s join ma_position p on p.id=s.ma_position_id join ma_company_dept d on d.id=s.ma_company_dept_id where s.id=$user_id");
         $r=ere_get_assoc::assoc_($q)[0];
         if($r){
             $pos=$r['position'];
@@ -43,7 +43,7 @@ class view_requestform extends Controller
             $dept=$r['dept'];
         }
 
-        $q=DB::select("select s.id, s.name from ma_user s
+        $q=DB::select("SELECT s.id, concat(s.first_name_en,' ',s.last_name_en) as name from ma_user s
         join ma_position p on p.id=s.ma_position_id
         where p.ma_group_id <>1 and s.id_number is not null and s.ma_company_dept_id=(select ma_company_dept_id from ma_user where id=$user_id)
         order by name ");

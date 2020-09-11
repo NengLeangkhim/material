@@ -2,7 +2,7 @@
 
 <?php
   use Illuminate\Support\Facades\DB;
-  $r = DB::select("select name, email from ma_user where status='t'");
+  $r = DB::select("select id, email from ma_user where status='t'");
   // convert number to khmer number
   Function conv_kh($str)
     {

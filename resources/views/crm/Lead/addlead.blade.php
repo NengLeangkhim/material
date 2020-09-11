@@ -173,13 +173,13 @@
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Assigened To<b style="color:red">*</b></label>
                                             <div class="input-group">
-                                                <div class="input-group-prepend" style="height:38px;width:40px">
+                                                <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                                 </div>
-                                                <select class="form-control select2 to " name="assigendTo"  >
+                                                <select class="form-control" name="assigendTo">
                                                     <option></option>
                                                     @foreach($assig_to as $row )
-                                                        <option value="{{$row->id}}">{{$row->name}}</option> 
+                                                        <option value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option> 
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -504,10 +504,8 @@
                 submit_form ('/addlead','frm_lead','lead');
             })
     </script>
-
-    <script src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing&key=AIzaSyA4QECK3Tl4Sdl1zPIHiyZaME5mUaSk4WU&callback=initMap" async defer></script>
-    
-    
+    {{--Google Map--}}
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing&key=AIzaSyA4QECK3Tl4Sdl1zPIHiyZaME5mUaSk4WU&callback=initMap" async defer></script>    
     <script>
         var map;
         var markers = [];
