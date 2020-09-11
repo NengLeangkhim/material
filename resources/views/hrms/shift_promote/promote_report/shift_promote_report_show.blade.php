@@ -23,7 +23,7 @@
                                     // $x = '111Tdkfmaskdf';
                                         echo '<tr style="text-align: center;">
                                         <th scope="row">'.($i+1).'</th>
-                                        <td> '. $val[$i]->name.'</td>
+                                        <td> '. $val[$i]->first_name_en.' '.$val[$i]->last_name_en.'</td>
                                         <td> '. $val[$i]->position.'</td>
                                         <td> '. $val[$i]->salary.'</td>           
                                         <td> '. $val[$i]->create_date.'</td>

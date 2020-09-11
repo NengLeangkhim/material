@@ -28,7 +28,7 @@ class TrainingList extends Model
     }
 
     function TrainingStaff($hrid){
-        $sql= "SELECT hts.ma_user_id,s.name FROM hr_training_staff hts INNER JOIN ma_user s on hts.ma_user_id=s.id where hr_training_id=$hrid and hts.is_deleted='f'";
+        $sql= "SELECT hts.ma_user_id, s.first_name_en, s.last_name_en  FROM hr_training_staff hts INNER JOIN ma_user s on hts.ma_user_id=s.id where hr_training_id=$hrid and hts.is_deleted='f'";
         return DB::select($sql);
 
     }

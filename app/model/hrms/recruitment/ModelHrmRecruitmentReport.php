@@ -90,7 +90,7 @@ class ModelHrmRecruitmentReport extends Model
     }
     // ===== Function model get Table Detail Result Candidate=====////
     public static function get_candidate_result($from,$to,$st){
-        return DB::select("SELECT u.*,s.name as staff,ua.start_time,pp.name,appr.create_date,appr.hr_approval_status as status_appr,appr.comment from hr_recruitment_candidate u 
+        return DB::select("SELECT u.*,  concat(s.first_name_en,' ',s.last_name_en) as staff ,ua.start_time,pp.name,appr.create_date,appr.hr_approval_status as status_appr,appr.comment from hr_recruitment_candidate u 
         left join ma_position pp on u.ma_position_id=pp.id 
         left join (
         SELECT 
@@ -127,7 +127,7 @@ class ModelHrmRecruitmentReport extends Model
          group by 
                   hr_recruitment_candidate_id
       )
-    group by u.id,ua.start_time,pp.name,appr.hr_approval_status,appr.comment,s.name,appr.create_date");
+    group by u.id,ua.start_time,pp.name,appr.hr_approval_status,appr.comment,staff,appr.create_date");
     }
     // ===== Function model get Table Detail Result Candidate=====////
     public static function get_candidate($from,$to){

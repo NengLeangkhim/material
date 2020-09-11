@@ -972,4 +972,7 @@ Route::get('test_chart',function(){
 //==========================================================> End HRMS <===============================================================///
 
 
+Route::get('test_concat',function(){
+    return view('test_table');
+});
 

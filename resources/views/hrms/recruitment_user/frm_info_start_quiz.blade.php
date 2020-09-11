@@ -4,8 +4,8 @@
 
             <font face= "Khmer OS Battambang">
 
-                <div class="back-img1" >
-                        <div class="start-quiz-frm row" style="height: 500px; padding-top:50px;">
+                <div class=" " >
+                        <div class="row" style="height: 450px; padding-top:50px;">
                                 <div class="col-lg-3 col-md-2 col-sm-1 col ">
                                 <!-- <h3>Column 1</h3> -->
                                 </div>
@@ -17,7 +17,7 @@
                                                 <td class="td-start-quiz" >: ៦០ នាទី</td>
                                             </tr>
                                             <tr class="tr-review">
-                                                <td class="td-start-quiz" >ផ្នែកសំនួរមាន :</td>
+                                                <td class="td-start-quiz" >ផ្នែកសំនួរជ្រើសរើស :</td>
                                                 <td class="td-start-quiz" > : ២០ សំនួរ</td>
                                             </tr>
                                             <!-- <tr class="tr-review">
@@ -25,8 +25,8 @@
                                                 <td class="td-start-quiz" > : ពិន្ទុ</td>
                                             </tr > -->
                                             <tr class="tr-review">
-                                                <td class="td-start-quiz" >ផ្នែកលំហាត់មាន :</td>
-                                                <td class="td-start-quiz" > : ១០ លំហាត់</td>
+                                                <td class="td-start-quiz" >ផ្នែកសំនួរសរសេរ :</td>
+                                                <td class="td-start-quiz" > : ១០ សំនួរ</td>
                                             </tr>
                                             <tr class="tr-review">
                                                 <td colspan="2" class="td-start-quiz" style="font-size: 14px;"> 

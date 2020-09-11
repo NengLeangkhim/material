@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class MissionAndOutSide extends Model
 {
     function AllMissionAndOutSide(){
-        $m=DB::select("SELECT hr.street,hr.latlg,hr.gazetteers_code,hr.id,hr.shift,hr.date_from,hr.date_to,hr.description,hr.type,s.name from hr_mission hr 
+        $m=DB::select("SELECT hr.street,hr.latlg,hr.gazetteers_code,hr.id,hr.shift,hr.date_from,hr.date_to,hr.description,hr.type, from hr_mission hr 
                         INNER JOIN hr_mission_detail hmd on hr.id=hmd.hr_mission_id
                         INNER JOIN ma_user s on split_part( s.id_number, '-',2)::INTEGER=hmd.ma_user_id where hr.status='t' and hr.is_deleted='f' and s.status='t' and s.is_deleted='f'");
         print_r($m);
@@ -15,11 +15,11 @@ class MissionAndOutSide extends Model
 
     function MissionOutside($id=0){
         if($id>0){
-            $sql= "SELECT hr.shift,hr.home_number,hr.latlg,hr.street,hr.latlg,hr.gazetteers_code,hr.id,hr.shift,hr.date_from,hr.date_to,hr.description,hr.type,s.name from hr_mission hr 
+            $sql= "SELECT hr.shift,hr.home_number,hr.latlg,hr.street,hr.latlg,hr.gazetteers_code,hr.id,hr.shift,hr.date_from,hr.date_to,hr.description,hr.type, s.first_name_en, s.last_name_en from hr_mission hr 
                         INNER JOIN hr_mission_detail hmd on hr.id=hmd.hr_mission_id
                         INNER JOIN ma_user s on s.id=hmd.ma_user_id where hr.status='t' and hr.is_deleted='f' and s.status='t' and s.is_deleted='f' and hr.id=$id";
         }else{
-            $sql= "SELECT hr.street,hr.latlg,hr.gazetteers_code,hr.id,hr.shift,hr.date_from,hr.date_to,hr.description,hr.type,s.name from hr_mission hr 
+            $sql= "SELECT hr.street,hr.latlg,hr.gazetteers_code,hr.id,hr.shift,hr.date_from,hr.date_to,hr.description,hr.type,s.first_name_en, s.last_name_en from hr_mission hr 
                         INNER JOIN hr_mission_detail hmd on hr.id=hmd.hr_mission_id
                         INNER JOIN ma_user s on s.id=hmd.ma_user_id where hr.status='t' and hr.is_deleted='f' and s.status='t' and s.is_deleted='f'";
         }

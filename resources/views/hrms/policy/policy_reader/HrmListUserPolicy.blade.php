@@ -39,7 +39,7 @@
                             @endphp
                             <tr>
                                 <th>{{$i++}}</th>
-                                <td>{{$row->name}}</td>
+                                <td>{{$row->first_name_en.' '.$row->last_name_en}}</td>
                                 <td>{{$row->position_name}}</td>
                                 <td>{{$interval->format('%H h %i mn %s sec')}}</td>
                                 <td>{{$row->name_policy}}</td>

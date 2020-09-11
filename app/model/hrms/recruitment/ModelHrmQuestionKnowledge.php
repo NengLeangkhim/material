@@ -11,9 +11,9 @@ class ModelHrmQuestionKnowledge extends Model
     // ===== Function get data for table for CEO =====////
     public static function hrm_get_tbl_question_knowledge(){
         $knowledge_ceo= DB::table('hr_recruitment_question_knowledge as qk')
-                           ->select('qk.*','ma_user_detail.username','d.name')
+                           ->select('qk.*','ma_user_login.username','d.name')
                            ->join('ma_company_dept as d','qk.ma_company_dept_id','=','d.id')
-                           ->join('ma_user_detail','qk.create_by','=','ma_user_detail.ma_user_id')
+                           ->join('ma_user_login','qk.create_by','=','ma_user_login.ma_user_id')
                            ->where('qk.is_deleted','=','f')
                            ->orderBy('qk.id','ASC')
                            ->get(); 
@@ -22,9 +22,9 @@ class ModelHrmQuestionKnowledge extends Model
     // ===== Function get data for table for Head Each departement =====////
     public static function hrm_get_tbl_question_knowledge_dept($dept){
         $knowledge_dept = DB::table('hr_recruitment_question_knowledge as qk')
-                            ->select('qk.*','ma_user_detail.username','d.name')
+                            ->select('qk.*','ma_user_login.username','d.name')
                             ->join('ma_company_dept as d','qk.ma_company_dept_id','=','d.id')
-                            ->join('ma_user_detail','qk.create_by','=','ma_user_detail.ma_user_id')
+                            ->join('ma_user_login','qk.create_by','=','ma_user_login.ma_user_id')
                             ->where([
                                 ['qk.is_deleted', '=', 'f'],
                                 ['qk.ma_company_dept_id', '=',$dept],

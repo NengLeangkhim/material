@@ -44,7 +44,7 @@ foreach($permission as $row){
                                 @endphp 
                                   <tr>
                                       <td style="color:black;" scope="row">{{$i++}}</td>
-                                      <td style="color:black;">{{$row->name}}</td>
+                                      <td style="color:black;">{{$row->name_staff}}</td>
                                       <td style="color:black;">{{$row->name_plan}} </td>
                                       <td style="color:black;">{{intval($row->percentage).'%'}}</td>
                                       <td style="color:black;">{{$row->action_date_from.' '.'to'.' '.$row->action_date_to}}</td>

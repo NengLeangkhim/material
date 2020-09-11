@@ -30,8 +30,8 @@
                     @foreach ($employee as $e)
                       <tr>
                       <th>{{ ++$i }}</th>
-                      <td> {{ $e->name }} </td>
-                      <td> {{$e->name_kh }} </td>
+                      <td> {{ $e->first_name_en." ".$e->last_name_en }} </td>
+                      <td> {{$e->first_name_kh." ".$e->last_name_kh }} </td>
                       <td>{{ $e->id_number }}</td>
                       <td>{{ $e->contact}}</td>
                       <td>{{ $e->position }}</td>

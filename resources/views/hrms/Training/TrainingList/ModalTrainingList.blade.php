@@ -138,7 +138,7 @@
                             @foreach($data[4] as $em)
                               <tr>
                                 <td>{{++$a}}</td>
-                                <td>{{$em->name}}</td>
+                                <td>{{$em->first_name_en.' '.$em->last_name_en }}</td>
                                 @php
                                   if(isset($data[3])){
                                     $checktrue=0;
