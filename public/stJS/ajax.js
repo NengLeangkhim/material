@@ -220,8 +220,15 @@ function getTable(route,mode) {
             var sel=document.getElementById(select);
             tar.options.length=0;
             var re =data.response;
+           var option = document.createElement("option");
+           option.text = "";
+           option.value = "";
+           option.setAttribute("selected", "true");
+           option.setAttribute("disabled", "true");
+           option.setAttribute("hidden", "true");
+           tar.add(option);
             for (var i = 0; i < re.length; i++) {
-                var option = document.createElement("option");
+                option = document.createElement("option");
                 option.text=""+re[i]['name'];
                 option.value=re[i]['id'];
                 if(sel){

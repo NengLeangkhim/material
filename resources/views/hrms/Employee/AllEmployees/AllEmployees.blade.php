@@ -11,6 +11,9 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
+                @php
+                    // print_r($employee);
+                @endphp
                 <table class="table table-bordered" id="tbl_employee" style="width:100%">
                   <thead>                  
                     <tr>
@@ -37,9 +40,9 @@
                       <td>{{ $e->position }}</td>
                         <td>
                           <div class="row">
-                            <div class="col-md-4"><a href="javascrip:;" onclick="HRM_AddEditEmployee({{$e->id}})"><i class="far fa-edit"></i></a></div>
-                            {{-- <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail({{$e->id}},'hrm_detail_employee','modal_employee_detail')"><i class="fas fa-info"></i></a></div> --}}
-                            <div class="col-md-4"><a href="javascrip:;"><i class="far fa-trash-alt" onclick="hrm_delete({{$e->id}},'hrm_delete_employee','hrm_allemployee','Employee Deleted Succseefully !')"></i></a></div>
+                            <div class="col-md-4"><a href="javascript:;" onclick="HRM_AddEditEmployee({{$e->id}})"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail({{$e->id}},'hrm_detail_employee','modal_employee_detail')"><i class="fas fa-info"></i></a></div>
+                            <div class="col-md-4"><a href="javascript:;"><i class="far fa-trash-alt" onclick="hrm_delete({{$e->id}},'hrm_delete_employee','hrm_allemployee','Employee Deleted Succseefully !')"></i></a></div>
                           </div>
                         </td>
                     </tr>

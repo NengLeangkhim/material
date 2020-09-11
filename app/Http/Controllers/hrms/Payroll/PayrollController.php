@@ -126,4 +126,8 @@ class PayrollController extends Controller
         $pr=new Payroll();
         $pr->FinanceApprovePayroll($id,$userid);
     }
+
+    function PayrollDetails(){
+        return view('hrms/Payroll/PayrollDetails');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\hrms\Employee;
 
+use App\addressModel;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
@@ -32,17 +33,16 @@ class AllemployeeController extends Controller
     // Function for Show modal Add or Edit Employee
     public function AddAndEditEmployee(){
         $em = new Employee();
+        $data[] = array();
         $dp=new DepartmentAndPosition();
+        $data[0] = $dp->AllPosition();
+        $data[2] = addressModel::GetLeadProvice();
         if(isset($_GET['id'])){
             $id=$_GET['id'];
             if($id>0){
-                $data[]=array();
-                $data[0] = $dp->AllPosition();
                 $data[1]=$em->EmployeeOnRow($id);
                 return view('hrms/Employee/AllEmployees/AddAndEditEmployee')->with('data',$data);
             }else{
-                $data[]=array();
-                $data[0]=$dp->AllPosition();
                 return view('hrms/Employee/AllEmployees/AddAndEditEmployee')->with('data',$data);
             }
             
