@@ -261,6 +261,7 @@ display: block;
   background-color: #ffffff;
   color: #ecf0f1;
   border: gray 2px solid;
+  border-radius: 10%;
 }
 #image-preview input {
   line-height: 300px;
@@ -270,29 +271,22 @@ display: block;
   z-index: 10;
   border: red 2px solid;
 }
-#image-preview img{
-
-}
 #image-preview label {
   position: absolute;
   z-index: 10;
-  opacity: 0;
+  opacity: 0.8;
   cursor: pointer;
   background-color: #bdc3c7;
   width: 100%;
-  height: 100%;
+  height: 40px;
   font-size: 20px;
-  line-height: 562px;
+  line-height: 40px;
   text-transform: uppercase;
-  top: 0px;
+  top: 277px;
   left: 0;
   right: 0;
   bottom: 0;
   margin: auto;
   text-align: center;
   /* padding-top: 1000px; */
-}
-
-#image-preview label:hover{
-	opacity: 0.8;
 }
