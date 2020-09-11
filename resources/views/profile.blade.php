@@ -226,7 +226,7 @@ body {
                 <div class="row">
                     <div class="col-md-12">
                         <div class="team-single-text padding-50px-left sm-no-padding-left">
-                            <h4 class="font-size38 sm-font-size32 xs-font-size30 bold"><?php echo (isset($pro))?$pro['name']:"";?></h4>
+                            <h4 class="font-size38 sm-font-size32 xs-font-size30 bold"><?php echo (isset($pro))? $pro['first_name_en']." ".$pro['last_name_en'] :"";?></h4>
                             <p class="no-margin-bottom"></p>
                             <div class="contact-info-section margin-40px-tb">
                                 <ul class="list-style9 no-margin">
@@ -237,7 +237,7 @@ body {
                                                 <strong class="margin-10px-left text-orange">KHMER NAME :</strong>
                                             </div>
                                             <div class="col-md-7 col-7">
-                                                <p class="title_khleave"><?php echo (isset($pro))?$pro['name_kh']:"";?></p>
+                                                <p class="title_khleave"><?php echo (isset($pro))? $pro['first_name_kh']." ".$pro['last_name_kh']:"";?></p>
                                             </div>
                                         </div>
 
@@ -305,7 +305,7 @@ body {
 
                                     </li>
 
-                                    <li>
+                                    {{-- <li>
 
                                         <div class="row">
                                             <div class="col-md-5 col-5">
@@ -317,7 +317,8 @@ body {
                                             </div>
                                         </div>
 
-                                    </li>
+                                    </li> --}}
+
                                     <li>
 
                                         <div class="row">

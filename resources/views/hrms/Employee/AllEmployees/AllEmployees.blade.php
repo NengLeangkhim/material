@@ -34,8 +34,8 @@
                     @foreach ($employee as $e)
                       <tr>
                       <th>{{ ++$i }}</th>
-                      <td> <img src="{{"http://172.17.168.27:82/".$e->image}}" alt="" width="50px" height="50px" style="border-radius:50px;margin-right:10px">{{$e->lastName}}  {{ $e->firstName }} </td>
-                      <td> {{$e->firstNameKh }} {{$e->lastNameKh}} </td>
+                      <td> {{ $e->first_name_en." ".$e->last_name_en }} </td>
+                      <td> {{$e->first_name_kh." ".$e->last_name_kh }} </td>
                       <td>{{ $e->id_number }}</td>
                       <td>{{ $e->contact}}</td>
                       <td>{{ $e->position }}</td>

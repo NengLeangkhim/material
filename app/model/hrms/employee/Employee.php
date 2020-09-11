@@ -10,7 +10,7 @@ class Employee extends Model
     protected $table="ma_user";
     public $timestamps = false;
     function AllEmployee(){
-        $employee = DB::table('ma_user')->select('ma_user.image','ma_user.id','ma_user.first_name_en as firstName','ma_user.last_name_en as lastName', 'ma_user.first_name_kh as firstNameKh','ma_user.last_name_kh as lastNameKh', 'ma_user.id_number', 'ma_user.email', 'ma_user.contact', 'ma_user.join_date', 'ma_position.name as position')
+        $employee = DB::table('ma_user')->select('ma_user.id','ma_user.first_name_en as first_name_en','ma_user.last_name_en as last_name_en', 'ma_user.first_name_kh as first_name_kh', 'ma_user.last_name_kh as last_name_kh', 'ma_user.id_number', 'ma_user.email', 'ma_user.contact', 'ma_user.join_date', 'ma_position.name as position')
         ->join('ma_position', 'ma_position.id', '=', 'ma_user.ma_position_id')
         ->where([
             ['ma_user.status', '=', 't'],

@@ -206,7 +206,8 @@ foreach($permission as $row){
                                         <option value="">Please Select Staff</option>
                                         <?php 
                                                 foreach($staff as $row_staff ){ 
-                                                echo "<option value='$row_staff->id'>$row_staff->name&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp$row_staff->id_number</option>";
+                                                    $get_full_en_name = $row_staff->first_name_en." ".$row_staff->last_name_en;  
+                                                    echo "<option value='$row_staff->id'>$get_full_en_name&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp$row_staff->id_number</option>";
                                                 }
                                         ?>  
                                     </select>

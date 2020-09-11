@@ -1,7 +1,7 @@
 @php
     foreach($policy_user as $row){
             $id_user = $row->id_number;
-            $name_user = $row->name;
+            $name_user = $row->first_name_en.' '.$row->last_name_en;
             $name_policy = $row->name_policy;
             $start_time = $row->start_time;
             $end_time = $row->end_time;

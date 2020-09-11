@@ -11,7 +11,7 @@ class ModelCrmContact extends Model
     public static function CrmContactGetData(){
         $contact= DB::table('crm_lead_contact as lc')
                            ->select('lc.*','ud.username')
-                           ->leftjoin('ma_user_detail as ud','lc.create_by','=','ud.ma_user_id')
+                           ->leftjoin('ma_user_login as ud','lc.create_by','=','ud.ma_user_id')
                            ->where('lc.is_deleted','=','f')
                            ->orderBy('lc.id','ASC')
                            ->get(); 

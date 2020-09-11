@@ -10,13 +10,13 @@ class ModelHrmQuestionAnswer extends Model
     // ===== Function get data for table =====////
     public static function hrm_get_tbl_recruitment_question(){
         $question_get = DB::table('hr_recruitment_question as q')
-                           ->select('q.*','ma_user_detail.username','qt.name as  question_type','p.name','qc.is_deleted as delete')
-                           ->leftjoin('ma_user_detail','q.create_by','=','ma_user_detail.ma_user_id')
+                           ->select('q.*','ma_user_login.username','qt.name as  question_type','p.name','qc.is_deleted as delete')
+                           ->leftjoin('ma_user_login','q.create_by','=','ma_user_login.ma_user_id')
                            ->leftjoin('ma_position as p','q.ma_position_id','=','p.id')
                            ->leftjoin('hr_recruitment_question_type as qt','q.hr_recruitment_question_type_id','=','qt.id')
                            ->leftjoin('hr_recruitment_question_choice as qc','q.id','=','qc.hr_recruitment_question_id')
                            ->where('q.is_deleted','=','f')
-                           ->groupBy(['q.id','ma_user_detail.username','qt.name','p.name','qc.is_deleted'])
+                           ->groupBy(['q.id','ma_user_login.username','qt.name','p.name','qc.is_deleted'])
                            ->orderBy('q.id','ASC')
                            ->get(); 
         return $question_get;

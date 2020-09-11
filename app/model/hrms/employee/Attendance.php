@@ -56,7 +56,9 @@ class Attendance extends Model
         $allData=array();
         $attendance=array();
         foreach($em as $e){
-            $detail= self::AttendanceDetail(self::ConvertIdToNumber($e->id_number),$e->name, $date);
+            
+            $get_full_en_name = $e->first_name_en." ".$e->last_name_en;
+            $detail= self::AttendanceDetail(self::ConvertIdToNumber($e->id_number),$get_full_en_name, $date);
             
             array_push($attendance,$detail);
         }

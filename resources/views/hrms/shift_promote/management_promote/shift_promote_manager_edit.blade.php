@@ -7,7 +7,7 @@
 
         $staffid = $val1->id;
         $staff_posid = $val1->ma_position_id;
-        $staff_name =  $val1->name;
+        $staff_name =  $val1->first_name_en.' '.$val1->last_name_en;
         $staff_position =  $val1->ma_position;
         $staff_salary =  $val1->base_salary;
     }

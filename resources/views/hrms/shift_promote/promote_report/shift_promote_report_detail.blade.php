@@ -27,7 +27,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Staff Name <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" class="form-control" value="<?php echo $report_detail['0']->name; ?>" placeholder="" name="" readonly >        
+                                <input type="text" class="form-control" value="<?php echo $report_detail['0']->first_name_en.' '.$report_detail['0']->last_name_en; ?>" placeholder="" name="" readonly >        
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Get Position <span class="text-danger">*</span>

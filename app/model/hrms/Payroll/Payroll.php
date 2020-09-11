@@ -111,7 +111,8 @@ class Payroll extends Model
         $data=array();
         $getdata=array();
         foreach($em as $emp){
-            $getdata=self::GetValueFromComponent($emp->id,$emp->name,$emp->position,1,$month,$year);
+            $get_full_en_name = $emp->first_name_en." ".$emp->last_name_en;
+            $getdata=self::GetValueFromComponent($emp->id,$get_full_en_name,$emp->position,1,$month,$year);
             if($getdata!=null){
                 array_push($data,$getdata);
             }
@@ -176,7 +177,7 @@ class Payroll extends Model
 
     // for finance check 
     function Payroll($month,$year){
-        $sql="select hpl.id,hpl.approve,mu.name,mu.id_number,mp.name as position,hpl.bonus_value,hpl.tax from hr_payroll_list hpl 
+        $sql="select hpl.id,hpl.approve, mu.first_name_en, mu.last_name_en ,mu.id_number,mp.name as position,hpl.bonus_value,hpl.tax from hr_payroll_list hpl 
             INNER JOIN ma_user mu on hpl.ma_user_id=mu.id
             INNER JOIN ma_position mp ON mu.ma_position_id=mp.id 
             where hpl.id in(select hr_payroll_list_id from hr_payroll_list_hr_payroll_component_rel hplhpc 
@@ -193,7 +194,7 @@ class Payroll extends Model
 
 
     function ExportPayroll_Excel($month,$year){
-        $sql= "select mu.name,mu.id_number,hp.base_salary,hp.add_on,hp.tax,(hp.base_salary+hp.add_on)-hp.tax as netsalary from hr_payroll hp INNER JOIN ma_user mu on hp.ma_user_id= mu.id
+        $sql= "select mu.first_name_en, mu.last_name_en,mu.id_number,hp.base_salary,hp.add_on,hp.tax,(hp.base_salary+hp.add_on)-hp.tax as netsalary from hr_payroll hp INNER JOIN ma_user mu on hp.ma_user_id= mu.id
                 where hp.id in(select hplhp.hr_payroll_id from hr_payroll_list_hr_payroll_component_rel hplhpc join hr_payroll_component hpc on hplhpc.hr_payroll_component_id=hpc.id  join hr_payroll_list_hr_payroll_rel hplhp on hplhp.hr_payroll_list_id=hplhpc.hr_payroll_list_id 
                 where hpc.for_month=$month and hpc.for_year=$year) and hp.status='t' and hp.is_deleted='f'";
         $stm=DB::select($sql);

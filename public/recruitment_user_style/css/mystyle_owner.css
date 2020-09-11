@@ -1318,6 +1318,21 @@ div.uploadcv div.uploadcover , input[type="file"] {
     }
 
 
+    .swal2-popup {
+      /* display:none;
+      position:relative;
+      box-sizing:border-box;
+      flex-direction:column;
+      justify-content:center; */
+      width:auto !important; 
+      /* max-width:100%;
+      padding:1rem;
+      border:none;
+      border-radius:.3rem;
+      background:#fff;
+      font-family:inherit;
+      font-size:1rem */
+     }
 
 
 

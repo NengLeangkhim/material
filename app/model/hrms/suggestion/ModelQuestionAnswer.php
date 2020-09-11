@@ -12,8 +12,8 @@ class ModelQuestionAnswer extends Model
      // ===== Function get data for table =====////
       public static function hrm_get_tbl_suggestion_question(){
           $question_sugg_get = DB::table('hr_suggestion_question as q')
-                             ->select('q.*','ma_user_detail.username','qt.name as  question_type')
-                             ->leftjoin('ma_user_detail','q.create_by','=','ma_user_detail.ma_user_id')
+                             ->select('q.*','ma_user_login.username','qt.name as  question_type')
+                             ->leftjoin('ma_user_login','q.create_by','=','ma_user_login.ma_user_id')
                              ->leftjoin('hr_suggestion_question_type as qt','q.hr_suggestion_question_type_id','=','qt.id')
                              ->where('q.is_deleted','=','f')
                              ->orderBy('q.id','ASC')
