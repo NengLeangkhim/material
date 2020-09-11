@@ -23,22 +23,24 @@ Route::get('/welcome','RouteController@welcome');
 Route::get('/dashboard',function(){
     return view('index');
 });
-
+// Get Address
+Route::get('/district', 'addressController@getdistrict'); //getdistrict
+Route::get('/commune', 'addressController@getcommune'); //getcommune
+Route::get('/village', 'addressController@getvillage'); //getvillage
+// End Get Address
 // =========================CRM SYSTEM==========================
 // start lead
 Route::get('/lead','crm\LeadController@getlead'); // get  all lead  show  in table
 Route::get('/addlead','crm\LeadController@lead'); // add lead
-Route::get('/district','crm\LeadController@getdistrict'); //getdistrict
-Route::get('/commune','crm\LeadController@getcommune'); //getcommune
-Route::get('/village','crm\LeadController@getvillage'); //getvillage
+// Route::get('/district','crm\LeadController@getdistrict'); //getdistrict
+// Route::get('/commune','crm\LeadController@getcommune'); //getcommune
+// Route::get('/village','crm\LeadController@getvillage'); //getvillage
 Route::POST('/addleadsource','crm\LeadController@addleadsource'); //addlead source
 Route::POST('/addleadindustry','crm\LeadController@addleadindustry'); //add leadindustry
 Route::POST('/addlead','crm\LeadController@addlead'); //add leadindustry
 Route::get('/detaillead','crm\LeadController@detaillead'); //add leadindustry
 Route::Get('/editlead/{id}','crm\LeadController@editlead');// edit lead
 Route::post('/crm_leasdsource','crm\LeadController@savelead'); // save 
-
-
 Route::get('/test_map', function(){
     return view('crm.lead.mapShowLatLong');
 }); 
