@@ -7,7 +7,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="" class="lead" ​value="lead">Lead</a></li>
-                        <li class="breadcrumb-item active">New Leads</li>
+                        <li class="breadcrumb-item active">Edit Leads</li>
                     </ol>
                 </div>
             </div>
