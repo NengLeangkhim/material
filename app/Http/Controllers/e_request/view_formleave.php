@@ -38,18 +38,18 @@ class view_formleave extends Controller
             $reason=$v[0][0]['reason'];
             $user_id=$v[0][0]['request_by'];
         }
-        $q=DB::select("select s.name,s.id_number,p.name as position,d.name as dept from ma_position p join ma_user s on s.ma_position_id=p.id join ma_company_dept d on s.ma_company_dept_id=d.id where s.id=$user_id");
+        $q=DB::select("SELECT concat(s.first_name_en,' ',s.last_name_en) as name,s.id_number,p.name as position,d.name as dept from ma_position p join ma_user s on s.ma_position_id=p.id join ma_company_dept d on s.ma_company_dept_id=d.id where s.id=$user_id");
         $r=ere_get_assoc::assoc_($q)[0];
         $pos=$r['position'];
         $name=$r['name'];
         $id_number=$r['id_number'];
         $dept=$r['dept'];
 
-        $q=DB::select("select id,name,name_kh from e_request_leaveapplicationform_leave_kind where status='t'");
+        $q=DB::select("SELECT id,name,name_kh from e_request_leaveapplicationform_leave_kind where status='t'");
         $r=ere_get_assoc::assoc_($q);
         $kindof=$r;
 
-        $q=DB::select("select s.id, s.name from ma_user s
+        $q=DB::select("SELECT s.id, concat(s.first_name_en,' ',s.last_name_en) as name from ma_user s
         join ma_position p on p.id=s.ma_position_id
         where p.ma_group_id <>1 and s.id_number is not null and s.ma_company_dept_id=(select ma_company_dept_id from ma_user where id=$user_id)
         order by name ");
