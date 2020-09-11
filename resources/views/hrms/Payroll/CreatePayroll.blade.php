@@ -22,7 +22,7 @@
                         <select name="employeeid" id="" class="form-control">
                         <option value="-1">All Employee</option>
                           @foreach ($data[0] as $em)
-                        <option value="{{$em->id}}">{{$em->name}}</option>
+                        <option value="{{$em->id}}">{{$em->first_name_en.' '.$em->last_name_en}}</option>
                           @endforeach
                         </select>
                       </div>

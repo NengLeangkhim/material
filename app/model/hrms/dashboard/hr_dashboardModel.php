@@ -10,7 +10,7 @@ class hr_dashboardModel extends Model
 
     // select all employee status = true
     public static function em_all(){
-        $sql="	SELECT s.id, s.name, s.email, s.name_kh,c_d.id as dept_id, c_d.name, s.contact,s.ma_position_id, s.address,s.sex,s.id_number,s.join_date,p.name as position,s.office_phone as office
+        $sql="	SELECT s.id, s.first_name_en, s.last_name_en, s.email, s.first_name_kh, s.last_name_kh,c_d.id as dept_id, c_d.name, s.contact,s.ma_position_id,s.sex,s.id_number,s.join_date,p.name as position,s.office_phone as office
                     FROM ma_user s JOIN ma_position p ON s.ma_position_id = p.id
                         INNER JOIN ma_company_dept c_d ON c_d.id = s.ma_company_dept_id
                         WHERE s.status='t' AND s.is_deleted ='f' order by s.create_date ASC ";
@@ -39,7 +39,7 @@ class hr_dashboardModel extends Model
 
     // select satff by each department
     public static function staff_byDept(){
-        $sql = "SELECT s.id, s.name, s.create_date, c_d.id as dept_id, c_d.name as dept_name
+        $sql = "SELECT s.id, s.first_name_en,s.last_name_en, s.create_date, c_d.id as dept_id, c_d.name as dept_name
             FROM ma_user s INNER JOIN ma_company_dept c_d
                 ON c_d.id = s.ma_company_dept_id
                 WHERE s.status='t'  order by s.create_date ASC";

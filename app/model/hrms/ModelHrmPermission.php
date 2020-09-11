@@ -9,22 +9,22 @@ class ModelHrmPermission extends Model
     //=== Function Get data from staff ma_position for permission===//
     public static function hrm_get_permission($userid){
        return DB::table('ma_user as s')
-                  ->select("s.id","s.name","s.id_number","s.ma_position_id","p.ma_group_id","s.ma_company_dept_id")
+                  ->select("s.id","s.first_name_en", "s.last_name_en","s.id_number","s.ma_position_id","p.ma_group_id","s.ma_company_dept_id")
                   ->join("ma_position as p","s.ma_position_id","=","p.id")
                   ->where("s.id","=",$userid)
                   ->get();
     }
     //=== Function Get data from staff for ceo===//
     public static function hrm_get_staff_ceo(){
-        return DB::table('ma_user')
-                   ->select("id","name","id_number")
+        return DB::table('ma_user as s')
+                   ->select("id","s.first_name_en", "s.last_name_en","id_number")
                    ->where("is_deleted","=","f")
                    ->get();
      }
     //=== Function Get data from staff for Dept===//
     public static function hrm_get_staff_dept($dept){
-        return DB::table('ma_user')
-                   ->select("id","name","id_number")
+        return DB::table('ma_user as s')
+                   ->select("id","s.first_name_en", "s.last_name_en","id_number")
                    ->where([
                        ["is_deleted","=","f"],
                        ["ma_company_dept_id","=",$dept]

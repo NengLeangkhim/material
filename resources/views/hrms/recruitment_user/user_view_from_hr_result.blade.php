@@ -16,7 +16,7 @@
     
                     <div class="card-body">
                     <div class="table-responsive"> 
-                        <table class="table table-bordered" id="tbl_employee">
+                        <table class="table" id="tbl_employee">
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -36,13 +36,13 @@
                                             foreach ($hr_result as $key => $val) {
                                                 echo '
                                                     <tr style="text-align: center; font-weight: bold;">
-                                                        <th scope="row">'.($key+1).'</th>
-                                                        <td class="kh-font-batt">'.$val->name_kh.'</td>
-                                                        <td>Your status is</td>
-                                                        <td style="color: blue;">'.$approve.'</td>
-                                                        <td style="color: blue;">'.$pending.'</td>
-                                                        <td style="color: blue;">'.$reject.'</td>
-                                                        <td >'.$val->comment.'</td>
+                                                        <th class="td-view_quiz_style" scope="row">'.($key+1).'</th>
+                                                        <td class="td-view_quiz_style kh-font-batt">'.$val->name_kh.'</td>
+                                                        <td class="td-view_quiz_style">Your status is</td>
+                                                        <td class="td-view_quiz_style" style="color: blue;">'.$approve.'</td>
+                                                        <td class="td-view_quiz_style" style="color: blue;">'.$pending.'</td>
+                                                        <td class="td-view_quiz_style" style="color: blue;">'.$reject.'</td>
+                                                        <td class="td-view_quiz_style" >'.$val->comment.'</td>
                                                      
                                                     </tr>
                                                 ';

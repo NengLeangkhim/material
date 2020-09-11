@@ -58,7 +58,7 @@
                                         echo '
                                             <tr>
                                                 <th scope="row">'.($i+1).'</th>
-                                                <td>'.$var->name.'</td>
+                                                <td>'.$var->first_name_en.' '.$var->last_name_en.'</td>
                                                 <td>'.$var->id_number.'</td>
                                                 <td>'.$var->ma_position.'</td>
                                                 <td>'.$var->base_salary.'</td>

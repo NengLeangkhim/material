@@ -6,7 +6,7 @@
     // code to get old position & new position to staff viewer
     $i = 0;
     foreach ($view_promote_detail as $key => $val) {
-        $name = $val->name;
+        $name = $val->first_name_en." ".$val->last_name_en;
         if($i == count($view_promote_detail)-1){
             $new_pos = $val->position_name;
             $new_sal = $val->salary;

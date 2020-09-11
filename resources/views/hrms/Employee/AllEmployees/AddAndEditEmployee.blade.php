@@ -14,6 +14,9 @@
           <!-- /.card-header -->
           
           <div class="card-body" style="display: block;">
+            @php
+                print_r($data[1]);
+            @endphp
             <form id="fm-employee" method="POST" onsubmit="return false">
               @csrf
             <div class="row">
@@ -25,24 +28,24 @@
                     $join_date="";
                   }
               @endphp
-              <input type="text" class="d-none" value="@php echo $_GET['id']; @endphp" name="id">
+              <input type="hidden" class="d-none" value="@php echo $_GET['id']; @endphp" name="id">
               <div class="col-md-8">
                   <div class="row">
                     <div class="col-md-6">
                       <label>First Name <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" name="emName" value="@php if(isset($data[1])){ echo $data[1][0]->name; } @endphp"  required>
+                      <input type="text" class="form-control" name="emFirstName" value="@php if(isset($data[1])){ echo $data[1][0]->firstName; } @endphp"  required>
                     </div>
                     <div class="col-md-6">
                       <label>Last Name <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" name="emName" value="@php if(isset($data[1])){ echo $data[1][0]->name; } @endphp"  required>  
+                      <input type="text" class="form-control" name="emLastName" value="@php if(isset($data[1])){ echo $data[1][0]->lastName; } @endphp"  required>  
                     </div>
                     <div class="col-md-6">
                       <label>នាមត្រកូល <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" name="emName" value="@php if(isset($data[1])){ echo $data[1][0]->name; } @endphp"  required>
+                      <input type="text" class="form-control" name="emFirstNameKh" value="@php if(isset($data[1])){ echo $data[1][0]->firstNameKh; } @endphp"  required>
                     </div>
                     <div class="col-md-6">
                       <label>នាមខ្លួន <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" name="emName" value="@php if(isset($data[1])){ echo $data[1][0]->name; } @endphp"  required>  
+                      <input type="text" class="form-control" name="emLastNameKh" value="@php if(isset($data[1])){ echo $data[1][0]->lastNameKh; } @endphp"  required>  
                     </div>
                     <div class="col-md-6">
                       <label>ID Number <span class="text-danger">*</span></label>
@@ -52,7 +55,7 @@
                       <label>Sex <span class="text-danger">*</span></label>
                       <select id="" class="form-control" name="emGender" required>
                         @php
-                          if(isset($data[1])){
+                          if(isset($data[10])){
                             if($data[1][0]->sex=='male'){
                               echo ' <option value="male">Male</option>
                                       <option value="female">Female</option>';
@@ -69,7 +72,7 @@
                     </div>
                     <div class="col-md-6">
                       <label>Date of Birth <span class="text-danger">*</span></label>
-                      <input type="date" class="form-control" name="emJoinDate" value="@php echo $join_date; @endphp" required>
+                      <input type="date" class="form-control" name="emDateOfBirth" value="@php echo $join_date; @endphp" required>
                     </div>
                     <div class="col-md-6">
                       <label>Joint Date <span class="text-danger">*</span></label>
@@ -77,7 +80,7 @@
                     </div>
                     <div class="col-md-6">
                       <label>Telephone<span class="text-danger">*</span></label>
-                      <input type="date" class="form-control" name="emJoinDate" value="@php echo $join_date; @endphp" required>
+                      <input type="tel" class="form-control" name="emTelephone" value="@php if(isset($data[1])){echo $data[1][0]->contact;} @endphp" required>
                     </div>
                     <div class="col-md-6">
                       <label>Position <span class="text-danger">*</span></label>
@@ -112,12 +115,12 @@
                 <div id="image-preview" style="margin-top: 30px" class="">
                   <label for="image-upload" id="image-label">Choose Image</label>
                   <input type="file" accept="image/*" onchange="preview_image(event)">
-                  <img id="output_image" class="" height="320px" width="100%" src="https://simpleicon.com/wp-content/uploads/user-5.png"/>
+                  <img id="output_image" name="emProfile" height="320px" width="100%" src="@php if(isset($data[1])){ echo "http://172.17.168.27:82".$data[1][0]->image;} @endphp"/>
                 </div>
               </div>
               <div class="col-md-3">
                   <label>Office Phone</label>
-                  <input type="tel" class="form-control" name="emOfficePhone" value="@php if(isset($data[1])){ echo $data[1][0]->office_phone; } @endphp" >
+                  <input type="tel" class="form-control" name="emOfficePhone" value="@php if(isset($data[10])){ echo $data[1][0]->office_phone; } @endphp" >
               </div>
               <div class="col-md-3">
                   <label>Salary <span class="text-danger">*</span></label>
@@ -129,18 +132,18 @@
               </div>
               <div class="col-md-6">
                   <label>Spous <span class="text-danger">*</span></label>
-                  <select name="" id="" class="form-control">
+                  <select name="emSpous" id="" class="form-control">
                     <option value="f">No</option>
                     <option value="t">Yes</option>
                   </select>
               </div>
               <div class="col-md-6">
                   <label>Children <span class="text-danger">*</span></label>
-                  <input type="number" class="form-control">
+                  <input type="number" class="form-control" name="emChildren">
               </div>
               <div class="col-md-6">
                   <label>City / Province <span class="text-danger">*</span></label>
-                   <select class="form-control select2 city"  id="icity" name="city" onchange="getbranch(this,'idistrict','s','/district')" >
+                   <select class="form-control select2 city"  id="icity" name="emCity" onchange="getbranch(this,'idistrict','s','/district')" >
                      <option disabled=true selected=true hidden=true></option>
                        @foreach($data[2] as $row )
                           <option value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option> 
@@ -149,19 +152,19 @@
               </div>
               <div class="col-md-6">
                 <label>Khan/District<span class="text-danger">*</span></label>
-                <select class="form-control dynamic" name="district" id="idistrict" onchange="getbranch(this,'icommune','s','/commune')" >
+                <select class="form-control dynamic" name="emDistrict" id="idistrict" onchange="getbranch(this,'icommune','s','/commune')" >
                   <option> </option> 
                 </select>
               </div>
               <div class="col-md-6">
                 <label>Sengkat/Commune<span class="text-danger">*</span></label>
-                <select class="form-control dynamic" name="commune" id="icommune" onchange="getbranch(this,'ivillage','s','/village')" >
+                <select class="form-control dynamic" name="emCommune" id="icommune" onchange="getbranch(this,'ivillage','s','/village')" >
                   <option> </option>
                 </select> 
               </div>
               <div class="col-md-6">
                 <label>Village<span class="text-danger">*</span></label>
-                <select class="form-control " name="village" id="ivillage" dats-dependent="village" >
+                <select class="form-control " name="emVillage" id="ivillage" dats-dependent="village" >
                   <option>select Village</option>                                                        
                 </select> 
               </div>

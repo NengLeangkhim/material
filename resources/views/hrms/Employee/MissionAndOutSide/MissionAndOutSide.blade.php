@@ -33,7 +33,7 @@
                     @foreach ($mis_out as $item)
                       <tr>
                       <th>{{++$i}}</th>
-                      <td>{{$item->name}}</td>
+                      <td>{{$item->first_name_en." ".$item->last_name_en}}</td>
                       <td>{{ $item->date_from }}</td>
                       <td>{{ $item->date_to}}</td>
                       <td>{{ $item->type}}</td>

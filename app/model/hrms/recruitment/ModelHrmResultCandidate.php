@@ -120,7 +120,7 @@ class ModelHrmResultCandidate extends Model
     }
     // ===== Function model get comment of approval=====////
     public static function get_comment_approval($id){
-        return DB::select("SELECT appd.comment,appd.create_by,s.name from hr_recruitment_candidate_detail appd
+        return DB::select("SELECT appd.comment,appd.create_by, concat(s.first_name_en,' ',s.last_name_en) as name from hr_recruitment_candidate_detail appd
                             join ma_user s on appd.create_by= s.id 
                             where hr_recruitment_candidate_id=$id and ( hr_recruitment_candidate_id,appd.create_date) IN
                             (
@@ -162,9 +162,9 @@ class ModelHrmResultCandidate extends Model
     // ===== Function Get KnowLedge Question=====////
     public static function get_knowledge_question_dept($dept){
         return DB::table('hr_recruitment_question_knowledge as qk')
-                ->select('qk.*','ma_user_detail.username','d.name')
+                ->select('qk.*','ma_user_login.username','d.name')
                 ->join('ma_company_dept as d','qk.ma_company_dept_id','=','d.id')
-                ->join('ma_user_detail','qk.create_by','=','ma_user_detail.ma_user_id')
+                ->join('ma_user_login','qk.create_by','=','ma_user_login.ma_user_id')
                 ->where([
                     ['qk.is_deleted', '=', 'f'],
                     ['qk.ma_company_dept_id', '=',$dept],

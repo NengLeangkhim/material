@@ -14,7 +14,7 @@ class ModelHrmPlan extends Model
      public static function hrm_get_tbl_perform_plan(){
         $plan_ceo= DB::table('hr_performance_plan as p')
                            ->select('p.*','ud.username')
-                           ->leftjoin('ma_user_detail as ud','p.create_by','=','ud.ma_user_id')
+                           ->leftjoin('ma_user_login as ud','p.create_by','=','ud.ma_user_id')
                            ->where('p.is_deleted','=','f')
                            ->orderBy('p.id','ASC')
                            ->get(); 
@@ -24,7 +24,7 @@ class ModelHrmPlan extends Model
       public static function hrm_get_tbl_perform_plan_dept($userid){
         $plan_dept = DB::table('hr_performance_plan as p')
                            ->select('p.*','ud.username')
-                           ->leftjoin('ma_user_detail as ud','p.create_by','=','ud.ma_user_id')
+                           ->leftjoin('ma_user_login as ud','p.create_by','=','ud.ma_user_id')
                            ->where([
                             ['p.is_deleted', '=', 'f'],
                             ['p.create_by', '=', $userid],

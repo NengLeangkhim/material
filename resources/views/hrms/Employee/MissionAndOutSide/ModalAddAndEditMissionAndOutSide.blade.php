@@ -81,9 +81,11 @@
                         @php 
                           $i=0;
                           foreach ($data[0] as $em) {
+                            $get_full_en_name = $em->first_name_en." ".$em->last_name_en;
                             echo '<tr>
+                            
                           <th>'.$em->id_number.'</th>
-                          <td>'.$em->name.'</td>
+                          <td>'.$get_full_en_name.'</td>
                           <th class="text-right"><input type="checkbox" name="missioncheck['.$i++.']" id="" value="'.$em->id_number.'"></th>
                         </tr>';
                           }

@@ -46,7 +46,7 @@
                                             echo '
                                                 <tr>
                                                     <th scope="row">'.($i+1).'</th>
-                                                    <td>'.$val->name.'</td>
+                                                    <td>'.$val->first_name_en.' '.$val->last_name_en.'</td>
                                                     <td>'.$val->ma_user_id.'</td>
                                                     <td>'.$val->position.'</td>
                                                     <td>'.$val->salary.'</td>

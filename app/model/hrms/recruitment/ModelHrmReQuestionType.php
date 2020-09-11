@@ -12,8 +12,8 @@ class ModelHrmReQuestionType extends Model
     // ===== Function model get data for table =====////
     public static function get_tbl_recruitment_question_type(){
         $question_type_get = DB::table('hr_recruitment_question_type as qt')
-                           ->select('qt.*','ma_user_detail.username')
-                           ->leftjoin('ma_user_detail','qt.create_by','=','ma_user_detail.ma_user_id')
+                           ->select('qt.*','ma_user_login.username')
+                           ->leftjoin('ma_user_login','qt.create_by','=','ma_user_login.ma_user_id')
                            ->where('qt.is_deleted','=','f')
                            ->orderBy('qt.id','ASC')
                            ->get();  
