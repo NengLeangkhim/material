@@ -13,7 +13,7 @@
         <!-- ================CRM====================-->
 
           <?php
-          echo $_SESSION['module'];
+            echo $_SESSION['module'];
           // foreach ($_SESSION['module'] as $item){
           //   echo "<li class='nav-item has-treeview'>";
           //   echo "<a href='javascript:void(0);' class='nav-link active'>";
