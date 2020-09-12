@@ -14,15 +14,12 @@
           <!-- /.card-header -->
           
           <div class="card-body" style="display: block;">
-            @php
-                print_r($data[1]);
-            @endphp
             <form id="fm-employee" method="POST" onsubmit="return false">
               @csrf
             <div class="row">
               @php
                   if(isset($data[1])){
-                    $date=new DateTime($data[1][0]->join_date);
+                    $date=new DateTime($data[1]['joint_date']);
                     $join_date=$date->format('Y-m-d');
                   }else {
                     $join_date="";
@@ -33,30 +30,30 @@
                   <div class="row">
                     <div class="col-md-6">
                       <label>First Name <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" name="emFirstName" value="@php if(isset($data[1])){ echo $data[1][0]->firstName; } @endphp"  required>
+                      <input type="text" class="form-control" name="emFirstName" value="@php if(isset($data[1])){ echo $data[1]['firstName']; } @endphp"  required>
                     </div>
                     <div class="col-md-6">
                       <label>Last Name <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" name="emLastName" value="@php if(isset($data[1])){ echo $data[1][0]->lastName; } @endphp"  required>  
+                      <input type="text" class="form-control" name="emLastName" value="@php if(isset($data[1])){ echo $data[1]['lastName']; } @endphp"  required>  
                     </div>
                     <div class="col-md-6">
                       <label>នាមត្រកូល <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" name="emFirstNameKh" value="@php if(isset($data[1])){ echo $data[1][0]->firstNameKh; } @endphp"  required>
+                      <input type="text" class="form-control" name="emFirstNameKh" value="@php if(isset($data[1])){ echo $data[1]['firstNameKh']; } @endphp"  required>
                     </div>
                     <div class="col-md-6">
                       <label>នាមខ្លួន <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" name="emLastNameKh" value="@php if(isset($data[1])){ echo $data[1][0]->lastNameKh; } @endphp"  required>  
+                      <input type="text" class="form-control" name="emLastNameKh" value="@php if(isset($data[1])){ echo $data[1]['lastNameKh']; } @endphp"  required>  
                     </div>
                     <div class="col-md-6">
                       <label>ID Number <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" name="emIdNumber" value="@php if(isset($data[1])){ echo $data[1][0]->id_number; } @endphp" required>
+                      <input type="text" class="form-control" name="emIdNumber" value="@php if(isset($data[1])){ echo $data[1]['id_number']; } @endphp" required>
                     </div>
                     <div class="col-md-6">  
                       <label>Sex <span class="text-danger">*</span></label>
-                      <select id="" class="form-control" name="emGender" required>
+                      <select id="" class="form-control" name="emGender">
                         @php
-                          if(isset($data[10])){
-                            if($data[1][0]->sex=='male'){
+                          if(isset($data[1])){
+                            if($data[1]['sex']=='male'){
                               echo ' <option value="male">Male</option>
                                       <option value="female">Female</option>';
                             }else {
@@ -80,7 +77,7 @@
                     </div>
                     <div class="col-md-6">
                       <label>Telephone<span class="text-danger">*</span></label>
-                      <input type="tel" class="form-control" name="emTelephone" value="@php if(isset($data[1])){echo $data[1][0]->contact;} @endphp" required>
+                      <input type="tel" class="form-control" name="emTelephone" value="@php if(isset($data[1])){echo $data[1]['contact'];} @endphp" required>
                     </div>
                     <div class="col-md-6">
                       <label>Position <span class="text-danger">*</span></label>
@@ -89,7 +86,7 @@
                           $f1='';
                           $f2='';
                           if(isset($data[1])){
-                            $id=$data[1][0]->ma_position_id;
+                            $id=$data[1]['position_id'];
                           }else {
                               $id=-1;
                           }
@@ -112,15 +109,15 @@
                   </div>
               </div>
               <div class="col-md-4">
-                <div id="image-preview" style="margin-top: 30px" class="">
+                <div id="image-preview" style="margin-top: 30px" class=""> 
                   <label for="image-upload" id="image-label">Choose Image</label>
-                  <input type="file" accept="image/*" onchange="preview_image(event)">
-                  <img id="output_image" name="emProfile" height="320px" width="100%" src="@php if(isset($data[1])){ echo "http://172.17.168.27:82".$data[1][0]->image;} @endphp"/>
+                  <input type="file" accept="image/*" onchange="preview_image(event)" name="emProfile" >
+                  <img id="output_image" name="emProfile" height="320px" width="100%" src="@php if(isset($data[1])){ echo "http://172.17.168.27:82".$data[1]['image'];} @endphp"/>
                 </div>
               </div>
               <div class="col-md-3">
                   <label>Office Phone</label>
-                  <input type="tel" class="form-control" name="emOfficePhone" value="@php if(isset($data[10])){ echo $data[1][0]->office_phone; } @endphp" >
+                  <input type="tel" class="form-control" name="emOfficePhone" value="@php if(isset($data[1])){ echo $data[1]['office_phone']; } @endphp" >
               </div>
               <div class="col-md-3">
                   <label>Salary <span class="text-danger">*</span></label>
@@ -128,18 +125,47 @@
                 </div>
               <div class="col-md-6">
                   <label>Email <span class="text-danger">*</span></label>
-                  <input type="email" class="form-control" name="emEmail" value="@php if(isset($data[1])){ echo $data[1][0]->email; } @endphp" required>
+                  <input type="email" class="form-control" name="emEmail" value="@php if(isset($data[1])){ echo $data[1]['email']; } @endphp" required>
               </div>
               <div class="col-md-6">
                   <label>Spous <span class="text-danger">*</span></label>
                   <select name="emSpous" id="" class="form-control">
-                    <option value="f">No</option>
-                    <option value="t">Yes</option>
+                    @php
+                      if(isset($data[1])){
+                        if($data[1]['spouse']>0){
+                          echo '<option value="t">Yes</option>
+                                <option value="f">No</option>';
+                        }else {
+                          echo '<option value="f">No</option>
+                                <option value="t">Yes</option>';
+                        }
+                      }else {
+                        echo '<option value="f">No</option>
+                              <option value="t">Yes</option>';
+                      }
+                    @endphp
+                    
                   </select>
               </div>
               <div class="col-md-6">
                   <label>Children <span class="text-danger">*</span></label>
-                  <input type="number" class="form-control" name="emChildren">
+                  <input type="number" class="form-control" name="emChildren" value="@php if(isset($data[1])){echo $data[1]['children'];} @endphp">
+              </div>
+              <div class="col-md-3">
+                  <label>Home Number<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="emhome_en" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+              </div>
+              <div class="col-md-3">
+                  <label>លេខផ្ទះ <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="emhome_kh" value="@php if(isset($data[1])){echo $data[1]['home_kh'];} @endphp">
+              </div>
+              <div class="col-md-3">
+                  <label>Street <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="emstreet_en" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
+              </div>
+              <div class="col-md-3">
+                  <label>លេខផ្លូវ <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="emstreet_kh" value="@php if(isset($data[1])){echo $data[1]['street_kh'];} @endphp">
               </div>
               <div class="col-md-6">
                   <label>City / Province <span class="text-danger">*</span></label>
@@ -170,14 +196,13 @@
               </div>
               <div class="col-md-12">
                 <label>Description</label>
-                <textarea name="emDescription" id="" rows="5" class="form-control">@php if(isset($data1)){echo $data[1][0]->description;} @endphp</textarea>
+                <textarea name="emDescription" id="" rows="5" class="form-control">@php if(isset($data1)){echo $data[1]['description'];} @endphp</textarea>
+              </div>
+              <div class="col-md-12 text-right" style="margin-top: 20px">
+                  <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                  <button class="btn bg-turbo-color" onclick="submit_form ('hrm_insert_update_employee','fm-employee','hrm_allemployee')">Save</button>
               </div>
 
-              </div>
-              <div class="row text-right">
-                <div class="col-md-12 text-right" style="margin-top: 20px">
-                  <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                  <button class="btn bg-turbo-color" data-dismiss="modal" onclick="submit_form ('hrm_insert_update_employee','fm-employee','hrm_allemployee')">Save</button>
               </div>
             </div>
             </form>

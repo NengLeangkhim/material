@@ -4,6 +4,7 @@ namespace App\Http\Controllers\hrms\Employee;
 
 use App\addressModel;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\path_config;
 use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
 use App\model\hrms\employee\Employee;
@@ -53,43 +54,45 @@ class AllemployeeController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $userid = $_SESSION['userid'];
+        // $userid = $_SESSION['userid'];
         $id=$_POST['id'];
-        $emName=$_POST['emName'];
-        $emKhmerName=$_POST['emKhmerName'];
-        $emIDNumber=$_POST['emIdNumber'];
-        $gender=$_POST['emGender'];
+        $firstName_en = $_POST['emFirstName'];
+        $lastName_en=$_POST['emLastName'];
+        $firstName_kh=$_POST['emFirstNameKh'];
+        $lastName_kh=$_POST['emLastNameKh'];
+        $idNumber=$_POST['emIdNumber'];
+        $sex=$_POST['emGender'];
+        $dateOfBirth=$_POST['emDateOfBirth'];
+        $jointDate=$_POST['emJoinDate'];
+        $telephone=$_POST['emTelephone'];
+        $position=$_POST['emPosition'];
+        $officePhone=$_POST['emOfficePhone'];
+        $salary=$_POST['emSalary'];
         $email=$_POST['emEmail'];
-        $emJoinDate=$_POST['emJoinDate'];
-        $emOfficePhone=$_POST['emOfficePhone'];
-        $emAddress=$_POST['emAddress'];
-        $emPhone=$_POST['emPhoneNumber'];
-        $emPosition=$_POST['emPosition'];
-        $emSalary=$_POST['emSalary'];
-        $emDescription=$_POST['emDescription'];
-        $company_detail_id=6;
-        $em = new Employee();
-        if($id>0){
-            $stm=$em->UpdateEmployee($id,$userid,$emName,$email,$emPhone,$emAddress,$emPosition,$emIDNumber,$gender,$emKhmerName,'',$emOfficePhone,$emJoinDate,'t');
-            if($stm[0]->insert_ma_user>0){
-                echo "Employee Update Successfully !";
-            }else{
-                echo "error";
-            }
+        $spous=$_POST['emSpous'];
+        $chidren=$_POST['emChildren'];
+        $homeNumber_en=$_POST['emhome_en'];
+        $homeNumber_kh=$_POST['emhome_kh'];
+        $street_en=$_POST['emstreet_en'];
+        $street_kh=$_POST['emstreet_kh'];
+        $vilage=$_POST['emVillage'];
+        $description=$_POST['emDescription'];
+        $profile=$_FILES['emProfile'];
+
+        $filename = $_FILES['emProfile']['name'];
+        $file = $_FILES['emProfile']['tmp_name'];
+        $uploaddir = public_path('/media/hrms/Training/');
+        $uploadfile = $uploaddir . basename($file);
+        $filedirectory = '/media/hrms/Training/' . $file;
+        if (move_uploaded_file($filename, $uploadfile)){
+            echo "yes";
         }else{
-            $lastid=$em->InsertEmployee($emName,$email,$emPhone,$emAddress,$emPosition,$company_detail_id,$userid,$emIDNumber,$gender,$emKhmerName,'',$emOfficePhone,$emJoinDate);
-            $latID=$lastid[0]->insert_ma_user;
-            if($latID>0){
-                $salary = $em->InsertBaseSalary($latID, $emSalary, $userid);
-                if($salary[0]->insert_hr_payroll_base_salary>0){
-                    echo "Employee Update Successfully !";
-                }else{
-                    $deletem=$em->DeleteEmployee($latID,$userid);
-                    echo 'error';
-                }
-            }else{
-                echo "error";
-            }
+            echo "No";
+        }
+        if($id>0){
+           
+        }else{
+           
         }
 
 
