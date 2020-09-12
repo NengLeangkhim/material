@@ -689,13 +689,16 @@ function go_to(route){
 
 
 
-function submit_form (route,form,goto){
+function submit_form (route,form,goto,idmodal=''){
     if(check_session()){
         return;
       }
     if(SubformValid(form))
     {
         if(OnSubmitCofirm('Are You sure ?')){
+            if(idmodal.length>0){
+                $("#"+idmodal).modal("hide");
+            }
             var formElement = document.getElementById(form);
             var formData = new FormData(formElement);
             var request = new XMLHttpRequest();

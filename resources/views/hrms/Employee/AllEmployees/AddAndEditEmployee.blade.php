@@ -14,7 +14,7 @@
           <!-- /.card-header -->
           
           <div class="card-body" style="display: block;">
-            <form id="fm-employee" method="POST" onsubmit="return false">
+            <form id="fm-employee" onsubmit="return false" enctype="multipart/form-data">
               @csrf
             <div class="row">
               @php
@@ -76,53 +76,67 @@
                       <input type="date" class="form-control" name="emJoinDate" value="@php echo $join_date; @endphp" required>
                     </div>
                     <div class="col-md-6">
-                      <label>Telephone<span class="text-danger">*</span></label>
-                      <input type="tel" class="form-control" name="emTelephone" value="@php if(isset($data[1])){echo $data[1]['contact'];} @endphp" required>
-                    </div>
-                    <div class="col-md-6">
-                      <label>Position <span class="text-danger">*</span></label>
-                      <select name="emPosition" id="" class="form-control" required>
-                        @php
-                          $f1='';
-                          $f2='';
-                          if(isset($data[1])){
-                            $id=$data[1]['position_id'];
-                          }else {
-                              $id=-1;
-                          }
-                        @endphp
-                        @foreach ($data[0] as $p)
-                          @php 
-                            if($id===$p->id){
-                              $f1=$f1.'<option value="'.$p->id.'">'.$p->name.'</option>';
-                            }else {
-                              $f2=$f2.'<option value="'.$p->id.'">'.$p->name.'</option>';
-                            }
-                          @endphp
-                          
+                      <label>Department <span class="text-danger">*</span></label>
+                      <select name="emDepartment" id="" class="form-control" required>
+                        @foreach ($data[3] as $department)
+                      <option value="{{$department->id}}">{{$department->name}}</option>
                         @endforeach
-                        @php
-                            echo $f1.$f2;
-                        @endphp
                       </select>
                     </div>
+                    <div class="col-md-6">
+                  <label>Position <span class="text-danger">*</span></label>
+                  <select name="emPosition" id="" class="form-control" required>
+                  @php
+                    $f1='';
+                    $f2='';
+                    if(isset($data[1])){
+                      $id=$data[1]['position_id'];
+                    }else {
+                      $id=-1;
+                    }
+                    @endphp
+                      @foreach ($data[0] as $p)
+                        @php 
+                          if($id===$p->id){
+                            $f1=$f1.'<option value="'.$p->id.'">'.$p->name.'</option>';
+                          }else {
+                            $f2=$f2.'<option value="'.$p->id.'">'.$p->name.'</option>';
+                          }
+                        @endphp
+                          
+                      @endforeach
+                      @php
+                        echo $f1.$f2;
+                      @endphp
+                    </select>
+                </div>
+                    
+                    
                   </div>
               </div>
               <div class="col-md-4">
                 <div id="image-preview" style="margin-top: 30px" class=""> 
                   <label for="image-upload" id="image-label">Choose Image</label>
-                  <input type="file" accept="image/*" onchange="preview_image(event)" name="emProfile" >
+                  <input type="file" accept="image/*" onchange="preview_image(event)" name="emProfile" required>
                   <img id="output_image" name="emProfile" height="320px" width="100%" src="@php if(isset($data[1])){ echo "http://172.17.168.27:82".$data[1]['image'];} @endphp"/>
                 </div>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-4">
+                      <label>Telephone<span class="text-danger">*</span></label>
+                      <input type="tel" class="form-control" name="emTelephone" value="@php if(isset($data[1])){echo $data[1]['contact'];} @endphp" required>
+                </div>
+                <div class="col-md-4">
                   <label>Office Phone</label>
                   <input type="tel" class="form-control" name="emOfficePhone" value="@php if(isset($data[1])){ echo $data[1]['office_phone']; } @endphp" >
               </div>
-              <div class="col-md-3">
+              <div class="col-md-4">
                   <label>Salary <span class="text-danger">*</span></label>
-                  <input type="number" class="form-control" name="emSalary" @php if(!isset($data[0])){ echo 'required'; } @endphp>
+                  <input type="number" class="form-control" name="emSalary" @php if(!isset($data[0])){ echo 'required'; } @endphp required>
                 </div>
+                <div class="col-md-6">
+                  <label>Bank Account</label>
+                  <input type="number" class="form-control" name="emBankAccount" value="@php if(isset($data[1])){ echo $data[1]['office_phone']; } @endphp">
+              </div>
               <div class="col-md-6">
                   <label>Email <span class="text-danger">*</span></label>
                   <input type="email" class="form-control" name="emEmail" value="@php if(isset($data[1])){ echo $data[1]['email']; } @endphp" required>
@@ -169,7 +183,7 @@
               </div>
               <div class="col-md-6">
                   <label>City / Province <span class="text-danger">*</span></label>
-                   <select class="form-control select2 city"  id="icity" name="emCity" onchange="getbranch(this,'idistrict','s','/district')" >
+                   <select class="form-control select2 city"  id="icity" name="emCity" onchange="getbranch(this,'idistrict','s','/district')" required>
                      <option disabled=true selected=true hidden=true></option>
                        @foreach($data[2] as $row )
                           <option value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option> 
@@ -178,19 +192,19 @@
               </div>
               <div class="col-md-6">
                 <label>Khan/District<span class="text-danger">*</span></label>
-                <select class="form-control dynamic" name="emDistrict" id="idistrict" onchange="getbranch(this,'icommune','s','/commune')" >
+                <select class="form-control dynamic" name="emDistrict" id="idistrict" onchange="getbranch(this,'icommune','s','/commune')" required >
                   <option> </option> 
                 </select>
               </div>
               <div class="col-md-6">
                 <label>Sengkat/Commune<span class="text-danger">*</span></label>
-                <select class="form-control dynamic" name="emCommune" id="icommune" onchange="getbranch(this,'ivillage','s','/village')" >
+                <select class="form-control dynamic" name="emCommune" id="icommune" onchange="getbranch(this,'ivillage','s','/village')" required>
                   <option> </option>
                 </select> 
               </div>
               <div class="col-md-6">
                 <label>Village<span class="text-danger">*</span></label>
-                <select class="form-control " name="emVillage" id="ivillage" dats-dependent="village" >
+                <select class="form-control " name="emVillage" id="ivillage" dats-dependent="village" required>
                   <option>select Village</option>                                                        
                 </select> 
               </div>
@@ -200,7 +214,7 @@
               </div>
               <div class="col-md-12 text-right" style="margin-top: 20px">
                   <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                  <button class="btn bg-turbo-color" onclick="submit_form ('hrm_insert_update_employee','fm-employee','hrm_allemployee')">Save</button>
+                  <button class="btn bg-turbo-color" onclick="submit_form ('hrm_insert_update_employee','fm-employee','hrm_allemployee','modal_employee')">Save</button>
               </div>
 
               </div>
@@ -214,3 +228,7 @@
         </div>
     </div>
 </div>
+
+<script>
+  
+</script>

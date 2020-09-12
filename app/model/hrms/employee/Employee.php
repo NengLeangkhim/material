@@ -79,13 +79,13 @@ class Employee extends Model
         return $employee_update;
     }
 
-    function InsertEmployee($firstName_en,$lasttName_kh,$email,$contact,$position,$companyid,$branch_id,$company_dept_id,$create_by,$idNumber,$sex,$firstName_kh,$lastName_kh,$image,$OfficePhone,$jointDate,$dateOfBirth,$home_en,$home_kh,$street_en,$street_kh,$latlg,$gazetteer,$martital_status,$spous,$has_children,$children,$salary,$currency,$description,$payrollAccount){
-        $sql= "SELECT public.insert_ma_user('$firstName_en','$lasttName_kh','$email','$contact',$position,$companyid,$branch_id,$company_dept_id,$create_by,'$idNumber','$sex','$firstName_kh','$lastName_kh','$image','$OfficePhone','$jointDate','$dateOfBirth','$home_en','$home_kh','$street_en','$street_kh','$latlg','$gazetteer','$martital_status','$spous','$has_children',$children,$salary,$currency,'$description','$payrollAccount')";
+    public static function InsertEmployee($firstName_en,$lasttName_kh,$email,$contact,$position,$companyid,$branch_id,$company_dept_id,$create_by,$idNumber,$sex,$firstName_kh,$lastName_kh,$image,$OfficePhone,$jointDate,$dateOfBirth,$home_en,$home_kh,$street_en,$street_kh,$latlg,$gazetteer,$martital_status,$spous,$has_children,$children,$salary,$currency,$description,$payrollAccount){
+        $sql= "SELECT public.insert_ma_user('$firstName_en','$lasttName_kh','$email','$contact',$position,$companyid,$branch_id,$company_dept_id,$create_by,'$idNumber','$sex','$firstName_kh','$lastName_kh','$image','$OfficePhone','$jointDate','$dateOfBirth','$home_en','$home_kh','$street_en','$street_kh',null,'$gazetteer',null,'$spous','$has_children',$children,$salary,$currency,'$description','$payrollAccount')";
         $stm=DB::select($sql);
         return $stm;
     }
 
-    function InsertBaseSalary($id,$rate_month,$userid){
+    public static function InsertBaseSalary($id,$rate_month,$userid){
         $sql= "SELECT public.insert_hr_payroll_base_salary($id,0,$rate_month,0,$userid)";
         $stm=DB::select($sql);
         return $stm;
@@ -97,7 +97,7 @@ class Employee extends Model
         return $stm;
     }
 
-    function UpdateEmployee($id,$updateID,$emName,$emEmail,$emContact,$emAddress,$emPosition,$emIdNumber,$emGender,$emKhmerName,$emImage,$emOfficePhone,$emJoinDate,$emStatus){
+    public static function UpdateEmployee($id,$updateID,$emName,$emEmail,$emContact,$emAddress,$emPosition,$emIdNumber,$emGender,$emKhmerName,$emImage,$emOfficePhone,$emJoinDate,$emStatus){
         $sql= "SELECT public.update_ma_user($id,$updateID,'$emName','$emEmail','$emContact','$emAddress',$emPosition,8,16,'$emIdNumber','$emGender','$emKhmerName','$emImage','$emOfficePhone','$emJoinDate','$emStatus')";
         $stm = DB::select($sql);
         return $stm;
