@@ -96,13 +96,6 @@
 
       <!-- Notifications Dropdown Menu -->
 
-      @php
-          if (session_status() == PHP_SESSION_NONE) {
-              session_start();
-          }
-          $r = $_SESSION['user_id'];
-          // print_r($r);
-      @endphp
       
       <li class="nav-item dropdown">
        
@@ -123,16 +116,16 @@
                         <i class="fas fa-user-check mr-2"></i>
                         View Profile
                       </a>
-                    
                     <div class="dropdown-divider"></div>
-                    <a href="/hrm_recruitment_login" class="dropdown-item dropdown-footer"><i class="fa fa-sign-out mr-2"></i> Logout</a>
-              
+                    {{-- <a href="/hrm_recruitment_login" class="dropdown-item dropdown-footer"><i class="fa fa-sign-out mr-2"></i> Logout</a> --}}
+                    <a href="#" class="dropdown-item dropdown-footer" onclick="candidate_logout();"><i class="fa fa-sign-out mr-2"></i> Logout</a>
+
               </div>
       </li>
 
 
 
-
+      
       {{-- <li class="nav-item">
           <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
               <i class="fas fa-th-large"></i>

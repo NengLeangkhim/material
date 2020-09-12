@@ -1,12 +1,22 @@
 
 
 
-@php
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
+
+
+    @php
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+    @endphp
     
-@endphp
+    @if(isset($_SESSION['user_id']))
+            @php
+                $r = $_SESSION['user_id'];
+            @endphp
+    @else
+        <script>window.location = "/hrm_recruitment_login";</script>
+        {{ exit() }}
+    @endif
 
 
 

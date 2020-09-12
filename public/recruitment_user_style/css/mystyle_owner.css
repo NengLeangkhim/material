@@ -1335,6 +1335,14 @@ div.uploadcv div.uploadcover , input[type="file"] {
      }
 
 
+     .table th, .table td {
+
+          border-top: none !important;
+          border-top-color: rgb(222, 226, 230);
+          border-top-style: solid;
+          border-top-width: 1px;
+
+     }
 
 
 

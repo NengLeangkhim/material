@@ -415,6 +415,17 @@ class recruitment_userController extends Controller
 
 
 
+    // function to destroy session  when candidate logout main page
+    public static function candidate_logout(){
+        session_start();
+        session_destroy(); 
+        session_unset();
+        echo 'success';
+    }
+
+
+
+
 
     
 

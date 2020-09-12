@@ -193,17 +193,6 @@ function autoSubmit() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
   //declear global variable
   var back = 0;
   var next=1;
@@ -318,6 +307,22 @@ function autoSubmit() {
     x.open("GET", url , true);
     x.send();
 
+  }
+
+
+
+
+
+  //function candidate logout main page
+  function candidate_logout(){
+      $.ajax({
+        type: 'GET',
+        url: "/hrm_recruitment_candidate_logout",
+        success:function(data){
+            window.location = "/hrm_recruitment_login";
+        },
+
+    });
   }
 
 
