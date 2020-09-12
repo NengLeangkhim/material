@@ -65,13 +65,13 @@
                                 <th>*Remark:</th>
                             </tr>
                             <tr>
-                                <td>1. Approved -> You was passed to this test !</td>
+                                <td> <span style="font-weight: bold"> 1. Approved </span> -> You was passed to this test !</td>
                             </tr>
                             <tr>
-                                <td> 2. Pending -> The internal processing !</td>
+                                <td> <span style="font-weight: bold"> 2. Pending </span> -> The internal processing !</td>
                             </tr>
                             <tr>
-                                <td> 3. Reject -> You can not pass to this test !</td>
+                                <td> <span style="font-weight: bold"> 3. Reject </span> -> You can not pass to this test !</td>
                             </tr>
                         </table>
                     </div>
