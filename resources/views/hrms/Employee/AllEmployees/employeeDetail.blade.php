@@ -122,7 +122,7 @@
                 <div id="image-preview" style="margin-top: 30px" class=""> 
                   <label for="image-upload" id="image-label">Choose Image</label>
                   <input type="file" accept="image/*" onchange="preview_image(event)" name="emProfile" @php if(!isset($data[1])){ echo 'required'; } @endphp disabled>
-                  <img id="output_image" name="emProfile" height="320px" width="100%" src="@php if(isset($data[1])){ echo "http://172.17.168.27:82".$data[1]['image'];} @endphp"/>
+                  <img id="output_image" name="emProfile" height="320px" width="100%" src="@php if(isset($data[1])){ echo $data[1]['image'];} @endphp"/>
                 </div>
               </div>
               <div class="col-md-4">
@@ -146,7 +146,7 @@
                   <input type="email" class="form-control" name="emEmail" value="@php if(isset($data[1])){ echo $data[1]['email']; } @endphp" required disabled>
               </div>
               <div class="col-md-6">
-                  <label>Spous <span class="text-danger">*</span></label>
+                  <label>Spouse <span class="text-danger">*</span></label>
                   <select name="emSpous" id="" class="form-control" disabled>
                     @php
                       if(isset($data[1])){
