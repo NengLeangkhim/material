@@ -25,7 +25,7 @@ class upload_img_profile extends Controller {
             $p=$url_path.$file_path;
             // $file_path=str_replace("'","''",$file_path);
             if(move_uploaded_file($_FILES["_img"]["tmp_name"],$p)){
-            $sql=" SELECT public.update_staff_img(
+            $sql=" SELECT public.update_user_img(
                         $user_id,
                         '$file_path'
                     )";
