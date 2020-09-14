@@ -50,7 +50,6 @@ class path_config extends Controller
         $renamefile= path_config::img_en(basename($filename));
         $uploadfile = public_path($path).$renamefile;
         $filedirectory = $path.$renamefile;
-        move_uploaded_file($filename, $uploadfile);
         if (move_uploaded_file($file, $uploadfile)) {
             return $filedirectory;
         } else {
