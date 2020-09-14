@@ -11,7 +11,7 @@ function HRM_ShowDetail(rout,modalName,id=-1){
         success: function (data) {
             document.getElementById('modal').innerHTML = data;
             $('#'+modalName).modal('show');
-            img_exist();
+            // img_exist();
         }
     });
 }

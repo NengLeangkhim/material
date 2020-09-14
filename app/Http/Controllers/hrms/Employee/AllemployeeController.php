@@ -129,9 +129,18 @@ class AllemployeeController extends Controller
 
 
     function EmployeeDetail(){
-        // $em=new Employee();
-        // $id=$_GET['id'];
-        // $employee=$em->EmployeeOnRow($id);
-        return view('hrms/Employee/AllEmployees/employeeDetail');
+        $em = new Employee();
+        $data[] = array();
+        $dp = new DepartmentAndPosition();
+        $data[0] = $dp->AllPosition();
+        $data[2] = addressModel::GetLeadProvice();
+        $data[3] = DepartmentAndPosition::AllDepartment();
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            if ($id > 0) {
+                $data[1] = $em->EmployeeOnRow($id);
+                return view('hrms/Employee/AllEmployees/employeeDetail')->with('data', $data);
+            } 
+        } 
     }
 }
