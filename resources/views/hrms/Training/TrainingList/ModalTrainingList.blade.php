@@ -20,7 +20,7 @@
                   $hrid=0;
                 }
             @endphp
-            <form id="fm_training_list" onsubmit="return false" enctype="multipart/form-data">
+            <form id="fm_training_list" onsubmit="return false">
                @csrf
               <div class="row">
                 {{-- training schetual ID --}}

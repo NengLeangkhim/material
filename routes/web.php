@@ -897,6 +897,8 @@ Route::post('hrm_recruitment_user_register','hrms\recruitment_user\recruitment_u
 Route::post('hrm_recruitment_user_submit_answer','hrms\recruitment_user\recruitment_userController@submit_user_answer');
 // end
 
+Route::get('hrm_recruitment_candidate_logout','hrms\recruitment_user\recruitment_userController@candidate_logout');
+
 // view user entry info to register
 Route::get('hrm_index_user_register',function(){
     return view('hrms.recruitment_user.index_recruitment_register');
@@ -906,6 +908,9 @@ Route::get('hrm_index_user_register',function(){
 Route::get('hrm_recruitment_login',function(){
     return view('hrms.recruitment_user.login_user');
 });
+
+
+
 
 // view to main app for candidate
 Route::get('hrm_recruitment_MainApp',function(){
@@ -980,7 +985,4 @@ Route::get('test_chart',function(){
 //==========================================================> End HRMS <===============================================================///
 
 
-Route::get('test_concat',function(){
-    return view('test_table');
-});
 

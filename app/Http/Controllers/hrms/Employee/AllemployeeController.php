@@ -4,6 +4,7 @@ namespace App\Http\Controllers\hrms\Employee;
 
 use App\addressModel;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\path_config;
 use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
 use App\model\hrms\employee\Employee;
@@ -37,6 +38,7 @@ class AllemployeeController extends Controller
         $dp=new DepartmentAndPosition();
         $data[0] = $dp->AllPosition();
         $data[2] = addressModel::GetLeadProvice();
+        $data[3]=DepartmentAndPosition::AllDepartment();
         if(isset($_GET['id'])){
             $id=$_GET['id'];
             if($id>0){
@@ -55,40 +57,46 @@ class AllemployeeController extends Controller
         }
         $userid = $_SESSION['userid'];
         $id=$_POST['id'];
-        $emName=$_POST['emName'];
-        $emKhmerName=$_POST['emKhmerName'];
-        $emIDNumber=$_POST['emIdNumber'];
-        $gender=$_POST['emGender'];
+        $firstName_en = $_POST['emFirstName'];
+        $lastName_en=$_POST['emLastName'];
+        $firstName_kh=$_POST['emFirstNameKh'];
+        $lastName_kh=$_POST['emLastNameKh'];
+        $idNumber=$_POST['emIdNumber'];
+        $sex=$_POST['emGender'];
+        $dateOfBirth=$_POST['emDateOfBirth'];
+        $jointDate=$_POST['emJoinDate'];
+        $telephone=$_POST['emTelephone'];
+        $position=$_POST['emPosition'];
+        $officePhone=$_POST['emOfficePhone'];
+        $salary=$_POST['emSalary'];
         $email=$_POST['emEmail'];
-        $emJoinDate=$_POST['emJoinDate'];
-        $emOfficePhone=$_POST['emOfficePhone'];
-        $emAddress=$_POST['emAddress'];
-        $emPhone=$_POST['emPhoneNumber'];
-        $emPosition=$_POST['emPosition'];
-        $emSalary=$_POST['emSalary'];
-        $emDescription=$_POST['emDescription'];
-        $company_detail_id=6;
-        $em = new Employee();
+        $spous=$_POST['emSpous'];
+        $chidren=$_POST['emChildren'];
+        $homeNumber_en=$_POST['emhome_en'];
+        $homeNumber_kh=$_POST['emhome_kh'];
+        $street_en=$_POST['emstreet_en'];
+        $street_kh=$_POST['emstreet_kh'];
+        $vilage=$_POST['emVillage'];
+        $description=$_POST['emDescription'];
+        $profile=$_FILES['emProfile'];
+        $departement_id=$_POST['emDepartment'];
+        $has_children='f';
+        $bankaccount=$_POST['emBankAccount'];
         if($id>0){
-            $stm=$em->UpdateEmployee($id,$userid,$emName,$email,$emPhone,$emAddress,$emPosition,$emIDNumber,$gender,$emKhmerName,'',$emOfficePhone,$emJoinDate,'t');
-            if($stm[0]->insert_ma_user>0){
-                echo "Employee Update Successfully !";
-            }else{
-                echo "error";
-            }
+           if(strlen($profile['name'])>0){
+
+           }else{
+
+           }
         }else{
-            $lastid=$em->InsertEmployee($emName,$email,$emPhone,$emAddress,$emPosition,$company_detail_id,$userid,$emIDNumber,$gender,$emKhmerName,'',$emOfficePhone,$emJoinDate);
-            $latID=$lastid[0]->insert_ma_user;
-            if($latID>0){
-                $salary = $em->InsertBaseSalary($latID, $emSalary, $userid);
-                if($salary[0]->insert_hr_payroll_base_salary>0){
-                    echo "Employee Update Successfully !";
-                }else{
-                    $deletem=$em->DeleteEmployee($latID,$userid);
-                    echo 'error';
-                }
-            }else{
+            $upload = path_config::Move_Upload($profile, "media/hrms/Training/");
+            if (!$upload == 0) {
+                $imageDirectory = $upload;
+                $em=Employee::InsertEmployee($firstName_en,$lastName_kh,$email,$telephone,$position,8,16,$departement_id,$userid,$idNumber,$sex,$firstName_kh,$lastName_kh,$imageDirectory,$officePhone,$jointDate,$dateOfBirth,$homeNumber_en,$homeNumber_kh,$street_en,$street_kh,'null', $vilage,'null',$spous,$has_children,$chidren,$salary,4,$description,$bankaccount);
+                print_r($em);
+            } else {
                 echo "error";
+                return;
             }
         }
 
@@ -108,9 +116,9 @@ class AllemployeeController extends Controller
 
 
     function EmployeeDetail(){
-        $em=new Employee();
-        $id=$_GET['id'];
-        $employee=$em->EmployeeOnRow($id);
-        return view('hrms/Employee/AllEmployees/ModalEmployeeDetail')->with('emd',$employee);
+        // $em=new Employee();
+        // $id=$_GET['id'];
+        // $employee=$em->EmployeeOnRow($id);
+        return view('hrms/Employee/AllEmployees/employeeDetail');
     }
 }

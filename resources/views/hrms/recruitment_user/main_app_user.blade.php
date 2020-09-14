@@ -1,12 +1,22 @@
 
 
 
-@php
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
+
+
+    @php
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+    @endphp
     
-@endphp
+    @if(isset($_SESSION['user_id']))
+            @php
+                $r = $_SESSION['user_id'];
+            @endphp
+    @else
+        <script>window.location = "/hrm_recruitment_login";</script>
+        {{ exit() }}
+    @endif
 
 
 
@@ -17,7 +27,6 @@
     <div class="wrapper">
         @include('hrms.recruitment_user.main_app_manu.right_navbar')
         @include('hrms.recruitment_user.main_app_manu.left_manu')
-
         <div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
             @yield('content_user')
             @include('hrms.recruitment_user.homepage_user')

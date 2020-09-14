@@ -371,13 +371,24 @@ class recruitment_userController extends Controller
         $id = $_SESSION['user_id'][0]->id;
         $r = recruitment_userModel::user_quiz_result($id);
         $ResumsResult[] = '';
+
         if(count($r) > 0){
+            $all_user_done_answer = 0;
+            $num_an_text = 0;
+            $num_an_option = 0;
             foreach($r as $key=>$val){
                 $spent_time = recruitment_userController::check_duration($val->start_time,$val->end_time);
+                if(!empty($val->choice_name)){
+                    $num_an_option++;
+                }
+                if(!empty($val->answer_text)){
+                    $num_an_text++;
+                }
             }
+            $all_user_done_answer = $num_an_option + $num_an_text;
             $percent = intval(((count($r)*100) / 30 ));
             $ResumsResult = [
-                'done_question' => count($r),
+                'done_question' =>  $all_user_done_answer,
                 'percent' => $percent,
                 'spent_time' => $spent_time
             ];
@@ -410,6 +421,17 @@ class recruitment_userController extends Controller
             return 0;
         }
         
+    }
+
+
+
+
+    // function to destroy session  when candidate logout main page
+    public static function candidate_logout(){
+        session_start();
+        session_destroy(); 
+        session_unset();
+        echo 'success';
     }
 
 

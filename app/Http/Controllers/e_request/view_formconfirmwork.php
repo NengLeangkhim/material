@@ -31,7 +31,7 @@ class view_formconfirmwork extends Controller
             $create_date=$v[0][0]['create_date'];
             $user_id=$v[0][0]['request_by'];
         }
-        $q=DB::select("select s.name,p.name as position,d.name as dept,s.sex,s.id_number from ma_user s join ma_position p on p.id=s.ma_position_id join ma_company_dept d on d.id=s.ma_company_dept_id where s.id=$user_id");
+        $q=DB::select("select concat(s.first_name_en,' ',s.last_name_en) as name,p.name as position,d.name as dept,s.sex,s.id_number from ma_user s join ma_position p on p.id=s.ma_position_id join ma_company_dept d on d.id=s.ma_company_dept_id where s.id=$user_id");
         $r=ere_get_assoc::assoc_($q)[0];
         $pos=$r;
 

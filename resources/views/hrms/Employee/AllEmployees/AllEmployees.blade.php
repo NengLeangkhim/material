@@ -34,7 +34,7 @@
                     @foreach ($employee as $e)
                       <tr>
                       <th>{{ ++$i }}</th>
-                      <td> {{ $e->first_name_en." ".$e->last_name_en }} </td>
+                      <td><img src="{{"http://172.17.168.27:82/".$e->image}}" alt="" width="50px" height="50px" style="border-radius:50px;margin-right:10px"> {{ $e->first_name_en." ".$e->last_name_en }} </td>
                       <td> {{$e->first_name_kh." ".$e->last_name_kh }} </td>
                       <td>{{ $e->id_number }}</td>
                       <td>{{ $e->contact}}</td>
@@ -42,7 +42,7 @@
                         <td>
                           <div class="row">
                             <div class="col-md-4"><a href="javascript:;" onclick="HRM_AddEditEmployee({{$e->id}})"><i class="far fa-edit"></i></a></div>
-                            <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail({{$e->id}},'hrm_detail_employee','modal_employee_detail')"><i class="fas fa-info"></i></a></div>
+                            <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_detail_employee','modal_employee_detail',{{$e->id}})"><i class="fas fa-info"></i></a></div>
                             <div class="col-md-4"><a href="javascript:;"><i class="far fa-trash-alt" onclick="hrm_delete({{$e->id}},'hrm_delete_employee','hrm_allemployee','Employee Deleted Succseefully !')"></i></a></div>
                           </div>
                         </td>

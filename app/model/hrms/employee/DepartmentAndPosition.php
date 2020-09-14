@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Throwable;
 class DepartmentAndPosition extends Model
 {
-    function AllDepartment($id=0){
+    public static function AllDepartment($id=0){
         try {
             if($id>0){
                 $department = DB::table('ma_company_dept')

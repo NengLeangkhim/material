@@ -31,7 +31,7 @@ class get_row{
         $r=DB::select("select count(*) from ($sql) as foo");//row count for pagonation
         $st[1]=ere_get_assoc::assoc_($r)[0];
 
-        $r=DB::select("SELECT s.name,e.create_date,e.comment
+        $r=DB::select("SELECT concat(s.first_name_en,' ',s.last_name_en) as name,e.create_date,e.comment
         from e_request_detail e
         join ma_user s on s.id=e.action_by
         where e.e_request_status='approve' and e.status='t' and e.e_request_id=".$rr['id']);
@@ -40,7 +40,7 @@ class get_row{
             $st[2]=ere_get_assoc::assoc_($r)[0];
         }
 
-        $r=DB::select("SELECT s.name,e.create_date,e.comment
+        $r=DB::select("SELECT concat(s.first_name_en,' ',s.last_name_en) as name,e.create_date,e.comment
         from e_request_detail e
         join ma_user s on s.id=e.action_by
         where e.e_request_status='pending' and e.status='t' and e.e_request_id=".$rr['id']);
@@ -49,7 +49,7 @@ class get_row{
             $st[3]=ere_get_assoc::assoc_($r)[0];
         }
 
-        $r=DB::select("SELECT s.name,e.create_date,e.comment
+        $r=DB::select("SELECT concat(s.first_name_en,' ',s.last_name_en) as name,e.create_date,e.comment
         from e_request_detail e
         join ma_user s on s.id=e.action_by
         where e.e_request_status='reject' and e.status='t' and e.e_request_id=".$rr['id']);

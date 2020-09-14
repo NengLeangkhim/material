@@ -55,7 +55,7 @@
                                 }
                                 if($val1->is_right == true){
                                     echo '<tr>
-                                                <th   class=" kh-font-batt" colspan=3><label class="kh_word_question">សំនួរ.</label>'.$i.': <span>'.$val1->question.'</span></th>
+                                                <th   class="kh-font-batt" colspan=3><label class="kh_word_question">សំនួរ.</label>'.$i.': <span>'.$val1->question.'</span></th>
                                         </tr>';
 
                                     echo '<tr class="kh-font-batt">

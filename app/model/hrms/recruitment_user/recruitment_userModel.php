@@ -147,7 +147,7 @@ class recruitment_userModel extends Model
     // fucntion to get user done quiz result
     public static function user_quiz_result($id){
 
-        $sql = "SELECT  q.id as q_id, q.question, q_t.id as q_type_id, q_t.name as question_type, q_c.choice as choice_name, CONCAT(q_c.choice, u_a.answer_text) as user_answer, u_a.is_right, u_a.start_time, u_a.end_time  
+        $sql = "SELECT  q.id as q_id, q.question, q_t.id as q_type_id, q_t.name as question_type, q_c.choice as choice_name, u_a.answer_text, CONCAT(q_c.choice, u_a.answer_text) as user_answer, u_a.is_right, u_a.start_time, u_a.end_time  
                 FROM ((hr_recruitment_candidate_answer u_a 
                 LEFT JOIN hr_recruitment_question_choice q_c ON  u_a.hr_recruitment_question_choice_id= q_c.id) 
                 JOIN hr_recruitment_question q ON u_a.hr_recruitment_question_id = q.id) 

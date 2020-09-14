@@ -32,7 +32,7 @@ class view_stand_by extends Controller
             // $todept=$r['dept'];
         }
 
-        $q=DB::select("select s.id, s.name from ma_user s
+        $q=DB::select("SELECT s.id, concat(s.first_name_en,' ',s.last_name_en) as name from ma_user s
         join ma_position p on p.id=s.ma_position_id
         where p.ma_group_id <>1 and s.id_number is not null
         order by name ");

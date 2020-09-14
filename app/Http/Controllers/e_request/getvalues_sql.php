@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
             $sql=array();
             $sql['get_pos']="select p.name from ma_position p join ma_user s on s.ma_position_id=p.id where s.id=$id";
             $sql['get_company_dept']="select d.name from ma_company_dept d join ma_user s on s.ma_company_dept_id=d.id where s.id=$id";
-            $sql['get_all_staff']="select id,name from ma_user order by name";
+            $sql['get_all_staff']="select id, concat(first_name_en,' ',last_name_en) as name from ma_user order by name";
             $sql['get_id_number']="select id_number as name from ma_user where id=$id";
 //===============================example====================================
 // $sql['table_name'][]="SELECT request_by, create_date, related_to_e_request_id
@@ -27,11 +27,11 @@ use Illuminate\Support\Facades\DB;
             FROM public.e_request_employment_biography where id=$id;";
             $sql['e_request_employment_biography'][]="SELECT country, \"group\", home_number, street, commune, village, district, province
             FROM public.e_request_employment_biography_address where e_request_employment_biography=$id;";
-            $sql['e_request_employment_biography'][]="SELECT carrier as carrer, ma_position_id, ma_company_dept_id, start_work_date, id_card_r_passport, id_card_r_passport_date, family_book_number, family_book_date, image, id_number
+            $sql['e_request_employment_biography'][]="SELECT carrier as carrer, position_id, company_dept_id, start_work_date, id_card_r_passport, id_card_r_passport_date, family_book_number, family_book_date, image, id_number
             FROM public.e_request_employment_biography_ where e_request_employment_biography=$id;";
-            $sql['e_request_employment_biography'][]="SELECT name as relative_name, id_number as relative_id_number, ma_position_id as relative_positionid, ma_company_dept_id as relative_company_dept_id, relation as relative_relation
+            $sql['e_request_employment_biography'][]="SELECT name as relative_name, id_number as relative_id_number, position_id as relative_positionid, company_dept_id as relative_company_dept_id, relation as relative_relation
             FROM public.e_request_employment_biography_relative where e_request_employment_biography=$id;";
-            $sql['e_request_employment_biography'][]="SELECT name as spouse_name, birth_date as spouse_birth_date, nationality as spouse_nationality, nation as spouse_nation, religion as spouse_religion, birth_place as spouse_birth_place, current_address as spouse_current_address, phone as spouse_phone, work_place as spouse_work_place, children_count as spouse_children_count, \"ma_position\" as spouse_position, id_number as spouse_id_number, sex as spouse_sex
+            $sql['e_request_employment_biography'][]="SELECT name as spouse_name, birth_date as spouse_birth_date, nationality as spouse_nationality, nation as spouse_nation, religion as spouse_religion, birth_place as spouse_birth_place, current_address as spouse_current_address, phone as spouse_phone, work_place as spouse_work_place, children_count as spouse_children_count, \"position\" as spouse_position, id_number as spouse_id_number, sex as spouse_sex
             FROM public.e_request_employment_biography_spouse where e_request_employment_biography=$id;";
             $sql['e_request_employment_biography'][]="SELECT name as child_name, gender as child_gener, birth_date as child_birth_date, marital_status as child_marital_status, job as child_job
             FROM public.e_request_employment_biography_children where e_request_employment_biography=$id;";
@@ -61,7 +61,7 @@ use Illuminate\Support\Facades\DB;
 
             $sql['e_request_requestform'][]="SELECT request_number, request_by, \"to\", subject_id, create_date
             FROM public.e_request_requestform where id=$id;";
-            $sql['e_request_requestform'][]="SELECT description, qty, other, receiver,(select name from ma_user where id=receiver) as rec
+            $sql['e_request_requestform'][]="SELECT description, qty, other, receiver,(select concat(first_name_en,' ',last_name_en) as name from ma_user where id=receiver) as rec
             FROM public.e_request_requestform_detail where e_request_requestform_id=$id;";
 
             $sql['e_request_equipment_request_form'][]="SELECT request_by, technician_name, creat_date as create_date, customer_name, customer_account_name, customer_address, customer_phone, customer_email, connection, speed, finish_date, note, pop

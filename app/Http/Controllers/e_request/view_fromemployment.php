@@ -25,7 +25,7 @@ class view_fromemployment extends Controller
 
         if(isset($v[0])){
             $req_by=$v[0][0]['request_by'];
-            $q=DB::select("select name from ma_user where id=$req_by");
+            $q=DB::select("SELECT concat(first_name_en,' ',last_name_en) as name from ma_user where id=$req_by");
             $r=ere_get_assoc::assoc_($q)[0];
             $req_by=$r['name'];
         }
