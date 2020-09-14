@@ -44,16 +44,17 @@ class path_config extends Controller
         $filemove = $file->move($destinationPath, $filepdf); // move file to directory
     }
 
-    public static function Move_Upload($fileMove){
-        return $filename = $fileMove['name'];
+    public static function Move_Upload($fileMove,$path){
+        $filename = $fileMove['name'];
         $file = $fileMove['tmp_name'];
-         $uploaddir = public_path('/media/hrms/Training/');
-         $uploadfile = $uploaddir . basename($file);
-        //  $filedirectory = '/media/hrms/Training/' . $file;
-        if (move_uploaded_file($filename, $uploadfile)){
-            return "ok";
-        }else{
-            return "No";
+        $renamefile= path_config::img_en(basename($filename));
+        $uploadfile = public_path($path).$renamefile;
+        $filedirectory = $path.$renamefile;
+        move_uploaded_file($filename, $uploadfile);
+        if (move_uploaded_file($file, $uploadfile)) {
+            return $filedirectory;
+        } else {
+            return 0;
         }
     }
 }

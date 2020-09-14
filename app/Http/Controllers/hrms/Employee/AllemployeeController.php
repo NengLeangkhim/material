@@ -38,6 +38,7 @@ class AllemployeeController extends Controller
         $dp=new DepartmentAndPosition();
         $data[0] = $dp->AllPosition();
         $data[2] = addressModel::GetLeadProvice();
+        $data[3]=DepartmentAndPosition::AllDepartment();
         if(isset($_GET['id'])){
             $id=$_GET['id'];
             if($id>0){
@@ -54,7 +55,7 @@ class AllemployeeController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        // $userid = $_SESSION['userid'];
+        $userid = $_SESSION['userid'];
         $id=$_POST['id'];
         $firstName_en = $_POST['emFirstName'];
         $lastName_en=$_POST['emLastName'];
@@ -78,21 +79,25 @@ class AllemployeeController extends Controller
         $vilage=$_POST['emVillage'];
         $description=$_POST['emDescription'];
         $profile=$_FILES['emProfile'];
-
-        $filename = $_FILES['emProfile']['name'];
-        $file = $_FILES['emProfile']['tmp_name'];
-        $uploaddir = public_path('/media/hrms/Training/');
-        $uploadfile = $uploaddir . basename($file);
-        $filedirectory = '/media/hrms/Training/' . $file;
-        if (move_uploaded_file($filename, $uploadfile)){
-            echo "yes";
-        }else{
-            echo "No";
-        }
+        $departement_id=$_POST['emDepartment'];
+        $has_children='f';
+        $bankaccount=$_POST['emBankAccount'];
         if($id>0){
-           
+           if(strlen($profile['name'])>0){
+
+           }else{
+
+           }
         }else{
-           
+            $upload = path_config::Move_Upload($profile, "media/hrms/Training/");
+            if (!$upload == 0) {
+                $imageDirectory = $upload;
+                $em=Employee::InsertEmployee($firstName_en,$lastName_kh,$email,$telephone,$position,8,16,$departement_id,$userid,$idNumber,$sex,$firstName_kh,$lastName_kh,$imageDirectory,$officePhone,$jointDate,$dateOfBirth,$homeNumber_en,$homeNumber_kh,$street_en,$street_kh,'null', $vilage,'null',$spous,$has_children,$chidren,$salary,4,$description,$bankaccount);
+                print_r($em);
+            } else {
+                echo "error";
+                return;
+            }
         }
 
 
@@ -111,9 +116,9 @@ class AllemployeeController extends Controller
 
 
     function EmployeeDetail(){
-        $em=new Employee();
-        $id=$_GET['id'];
-        $employee=$em->EmployeeOnRow($id);
-        return view('hrms/Employee/AllEmployees/ModalEmployeeDetail')->with('emd',$employee);
+        // $em=new Employee();
+        // $id=$_GET['id'];
+        // $employee=$em->EmployeeOnRow($id);
+        return view('hrms/Employee/AllEmployees/employeeDetail');
     }
 }
