@@ -19,6 +19,7 @@
             <div class="row">
               @php
                   if(isset($data[1])){
+                    // print_r($data[1]);
                     $date=new DateTime($data[1]['joint_date']);
                     $dateBirth=new DateTime($data[1]['dateOfBirth']);
                     $dateofbirth=$dateBirth->format('Y-m-d');
@@ -81,8 +82,24 @@
                     <div class="col-md-6">
                       <label>Department <span class="text-danger">*</span></label>
                       <select name="emDepartment" id="" class="form-control" required>
+                        @php
+                            $f1="";
+                            $f2="";
+                            foreach ($data[3] as $department) {
+                              if(isset($data[1])){
+                                if($department->id==$data[1]['department_id']){
+                                  $f1=$f1.'<option value="'.$department->id.'">'.$department->name.'</option>';
+                                }else {
+                                  $f2=$f2.'<option value="'.$department->id.'">'.$department->name.'</option>';
+                                }
+                              }else {
+                                $f1=$f1.'<option value="'.$department->id.'">'.$department->name.'</option>';
+                              }
+                            }
+                            echo $f1.$f2;
+                        @endphp
                         @foreach ($data[3] as $department)
-                      <option value="{{$department->id}}">{{$department->name}}</option>
+                          <option value="{{$department->id}}">{{$department->name}}</option>
                         @endforeach
                       </select>
                     </div>
