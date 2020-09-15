@@ -14,10 +14,8 @@ class MissionAndOutsideController extends Controller
 {
     function AllMissionAndOutSide()
     {
-        $ms=new MissionAndOutSide();
-        $data=array();
-        $mission['mis_out']=$ms->MissionOutside();
-        return view('hrms/Employee/MissionAndOutSide/MissionAndOutSide')->with($mission);
+        $data=MissionAndOutSide::MissionOutside();
+        return view('hrms/Employee/MissionAndOutSide/MissionAndOutSide')->with('mission',$data);
     }
     function AddModalMissionOutside(){
         if (session_status() == PHP_SESSION_NONE) {
@@ -58,7 +56,7 @@ class MissionAndOutsideController extends Controller
             $gazetteers_code=$_POST['gazetteers_code'];
             $latelong=$_POST['latelong'];
             if($id>0){
-                // $stm=$ms->UpdateMissionOutside($location,$f_date,$t_date,$description,$type,$shift,$emid,$id);
+                $stm=$ms->UpdateMissionOutside($location,$f_date,$t_date,$description,$type,$shift,$emid,$id);
             }else{
                 $stm=$ms->InsertMissionOutSide($f_date,$t_date,$description,$type,$userid,$shift,$street,$home_number,$latelong,$gazetteers_code,$emid);
             }

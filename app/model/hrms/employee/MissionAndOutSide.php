@@ -6,24 +6,32 @@ use Illuminate\Database\Eloquent\Model;
 
 class MissionAndOutSide extends Model
 {
-    function AllMissionAndOutSide(){
-        $m=DB::select("SELECT hr.street,hr.latlg,hr.gazetteers_code,hr.id,hr.shift,hr.date_from,hr.date_to,hr.description,hr.type, from hr_mission hr 
-                        INNER JOIN hr_mission_detail hmd on hr.id=hmd.hr_mission_id
-                        INNER JOIN ma_user s on split_part( s.id_number, '-',2)::INTEGER=hmd.ma_user_id where hr.status='t' and hr.is_deleted='f' and s.status='t' and s.is_deleted='f'");
-        print_r($m);
-    }
-
-    function MissionOutside($id=0){
+    
+    public static function MissionOutside($id=0){
         if($id>0){
-            $sql= "SELECT hr.shift,hr.home_number,hr.latlg,hr.street,hr.latlg,hr.gazetteers_code,hr.id,hr.shift,hr.date_from,hr.date_to,hr.description,hr.type, s.first_name_en, s.last_name_en from hr_mission hr 
-                        INNER JOIN hr_mission_detail hmd on hr.id=hmd.hr_mission_id
-                        INNER JOIN ma_user s on s.id=hmd.ma_user_id where hr.status='t' and hr.is_deleted='f' and s.status='t' and s.is_deleted='f' and hr.id=$id";
+            $sql= "SELECT id,home_number,street,date_from,date_to,type,description,shift,latlg,gazetteers_code from hr_mission where status='t' and is_deleted='f' and id=$id";
+            $stm= DB::select($sql);
+            $sqldetail= "SELECT ma_user_id FROM hr_mission_detail where status='t' and is_deleted='f' and hr_mission_id=$id";
+            $stmdetail=DB::select($sqldetail);
+            $data=[
+                "id"=>$stm[0]->id,
+                "home_number"=>$stm[0]->home_number,
+                "street"=>$stm[0]->street,
+                "date_from"=>$stm[0]->date_from,
+                "date_to"=>$stm[0]->date_to,
+                "type"=>$stm[0]->type,
+                "description"=>$stm[0]->description,
+                "shift"=>$stm[0]->shift,
+                "latlg"=>$stm[0]->latlg,
+                "gazetteers_code"=>$stm[0]->gazetteers_code,
+                "employee_mission"=>$stmdetail
+            ];
+            return $data;
         }else{
-            $sql= "SELECT hr.street,hr.latlg,hr.gazetteers_code,hr.id,hr.shift,hr.date_from,hr.date_to,hr.description,hr.type,s.first_name_en, s.last_name_en from hr_mission hr 
-                        INNER JOIN hr_mission_detail hmd on hr.id=hmd.hr_mission_id
-                        INNER JOIN ma_user s on s.id=hmd.ma_user_id where hr.status='t' and hr.is_deleted='f' and s.status='t' and s.is_deleted='f'";
+            $sql = "SELECT id,home_number,street,date_from,date_to,type,description,shift,street,home_number from hr_mission where status='t' and is_deleted='f'";
+           return $stm=DB::select($sql);
         }
-        return DB::select($sql);
+        
     }
 
     function InsertMissionOutSide($date_from,$date_to,$description,$type,$create_by,$shift,$street,$home_number,$latlg,$gazetteers_code,$emid){
@@ -39,7 +47,7 @@ class MissionAndOutSide extends Model
     function InsertMissionOutsideDetail($hr_mission_id,$ma_user_id,$create_by,$staff_id){
         foreach($staff_id as $modetail){
             // $id_number=self::ConvertIdToNumber($modetail);
-            $sql = "SELECT public.insert_hr_mission_detail($hr_mission_id,$ma_user_id,$create_by)";
+            $sql = "SELECT public.insert_hr_mission_detail($hr_mission_id,$modetail,$create_by)";
             
             $stm = DB::select($sql);
         }
@@ -51,10 +59,10 @@ class MissionAndOutSide extends Model
         }
     }
 
-    function UpdateMissionOutside($location, $f_date, $t_date,$description, $type, $shift, $id_number,$id){
-        $sql= "update public.hr_mission set location='$location',date_from='$f_date',date_to='$t_date',description='$description',type='$type',shift='$shift',staff_id_number=$id_number where id=$id  RETURNING id";
+    function UpdateMissionOutside($id,$update_by, $date_from,$date_to,$description,$status,$type, $shift,$street,$home_number,$latlg,$gazetteers_code,$emid){
+        $sql= "SELECT public.update_hr_mission($id,$update_by,'$date_from','$date_to','$description','$status','$type','$shift','$street','$home_number','$latlg','$gazetteers_code')";
         $stm = DB::select($sql);
-        if ($stm[0]->id > 0) {
+        if ($stm[0]->update_hr_mission > 0) {
             return "Update Successfully !";
         } else {
             return "error";
