@@ -111,3 +111,5 @@
 
 {{--Google Chart--}}
 <script type="text/javascript" src="js/google_chart.js"></script>
+{{--------------------------CRM---------------------}}
+<script type="text/javascript" src="js/crm/crm.js"></script>

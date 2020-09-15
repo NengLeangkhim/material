@@ -218,13 +218,14 @@ class perms extends Controller
         return $st;
     }
     private static function output_sub_nav($mo){
+        $id = rand(1111,9999);
         $st='<li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>';
         foreach ($mo as $rr){
             // $rr->link=(empty($rr->link))?'':"value='{$rr->link}'";
             $st.='<li class="nav-item d-none d-sm-inline-block">
-                    <a href="javascript:void(0);" class="nav-link" onclick="go_to(\''.$rr->link.'\')">'.$rr->module_name.'</a>
+                    <a href="javascript:void(0);" data-id='.$id++.' class="nav-link" onclick="go_to(\''.$rr->link.'\')">'.$rr->module_name.'</a>
                 </li>';
         }
         return $st;

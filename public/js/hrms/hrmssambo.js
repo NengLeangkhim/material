@@ -809,7 +809,7 @@ function sumbit_policy(){
 }
 /////==== END List Policy ====//////
 /////==== Policy User ====//////
-///Get modal show question and answer for update detail//
+///Get modal show detail//
 $(document).on('click', '.hrm_view_policy_user', function(){
   var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
   $.ajax({
@@ -996,7 +996,7 @@ $(document).on('click','.hrm_add_plan_detail', function(){
       $('#plan_detail_to').removeClass("is-invalid");
       $('#plan_detail_to').removeClass("is-invalid");
       $(".invalid-feedback").children("strong").text("");
-      $('#card_title').text('Add Plan Detail');
+      $('#card_title_plan_detail').text('Add Plan Detail');
       $('#action_plan_detail').text('Create');
     }
   })
@@ -1093,7 +1093,7 @@ function hrm_update_perform_plan_detail(id,id_plan){
             $('#ShowModalPlan').html(data);
             setTimeout(function(){$('#hrm_perform_plan_detail_modal').modal("show");},200);
             // $('#hrm_perform_plan_detail_modal').modal('show');
-            $('#card_title').text('Update Plan Detail');
+            $('#card_title_plan_detail').text('Update Plan Detail');
             $('#action_plan_detail').text('Update');
             $('#plan_datail_id').val(id);
             var show = data1;
