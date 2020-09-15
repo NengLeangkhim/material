@@ -50,11 +50,6 @@ class hr_dashboardModel extends Model
 
 
 
-
-
-
-
-
     // select number of staff attendance today by between 2 dates
     public static function staff_attendance($first,$last,$id){
         $f="'".$first."'";

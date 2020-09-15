@@ -240,7 +240,7 @@ class hr_dashboardController extends Controller
 
         // check staff late in the morning
                 // select all staff late around 8am-12am
-                $f_m = date('Y-m-d 08:11:00');
+                $f_m = date('Y-m-d 08:01:00');
                 $l_m = date('Y-m-d 12:00:00');
                 $arr = array();
                 foreach($all_em as $key=>$val){
