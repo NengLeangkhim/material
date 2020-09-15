@@ -66,7 +66,6 @@ class OverTimeController extends Controller
             session_start();
         }
         if (perms::check_perm_module('HRM_090107')) {
-            $ot = new OverTime();
             $id=$_POST['id'];
             $userid = $_SESSION['userid'];
             $staffid=$_POST['emName'];
@@ -75,10 +74,9 @@ class OverTimeController extends Controller
             $end=$_POST['end_h'];
             $description=$_POST['description'];
             if($id>0){
-                $overtime=$ot->UpdateOvertime($staffid,$otDate,$description,$userid,0,$userid,$start,$end,$id);
+                $overtime=OverTime::UpdateOvertime($staffid,$otDate,$description,$userid,0,$userid,$start,$end,$id);
             }else{
-                $overtime = $ot->InsertOverTime($staffid,$otDate,$description,$userid,0,$userid,$start,$end);
-                
+                $overtime = OverTime::InsertOverTime($staffid,$otDate,$description,$userid,0,$userid,$start,$end);
             }
             echo $overtime;
             
