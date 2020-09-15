@@ -19,7 +19,7 @@
             <div class="row">
               @php
                   if(isset($data[1])){
-                    print_r($data[1]);
+                    // print_r($data[1]);
                     $date=new DateTime($data[1]['joint_date']);
                     $dateBirth=new DateTime($data[1]['dateOfBirth']);
                     $dateofbirth=$dateBirth->format('Y-m-d');
