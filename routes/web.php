@@ -53,11 +53,16 @@ Route::get('/test_map', function(){
 // start contact
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table 
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination 
+Route::get('/contact/add','crm\ContactController@AddContact'); //go to add contact
+Route::get('/contact/edit/{id}','crm\ContactController@EditContact');//go to Edit contact
+Route::get('/contact/detail','crm\ContactController@DetailContact');//go to Detail contact
 Route::get('/product','crm\ProductsController@getProducts'); //get all Products show in table  
 // end contact
 
 // Start Organization
 Route::get('/organizations','crm\OrganizationController@getorganization'); //get all Organization  show in table
+Route::get('/organizations/add','crm\OrganizationController@AddOrganization'); //go to add Organization
+Route::get('/organizations/edit/{id}','crm\OrganizationController@EditOrganization'); //go to Edit Organization
 Route::get('/organizations/detail','crm\OrganizationController@DetailOrganization'); //get detail organization 
 // End Organization
 //===========================END CRM=================================

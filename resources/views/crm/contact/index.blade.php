@@ -23,10 +23,17 @@
                   <div class="col-md-12">
                     <div class="card">
                       <div class="card-header p-2">
-                        <ul class="nav nav-pills">
-                          <li class="nav-item"><a class="nav-link active" href="#Crm_Card_Contact" data-toggle="tab"><i class="far fa-id-card"></i></a></li>
-                          <li class="nav-item"><a class="nav-link" href="#Crm_List_Contact" data-toggle="tab"><i class="fas fa-list"></i></a></li>
-                        </ul>
+                        <div class="row">
+                          <div class="col-8">
+                            <ul class="nav nav-pills">
+                              <li class="nav-item"><a class="nav-link active" href="#Crm_Card_Contact" data-toggle="tab"><i class="far fa-id-card"></i></a></li>
+                              <li class="nav-item"><a class="nav-link" href="#Crm_List_Contact" data-toggle="tab"><i class="fas fa-list"></i></a></li>
+                            </ul>
+                          </div>
+                          <div class="col-4 text-right">
+                            <a  href="#" class="btn btn-success crm_contact" ​value="/contact/add" id="crm_contact"><i class="fas fa-plus"></i> Add Contact</a> 
+                          </div>
+                        </div>
                       </div><!-- /.card-header -->
                       <div class="card-body" >
                         <div class="tab-content">
@@ -60,7 +67,7 @@
                                             <td>{{$row->facebook}}</td>
                                             <td>{{$row->email}}</td>
                                             <td>
-                                                <a href="#" class="btn btn-block btn-info btn-sm edit" ​value="{{$row->id}}"><i class="fas fa-wrench"></i></a>
+                                                <a href="#" class="btn btn-block btn-info btn-sm CrmEditContact" ​value="/contact/edit/{{$row->id}}"><i class="fas fa-wrench"></i></a>
                                             </td>
                                         </tr>                                       
                                     @endforeach
@@ -80,7 +87,8 @@
                 <!-- /.row -->
               </div><!-- /.container-fluid -->
             </section>
-            <script type="text/javascript">  
+            <div id="ShowModalContact"></div>
+          <script type="text/javascript">  
             $(document).ready(function() {
               $(document).on('click', '.pagination a', function(event) {// function click on link pagination
                   event.preventDefault();
@@ -114,15 +122,24 @@
                 "responsive": true,
                 });
             });
+              $('#crm_contact').click(function(e) // function go to add contact
+              {
+                  var link = $(this).attr("​value");
+                  go_to(link);
+              });
               $('.listtabel').click(function(e)
               {
                   var table = $(this).attr("​value");
                   go_to(table);
               });
-              $('.edit').click(function(e)
+              $('.CrmEditContact').click(function(e)
             {
                 var id = $(this).attr("​value");
-                alert(id);
+                go_to(id);
             });
-             
-              </script>
+            $('.CrmContactDetail').click(function(e)
+            {
+                var id = $(this).attr("​value");
+                go_to(id);
+            });
+          </script>
