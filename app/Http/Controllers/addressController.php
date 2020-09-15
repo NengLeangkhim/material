@@ -14,7 +14,6 @@ class addressController extends Controller
     }
     public function getcommune()
     {
-
         $id = $_GET['_id']; //set up same for ajax
         $get_district = addressModel::GetLeadCommune($id);
         return response()->json(array('response' => $get_district), 200); //set up same for ajax

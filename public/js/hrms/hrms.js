@@ -1,5 +1,5 @@
 
-// function to show modal add and edit
+// HRM_ShowDetail('hrm_detail_employee', 'modal_employee_detail')
 function HRM_ShowDetail(rout,modalName,id=-1){
     $.ajax({
         type: 'GET',
@@ -11,10 +11,20 @@ function HRM_ShowDetail(rout,modalName,id=-1){
         success: function (data) {
             document.getElementById('modal').innerHTML = data;
             $('#'+modalName).modal('show');
+            // img_exist();
         }
     });
 }
 
+
+function ShowPassword(){
+    var e=document.getElementById('inputsalary');
+    if(e.type=="password"){
+        e.type="number";
+    }else{
+        e.type="password";
+    }
+}
 // All Employee
     // Add modal Employee in View
         function HRM_AddEditEmployee(id=-1){

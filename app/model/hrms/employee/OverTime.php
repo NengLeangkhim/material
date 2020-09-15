@@ -8,7 +8,7 @@ use Throwable;
 class OverTime extends Model
 {
     // Get All Overtime And Calculate Hour
-    function AllOvertime($month,$year){
+    public static function AllOvertime($month,$year){
         $d = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         $start_date = $year . "-" . $month . "-01";
         $end_date = $year . "-" . $month . "-" . $d;
@@ -20,17 +20,17 @@ class OverTime extends Model
     }
 
     // Get one row of Overtime
-    function OvertimeOneRow($id){
+    public static function OvertimeOneRow($id){
         $data=DB::select("SELECT ho.id,mu.first_name_en, mu.last_name_en,mu.id as stid,ho.overtime_date,ho.start_time,ho.end_time,ho.description from hr_overtime ho INNER JOIN ma_user mu on ho.ma_user_id=mu.id where ho.id=$id");
         return $data;
     }
 
 
     //Insert Overtime
-    function InsertOverTime($id,$overtimDate,$description,$approve,$overtimeHour,$upby,$start_time,$end_time){
+    public static function InsertOverTime($id,$overtimDate,$description,$approve,$overtimeHour,$upby,$start_time,$end_time){
         // wrong with sql
         try{
-            $sql = "SELECT public.insert_hr_overtime($id,'$overtimDate','$description',$approve,$overtimeHour,$upby,'$start_time','$end_time')";
+            $sql= "SELECT public.insert_hr_overtime($id,'$overtimDate','$description',$overtimeHour,$upby,'$start_time','$end_time')";
             $stm = DB::select($sql);
             if($stm[0]->insert_hr_overtime>0){
                 return "Insert Successfully ";
@@ -44,18 +44,24 @@ class OverTime extends Model
     }
 
     // Update Overtime
-    function UpdateOvertime($staffid, $overtimDate, $description, $approve, $overtimeHour, $upby, $start_time, $end_time,$hrid){
+    public static function UpdateOvertime($staffid, $overtimDate, $description, $approve, $overtimeHour, $upby, $start_time, $end_time,$hrid){
         try{
-            $sql = "SELECT public.update_hr_overtime($hrid,$upby,$staffid,'$overtimDate','$description',$upby,'$overtimeHour','$start_time','$end_time')";
+            $sql = "SELECT public.update_hr_overtime($hrid,$upby,$staffid,'$overtimDate','$description',$overtimeHour,'$start_time','$end_time','t')";
             $stm=DB::select($sql);
-            echo "Update Overtime Successfully";
+            if($stm[0]->update_hr_overtime>0){
+                return "Update Successfully ";
+            }else{
+                return "error";
+            }
         }catch(Throwable $e){
-            report($e);
+            return $e;
         }
+        
+
         
     }
 
-    function DeleteOvertime($id,$byid){
+    public static function DeleteOvertime($id,$byid){
         try {
             $sql = "SELECT public.delete_hr_overtime($id,$byid)";
             $stm = DB::select($sql);
@@ -65,7 +71,7 @@ class OverTime extends Model
     }
 
     // Calculate Employee who work OT in month
-    function OvertimeEmploye($month,$year){
+    public static function OvertimeEmploye($month,$year){
         try {
             $d = cal_days_in_month(CAL_GREGORIAN, $month, $year);
             $start_date = $year . "-" . $month . "-01";
@@ -78,7 +84,7 @@ class OverTime extends Model
     }
 
 
-    function OvertimeHoure($month, $year){
+    public static function OvertimeHoure($month, $year){
         try {
             $d = cal_days_in_month(CAL_GREGORIAN, $month, $year);
             $start_date = $year . "-" . $month . "-01";

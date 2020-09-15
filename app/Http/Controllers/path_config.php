@@ -22,7 +22,17 @@ class path_config extends Controller
         $st=md5(time().$st).'.'.$extension;
         return $st;
     }
-    public static function movefile($file,$path){
-        return null;
+    public static function Move_Upload($fileMove,$path){
+        $filename = $fileMove['name'];
+        $file = $fileMove['tmp_name'];
+        $url_path = getcwd();
+        $renamefile= path_config::img_en(basename($filename));
+        $uploadfile = $url_path.$path.$renamefile;
+        $filedirectory = $path.$renamefile;
+        if (move_uploaded_file($file, $uploadfile)) {
+            return $filedirectory;
+        } else {
+            return 0;
+        }
     }
 }
