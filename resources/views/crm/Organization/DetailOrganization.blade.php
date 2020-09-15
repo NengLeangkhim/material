@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-3" >
                    <div class="row">
-                        {{-- <div class="col-12 " align="left"><button type="button" ​value="editlead/1" class="btn btn-primary btn-block btn-md CrmLeadEdit">Edit</button></div> --}}
+                        <div class="col-12 " align="right"><button type="button" ​value="/organizations/edit/1" class="btn btn-primary btn-block btn-md CrmOrganizationEdit">Edit</button></div>
                         {{-- <div class="col-6 " align="left"><button type="button"  class="btn btn-success btn-md">Convert</button></div> --}}
                    </div>
                 </div>
@@ -253,7 +253,7 @@
             clearMarkers();
             markers = [];
         }
-        $('.CrmLeadEdit').click(function(e)
+        $('.CrmOrganizationEdit').click(function(e)
             {
                 var id = $(this).attr("​value");
                 go_to(id);

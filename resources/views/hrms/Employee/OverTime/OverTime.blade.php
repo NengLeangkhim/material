@@ -110,7 +110,7 @@
                     @foreach ($ot[0] as $item)
                       <tr>
                       <th>{{++$i}}</th>
-                        <td>{{$item->otname}}</td>
+                        <td>{{$item->full_en_name}}</td>
                         <td>{{$item->overtime_date}}</td>
                         <td>{{$item->hour}}</td>
                         <td>{{$item->description}}</td>

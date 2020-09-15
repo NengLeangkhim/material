@@ -20,6 +20,10 @@ class ModelCrmContact extends Model
     //Model Get Data Contact for Pagination
     public static function CrmContactGetDataPagination(){
         return DB::table('crm_lead_contact')->paginate(8);;
-     }
+    }
+    // Model get  Contact by id
+    public  static function  CrmGetContactID($id){
+        return DB::select('SELECT * from crm_lead_contact WHERE id='.$id);
+   }
 
 }
