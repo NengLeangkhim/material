@@ -13,7 +13,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="" class="lead" ​value="/organizations">Organization</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);" class="CrmOrganization" onclick="go_to('/organizations')">Organization</a></li>
                     <li class="breadcrumb-item active">Organization Detail</li>
                 </ol>
             </div>

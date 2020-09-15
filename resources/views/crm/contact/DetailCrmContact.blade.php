@@ -6,7 +6,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="" class="lead" ​value="/contact">contact</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);" class="contact" onclick="go_to('/contact')">contact</a></li>
                     <li class="breadcrumb-item active">Detail Contact</li>
                 </ol>
             </div>

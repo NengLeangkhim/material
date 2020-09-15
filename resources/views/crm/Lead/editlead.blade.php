@@ -184,7 +184,17 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fab fa-speakap"></i></span>
+                                                </div>
+                                                <select class="form-control" name="CrmService">
+                                                    <option></option>
+                                                    {{-- @foreach($assig_to as $row )
+                                                        <option value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option> 
+                                                    @endforeach --}}
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
