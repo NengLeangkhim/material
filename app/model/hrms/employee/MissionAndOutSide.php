@@ -34,7 +34,7 @@ class MissionAndOutSide extends Model
         
     }
 
-    function InsertMissionOutSide($date_from,$date_to,$description,$type,$create_by,$shift,$street,$home_number,$latlg,$gazetteers_code,$emid){
+    public static function InsertMissionOutSide($date_from,$date_to,$description,$type,$create_by,$shift,$street,$home_number,$latlg,$gazetteers_code,$emid){
         $sql= "SELECT public.insert_hr_mission('$date_from','$date_to','$description','$type',$create_by,'$shift','$street','$home_number','$latlg','$gazetteers_code')";
         $stm=DB::select($sql);
         if($stm[0]->insert_hr_mission>0){
@@ -44,14 +44,11 @@ class MissionAndOutSide extends Model
         }
     }
 
-    function InsertMissionOutsideDetail($hr_mission_id,$ma_user_id,$create_by,$staff_id){
+    public static function InsertMissionOutsideDetail($hr_mission_id,$ma_user_id,$create_by,$staff_id){
         foreach($staff_id as $modetail){
-            // $id_number=self::ConvertIdToNumber($modetail);
             $sql = "SELECT public.insert_hr_mission_detail($hr_mission_id,$modetail,$create_by)";
-            
             $stm = DB::select($sql);
         }
-        
         if($stm[0]->insert_hr_mission_detail>0){
             return "Insert Successfully";
         }else{
@@ -59,7 +56,7 @@ class MissionAndOutSide extends Model
         }
     }
 
-    function UpdateMissionOutside($id,$update_by, $date_from,$date_to,$description,$status,$type, $shift,$street,$home_number,$latlg,$gazetteers_code,$emid){
+    public static function UpdateMissionOutside($id,$update_by, $date_from,$date_to,$description,$status,$type, $shift,$street,$home_number,$latlg,$gazetteers_code,$emid){
         $sql= "SELECT public.update_hr_mission($id,$update_by,'$date_from','$date_to','$description','$status','$type','$shift','$street','$home_number','$latlg','$gazetteers_code')";
         $stm = DB::select($sql);
         if ($stm[0]->update_hr_mission > 0) {
@@ -69,12 +66,12 @@ class MissionAndOutSide extends Model
         }
     } 
     
-    function DeleteMissionOutSide($id,$by){
+    public static function DeleteMissionOutSide($id,$by){
         $sql= "SELECT public.delete_hr_mission($id,$by)";
         DB::select($sql);
     }
 
-    function ConvertIdToNumber($id_number)
+    public static function ConvertIdToNumber($id_number)
     {
         $rest = substr($id_number, 3, 30);  // returns "cde"
         $int = (int)$rest;
