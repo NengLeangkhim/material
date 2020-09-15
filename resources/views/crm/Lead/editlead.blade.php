@@ -198,7 +198,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Frist Name <b style="color:red">*</b></label>
+                                            <label for="exampleInputEmail1">Full Name Khmer <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -207,7 +207,7 @@
                                             </div>
                                         </div>
                                          <div class="col-md-6">
-                                             <label for="exampleInputEmail1">Last Name <b style="color:red">*</b></label>
+                                             <label for="exampleInputEmail1">Full Name English <b style="color:red">*</b></label>
                                              <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>

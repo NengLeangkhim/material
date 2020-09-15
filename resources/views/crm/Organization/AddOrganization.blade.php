@@ -30,6 +30,20 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Select Contact <b style="color:red">*</b></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                                </div>
+                                                <select class="form-control" name="contact" id="icontact" >
+                                                    <option></option>
+                                                    @foreach($lead_source as $row)
+                                                        <option value="{{$row->id}}">{{$row->lead_source}}</option>                                                  
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Company Name English <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -37,20 +51,20 @@
                                                 </div>
                                                 <input type="text" class="form-control" placeholder="Customer Name English"  name='custEng'  required>
                                             </div>
-                                        </div>
-                                         <div class="col-md-6">
-                                             <label for="exampleInputEmail1">Company Name khmer <b style="color:red">*</b></label>
+                                         </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Company Name khmer <b style="color:red">*</b></label>
                                              <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                 </div>
                                                 <input type="text" class="form-control" name="custkh" id="exampleInputEmail1" placeholder="Customer Name khmer" >
                                             </div>
-                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
+                                        </div>
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Primary Email<b style="color:red">*</b></label>
                                             <div class="input-group">
@@ -60,6 +74,10 @@
                                                 <input type="email" class="form-control"  name="email" id="exampleInputEmail1" placeholder="Primary Email">
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Primary Phone <b style="color:red">*</b></label>
                                             <div class="input-group">
@@ -69,11 +87,7 @@
                                                 <input type="text" class="form-control" name="phone"id="exampleInputEmail1" placeholder="Primary Phone" >
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                         <div class="col-md-6">
+                                        <div class="col-md-6">
                                             <label for="exampleInputEmail1">Website</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -82,6 +96,10 @@
                                                 <input type="text" class="form-control" name="website" id="exampleInputEmail1" placeholder="Website">
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Facebook</label>
                                             <div class="input-group">
@@ -89,12 +107,8 @@
                                                     <span class="input-group-text"><i class="fab fa-facebook"></i></span>
                                                 </div>
                                                 <input type="text" class="form-control" name="facebook" id="exampleInputEmail1" placeholder="Facebook">
-                                            </div>
+                                            </div>      
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Customer Type <b style="color:red">*</b></label>
                                             <div class="input-group">
@@ -112,8 +126,12 @@
                                                     <option>Amory Staff</option>
                                                     <option>Other</option>
                                                 </select>   
-                                            </div>                
+                                            </div>                             
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Lead Source <b style="color:red">*</b></label>
                                             <div class="input-group">
@@ -129,12 +147,8 @@
                                                 <div class="input-group-append">
                                                     <span class="input-group-text btn btn-info" data-toggle="modal" data-target="#modal-info"><i class="fas fa-plus"></i></span>
                                                 </div>
-                                            </div>                           
+                                            </div>    
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Lead Status</label>
                                             <div class="input-group">
@@ -147,8 +161,12 @@
                                                         <option value="{{$row->id}}">{{$row->name_en}}</option>   
                                                     @endforeach
                                                 </select>
-                                            </div>        
+                                            </div>                                      
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Industry <b style="color:red">*</b></label>
                                             <div class="input-group">
@@ -164,12 +182,8 @@
                                                 <div class="input-group-append">
                                                     <span class="input-group-text btn btn-info" data-toggle="modal" data-target="#modal-info-industry"><i class="fas fa-plus"></i></span>
                                                 </div>
-                                            </div>                                        
+                                            </div>       
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Assigened To<b style="color:red">*</b></label>
                                             <div class="input-group">
@@ -183,9 +197,6 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            
                                         </div>
                                     </div>
                                 </div>
