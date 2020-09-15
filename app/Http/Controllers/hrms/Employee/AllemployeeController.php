@@ -80,23 +80,36 @@ class AllemployeeController extends Controller
         $description=$_POST['emDescription'];
         $profile=$_FILES['emProfile'];
         $departement_id=$_POST['emDepartment'];
-        $has_children='f';
+        if($chidren>0){
+            $has_children='t';
+        }else{
+            $has_children = 'f';
+        }
         $bankaccount=$_POST['emBankAccount'];
+        $imageDirectory=$_POST['imgdirectory'];
         if($id>0){
            if(strlen($profile['name'])>0){
-
+                $upload=path_config::Move_Upload($profile, "/media/file/main_app/profile/img/");
+                if($upload==0){
+                    $imageDirectory=$upload;
+                    $em=Employee::UpdateEmployee($id,$firstName_en,$lastName_en,$email,$telephone,$position,8,16,$departement_id,$userid,$idNumber,$sex,$firstName_kh,$lastName_kh,$imageDirectory,$officePhone,$jointDate,$dateOfBirth,$homeNumber_en,$homeNumber_kh,$street_en,$street_kh,'null',$vilage,'null',$spous,$has_children,$chidren,$salary,4,$description,$bankaccount);
+                    echo $em;
+                }else{
+                    echo 'error';
+                }
            }else{
-
+                $em=Employee::UpdateEmployee($id,$firstName_en,$lastName_en,$email,$telephone,$position,8,16,$departement_id,$userid,$idNumber,$sex,$firstName_kh,$lastName_kh,$imageDirectory,$officePhone,$jointDate,$dateOfBirth,$homeNumber_en,$homeNumber_kh,$street_en,$street_kh,'null',$vilage,'null',$spous,$has_children,$chidren,$salary,4,$description,$bankaccount);
+                echo $em;
+                return;
            }
         }else{
-            $upload = path_config::Move_Upload($profile, "media/hrms/Training/");
+            $upload = path_config::Move_Upload($profile, "/media/file/main_app/profile/img/");
             if (!$upload == 0) {
                 $imageDirectory = $upload;
                 $em=Employee::InsertEmployee($firstName_en,$lastName_kh,$email,$telephone,$position,8,16,$departement_id,$userid,$idNumber,$sex,$firstName_kh,$lastName_kh,$imageDirectory,$officePhone,$jointDate,$dateOfBirth,$homeNumber_en,$homeNumber_kh,$street_en,$street_kh,'null', $vilage,'null',$spous,$has_children,$chidren,$salary,4,$description,$bankaccount);
-                print_r($em);
+                echo $em;
             } else {
                 echo "error";
-                return;
             }
         }
 
@@ -116,9 +129,18 @@ class AllemployeeController extends Controller
 
 
     function EmployeeDetail(){
-        // $em=new Employee();
-        // $id=$_GET['id'];
-        // $employee=$em->EmployeeOnRow($id);
-        return view('hrms/Employee/AllEmployees/employeeDetail');
+        $em = new Employee();
+        $data[] = array();
+        $dp = new DepartmentAndPosition();
+        $data[0] = $dp->AllPosition();
+        $data[2] = addressModel::GetLeadProvice();
+        $data[3] = DepartmentAndPosition::AllDepartment();
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            if ($id > 0) {
+                $data[1] = $em->EmployeeOnRow($id);
+                return view('hrms/Employee/AllEmployees/employeeDetail')->with('data', $data);
+            } 
+        } 
     }
 }

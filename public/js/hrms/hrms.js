@@ -11,11 +11,20 @@ function HRM_ShowDetail(rout,modalName,id=-1){
         success: function (data) {
             document.getElementById('modal').innerHTML = data;
             $('#'+modalName).modal('show');
-            img_exist();
+            // img_exist();
         }
     });
 }
 
+
+function ShowPassword(){
+    var e=document.getElementById('inputsalary');
+    if(e.type=="password"){
+        e.type="number";
+    }else{
+        e.type="password";
+    }
+}
 // All Employee
     // Add modal Employee in View
         function HRM_AddEditEmployee(id=-1){

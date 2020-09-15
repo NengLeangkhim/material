@@ -20,9 +20,12 @@
               @php
                   if(isset($data[1])){
                     $date=new DateTime($data[1]['joint_date']);
+                    $dateBirth=new DateTime($data[1]['dateOfBirth']);
+                    $dateofbirth=$dateBirth->format('Y-m-d');
                     $join_date=$date->format('Y-m-d');
                   }else {
                     $join_date="";
+                    $dateofbirth="";
                   }
               @endphp
               <input type="hidden" class="d-none" value="@php echo $_GET['id']; @endphp" name="id">
@@ -69,7 +72,7 @@
                     </div>
                     <div class="col-md-6">
                       <label>Date of Birth <span class="text-danger">*</span></label>
-                      <input type="date" class="form-control" name="emDateOfBirth" value="@php echo $join_date; @endphp" required>
+                      <input type="date" class="form-control" name="emDateOfBirth" value="@php echo $dateofbirth; @endphp" required>
                     </div>
                     <div class="col-md-6">
                       <label>Joint Date <span class="text-danger">*</span></label>
@@ -115,10 +118,11 @@
                   </div>
               </div>
               <div class="col-md-4">
+                <input type="hidden" value="@php if(isset($data[1])){ echo $data[1]['image']; } @endphp" name="imgdirectory">
                 <div id="image-preview" style="margin-top: 30px" class=""> 
                   <label for="image-upload" id="image-label">Choose Image</label>
-                  <input type="file" accept="image/*" onchange="preview_image(event)" name="emProfile" required>
-                  <img id="output_image" name="emProfile" height="320px" width="100%" src="@php if(isset($data[1])){ echo "http://172.17.168.27:82".$data[1]['image'];} @endphp"/>
+                  <input type="file" accept="image/*" onchange="preview_image(event)" name="emProfile" @php if(!isset($data[1])){ echo 'required'; } @endphp>
+                  <img id="output_image" name="emProfile" height="320px" width="100%" src="@php if(isset($data[1])){ echo $data[1]['image'];} @endphp"/>
                 </div>
               </div>
               <div class="col-md-4">
@@ -130,19 +134,19 @@
                   <input type="tel" class="form-control" name="emOfficePhone" value="@php if(isset($data[1])){ echo $data[1]['office_phone']; } @endphp" >
               </div>
               <div class="col-md-4">
-                  <label>Salary <span class="text-danger">*</span></label>
-                  <input type="number" class="form-control" name="emSalary" @php if(!isset($data[0])){ echo 'required'; } @endphp required>
+                  <label>Salary <span class="text-danger">*</span><span style="margin-left: 100px"><input type="checkbox" onclick="ShowPassword()">show</span></label>
+                  <input type="@php if(isset($data[1])){ echo "password"; }else { echo "number"; } @endphp" id="inputsalary" class="form-control" name="emSalary" @php if(!isset($data[0])){ echo 'required'; } @endphp value="@php if(isset($data[1])){ echo $data[1]['salary']; } @endphp">
                 </div>
                 <div class="col-md-6">
                   <label>Bank Account</label>
-                  <input type="number" class="form-control" name="emBankAccount" value="@php if(isset($data[1])){ echo $data[1]['office_phone']; } @endphp">
+                  <input type="number" class="form-control" name="emBankAccount" value="@php if(isset($data[1])){ echo $data[1]['bank_account']; } @endphp">
               </div>
               <div class="col-md-6">
                   <label>Email <span class="text-danger">*</span></label>
                   <input type="email" class="form-control" name="emEmail" value="@php if(isset($data[1])){ echo $data[1]['email']; } @endphp" required>
               </div>
               <div class="col-md-6">
-                  <label>Spous <span class="text-danger">*</span></label>
+                  <label>Spouse <span class="text-danger">*</span></label>
                   <select name="emSpous" id="" class="form-control">
                     @php
                       if(isset($data[1])){
@@ -184,28 +188,82 @@
               <div class="col-md-6">
                   <label>City / Province <span class="text-danger">*</span></label>
                    <select class="form-control select2 city"  id="icity" name="emCity" onchange="getbranch(this,'idistrict','s','/district')" required>
-                     <option disabled=true selected=true hidden=true></option>
-                       @foreach($data[2] as $row )
-                          <option value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option> 
-                       @endforeach
+                     @php
+                         $f1="";
+                         $f2="";
+                         foreach ($data[2] as $province) {
+                           if(isset($data[1])){
+                              if($province->code==$data[1]['province']){
+                                $f1=$f1.'<option value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
+                              }else {
+                                $f2=$f2.'<option value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
+                              }
+                           }else {
+                             $f1=$f1.'<option value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
+                           }
+                         }
+                         if(!isset($data[1])){
+                           echo '<option disabled=true selected=true hidden=true></option>';
+                         }
+                         echo $f1.$f2;
+                     @endphp
                   </select>  
               </div>
               <div class="col-md-6">
                 <label>Khan/District<span class="text-danger">*</span></label>
                 <select class="form-control dynamic" name="emDistrict" id="idistrict" onchange="getbranch(this,'icommune','s','/commune')" required >
-                  <option> </option> 
+                  @php
+                  $f1="";
+                  $f2="";
+                      if(isset($data[1])){
+                        foreach ($data[1]['all_district'] as $district) {
+                          if($data[1]['district']==$district->id){
+                            $f1='<option value="'.$district->id.'">'.$district->name.'</option>';
+                          }else {
+                            $f2=$f2.'<option value="'.$district->id.'">'.$district->name.'</option>';
+                          }
+                        }
+                      }
+                      echo $f1.$f2;
+                  @endphp
                 </select>
               </div>
               <div class="col-md-6">
                 <label>Sengkat/Commune<span class="text-danger">*</span></label>
                 <select class="form-control dynamic" name="emCommune" id="icommune" onchange="getbranch(this,'ivillage','s','/village')" required>
-                  <option> </option>
+                  @php
+                      $f1="";
+                      $f2="";
+                      if(isset($data[1])){
+                        foreach ($data[1]['all_commune'] as $commune) {
+                          if($commune->id==$data[1]['commune']){
+                            $f1=$f1.'<option value="'.$commune->id.'">'.$commune->name.'</option>';
+                          }else {
+                            $f2=$f2.'<option value="'.$commune->id.'">'.$commune->name.'</option>';
+                          }
+                        }
+                      }
+                      echo $f1.$f2;
+                  @endphp
                 </select> 
               </div>
               <div class="col-md-6">
                 <label>Village<span class="text-danger">*</span></label>
                 <select class="form-control " name="emVillage" id="ivillage" dats-dependent="village" required>
-                  <option>select Village</option>                                                        
+                  @php
+                      $f1="";
+                      $f2="";
+                      if(isset($data[1])){
+                        foreach ($data[1]['all_village'] as $village) {
+                          if($village->id==$data[1]['village']){
+                            $f1=$f1.'<option value="'.$village->id.'">'.$village->name.'</option>';
+                          }else {
+                            $f2=$f2.'<option value="'.$village->id.'">'.$village->name.'</option>';
+                          }
+                        }
+                      }
+                      echo $f1.$f2;
+                  @endphp                                                       
                 </select> 
               </div>
               <div class="col-md-12">
