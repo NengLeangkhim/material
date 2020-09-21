@@ -1,7 +1,7 @@
 @php
 // dump($addp);
 $edit=array();
-if(count($addp)==5){
+if(count($addp)==6){
     foreach($addp[6] as $d){
         $edit=$d;
     }
@@ -20,11 +20,7 @@ if(count($addp)==5){
     $currency=$edit->currency_id;
     $bbarcode=$edit->barcode;
     $ptype=$edit->product_type_id;
-    // $company=$edit->ma_company_id;
-    // $company_branch=$edit->branch_id;
-    // $storage_location=0;
     $e='disabled';
-    // $storage_location=
 }else{
     $id=0;
     $pname="";
@@ -67,33 +63,6 @@ $sel="";
             <input type="hidden" name="pid" value="{{$id}}">
             <div class="container-fluid" style="padding-top: 20px;">
                 <div class="row">
-                    {{-- <div class="form-group col-md-3 col-lg-3">
-                        <label>Company <sup>(owner of this product)</sup> <i class="text-danger">*</i></label>
-                        <input type="hidden" id="comp_branch" value="{{$company_branch}}">
-                        <div class="input-group">
-                            <select class="form-control" name="company" id="icompany" required onchange="getbranch(this,'company_branch','comp_branch','/getcompany');getpcode(this,document.addproduct.ptype,'pcode','getpcode')">
-                            @php
-                                foreach($addp[0] as $companyy){
-                                    $sel=($companyy->id==$company)?"selected":"";
-                                    echo '<option value="'.$companyy->id.'"'.$sel.'>'.$companyy->name.'</option>';
-                                }
-                            @endphp
-                            </select>
-                            <a  href="javascript:void(0);" onclick="add_dialog('/addcompany')" class="input-group-addon pointer">
-                                <span class="fa fa-plus"></span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-3 col-lg-3">
-                        <label>Company_branch <i class="text-danger">*</i></label>
-                        <div class="input-group">
-                            <select class="form-control" name="company_branch" id="company_branch" required>
-                            </select>
-                            <a  href="javascript:void(0);" onclick="add_dialog('/addcompanybranch')" class="input-group-addon pointer">
-                                <span class="fa fa-plus"></span>
-                            </a>
-                        </div>
-                    </div> --}}
                     <div class="form-group col-md-3 col-lg-3">
                         <label>Product Type</label>
                         <div class="input-group">
@@ -108,33 +77,15 @@ $sel="";
                             @php
                                 echo (empty($ptype))?'':"<input hidden name='ptype' value='{$ptype}'>";
                             @endphp
-                            <a  href="javascript:void(0);" onclick="add_dialog('/addptype')" class="input-group-addon pointer">
+                            {{-- <a  href="javascript:void(0);" onclick="add_dialog('/addptype')" class="input-group-addon pointer">
                                 <span class="fa fa-plus"></span>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                     <div class="form-group col-md-3 col-lg-3">
                         <label>Product Code <i class="text-danger"><i class="text-danger">*</i></i></label>
                         <input type="text" name="product_code" id='pcode' class="form-control" value="{{$pcode}}" readonly>
                     </div>
-                    {{-- <div class="form-group col-md-3 col-lg-3">
-                        <label>Supplier <i class="text-danger">*</i></label>
-                        <div class="input-group">
-                            <select class="form-control" id="isupplier" name="supplier" {{$e}}>
-                            @php
-                                if($e=='required'){
-                                    foreach($addp[5] as $supllier){
-                                        $sel=($supllier->id==$supplier)?"selected":"";
-                                        echo '<option value="'.$supllier->id.'"'.$sel.'>'.$supllier->name.'</option>';
-                                    }
-                                }
-                            @endphp
-                            </select>
-                            <a  href="javascript:void(0);" onclick="add_dialog('/addsupplier')" class="input-group-addon pointer">
-                                <span class="fa fa-plus"></span>
-                            </a>
-                        </div>
-                    </div> --}}
                     <div class="form-group col-md-3 col-lg-3">
                         <label>Brand</label>
                         <div class="input-group">
@@ -146,9 +97,9 @@ $sel="";
                                     }
                                 @endphp
                             </select>
-                            <a  href="javascript:void(0);" onclick="add_dialog('/addproductbrand')" class="input-group-addon pointer">
+                            {{-- <a  href="javascript:void(0);" onclick="add_dialog('/addproductbrand')" class="input-group-addon pointer">
                                 <span class="fa fa-plus"></span>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                     <div class="form-group col-md-3 col-lg-3">
@@ -162,9 +113,9 @@ $sel="";
                                 }
                             @endphp
                             </select>
-                            <a  href="javascript:void(0);" onclick="add_dialog('/addmeasurement')" class="input-group-addon pointer">
+                            {{-- <a  href="javascript:void(0);" onclick="add_dialog('/addmeasurement')" class="input-group-addon pointer">
                                 <span class="fa fa-plus"></span>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                     <div class="form-group col-md-6 col-lg-6">
@@ -194,52 +145,35 @@ $sel="";
                                 }
                             @endphp
                             </select>
-                            <a  href="javascript:void(0);" onclick="add_dialog('/addcurrency')" class="input-group-addon pointer">
+                            {{-- <a  href="javascript:void(0);" onclick="add_dialog('/addcurrency')" class="input-group-addon pointer">
                                 <span class="fa fa-plus"></span>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
-                    {{-- <div class="form-group col-md-3 col-lg-3">
-                        <label>Qty <i class="text-danger"><i class="text-danger">*</i></i></label>
-                        <input type="number" step='1' min="0" name="reorder_qty" class="form-control number" value="{{$record_qty}}" required onkeypress="valid_number(event)" required>
-                    </div> --}}
                     <div class="form-group col-md-3 col-lg-3">
                         <label>Cost <i class="text-danger">*</i></label>
                         <input type="number" step="0.0001" min="0.0001" name="cost" class="form-control currency" value="{{$cost}}" placeholder="0.0000" onkeypress="valid_float(event)" autocomplete="off" required>
                     </div>
-                    {{-- <div class="form-group col-md-2 col-lg-2">
-                        <label>Sale Price</label>
+                    <div class="form-group col-md-3 col-lg-3">
+                        <label>Price</label>
                         <input type="text" name="price" class="form-control currency" value="{{$sale_price}}" placeholder="0.0000">
-                    </div> --}}
-                    {{-- <div class="form-group col-md-3 col-lg-3">
-                        <label>Storage <i class="text-danger">*</i> </label>
-                        <input type="hidden" id="storage_loc" value="{{$storage_location}}">
+                    </div>
+                    <div class="form-group col-md-6 col-lg-6">
+                        <label>Account chart <i class="text-danger">*</i></label>
                         <div class="input-group">
-                            <select class="form-control" name="storage" id="istorage" {{$e}} onchange="getbranch(this,'storage_location','storage_loc','/get_s_location')">
+                            <select class="form-control select2" name="account_chart" required id="iaccount_chart">
                                 @php
-                                if($e=='required'){
-                                    foreach($addp[3] as $storagee){
-                                        $sel=($storagee->id==$unitType)?"selected":"";
-                                        echo '<option value="'.$storagee->id.'"'.$sel.'>'.$storagee->name.'</option>';
-                                    }
+                                foreach($addp[8] as $currencyy){
+                                    $sel=($currencyy->id==$currency)?"selected":"";
+                                    echo '<option value="'.$currencyy->id.'"'.$sel.'>'.$currencyy->name.'</option>';
                                 }
                             @endphp
                             </select>
-                            <a  href="javascript:void(0);" onclick="add_dialog('/addstorage')" class="input-group-addon pointer">
+                            {{-- <a  href="javascript:void(0);" onclick="add_dialog('/addcurrency')" class="input-group-addon pointer">
                                 <span class="fa fa-plus"></span>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
-                    <div class="form-group col-md-3 col-lg-3">
-                        <label>Storage location <i class="text-danger">*</i></label>
-                        <div class="input-group">
-                            <select class="form-control" name="storage_location" id="storage_location" {{$e}}>
-                            </select>
-                            <a  href="javascript:void(0);" onclick="add_dialog('/addstoragelocation')" class="input-group-addon pointer">
-                                <span class="fa fa-plus"></span>
-                            </a>
-                        </div>
-                    </div> --}}
                     <div class="form-group col-md-9 col-lg-9">
                         <label>Description</label>
                         <input type="text" name="description" class="form-control" placeholder="" value="{{$description}}">

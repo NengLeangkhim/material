@@ -14,13 +14,6 @@ class ProductRequest extends Controller
             session_start();
         }
         if(perms::check_perm_module('STO_010601')){//module code
-            // $pRequest=DB::select("SELECT rp.id,
-            //                     (select name from staff where id=rp.request_by) as request_by,
-            //                     (select name from staff where id=rp.approve_by) as approve_by,
-            //                     cd.company,rp.request_date,rp.description
-            //                     from request_product rp
-            //                     join ma_company_detail cd on cd.id=rp.company_detail_id
-            //                     where cd.status='t'");
             return view('stock.products.productRequest.productRequest');
         }else{
             return view('no_perms');
@@ -32,8 +25,8 @@ class ProductRequest extends Controller
         }
         if(perms::check_perm_module('STO_01060101')){//module code
             $r=array();
-            $r[]=DB::select("SELECT id,name from company");
-            $r[]=DB::select("SELECT id,name from ma_user");
+            $r[]=DB::select("SELECT id,name from ma_company");
+            $r[]=DB::select("SELECT id,first_name_en||' '||last_name_en as name from ma_user where status='t' and is_deleted='f'");
             return view('stock.products.productRequest.addProductRequest')->with("action",$r);
         }else{
             return view('no_perms');
@@ -83,9 +76,9 @@ class ProductRequest extends Controller
         if(perms::check_perm_module('STO_01060102')){//module codes
                 $id=$_GET['_id'];
                 $sql="SELECT
-                    rp.id,(select name from ma_user where id=rp.request_by) as _by,
-                    (select name from ma_user where id=rp.approve_by) as approve_by,
-                    cd.company,rp.request_date,rp.description
+                    rp.id,(select first_name_en||' '||last_name_en from ma_user where id=rp.request_by and status='t' and is_deleted='f') as _by,
+                    (select first_name_en||last_name_en from ma_user where id=rp.approve_by) as approve_by,
+                    cd.ma_company,rp.request_date,rp.description
                     from request_product rp
                     join ma_company_detail cd on cd.id=rp.company_detail_id
                     where cd.status='t' and rp.id=$id";

@@ -33,14 +33,14 @@ class SettingController extends Controller
             $dep="SELECT id,name from ma_company_dept order by name";
             $department=DB::select($dep);
 
-            $staff="SELECT id,name from ma_user order by name";
+            $staff="SELECT id,first_name_en||' '||last_name_en as name from ma_user order by name";
             $staff=DB::select($staff);
 
             $module="SELECT id,name,code from ma_module order by name";
             $module=DB::select($module);
 
             $ma="SELECT mma.id as module_id, mm.name,mm.code,mm.icon,mp.name as position,mg.name as group,mcd.name as department
-            ,mu.name as user
+            ,mu.first_name_en||' '||mu.last_name_en as user
             -- ,mma.ma_user_id as user
                 ,case when count(mma.id) OVER (partition by mm.id)=0 then 1 else count(mma.id) OVER (partition by mm.id) end as count
             FROM ma_module mm
@@ -60,7 +60,7 @@ class SettingController extends Controller
     }
     public function module_access_json(){
         $ma="SELECT mma.id as module_id, mm.name,mm.code,mm.icon,mp.name as position,mg.name as group,mcd.name as department
-        ,mu.name as user
+        ,mu.first_name_en||' '||mu.last_name_en as user
         -- ,mma.ma_user_id as user
             -- ,case when count(mma.id) OVER (partition by mm.id)=0 then 1 else count(mma.id) OVER (partition by mm.id) end as count
          FROM ma_module_access mma

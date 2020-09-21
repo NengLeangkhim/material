@@ -15,14 +15,6 @@ class productImport extends Controller
             session_start();
         }
         if(perms::check_perm_module('STO_010604')){//module codes
-            // $productImport=DB::select("SELECT ia.id,
-            //             (select name from staff where id=ia.deliver_by) as deliver_by,
-            //             (select name from staff where id=ia.approve_by) as approve_by,
-            //             cd.company,cd.branch,ia.arrival_date,sp.name as supplier,ia.description
-            //             from invoice_arrival ia
-            //             join ma_company_detail cd on cd.id=ia.company_detail_id
-            //             left join supplier sp on sp.id=ia.supplier_id
-			//             where cd.status='t'");
             return view('stock.products.productImport.productimport');
         }else{
             return view('no_perms');
@@ -35,8 +27,8 @@ class productImport extends Controller
         if(perms::check_perm_module('STO_01060401')){//module codes
             $r=array();
             $r[]=DB::select("SELECT id,name from ma_company");
-            $r[]=DB::select("SELECT id,name from ma_user");
-            $r[]=DB::select("SELECT id,name from supplier where status='t'");
+            $r[]=DB::select("SELECT id,first_name_en||' '||last_name_en as name from ma_user where status='t' and is_deleted='f'");
+            $r[]=DB::select("SELECT id,name from ma_supplier where status='t' and is_deleted='f'");
             return view('stock.products.productImport.addProductImport')->with("action",$r);
         }else{
             return view('no_perms');
@@ -90,8 +82,8 @@ class productImport extends Controller
         if(perms::check_perm_module('STO_01060402')){//module codes
                 $id=$_GET['_id'];
                 $sql="SELECT ia.id,
-                    (select name from ma_user where id=ia.deliver_by) as _by,
-                    (select name from ma_user where id=ia.approve_by) as approve_by,
+                    (select first_name_en||' '||last_name_en from ma_user where id=ia.deliver_by) as _by,
+                    (select first_name_en||' '||last_name_en from ma_user where id=ia.approve_by) as approve_by,
                     cd.company,cd.branch,cd.id,ia.arrival_date,sp.name as supplier,ia.description
                     from invoice_arrival ia
                     join ma_company_detail cd on cd.id=ia.company_detail_id

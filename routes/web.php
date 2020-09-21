@@ -195,7 +195,7 @@ Route::post('/addCustomerProduct','stock\CustomerProduct@insert_customer_product
 // Product List
 Route::get('/ProductList','stock\product@getProductList');
 Route::post('/AddProductList','stock\product@addProductList');
-Route::get('/AddProductList','stock\product@addProductList');
+Route::get('/get_AddProductList','stock\product@get_addProductList');
 Route::get('/productListDetial','stock\product@getProductByID');
 Route::get('/Updateproductqty','stock\product@update_product_qty');
 //get supplier branch
