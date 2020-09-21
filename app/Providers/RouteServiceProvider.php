@@ -76,5 +76,35 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
+
+
+        /**
+         * Multiple API Configuration
+         */
+
+        // 1. --- CRM API ---
+        Route::prefix('api')
+        ->middleware('api')
+        ->namespace($this->namespace)
+        ->group(base_path('routes/crm_api/organize.php'));
+
+        Route::prefix('api')
+        ->middleware('api')
+        ->namespace($this->namespace)
+        ->group(base_path('routes/crm_api/quote.php'));
+
+
+        Route::prefix('api')
+        ->middleware('api')
+        ->namespace($this->namespace)
+        ->group(base_path('routes/crm_api/contact.php'));
+
+        Route::prefix('api')
+        ->middleware('api')
+        ->namespace($this->namespace)
+        ->group(base_path('routes/crm_api/lead.php'));
+        
     }
+
+    
 }
