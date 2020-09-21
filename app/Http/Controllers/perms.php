@@ -172,7 +172,7 @@ class perms extends Controller
                }
               if(($item->child))
                 {
-                  $st.= "<i class='right fas fa-angle-left'></i>";
+                  $st.= "<i style='top:32%;' class='right fas fa-angle-left'></i>";
                 }
               $st.= "</p></a>";
              if($item->child)
