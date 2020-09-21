@@ -91,32 +91,43 @@ class CustomerProduct extends Controller
             $pid=$_POST['pid'];
             $qty=$_POST['qty'];
             $price=$_POST['price'];
-            $ma_currency=$_POST['ma_currency'];
+            $currency=$_POST['currency'];
             $location=$_POST['storage_location'];
             $storage=$_POST['storage'];
             $company="(select cd.ma_company_id from ma_company_detail cd join ma_user s on s.ma_company_detail_id=cd.id where cd.status='t' and s.id=$staff)";
             $company_branch="(select cd.ma_company_branch_id from ma_company_detail cd join ma_user s on s.ma_company_detail_id=cd.id where cd.status='t' and s.id=$staff)";
-            $sql="insert_product_customer($customer,$customer_branch,$company,$company_branch,$_by,'$action_type',$staff,'$des') as id";
+
+            $sql="insert_stock_customer_product(
+                $customer,
+                $customer_branch,
+                $_by,
+                (select now())::timestamp,
+                '$action_type',
+                '$des',
+                $staff
+            ) as id";
             $q=DB::select("SELECT ".$sql);
             $p_customer=$q[0]->id;
             $ds="";
-            if($action_type=='return'){
-                $ds="insert_product_customer_return_detail";
-            }elseif($action_type=='out'){
-                $ds="insert_product_customer_request_detail";
-            }
             for($i=0;$i<count($pid);$i++){
                 // echo $pid[$i].' '.$qty[$i].' '.$location[$i].' '.$storage[$i].'<br>';
-                $dsql=$ds."($p_customer,".$pid[$i].",".$storage[$i].",".$location[$i].",".$qty[$i].",".$price[$i].",".$ma_currency[$i].");";
+                $dsql="insert_stock_customer_product_detail(
+                    $p_customer,
+                    $staff,
+                    ".$qty[$i].",
+                    ".$price[$i].",
+                    ".$currency[$i].",
+                    ".$storage[$i].",
+                    ".$location[$i].",
+                    ".$pid[$i]."
+                );";
                 $q=DB::select("SELECT ".$dsql);
             }
-            // if(count($q)>0){
-            //     if($action_type=='out'){
-            //         return redirect('/customerproductrequest');
-            //     }else{
-            //         return redirect('/customerproductrequest');
-            //     }
-            // }
+            if(count($q)>0){
+                echo 'Success';
+            }else{
+                echo 'Fail';
+            }
         }else{
             return view('no_perms');
         }
@@ -128,18 +139,19 @@ class CustomerProduct extends Controller
         if(perms::check_perm_module('STO_010404')){//module codes
             $id=$_GET['_id'];
             $sql="SELECT c.id,cd.branch,
-                    cd.customer,(select name from ma_user where id=c._by) as _by,
-                    (select name from ma_user where id=c.approve_by) as approve_by,
+                    cd.customer,(select first_name_en||' '||last_name_en from ma_user where id=c.action_by) as _by,
+                    (select first_name_en||' '||last_name_en from ma_user where id=c.create_by) as approve_by,
                     c.request_date, c.action_type,c.description
                         FROM public.stock_customer_product c
                         join ma_customer_detail cd on cd.id=c.ma_customer_detail_id
                         where c.id=$id and cd.status='t'";
-            $sql1="SELECT b.name as brand,get_code_prefix_ibuild(p.code,pc.company_detail_id,p.code_prefix_owner_id,(select code from product_type where id=p.product_type_id)) as product_code,p.name,p.part_number,p.barcode,m.name as ma_measurement,c.name as ma_currency,pd.qty,pd.price,(pd.qty*pd.price) as amount
-                    from product_customer_detail pd
-                    left join public.stock_customer_product pc on pc.id=pd.stock_customer_product_id
-                    join stock_product p on p.id=pd.stock_product_id
+            $sql1="SELECT b.name as brand,get_code_prefix_ibuild(p.code,spm.ma_company_detail_id,p.code_prefix_owner_id,(select code from stock_product_type where id=p.stock_product_type_id)) as product_code,p.name,p.part_number,p.barcode,m.name as measurement,c.name as currency,spm.qty*-1 as qty,spm.price,(spm.qty*spm.price)*-1 as amount
+                    from stock_customer_product_detail pd
+                    join public.stock_customer_product pc on pc.id=pd.stock_customer_product_id
+                    join stock_product_move spm on spm.id=pd.stock_product_move_id
+                    join stock_product p on p.id=spm.stock_product_id
                     join stock_product_brand b on b.id=p.stock_product_brand_id
-                    join ma_currency c on pd.currency_id=c.id
+                    join ma_currency c on spm.ma_currency_id=c.id
                     join ma_measurement m on p.ma_measurement_id=m.id
                     where stock_customer_product_id=$id";
             $plist=array();

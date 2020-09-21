@@ -704,7 +704,7 @@ class gettable extends Controller
             join ma_customer_detail cd on cd.id=c.ma_customer_detail_id
             where action_type=\'out\'
 			and cd.is_deleted=\'f\'
-			and c.is_deleted=\'f\') as foo
+			and c.is_deleted=\'f\' and c.id in(select stock_customer_product_id from stock_customer_product_detail where status=\'t\' and is_deleted=\'f\')) as foo
             where lower("Customer") like \'%'.$sr.'%\' or lower("Request by") like \'%'.$sr.'%\'
                     or lower("Approve by") like \'%'.$sr.'%\' or lower("Branch") like \'%'.$sr.'%\'';
 
@@ -717,7 +717,8 @@ class gettable extends Controller
             join ma_customer_detail cd on cd.id=c.ma_customer_detail_id
             where action_type=\'return\'
 			and cd.is_deleted=\'f\'
-			and c.is_deleted=\'f\') as foo
+			and c.is_deleted=\'f\'
+            and c.id in(select stock_customer_product_id from stock_customer_product_detail where status=\'t\' and is_deleted=\'f\')) as foo
                     where lower("Customer") like \'%'.$sr.'%\' or lower("Return by") like \'%'.$sr.'%\'
                     or lower("Approve by") like \'%'.$sr.'%\' or lower("Branch") like \'%'.$sr.'%\'';
 

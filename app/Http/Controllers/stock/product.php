@@ -126,7 +126,7 @@ class product extends Controller
                                     from stock_product_move q
                                     left join ma_company_detail cd on cd.id=q.ma_company_detail_id
                                     left join stock_storage_detail s on s.id=q.stock_storage_detail_id
-                                    where q.stock_product_id=$id and s.is_deleted='f' and cd.is_deleted='f'");
+                                    where q.stock_product_id=$id and cd.is_deleted='f' ");
             }elseif(isset($_GET['delete'])){
                 // $id=$_GET['delete'];
                 // $staff=$_SESSION['userid'];
