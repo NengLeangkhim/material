@@ -20,13 +20,13 @@ class get_storage_location extends Controller
             $sql="";
             if(isset($_GET['pid'])){
                 $id=$_GET['pid'];
-                $sql="select distinct sd.storage_location_id as id,sd.location as name from product_qty q
-                join storage_detail sd on sd.id=q.storage_detail_id
-                where q.product_id=$id and status='t'";
+                $sql="select distinct sd.storage_location_id as id,sd.location as name from stock_product_move q
+                join stock_storage_detail sd on sd.id=q.stock_storage_detail_id
+                where q.stock_product_id=$id and status='t'";
             }
             if(isset($_GET['_id'])){
                 $id=$_GET['_id'];
-                $sql="select id, name from storage_location where storage_id=$id and status='t'";
+                $sql="select id, name from stock_storage_location where stock_storage_id=$id and status='t'";
             }
             $q=DB::select($sql);
             return response()->json(array('response'=> $q), 200);

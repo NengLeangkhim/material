@@ -116,8 +116,8 @@ class addproduct_to_view extends Controller
                 $cdi="(select id from ma_company_detail where status='t' and ma_company_id=$company_id and ma_company_branch_id=$b)";
             }
         }
-        $sql="SELECT p.id, p.name, p.product_price, p.barcode, p.part_number,get_code_prefix_ibuild(p.code,$cdi,p.code_prefix_owner_id,pt.code) as product_code,
-                c.name as ma_currency,m.name as ma_measurement,p.ma_currency_id,
+        $sql="SELECT p.id, p.name, p.product_price as price, p.barcode, p.part_number,get_code_prefix_ibuild(p.code,$cdi,p.code_prefix_owner_id,pt.code) as product_code,
+                c.name as currency,m.name as ma_measurement,p.ma_currency_id as currency_id,
                 (select sum(q.qty) from stock_product_move q where q.stock_product_id=p.id and q.ma_company_detail_id=$cdi) as qty,
                 (select s.location from stock_product_move q join stock_storage_detail s on s.id=q.stock_storage_detail_id where q.stock_product_id=p.id and q.ma_company_detail_id=$cdi limit 1) as location,
                 (select s.stock_storage_location_id from stock_product_move q join stock_storage_detail s on s.id=q.stock_storage_detail_id where q.stock_product_id=p.id and q.ma_company_detail_id=$cdi limit 1) as location_id,
@@ -131,7 +131,7 @@ class addproduct_to_view extends Controller
         $q=array();
         $q[]=DB::select($sql);
         if(isset($_GET['act'])){
-            $sql1="select id ,name from storage where status='t'";
+            $sql1="select id ,name from stock_storage where status='t'";
             $q[]=DB::select($sql1);
         }
          return response()->json(array('response'=> $q), 200);//set up same for ajax

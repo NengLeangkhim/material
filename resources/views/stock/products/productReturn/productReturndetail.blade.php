@@ -26,7 +26,7 @@
                             <span class="text-primary">Approve By</span>: {{$plist[0][0]->approve_by}}<br>
                         </h4>
                         <h4 style="margin-top: 0px;">
-                            <span class="text-primary">Return Date</span>: {{ date_format(date_create($plist[0][0]->create_date), 'd-M-Y h:i:s A')}}<br>
+                            <span class="text-primary">Create Date</span>: {{ date_format(date_create($plist[0][0]->create_date), 'd-M-Y h:i:s A')}}<br>
                         </h4>
                         <h4 style="margin-top: 0px;">
                             <span class="text-primary">Description</span>: {{$plist[0][0]->description}}<br>
