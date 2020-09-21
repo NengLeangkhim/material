@@ -65,6 +65,19 @@ Route::get('/organizations/add','crm\OrganizationController@AddOrganization'); /
 Route::get('/organizations/edit/{id}','crm\OrganizationController@EditOrganization'); //go to Edit Organization
 Route::get('/organizations/detail','crm\OrganizationController@DetailOrganization'); //get detail organization 
 // End Organization
+
+
+
+// crm quote
+Route::get('/quote','crm\quoteController@showQuoteList'); // get show quote list 
+Route::get('/quote/add','crm\quoteController@addQuote'); // get show quote list 
+
+
+
+// end quote
+
+
+
 //===========================END CRM=================================
 
 

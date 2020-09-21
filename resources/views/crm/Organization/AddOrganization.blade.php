@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="" class="CrmOrganization" ​value="organization">Organization</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);" class="CrmOrganization" onclick="go_to('/organizations')" ​value="organization">Organization</a></li>
                         <li class="breadcrumb-item active">New Organization</li>
                     </ol>
                 </div>
@@ -37,8 +37,8 @@
                                                 </div>
                                                 <select class="form-control" name="contact" id="icontact" >
                                                     <option></option>
-                                                    @foreach($lead_source as $row)
-                                                        <option value="{{$row->id}}">{{$row->lead_source}}</option>                                                  
+                                                    @foreach($contact as $row)
+                                                        <option value="{{$row->id}}">{{$row->name_en}}</option>                                                  
                                                     @endforeach
                                                 </select>
                                             </div>

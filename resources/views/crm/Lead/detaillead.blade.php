@@ -85,6 +85,9 @@
                             <dt class="col-sm-4 dt">Assigened To </dt>
                             <dd class="col-sm-8 dd">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentu
                             </dd>
+                            <dt class="col-sm-4 dt">Service </dt>
+                            <dd class="col-sm-8 dd">Service Ssss
+                            </dd>
                         </dl>
                     </div>
                     <!-- /.card-body -->
