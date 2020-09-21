@@ -13,9 +13,10 @@ if(count($addp)==6){
     $supplier=0;
     $unitType=$edit->measurement_id;
     $brand=$edit->brand_id;
-    $cost=$edit->price;
+    $cost=$edit->product_cost;
+    $price=$edit->product_price;
     $img=$edit->image;
-    $record_qty=$edit->qty;
+    $record_qty=$edit->stock_qty;
     $description=$edit->description;
     $currency=$edit->currency_id;
     $bbarcode=$edit->barcode;
@@ -156,7 +157,7 @@ $sel="";
                     </div>
                     <div class="form-group col-md-3 col-lg-3">
                         <label>Price</label>
-                        <input type="text" name="price" class="form-control currency" value="{{$sale_price}}" placeholder="0.0000">
+                        <input type="number" step="0.0001" min="0.0001" name="price" class="form-control currency" value="{{$price}}" placeholder="0.0000" onkeypress="valid_float(event)" autocomplete="off" required>
                     </div>
                     <div class="form-group col-md-6 col-lg-6">
                         <label>Account chart <i class="text-danger">*</i></label>

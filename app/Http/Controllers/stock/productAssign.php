@@ -37,19 +37,10 @@ class productAssign extends Controller
         }
         if(perms::check_perm_module('STO_01')){
             $staff=$_SESSION['userid'];
-            // $action_type=$_POST['action_type'];
             $company=$_POST['company'];
-            // $company_branch=$_POST['company_branch'];
-            // $_by=$_POST['_by'];
-            // $des=$_POST['description'];
-            //detail part
             $pid=$_POST['pid'];
-            // $qty=$_POST['qty'];
-            // $price=$_POST['price'];
-            // $location=$_POST['storage_location'];
-            // $storage=$_POST['storage'];
             for($i=0;$i<count($pid);$i++){
-                $ss="public.insert_product_company(
+                $ss="public.insert_stock_product_assign(
                     $company,
                     ".$pid[$i].",
                     $staff
@@ -72,9 +63,9 @@ class productAssign extends Controller
                 $id=$_GET['_id'];
                 $sql="select * from ma_company where id=$id";
                 $sql1="Select p.id,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code ,b.name as brand ,p.name ,p.name_kh , p.part_number , p.barcode ,
-                                m.name as ma_measurement,cu.name as ma_currency, (select avg(q.price) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id) as price ,(select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id) as qty,
-                                ((select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id)*(select avg(q.price) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where product_id=p.id and cd.ma_company_id=$id)) as amount,description
-                            from product_company pc
+                                m.name as measurement,cu.name as currency, (select avg(q.price) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where stock_product_id=p.id and cd.ma_company_id=$id) as price ,(select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where stock_product_id=p.id and cd.ma_company_id=$id) as qty,
+                                ((select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where stock_product_id=p.id and cd.ma_company_id=$id)*(select avg(q.price) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where stock_product_id=p.id and cd.ma_company_id=$id)) as amount,description
+                            from stock_product_assign pc
                     join ma_company c on pc.ma_company_id=c.id
                     join stock_product p on p.id=pc.stock_product_id
                     left join stock_product_brand b on p.stock_product_brand_id=b.id

@@ -45,9 +45,9 @@ class CustomerProduct extends Controller
                 return redirect('/');
             }
             $action[]=DB::select("SELECT id, name FROM public.ma_customer;");
-            $action[]=DB::select("SELECT id, name FROM public.ma_user;");
-            $action[]=DB::select("SELECT id, name, qty, price, barcode, part_number
-                                FROM public.product;");
+            $action[]=DB::select("SELECT id, first_name_en||' '||last_name_en as name FROM public.ma_user where status='t' and is_deleted='f'");
+            $action[]=DB::select("SELECT id, name, stock_qty, product_price, barcode, part_number
+                                FROM public.stock_product;");
             return view('stock.products.CustomerProduct.addcustomer')->with("action",$action);
         }else{
             return view('no_perms');
@@ -58,7 +58,7 @@ class CustomerProduct extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if(perms::check_perm_module('STO_01')){
+        if(perms::check_perm_module('STO_010403')){
             $id=$_GET['_id'];//set up same for ajax
             $get_branch=DB::select('select id,branch as name from ma_customer_branch where status=\'t\' and ma_customer_id='.$id);
             return response()->json(array('response'=> $get_branch), 200);//set up same for ajax
@@ -68,7 +68,7 @@ class CustomerProduct extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if(perms::check_perm_module('STO_01')){
+        if(perms::check_perm_module('STO_010403')){
             $id=$_GET['customer_id'];
             $branch_id=$_GET['branch_id'];
             $get_branch=DB::select("select connection_id as name from ma_customer_branch where status='t' and ma_customer_id=$id and id=$branch_id");
@@ -79,7 +79,7 @@ class CustomerProduct extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if(perms::check_perm_module('STO_01')){
+        if(perms::check_perm_module('STO_010403')){
             $staff=$_SESSION['userid'];
             $action_type=$_POST['action_type'];
             $customer=$_POST['customer'];
@@ -131,17 +131,17 @@ class CustomerProduct extends Controller
                     cd.customer,(select name from ma_user where id=c._by) as _by,
                     (select name from ma_user where id=c.approve_by) as approve_by,
                     c.request_date, c.action_type,c.description
-                        FROM public.product_customer_ c
-                        join ma_customer_detail cd on cd.id=c.customer_detail_id
+                        FROM public.stock_customer_product c
+                        join ma_customer_detail cd on cd.id=c.ma_customer_detail_id
                         where c.id=$id and cd.status='t'";
             $sql1="SELECT b.name as brand,get_code_prefix_ibuild(p.code,pc.company_detail_id,p.code_prefix_owner_id,(select code from product_type where id=p.product_type_id)) as product_code,p.name,p.part_number,p.barcode,m.name as ma_measurement,c.name as ma_currency,pd.qty,pd.price,(pd.qty*pd.price) as amount
                     from product_customer_detail pd
-                    left join public.product_customer_ pc on pc.id=pd.product_customer_id
-                    join product p on p.id=pd.product_id
-                    join product_brand b on b.id=p.brand_id
+                    left join public.stock_customer_product pc on pc.id=pd.stock_customer_product_id
+                    join stock_product p on p.id=pd.stock_product_id
+                    join stock_product_brand b on b.id=p.stock_product_brand_id
                     join ma_currency c on pd.currency_id=c.id
-                    join ma_measurement m on p.measurement_id=m.id
-                    where product_customer_id=$id";
+                    join ma_measurement m on p.ma_measurement_id=m.id
+                    where stock_customer_product_id=$id";
             $plist=array();
             $plist[]=DB::select($sql);
             $plist[]=DB::select($sql1);

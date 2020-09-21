@@ -51,17 +51,17 @@ class dashbord extends Controller
                 $arr[1]=DB::select('SELECT COUNT(cd.ma_company_branch_id),cd.ma_company_id from ma_company c INNER JOIN ma_company_detail cd on c."id"=cd.ma_company_id GROUP BY cd.ma_company_id');
                 $arr[2]=array();
                 $arr[3]=DB::select("select p.id,p.name,
-                (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=8) as qty,
-                (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=8 and q.action_type='in') as import,
-                (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=8 and q.action_type='out') as request,
-                (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=8 and q.action_type='return') as return
-                 from stock_product p join stock_product_move q on p.id=q.stock_product_id join ma_company_detail cd on cd.id=q.company_detail_id join product_company pc on pc.stock_product_id=p.id where 't' and cd.ma_company_id=8 group by p.id having (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=8) is not null");
+                (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=8) as qty,
+                (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=8 and q.action_type='in') as import,
+                (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=8 and q.action_type='out') as request,
+                (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=8 and q.action_type='return') as return
+                 from stock_product p join stock_product_move q on p.id=q.stock_product_id join ma_company_detail cd on cd.id=q.ma_company_detail_id join stock_product_assign pc on pc.stock_product_id=p.id where 't' and cd.ma_company_id=8 group by p.id having (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=8) is not null");
                 foreach($arr[0] as $sproduct){
 
-                    $a=DB::select("select count(*),$sproduct->id as id	from product_company where company_id=$sproduct->id");
+                    $a=DB::select("select count(*),$sproduct->id as id	from stock_product_assign where ma_company_id=$sproduct->id");
                     array_push($arr[2],$a);
                 }
-                $arr[4]=DB::select("select id,name from storage where status='t'");
+                $arr[4]=DB::select("select id,name from stock_storage where status='t'");
                 return view('stock.dashbord',["company"=>$arr,"module"=>perms::check_perm()]);
         }else{
             return view('no_perms');
@@ -71,15 +71,15 @@ class dashbord extends Controller
         $pid=$_GET['pids'];
         $cmid=DB::select("select id from ma_company where name='TURBOTECH CO., LTD'");
         $sql="select distinct
-        (select sum(qq.qty) from stock_product_move qq join ma_company_detail ccd on qq.company_detail_id=ccd.id where qq.stock_product_id=q.stock_product_id and qq.action_type='in' and ccd.ma_company_id=".$cmid[0]->id." and date_trunc('day', qq.create_date)=date_trunc('day', q.create_date)) as import,
-        (select sum(qq.qty) from stock_product_move qq join ma_company_detail ccd on qq.company_detail_id=ccd.id where qq.stock_product_id=q.stock_product_id and qq.action_type='out' and ccd.ma_company_id=".$cmid[0]->id." and date_trunc('day', qq.create_date)=date_trunc('day', q.create_date)) as request,
-        (select sum(qq.qty) from stock_product_move qq join ma_company_detail ccd on qq.company_detail_id=ccd.id where qq.stock_product_id=q.stock_product_id and qq.action_type='return' and ccd.ma_company_id=".$cmid[0]->id." and date_trunc('day', qq.create_date)=date_trunc('day', q.create_date)) as return,
-        (select sum(qq.qty) from stock_product_move qq join ma_company_detail ccd on qq.company_detail_id=ccd.id where qq.stock_product_id=q.stock_product_id and ccd.ma_company_id=".$cmid[0]->id." and date_trunc('day', qq.create_date)<=date_trunc('day', q.create_date)) as total,
+        (select sum(qq.qty) from stock_product_move qq join ma_company_detail ccd on qq.ma_company_detail_id=ccd.id where qq.stock_product_id=q.stock_product_id and qq.action_type='in' and ccd.ma_company_id=".$cmid[0]->id." and date_trunc('day', qq.create_date)=date_trunc('day', q.create_date)) as import,
+        (select sum(qq.qty) from stock_product_move qq join ma_company_detail ccd on qq.ma_company_detail_id=ccd.id where qq.stock_product_id=q.stock_product_id and qq.action_type='out' and ccd.ma_company_id=".$cmid[0]->id." and date_trunc('day', qq.create_date)=date_trunc('day', q.create_date)) as request,
+        (select sum(qq.qty) from stock_product_move qq join ma_company_detail ccd on qq.ma_company_detail_id=ccd.id where qq.stock_product_id=q.stock_product_id and qq.action_type='return' and ccd.ma_company_id=".$cmid[0]->id." and date_trunc('day', qq.create_date)=date_trunc('day', q.create_date)) as return,
+        (select sum(qq.qty) from stock_product_move qq join ma_company_detail ccd on qq.ma_company_detail_id=ccd.id where qq.stock_product_id=q.stock_product_id and ccd.ma_company_id=".$cmid[0]->id." and date_trunc('day', qq.create_date)<=date_trunc('day', q.create_date)) as total,
         p.name ,date_trunc('day', q.create_date) create_date
         from stock_product_move q
         join stock_product p on p.id=q.stock_product_id
-        join product_company pc on pc.stock_product_id=p.id
-        join ma_company_detail cd on q.company_detail_id=cd.id
+        join stock_product_assign pc on pc.stock_product_id=p.id
+        join ma_company_detail cd on q.ma_company_detail_id=cd.id
         where p.id=$pid and cd.ma_company_id=".$cmid[0]->id." order by create_date";
         // echo $sql;
         $productDetail=DB::select($sql);

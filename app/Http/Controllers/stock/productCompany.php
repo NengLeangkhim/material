@@ -15,14 +15,6 @@ class productCompany extends Controller
             session_start();
         }
         if(perms::check_perm_module('STO_0102')){//module codes
-            // $productCompany=DB::select("SELECT ia.id,
-            //             (select name from staff where id=ia.deliver_by) as deliver_by,
-            //             (select name from staff where id=ia.approve_by) as approve_by,
-            //             cd.company,cd.branch,ia.arrival_date,sp.name as supplier,ia.description
-            //             from invoice_arrival ia
-            //             join ma_company_detail cd on cd.id=ia.company_detail_id
-            //             left join supplier sp on sp.id=ia.supplier_id
-            //             where cd.status='t'");
             $com='out';
 
             return view('stock.products.productcompany.productCompany')->with('action',$com);
@@ -35,14 +27,7 @@ class productCompany extends Controller
             session_start();
         }
         if(perms::check_perm_module('STO_0101')){//module codes
-            // $productCompany=DB::select("SELECT ia.id,
-            //             (select name from staff where id=ia.deliver_by) as deliver_by,
-            //             (select name from staff where id=ia.approve_by) as approve_by,
-            //             cd.company,cd.branch,ia.arrival_date,sp.name as supplier,ia.description
-            //             from invoice_arrival ia
-            //             join ma_company_detail cd on cd.id=ia.company_detail_id
-            //             left join supplier sp on sp.id=ia.supplier_id
-            //             where cd.status='t'");
+
             $com='in';
 
             return view('stock.products.productcompany.productCompany')->with('action',$com);
@@ -146,10 +131,10 @@ class productCompany extends Controller
                 ia.approve_date as approve_date,
                 ia.description
                 from invoice_before_arrival ia
-                join ma_company_detail cd on cd.id=ia.company_detail_id
+                join ma_company_detail cd on cd.id=ia.ma_company_detail_id
                 left join supplier sp on sp.id=ia.supplier_id
                 where cd.status='t' and ia.id=$id";
-                $sql1="SELECT iad.product_id,iad.qty,iad.price,iad.currency_id
+                $sql1="SELECT iad.stock_product_id,iad.qty,iad.price,iad.currency_id
                     from invoice_before_arrival_detail iad
                     where iad.invoice_before_arrival_id=$id";
             $plist=array();
@@ -223,22 +208,22 @@ class productCompany extends Controller
             session_start();
         }
         // $sql="SELECT p.id,p.name as name,
-        // (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.company_detail_id where s.id=".$_SESSION['userid']." )) as qty,
-        // (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." ) and q.action_type='in') as import,
-        // (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." ) and q.action_type='out') as request
-        // from product p join product_qty q on p.id=q.product_id join ma_company_detail cd on cd.id=q.company_detail_id where 't' and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid'].") group by p.id having (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid'].")) is not null"
+        // (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." )) as qty,
+        // (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." ) and q.action_type='in') as import,
+        // (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." ) and q.action_type='out') as request
+        // from stock_product p join stock_product_move q on p.id=q.stock_product_id join ma_company_detail cd on cd.id=q.ma_company_detail_id where 't' and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid'].") group by p.id having (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from staff s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid'].")) is not null"
         if(perms::check_perm_module('STO_0108')){//module codes
             $sql="SELECT p.id,p.name as name,
-            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." )) as qty,
-            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." ) and q.action_type='in') as import,
-            (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." ) and q.action_type='out') as request
-            from product p
-            join product_company pc on pc.product_id=p.id
-            join product_qty q on p.id=q.product_id
-            join ma_company_detail cd on cd.id=q.company_detail_id
+            (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." )) as qty,
+            (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." ) and q.action_type='in') as import,
+            (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." ) and q.action_type='out') as request
+            from stock_product p
+            join stock_product_assign pc on pc.stock_product_id=p.id
+            join stock_product_move q on p.id=q.stock_product_id
+            join ma_company_detail cd on cd.id=q.ma_company_detail_id
             where 't'
             and pc.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid'].")
-            group by p.id having (select sum(q.qty) from product_qty q join ma_company_detail cd on cd.id=q.company_detail_id left join product p on p.id=q.product_id where q.product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid'].")) is not null";
+            group by p.id having (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id left join stock_product p on p.id=q.stock_product_id where q.stock_product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid'].")) is not null";
             $com=DB::select($sql);
                 return view('stock.products.productcompany.dasboardCompany')->with('action',$com);
         }else{

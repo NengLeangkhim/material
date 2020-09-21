@@ -59,7 +59,7 @@ class product extends Controller
                 if(!empty($_POST['pid'])){//update
                     $pid=$_POST['pid'];
                     if(empty($img)){
-                        $img=DB::select("select image from product where id=$pid")[0]->image;
+                        $img=DB::select("select image from stock_product where id=$pid")[0]->image;
                     }
                     $sql="update_product(
                             $pid,'$pname','$pname_kh',$cost,$unitType,$company,$company_branch,
@@ -119,14 +119,14 @@ class product extends Controller
                 $id=$_GET['pID'];
                 $passv="plist";
                 $addp=array();
-                $addp[]=DB::select("SELECT p.id,b.name as brand ,p.name,p.name_kh, p.part_number,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code, p.barcode,m.name as ma_measurement, p.qty, p.price,(p.qty*p.price)as amount,p.image
-                FROM public.product p join ma_measurement m on m.id=p.measurement_id join stock_product_brand b on b.id=p.brand_id left join stock_product_type pt on pt.id=p.product_type_id where p.id=".$id);
-                $addp[]=DB::select("SELECT distinct sum(q.qty)over(partition by q.company_detail_id,q.storage_detail_id) as qty,q.company_detail_id,s.storage,s.location,cd.company,cd.branch
-                                    ,(select code from ma_company_branch where id=cd.ma_company_branch_id) as company_code,(select get_code_prefix_ibuild(p.code,q.company_detail_id,p.code_prefix_owner_id,pt.code) from product p left join stock_product_type pt on pt.id=p.product_type_id where p.id=q.product_id) as product_code
-                                    from product_qty q
-                                    left join ma_company_detail cd on cd.id=q.company_detail_id
-                                    left join storage_detail s on s.id=q.storage_detail_id
-                                    where q.product_id=$id and s.is_deleted='f' and cd.is_deleted='f'");
+                $addp[]=DB::select("SELECT p.id,b.name as brand ,p.name,p.name_kh, p.part_number,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code, p.barcode,m.name as ma_measurement, p.stock_qty, p.product_price,p.product_cost,(p.stock_qty*p.product_cost)as amount,p.image
+                FROM public.stock_product p join ma_measurement m on m.id=p.ma_measurement_id join stock_product_brand b on b.id=p.stock_product_brand_id left join stock_product_type pt on pt.id=p.stock_product_type_id where p.id=".$id);
+                $addp[]=DB::select("SELECT distinct sum(q.qty)over(partition by q.ma_company_detail_id,q.stock_storage_detail_id) as qty,q.ma_company_detail_id,s.storage,s.location,cd.company,cd.branch
+                                    ,(select code from ma_company_branch where id=cd.ma_company_branch_id) as company_code,(select get_code_prefix_ibuild(p.code,q.ma_company_detail_id,p.code_prefix_owner_id,pt.code) from stock_product p left join stock_product_type pt on pt.id=p.stock_product_type_id where p.id=q.stock_product_id) as product_code
+                                    from stock_product_move q
+                                    left join ma_company_detail cd on cd.id=q.ma_company_detail_id
+                                    left join stock_storage_detail s on s.id=q.stock_storage_detail_id
+                                    where q.stock_product_id=$id and s.is_deleted='f' and cd.is_deleted='f'");
             }elseif(isset($_GET['delete'])){
                 // $id=$_GET['delete'];
                 // $staff=$_SESSION['userid'];
@@ -146,10 +146,10 @@ class product extends Controller
                 // $addp[3]=DB::select("select id,name from storage where status='t'");
                 $addp[4]=DB::select("select id,name from ma_currency where status='t'");
                 // $addp[5]=DB::select("select id,name from supplier where status='t'");
-                $addp[6]=DB::select("SELECT p.id, p.name,p.name_kh, p.qty, p.price,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code,p.product_type_id,
-                p.measurement_id, p.brand_id, p.barcode, p.image, p.part_number, p.currency_id,p.description
-                FROM public.product p
-                left join stock_product_type pt on pt.id=p.product_type_id
+                $addp[6]=DB::select("SELECT p.id, p.name,p.name_kh, p.qty, p.price,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code,p.stock_product_type_id,
+                p.ma_measurement_id, p.stock_product_brand_id, p.barcode, p.image, p.part_number, p.currency_id,p.description
+                FROM public.stock_product p
+                left join stock_product_type pt on pt.id=p.stock_product_type_id
                 where p.id=$id");
                 $addp[7]=DB::select("select id,name_en from stock_product_type where status='t'");
                 $addp[8]=DB::select("select id ,name_en||' / '||get_code_prefix_ibuild(code,15,code_prefix_owner_id,(select code from bsc_account_charts where id=bac.parent_id),(select code from ma_currency where id=ma_currency_id)) as name from bsc_account_charts bac
