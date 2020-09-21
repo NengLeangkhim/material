@@ -806,6 +806,24 @@
         treeviewMenu.stop().slideDown(this._config.animationSpeed, function () {
           parentLi.addClass(ClassName.OPEN);
           $(_this._element).trigger(expandedEvent);
+          // $('div.title_nav_menu').each(function(i) {
+          //   var div_width = $(this).width();
+          //   var p_width = $(this).find('p').width();
+          //   if ( p_width > div_width) {
+          //     $(this).css('background-color','black');
+          //    // alert('ok');
+          //   }
+          //   //alert(p_width);
+          // })
+          $('div.div_animation').each(function(i) {
+            var a_width = $(this).outerWidth(true);
+            var p_width = $(this).find('p').width();
+            if ( p_width > a_width) {
+              $(this).find('p').addClass('nav_animation');
+              //alert('ok');
+            }
+            //alert(a_width);
+          })
         });
 
         if (this._config.expandSidebar) {

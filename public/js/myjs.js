@@ -107,12 +107,25 @@ function jnot_found(){
   // return get_not_found_page();
   return'<center><label style="font-weight:bold;font-size:16px;">Not Found</label></center>';
 }
-jQuery("a[data-id]").click(function(e){
-  e.preventDefault();
-  var href = $(this).attr("href");
-  if (typeof href !== typeof undefined && href !== false) {
-      $('a[data-id]').removeClass('active');
-      var id = $(this).attr("data-id");
-      $('a[data-id='+id+']').addClass('active');
+
+jQuery("a[data-id]").click(function(e){ // Function Click focus on link menu
+  e.preventDefault(); 
+  var href = $(this).attr("href");// get value href
+  if (typeof href !== typeof undefined && href !== false) {// check condition 
+      $('a[data-id]').removeClass('active'); //remove class active
+      var id = $(this).attr("data-id");// get value data-id from link click
+      $('a[data-id='+id+']').addClass('active'); // set link active
   }  
 })
+$(function() {
+  //var content_menu_width = $('.os-content').width();
+  $('div.div_animation').each(function(i) {
+    var a_width = $('div.div_animation').outerWidth( true );
+    var p_width = $(this).find('p').width();
+    if ( p_width > a_width) {
+      $(this).find('p').addClass('nav_animation');
+      //alert('ok');
+    }
+    //alert(a_width);
+  })
+});
