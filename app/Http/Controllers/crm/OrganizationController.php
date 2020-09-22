@@ -13,9 +13,7 @@ use App\Http\Controllers\Controller;
 class OrganizationController extends Controller
 {
 
-    public function index(){
-        echo json_encode(['hello'=>'test']);
-    }
+    
     public function getorganization(){
         return view('crm.Organization.index');
     }

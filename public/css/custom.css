@@ -4,6 +4,26 @@
     background-position: center;
     /* opacity: 0.5; */
 }
+.div_animation{ /* Div Animation for <P> menu */
+    overflow: hidden;
+    width: 70%;
+    display: inline-block;
+    margin:0;
+    top:25%;
+    position: absolute;
+}
+.div_animation .nav_animation { /* Class animation menu */
+    position: relative;
+    /* top:15%; */
+    animation: CSSright linear 10s infinite;
+  } 
+  @keyframes CSSright {
+    0% { right: -100% }
+    100% { right: 100% }
+  }
+  .div_animation .nav_animation:hover {
+    animation-play-state: paused;
+  }
 #nav_main_app{
     /* border: 2px solid;
     border-image: linear-gradient(rgb(0,143,104), rgb(250,224,66)) 1; */
