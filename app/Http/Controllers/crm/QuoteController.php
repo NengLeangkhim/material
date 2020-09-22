@@ -24,6 +24,13 @@ class QuoteController extends Controller
     }
 
 
+    // function to add one new row table quote item
+    public static function addRow(){
+        $row_array = array();
+        return view('crm/quote/addQuote', compact('row_array'));
+    }
+
+
 
 
 

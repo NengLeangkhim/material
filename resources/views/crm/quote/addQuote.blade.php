@@ -46,7 +46,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                     </div>
-                                                    <select name="qutStatus">
+                                                    <select  class="form-control" name="qutStatus">
                                                         <option>Active</option>
                                                         <option>Inactive</option>
                                                     </select>
@@ -107,30 +107,14 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <div class="row">
+                                            
                                             <div class="col-md-6">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label for="exampleInputEmail1"> Home(EN)<b style="color:red">*</b></label>
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text"><i class="fas fa-home"></i></span>
-                                                                    </div>
-                                                                    <input type="text" class="form-control"  name='homeEN' id="exampleInputEmail1" placeholder="Number of home"  >    
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label for="exampleInputEmail1"> Street(EN) <b style="color:red">*</b></label>
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text"><i class="fas fa-road"></i></span>
-                                                                    </div>
-                                                                    <input type="text" class="form-control"  name='streetEN' id="exampleInputEmail1" placeholder="Number of street"  >    
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                <label for="exampleInputEmail1"> Home(EN)<b style="color:red">*</b></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                     </div>
+                                                    <input type="text" class="form-control"  name='homeEN' id="exampleInputEmail1" placeholder="Number of home"  >    
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -151,32 +135,21 @@
                                     </div> 
                                     <div class="form-group">
                                         <div class="row">
+                                            
                                             <div class="col-md-6">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label for="exampleInputEmail1"> Home(KH)<b style="color:red">*</b></label>
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text"><i class="fas fa-home"></i></span>
-                                                                    </div>
-                                                                    <input type="text" class="form-control"  name='homeKH' id="exampleInputEmail1" placeholder="Number of home" >    
-                                                                </div>
+                                                        <label for="exampleInputEmail1"> Street(EN) <b style="color:red">*</b></label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                             </div>
-                                                            <div class="col-md-6">
-                                                                <label for="exampleInputEmail1"> Street(KH) <b style="color:red">*</b></label>
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text"><i class="fas fa-road"></i></span>
-                                                                    </div>
-                                                                    <input type="text" class="form-control"  name='streetKH' id="exampleInputEmail1" placeholder="Number of street"  >    
-                                                                </div>
-                                                            </div>
+                                                            <input type="text" class="form-control"  name='streetEN' id="exampleInputEmail1" placeholder="Number of street"  >    
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Khan/District <b style="color:red">*</b></label>
                                                 <div class="input-group">
@@ -193,15 +166,15 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1"> Lead Map <b style="color:red">*</b></label>
+                                                <label for="exampleInputEmail1"> Home(KH)<b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-map"></i></span>
+                                                        <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name='latlng' id="latlong" placeholder="11.123456, 104.123456 Example" >
-
-                                                </div> 
+                                                    <input type="text" class="form-control"  name='homeKH' id="exampleInputEmail1" placeholder="Number of home" >    
+                                                </div>
                                             </div>
+                                           
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Sengkat/Commune <b style="color:red">*</b></label>
                                                 <div class="input-group">
@@ -218,7 +191,13 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                
+                                                <label for="exampleInputEmail1"> Street(KH) <b style="color:red">*</b></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-road"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control"  name='streetKH' id="exampleInputEmail1" placeholder="Number of street"  >    
+                                                </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Village <b style="color:red">*</b></label>
@@ -234,14 +213,6 @@
                                             </div>
                                         </div>
                                     </div> 
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div id="map"></div>
-
-                                            </div>
-                                        </div>
-                                    </div> 
                                 </div>              
                         </div>
                         <div class="card card-primary">
@@ -249,27 +220,49 @@
                                 <h3 class="card-title">Item Detail</h3>
                             </div>                            
                             <div class="card-body table-responsive">
-                                <table class="table table-bordered table-striped">
+                                <table class="table table-striped">
                                     <thead>
+                                        <?php
+                                            $x = 0 ;
+                                        ?> 
                                         <tr>
-                                            <th>No.#</th>
+                                            <th>No.</th>
                                             <th>Item Name</th>
                                             <th>Quantity</th>
                                             <th>Unit Price</th>
                                             <th>Total</th>
-                                            <th>Row</th>
+                                            <th><input type="button" class="btn btn-info" onclick="myFun();" name="" id="" value="Add Row" ></th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td> 01</td>
-                                            <td> <input type="text" class="form-control"  name="" id="" placeholder="Name" > </td>
-                                            <td> <input type="text" class="form-control"  name="" id="" placeholder="Name" > </td>
-                                            <td> <input type="text" class="form-control"  name="" id="" placeholder="Name" > </td>
-                                            <td> <input type="text" class="form-control"  name="" id="" placeholder="Name" > </td>
-                                            <td> <input type="text" class="form-control"  name="" id="" placeholder="Name" > </td>
+                                        <?php 
+                                            if(isset($x)){
+                                                if($x == 10){
+                                                    echo '
+                                                        <tr>
+                                                            <td> 01--'.$x.'</td>
+                                                            <td> 
+                                                                <select class="form-control" style="width: auto; min-width: 100px;">
+                                                                    <option value="">Item1</option>
+                                                                    <option value="">Item2</option>
+                                                                    <option value="">Item3</option>
+                                                                    <option value="">Item4</option>
+                                                                </select>
+                                                            </td>
+                                                            <td> <input type="text" class="form-control"  name="" id="" placeholder="Quanlity name" > </td>
+                                                            <td> <input type="text" class="form-control"  name="" id="" placeholder="Unit price" > </td>
+                                                            <td> <input type="text" class="form-control"  name="" id="" placeholder="Total" > </td>
+                                                            <td> <input type="button" class="btn btn-info"  name="" id="" value="Delete" > </td>
+                                                        </tr>                                                
+                                                    ';
+                                                $x = 0;
+                                                }
+                                            }    
+                                        ?>
+                                            
+                    
 
-                                        </tr>
                                     </tbody>
                                 </table>
                                                     
@@ -439,3 +432,27 @@
             markers = [];
         }
     </script>
+
+    <script  type="text/javascript" >
+        $(window).on('load', function() {
+        
+            alert('hello');
+                // var url = window.location.href;
+                // var params = url.split('?ID=');
+                // var id = (params[1])
+                // $.ajax({
+                //     type:"POST",
+                //     url:"addQuote.blade.php",
+                //     data:{id:id},
+                //     success:function(result){
+                //         // $("#content").html(result);
+                //     }
+                // })
+        });
+    </script>
+    
+    <?php
+            // $random = $_GET["id"];
+            // echo $random;
+        
+    ?>
