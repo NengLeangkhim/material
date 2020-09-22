@@ -43,7 +43,7 @@ class ProductReturn extends Controller
             $company_branch=$_POST['company_branch'];
             $_by=$_POST['_by'];
             $des=$_POST['description'];
-            $request_id=$_POST['request_id'];
+            // $request_id=$_POST['request_id'];
             if(empty($request_id)){
                 $request_id='null';
             }

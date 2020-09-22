@@ -71,10 +71,10 @@
                             </a>
                         </div>
                     </div>
-                    <div class="form-group col-md-3">
+                    {{-- <div class="form-group col-md-3">
                         <label>Invoice Number</label>
                         <input type="text" class="form-control" name="invoice_number">
-                    </div>
+                    </div> --}}
                     <div class="form-group col-md-9">
                         <label>Description</label>
                         <input type="text" name="description" class="form-control" autocomplete="off">

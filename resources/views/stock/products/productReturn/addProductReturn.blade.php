@@ -59,10 +59,10 @@
                             </a>
                         </div>
                     </div>
-                    <div class="form-group col-md-3">
+                    {{-- <div class="form-group col-md-3">
                         <label>Request ID<i class="text-danger">*</i> </label>
                         <input type="text" class="form-control" name="request_id">
-                    </div>
+                    </div> --}}
                     <div class="form-group col-md-12">
                         <label>Description</label>
                         <input type="text" name="description" class="form-control" autocomplete="off">
