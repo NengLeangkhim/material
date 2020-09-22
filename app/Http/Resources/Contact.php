@@ -15,7 +15,7 @@ class Contact extends JsonResource
     public function toArray($request)
     {
         // return parent::toArray($request);
-        $user =User::findOrFail($this->create_by,[
+        $user =User::find($this->create_by,[
             'id',
             'first_name_en',
             'email'
