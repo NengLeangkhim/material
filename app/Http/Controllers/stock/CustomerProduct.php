@@ -145,7 +145,7 @@ class CustomerProduct extends Controller
                         FROM public.stock_customer_product c
                         join ma_customer_detail cd on cd.id=c.ma_customer_detail_id
                         where c.id=$id and cd.status='t'";
-            $sql1="SELECT b.name as brand,get_code_prefix_ibuild(p.code,spm.ma_company_detail_id,p.code_prefix_owner_id,(select code from stock_product_type where id=p.stock_product_type_id)) as product_code,p.name,p.part_number,p.barcode,m.name as measurement,c.name as currency,spm.qty*-1 as qty,spm.price,(spm.qty*spm.price)*-1 as amount
+            $sql1="SELECT b.name as brand,get_code_prefix_ibuild(p.code,spm.ma_company_detail_id,p.code_prefix_owner_id,(select code from stock_product_type where id=p.stock_product_type_id)) as product_code,p.name,p.part_number,p.barcode,m.name as measurement,c.name as currency,case when spm.qty<0 then spm.qty*-1 else spm.qty end as qty,spm.price,case when spm.qty<0 then (spm.qty*spm.price)*-1 else (spm.qty*spm.price) end  as amount
                     from stock_customer_product_detail pd
                     join public.stock_customer_product pc on pc.id=pd.stock_customer_product_id
                     join stock_product_move spm on spm.id=pd.stock_product_move_id
