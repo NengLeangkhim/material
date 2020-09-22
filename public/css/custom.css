@@ -15,24 +15,15 @@
 .div_animation .nav_animation { /* Class animation menu */
     position: relative;
     /* top:15%; */
-    animation: CSSright linear 8s infinite;
+    animation: CSSright linear 10s infinite;
   } 
   @keyframes CSSright {
-    0% { right: -80% }
+    0% { right: -100% }
     100% { right: 100% }
   }
   .div_animation .nav_animation:hover {
     animation-play-state: paused;
   }
-/* .title_nav_menu{
-    width: 78%;
-    display: inline-block;
-    margin: 0;
-}
-.title_nav_menu i{
-    float: right;
-    margin-top: 4%;
-} */
 #nav_main_app{
     /* border: 2px solid;
     border-image: linear-gradient(rgb(0,143,104), rgb(250,224,66)) 1; */

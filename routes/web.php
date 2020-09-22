@@ -75,7 +75,10 @@ Route::get('/quote/add','crm\quoteController@addQuote'); // get show quote list
 
 
 // end quote
+// Start Report
+Route::get('/crmreport','crm\CrmReportController@CrmIndexReport'); // show index report 
 
+// End Report
 
 
 //===========================END CRM=================================
