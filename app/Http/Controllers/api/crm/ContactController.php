@@ -4,8 +4,9 @@ namespace App\Http\Controllers\api\crm;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\CrmLeadContact as Contact;
+use App\model\api\crm\CrmLeadContact as Contact;
 use App\Http\Resources\Contact as ContactResource;
+
 class ContactController extends Controller
 {
     /**
@@ -49,20 +50,30 @@ class ContactController extends Controller
         if($request->isMethod('put')){
             $contact->id = $request->input('contact_id');
         }
-        $contact->name_en = $request->input('name_en');
-        $contact->name_kh = $request->input('name_kh');
-        $contact->email = $request->input('email');
-        $contact->phone = $request->input('phone');
-        $contact->facebook = $request->input('facebook');
-        $contact->position = $request->input('position');
-        $contact->create_by = $request->input('create_by');
-        $contact->ma_honorifics_id = $request->input('ma_honorifics_id');
+        // $contact->name_en = $request->input('name_en');
+        // $contact->name_kh = $request->input('name_kh');
+        // $contact->email = $request->input('email');
+        // $contact->phone = $request->input('phone');
+        // $contact->facebook = $request->input('facebook');
+        // $contact->position = $request->input('position');
+        // $contact->create_by = $request->input('create_by');
+        // $contact->ma_honorifics_id = $request->input('ma_honorifics_id');
 
 
-        // DB::select(
-        //     'exec my_stored_procedure(?,?,?)',
-        //     array($Param1,$param2)
-        // );
+        DB::select(
+            'exec insert_crm_lead_contact(?,?,?,?,?,?,?,?,?,?)',
+            array(
+                $request->input('name_en'),
+                $request->input('name_kh'),
+                $request->input('email'),
+                $request->input('phone'),
+                $request->input('facebook'),
+                $request->input('position'),
+                $request->input('create_by'),
+                $request->input('national_id'),
+                $request->input('ma_honorifics_id')
+            )
+        );
 
 
         if($contact->save()){
