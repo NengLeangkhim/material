@@ -77,8 +77,12 @@ Route::get('/quote/add','crm\quoteController@addQuote'); // get show quote list
 // end quote
 // Start Report
 Route::get('/crmreport','crm\CrmReportController@CrmIndexReport'); // show index report 
+Route::get('/crmreport/detaillead','crm\CrmReportController@CrmDetailLeadReport'); // show Lead Detail report 
+Route::get('/crmreport/detailcontact','crm\CrmReportController@CrmDetailContactReport'); // show Contact Detail report 
+Route::get('/crmreport/detailorganization','crm\CrmReportController@CrmDetailOrganizationReport'); // show Organization Detail report 
+Route::get('/crmreport/detailquote','crm\CrmReportController@CrmDetailQuoteReport'); // show Quote Detail report 
 
-// End Report
+// End Report 
 
 
 //===========================END CRM=================================
