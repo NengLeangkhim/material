@@ -12,9 +12,6 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
-            @php
-                print_r($data[1]);
-            @endphp
             <form id="fm_missionoutside" onsubmit="return false">
               @csrf
               <div class="row">
@@ -77,7 +74,7 @@
                           <th>Action</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody required>
                         @php 
                           $i=0;
                           foreach ($data[0] as $em) {

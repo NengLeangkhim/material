@@ -30,7 +30,7 @@ class MissionAndOutSide extends Model
         }else{
             $sql = "SELECT id,home_number,street,date_from,date_to,type,description,shift,street,home_number from hr_mission where status='t' and is_deleted='f'";
            return $stm=DB::select($sql);
-        }
+        } 
         
     }
 
@@ -57,10 +57,14 @@ class MissionAndOutSide extends Model
     }
 
     public static function UpdateMissionOutside($id,$update_by, $date_from,$date_to,$description,$status,$type, $shift,$street,$home_number,$latlg,$gazetteers_code,$emid){
+        // $sql= "SELECT public.update_hr_mission($id,$update_by,'$date_from','$date_to','$description','$status','$type','$shift','$street','$home_number','$latlg','$gazetteers_code')";
         $sql= "SELECT public.update_hr_mission($id,$update_by,'$date_from','$date_to','$description','$status','$type','$shift','$street','$home_number','$latlg','$gazetteers_code')";
         $stm = DB::select($sql);
         if ($stm[0]->update_hr_mission > 0) {
-            return "Update Successfully !";
+            $sql_delete_mission_detail= "SELECT public.delete_hr_mission_detail($id,$update_by)";
+            DB::select($sql_delete_mission_detail);
+            $stm_insert_mission_detail=self::InsertMissionOutsideDetail($id,'',$update_by,$emid);
+            return $stm_insert_mission_detail;
         } else {
             return "error";
         }
@@ -77,4 +81,26 @@ class MissionAndOutSide extends Model
         $int = (int)$rest;
         return $int;
     }
+
+    public static function MissionDetail($id){
+        $sql_mission= "select id,date_from,date_to,description,type,street,home_number,latlg,gazetteers_code FROM hr_mission WHERE id=$id";
+        $sql_mission_detail= "SELECT concat(mu.first_name_en,' ',mu.last_name_en) as name FROM hr_mission_detail hmd INNER JOIN ma_user mu on mu.id=hmd.ma_user_id WHERE hmd.hr_mission_id=$id and hmd.status='t' and hmd.is_deleted='f'";
+        $stm_mission=DB::select($sql_mission);
+        $stm_mission_detail=DB::select($sql_mission_detail);
+        $missionDetail=[
+            "id"=>$stm_mission[0]->id,
+            "date_from"=>$stm_mission[0]->date_from,
+            "date_to"=>$stm_mission[0]->date_to,
+            "description"=>$stm_mission[0]->description,
+            "type"=>$stm_mission[0]->type,
+            "street"=>$stm_mission[0]->street,
+            "home_number"=>$stm_mission[0]->home_number,
+            "latlg"=>$stm_mission[0]->latlg,
+            "gazetteers_code"=>$stm_mission[0]->gazetteers_code,
+            "employee"=>$stm_mission_detail
+        ];
+
+        return $missionDetail;
+
+    }   
 }
