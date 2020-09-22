@@ -806,6 +806,13 @@
         treeviewMenu.stop().slideDown(this._config.animationSpeed, function () {
           parentLi.addClass(ClassName.OPEN);
           $(_this._element).trigger(expandedEvent);
+          $('div.div_animation').each(function(i) {
+            var a_width = $(this).outerWidth(true);
+            var p_width = $(this).find('p').width();
+            if ( p_width > a_width) {
+              $(this).find('p').addClass('nav_animation');
+            }
+          })
         });
 
         if (this._config.expandSidebar) {
@@ -823,6 +830,7 @@
           treeviewMenu.find(Selector.OPEN + " > " + Selector.TREEVIEW_MENU).slideUp();
           treeviewMenu.find(Selector.OPEN).removeClass(ClassName.OPEN);
           parentLi.find('a').removeClass('active');// add by metkeosambo
+          parentLi.find('p').removeClass('nav_animation');
         });
       };
 
