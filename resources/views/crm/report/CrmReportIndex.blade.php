@@ -3,11 +3,11 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><span><i class="fas fa-sitemap"></i></span> Report</h1>
+                <h1><span><i class="fas fa-chart-pie"></i></span> Report</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('/welcome')">Home</a></li>
                 <li class="breadcrumb-item active">View Report</li>
                 </ol>
             </div>
@@ -38,7 +38,7 @@
                                       <div class="input-group-prepend">
                                           <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                       </div>
-                                      <input type="date" class="form-control" placeholder="Select Date"  name='ReportLeadFrom'  required>
+                                      <input type="text" class="form-control" placeholder="Select Date" id="ReportLeadFrom"  name='ReportLeadFrom'  required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -47,13 +47,16 @@
                                       <div class="input-group-prepend">
                                           <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                       </div>
-                                      <input type="date" class="form-control" placeholder="Select Date"  name='ReportLeadTo'  required>
+                                      <input type="text" class="form-control" placeholder="Select Date" id="ReportLeadTo" name='ReportLeadTo'  required>
                                   </div>
                                 </div>
                           </div>
                         </div>
                         <div class="chart">
                             <div id="LeadChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                        </div>
+                        <div class="col-md-12 text-right">
+                          <button class="btn btn-info" onclick="go_to('/crmreport/detaillead')"><span><i class="fas fa-info"></i></span> Detail</button>
                         </div>
                     </div><!-- /.card-body -->
                 </div><!-- /.card -->
@@ -78,7 +81,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                     </div>
-                                    <input type="date" class="form-control" placeholder="Select Date"  name='ReportLeadFrom'  required>
+                                    <input type="text" class="form-control" placeholder="Select Date" id="ReportContactFrom"  name='ReportContactFrom'  required>
                                   </div>
                               </div>
                               <div class="col-md-6">
@@ -87,7 +90,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                     </div>
-                                    <input type="date" class="form-control" placeholder="Select Date"  name='ReportLeadTo'  required>
+                                    <input type="text" class="form-control" placeholder="Select Date" id="ReportContactTo" name='ReportContactTo'  required>
                                 </div>
                               </div>
                         </div>
@@ -95,6 +98,9 @@
                       <div class="chart-contact">
                         <div id="ContactChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
                       </div> 
+                      <div class="col-md-12 text-right">
+                        <button class="btn btn-info" onclick="go_to('/crmreport/detailcontact')"><span><i class="fas fa-info"></i></span> Detail</button>
+                      </div>
                     </div><!-- /.card-body -->
                 </div> <!-- /.card -->
             </div><!-- End Col -->
@@ -120,7 +126,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                     </div>
-                                    <input type="date" class="form-control" placeholder="Select Date"  name='ReportLeadFrom'  required>
+                                    <input type="text" class="form-control" placeholder="Select Date" id="ReportOrganizationFrom" name='ReportOrganizationFrom'  required>
                                   </div>
                               </div>
                               <div class="col-md-6">
@@ -129,18 +135,19 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                     </div>
-                                    <input type="date" class="form-control" placeholder="Select Date"  name='ReportLeadTo'  required>
+                                    <input type="text" class="form-control" placeholder="Select Date" id="ReportOrganizationTo" name='ReportOrganizationTo'  required>
                                 </div>
                               </div>
                         </div>
                       </div>
-                    <div class="chart">
-                        <div id="OrganizationChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
-                    </div>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
+                      <div class="chart">
+                          <div id="OrganizationChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                      </div>
+                      <div class="col-md-12 text-right">
+                        <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
+                      </div>
+                    </div><!-- /.card-body -->
+                </div><!-- /.card -->  
             </div><!-- End Col -->
             <div class="col-md-6">
                 <!-- BAR CHART -->
@@ -162,7 +169,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                     </div>
-                                    <input type="date" class="form-control" placeholder="Select Date"  name='ReportLeadFrom'  required>
+                                    <input type="text" class="form-control" placeholder="Select Date" id="ReportQuoteFrom" name='ReportQuoteFrom'  required>
                                   </div>
                               </div>
                               <div class="col-md-6">
@@ -171,23 +178,62 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                     </div>
-                                    <input type="date" class="form-control" placeholder="Select Date"  name='ReportLeadTo'  required>
+                                    <input type="text" class="form-control" placeholder="Select Date" id="ReportQuoteTo" name='ReportQuoteTo'  required>
                                 </div>
                               </div>
                         </div>
                       </div>
-                    <div class="chart">
-                        <div id="QuoteChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
-                    </div>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
+                      <div class="chart">
+                          <div id="QuoteChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                      </div>
+                      <div class="col-md-12 text-right">
+                        <button class="btn btn-info" onclick="go_to('/crmreport/detailquote')"><span><i class="fas fa-info"></i></span> Detail</button>
+                      </div>
+                    </div><!-- /.card-body -->
+                </div><!-- /.card -->
             </div><!-- End Col -->
         </div>
     </div><!-- /.container-fluid -->
 </section><!-- end section Main content -->
 <script>
+    $(function () {
+      // Date Lead
+      $('#ReportLeadFrom').datetimepicker({
+        format: 'YYYY',
+        sideBySide: true,
+      });
+      $('#ReportLeadTo').datetimepicker({
+        format: 'YYYY',
+        sideBySide: true,
+      });
+      // Date Contact
+      $('#ReportContactFrom').datetimepicker({
+        format: 'YYYY-MM',
+        sideBySide: true,
+      });
+      $('#ReportContactTo').datetimepicker({
+        format: 'YYYY-MM',
+        sideBySide: true,
+      });
+      // Date Organization
+      $('#ReportOrganizationFrom').datetimepicker({
+        format: 'YYYY-MM',
+        sideBySide: true,
+      });
+      $('#ReportOrganizationTo').datetimepicker({
+        format: 'YYYY-MM',
+        sideBySide: true,
+      });
+      // Date Quote
+      $('#ReportQuoteFrom').datetimepicker({
+        format: 'YYYY-MM',
+        sideBySide: true,
+      });
+      $('#ReportQuoteTo').datetimepicker({
+        format: 'YYYY-MM',
+        sideBySide: true,
+      });
+    });
     $(function () {
     // Lead Chart
     google.charts.load('current', {'packages':['bar']});
