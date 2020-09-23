@@ -46,6 +46,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                     </div>
+                                                    {{-- Select active & Inactive Organization --}}
                                                     <select  class="form-control" name="qutStatus">
                                                         <option>Active</option>
                                                         <option>Inactive</option>
