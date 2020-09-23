@@ -4,13 +4,12 @@ namespace App\Http\Controllers\api\crm;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\model\api\crm\ModelCrmContact as Contact;
-use App\Http\Resources\ContactResource;
+use App\model\api\crm\ModelCrmQuote as Quote;
+use App\Http\Resources\QuoteResource;
 use DB;
 Use Exception;
 
-
-class ContactController extends Controller
+class QuoteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,11 +18,11 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contact = Contact::orderBy('id','asc')->where('is_deleted','f')->paginate(10);
-        return ContactResource::Collection($contact);
+        $quote = Quote::orderBy('id','asc')->paginate(10);
+        return QuoteResource::Collection($quote);
     }
 
-     /**
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -31,12 +30,9 @@ class ContactController extends Controller
      */
     public function show($id)
     {
-        $contact = Contact::where('is_deleted','f')->find($id);
-        
-        return $contact==NULL?  json_encode(["data"=>null]) : new ContactResource($contact);   
+        $quote = Quote::findOrFail($id);
+        return new QuoteResource($quote);   
     }
-
-
 
     /**
      * Store a newly created resource in storage.
@@ -49,19 +45,16 @@ class ContactController extends Controller
         if($request->isMethod('put')){
             try { 
                 $results = DB::select(
-                    'SELECT public."update_crm_lead_contact"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                    'SELECT public."update_crm_quote"(?, ?, ?, ?, ?, ?, ?, ?)',
                     array(
-                        $request->input('contact_id'),
+                        $request->input('crm_quote_id'),
                         $request->input('update_by'),
-                        $request->input('name_en'),
-                        $request->input('name_kh'),
-                        $request->input('email'),
-                        $request->input('phone'),
-                        $request->input('facebook'),
-                        $request->input('position'),
-                        $request->input('create_by'),
-                        $request->input('national_id'),
-                        $request->input('ma_honorifics_id')
+                        $request->input('lead_id'),
+                        $request->input('due_date'),
+                        $request->input('quote_number'),
+                        $request->input('assign_to'),
+                        $request->input('crm_lead_address_id'),
+                        $request->input('create_by')
                     ));
                 return json_encode(["update"=>"success","result"=>$results]);
             } catch(Exception $e){
@@ -70,19 +63,19 @@ class ContactController extends Controller
         }else{
             try { 
                 $results = DB::select(
-                    'SELECT public."insert_crm_lead_contact"(?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                    'SELECT public."insert_crm_quote"(?, ?, ?, ?, ?, ?)',
                     array(
-                        $request->input('name_en'),
-                        $request->input('name_kh'),
-                        $request->input('email'),
-                        $request->input('phone'),
-                        $request->input('facebook'),
-                        $request->input('position'),
-                        $request->input('create_by'),
-                        $request->input('national_id'),
-                        $request->input('ma_honorifics_id')
+                        $request->input('lead_id'),
+                        $request->input('due_date'),
+                        $request->input('quote_number'),
+                        $request->input('assign_to'),
+                        $request->input('crm_lead_address_id'),
+                        $request->input('create_by')
                     ));
-                return json_encode(["insert"=>"success","result"=>$results]);
+
+                $quote_id =$results[0]->insert_crm_quote;
+                // return json_encode();
+                // return json_encode(["insert"=>"success","result"=>$results]);
             } catch(Exception $e){
                 return json_encode(["insert"=>"fail","result"=> $e->getMessage()]);
             }
@@ -99,7 +92,7 @@ class ContactController extends Controller
     {
         try { 
             $results = DB::select(
-                'SELECT public."delete_crm_lead_contact"(?, ?)',
+                'SELECT public."delete_crm_quote"(?, ?)',
                 array(
                     $id,
                     $user_id
