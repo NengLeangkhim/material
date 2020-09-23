@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Create New Organization</h1>
+                    <h1><span><i class="fas fa-pen-square"></i></span> Update Organization</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -343,12 +343,12 @@
 
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-primary save" id="frm_btn_sub_addlead">Update</button>
+                                        <button type="button" class="btn btn-danger" onclick="go_to('/organization')">Cencel</button>
                                     </div> 
                                 </div>              
-                        </div>
-                        <div class="card-footer">
-                            <button type="button" class="btn btn-primary save" id="frm_btn_sub_addlead">Update</button>
-                            <button type="button" class="btn btn-danger" onclick="go_to('/organization')">Cencel</button>
                         </div>       
                     </form>
                 </div>

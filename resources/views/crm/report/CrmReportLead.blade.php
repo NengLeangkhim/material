@@ -85,7 +85,12 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 text-center">
-                                    <button class="btn btn-primary" style="margin-top:10%; width:70%">Generate Report</button>
+                                    <div class="col-md-12" style="height: 45%">
+
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary align-middle" style="width:70%;">Generate Report</button>
+                                    </div>
                                 </div>
                             </div>
                         </div><!--End Form Group-->

@@ -110,12 +110,12 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-primary save" id="frm_btn_sub_addlead">Update</button>
+                                <button type="button" class="btn btn-danger" onclick="go_to('/contact')">Cencel</button>
+                            </div>
                         </div>  {{--End Card Body--}}
-                    </div>
-                    <div class="card-footer">
-                        <button type="button" class="btn btn-primary save" id="frm_btn_sub_addlead">Update</button>
-                        <button type="button" class="btn btn-danger" onclick="go_to('/contact')">Cencel</button>
-                    </div>       
+                    </div>     
                 </form>
             </div>
         </div>
