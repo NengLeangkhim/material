@@ -29,7 +29,7 @@
                   <div class="card-body">
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <label for="exampleInputEmail1">Quote Stage <b style="color:red">*</b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -40,7 +40,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <label for="exampleInputEmail1">Assign To <b style="color:red">*</b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -51,11 +51,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                        </div><!--End Form Group-->
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -64,7 +60,7 @@
                                         <input type="text" class="form-control" placeholder="Select Date" id="DetailQuoteFrom"  name='DetailQuoteFrom'  required>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -75,8 +71,13 @@
                                 </div>
                             </div>
                         </div><!--End Form Group-->
+                        {{-- <div class="form-group">
+                            <div class="row">
+                                
+                            </div>
+                        </div><!--End Form Group--> --}}
                         <div class="text-center">
-                            <button class="btn btn-primary">Submit</button>
+                            <button class="btn btn-primary ">Generate Report</button>
                         </div>
                         <div class="table-responsive" style="padding-top: 10px;">
                             <table id="OrganizationTbl" class="table table-bordered table-striped">

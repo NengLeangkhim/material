@@ -29,8 +29,8 @@
                   <div class="card-body">
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <label for="exampleInputEmail1">Lead Source <b style="color:red">*</b></label>
+                                <div class="col-md-4">
+                                    <label for="exampleInputEmail1">Lead Source</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-tty"></i></span>
@@ -40,8 +40,8 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="exampleInputEmail1">Assign To <b style="color:red">*</b></label>
+                                <div class="col-md-4">
+                                    <label for="exampleInputEmail1">Assign To</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-user-check"></i></span>
@@ -51,34 +51,8 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                        </div><!--End Form Group-->
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailOrganizationFrom"  name='DetailOrganizationFrom'  required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailOrganizationTo" name='DetailOrganizationTo'  required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!--End Form Group-->
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="exampleInputEmail1">Status <b style="color:red">*</b></label>
+                                <div class="col-md-4">
+                                    <label for="exampleInputEmail1">Status</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-unlock"></i></span>
@@ -88,7 +62,37 @@
                                         </select>
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-6">
+                            </div>
+                        </div><!--End Form Group-->
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailOrganizationFrom"  name='DetailOrganizationFrom'  required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailOrganizationTo" name='DetailOrganizationTo'  required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <button class="btn btn-primary" style="margin-top:10%; width:70%">Generate Report</button>
+                                </div>
+                            </div>
+                        </div><!--End Form Group-->
+                        {{-- <div class="form-group">
+                            <div class="row">
+                                
+                                <div class="col-md-6">
                                     <label for="exampleInputEmail1">Assign To <b style="color:red">*</b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -98,12 +102,9 @@
                                             <option value="0">Please Select</option>
                                         </select>
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
-                        </div><!--End Form Group-->
-                        <div class="text-center">
-                            <button class="btn btn-primary">Submit</button>
-                        </div>
+                        </div><!--End Form Group--> --}}
                         <div class="table-responsive" style="padding-top: 10px;">
                             <table id="OrganizationTbl" class="table table-bordered table-striped">
                                 <thead>
