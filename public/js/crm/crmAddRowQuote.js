@@ -9,13 +9,20 @@
             var tblRow =
                 '<tr id="row'+i+'">' +
                     '<td class="td-item-quote-name">' +
-                    '<div class="form-group">' +
-                        '<div class="form-inline2">' +
-                            '<input type="text" class="form-control2" name="product_name[]"  required placeholder="Product Name"> ' +
-                            '<button type="button" class="btn-list-item btn btn-add" name="listItem" ><span style="color:#1E90FF; "class="glyphicon glyphicon-list-alt"></span></button>'+
-                        '</div>' +
-                        '<div class="form-inline"><textarea class="form-control" rows="2" style="margin-top:10px; padding:10px; width: 80%!important;" placeholder="Description"></textarea> </div>' +
-                    '</div></td>' +
+                        '<div class=" form-group">' +
+                            '<div class="row form-inline2">' +
+                                '<div class="col-md-8 col-sm-6"><input type="text" class="form-control2" name="product_name[]"  required placeholder="Product Name"> </div>' +
+                                '<div class="col-md-4 col-sm-6">' +
+                                    '<div class="row">'+
+                                        '<button type="button" class="btn-list-item btn" name="listItem" > <span>+ Add Service </span></button>'+
+                                    '</div>' +
+                                    '<div class="row">'+
+                                        '<button type="button" class="btn-list-item btn" name="listItem" > <span>+ Add Product </span></button>'+
+                                    '</div>'+
+                                '</div>' +
+                            '</div>' +
+                            '<div class="form-inline"><textarea class="form-control" rows="2" style="margin-top:10px; padding:10px; width: 100%!important;" placeholder="Description"></textarea> </div>' +
+                        '</div></td>' +
                     '<td class="td-item-quote">' +
                         '<input type="number" class="itemQty form-control" name="quantity[]" id="itemQty" value="1" required placeholder="Qty">' +
                     '</td>' +
@@ -26,7 +33,7 @@
                         '<input type="text" class="form-control" name="subTotal[]" id="itemTotal" readonly required placeholder="0.0$">' +
                     '</td>' +
                     '<td style="width:auto;">' +
-                        '<input type="button" class="btnRemoveRow btn btn-danger " id="'+i+'" value="Delete" >' +
+                        '<input type="button" style="wdith: 100%;" class="btnRemoveRow btn btn-danger " id="'+i+'" value="Delete" >' +
                     '</td>' +
                 '</tr>';
                 i++;

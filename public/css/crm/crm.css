@@ -81,7 +81,7 @@
 
     .form-control2 {
         display: block;
-        width: 80%;
+        width: 100%;
         height: calc(2.25rem + 2px);
         padding: .375rem .75rem;
         font-size: 1rem;
@@ -96,7 +96,10 @@
         transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     }
     .btn-list-item {
-        margin-left: 5px;
+        /* margin-left: 5px; */
+        font-size: 12px;
+        color:#349bff;
+        font-weight: bold;
     }
 
     .table td, .table th {
@@ -119,7 +122,7 @@
 
     .max-min-table {
         max-width: 100%;
-        min-width: 1000px;
+        min-width: 800px;
     }
     .max-min-table-total {
         min-width: 700px;

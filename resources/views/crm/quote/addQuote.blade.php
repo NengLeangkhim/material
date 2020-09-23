@@ -229,7 +229,7 @@
                                                 <th class="td-item-quote">Quantity</th>
                                                 <th class="td-item-quote">List Price($)</th>
                                                 <th class="td-item-quote">Total</th>
-                                                <th style="width: 100px;"><input type="button" class="btn btn-info"  id="btnAddRowQuoteItem" value="Add Row" ></th>
+                                                <th style="width: 100px;"><input type="button" style="wdith: 100%;" class="btn btn-info"  id="btnAddRowQuoteItem" value="Add Row" ></th>
                                             </tr>
                                         </thead>
                                         <tbody id="add_row_tablequoteItem">
