@@ -7,17 +7,17 @@
         var i = 0;
         $("#btnAddRowQuoteItem").click(function(){
             var tblRow =
-                '<tr id="row'+i+'">' +
+                '<tr id="row'+i+'" class="tr-quote-row">' +
                     '<td class="td-item-quote-name">' +
                         '<div class=" form-group">' +
                             '<div class="row form-inline2">' +
                                 '<div class="col-md-8 col-sm-6"><input type="text" class="form-control2" name="product_name[]"  required placeholder="Product Name"> </div>' +
                                 '<div class="col-md-4 col-sm-6">' +
                                     '<div class="row">'+
-                                        '<button type="button" class="btn-list-item btn" name="listItem" > <span>+ Add Service </span></button>'+
+                                        '<button type="button" class="btn-list-item btn" name="itemAddService" > <span>+ Add Service </span></button>'+
                                     '</div>' +
                                     '<div class="row">'+
-                                        '<button type="button" class="btn-list-item btn" name="listItem" > <span>+ Add Product </span></button>'+
+                                        '<button type="button" class="btn-list-item btn" name="itemAddProduct" > <span>+ Add Product </span></button>'+
                                     '</div>'+
                                 '</div>' +
                             '</div>' +
@@ -27,13 +27,23 @@
                         '<input type="number" class="itemQty form-control" name="quantity[]" id="itemQty" value="1" required placeholder="Qty">' +
                     '</td>' +
                     '<td class="td-item-quote">' +
-                        '<input type="text" class="itemPrice form-control" name="listPrice[]" id="itemPrice" required placeholder="0.0$">' +
+                        '<div class="">' +
+                            '<input type="text" class="itemPrice form-control" name="listPrice[]" id="itemPrice" required placeholder="0.0$">' +
+                        '</div>'+
+                        '<div class="">' +
+                            '<button type="button" class="btn-list-item btn" name="itemDiscount" > <span>(-) Discount </span></button>'+
+                        '</div>' +
+                        '<div class="btn-list-item" style="margin-left: 15px; margin-top:10px;">' +
+                            '<span>Total After Discount: </span>'+
+                        '</div>' +
                     '</td>' +
-                    '<td class="td-item-quote">' +
-                        '<input type="text" class="form-control" name="subTotal[]" id="itemTotal" readonly required placeholder="0.0$">' +
+                    '<td class="td-item-quote ">' +
+                        '<div class="td-quote-total"><span>0.0</span></div>' +
+                        '<div class="td-quote-total"><span>0.0</span></div>' +
+                        '<div class="td-quote-total"><span>0.0</span></div>' +
                     '</td>' +
                     '<td style="width:auto;">' +
-                        '<input type="button" style="wdith: 100%;" class="btnRemoveRow btn btn-danger " id="'+i+'" value="Delete" >' +
+                        '<input type="button" style="width: 100%;" class="btnRemoveRow btn btn-danger " id="'+i+'" value="Delete" >' +
                     '</td>' +
                 '</tr>';
                 i++;
