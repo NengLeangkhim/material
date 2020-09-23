@@ -729,32 +729,35 @@ class gettable extends Controller
         rp.create_date as \"Create Date\",rp.description as \"Description\"
         from stock_company_product rp
         join ma_company_detail cd on cd.id=rp.ma_company_detail_id
-        where cd.is_deleted='f' and rp.is_deleted='f' and rp.action_type='out') as foo where lower(\"Request By\") like '%$sr%'
+        where cd.is_deleted='f' and rp.is_deleted='f' and rp.action_type='out'
+        and rp.id in (select stock_company_product_id from stock_company_product_detail where status='t' and is_deleted='f')) as foo where lower(\"Request By\") like '%$sr%'
                     or lower(\"Approve By\") like '%$sr%' or lower(\"Company\") like '%$sr%'
                     or lower(\"Description\") like '%$sr%' or lower(\"Branch\") like '%$sr%'";
 
         $sqlstr['productImport']="SELECT * from (SELECT rp.id,
-        (select first_name_en||' '||last_name_en as name from ma_user where id=rp.action_by and is_deleted='f') as \"Request By\",
-        (select first_name_en||' '||last_name_en as name from ma_user where id=rp.create_by and is_deleted='f') as \"Approve By\",
+        (select first_name_en||' '||last_name_en as name from ma_user where id=rp.action_by and is_deleted='f') as \"Deliver By\",
+        (select first_name_en||' '||last_name_en as name from ma_user where id=rp.create_by and is_deleted='f') as \"Create By\",
         cd.company as \"Company\",cd.branch as \"Branch\",
         ss.name as \"Supplier\" ,
         rp.create_date as \"Create Date\",rp.description as \"Description\"
         from stock_company_product rp
         join ma_company_detail cd on cd.id=rp.ma_company_detail_id
         join ma_supplier ss on ss.id=rp.ma_supplier_id
-        where cd.is_deleted='f' and rp.is_deleted='f' and rp.action_type='in') as foo where lower(\"Request By\") like '%$sr%'
-                    or lower(\"Approve By\") like '%$sr%' or lower(\"Company\") like '%$sr%'
+        where cd.is_deleted='f' and rp.is_deleted='f' and rp.action_type='in'
+        and rp.id in (select stock_company_product_id from stock_company_product_detail where status='t' and is_deleted='f')) as foo where lower(\"Deliver By\") like '%$sr%'
+                    or lower(\"Create By\") like '%$sr%' or lower(\"Company\") like '%$sr%'
                     or lower(\"Description\") like '%$sr%' or lower(\"Branch\") like '%$sr%'";
 
         $sqlstr['productReturn']="SELECT * from (SELECT rp.id,
-        (select first_name_en||' '||last_name_en as name from ma_user where id=rp.action_by and is_deleted='f') as \"Request By\",
-        (select first_name_en||' '||last_name_en as name from ma_user where id=rp.create_by and is_deleted='f') as \"Approve By\",
+        (select first_name_en||' '||last_name_en as name from ma_user where id=rp.action_by and is_deleted='f') as \"Return By\",
+        (select first_name_en||' '||last_name_en as name from ma_user where id=rp.create_by and is_deleted='f') as \"Create By\",
         cd.company as \"Company\",cd.branch as \"Branch\",
         rp.create_date as \"Create Date\",rp.description as \"Description\"
         from stock_company_product rp
         join ma_company_detail cd on cd.id=rp.ma_company_detail_id
-        where cd.is_deleted='f' and rp.is_deleted='f' and rp.action_type='return') as foo where lower(\"Request By\") like '%$sr%'
-                    or lower(\"Approve By\") like '%$sr%' or lower(\"Company\") like '%$sr%'
+        where cd.is_deleted='f' and rp.is_deleted='f' and rp.action_type='return'
+        and rp.id in (select stock_company_product_id from stock_company_product_detail where status='t' and is_deleted='f')) as foo where lower(\"Return By\") like '%$sr%'
+                    or lower(\"Create By\") like '%$sr%' or lower(\"Company\") like '%$sr%'
                     or lower(\"Description\") like '%$sr%' or lower(\"Branch\") like '%$sr%'";
         if(perms::check_perm_module('STO_010103')){
             $apr="";
@@ -771,7 +774,7 @@ class gettable extends Controller
                     from stock_product_request ia
                     join ma_company_detail cd on cd.id=ia.ma_company_detail_id
                     -- left join ma_supplier sp on sp.id=ia.ma_supplier_id
-                    where ia.is_deleted='f' and ia.action_type='in' $apr) as foo
+                    where ia.is_deleted='f' and ia.action_type='in' $apr and ia.id in (select stock_product_request_id from stock_product_request_detail where status='t' and is_deleted='f')) as foo
                     where lower(\"Approve By\") like '%$sr%'
                     or lower(\"Create By\") like '%$sr%' or lower(\"Company\") like '%$sr%'
                     or lower(\"Branch\") like '%$sr%' or lower(\"Description\") like '%$sr%'";
@@ -786,7 +789,7 @@ class gettable extends Controller
                     from stock_product_request ia
                     join ma_company_detail cd on cd.id=ia.ma_company_detail_id
                     -- left join ma_supplier sp on sp.id=ia.ma_supplier_id
-                    where ia.is_deleted='f' and ia.action_type='out' $apr) as foo
+                    where ia.is_deleted='f' and ia.action_type='out' $apr and ia.id in (select stock_product_request_id from stock_product_request_detail where status='t' and is_deleted='f')) as foo
                     where lower(\"Approve By\") like '%$sr%'
                     or lower(\"Create By\") like '%$sr%' or lower(\"Company\") like '%$sr%'
                     or lower(\"Branch\") like '%$sr%' or lower(\"Description\") like '%$sr%'";
@@ -862,7 +865,7 @@ class gettable extends Controller
                     and (lower(\"Name\") like '%$sr%' or lower(\"Name KH\") like '%$sr%' or lower(\"Brand\") like '%$sr%' or lower(\"Part Number\") like '%$sr%'
                     or lower(\"Barcode\") like '%$sr%' or lower(\"Product Code\") like '%$sr%')";
 
-        $sqlstr['requestreport']="SELECT * from (SELECT p.id,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as \"Product Code\", p.barcode as \"Barcode\",b.name as \"Brand\",p.name as \"Name\" ,p.name_kh as \"Name KH\",p.part_number as \"Part Number\",pq.create_date as \"Create Date\",m.name as \"Measurement\",pq.qty as \"Qty\",p.product_price as \"Price\",(p.product_price*pq.qty) as \"Amount\",pq.action_type as \"Action Type\"
+        $sqlstr['requestreport']="SELECT * from (SELECT p.id,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as \"Product Code\", p.barcode as \"Barcode\",b.name as \"Brand\",p.name as \"Name\" ,p.name_kh as \"Name KH\",p.part_number as \"Part Number\",pq.create_date as \"Create Date\",m.name as \"Measurement\",pq.qty*-1 as \"Qty\",p.product_price as \"Price\",(p.product_price*pq.qty)*-1 as \"Amount\",pq.action_type as \"Action Type\"
         from stock_product p
     join stock_product_move pq on p.id=pq.stock_product_id
     join stock_product_brand b on p.stock_product_brand_id=b.id
@@ -901,7 +904,8 @@ class gettable extends Controller
         $sqlstr['productcompanydashbord']="SELECT * from (SELECT p.id,(select get_code_prefix_ibuild(p.code,(select ma_company_detail_id from ma_user where id=".$_SESSION['userid']."),p.code_prefix_owner_id,(select code from stock_product_type where id=p.stock_product_type_id))) as \"Product Code\",(select name_en from stock_product_type where id=p.stock_product_type_id) as \"Type\",p.name as \"Name\",
                     (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to')) as \"QTY\",
                     (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to') and q.action_type='in') as \"Import\",
-                    (select (sum(q.qty)*-1) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to') and q.action_type='out') as \"Request\"
+                    (select (sum(q.qty)*-1) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to') and q.action_type='out') as \"Request\",
+                    (select sum(q.qty) from stock_product_move q join ma_company_detail cd on cd.id=q.ma_company_detail_id where q.stock_product_id=p.id and cd.ma_company_id=(select cd.ma_company_id from ma_user s join ma_company_detail cd on cd.id=s.ma_company_detail_id where s.id=".$_SESSION['userid']." and q.create_date between '$from' and '$to') and q.action_type='return') as \"Return\"
                     from stock_product p
                     join stock_product_move q on p.id=q.stock_product_id
                     join ma_company_detail cd on cd.id=q.ma_company_detail_id

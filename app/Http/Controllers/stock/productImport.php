@@ -45,7 +45,7 @@ class productImport extends Controller
             $_by=$_POST['_by'];
             $des=$_POST['description'];
             $supplier=$_POST['supplier'];
-            $invoice_number=$_POST['invoice_number'];
+            // $invoice_number=$_POST['invoice_number'];
             if(empty($invoice_number)){
                 $invoice_number=null;
             }

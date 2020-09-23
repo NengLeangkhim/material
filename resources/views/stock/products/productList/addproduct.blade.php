@@ -32,6 +32,7 @@ if(count($addp)==6){
     $unitType="";
     $brand=0;
     $cost="";
+    $price='';
     $sale_price="";
     $img="";
     $record_qty="";

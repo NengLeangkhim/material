@@ -49,7 +49,9 @@ class productAssign extends Controller
                 $q=DB::select("SELECT ".$sql);
             }
             if(count($q)>0){
-                return redirect('/productAssign');
+                echo 'Success';
+            }else{
+                echo 'Fail';
             }
         }else{
             return view('no_perms');

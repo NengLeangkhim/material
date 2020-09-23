@@ -28,9 +28,9 @@
                                 @endphp
                             </select>
                             {{-- <input type="text" id="custname" name="custname" class="form-control" required=""> --}}
-                            <a  href="javascript:void(0);" onclick="add_dialog('/addcompany')" class="input-group-addon pointer">
+                            {{-- <a  href="javascript:void(0);" onclick="add_dialog('/addcompany')" class="input-group-addon pointer">
                                 <span class="fa fa-plus"></span>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                     <div class="form-group col-md-3">
@@ -39,9 +39,9 @@
                             <select name="company_branch" id="company_branch" class="form-control select2" onchange="clear_row()">
                             </select>
                             {{-- <input type="text" id="custname" name="custname" class="form-control" required=""> --}}
-                            <a  href="javascript:void(0);" onclick="add_dialog('/addcompanybranch')" class="input-group-addon pointer">
+                            {{-- <a  href="javascript:void(0);" onclick="add_dialog('/addcompanybranch')" class="input-group-addon pointer">
                                 <span class="fa fa-plus"></span>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                     <div class="form-group col-md-3">
@@ -54,15 +54,15 @@
                                 }
                             @endphp
                             </select>
-                            <a href="javascript:void(0);" onclick="add_dialog('/addstaff')" class="input-group-addon pointer">
+                            {{-- <a href="javascript:void(0);" onclick="add_dialog('/addstaff')" class="input-group-addon pointer">
                                 <span class="fa fa-plus"></span>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
-                    <div class="form-group col-md-3">
+                    {{-- <div class="form-group col-md-3">
                         <label>Request ID<i class="text-danger">*</i> </label>
                         <input type="text" class="form-control" name="request_id">
-                    </div>
+                    </div> --}}
                     <div class="form-group col-md-12">
                         <label>Description</label>
                         <input type="text" name="description" class="form-control" autocomplete="off">

@@ -83,10 +83,12 @@ function check_session(){
 //only work on tag a with onclick and go_to
 function set_selected_nav(tar){
   var s=$("#"+tar).find("a")[1];
+  var z=$("#"+tar).find("a")[1]; 
   s=$(s).attr("onclick");
   s=s.split("'")[1];
   if(s.length>0){
     go_to(s);
+    $(z).addClass('active');// add class active 
   }
 }
 function get_pushmenu(){
@@ -117,6 +119,10 @@ jQuery("a[data-id]").click(function(e){ // Function Click focus on link menu
       $('a[data-id='+id+']').addClass('active'); // set link active
   }  
 })
+function navbar_active(id){ // Function Click focus on link menu
+      $('a[data-navbar]').removeClass('active'); //remove class active
+      $('a[data-navbar='+id+']').addClass('active'); // set link active 
+}
 $(function() {
   //var content_menu_width = $('.os-content').width();
   $('div.div_animation').each(function(i) {
