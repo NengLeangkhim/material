@@ -12,6 +12,11 @@ class addressModel extends Model
     {
         return DB::select("SELECT  * from public.get_gazetteers_province()");
     }
+     //Model get lead privice  for API
+    public static function GetProviceAPI()
+    {
+         return DB::select("SELECT  code as id, name_latin||'/'||name_kh as name from public.get_gazetteers_province()");
+    }
     // Model get lead district
     public static function GetLeadDistrict($id)
     {
