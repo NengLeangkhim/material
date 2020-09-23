@@ -220,53 +220,40 @@
                                 <h3 class="card-title">Item Detail</h3>
                             </div>                            
                             <div class="card-body table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <?php
-                                            $x = 0 ;
-                                        ?> 
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Item Name</th>
-                                            <th>Quantity</th>
-                                            <th>Unit Price</th>
-                                            <th>Total</th>
-                                            <th><input type="button" class="btn btn-info" onclick="myFun();" name="" id="" value="Add Row" ></th>
+                                <div class="row max-min-table">
+                                    <table class="table table-bordered ">
+                                        <thead class="thead-item-list">
+                                            <tr>
+                                                <th class="td-item-quote-name">Item Name</th>
+                                                <th class="td-item-quote">Quantity</th>
+                                                <th class="td-item-quote">List Price($)</th>
+                                                <th class="td-item-quote">Total</th>
+                                                <th style="width: 100px;"><input type="button" class="btn btn-info"  id="btnAddRowQuoteItem" value="Add Row" ></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="add_row_tablequoteItem">
                                             
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php 
-                                            if(isset($x)){
-                                                if($x == 10){
-                                                    echo '
-                                                        <tr>
-                                                            <td> 01--'.$x.'</td>
-                                                            <td> 
-                                                                <select class="form-control" style="width: auto; min-width: 100px;">
-                                                                    <option value="">Item1</option>
-                                                                    <option value="">Item2</option>
-                                                                    <option value="">Item3</option>
-                                                                    <option value="">Item4</option>
-                                                                </select>
-                                                            </td>
-                                                            <td> <input type="text" class="form-control"  name="" id="" placeholder="Quanlity name" > </td>
-                                                            <td> <input type="text" class="form-control"  name="" id="" placeholder="Unit price" > </td>
-                                                            <td> <input type="text" class="form-control"  name="" id="" placeholder="Total" > </td>
-                                                            <td> <input type="button" class="btn btn-info"  name="" id="" value="Delete" > </td>
-                                                        </tr>                                                
-                                                    ';
-                                                $x = 0;
-                                                }
-                                            }    
-                                        ?>
-                                            
-                    
-
-                                    </tbody>
-                                </table>
-                                                    
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row max-min-table-total">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 50%"><input type="hidden"></td>
+                                                <td class="td-total-quote" >
+                                                    <div class="title-total-quote form-inline">
+                                                        <p  style="width:50%; text-align: left">Grand Total</p>
+                                                        <p  style="width:50%; text-align: center">100$</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        
+                                    </table>
+                                </div>                 
                             </div>  
+                            
                         </div>
                         
                         <div class="card-footer">
@@ -337,8 +324,10 @@
         <!-- /.modal-dialog -->
       </div>
 
-
+    <script type="text/javascript" src="js/crm/crmAddRowQuote.js"></script>
     <script type="text/javascript">
+            
+
             $('.lead').click(function(e)
             {
                 var ld = $(this).attr("​value");
@@ -367,92 +356,4 @@
             //     submit_form ('/addlead','frm_lead','lead');
             // })
     </script>
-    {{--Google Map--}}
-    <script src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing&key=AIzaSyA4QECK3Tl4Sdl1zPIHiyZaME5mUaSk4WU&callback=initMap" async defer></script>    
-    <script>
-        var map;
-        var markers = [];
 
-        function initMap() {
-
-            var haightAshbury = {
-                lat: 11.620803,
-                lng: 104.892215
-            };
-
-
-            var get_latlng = 0;
-            map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 12, // Set the zoom level manually
-                center: haightAshbury,
-                mapTypeId: 'roadmap'
-            });
-            
-            
-            //declear default value for latlong on map
-            addMarker(haightAshbury);
-            document.getElementById('latlong').value = '11.620803, 104.892215';
-           
-            // This event listener will call addMarker() when the map is clicked.
-            map.addListener('click', function(event) {
-                if (markers.length >= 1) {
-                    deleteMarkers();
-                }
-
-                addMarker(event.latLng);
-                get_latlng = event.latLng.lat().toFixed(6) +', '+ event.latLng.lng().toFixed(6);
-                document.getElementById('latlong').value = get_latlng;
-            });
-        }
-
-        // Adds a marker to the map and push to the array.
-        function addMarker(location) {
-            var marker = new google.maps.Marker({
-                position: location,
-                map: map
-            });
-            markers.push(marker);
-        }
-
-        // Sets the map on all markers in the array.
-        function setMapOnAll(map) {
-            for (var i = 0; i < markers.length; i++) {
-                markers[i].setMap(map);
-            }
-        }
-
-        // Removes the markers from the map, but keeps them in the array.
-        function clearMarkers() {
-            setMapOnAll(null);
-        }
-
-        // Deletes all markers in the array by removing references to them.
-        function deleteMarkers() {
-            clearMarkers();
-            markers = [];
-        }
-    </script>
-
-    <script  type="text/javascript" >
-        $(window).on('load', function() {
-        
-            alert('hello');
-                // var url = window.location.href;
-                // var params = url.split('?ID=');
-                // var id = (params[1])
-                // $.ajax({
-                //     type:"POST",
-                //     url:"addQuote.blade.php",
-                //     data:{id:id},
-                //     success:function(result){
-                //         // $("#content").html(result);
-                //     }
-                // })
-        });
-    </script>
-    
-    <?php
-            // $random = $_GET["id"];
-            // echo $random;
-        
-    ?>
