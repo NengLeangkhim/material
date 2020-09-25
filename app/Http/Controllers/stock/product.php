@@ -61,10 +61,22 @@ class product extends Controller
                     if(empty($img)){
                         $img=DB::select("select image from stock_product where id=$pid")[0]->image;
                     }
-                    $sql="update_product(
-                            $pid,'$pname','$pname_kh',$cost,$unitType,$company,$company_branch,
-                            $staff,'$ppartNumber','$img',$brand,$ma_currency,'$barcode',
-                            '$description')";
+                    $sql="update_stock_product(
+                        $pid,
+                        $staff,
+                        '$pname',
+                        $price,
+                        $unitType,
+                        $brand,
+                        '$barcode',
+                        '$img',
+                        '$ppartNumber',
+                        $ma_currency,
+                        '$description',
+                        '$pname_kh',
+                        $account_chart,
+                        $cost)";
+
                 }else{//insert
                     $sql="insert_stock_product(
                         '$pname',
@@ -146,8 +158,8 @@ class product extends Controller
                 // $addp[3]=DB::select("select id,name from storage where status='t'");
                 $addp[4]=DB::select("select id,name from ma_currency where status='t'");
                 // $addp[5]=DB::select("select id,name from supplier where status='t'");
-                $addp[6]=DB::select("SELECT p.id, p.name,p.name_kh, p.qty, p.price,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code,p.stock_product_type_id,
-                p.ma_measurement_id, p.stock_product_brand_id, p.barcode, p.image, p.part_number, p.currency_id,p.description
+                $addp[6]=DB::select("SELECT p.id, p.name,p.name_kh, p.stock_qty, p.product_price,p.product_cost,get_code_prefix_ibuild(p.code,null,p.code_prefix_owner_id,pt.code) as product_code,p.stock_product_type_id as product_type_id,
+                p.ma_measurement_id as measurement_id, p.stock_product_brand_id as brand_id, p.barcode,p.bsc_account_charts_id, p.image, p.part_number, p.ma_currency_id as currency_id,p.description
                 FROM public.stock_product p
                 left join stock_product_type pt on pt.id=p.stock_product_type_id
                 where p.id=$id");
