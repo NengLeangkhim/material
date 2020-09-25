@@ -17,7 +17,15 @@
          </div><!-- /.container-fluid -->
     </section>  
     <section class="content">
-        <div class="container-fluid">
+        <head>
+            <style>
+                .table td, .table th {
+                    padding: 0.3rem !important;
+                    border-top: none !important;
+                }
+            </style>
+        </head>
+        <div class="container-fluid" id="createNewQuote">
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-12">
@@ -217,6 +225,7 @@
                                 </div>              
                         </div>
                         <div class="card card-primary">
+                          
                             <div class="card-header" style="background:#1fa8e0">
                                 <h3 class="card-title">Item Detail</h3>
                             </div>                            
@@ -226,14 +235,17 @@
                                         <thead class="thead-item-list">
                                             <tr>
                                                 <th class="td-item-quote-name">Item Name</th>
-                                                <th class="td-item-quote">Quantity</th>
+                                                <th style="width: 120px">Quantity</th>
                                                 <th class="td-item-quote">List Price($)</th>
-                                                <th class="td-item-quote">Total</th>
-                                                <th style="width: 100px;"><input type="button" style="width: 100%;" class="btn btn-info"  id="btnAddRowQuoteItem" value="Add Row" ></th>
+                                                <th class="td-item-quote">Total($)</th>
+                                                <th style="width: 0px;" >
+                                                    <button type="button" class="btn btn-info" id="btnAddRowQuoteItem" ><span><i class="fa fa-plus"></i></span></button> 
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody id="add_row_tablequoteItem">
-                                            
+                                            {{-- field to add new row to table --}}
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -242,11 +254,38 @@
                                         <tbody>
                                             <tr>
                                                 <td style="width: 50%"><input type="hidden"></td>
-                                                <td class="td-total-quote" >
-                                                    <div class="title-total-quote form-inline">
-                                                        <p  style="width:50%; text-align: left">Grand Total</p>
-                                                        <p  style="width:50%; text-align: center">100$</p>
-                                                    </div>
+                                                <td  >
+                                                    <table class="table table-bordered tr-quote-row">
+                                                        <tbody>
+                                                            <tr style="text-align: right">
+                                                                <td  ><span style="padding-right: 12px;">Sum Total </span></td>
+                                                                <td  ><span> 330$ </span></td>
+                                                            </tr>
+                                                            <tr style="text-align: right">
+                                                                <td >
+                                                                    <select class="btn-list-item mdb-select md-form" id="'+i+'" >
+                                                                        <option value=""><span>+Discount (%)</span> </option>
+                                                                        <option value=""><span>+Discount ($)</span> </option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <div> 
+                                                                        <input type="text" style="width:50%;" class="txtbox-quote valid-numeric-float" name="allDiscount[]" id="allDiscount"  placeholder="0.0%">
+                                                                    </div>
+                                                                    <div>
+                                                                        <span> 30$ </span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="td-total-quote" >
+                                                                <td  ><span style="padding-right: 12px;">Grand Total</span></td>
+                                                                <td  x><span> 300$ </span></td>
+                                                            </tr>
+                                                            
+
+                                                        </tbody>
+                                                    </table>
+                                                    
                                                 </td>
                                             </tr>
                                         </tbody>

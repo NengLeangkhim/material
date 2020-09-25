@@ -26,7 +26,7 @@
                         <div class="row">
                           <div class="col-8">
                             <ul class="nav nav-pills">
-                              <li class="nav-item"><a class="nav-link active" href="#Crm_Card_Contact" data-toggle="tab"><i class="far fa-id-card"></i></a></li>
+                              <li class="nav-item"><a class="nav-link active" href="#Crm_Card_Contact" data-toggle="tab"><i class="fas fa-credit-card"></i></a></li>
                               <li class="nav-item"><a class="nav-link" href="#Crm_List_Contact" data-toggle="tab"><i class="fas fa-list"></i></a></li>
                             </ul>
                           </div>
