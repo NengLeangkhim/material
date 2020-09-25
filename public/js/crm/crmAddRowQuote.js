@@ -67,6 +67,7 @@
         $(document).on('click', '.btnRemoveRow', function() {
             var btn_id = $(this).attr("id");
             $('#row' + btn_id + '').remove();
+            alert($i);
             $i--;
         });
 
