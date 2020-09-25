@@ -97,25 +97,27 @@
     }
     .btn-list-item {
         /* margin-left: 5px; */
-        font-size: 12px;
+        font-size: 13px;
         color:#349bff;
         font-weight: bold;
+        border: 1px;
     }
 
     .btn-list-item:hover {
         color: #0d2135;
     }   
 
-    .table td, .table th {
+    /* .table td, .table th {
         padding: 0.3rem !important;
         border-top: none !important;
-    }
+    } */
 
  
 
     .td-total-quote{
         padding: 10px;
         font-weight: bold;
+        text-align: right;
     }
 
     .title-total-quote {
@@ -142,9 +144,22 @@
         font-size: 14px;
         font-weight: normal;
         min-height: 40px;
+        min-width: 90px;
     }
 
+    .txtbox-quote {
+        width: 100%; 
+        border-radius: 3px;
+        border: 0.5px solid #d7cfcf;
+    }
 
+    .txtbox-quote:hover{
+        border: 0.5px solid #007bff;
+    }
+
+    .txtbox-quote:active{
+        border: 0.5px solid #007bff;
+    }
 
 
 

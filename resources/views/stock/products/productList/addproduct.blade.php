@@ -21,6 +21,7 @@ if(count($addp)==6){
     $currency=$edit->currency_id;
     $bbarcode=$edit->barcode;
     $ptype=$edit->product_type_id;
+    $account=$edit->bsc_account_charts_id;
     $e='disabled';
 }else{
     $id=0;
@@ -38,6 +39,7 @@ if(count($addp)==6){
     $record_qty="";
     $description="";
     $currency=0;
+    $account=0;
     // $company=0;
     // $company_branch=0;
     $bbarcode="";
@@ -166,7 +168,7 @@ $sel="";
                             <select class="form-control select2" name="account_chart" required id="iaccount_chart">
                                 @php
                                 foreach($addp[8] as $currencyy){
-                                    $sel=($currencyy->id==$currency)?"selected":"";
+                                    $sel=($currencyy->id==$account)?"selected":"";
                                     echo '<option value="'.$currencyy->id.'"'.$sel.'>'.$currencyy->name.'</option>';
                                 }
                             @endphp

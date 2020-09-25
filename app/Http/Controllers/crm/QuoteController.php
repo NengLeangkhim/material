@@ -33,7 +33,4 @@ class QuoteController extends Controller
 
 
 
-
-
-
 }
