@@ -112,6 +112,7 @@ class HrmPolicyController extends Controller
         }else{
             if(perms::check_perm_module('HRM_09060102')){//module code list data tables id=137
                 if($request->file('policy_file') !=''){
+                    $policy_name = $request->policy_name;
                     $file = $request->file('policy_file');// GET File
                     $rename_file = $policy_name.'.pdf';// rename file as policy name
                     $filepdf = $file->getClientOriginalName(); // GET File name

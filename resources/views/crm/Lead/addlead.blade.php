@@ -96,6 +96,34 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Vat Type</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fab fa-tumblr"></i></span>
+                                                </div>
+                                                <select class="form-control" name="custtype" >
+                                                    <option></option>
+                                                    <option>Exclusive</option>
+                                                    <option>Inclusive</option>
+                                                    <option>Oppa</option>
+                                                    <option>Other</option>
+                                                </select>   
+                                            </div>                
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Vat Number</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="website" id="exampleInputEmail1" placeholder="Vat Number">
+                                            </div>                           
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
                                             <label for="exampleInputEmail1">Customer Type <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -196,6 +224,50 @@
                                                         <option value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option> 
                                                     @endforeach --}}
                                                 </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Primary Email<b style="color:red">*</b></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-at"></i></span>
+                                                </div>
+                                                <input type="email" class="form-control"  name="email" id="exampleInputEmail1" placeholder="Primary Email">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Primary Phone <b style="color:red">*</b></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="phone"id="exampleInputEmail1" placeholder="Primary Phone" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                         <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Current Speed</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="website" id="exampleInputEmail1" placeholder="Current Speed">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Current Price</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="facebook" id="exampleInputEmail1" placeholder="Current Price">
                                             </div>
                                         </div>
                                     </div>

@@ -245,7 +245,6 @@
                                         </thead>
                                         <tbody id="add_row_tablequoteItem">
                                             {{-- field to add new row to table --}}
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -263,14 +262,14 @@
                                                             </tr>
                                                             <tr style="text-align: right">
                                                                 <td >
-                                                                    <select class="btn-list-item mdb-select md-form" id="'+i+'" >
-                                                                        <option value=""><span>+Discount (%)</span> </option>
-                                                                        <option value=""><span>+Discount ($)</span> </option>
+                                                                    <select class="allItemDiscount btn-list-item mdb-select md-form" name="allDiscount" id="allItemDiscount" >
+                                                                        <option value="1"><span>+Discount (%)</span> </option>
+                                                                        <option value="2"><span>+Discount ($)</span> </option>
                                                                     </select>
                                                                 </td>
                                                                 <td>
-                                                                    <div> 
-                                                                        <input type="text" style="width:50%;" class="txtbox-quote valid-numeric-float" name="allDiscount[]" id="allDiscount"  placeholder="0.0%">
+                                                                    <div id="allDiscount"> 
+                                                                        <input type="text" style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="itemDiscountPercent"  placeholder="0.0%">
                                                                     </div>
                                                                     <div>
                                                                         <span> 30$ </span>
@@ -279,7 +278,7 @@
                                                             </tr>
                                                             <tr class="td-total-quote" >
                                                                 <td  ><span style="padding-right: 12px;">Grand Total</span></td>
-                                                                <td  x><span> 300$ </span></td>
+                                                                <td  ><span> 300$ </span></td>
                                                             </tr>
                                                             
 
@@ -395,5 +394,37 @@
             // $('.save').click(function(){
             //     submit_form ('/addlead','frm_lead','lead');
             // })
+
+
+
+
+
+
+
+
     </script>
+
+    <script type="text/javascript">
+
+          //function get textbox as percent or price for select item discount type
+            $('.allItemDiscount').on('change', function(e) {
+                var textBoxType = "";
+                var select_val= $("#allItemDiscount").val();
+                if(select_val == 1){
+                    $('#itemDiscountPrice').remove();
+                    textBoxType = '<input type="text"  style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="itemDiscountPercent"  placeholder="0.0%">' ;
+                    $('#allDiscount').append(textBoxType);
+                }
+                if(select_val == 2){
+                    $('#itemDiscountPercent').remove();
+                    textBoxType = '<input type="text"  style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPrice[]" id="itemDiscountPrice"  placeholder="0.0$">' ;
+                    $('#allDiscount').append(textBoxType);
+                }
+
+            });
+
+    </script>
+
+
+
 

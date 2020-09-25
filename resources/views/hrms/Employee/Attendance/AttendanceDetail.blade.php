@@ -13,11 +13,6 @@
                 <!-- /.card-header -->
                 
                 <div class="card-body" style="display: block;">
-                    
-                    @php
-                        // print_r($tt_detail);
-                       
-                    @endphp
                         <div class="">
                             <div class="row">
                                 <div class="col-md-4">
@@ -32,75 +27,92 @@
                                 </div>
                                  <div class="col-md-4">
                                     <div class="form-group">
-                                        <button class="btn bg-turbo-color form-control" onclick="HRM_CalculateAttendanceDetail()">Search</button>
+                                        <button class="btn bg-turbo-color form-control" onclick="HRM_CalculateAttendanceDetail({{$data['id']}})">Search</button>
                                     </div>
                                 </div>
-                                <div class="col-md-12" style="margin-bottom: 15px" id="hrm_calculate_detail">
-                                    <nav>
-                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Attendance Report</a>
-                                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Chart</a>
-                                        </div>
-                                    </nav>
-                                    <div class="tab-content" id="nav-tabContent">
-                                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                            <div class="" style="margin-top: 10px">
-                                                <table class="table">
+                                <div id="hrm_calculate_detail" class="col-md-12">
+                                    <div class="col-md-12" style="margin-bottom: 15px">
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-6 col-12">
+                                                <div class="info-box">
+                                                <span class="info-box-icon bg-late"><i class="fas fa-users"></i></span>
 
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="text-left">Type</th>
-                                                            <th class="text-left">Times</th>
-                                                            {{-- <th class="text-left">Hour</th> --}}
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th>Present</th>
-                                                            <th>@php
-                                                                echo $tt_detail[2];
-                                                            @endphp</th>
-                                                            {{-- <th>4</th> --}}
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Late</></td>
-                                                            <th>@php
-                                                                echo $tt_detail[0];
-                                                            @endphp</th>
-                                                            {{-- <th>4</th> --}}
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Apsent</th>
-                                                            <th>@php
-                                                                echo $tt_detail[1];
-                                                            @endphp</th>
-                                                            {{-- <th>4</th> --}}
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Permisstion</th>
-                                                            <th>@php
-                                                                echo $tt_detail[3];
-                                                            @endphp</th>
-                                                            {{-- <th>4</th> --}}
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                
+                                                <div class="info-box-content">
+                                                    <span class="info-box-text"><h4><strong>Late</strong></h4></span>
+                                                    <span class="info-box-number">Morning : {{$data['attendance_info'][0]}}</span>
+
+                                                    <span class="info-box-number">Afternoon : {{$data['attendance_info'][4]}}</span>
+                                                </div>
+                                                <!-- /.info-box-content -->
+                                                </div>
+                                                <!-- /.info-box -->
+                                            </div>
+                                            <div class="col-md-4 col-sm-6 col-12">
+                                                <div class="info-box">
+                                                <span class="info-box-icon bg-absent"><i class="fas fa-users"></i></span>
+
+                                                <div class="info-box-content">
+                                                    <span class="info-box-text"><h4><strong>Absent</strong></h4></span>
+                                                <span class="info-box-number">Morning : {{$data['attendance_info'][1]}}</span>
+
+                                                <span class="info-box-number">Afternoon :{{$data['attendance_info'][5]}}</span>
+                                                </div>
+                                                <!-- /.info-box-content -->
+                                                </div>
+                                                <!-- /.info-box -->
+                                            </div>
+                                            <div class="col-md-4 col-sm-6 col-12">
+                                                <div class="info-box" style="height: 109px">
+                                                    <span class="info-box-icon bg-info"><i class="fas fa-spinner"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text"><h5><strong>Permission</strong></h5></span>
+                                                    <span class="info-box-number">{{$data['attendance_info'][3]}}</span>
+                                                    </div>
+                                                    <!-- /.info-box-content -->
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                            <h1>comming soon...</h1>
-                                        </div>
                                         
+                                    </div>
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered" id="tbl_hrm_attendance_detail" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="2">#</th>
+                                                    <th rowspan="2">Date</th>
+                                                    <th colspan="2">Morning</th>
+                                                    <th colspan="2">Evening</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Check In</th>
+                                                    <th>Check Out</th>
+                                                    <th>Check In</th>
+                                                    <th>Check Out</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $i=0;
+                                                @endphp
+                                                @foreach ($data['attendance'] as $attendance)
+                                                    <tr>
+                                                        <td>{{++$i}}</td>
+                                                        <td>{{$attendance[2]}}</td>
+                                                        <td>
+                                                            {!!App\model\hrms\employee\Attendance::EmployeeCheckLateAbsentMorning($attendance[3])!!}
+                                                        </td>
+                                                        <td>{{$attendance[4]}}</td>
+                                                        <td>{!!App\model\hrms\employee\Attendance::EmployeeCheckLateAbsentEvening($attendance[5])!!}</td>
+                                                        <td>{{$attendance[6]}}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    
-
-                    
-
-                    
                 </div>
                 <!-- /.card-body -->
           
