@@ -36,8 +36,8 @@
                         <td>{{ $item->description }}</td>
                         <td class="text-center">
                           <div class="row">
-                            <div class="col-md-6"><a href="javascrip:;" onclick="HRM_AddAndEditHoliday({{$item->id}})"><i class="far fa-edit"></i></a></div>
-                            <div class="col-md-6"><a href="javascrip:;" onclick="hrm_delete({{$item->id}},'hrm_delete_holiday','hrm_holiday','Holiday is Deleted ')"><i class="far fa-trash-alt"></i></a></div>
+                            <div class="col-md-6"><a href="javascript:;" onclick="HRM_AddAndEditHoliday({{$item->id}})"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-6"><a href="javascript:;" onclick="hrm_delete({{$item->id}},'hrm_delete_holiday','hrm_holiday','Holiday is Deleted ')"><i class="far fa-trash-alt"></i></a></div>
                           </div>
                         </td>
                     </tr>
