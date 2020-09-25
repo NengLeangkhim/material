@@ -32,8 +32,8 @@
                         <td>{{$depart->name_kh}}</td>
                         <td>
                           <div class="row">
-                            <div class="col-md-6 text-center"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_modal_add_edit_department','modal_department',{{$depart->id}})"><i class="far fa-edit"></i></a></div>
-                            <div class="col-md-6 text-center"><a href="javascrip:;" onclick="hrm_delete({{$depart->id}},'hrm_delete_department','hrm_department','Department is deleted !')"><i class="far fa-trash-alt"></i></a></div>
+                            <div class="col-md-6 text-center"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_modal_add_edit_department','modal_department',{{$depart->id}})"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-6 text-center"><a href="javascript:;" onclick="hrm_delete({{$depart->id}},'hrm_delete_department','hrm_department','Department is deleted !')"><i class="far fa-trash-alt"></i></a></div>
                           </div>
                         </td>
                       </tr>
@@ -79,8 +79,8 @@
                         <td>{{$position->name_kh}}</td>
                         <td>
                           <div class="row">
-                            <div class="col-md-6"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_add_modal_position','modal_position',{{$position->id}})"><i class="far fa-edit"></i></a></div>
-                            <div class="col-md-6"><a href="javascrip:;" onclick="hrm_delete({{$position->id}},'hrm_delete_position','hrm_department','Position is deleted !')"><i class="far fa-trash-alt"></i></a></div>
+                            <div class="col-md-6"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_add_modal_position','modal_position',{{$position->id}})"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-6"><a href="javascript:;" onclick="hrm_delete({{$position->id}},'hrm_delete_position','hrm_department','Position is deleted !')"><i class="far fa-trash-alt"></i></a></div>
                           </div></td>
                       </tr>
                     @endforeach
