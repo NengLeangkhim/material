@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\model\hrms\employee\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\perms;
+use App\model\hrms\employee\MissionAndOutSide;
+
 class AttendanceController extends Controller
 {
     //
@@ -65,32 +67,60 @@ class AttendanceController extends Controller
             session_start();
         }
         if (perms::check_perm_module('HRM_090103')) {
-            $att = new Attendance();
-            $id=$_GET['id'];
-            $date = date('Y-m-d') . '';
-            $att_detail=$att->AttendanceDetail($id,'',$date);
-            $detail=array();
-            array_push($detail,$att_detail);
-            $d= $att->CheckInfoStaff($detail);
-            if(count($d[9])>0){
-                $late=0;
+            $emid=$_GET['id'];
+            $employee=Employee::EmployeeOnRow($emid);
+            if(isset($_GET['date_from']) && $_GET['date_to']){
+                $date_from=$_GET['date_from'];
+                $date_to=$_GET['date_to'];
+                $view= 'hrms/Employee/Attendance/CalculateAttendanceDetail';
             }else{
-                $late=0;
+                $date_from=date('Y-m-d');
+                $date_to=date('Y-m-d');
+                $view= 'hrms/Employee/Attendance/AttendanceDetail';
             }
-            // $det=array();
-            // $det[0]=$d[0];
-            // $det[1]=$d[1];
-            return view('hrms/Employee/Attendance/AttendanceDetail')->with('tt_detail',$d);
+            // $date_from='2020-09-21';
+            // $date_to='2020-09-25';
+            $em_attendance=Attendance::ShowAttendanceByDate($emid,'',$date_from,$date_to,$employee['id_number']);
+            $attendance_info=Attendance::CheckInfoStaff($em_attendance);
+            $data=[
+                "id"=>$employee['id'],
+                "id_number"=>$employee['id_number'],
+                "attendance"=>$em_attendance,
+                "attendance_info"=>$attendance_info
+            ];
+            return view($view)->with('data',$data);
         } else {
             return view('noperms');
         }
     }
 
-    function CalculateAttendanceDetail(){
-        return view('hrms/Employee/Attendance/CalculateAttendanceDetail');
-    }
+    // function CalculateAttendanceDetail(){
+    //     return view('hrms/Employee/Attendance/CalculateAttendanceDetail');
+    // }
 
     function AttendanceEdit(){
-        return view('hrms/Employee/Attendance/AttendanceEdit');
+        $id=$_GET['id'];
+        return view('hrms/Employee/Attendance/AttendanceEdit')->with('id',$id);
+    }
+
+    function AttendanceEditInsert()
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userid = $_SESSION['userid'];
+        $id = $_POST['id'];
+        $type = $_POST['type'];
+        $street = $_POST['street'];
+        $home_number = $_POST['home_number'];
+        $latelg = $_POST['latelg'];
+        $gazetteer_code = $_POST['gazetteers_code'];
+        $description = $_POST['description'];
+        $date_from=$_POST['date_from'];
+        $date_to=$_POST['date_to'];
+        $emid=array();
+        array_push($emid,$id);
+        $stm=MissionAndOutSide::InsertMissionOutSide($date_from,$date_to,$description,$type,$userid,$id,$street,$home_number,$latelg,$gazetteer_code,$emid);
+        echo $stm;
     }
 }

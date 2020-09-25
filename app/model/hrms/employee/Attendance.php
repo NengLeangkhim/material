@@ -10,7 +10,7 @@ use Throwable;
 class Attendance extends Model
 {
     // Check Staff who come to work late, absent, Present, Permission
-    function CheckInfoStaff($s){
+    public static function CheckInfoStaff($s){
         $staffdetail=array();
         // veriable for morning
         $staffdetail[0]=0; // late
@@ -52,13 +52,13 @@ class Attendance extends Model
     }
 
     // function for check attendance today
-    function AttendanceToday($em,$date){
+    public static function AttendanceToday($em,$date){
         $allData=array();
         $attendance=array();
         foreach($em as $e){
             
             $get_full_en_name = $e->first_name_en." ".$e->last_name_en;
-            $detail= self::AttendanceDetail(self::ConvertIdToNumber($e->id_number),$get_full_en_name, $date);
+            $detail= self::AttendanceDetail(self::ConvertIdToNumber($e->id_number),$get_full_en_name,$date,$e->id);
             
             array_push($attendance,$detail);
         }
@@ -76,7 +76,7 @@ class Attendance extends Model
         $allData[8]=$attendance;
         return $allData;
     }
-    function AttendanceDetail($id,$name,$date){
+    public static function AttendanceDetail($id,$name,$date,$emid){
         $dateTime1=$date.' 00:00:00';
         $dateTime2 = $date . ' 24:00:00';
         $attendance=array();
@@ -107,24 +107,36 @@ class Attendance extends Model
                 }
             }
             if(strlen($morning_checkin)==0){
-                $morning_checkin = 'Absent';
+                if(self::CheckPermisstion($emid,$date)==1){
+                    $morning_checkin="Permission";
+                }elseif(self::CheckOutside($emid,$date)==1){
+                    $morning_checkin="Mission";
+                }else{
+                    $morning_checkin = 'Absent';
+                }
             }
             if (strlen($morning_checkout) == 0) {
                 $morning_checkout = 'Absent';
             }
             if (strlen($evening_checkin) == 0) {
-                $evening_checkin = 'Absent';
+                if (self::CheckPermisstion($emid, $date) == 1) {
+                    $evening_checkin = "Permission";
+                } elseif (self::CheckOutside($emid, $date) == 1) {
+                    $evening_checkin = "Mission";
+                } else {
+                    $evening_checkin = 'Absent';
+                }
             }
             if (strlen($evening_checkout) == 0) {
                 $evening_checkout = 'Absent';
             }
         }else{
-            if(self::CheckPermisstion($id,$date)==1){
+            if(self::CheckPermisstion($emid,$date)==1){
                 $morning_checkin = 'Permission';
                 $morning_checkout = 'Permission';
                 $evening_checkin = 'Permission';
                 $evening_checkout = 'Permission';
-            }elseif(self::CheckOutside($id,$date)==1){
+            }elseif(self::CheckOutside($emid,$date)==1){
                 $morning_checkin = 'Outside';
                 $morning_checkout = 'Outside';
                 $evening_checkin = 'Outside';
@@ -136,10 +148,10 @@ class Attendance extends Model
                 $evening_checkout = 'Absent';
             }
         }
-        array_push($attendance,$id,$name,$date,$morning_checkin,$morning_checkout,$evening_checkin,$evening_checkout);
+        array_push($attendance,$emid,$name,$date,$morning_checkin,$morning_checkout,$evening_checkin,$evening_checkout);
         return $attendance;
     }
-    function CheckPermisstion($id,$date){
+    public static function CheckPermisstion($id,$date){
         $dd = new DateTime($date);
         $d = $dd->format('Y-m-d H:i:s');
         $sql= "SELECT id, request_by, kind_of_leave_id, create_date, date_from, date_to, date_resume, number_date_leave, transfer_job_to, status, reason
@@ -152,7 +164,7 @@ class Attendance extends Model
             return 0;
         }
     }
-    function CheckOutside($id,$date){
+    public static function CheckOutside($id,$date){
         $dd = new DateTime($date);
         $d = $dd->format('Y-m-d H:i:s');
         $sql= "SELECT hm.type from hr_mission hm INNER JOIN hr_mission_detail hmd on hm.id=hmd.hr_mission_id and '$d' BETWEEN hm.date_from and hm.date_to and hmd.ma_user_id=$id";
@@ -163,7 +175,7 @@ class Attendance extends Model
             return 0;
         }
     }
-    function CheckPublicHoliday($date){
+    public static function CheckPublicHoliday($date){
         $sql="SELECT id FROM hr_attendance_holiday WHERE is_deleted='f' and '$date' BETWEEN from_date and to_date";
         $stm=DB::select($sql);
         if(isset($stm[0]->id)){
@@ -172,7 +184,7 @@ class Attendance extends Model
             return 0;
         }
     }
-    function CheckHoliday($date){
+    public static function CheckHoliday($date){
         $timestamp = strtotime($date);
         $day = date('D', $timestamp);
         if($day=='Sun'){
@@ -184,12 +196,12 @@ class Attendance extends Model
         }
         return $a;
     }
-    function ConvertIdToNumber($id_number){
+    public static function ConvertIdToNumber($id_number){
         $rest = substr($id_number, 3, 30);  // returns "cde"
         $int = (int)$rest;
         return $int;
     }
-    function ConvertTimeStampToTime($date){
+    public static function ConvertTimeStampToTime($date){
         $time = strtotime($date);
         $newformat = date('H:i:s', $time);
         return $newformat;
@@ -210,7 +222,7 @@ class Attendance extends Model
         return $st;
     }
 
-    function CheckMinuteOfLate($em){
+    public static function CheckMinuteOfLate($em){
         try {
             foreach($em as $s){
 
@@ -220,7 +232,72 @@ class Attendance extends Model
             return false;
         }
     }
-    function CheckMinutOfCheckOut($em){
+    public static function CheckMinutOfCheckOut($em){
 
+    }
+
+
+
+    // Check Attendance Detail in one User and by date
+    public static function ShowAttendanceByDate($id,$name,$date_from,$date_to,$id_number){
+        $date_from_ = strtotime($date_from);
+        $date_to_ = strtotime($date_to);
+        $datediff = $date_to_-$date_from_;
+        $day=round($datediff / (60 * 60 * 24));
+        $data=array();
+        for($i=0;$i<=$day;$i++){       
+            $date=date('Y-m-d', strtotime("+$i day", $date_from_));
+            if($date<$date_to_ && self::CheckHoliday($date)==0){
+                $employee=self::AttendanceDetail(self::ConvertIdToNumber($id_number),$name,$date,$id);
+                array_push($data,$employee);
+            }
+        }
+        return $data;
+    }
+
+
+    // Check Late or absent
+    public static function EmployeeCheckLateAbsentMorning($time)
+    {
+        if ($time == 'Absent') {
+            $bg = 'bg-absent';
+        } elseif (strtotime($time) >= strtotime('08:01:00')) {
+            $bg = 'bg-late';
+        } else {
+            $bg = 'bg-present';
+        }
+
+        return '<div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4 ' . $bg . ' text-center">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="col-md-8">
+                              ' . $time . '
+                            </div>
+                        </div>
+                    </div>';
+    }
+
+    public static function EmployeeCheckLateAbsentEvening($time)
+    {
+        if ($time == 'Absent') {
+            $bg = 'bg-absent';
+        } elseif (strtotime($time) >= strtotime('13:31:00')) {
+            $bg = 'bg-late';
+        } else {
+            $bg = 'bg-present';
+        }
+
+        return '<div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4 ' . $bg . ' text-center">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="col-md-8">
+                              ' . $time . '
+                            </div>
+                        </div>
+                    </div>';
     }
 }

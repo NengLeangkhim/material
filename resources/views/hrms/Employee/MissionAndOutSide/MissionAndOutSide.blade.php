@@ -10,18 +10,15 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                @php
-                    // print_r($mis_out);
-                @endphp
                 <table class="table table-bordered" id="tbl_missionAndOutSide" style="width: 100%">
                   <thead>                  
                     <tr>
                       <th style="width: 10px">#</th>
-                      <th>Employee</th>
                       <th>From Date</th>
                       <th>To Date</th>
                       <th>Type</th>
                       <th>Shift</th>
+                      <th>Location</th>
                       <th>Description</>
                       <th>Action</th>
                     </tr>
@@ -30,19 +27,19 @@
                     @php
                         $i=0;
                     @endphp
-                    @foreach ($mis_out as $item)
+                    @foreach ($mission as $item)
                       <tr>
                       <th>{{++$i}}</th>
-                      <td>{{$item->first_name_en." ".$item->last_name_en}}</td>
                       <td>{{ $item->date_from }}</td>
                       <td>{{ $item->date_to}}</td>
                       <td>{{ $item->type}}</td>
                       <td>{{ $item->shift}}</td>
-                      <td>{{ $item->description }}</td>
+                      <td># {{ $item->home_number}}, St {{$item->street}}</td>
+                      <td>{{$item->description}}</td>
                         <td>
                           <div class="row">
                             <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_modal_add_edit_missionoutside','modal_missionoutside',{{$item->id}})"><i class="far fa-edit"></i></a></div>
-                            {{-- <div class="col-md-4"><a href="javascrip:;"><i class="fas fa-info"></i></a></div> --}}
+                            <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_modal_mission_detail','modal_mission_detail',{{$item->id}})"><i class="fas fa-info"></i></a></div>
                             <div class="col-md-4"><a href="javascrip:;" onclick="hrm_delete({{$item->id}},'hrm_delete_missionoutside','hrm_mission_outside','Delete Successfully !')"><i class="far fa-trash-alt"></i></a></div>
                           </div>
                         </td>
