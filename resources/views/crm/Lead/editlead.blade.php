@@ -2,11 +2,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Edit Lead</h1>
+                    <h1><span><i class="fas fa-edit"></i></span> Update Lead</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="" class="lead" ​value="lead">Lead</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('/detaillead')">Detail Lead</a></li>
                         <li class="breadcrumb-item active">Edit Leads</li>
                     </ol>
                 </div>
@@ -184,6 +184,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Service<b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fab fa-speakap"></i></span>
@@ -390,7 +391,15 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                
+                                                <label for="exampleInputEmail1">Lead Type <b style="color:red">*</b></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
+                                                    </div>
+                                                    <select class="form-control " name="LeadType" id="LeadType" >
+                                                        <option>Select Type</option>                                                        
+                                                    </select>     
+                                                </div> 
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Village <b style="color:red">*</b></label>
@@ -413,11 +422,11 @@
                                             </div>
                                         </div>
                                     </div> 
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-primary save" id="frm_btn_sub_addlead">Edit</button>
+                                        <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
+                                    </div>
                                 </div>              
-                        </div>
-                        <div class="card-footer">
-                            <button type="button" class="btn btn-primary save" id="frm_btn_sub_addlead">Edit</button>
-                            <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
                         </div>       
                     </form>
                 </div>
@@ -443,7 +452,7 @@
                         <input type="text" class="form-control"  id="lead_source" name="source" id="exampleInputEmail1" placeholder="Website" required>
                     </div>
                 </div>
-                <div class="modal-footer justify-content-between">
+                <div class=" justify-content-between">
                 <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-outline-light save_source" onclick="SubForm('/addleadsource','ifrm_source','ileadsource')">Save </button>
                 </div>

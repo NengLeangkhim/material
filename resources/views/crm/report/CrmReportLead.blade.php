@@ -29,25 +29,36 @@
                   <div class="card-body">
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <label for="exampleInputEmail1">Lead Source <b style="color:red">*</b></label>
+                                <div class="col-md-4">
+                                    <label for="exampleInputEmail1">Lead Source</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-tty"></i></span>
                                         </div>
                                         <select class="form-control" name="select_source" id="select_source">
-                                            <option value="0">Please Select</option>
+                                            <option value="0">All Lead Source</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="exampleInputEmail1">Assign To <b style="color:red">*</b></label>
+                                <div class="col-md-4">
+                                    <label for="exampleInputEmail1">Assign To</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                         </div>
                                         <select class="form-control" name="select_source" id="select_source">
-                                            <option value="0">Please Select</option>
+                                            <option value="0">All Staff</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="exampleInputEmail1">Status</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-unlock"></i></span>
+                                        </div>
+                                        <select class="form-control" name="select_source" id="select_source">
+                                            <option value="0">All Status</option>
                                         </select>
                                     </div>
                                 </div>
@@ -55,7 +66,7 @@
                         </div><!--End Form Group-->
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -64,7 +75,7 @@
                                         <input type="text" class="form-control" placeholder="Select Date" id="DetailLeadFrom"  name='DetailLeadFrom'  required>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -73,22 +84,20 @@
                                         <input type="text" class="form-control" placeholder="Select Date" id="DetailLeadTo" name='DetailLeadTo'  required>
                                     </div>
                                 </div>
-                            </div>
-                        </div><!--End Form Group-->
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="exampleInputEmail1">Status <b style="color:red">*</b></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-unlock"></i></span>
-                                        </div>
-                                        <select class="form-control" name="select_source" id="select_source">
-                                            <option value="0">Please Select</option>
-                                        </select>
+                                <div class="col-md-4 text-center">
+                                    <div class="col-md-12" style="height: 45%">
+
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary align-middle" style="width:70%;">Generate Report</button>
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-6">
+                            </div>
+                        </div><!--End Form Group-->
+                        {{-- <div class="form-group">
+                            <div class="row">
+                                
+                                <div class="col-md-6">
                                     <label for="exampleInputEmail1">Assign To <b style="color:red">*</b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -98,12 +107,10 @@
                                             <option value="0">Please Select</option>
                                         </select>
                                     </div>
-                                </div> --}}
-                            </div>
-                        </div><!--End Form Group-->
-                        <div class="text-center">
-                            <button class="btn btn-primary">Submit</button>
-                        </div>
+                                </div>
+                            </div> --}}
+                        {{-- </div><!--End Form Group--> --}}
+                        
                         <div class="table-responsive" style="padding-top: 10px;">
                             <table id="OrganizationTbl" class="table table-bordered table-striped">
                                 <thead>
