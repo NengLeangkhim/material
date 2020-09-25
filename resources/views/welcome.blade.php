@@ -10,7 +10,7 @@
                         <div class="row" style="padding: 1%;">
                             {{-- <div class="col-md-12" id="row_welcome"></div> --}}
                             <div class="col-md-12 col-sm-12 col-xs-12" style="height: auto;text-align: center;">
-                                <img id="img_profile_company" src="../images/turbotech-text.png">
+                                {{-- <img id="img_profile_company" src="../images/turbotech-text.png"> --}}
                             </div>
                             <div class="col-md-3 col-xs-4 col-sm-4" style="position: relative">
                                 <div class="card" style="padding: 3%;">

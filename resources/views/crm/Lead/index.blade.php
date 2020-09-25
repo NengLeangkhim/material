@@ -23,10 +23,10 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <div class="col-1">
-                                        <div class="row  ">
+                                    <div class="col-12">
+                                        <div class="row">
                                             <!-- <a  href="#" class="btn btn-block btn-success lead" value="addlead" onclick="addlead()"><i class="fas fa-wrench"></i> Add Lead</a>  -->
-                                            <a  href="#" class="btn btn-block btn-success lead" ​value="addlead" id="lead"><i class="fas fa-plus"></i> Add Lead</a> 
+                                            <a  href="#" class="btn btn-success lead" ​value="addlead" id="lead"><i class="fas fa-plus"></i> Add Lead</a> 
                                         </div>
                                     </div>                               
                                 </div>

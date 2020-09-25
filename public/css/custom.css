@@ -5,12 +5,12 @@
     /* opacity: 0.5; */
 }
 .div_animation{ /* Div Animation for <P> menu */
-    overflow: hidden;
-    width: 70%;
+    /* overflow: hidden; */
+    width: 100%;
     display: inline-block;
     margin:0;
-    top:25%;
-    position: absolute;
+    /* top:25%; */
+    position: relative;
 }
 .div_animation .nav_animation { /* Class animation menu */
     position: relative;
@@ -22,6 +22,9 @@
     0% {text-indent: 10%;}
     100% {text-indent: -100%;}
   } 
+  .title-menu-main{
+      font-size: 0.95rem;
+  }
   
 #nav_main_app{
     /* border: 2px solid;
