@@ -1,6 +1,5 @@
 
-// HRM_ShowDetail('hrm_detail_employee', 'modal_employee_detail')
-function HRM_ShowDetail(rout,modalName,id=-1){
+function HRM_ShowDetail(rout,modalName,id=-1,modal=''){
     $.ajax({
         type: 'GET',
         url: rout,
@@ -11,7 +10,10 @@ function HRM_ShowDetail(rout,modalName,id=-1){
         success: function (data) {
             document.getElementById('modal').innerHTML = data;
             $('#'+modalName).modal('show');
-            // img_exist();
+            if(modal.length>0){
+                $('#'+modal).DataTable({
+                });
+            }
         }
     });
 }
@@ -94,24 +96,33 @@ function ShowPassword(){
             
         }
 
-        function HRM_CalculateAttendanceDetail(){
+        function HRM_CalculateAttendanceDetail($id){
             var date1 = document.getElementById('attendance_date1').value;
             var date2 = document.getElementById('attendance_date2').value;
             if(date1.length<=0 || date2.length<=0){
                 alert('Please select all date');
             }else{
-                $("#hrm_calculate_detail").html(spinner());
-                $.ajax({
-                    type: 'GET',
-                    url: '/hrm_calculate_attendance_detail',
-                    data: {
-                        _token: '<?php echo csrf_token() ?>',
-                        id: 1
-                    },
-                    success: function (data) {
-                        document.getElementById('hrm_calculate_detail').innerHTML = data;
-                    }
-                });
+                if (new Date() < new Date(date1) || new Date() < new Date(date2) || new Date(date1)>new Date(date2)){
+                    alert('The Date Must be Smaller or Equal Today and From Date must be Bigger than End Date');
+                }else{
+                    $("#hrm_calculate_detail").html(spinner());
+                    $.ajax({
+                        type: 'GET',
+                        url: '/hrm_calculate_attendance_detail',
+                        data: {
+                            _token: '<?php echo csrf_token() ?>',
+                            id: $id,
+                            date_from:date1,
+                            date_to:date2
+                        },
+                        success: function (data) {
+                            document.getElementById('hrm_calculate_detail').innerHTML = data;
+                            $('#tbl_hrm_attendance_detail').DataTable({
+                               
+                            });
+                        }
+                    });
+                }
             }
         }
     // End Attendance
@@ -327,6 +338,8 @@ function preview_image(event) {
     }
     reader.readAsDataURL(event.target.files[0]);
 }
+
+
 
 
 
