@@ -230,7 +230,7 @@
                                 <h3 class="card-title">Item Detail</h3>
                             </div>                            
                             <div class="card-body table-responsive">
-                                <div class="row max-min-table">
+                                <div class="row-12 max-min-table" style="margin-right:4px;">
                                     <table class="table table-bordered ">
                                         <thead class="thead-item-list">
                                             <tr>
@@ -248,7 +248,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="row max-min-table-total">
+                                <div class="row-12 max-min-table-total">
                                     <table class="table">
                                         <tbody>
                                             <tr>
