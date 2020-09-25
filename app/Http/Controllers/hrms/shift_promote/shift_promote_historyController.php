@@ -21,7 +21,6 @@ class shift_promote_historyController extends Controller
                 
             }
         }        
-       
         return view('hrms/shift_promote/management_view_promote_history/shift_promote_staff_history', ['allstaffpromote' => $get_array]);
     }
 

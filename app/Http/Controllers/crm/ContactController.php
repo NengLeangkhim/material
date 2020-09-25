@@ -25,6 +25,19 @@ class ContactController extends Controller
             return view('crm.contact.CrmPaginationContact',compact('contact_pagination'))->render();
         }
     }
+    public function AddContact(){
+        return view('crm.contact.AddCrmContact');
+    }
+    public function EditContact($id) {   
+        // $param = $id;
+        $sql=ModelCrmContact::CrmGetContactID($id);
+        return view('crm.contact.EditCrmContact')->with('contact',$sql);
+    }
+    public function DetailContact(){
+        // $id= $_GET['id'];
+        // $sql=ModelCrmContact::CrmGetContactID($id);
+        return view('crm.contact.DetailCrmContact');
+    }
     // public function getchecklist(){
     //     if(perms::check_perm_module('CRM_0205')){//module codes
     //         $contact=DB::select("SELECT * from crm_lead_contact ORDER BY id ASC");

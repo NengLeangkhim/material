@@ -33,10 +33,13 @@
 
                         </h4>
                         <h4 style="margin-top: 0px;">
-                            <span class="text-primary">Cost</span>: {{$plist[0][0]->price}}<br>
+                            <span class="text-primary">Cost</span>: {{$plist[0][0]->product_cost}}<br>
                         </h4>
                         <h4 style="margin-top: 0px;">
-                            <span class="text-primary">Qty</span>: {{$plist[0][0]->qty}}<br>
+                            <span class="text-primary">Price</span>: {{$plist[0][0]->product_price}}<br>
+                        </h4>
+                        <h4 style="margin-top: 0px;">
+                            <span class="text-primary">Qty</span>: {{$plist[0][0]->stock_qty}}<br>
                         </h4>
                         <h4 style="margin-top: 0px;">
                             <span class="text-primary">Amount</span>: {{$plist[0][0]->amount}}<br>

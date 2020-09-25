@@ -83,10 +83,12 @@ function check_session(){
 //only work on tag a with onclick and go_to
 function set_selected_nav(tar){
   var s=$("#"+tar).find("a")[1];
+  var z=$("#"+tar).find("a")[1]; 
   s=$(s).attr("onclick");
   s=s.split("'")[1];
   if(s.length>0){
     go_to(s);
+    $(z).addClass('active');// add class active 
   }
 }
 function get_pushmenu(){
@@ -107,11 +109,29 @@ function jnot_found(){
   // return get_not_found_page();
   return'<center><label style="font-weight:bold;font-size:16px;">Not Found</label></center>';
 }
-jQuery("a").click(function(e){
-  var href = $(this).attr("href");
-  if (typeof href !== typeof undefined && href !== false) {
-      $('a[data-id]').removeClass('active');
-      var id = $(this).attr("data-id");
-      $('a[data-id='+id+']').toggleClass('active');
+
+jQuery("a[data-id]").click(function(e){ // Function Click focus on link menu
+  e.preventDefault(); 
+  var href = $(this).attr("href");// get value href
+  if (typeof href !== typeof undefined && href !== false) {// check condition 
+      $('a[data-id]').removeClass('active'); //remove class active
+      var id = $(this).attr("data-id");// get value data-id from link click
+      $('a[data-id='+id+']').addClass('active'); // set link active
   }  
 })
+function navbar_active(id){ // Function Click focus on link menu
+      $('a[data-navbar]').removeClass('active'); //remove class active
+      $('a[data-navbar='+id+']').addClass('active'); // set link active 
+}
+$(function() {
+  //var content_menu_width = $('.os-content').width();
+  $('div.div_animation').each(function(i) {
+    var a_width = $('div.div_animation').outerWidth( true );
+    var p_width = $(this).find('p').width();
+    if ( p_width > a_width) {
+      $(this).find('p').addClass('nav_animation');
+      //alert('ok');
+    }
+    //alert(a_width);
+  })
+});

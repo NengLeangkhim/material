@@ -25,9 +25,9 @@
                                 @endphp
                             </select>
                             {{-- <input type="text" id="custname" name="custname" class="form-control" required=""> --}}
-                            <a href="javascript:void(0);" onclick="add_dialog('/addcompany')" class="input-group-addon pointer">
+                            {{-- <a href="javascript:void(0);" onclick="add_dialog('/addcompany')" class="input-group-addon pointer">
                                 <span class="fa fa-plus"></span>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                     {{-- <div class="form-group col-md-3">

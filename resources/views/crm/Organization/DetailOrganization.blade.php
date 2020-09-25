@@ -9,11 +9,11 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Organization Detail</h1>
+                <h1><span><i class="far fa-clipboard"></i></span> Organization Detail</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="" class="lead" ​value="/organizations">Organization</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);" class="CrmOrganization" onclick="go_to('/organizations')">Organization</a></li>
                     <li class="breadcrumb-item active">Organization Detail</li>
                 </ol>
             </div>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-3" >
                    <div class="row">
-                        {{-- <div class="col-12 " align="left"><button type="button" ​value="editlead/1" class="btn btn-primary btn-block btn-md CrmLeadEdit">Edit</button></div> --}}
+                        <div class="col-12 " align="right"><button type="button" ​value="/organizations/edit/1" class="btn btn-primary btn-block btn-md CrmOrganizationEdit">Edit</button></div>
                         {{-- <div class="col-6 " align="left"><button type="button"  class="btn btn-success btn-md">Convert</button></div> --}}
                    </div>
                 </div>
@@ -253,7 +253,7 @@
             clearMarkers();
             markers = [];
         }
-        $('.CrmLeadEdit').click(function(e)
+        $('.CrmOrganizationEdit').click(function(e)
             {
                 var id = $(this).attr("​value");
                 go_to(id);

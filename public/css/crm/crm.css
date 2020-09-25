@@ -56,3 +56,120 @@
     }
 
     /* end declear style for google map */
+
+
+    .thead-item-list{ 
+        border: 1px solid #cccccc;
+        background-color: whitesmoke;
+    }
+
+    .td-item-quote-name{
+        width: 40%;
+    }
+    .td-item-quote{
+        width: auto;
+    }
+
+    .form-inline2 {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-flow: row wrap;
+        flex-flow: none;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .form-control2 {
+        display: block;
+        width: 100%;
+        height: calc(2.25rem + 2px);
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        box-shadow: inset 0 0 0 transparent;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+    .btn-list-item {
+        /* margin-left: 5px; */
+        font-size: 13px;
+        color:#349bff;
+        font-weight: bold;
+        border: 1px;
+    }
+
+    .btn-list-item:hover {
+        color: #0d2135;
+    }   
+
+    /* .table td, .table th {
+        padding: 0.3rem !important;
+        border-top: none !important;
+    } */
+
+ 
+
+    .td-total-quote{
+        padding: 10px;
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .title-total-quote {
+        border-radius: 5px;
+        border: 1px solid rgb(144, 141, 141); 
+        padding: 10px;
+    }
+
+    .max-min-table {
+        max-width: 100%;
+        min-width: 800px;
+    }
+    .max-min-table-total {
+        min-width: 700px;
+    }
+
+
+    .tr-quote-row{
+        font-family: "Cambria, Segoe UI Semilight";
+    }
+
+    .td-quote-total {
+        text-align: right;
+        font-size: 14px;
+        font-weight: normal;
+        min-height: 40px;
+        min-width: 90px;
+    }
+
+    .txtbox-quote {
+        width: 100%; 
+        border-radius: 3px;
+        border: 0.5px solid #d7cfcf;
+    }
+
+    .txtbox-quote:hover{
+        border: 0.5px solid #007bff;
+    }
+
+    .txtbox-quote:active{
+        border: 0.5px solid #007bff;
+    }
+
+
+
+
+
+
+
+
+    /* @media only screen and (max-width: 1200px) {
+
+        
+    } */
+    

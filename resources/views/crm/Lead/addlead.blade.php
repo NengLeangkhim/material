@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Create New Lead</h1>
+                    <h1><span><i class="fas fa-user-plus"></i></span> Create New Lead</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -185,7 +185,18 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            
+                                            <label for="exampleInputEmail1">Service<b style="color:red">*</b></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fab fa-speakap"></i></span>
+                                                </div>
+                                                <select class="form-control" name="CrmService">
+                                                    <option></option>
+                                                    {{-- @foreach($assig_to as $row )
+                                                        <option value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option> 
+                                                    @endforeach --}}
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +210,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Frist Name <b style="color:red">*</b></label>
+                                            <label for="exampleInputEmail1">Full Name Khmer<b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -208,7 +219,7 @@
                                             </div>
                                         </div>
                                          <div class="col-md-6">
-                                             <label for="exampleInputEmail1">Last Name <b style="color:red">*</b></label>
+                                             <label for="exampleInputEmail1">Full Name English <b style="color:red">*</b></label>
                                              <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -382,7 +393,15 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                
+                                                <label for="exampleInputEmail1">Lead Type <b style="color:red">*</b></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
+                                                    </div>
+                                                    <select class="form-control " name="LeadType" id="LeadType" >
+                                                        <option>select Type</option>                                                        
+                                                    </select>     
+                                                </div> 
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Village <b style="color:red">*</b></label>
@@ -406,12 +425,12 @@
                                             </div>
                                         </div>
                                     </div> 
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-primary save" id="frm_btn_sub_addlead">Save</button>
+                                        <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
+                                    </div> 
                                 </div>              
-                        </div>
-                        <div class="card-footer">
-                            <button type="button" class="btn btn-primary save" id="frm_btn_sub_addlead">Save</button>
-                            <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
-                        </div>       
+                            </div>      
                     </form>
                 </div>
             </div>

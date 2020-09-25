@@ -25,9 +25,9 @@
                                 @endphp
                             </select>
                             {{-- <input type="text" id="custname" name="custname" class="form-control" required=""> --}}
-                            <a href="#" onclick="add_dialog('/addcompany')" class="input-group-addon pointer">
+                            {{-- <a href="#" onclick="add_dialog('/addcompany')" class="input-group-addon pointer">
                                 <span class="fa fa-plus"></span>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                     <div class="form-group col-md-3">
@@ -36,9 +36,9 @@
                             <select name="company_branch" id="company_branch" class="form-control select2" onchange="clear_row()" required>
                             </select>
                             {{-- <input type="text" id="custname" name="custname" class="form-control" required=""> --}}
-                            <a  href="javascript:void(0);" onclick="add_dialog('/addcompanybranch')" class="input-group-addon pointer">
+                            {{-- <a  href="javascript:void(0);" onclick="add_dialog('/addcompanybranch')" class="input-group-addon pointer">
                                 <span class="fa fa-plus"></span>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                     <div class="form-group col-md-3">
@@ -51,9 +51,9 @@
                                 }
                             @endphp
                             </select>
-                            <a  href="javascript:void(0);" onclick="add_dialog('/addstaff')" class="input-group-addon pointer">
+                            {{-- <a  href="javascript:void(0);" onclick="add_dialog('/addstaff')" class="input-group-addon pointer">
                                 <span class="fa fa-plus"></span>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                     <div class="form-group col-md-3">
@@ -66,15 +66,15 @@
                                     }
                             @endphp
                             </select>
-                            <a  href="javascript:void(0);" onclick="add_dialog('/addsupplier')" class="input-group-addon pointer">
+                            {{-- <a  href="javascript:void(0);" onclick="add_dialog('/addsupplier')" class="input-group-addon pointer">
                                 <span class="fa fa-plus"></span>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
-                    <div class="form-group col-md-3">
+                    {{-- <div class="form-group col-md-3">
                         <label>Invoice Number</label>
                         <input type="text" class="form-control" name="invoice_number">
-                    </div>
+                    </div> --}}
                     <div class="form-group col-md-9">
                         <label>Description</label>
                         <input type="text" name="description" class="form-control" autocomplete="off">

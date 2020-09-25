@@ -22,6 +22,14 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
+                            <div class="card-header">
+                                <div class="col-6">
+                                    <div class="row">
+                                        <!-- <a  href="#" class="btn btn-block btn-success lead" value="addlead" onclick="addlead()"><i class="fas fa-wrench"></i> Add Lead</a>  -->
+                                        <a href="javascript:void(0);" class="btn btn-success CrmAddOrganization" onclick="go_to('/organizations/add')" id="CrmAddOrganization"><i class="fas fa-plus"></i> Add Organization</a> 
+                                    </div>
+                                </div>                               
+                            </div>
                             <div class="card-body">
                                 <table id="OrganizationTbl" class="table table-bordered table-striped">
                                     <thead>

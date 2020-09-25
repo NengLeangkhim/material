@@ -53,13 +53,37 @@ Route::get('/test_map', function(){
 // start contact
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table 
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination 
+Route::get('/contact/add','crm\ContactController@AddContact'); //go to add contact
+Route::get('/contact/edit/{id}','crm\ContactController@EditContact');//go to Edit contact
+Route::get('/contact/detail','crm\ContactController@DetailContact');//go to Detail contact
 Route::get('/product','crm\ProductsController@getProducts'); //get all Products show in table  
 // end contact
 
 // Start Organization
 Route::get('/organizations','crm\OrganizationController@getorganization'); //get all Organization  show in table
+Route::get('/organizations/add','crm\OrganizationController@AddOrganization'); //go to add Organization
+Route::get('/organizations/edit/{id}','crm\OrganizationController@EditOrganization'); //go to Edit Organization
 Route::get('/organizations/detail','crm\OrganizationController@DetailOrganization'); //get detail organization 
 // End Organization
+
+
+
+// crm quote
+Route::get('/quote','crm\quoteController@showQuoteList'); // get show quote list 
+Route::get('/quote/add','crm\quoteController@addQuote'); // get show quote list 
+Route::get('/quote/add/addrow','crm\quoteController@addRow'); // get one row quote item table
+
+// end quote
+// Start Report
+Route::get('/crmreport','crm\CrmReportController@CrmIndexReport'); // show index report 
+Route::get('/crmreport/detaillead','crm\CrmReportController@CrmDetailLeadReport'); // show Lead Detail report 
+Route::get('/crmreport/detailcontact','crm\CrmReportController@CrmDetailContactReport'); // show Contact Detail report 
+Route::get('/crmreport/detailorganization','crm\CrmReportController@CrmDetailOrganizationReport'); // show Organization Detail report 
+Route::get('/crmreport/detailquote','crm\CrmReportController@CrmDetailQuoteReport'); // show Quote Detail report 
+
+// End Report 
+
+
 //===========================END CRM=================================
 
 
@@ -190,7 +214,7 @@ Route::post('/addCustomerProduct','stock\CustomerProduct@insert_customer_product
 // Product List
 Route::get('/ProductList','stock\product@getProductList');
 Route::post('/AddProductList','stock\product@addProductList');
-Route::get('/AddProductList','stock\product@addProductList');
+Route::get('/get_AddProductList','stock\product@get_addProductList');
 Route::get('/productListDetial','stock\product@getProductByID');
 Route::get('/Updateproductqty','stock\product@update_product_qty');
 //get supplier branch

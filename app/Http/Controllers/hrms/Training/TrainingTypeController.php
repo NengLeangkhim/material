@@ -22,6 +22,7 @@ class TrainingTypeController extends Controller
         }
     }
 
+
     function AddModalTrainingType(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -39,6 +40,7 @@ class TrainingTypeController extends Controller
         }
     }
 
+    
     function AddEditTrainingType(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();

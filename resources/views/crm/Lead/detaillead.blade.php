@@ -9,11 +9,11 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Detail Lead</h1>
+                <h1><span><i class="fas fa-book-reader"></i></span> Detail Lead</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="" class="lead" ​value="lead">Lead</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('/lead')">Lead</a></li>
                     <li class="breadcrumb-item active">Detail Leads</li>
                 </ol>
             </div>
@@ -84,6 +84,9 @@
                             <dd class="col-sm-8 dd">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, 
                             <dt class="col-sm-4 dt">Assigened To </dt>
                             <dd class="col-sm-8 dd">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentu
+                            </dd>
+                            <dt class="col-sm-4 dt">Service </dt>
+                            <dd class="col-sm-8 dd">Service Ssss
                             </dd>
                         </dl>
                     </div>

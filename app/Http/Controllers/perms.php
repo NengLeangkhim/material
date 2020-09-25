@@ -148,31 +148,31 @@ class perms extends Controller
                 if(isset(explode("_", $item->parent->link)[1])){
                        $item->parent->link=explode("_", $item->parent->link)[1];
                        $st.= "<li class='nav-item has-treevie'>";
-                       $st.= "<a href='{$item->parent->link}' data-id=".$id++." target='_blank' class='nav-link' >";
+                       $st.= "<a href='{$item->parent->link}' data-id=".$id++." marquee='id' target='_blank' class='nav-link' >";
                     //    $st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
-                       $st.= "<img src=".$item->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'>";
-                       $st.= " <p>";
+                    //    $st.= "<img src=".$item->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'>";
+                       $st.= " <p class='title-menu-main'>";
                        $st.=  $item->parent->module_name;
                        $item->child=false;
                    }else{
                        $st.= "<li class='nav-item has-treevie'>";
-                       $st.= "<a href='javascript:void(0);' data-id=".$id++." class='nav-link' onclick=go_to('{$item->parent->link}')>";
+                       $st.= "<a href='javascript:void(0);' data-id=".$id++." marquee='id' class='nav-link' onclick=go_to('{$item->parent->link}')>";
                        //$st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
-                       $st.= "<img src=".$item->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'>";
-                       $st.= " <p>";
+                    //    $st.= "<img src=".$item->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'>";
+                       $st.= " <p class='title-menu-main'>";
                        $st.=  $item->parent->module_name;
                    }
                }else{
                    $st.= "<li class='nav-item has-treevie'>";
-                   $st.= "<a href='javascript:void(0);' data-id=".$id++." class='nav-link'>";
+                   $st.= "<a href='javascript:void(0);' data-id=".$id++." marquee='id' class='nav-link'>";
                    //$st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
-                   $st.= "<img src=".$item->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'>";
-                   $st.= " <p>";
+                //    $st.= "<img src=".$item->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'>";
+                   $st.= " <p class='title-menu-main'>";
                    $st.=  $item->parent->module_name;
                }
               if(($item->child))
                 {
-                  $st.= "<i class='right fas fa-angle-left'></i>";
+                  $st.= "<i style='top:32%;' class='right fas fa-angle-left'></i>";
                 }
               $st.= "</p></a>";
              if($item->child)
@@ -194,10 +194,10 @@ class perms extends Controller
                         $rr->parent->code=(empty($rr->parent->code))?'':"data-code='".en_de::aes_en($rr->parent->code,self::$key)."'";
                         $st.= " <ul class='nav nav-treeview sub_menu'> ";
                         $st.= "  <li class='nav-item has-treeview menu mybg> ";
-                        $st.= "  <a href='javascript:void(0);' data-id=".$id++." class='nav-link'{$rr->parent->link}{$rr->parent->code}  name='menu'> ";
+                        $st.= "  <a href='javascript:void(0);' data-id=".$id++." marquee='id' class='nav-link'{$rr->parent->link}{$rr->parent->code}  name='menu'> ";
                         //$st.= "  <i class='{$rr->parent->icon} nav-icon'​></i> <i class='right fas fa-angle-left'></i>";
-                        $st.= "  <img style='margin-left:9%;' src=".$rr->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'> <i class='right fas fa-angle-left'></i>";
-                        $st.= "  <p>".$rr->parent->module_name."</p> </a>";
+                        // $st.= "  <img style='margin-left:9%;' src=".$rr->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'> <i class='right fas fa-angle-left'></i>";
+                        $st.= "<div class='div_animation'> <p class='title-menu-main' style='position:relative;margin-left:5%;'>".$rr->parent->module_name."</p> </div> </a>";
                         $st.=self::output_sub($rr->child,'sub');
                         $st.= "  </li></ul> ";
                     }else{
@@ -206,10 +206,10 @@ class perms extends Controller
                         $rr->code=(empty($rr->code))?'':"data-code='".en_de::aes_en($rr->code,self::$key)."'";
                         $st.= " <ul class='nav nav-treeview sub_menu'> ";
                         $st.= "  <li class='nav-item menu mybg'  > ";
-                        $st.= "  <a href='javascript:void(0);' data-id=".$id++." class='nav-link' $rr->link $rr->code name='menu'> ";
+                        $st.= "  <a href='javascript:void(0);' data-id=".$id++." marquee='id' class='nav-link' $rr->link $rr->code name='menu'> ";
                         //$st.= "  $sp<i class='{$rr->icon} nav-icon'​></i> ";
-                        $st.= "  $sp<img style='margin-left:9%;' src=".$rr->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'> ";
-                        $st.= "  <p>$rr->module_name</p> ";
+                        // $st.= "  $sp<img style='margin-left:9%;' src=".$rr->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'> ";
+                        $st.= "<div class='div_animation'> <p class='title-menu-main' style='position:relative;margin-left:5%;'>$rr->module_name</p> </div>";
                         $st.= "  </a></li></ul> ";
                     }
                 }
@@ -218,13 +218,15 @@ class perms extends Controller
         return $st;
     }
     private static function output_sub_nav($mo){
+        $id = 1000;
+        $id1 = 1000;
         $st='<li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>';
         foreach ($mo as $rr){
             // $rr->link=(empty($rr->link))?'':"value='{$rr->link}'";
             $st.='<li class="nav-item d-none d-sm-inline-block">
-                    <a href="javascript:void(0);" class="nav-link" onclick="go_to(\''.$rr->link.'\')">'.$rr->module_name.'</a>
+                    <a href="javascript:void(0);" data-navbar='.$id++.' class="nav-link" onclick="go_to(\''.$rr->link.'\');navbar_active('.$id1++.');">'.$rr->module_name.'</a>
                 </li>';
         }
         return $st;
