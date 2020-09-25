@@ -5,6 +5,7 @@
     //function to add row table to add quote item
     $(document).ready(function(){
         var i = 0;
+
         $("#btnAddRowQuoteItem").click(function(){
             var tblRow =
                 '<tr id="row'+i+'" class="tr-quote-row">' +
@@ -32,13 +33,13 @@
                         '</div>'+
                         '<div class="row pt-1 form-inline">' +
                             '<div class="col-md-6 col-sm-6 col-6">' +
-                                '<select class="btn-list-item mdb-select md-form" id="'+i+'" > ' +
-                                    '<option value=""><span>+Discount (%)</span> </option>'+
-                                    '<option value=""><span>+Discount ($)</span> </option>'+
+                                '<select  class="select-itemDiscount btn-list-item mdb-select md-form" name="select-itemDiscount_'+i+'" id="'+i+'" > ' +
+                                    '<option value="1"><span>+Discount (%)</span> </option>'+
+                                    '<option value="2"><span>+Discount ($)</span> </option>'+
                                 '</select>'+
                             '</div>'+
-                            '<div class="col-md-6 col-sm-6 col-6">' +
-                                '<input type="text"  class="txtbox-quote valid-numeric-float " name="itemDiscount[]" id="itemDiscount"  placeholder="0.0%">' +
+                            '<div class="col-md-6 col-sm-6 col-6" id="fieldItemDiscount_'+i+'">' +
+                                '<input type="text"  class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="txtDiscount_'+i+'"  placeholder="0.0%">' +
                             '</div>'+
                         '</div>' +
                         '<div class="btn-list-item" style="color:black; margin-left: 7px; margin-top:15px;">' +
@@ -59,7 +60,7 @@
                     '</td>' +
                 '</tr>';
                 i++;
-            console.log(tblRow);
+            // console.log(tblRow);
             $('#add_row_tablequoteItem').append(tblRow);
         });
 
@@ -67,29 +68,25 @@
         $(document).on('click', '.btnRemoveRow', function() {
             var btn_id = $(this).attr("id");
             $('#row' + btn_id + '').remove();
-            alert($i);
-            $i--;
+            i--;
         });
 
 
         //function to prvent use select string to numeric field 
         $(document).keypress(function(e){
-            $(".valid-numeric").keypress(function(e){
-                var keyCode = e.which;
-                if ( (keyCode != 8 || keyCode ==32 ) && (keyCode < 48 || keyCode > 57)) { 
-                    return false;
-                }
-            });
+                $(".valid-numeric").keypress(function(e){
+                    var keyCode = e.which;
+                    if ( (keyCode != 8 || keyCode ==32 ) && (keyCode < 48 || keyCode > 57)) { 
+                        return false;
+                    }
+                });
 
-            $(".valid-numeric-float").keypress(function(e){
-                var keyCode = e.which;
-                if ((e.which != 46 || $(this).val().indexOf('.') != -1) && (keyCode < 48 || keyCode > 57)) { 
-                    return false;
-                }
-            });
-
-            
-
+                $(".valid-numeric-float").keypress(function(e){
+                    var keyCode = e.which;
+                    if ((e.which != 46 || $(this).val().indexOf('.') != -1) && (keyCode < 48 || keyCode > 57)) { 
+                        return false;
+                    }
+                });
 
         });
 
@@ -109,15 +106,30 @@
             alert(btn_id);
         });
 
-
-     
-
         
-        
-          
+        //function get textbox as percent or price for select item discount type
+        $(document).on('change','.select-itemDiscount', function() {
+            var row_id = $(this).attr("id");
+            var textBoxType = "";
+            var select_val = $( "select[name='select-itemDiscount_"+row_id+"']" ).val();
+            if(select_val == 1){
+                $('#txtDiscount_' + row_id + '').remove();
+                textBoxType = '<input type="text"  class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="txtDiscount_'+row_id+'"  placeholder="0.0%">' ;
+                $('#fieldItemDiscount_'+row_id+'').append(textBoxType);
+            }
+            if(select_val == 2){
+
+                $('#txtDiscount_' + row_id + '').remove();
+                textBoxType = '<input type="text"  class="txtbox-quote valid-numeric-float" name="itemDiscountPrice[]" id="txtDiscount_'+row_id+'"  placeholder="0.0$">' ;
+                $('#fieldItemDiscount_'+ row_id +'').append(textBoxType);
+            }
+        });
+
 
 
     });
 
-   
-        // '<input type="button" class="btn-list-item btn " id="'+i+'" > <span>(-) Discount </span></button>'+
+ 
+
+
+  
