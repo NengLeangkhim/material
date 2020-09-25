@@ -97,10 +97,16 @@
             var row_id = $(this).attr("id");
             alert(row_id);
             
-            $.ajax({
-                
-            });
-
+        //     type:'GET',
+        // url: "check_session",
+        // success: function(data){
+        //     if(parseInt(data)==0){
+        //         alert("session expired!");
+        //         location.replace('/');
+        //         return true;
+        //     }else{
+        //         return false;
+        //     }
 
         });
 
