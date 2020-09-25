@@ -281,6 +281,7 @@
                                                                 <td  ><span style="padding-right: 12px;">Grand Total</span></td>
                                                                 <td  x><span> 300$ </span></td>
                                                             </tr>
+                                                            
 
                                                         </tbody>
                                                     </table>
