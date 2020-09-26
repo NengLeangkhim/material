@@ -235,6 +235,7 @@
                                         <thead class="thead-item-list">
                                             <tr>
                                                 <th class="td-item-quote-name">Item Name</th>
+                                                <th class="td-item-quote">Type</th>
                                                 <th style="width: 120px">Quantity</th>
                                                 <th class="td-item-quote">List Price($)</th>
                                                 <th class="td-item-quote">Total($)</th>

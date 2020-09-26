@@ -32,5 +32,20 @@ class QuoteController extends Controller
 
 
 
+    //function to get list product 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

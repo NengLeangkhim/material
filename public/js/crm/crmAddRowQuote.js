@@ -23,7 +23,11 @@
                                 '</div>' +
                             '</div>' +
                             '<div class="form-inline"><textarea class="form-control" rows="2" style="margin-top:10px; padding:10px; width: 100%!important;" placeholder="Description"></textarea> </div>' +
-                        '</div></td>' +
+                        '</div>' +
+                    '</td>' +
+                    '<td>' +
+                        '<span><p>Product</p></span>'+
+                    '</td>'+
                     '<td style="width: 120px;">' +
                         '<input type="number"  class="valid-numeric form-control" name="quantity[]" id="itemQty" value="1" required placeholder="Qty">' +
                     '</td>' +
@@ -60,7 +64,6 @@
                     '</td>' +
                 '</tr>';
                 i++;
-            // console.log(tblRow);
             $('#add_row_tablequoteItem').append(tblRow);
         });
 
@@ -96,19 +99,19 @@
         $(document).on('click', '[name=addItemProduct]', function() {
             var row_id = $(this).attr("id");
             alert(row_id);
-            
-        //     type:'GET',
-        // url: "check_session",
-        // success: function(data){
-        //     if(parseInt(data)==0){
-        //         alert("session expired!");
-        //         location.replace('/');
-        //         return true;
-        //     }else{
-        //         return false;
-        //     }
+            $.ajax({
+
+                type:'GET',
+                url: "",
+                success: function(data){
+                    
+                }
+            });
+        
 
         });
+
+
 
 
 
