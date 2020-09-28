@@ -25,6 +25,10 @@
                 }
             </style>
         </head>
+
+        <div id="modal-list-quote">
+
+        </div>
         <div class="container-fluid" id="createNewQuote">
             <div class="row">
                 <!-- left column -->
@@ -224,8 +228,7 @@
                                     </div> 
                                 </div>              
                         </div>
-                        <div class="card card-primary">
-                          
+                        <div class="card card-primary" >
                             <div class="card-header" style="background:#1fa8e0">
                                 <h3 class="card-title">Item Detail</h3>
                             </div>                            
@@ -239,7 +242,7 @@
                                                 <th style="width: 120px">Quantity</th>
                                                 <th class="td-item-quote">List Price($)</th>
                                                 <th class="td-item-quote">Total($)</th>
-                                                <th style="width: 0px;" >
+                                                <th style="width: 50px;" >
                                                     <button type="button" class="btn btn-info" id="btnAddRowQuoteItem" ><span><i class="fa fa-plus"></i></span></button> 
                                                 </th>
                                             </tr>
@@ -282,7 +285,6 @@
                                                                 <td  ><span> 300$ </span></td>
                                                             </tr>
                                                             
-
                                                         </tbody>
                                                     </table>
                                                     

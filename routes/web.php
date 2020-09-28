@@ -72,6 +72,8 @@ Route::get('/organizations/detail','crm\OrganizationController@DetailOrganizatio
 Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote list 
 Route::get('/quote/add','crm\QuoteController@addQuote'); // get show quote list 
 Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quote item table
+Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get one row quote item table
+
 
 // end quote
 // Start Report

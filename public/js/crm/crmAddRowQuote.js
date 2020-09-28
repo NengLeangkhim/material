@@ -98,17 +98,18 @@
         //function onclick to show product item to add quote 
         $(document).on('click', '[name=addItemProduct]', function() {
             var row_id = $(this).attr("id");
-            alert(row_id);
-            $.ajax({
-
-                type:'GET',
-                url: "",
-                success: function(data){
-                    
+            var id = "id="+row_id;
+            var url = '/quote/add/listProduct';
+            var x=new XMLHttpRequest();
+            x.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200){
+                    document.getElementById('modal-list-quote').innerHTML=this.responseText;
+                    $('#listQuoteProduct').modal('show');
                 }
-            });
+            }
+            x.open("GET", url + "?" + id, true);
+            x.send();
         
-
         });
 
 
