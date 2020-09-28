@@ -169,7 +169,7 @@
                 <table class="table table-bordered" id="tbl_overtime" style="width: 100%">
                   <thead>                  
                     <tr>
-                      {{-- <th rowspan="2">Action</th> --}}
+                      <th rowspan="2">Action</th>
                       <th style="width: 10px" rowspan="2">#</th>
                       <th rowspan="2">Name</th>
                       <th rowspan="2">Date</th>
@@ -190,12 +190,12 @@
                     @endphp
                     @foreach ($attendance[8] as $e)
                         <tr>
-                        {{-- <td>
+                        <td>
                           <div class="row">
-                            <div class="col-md-6"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_attendance_edit','modal_attendance_edit',{{$e[0]}})"><i class="far fa-edit"></i></a></div>
-                            <div class="col-md-6"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_attendance_detail','modal_attendance_detail',{{$e[0]}})"><i class="fas fa-info"></i></a></div>
+                            <div class="col-md-6"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_attendance_edit','modal_attendance_edit',{{$e[0]}})"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-6"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_attendance_detail','modal_attendance_detail',{{$e[0]}},'tbl_hrm_attendance_detail')"><i class="fas fa-info"></i></a></div>
                           </div>
-                        </td> --}}
+                        </td>
                       <th>{{++$i}}</th>
                       <td>{{$e[1]}}</td>
                       <td>{{$e[2]}}</td>
@@ -224,5 +224,6 @@
     $('#tbl_overtime').DataTable({
       responsive: true
     });
+    
 } );
 </script>

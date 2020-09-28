@@ -11,7 +11,6 @@
                         <th scope="col">Get Position</th>
                         <th scope="col">Get Salary</th>
                         <th scope="col">Approved Date</th>
-                        <th scope="col">Approved By</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
@@ -27,21 +26,19 @@
                                         <td> '. $val[$i]->position.'</td>
                                         <td> '. $val[$i]->salary.'</td>           
                                         <td> '. $val[$i]->create_date.'</td>
-                                        <td> '. $val[$i]->create_by.'</td>  
                                         <td> 
                                             <a class="btn btn-outline-primary" href="javascript:void(0);"   onclick="staff_promote_report_detail('.$val[$i]->ma_user_id.', \''.$val[$i]->create_date.'\');">Detail</a>
                                         </td>
                                         
                                          </tr> ';
                         
-                            //         // $num++;
                                 }
                             }
                             else 
                                 { 
                                     echo '
                                         <tr> 
-                                            <td colspan="6"><h6 style="text-align: center;">Data not avialable in table !</h6></td>
+                                            <td colspan="6"><h6 style="text-align: center;">No data available in table!</h6></td>
                                         </tr>
                                     ';
                                 }

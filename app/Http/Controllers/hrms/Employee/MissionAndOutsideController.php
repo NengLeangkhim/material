@@ -14,10 +14,8 @@ class MissionAndOutsideController extends Controller
 {
     function AllMissionAndOutSide()
     {
-        $ms=new MissionAndOutSide();
-        $data=array();
-        $mission['mis_out']=$ms->MissionOutside();
-        return view('hrms/Employee/MissionAndOutSide/MissionAndOutSide')->with($mission);
+        $data=MissionAndOutSide::MissionOutside();
+        return view('hrms/Employee/MissionAndOutSide/MissionAndOutSide')->with('mission',$data);
     }
     function AddModalMissionOutside(){
         if (session_status() == PHP_SESSION_NONE) {
@@ -58,7 +56,7 @@ class MissionAndOutsideController extends Controller
             $gazetteers_code=$_POST['gazetteers_code'];
             $latelong=$_POST['latelong'];
             if($id>0){
-                // $stm=$ms->UpdateMissionOutside($location,$f_date,$t_date,$description,$type,$shift,$emid,$id);
+                $stm=MissionAndOutSide::UpdateMissionOutside($id,$userid,$f_date,$t_date,$description,'t',$type,$shift,$street,$home_number,$latelong,$gazetteers_code,$emid);
             }else{
                 $stm=$ms->InsertMissionOutSide($f_date,$t_date,$description,$type,$userid,$shift,$street,$home_number,$latelong,$gazetteers_code,$emid);
             }
@@ -78,6 +76,20 @@ class MissionAndOutsideController extends Controller
             $userid = $_SESSION['userid'];
             $id=$_GET['id'];
             $ms->DeleteMissionOutSide($id,$userid);
+        } else {
+            return view('no_perms');
+        }
+    }
+
+
+    function MissionDetail(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (perms::check_perm_module('HRM_090104')) {
+            $id=$_GET['id'];
+            $missionDetail=MissionAndOutSide::MissionDetail($id);
+            return view('hrms/Employee/MissionAndOutSide/MissionDetail')->with('mission_detail',$missionDetail);
         } else {
             return view('no_perms');
         }
