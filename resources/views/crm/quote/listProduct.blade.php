@@ -26,7 +26,7 @@
                                        
                                     </th>
                                     <th>Product Name</th>
-                                    <th>Partial Number</th>
+                                    <th>Part Number</th>
                                     <th>Unit Price</th>
                                     <th>Commission Rate</th>
                                     <th>Quantity</th>
