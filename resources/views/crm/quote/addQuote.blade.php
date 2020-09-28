@@ -25,7 +25,7 @@
                 }
             </style>
         </head>
-        <div class="container-fluid" id="createNewQuote">
+        <div class="container-fluid" id="modal-list-quote">
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-12">
