@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\hrms\Payroll;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\perms;
 use App\model\hrms\employee\Employee;
 use App\model\hrms\Payroll\Payroll;
 use Illuminate\Http\Request;
@@ -11,66 +12,88 @@ class PayrollController extends Controller
 {
     // Create Payroll
     function CreatePayroll(){
-        $em=new Employee();
-        $data=array();
-        $data[0]=$em->AllEmployee();
-        return view('hrms/Payroll/CreatePayroll')->with('data',$data);
+        if(perms::check_perm_module('HRM_090401')){
+            $data = array();
+            $data[0] = Employee::AllEmployee();
+            return view('hrms/Payroll/CreatePayroll')->with('data', $data);
+        }else{
+            return view('no_perms');
+        }
+        
     }
 
     function AddCreatePayroll(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $userid = $_SESSION['userid'];
-        $pr=new Payroll();
-        $employee=$_POST['employeeid'];
-        $date_from=$_POST['from'];
-        $date_to=$_POST['to'];
-        $month=$_POST['month'];
-        $pr->CreatePayroll($employee,1,8,16,$userid,$date_from,$date_to,$month,2020);
+        if(perms::check_perm_module('HRM_090406')){
+            $userid = $_SESSION['userid'];
+            $employee = $_POST['employeeid'];
+            $date_from = $_POST['from'];
+            $date_to = $_POST['to'];
+            $month = $_POST['month'];
+            $year = $_POST['year'];
+            $stm=Payroll::CreatePayroll($employee, 1, 8, 16, $userid, $date_from, $date_to, $month, $year);
+            echo $stm;
+        }else{
+            echo "You have no permission";
+        }
+        
     }
     // End Create Payroll
 
     function PayrollList(){
-        $em = new Employee();
-        $pr=new Payroll();
-        $data = array();
-        $employee = $em->AllEmployee();
-        if(isset($_GET['emonth']) && isset($_GET['eyear'])){
-            $month = $_GET['emonth'];
-            $year = $_GET['eyear'];
-            $view= "hrms/Payroll/PayrollListByMonth";
+        if(perms::check_perm_module('HRM_090404')){
+            $data = array();
+            $employee = Employee::AllEmployee();
+            if (isset($_GET['emonth']) && isset($_GET['eyear'])) {
+                $month = $_GET['emonth'];
+                $year = $_GET['eyear'];
+                $view = "hrms/Payroll/PayrollListByMonth";
+            } else {
+                $month = date('m');
+                $year = date('Y');
+                $view = "hrms/Payroll/PayrollList";
+            }
+            $data[0] = Payroll::ShowPayrollList($employee, $month, $year);
+            return view($view)->with('data', $data);
         }else{
-            $month = date('m');
-            $year = date('Y');
-            $view= "hrms/Payroll/PayrollList";
+            return view('no_perms');
         }
-        $data[0]=$pr->ShowPayrollList($employee,$month,$year);
-        return view($view)->with('data', $data);
+        
     }
 
     function Payroll(){
-        $pr=new Payroll();
-        $data = array();
-        if(isset($_GET['month']) && isset($_GET['year'])){
-            $month=$_GET['month'];
-            $year=$_GET['year'];
-            $view= "hrms/Payroll/PayrollSearchMonthYear";
+        if(perms::check_perm_module('HRM_0904')){
+            $data = array();
+            if (isset($_GET['month']) && isset($_GET['year'])) {
+                $month = $_GET['month'];
+                $year = $_GET['year'];
+                $view = "hrms/Payroll/PayrollSearchMonthYear";
+            } else {
+                $month = date('m');
+                $year = date('Y');
+                $view = "hrms/Payroll/Payroll";
+            }
+            $data[0] = Payroll::Payroll($month, $year);
+            return view($view)->with('data', $data);
         }else{
-            $month=date('m');
-            $year=date('Y');
-            $view= "hrms/Payroll/Payroll";
+            return view('no_perms');
         }
-        $data[0] =$pr->Payroll($month,$year);
-        return view($view)->with('data', $data);
+        
     }
 
     function PayrollDetail(){
-        $id=$_GET['id'];
-        $data=array();
-        $em=new Employee();
-        $data[0]=$em->EmployeeOnRow($id);
-        return view('hrms/Payroll/PayrollDetail')->with('data',$data);
+        if(perms::check_perm_module('HRM_090407')){
+            $id = $_GET['id'];
+            $data = array();
+            $em = new Employee();
+            $data[0] = $em->EmployeeOnRow($id);
+            echo "vdv";
+            // return view('hrms/Payroll/PayrollDetail')->with('data', $data);
+        }else{
+            return view('modal_no_perms')->with('modal', 'modal_payrolldetails');
+        }
     }
 
     function ModalPayslip(){
@@ -128,6 +151,11 @@ class PayrollController extends Controller
     }
 
     function PayrollDetails(){
-        return view('hrms/Payroll/PayrollDetails');
+        if(perms::check_perm_module('HRM_090407')){
+            return view('hrms/Payroll/PayrollDetails');
+        }else{
+            return view('modal_no_perms')->with('modal', 'modal_payrolldetails');
+        }
+        
     }
 }

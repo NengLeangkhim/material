@@ -750,7 +750,8 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 // ========================================================>END METKEOSAMBO <======================================================== //
 
 // ========================================================> SENG KIMSROS <======================================================== //
-
+// Delete Data
+    Route::get('hrm_delete_data', 'DeletePermissionController@CheckPermission');
 // Employee
 
     // Start All Employee

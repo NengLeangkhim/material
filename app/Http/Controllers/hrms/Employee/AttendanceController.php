@@ -66,7 +66,7 @@ class AttendanceController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if (perms::check_perm_module('HRM_090103')) {
+        if (perms::check_perm_module('HRM_09010302')) {
             $emid=$_GET['id'];
             $employee=Employee::EmployeeOnRow($emid);
             if(isset($_GET['date_from']) && $_GET['date_to']){
@@ -90,7 +90,7 @@ class AttendanceController extends Controller
             ];
             return view($view)->with('data',$data);
         } else {
-            return view('noperms');
+            return view('modal_no_perms')->with('modal', 'modal_attendance_detail');
         }
     }
 
@@ -99,8 +99,14 @@ class AttendanceController extends Controller
     // }
 
     function AttendanceEdit(){
-        $id=$_GET['id'];
-        return view('hrms/Employee/Attendance/AttendanceEdit')->with('id',$id);
+        if (perms::check_perm_module('HRM_09010301')) {
+            $id = $_GET['id'];
+            echo 'wdefef';
+            return view('hrms/Employee/Attendance/AttendanceEdit')->with('id', $id);
+        }else{
+            return view('modal_no_perms')->with('modal', 'modal_attendance_edit');
+        }
+        
     }
 
     function AttendanceEditInsert()

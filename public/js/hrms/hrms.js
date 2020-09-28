@@ -1,4 +1,53 @@
+// Delete Data
+function hrm_delete_data(id, route, goto, alerts,permission) {
 
+    $.ajax({
+        type: 'GET',
+        url: 'hrm_delete_data',
+        data: {
+            _token: '<?php echo csrf_token() ?>',
+            perm: permission
+        },
+        success: function (data) {
+            if(data=='1'){
+                // event.preventDefault();
+                Swal.fire({ //get from sweetalert function
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            url: route,   //Request send to "action.php page"
+                            data: { id: id },
+                            type: "GET",    //Using of Post method for send data
+                            success: function (data) {
+                                setTimeout(function () { go_to(goto); }, 300);// Set timeout for refresh content
+                                Swal.fire(
+                                    'Deleted!',
+                                    alerts,
+                                    'success'
+                                )
+                                // }
+                            }
+
+                        });
+
+                    }
+                })
+            }else{
+                alert('No Permission');
+            }
+        }
+    });
+
+};
+
+// Show modal
 function HRM_ShowDetail(rout,modalName,id=-1,modal=''){
     $.ajax({
         type: 'GET',
@@ -18,7 +67,7 @@ function HRM_ShowDetail(rout,modalName,id=-1,modal=''){
     });
 }
 
-
+// Show password
 function ShowPassword(){
     var e=document.getElementById('inputsalary');
     if(e.type=="password"){
@@ -202,7 +251,68 @@ function HRM_CheckStaffTrain(e,trainid){
         newWin.close();
     }
     // HR Approve Payroll to Finance
-    function HR_Approve_Payroll(id,d_from,d_to,month,e,btn){
+    function HR_Approve_Payroll(id,d_from,d_to,month,e,btn,permission){
+
+        $.ajax({
+            type: 'GET',
+            url: 'hrm_delete_data',
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                perm: permission
+            },
+            success: function (data) {
+                if (data == '1') {
+                    // event.preventDefault();
+                    Swal.fire({ //get from sweetalert function
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.value) {
+                            $.ajax({
+                                url: '/hrm_hrapprove_payroll',   //Request send to "action.php page"
+                                data: { 
+                                    _token: '<?php echo csrf_token() ?>',
+                                    eid: id,
+                                    edat_from: d_from,
+                                    ed_to: d_to,
+                                    emonth: month 
+                                },
+                                type: "GET",    //Using of Post method for send data
+                                success: function (data) {
+                                    // setTimeout(function () { go_to(goto); }, 300);// Set timeout for refresh content
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Delete Successfully',
+                                        'success'
+                                    )
+                                    // }
+                                }
+
+                            });
+
+                        }
+                    })
+                } else {
+                    alert('No Permission');
+                }
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+        return null;
         if(confirm("Do you want to approved ?")){
             $.ajax({
                 type: 'GET',
@@ -272,25 +382,77 @@ function HRM_CheckStaffTrain(e,trainid){
         });
     }
     // HR delect create payroll
-    function DeleteComponent(id,date_from,date_to,for_month){
-        if(confirm("Do you want to delete it ?")){
-            $.ajax({
-                type: 'GET',
-                url: '/hrm_hrdelete_component',
-                data: {
-                    _token: '<?php echo csrf_token() ?>',
-                    eid: id,
-                    edat_from: date_from,
-                    ed_to: date_to,
-                    emonth:for_month
-                },
-                success: function (data) {
-                    if(data!='error'){
-                        SearchPayrollByMonthYear();
-                    }
+    function DeleteComponent(id,date_from,date_to,for_month,permission){
+        $.ajax({
+            type: 'GET',
+            url: 'hrm_delete_data',
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                perm: permission
+            },
+            success: function (data) {
+                if (data == '1') {
+                    // event.preventDefault();
+                    Swal.fire({ //get from sweetalert function
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.value) {
+                            $.ajax({
+                                url: 'hrm_hrdelete_component',   //Request send to "action.php page"
+                                data: { 
+                                    _token: '<?php echo csrf_token() ?>',
+                                    eid: id,
+                                    edat_from: date_from,
+                                    ed_to: date_to,
+                                    emonth: for_month
+                                },
+                                type: "GET",    //Using of Post method for send data
+                                success: function (data) {
+                                    if (data != 'error') {
+                                        setTimeout(function () { SearchPayrollByMonthYear(); }, 300);// Set timeout for refresh content
+                                        Swal.fire(
+                                            'Deleted!',
+                                            'Data Delete Successfully',
+                                            'success'
+                                        )
+                                        
+                                    }
+                                    
+                                }
+
+                            });
+
+                        }
+                    })
+                } else {
+                    alert('No Permission');
                 }
-            });
-        }
+            }
+        });
+        // if(confirm("Do you want to delete it ?")){
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: '/hrm_hrdelete_component',
+        //         data: {
+        //             _token: '<?php echo csrf_token() ?>',
+        //             eid: id,
+        //             edat_from: date_from,
+        //             ed_to: date_to,
+        //             emonth:for_month
+        //         },
+        //         success: function (data) {
+        //             if(data!='error'){
+        //                 SearchPayrollByMonthYear();
+        //             }
+        //         }
+        //     });
+        // }
     }
 
 
