@@ -25,7 +25,7 @@ class TrainerController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if (perms::check_perm_module('HRM_090503')) {
+        if (perms::check_perm_module('HRM_090509')) {
             $t = new Trainer();
             $id=$_GET['id'];
             $data=array();
@@ -34,7 +34,7 @@ class TrainerController extends Controller
             }
             return view('hrms/Training/Trainer/modalAddEditTrainer')->with('data',$data);
         } else {
-            return view('noperms');
+            return view('modal_no_perms')->with('modal', 'modal_trainer');
         }
     }
 

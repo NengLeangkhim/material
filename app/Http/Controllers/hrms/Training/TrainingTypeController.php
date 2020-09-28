@@ -27,7 +27,7 @@ class TrainingTypeController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if (perms::check_perm_module('HRM_090502')) {
+        if (perms::check_perm_module('HRM_090507')) {
             $id=$_GET['id'];
             $data=array();
             if($id>0){
@@ -36,7 +36,7 @@ class TrainingTypeController extends Controller
             }
             return view('hrms/Training/TrainingType/ModalTrainingType')->with('data',$data);
         } else {
-            return view('noperms');
+            return view('modal_no_perms')->with('modal', 'modal_trainingType');
         }
     }
 
