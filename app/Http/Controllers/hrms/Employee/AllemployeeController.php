@@ -33,22 +33,26 @@ class AllemployeeController extends Controller
 
     // Function for Show modal Add or Edit Employee
     public function AddAndEditEmployee(){
-        $em = new Employee();
-        $data[] = array();
-        $dp=new DepartmentAndPosition();
-        $data[0] = $dp->AllPosition();
-        $data[2] = addressModel::GetLeadProvice();
-        $data[3]=DepartmentAndPosition::AllDepartment();
-        if(isset($_GET['id'])){
-            $id=$_GET['id'];
-            if($id>0){
-                $data[1]=$em->EmployeeOnRow($id);
-                return view('hrms/Employee/AllEmployees/AddAndEditEmployee')->with('data',$data);
-            }else{
-                return view('hrms/Employee/AllEmployees/AddAndEditEmployee')->with('data',$data);
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (perms::check_perm_module('HRM_09010101')) {
+            $em = new Employee();
+            $data[] = array();
+            $dp=new DepartmentAndPosition();
+            $data[0] = $dp->AllPosition();
+            $data[2] = addressModel::GetLeadProvice();
+            $data[3]=DepartmentAndPosition::AllDepartment();
+            if (isset($_GET['id'])) {
+                $id=$_GET['id'];
+                if ($id>0) {
+                    $data[1]=$em->EmployeeOnRow($id);
+                    return view('hrms/Employee/AllEmployees/AddAndEditEmployee')->with('data', $data);
+                } else {
+                    return view('hrms/Employee/AllEmployees/AddAndEditEmployee')->with('data', $data);
+                }
             }
-            
-        } 
+        }
     }
 
     public function InsertUpdateEmployee(){

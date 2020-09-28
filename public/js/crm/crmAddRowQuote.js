@@ -15,15 +15,19 @@
                                 '<div class="col-md-8 col-sm-6"><input type="text" class="form-control2" name="product_name[]"  required placeholder="Product Name"> </div>' +
                                 '<div class="col-md-4 col-sm-6">' +
                                     '<div class="row">'+
-                                        '<button type="button" class="btn-list-item btn itemAddProduct" id="'+i+'" > <span>+ Add Product </span></button>'+
+                                        '<button type="button" class="btn-list-item btn addItemProduct_'+i+'"   name="addItemProduct"  id="'+i+'" > <span>+ Add Product </span></button>'+
                                     '</div>' +
                                     '<div class="row">'+
-                                        '<button type="button" class="btn-list-item btn itemAddService" id="'+i+'"  > <span>+ Add Service </span></button>'+
+                                        '<button type="button" class="btn-list-item btn addItemService_'+i+'"  name="addItemService"  id="'+i+'"  > <span>+ Add Service </span></button>'+
                                     '</div>'+
                                 '</div>' +
                             '</div>' +
                             '<div class="form-inline"><textarea class="form-control" rows="2" style="margin-top:10px; padding:10px; width: 100%!important;" placeholder="Description"></textarea> </div>' +
-                        '</div></td>' +
+                        '</div>' +
+                    '</td>' +
+                    '<td>' +
+                        '<span><p>Product</p></span>'+
+                    '</td>'+
                     '<td style="width: 120px;">' +
                         '<input type="number"  class="valid-numeric form-control" name="quantity[]" id="itemQty" value="1" required placeholder="Qty">' +
                     '</td>' +
@@ -60,7 +64,6 @@
                     '</td>' +
                 '</tr>';
                 i++;
-            // console.log(tblRow);
             $('#add_row_tablequoteItem').append(tblRow);
         });
 
@@ -92,18 +95,30 @@
 
 
 
-        //function for user click add item product
-        $(document).on('click', '.itemAddProduct', function() {
-            var btn_id = $(this).attr("id");
-            alert(btn_id);
+        //function onclick to show product item to add quote 
+        $(document).on('click', '[name=addItemProduct]', function() {
+            var row_id = $(this).attr("id");
+            alert(row_id);
+            $.ajax({
+
+                type:'GET',
+                url: "",
+                success: function(data){
+                    
+                }
+            });
+        
+
         });
 
 
 
+
+
         //function for user click add service product 
-        $(document).on('click', '.itemAddService', function() {
-            var btn_id = $(this).attr("id");
-            alert(btn_id);
+        $(document).on('click', '[name=addItemService]', function() {
+            var row_id = $(this).attr("id");
+            alert(row_id);
         });
 
         
@@ -124,6 +139,21 @@
                 $('#fieldItemDiscount_'+ row_id +'').append(textBoxType);
             }
         });
+
+
+
+
+
+      
+
+        
+
+
+
+
+
+
+
 
 
 
