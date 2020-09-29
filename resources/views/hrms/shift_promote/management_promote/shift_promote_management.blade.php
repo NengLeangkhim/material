@@ -32,6 +32,9 @@
                 </div>
 
                 <div class="card-body">
+                    @php
+                        print_r($allEmployee);
+                    @endphp
                 <div class="table-responsive"> 
                     <table class="table table-bordered" id="tbl_employee">
                         <thead>
@@ -41,7 +44,6 @@
                             <th scope="col">Staff ID</th>
                             <th scope="col">Position</th>
                             <th scope="col">Current Salary</th>
-                            <th scope="col">Last Update</th>
                             <th scope="col">Action</th>
                         </tr>
                         </thead>
@@ -74,6 +76,15 @@
                 
                                 
                             @endphp
+                            {{-- @foreach ($allEmployee as $employee)
+                                <tr>
+                                <th>{{++$i}}</th>
+                                <td>{{$employee->firstName}} {{$employee->lastName}}</td>
+                                <td>{{$employee->id_number}}</td>
+                                <td>{{$employee->position}}</td>
+                                <td>{{$employee->rate_month}}</td>
+                                </tr>
+                            @endforeach --}}
 
 
                         </tbody>

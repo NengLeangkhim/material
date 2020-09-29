@@ -1,6 +1,5 @@
 
 <?php
-    
     // print_r($staffbyid);
     // print_r($get_position);
     foreach ($staffbyid as $key => $val1) {
