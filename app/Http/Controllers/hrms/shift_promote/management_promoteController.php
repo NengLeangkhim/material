@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\hrms\shift_promote;
 
 use App\Http\Controllers\Controller;
+use App\model\hrms\employee\Employee;
 use Illuminate\Http\Request;
 use App\model\hrms\shift_promote\management_promoteModel; 
 
