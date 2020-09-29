@@ -30,6 +30,7 @@
 
         </div>
         <div class="container-fluid" id="createNewQuote">
+        <div class="container-fluid" >
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-12">
@@ -228,6 +229,8 @@
                                     </div> 
                                 </div>              
                         </div>
+                        <div id="modal-list-quote"></div>
+
                         <div class="card card-primary" >
                             <div class="card-header" style="background:#1fa8e0">
                                 <h3 class="card-title">Item Detail</h3>
@@ -427,7 +430,5 @@
             });
 
     </script>
-
-
 
 
