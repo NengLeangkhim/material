@@ -171,8 +171,8 @@
                                                 </div>
                                                 <select class="form-control" name="leadstatus">
                                                     <option ></option> 
-                                                    @foreach($lead_status as $row)  
-                                                        <option value="{{$row->id}}">{{$row->name_en}}</option>   
+                                                    @foreach($lead_status['result'] as $row)  
+                                                        <option value="{{$row['id']}}">{{$row['name']}}</option>   
                                                     @endforeach
                                                 </select>
                                             </div>        
