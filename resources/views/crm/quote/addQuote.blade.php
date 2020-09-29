@@ -25,7 +25,7 @@
                 }
             </style>
         </head>
-        <div class="container-fluid" id="modal-list-quote">
+        <div class="container-fluid" >
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-12">
@@ -224,8 +224,9 @@
                                     </div> 
                                 </div>              
                         </div>
-                        <div class="card card-primary">
-                          
+                        <div id="modal-list-quote"></div>
+
+                        <div class="card card-primary" >
                             <div class="card-header" style="background:#1fa8e0">
                                 <h3 class="card-title">Item Detail</h3>
                             </div>                            
