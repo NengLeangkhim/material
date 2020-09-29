@@ -10,17 +10,28 @@ class Employee extends Model
 {
     protected $table="ma_user";
     public $timestamps = false;
+
     public static function AllEmployee(){
-        $employee = DB::table('ma_user')->select('ma_user.id','ma_user.first_name_en as first_name_en','ma_user.last_name_en as last_name_en', 'ma_user.first_name_kh as first_name_kh', 'ma_user.last_name_kh as last_name_kh', 'ma_user.id_number', 'ma_user.email', 'ma_user.contact', 'ma_user.join_date', 'ma_position.name as position','ma_user.image')
+        // $employee = DB::table('ma_user')->select('ma_user.id','ma_user.first_name_en as first_name_en','ma_user.last_name_en as last_name_en', 'ma_user.first_name_kh as first_name_kh', 'ma_user.last_name_kh as last_name_kh', 'ma_user.id_number', 'ma_user.email', 'ma_user.contact', 'ma_user.join_date', 'ma_position.name as position','ma_user.image')
+        // ->join('ma_position', 'ma_position.id', '=', 'ma_user.ma_position_id')
+        // ->where([
+        //     ['ma_user.status', '=', 't'],
+        //     ['ma_user.is_deleted', '=', 'f']
+        // ])->orderBy('ma_user.first_name_en')->get();
+        $employee = DB::table('ma_user')->select('ma_user.office_phone', 'ma_user.sex', 'ma_user.image', 'ma_user.id', 'ma_user.first_name_en as firstName', 'ma_user.last_name_en as lastName', 'ma_user.first_name_kh as firstNameKh', 'ma_user.last_name_kh as lastNameKh', 'ma_user.id_number', 'ma_user.email', 'ma_user.contact', 'ma_user.join_date', 'ma_position.name as position', 'ma_user.ma_position_id', 'ma_user.description', 'ma_user.bank_account', 'hr_payroll_base_salary.rate_month', 'ma_user.ma_company_dept_id', 'ma_user.birth_date')
         ->join('ma_position', 'ma_position.id', '=', 'ma_user.ma_position_id')
-        ->where([
-            ['ma_user.status', '=', 't'],
-            ['ma_user.is_deleted', '=', 'f']
-        ])->orderBy('ma_user.first_name_en')->get();
+            ->join('hr_payroll_base_salary', 'hr_payroll_base_salary.ma_user_id', '=', 'ma_user.id')
+            ->where([
+                ['ma_user.status', '=', 't'],
+                ['ma_user.is_deleted', '=', 'f'],
+                ['hr_payroll_base_salary.status','=','t'],
+                ['hr_payroll_base_salary.is_deleted','=','f']
+            ])->orderBy('ma_user.first_name_en')->get();
         return $employee;
     }
+    
     public static function EmployeeOnRow($id){
-        $employee = DB::table('ma_user')->select('ma_user.office_phone','ma_user.sex','ma_user.image', 'ma_user.id', 'ma_user.first_name_en as firstName', 'ma_user.last_name_en as lastName', 'ma_user.first_name_kh as firstNameKh', 'ma_user.last_name_kh as lastNameKh', 'ma_user.id_number', 'ma_user.email', 'ma_user.contact', 'ma_user.join_date', 'ma_position.name as position','ma_user.ma_position_id','ma_user.description','ma_user.bank_account', 'hr_payroll_base_salary.rate_month','ma_user.ma_company_dept_id','ma_user.birth_date')
+        $employee = DB::table('ma_user')->select('ma_user.office_phone','ma_user.sex','ma_user.image', 'ma_user.id', 'ma_user.first_name_en as firstName', 'ma_user.last_name_en as lastName', 'ma_user.first_name_kh as firstNameKh', 'ma_user.last_name_kh as lastNameKh', 'ma_user.id_number', 'ma_user.email', 'ma_user.contact', 'ma_user.join_date', 'ma_position.name as position','ma_user.ma_position_id','ma_user.description','ma_user.bank_account', 'hr_payroll_base_salary.rate_month','ma_user.ma_company_dept_id','ma_user.birth_date','ma_position.name as positionName')
         ->join('ma_position', 'ma_position.id', '=', 'ma_user.ma_position_id')
         ->join('hr_payroll_base_salary','hr_payroll_base_salary.ma_user_id','=','ma_user.id')
         ->where([
@@ -80,6 +91,7 @@ class Employee extends Model
             "joint_date"=> $employee[0]->join_date,
             "contact"=> $employee[0]->contact,
             "position_id"=> $employee[0]->ma_position_id,
+            "positionName"=> $employee[0]->positionName,
             "office_phone"=> $employee[0]->office_phone,
             "email"=> $employee[0]->email,
             "spouse"=>$spous,
