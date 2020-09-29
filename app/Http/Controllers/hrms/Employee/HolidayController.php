@@ -20,7 +20,7 @@ class HolidayController extends Controller
             $holiday['holiday']=$h->Holiday_All();
             return view('hrms/Employee/Holiday/Holiday')->with($holiday);
         } else {
-            return view('noperms');
+            return view('no_perms');
         }
     }
 
@@ -29,7 +29,7 @@ class HolidayController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if (perms::check_perm_module('HRM_090102')) {
+        if (perms::check_perm_module('HRM_09010201')) {
             if($_GET['id']>0){
                 $h=new Holiday();
                 $ho=$h->HolidayOneRow($_GET['id']);
@@ -38,7 +38,8 @@ class HolidayController extends Controller
                 return view('hrms/Employee/Holiday/AddAndEditHolidayModal');
             }
         } else {
-            return view('noperms');
+            $data = 'modal_holiday';
+            return view('modal_no_perms')->with('modal', $data);
         }
         
     }

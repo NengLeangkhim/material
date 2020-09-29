@@ -156,11 +156,11 @@
                 </div>
                 <div class="col-md-6">
                   <label>Bank Account</label>
-                  <input type="number" class="form-control" name="emBankAccount" value="@php if(isset($data[1])){ echo $data[1]['bank_account']; } @endphp">
+                  <input type="text" class="form-control" name="emBankAccount" value="@php if(isset($data[1])){ echo $data[1]['bank_account']; } @endphp">
               </div>
               <div class="col-md-6">
                   <label>Email <span class="text-danger">*</span></label>
-                  <input type="email" class="form-control" name="emEmail" value="@php if(isset($data[1])){ echo $data[1]['email']; } @endphp" required>
+                  <input type="email" class="form-control" name="emEmail" value="@php if(isset($data[1])){ echo $data[1]['email']; } @endphp" >
               </div>
               <div class="col-md-6">
                   <label>Spouse <span class="text-danger">*</span></label>

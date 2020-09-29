@@ -20,8 +20,7 @@ class AllemployeeController extends Controller
             session_start();
         }
         if(perms::check_perm_module('HRM_090101')){
-            $em = new Employee();
-            $employee['employee'] = $em->AllEmployee();
+            $employee['employee'] = Employee::AllEmployee();
             return view('hrms/Employee/AllEmployees/AllEmployees')->with($employee);
         }else{
             return view('no_perms');
@@ -33,22 +32,28 @@ class AllemployeeController extends Controller
 
     // Function for Show modal Add or Edit Employee
     public function AddAndEditEmployee(){
-        $em = new Employee();
-        $data[] = array();
-        $dp=new DepartmentAndPosition();
-        $data[0] = $dp->AllPosition();
-        $data[2] = addressModel::GetLeadProvice();
-        $data[3]=DepartmentAndPosition::AllDepartment();
-        if(isset($_GET['id'])){
-            $id=$_GET['id'];
-            if($id>0){
-                $data[1]=$em->EmployeeOnRow($id);
-                return view('hrms/Employee/AllEmployees/AddAndEditEmployee')->with('data',$data);
-            }else{
-                return view('hrms/Employee/AllEmployees/AddAndEditEmployee')->with('data',$data);
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (perms::check_perm_module('HRM_09010101')) {
+            $em = new Employee();
+            $data[] = array();
+            $data[0] = DepartmentAndPosition::AllPosition();
+            $data[2] = addressModel::GetLeadProvice();
+            $data[3]=DepartmentAndPosition::AllDepartment();
+            if (isset($_GET['id'])) {
+                $id=$_GET['id'];
+                if ($id>0) {
+                    $data[1]=Employee::EmployeeOnRow($id);
+                    return view('hrms/Employee/AllEmployees/AddAndEditEmployee')->with('data', $data);
+                } else {
+                    return view('hrms/Employee/AllEmployees/AddAndEditEmployee')->with('data', $data);
+                }
             }
-            
-        } 
+        } else {
+            $data= 'modal_employee';
+            return view('modal_no_perms')->with('modal',$data);
+        }
     }
 
     public function InsertUpdateEmployee(){
@@ -121,6 +126,12 @@ class AllemployeeController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        if (perms::check_perm_module('HRM_09010101')) {
+
+        }else{
+            $data = 'modal_employee';
+            return view('modal_no_perms')->with('modal', $data);
+        }
         $id=$_GET['id'];
         $userid = $_SESSION['userid'];
         $em=new Employee();
@@ -129,18 +140,24 @@ class AllemployeeController extends Controller
 
 
     function EmployeeDetail(){
-        $em = new Employee();
-        $data[] = array();
-        $dp = new DepartmentAndPosition();
-        $data[0] = $dp->AllPosition();
-        $data[2] = addressModel::GetLeadProvice();
-        $data[3] = DepartmentAndPosition::AllDepartment();
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-            if ($id > 0) {
-                $data[1] = $em->EmployeeOnRow($id);
-                return view('hrms/Employee/AllEmployees/employeeDetail')->with('data', $data);
+        if (perms::check_perm_module('HRM_09010102')) {
+            $em = new Employee();
+            $data[] = array();
+            $dp = new DepartmentAndPosition();
+            $data[0] = $dp->AllPosition();
+            $data[2] = addressModel::GetLeadProvice();
+            $data[3] = DepartmentAndPosition::AllDepartment();
+            if (isset($_GET['id'])) {
+                $id = $_GET['id'];
+                if ($id > 0) {
+                    $data[1] = $em->EmployeeOnRow($id);
+                    return view('hrms/Employee/AllEmployees/employeeDetail')->with('data', $data);
+                }
             } 
-        } 
+        } else {
+            $data = 'modal_employee_detail';
+            return view('modal_no_perms')->with('modal', $data);
+        }
+        
     }
 }

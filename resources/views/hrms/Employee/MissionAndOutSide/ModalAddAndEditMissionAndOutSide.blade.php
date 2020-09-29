@@ -12,37 +12,34 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
-            @php
-                // print_r($data[1]);
-            @endphp
             <form id="fm_missionoutside" onsubmit="return false">
               @csrf
               <div class="row">
-                <input type="hidden" name="id" value="@php if(isset($data[1])){echo $data[1][0]->id;} @endphp">
+                <input type="hidden" name="id" value="@php if(isset($data[1])){echo $data[1]['id'];} @endphp">
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Type <span class="text-danger">*</span></label>
                     <select name="type" id="" class="form-control">
                       @php
                         if(isset($data[1])){
-                          if($data[1][0]->type=='Outside'){
+                          if($data[1]['type']=='Outside'){
                             echo '<option value="Outside">Outside</option>
                                 <option value="Mission">Mission</option>
                                 <option value="Missed Scan">Missed Scan</option>
                                 <option value="Other">Other</option>
                               ';
-                          }elseif ($data[1][0]->type=='Mission') {
+                          }elseif ($data[1]['type']=='Mission') {
                             echo '
                                 <option value="Mission">Mission</option>
-                                <option value="Outside">Outside</option>
+                                
                                 <option value="Missed Scan">Missed Scan</option>
                                 <option value="Other">Other</option>
                               ';
-                          }elseif ($data[1][0]->type=='Missed Scan') {
+                          }elseif ($data[1]['type']=='Missed Scan') {
                             echo '
                                 <option value="Missed Scan">Missed Scan</option>
                                 <option value="Mission">Mission</option>
-                                <option value="Outside">Outside</option>
+                                
                                 <option value="Other">Other</option>
                               ';
                           }else {
@@ -50,13 +47,13 @@
                                 <option value="Other">Other</option>
                                 <option value="Missed Scan">Missed Scan</option>
                                 <option value="Mission">Mission</option>
-                                <option value="Outside">Outside</option>
+                                
                                 
                               ';
                           }
 
                         }else {
-                          echo '<option value="Outside">Outside</option>
+                          echo '
                                 <option value="Mission">Mission</option>
                                 <option value="Missed Scan">Missed Scan</option>
                                 <option value="Other">Other</option>
@@ -77,17 +74,35 @@
                           <th>Action</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody required>
                         @php 
                           $i=0;
                           foreach ($data[0] as $em) {
-                            $get_full_en_name = $em->first_name_en." ".$em->last_name_en;
-                            echo '<tr>
+                            if(isset($data[1])){
+                              $check=0;
+                              foreach ($data[1]['employee_mission'] as $emmission) {
+                                if($emmission->ma_user_id==$em->id){
+                                  $check++;
+                                }
+                              }
+                              if($check>0){
+                                $ch="checked";
+                              }else {
+                                $ch="";
+                              }
+                              echo '<tr>
+                                  <th>'.$em->id_number.'</th>
+                                  <td>'.$em->first_name_en.' '.$em->last_name_en.'</td>
+                                  <th class="text-right"><input type="checkbox" name="missioncheck['.$i++.']" id="" value="'.$em->id.'" '.$ch.'></th>
+                                </tr>';
+                            }else {
+                              echo '<tr>
+                                  <th>'.$em->id_number.'</th>
+                                  <td>'.$em->first_name_en.' '.$em->last_name_en.'</td>
+                                  <th class="text-right"><input type="checkbox" name="missioncheck['.$i++.']" id="" value="'.$em->id.'"></th>
+                                </tr>';
+                            }
                             
-                          <th>'.$em->id_number.'</th>
-                          <td>'.$get_full_en_name.'</td>
-                          <th class="text-right"><input type="checkbox" name="missioncheck['.$i++.']" id="" value="'.$em->id_number.'"></th>
-                        </tr>';
                           }
                         @endphp
                         
@@ -100,37 +115,37 @@
                 <div class="col-md-6">
                     <div class="form-group">
                     <label>Street <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="street" value="@php if(isset($data[1])){echo $data[1][0]->street;} @endphp">
+                    <input type="text" class="form-control" name="street" value="@php if(isset($data[1])){echo $data[1]['street'];} @endphp">
                   </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                     <label>Home Number</label>
-                    <input type="text" class="form-control" name="home_number" value="@php if(isset($data[1])){echo $data[1][0]->home_number;} @endphp">
+                    <input type="text" class="form-control" name="home_number" value="@php if(isset($data[1])){echo $data[1]['home_number'];} @endphp">
                   </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                     <label>Late Long <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="latelong" value="@php if(isset($data[1])){echo $data[1][0]->latlg;} @endphp">
+                    <input type="text" class="form-control" name="latelong" value="@php if(isset($data[1])){echo $data[1]['latlg'];} @endphp">
                   </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                     <label>Gazetteers Code</label>
-                    <input type="text" class="form-control" name="gazetteers_code" value="@php if(isset($data[1])){echo $data[1][0]->gazetteers_code;} @endphp">
+                    <input type="text" class="form-control" name="gazetteers_code" value="@php if(isset($data[1])){echo $data[1]['gazetteers_code'];} @endphp">
                   </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                     <label>From Date <span class="text-danger">*</span></label>
-                    <input type="date" class="form-control" name="from_date" value="@php if(isset($data[1])){echo $data[1][0]->date_from;} @endphp">
+                    <input type="date" class="form-control" name="from_date" value="@php if(isset($data[1])){echo $data[1]['date_from'];} @endphp">
                   </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                     <label>To Date <span class="text-danger">*</span></label>
-                    <input type="date" class="form-control" name="to_date" value="@php if(isset($data[1])){echo $data[1][0]->date_to;} @endphp">
+                    <input type="date" class="form-control" name="to_date" value="@php if(isset($data[1])){echo $data[1]['date_to'];} @endphp">
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -139,19 +154,19 @@
                     <select name="shift" id="" class="form-control">
                       @php 
                         if(isset($data[1])){
-                            if($data[1][0]->shift=='am'){
+                            if($data[1]['shift']=='am'){
                               echo '
                                 <option value="am">AM</option>
                                 <option value="pm">PM</option>
                                 <option value="full">Full</option>
                               ';
-                            }elseif ($data[1][0]->shift=='pm') {
+                            }elseif ($data[1]['shift']=='pm') {
                               echo '
                                 <option value="pm">PM</option>
                                 <option value="am">AM</option>
                                 <option value="full">Full</option>
                               ';
-                            }elseif ($data[1][0]->shift=='full') {
+                            }elseif ($data[1]['shift']=='full') {
                               echo '
                                 <option value="full">Full</option>
                                 <option value="pm">PM</option>
@@ -173,7 +188,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                     <label>Description <span class="text-danger">*</span></label>
-                    <textarea name="description" id="" rows="5" class="form-control">@php if(isset($data[1])){echo $data[1][0]->description;} @endphp</textarea>
+                    <textarea name="description" id="" rows="5" class="form-control">@php if(isset($data[1])){echo $data[1]['description'];} @endphp</textarea>
                   </div>
                 </div>
                 <!-- /.col -->
@@ -193,6 +208,6 @@
 </div>
 
 <script>
-    var type=@php if(isset($data[1])){echo $data[1][0]->type;} @endphp;
+    var type=@php if(isset($data[10])){echo $data[1][0]->type;} @endphp;
     console.log(type);
   </script>

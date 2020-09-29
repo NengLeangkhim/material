@@ -41,7 +41,7 @@ class OverTimeController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if (perms::check_perm_module('HRM_090107')) {
+        if (perms::check_perm_module('HRM_09010701')) {
             $id=$_GET['id'];
             $em=new Employee();
             $ot = new OverTime();
@@ -55,7 +55,7 @@ class OverTimeController extends Controller
             }
             
         } else {
-            return view('noperms');
+            return view('modal_no_perms')->with('modal', 'modal_overtime');
         }
     }
 

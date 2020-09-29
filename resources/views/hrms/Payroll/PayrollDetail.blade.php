@@ -27,7 +27,7 @@
                                 <div class="row">
                                     <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="receipt-left">
-                                        <img class="img-responsive" alt="iamgurdeeposahan" src="http://172.17.168.27:82{{$data[0][0]->image}}" style="width:100px; height:100px; border-radius: 50px;">
+                                        <img class="img-responsive" alt="iamgurdeeposahan" src="http://172.17.168.27:82{{$data[0]['image']}}" style="width:100px; height:100px; border-radius: 50px;">
                                         </div>
                                     </div>
                                     <div class="col-xs-6 col-sm-6 col-md-6 text-right">
@@ -44,10 +44,10 @@
                                     <div class="row">
                                         <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                                             <div class="receipt-right">
-                                            <h5>{{$data[0][0]->name}} <small>&nbsp; | &nbsp; ID Number : {{$data[0][0]->id_number}}</small></h5>
-                                                <p><b>Mobile :</b> {{$data[0][0]->contact}}</p>
-                                                <p><b>Email :</b> {{$data[0][0]->email}}</p>
-                                                <p><b>Address :</b> {{$data[0][0]->address}}</p>
+                                            <h5>{{$data[0]['firstName']}} {{$data[0]['lastName']}} <small>&nbsp; | &nbsp; ID Number : {{$data[0]['id_number']}}</small></h5>
+                                                <p><b>Mobile :</b> {{$data[0]['contact']}}</p>
+                                                <p><b>Email :</b> {{$data[0]['email']}}</p>
+                                                {{-- <p><b>Address :</b> {{$data[0]['address']}}</p> --}}
                                             </div>
                                         </div>
                                         <div class="col-xs-4 col-sm-4 col-md-4">

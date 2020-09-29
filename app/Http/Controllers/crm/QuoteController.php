@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 class QuoteController extends Controller
 {
 
-
-
     // function to get all quote lead 
     public static function showQuoteList(){
         return view('crm/quote/quoteShow');
@@ -29,6 +27,27 @@ class QuoteController extends Controller
         $row_array = array();
         return view('crm/quote/addQuote', compact('row_array'));
     }
+
+
+
+    //function to get list product 
+    public static function listProduct(){
+        if(isset($_GET['id'])){
+            return view('crm/quote/listProduct');
+        }
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
