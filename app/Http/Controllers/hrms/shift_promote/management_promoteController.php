@@ -4,14 +4,24 @@ namespace App\Http\Controllers\hrms\shift_promote;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\model\hrms\employee\Employee;
 use App\model\hrms\shift_promote\management_promoteModel; 
+
 
 class management_promoteController extends Controller
 {
 
     /* function get all employee from 3 table: staff, position, hr_payroll  */
     public function AllEmployee(){
-        $AllEmployee = management_promoteModel::AllEmployee();
+        $AllEmployee = Employee::AllEmployee();
+       
+        // $AllEmployee = management_promoteModel::AllEmployee();
+        // var_dump($AllEmployee);
+        
+        foreach($AllEmployee as $val){
+            echo $val->base_salary;
+        }
+
         return view('hrms/shift_promote/management_promote/shift_promote_management', ['allEmployee' => $AllEmployee]);
     }
 
