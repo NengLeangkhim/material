@@ -106,7 +106,7 @@ class Payroll extends Model
         $data=array();
         $getdata=array();
         foreach($em as $emp){
-            $get_full_en_name = $emp->first_name_en." ".$emp->last_name_en;
+            $get_full_en_name = $emp->firstName." ".$emp->lastName;
             $getdata=self::GetValueFromComponent($emp->id,$get_full_en_name,$emp->position,1,$month,$year);
             if($getdata!=null){
                 array_push($data,$getdata);
@@ -198,7 +198,7 @@ class Payroll extends Model
         foreach($stm as $ex_payroll){
             $data[]=[
                 'No'=>++$i,
-                'name'=>$ex_payroll->name,
+                'name'=>$ex_payroll->first_name_en.$ex_payroll->last_name_en,
                 'ID Number'=>$ex_payroll->id_number,
                 'Base Salary'=>$ex_payroll->base_salary,
                 'Add On'=>$ex_payroll->add_on,
