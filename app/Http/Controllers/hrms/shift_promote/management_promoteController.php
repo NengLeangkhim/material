@@ -5,7 +5,6 @@ namespace App\Http\Controllers\hrms\shift_promote;
 use App\Http\Controllers\Controller;
 use App\model\hrms\employee\Employee;
 use Illuminate\Http\Request;
-use App\model\hrms\employee\Employee;
 use App\model\hrms\shift_promote\management_promoteModel; 
 
 
@@ -19,9 +18,9 @@ class management_promoteController extends Controller
         // $AllEmployee = management_promoteModel::AllEmployee();
         // var_dump($AllEmployee);
         
-        foreach($AllEmployee as $val){
-            echo $val->base_salary;
-        }
+        // foreach($AllEmployee as $val){
+        //     echo $val->ma_position_id;
+        // }
 
         return view('hrms/shift_promote/management_promote/shift_promote_management', ['allEmployee' => $AllEmployee]);
     }
@@ -33,7 +32,8 @@ class management_promoteController extends Controller
 
         if(isset($_GET['id'])){
             $staffid = $_GET['id'];
-            $StaffByID = management_promoteModel::AllEmployeeByID($staffid);
+            // $StaffByID = management_promoteModel::AllEmployeeByID($staffid);
+            $StaffByID = Employee::EmployeeOnRow($staffid);
             $get_postion = management_promoteModel::position();
             // print_r($get_postion);
             return view('hrms/shift_promote/management_promote/shift_promote_manager_edit', ['staffbyid' => $StaffByID, 'get_position' =>  $get_postion]);
