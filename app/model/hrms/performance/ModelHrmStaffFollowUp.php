@@ -45,7 +45,7 @@ class ModelHrmStaffFollowUp extends Model
     // ===== Function get data for table for invidual user =====////
       public static function hrm_get_tbl_follow_up_staff($userid){
         $follow_up_user = DB::table('hr_performance_follow_up as pf')
-                            ->select('pf.*','ps.hr_performance_plan_detail_id','ps.ma_user_id','s.ma_company_dept_id',DB::raw("CONCAT(s.first_name_en,' ',s.last_name_en) AS name"),'pd.name as name_plan','pd.id as id_pd','pfm.is_deleted as delete')
+                            ->select('pf.*','ps.hr_performance_plan_detail_id','ps.ma_user_id','s.ma_company_dept_id',DB::raw("CONCAT(s.first_name_en,' ',s.last_name_en) AS name_staff"),'pd.name as name_plan','pd.id as id_pd','pfm.is_deleted as delete')
                             ->join('hr_performance_schedule as ps','pf.hr_performance_schedule_id','=','ps.id')
                             ->join('ma_user as s','ps.ma_user_id','=','s.id')
                             ->join('hr_performance_plan_detail as pd','ps.hr_performance_plan_detail_id','=','pd.id')

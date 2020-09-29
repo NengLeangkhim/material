@@ -23,7 +23,7 @@ class LeadController extends Controller
     }   
     public function lead(){
         $lead_source=ModelCrmLead::CrmGetLeadSource();
-        $lead_status=ModelCrmLead::CrmGetLeadStatus();
+         $lead_status=json_decode(file_get_contents('https://turbotech.com/api/lead/lead_status.php'),true);
         $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
         $assig_to=ModelCrmLead::CrmGetLeadAssigTo();
         $province=ModelCrmLead::CrmGetLeadProvice();
