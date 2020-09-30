@@ -13,7 +13,7 @@
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
             @php
-                // print_r($data[3]);
+                
                 if(isset($data[2])){
                   $hrid=$data[2][0]->trainerid;
                 }else {
@@ -138,7 +138,7 @@
                             @foreach($data[4] as $em)
                               <tr>
                                 <td>{{++$a}}</td>
-                                <td>{{$em->first_name_en.' '.$em->last_name_en }}</td>
+                                <td>{{$em->firstName.' '.$em->lastName }}</td>
                                 @php
                                   if(isset($data[3])){
                                     $checktrue=0;

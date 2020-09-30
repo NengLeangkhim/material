@@ -12,11 +12,14 @@ use App\model\hrms\employee\Employee as EmployeeEmployee;
 
 class MissionAndOutsideController extends Controller
 {
+    // List all Mission
     function AllMissionAndOutSide()
     {
         $data=MissionAndOutSide::MissionOutside();
         return view('hrms/Employee/MissionAndOutSide/MissionAndOutSide')->with('mission',$data);
     }
+
+    // Show modal add or edit mission
     function AddModalMissionOutside(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -36,6 +39,7 @@ class MissionAndOutsideController extends Controller
         }
     }
 
+    // Insert Mission
     function InsertUpdateMissionOutside(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -67,6 +71,7 @@ class MissionAndOutsideController extends Controller
         }
     }
 
+    // Delete Mission
     function DeleteMissionOutSide(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -82,6 +87,7 @@ class MissionAndOutsideController extends Controller
     }
 
 
+    // mission detail
     function MissionDetail(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
