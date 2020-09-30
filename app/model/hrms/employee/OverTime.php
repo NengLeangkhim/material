@@ -61,6 +61,8 @@ class OverTime extends Model
         
     }
 
+
+    // Delete Overtime
     public static function DeleteOvertime($id,$byid){
         try {
             $sql = "SELECT public.delete_hr_overtime($id,$byid)";
@@ -83,7 +85,7 @@ class OverTime extends Model
         }
     }
 
-
+    // Calculate hour who work OT in month
     public static function OvertimeHoure($month, $year){
         try {
             $d = cal_days_in_month(CAL_GREGORIAN, $month, $year);

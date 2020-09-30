@@ -50,7 +50,7 @@
                           <div class="row">
                             <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_modal_traininglist','modal_traininglist',{{$tl->id}})"><i class="far fa-edit"></i></a></div>
                             <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_traininglist_detail','modal_traininglist_detail',{{$tl->id}})"><i class="fas fa-info"></i></a></div>
-                            <div class="col-md-4"><a href="javascrip:;" onclick="hrm_delete_data({{$tl->id}},'hrm_delete_traininglist','hrm_traininglist','Training List is Delete !','HRM_090506')"><i class="far fa-trash-alt"></i></a></div>
+                            <div class="col-md-4"><a href="javascrip:;" onclick="hrm_delete_data({{$tl->id}},'hrm_delete_traininglist','hrm_traininglist','Training List is Delete !','HRM_09050101')"><i class="far fa-trash-alt"></i></a></div>
                           </div>
                         </td>
                     </tr>

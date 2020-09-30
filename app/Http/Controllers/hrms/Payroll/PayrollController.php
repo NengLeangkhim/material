@@ -26,7 +26,7 @@ class PayrollController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if(perms::check_perm_module('HRM_090406')){
+        if(perms::check_perm_module('HRM_09040101')){
             $userid = $_SESSION['userid'];
             $employee = $_POST['employeeid'];
             $date_from = $_POST['from'];
@@ -83,14 +83,13 @@ class PayrollController extends Controller
         
     }
 
-    function PayrollDetail(){
-        if(perms::check_perm_module('HRM_090407')){
+    function Payroll_List_Detail(){
+        if(perms::check_perm_module('HRM_09040402')){
             $id = $_GET['id'];
             $data = array();
             $em = new Employee();
             $data[0] = $em->EmployeeOnRow($id);
-            echo "vdv";
-            // return view('hrms/Payroll/PayrollDetail')->with('data', $data);
+            return view('hrms/Payroll/PayrollDetail')->with('data', $data);
         }else{
             return view('modal_no_perms')->with('modal', 'modal_payrolldetails');
         }
@@ -151,11 +150,11 @@ class PayrollController extends Controller
     }
 
     function PayrollDetails(){
-        if(perms::check_perm_module('HRM_090407')){
+        // if(perms::check_perm_module('HRM_09040402')){
             return view('hrms/Payroll/PayrollDetails');
-        }else{
-            return view('modal_no_perms')->with('modal', 'modal_payrolldetails');
-        }
+        // }else{
+        //     return view('modal_no_perms')->with('modal', 'modal_payrolldetails');
+        // }
         
     }
 }

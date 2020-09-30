@@ -28,7 +28,7 @@ class TrainingListController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if (perms::check_perm_module('HRM_090504')) {
+        if (perms::check_perm_module('HRM_090501')) {
             $data = array();
             $id=$_GET['id'];
             $trainType=new TrainingType();
@@ -96,7 +96,7 @@ class TrainingListController extends Controller
     }
 
     function TrainingListDetail(){
-        if(perms::check_perm_module('HRM_090505')) {
+        if(perms::check_perm_module('HRM_09050102')) {
             $id = $_GET['id'];
             $trainList = new TrainingList();
             $data = array();

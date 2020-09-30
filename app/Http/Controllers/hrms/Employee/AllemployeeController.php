@@ -14,7 +14,7 @@ use PhpParser\Node\Expr\Print_;
 class AllemployeeController extends Controller
 {
     
-    //
+    // List All employee
     public function AllEmployee(){
         if(session_status()== PHP_SESSION_NONE){
             session_start();
@@ -56,6 +56,7 @@ class AllemployeeController extends Controller
         }
     }
 
+    // for Insert or Update Employee
     public function InsertUpdateEmployee(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -122,6 +123,8 @@ class AllemployeeController extends Controller
     }
 
 
+
+    // Delete Employee
     function DeleteEmployee(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -139,6 +142,7 @@ class AllemployeeController extends Controller
     }
 
 
+    // List Employee detail
     function EmployeeDetail(){
         if (perms::check_perm_module('HRM_09010102')) {
             $em = new Employee();
