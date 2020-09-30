@@ -21,6 +21,11 @@ class HrmQuestionAnswerController extends Controller
         session_start();
         }
         if(perms::check_perm_module('HRM_090904')){//module code list data tables id=109
+            if(perms::check_perm_module('HRM_09090401')){ // Permission Add
+                $add_perm = '<button type="button" id="AddNewQuestionRe" onclick=\'AddNewQuestionRe()\' class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Question</button>';
+             }else{
+                 $add_perm='';
+            }
             $userid = $_SESSION['userid'];
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
             foreach($permission as $row){
@@ -41,7 +46,65 @@ class HrmQuestionAnswerController extends Controller
                 $question_type = ModelHrmReQuestionType::hrm_get_question_type();
             }
             $question = ModelHrmQuestionAnswer::hrm_get_tbl_recruitment_question(); //get database  from model
-            return view('hrms/recruitment/question_answer/HrmQuestionAnswer', ['question' => $question,'question_type'=>$question_type,'dept'=>$department,'position'=>$position]);
+            $i=1;// variable increase number for table
+            $table_perm= '<tbody>';
+          foreach($question as $row){
+              $create = $row->create_date;
+            $table_perm.= ' 
+              <tr>
+                  <th>'.$i++.'</th>
+                  <td>'.$row->question.'</td>
+                  <td>'.$row->question_type.'</td>
+                  <td>'.$row->name.'</td>
+                  <td>'.date('Y-m-d H:i:s',strtotime($create)).'</td>
+                  <td>'.$row->username.'</td>';    
+            if($row->hr_recruitment_question_type_id==1){ //condition check for question option
+                  $table_perm.='<td class="text-center">';
+                  $table_perm.= '
+                      <div class="dropdown">
+                          <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Action
+                          </button>
+                          <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">';
+                  if(perms::check_perm_module('HRM_09090404')){// Permission View
+                      $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item hrm_re_detail_question_answer">View Detail</button>';
+                  }
+                  if(perms::check_perm_module('HRM_09090402')){// Permission Update
+                      $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item hrm_question_answer_re">Update Detail</button>';
+                  }
+                  if(perms::check_perm_module('HRM_09090403')){// Permission Delete
+                      $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'hrm_delete('.$row->id.',"hrm_question/deletedetail","/hrm_question","Question And Answer Has Been Deleted")\' class="dropdown-item hrm_item hrm_delete_question_answer_re">Delete</button>';
+                  }
+                  if(perms::check_perm_module('HRM_09090405')){// Permission Add Answer
+                      if(is_null($row->delete)||$row->delete == 1){
+                        $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item add_answer_re">Add Choice</button>';
+                      }
+                  }
+                  $table_perm.= ' </div>
+                                  </div>
+                              </td>';
+           }else{// Condition Check normal question
+              $table_perm.='<td class="text-center">';
+                  $table_perm.= '
+                      <div class="dropdown">
+                          <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Action
+                          </button>
+                          <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">';
+                  if(perms::check_perm_module('HRM_09090402')){// Permission Update
+                      $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item update_question">Update</button>';
+                  }
+                  if(perms::check_perm_module('HRM_09090403')){// Permission Delete
+                      $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'hrm_delete('.$row->id.',"hrm_question/delete","/hrm_question","Question Has Been Deleted")\'  class="dropdown-item hrm_item delete_question">Delete</button>';
+                  }
+                  $table_perm.= ' </div>
+                                  </div>
+                              </td>';
+           }
+            $table_perm.='</tr>';
+          }//end foreach
+            $table_perm.='</tbody>';
+            return view('hrms/recruitment/question_answer/HrmQuestionAnswer', ['add_perm' => $add_perm,'table_perm'=>$table_perm,'question_type'=>$question_type,'dept'=>$department,'position'=>$position]);
         }else{
             return view('no_perms');
         }

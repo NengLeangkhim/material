@@ -19,6 +19,11 @@ class HrmQuestionKnowledgeController extends Controller
         session_start();
         }
         if(perms::check_perm_module('HRM_090903')){//module code list data tables id=108
+            if(perms::check_perm_module('HRM_09090301')){//module code 
+                $add_perm = '<button type="button" id="AddNewQuestionKnowledge" onclick=\'AddNewQuestionKnowledge()\' class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Question Knowledge</button>';
+            }else{
+                 $add_perm='';
+            }
             $userid = $_SESSION['userid'];
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
             foreach($permission as $row){
@@ -35,7 +40,28 @@ class HrmQuestionKnowledgeController extends Controller
                 $department = ModelHrmPermission::hrm_get_dept_ceo(); //query database
                 $question_knowledge = ModelHrmQuestionKnowledge::hrm_get_tbl_question_knowledge();
             }
-            return view('hrms/recruitment/knowledge_question/HrmKnowLedgeQuestion', ['question_knowledge' => $question_knowledge,'dept'=>$department]);
+            $i=1;// variable increase number for table
+            $table_perm= '<tbody>';
+            foreach($question_knowledge as $row){
+                $table_perm.= ' 
+                    <tr>
+                        <th>'.$i++.'</th>
+                        <td>'.$row->question.'</td>
+                        <td>'.$row->name.'</td>
+                        <td>'.date('Y-m-d H:i:s',strtotime($row->create_date)).'</td>
+                        <td>'.$row->username.'</td>
+                        <td width="10%" class="text-center">';
+                         if(perms::check_perm_module('HRM_09090302')){// Permission Update
+                            $table_perm.= '<a href="#" id="'.$row->id.'" title="Update" class="update_qestion_knowledge"><i class="far fa-edit"></i></a>';
+                         }
+                         if(perms::check_perm_module('HRM_09090303')){// Permission Delete
+                            $table_perm.= '<a href="#" id="'.$row->id.'" title="Delete" onclick=\'hrm_delete('.$row->id.',"hrm_list_knowledge_question/delete","hrm_list_knowledge_question","Question has been deleted")\' class="delete_qestion_knowledge"><i style="color:red;margin-left:10px;" class="fas fa-trash"></i></a>';
+                         }
+                $table_perm.= ' </td>
+                               </tr>';
+                }
+                $table_perm.= '</tbody>';
+            return view('hrms/recruitment/knowledge_question/HrmKnowLedgeQuestion', ['add_perm' => $add_perm,'dept'=>$department,'table_perm'=>$table_perm]);
         }else{
             return view('no_perms');
         }

@@ -455,7 +455,7 @@ Route::get('hrm_question_answer_sugg/delete', 'hrms\suggestion\QuestionAnswerCon
 // get modal for add answer //
 Route::get('hrm_question_answer_sugg/answer/modal','hrms\suggestion\QuestionAnswerController@hrm_modal_add_answer');
 
-// get modal for add answer //
+// add answer //
 Route::post('hrm_question_answer_sugg/answer/store','hrms\suggestion\QuestionAnswerController@AddAnswerSugg');
 
 // get modal for view detail question and answer //

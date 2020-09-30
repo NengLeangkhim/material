@@ -27,7 +27,7 @@ function check_session(){
     var href = $(this).attr("href");
     if (typeof link !== typeof undefined && link !== false) {
       $(".content-wrapper").html(spinner());
-     // $("#nav_bar_sub_r").html(get_pushmenu());
+      $("#nav_bar_sub_r").html(get_pushmenu());
       $.ajax({
         type: 'GET',
         url:link,
@@ -49,7 +49,7 @@ function check_session(){
      });
     }else if (typeof code !== typeof undefined && code !== false) {
         $(".content-wrapper").html(spinner());
-       // $("#nav_bar_sub_r").html(get_pushmenu());
+        $("#nav_bar_sub_r").html(get_pushmenu());
         $.ajax({
           type: 'POST',
           url:'sub_r_nav',
@@ -72,7 +72,7 @@ function check_session(){
       }
       else if (typeof href !== typeof undefined && href !== false) {
         var target = $(this).attr("target");
-       // $("#nav_bar_sub_r").html(get_pushmenu());
+        $("#nav_bar_sub_r").html(get_pushmenu());
         if (typeof target !== typeof undefined && target !== false) {
           window.open(href, target);
         }else{
@@ -92,7 +92,7 @@ function set_selected_nav(tar){
   }
 }
 function get_pushmenu(){
-  return '<li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></li>';
+  return '<li class="nav-item"><a class="nav-link bar-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></li>';
 }
 // function addlead(){
 //   var link = $(this).attr("​value");
