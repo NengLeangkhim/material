@@ -1032,13 +1032,14 @@ Route::get('test_chart',function(){
 
 // Customer Management
     // Customer
-
+    Route::get('/customer','bsc\CustomerController@customer'); // get Customer
     // Customer Branch
-
+    Route::get('/customer_branch','bsc\CustomerController@customer_branch');    // get Customer Branch
+    Route::get('/bsc_customer_branch/detail','bsc\CustomerController@customer_branch_detail');  // get Customer Branch Detail
     // Customer Service
-
+    Route::get('/customer_service','bsc\CustomerController@customer_service');  // get Customer Service
     // Customer Service Detail
-    
+    Route::get('/customer_service_detail','bsc\CustomerController@customer_service_detail');    // get Customer Service Detail
 // Report
     // Dashboard
 
