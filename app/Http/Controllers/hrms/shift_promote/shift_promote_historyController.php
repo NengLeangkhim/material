@@ -10,6 +10,7 @@ use App\model\hrms\shift_promote\management_promoteModel;
 class shift_promote_historyController extends Controller
 {
 
+
     public function all_staff_promote(){
         $all_promote = management_promoteModel::all_shift_promote();
         $x = 0;
@@ -53,10 +54,8 @@ class shift_promote_historyController extends Controller
                 if( $num == $i){
                     $r = $all_promote3[$i]; 
                 }
-
             }
             return view('hrms/shift_promote/management_view_promote_history/shift_history_listDetail', ['his_listDetail' => $r]);
-
         }
 
     }

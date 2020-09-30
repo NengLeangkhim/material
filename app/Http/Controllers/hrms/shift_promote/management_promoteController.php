@@ -14,14 +14,6 @@ class management_promoteController extends Controller
     /* function get all employee from 3 table: staff, position, hr_payroll  */
     public function AllEmployee(){
         $AllEmployee = Employee::AllEmployee();
-       
-        // $AllEmployee = management_promoteModel::AllEmployee();
-        // var_dump($AllEmployee);
-        
-        // foreach($AllEmployee as $val){
-        //     echo $val->ma_position_id;
-        // }
-
         return view('hrms/shift_promote/management_promote/shift_promote_management', ['allEmployee' => $AllEmployee]);
     }
 
@@ -46,24 +38,21 @@ class management_promoteController extends Controller
 
     /* function to send update staff promote to DB */
     public function Submit_staff_promote(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userid = $_SESSION['userid'];  //use this user id to know who was promote staff
+
         if( isset($_GET['s_id'])  && isset($_GET['txt_position']) && isset($_GET['txt_salary']) && isset($_GET['txt_comment'])){
             $id = $_GET['s_id'];
             $pos = $_GET['txt_position'];
             $sa = $_GET['txt_salary'];
             $com = $_GET['txt_comment'];
-            $r = management_promoteModel::update_staff_shift($id,$pos,$sa,$com);
+            $r = management_promoteModel::update_staff_shift($id,$pos,$sa,$userid,$com);
             if($r > 0){
                 return 1;
-                // return view('hrms/Employee/AllEmployees/AddAndEditEmployee');
-                // return view('hrms/shift_promote/management_promte/shift_promote_management');
             }else{
                 return 0;
-                // echo '
-                //     $.notify(
-                //         "Failed to promote update !", 
-                //         { position:"top center" }
-                //     )
-                // ';
             }
 
         }

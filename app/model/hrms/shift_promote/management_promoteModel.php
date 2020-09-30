@@ -56,12 +56,12 @@ class management_promoteModel extends Model
 
 
     /* function to update shift when management comment promote*/
-    public static function update_staff_shift($id, $position,$salary,$comment){
+    public static function update_staff_shift($id, $position,$salary,$userid,$comment){
 
         try{
-            $sql = " SELECT public.insert_hr_shift($id, $position, $salary, '1', '$comment')";
+            $sql = " SELECT public.insert_hr_shift($id, $position, $salary, $userid, '$comment')";
             DB::select($sql);
-            DB::table('hr_payroll')->where('ma_user_id', $id)->update(['base_salary' => $salary]);
+            // DB::table('hr_payroll')->where('ma_user_id', $id)->update(['base_salary' => $salary]);
             return 1;
         }
         catch(\Illuminate\Database\QueryException $e){
