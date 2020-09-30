@@ -35,9 +35,9 @@
                       @foreach ($data[0] as $e)
                           @php
                               if($e->id==$sid){
-                                $f1=$f1.'<option value="'.$e->id.'">'.$e->first_name_en.' '.$e->last_name_en.'</option>';
+                                $f1=$f1.'<option value="'.$e->id.'">'.$e->firstName.' '.$e->lastName.'</option>';
                               }else {
-                                $f2=$f2.'<option value="'.$e->id.'">'.$e->first_name_en.' '.$e->last_name_en.'</option>';
+                                $f2=$f2.'<option value="'.$e->id.'">'.$e->firstName.' '.$e->lastName.'</option>';
                               }
                           @endphp
                         
