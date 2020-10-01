@@ -69,9 +69,11 @@ Route::get('/organizations/detail','crm\OrganizationController@DetailOrganizatio
 
 
 // crm quote
-Route::get('/quote','crm\quoteController@showQuoteList'); // get show quote list 
-Route::get('/quote/add','crm\quoteController@addQuote'); // get show quote list 
-Route::get('/quote/add/addrow','crm\quoteController@addRow'); // get one row quote item table
+Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote list 
+Route::get('/quote/add','crm\QuoteController@addQuote'); // get show quote list 
+Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quote item table
+Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get one row quote item table
+
 
 // end quote
 // Start Report
@@ -453,7 +455,7 @@ Route::get('hrm_question_answer_sugg/delete', 'hrms\suggestion\QuestionAnswerCon
 // get modal for add answer //
 Route::get('hrm_question_answer_sugg/answer/modal','hrms\suggestion\QuestionAnswerController@hrm_modal_add_answer');
 
-// get modal for add answer //
+// add answer //
 Route::post('hrm_question_answer_sugg/answer/store','hrms\suggestion\QuestionAnswerController@AddAnswerSugg');
 
 // get modal for view detail question and answer //
@@ -748,7 +750,8 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 // ========================================================>END METKEOSAMBO <======================================================== //
 
 // ========================================================> SENG KIMSROS <======================================================== //
-
+// Delete Data
+    Route::get('hrm_delete_data', 'DeletePermissionController@CheckPermission');
 // Employee
 
     // Start All Employee
@@ -773,6 +776,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_calculate_attendance_detail', 'hrms\Employee\AttendanceController@ShowAttendanceDetail');
         Route::get('hrm_attendance_edit', 'hrms\Employee\AttendanceController@AttendanceEdit');
         Route::post('hrm_attendance_insert', 'hrms\Employee\AttendanceController@AttendanceEditInsert');
+        Route::get('hrm_your_attendance', 'hrms\Employee\AttendanceController@YourAttendance');
     // End Attendance
 
     // Start Mission And Out Side
@@ -790,7 +794,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::post('hrm_add_edit_department', 'hrms\Employee\DepartmentAndPositionController@AddEditDepartment');
         Route::get('hrm_delete_department', 'hrms\Employee\DepartmentAndPositionController@DeleteDepartment');
 
-        Route::get('hrm_add_modal_position', 'hrms\Employee\DepartmentAndPositionController@AddModalAddEditDepartment');
+        Route::get('hrm_add_modal_position', 'hrms\Employee\DepartmentAndPositionController@AddModalAddEditPosition');
         Route::post('hrm_add_edit_position', 'hrms\Employee\DepartmentAndPositionController@AddAndEditPosition');
         Route::get('hrm_delete_position', 'hrms\Employee\DepartmentAndPositionController@DeletePosition');
     // End Department And Position
@@ -843,9 +847,9 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_payroll_list', 'hrms\Payroll\PayrollController@PayrollList');
         Route::get('hrm_payslip', 'hrms\Payroll\PayrollController@ModalPayslip');
         Route::get('hrm_payrollitems', 'hrms\Payroll\PayrollController@ModalPayrollItems');
-        Route::get('hrm_paroll_detail', 'hrms\Payroll\PayrollController@PayrollDetail');
+        Route::get('hrm_paroll_detail', 'hrms\Payroll\PayrollController@Payroll_List_Detail');
         Route::get('hrm_hrapprove_payroll', 'hrms\Payroll\PayrollController@HR_ApprovePayroll');
-        Route::get('hrm_hrdelete_component', 'hrms\Payroll\PayrollController@DeleteComponent');
+        Route::get('hrm_hrdelete_component', 'hrms\Payroll\PayrollController@DeleteComponent'); 
         Route::get('hrm_showpayrollbymonth', 'hrms\Payroll\PayrollController@PayrollList');
     // End Payroll List
     
@@ -1010,5 +1014,69 @@ Route::get('test_chart',function(){
 
 //==========================================================> End HRMS <===============================================================///
 
+//============================================================> START BSC <===============================================================///
+// ========================================================> THIN VYTOU <======================================================== //
 
+// Report
+    // Financial Report
+        // Balance Sheet
 
+        // Profit and Loss
+
+    // Accounting Report
+        // Account Transaction
+
+        // Trial Balance
+
+// ========================================================> END THIN VYTOU <======================================================== //
+// ========================================================> SOV SOTHEA <======================================================== //
+
+// Customer Management
+    // Customer
+    Route::get('/customer','bsc\CustomerController@customer'); // get Customer
+    // Customer Branch
+    Route::get('/customer_branch','bsc\CustomerController@customer_branch');    // get Customer Branch
+    Route::get('/bsc_customer_branch/detail','bsc\CustomerController@customer_branch_detail');  // get Customer Branch Detail
+    // Customer Service
+    Route::get('/customer_service','bsc\CustomerController@customer_service');  // get Customer Service
+    // Customer Service Detail
+    Route::get('/customer_service_detail','bsc\CustomerController@customer_service_detail');    // get Customer Service Detail
+// Report
+    // Dashboard
+
+// ========================================================> END SOV SOTHEA <======================================================== //
+// ========================================================> SOK SENG <======================================================== //
+
+// Chart account
+
+// Invoice
+    // Invoice
+
+    // View Payment
+
+// Report   
+    // Sale Report
+        // Aged Receivables Detail
+
+        // Aged Receivables Summary
+
+        // Customer Invoice Report
+
+// ========================================================> END SOK SENG <======================================================== //
+// ========================================================> TOUCH RITH <======================================================== //
+
+// Purchase
+    // Purchase
+
+    // View Purchase Payment
+    
+// Report
+    // Purchase Report
+        // Aged Payables Detail
+
+        // Aged Payables Summary
+
+        // Supplier Invoice Report
+
+// ========================================================> END TOUCH RITH <======================================================== //
+//============================================================> END BSC <===============================================================///

@@ -7,7 +7,8 @@
                <div class="card-header">
                  <h1 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i> Question Type</strong></h1>
                  <div class="col-md-12 text-right">
-                     <button type="button" id="AddNewQuestionType" onclick="AddNewQuestionType()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Question Type</button>
+                     {{-- <button type="button" id="AddNewQuestionType" onclick="AddNewQuestionType()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Question Type</button> --}}
+                     {!!$add_perm!!}
                  </div>
                </div>
                <!-- /.card-header -->
@@ -23,10 +24,11 @@
                                 <th width="15%" scope="col">Action</th>
                               </tr>
                             </thead>
-                            <tbody>
+                            {!!$table_perm!!}
+                            {{-- <tbody>
                               <?php 
-                              $i=1;
-                              $check='';?>
+                              // $i=1;
+                              // $check='';?>
                               @foreach($question_type as $row)
                                 @php
                                 $create = $row->create_date;
@@ -43,7 +45,7 @@
                                       </td>
                                   </tr>     
                               @endforeach
-                            </tbody>
+                            </tbody> --}}
                           </table>
 
                     </div>

@@ -1,7 +1,7 @@
 
 
     <div class="table-reponsive">
-        <table class="row_tb_style" style="background-color:white; width: 85%;">
+        <table class="table table-bordered row_tb_style" style="background-color:white; width: 85%;">
             <thead>
                 <tr style="color: blue;">
                     <th scope="col">#</th>

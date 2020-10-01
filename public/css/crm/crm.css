@@ -128,7 +128,7 @@
 
     .max-min-table {
         max-width: 100%;
-        min-width: 800px;
+        min-width: 900px;
     }
     .max-min-table-total {
         min-width: 700px;
@@ -150,7 +150,7 @@
     .txtbox-quote {
         width: 100%; 
         border-radius: 3px;
-        border: 0.5px solid #d7cfcf;
+        border: 1px solid #d7cfcf;
     }
 
     .txtbox-quote:hover{

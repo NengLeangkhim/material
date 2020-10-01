@@ -28,7 +28,7 @@
                       @endphp
                         <tr>
                         <td>{{++$i}}</td>
-                        <td>{{$em->name}}</td>
+                        <td>{{$em->first_name_en}} {{$em->last_name_en}}</td>
                         <td>{{$em->id_number}}</td>
                         <td>{{$em->position}}</td>
                           <td class="text-center">{{$em->bonus_value}}</td>

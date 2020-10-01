@@ -7,7 +7,8 @@
                <div class="card-header">
                  <h1 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i> Question & Answer</strong></h1>
                  <div class="col-md-12 text-right">
-                     <button type="button" id="AddNewQuestionRe" onclick="AddNewQuestionRe()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Question</button>
+                     {{-- <button type="button" id="AddNewQuestionRe" onclick="AddNewQuestionRe()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Question</button> --}}
+                     {!!$add_perm!!}
                  </div>
                </div>
                <!-- /.card-header -->
@@ -24,10 +25,11 @@
                          <th scope="col">Action</th>
                      </tr>
                    </thead>
+                   {!!$table_perm!!}
                    @php
-                    $i=1;   
+                    // $i=1;   
                    @endphp
-                   <tbody>
+                   {{-- <tbody>
                      @foreach ($question as $row)
                      @php
                      $create = $row->create_date;
@@ -40,7 +42,7 @@
                          <td class="text-center">{{$row->name}}</td>
                          <td class="text-center">{{$ts1->format('d-M-Y H:i:s')}}</td>
                          <td class="text-center">{{$row->username}}</td>
-                       @if ($row->hr_recruitment_question_type_id==1) {{-- Permission check for option type --}}
+                       @if ($row->hr_recruitment_question_type_id==1) Permission check for option type
                          <td class="text-center">
                            <div class="dropdown">
                              <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,7 +52,7 @@
                              <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_re_detail_question_answer">View Detail</button>
                              <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_question_answer_re">Update Detail</button>
                              <button type="button" id="{{$row->id}}" onclick="hrm_delete('{{$row->id}}','hrm_question/deletedetail','/hrm_question','Question And Answer Has Been Deleted')" class="dropdown-item hrm_item hrm_delete_question_answer_re">Delete</button>
-                             @if (is_null($row->delete)||$row->delete == 1) {{-- Check answer create already or not  --}}
+                             @if (is_null($row->delete)||$row->delete == 1) Check answer create already or not 
                              <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item add_answer_re">Add Choice</button>
                              @endif
                              </div>
@@ -71,7 +73,7 @@
                        @endif 
                      </tr>
                      @endforeach
-                   </tbody>
+                   </tbody> --}}
                  </table>
                </div>
                <!-- /.card-body -->

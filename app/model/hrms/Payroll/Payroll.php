@@ -9,7 +9,7 @@ use Throwable;
 class Payroll extends Model
 {
     // Function for Calculate Salary Tax
-    Function SalaryTax($salary,$wife,$son,$bonus){
+    public static Function SalaryTax($salary,$wife,$son,$bonus){
         try{
             if ($wife > 1) {
                 $wife = 1;
@@ -49,12 +49,12 @@ class Payroll extends Model
     }
 
     // Function To Count Wife
-    function CountWife(){
+    public static function CountWife(){
         return 0;
     }
 
     // Function To Count Children
-    function CountChildren($staffid){
+    public static function CountChildren($staffid){
         $sql = "select count(*) from e_request_employment_biography_children where marital_status='single' and e_request_employment_biography=$staffid and is_deleted='f'";
         $stm=DB::select($sql);
         if($stm[0]->count>0){
@@ -65,7 +65,7 @@ class Payroll extends Model
     }
 
     // Check Marital Status
-    function MaritalStatus($staffid){
+    public static function MaritalStatus($staffid){
         $sql = "SELECT id,marital_status from e_request_employment_biography where request_by =$staffid and is_deleted='f'";
         $stm=DB::select($sql);
         if($stm[0]->marital_status==='married'){
@@ -80,38 +80,33 @@ class Payroll extends Model
     }
 
     // Function To Check Overtime
-    function MonthlyOvertime(){
+    public static function MonthlyOvertime(){
         
         return 0;
     }
 
     // Function To Check Bonus
-    function CheckBonus(){
+    public static function CheckBonus(){
         return 0;
     }
 
     // Function Create Payroll
-    function CreatePayroll($userid,$currencyrateid,$companyid,$companybranchid,$by,$from,$to,$month,$year){
-//         $sql= "SELECT public.insert_hr_payroll_component_auto(
-// 	<nma_user_id integer>, 
-// 	<nma_currency_rate_id integer>, 
-// 	<nma_company_id integer>, 
-// 	<nma_company_branch_id integer>, 
-// 	<ncreate_by integer>, 
-// 	<ndate_from date>, 
-// 	<ndate_to date>
-// )";
+    public static function CreatePayroll($userid,$currencyrateid,$companyid,$companybranchid,$by,$from,$to,$month,$year){
         $sql = "SELECT public.insert_hr_payroll_component_auto($userid,$currencyrateid,$companyid,$companybranchid,$by,'$from','$to',$month::SMALLINT,$year::SMALLINT)";
         $stm=DB::select($sql);
-        print_r($stm);
+        if($stm[0]->insert_hr_payroll_component_auto>0){
+            return "Payroll Create Successfully";
+        }else{
+            return "error";
+        }
     }
 
 
-    function ShowPayrollList($em,$month,$year){
+    public static function ShowPayrollList($em,$month,$year){
         $data=array();
         $getdata=array();
         foreach($em as $emp){
-            $get_full_en_name = $emp->first_name_en." ".$emp->last_name_en;
+            $get_full_en_name = $emp->firstName." ".$emp->lastName;
             $getdata=self::GetValueFromComponent($emp->id,$get_full_en_name,$emp->position,1,$month,$year);
             if($getdata!=null){
                 array_push($data,$getdata);
@@ -120,7 +115,7 @@ class Payroll extends Model
         return $data;
     }
 
-    function GetValueFromComponent($id,$name,$role,$baseSalary,$month,$year){
+    public static function GetValueFromComponent($id,$name,$role,$baseSalary,$month,$year){
         $sql= "select hpc.value,hpct.name,hpc.date_from,hpc.date_to,hpc.for_month,hpc.approve from hr_payroll_component hpc
                 INNER JOIN hr_payroll_component_type hpct on hpct.id=hpc.hr_payroll_component_type_id         
                 where hpc.ma_user_id=$id and hpc.status='t' and hpc.is_deleted='f' and hpc.for_month=$month and for_year=$year";
@@ -153,7 +148,7 @@ class Payroll extends Model
         }
     }
 
-    function HR_Approve($by,$id,$d_from,$d_to,$month,$companyid,$branchid,$year){
+    public static function HR_Approve($by,$id,$d_from,$d_to,$month,$companyid,$branchid,$year){
         $sql= "SELECT public.insert_hr_payroll_component_approve($by,$id,'$d_from','$d_to',$month::SMALLINT,$year::SMALLINT,$companyid,$branchid)";
         $stm=DB::select($sql);
         if($stm[0]->insert_hr_payroll_component_approve>0){
@@ -164,7 +159,7 @@ class Payroll extends Model
     }
 
 
-    function DelectComponent($id,$date_from,$date_to,$for_month,$by){
+    public static function DelectComponent($id,$date_from,$date_to,$for_month,$by){
         $sql= "SELECT public.delete_hr_payroll_component_auto($id,'$date_from','$date_to',$for_month::SMALLINT,$by)";
         $stm=DB::select($sql);
         print_r($stm);
@@ -176,7 +171,7 @@ class Payroll extends Model
     }
 
     // for finance check 
-    function Payroll($month,$year){
+    public static function Payroll($month,$year){
         $sql="select hpl.id,hpl.approve, mu.first_name_en, mu.last_name_en ,mu.id_number,mp.name as position,hpl.bonus_value,hpl.tax from hr_payroll_list hpl 
             INNER JOIN ma_user mu on hpl.ma_user_id=mu.id
             INNER JOIN ma_position mp ON mu.ma_position_id=mp.id 
@@ -186,14 +181,14 @@ class Payroll extends Model
     }
 
     // function for finance approve when payroll is correct
-    function FinanceApprovePayroll($id,$by){
+    public static function FinanceApprovePayroll($id,$by){
         $sql= "SELECT public.insert_hr_payroll_list_approve_to_payroll($id,$by)";
         $stm=DB::select($sql);
         print_r($stm);
     }
 
 
-    function ExportPayroll_Excel($month,$year){
+    public static function ExportPayroll_Excel($month,$year){
         $sql= "select mu.first_name_en, mu.last_name_en,mu.id_number,hp.base_salary,hp.add_on,hp.tax,(hp.base_salary+hp.add_on)-hp.tax as netsalary from hr_payroll hp INNER JOIN ma_user mu on hp.ma_user_id= mu.id
                 where hp.id in(select hplhp.hr_payroll_id from hr_payroll_list_hr_payroll_component_rel hplhpc join hr_payroll_component hpc on hplhpc.hr_payroll_component_id=hpc.id  join hr_payroll_list_hr_payroll_rel hplhp on hplhp.hr_payroll_list_id=hplhpc.hr_payroll_list_id 
                 where hpc.for_month=$month and hpc.for_year=$year) and hp.status='t' and hp.is_deleted='f'";
@@ -203,7 +198,7 @@ class Payroll extends Model
         foreach($stm as $ex_payroll){
             $data[]=[
                 'No'=>++$i,
-                'name'=>$ex_payroll->name,
+                'name'=>$ex_payroll->first_name_en.$ex_payroll->last_name_en,
                 'ID Number'=>$ex_payroll->id_number,
                 'Base Salary'=>$ex_payroll->base_salary,
                 'Add On'=>$ex_payroll->add_on,

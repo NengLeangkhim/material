@@ -1,17 +1,26 @@
 
 <?php
-    
     // print_r($staffbyid);
-    // print_r($get_position);
-    foreach ($staffbyid as $key => $val1) {
+    // return null;
 
-        $staffid = $val1->id;
-        $staff_posid = $val1->ma_position_id;
-        $staff_name =  $val1->first_name_en.' '.$val1->last_name_en;
-        $staff_position =  $val1->ma_position;
-        $staff_salary =  $val1->base_salary;
-    }
+    $staffid = $staffbyid['id'];
+    $staff_posid = $staffbyid['position_id'];
+    $staff_name =  $staffbyid['firstName'].' '.$staffbyid['lastName'];
+    $staff_position = $staffbyid['positionName'];
+    $staff_salary =  $staffbyid['salary'];
     $get_pos = '';
+
+    
+    // foreach ($staffbyid as $val1) {
+    //     $staffid = $val1['id'];
+    //     echo $staffid;
+    //     // return null;
+    //     // $staff_posid = $val1->ma_position_id;
+    //     // $staff_name =  $val1->first_name_en.' '.$val1->last_name_en;
+    //     // $staff_position =  $val1->position;
+    //     // $staff_salary =  $val1->rate_month;
+    // }
+    
 
 ?>
 
@@ -22,7 +31,7 @@
   <div class="modal-dialog modal-lg" id="confirm_box1">
     <div class="modal-content">
         <div class="modal-header text-center">
-            <h4 class="modal-title" id="exampleModalLabel">Promote Staff</h4>
+            <h3 class="card-title hrm-title"><strong><i class="fas fa-user-tag"></i> Promote Staff</strong></h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

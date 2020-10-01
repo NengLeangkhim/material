@@ -13,9 +13,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h1 class="card-title hrm-title"><strong><i class="fas fa-user-edit"></i> View Promote History</strong></h1>
-                        {{-- <div class="col-md-12 text-right">
-                            <a href="javascript:;" class="btn bg-turbo-color" onclick="HRM_AddEditEmployee()"><i class="fas fa-user-plus"></i> Add Employee</a>
-                        </div> --}}
+
                     </div>
     
                     <div class="card-body">
@@ -37,7 +35,6 @@
                                 @php
                                     
                                     $i = 0;
-                                    // $val = "hello";
                                     
                                     if(is_array($allstaffpromote))
                                     {
@@ -90,9 +87,9 @@
 
     
     <script>
-        $(document).ready(function() {
-            var table=$('#tbl_employee').DataTable();
-        } );
+        // $(document).ready(function() {
+        //     var table=$('#tbl_employee').DataTable();
+        // } );
     </script>
         
     
