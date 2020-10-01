@@ -285,7 +285,7 @@
               </div>
               <div class="col-md-12">
                 <label>Description</label>
-                <textarea name="emDescription" id="" rows="5" class="form-control">@php if(isset($data1)){echo $data[1]['description'];} @endphp</textarea>
+                <textarea name="emDescription" id="" rows="5" class="form-control">@php if(isset($data[1])){echo $data[1]['description'];} @endphp</textarea>
               </div>
               <div class="col-md-12 text-right" style="margin-top: 20px">
                   <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
