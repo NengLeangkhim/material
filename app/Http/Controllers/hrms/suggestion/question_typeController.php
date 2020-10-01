@@ -16,8 +16,32 @@ class question_typeController extends Controller
         session_start();
         }
         if(perms::check_perm_module('HRM_090802')){//module code list data tables id=104
+            if(perms::check_perm_module('HRM_09080201')){//module code list data tables id=129
+                $add_perm = '<button type="button" id="Add_Q_Type_Sugg" onclick=\'AddNewQ_type_sugg()\' class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Question Type</button>';
+             }else{
+                 $add_perm='';
+             }
             $question_type_sugg = model_question_type::get_tbl_suggestion_question_type(); //get database  from model
-            return view('hrms/suggestion/question_type/question_type_sugg', ['question_type_sugg' => $question_type_sugg]);
+            $i=1;// variable increase number for table
+            $table_perm= '<tbody>';
+            foreach($question_type_sugg as $row){
+                $table_perm.= ' 
+                    <tr>
+                        <th>'.$i++.'</th>
+                        <td>'.$row->name.'</td>
+                        <td>'.$row->username.'</td>
+                        <td class="text-center">';
+                         if(perms::check_perm_module('HRM_09080203')){// Permission Update
+                            $table_perm.= '<a href="#" id="'.$row->id.'" title="Update" class="update_q_t_sugg"><i class="far fa-edit"></i></a>';
+                         }
+                         if(perms::check_perm_module('HRM_09080202')){// Permission Delete
+                            $table_perm.= '<a href="#" id="'.$row->id.'" title="Delete" onclick=\'detele_q_t_sugg('.$row->id.')\' class="detele_q_t_sugg"><i style="color:red;margin-left:10px;" class="fas fa-trash"></i></a>';
+                         }
+                $table_perm.= ' </td>
+                               </tr>';
+                }
+                $table_perm.= '</tbody>';
+            return view('hrms/suggestion/question_type/question_type_sugg', ['add_perm' => $add_perm,'table_perm'=>$table_perm]);
         }else{
             return view('no_perms');
         }
@@ -103,9 +127,10 @@ class question_typeController extends Controller
             session_start();
             }
             $id = $_GET['id'];
+            if(perms::check_perm_module('HRM_09080203')){
             $question_type = array();
             $question_type= model_question_type::hrm_get_update_question_type($id); 
-            return response()->json($question_type);
+            return response()->json($question_type);}
     }
     // function deleted question type //
     public function delete_question_type_sugg(){

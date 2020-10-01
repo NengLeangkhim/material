@@ -29,6 +29,8 @@ class HrmPerformReportController extends Controller
                 
             }else if($group==4){//permission each departement
                 $department = ModelHrmPermission::hrm_get_dept_dept($dept); //query database
+            }else{
+                $department = ModelHrmPermission::hrm_get_dept_dept($dept); //query database
             }    
             return view('hrms/performance/performance_report/HrmPerformanceReport',['dept'=>$department]); 
         }else{

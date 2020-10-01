@@ -2515,7 +2515,7 @@
                         <div class="form-group row">
                             <label class="control-label col-md-2">Link</label>
                             <div class="col-md-4">
-                                <input class="form-control" type="text" name="editLink" id="editLink" required placeholder="link">
+                                <input class="form-control" type="text" name="editLink" id="editLink"  placeholder="link">
                             </div>
 
                             <label class="control-label col-md-2">Sequence</label>
@@ -2547,7 +2547,7 @@
                         <div class="form-group row">
                             <label class="control-label col-md-2">Icon</label>
                             <div class="col-md-4">
-                                <select size="4" class="form-control fa-select" id="editIcon" required name="editIcon" >
+                                <select size="4" class="form-control fa-select" id="editIcon" name="editIcon" >
                                     <option value="fas fa-american-sign-language-interpreting">&#xf2a3;&nbsp;American Sign Language Interpreting</option>
                                     <option value="fas fa-assistive-listening-systems">&#xf2a2;&nbsp;Assistive Listening Systems</option>
                                     <option value="fas fa-audio-description">&#xf29e;&nbsp;Audio Description</option>

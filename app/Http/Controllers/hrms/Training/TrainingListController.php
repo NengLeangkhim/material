@@ -48,7 +48,7 @@ class TrainingListController extends Controller
             $data[4]=$em->AllEmployee();
             return view('hrms/Training/TrainingList/ModalTrainingList')->with('data',$data);
         } else {
-            return view('noperms');
+            return view('modal_no_perms')->with('modal', 'modal_traininglist');
         }
         
     }
@@ -96,16 +96,21 @@ class TrainingListController extends Controller
     }
 
     function TrainingListDetail(){
-        $id=$_GET['id'];
-        $trainList=new TrainingList();
-        $data=array();
-        $data[0]=$trainList->TrainingList($id);
-        if(strlen($data[0][0]->hrid)>0){
-            $data[1] = $trainList->TrainingStaff($data[0][0]->hrid);
+        if(perms::check_perm_module('HRM_09050102')) {
+            $id = $_GET['id'];
+            $trainList = new TrainingList();
+            $data = array();
+            $data[0] = $trainList->TrainingList($id);
+            if (strlen($data[0][0]->hrid) > 0) {
+                $data[1] = $trainList->TrainingStaff($data[0][0]->hrid);
+            } else {
+                $data[1] = $trainList->TrainingStaff(0);
+            }
+            return view('hrms/Training/TrainingList/TrainingListDetail')->with('data', $data);
         }else{
-            $data[1]= $trainList->TrainingStaff(0);
+            return view('modal_no_perms')->with('modal', 'modal_traininglist_detail');
         }
-        return view('hrms/Training/TrainingList/TrainingListDetail')->with('data',$data);
+        
     }
 
     function DeleteTrainingList(){

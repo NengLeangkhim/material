@@ -12,18 +12,19 @@ use App\model\hrms\employee\Employee as EmployeeEmployee;
 
 class MissionAndOutsideController extends Controller
 {
+    // List all Mission
     function AllMissionAndOutSide()
     {
-        $ms=new MissionAndOutSide();
-        $data=array();
-        $mission['mis_out']=$ms->MissionOutside();
-        return view('hrms/Employee/MissionAndOutSide/MissionAndOutSide')->with($mission);
+        $data=MissionAndOutSide::MissionOutside();
+        return view('hrms/Employee/MissionAndOutSide/MissionAndOutSide')->with('mission',$data);
     }
+
+    // Show modal add or edit mission
     function AddModalMissionOutside(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if (perms::check_perm_module('HRM_090104')) {
+        if (perms::check_perm_module('HRM_09010401')) {
             $em=new EmployeeEmployee();
             $ms = new MissionAndOutSide();
             $id=$_GET['id'];
@@ -34,10 +35,11 @@ class MissionAndOutsideController extends Controller
             }
             return view('hrms/Employee/MissionAndOutSide/ModalAddAndEditMissionAndOutSide')->with('data',$data);
         } else {
-            return view('no_perms');
+            return view('modal_no_perms')->with('modal', 'modal_missionoutside');
         }
     }
 
+    // Insert Mission
     function InsertUpdateMissionOutside(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -58,7 +60,7 @@ class MissionAndOutsideController extends Controller
             $gazetteers_code=$_POST['gazetteers_code'];
             $latelong=$_POST['latelong'];
             if($id>0){
-                // $stm=$ms->UpdateMissionOutside($location,$f_date,$t_date,$description,$type,$shift,$emid,$id);
+                $stm=MissionAndOutSide::UpdateMissionOutside($id,$userid,$f_date,$t_date,$description,'t',$type,$shift,$street,$home_number,$latelong,$gazetteers_code,$emid);
             }else{
                 $stm=$ms->InsertMissionOutSide($f_date,$t_date,$description,$type,$userid,$shift,$street,$home_number,$latelong,$gazetteers_code,$emid);
             }
@@ -69,6 +71,7 @@ class MissionAndOutsideController extends Controller
         }
     }
 
+    // Delete Mission
     function DeleteMissionOutSide(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -80,6 +83,21 @@ class MissionAndOutsideController extends Controller
             $ms->DeleteMissionOutSide($id,$userid);
         } else {
             return view('no_perms');
+        }
+    }
+
+
+    // mission detail
+    function MissionDetail(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (perms::check_perm_module('HRM_09010402')) {
+            $id=$_GET['id'];
+            $missionDetail=MissionAndOutSide::MissionDetail($id);
+            return view('hrms/Employee/MissionAndOutSide/MissionDetail')->with('mission_detail',$missionDetail);
+        } else {
+            return view('modal_no_perms')->with('modal', 'modal_mission_detail');
         }
     }
 }

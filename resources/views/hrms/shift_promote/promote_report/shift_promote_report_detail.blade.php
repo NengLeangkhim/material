@@ -12,12 +12,11 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
           <div class="modal-header text-center">
-                <?php 
-                      echo '<h4 class="modal-title" id="exampleModalLabel">Promote Report Detail</h4> ';
-                ?>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
+                <h3 class="card-title hrm-title"><strong><i class="far fa-id-card"></i> History View Detail</strong></h3>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
           </div>
           <div class="modal-body">
           <form action="../controller/shift_promote/promote_update.php" method="POST">
@@ -25,12 +24,12 @@
                   <!-- Display New Position -->
                   <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Staff Name <span class="text-danger">*</span>
+                                <label for="exampleInputEmail1">Staff Name   
                                 </label>
                                 <input type="text" class="form-control" value="<?php echo $report_detail['0']->first_name_en.' '.$report_detail['0']->last_name_en; ?>" placeholder="" name="" readonly >        
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Get Position <span class="text-danger">*</span>
+                                <label for="exampleInputEmail1">Get Position   
                                 </label>
                                 <input type="text" class="form-control" value="<?php echo $report_detail['0']->position; ?>" placeholder="" name="" readonly >        
                             </div>
@@ -38,12 +37,12 @@
                   <div class="col-lg-6">
                          
                           <div class="form-group">
-                              <label for="exampleInputEmail1">Get Salary<span class="text-danger">*</span>
+                              <label for="exampleInputEmail1">Get Salary  
                               </label>
                               <input type="text" class="form-control" value="<?php echo $report_detail['0']->salary;?>" readonly>
                           </div>
                           <div class="form-group">
-                              <label for="exampleInputEmail1">Approved Date<span class="text-danger">*</span>
+                              <label for="exampleInputEmail1">Approved Date  
                               </label>
                               <input type="text" class="form-control" value="<?php echo $report_detail['0']->create_date; ?> " readonly>
                           </div>

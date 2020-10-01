@@ -16,10 +16,46 @@ class HrmPolicyController extends Controller
              session_start();
              }
              if(perms::check_perm_module('HRM_090601')){//module code list data tables id=93
-                  $userid = $_SESSION['userid'];
-                  $permission = ModelHrmPermission::hrm_get_permission($userid);
-                  $policy_list = ModelHrmPolicy::hrm_get_tbl_policy();
-                 return view('hrms/policy/list_policy/HrmPolicyList', ['permission' => $permission,'policy'=>$policy_list]);
+                $userid = $_SESSION['userid'];
+                if(perms::check_perm_module('HRM_09060101')){ // Permission Add
+                    $add_perm = '<button type="button" id="HrmAddPolicy" onclick=\'HrmAddPolicy()\' class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Policy</button>';
+                 }else{
+                     $add_perm='';
+                 }
+                $policy_list = ModelHrmPolicy::hrm_get_tbl_policy();
+                $i=1;// variable increase number for table
+                  $table_perm= '<tbody>';
+                foreach($policy_list as $row){
+                    $create = $row->create_date;
+                  $table_perm.= ' 
+                    <tr>
+                        <th>'.$i++.'</th>
+                        <td>'.$row->name.'</td>
+                        <td>'.$row->username.'</td>
+                        <td>'.date('Y-m-d H:i:s',strtotime($create)).'</td>
+                        <td class="text-center">';
+                  $table_perm.= '
+                    <div class="dropdown">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Action
+                        </button>
+                        <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">';
+                  if(perms::check_perm_module('HRM_09060104')){// Permission View
+                     $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item hrm_view_policy">View</button>';
+                  }
+                  if(perms::check_perm_module('HRM_09060102')){// Permission Update
+                     $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item hrm_update_policy_list">Update</button>';
+                  }
+                  if(perms::check_perm_module('HRM_09060103')){// Permission Delete
+                     $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'hrm_delete('.$row->id.',"hrm_list_policy/delete","hrm_list_policy","The Policy has been deleted")\' class="dropdown-item hrm_item">Delete</button>';
+                  }
+                  $table_perm.= ' </div>
+                                </div>
+                            </td>
+                        </tr>';
+                }
+                  $table_perm.='</tbody>';
+                 return view('hrms/policy/list_policy/HrmPolicyList', ['add_perm'=>$add_perm,'table_perm' =>$table_perm]);
              }else{
                  return view('no_perms');
              }
@@ -112,6 +148,7 @@ class HrmPolicyController extends Controller
         }else{
             if(perms::check_perm_module('HRM_09060102')){//module code list data tables id=137
                 if($request->file('policy_file') !=''){
+                    $policy_name = $request->policy_name;
                     $file = $request->file('policy_file');// GET File
                     $rename_file = $policy_name.'.pdf';// rename file as policy name
                     $filepdf = $file->getClientOriginalName(); // GET File name

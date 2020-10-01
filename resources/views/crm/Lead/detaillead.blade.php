@@ -74,6 +74,12 @@
                             <dt class="col-sm-4 dt">Primary Phone </dt>
                             <dd class="col-sm-8 dd">Fusce dapibus, tellus ac cursus commodo, tortor mauris 
                             </dd>
+                            <dt class="col-sm-4 dt">Vat Type </dt>
+                            <dd class="col-sm-8 dd">Sarang He yo
+                            </dd>
+                            <dt class="col-sm-4 dt">Vat Number </dt>
+                            <dd class="col-sm-8 dd">Oppa 000001 
+                            </dd>
                             <dt class="col-sm-4 dt">Customer Type </dt>
                             <dd class="col-sm-8 dd">Fusce dapibus, tellus ac cursus commodo, tortor maur
                             </dd>
@@ -87,6 +93,12 @@
                             </dd>
                             <dt class="col-sm-4 dt">Service </dt>
                             <dd class="col-sm-8 dd">Service Ssss
+                            </dd>
+                            <dt class="col-sm-4 dt">Current Speed </dt>
+                            <dd class="col-sm-8 dd">1mb/sec
+                            </dd>
+                            <dt class="col-sm-4 dt">Current Price </dt>
+                            <dd class="col-sm-8 dd">102010$
                             </dd>
                         </dl>
                     </div>

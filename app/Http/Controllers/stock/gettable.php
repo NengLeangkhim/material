@@ -742,7 +742,7 @@ class gettable extends Controller
         rp.create_date as \"Create Date\",rp.description as \"Description\"
         from stock_company_product rp
         join ma_company_detail cd on cd.id=rp.ma_company_detail_id
-        join ma_supplier ss on ss.id=rp.ma_supplier_id
+        left join ma_supplier ss on ss.id=rp.ma_supplier_id
         where cd.is_deleted='f' and rp.is_deleted='f' and rp.action_type='in'
         and rp.id in (select stock_company_product_id from stock_company_product_detail where status='t' and is_deleted='f')) as foo where lower(\"Deliver By\") like '%$sr%'
                     or lower(\"Create By\") like '%$sr%' or lower(\"Company\") like '%$sr%'

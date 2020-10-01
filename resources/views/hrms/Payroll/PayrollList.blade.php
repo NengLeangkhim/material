@@ -79,9 +79,9 @@
                                 echo '';
                               }
                           @endphp
-                          <button id="btn_{{$empayroll[0]}}" {{$disable}} style="margin-right:15px;border:none;background-color:none;color:#007bff;" href="javascrip:;" class="btn" onclick="DeleteComponent({{$empayroll[0]}},'{{$empayroll[7]}}','{{$empayroll[8]}}',{{$empayroll[9]}})"><i class="far fa-trash-alt" ></i></button>
-                          <a style="margin-right:15px" href="javascrip:;" onclick="HRM_ShowDetail('hrm_paroll_detail','modal_payrolldetail',{{$empayroll[0]}})"><i class="fas fa-info"></i></a>
-                            <button id="btn_approve_{{$empayroll[0]}}" {{$disable}} class="btn {{$bg}} btn-sm" onclick="HR_Approve_Payroll({{$empayroll[0]}},'{{$empayroll[7]}}','{{$empayroll[8]}}',{{$empayroll[9]}},'btn_approve_{{$empayroll[0]}}','btn_{{$empayroll[0]}}')">Approved</button>
+                          <button id="btn_{{$empayroll[0]}}" {{$disable}} style="margin-right:15px;border:none;background-color:none;color:#007bff;" href="javascrip:;" class="btn" onclick="DeleteComponent({{$empayroll[0]}},'{{$empayroll[7]}}','{{$empayroll[8]}}',{{$empayroll[9]}},'HRM_09040401')"><i class="far fa-trash-alt" ></i></button>
+                          <a style="margin-right:15px" href="javascript:;" onclick="HRM_ShowDetail('hrm_paroll_detail','modal_payrolldetail',{{$empayroll[0]}})"><i class="fas fa-info"></i></a>
+                            <button id="btn_approve_{{$empayroll[0]}}" {{$disable}} class="btn {{$bg}} btn-sm" onclick="HR_Approve_Payroll({{$empayroll[0]}},'{{$empayroll[7]}}','{{$empayroll[8]}}',{{$empayroll[9]}},'btn_approve_{{$empayroll[0]}}','btn_{{$empayroll[0]}}','HRM_09040403')">Approved</button>
                         </td>
                     </tr>
                     @endforeach
