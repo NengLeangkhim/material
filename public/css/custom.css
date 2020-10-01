@@ -1,3 +1,6 @@
+body{
+    font-family: 'Khmer OS Content';
+}
 .welcome-bg{
     background-image: url('../images/turbotech.png');
     background-repeat: no-repeat;
