@@ -286,4 +286,10 @@ class Attendance extends Model
                         </div>
                     </div>';
     }
+
+
+    // for show attendance of one employee
+    public static function YourAttendance(){
+        
+    }
 }

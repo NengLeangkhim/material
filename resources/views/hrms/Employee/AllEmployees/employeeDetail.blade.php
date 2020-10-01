@@ -19,6 +19,7 @@
             <div class="row">
               @php
                   if(isset($data[1])){
+                   
                     $date=new DateTime($data[1]['joint_date']);
                     $dateBirth=new DateTime($data[1]['dateOfBirth']);
                     $dateofbirth=$dateBirth->format('Y-m-d');
@@ -268,7 +269,7 @@
               </div>
               <div class="col-md-12">
                 <label>Description</label>
-                <textarea disabled name="emDescription" id="" rows="5" class="form-control">@php if(isset($data1)){echo $data[1]['description'];} @endphp</textarea>
+                <textarea disabled name="emDescription" id="" rows="5" class="form-control">@php if(isset($data[1])){echo $data[1]['description'];} @endphp</textarea>
               </div>
 
               </div>
