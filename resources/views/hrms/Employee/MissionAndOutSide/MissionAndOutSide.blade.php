@@ -10,7 +10,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table class="table table-bordered" id="tbl_missionAndOutSide" style="width: 100%">
+                <table class="table table-bordered hrm_table" id="tbl_missionAndOutSide" style="width: 100%">
                   <thead>                  
                     <tr>
                       <th style="width: 10px">#</th>
