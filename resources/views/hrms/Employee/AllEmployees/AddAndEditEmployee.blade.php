@@ -81,7 +81,8 @@
                     </div>
                     <div class="col-md-6">
                       <label>Department <span class="text-danger">*</span></label>
-                      <select name="emDepartment" id="" class="form-control" required>
+                      
+                      <select name="emDepartment" id="" class="form-control select2" required>
                         @php
                             $f1="";
                             $f2="";
@@ -305,5 +306,10 @@
 </div>
 
 <script>
+  $('.select2').select2();
   
+  $(document).ready(function{
+    $('.select2').select2();
+    
+  });
 </script>
