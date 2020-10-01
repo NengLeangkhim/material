@@ -31,7 +31,7 @@
 
       <div class="modal-content">
           <div class="modal-header text-center">
-              <h4 class="modal-title" id="exampleModalLabel">Detail</h4>
+            <h3 class="card-title hrm-title"><strong><i class="fas fa-user-check"></i> View Detail</strong></h3>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>
