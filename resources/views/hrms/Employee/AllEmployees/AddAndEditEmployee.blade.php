@@ -82,53 +82,41 @@
                     <div class="col-md-6">
                       <label>Department <span class="text-danger">*</span></label>
                       
-                      <select name="emDepartment" id="" class="form-control select2" required>
+                      <select name="emDepartment" id="department" class="form-control" required>
+                        {{-- <option value="" selected hidden disabled></option> --}}
                         @php
-                            $f1="";
-                            $f2="";
-                            foreach ($data[3] as $department) {
-                              if(isset($data[1])){
-                                if($department->id==$data[1]['department_id']){
-                                  $f1=$f1.'<option value="'.$department->id.'">'.$department->name.'</option>';
-                                }else {
-                                  $f2=$f2.'<option value="'.$department->id.'">'.$department->name.'</option>';
-                                }
+                          foreach ($data[3] as $department) {
+                           if(isset($data[1])){
+                              if($department->id==$data[1]['department_id']){
+                                echo '<option selected value="'.$department->id.'">'.$department->name.'</option>';
                               }else {
-                                $f1=$f1.'<option value="'.$department->id.'">'.$department->name.'</option>';
+                                echo '<option value="'.$department->id.'">'.$department->name.'</option>';
                               }
-                            }
-                            echo $f1.$f2;
+                           }else {
+                             echo '<option value="'.$department->id.'">'.$department->name.'</option>';
+                           }
+                          }
+                           
                         @endphp
-                        @foreach ($data[3] as $department)
-                          <option value="{{$department->id}}">{{$department->name}}</option>
-                        @endforeach
                       </select>
                     </div>
                     <div class="col-md-6">
                   <label>Position <span class="text-danger">*</span></label>
-                  <select name="emPosition" id="" class="form-control" required>
+                  <select name="emPosition" id="position" class="form-control" required>
+                    {{-- <option value="" selected hidden disabled></option> --}}
                   @php
-                    $f1='';
-                    $f2='';
-                    if(isset($data[1])){
-                      $id=$data[1]['position_id'];
-                    }else {
-                      $id=-1;
+                    foreach ($data[0] as $position) {
+                      if(isset($data[1])){
+                        if($data[1]['position_id']===$position->id){
+                          echo '<option selected value="'.$position->id.'">'.$position->name.'</option>';
+                        }else {
+                          echo '<option value="'.$position->id.'">'.$position->name.'</option>';
+                        }
+                      }else {
+                        echo '<option value="'.$position->id.'">'.$position->name.'</option>';
+                      }
                     }
                     @endphp
-                      @foreach ($data[0] as $p)
-                        @php 
-                          if($id===$p->id){
-                            $f1=$f1.'<option value="'.$p->id.'">'.$p->name.'</option>';
-                          }else {
-                            $f2=$f2.'<option value="'.$p->id.'">'.$p->name.'</option>';
-                          }
-                        @endphp
-                          
-                      @endforeach
-                      @php
-                        echo $f1.$f2;
-                      @endphp
                     </select>
                 </div>
                     
@@ -304,12 +292,3 @@
         </div>
     </div>
 </div>
-
-<script>
-  $('.select2').select2();
-  
-  $(document).ready(function{
-    $('.select2').select2();
-    
-  });
-</script>
