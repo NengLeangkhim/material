@@ -54,7 +54,7 @@
                      </tr>
                      @foreach ($data[1] as $strain)
                         <tr>
-                            <td>{{$strain->name}}</td>
+                        <td>{{$strain->first_name_en}} {{$strain->last_name_en}}</td>
                         </tr>
                      @endforeach
                      

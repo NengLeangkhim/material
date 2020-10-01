@@ -57,7 +57,7 @@ class Attendance extends Model
         $attendance=array();
         foreach($em as $e){
             
-            $get_full_en_name = $e->first_name_en." ".$e->last_name_en;
+            $get_full_en_name = $e->firstName." ".$e->lastName;
             $detail= self::AttendanceDetail(self::ConvertIdToNumber($e->id_number),$get_full_en_name,$date,$e->id);
             
             array_push($attendance,$detail);
@@ -76,6 +76,9 @@ class Attendance extends Model
         $allData[8]=$attendance;
         return $allData;
     }
+
+
+    // Check Attendance in one and one day
     public static function AttendanceDetail($id,$name,$date,$emid){
         $dateTime1=$date.' 00:00:00';
         $dateTime2 = $date . ' 24:00:00';
@@ -151,6 +154,9 @@ class Attendance extends Model
         array_push($attendance,$emid,$name,$date,$morning_checkin,$morning_checkout,$evening_checkin,$evening_checkout);
         return $attendance;
     }
+
+
+    // Check Permssion of employee
     public static function CheckPermisstion($id,$date){
         $dd = new DateTime($date);
         $d = $dd->format('Y-m-d H:i:s');
@@ -164,6 +170,8 @@ class Attendance extends Model
             return 0;
         }
     }
+
+    // Check Mission of employee
     public static function CheckOutside($id,$date){
         $dd = new DateTime($date);
         $d = $dd->format('Y-m-d H:i:s');
@@ -175,6 +183,8 @@ class Attendance extends Model
             return 0;
         }
     }
+
+    // Check bublic Holiday day
     public static function CheckPublicHoliday($date){
         $sql="SELECT id FROM hr_attendance_holiday WHERE is_deleted='f' and '$date' BETWEEN from_date and to_date";
         $stm=DB::select($sql);
@@ -184,6 +194,8 @@ class Attendance extends Model
             return 0;
         }
     }
+
+    // Check Sunday
     public static function CheckHoliday($date){
         $timestamp = strtotime($date);
         $day = date('D', $timestamp);
@@ -196,47 +208,20 @@ class Attendance extends Model
         }
         return $a;
     }
+
+    // Convert ID to Number(TT_0082)->(82)
     public static function ConvertIdToNumber($id_number){
-        $rest = substr($id_number, 3, 30);  // returns "cde"
+        $rest = substr($id_number, 3, 30);
         $int = (int)$rest;
         return $int;
     }
+
+    // Convert timestamp to time (2020-09-07 08:01:00)->(08:01:00)
     public static function ConvertTimeStampToTime($date){
         $time = strtotime($date);
         $newformat = date('H:i:s', $time);
         return $newformat;
     }
-
-    
-    public static function abc(){
-        $st= '<div class="col-md-12">
-                            <div class="row">
-                              <div class="col-md-4 bg-info text-center">
-                                <i class="fas fa-users"></i>
-                              </div>
-                              <div class="col-md-8">
-                                  17:30:00
-                              </div>
-                            </div>
-                        </div>';
-        return $st;
-    }
-
-    public static function CheckMinuteOfLate($em){
-        try {
-            foreach($em as $s){
-
-            }
-        } catch (Throwable $e) {
-            report($e);
-            return false;
-        }
-    }
-    public static function CheckMinutOfCheckOut($em){
-
-    }
-
-
 
     // Check Attendance Detail in one User and by date
     public static function ShowAttendanceByDate($id,$name,$date_from,$date_to,$id_number){
@@ -256,7 +241,7 @@ class Attendance extends Model
     }
 
 
-    // Check Late or absent
+    // Check Late or absent color morning
     public static function EmployeeCheckLateAbsentMorning($time)
     {
         if ($time == 'Absent') {
@@ -279,6 +264,7 @@ class Attendance extends Model
                     </div>';
     }
 
+    // Check Late or absent color Evening
     public static function EmployeeCheckLateAbsentEvening($time)
     {
         if ($time == 'Absent') {
@@ -299,5 +285,11 @@ class Attendance extends Model
                             </div>
                         </div>
                     </div>';
+    }
+
+
+    // for show attendance of one employee
+    public static function YourAttendance(){
+        
     }
 }

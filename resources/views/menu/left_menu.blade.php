@@ -1,9 +1,10 @@
  <!-- Main Sidebar Container -->
  <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="javascript:void();" onclick="go_to('dashboard')" class="brand-link" style="background: #fff;">
-      <img src="dist/img/favicon.png" alt="TURBOTECH Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light"><b><span style="color: red !important">TURBO</span><span style="color: #1fa8e0 !important">TECH</span></b></span>
+    <a href="javascript:void();" onclick="go_to('dashboard')" class="brand-link" style="background: #fff;padding:0;">
+      <img src="images/turbotech.png" alt="TURBOTECH Logo" class="logo-image">
+      {{-- <img src="dist/img/turbo160x160.jpg" alt="TURBOTECH Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
+      {{-- <span class="brand-text font-weight-light"><b><span style="color: red !important">TURBO</span><span style="color: #1fa8e0 !important">TECH</span></b></span> --}}
     </a>
     <!-- Sidebar -->
     <div class="sidebar" style="background:#1fa8e0">

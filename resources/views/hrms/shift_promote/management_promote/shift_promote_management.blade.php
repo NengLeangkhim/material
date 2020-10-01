@@ -32,6 +32,9 @@
                 </div>
 
                 <div class="card-body">
+                    @php
+                        // print_r($allEmployee);
+                    @endphp
                 <div class="table-responsive"> 
                     <table class="table table-bordered" id="tbl_employee">
                         <thead>
@@ -41,7 +44,6 @@
                             <th scope="col">Staff ID</th>
                             <th scope="col">Position</th>
                             <th scope="col">Current Salary</th>
-                            <th scope="col">Last Update</th>
                             <th scope="col">Action</th>
                         </tr>
                         </thead>
@@ -51,29 +53,42 @@
                             
                             @php
                                 $i = 0;
-                                if(is_array($allEmployee))
-                                {
-                                    foreach($allEmployee as $key=>$var)
-                                    {   
-                                        echo '
-                                            <tr>
-                                                <th scope="row">'.($i+1).'</th>
-                                                <td>'.$var->first_name_en.' '.$var->last_name_en.'</td>
-                                                <td>'.$var->id_number.'</td>
-                                                <td>'.$var->ma_position.'</td>
-                                                <td>'.$var->base_salary.'</td>
-                                                <td>'.$var->create_date.'</td>
-                                                <td >
-                                                    <a class="btn btn-outline-primary" href="#" onclick="Edit_Promote_Staff('.$var->id.', '.$var->ma_position_id.')"><i class="fas fa-user-edit"></i>Promote</a>
-                                                </td>
-                                            </tr>
-                                        ';
-                                        $i++;
-                                    }
-                                }
+                                // if(is_array($allEmployee))
+                                // {
+                                //     foreach($allEmployee as $key=>$var)
+                                //     {   
+                                //         echo '
+                                //             <tr>
+                                //                 <th scope="row">'.($i+1).'</th>
+                                //                 <td>'.$var->first_name_en.' '.$var->last_name_en.'</td>
+                                //                 <td>'.$var->id_number.'</td>
+                                //                 <td>'.$var->ma_position.'</td>
+                                //                 <td>'.$var->base_salary.'</td>
+                                //                 <td>'.$var->create_date.'</td>
+                                //                 <td >
+                                //                     <a class="btn btn-outline-primary" href="#" onclick="Edit_Promote_Staff('.$var->id.', '.$var->ma_position_id.')"><i class="fas fa-user-edit"></i>Promote</a>
+                                //                 </td>
+                                //             </tr>
+                                //         ';
+                                //         $i++;
+                                //     }
+                                // }
                 
                                 
                             @endphp
+                            @foreach ($allEmployee as $employee)
+                                <tr>
+                                <th>{{++$i}}</th>
+                                <td>{{$employee->firstName}} {{$employee->lastName}}</td>
+                                <td>{{$employee->id_number}}</td>
+                                <td>{{$employee->position}}</td>
+                                <td>{{$employee->rate_month}}</td>
+                                <td >
+                                    <a class="btn btn-outline-primary" href="#" onclick="Edit_Promote_Staff({{$employee->id}}, {{$employee->ma_position_id}})"><i class="fas fa-user-edit"></i>Promote</a>
+                               </td>
+                                </tr>
+
+                            @endforeach
 
 
                         </tbody>

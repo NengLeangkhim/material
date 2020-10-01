@@ -15,9 +15,93 @@ class QuestionAnswerController extends Controller
              session_start();
              }
              if(perms::check_perm_module('HRM_090801')){//module code list data tables id=103
+                if(perms::check_perm_module('HRM_09080101')){ // Permission Add
+                    $add_perm = '<button type="button" id="AddQuestionSugg" onclick=\'AddNewQuestionSugg()\' class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Question</button>';
+                 }else{
+                     $add_perm='';
+                 }
                   $question_sugg = ModelQuestionAnswer::hrm_get_tbl_suggestion_question();
                   $question_type = ModelQuestionAnswer::hrm_get_question_type();
-                 return view('hrms/suggestion/question_answer/QuestionAnswerSugg', ['question_sugg' => $question_sugg,'question_type'=>$question_type]);
+                  $i=1;// variable increase number for table
+                  $j=1;//for ID checkbox increase
+                  $k=1;//for label increase
+                  $table_perm= '<tbody>';
+                foreach($question_sugg as $row){
+                    $create = $row->create_date;
+                  $table_perm.= ' 
+                    <tr>
+                        <th>'.$i++.'</th>
+                        <td>'.$row->question.'</td>
+                        <td>'.$row->question_type.'</td>';
+                  $table_perm.='<td class="text-center">';
+                  $table_perm.='<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">';
+                  if(perms::check_perm_module('HRM_09080107')){
+                                if($row->status=='t'){
+                                    $table_perm.='<input type="checkbox" value="'.$row->id.'" id="checkbox_sugg_q_a'.$j++.'" class="custom-control-input HrmCheckBoxSuggQA" checked> <label class="custom-control-label" for="checkbox_sugg_q_a'.$k++.'" style="color:green;"> Active</label>';
+                                }else {
+                                    $table_perm.='<input type="checkbox" value="'.$row->id.'" id="checkbox_sugg_q_a'.$j++.'" class="custom-control-input HrmCheckBoxSuggQA"> <label class="custom-control-label" for="checkbox_sugg_q_a'.$k++.'" style="color:red;"> Inactive</label>';
+                                }
+                   }else{
+                    if($row->status=='t'){
+                        $table_perm.='<input type="checkbox" disable class="custom-control-input " checked> <label class="custom-control-label" for="checkbox_sugg_q_a'.$k++.'" style="color:green;"> Active</label>';
+                    }else {
+                        $table_perm.='<input type="checkbox" disable class="custom-control-input "> <label class="custom-control-label" for="checkbox_sugg_q_a'.$k++.'" style="color:red;"> Inactive</label>';
+                    }
+                   }
+                  $table_perm.='</div>';    
+                  $table_perm.='</td>';
+                  if($row->hr_suggestion_question_type_id==1){ //condition check for question option
+                        $table_perm.='<td class="text-center">';
+                        $table_perm.= '
+                            <div class="dropdown">
+                                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Action
+                                </button>
+                                <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">';
+                        if(perms::check_perm_module('HRM_09080106')){// Permission View
+                            $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item hrm_view_detail_question_answer">View Detail</button>';
+                        }
+                        if(perms::check_perm_module('HRM_09080102')){// Permission Update
+                            $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item hrm_question_answer">Update Detail</button>';
+                        }
+                        if(perms::check_perm_module('HRM_09080103')){// Permission Delete
+                            $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item hrm_delete_question_answer">Delete</button>';
+                        }
+                        if(perms::check_perm_module('HRM_09080104')){// Permission Add Answer
+                            $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item add_answer_sugg">Add Answer</button>';
+                        }
+                        if(perms::check_perm_module('HRM_09080108')){// Permission Get Result
+                            $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item view_result_sugg">Result</button>';
+                        }
+                        $table_perm.= ' </div>
+                                        </div>
+                                    </td>';
+                 }else{// Condition Check normal question
+                    $table_perm.='<td class="text-center">';
+                        $table_perm.= '
+                            <div class="dropdown">
+                                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Action
+                                </button>
+                                <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">';
+                        if(perms::check_perm_module('HRM_09080102')){// Permission Update
+                            $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item update_q_sugg">Update</button>';
+                        }
+                        if(perms::check_perm_module('HRM_09080103')){// Permission Delete
+                            $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'hrm_delete('.$row->id.',"hrm_question_answer_sugg/delete","/hrm_question_answer_sugg","Question Has Been Deleted")\'  class="dropdown-item hrm_item delete_q_sugg">Delete</button>';
+                        }
+                        if(perms::check_perm_module('HRM_09080108')){// Permission Get Result
+                            $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item view_result_sugg">Result</button>';
+                        }
+                        $table_perm.= ' </div>
+                                        </div>
+                                    </td>';
+
+                 }
+                  $table_perm.='</tr>';
+                }//end foreach
+                  $table_perm.='</tbody>';
+                 return view('hrms/suggestion/question_answer/QuestionAnswerSugg', ['add_perm' => $add_perm,'question_type'=>$question_type,'table_perm'=>$table_perm]);
              }else{
                  return view('no_perms');
              }

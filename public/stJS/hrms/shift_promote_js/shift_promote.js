@@ -56,29 +56,23 @@ function submit_staff_promote(id){
             },
             
             success:function(data) { 
+
                 var link = '/hrm_management_shift_promote';
-                // code to execute message box alert success (sweetalert)
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        onOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
-                    
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Promote successfully !'
-                    })
-                    
-                // end alert 
+                if(data > 0){
+                    var icon = 'success';
+                    var message = 'Promote successfully !';
+                    alert_show(icon,message);
+
+                }else{
+                    var icon = 'error';
+                    var message = 'Faile to promote!';
+                    alert_show(icon,message);
+                }
 
                 $('#edit_promote_staff').modal('hide');
                 setTimeout(function(){ go_to(link); }, 1000);
+                
+                
                 
             }
         
@@ -88,6 +82,33 @@ function submit_staff_promote(id){
    
 
 }
+
+
+
+// function alert message with bootstrap
+function alert_show(icon_,message){
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        
+        Toast.fire({
+            icon: icon_,
+            title: message
+        })
+}
+
+
+
+
+
 
 
 

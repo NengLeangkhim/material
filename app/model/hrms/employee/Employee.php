@@ -10,17 +10,24 @@ class Employee extends Model
 {
     protected $table="ma_user";
     public $timestamps = false;
+
+    // List all employee
     public static function AllEmployee(){
-        $employee = DB::table('ma_user')->select('ma_user.id','ma_user.first_name_en as first_name_en','ma_user.last_name_en as last_name_en', 'ma_user.first_name_kh as first_name_kh', 'ma_user.last_name_kh as last_name_kh', 'ma_user.id_number', 'ma_user.email', 'ma_user.contact', 'ma_user.join_date', 'ma_position.name as position','ma_user.image')
+        $employee = DB::table('ma_user')->select('ma_user.office_phone', 'ma_user.sex', 'ma_user.image', 'ma_user.id', 'ma_user.first_name_en as firstName', 'ma_user.last_name_en as lastName', 'ma_user.first_name_kh as firstNameKh', 'ma_user.last_name_kh as lastNameKh', 'ma_user.id_number', 'ma_user.email', 'ma_user.contact', 'ma_user.join_date', 'ma_position.name as position', 'ma_user.ma_position_id', 'ma_user.description', 'ma_user.bank_account', 'hr_payroll_base_salary.rate_month', 'ma_user.ma_company_dept_id', 'ma_user.birth_date')
         ->join('ma_position', 'ma_position.id', '=', 'ma_user.ma_position_id')
-        ->where([
-            ['ma_user.status', '=', 't'],
-            ['ma_user.is_deleted', '=', 'f']
-        ])->orderBy('ma_user.first_name_en')->get();
+            ->join('hr_payroll_base_salary', 'hr_payroll_base_salary.ma_user_id', '=', 'ma_user.id')
+            ->where([
+                ['ma_user.status', '=', 't'],
+                ['ma_user.is_deleted', '=', 'f'],
+                ['hr_payroll_base_salary.status','=','t'],
+                ['hr_payroll_base_salary.is_deleted','=','f']
+            ])->orderBy('ma_user.first_name_en')->get();
         return $employee;
     }
+    
+    // List only one employee
     public static function EmployeeOnRow($id){
-        $employee = DB::table('ma_user')->select('ma_user.office_phone','ma_user.sex','ma_user.image', 'ma_user.id', 'ma_user.first_name_en as firstName', 'ma_user.last_name_en as lastName', 'ma_user.first_name_kh as firstNameKh', 'ma_user.last_name_kh as lastNameKh', 'ma_user.id_number', 'ma_user.email', 'ma_user.contact', 'ma_user.join_date', 'ma_position.name as position','ma_user.ma_position_id','ma_user.description','ma_user.bank_account', 'hr_payroll_base_salary.rate_month','ma_user.ma_company_dept_id')
+        $employee = DB::table('ma_user')->select('ma_user.office_phone','ma_user.sex','ma_user.image', 'ma_user.id', 'ma_user.first_name_en as firstName', 'ma_user.last_name_en as lastName', 'ma_user.first_name_kh as firstNameKh', 'ma_user.last_name_kh as lastNameKh', 'ma_user.id_number', 'ma_user.email', 'ma_user.contact', 'ma_user.join_date', 'ma_position.name as position','ma_user.ma_position_id','ma_user.description','ma_user.bank_account', 'hr_payroll_base_salary.rate_month','ma_user.ma_company_dept_id','ma_user.birth_date','ma_position.name as positionName','ma_user.description')
         ->join('ma_position', 'ma_position.id', '=', 'ma_user.ma_position_id')
         ->join('hr_payroll_base_salary','hr_payroll_base_salary.ma_user_id','=','ma_user.id')
         ->where([
@@ -52,8 +59,8 @@ class Employee extends Model
             $street_kh = "";
             $gazetteer="";
         }
-        $dateOfBirth='2020-07-12';
-        $description="";
+        $dateOfBirth=$employee[0]->birth_date;
+        // $description="";
         if(strlen($gazetteer)>7){
             $province=substr($gazetteer,0,2);
             $district= substr($gazetteer, 0, 4);
@@ -80,6 +87,7 @@ class Employee extends Model
             "joint_date"=> $employee[0]->join_date,
             "contact"=> $employee[0]->contact,
             "position_id"=> $employee[0]->ma_position_id,
+            "positionName"=> $employee[0]->positionName,
             "office_phone"=> $employee[0]->office_phone,
             "email"=> $employee[0]->email,
             "spouse"=>$spous,
@@ -91,7 +99,7 @@ class Employee extends Model
             "image"=>$employee[0]->image,
             "bank_account"=>$employee[0]->bank_account,
             "department_id"=>$employee[0]->ma_company_dept_id,
-            "description"=>$description,
+            "description"=> $employee[0]->description,
             "salary"=>$employee[0]->rate_month,
             "province"=>$province,
             "district"=>$district,
@@ -104,6 +112,7 @@ class Employee extends Model
         return $employee_update;
     }
 
+    // Insert Employee
     public static function InsertEmployee($firstName_en,$lasttName_kh,$email,$contact,$position,$companyid,$branch_id,$company_dept_id,$create_by,$idNumber,$sex,$firstName_kh,$lastName_kh,$image,$OfficePhone,$jointDate,$dateOfBirth,$home_en,$home_kh,$street_en,$street_kh,$latlg,$gazetteer,$martital_status,$spous,$has_children,$children,$salary,$currency,$description,$payrollAccount){
         $sql= "SELECT public.insert_ma_user('$firstName_en','$lasttName_kh','$email','$contact',$position,$companyid,$branch_id,$company_dept_id,$create_by,'$idNumber','$sex','$firstName_kh','$lastName_kh','$image','$OfficePhone','$jointDate','$dateOfBirth','$home_en','$home_kh','$street_en','$street_kh',null,'$gazetteer',null,'$spous','$has_children',$children,$salary,$currency,'$description','$payrollAccount')";
         $stm=DB::select($sql);
@@ -114,18 +123,21 @@ class Employee extends Model
         }
     }
 
+    // Inert base salary for employee
     public static function InsertBaseSalary($id,$rate_month,$userid){
         $sql= "SELECT public.insert_hr_payroll_base_salary($id,0,$rate_month,0,$userid)";
         $stm=DB::select($sql);
         return $stm;
     }
     
+    // delete employee
     public static function DeleteEmployee($id,$up_by){
         $sql= "SELECT public.delete_ma_user($id,$up_by)";
         $stm=DB::select($sql);
         return $stm;
     }
 
+    // Update Employee
     public static function UpdateEmployee($id,$firstName_en, $lastName_en, $email, $contact, $position, $companyid, $branch_id, $company_dept_id, $create_by, $idNumber, $sex, $firstName_kh, $lastName_kh, $image, $OfficePhone, $jointDate, $dateOfBirth, $home_en, $home_kh, $street_en, $street_kh, $latlg, $gazetteer, $martital_status, $spous, $has_children, $children, $salary, $currency, $description, $payrollAccount){
        $sql= "SELECT public.update_ma_user($id,'$firstName_en','$lastName_en','$email','$contact',$position,$companyid,$branch_id,$company_dept_id,$create_by,'$idNumber','$sex','$firstName_kh','$lastName_kh','$image','$OfficePhone','$jointDate','$dateOfBirth','$home_en','$home_kh','$street_en','$street_kh',null,'$gazetteer',null,'$spous','$has_children',$children,$salary,$currency,'$description','$payrollAccount','t')";
        $stm=DB::select($sql);

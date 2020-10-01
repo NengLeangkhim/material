@@ -22,15 +22,15 @@
                         <select name="employeeid" id="" class="form-control">
                         <option value="-1">All Employee</option>
                           @foreach ($data[0] as $em)
-                        <option value="{{$em->id}}">{{$em->first_name_en.' '.$em->last_name_en}}</option>
+                        <option value="{{$em->id}}">{{$em->firstName.' '.$em->lastName}}</option>
                           @endforeach
                         </select>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-2">
                         <label for="">From</label>
                         <input type="date" name="from" id="" class="form-control">
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-2">
                         <label for="">To</label>
                         <input type="date" name="to" id="" class="form-control">
                       </div>
@@ -49,6 +49,17 @@
                           <option value="10">October</option>
                           <option value="11">November</option>
                           <option value="12">December</option>
+                        </select>
+                      </div>
+                      <div class="col-md-2">
+                        <label for="">Year</label>
+                        <select name="year" id="" class="form-control">
+                          @php
+                              for($i=date('Y');$i>=2013;$i--){
+                                echo '<option value="'.$i.'">'.$i.'</option>';
+                              }
+                          @endphp
+                          
                         </select>
                       </div>
                       <div class="col-md-2">

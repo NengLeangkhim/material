@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 class Holiday extends Model
 {
-    //
+    // List all Holiday
     function Holiday_All(){
         $holiday=DB::table('hr_attendance_holiday')->select('id','title','title_kh','from_date','to_date','description')
         ->where([
@@ -17,6 +17,7 @@ class Holiday extends Model
     }
 
 
+    // List one holiday
     function HolidayOneRow($id){
         $holiday = DB::table('hr_attendance_holiday')->select('id','title', 'title_kh', 'from_date', 'to_date', 'description')
         ->where([
@@ -27,7 +28,7 @@ class Holiday extends Model
         return $holiday;
     }
 
-    //
+    // insert holiday
     function InsertHoliday($title,$khmertitle,$date,$description,$start_date,$end_date,$up_by){
         $sql= "SELECT public.insert_hr_attendance_holiday('$title','$khmertitle','$description','$start_date','$end_date',$up_by)";
         $stm=DB::select($sql);

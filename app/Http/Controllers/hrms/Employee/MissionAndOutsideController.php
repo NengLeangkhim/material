@@ -12,16 +12,19 @@ use App\model\hrms\employee\Employee as EmployeeEmployee;
 
 class MissionAndOutsideController extends Controller
 {
+    // List all Mission
     function AllMissionAndOutSide()
     {
         $data=MissionAndOutSide::MissionOutside();
         return view('hrms/Employee/MissionAndOutSide/MissionAndOutSide')->with('mission',$data);
     }
+
+    // Show modal add or edit mission
     function AddModalMissionOutside(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if (perms::check_perm_module('HRM_090104')) {
+        if (perms::check_perm_module('HRM_09010401')) {
             $em=new EmployeeEmployee();
             $ms = new MissionAndOutSide();
             $id=$_GET['id'];
@@ -32,10 +35,11 @@ class MissionAndOutsideController extends Controller
             }
             return view('hrms/Employee/MissionAndOutSide/ModalAddAndEditMissionAndOutSide')->with('data',$data);
         } else {
-            return view('no_perms');
+            return view('modal_no_perms')->with('modal', 'modal_missionoutside');
         }
     }
 
+    // Insert Mission
     function InsertUpdateMissionOutside(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -67,6 +71,7 @@ class MissionAndOutsideController extends Controller
         }
     }
 
+    // Delete Mission
     function DeleteMissionOutSide(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -82,16 +87,17 @@ class MissionAndOutsideController extends Controller
     }
 
 
+    // mission detail
     function MissionDetail(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if (perms::check_perm_module('HRM_090104')) {
+        if (perms::check_perm_module('HRM_09010402')) {
             $id=$_GET['id'];
             $missionDetail=MissionAndOutSide::MissionDetail($id);
             return view('hrms/Employee/MissionAndOutSide/MissionDetail')->with('mission_detail',$missionDetail);
         } else {
-            return view('no_perms');
+            return view('modal_no_perms')->with('modal', 'modal_mission_detail');
         }
     }
 }

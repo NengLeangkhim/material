@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MissionAndOutSide extends Model
 {
-    
+    // List all Mission or one mission
     public static function MissionOutside($id=0){
         if($id>0){
             $sql= "SELECT id,home_number,street,date_from,date_to,type,description,shift,latlg,gazetteers_code from hr_mission where status='t' and is_deleted='f' and id=$id";
@@ -34,6 +34,7 @@ class MissionAndOutSide extends Model
         
     }
 
+    // Insert Mission
     public static function InsertMissionOutSide($date_from,$date_to,$description,$type,$create_by,$shift,$street,$home_number,$latlg,$gazetteers_code,$emid){
         $sql= "SELECT public.insert_hr_mission('$date_from','$date_to','$description','$type',$create_by,'$shift','$street','$home_number','$latlg','$gazetteers_code')";
         $stm=DB::select($sql);
@@ -44,6 +45,7 @@ class MissionAndOutSide extends Model
         }
     }
 
+    // Insert mission detail
     public static function InsertMissionOutsideDetail($hr_mission_id,$ma_user_id,$create_by,$staff_id){
         foreach($staff_id as $modetail){
             $sql = "SELECT public.insert_hr_mission_detail($hr_mission_id,$modetail,$create_by)";
@@ -56,6 +58,7 @@ class MissionAndOutSide extends Model
         }
     }
 
+    // Update Mission
     public static function UpdateMissionOutside($id,$update_by, $date_from,$date_to,$description,$status,$type, $shift,$street,$home_number,$latlg,$gazetteers_code,$emid){
         // $sql= "SELECT public.update_hr_mission($id,$update_by,'$date_from','$date_to','$description','$status','$type','$shift','$street','$home_number','$latlg','$gazetteers_code')";
         $sql= "SELECT public.update_hr_mission($id,$update_by,'$date_from','$date_to','$description','$status','$type','$shift','$street','$home_number','$latlg','$gazetteers_code')";
@@ -70,11 +73,14 @@ class MissionAndOutSide extends Model
         }
     } 
     
+    // Delete Mission
     public static function DeleteMissionOutSide($id,$by){
         $sql= "SELECT public.delete_hr_mission($id,$by)";
         DB::select($sql);
     }
 
+
+    // Convert id to number(TT-0082)->(82)
     public static function ConvertIdToNumber($id_number)
     {
         $rest = substr($id_number, 3, 30);  // returns "cde"
@@ -82,6 +88,7 @@ class MissionAndOutSide extends Model
         return $int;
     }
 
+    // List Mission Detail
     public static function MissionDetail($id){
         $sql_mission= "select id,date_from,date_to,description,type,street,home_number,latlg,gazetteers_code FROM hr_mission WHERE id=$id";
         $sql_mission_detail= "SELECT concat(mu.first_name_en,' ',mu.last_name_en) as name FROM hr_mission_detail hmd INNER JOIN ma_user mu on mu.id=hmd.ma_user_id WHERE hmd.hr_mission_id=$id and hmd.status='t' and hmd.is_deleted='f'";

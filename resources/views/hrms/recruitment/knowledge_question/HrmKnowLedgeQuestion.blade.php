@@ -7,7 +7,8 @@
                <div class="card-header">
                  <h1 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i> Question Knowledge</strong></h1>
                  <div class="col-md-12 text-right">
-                     <button type="button" id="AddNewQuestionKnowledge" onclick="AddNewQuestionKnowledge()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Question Knowledge</button>
+                     {{-- <button type="button" id="AddNewQuestionKnowledge" onclick="AddNewQuestionKnowledge()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Question Knowledge</button> --}}
+                     {!!$add_perm!!}
                  </div>
                </div>
                <!-- /.card-header -->
@@ -21,12 +22,13 @@
                                 <th scope="col">Department</th>
                                 <th scope="col">Create Date</th>
                                 <th scope="col">Create By</th>
-                                <th width="15%" scope="col">Action</th>
+                                <th width="10%" scope="col">Action</th>
                               </tr>
                             </thead>
-                            <tbody>
+                            {!!$table_perm!!}
+                            {{-- <tbody>
                               <?php 
-                              $i=1;
+                              // $i=1;
                               ?>
                               @foreach($question_knowledge as $row)
                                 @php
@@ -45,7 +47,7 @@
                                       </td>
                                   </tr>     
                               @endforeach
-                            </tbody>
+                            </tbody> --}}
                           </table>
 
                     </div>
@@ -56,7 +58,6 @@
      </div>
  </div>
     </section>
-    @yield('scripts')
     <!-- /page content -->
     <script type='text/javascript'>
       $(document).ready(
