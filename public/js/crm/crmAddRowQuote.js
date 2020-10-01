@@ -5,8 +5,9 @@
     //function to add row table to add quote item
     $(document).ready(function(){
         //declear variable as global in function ready
-        var i = 0;
 
+        var i = 0; //use for count current row remainder
+        var j = 0; //use for count all row was created 
 
 
         $("#btnAddRowQuoteItem").click(function(){
@@ -67,6 +68,7 @@
                     '</td>' +
                 '</tr>';
                 i++;
+                j++;
             $('#add_row_tablequoteItem').append(tblRow);
         });
 
@@ -75,6 +77,19 @@
             var btn_id = $(this).attr("id");
             $('#row' + btn_id + '').remove();
             i--;
+
+            //for loop use when user delete row but grand total will refresh
+            var sumTotal = 0;
+            for(var x=0; x<=j; x++){
+                var value = $("#quote-netPrice_"+x+"").text();
+                if(value != ""){
+                    var getNetPrie = parseInt(value);
+                    sumTotal += getNetPrie;
+                    console.log(sumTotal);
+                }   
+            }
+            $("#sumTotal").text(sumTotal);
+
         });
 
 
@@ -132,10 +147,9 @@
 
 
         //function keyup area
-        var sumTotal = 0;
+        // var sumTotal = 0;
         $(document).keyup(function(e){
-            // var sumTotal = 0;
-            
+            var sumTotal = 0;
             $(".row-quote-item").keyup(function(e){
                 var row_id = $(this).attr("data-id");
                 var subTotal = 0;
@@ -160,12 +174,23 @@
                 $("#quote-sub-discount_"+row_id+"").text(get_val);
                 val_after_dis = subTotal - get_val;
                 netPrice = val_after_dis;
-                sumTotal += netPrice;
+                // sumTotal += netPrice;
 
                 $("#quote-after-sub-disc_"+row_id+"").text(val_after_dis);
                 $("#quote-netPrice_"+row_id+"").text(netPrice);
+
+                
+                for(var x=0; x<=j; x++){
+                    var value = $("#quote-netPrice_"+x+"").text();
+                    if(value != ""){
+                        var getNetPrie = parseInt(value);
+                        sumTotal += getNetPrie;
+                        console.log(sumTotal);
+                    }   
+                }
                 $("#sumTotal").text(sumTotal);
-                $(this).close();
+
+
             });
 
 
