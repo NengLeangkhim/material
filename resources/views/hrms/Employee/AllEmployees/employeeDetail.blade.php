@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="card card-default">
           <div class="card-header">
-            <h3 class="card-title hrm-title"><strong><i class="fas fa-users"></i>Employee Detail</strong></h3>
+            <h3 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Employee Detail</strong></h3>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
@@ -19,7 +19,7 @@
             <div class="row">
               @php
                   if(isset($data[1])){
-                   
+                    // print_r($data[1]);
                     $date=new DateTime($data[1]['joint_date']);
                     $dateBirth=new DateTime($data[1]['dateOfBirth']);
                     $dateofbirth=$dateBirth->format('Y-m-d');
@@ -82,8 +82,24 @@
                     <div class="col-md-6">
                       <label>Department <span class="text-danger">*</span></label>
                       <select name="emDepartment" id="" class="form-control" required disabled>
+                        @php
+                            $f1="";
+                            $f2="";
+                            foreach ($data[3] as $department) {
+                              if(isset($data[1])){
+                                if($department->id==$data[1]['department_id']){
+                                  $f1=$f1.'<option value="'.$department->id.'">'.$department->name.'</option>';
+                                }else {
+                                  $f2=$f2.'<option value="'.$department->id.'">'.$department->name.'</option>';
+                                }
+                              }else {
+                                $f1=$f1.'<option value="'.$department->id.'">'.$department->name.'</option>';
+                              }
+                            }
+                            echo $f1.$f2;
+                        @endphp
                         @foreach ($data[3] as $department)
-                      <option value="{{$department->id}}">{{$department->name}}</option>
+                          <option value="{{$department->id}}">{{$department->name}}</option>
                         @endforeach
                       </select>
                     </div>
@@ -119,7 +135,7 @@
                   </div>
               </div>
               <div class="col-md-4">
-                <input type="hidden" value="@php if(isset($data[1])){ echo $data[1]['image']; } @endphp" name="imgdirectory">
+                <input type="hidden" value="@php if(isset($data[1])){ echo $data[1]['image']; } @endphp" name="imgdirectory" disabled>
                 <div id="image-preview" style="margin-top: 30px" class=""> 
                   <label for="image-upload" id="image-label">Choose Image</label>
                   <input type="file" accept="image/*" onchange="preview_image(event)" name="emProfile" @php if(!isset($data[1])){ echo 'required'; } @endphp disabled>
@@ -135,16 +151,16 @@
                   <input type="tel" class="form-control" name="emOfficePhone" value="@php if(isset($data[1])){ echo $data[1]['office_phone']; } @endphp" disabled>
               </div>
               <div class="col-md-4">
-                  <label>Salary <span class="text-danger">*</span><span style="margin-left: 100px"><input type="checkbox" onclick="ShowPassword()" disabled>show</span></label>
+                  <label>Salary <span class="text-danger">*</span><span style="margin-left: 100px"><input type="checkbox" onclick="ShowPassword()">show</span></label>
                   <input type="@php if(isset($data[1])){ echo "password"; }else { echo "number"; } @endphp" id="inputsalary" class="form-control" name="emSalary" @php if(!isset($data[0])){ echo 'required'; } @endphp value="@php if(isset($data[1])){ echo $data[1]['salary']; } @endphp" disabled>
                 </div>
                 <div class="col-md-6">
                   <label>Bank Account</label>
-                  <input type="number" class="form-control" name="emBankAccount" value="@php if(isset($data[1])){ echo $data[1]['bank_account']; } @endphp" disabled>
+                  <input type="text" class="form-control" name="emBankAccount" value="@php if(isset($data[1])){ echo $data[1]['bank_account']; } @endphp" disabled>
               </div>
               <div class="col-md-6">
                   <label>Email <span class="text-danger">*</span></label>
-                  <input type="email" class="form-control" name="emEmail" value="@php if(isset($data[1])){ echo $data[1]['email']; } @endphp" required disabled>
+                  <input type="email" class="form-control" name="emEmail" value="@php if(isset($data[1])){ echo $data[1]['email']; } @endphp" disabled>
               </div>
               <div class="col-md-6">
                   <label>Spouse <span class="text-danger">*</span></label>
@@ -212,7 +228,7 @@
               </div>
               <div class="col-md-6">
                 <label>Khan/District<span class="text-danger">*</span></label>
-                <select class="form-control dynamic" name="emDistrict" id="idistrict" onchange="getbranch(this,'icommune','s','/commune')" required disabled>
+                <select class="form-control dynamic" name="emDistrict" id="idistrict" onchange="getbranch(this,'icommune','s','/commune')" required  disabled>
                   @php
                   $f1="";
                   $f2="";
@@ -269,7 +285,7 @@
               </div>
               <div class="col-md-12">
                 <label>Description</label>
-                <textarea disabled name="emDescription" id="" rows="5" class="form-control">@php if(isset($data[1])){echo $data[1]['description'];} @endphp</textarea>
+                <textarea name="emDescription" id="" rows="5" class="form-control" disabled>@php if(isset($data[1])){echo $data[1]['description'];} @endphp</textarea>
               </div>
 
               </div>

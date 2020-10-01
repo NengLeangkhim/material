@@ -76,7 +76,7 @@
                                         
                                     </div>
                                     <div class="col-md-12">
-                                        <table class="table table-bordered" id="tbl_hrm_attendance_detail" width="100%">
+                                        <table class="table table-bordered hrm_table" id="tbl_hrm_attendance_detail" width="100%">
                                             <thead>
                                                 <tr>
                                                     <th rowspan="2">#</th>
