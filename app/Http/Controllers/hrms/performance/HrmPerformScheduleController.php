@@ -38,11 +38,11 @@ class HrmPerformScheduleController extends Controller
                 $staff = ModelHrmPermission::hrm_get_staff_ceo();// get query from staff table
             }else if($group==4){//permission each departement
                 $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_dept($dept);
-                $get_plan = ModelHrmPlan::hrm_get_plan_detial_user($userid);// get query from performance plan 
+                $get_plan = ModelHrmPlan::hrm_get_plan_detial_dept($dept);// get query from performance plan 
                 $staff = ModelHrmPermission::hrm_get_staff_dept($dept);// get query from staff table
             }else{//permission check user
                 $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_staff($userid);
-                $get_plan = ModelHrmPlan::hrm_get_plan_detial_user($userid);// get query from performance plan
+                $get_plan = ModelHrmPlan::hrm_get_plan_detial_dept($dept);// get query from performance plan
                 $staff = ModelHrmPermission::hrm_get_staff_dept($dept);// get query from staff table
             }
             $i=1;// variable increase number for table
