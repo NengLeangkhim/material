@@ -49,7 +49,7 @@
                             <div class="form-group">
                                 <label for="plan_name">Parent Plan Detail<span class="text-danger"></span></label>
                                 <select class="form-control" id="plan_detail_parent" name="plan_detail_parent">
-                                    <option value="0">Select Parent</option>
+                                    <option value="">Select Parent</option>
                                     <?php 
                                     function buildTree(Array $data, $parent = 0) {
                                         $tree = array();

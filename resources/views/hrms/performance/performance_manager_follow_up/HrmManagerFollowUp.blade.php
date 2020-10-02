@@ -1,9 +1,3 @@
-@php
-foreach($permission as $row){
-  $level = $row->ma_group_id;
-  $id_user = $row->id;  
-}
-@endphp
  <!-- page content -->
  <section class="content">
     <div style="padding:10px 10px 10px 10px">
@@ -32,9 +26,10 @@ foreach($permission as $row){
                                 <th scope="col">Action</th>
                               </tr>
                             </thead>
-                            <tbody>
+                            {!!$table_perm!!}
+                            {{-- <tbody>
                               <?php 
-                              $i=1;
+                              //$i=1;
                               ?>
                               @foreach($manager_follow_up as $row)
                                 @php
@@ -56,7 +51,7 @@ foreach($permission as $row){
                                             </button>
                                             <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">
                                                 <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_view_manager_follow_up">View</button>           
-                                                @if ($level==4 || $level==5 || $level==1){{-- check permission manager --}}
+                                                @if ($level==4 || $level==5 || $level==1)check permission manager
                                                     <button type="button" id="{{$row->id}}" onclick="go_to('/hrm_performance_follow_up_manager/action?edit={{$row->id}}')" class="dropdown-item hrm_item hrm_update_manager_follow_up">Update</button>
                                                 @endif    
                                             </div>
@@ -64,7 +59,7 @@ foreach($permission as $row){
                                       </td>
                                   </tr>     
                               @endforeach
-                            </tbody>
+                            </tbody> --}}
                         </table>
                     </div>
                </div>

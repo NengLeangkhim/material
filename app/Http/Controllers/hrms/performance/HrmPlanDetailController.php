@@ -29,7 +29,39 @@ class HrmPlanDetailController extends Controller
             }else{//permission each departement
                 $plan_detail = ModelHrmPlanDetail::hrm_get_tbl_perform_plan_detail_dept($userid);
             }
-            return view('hrms/performance/performance_plan_detail/TablePerformPlanDetail', ['perform_plan_detail' => $plan_detail]); 
+            $i=1;// variable increase number for table
+            $table_perm= '<tbody>';
+            foreach($plan_detail as $row){
+                $create = $row->create_date;
+                $table_perm.= ' 
+                    <tr>
+                        <th>'.$i++.'</th>
+                        <td>'.$row->name_plan.'</td>
+                        <td>'.$row->name_parent.'</td>
+                        <td>'.$row->name.'</td>
+                        <td>'.$row->date_from.' '.'to'.' '.$row->date_to.'</td>
+                        <td>'.date('Y-m-d H:i:s',strtotime($create)).'</td>
+                        <td>'.$row->username.'</td>
+                        <td class="text-center">';
+                $table_perm.= '
+                    <div class="dropdown">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Action
+                        </button>
+                        <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">';
+                if(perms::check_perm_module('HRM_09070406')){// Permission View
+                    $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item hrm_view_perform_plan_detail">View</button>';
+                }
+                if(perms::check_perm_module('HRM_09070405')){// Permission Update
+                    $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'hrm_update_perform_plan_detail('.$row->id.','.$row->hr_performance_plan_id.')\' class="dropdown-item hrm_item hrm_update_perform_plan_detail">Update</button>';
+                }
+                $table_perm.= ' </div>
+                               </div>
+                            </td>
+                        </tr>';
+            }
+            $table_perm.='</tbody>';
+            return view('hrms/performance/performance_plan_detail/TablePerformPlanDetail', ['table_perm_detail' => $table_perm]); 
         }else{
             return view('no_perms');
         }

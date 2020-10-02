@@ -112,7 +112,7 @@ class AllemployeeController extends Controller
             $upload = path_config::Move_Upload($profile, "/media/file/main_app/profile/img/");
             if (!$upload == 0) {
                 $imageDirectory = $upload;
-                $em=Employee::InsertEmployee($firstName_en,$lastName_kh,$email,$telephone,$position,8,16,$departement_id,$userid,$idNumber,$sex,$firstName_kh,$lastName_kh,$imageDirectory,$officePhone,$jointDate,$dateOfBirth,$homeNumber_en,$homeNumber_kh,$street_en,$street_kh,'null', $vilage,'null',$spous,$has_children,$chidren,$salary,4,$description,$bankaccount);
+                $em=Employee::InsertEmployee($firstName_en,$lastName_en,$email,$telephone,$position,8,16,$departement_id,$userid,$idNumber,$sex,$firstName_kh,$lastName_kh,$imageDirectory,$officePhone,$jointDate,$dateOfBirth,$homeNumber_en,$homeNumber_kh,$street_en,$street_kh,'null', $vilage,'null',$spous,$has_children,$chidren,$salary,4,$description,$bankaccount);
                 echo $em;
             } else {
                 echo "error";

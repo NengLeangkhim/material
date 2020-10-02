@@ -33,7 +33,39 @@ class HrmManagerFollowUpController extends Controller
             }else{//permission check user
                 $manager_follow_up = ModelHrmManagerFollowUp::hrm_get_manager_follow_up_staff($userid); //query database
             }
-            return view('hrms/performance/performance_manager_follow_up/HrmManagerFollowUp',['manager_follow_up'=>$manager_follow_up,'permission'=>$permission]); 
+            $i=1;// variable increase number for table
+            $table_perm= '<tbody>';
+            foreach($manager_follow_up as $row){
+                $create = $row->create_date;
+                $table_perm.= ' 
+                    <tr>
+                        <th>'.$i++.'</th>
+                        <td>'.$row->staff_name.'</td>
+                        <td>'.$row->name_plan.'</td>
+                        <td>'.intval($row->percentage).'%'.'</td>
+                        <td>'.$row->score.'</td>
+                        <td>'.date('Y-m-d H:i:s',strtotime($create)).'</td>
+                        <td>'.$row->username.'</td>
+                        <td class="text-center">';
+                $table_perm.= '
+                    <div class="dropdown">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Action
+                        </button>
+                        <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">';
+                if(perms::check_perm_module('HRM_09070303')){// Permission View
+                    $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item hrm_view_manager_follow_up">View</button>';
+                }
+                if(perms::check_perm_module('HRM_09070302')){// Permission Update
+                    $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'go_to("/hrm_performance_follow_up_manager/action?edit='.$row->id.'")\' class="dropdown-item hrm_item hrm_update_manager_follow_up">Update</button>';
+                }
+                $table_perm.= ' </div>
+                               </div>
+                            </td>
+                        </tr>';
+            }
+            $table_perm.='</tbody>';
+            return view('hrms/performance/performance_manager_follow_up/HrmManagerFollowUp',['table_perm'=>$table_perm]); 
         }else{
             return view('no_perms');
         }

@@ -16,8 +16,43 @@ class HrmPerformScoreController extends Controller
             session_start();
             } 
         if(perms::check_perm_module('HRM_090705')){//module code list data tables id=100
+            if(perms::check_perm_module('HRM_09070501')){ // Permission Add
+                $add_perm = '<button type="button" id="HrmAddPerformScore" onclick=\'HrmAddPerformScore()\' class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Score</button>';
+            }else{
+                    $add_perm='';
+            }
             $perform_score = ModelHrmPerformScore::hrm_get_tbl_perform_score();
-            return view('hrms/performance/performance_score/HrmPerformScore',['perform_score'=>$perform_score]); 
+            $i=1;// variable increase number for table
+            $table_perm= '<tbody>';
+            foreach($perform_score as $row){
+                $create = $row->create_date;
+                $table_perm.= ' 
+                    <tr>
+                        <th>'.$i++.'</th>
+                        <td>'.$row->name.'</td>
+                        <td>'.intval($row->value).'%'.'</td>
+                        <td>'.date('Y-m-d H:i:s',strtotime($create)).'</td>
+                        <td>'.$row->username.'</td>
+                        <td class="text-center">';
+                $table_perm.= '
+                    <div class="dropdown">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Action
+                        </button>
+                        <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">';
+                if(perms::check_perm_module('HRM_09070502')){// Permission Update
+                    $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item hrm_update_perform_score">Update</button>';
+                }
+                if(perms::check_perm_module('HRM_09070503')){// Permission Delete
+                    $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'delete_performance_score('.$row->id.')\' class="dropdown-item hrm_item hrm_delete_perform_score">Delete</button>';
+                }
+                $table_perm.= ' </div>
+                               </div>
+                            </td>
+                        </tr>';
+            }
+            $table_perm.='</tbody>';
+            return view('hrms/performance/performance_score/HrmPerformScore',['add_perm'=>$add_perm,'table_perm'=>$table_perm]); 
         }else{
             return view('no_perms');
         }
