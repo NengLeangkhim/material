@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\api\crm;
+namespace App\Http\Resources\api\crm\lead;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LeadAssig extends JsonResource
+class LeadStatus extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,7 @@ class LeadAssig extends JsonResource
     {
         return [
             "id"=> $this->id,
-            "name"=>$this->last_name_en.' '.$this->first_name_en,
-            // "name"=>$this->name,
+            "name"=>$this->lead_name,
         ];
     }
 }

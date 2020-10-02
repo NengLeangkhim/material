@@ -74,15 +74,11 @@ class Crmlead extends Model
             ['ma_user.status', '=', 't'],
             ['ma_user.is_deleted', '=', 'f'],
             ['ma_company_dept.id', '=', 5]
-        ])->orderBy('ma_user.first_name_en','ASC')->get();
-
-        // return DB::select("select ma_user.id,CONCAT(first_name_en,' ',last_name_en) as name ,
-        // ma_company_dept.name as dept,
-        // ma_position.name as position_name, ma_company_dept_id 
-        // from ma_user
-        // left JOIN  ma_company_dept on ma_company_dept.id= ma_user.ma_company_dept_id
-        // left join ma_position on ma_position.id = ma_user.ma_position_id
-        // where ma_company_dept.id=5 and ma_user.status='t' and ma_user.is_deleted='f' ORDER BY name ASC");      
+        ])->orderBy('ma_user.first_name_en','ASC')->get();    
+    }
+    //get lead  Branch 
+    public static function leadBranch(){
+        return DB::select('SELECT  id,branch as name  FROM "public"."ma_company_branch" Where status=true and is_deleted=false');
     }
 
 }

@@ -13,12 +13,6 @@
     // }
 
 
-
-    
-
-
-  
-
     // $(document).ready(function(){
     //     var a = 0;
     //     var i = 0;
@@ -45,3 +39,65 @@
         // $('#add_row_table_quoteItem').append(tblRow);
     //     });
     // });
+
+    // get data into combobox branch
+    $('#branch').ready(function(){
+        $('#branch').find('option').not(':first').remove();
+            $.ajax({
+                // url:'http://127.0.0.1:8000/api/branch',
+                url:'api/branch',
+                type:'get',
+                dataType:'json',
+                success:function(response){
+                 
+                //     var len=0;
+                //     if(response['data']!= null){
+                //         len=response['data'].length;
+                //         alert(len);
+                //     }
+                //     if(len>0){
+                //         //read data and create <option>
+                        for(var i=0; i<response['data'].length ;i++){
+                            var id = response['data'][i].id;
+                            var name = response['data'][i].name;
+                            // alert(name);
+                            var option = "<option value='"+id+"'>"+name+"</option>"; 
+
+                            $("#branch").append(option); 
+                        }
+                //     }
+                }
+            })
+
+        })
+
+        $('.lead').click(function(e)        {
+            var ld = $(this).attr("​value");
+            e.preventDefault();  
+            // alert(ld);
+                $.ajax({   
+                    type: 'GET',   
+                    url:ld,
+                    success:function(data){
+                        $(".content-wrapper").show();
+                        $(".content-wrapper").html(data);
+                }
+            });
+        })
+        $(function(){
+             //Initialize Select2 Elements
+                 $('.select2').select2()
+
+                 $('.select2bs4').select2({
+                    theme: 'bootstrap4'
+                  })
+        })
+        
+
+        $('.to').change(function(e){
+            var to = $(this). children("option:selected"). val();
+            alert(to);
+        })
+        $('.save').click(function(){
+            submit_form ('/addlead','frm_lead','lead');
+        })
