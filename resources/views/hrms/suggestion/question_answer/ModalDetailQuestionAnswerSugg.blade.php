@@ -8,7 +8,9 @@
                       <h3 class="card-title hrm-title"><strong><i class="fas fa-info-circle"></i> Detail Question And Answer</strong></h3>
                       <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" data-dismiss="modal"><i class="fas fa-times"></i></button>
+                        <button type="button" class="btn btn-tool" data-dismiss="modal" aria-label="Close">
+                          <i class="fas fa-times"></i>
+                        </button>
                       </div>
                   </div><!-- /.card-header -->
                   <div class="card-body" style="display: block;">
