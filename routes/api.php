@@ -30,6 +30,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 //======================END CRM=========================
+//======================BSC=========================
+
+Route::post('register', 'api\UserController@register');
+Route::post('login', 'api\UserController@authenticate');
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::get('user', 'api\UserController@getAuthenticatedUser');
+});
+
+// Chart account
+Route::resource('bsc_chart_accounts', 'api\BSC\ChartAccountController');
+
+//======================END BSC=========================
 
 
 
