@@ -14,19 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// get all contacts
-Route::get('/contacts','api\crm\ContactController@index');
+/*
+|   GET ROUTES
+*/
 
-// get contact by id
-Route::get('/contact/{id}','api\crm\ContactController@show');
-
-// add contact
-Route::post('/contact','api\crm\ContactController@store');
-
-// edit contact
-Route::put('/contact','api\crm\ContactController@store');
-
-// delete contact
-Route::delete('/contact/{id}/{userid}','api\crm\ContactController@destroy');
-
-
+// get all product and service
+Route::get('/stock/{type}','api\stock\StockController@getStockPopup');

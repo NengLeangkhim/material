@@ -274,18 +274,18 @@
                                                                         <option value="2"><span>+Discount ($)</span> </option>
                                                                     </select>
                                                                 </td>
-                                                                <td>
+                                                                <td class="rowGrandDiscount">
                                                                     <div id="allDiscount"> 
-                                                                        <input type="text" style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="itemDiscountPercent"  placeholder="0.0%">
+                                                                        <input type="text" style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="itemDiscountPercent" value="0" placeholder="0.0%" required>
                                                                     </div>
-                                                                    <div id="totalDiscount">
-                                                                        0.0
+                                                                    <div  id="totalDiscount">
+                                                                        0
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                            <tr class="td-total-quote" >
+                                                            <tr class="td-total-quote grandTotal" >
                                                                 <td  ><span style="padding-right: 12px;">Grand Total</span></td>
-                                                                <td  ><div id="grendTotal"> 0.0 </div></td>
+                                                                <td  ><div id="grandTotal"> 0.0 </div></td>
                                                             </tr>
                                                             
                                                         </tbody>
