@@ -18,8 +18,13 @@ class HrmPlanController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
             } 
+        if(perms::check_perm_module('HRM_09060101')){ // Permission Add
+                $add_perm = '<button type="button" id="HrmAddPerformPlan" onclick=\'HrmAddPerformPlan()\' class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Plan</button>';
+        }else{
+                 $add_perm='';
+        }
         if(perms::check_perm_module('HRM_090704')){//module code list data tables id=99
-            return view('hrms/performance/performance_plan/PerformancePlanAndDetail'); 
+            return view('hrms/performance/performance_plan/PerformancePlanAndDetail',['add_perm'=>$add_perm]); 
         }else{
             return view('no_perms');
         }
@@ -40,7 +45,40 @@ class HrmPlanController extends Controller
             }else{//permission each departement
                 $perform_plan = ModelHrmPlan::hrm_get_tbl_perform_plan_dept($userid);
             }
-            return view('hrms/performance/performance_plan/TablePerformancePlan', ['perform_plan' => $perform_plan]); 
+            $i=1;// variable increase number for table
+            $table_perm= '<tbody>';
+            foreach($perform_plan as $row){
+                $create = $row->create_date;
+                $table_perm.= ' 
+                    <tr>
+                        <th>'.$i++.'</th>
+                        <td>'.$row->name.'</td>
+                        <td>'.$row->date_from.' '.'to'.' '.$row->date_to.'</td>
+                        <td>'.date('Y-m-d H:i:s',strtotime($create)).'</td>
+                        <td>'.$row->username.'</td>
+                        <td class="text-center">';
+                $table_perm.= '
+                    <div class="dropdown">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Action
+                        </button>
+                        <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">';
+                if(perms::check_perm_module('HRM_09070403')){// Permission View
+                    $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'go_to("/hrm_list_plan_performance/plan/modal?id='.$row->id.'")\' class="dropdown-item hrm_item hrm_view_plan_detail">View</button>';
+                }
+                if(perms::check_perm_module('HRM_09070402')){// Permission Update
+                    $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item hrm_update_perform_plan">Update</button>';
+                }
+                if(perms::check_perm_module('HRM_09070404')){// Permission Add Performance Detail
+                    $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item hrm_add_plan_detail">Add Plan Detail</button>';
+                }
+                $table_perm.= ' </div>
+                               </div>
+                            </td>
+                        </tr>';
+            }
+            $table_perm.='</tbody>';
+            return view('hrms/performance/performance_plan/TablePerformancePlan', ['table_perm' => $table_perm]); 
         }else{
             return view('no_perms');
         }
@@ -160,7 +198,6 @@ class HrmPlanController extends Controller
                 $id_plan = $row->id;
             }
             $plan_detail_get = ModelHrmPlanDetail::hrm_get_plan_detail($id_plan); 
-
             return view('hrms/performance/performance_plan/HrmViewPerformPlan', ['perform_plan' => $plan,'perform_plan_detail' =>$plan_detail_get]);
     } 
 }

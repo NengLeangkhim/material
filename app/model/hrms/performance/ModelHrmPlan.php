@@ -54,6 +54,17 @@ class ModelHrmPlan extends Model
        ])
        ->get(); 
       }
+      // ===== Function get data for plan for Dept ======//
+      public static function hrm_get_plan_detial_dept($id){
+         return  DB::table('hr_performance_plan as p')
+       ->select('p.*','mu.ma_company_dept_id')
+       ->join('ma_user as mu','p.create_by','=','mu.id')
+       ->where([
+         ['p.is_deleted', '=', 'f'],
+         ['mu.ma_company_dept_id', '=',$id]
+       ])
+       ->get(); 
+      }
       // ===== Function get data for plan for ceo ======//
       public static function hrm_get_plan_detial_ceo(){
          return  DB::table('hr_performance_plan')

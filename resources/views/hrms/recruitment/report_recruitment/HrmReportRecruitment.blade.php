@@ -16,9 +16,9 @@
                         <div class="row report_recruitment">
                             <div class="col-12">
                                 <div class="row" style="margin-top:1%">
-                                    <p class="word-tbody col-1 text-center">ចាប់ពី</p>
+                                    <p class="word-tbody col-1 text-center">From</p>
                                     <input type="date" name="" id="recruitment_from" class="form-control col-3" value="<?php echo date('Y-m-d')?>" onchange="hrm_recruitment_get_report_val(this.value,document.getElementById('recruitment_to').value)">
-                                    <p class="word-tbody col-1 text-center">ដល់</p>
+                                    <p class="word-tbody col-1 text-center">To</p>
                                     <input type="date" name="" id="recruitment_to" class="form-control col-3" value="<?php echo date('Y-m-d')?>" onchange="hrm_recruitment_get_report_val(document.getElementById('recruitment_from').value,this.value)">
                                 </div><br>
                             </div>
