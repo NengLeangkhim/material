@@ -69,13 +69,17 @@ Route::get('/organizations/detail','crm\OrganizationController@DetailOrganizatio
 
 
 // crm quote
-Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote list 
-Route::get('/quote/add','crm\QuoteController@addQuote'); // get show quote list 
+Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote 
+Route::get('/quote/detail','crm\QuoteController@showQuoteListDetail'); // get show quote detail
+Route::get('/quote/add','crm\QuoteController@addQuote'); // to add qoute
+Route::get('/quote/deleteLeadQuote','crm\QuoteController@deleteLeadQuote'); // get delete lead for quote list
+
 Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quote item table
 Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get one row quote item table
 
-
 // end quote
+
+
 // Start Report
 Route::get('/crmreport','crm\CrmReportController@CrmIndexReport'); // show index report 
 Route::get('/crmreport/detaillead','crm\CrmReportController@CrmDetailLeadReport'); // show Lead Detail report 
