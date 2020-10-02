@@ -103,6 +103,12 @@ class RouteServiceProvider extends ServiceProvider
         ->middleware('api')
         ->namespace($this->namespace)
         ->group(base_path('routes/crm_api/lead.php'));
+
+        // 2. --- STOCK API ---
+        Route::prefix('api')
+        ->middleware('api')
+        ->namespace($this->namespace)
+        ->group(base_path('routes/stock_api/stock.php'));
         
     }
 

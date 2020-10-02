@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\model\api\crm\ModelCrmQuote as Quote;
 use App\Http\Resources\QuoteResource;
+use App\Http\Resources\StockResource;
+
 use DB;
 Use Exception;
 
@@ -34,6 +36,9 @@ class QuoteController extends Controller
         return new QuoteResource($quote);   
     }
 
+    
+    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -42,6 +47,19 @@ class QuoteController extends Controller
      */
     public function store(Request $request)
     {
+         // $validatedData = $request->validate([
+            //     'qty' => 'required',
+            //     'price' => 'required',
+            //     'product' => 'required',
+            //     'comment' => 'required',
+            //     'lead_id' => 'required',
+            //     'due_date' => 'required',
+            //     'create_by'=> 'required',
+            //     'assign_to' => 'required',
+            //     'crm_lead_address_id' => 'required',
+            //     'crm_quote_status_type_id' => 'required'
+            // ]);
+
         if($request->isMethod('put')){
             try { 
                 $results = DB::select(
@@ -60,20 +78,6 @@ class QuoteController extends Controller
                 return json_encode(["update"=>"fail","result"=> $e->getMessage()]);
             }
         }else{
-
-            // $validatedData = $request->validate([
-            //     'qty' => 'required',
-            //     'price' => 'required',
-            //     'product' => 'required',
-            //     'comment' => 'required',
-            //     'lead_id' => 'required',
-            //     'due_date' => 'required',
-            //     'create_by'=> 'required',
-            //     'assign_to' => 'required',
-            //     'crm_lead_address_id' => 'required',
-            //     'crm_quote_status_type_id' => 'required'
-            // ]);
-
             DB::beginTransaction();
             try { 
                 $createby = $request->input('create_by');

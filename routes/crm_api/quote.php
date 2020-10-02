@@ -14,17 +14,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
+|   GET ROUTES
+*/
+
 // get all quotes
 Route::get('/quotes','api\crm\QuoteController@index');
 
 // get contact by id
 Route::get('/quote/{id}','api\crm\QuoteController@show');
 
+// get all product
+Route::get('/quote/stock/{type}','api\crm\QuoteController@getStock');
+
+
+/*
+|   ADD ROUTES
+*/
+
 // add quote
 Route::post('/quote','api\crm\QuoteController@store');
 
+/*
+|   EDIT ROUTES
+*/
+
 // edit quote
 Route::put('/quote','api\crm\QuoteController@store');
+
+
+/*
+|   DELETE ROUTES
+*/
 
 // delete quote
 Route::delete('/quote/{id}','api\crm\QuoteController@destroy');
