@@ -1,0 +1,22 @@
+.border_table{
+    border: none;
+}
+.border_center td{
+    padding: 0%;
+}
+#remove_center{
+    text-align: center;
+    width: 20px;
+    padding-top: 0.4em;
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+    border-radius: 3em;
+}
+.color_label{
+    color: red;
+}
+.add_payment_invoice{
+    padding-left: 50px;
+}
+
+
