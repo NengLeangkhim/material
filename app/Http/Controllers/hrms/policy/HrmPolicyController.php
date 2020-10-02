@@ -21,7 +21,7 @@ class HrmPolicyController extends Controller
                     $add_perm = '<button type="button" id="HrmAddPolicy" onclick=\'HrmAddPolicy()\' class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Policy</button>';
                  }else{
                      $add_perm='';
-                 }
+                }
                 $policy_list = ModelHrmPolicy::hrm_get_tbl_policy();
                 $i=1;// variable increase number for table
                   $table_perm= '<tbody>';

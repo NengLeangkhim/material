@@ -91,7 +91,7 @@
                 
 
                 <div class="col-md-12">
-                    <table class="table table-bordered" id="tbl_overtime" style="width: 100%">
+                    <table class="table table-bordered hrm_table" id="tbl_overtime" style="width: 100%">
                   <thead>                  
                     <tr>
                       <th style="width: 10px">#</th>
