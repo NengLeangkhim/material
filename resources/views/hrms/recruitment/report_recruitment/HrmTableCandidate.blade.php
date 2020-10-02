@@ -25,13 +25,13 @@
                     @if ($row->hr_approval_status=='approve')
                         <i class="fas fa-circle" style="color:green;"></i> <span style="margin-left:10px;">{{'Pass'}}</span>
                     @elseif($row->hr_approval_status=='pending')
-                        <i class="fas fa-circle" style="color:darkorange;"></i> <span style="margin-left:10px;">{{'Result On Hold'}}</span>
+                        <i class="fas fa-circle" style="color:darkorange;"></i> <span style="margin-left:10px;">{{'Wit'}}</span>
                     @elseif($row->hr_approval_status=='reject')
                         <i class="fas fa-circle" style="color:red;"></i> <span style="margin-left:10px;">{{'Fail'}}</span>
                     @elseif(is_null($row->check_quiz) && is_null($row->hr_approval_status))
-                        <i class="fas fa-circle" style="color:rgb(224, 224, 32);"></i> <span style="margin-left:10px;">{{'Not Yet Quiz'}}</span>
+                        <i class="fas fa-circle" style="color:rgb(224, 224, 32);"></i> <span style="margin-left:10px;">{{'New'}}</span>
                     @elseif(is_null($row->hr_approval_status) && $row->check_quiz==0) 
-                        <i class="fas fa-circle" style="color:orange;"></i> <span style="margin-left:10px;">{{'Not Yet Interview'}}</span>
+                        <i class="fas fa-circle" style="color:orange;"></i> <span style="margin-left:10px;">{{'Taken'}}</span>
                     @endif
                 </td>
             <td><button type="button" id="{{$row->id}}" class="btn btn-info hrm_view_list_candidate">Detail</button></td>
