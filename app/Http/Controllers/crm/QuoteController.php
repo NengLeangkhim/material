@@ -13,7 +13,10 @@ class QuoteController extends Controller
         return view('crm/quote/quoteShow');
     }
 
-
+    // function to get show qoute detail
+    public static function showQuoteListDetail(){
+        return view('crm/quote/qouteShowDetail');
+    }
 
     // function to add new quote data
     public static function addQuote(){
@@ -21,6 +24,16 @@ class QuoteController extends Controller
         return view('crm/quote/addQuote', compact('province'));
     }
 
+
+    // function to delete lead from quote list
+    public static function deleteLeadQuote(){
+        $status_delete = true;
+        if($status_delete == true){
+            return 1;
+        }
+    }
+
+    
 
     // function to add one new row table quote item
     public static function addRow(){

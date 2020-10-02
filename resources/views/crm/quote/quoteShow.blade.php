@@ -28,8 +28,8 @@
                                     </div>
                                 </div>                               
                             </div>
-                            <div class="card-body">
-                                <table id="OrganizationTbl" class="table table-bordered table-striped">
+                            <div class="card-body table-responsive">
+                                <table id="tblQuoteList" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th>Quote Number</th>
@@ -37,27 +37,44 @@
                                             <th>Organization Name</th>
                                             <th>Contact Name</th>
                                             <th>Total</th>
-                                            <th>Phone</th>
+                                            <th>Quote Stage</th>
                                             <th>Assigned To </th>
-                                            <th>Detail</th>
+                                            <th>Convert To BSC</th>
+                                            <th>Modified Time</th>
+                                            <th>Action</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {{-- @foreach($lead as $row) --}}
-                                        <tr>
-                                            <td>{{'TT-ACC0001'}}</td>
-                                            <td>{{'N00004'}}</td>
-                                            <td>{{'Bo Entertainment'}}</td>
-                                            <td>{{'Leader Bo'}}</td>
-                                            <td>{{'Oppa@gmail.com'}}</td>
-                                            <td>{{'09999999'}}</td>
-                                            <td>{{'XD'}}</td>
-                                            <td>
-                                            {{-- <a href="#" class="btn btn-block btn-info btn-sm edit" ​value="editlead/{{$row->id}}" ><i class="fas fa-wrench"></i></a>detaillead --}}
-                                            <a href="#" class="btn btn-block btn-info btn-sm organization_detail" ​value="/organizations/detail" ><i class="fas fa-info"></i></a>
-                                            </td>
-                                        </tr>                                       
-                                    {{-- @endforeach --}}
+                                            @for($i=0; $i<=10; $i++)
+
+                                                    <tr>
+                                                        <td>AAAAAA</td>
+                                                        <td>BBBBBBBBBB</td>
+                                                        <td>CCCCCCCCCCCCCC</td>
+                                                        <td>DDDDDDDDDDDDD</td>
+                                                        <td>EEEEEEEEEEEEE</td>
+                                                        <td>FFFFFFFFFFFFF</td>
+                                                        <td>GGGGGGGGGGGGGG</td>
+                                                        <td>HHHHHHHHHHHH</td>
+                                                        <td>IIIIIIIIIIII</td>
+                                                        <td>
+                                                            <div class="row-12 form-inline">
+                                                                <div class="col-md-4">
+                                                                    <a href="#"  class="qouteViewDetail btn-sm" onclick="go_to('/quote/detail')"  ><i class="fas fa-info"> </i> </a>
+                                                                </div> 
+                                                                <div class="col-md-4">
+                                                                    <a href="#" class="btn-sm" onclick=""><i class="fas fa-edit"> </i> </a>
+                                                                </div>  
+                                                                <div class="col-md-4 ">
+                                                                <a href="javascript:void(0);" class="btn-sm " onclick="getDeleteQuoteLead('/quote/deleteLeadQuote', '{{ $i }}')"> <span class="glyphicon glyphicon-remove"></span>  </a>
+                                                                </div>  
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                            @endfor
+
+                                                                    
                                     </tbody>  
                                 </table>
                             </div>
@@ -68,16 +85,19 @@
             </section>
 
 
-            <script>
-              $(function () {
-                $("#OrganizationTbl").DataTable({
-                "responsive": true,
-                "autoWidth": false,
-                });
-              });
-              $('.organization_detail').click(function(e)
-              {
-                  var table = $(this).attr("​value");
-                  go_to(table);
-              });
+            <script type="text/javascript">
+                    $(function () {
+                        $("#tblQuoteList").DataTable({
+                        // "responsive": true,
+                        "autoWidth": false,
+                        });
+                    });
+
+                    // $('.qouteViewDetail').click(function(e)
+                    // {
+                    //     var val = $(this).attr("​data-id");
+                    //     console.log(val);
+                    //     // go_to(val);
+                    // });
+
             </script>
