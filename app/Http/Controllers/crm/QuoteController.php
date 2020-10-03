@@ -15,7 +15,10 @@ class QuoteController extends Controller
 
     // function to get show qoute detail
     public static function showQuoteListDetail(){
-        return view('crm/quote/qouteShowDetail');
+        if(isset($_GET['id_'])){
+            return view('crm/quote/qouteShowDetail');
+        }
+
     }
 
     // function to add new quote data

@@ -12,5 +12,5 @@ class CrmLeadContact extends Model
     protected $fillable=[
         'ma_honorifics_id'
     ];
-
+    
 }
