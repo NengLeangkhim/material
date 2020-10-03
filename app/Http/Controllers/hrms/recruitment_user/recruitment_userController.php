@@ -34,7 +34,6 @@ class recruitment_userController extends Controller
     // function candidate register data
     public function register_candidate(){
         if(isset($_POST['btnSubmit']) && isset($_POST['emailaddress']) && isset($_POST['password']) ){
-
                 //declear variable 
                 $kh_name =  $_POST['khname'];
                 $f_name=    $_POST['firstname'];
@@ -88,6 +87,10 @@ class recruitment_userController extends Controller
 
     }
 
+    //function use for route Get Method
+    public function register_candidateGet(){
+        return view('hrms/recruitment_user/index_recruitment_register');
+    }
     // end function account submit
 
 
