@@ -27,6 +27,6 @@ Route::post('/contact','api\crm\ContactController@store');
 Route::put('/contact','api\crm\ContactController@store');
 
 // delete contact
-Route::delete('/contact/{id}','api\crm\ContactController@destroy');
+Route::delete('/contact/{id}/{userid}','api\crm\ContactController@destroy');
 
 

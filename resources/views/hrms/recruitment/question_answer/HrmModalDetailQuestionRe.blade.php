@@ -8,7 +8,9 @@
                       <h3 class="card-title hrm-title"><strong><i class="fas fa-info-circle"></i> Detail Question And Answer</strong></h3>
                       <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" data-dismiss="modal"><i class="fas fa-times"></i></button>
+                        <button type="button" class="btn btn-tool" data-dismiss="modal" aria-label="Close">
+                          <i class="fas fa-times"></i>
+                        </button>
                       </div>
                   </div><!-- /.card-header -->
                   <div class="card-body" style="display: block;">
@@ -17,7 +19,7 @@
                             <div class="row" style="height:150px">
                             <div class="col-8" style="text-align:center">
                                 <span class="text-center" style="font-size:15px;color:#d42931;float:left">Question:</span>
-                                <textarea disabled style="display:inline;color:black;" name="" id="interest" cols="43" rows="4">{{$item->question}}</textarea>
+                                <textarea disabled style="display:inline;color:black;" name="" cols="20" rows="4">{{$item->question}}</textarea>
                             </div>
                             <div class="col-4">
                                 <span class="text-center" style="font-size:15px;color:#d42931;float:left">Question Type:</span>

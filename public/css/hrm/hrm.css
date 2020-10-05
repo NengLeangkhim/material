@@ -290,3 +290,7 @@ display: block;
   text-align: center;
   /* padding-top: 1000px; */
 }
+.hrm_table tbody th{
+	font-size: 10px;
+	font-family: 'Khmer OS Content';
+}

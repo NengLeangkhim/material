@@ -69,13 +69,17 @@ Route::get('/organizations/detail','crm\OrganizationController@DetailOrganizatio
 
 
 // crm quote
-Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote list 
-Route::get('/quote/add','crm\QuoteController@addQuote'); // get show quote list 
+Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote 
+Route::get('/quote/detail','crm\QuoteController@showQuoteListDetail'); // get show quote detail
+Route::get('/quote/add','crm\QuoteController@addQuote'); // to add qoute
+Route::get('/quote/deleteLeadQuote','crm\QuoteController@deleteLeadQuote'); // get delete lead for quote list
+
 Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quote item table
 Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get one row quote item table
 
-
 // end quote
+
+
 // Start Report
 Route::get('/crmreport','crm\CrmReportController@CrmIndexReport'); // show index report 
 Route::get('/crmreport/detaillead','crm\CrmReportController@CrmDetailLeadReport'); // show Lead Detail report 
@@ -776,6 +780,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_calculate_attendance_detail', 'hrms\Employee\AttendanceController@ShowAttendanceDetail');
         Route::get('hrm_attendance_edit', 'hrms\Employee\AttendanceController@AttendanceEdit');
         Route::post('hrm_attendance_insert', 'hrms\Employee\AttendanceController@AttendanceEditInsert');
+        Route::get('hrm_your_attendance', 'hrms\Employee\AttendanceController@YourAttendance');
     // End Attendance
 
     // Start Mission And Out Side

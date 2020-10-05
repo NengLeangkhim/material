@@ -70,7 +70,15 @@ class HrmResultCandidateController extends Controller
                 $button = ModelHrmResultCandidate::get_button_approval($id_candidate);// Query for permission button
                 return view('hrms/recruitment/result_candidate/HrmActionResultCandidate',['permission'=>$permission,'candidate'=>$candidate,'score'=>$score,'time'=>$time,'choice'=>$choice,'true_choice'=>$true_choice,'answer_text'=>$answer_text,'comment'=>$comment,'button'=>$button]); 
             }else{//permission check user
-                $candidate = ModelHrmResultCandidate::get_candidate($id_candidate); //query Result for Normal User
+                $candidate = ModelHrmResultCandidate::get_candidate($id_candidate); //query Get data Candidate
+                $score = ModelHrmResultCandidate::get_candidate_score($date,$id_candidate);// Query Count true answer
+                $time =  ModelHrmResultCandidate::get_candidate_time($date,$id_candidate);// Query Count time candidate did quiz
+                $choice = ModelHrmResultCandidate::get_result_choice($date,$id_candidate);// Query Answer choice
+                $true_choice = ModelHrmResultCandidate::get_true_choice();// Query true choice for compare with Answer choice
+                $answer_text = ModelHrmResultCandidate::get_answer_text($date,$id_candidate);//Query answer text
+                $comment = ModelHrmResultCandidate::get_comment_approval($id_candidate);//Query comment of approval
+                $button = ModelHrmResultCandidate::get_button_approval($id_candidate);// Query for permission button
+                return view('hrms/recruitment/result_candidate/HrmActionResultCandidate',['permission'=>$permission,'candidate'=>$candidate,'score'=>$score,'time'=>$time,'choice'=>$choice,'true_choice'=>$true_choice,'answer_text'=>$answer_text,'comment'=>$comment,'button'=>$button]); 
             }
         }else{
             return view('no_perms');

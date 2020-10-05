@@ -1,9 +1,3 @@
-@php
-foreach($permission as $row){
-  $level = $row->ma_group_id;
-  $id_user = $row->id;  
-}
-@endphp
 <style>
     .fc-prev-button:hover,.fc-next-button:hover,.fc-today-button:hover,.fc-month-button:hover,.fc-agendaWeek-button:hover,.fc-agendaDay-button:hover,.fc-listWeek-button:hover{
     background-color: #1fa8e0;
@@ -28,10 +22,9 @@ foreach($permission as $row){
              <div class="card">
                <div class="card-header">
                  <h1 class="card-title hrm-title"><strong><i class="far fa-calendar-alt"></i> Performance Schedule</strong></h1>
-                 <div class="col-md-12 text-right">
-                    @if ($level==4 || $level==5 || $level==1)
-                    <button type="button" id="HrmAddSchedule" onclick="HrmAddSchedule()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Schedule</button>
-                    @endif
+                 <div class="col-md-12 text-right">  
+                    {{-- <button type="button" id="HrmAddSchedule" onclick="HrmAddSchedule()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Schedule</button> --}}
+                    {!!$add_perm!!}
                  </div>
                </div>
                <!-- /.card-header -->
@@ -52,9 +45,10 @@ foreach($permission as $row){
                                 <th scope="col">Action</th>
                               </tr>
                             </thead>
-                            <tbody>
+                            {!!$table_perm!!}
+                            {{-- <tbody>
                               <?php 
-                              $i=1;
+                             // $i=1;
                               ?>
                               @foreach($schedule as $row)
                                 @php
@@ -75,11 +69,11 @@ foreach($permission as $row){
                                             </button>
                                             <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">
                                                 <button type="button" id="{{$row->id}}" class="dropdown-item hrm_item hrm_view_perform_schedule">View</button>   
-                                                @if ($level==4 || $level==5 || $level==1){{-- check permission manager --}}
+                                                @if ($level==4 || $level==5 || $level==1)check permission manager
                                                     <button type="button" id="{{$row->id}}" onclick="hrm_update_perform_schedule({{$row->id}},{{$row->hr_performance_plan_id}})" class="dropdown-item hrm_item hrm_update_perform_schedule">Update</button>  
                                                 @endif           
-                                                @if ($row->ma_user_id == $id_user) {{-- can add follow up only by ur schedule --}}
-                                                    @if (is_null($row->deleted) || $row->deleted=='t'){{-- check condition if the schedule already manager follow up so the users can't follow up anymore --}}
+                                                @if ($row->ma_user_id == $id_user) can add follow up only by ur schedule
+                                                    @if (is_null($row->deleted) || $row->deleted=='t')check condition if the schedule already manager follow up so the users can't follow up anymore
                                                     <button type="button" id="{{$row->id}}" onclick="go_to('/hrm_performance_follow_up/modal/action?add={{$row->id}}')" class="dropdown-item hrm_item hrm_add_perform_follow_up">Add Follow Up</button>
                                                     @endif
                                                 @endif  
@@ -88,7 +82,7 @@ foreach($permission as $row){
                                       </td>
                                   </tr>     
                               @endforeach
-                            </tbody>
+                            </tbody> --}}
                         </table>
                     </div>
                </div>

@@ -34,11 +34,6 @@ class CrmReportApiController extends Controller
     }
 
     public function getLeadReportBySource(Request $request){
-        if($request == []){
-            return 'Emp';
-        } else {
-            return $request . 'Sth';
-        }
         $fromDate = $request->fromDate;
         $toDate = $request->toDate;
         $result = ($fromDate == null || $toDate == null) ? CrmReport::getLeadReportBySource() : CrmReport::getLeadReportBySourceFromDateToDate($fromDate, $toDate);

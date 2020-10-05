@@ -7,7 +7,8 @@
                <div class="card-header">
                  <h1 class="card-title hrm-title"><strong><i class="fas fa-id-card-alt"></i> Performance Plan and Detail</strong></h1>
                  <div class="col-md-12 text-right">
-                     <button type="button" id="HrmAddPerformPlan" onclick="HrmAddPerformPlan()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Plan</button>
+                     {{-- <button type="button" id="HrmAddPerformPlan" onclick="HrmAddPerformPlan()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Plan</button> --}}
+                     {!!$add_perm!!}
                  </div>
                </div>
                <!-- /.card-header -->

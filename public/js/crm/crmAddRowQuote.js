@@ -4,11 +4,13 @@
  
     //function to add row table to add quote item
     $(document).ready(function(){
-        var i = 0;
 
+        var i = 0; //use for count all row was created 
+        var j = 0; //use for count current row remainder 
+        var getSumTotal = 0;
         $("#btnAddRowQuoteItem").click(function(){
             var tblRow =
-                '<tr id="row'+i+'" class="tr-quote-row">' +
+                '<tr id="row'+i+'" class="tr-quote-row row-quote-item" data-id="'+i+'" >' +
                     '<td class="td-item-quote-name">' +
                         '<div class=" form-group">' +
                             '<div class="row form-inline2">' +
@@ -37,13 +39,13 @@
                         '</div>'+
                         '<div class="row pt-1 form-inline">' +
                             '<div class="col-md-6 col-sm-6 col-6">' +
-                                '<select  class="select-itemDiscount btn-list-item mdb-select md-form" name="select-itemDiscount_'+i+'" id="'+i+'" > ' +
+                                '<select  class="select-itemDiscount btn-list-item mdb-select md-form" name="select-itemDiscount_'+i+'" id="'+i+'" required > ' +
                                     '<option value="1"><span>+Discount (%)</span> </option>'+
                                     '<option value="2"><span>+Discount ($)</span> </option>'+
                                 '</select>'+
                             '</div>'+
                             '<div class="col-md-6 col-sm-6 col-6 field-input-discount" data-id="'+i+'" id="fieldItemDiscount_'+i+'">' +
-                                '<input type="text"  class="itemDisPercent_'+i+' txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="txtDiscount_'+i+'" demo="itemDisPercent" data-id="'+i+'" placeholder="0.0%">' +
+                                '<input type="text"  class="itemDisPercent_'+i+' txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="txtDiscount_'+i+'" demo="itemDisPercent" data-id="'+i+'" value="0" placeholder="0.0%">' +
                             '</div>'+
                         '</div>' +
                         '<div class="btn-list-item" style="color:black; margin-left: 7px; margin-top:15px;">' +
@@ -64,6 +66,7 @@
                     '</td>' +
                 '</tr>';
                 i++;
+                j++;
             $('#add_row_tablequoteItem').append(tblRow);
         });
 
@@ -71,7 +74,21 @@
         $(document).on('click', '.btnRemoveRow', function() {
             var btn_id = $(this).attr("id");
             $('#row' + btn_id + '').remove();
-            i--;
+            j--;
+
+            //for loop use when user delete row but grand total will refresh
+            var sumTotal = 0;
+            for(var x=0; x<=i; x++){
+                var value = $("#quote-netPrice_"+x+"").text();
+                if(value != ""){
+                    var getNetPrice = parseInt(value);
+                    sumTotal += getNetPrice;
+                    console.log(sumTotal);
+                }   
+            }
+            getSumTotal = sumTotal;
+            $("#sumTotal").text(sumTotal);
+
         });
 
 
@@ -83,13 +100,15 @@
             var select_val = $( "select[name='select-itemDiscount_"+row_id+"']" ).val();
             if(select_val == 1){
                 $('#txtDiscount_' + row_id + '').remove();
-                textBoxType = '<input type="text"  class="itemDisPercent_'+row_id+' txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="txtDiscount_'+row_id+'" demo="itemDisPercent" data-id="'+i+'" placeholder="0.0%">' ;
+                textBoxType = '<input type="text"  class="itemDisPercent_'+row_id+' txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="txtDiscount_'+row_id+'" demo="itemDisPercent" data-id="'+i+'" value="" required placeholder="0.0%">' ;
                 $('#fieldItemDiscount_'+row_id+'').append(textBoxType);
+                $("#quote-sub-discount_"+row_id+"").text(0);
             }
             if(select_val == 2){
                 $('#txtDiscount_' + row_id + '').remove();
-                textBoxType = '<input type="text"  class="itemDisPrice_'+row_id+' txtbox-quote valid-numeric-float" name="itemDiscountPrice[]" id="txtDiscount_'+row_id+'" demo="itemDisPrice" data-id="'+i+'"  placeholder="0.0$">' ;
+                textBoxType = '<input type="text"  class="itemDisPrice_'+row_id+' txtbox-quote valid-numeric-float" name="itemDiscountPrice[]" id="txtDiscount_'+row_id+'" demo="itemDisPrice" data-id="'+i+'" value="" required placeholder="0.0$">' ;
                 $('#fieldItemDiscount_'+ row_id +'').append(textBoxType);
+                $("#quote-sub-discount_"+row_id+"").text(0);
             }
         });
         
@@ -121,57 +140,86 @@
                 });
 
 
-                
-
-
-
         });
 
 
 
 
         //function keyup area
+        // var sumTotal = 0;
         $(document).keyup(function(e){
-            //function to calculate multiply qty & price to unit row product
-            
-            $("[demo='itemQty']").keyup(function(e){
-                var row_id = $(this).attr("id");
-                var itemQty = $(".itemQty_"+row_id+"").val();
-                var itemPrice =  $(".itemPrice_"+row_id+"").val(); 
-                subTotal = itemQty * itemPrice;
-                $("#quote-sub-total_"+row_id+"").text(subTotal);
-            });
-            
-            $("[demo='itemPrice']").keyup(function(e){
-                var row_id = $(this).attr("id");
-                var itemPrice =  $(".itemPrice_"+row_id+"").val(); 
-                var itemQty = $(".itemQty_"+row_id+"").val();
-                subTotal = itemQty * itemPrice;
-                $("#quote-sub-total_"+row_id+"").text(subTotal);
-            });
-            
-
-            // get value to show in sub-total of each product
-            $(".field-input-discount").keyup(function(e){
+            var sumTotal = 0;
+            var discountAllInOne = 0;
+            var granTotal = 0;
+            $(".row-quote-item").keyup(function(e){
                 var row_id = $(this).attr("data-id");
-                var itemQty = $(".itemQty_"+row_id+"").val();
-                var itemPrice =  $(".itemPrice_"+row_id+"").val(); 
-                subTotal = itemQty * itemPrice;
+                var subTotal = 0;
+                var get_val = 0;
+                var val_after_dis = 0;
+                var netPrice = 0;
                 
+                var itemQty = $(".itemQty_"+row_id+"").val();
+                var itemPrice = $(".itemPrice_"+row_id+"").val();
+                subTotal = itemQty * itemPrice;
+                $("#quote-sub-total_"+row_id+"").text(subTotal);
+                
+                //get discount percent for unit row 
                 if( $(".itemDisPercent_"+row_id+"").val()){
                     var DisPercent =  $(".itemDisPercent_"+row_id+"").val();
-                    var get_val = (subTotal * DisPercent) / 100;
-                    $("#quote-sub-discount_"+row_id+"").text(get_val);
+                    get_val = (subTotal * DisPercent) / 100;
                 }
-                
+
+                 //get discount price for unit row 
                 if($(".itemDisPrice_"+row_id+"").val()){
                     var DisPrice =  $(".itemDisPrice_"+row_id+"").val();
-                    var get_val = subTotal - DisPrice;
-                    $("#quote-sub-discount_"+row_id+"").text(get_val);
+                    get_val =  DisPrice;
                 }
+
+    
                 
+                val_after_dis = subTotal - get_val;
+                netPrice = val_after_dis;
+
+                //show element value by id
+                $("#quote-sub-discount_"+row_id+"").text(get_val);
+                $("#quote-after-sub-disc_"+row_id+"").text(val_after_dis);
+                $("#quote-netPrice_"+row_id+"").text(netPrice);
+
+                //for loop to get sumtotal all rows
+                for(var x=0; x<=i; x++){
+                    var value = $("#quote-netPrice_"+x+"").text();
+                    if(value != ""){
+                        var getNetPrie = parseInt(value);
+                        sumTotal += getNetPrie;
+                    }   
+                }
+                $("#sumTotal").text(sumTotal);
+                getSumTotal = sumTotal;
+                granTotal = getSumTotal;
+                $("#grandTotal").text(granTotal);
+                
+
             });
 
+
+            //get discount percent of total grand
+            var valDisPercent = $("#itemDiscountPercent").val();
+            if(valDisPercent){
+                discountAllInOne = (getSumTotal  * valDisPercent) / 100;
+                $("#totalDiscount").text(discountAllInOne);
+            }
+            
+            //get discount price of total grand
+            var valDisPrice = $("#itemDiscountPrice").val();
+            if(valDisPrice){
+                discountAllInOne = getSumTotal - valDisPrice;
+                $("#totalDiscount").text(discountAllInOne);
+            }
+            granTotal = getSumTotal - discountAllInOne;
+            $("#grandTotal").text(granTotal);
+
+
+            
 
 
 
@@ -215,9 +263,23 @@
 
 
 
+        //function get textbox as percent or price for select item discount type
+        $('.allItemDiscount').on('change', function(e) {
+            var textBoxType = "";
+            var select_val= $("#allItemDiscount").val();
+            if(select_val == 1){
+                $('#itemDiscountPrice').remove();
+                textBoxType = '<input type="text"  style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="itemDiscountPercent" value="" placeholder="0.0%" required>' ;
+                $('#allDiscount').append(textBoxType);
 
+            }
+            if(select_val == 2){
+                $('#itemDiscountPercent').remove();
+                textBoxType = '<input type="text"  style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPrice[]" id="itemDiscountPrice" value="" placeholder="0.0$" required>' ;
+                $('#allDiscount').append(textBoxType);
 
-        
+            }
+        });
 
 
       
