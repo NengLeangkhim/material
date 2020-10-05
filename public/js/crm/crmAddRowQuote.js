@@ -9,6 +9,7 @@
         var j = 0; //use for count current row remainder 
         var getSumTotal = 0;
         $("#btnAddRowQuoteItem").click(function(){
+            
             var tblRow =
                 '<tr id="row'+i+'" class="tr-quote-row row-quote-item" data-id="'+i+'" >' +
                     '<td class="td-item-quote-name">' +
@@ -35,7 +36,7 @@
                     '</td>' +
                     '<td class="td-item-quote">' +
                         '<div class="">' +
-                            '<input type="text" class="valid-numeric-float form-control itemPrice_'+i+'" name="listPrice[]" id="'+i+'"  demo="itemPrice" required placeholder="0.0$">' +
+                            '<input type="text" class="valid-numeric-float form-control itemPrice_'+i+'" name="listPrice[]" id="'+i+'"  demo="itemPrice"  required placeholder="0.0$">' +
                         '</div>'+
                         '<div class="row pt-1 form-inline">' +
                             '<div class="col-md-6 col-sm-6 col-6">' +
@@ -69,6 +70,8 @@
                 j++;
             $('#add_row_tablequoteItem').append(tblRow);
         });
+
+
 
         //function button remove row table
         $(document).on('click', '.btnRemoveRow', function() {
@@ -202,27 +205,25 @@
             });
 
 
-            //get discount percent of total grand
+            //get discount percent of grand total 
             var valDisPercent = $("#itemDiscountPercent").val();
             if(valDisPercent){
                 discountAllInOne = (getSumTotal  * valDisPercent) / 100;
                 $("#totalDiscount").text(discountAllInOne);
+                granTotal = getSumTotal - discountAllInOne;
             }
             
-            //get discount price of total grand
+            //get discount price of grand total
             var valDisPrice = $("#itemDiscountPrice").val();
             if(valDisPrice){
                 discountAllInOne = getSumTotal - valDisPrice;
-                $("#totalDiscount").text(discountAllInOne);
+                $("#totalDiscount").text(valDisPrice);
+                granTotal = discountAllInOne;
             }
-            granTotal = getSumTotal - discountAllInOne;
             $("#grandTotal").text(granTotal);
 
 
             
-
-
-
 
 
         });
@@ -243,7 +244,11 @@
                     document.getElementById('modal-list-quote').innerHTML=this.responseText;
                     $('#listQuoteProduct').modal('show');
                     
-                    let table = $('#tblItemProduct').DataTable({sDom: 'lrtip'});     
+                    let table = $('#tblItemProduct').DataTable({
+                        sDom: 'lrtip',
+                        targets:'no-sort',
+                        bSort: false,
+                    });     
                     $(document).keyup(function(){
                         $('#mySearchQuote').on( 'keyup', function () {
                             table.search($(this).val()).draw();

@@ -10,7 +10,7 @@
 
                     <div class="row pb-3">
                         <div class="col-md-2 col-sm-2 col-4">
-                            <input type="button" class="btn-success" id="" value="Select">
+                            <input type="button" class="btn-success" id=""  value="Select">
                         </div> 
                         <div class="col-md-5 col-sm-5 col-4"></div>
                         <div class="col-md-5 col-sm-5 col-4">
@@ -18,9 +18,9 @@
                         </div>
                     </div>
                     <div class="row-12 pt-2 ">
-                        <table id="tblItemProduct" class="table table-bordered table-hover" style="width: 100%">
+                        <table id="tblItemProduct" class="table table-bordered table-hover" style="width: 100%; white-space:nowrap;">
                             <thead>
-                                <tr>
+                                <tr >
                                     <th>
                                         <input type="checkbox" name="selectAllProduct" >
                                     </th>
@@ -29,31 +29,58 @@
                                     <th>Part Number</th>
                                     <th>Unit Price</th>
                                     <th>Commission Rate</th>
-                                    <th>Quantity</th>
+                                    <th>Qty/Unit</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-
-                                <?php
-                                    $i = 0;
-                                    while ($i <= 25) {
-                                        echo '
-                                            <tr>
-                                                <td><input type="checkbox" name="selectAllProduct" ></td>
-                                                <td>BBBB--'.$i.'</td>
-                                                <td>CCCC</td>
-                                                <td>DDDD</td>
-                                                <td>EEEE</td>
-                                                <td>FFFF</td>
-                                                <td>GGGG</td>
-                                            </tr>
-                                        ';
-                                        $i++;
-                                    }
+                                {{
+                                    $arr[] = ''
+                                }}
+                                @for($i=0; $i<=20; $i++)
+                                    <?php
+                                        $arr[] += $i;
+                                    ?>
+                                @endfor
+                                
+                                {{-- foreach variable --}}
+                                @foreach ($arr as $key=>$val)
+                                    <tr>
+                                        <td><input type="checkbox" id="{{$key}}" name="selectAllProduct"> </td>
+                                        <td>
+                                            <div>
+                                                Product--{{ $key }}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                100
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                10
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                0
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                1.0
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                Not a bundle
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach    
                                    
-                                ?>
 
                             </tbody>
                         </table>
