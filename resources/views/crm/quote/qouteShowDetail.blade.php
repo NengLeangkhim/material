@@ -7,7 +7,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="javascript:void(0);" class="CrmOrganization" onclick="go_to('/organizations')">Quote</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);" class="" onclick="go_to('/quote')">Quote List</a></li>
                     <li class="breadcrumb-item active">Quote Detail</li>
                 </ol>
             </div>
@@ -21,8 +21,8 @@
             <div class="col-12" >
               <div class="row">
                 <div class="col-6">
-                    <div class="row">
-                        {{-- <div class="> --}}
+                    <div class="row"> 
+                            {{-- <div class="> --}}
                             <h3 class="card-title"​>
                                 <i class="fas fa-hotel" style="padding-right:15px; font-size:35px"></i>
                                     Subject Name
@@ -32,9 +32,10 @@
                 </div>
                 <div class="col-6" >
                    <div class="row">
-                        <div class="col-4" align="right"><button type="button" ​value="/organizations/edit/1" class="btn btn-primary btn-block btn-md CrmOrganizationEdit">Export PDF</button></div>
-                        <div class="col-4 " align="right"><button type="button" ​value="/organizations/edit/1" class="btn btn-primary btn-block btn-md CrmOrganizationEdit">Preview</button></div>
-                        <div class="col-4 " align="right"><button type="button" ​value="/organizations/edit/1" class="btn btn-primary btn-block btn-md CrmOrganizationEdit">Edit</button></div>
+                        <div class="col-8"></div> 
+                        <div class="col-4" >
+                            <button type="button" ​value="/" class="btn btn-primary btn-block btn-md ">Convert To BSC</button>
+                        </div>
                    </div>
                 </div>
               </div>
@@ -320,58 +321,28 @@
             </div>
             <div class="col-md-3">
                 <div class="card card-secondary">
-                    <div class="card-header">
-                      <h3 class="card-title">Update</h3>        
-                      <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                          <i class="fas fa-minus"></i></button>
-                      </div>
-                    </div>
+                        <div class="card-header">
+                            <h3 class="card-title">More</h3>        
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i></button>
+                            </div>
+                        </div>
                         <div class="card-body">
-                            <strong><i class="fas fa-book mr-1"></i> Education</strong>            
-                            <p class="text-muted">
-                              B.S. in Computer Science from the University of Tennessee at Knoxville
-                            </p>            
-                            <hr>            
-                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-            
-                            <p class="text-muted">Malibu, California</p>
-            
-                            <hr>            
-                            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>            
-                            <p class="text-muted">
-                              <span class="tag tag-danger">UI Design</span>
-                              <span class="tag tag-success">Coding</span>
-                              <span class="tag tag-info">Javascript</span>
-                              <span class="tag tag-warning">PHP</span>
-                              <span class="tag tag-primary">Node.js</span>
-                            </p>            
-                            <hr>
-                            <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>            
-                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-                            <strong><i class="fas fa-book mr-1"></i> Education</strong>            
-                            <p class="text-muted">
-                              B.S. in Computer Science from the University of Tennessee at Knoxville
-                            </p>            
-                            <hr>            
-                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-            
-                            <p class="text-muted">Malibu, California</p>
-            
-                            <hr>            
-                            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>            
-                            <p class="text-muted">
-                              <span class="tag tag-danger">UI Design</span>
-                              <span class="tag tag-success">Coding</span>
-                              <span class="tag tag-info">Javascript</span>
-                              <span class="tag tag-warning">PHP</span>
-                              <span class="tag tag-primary">Node.js</span>
-                            </p>            
-                            <hr>
-                            <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>            
-                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-                          </div>
-                          <!-- /.card-body -->
+                            <dl class="row">
+                                <a href="#" >Quote Detail</a>
+                            </dl>
+                            <dl class="row">
+                                <a href="#" >Update</a>
+                            </dl>
+                            <dl class="row">
+                                <a href="#" >Activities</a>
+                            </dl>
+                            <dl class="row">
+                                <a href="#" >Documents</a>
+                            </dl>
+
+                        </div>
                     </div>
                 </div>
             </div>

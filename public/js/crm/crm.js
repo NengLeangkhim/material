@@ -14,10 +14,36 @@
 
 
 
+    function goto_Action(route,id){
+      $(".content-wrapper").html(spinner());
+      if(check_session()){
+          return;
+      }
+      if(route.length<=0){
+          $(".content-wrapper").html(jnot_found());
+          return;
+      }
+      if(route=='/'){
+          $(".content-wrapper").html(jnot_found());
+          return;
+      }
+      $.ajax({
+          type: 'GET',
+          url:route,
+          data:{id_:id},
+          success:function(data){
+              $(".content-wrapper").show();
+              $(".content-wrapper").html(data);
+          },
+          error:function(){
+            $(".content-wrapper").html(jerror());
+          }
+      });
+    }
+
+
     
-
-
-     function getDeleteQuoteLead(route,id) {
+    function getDeleteQuoteLead(route,id) {
 
         Swal.fire({ //get from sweetalert function
           title: 'Do you want to delete this?',
@@ -53,3 +79,9 @@
         })
        
       };
+
+
+
+
+
+

@@ -242,10 +242,25 @@
                 if(this.readyState==4 && this.status==200){
                     document.getElementById('modal-list-quote').innerHTML=this.responseText;
                     $('#listQuoteProduct').modal('show');
+                    
+                    let table = $('#tblItemProduct').DataTable({sDom: 'lrtip'});     
+                    $(document).keyup(function(){
+                        $('#mySearchQuote').on( 'keyup', function () {
+                            table.search($(this).val()).draw();
+                        });
+                    });
+
+
+
+             
+
+                    
                 }
             }
             x.open("GET", url + "?" + id, true);
             x.send();
+
+
         
         });
 
