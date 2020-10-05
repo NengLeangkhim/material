@@ -42,7 +42,7 @@
 
     // get data into combobox branch
     $('#branch').ready(function(){
-        // $('#branch').find('option').not(':first').remove();
+        $('#branch').find('option').not(':first').remove();
             $.ajax({
                 // url:'http://127.0.0.1:8000/api/branch',
                 url:'api/branch',
