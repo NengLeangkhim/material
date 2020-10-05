@@ -63,7 +63,7 @@ class QuoteController extends Controller
         if($request->isMethod('put')){
             try { 
                 $results = DB::select(
-                    'SELECT public."update_crm_quote"(?, ?, ?, ?, ?, ?, ?)',
+                    'SELECT public."update_crm_quote"(?, ?, ?, ?, ?, ?, ?, ?)',
                     array(
                         $request->input('crm_quote_id'),
                         $request->input('update_by'),
@@ -71,6 +71,7 @@ class QuoteController extends Controller
                         $request->input('due_date'),
                         $request->input('assign_to'),
                         $request->input('crm_lead_address_id'),
+                        $request->input('subject'),
                         $request->input('create_by')
                     ));
                 return json_encode(["update"=>"success","result"=>$results]);
@@ -84,12 +85,13 @@ class QuoteController extends Controller
 
                 // insert to crm_quote 
                 $insert_quote = DB::select(
-                    'SELECT public."insert_crm_quote"(?, ?, ?, ?, ?)',
+                    'SELECT public."insert_crm_quote"(?, ?, ?, ?, ?, ?)',
                     array(
                         $request->input('lead_id'),
                         $request->input('due_date'),
                         $request->input('assign_to'),
                         $request->input('crm_lead_address_id'),
+                        $request->input('subject'),
                         $createby
                     ));
 
