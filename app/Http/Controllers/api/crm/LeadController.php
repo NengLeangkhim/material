@@ -69,13 +69,16 @@ class LeadController extends Controller
     //  insert lead 
     public function  insertLead(Request $request){
         //Lead 
-        // if (session_status() == 1) {
+        // if (session_status() == PHP_SESSION_NONE) {
         //     session_start();
         // }
         // $userid = $_SESSION['userid'];
+        $userid = 1;
+        // return $userid;
+    
         $company_en=$request->input('company_en');
         $company_kh=$request->input('company_kh');
-        $primary_phone=$request->input('primary_phone');
+        $primary_email=$request->input('primary_email');
         $user_create=$request->input('user_create');
         $website=$request->input('website');
         $facebook=$request->input('facebook');
@@ -89,9 +92,13 @@ class LeadController extends Controller
         $current_speed_isp=$request->input('current_speed_isp');
         $current_speed=$request->input('current_speed');
         $current_price=$request->input('current_price');
+        $employee_count=$request->input('employee_count');
+        $comment=$request->input('comment');
         //contact detail
         $name_kh=$request->input('name_kh');
         $name_en=$request->input('name_en');
+        $gender=$request->input('gender');
+        $facebook_con=$request->input('facebook');
         $email=$request->input('email');
         $phone=$request->input('phone');
         $position=$request->input('position');
@@ -106,6 +113,9 @@ class LeadController extends Controller
         $address_type=$request->input('address_type');
         $addresscode=$request->input('addresscode');
 
-        return  $company_en.'/'.$company_kh.'/'.$website;
+        return  Lead::insertLead($company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
+        $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
+        $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+        $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment);
     }
 }

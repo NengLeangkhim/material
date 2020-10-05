@@ -250,6 +250,28 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                         <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Employee Count</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="website" id="exampleInputEmail1" placeholder="Current Speed">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Comment</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="facebook" id="exampleInputEmail1" placeholder="Current Price">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>  
                         </div>
                         <div class="card card-primary">
@@ -443,13 +465,15 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Lead Type <b style="color:red">*</b></label>
+                                                <label for="exampleInputEmail1">Address Type <b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
                                                     </div>
                                                     <select class="form-control " name="LeadType" id="LeadType" >
-                                                        <option>select Type</option>                                                        
+                                                        <option value="billing">Billing</option>                                                        
+                                                        <option value="install">Install</option>                                                        
+                                                        <option value="main">Main</option>                                                        
                                                     </select>     
                                                 </div> 
                                             </div>
