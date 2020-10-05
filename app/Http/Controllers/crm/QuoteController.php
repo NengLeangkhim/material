@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\crm;
 use App\model\crm\ModelCrmLead;
 use App\Http\Controllers\Controller;
+// use App\Http\Controllers\api\crm\QuoteController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class QuoteController extends Controller
 {
@@ -15,7 +17,10 @@ class QuoteController extends Controller
 
     // function to get show qoute detail
     public static function showQuoteListDetail(){
-        return view('crm/quote/qouteShowDetail');
+        if(isset($_GET['id_'])){
+            return view('crm/quote/qouteShowDetail');
+        }
+
     }
 
     // function to add new quote data
@@ -43,12 +48,14 @@ class QuoteController extends Controller
 
 
 
+
     //function to get list product 
     public static function listProduct(){
         if(isset($_GET['id'])){
-            return view('crm/quote/listProduct');
+
+            // return view('crm/quote/listProduct');
         }
-        
+
     }
 
 

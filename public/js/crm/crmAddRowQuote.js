@@ -9,6 +9,7 @@
         var j = 0; //use for count current row remainder 
         var getSumTotal = 0;
         $("#btnAddRowQuoteItem").click(function(){
+            
             var tblRow =
                 '<tr id="row'+i+'" class="tr-quote-row row-quote-item" data-id="'+i+'" >' +
                     '<td class="td-item-quote-name">' +
@@ -35,7 +36,7 @@
                     '</td>' +
                     '<td class="td-item-quote">' +
                         '<div class="">' +
-                            '<input type="text" class="valid-numeric-float form-control itemPrice_'+i+'" name="listPrice[]" id="'+i+'"  demo="itemPrice" required placeholder="0.0$">' +
+                            '<input type="text" class="valid-numeric-float form-control itemPrice_'+i+'" name="listPrice[]" id="'+i+'"  demo="itemPrice"  required placeholder="0.0$">' +
                         '</div>'+
                         '<div class="row pt-1 form-inline">' +
                             '<div class="col-md-6 col-sm-6 col-6">' +
@@ -70,12 +71,13 @@
             $('#add_row_tablequoteItem').append(tblRow);
         });
 
+
+
         //function button remove row table
         $(document).on('click', '.btnRemoveRow', function() {
             var btn_id = $(this).attr("id");
             $('#row' + btn_id + '').remove();
             j--;
-
             //for loop use when user delete row but grand total will refresh
             var sumTotal = 0;
             for(var x=0; x<=i; x++){
@@ -202,29 +204,22 @@
             });
 
 
-            //get discount percent of total grand
+            //get discount percent of grand total 
             var valDisPercent = $("#itemDiscountPercent").val();
             if(valDisPercent){
                 discountAllInOne = (getSumTotal  * valDisPercent) / 100;
                 $("#totalDiscount").text(discountAllInOne);
+                granTotal = getSumTotal - discountAllInOne;
             }
             
-            //get discount price of total grand
+            //get discount price of grand total
             var valDisPrice = $("#itemDiscountPrice").val();
             if(valDisPrice){
                 discountAllInOne = getSumTotal - valDisPrice;
-                $("#totalDiscount").text(discountAllInOne);
+                $("#totalDiscount").text(valDisPrice);
+                granTotal = discountAllInOne;
             }
-            granTotal = getSumTotal - discountAllInOne;
             $("#grandTotal").text(granTotal);
-
-
-            
-
-
-
-
-
         });
 
 
@@ -236,17 +231,35 @@
         $(document).on('click', '[name=addItemProduct]', function() {
             var row_id = $(this).attr("id");
             var id = "id="+row_id;
-            var url = '/quote/add/listProduct';
-            var x=new XMLHttpRequest();
-            x.onreadystatechange=function(){
-                if(this.readyState==4 && this.status==200){
-                    document.getElementById('modal-list-quote').innerHTML=this.responseText;
-                    $('#listQuoteProduct').modal('show');
-                }
-            }
-            x.open("GET", url + "?" + id, true);
-            x.send();
-        
+
+            $.ajax({
+                type: 'GET',
+                url: 'api/stock/product',
+                success:function(data){
+                    var myobj= JSON.stringify(data);
+                    console.log(myobj[id]);
+                },
+                
+            });
+
+
+
+
+
+
+                    // document.getElementById('modal-list-quote').innerHTML=this.responseText;
+                    // $('#listQuoteProduct').modal('show');
+                    // let table = $('#tblItemProduct').DataTable({
+                    //     sDom: 'lrtip',
+                    //     targets:'no-sort',
+                    //     bSort: false,
+                    // });     
+                    // $(document).keyup(function(){
+                    //     $('#mySearchQuote').on( 'keyup', function () {
+                    //         table.search($(this).val()).draw();
+                    //     });
+                    // });
+
         });
 
 

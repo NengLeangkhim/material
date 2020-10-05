@@ -925,6 +925,8 @@ Route::get('hrm_shift_promote_report_search_view_detail','hrms\shift_promote\shi
 
 // candidate register account submit information
 Route::post('hrm_recruitment_user_register','hrms\recruitment_user\recruitment_userController@register_candidate');
+Route::get('hrm_recruitment_user_register','hrms\recruitment_user\recruitment_userController@register_candidateGet');
+
 // end
 
 // route controller to user submit quiz answer

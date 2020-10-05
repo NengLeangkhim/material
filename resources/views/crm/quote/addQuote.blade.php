@@ -9,8 +9,8 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="" class="CrmOrganization" ​value="organization">Quote</a></li>
-                        <li class="breadcrumb-item active">New Quote</li>
+                        <li class="breadcrumb-item"><a href="#" class="" onclick="go_to('/quote')">Quote List</a></li>
+                        <li class="breadcrumb-item active">Create Quote</li>
                     </ol>
                 </div>
             </div>
@@ -290,6 +290,7 @@
                                                             
                                                         </tbody>
                                                     </table>
+                                                    
                                                     
                                                 </td>
                                             </tr>

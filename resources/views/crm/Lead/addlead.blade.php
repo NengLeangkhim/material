@@ -113,7 +113,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Vat Type</label>
+                                            <label for="exampleInputEmail1">Current Speed ISP</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fab fa-tumblr"></i></span>
@@ -141,21 +141,21 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Customer Type <b style="color:red">*</b></label>
+                                            <label for="exampleInputEmail1">Company Branch <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                 </div>
-                                                <select class="form-control" name="custtype" >
-                                                    <option></option>
-                                                    <option>Publi</option>
-                                                    <option>Staff</option>
+                                                <select class="form-control "  name="companybranch" id='branch' >
+                                                    <option value='0'>-- Select Employee --</option>
+                                                    {{-- <option value="2">Main</option> --}}
+                                                    {{-- <option>Staff</option>
                                                     <option>MNK Staff</option>
                                                     <option>UPG Staff</option>
                                                     <option>Tela Staff</option>
                                                     <option>City Glod Staff</option>
                                                     <option>Amory Staff</option>
-                                                    <option>Other</option>
+                                                    <option>Other</option> --}}
                                                 </select>   
                                             </div>                
                                         </div>
@@ -221,7 +221,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                                 </div>
-                                                <select class="form-control" name="assigendTo">
+                                                <select class="form-control select2" name="assigendTo">
                                                     <option></option>
                                                     @foreach($assig_to as $row )
                                                         <option value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option> 
@@ -235,34 +235,12 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fab fa-speakap"></i></span>
                                                 </div>
-                                                <select class="form-control" name="CrmService">
+                                                <select class="form-control  select2bs4 " multiple="multiple" name="CrmService">
                                                     <option></option>
                                                     {{-- @foreach($assig_to as $row )
                                                         <option value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option> 
                                                     @endforeach --}}
                                                 </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Primary Email<b style="color:red">*</b></label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-at"></i></span>
-                                                </div>
-                                                <input type="email" class="form-control"  name="email" id="exampleInputEmail1" placeholder="Primary Email">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Primary Phone <b style="color:red">*</b></label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control" name="phone"id="exampleInputEmail1" placeholder="Primary Phone" >
                                             </div>
                                         </div>
                                     </div>
@@ -280,6 +258,28 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Current Price</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="facebook" id="exampleInputEmail1" placeholder="Current Price">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                         <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Employee Count</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="website" id="exampleInputEmail1" placeholder="Current Speed">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Comment</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
@@ -482,13 +482,15 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Lead Type <b style="color:red">*</b></label>
+                                                <label for="exampleInputEmail1">Address Type <b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
                                                     </div>
                                                     <select class="form-control " name="LeadType" id="LeadType" >
-                                                        <option>select Type</option>                                                        
+                                                        <option value="billing">Billing</option>                                                        
+                                                        <option value="install">Install</option>                                                        
+                                                        <option value="main">Main</option>                                                        
                                                     </select>     
                                                 </div> 
                                             </div>
@@ -583,35 +585,8 @@
         </form>
         <!-- /.modal-dialog -->
       </div>
-    <script type="text/javascript">
-            $('.lead').click(function(e)
-            {
-                var ld = $(this).attr("​value");
-                e.preventDefault();  
-                // alert(ld);
-                    $.ajax({   
-                        type: 'GET',   
-                        url:ld,
-                        success:function(data){
-
-                            $(".content-wrapper").show();
-                            $(".content-wrapper").html(data);
-                    }
-                });
-            })
-            $(function(){
-                 //Initialize Select2 Elements
-                     $('.select2').select2()
-            })
-
-            $('.to').change(function(e){
-                var to = $(this). children("option:selected"). val();
-                alert(to);
-            })
-            $('.save').click(function(){
-                submit_form ('/addlead','frm_lead','lead');
-            })
-    </script>
+      <script type="text/javascript" src="js/crm/crm.js"></script>   
+  
     {{--Google Map--}}
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing&key=AIzaSyA4QECK3Tl4Sdl1zPIHiyZaME5mUaSk4WU&callback=initMap" async defer></script>    
     <script>
@@ -676,4 +651,5 @@
             clearMarkers();
             markers = [];
         }
+        
     </script>

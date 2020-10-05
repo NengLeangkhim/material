@@ -28,8 +28,8 @@
                                     </div>
                                 </div>                               
                             </div>
-                            <div class="card-body table-responsive">
-                                <table id="tblQuoteList" class="table table-bordered table-hover">
+                            <div class="card-body ">
+                                <table id="tblQuoteList" class="table table-bordered table-hover" style="white-space:nowrap;">
                                     <thead>
                                         <tr>
                                             <th>Quote Number</th>
@@ -46,8 +46,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                            @for($i=0; $i<=10; $i++)
 
+                                            
+                                            @for($i=0; $i<=10; $i++)
                                                     <tr>
                                                         <td>AAAAAA</td>
                                                         <td>BBBBBBBBBB</td>
@@ -61,13 +62,18 @@
                                                         <td>
                                                             <div class="row-12 form-inline">
                                                                 <div class="col-md-4">
-                                                                    <a href="#"  class="qouteViewDetail btn-sm" onclick="go_to('/quote/detail')"  ><i class="fas fa-info"> </i> </a>
+                                                                    <a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action('/quote/detail', '{{ $i }}')"  >
+                                                                        {{-- <i class="fas fa-info"> </i>  --}}
+                                                                        View
+                                                                    </a>
                                                                 </div> 
-                                                                <div class="col-md-4">
-                                                                    <a href="#" class="btn-sm" onclick=""><i class="fas fa-edit"> </i> </a>
+                                                                <div class="col-md-4">`
+                                                                    <a href="#" class="btn btn-success btn-sm" onclick="goto_Action('/quote/editQuote', '{{ $i }}')">
+                                                                        Edit
+                                                                    </a>
                                                                 </div>  
                                                                 <div class="col-md-4 ">
-                                                                <a href="javascript:void(0);" class="btn-sm " onclick="getDeleteQuoteLead('/quote/deleteLeadQuote', '{{ $i }}')"> <span class="glyphicon glyphicon-remove"></span>  </a>
+                                                                <a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead('/quote/deleteLeadQuote', '{{ $i }}')"> <span class="glyphicon glyphicon-remove"></span>  </a>
                                                                 </div>  
                                                             </div>
                                                         </td>
@@ -88,16 +94,9 @@
             <script type="text/javascript">
                     $(function () {
                         $("#tblQuoteList").DataTable({
-                        // "responsive": true,
+                        "responsive": true,
                         "autoWidth": false,
                         });
                     });
-
-                    // $('.qouteViewDetail').click(function(e)
-                    // {
-                    //     var val = $(this).attr("​data-id");
-                    //     console.log(val);
-                    //     // go_to(val);
-                    // });
 
             </script>

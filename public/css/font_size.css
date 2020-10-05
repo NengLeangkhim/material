@@ -1,4 +1,9 @@
 
+  
+    /* font set size fix */
+    .font-size-7 {
+        font-size: 7px;
+    }
     .font-size-8 {
         font-size: 8px;
     }
@@ -69,3 +74,215 @@
     .font-size-30 {
         font-size: 30px;
     }
+
+
+
+
+    /* style font as vw size */
+    .font-1vw {
+        font-size: 1vw;
+    }
+    .font-2vw {
+        font-size: 2vw;
+    }
+    .font-3vw {
+        font-size: 3vw;
+    }
+    .font-4vw {
+        font-size: 4vw;
+    }
+    .font-5vw {
+        font-size: 5vw;
+    }
+    .font-6vw {
+        font-size: 6vw;
+    }
+    .font-7vw {
+        font-size: 7vw;
+    }
+    .font-8vw {
+        font-size: 8vw;
+    }
+    .font-9vw {
+        font-size: 9vw;
+    }
+    .font-10vw {
+        font-size: 10vw;
+    }
+    .font-11vw {
+        font-size: 11vw;
+    }
+    .font-12vw {
+        font-size: 12vw;
+    }
+    .font-13vw {
+        font-size: 13vw;
+    }
+    .font-14vw {
+        font-size: 14vw;
+    }
+    .font-15vw {
+        font-size: 15vw;
+    }
+
+
+
+
+    /* font responsive by resolution size */
+    @media only screen and (max-width: 1100px) {
+        .font-respon-7 {
+            font-size: 8px;
+        }
+        .font-respon-8 {
+            font-size: 9px;
+        }
+        .font-respon-9 {
+            font-size: 10px;
+        }
+        .font-respon-10 {
+            font-size: 11px;
+        }
+        .font-respon-11 {
+            font-size: 12px;
+        }
+        .font-respon-12 {
+            font-size: 13x;
+        }
+        .font-respon-13 {
+            font-size: 14px;
+        }
+        .font-respon-14 {
+            font-size: 15px;
+        }
+        .font-respon-15 {
+            font-size: 16px;
+        }
+        .font-respon-16 {
+            font-size: 17px;
+        }
+        .font-respon-17 {
+            font-size: 18px;
+        }
+        .font-respon-18 {
+            font-size: 19px;
+        }
+        .font-respon-19 {
+            font-size: 20px;
+        }
+        .font-respon-20 {
+            font-size: 21px;
+        }
+        .font-respon-21 {
+            font-size: 22px;
+        }
+        .font-respon-22 {
+            font-size: 23px;
+        }
+        .font-respon-23 {
+            font-size: 24px;
+        }
+        .font-respon-24 {
+            font-size: 25px;
+        }
+        .font-respon-25 {
+            font-size: 26px;
+        }
+        .font-respon-26 {
+            font-size: 27px;
+        }
+        .font-respon-27 {
+            font-size: 28px;
+        }
+        .font-respon-28 {
+            font-size: 29px;
+        }
+        .font-respon-29 {
+            font-size: 30px;
+        }
+        .font-respon-30 {
+            font-size: 31px;
+        }
+    }
+
+
+    @media only screen and (max-width: 900px) {
+        .font-respon-7 {
+            font-size: 7px;
+        }
+        .font-respon-8 {
+            font-size: 8px;
+        }
+        .font-respon-9 {
+            font-size: 9px;
+        }
+        .font-respon-10 {
+            font-size: 10px;
+        }
+        .font-respon-11 {
+            font-size: 11px;
+        }
+        .font-respon-12 {
+            font-size: 12px;
+        }
+        .font-respon-13 {
+            font-size: 13px;
+        }
+        .font-respon-14 {
+            font-size: 14px;
+        }
+        .font-respon-15 {
+            font-size: 15px;
+        }
+        .font-respon-16 {
+            font-size: 16px;
+        }
+        .font-respon-17 {
+            font-size: 17px;
+        }
+        .font-respon-18 {
+            font-size: 18px;
+        }
+        .font-respon-19 {
+            font-size: 19px;
+        }
+        .font-respon-20 {
+            font-size: 20px;
+        }
+        .font-respon-21 {
+            font-size: 21px;
+        }
+        .font-respon-22 {
+            font-size: 22px;
+        }
+        .font-respon-23 {
+            font-size: 23px;
+        }
+        .font-respon-24 {
+            font-size: 24px;
+        }
+        .font-respon-25 {
+            font-size: 25px;
+        }
+        .font-respon-26 {
+            font-size: 26px;
+        }
+        .font-respon-27 {
+            font-size: 27px;
+        }
+        .font-respon-28 {
+            font-size: 28px;
+        }
+        .font-respon-29 {
+            font-size: 29px;
+        }
+        .font-respon-30 {
+            font-size: 30px;
+        }
+    }
+
+
+
+
+
+
+    
