@@ -1,6 +1,6 @@
 <div class="col-12">
     <div class="row d-flex align-items-stretch">
-      @foreach ($contact_pagination as $row )
+      @foreach ($contact_pagination->data as $row )
       <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch" >
         <div class="card bg-light" style="width:1000px">
           <div class="card-header text-muted border-bottom-0">                                    
@@ -27,7 +27,7 @@
               {{-- <a href="#" class="btn btn-sm bg-teal">
                 <i class="fas fa-comments"></i>
               </a> --}}
-              <a href="#" class="btn btn-sm btn-primary CrmContactDetail" ​value="/contact/detail">
+              <a href="#" class="btn btn-sm btn-primary CrmContactDetail" onclick="go_to('/contact/detail?id={{$row->id}}')" ​value="/contact/detail">
                 <i class="fas fa-user"></i> View Profile
               </a>
             </div>
@@ -37,6 +37,6 @@
       @endforeach                      
 
     </div> 
-    {{$contact_pagination->links() }}
+    {{-- {{$contact_pagination->links()}} --}}
 </div>
   

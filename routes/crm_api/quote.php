@@ -35,6 +35,7 @@ Route::get('/quote/stock/{type}','api\crm\QuoteController@getStock');
 // add quote
 Route::post('/quote','api\crm\QuoteController@store');
 
+
 /*
 |   EDIT ROUTES
 */

@@ -1286,7 +1286,7 @@ function hrm_update_perform_schedule(id,id_plan){
   success:function(data){
       $('#hrm_perform_schedule_modal').modal('show');   //It will display modal on webpage
       $('#action_schedule_staff').text("Update"); //This code will change Button value to Update
-      $('#card_title').text("Update Schedule");
+      $('#card_title').text('Update Schedule');
       $('.print-error-msg').hide();
       $('#hrm_perform_schedule_form input').removeClass("is-invalid");//remove valid all input field
       $('#hrm_perform_schedule_form textarea').removeClass("is-invalid");//remove valid all input field
@@ -1369,7 +1369,7 @@ if($('#action_follow_up').val()=='Create') //check condition for create question
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
         console.log(data);
         sweetalert('success','The Staff Follow Up has been Insert Successfully !!');
-        setTimeout(function(){ go_to('/hrm_performance_follow_up'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('/hrm_performance_staff_schedule'); }, 300);// Set timeout for refresh content 
     }else{
       // $(".print-error-msg").find("ul").html(''); 
 
@@ -1456,7 +1456,7 @@ if($('#action_manage_follow_up').val()=='Create') //check condition for create q
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
         console.log(data);
         sweetalert('success','The Manager Follow Up has been Insert Successfully !!');
-        setTimeout(function(){ go_to('/hrm_performance_follow_up_manager'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('/hrm_performance_follow_up'); }, 300);// Set timeout for refresh content 
     }else{
       // $(".print-error-msg").find("ul").html(''); 
 

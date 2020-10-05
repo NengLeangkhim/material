@@ -23,7 +23,8 @@
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
-                        </thead>
+                            {!!$table_perm!!}
+                        {{-- </thead>
                         @php
                             $i=1;   
                         @endphp
@@ -57,7 +58,7 @@
                                 </td>
                             </tr>
                             @endforeach
-                        </tbody>
+                        </tbody> --}}
                         </table>
                     </div>
                </div>

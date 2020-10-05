@@ -1,3 +1,10 @@
+// Export Data from database to Excel
+    function HRMS_ExportHoliday(){
+        window.location.href = "/hrm_export_holiday";
+    }
+// Export Data from database to Excel
+
+
 // Delete Data
 function hrm_delete_data(id, route, goto, alerts,permission) {
 
