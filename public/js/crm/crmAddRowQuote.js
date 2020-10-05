@@ -220,11 +220,6 @@
                 granTotal = discountAllInOne;
             }
             $("#grandTotal").text(granTotal);
-
-
-            
-
-
         });
 
 

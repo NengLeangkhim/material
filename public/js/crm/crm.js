@@ -101,3 +101,78 @@
         $('.save').click(function(){
             submit_form ('/addlead','frm_lead','lead');
         })
+
+        
+
+
+
+//========================>> Quote-CRM JS <<================================= 
+
+        // function template to get route & id to show data
+        function goto_Action(route,id){
+          $(".content-wrapper").html(spinner());
+          if(check_session()){
+              return;
+          }
+          if(route.length<=0){
+              $(".content-wrapper").html(jnot_found());
+              return;
+          }
+          if(route=='/'){
+              $(".content-wrapper").html(jnot_found());
+              return;
+          }
+          $.ajax({
+              type: 'GET',
+              url:route,
+              data:{id_:id},
+              success:function(data){
+                  $(".content-wrapper").show();
+                  $(".content-wrapper").html(data);
+              },
+              error:function(){
+                $(".content-wrapper").html(jerror());
+              }
+          });
+        }
+    
+    
+
+        // function t get delete quote lead 
+        function getDeleteQuoteLead(route,id) {
+            Swal.fire({ 
+              title: 'Do you want to delete this?',
+              icon: 'warning',
+              showCancelButton: true,
+              width: '35%',
+              padding: '10px',
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Delete'
+            }).then((result) => {
+              if (result.value) {
+                $.ajax({
+                  url:route,   
+                  data:{id:id},
+                  type:"GET",   
+                  success:function(data){
+                      if(data == 1){
+                        alert(data);
+                      }
+                    //   setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
+                    //   Swal.fire(
+                    //     'Deleted!',
+                    //       alert,
+                    //     'success'
+                    //   )
+                  }
+                  
+                 });
+                
+              }
+            })
+           
+          };
+    
+
+//===========================>> End-Quote-CRM JS <<==========================================
