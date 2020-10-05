@@ -1,5 +1,6 @@
 
 
+
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="listQuoteProduct">
     <div class="modal-dialog modal-lg" id="confirm_box1">
         <div class="modal-content">
@@ -22,13 +23,11 @@
                             <thead>
                                 <tr >
                                     <th>
-                                        <input type="checkbox" name="selectAllProduct" >
+                                        <input type="checkbox" id="" name="selectAllProduct" >
                                     </th>
-                                    <th>Product Name
-                                    </th>
+                                    <th>Product Name</th>
                                     <th>Part Number</th>
                                     <th>Unit Price</th>
-                                    <th>Commission Rate</th>
                                     <th>Qty/Unit</th>
                                     <th>Action</th>
                                 </tr>
@@ -47,7 +46,9 @@
                                 {{-- foreach variable --}}
                                 @foreach ($arr as $key=>$val)
                                     <tr>
-                                        <td><input type="checkbox" id="{{$key}}" name="selectAllProduct"> </td>
+                                        <td>
+                                            <input type="checkbox" id="{{$key}}" name="selectAllProduct">
+                                         </td>
                                         <td>
                                             <div>
                                                 Product--{{ $key }}
@@ -63,11 +64,7 @@
                                                 10
                                             </div>
                                         </td>
-                                        <td>
-                                            <div>
-                                                0
-                                            </div>
-                                        </td>
+
                                         <td>
                                             <div>
                                                 1.0

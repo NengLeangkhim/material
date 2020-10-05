@@ -78,7 +78,6 @@
             var btn_id = $(this).attr("id");
             $('#row' + btn_id + '').remove();
             j--;
-
             //for loop use when user delete row but grand total will refresh
             var sumTotal = 0;
             for(var x=0; x<=i; x++){
@@ -237,36 +236,35 @@
         $(document).on('click', '[name=addItemProduct]', function() {
             var row_id = $(this).attr("id");
             var id = "id="+row_id;
-            var url = '/quote/add/listProduct';
-            var x=new XMLHttpRequest();
-            x.onreadystatechange=function(){
-                if(this.readyState==4 && this.status==200){
-                    document.getElementById('modal-list-quote').innerHTML=this.responseText;
-                    $('#listQuoteProduct').modal('show');
-                    
-                    let table = $('#tblItemProduct').DataTable({
-                        sDom: 'lrtip',
-                        targets:'no-sort',
-                        bSort: false,
-                    });     
-                    $(document).keyup(function(){
-                        $('#mySearchQuote').on( 'keyup', function () {
-                            table.search($(this).val()).draw();
-                        });
-                    });
+
+            $.ajax({
+                type: 'GET',
+                url: 'api/stock/product',
+                success:function(data){
+                    var myobj= JSON.stringify(data);
+                    console.log(myobj[id]);
+                },
+                
+            });
 
 
 
-             
-
-                    
-                }
-            }
-            x.open("GET", url + "?" + id, true);
-            x.send();
 
 
-        
+
+                    // document.getElementById('modal-list-quote').innerHTML=this.responseText;
+                    // $('#listQuoteProduct').modal('show');
+                    // let table = $('#tblItemProduct').DataTable({
+                    //     sDom: 'lrtip',
+                    //     targets:'no-sort',
+                    //     bSort: false,
+                    // });     
+                    // $(document).keyup(function(){
+                    //     $('#mySearchQuote').on( 'keyup', function () {
+                    //         table.search($(this).val()).draw();
+                    //     });
+                    // });
+
         });
 
 
