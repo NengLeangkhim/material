@@ -1,3 +1,12 @@
+@php
+    foreach($detail as $row){
+        $name_en = $row->name_en;
+        $name_kh = $row->name_kh;
+        $email = $row->email;
+        $facebook = $row->facebook;
+        $position = $row->position;
+    }
+@endphp
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -25,7 +34,7 @@
                             <h3 class="card-title"​>
                                 <i class="far fa-id-card" style="padding-right:15px; font-size:35px"></i>
                                     {{-- <h6 style="font-weight: bold; font-size: 20px">drgdS</h6>  --}}
-                                    Test okayy
+                                    {{$name_en}}
                             </h3>
                         {{-- </div> --}}
                     </div>
@@ -56,16 +65,16 @@
                     <div class="card-body">
                         <dl class="row">
                             <dt class="col-sm-4 dt" >Name English</dt>
-                            <dd class="col-sm-8 dd" > Sok kita</dd>
+                            <dd class="col-sm-8 dd" > {{$name_en}}</dd>
                             <dt class="col-sm-4 dt">Name Khmer</dt>
-                            <dd class="col-sm-8 dd" >A description list is perfect for defining terms.</dd>
+                            <dd class="col-sm-8 dd" >{{$name_kh}}</dd>
                             <dt class="col-sm-4 dt">Email</dt>
-                            <dd class="col-sm-8 dd">Vestibulum id ligula porta felis euismod semper eget </dd>
+                            <dd class="col-sm-8 dd">{{$email}} </dd>
                             {{-- <dd class="col-sm-8 offset-sm-4">Primary Email</dd> --}}
                             <dt class="col-sm-4 dt">Facebook</dt>
-                            <dd class="col-sm-8 dd">Etiam porta sem malesuada magna mollis euismod.</dd>
+                            <dd class="col-sm-8 dd">{{$facebook}}</dd>
                             <dt class="col-sm-4 dt">Position </dt>
-                            <dd class="col-sm-8 dd">Fusce dapibus, tellus ac cursus commodo, tortor mauris 
+                            <dd class="col-sm-8 dd">{{$position}} 
                             </dd>
                         </dl>
                     </div>
