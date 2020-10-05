@@ -28,14 +28,4 @@ class UsersExport implements FromCollection, ShouldAutoSize
         $export = $pr->ExportPayroll_Excel($this->month,$this->year);
         return collect($export);
     }
-    // public function headings(): array
-    // {
-    //     return [
-    //         '#',
-    //         'Name',
-    //         'Email',
-    //         'Created at',
-    //         'Updated at'
-    //     ];
-    // }
 }
