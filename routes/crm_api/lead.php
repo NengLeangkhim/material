@@ -37,6 +37,8 @@ Route::get('/village/{id}','api\crm\LeadController@getVillage');
 // get Branch
 Route::get('/branch','api\crm\LeadController@getLeadBranch');
 // insert lead 
-Route::post('insertlead','api\crm\LeadController@insertLead');
+Route::POST('/insertlead','api\crm\LeadController@insertLead');
+
+Route::get('/getlead','api\crm\LeadController@getLead');
 
 

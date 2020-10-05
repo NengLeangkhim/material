@@ -12,6 +12,7 @@ use App\Http\Resources\api\crm\lead\LeadStatus as StatusResource;
 use App\Http\Resources\api\crm\lead\LeadAssig as AssigResource;
 use App\Http\Resources\api\crm\lead\Address;
 use App\Http\Resources\api\crm\lead\LeadBranch;
+use App\Http\Resources\api\crm\lead\GetLead;
 
 
 
@@ -67,7 +68,7 @@ class LeadController extends Controller
         return LeadBranch::Collection($service);
     }
     //  insert lead 
-    public function  insertLead(Request $request){
+    public  static function  insertLead(Request $request){
         //Lead 
         // if (session_status() == PHP_SESSION_NONE) {
         //     session_start();
@@ -75,7 +76,7 @@ class LeadController extends Controller
         // $userid = $_SESSION['userid'];
         $userid = 1;
         // return $userid;
-    
+        
         $company_en=$request->input('company_en');
         $company_kh=$request->input('company_kh');
         $primary_email=$request->input('primary_email');
@@ -117,5 +118,11 @@ class LeadController extends Controller
         $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
         $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
         $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment);
+    }
+
+    // get lead
+    public function getLead(){
+        $lead = Lead::getlead();
+        return GetLead::Collection($lead);
     }
 }
