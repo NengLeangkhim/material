@@ -17,6 +17,23 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-list-alt"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Search Lead"  name='Search'>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text btn btn-info" data-toggle="modal" data-target="#modal-info"><i class="fas fa-search"></i></span>
+                                    </div>
+                                </div>                           
+                            </div>
+                        </div>
+                      </div>
+                </div>
                 <!-- left column -->
                 <div class="col-md-12">
                     <form id="frm_lead" action="">

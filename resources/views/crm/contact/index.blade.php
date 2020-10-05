@@ -58,7 +58,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($contact_table as $row)
+                                    @foreach($contact_table->data as $row)
                                         <tr>
                                             <td>TT-CON0000002</td>
                                             <td>{{$row->name_en}}</td>

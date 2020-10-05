@@ -28,7 +28,7 @@ class HrmManagerFollowUpController extends Controller
             }
             if($group==5 || $group==1){ //permission check for CEO and Admin
                 $manager_follow_up = ModelHrmManagerFollowUp::hrm_get_manager_follow_up_top(); //query database
-            }else if($group==4){//permission each departement
+            }elseif($group==4){//permission each departement
                 $manager_follow_up = ModelHrmManagerFollowUp::hrm_get_manager_follow_up_dept($dept); //query database
             }else{//permission check user
                 $manager_follow_up = ModelHrmManagerFollowUp::hrm_get_manager_follow_up_staff($userid); //query database
