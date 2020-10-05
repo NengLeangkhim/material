@@ -125,4 +125,8 @@ class LeadController extends Controller
         $lead = Lead::getlead();
         return GetLead::Collection($lead);
     }
+    public function getLeadById($id){
+        $lead = Lead::getleadId($id);
+        return GetLead::Collection($lead);
+    }
 }
