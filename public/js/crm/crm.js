@@ -14,34 +14,74 @@
 
 
 
+    function goto_Action(route,id){
+      $(".content-wrapper").html(spinner());
+      if(check_session()){
+          return;
+      }
+      if(route.length<=0){
+          $(".content-wrapper").html(jnot_found());
+          return;
+      }
+      if(route=='/'){
+          $(".content-wrapper").html(jnot_found());
+          return;
+      }
+      $.ajax({
+          type: 'GET',
+          url:route,
+          data:{id_:id},
+          success:function(data){
+              $(".content-wrapper").show();
+              $(".content-wrapper").html(data);
+          },
+          error:function(){
+            $(".content-wrapper").html(jerror());
+          }
+      });
+    }
+
+
     
+    function getDeleteQuoteLead(route,id) {
 
-
-  
-
-    // $(document).ready(function(){
-    //     var a = 0;
-    //     var i = 0;
-    //     $("").click(function(){
+        Swal.fire({ //get from sweetalert function
+          title: 'Do you want to delete this?',
+        //   text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          width: '35%',
+          padding: '10px',
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Delete'
+        }).then((result) => {
+          if (result.value) {
+            $.ajax({
+              url:route,   
+              data:{id:id},
+              type:"GET",   
+              success:function(data){
+                  if(data == 1){
+                    alert(data);
+                  }
+                //   setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
+                //   Swal.fire(
+                //     'Deleted!',
+                //       alert,
+                //     'success'
+                //   )
+              }
+              
+             });
             
-        // var tblRow =
-        //     a++;
-        //     '<tr id="row' + i + '"  >' +
-        //         '<td class="style_td">' +
-        //         '<input type="text" class="form-control" name="product_name[]"  required>' +
-        //         '</td>' +
-        //         '<td class="style_td ">' +
-        //         '<input type="text" class="form-control" name="quantity[]" id="item_qty" required>' +
-        //         '</td>' +
-        //         '<td class="style_td ">' +
-        //         '<input type="number" step="1" min="1" class="form-control" name="unit_price" required>' +
-        //         '</td>' +
-        //         '<td class="style_td ">' +
-        //         '<input type="text" class="form-control total" name="sub_total[]" id="total"  class="total" required >' +
-        //         '</td>' +
-        //     '</tr>';
-        //     i++;
-        // console.log(tblRow);
-        // $('#add_row_table_quoteItem').append(tblRow);
-    //     });
-    // });
+          }
+        })
+       
+      };
+
+
+
+
+
+

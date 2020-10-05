@@ -6,7 +6,7 @@
                 <div class=" modal-header text-center">
                     <h4 class="modal-title" id="exampleModalLabel"><b> Add Product </b></h4>
                 </div>
-                <div class=" modal-body table-responsive">
+                <div class=" modal-body ">
 
                     <div class="row pb-3">
                         <div class="col-md-2 col-sm-2 col-4">
@@ -14,18 +14,18 @@
                         </div> 
                         <div class="col-md-5 col-sm-5 col-4"></div>
                         <div class="col-md-5 col-sm-5 col-4">
-                            <input type="text" class="form-control" id="searchItemProduct" placeholder="Search">
+                            <input type="search" id="mySearchQuote" class="form-control" placeholder="Search">
                         </div>
                     </div>
-                    <div class="row-12 pt-2">
-                        <table id="tblItemProduct" class="table table-bordered table-hover">
+                    <div class="row-12 pt-2 ">
+                        <table id="tblItemProduct" class="table table-bordered table-hover" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>
                                         <input type="checkbox" name="selectAllProduct" >
-                                       
                                     </th>
-                                    <th>Product Name</th>
+                                    <th>Product Name
+                                    </th>
                                     <th>Part Number</th>
                                     <th>Unit Price</th>
                                     <th>Commission Rate</th>
@@ -42,7 +42,7 @@
                                         echo '
                                             <tr>
                                                 <td><input type="checkbox" name="selectAllProduct" ></td>
-                                                <td>BBBB</td>
+                                                <td>BBBB--'.$i.'</td>
                                                 <td>CCCC</td>
                                                 <td>DDDD</td>
                                                 <td>EEEE</td>
@@ -61,27 +61,6 @@
                 </div>
         </div>
     </div>
-    <script>
 
-        $(document).ready(function() {
-            var search = $('#tblItemProduct').DataTable();
-            $('#searchItemProduct').on('keyup change', function () {
-                search.search(this.value).draw();
-            });
-        } );
-        
-       
-
-        // $(function () {
-        //     oTable = $("#tblItemProduct").DataTable({
-        //     "responsive": true,
-        //     "autoWidth": false, 
-        //     "search": true,
-        //     });
-        //     oTable.search($(this).val()).draw();
-        // });
-    
-
-    </script>
 </div
 

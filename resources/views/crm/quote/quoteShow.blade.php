@@ -28,8 +28,8 @@
                                     </div>
                                 </div>                               
                             </div>
-                            <div class="card-body">
-                                <table id="OrganizationTbl" class="table table-bordered table-striped">
+                            <div class="card-body ">
+                                <table id="tblQuoteList" class="table table-bordered table-hover" style="white-space:nowrap;">
                                     <thead>
                                         <tr>
                                             <th>Quote Number</th>
@@ -37,27 +37,51 @@
                                             <th>Organization Name</th>
                                             <th>Contact Name</th>
                                             <th>Total</th>
-                                            <th>Phone</th>
+                                            <th>Quote Stage</th>
                                             <th>Assigned To </th>
-                                            <th>Detail</th>
+                                            <th>Convert To BSC</th>
+                                            <th>Modified Time</th>
+                                            <th>Action</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {{-- @foreach($lead as $row) --}}
-                                        <tr>
-                                            <td>{{'TT-ACC0001'}}</td>
-                                            <td>{{'N00004'}}</td>
-                                            <td>{{'Bo Entertainment'}}</td>
-                                            <td>{{'Leader Bo'}}</td>
-                                            <td>{{'Oppa@gmail.com'}}</td>
-                                            <td>{{'09999999'}}</td>
-                                            <td>{{'XD'}}</td>
-                                            <td>
-                                            {{-- <a href="#" class="btn btn-block btn-info btn-sm edit" ​value="editlead/{{$row->id}}" ><i class="fas fa-wrench"></i></a>detaillead --}}
-                                            <a href="#" class="btn btn-block btn-info btn-sm organization_detail" ​value="/organizations/detail" ><i class="fas fa-info"></i></a>
-                                            </td>
-                                        </tr>                                       
-                                    {{-- @endforeach --}}
+
+                                            
+                                            @for($i=0; $i<=10; $i++)
+                                                    <tr>
+                                                        <td>AAAAAA</td>
+                                                        <td>BBBBBBBBBB</td>
+                                                        <td>CCCCCCCCCCCCCC</td>
+                                                        <td>DDDDDDDDDDDDD</td>
+                                                        <td>EEEEEEEEEEEEE</td>
+                                                        <td>FFFFFFFFFFFFF</td>
+                                                        <td>GGGGGGGGGGGGGG</td>
+                                                        <td>HHHHHHHHHHHH</td>
+                                                        <td>IIIIIIIIIIII</td>
+                                                        <td>
+                                                            <div class="row-12 form-inline">
+                                                                <div class="col-md-4">
+                                                                    <a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action('/quote/detail', '{{ $i }}')"  >
+                                                                        {{-- <i class="fas fa-info"> </i>  --}}
+                                                                        View
+                                                                    </a>
+                                                                </div> 
+                                                                <div class="col-md-4">
+                                                                    <a href="#" class="btn btn-success btn-sm" onclick="goto_Action('/quote/editQuote', '{{ $i }}')">
+                                                                        {{-- <i class="fas fa-edit"> </i>  --}}
+                                                                        Edit
+                                                                    </a>
+                                                                </div>  
+                                                                <div class="col-md-4 ">
+                                                                <a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead('/quote/deleteLeadQuote', '{{ $i }}')"> <span class="glyphicon glyphicon-remove"></span>  </a>
+                                                                </div>  
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                            @endfor
+
+                                                                    
                                     </tbody>  
                                 </table>
                             </div>
@@ -68,16 +92,12 @@
             </section>
 
 
-            <script>
-              $(function () {
-                $("#OrganizationTbl").DataTable({
-                "responsive": true,
-                "autoWidth": false,
-                });
-              });
-              $('.organization_detail').click(function(e)
-              {
-                  var table = $(this).attr("​value");
-                  go_to(table);
-              });
+            <script type="text/javascript">
+                    $(function () {
+                        $("#tblQuoteList").DataTable({
+                        "responsive": true,
+                        "autoWidth": false,
+                        });
+                    });
+
             </script>

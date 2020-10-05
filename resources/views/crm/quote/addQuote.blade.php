@@ -9,8 +9,8 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="" class="CrmOrganization" ​value="organization">Quote</a></li>
-                        <li class="breadcrumb-item active">New Quote</li>
+                        <li class="breadcrumb-item"><a href="#" class="" onclick="go_to('/quote')">Quote List</a></li>
+                        <li class="breadcrumb-item active">Create Quote</li>
                     </ol>
                 </div>
             </div>
@@ -274,18 +274,18 @@
                                                                         <option value="2"><span>+Discount ($)</span> </option>
                                                                     </select>
                                                                 </td>
-                                                                <td>
+                                                                <td class="rowGrandDiscount">
                                                                     <div id="allDiscount"> 
-                                                                        <input type="text" style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="itemDiscountPercent"  placeholder="0.0%">
+                                                                        <input type="text" style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="itemDiscountPercent" value="0" placeholder="0.0%" required>
                                                                     </div>
-                                                                    <div id="totalDiscount">
-                                                                        0.0
+                                                                    <div  id="totalDiscount">
+                                                                        0
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                            <tr class="td-total-quote" >
+                                                            <tr class="td-total-quote grandTotal" >
                                                                 <td  ><span style="padding-right: 12px;">Grand Total</span></td>
-                                                                <td  ><div id="grendTotal"> 0.0 </div></td>
+                                                                <td  ><div id="grandTotal"> 0.0 </div></td>
                                                             </tr>
                                                             
                                                         </tbody>

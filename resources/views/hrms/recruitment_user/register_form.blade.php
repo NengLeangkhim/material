@@ -2,15 +2,15 @@
 
 use Illuminate\Support\Facades\DB;
 // sql select position to show in select box
-$sql = "SELECT id, name FROM ma_position WHERE status='t' AND is_deleted = 'f' ORDER BY name ASC";
-$r = DB::select($sql);
+    $sql = "SELECT id, name FROM ma_position WHERE status='t' AND is_deleted = 'f' ORDER BY name ASC";
+    $r = DB::select($sql);
 
 ?>
 
         <form role="form" action="hrm_recruitment_user_register" method="POST" accept-charset="utf-8" enctype="multipart/form-data" >
         
-        @csrf  
-            
+            @csrf  
+        {{-- @method('PUT')  --}}
 
             <div class="row">
             <div class= "col-lg-4 col-md-4 col-sm-4" style="background-color: rgba(37, 1, 1, 0.322); padding: 5px; border-right: 2px solid red;">
