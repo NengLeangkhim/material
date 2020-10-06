@@ -61,5 +61,9 @@
 {{-- Style for CRM --}}
     <link rel="stylesheet" href="css/crm/crm.css">
 {{-- End style CRM       --}}
+
+{{-- Style for BSC --}}
+<link rel="stylesheet" href="css/bsc/bsc.css">
+{{-- End style BSC  --}}
 </head>
 

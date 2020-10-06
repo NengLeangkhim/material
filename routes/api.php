@@ -41,6 +41,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
 // Chart account
 Route::resource('bsc_chart_accounts', 'api\BSC\ChartAccountController');
+Route::resource('bsc_purchases', 'api\BSC\PurchaseController');
 
 //======================END BSC=========================
 
