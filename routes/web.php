@@ -1065,9 +1065,14 @@ Route::get('test_chart',function(){
 
 // Purchase
     // Purchase
+    Route::get('bsc_purchase_purchase_list','bsc\PurchaseController@list');
 
+    Route::get('bsc_purchase_purchase_view','bsc\PurchaseController@view');
+
+    Route::get('bsc_purchase_purchase_form','bsc\PurchaseController@form');
+        
     // View Purchase Payment
-    
+    Route::get('bsc_purchase_view_purchase_payment','bsc\PurchasePaymentControllre@view_purchase_payment');
 // Report
     // Purchase Report
         // Aged Payables Detail
