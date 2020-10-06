@@ -159,4 +159,10 @@ class ChartAccountController extends Controller
             return $this->sendError("Try again!");
         }
     }
+
+    public function show_account_type(Request $request)
+    {
+        $account_types = DB::table('bsc_account_type')->get();
+        return $this->sendResponse($account_types, 'Account type retrieved successfully');
+    }
 }
