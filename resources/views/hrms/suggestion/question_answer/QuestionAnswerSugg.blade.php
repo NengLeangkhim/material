@@ -7,7 +7,8 @@
               <div class="card-header">
                 <h1 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i> Question & Answer</strong></h1>
                 <div class="col-md-12 text-right">
-                    <button type="button" id="AddQuestionSugg" onclick="AddNewQuestionSugg()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Question</button>
+                    {{-- <button type="button" id="AddQuestionSugg" onclick="AddNewQuestionSugg()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Question</button> --}}
+                    {!!$add_perm!!}
                 </div>
               </div>
               <!-- /.card-header -->
@@ -22,12 +23,13 @@
                         <th scope="col">Action</th>
                     </tr>
                   </thead>
+                  {!!$table_perm!!}
                   @php
-                   $i=1;//for ID Table increase 
-                   $j=1;//for ID checkbox increase
-                   $k=1;//for label increase
+                  //  $i=1;//for ID Table increase 
+                  //  $j=1;//for ID checkbox increase
+                  //  $k=1;//for label increase
                   @endphp
-                  <tbody>
+                  {{-- <tbody>
                     @foreach ($question_sugg as $row)
                     <tr>
                         <th>{{$i++}}</th>
@@ -42,7 +44,7 @@
                           @endif
                           </div>
                         </td>
-                      @if ($row->hr_suggestion_question_type_id==1) {{-- Permission check for option type --}}
+                      @if ($row->hr_suggestion_question_type_id==1) Permission check for option type
                         <td class="text-center">
                           <div class="dropdown">
                             <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -73,7 +75,7 @@
                       @endif
                        
                     </tr>
-                    @endforeach
+                    @endforeach --}}
                   </tbody>
                 </table>
               </div>
@@ -103,7 +105,9 @@
               <h2 class="card-title hrm-title" style="font-weight: bold;font-size:25px" id="card_title">Add Question</h2>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove" data-dismiss="modal"><i class="fas fa-times"></i></button>
+                <button type="button" class="btn btn-tool" data-dismiss="modal" aria-label="Close">
+                  <i class="fas fa-times"></i>
+                </button>
               </div>
           </div><!-- /.card-header -->
           <div class="card-body" style="display: block;">

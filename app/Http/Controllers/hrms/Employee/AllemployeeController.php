@@ -14,7 +14,7 @@ use PhpParser\Node\Expr\Print_;
 class AllemployeeController extends Controller
 {
     
-    //
+    // List All employee
     public function AllEmployee(){
         if(session_status()== PHP_SESSION_NONE){
             session_start();
@@ -36,7 +36,6 @@ class AllemployeeController extends Controller
             session_start();
         }
         if (perms::check_perm_module('HRM_09010101')) {
-            $em = new Employee();
             $data[] = array();
             $data[0] = DepartmentAndPosition::AllPosition();
             $data[2] = addressModel::GetLeadProvice();
@@ -47,6 +46,8 @@ class AllemployeeController extends Controller
                     $data[1]=Employee::EmployeeOnRow($id);
                     return view('hrms/Employee/AllEmployees/AddAndEditEmployee')->with('data', $data);
                 } else {
+                    $data[4]=Employee::Max_Id_Number();
+                    print_r($data[4]);
                     return view('hrms/Employee/AllEmployees/AddAndEditEmployee')->with('data', $data);
                 }
             }
@@ -56,6 +57,7 @@ class AllemployeeController extends Controller
         }
     }
 
+    // for Insert or Update Employee
     public function InsertUpdateEmployee(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -108,20 +110,29 @@ class AllemployeeController extends Controller
                 return;
            }
         }else{
-            $upload = path_config::Move_Upload($profile, "/media/file/main_app/profile/img/");
-            if (!$upload == 0) {
-                $imageDirectory = $upload;
-                $em=Employee::InsertEmployee($firstName_en,$lastName_kh,$email,$telephone,$position,8,16,$departement_id,$userid,$idNumber,$sex,$firstName_kh,$lastName_kh,$imageDirectory,$officePhone,$jointDate,$dateOfBirth,$homeNumber_en,$homeNumber_kh,$street_en,$street_kh,'null', $vilage,'null',$spous,$has_children,$chidren,$salary,4,$description,$bankaccount);
+            if(strlen($profile['name'])>0){
+                $upload = path_config::Move_Upload($profile, "/media/file/main_app/profile/img/");
+                if (!$upload == 0) {
+                    $imageDirectory = $upload;
+                    $em = Employee::InsertEmployee($firstName_en, $lastName_en, $email, $telephone, $position, 8, 16, $departement_id, $userid, $idNumber, $sex, $firstName_kh, $lastName_kh, $imageDirectory, $officePhone, $jointDate, $dateOfBirth, $homeNumber_en, $homeNumber_kh, $street_en, $street_kh, 'null', $vilage, 'null', $spous, $has_children, $chidren, $salary, 4, $description, $bankaccount);
+                    echo $em;
+                } else {
+                    echo "error";
+                }
+            }else{
+                $em = Employee::InsertEmployee($firstName_en, $lastName_en, $email, $telephone, $position, 8, 16, $departement_id, $userid, $idNumber, $sex, $firstName_kh, $lastName_kh, $imageDirectory, $officePhone, $jointDate, $dateOfBirth, $homeNumber_en, $homeNumber_kh, $street_en, $street_kh, 'null', $vilage, 'null', $spous, $has_children, $chidren, $salary, 4, $description, $bankaccount);
                 echo $em;
-            } else {
-                echo "error";
+                return;
             }
+            
         }
 
 
     }
 
 
+
+    // Delete Employee
     function DeleteEmployee(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -139,6 +150,7 @@ class AllemployeeController extends Controller
     }
 
 
+    // List Employee detail
     function EmployeeDetail(){
         if (perms::check_perm_module('HRM_09010102')) {
             $em = new Employee();
@@ -159,5 +171,16 @@ class AllemployeeController extends Controller
             return view('modal_no_perms')->with('modal', $data);
         }
         
+    }
+
+
+    // List all employee who stop work here
+    function Employee_Leave(){
+        if(perms::check_perm_module('HRM_090109')){
+            $employee_leave=Employee::Employee_Leave();
+            return view('hrms.Employee.employee_leave.employee_leave')->with('employee_leave',$employee_leave);
+        }else{
+            return view('no_perms');
+        }
     }
 }

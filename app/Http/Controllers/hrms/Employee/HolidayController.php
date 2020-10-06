@@ -10,6 +10,8 @@ use App\model\hrms\employee\Employee;
 
 class HolidayController extends Controller
 {
+
+    // List Holiday
     function Holiday()
     {
         if (session_status() == PHP_SESSION_NONE) {

@@ -32,6 +32,7 @@
   {{-- style chart JS --}}
   <link href="plugins/chart.js/Chart.min.css" rel="stylesheet">
 
+  <link rel="stylesheet" href="css/font_size.css"> 
 
 {{-- ===========Name Style Of Each Project================== --}}
 
@@ -60,5 +61,9 @@
 {{-- Style for CRM --}}
     <link rel="stylesheet" href="css/crm/crm.css">
 {{-- End style CRM       --}}
+
+{{-- Style for BSC --}}
+<link rel="stylesheet" href="css/bsc/bsc.css">
+{{-- End style BSC  --}}
 </head>
 

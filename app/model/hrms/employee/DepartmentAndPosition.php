@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Throwable;
 class DepartmentAndPosition extends Model
 {
+
+    // List all Department or one department
     public static function AllDepartment($id=0){
         try {
             if($id>0){
@@ -37,6 +39,9 @@ class DepartmentAndPosition extends Model
         }
         
     }
+
+
+    // List all position or one position
     public static function AllPosition($id=0){
         try {
             if($id>0){
@@ -77,6 +82,7 @@ class DepartmentAndPosition extends Model
         
     }
 
+    // Insert Department
     public static function InsertDepartment($company_id,$department,$by,$kherName){
         try {
             $sql= "SELECT public.insert_ma_company_dept($company_id,'$department',$by,'$kherName')";
@@ -92,6 +98,8 @@ class DepartmentAndPosition extends Model
         }
     }
 
+
+    // Update Department
     public static function UpdateDapartment($company_id, $department, $by, $kherName,$department_id){
         try {
             // $sql = "SELECT public.update_ma_company_dept($department_id,$by,$company_id,'$department','$kherName')";
@@ -109,7 +117,7 @@ class DepartmentAndPosition extends Model
         
     }
 
-
+    // Delete Department
     public static function DeleteDepartment($id,$by){
         try {
             $sql = "SELECT public.delete_ma_company_dept($id,$by)";
@@ -127,6 +135,7 @@ class DepartmentAndPosition extends Model
     }
 
 
+    // List All groue or on row
     public static function Groupe($id=0){
         try {
             if ($id > 0) {
@@ -142,7 +151,7 @@ class DepartmentAndPosition extends Model
         
     }
 
-
+    // Insert Position
     public static function InsertPosition($position,$groupid,$kherName,$by){
         try {
             $sql = "SELECT public.insert_ma_position('$position',$groupid,'$kherName',$by)";
@@ -158,6 +167,7 @@ class DepartmentAndPosition extends Model
         } 
     }
 
+    // Update Position
     public static function UpdatePosition($position, $groupid, $kherName, $by,$id){
         try {
             $sql= "SELECT public.update_ma_position($id,$by,'$position',$groupid,'t','$kherName')";
@@ -174,6 +184,7 @@ class DepartmentAndPosition extends Model
     }
 
 
+    // Delete Position
     public static function DeletePosition($id,$by){
         try{
             $sql= "SELECT public.delete_ma_position($id,$by)";

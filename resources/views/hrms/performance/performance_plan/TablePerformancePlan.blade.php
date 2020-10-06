@@ -9,10 +9,11 @@
         <th scope="col">Action</th>
         </tr>
     </thead>
+        {!!$table_perm!!}
         @php
-        $i=1;   
+      //  $i=1;   
         @endphp
-    <tbody>
+    {{-- <tbody>
         @foreach ($perform_plan as $row)
         @php
         $create = $row->create_date;
@@ -38,7 +39,7 @@
             </td>
         </tr>
         @endforeach
-    </tbody>
+    </tbody> --}}
 </table>
 <script>
  $(document).ready(function(){

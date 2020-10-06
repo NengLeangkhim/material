@@ -35,7 +35,6 @@
                                 @php
                                     
                                     $i = 0;
-                                    // $val = "hello";
                                     
                                     if(is_array($allstaffpromote))
                                     {

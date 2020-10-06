@@ -53,12 +53,13 @@
 <style>
 
   .back-img1{
-
+      color: white;
       background-image: url("{{ asset('recruitment_user_style/img/exam1.jpg') }}");
       height: auto; 
       background-position: center; 
       background-repeat: no-repeat;
       background-size: cover;
+      height: 110%;
     
   }
 

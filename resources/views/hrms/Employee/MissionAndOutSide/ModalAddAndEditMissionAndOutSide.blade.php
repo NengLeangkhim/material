@@ -92,13 +92,13 @@
                               }
                               echo '<tr>
                                   <th>'.$em->id_number.'</th>
-                                  <td>'.$em->first_name_en.' '.$em->last_name_en.'</td>
+                                  <td>'.$em->firstName.' '.$em->lastName.'</td>
                                   <th class="text-right"><input type="checkbox" name="missioncheck['.$i++.']" id="" value="'.$em->id.'" '.$ch.'></th>
                                 </tr>';
                             }else {
                               echo '<tr>
                                   <th>'.$em->id_number.'</th>
-                                  <td>'.$em->first_name_en.' '.$em->last_name_en.'</td>
+                                  <td>'.$em->firstName.' '.$em->lastName.'</td>
                                   <th class="text-right"><input type="checkbox" name="missioncheck['.$i++.']" id="" value="'.$em->id.'"></th>
                                 </tr>';
                             }

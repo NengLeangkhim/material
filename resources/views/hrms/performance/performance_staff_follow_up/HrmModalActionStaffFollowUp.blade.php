@@ -2,6 +2,10 @@
     if($action == 'create') // Set action for create
     {
         foreach($schedule_get as $row){ 
+                                // Header Form
+                                $header = "Add Follow Up";
+                                //Action go to
+                                $go_to = "hrm_performance_staff_schedule";
                                 //// plan detail
                                 $pd_name = $row->pd_name;
                                 $pd_task = $row->pd_task;
@@ -36,6 +40,10 @@
                             }
     }else{
         foreach($schedule_get as $row){ 
+                                // Header Form
+                                $header = "Update Follow Up";
+                                //Action go to
+                                $go_to = "hrm_performance_follow_up";
                                 //// plan detail
                                 $pd_name = $row->pd_name;
                                 $pd_task = $row->pd_task;
@@ -71,10 +79,10 @@
               <div class="card card-default">
                 <div class="card-header">
                     <h3 class="card-title hrm-title"><strong><i class="fas fa-plus"></i></strong></h3>
-                     <h2 class="card-title hrm-title" style="font-weight: bold;font-size:25px" id="card_title"> Add Follow Up</h2>
+                     <h2 class="card-title hrm-title" style="font-weight: bold;font-size:25px" id="card_title"> {{$header}}</h2>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                      <a  href="javascript:void(0);" onclick="go_to('hrm_performance_staff_schedule')" class="text-info"><i class="fa fa-arrow-left"></i> Back</a> 
+                      <a  href="javascript:void(0);" onclick="go_to('{{$go_to}}')" class="text-info"><i class="fa fa-arrow-left"></i> Back</a> 
                     </div>
                 </div><!-- /.card-header -->
                 <div class="card-body" style="display: block;">

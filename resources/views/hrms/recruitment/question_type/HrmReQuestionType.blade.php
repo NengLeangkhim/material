@@ -7,7 +7,8 @@
                <div class="card-header">
                  <h1 class="card-title hrm-title"><strong><i class="fas fa-question-circle"></i> Question Type</strong></h1>
                  <div class="col-md-12 text-right">
-                     <button type="button" id="AddNewQuestionType" onclick="AddNewQuestionType()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Question Type</button>
+                     {{-- <button type="button" id="AddNewQuestionType" onclick="AddNewQuestionType()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Question Type</button> --}}
+                     {!!$add_perm!!}
                  </div>
                </div>
                <!-- /.card-header -->
@@ -23,10 +24,11 @@
                                 <th width="15%" scope="col">Action</th>
                               </tr>
                             </thead>
-                            <tbody>
+                            {!!$table_perm!!}
+                            {{-- <tbody>
                               <?php 
-                              $i=1;
-                              $check='';?>
+                              // $i=1;
+                              // $check='';?>
                               @foreach($question_type as $row)
                                 @php
                                 $create = $row->create_date;
@@ -43,7 +45,7 @@
                                       </td>
                                   </tr>     
                               @endforeach
-                            </tbody>
+                            </tbody> --}}
                           </table>
 
                     </div>
@@ -77,7 +79,9 @@
                      <h2 class="card-title hrm-title" style="font-weight: bold;font-size:25px" id="card_title">Add Question Type</h2>
                      <div class="card-tools">
                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                       <button type="button" class="btn btn-tool" data-card-widget="remove" data-dismiss="modal"><i class="fas fa-times"></i></button>
+                       <button type="button" class="btn btn-tool" data-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                      </button>
                      </div>
                  </div><!-- /.card-header -->
                  <div class="card-body" style="display: block;">
