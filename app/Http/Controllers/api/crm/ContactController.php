@@ -56,7 +56,7 @@ class ContactController extends Controller
                     'SELECT public."update_crm_lead_contact"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                     array(
                         $request->input('contact_id'),
-                        $request->input('update_by'),
+                        $create_by,
                         $request->input('name_en'),
                         $request->input('name_kh'),
                         $request->input('email'),

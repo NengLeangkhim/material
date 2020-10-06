@@ -34,13 +34,19 @@ Route::get('/district/{id}','api\crm\LeadController@getDistrict');
 Route::get('/commune/{id}','api\crm\LeadController@getCommune');
     //village
 Route::get('/village/{id}','api\crm\LeadController@getVillage');
-// get Branch
+// get company Branch
 Route::get('/branch','api\crm\LeadController@getLeadBranch');
 // insert lead 
 Route::POST('/insertlead','api\crm\LeadController@insertLead');
 //get all lead
 Route::get('/getlead','api\crm\LeadController@getLead');
-// get lead by id 
-Route::get('/getlead/{id}','api\crm\LeadController@getLeadById');
+// get brand by lead id 
+Route::get('/getbranchbylead/{id}','api\crm\LeadController@getbranch_lead');
+// get  all branch 
+Route::get('getbranch','api\crm\LeadController@getbranch');
+// get branch by id 
+Route::get('/getbranch/{id}','api\crm\LeadController@getbranchById');
+// edit lead 
+// Route::post('/editlead','api\crm\LeadController@editLead');
 
 

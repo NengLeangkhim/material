@@ -721,7 +721,7 @@ function submit_form (route,form,goto,idmodal=''){
  }
 
 
- 
+
  function img_exist(){
     $( "img" ).each(function( index,item ) {
         $.ajax({
