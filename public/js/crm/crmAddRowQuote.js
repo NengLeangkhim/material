@@ -227,40 +227,119 @@
         
 
 
-        //function onclick to show product item to add quote 
-        $(document).on('click', '[name=addItemProduct]', function() {
-            var row_id = $(this).attr("id");
-            var id = "id="+row_id;
+        // //function onclick to show product item to add quote 
+        // $(document).on('click', '[name=addItemProduct]', function() {
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: 'api/stock/product',
+        //         success:function(data){
+                    
+        //             document.getElementById('modal-list-quote').innerHTML=this.responseText;
+        //             $('#listQuoteProduct').modal('show');
 
-            $.ajax({
-                type: 'GET',
-                url: 'api/stock/product',
-                success:function(data){
-                    var myobj= JSON.stringify(data);
-                    console.log(myobj[id]);
-                },
+        //             for(var i=0; i< data['data'].length;i++){
+        //                 var id_ = data['data'][i].id;
+        //                 var name_ = data['data'][i].name;
+        //                 var product_price_ = data['data'][i].product_price;
+        //                 var stock_qty_ = data['data'][i].stock_qty;
+        //                 var part_number_ = data['data'][i].part_number;
+
+        //                 var addRow = '<tr>' +
+        //                         '<td>' +
+        //                             '<input type="checkbox" id="{{$key}}" name="selectAllProduct"> '+
+        //                         '</td> '+
+        //                         '<td> '+
+        //                             '<div>Product--name</div>'+
+        //                         '</td> '+
+        //                         '<td> '+
+        //                             '<div>100</div>'+
+        //                         '</td> '+
+        //                         '<td> '+
+        //                             '<div>100</div>'+
+        //                         '</td> '+
+        //                         '<td> '+
+        //                             '<div>100</div>'+
+        //                         '</td> '+
+        //                         '<td> '+
+        //                             '<div>100</div>'+
+        //                         '</td> '+
+        //                     '</tr>';
+        //                 $("#tbodyProduct").append(addRow);
+        //             }
+
+        //         },
                 
-            });
+        //     });
+
+        // });
 
 
 
 
 
 
-                    // document.getElementById('modal-list-quote').innerHTML=this.responseText;
-                    // $('#listQuoteProduct').modal('show');
-                    // let table = $('#tblItemProduct').DataTable({
-                    //     sDom: 'lrtip',
-                    //     targets:'no-sort',
-                    //     bSort: false,
-                    // });     
-                    // $(document).keyup(function(){
-                    //     $('#mySearchQuote').on( 'keyup', function () {
-                    //         table.search($(this).val()).draw();
-                    //     });
-                    // });
+        //function onclick to show product item to add quote 
+        $(document).on('click','[name=addItemProduct]', function() {
+
+                        var row_id = $(this).attr("id");
+                        var id = "id="+row_id;
+                        
+                        var url= '/quote/add/listProduct';
+                        var x=new XMLHttpRequest();
+                        x.onreadystatechange=function(){
+                            if(this.readyState==4 && this.status==200){    
+                                document.getElementById('modal-list-quote').innerHTML=this.responseText;
+                                $('#listQuoteProduct').modal('show');
+                                let table = $('#tblItemProduct').DataTable({
+                                    sDom: 'lrtip',
+                                    targets:'no-sort',
+                                    bSort: false,
+                                });   
+                                $(document).keyup(function(){
+                                    $('#mySearchQuote').on( 'keyup', function () {
+                                        table.search($(this).val()).draw();
+                                    });
+                                });
+                            }
+                        }
+                        x.open("GET", url + "?" + id , true);
+                        x.send();
+                   
+        });
+    
+
+        $(document).on('click','.getItemProduct',function(){
+                var btnId = $(this).attr("id");
+                var selectval = new Array;
+                var i =0;
+                // var checkLenght = $("input[name=selectUnitProduct]:checked").length;
+
+                    $("input[name=selectUnitProduct]:checked").each(function(i){
+                            selectval[i]  = $(this).val();
+                            i += 1;
+                    });
+
+                    if(selectval.length > 0){
+                        selectval.forEach(element => {
+                            console.log(element);
+                        });
+                    }else{
+
+                    }
+                
+                // if(checked == 0){
+
+                // }else{
+                //     for(var i=0; i<checked; i++){
+                //         var prdVal = $('#productSelect_'+btnId+'').val();
+                //         alert(prdVal);
+                //     }
+                    
+                // }
+                
 
         });
+
 
 
 

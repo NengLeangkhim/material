@@ -25,7 +25,7 @@ class QuoteResource extends JsonResource
             'first_name_en'
         ]);
         
-
+        
         // return parent::toArray($request);
         return [
             "id"=>$this->id,

@@ -11,14 +11,14 @@
 
                     <div class="row pb-3">
                         <div class="col-md-2 col-sm-2 col-4">
-                            <input type="button" class="btn-success" id=""  value="Select">
+                            <input type="button" class="btn-success getItemProduct" id="{{$row_id}}"  value="Select"> 
                         </div> 
                         <div class="col-md-5 col-sm-5 col-4"></div>
                         <div class="col-md-5 col-sm-5 col-4">
                             <input type="search" id="mySearchQuote" class="form-control" placeholder="Search">
                         </div>
                     </div>
-                    <div class="row-12 pt-2 ">
+                    <div class="row-12 pt-2 table-responsive">
                         <table id="tblItemProduct" class="table table-bordered table-hover" style="width: 100%; white-space:nowrap;">
                             <thead>
                                 <tr >
@@ -29,53 +29,49 @@
                                     <th>Part Number</th>
                                     <th>Unit Price</th>
                                     <th>Qty/Unit</th>
-                                    <th>Action</th>
+                                    <th>Description</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                {{
-                                    $arr[] = ''
-                                }}
-                                @for($i=0; $i<=20; $i++)
-                                    <?php
-                                        $arr[] += $i;
-                                    ?>
-                                @endfor
-                                
-                                {{-- foreach variable --}}
-                                @foreach ($arr as $key=>$val)
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" id="{{$key}}" name="selectAllProduct">
-                                         </td>
-                                        <td>
-                                            <div>
-                                                Product--{{ $key }}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                100
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                10
-                                            </div>
-                                        </td>
 
-                                        <td>
-                                            <div>
-                                                1.0
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                Not a bundle
-                                            </div>
-                                        </td>
-                                    </tr>
+                                {{-- foreach variable --}}
+                                @foreach ($listProduct as $key=>$val)
+                                    @foreach ($val as $key2=>$val2)
+                                            <tr>
+                                                <td class="border">
+                                                    <input type="checkbox" id="productSelect_{{$row_id}}"  class="productSelect_{{$key2}}"   value="{{$val2->id}}" name="selectUnitProduct">
+                                                </td>
+                                                <td class="border">
+                                                    <div id="productName_{{$row_id}}"  data-id="productName_{{$val2->id}}" >
+                                                        {{$val2->name}}
+                                                    </div>
+                                                </td>
+                                                <td class="border">
+                                                    <div data-id="productPartNumber_{{$val2->id}}">
+                                                        {{$val2->part_number}}
+                                                    </div>
+                                                </td>
+                                                <td class="border">
+                                                    <div data-id="productPrice_{{$val2->id}}">
+                                                        {{$val2->product_price}}
+                                                    </div>
+                                                </td>
+
+                                                <td class="border">
+                                                    <div data-id="stockProduct_{{$val2->id}}">
+                                                        {{$val2->stock_qty}}
+                                                    </div>
+                                                </td>
+                                                <td class="border">
+                                                    <div data-id="productDescription_{{$val2->id}}">
+                                                        {{$val2->description}}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                   
+                                    @endforeach
+
                                 @endforeach    
                                    
 
@@ -86,5 +82,10 @@
         </div>
     </div>
 
-</div
+</div>
+{{-- <script type="text/javascript">
+    $(document).ready(function(){
+        var table = $('#tblItemProduct').DataTable();
+    });
+</script> --}}
 
