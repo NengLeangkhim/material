@@ -34,7 +34,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-tumblr"></i></span>
                                             </div>
-                                            <select class="form-control select2" name="account_type" >
+                                            <select class="form-control select2" name="account_type" id="account_type">
                                                 <option selected hidden disabled>select item</option>
                                                 <option>Exclusive</option>
                                                 <option>Inclusive</option>
@@ -140,3 +140,38 @@
         $('.select2').select2();
     });
 </script>
+{{-- ========== submit chart account =========== --}}
+<script type="text/javascript">
+    $('#frm_btn_sub_add_chart_account').on('click',function(e){
+        var account_type=$('#account_type').val();
+        alert(account_type);
+        exit();
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    $.ajax({
+        url: '/add_driver',
+        type: 'POST',
+        data: {_token: CSRF_TOKEN, id:id,name:name,check:check},
+        dataType: 'JSON',
+        success: function (data) {
+                $.notify({
+                    title: "Save Completed : ",
+                    message: "Driver save is successful!",
+                    icon: 'fa fa-check'
+                },{
+                    type: "info"
+                });
+                location.reload();
+            },
+            error: function (error) {
+                $.notify({
+                    title: "Save error : ",
+                    message: "Driver save is not success!",
+                    icon: 'fa fa-times'
+                },{
+                    type: "danger"
+                });
+            }
+    });
+})
+</script>
+{{-- ========== submit chart account =========== --}}

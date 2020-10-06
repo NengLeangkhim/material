@@ -1041,14 +1041,14 @@ Route::get('test_chart',function(){
 
 // Customer Management
     // Customer
-        Route::get('customer','bsc\CustomerController@customer');
+        Route::get('bsc_customer','bsc\CustomerController@customer');
     // Customer Branch
-        Route::get('customer_branch','bsc\CustomerController@customer_branch');
+        Route::get('bsc_customer_branch','bsc\CustomerController@customer_branch');
         Route::get('customer_branch_detail','bsc\CustomerController@customer_branch_detail');
     // Customer Service
-        Route::get('customer_service','bsc\CustomerController@customer_service');
+        Route::get('bsc_customer_service','bsc\CustomerController@customer_service');
     // Customer Service Detail
-        Route::get('customer_service_detail','bsc\CustomerController@customer_service_detail');
+        Route::get('bsc_customer_service_detail','bsc\CustomerController@customer_service_detail');
         Route::get('customer_service_detail_add','bsc\CustomerController@customer_service_detail_add');
         Route::get('customer_service_detail_edit','bsc\CustomerController@customer_service_detail_edit');
 // Report
@@ -1087,7 +1087,7 @@ Route::get('test_chart',function(){
     Route::get('bsc_purchase_purchase_view','bsc\PurchaseController@view');
 
     Route::get('bsc_purchase_purchase_form','bsc\PurchaseController@form');
-        
+
     // View Purchase Payment
     Route::get('bsc_purchase_view_purchase_payment','bsc\PurchasePaymentControllre@view_purchase_payment');
 

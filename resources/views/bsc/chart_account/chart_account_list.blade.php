@@ -46,9 +46,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#revenue" role="tab" aria-controls="profile" aria-selected="false">Revenue</a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#archive" role="tab" aria-controls="profile" aria-selected="false">Archive</a>
-                                </li>
+                                </li> --}}
                             </ul><br/>
                             {{-- ======================= End Tab menu =================== --}}
                                 <div class="tab-content" id="myTabContent">
@@ -65,16 +65,18 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>TT-001</td>
-                                                        <td>Touch Rith</td>
-                                                        <td>Call</td>
-                                                        <td style="text-align-last: center">
-                                                            <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                            <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                                            <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a>
-                                                        </td>
-                                                    </tr>
+                                                    @foreach ($ch_accounts as $item)
+                                                        <tr>
+                                                            <td>{{ $item->code }}</td>
+                                                            <td>{{ $item->name_en }}</td>
+                                                            <td>{{ $item->account_type_name }}</td>
+                                                            <td style="text-align-last: center">
+                                                                <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
@@ -97,16 +99,20 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>TT-001</td>
-                                                                    <td>Touch Rith</td>
-                                                                    <td>Call</td>
-                                                                    <td class="td_text_center">
-                                                                        <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                        <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                        <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a>
-                                                                    </td>
-                                                                </tr>
+                                                                @foreach ($ch_accounts as $asset)
+                                                                    @if ($asset->bsc_account_id==1)
+                                                                        <tr>
+                                                                            <td>{{ $item->code }}</td>
+                                                                            <td>{{ $item->name_en }}</td>
+                                                                            <td>{{ $item->account_type_name }}</td>
+                                                                            <td style="text-align-last: center">
+                                                                                <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endif
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -132,16 +138,20 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>TT-001</td>
-                                                                    <td>Touch Rith</td>
-                                                                    <td>Call</td>
-                                                                    <td class="td_text_center">
-                                                                        <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                        <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                        <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a>
-                                                                    </td>
-                                                                </tr>
+                                                                @foreach ($ch_accounts as $asset)
+                                                                    @if ($asset->bsc_account_id==2)
+                                                                        <tr>
+                                                                            <td>{{ $item->code }}</td>
+                                                                            <td>{{ $item->name_en }}</td>
+                                                                            <td>{{ $item->account_type_name }}</td>
+                                                                            <td style="text-align-last: center">
+                                                                                <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endif
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -167,16 +177,20 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>TT-001</td>
-                                                                    <td>Touch Rith</td>
-                                                                    <td>Call</td>
-                                                                    <td class="td_text_center">
-                                                                        <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                        <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                        <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a>
-                                                                    </td>
-                                                                </tr>
+                                                                @foreach ($ch_accounts as $asset)
+                                                                    @if ($asset->bsc_account_id==3)
+                                                                        <tr>
+                                                                            <td>{{ $item->code }}</td>
+                                                                            <td>{{ $item->name_en }}</td>
+                                                                            <td>{{ $item->account_type_name }}</td>
+                                                                            <td style="text-align-last: center">
+                                                                                <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endif
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -202,16 +216,20 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>TT-001</td>
-                                                                    <td>Touch Rith</td>
-                                                                    <td>Call</td>
-                                                                    <td class="td_text_center">
-                                                                        <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                        <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                        <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a>
-                                                                    </td>
-                                                                </tr>
+                                                                @foreach ($ch_accounts as $asset)
+                                                                    @if ($asset->bsc_account_id==6)
+                                                                        <tr>
+                                                                            <td>{{ $item->code }}</td>
+                                                                            <td>{{ $item->name_en }}</td>
+                                                                            <td>{{ $item->account_type_name }}</td>
+                                                                            <td style="text-align-last: center">
+                                                                                <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endif
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -237,16 +255,20 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>TT-001</td>
-                                                                    <td>Touch Rith</td>
-                                                                    <td>Call</td>
-                                                                    <td class="td_text_center">
-                                                                        <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                        <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                        <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a>
-                                                                    </td>
-                                                                </tr>
+                                                                @foreach ($ch_accounts as $asset)
+                                                                    @if ($asset->bsc_account_id==4)
+                                                                        <tr>
+                                                                            <td>{{ $item->code }}</td>
+                                                                            <td>{{ $item->name_en }}</td>
+                                                                            <td>{{ $item->account_type_name }}</td>
+                                                                            <td style="text-align-last: center">
+                                                                                <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endif
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -279,7 +301,7 @@
                                                                     <td class="td_text_center">
                                                                         <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
                                                                         <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                        <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a>
+                                                                        {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
