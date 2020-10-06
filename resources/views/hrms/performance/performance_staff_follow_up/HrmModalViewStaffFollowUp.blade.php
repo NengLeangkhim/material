@@ -38,7 +38,9 @@ foreach($follow_up_get as $row){
               <h2 class="card-title hrm-title" style="font-weight: bold;font-size:25px" id="card_title"> Staff Follow Up Detail</h2>
              <div class="card-tools">
                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-               <button type="button" class="btn btn-tool" data-card-widget="remove" data-dismiss="modal"><i class="fas fa-times"></i></button>
+               <button type="button" class="btn btn-tool" data-dismiss="modal" aria-label="Close">
+                <i class="fas fa-times"></i>
+              </button>
              </div>
          </div><!-- /.card-header -->
          <div class="card-body" style="display: block;">

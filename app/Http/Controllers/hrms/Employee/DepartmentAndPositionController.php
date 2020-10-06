@@ -8,12 +8,13 @@ use App\Http\Controllers\perms;
 
 class DepartmentAndPositionController extends Controller
 {
+
+    // List Department and Possition
     function DepartmentAndPosition()
     {
-        $dp=new DepartmentAndPosition();
         $depart_position[]=array();
-        $depart_position[0]=$dp->AllDepartment();
-        $depart_position[1]=$dp->AllPosition();
+        $depart_position[0]=DepartmentAndPosition::AllDepartment();
+        $depart_position[1]=DepartmentAndPosition::AllPosition();
         return view('hrms/Employee/DepartementAndPosition/DepartementAndPosition')->with('de_po',$depart_position);
     }
 
@@ -22,10 +23,9 @@ class DepartmentAndPositionController extends Controller
         if(perms::check_perm_module('HRM_09010601')){
             $id = $_GET['id'];
             $data = array();
-            $dp = new DepartmentAndPosition();
-            $data[0] = $dp->AllCompany();
+            $data[0] = DepartmentAndPosition::AllCompany();
             if ($id > 0) {
-                $data[1] = $dp->AllDepartment($id);
+                $data[1] = DepartmentAndPosition::AllDepartment($id);
             }
 
             return view('hrms/Employee/DepartementAndPosition/ModalAddAndEditDepartment')->with('data', $data);
@@ -35,21 +35,21 @@ class DepartmentAndPositionController extends Controller
        
     }
 
+    // for add or update department
     function AddEditDepartment(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if (perms::check_perm_module('HRM_090106')) {
-            $dp = new DepartmentAndPosition();
             $userid = $_SESSION['userid'];
             $id=$_POST['id'];
             $company_id=$_POST['company_id'];
             $department=$_POST['department'];
             $khName=$_POST['khName'];
             if($id>0){
-                $stm=$dp->UpdateDapartment($company_id,$department,$userid,$khName,$id);
+                $stm= DepartmentAndPosition::UpdateDapartment($company_id,$department,$userid,$khName,$id);
             }else{
-                $stm=$dp->InsertDepartment($company_id,$department,$userid,$khName);  
+                $stm= DepartmentAndPosition::InsertDepartment($company_id,$department,$userid,$khName);  
             }
             echo $stm;
         } else {
@@ -57,31 +57,23 @@ class DepartmentAndPositionController extends Controller
         }
     }
 
-
+    // for delete department
     function DeleteDepartment(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if (perms::check_perm_module('HRM_090106')) {
-            $dp = new DepartmentAndPosition();
             $userid = $_SESSION['userid'];
             $id=$_GET['id'];
-            $stm=$dp->DeleteDepartment($id,$userid);
+            $stm= DepartmentAndPosition::DeleteDepartment($id,$userid);
             echo $stm;
         } else {
             return view('noperms');
         }
     }
 
-
-
-
-
-
-
-
-
-    function AddModalAddEditDepartment(){
+    // function for add modal add or edit position
+    function AddModalAddEditPosition(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -99,6 +91,8 @@ class DepartmentAndPositionController extends Controller
             return view('modal_no_perms')->with('modal', 'modal_position');
         }
     }
+
+    // for add or update position
     function AddAndEditPosition(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -120,6 +114,9 @@ class DepartmentAndPositionController extends Controller
             return view('noperms');
         }
     }
+
+
+    // for delete position
     function DeletePosition(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();

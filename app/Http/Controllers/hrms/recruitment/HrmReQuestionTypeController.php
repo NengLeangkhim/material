@@ -19,8 +19,33 @@ class HrmReQuestionTypeController extends Controller
         session_start();
         }
         if(perms::check_perm_module('HRM_090905')){//module code list data tables id=110
+            if(perms::check_perm_module('HRM_09090501')){//module code 
+                $add_perm = '<button type="button" id="AddNewQuestionType" onclick=\'AddNewQuestionType()\' class="btn bg-gradient-primary"><i class="fas fa-plus"></i></i> Add Question Type</button>';
+             }else{
+                 $add_perm='';
+            }
             $question_type = ModelHrmReQuestionType::get_tbl_recruitment_question_type(); //get database  from model
-            return view('hrms/recruitment/question_type/HrmReQuestionType', ['question_type' => $question_type]);
+            $i=1;// variable increase number for table
+            $table_perm= '<tbody>';
+            foreach($question_type as $row){
+                $table_perm.= ' 
+                    <tr>
+                        <th>'.$i++.'</th>
+                        <td>'.$row->name.'</td>
+                        <td>'.date('Y-m-d H:i:s',strtotime($row->create_date)).'</td>
+                        <td>'.$row->username.'</td>
+                        <td class="text-center">';
+                         if(perms::check_perm_module('HRM_09090502')){// Permission Update
+                            $table_perm.= '<a href="#" id="'.$row->id.'" title="Update" class="update_qestion_type"><i class="far fa-edit"></i></a>';
+                         }
+                         if(perms::check_perm_module('HRM_09090503')){// Permission Delete
+                            $table_perm.= '<a href="#" id="'.$row->id.'" title="Delete" onclick="delete_q_t_recruitment('.$row->id.')" class="delete_qestion_type"><i style="color:red;margin-left:10px;" class="fas fa-trash"></i></a>';
+                         }
+                $table_perm.= ' </td>
+                               </tr>';
+                }
+                $table_perm.= '</tbody>';
+            return view('hrms/recruitment/question_type/HrmReQuestionType', ['table_perm' => $table_perm,'add_perm'=>$add_perm]);
         }else{
             return view('no_perms');
         }

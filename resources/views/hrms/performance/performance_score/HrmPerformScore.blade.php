@@ -7,7 +7,8 @@
                <div class="card-header">
                  <h1 class="card-title hrm-title"><strong><i class="fas fa-star-half-alt"></i> Performance Score</strong></h1>
                  <div class="col-md-12 text-right">
-                     <button type="button" id="HrmAddPerformScore" onclick="HrmAddPerformScore()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Score</button>
+                     {{-- <button type="button" id="HrmAddPerformScore" onclick="HrmAddPerformScore()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Score</button> --}}
+                     {!!$add_perm!!}
                  </div>
                </div>
                <!-- /.card-header -->
@@ -24,7 +25,8 @@
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                                @php
+                            {!!$table_perm!!}
+                                {{-- @php
                                 $i=1;   
                                 @endphp
                             <tbody>
@@ -52,7 +54,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                            </tbody>
+                            </tbody> --}}
                         </table>    
                     </div>
                </div>

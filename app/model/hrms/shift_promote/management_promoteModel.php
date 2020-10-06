@@ -47,7 +47,8 @@ class management_promoteModel extends Model
 
     //Select cell from table: position only
     public static function position(){
-        $pos = DB::table('ma_position')->get();
+        // $pos = DB::table('ma_position')->get();
+        $pos = DB::select("SELECT * FROM ma_position WHERE is_deleted = 'f' AND status='t' order by name ASC");
         return $pos;
     }
     // End select

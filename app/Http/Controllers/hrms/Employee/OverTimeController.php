@@ -9,7 +9,7 @@ use App\model\hrms\employee\Employee;
 
 class OverTimeController extends Controller
 {
-    // Show all Data of Overtime
+    // Show all Data of Overtime in month and year
     function StaffOverTime()
     {
         if (session_status() == PHP_SESSION_NONE) {
@@ -37,6 +37,7 @@ class OverTimeController extends Controller
     }
 
 
+    // show modal add or edit Overtime
     function ShowModalAddAndEdit(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -60,7 +61,7 @@ class OverTimeController extends Controller
     }
 
 
-    // Insert Overtime
+    // Insert Overtime or update overtime
     function InsertUpdateOvertime(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -84,6 +85,8 @@ class OverTimeController extends Controller
             return view('noperms');
         }
     }
+
+    // for delete overtime
     function DeleteOvertime(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();

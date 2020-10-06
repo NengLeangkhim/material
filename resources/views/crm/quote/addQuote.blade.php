@@ -9,8 +9,8 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="" class="CrmOrganization" ​value="organization">Quote</a></li>
-                        <li class="breadcrumb-item active">New Quote</li>
+                        <li class="breadcrumb-item"><a href="#" class="" onclick="go_to('/quote')">Quote List</a></li>
+                        <li class="breadcrumb-item active">Create Quote</li>
                     </ol>
                 </div>
             </div>
@@ -258,14 +258,14 @@
                                 <div class="row-12 max-min-table-total">
                                     <table class="table">
                                         <tbody>
-                                            <tr>
+                                            <tr class="fieldGrandTotal">
                                                 <td style="width: 50%"><input type="hidden"></td>
                                                 <td  >
                                                     <table class="table table-bordered tr-quote-row">
                                                         <tbody>
                                                             <tr style="text-align: right">
                                                                 <td  ><span style="padding-right: 12px;">Sum Total </span></td>
-                                                                <td  ><span> 330$ </span></td>
+                                                                <td  ><div id="sumTotal"> 0.0 </div></td>
                                                             </tr>
                                                             <tr style="text-align: right">
                                                                 <td >
@@ -274,22 +274,23 @@
                                                                         <option value="2"><span>+Discount ($)</span> </option>
                                                                     </select>
                                                                 </td>
-                                                                <td>
+                                                                <td class="rowGrandDiscount">
                                                                     <div id="allDiscount"> 
-                                                                        <input type="text" style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="itemDiscountPercent"  placeholder="0.0%">
+                                                                        <input type="text" style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="itemDiscountPercent" value="0" placeholder="0.0%" required>
                                                                     </div>
-                                                                    <div>
-                                                                        <span> 30$ </span>
+                                                                    <div  id="totalDiscount">
+                                                                        0
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                            <tr class="td-total-quote" >
+                                                            <tr class="td-total-quote grandTotal" >
                                                                 <td  ><span style="padding-right: 12px;">Grand Total</span></td>
-                                                                <td  ><span> 300$ </span></td>
+                                                                <td  ><div id="grandTotal"> 0.0 </div></td>
                                                             </tr>
                                                             
                                                         </tbody>
                                                     </table>
+                                                    
                                                     
                                                 </td>
                                             </tr>
@@ -412,22 +413,7 @@
 
     <script type="text/javascript">
 
-          //function get textbox as percent or price for select item discount type
-            $('.allItemDiscount').on('change', function(e) {
-                var textBoxType = "";
-                var select_val= $("#allItemDiscount").val();
-                if(select_val == 1){
-                    $('#itemDiscountPrice').remove();
-                    textBoxType = '<input type="text"  style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="itemDiscountPercent"  placeholder="0.0%">' ;
-                    $('#allDiscount').append(textBoxType);
-                }
-                if(select_val == 2){
-                    $('#itemDiscountPercent').remove();
-                    textBoxType = '<input type="text"  style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPrice[]" id="itemDiscountPrice"  placeholder="0.0$">' ;
-                    $('#allDiscount').append(textBoxType);
-                }
 
-            });
 
     </script>
 

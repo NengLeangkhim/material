@@ -7,7 +7,8 @@
                <div class="card-header">
                  <h1 class="card-title hrm-title"><strong><i class="fas fa-id-card-alt"></i> Performance Plan and Detail</strong></h1>
                  <div class="col-md-12 text-right">
-                     <button type="button" id="HrmAddPerformPlan" onclick="HrmAddPerformPlan()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Plan</button>
+                     {{-- <button type="button" id="HrmAddPerformPlan" onclick="HrmAddPerformPlan()" class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Plan</button> --}}
+                     {!!$add_perm!!}
                  </div>
                </div>
                <!-- /.card-header -->
@@ -60,7 +61,9 @@
                <h2 class="card-title hrm-title" style="font-weight: bold;font-size:25px" id="card_title">Add Plan</h2>
                <div class="card-tools">
                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                 <button type="button" class="btn btn-tool" data-card-widget="remove" data-dismiss="modal"><i class="fas fa-times"></i></button>
+                 <button type="button" class="btn btn-tool" data-dismiss="modal" aria-label="Close">
+                  <i class="fas fa-times"></i>
+                </button>
                </div>
            </div><!-- /.card-header -->
            <div class="card-body" style="display: block;">

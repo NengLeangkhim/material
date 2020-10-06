@@ -69,13 +69,17 @@ Route::get('/organizations/detail','crm\OrganizationController@DetailOrganizatio
 
 
 // crm quote
-Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote list
-Route::get('/quote/add','crm\QuoteController@addQuote'); // get show quote list
+Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote
+Route::get('/quote/detail','crm\QuoteController@showQuoteListDetail'); // get show quote detail
+Route::get('/quote/add','crm\QuoteController@addQuote'); // to add qoute
+Route::get('/quote/deleteLeadQuote','crm\QuoteController@deleteLeadQuote'); // get delete lead for quote list
+
 Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quote item table
 Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get one row quote item table
 
-
 // end quote
+
+
 // Start Report
 Route::get('/crmreport','crm\CrmReportController@CrmIndexReport'); // show index report
 Route::get('/crmreport/detaillead','crm\CrmReportController@CrmDetailLeadReport'); // show Lead Detail report
@@ -455,7 +459,7 @@ Route::get('hrm_question_answer_sugg/delete', 'hrms\suggestion\QuestionAnswerCon
 // get modal for add answer //
 Route::get('hrm_question_answer_sugg/answer/modal','hrms\suggestion\QuestionAnswerController@hrm_modal_add_answer');
 
-// get modal for add answer //
+// add answer //
 Route::post('hrm_question_answer_sugg/answer/store','hrms\suggestion\QuestionAnswerController@AddAnswerSugg');
 
 // get modal for view detail question and answer //
@@ -760,6 +764,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::post('hrm_insert_update_employee', 'hrms\Employee\AllemployeeController@InsertUpdateEmployee');
         Route::get('hrm_delete_employee', 'hrms\Employee\AllemployeeController@DeleteEmployee');
         Route::get('hrm_detail_employee', 'hrms\Employee\AllemployeeController@EmployeeDetail');
+         Route::get('hrm_employee_leave', 'hrms\Employee\AllemployeeController@Employee_Leave');
     //End All Employee
 
     // Start Holiday
@@ -767,6 +772,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_add_edit_holiday', 'hrms\Employee\HolidayController@AddAndEditHoliday');
         Route::post('hrm_insert_update_holiday', 'hrms\Employee\HolidayController@InsertUpdateHoliday');
         Route::get('hrm_delete_holiday', 'hrms\Employee\HolidayController@DeleteHoliday');
+        Route::get('hrm_export_holiday', 'ExportExcelController@ExortHoliday')->name('export_excel.excel');
     // End Holiday
 
     // Start Attendance
@@ -776,6 +782,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_calculate_attendance_detail', 'hrms\Employee\AttendanceController@ShowAttendanceDetail');
         Route::get('hrm_attendance_edit', 'hrms\Employee\AttendanceController@AttendanceEdit');
         Route::post('hrm_attendance_insert', 'hrms\Employee\AttendanceController@AttendanceEditInsert');
+        Route::get('hrm_your_attendance', 'hrms\Employee\AttendanceController@YourAttendance');
     // End Attendance
 
     // Start Mission And Out Side
@@ -793,7 +800,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::post('hrm_add_edit_department', 'hrms\Employee\DepartmentAndPositionController@AddEditDepartment');
         Route::get('hrm_delete_department', 'hrms\Employee\DepartmentAndPositionController@DeleteDepartment');
 
-        Route::get('hrm_add_modal_position', 'hrms\Employee\DepartmentAndPositionController@AddModalAddEditDepartment');
+        Route::get('hrm_add_modal_position', 'hrms\Employee\DepartmentAndPositionController@AddModalAddEditPosition');
         Route::post('hrm_add_edit_position', 'hrms\Employee\DepartmentAndPositionController@AddAndEditPosition');
         Route::get('hrm_delete_position', 'hrms\Employee\DepartmentAndPositionController@DeletePosition');
     // End Department And Position
@@ -846,7 +853,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_payroll_list', 'hrms\Payroll\PayrollController@PayrollList');
         Route::get('hrm_payslip', 'hrms\Payroll\PayrollController@ModalPayslip');
         Route::get('hrm_payrollitems', 'hrms\Payroll\PayrollController@ModalPayrollItems');
-        Route::get('hrm_paroll_detail', 'hrms\Payroll\PayrollController@PayrollDetail');
+        Route::get('hrm_paroll_detail', 'hrms\Payroll\PayrollController@Payroll_List_Detail');
         Route::get('hrm_hrapprove_payroll', 'hrms\Payroll\PayrollController@HR_ApprovePayroll');
         Route::get('hrm_hrdelete_component', 'hrms\Payroll\PayrollController@DeleteComponent');
         Route::get('hrm_showpayrollbymonth', 'hrms\Payroll\PayrollController@PayrollList');
@@ -920,6 +927,8 @@ Route::get('hrm_shift_promote_report_search_view_detail','hrms\shift_promote\shi
 
 // candidate register account submit information
 Route::post('hrm_recruitment_user_register','hrms\recruitment_user\recruitment_userController@register_candidate');
+Route::get('hrm_recruitment_user_register','hrms\recruitment_user\recruitment_userController@register_candidateGet');
+
 // end
 
 // route controller to user submit quiz answer

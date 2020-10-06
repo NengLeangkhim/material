@@ -226,7 +226,7 @@ class perms extends Controller
         foreach ($mo as $rr){
             // $rr->link=(empty($rr->link))?'':"value='{$rr->link}'";
             $st.='<li class="nav-item d-none d-sm-inline-block">
-                    <a href="javascript:void(0);" data-navbar='.$id++.' class="nav-link" onclick="go_to(\''.$rr->link.'\');navbar_active('.$id1++.');">'.$rr->module_name.'</a>
+                    <a href="javascript:void(0);" data-navbar='.$id++.' class="nav-link title-menu-main" onclick="go_to(\''.$rr->link.'\');navbar_active('.$id1++.');">'.$rr->module_name.'</a>
                 </li>';
         }
         return $st;

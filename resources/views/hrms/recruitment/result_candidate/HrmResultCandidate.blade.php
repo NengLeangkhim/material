@@ -23,7 +23,8 @@
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
-                        </thead>
+                            {!!$table_perm!!}
+                        {{-- </thead>
                         @php
                             $i=1;   
                         @endphp
@@ -43,7 +44,7 @@
                                 <td>{{$row->name}}</td>
                                 <td>{{$ts1->format('Y-M-d H:i:s')}}</td>
                                 <td>@if ($row->status_appr==Null)
-                                        <i class="fas fa-circle" style="color:orangered;"></i> <span style="margin-left:10px;">{{'Not Yet!!'}}</span> 
+                                        <i class="fas fa-circle" style="color:orangered;"></i> <span style="margin-left:10px;">{{'New'}}</span> 
                                     @elseif($row->status_appr=='approve') 
                                         <i class="fas fa-circle" style="color: green;"></i> <span style="margin-left:10px;">{{ucfirst($row->status_appr)}}</span>
                                     @elseif($row->status_appr=='pending') 
@@ -57,7 +58,7 @@
                                 </td>
                             </tr>
                             @endforeach
-                        </tbody>
+                        </tbody> --}}
                         </table>
                     </div>
                </div>

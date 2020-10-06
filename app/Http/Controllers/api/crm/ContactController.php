@@ -4,8 +4,11 @@ namespace App\Http\Controllers\api\crm;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\model\api\crm\CrmLeadContact as Contact;
-use App\Http\Resources\Contact as ContactResource;
+use App\model\api\crm\ModelCrmContact as Contact;
+use App\Http\Resources\ContactResource;
+use DB;
+Use Exception;
+
 
 class ContactController extends Controller
 {
@@ -16,8 +19,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
-        $contact = Contact::get();
+        $contact = Contact::orderBy('id','asc')->where('is_deleted','f')->paginate(10);
         return ContactResource::Collection($contact);
     }
 
@@ -29,9 +31,11 @@ class ContactController extends Controller
      */
     public function show($id)
     {
-        $contact = Contact::findOrFail($id);
-        return new ContactResource($contact);   
+        $contact = Contact::where('is_deleted','f')->find($id);
+        
+        return $contact==NULL?  json_encode(["data"=>null]) : new ContactResource($contact);   
     }
+
 
 
     /**
@@ -42,46 +46,52 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        $contact = $request->isMethod('put')? 
-        Contact::findOrFail($request->contact_id) :
-        new Contact;
-
-
-        if($request->isMethod('put')){
-            $contact->id = $request->input('contact_id');
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
         }
-        // $contact->name_en = $request->input('name_en');
-        // $contact->name_kh = $request->input('name_kh');
-        // $contact->email = $request->input('email');
-        // $contact->phone = $request->input('phone');
-        // $contact->facebook = $request->input('facebook');
-        // $contact->position = $request->input('position');
-        // $contact->create_by = $request->input('create_by');
-        // $contact->ma_honorifics_id = $request->input('ma_honorifics_id');
-
-
-        DB::select(
-            'exec insert_crm_lead_contact(?,?,?,?,?,?,?,?,?,?)',
-            array(
-                $request->input('name_en'),
-                $request->input('name_kh'),
-                $request->input('email'),
-                $request->input('phone'),
-                $request->input('facebook'),
-                $request->input('position'),
-                $request->input('create_by'),
-                $request->input('national_id'),
-                $request->input('ma_honorifics_id')
-            )
-        );
-
-
-        if($contact->save()){
-            return new ContactResource($contact);  
+        $create_by = $_SESSION['userid'];
+        if($request->isMethod('put')){
+            try { 
+                $results = DB::select(
+                    'SELECT public."update_crm_lead_contact"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                    array(
+                        $request->input('contact_id'),
+                        $request->input('update_by'),
+                        $request->input('name_en'),
+                        $request->input('name_kh'),
+                        $request->input('email'),
+                        $request->input('phone'),
+                        $request->input('facebook'),
+                        $request->input('position'),
+                        $request->$create_by,
+                        $request->input('national_id'),
+                        $request->input('ma_honorifics_id')
+                    ));
+                return json_encode(["update"=>"success","result"=>$results]);
+            } catch(Exception $e){
+                return json_encode(["update"=>"fail","result"=> $e->getMessage()]);
+            }
+        }else{
+            try { 
+                $results = DB::select(
+                    'SELECT public."insert_crm_lead_contact"(?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                    array(
+                        $request->input('name_en'),
+                        $request->input('name_kh'),
+                        $request->input('email'),
+                        $request->input('phone'),
+                        $request->input('facebook'),
+                        $request->input('position'),
+                        $request->$create_by,
+                        $request->input('national_id'),
+                        $request->input('ma_honorifics_id')
+                    ));
+                return json_encode(["insert"=>"success","result"=>$results]);
+            } catch(Exception $e){
+                return json_encode(["insert"=>"fail","result"=> $e->getMessage()]);
+            }
         }
     }
-
-   
 
     /**
      * Remove the specified resource from storage.
@@ -89,11 +99,18 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id,$user_id)
     {
-        $contact = Contact::findOrFail($id);
-        if($contact->delete()){
-            return new ContactResource($contact);
+        try { 
+            $results = DB::select(
+                'SELECT public."delete_crm_lead_contact"(?, ?)',
+                array(
+                    $id,
+                    $user_id
+                ));
+            return json_encode(["delete"=>"success","result"=>$results]);
+        } catch(Exception $e){
+            return json_encode(["delete"=>"fail","result"=> $e->getMessage()]);
         }
     }
 }

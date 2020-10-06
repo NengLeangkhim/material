@@ -32,6 +32,7 @@
   {{-- style chart JS --}}
   <link href="plugins/chart.js/Chart.min.css" rel="stylesheet">
 
+  <link rel="stylesheet" href="css/font_size.css"> 
 
 {{-- ===========Name Style Of Each Project================== --}}
 
