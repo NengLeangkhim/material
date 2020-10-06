@@ -8,7 +8,7 @@ use App\model\api\crm\ModelCrmQuoteBranch as QuoteBranch;
 use App\model\api\crm\Crmlead as Crmlead;
 use App\model\api\crm\ModelCrmQuoteBranchDetail as QuoteBranchDetail;
 use App\Http\Resources\api\crm\lead\GetLead;
-use App\model\api\crm\Crmlead as Lead;
+use DB;
 class QuoteResource extends JsonResource
 {
     /**
@@ -42,12 +42,14 @@ class QuoteResource extends JsonResource
             }
         }
         //find lead branch by lead id 
+        $lead= DB::select("select * from crm_lead where id = $id");
+        return $lead;
 
         // return parent::toArray($request);
         return [
             "id"=>$this->id,
             "due_date"=>$this->due_date,
-            // "crm_lead_id"=>$this->crm_lead_id,
+            "crm_lead_id"=>$this->crm_lead_id,
             "crm_stock"=>$quoteBranchDetail,
             "quote_number"=> $this->quote_number,
             "assign_to"=> $assign,
