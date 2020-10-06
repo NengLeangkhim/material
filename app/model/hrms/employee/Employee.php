@@ -24,7 +24,23 @@ class Employee extends Model
             ])->orderBy('ma_user.first_name_en')->get();
         return $employee;
     }
-    
+
+    // List Employee who stop work in company
+    public static function Employee_Leave(){
+        $sql= "SELECT id_number,concat(first_name_en,' ',last_name_en) as name_en,concat(first_name_kh,' ',last_name_kh) as name_kh,contact,ma_position.name as position,ma_user.image FROM ma_user INNER JOIN ma_position on ma_user.ma_position_id=ma_position.id where ma_user.status='f' and ma_user.is_deleted='t'";
+        $employee_leave=DB::select($sql);
+        return $employee_leave;
+    }
+
+    // Get max user id and format to (TT-.....) ex. TT-0082
+    public static function Max_Id_Number(){
+        $sql="select * from public.get_code_ibuild(15,3,null)";
+        $id_number=DB::select($sql);
+        $max_id= str_pad($id_number[0]->code, 4, '0', STR_PAD_LEFT);
+        echo $max_id;
+        $max_id='TT-'.$max_id;
+        return $max_id;
+    }
     // List only one employee
     public static function EmployeeOnRow($id){
         $employee = DB::table('ma_user')->select('ma_user.office_phone','ma_user.sex','ma_user.image', 'ma_user.id', 'ma_user.first_name_en as firstName', 'ma_user.last_name_en as lastName', 'ma_user.first_name_kh as firstNameKh', 'ma_user.last_name_kh as lastNameKh', 'ma_user.id_number', 'ma_user.email', 'ma_user.contact', 'ma_user.join_date', 'ma_position.name as position','ma_user.ma_position_id','ma_user.description','ma_user.bank_account', 'hr_payroll_base_salary.rate_month','ma_user.ma_company_dept_id','ma_user.birth_date','ma_position.name as positionName','ma_user.description')

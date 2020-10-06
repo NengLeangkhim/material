@@ -63,7 +63,7 @@ class ContactController extends Controller
                         $request->input('phone'),
                         $request->input('facebook'),
                         $request->input('position'),
-                        $request->$create_by,
+                        $create_by,
                         $request->input('national_id'),
                         $request->input('ma_honorifics_id')
                     ));
@@ -82,7 +82,7 @@ class ContactController extends Controller
                         $request->input('phone'),
                         $request->input('facebook'),
                         $request->input('position'),
-                        $request->$create_by,
+                        $create_by,
                         $request->input('national_id'),
                         $request->input('ma_honorifics_id')
                     ));
