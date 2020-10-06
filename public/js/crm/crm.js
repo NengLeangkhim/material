@@ -1,3 +1,4 @@
+//////////////////////////========================== MET KEOSAMBO ====================///////////////////////////////
 // ----------Contact---------- //
     //Fuction Click Update Contact
     // function CrmDetailContact(id){
@@ -11,8 +12,37 @@
     //         }
     //     });   
     // }
-
-
+    function CrmAddContact(){
+        $("#frm_CrmContact input").removeClass("is-invalid");//remove all error message
+        $("#frm_CrmContact select").removeClass("is-invalid");//remove all error message
+        $.ajax({
+          url:'/contact/store',
+          type:'POST',
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+           data: //_token: $('#token').val(),
+          $('#frm_CrmContact').serialize(), 
+          
+          success:function(data)
+          {
+            if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+             // console.log(data);
+              sweetalert('success','The Contact has been Insert Successfully !!');
+              go_to('/contact');// refresh content 
+          }else{ 
+            $.each( data.errors, function( key, value ) {//foreach show error
+                $("#" + key).addClass("is-invalid"); //give read border to input field
+                // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+                $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+                // sweetalert('warning',value);
+            });
+          }
+          }
+        });
+    }
+// ---------- END Contact---------- //
+//////////////////////////==========================END MET KEOSAMBO ====================///////////////////////////////
     // $(document).ready(function(){
     //     var a = 0;
     //     var i = 0;

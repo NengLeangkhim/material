@@ -20,7 +20,7 @@
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-12">
-                    <form id="frm_CrmContact" action="">
+                    <form id="frm_CrmContact">
                         @csrf
                         <!-- general form elements -->
                         <div class="card card-primary">
@@ -31,15 +31,19 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Contact Name English <b style="color:red">*</b></label>
+                                            <label for="exampleInputEmail1">Honorifics <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                 </div>
                                                 <select class="form-control" name="ma_honorifics_id" id="ma_honorifics_id" required>
+                                                    <option value="">None</option>
                                                     <option value="1">Mr</option>
                                                     <option value="2">Mrs</option>
                                                 </select>
+                                                <span class="invalid-feedback" role="alert" id="ma_honorifics_idError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div> 
                                         </div>
                                          <div class="col-md-6">
@@ -48,7 +52,10 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="Customer Name English"  name='name_en'  required>
+                                                <input type="text" class="form-control" placeholder="Customer Name English"  name='name_en' id="name_en"  required>
+                                                <span class="invalid-feedback" role="alert" id="name_enError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div> 
                                          </div>
                                     </div>
@@ -61,7 +68,10 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="name_kh" id="exampleInputEmail1" placeholder="Customer Name khmer" >
+                                                <input type="text" class="form-control" name="name_kh" id="name_kh" placeholder="Customer Name khmer" >
+                                                <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -70,7 +80,10 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-at"></i></span>
                                                 </div>
-                                                <input type="email" class="form-control"  name="email" id="exampleInputEmail1" placeholder="Primary Email">
+                                                <input type="email" class="form-control"  name="email" id="email" placeholder="Primary Email">
+                                                <span class="invalid-feedback" role="alert" id="emailError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -83,7 +96,10 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="phone"id="exampleInputEmail1" placeholder="Primary Phone" >
+                                                <input type="text" class="form-control" name="phone"id="phone" placeholder="Primary Phone" >
+                                                <span class="invalid-feedback" role="alert" id="phoneError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -120,8 +136,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button type="button" class="btn btn-primary save" id="frm_btn_sub_addlead">Save</button>
-                                    <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
+                                    <button type="button" class="btn btn-primary" onclick="CrmAddContact()" id="frm_btn_sub_addcontact">Save</button>
+                                    <button type="button" class="btn btn-danger" onclick="go_to('/contact')">Cencel</button>
                                 </div>
                             </div>  {{--End Card Body--}}
                         </div>

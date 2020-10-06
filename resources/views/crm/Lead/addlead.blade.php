@@ -221,7 +221,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                                 </div>
-                                                <select class="form-control select2" name="assigendTo">
+                                                <select class="form-control" name="assigendTo">
                                                     <option></option>
                                                     @foreach($assig_to as $row )
                                                         <option value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option> 
@@ -235,7 +235,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fab fa-speakap"></i></span>
                                                 </div>
-                                                <select class="form-control  select2bs4 " multiple="multiple" name="CrmService">
+                                                <select class="form-control" name="CrmService">
                                                     <option></option>
                                                     {{-- @foreach($assig_to as $row )
                                                         <option value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option> 
@@ -273,7 +273,7 @@
                                             <label for="exampleInputEmail1">Employee Count</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
+                                                    <span class="input-group-text"><i class="fas fa-user-friends"></i></span>
                                                 </div>
                                                 <input type="text" class="form-control" name="website" id="exampleInputEmail1" placeholder="Current Speed">
                                             </div>
@@ -282,7 +282,7 @@
                                             <label for="exampleInputEmail1">Comment</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                                    <span class="input-group-text"><i class="fas fa-comments"></i></span>
                                                 </div>
                                                 <input type="text" class="form-control" name="facebook" id="exampleInputEmail1" placeholder="Current Price">
                                             </div>
