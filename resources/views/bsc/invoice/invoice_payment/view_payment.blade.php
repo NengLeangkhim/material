@@ -27,10 +27,10 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="row">
-                                        <div class="col-sm-5">
+                                        <div class="col-sm-6">
                                             <label for="">Payment Date : </label>
                                         </div>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-6">
                                             <label for="">02-10-2020</label>
                                         </div>
                                     </div>
