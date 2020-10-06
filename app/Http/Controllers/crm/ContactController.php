@@ -146,9 +146,10 @@ class ContactController extends Controller
             if(perms::check_perm_module('CRM_020202')){//module code list 
                 $update_contact = Request::create('/api/contact','put');
                 $response = json_decode(Route::dispatch($update_contact)->getContent());
-                if($response->insert=='success'){
-                    return response()->json(['success'=>'Record is successfully Update']);
-                }
+                dd($response);
+                // if($response->update=='success'){
+                //     return response()->json(['success'=>'Record is successfully Update']);
+                // }
             }else{
                 return view('no_perms');
             }

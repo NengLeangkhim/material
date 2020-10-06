@@ -15,9 +15,9 @@
                                 <img class="profile-pic" src="<?php echo $uself[0]->image??"/storage/avatar7.png";?>" style="width:100%" id='image_'>
                             </div>
                             <div class="col-md-6 text-center">
-                                <h1 style="margin-top:20%;font-weight:bold">{{ $uself[0]->name??'' }}</h1>
-                                <h5 style="font-weight:bold">{{ $uself[0]->ma_position??'' }}</h5>
-                                <h5 style="font-weight:bold">{{ $uself[0]->contact??'' }}</h5>
+                                <h1 style="margin-top:20%;font-weight:bold;color:#d42931">{{ $uself[0]->name??'' }}</h1>
+                                <h5 style="font-weight:bold;color:#d42931">{{ $uself[0]->ma_position??'' }}</h5>
+                                <h5 style="font-weight:bold;color:#d42931">{{ $uself[0]->contact??'' }}</h5>
                                 <img src="img/icons/index.png" width="100%">
                             </div>
                             <div class="col-md-1 d-none d-sm-none d-md-block">
