@@ -1,0 +1,44 @@
+.border_table{
+    border: none;
+}
+.border_center td{
+    padding: 0%;
+}
+#remove_center{
+    text-align: center;
+    width: 20px;
+    padding-top: 0.4em;
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+    border-radius: 3em;
+}
+.color_label{
+    color: red;
+}
+.add_payment_invoice{
+    padding-left: 50px;
+}
+.line_in_tag_hr{
+    border: 1.5px solid silver;
+    border-radius: 1px;
+}
+.line_in_tag_hr2{
+    border: 1.5px solid black;
+    border-radius: 1px;
+}
+.text_right{
+    text-align: right;
+}
+.border_transparent .nav-item .nav-link.active{
+   border: 1px solid rgba(0, 0, 0, 0.342);
+   border-bottom: 0px !important;
+}
+#icon_margin_auto{
+    width: 40px;
+    margin: auto;
+}
+.td_text_center{
+    text-align-last: center;
+}
+
+
