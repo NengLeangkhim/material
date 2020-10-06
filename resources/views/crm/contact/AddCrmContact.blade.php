@@ -136,7 +136,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button type="button" class="btn btn-primary" onclick="CrmAddContact()" id="frm_btn_sub_addcontact">Save</button>
+                                    <button type="button" class="btn btn-primary" onclick="CrmSubmitFormFull('frm_CrmContact','/contact/store','/contact','Insert Successfully')" id="frm_btn_sub_addcontact">Save</button>
                                     <button type="button" class="btn btn-danger" onclick="go_to('/contact')">Cencel</button>
                                 </div>
                             </div>  {{--End Card Body--}}

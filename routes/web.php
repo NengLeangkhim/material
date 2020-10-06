@@ -56,6 +56,7 @@ Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //ge
 Route::get('/contact/add','crm\ContactController@AddContact'); //go to add contact
 Route::post('/contact/store','crm\ContactController@StoreContact'); //store contact
 Route::get('/contact/edit/{id}','crm\ContactController@EditContact');//go to Edit contact
+Route::put('/contact/update','crm\ContactController@UpdateContact'); //Update contact
 Route::get('/contact/detail','crm\ContactController@DetailContact');//go to Detail contact
 Route::get('/product','crm\ProductsController@getProducts'); //get all Products show in table  
 // end contact

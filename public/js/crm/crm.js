@@ -12,24 +12,27 @@
     //         }
     //     });   
     // }
-    function CrmAddContact(){
-        $("#frm_CrmContact input").removeClass("is-invalid");//remove all error message
-        $("#frm_CrmContact select").removeClass("is-invalid");//remove all error message
+    // Function Insert And Update CRM is amazing
+    function CrmSubmitFormFull(form,url,goto,alert){
+        $("#"+form+" input").removeClass("is-invalid");//remove all error message
+        $("#"+form+" select").removeClass("is-invalid");//remove all error message
+        $("#"+form+" textarea").removeClass("is-invalid");//remove all error message
+        $("#"+form+" radio").removeClass("is-invalid");//remove all error message
         $.ajax({
-          url:'/contact/store',
+          url: url,//get link route
           type:'POST',
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
            data: //_token: $('#token').val(),
-          $('#frm_CrmContact').serialize(), 
+          $('#'+form+'').serialize(), 
           
           success:function(data)
           {
             if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
              // console.log(data);
-              sweetalert('success','The Contact has been Insert Successfully !!');
-              go_to('/contact');// refresh content 
+              sweetalert('success',alert);
+              go_to(goto);// refresh content 
           }else{ 
             $.each( data.errors, function( key, value ) {//foreach show error
                 $("#" + key).addClass("is-invalid"); //give read border to input field

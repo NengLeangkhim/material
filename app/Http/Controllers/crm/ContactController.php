@@ -82,18 +82,77 @@ class ContactController extends Controller
         }else{
             if(perms::check_perm_module('CRM_020202')){//module code list 
                 $create_contact = Request::create('/api/contact','POST');
-                $response = Route::dispatch($create_contact);
-                return $response;
-            // return response()->json(['success'=>'Record is successfully added']);
+                $response = json_decode(Route::dispatch($create_contact)->getContent());
+                if($response->insert=='success'){
+                    return response()->json(['success'=>'Record is successfully added']);
+                }
             }else{
                 return view('no_perms');
             }
         }
     }
     public function EditContact($id) {   
-        // $param = $id;
-        $sql=ModelCrmContact::CrmGetContactID($id);
-        return view('crm.contact.EditCrmContact')->with('contact',$sql);
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if(perms::check_perm_module('CRM_020203')){//module code
+            $get_contact = Request::create('/api/contact/'.$id, 'GET'); //Request to Route API
+            $contact = json_decode(Route::dispatch($get_contact)->getContent()); //Convert Json data
+            return view('crm.contact.EditCrmContact',['contact'=>$contact]);
+        }else{
+            return view('no_perms');
+        }
+    }
+    public function UpdateContact(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+            }
+            $validator = \Validator::make($request->all(), [
+                'ma_honorifics_id' =>  [  'required'
+                                        ],
+                'name_en' => [ 'required'
+                                        ],
+                'name_kh' => [ 'required'
+                                    ],
+                'email' => [ 'required','email',
+                            Rule::unique('crm_lead_contact','email')->ignore($request->contact_id)
+                            ->where(function ($query) use ($request) {
+                            return $query->where('is_deleted','f');})
+                                        ],
+                'phone' => [ 'required','regex:/(0)[0-9]{7}/',
+                            Rule::unique('crm_lead_contact','phone')->ignore($request->contact_id)
+                            ->where(function ($query) use ($request) {
+                            return $query->where('is_deleted','f');})
+                                    ],    
+            ],
+            [
+                'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
+                'name_en.required' => 'This Field is require !!',   //massage validator
+                'name_kh.required' => 'This Field is require !!',   //massage validator
+                'email.required' => 'This Field is require !!',   //massage validator
+                'phone.required' => 'This Field is require !!',   //massage validator
+                'email.unique' => 'The Email is Already Exist !!',   //massage validator
+                'email.email' => 'The Email is Wrong !!',   //massage validator
+                'phone.unique' => 'The Phone is Already Exist !!',   //massage validator
+                'phone.regex' => 'The Phone Number is Wrong !!',   //massage validator
+                ]
+            );
+        if ($validator->fails()) //check validator for fail
+        {
+            return response()->json(array(
+                'errors' => $validator->getMessageBag()->toArray() 
+            ));
+        }else{
+            if(perms::check_perm_module('CRM_020202')){//module code list 
+                $update_contact = Request::create('/api/contact','put');
+                $response = json_decode(Route::dispatch($update_contact)->getContent());
+                if($response->insert=='success'){
+                    return response()->json(['success'=>'Record is successfully Update']);
+                }
+            }else{
+                return view('no_perms');
+            }
+        }
     }
     public function DetailContact(){
         if (session_status() == PHP_SESSION_NONE) {
