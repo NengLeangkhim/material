@@ -22,7 +22,11 @@ class ChartAccountController extends Controller
         // if(perms::check_perm_module('STO_01')){
         
         // }
-        $chart_accounts = DB::table('bsc_account_charts')->get();
+        
+        $chart_accounts = DB::table('bsc_account_charts')
+                        ->select('bsc_account_charts.*','bsc_account_type.name_en as account_type_name','bsc_account_type.bsc_account_id')
+                        ->leftJoin('bsc_account_type','bsc_account_charts.bsc_account_type_id','=','bsc_account_type.id')
+                        ->get();
         return $this->sendResponse($chart_accounts, 'Chart account retrieved successfully.');
     }
 
@@ -80,7 +84,10 @@ class ChartAccountController extends Controller
      */
     public function show($id)
     {
-        $chart_account = DB::table('bsc_account_charts')->where('id',$id)->first();
+        $chart_account = DB::table('bsc_account_charts')
+                        ->select('bsc_account_charts.*','bsc_account_type.name_en as account_type_name','bsc_account_type.bsc_account_id')
+                        ->leftJoin('bsc_account_type','bsc_account_charts.bsc_account_type_id','=','bsc_account_type.id')
+                        ->where('bsc_account_charts.id',$id)->first();
         return $this->sendResponse($chart_account, 'Chart account retrieved successfully.');
     }
 
