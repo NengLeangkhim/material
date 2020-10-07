@@ -165,4 +165,10 @@ class ChartAccountController extends Controller
         $account_types = DB::table('bsc_account_type')->get();
         return $this->sendResponse($account_types, 'Account type retrieved successfully');
     }
+
+    public function show_company(Request $request)
+    {
+        $companies = DB::table('ma_company')->get();
+        return $this->sendResponse($companies, 'Company retrieved successfully');
+    }
 }

@@ -1,5 +1,6 @@
 @php
     foreach($detail as $row){
+        $id= $row->id;
         $name_en = $row->name_en;
         $name_kh = $row->name_kh;
         $email = $row->email;
@@ -39,10 +40,10 @@
                         {{-- </div> --}}
                     </div>
                 </div>
-                <div class="col-6 " >
+                <div class="col-6">
                    <div class="row">
-                        <div class="col-6 " align="right"><button type="button" ​value="/contact/edit/1" class="btn btn-primary btn-md CrmContactEdit">Edit</button></div>
-                        <div class="col-6 " align="left"><button type="button"  class="btn btn-success btn-md">Convert</button></div>
+                        <div class="col-6 text-right"><button onclick="go_to('/contact/edit/{{$id}}')" class="btn btn-info btn-md">Edit</button></div>
+                        <div class="col-6 text-left"><button type="button"  class="btn btn-success btn-md">Convert</button></div>
                    </div>
                 </div>
               </div>
@@ -142,10 +143,3 @@
     </div>
     <!-- ./col -->
 </section>
-    <script>
-    $('.CrmContactEdit').click(function(e)
-                {
-                    var id = $(this).attr("​value");
-                    go_to(id);
-                });
-    </script>
