@@ -54,7 +54,9 @@ Route::get('/test_map', function(){
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination
 Route::get('/contact/add','crm\ContactController@AddContact'); //go to add contact
+Route::post('/contact/store','crm\ContactController@StoreContact'); //store contact
 Route::get('/contact/edit/{id}','crm\ContactController@EditContact');//go to Edit contact
+Route::put('/contact/update','crm\ContactController@UpdateContact'); //Update contact
 Route::get('/contact/detail','crm\ContactController@DetailContact');//go to Detail contact
 Route::get('/product','crm\ProductsController@getProducts'); //get all Products show in table
 // end contact
@@ -1041,14 +1043,14 @@ Route::get('test_chart',function(){
 
 // Customer Management
     // Customer
-        Route::get('customer','bsc\CustomerController@customer');
+        Route::get('bsc_customer','bsc\CustomerController@customer');
     // Customer Branch
-        Route::get('customer_branch','bsc\CustomerController@customer_branch');
+        Route::get('bsc_customer_branch','bsc\CustomerController@customer_branch');
         Route::get('customer_branch_detail','bsc\CustomerController@customer_branch_detail');
     // Customer Service
-        Route::get('customer_service','bsc\CustomerController@customer_service');
+        Route::get('bsc_customer_service','bsc\CustomerController@customer_service');
     // Customer Service Detail
-        Route::get('customer_service_detail','bsc\CustomerController@customer_service_detail');
+        Route::get('bsc_customer_service_detail','bsc\CustomerController@customer_service_detail');
         Route::get('customer_service_detail_add','bsc\CustomerController@customer_service_detail_add');
         Route::get('customer_service_detail_edit','bsc\CustomerController@customer_service_detail_edit');
 // Report
@@ -1061,6 +1063,7 @@ Route::get('test_chart',function(){
     Route::get('bsc_chart_account_list','bsc\ChartAccountController@list');
     Route::get('bsc_chart_account_list_edit','bsc\ChartAccountController@edit');
     Route::get('bsc_chart_account_form','bsc\ChartAccountController@form');
+    Route::post('bsc_chart_account_form_add','bsc\ChartAccountController@add');
 // Invoice
     // Invoice
         Route::get('bsc_invoice_invoice_list','bsc\InvoiceController@list');
@@ -1087,7 +1090,7 @@ Route::get('test_chart',function(){
     Route::get('bsc_purchase_purchase_view','bsc\PurchaseController@view');
 
     Route::get('bsc_purchase_purchase_form','bsc\PurchaseController@form');
-        
+
     // View Purchase Payment
     Route::get('bsc_purchase_view_purchase_payment','bsc\PurchasePaymentControllre@view_purchase_payment');
 

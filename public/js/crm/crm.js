@@ -1,3 +1,4 @@
+//////////////////////////========================== MET KEOSAMBO ====================///////////////////////////////
 // ----------Contact---------- //
     //Fuction Click Update Contact
     // function CrmDetailContact(id){
@@ -11,8 +12,40 @@
     //         }
     //     });   
     // }
-
-
+    // Function Insert And Update CRM is amazing
+    function CrmSubmitFormFull(form,url,goto,alert){
+        $("#"+form+" input").removeClass("is-invalid");//remove all error message
+        $("#"+form+" select").removeClass("is-invalid");//remove all error message
+        $("#"+form+" textarea").removeClass("is-invalid");//remove all error message
+        $("#"+form+" radio").removeClass("is-invalid");//remove all error message
+        $.ajax({
+          url: url,//get link route
+          type:'POST',
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+           data: //_token: $('#token').val(),
+          $('#'+form+'').serialize(), 
+          
+          success:function(data)
+          {
+            if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+             // console.log(data);
+              sweetalert('success',alert);
+              go_to(goto);// refresh content 
+          }else{ 
+            $.each( data.errors, function( key, value ) {//foreach show error
+                $("#" + key).addClass("is-invalid"); //give read border to input field
+                // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+                $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+                // sweetalert('warning',value);
+            });
+          }
+          }
+        });
+    }
+// ---------- END Contact---------- //
+//////////////////////////==========================END MET KEOSAMBO ====================///////////////////////////////
     // $(document).ready(function(){
     //     var a = 0;
     //     var i = 0;

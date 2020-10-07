@@ -5,7 +5,10 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\User;
 use App\model\api\crm\ModelCrmQuoteBranch as QuoteBranch;
+use App\model\api\crm\Crmlead as Crmlead;
 use App\model\api\crm\ModelCrmQuoteBranchDetail as QuoteBranchDetail;
+use App\Http\Resources\api\crm\lead\GetLead;
+use DB;
 class QuoteResource extends JsonResource
 {
     /**
@@ -31,25 +34,27 @@ class QuoteResource extends JsonResource
         $quoteBranch =  QuoteBranch::where('crm_quote_id',$this->id)->get('id');
         $quoteBranchDetail=[];
         foreach($quoteBranch as $q){
-            $array =  QuoteBranchDetail::where('crm_quote_branch_id',$q->id)->get('stock_product_id');
+            $array =  QuoteBranchDetail::where('crm_quote_branch_id',$q->id)->get();
             if(sizeof($array)>0){
                 for($i=0;$i<sizeof($array);$i++){
-                    array_push($quoteBranchDetail,$array[$i]->stock_product_id);
+                    array_push($quoteBranchDetail,$array[$i]);
                 }
             }
         }
-        // return $quoteBranchDetail;
+        //find lead branch by lead id 
+        $lead= DB::select("select * from crm_lead where id = $id");
+        return $lead;
+
         // return parent::toArray($request);
         return [
             "id"=>$this->id,
             "due_date"=>$this->due_date,
             "crm_lead_id"=>$this->crm_lead_id,
-            "crm_stock_id"=>$quoteBranchDetail,
+            "crm_stock"=>$quoteBranchDetail,
             "quote_number"=> $this->quote_number,
             "assign_to"=> $assign,
             "crm_lead_address_id"=> $this->crm_lead_address_id,
             "create_by"=> $createby
         ];
-        
     }
 }
