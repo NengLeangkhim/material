@@ -11,7 +11,7 @@
                         <li class="breadcrumb-item"><a href="" class="CrmContact" ​value="/contact">Contact</a></li>
                         <li class="breadcrumb-item active">New Contact</li>
                     </ol>
-                </div>
+                </div> 
             </div>
          </div><!-- /.container-fluid -->
     </section>  
@@ -31,7 +31,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Honorifics <b style="color:red">*</b></label>
+                                            <label for="ma_honorifics_id">Honorifics <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-building"></i></span>
@@ -47,7 +47,7 @@
                                             </div> 
                                         </div>
                                          <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Contact Name English <b style="color:red">*</b></label>
+                                            <label for="name_en">Contact Name English <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-building"></i></span>
@@ -63,7 +63,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Contact Name khmer <b style="color:red">*</b></label>
+                                            <label for="name_kh">Contact Name khmer <b style="color:red">*</b></label>
                                              <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-building"></i></span>
@@ -75,7 +75,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Primary Email<b style="color:red">*</b></label>
+                                            <label for="email">Primary Email<b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-at"></i></span>
@@ -91,7 +91,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                          <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Primary Phone <b style="color:red">*</b></label>
+                                            <label for="phone">Primary Phone <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
@@ -103,12 +103,12 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Position</label>
+                                            <label for="position">Position</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-arrows-alt"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="position" id="exampleInputEmail1" placeholder="Position">
+                                                <input type="text" class="form-control" name="position" id="position" placeholder="Position">
                                             </div>
                                         </div>
                                     </div>
@@ -116,21 +116,21 @@
                                 <div class="form-group">
                                     <div class="row">
                                          <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Facebook</label>
+                                            <label for="facebook">Facebook</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fab fa-facebook"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="facebook" id="exampleInputEmail1" placeholder="Facebook">
+                                                <input type="text" class="form-control" name="facebook" id="facebook" placeholder="Facebook">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">National ID</label>
+                                            <label for="national_id">National ID</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-id-card-alt"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="national_id" id="exampleInputEmail1" placeholder="National ID">
+                                                <input type="text" class="form-control" name="national_id" id="national_id" placeholder="National ID">
                                             </div>
                                         </div>
                                     </div>
@@ -162,8 +162,5 @@
                             $(".content-wrapper").html(data);
                     }
                 });
-            })
-            $('.save').click(function(){
-                submit_form ('/api/contact','frm_CrmContact','/contact');
             })
     </script>
