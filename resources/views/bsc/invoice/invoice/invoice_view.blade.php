@@ -28,52 +28,52 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="row">
-                                            <div class="col-sm-5">
+                                            <div class="col-sm-6">
                                                 <label for="">Account Name : </label>
                                             </div>
-                                            <div class="col-sm-7">
+                                            <div class="col-sm-6">
                                                 <label for="">Touch Rith</label>
                                             </div>
 
-                                            <div class="col-sm-5">
+                                            <div class="col-sm-6">
                                                 <label for="">Customer Name : </label>
                                             </div>
-                                            <div class="col-sm-7">
+                                            <div class="col-sm-6">
                                                 <label for="">Keo Seyha</label>
                                             </div>
 
-                                            <div class="col-sm-5">
+                                            <div class="col-sm-6">
                                                 <label for="">Deposit : </label>
                                             </div>
-                                            <div class="col-sm-7">
+                                            <div class="col-sm-6">
                                                 <label for="">ABA</label>
                                             </div>
 
-                                            <div class="col-sm-5">
+                                            <div class="col-sm-6">
                                                 <label for="">Balance : </label>
                                             </div>
-                                            <div class="col-sm-7">
+                                            <div class="col-sm-6">
                                                 <label for="">200$</label>
                                             </div>
 
-                                            <div class="col-sm-5">
+                                            <div class="col-sm-6">
                                                 <label for="">Invoice Balance : </label>
                                             </div>
-                                            <div class="col-sm-7">
+                                            <div class="col-sm-6">
                                                 <label for="">2000$</label>
                                             </div>
 
-                                            <div class="col-sm-5">
+                                            <div class="col-sm-6">
                                                 <label for="">Customer Branch Name : </label>
                                             </div>
-                                            <div class="col-sm-7">
+                                            <div class="col-sm-6">
                                                 <label for="">Phnom Penh</label>
                                             </div>
 
-                                            <div class="col-sm-5">
+                                            <div class="col-sm-6">
                                                 <label for="">Billing Date : </label>
                                             </div>
-                                            <div class="col-sm-7">
+                                            <div class="col-sm-6">
                                                 <label for="">03-10-2020</label>
                                             </div>
                                         </div>
@@ -126,77 +126,6 @@
                                 </div>
                             </div>
                         </div>
-
-{{--
-                        <div class="col-12">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label for="">Account Name : </label>Touch Rith
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="">Customer Name : </label>Mey Mey
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="">Deposit : </label>ABA
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label for="">Balance : </label>100$
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="">Invoice Balance : </label>100$
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="">Customer Branch Name : </label>Long Seyha
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label for="">Billing Date : </label>02-10-2020
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="">Invoice : </label>Internet
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="">Reference : </label>Long Rathana
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label for="">Due Date : </label>02-10-2020
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="">Effective Date : </label>02-10-2020
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="">End Period Date : </label>02-10-2020
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label for="">Address : </label>Phnom Penh
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
                     </div>
                     <div class="card-body">
                         <table  class="table table-bordered table-striped">
