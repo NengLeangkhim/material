@@ -1063,7 +1063,7 @@ Route::get('test_chart',function(){
 
 // Chart account
     Route::get('bsc_chart_account_list','bsc\ChartAccountController@list');
-    Route::get('bsc_chart_account_list_edit','bsc\ChartAccountController@edit');
+    Route::get('bsc_chart_account_list_edit/{id}','bsc\ChartAccountController@edit');
     Route::get('bsc_chart_account_form','bsc\ChartAccountController@form');
     Route::post('bsc_chart_account_form_add','bsc\ChartAccountController@add');
 // Invoice
