@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportHoliday;
 use App\Exports\UsersExport;
 use App\model\hrms\employee\Employee;
 use Illuminate\Http\Request;
@@ -16,5 +17,9 @@ class ExportExcelController extends Controller
         $month=$_GET['emonth'];
         $year=$_GET['eyear'];
         return Excel::download(new UsersExport($month,$year), 'payroll.xlsx');
+    }
+
+    function ExortHoliday(){
+        return Excel::download(new ExportHoliday(),'Holiday.xlsx');
     }
 }

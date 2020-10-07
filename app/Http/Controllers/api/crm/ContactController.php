@@ -46,6 +46,10 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $create_by = $_SESSION['userid'];
         if($request->isMethod('put')){
             try { 
                 $results = DB::select(
@@ -59,7 +63,7 @@ class ContactController extends Controller
                         $request->input('phone'),
                         $request->input('facebook'),
                         $request->input('position'),
-                        $request->input('create_by'),
+                        $request->$create_by,
                         $request->input('national_id'),
                         $request->input('ma_honorifics_id')
                     ));
@@ -78,7 +82,7 @@ class ContactController extends Controller
                         $request->input('phone'),
                         $request->input('facebook'),
                         $request->input('position'),
-                        $request->input('create_by'),
+                        $request->$create_by,
                         $request->input('national_id'),
                         $request->input('ma_honorifics_id')
                     ));

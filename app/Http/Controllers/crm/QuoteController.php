@@ -61,6 +61,22 @@ class QuoteController extends Controller
 
     }
 
+    public static function listService(Request $request){
+        if(isset($_GET['id'])){
+            $row_id = $_GET['id'];
+            $request = Request::create('/api/stock/service/', 'GET');
+            $listService = json_decode(Route::dispatch($request)->getContent());
+            // print_r($listService);
+            // echo "hello world";
+            // return view('crm/quote/listProduct', compact('listProduct','row_id'));
+        }
+
+    }
+
+
+
+
+
 
 
 

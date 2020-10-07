@@ -23,12 +23,16 @@
                             <thead>
                                 <tr >
                                     <th>
-                                        <input type="checkbox" id="" name="selectAllProduct" >
+                                        
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" id="checkAllItem" class="custom-control-input checkAllItem" name="checkAllItem" >
+                                            <label class="custom-control-label" for="checkAllItem"></label>
+                                        </div>
                                     </th>
                                     <th>Product Name</th>
                                     <th>Part Number</th>
                                     <th>Unit Price</th>
-                                    <th>Qty/Unit</th>
+                                    <th>Available In Stock</th>
                                     <th>Description</th>
                                 </tr>
                             </thead>
@@ -40,31 +44,35 @@
                                     @foreach ($val as $key2=>$val2)
                                             <tr>
                                                 <td class="border">
-                                                    <input type="checkbox" id="productSelect_{{$row_id}}"  class="productSelect_{{$key2}}"   value="{{$val2->id}}" name="selectUnitProduct">
+                                                    <input type="hidden" id="showItemType_{{$row_id}}" value="Product"> 
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" id="checkbox_{{$key2}}"  class="custom-control-input productSelect"  value="{{$val2->id}}" name="seleteItem">
+                                                        <label class="custom-control-label" for="checkbox_{{$key2}}"></label>
+                                                    </div>
                                                 </td>
                                                 <td class="border">
-                                                    <div id="productName_{{$row_id}}"  data-id="productName_{{$val2->id}}" >
+                                                    <div id="productName_{{$row_id}}"  class="productName_{{$val2->id}}" >
                                                         {{$val2->name}}
                                                     </div>
                                                 </td>
                                                 <td class="border">
-                                                    <div data-id="productPartNumber_{{$val2->id}}">
+                                                    <div class="productPartNumber_{{$val2->id}}">
                                                         {{$val2->part_number}}
                                                     </div>
                                                 </td>
                                                 <td class="border">
-                                                    <div data-id="productPrice_{{$val2->id}}">
+                                                    <div class="productPrice_{{$val2->id}}">
                                                         {{$val2->product_price}}
                                                     </div>
                                                 </td>
 
                                                 <td class="border">
-                                                    <div data-id="stockProduct_{{$val2->id}}">
+                                                    <div class="stockProduct_{{$val2->id}}">
                                                         {{$val2->stock_qty}}
                                                     </div>
                                                 </td>
                                                 <td class="border">
-                                                    <div data-id="productDescription_{{$val2->id}}">
+                                                    <div class="productDescription_{{$val2->id}}">
                                                         {{$val2->description}}
                                                     </div>
                                                 </td>

@@ -19,7 +19,6 @@
             <div class="row">
               @php
                   if(isset($data[1])){
-                    // print_r($data[1]);
                     $date=new DateTime($data[1]['joint_date']);
                     $dateBirth=new DateTime($data[1]['dateOfBirth']);
                     $dateofbirth=$dateBirth->format('Y-m-d');
@@ -50,7 +49,7 @@
                     </div>
                     <div class="col-md-6">
                       <label>ID Number <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" name="emIdNumber" value="@php if(isset($data[1])){ echo $data[1]['id_number']; } @endphp" required>
+                      <input type="text" class="form-control" name="emIdNumber" value="@php if(isset($data[1])){ echo $data[1]['id_number']; } if(isset($data[4])){echo $data[4];}@endphp" required readonly>
                     </div>
                     <div class="col-md-6">  
                       <label>Sex <span class="text-danger">*</span></label>
@@ -76,7 +75,7 @@
                       <input type="date" class="form-control" name="emDateOfBirth" value="@php echo $dateofbirth; @endphp" required>
                     </div>
                     <div class="col-md-6">
-                      <label>Joint Date <span class="text-danger">*</span></label>
+                      <label>Join Date <span class="text-danger">*</span></label>
                       <input type="date" class="form-control" name="emJoinDate" value="@php echo $join_date; @endphp" required>
                     </div>
                     <div class="col-md-6">
@@ -127,7 +126,7 @@
                 <input type="hidden" value="@php if(isset($data[1])){ echo $data[1]['image']; } @endphp" name="imgdirectory">
                 <div id="image-preview" style="margin-top: 30px" class=""> 
                   <label for="image-upload" id="image-label">Choose Image</label>
-                  <input type="file" accept="image/*" onchange="preview_image(event)" name="emProfile" @php if(!isset($data[1])){ echo 'required'; } @endphp>
+                  <input type="file" accept="image/*" onchange="preview_image(event)" name="emProfile">
                   <img id="output_image" name="emProfile" height="320px" width="100%" src="@php if(isset($data[1])){ echo $data[1]['image'];} @endphp"/>
                 </div>
               </div>
@@ -141,7 +140,7 @@
               </div>
               <div class="col-md-4">
                   <label>Salary <span class="text-danger">*</span><span style="margin-left: 100px"><input type="checkbox" onclick="ShowPassword()">show</span></label>
-                  <input type="@php if(isset($data[1])){ echo "password"; }else { echo "number"; } @endphp" id="inputsalary" class="form-control" name="emSalary" @php if(!isset($data[0])){ echo 'required'; } @endphp value="@php if(isset($data[1])){ echo $data[1]['salary']; } @endphp">
+                  <input type="@php if(isset($data[1])){ echo "password"; }else { echo "number"; } @endphp" id="inputsalary" class="form-control" name="emSalary" @php if(!isset($data[0])){ echo 'required'; } @endphp value="@php if(isset($data[1])){ echo $data[1]['salary']; } @endphp" required>
                 </div>
                 <div class="col-md-6">
                   <label>Bank Account</label>
@@ -149,7 +148,7 @@
               </div>
               <div class="col-md-6">
                   <label>Email <span class="text-danger">*</span></label>
-                  <input type="email" class="form-control" name="emEmail" value="@php if(isset($data[1])){ echo $data[1]['email']; } @endphp" >
+                  <input type="email" class="form-control" name="emEmail" value="@php if(isset($data[1])){ echo $data[1]['email']; } @endphp" required>
               </div>
               <div class="col-md-6">
                   <label>Spouse <span class="text-danger">*</span></label>
@@ -173,22 +172,22 @@
               </div>
               <div class="col-md-6">
                   <label>Children <span class="text-danger">*</span></label>
-                  <input type="number" class="form-control" name="emChildren" value="@php if(isset($data[1])){echo $data[1]['children'];} @endphp">
+                  <input type="number" class="form-control" name="emChildren" value="@php if(isset($data[1])){echo $data[1]['children'];} @endphp" required>
               </div>
               <div class="col-md-3">
-                  <label>Home Number<span class="text-danger">*</span></label>
+                  <label>Home Number<span class="text-danger"></span></label>
                   <input type="text" class="form-control" name="emhome_en" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
               </div>
               <div class="col-md-3">
-                  <label>លេខផ្ទះ <span class="text-danger">*</span></label>
+                  <label>លេខផ្ទះ <span class="text-danger"></span></label>
                   <input type="text" class="form-control" name="emhome_kh" value="@php if(isset($data[1])){echo $data[1]['home_kh'];} @endphp">
               </div>
               <div class="col-md-3">
-                  <label>Street <span class="text-danger">*</span></label>
+                  <label>Street <span class="text-danger"></span></label>
                   <input type="text" class="form-control" name="emstreet_en" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
               </div>
               <div class="col-md-3">
-                  <label>លេខផ្លូវ <span class="text-danger">*</span></label>
+                  <label>លេខផ្លូវ <span class="text-danger"></span></label>
                   <input type="text" class="form-control" name="emstreet_kh" value="@php if(isset($data[1])){echo $data[1]['street_kh'];} @endphp">
               </div>
               <div class="col-md-6">

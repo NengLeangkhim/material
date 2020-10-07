@@ -132,8 +132,8 @@ class QuoteController extends Controller
                         array(
                             $quote_branch_id,
                             $request->product[$i],
-                            $request->input('price'),
-                            $request->input('qty'),
+                            $request->price[$i],
+                            $request->qty[$i],
                             $createby
                         ));
                 }

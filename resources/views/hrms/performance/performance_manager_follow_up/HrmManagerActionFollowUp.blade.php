@@ -4,6 +4,8 @@
         foreach($follow_up_get as $row){ 
                                 // Header Form
                                 $header = "Add Manager Follow Up";
+                                //Action go to
+                                $go_to = "hrm_performance_follow_up";
                                  //// plan detail
                                 $pd_name = $row->pd_name;
                                 $plan_name = $row->plan_name;
@@ -39,6 +41,8 @@
         foreach($follow_up_get as $row){ 
                                 // Header Form
                                 $header = "Update Manager Follow Up";
+                                //Action go to
+                                $go_to = "hrm_performance_follow_up_manager";
                                 //// plan detail
                                 $pd_name = $row->pd_name;
                                 $plan_name = $row->plan_name;
@@ -82,7 +86,7 @@
                      <h2 class="card-title hrm-title" style="font-weight: bold;font-size:25px" id="card_title"> {{$header}}</h2>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                      <a  href="javascript:void(0);" onclick="go_to('hrm_performance_follow_up_manager')" class="text-info"><i class="fa fa-arrow-left"></i> Back</a> 
+                      <a  href="javascript:void(0);" onclick="go_to('{{$go_to}}')" class="text-info"><i class="fa fa-arrow-left"></i> Back</a> 
                     </div>
                 </div><!-- /.card-header -->
                 <div class="card-body" style="display: block;">

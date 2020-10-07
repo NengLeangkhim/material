@@ -30,7 +30,40 @@ class HrmResultCandidateController extends Controller
             }else{//permission check user
                 $result = ModelHrmResultCandidate::get_tbl_result_candidate_dept(); //query Result For HR_Admin
             }
-            return view('hrms/recruitment/result_candidate/HrmResultCandidate',['permission'=>$permission,'result'=>$result]); 
+            $i=1;// variable increase number for table
+            $table_perm= '<tbody>';
+            foreach($result as $row){
+                if(is_null($row->appr_date)){ //condition set create date if not yet action approve,peding,reject,it will set create date follow date do quiz
+                    $create = $row->start_time;
+                }else{
+                    $create = $row->appr_date;
+                }
+                $table_perm.= ' 
+                    <tr>
+                        <th>'.$i++.'</th>
+                        <td>'.$row->fname.' '.$row->lname.'</td>
+                        <td>'.$row->name.'</td>
+                        <td>'.date('Y-m-d H:i:s',strtotime($create)).'</td>';
+          $table_perm.='<td>';
+                        if($row->status_appr==Null){
+                            $table_perm.='<i class="fas fa-circle" style="color:orangered;"></i> <span style="margin-left:10px;">New</span>';
+                        }elseif($row->status_appr=='approve'){
+                            $table_perm.='<i class="fas fa-circle" style="color: green;"></i> <span style="margin-left:10px;">'.ucfirst($row->status_appr).'</span>';
+                        }elseif($row->status_appr=='pending'){
+                            $table_perm.='<i class="fas fa-circle" style="color:darkorange;"></i> <span style="margin-left:10px;">'.ucfirst($row->status_appr).'</span>';
+                        }elseif($row->status_appr=='reject'){
+                            $table_perm.='<i class="fas fa-circle" style="color:red;"></i> <span style="margin-left:10px;">'.ucfirst($row->status_appr).'</span>';
+                        }
+          $table_perm.='</td>
+                        <td class="text-center">';
+                         if(perms::check_perm_module('HRM_09090201')){// Permission Action Submit
+                            $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'go_to("/hrm_list_result_condidate/action?id='.$row->id.'&date='.$row->start_time.'")\' class="btn btn-info hrm_view_candidate_result">Action</button>';
+                         }
+                $table_perm.= ' </td>
+                               </tr>';
+                }
+                $table_perm.= '</tbody>';
+            return view('hrms/recruitment/result_candidate/HrmResultCandidate',['table_perm'=>$table_perm]); 
         }else{
             return view('no_perms');
         }

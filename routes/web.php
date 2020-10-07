@@ -75,7 +75,8 @@ Route::get('/quote/add','crm\QuoteController@addQuote'); // to add qoute
 Route::get('/quote/deleteLeadQuote','crm\QuoteController@deleteLeadQuote'); // get delete lead for quote list
 
 Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quote item table
-Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get one row quote item table
+Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get stock product api to view
+Route::get('/quote/add/listService','crm\QuoteController@listService'); // get stock service api to view
 
 // end quote
 
@@ -764,6 +765,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::post('hrm_insert_update_employee', 'hrms\Employee\AllemployeeController@InsertUpdateEmployee');
         Route::get('hrm_delete_employee', 'hrms\Employee\AllemployeeController@DeleteEmployee');
         Route::get('hrm_detail_employee', 'hrms\Employee\AllemployeeController@EmployeeDetail');
+         Route::get('hrm_employee_leave', 'hrms\Employee\AllemployeeController@Employee_Leave');
     //End All Employee
 
     // Start Holiday
@@ -771,6 +773,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_add_edit_holiday', 'hrms\Employee\HolidayController@AddAndEditHoliday');
         Route::post('hrm_insert_update_holiday', 'hrms\Employee\HolidayController@InsertUpdateHoliday');
         Route::get('hrm_delete_holiday', 'hrms\Employee\HolidayController@DeleteHoliday');
+        Route::get('hrm_export_holiday', 'ExportExcelController@ExortHoliday')->name('export_excel.excel');
     // End Holiday
 
     // Start Attendance

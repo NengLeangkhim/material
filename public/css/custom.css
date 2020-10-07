@@ -1,5 +1,5 @@
 body{
-    font-family: 'Khmer OS Content';
+    font-family: Century Gothic,Khmer OS Content !important;
 }
 .welcome-bg{
     background-image: url('../images/turbotech.png');
@@ -64,7 +64,7 @@ body{
     height: 10vh;
 }
 .profile-pic{
-    height: 50vh;
+    height: 60vh;
 }
 
 #row_welcome{

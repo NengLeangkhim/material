@@ -26,14 +26,14 @@ class StockController extends Controller
                 $type = DB::table('stock_product_type')
                         ->where('stock_product_type.group_type','product')
                         ->rightJoin('stock_product', 'stock_product_type.id', '=', 'stock_product.stock_product_type_id')
-                        ->select(["stock_product_type.id","name","stock_qty","product_price","part_number","description"])
+                        ->select(["stock_product.id","name","stock_qty","product_price","part_number","description"])
                         ->get();
                 return response()->json(["data"=>$type]);
             case "service":
                 $type = DB::table('stock_product_type')
                         ->where('stock_product_type.group_type','service')
                         ->rightJoin('stock_product', 'stock_product_type.id', '=', 'stock_product.stock_product_type_id')
-                        ->select(["stock_product_type.id","name","stock_qty","product_price","description"])
+                        ->select(["stock_product.id","name","stock_qty","product_price","description"])
                         ->get();
                 return response()->json(["data"=>$type]);
             default:
