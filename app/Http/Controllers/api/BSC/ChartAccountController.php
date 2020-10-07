@@ -122,15 +122,19 @@ class ChartAccountController extends Controller
             $validator = Validator::make($input, [
                 'bsc_account_type_id'  => 'required',
                 'name_en'              => 'required',
-                'ma_company_id'        => 'required',
-                'update_by'            => 'required'
+                'ma_company_id'        => 'required'
             ]);
 
             if($validator->fails()){
                 return $this->sendError('Validation Error.', $validator->errors());
             }
 
-            $sql="update_bsc_account_charts($id, $request->update_by, $request->bsc_account_type_id, '$request->name_en', '$request->name_kh', $request->ma_currency_id, $request->ma_company_id, $request->parent_id, '$request->status')";
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $update_by = $_SESSION['userid'];
+
+            $sql="update_bsc_account_charts($id, $update_by, $request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, $request->parent_id, '$request->status')";
             $q=DB::select("SELECT ".$sql);
 
             DB::commit();
@@ -152,7 +156,12 @@ class ChartAccountController extends Controller
     {
         DB::beginTransaction();
         try {
-            $sql="update_bsc_account_charts($id, $request->update_by, $request->bsc_account_type_id, '$request->name_en', '$request->name_kh', $request->ma_currency_id, $request->ma_company_id, $request->parent_id, '$request->status')";
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $update_by = $_SESSION['userid'];
+
+            $sql="delete_bsc_account_charts($request->bsc_account_charts_id, $update_by)";
             $q=DB::select("SELECT ".$sql);
 
             DB::commit();
