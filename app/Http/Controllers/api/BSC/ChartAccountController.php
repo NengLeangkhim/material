@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api\BSC;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class ChartAccountController extends Controller
 {
