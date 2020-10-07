@@ -19,7 +19,7 @@
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-12">
-                    <form id="frm_lead" action="">
+                    <form id="frm_CrmOrganizationEdit">
                         @csrf
                         <!-- general form elements -->
                         <div class="card card-primary">
@@ -30,26 +30,32 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Select Contact <b style="color:red">*</b></label>
+                                            <label for="contact">Select Contact <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                 </div>
-                                                <select class="form-control" name="contact" id="icontact" >
+                                                <select class="form-control" name="contact" id="contact" >
                                                     <option></option>
                                                     @foreach($contact as $row)
                                                         <option value="{{$row->id}}">{{$row->name_en}}</option>                                                  
                                                     @endforeach
                                                 </select>
+                                                <span class="invalid-feedback" role="alert" id="contactError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>
                                         </div>
                                          <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Company Name English <b style="color:red">*</b></label>
+                                            <label for="company_en">Company Name English <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="Customer Name English"  name='custEng'  required>
+                                                <input type="text" class="form-control" placeholder="Customer Name English"  name='company_en' id="company_en"  required>
+                                                <span class="invalid-feedback" role="alert" id="company_enError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>
                                          </div>
                                     </div>
@@ -57,43 +63,52 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Company Name khmer <b style="color:red">*</b></label>
-                                             <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-building"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control" name="custkh" id="exampleInputEmail1" placeholder="Customer Name khmer" >
-                                            </div>
+                                                <label for="company_kh">Company Name khmer <b style="color:red">*</b></label>
+                                                <div class="input-group">
+                                                   <div class="input-group-prepend">
+                                                       <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                                   </div>
+                                                   <input type="text" class="form-control" name="company_kh" id="company_kh" placeholder="Customer Name khmer" >
+                                                   <span class="invalid-feedback" role="alert" id="company_khError"> {{--span for alert--}}
+                                                       <strong></strong>
+                                                   </span>
+                                               </div> 
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Primary Email<b style="color:red">*</b></label>
+                                            <label for="primary_email">Primary Email<b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-at"></i></span>
                                                 </div>
-                                                <input type="email" class="form-control"  name="email" id="exampleInputEmail1" placeholder="Primary Email">
+                                                <input type="email" class="form-control"  name="primary_email" id="primary_email" placeholder="Primary Email">
+                                                <span class="invalid-feedback" role="alert" id="primary_emailError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
-                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Primary Phone <b style="color:red">*</b></label>
+                                        <div class="col-md-6">
+                                            <label for="primary_phone">Primary Phone <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="phone"id="exampleInputEmail1" placeholder="Primary Phone" >
+                                                <input type="text" class="form-control" name="primary_phone"id="primary_phone" placeholder="Primary Phone" >
+                                                <span class="invalid-feedback" role="alert" id="primary_phoneError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Website</label>
+                                            <label for="website">Website</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="website" id="exampleInputEmail1" placeholder="Website">
+                                                <input type="text" class="form-control" name="website" id="website" placeholder="Website">
                                             </div>
                                         </div>
                                     </div>
@@ -101,21 +116,21 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Facebook</label>
+                                            <label for="company_facebook">Facebook</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fab fa-facebook"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="facebook" id="exampleInputEmail1" placeholder="Facebook">
-                                            </div>         
+                                                <input type="text" class="form-control" name="company_facebook" id="company_facebook" placeholder="Facebook">
+                                            </div>   
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Customer Type <b style="color:red">*</b></label>
+                                            <label for="customer_type">Customer Type <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                 </div>
-                                                <select class="form-control" name="custtype" >
+                                                <select class="form-control" name="customer_type" id="customer_type">
                                                     <option></option>
                                                     <option>Publi</option>
                                                     <option>Staff</option>
@@ -126,19 +141,19 @@
                                                     <option>Amory Staff</option>
                                                     <option>Other</option>
                                                 </select>   
-                                            </div>                                
+                                            </div>                             
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Lead Source <b style="color:red">*</b></label>
+                                            <label for="lead_source">Lead Source <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-tty"></i></span>
                                                 </div>
-                                                <select class="form-control" name="leadsource" id="ileadsource" >
+                                                <select class="form-control" name="lead_source" id="lead_source" >
                                                     <option></option>
                                                     @foreach($lead_source as $row)
                                                         <option value="{{$row->id}}">{{$row->lead_source}}</option>                                                  
@@ -147,33 +162,33 @@
                                                 <div class="input-group-append">
                                                     <span class="input-group-text btn btn-info" data-toggle="modal" data-target="#modal-info"><i class="fas fa-plus"></i></span>
                                                 </div>
-                                            </div>      
+                                            </div>    
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Lead Status</label>
+                                            <label for="leadstatus">Lead Status</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-unlock"></i></span>
                                                 </div>
-                                                <select class="form-control" name="leadstatus">
+                                                <select class="form-control" name="leadstatus" id="leadstatus">
                                                     <option ></option> 
                                                     @foreach($lead_status as $row)  
                                                         <option value="{{$row->id}}">{{$row->name_en}}</option>   
                                                     @endforeach
                                                 </select>
-                                            </div>                                         
+                                            </div>                                      
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Industry <b style="color:red">*</b></label>
+                                            <label for="lead_industry">Industry <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-industry"></i></span>
                                                 </div>
-                                                <select class="form-control " name="industry" id="iindustry" >
+                                                <select class="form-control " name="lead_industry" id="lead_industry" >
                                                     <option> </option>
                                                     @foreach($lead_industry as $row )
                                                         <option value="{{$row->id}}">{{$row->name_en}}</option> 
@@ -182,15 +197,15 @@
                                                 <div class="input-group-append">
                                                     <span class="input-group-text btn btn-info" data-toggle="modal" data-target="#modal-info-industry"><i class="fas fa-plus"></i></span>
                                                 </div>
-                                            </div>   
+                                            </div>       
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Assigened To<b style="color:red">*</b></label>
+                                            <label for="assigendTo">Assigened To<b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                                 </div>
-                                                <select class="form-control" name="assigendTo">
+                                                <select class="form-control" name="assigendTo" id="assigendTo">
                                                     <option></option>
                                                     @foreach($assig_to as $row )
                                                         <option value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option> 
@@ -214,21 +229,27 @@
                                                     <div class="col-md-12">
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <label for="exampleInputEmail1"> Home(EN)<b style="color:red">*</b></label>
+                                                                <label for="home_en"> Home(EN)<b style="color:red">*</b></label>
                                                                 <div class="input-group">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                                     </div>
-                                                                    <input type="text" class="form-control"  name='homeEN' id="exampleInputEmail1" placeholder="Number of home"  >    
+                                                                    <input type="text" class="form-control"  name='home_en' id="home_en" placeholder="Number of home"  >
+                                                                    <span class="invalid-feedback" role="alert" id="home_enError"> {{--span for alert--}}
+                                                                        <strong></strong>
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label for="exampleInputEmail1"> Street(EN) <b style="color:red">*</b></label>
+                                                                <label for="street_en"> Street(EN) <b style="color:red">*</b></label>
                                                                 <div class="input-group">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                                     </div>
-                                                                    <input type="text" class="form-control"  name='streetEN' id="exampleInputEmail1" placeholder="Number of street"  >    
+                                                                    <input type="text" class="form-control"  name='street_en' id="street_en" placeholder="Number of street"  >
+                                                                    <span class="invalid-feedback" role="alert" id="street_enError"> {{--span for alert--}}
+                                                                        <strong></strong>
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -236,17 +257,20 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1">City/Province <b style="color:red">*</b></label>
+                                                <label for="city">City/Province <b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-city"></i></span>
                                                     </div>
-                                                    <select class="form-control select2 city"  id="icity" name="city" onchange="getbranch(this,'idistrict','s','/district')" >
+                                                    <select class="form-control select2 city"  id="city" name="city" onchange="getbranch(this,'district','s','/district')" >
                                                         <option></option>
                                                      @foreach($province as $row )
                                                         <option value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option> 
                                                         @endforeach
                                                     </select>     
+                                                    <span class="invalid-feedback" role="alert" id="cityError"> {{--span for alert--}}
+                                                        <strong></strong>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -258,21 +282,27 @@
                                                     <div class="col-md-12">
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <label for="exampleInputEmail1"> Home(KH)<b style="color:red">*</b></label>
+                                                                <label for="home_kh"> Home(KH)<b style="color:red">*</b></label>
                                                                 <div class="input-group">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                                     </div>
-                                                                    <input type="text" class="form-control"  name='homeKH' id="exampleInputEmail1" placeholder="Number of home" >    
+                                                                    <input type="text" class="form-control"  name='home_kh' id="home_kh" placeholder="Number of home" >
+                                                                    <span class="invalid-feedback" role="alert" id="home_khError"> {{--span for alert--}}
+                                                                        <strong></strong>
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label for="exampleInputEmail1"> Street(KH) <b style="color:red">*</b></label>
+                                                                <label for="street_kh"> Street(KH) <b style="color:red">*</b></label>
                                                                 <div class="input-group">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                                     </div>
-                                                                    <input type="text" class="form-control"  name='streetKH' id="exampleInputEmail1" placeholder="Number of street"  >    
+                                                                    <input type="text" class="form-control"  name='street_kh' id="street_kh" placeholder="Number of street"  >
+                                                                    <span class="invalid-feedback" role="alert" id="street_khError"> {{--span for alert--}}
+                                                                        <strong></strong>
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -280,14 +310,17 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Khan/District <b style="color:red">*</b></label>
+                                                <label for="district">Khan/District <b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
                                                     </div>
-                                                    <select class="form-control dynamic" name="district" id="idistrict" onchange="getbranch(this,'icommune','s','/commune')" >
+                                                    <select class="form-control dynamic" name="district" id="district" onchange="getbranch(this,'commune','s','/commune')" >
                                                         <option> </option> 
                                                     </select>
+                                                    <span class="invalid-feedback" role="alert" id="districtError"> {{--span for alert--}}
+                                                        <strong></strong>
+                                                    </span>
                                                 </div>                                                
                                             </div>
                                         </div>
@@ -295,24 +328,29 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1"> Lead Map <b style="color:red">*</b></label>
+                                                <label for="latlong"> Lead Map <b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name='latlng' id="latlong" placeholder="11.123456, 104.123456 Example" >
-
+                                                    <input type="text" class="form-control"  name='latlong' id="latlong" placeholder="11.123456, 104.123456 Example" >
+                                                    <span class="invalid-feedback" role="alert" id="latlongError"> {{--span for alert--}}
+                                                        <strong></strong>
+                                                    </span>
                                                 </div> 
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Sengkat/Commune <b style="color:red">*</b></label>
+                                                <label for="commune">Sengkat/Commune <b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-street-view"></i></span>
                                                     </div>
-                                                    <select class="form-control dynamic" name="commune" id="icommune" onchange="getbranch(this,'ivillage','s','/village')" >
+                                                    <select class="form-control dynamic" name="commune" id="commune" onchange="getbranch(this,'village','s','/village')" >
                                                         <option> </option>
                                                     </select>        
+                                                    <span class="invalid-feedback" role="alert" id="communeError"> {{--span for alert--}}
+                                                        <strong></strong>
+                                                    </span>
                                                 </div> 
                                             </div>
                                         </div>
@@ -323,16 +361,18 @@
                                                 
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Village <b style="color:red">*</b></label>
+                                                <label for="village">Village <b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
                                                     </div>
-                                                    <select class="form-control " name="village" id="ivillage" dats-dependent="village" >
-                                                        <option>select Village</option>                                                        
+                                                    <select class="form-control " name="village" id="village" dats-dependent="village" >
+                                                        <option value="">select Village</option>                                                        
                                                     </select>     
-                                                </div> 
-                                                
+                                                    <span class="invalid-feedback" role="alert" id="villageError"> {{--span for alert--}}
+                                                        <strong></strong>
+                                                    </span>
+                                                </div>  
                                             </div>
                                         </div>
                                     </div> 
@@ -343,11 +383,11 @@
 
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <button type="button" class="btn btn-primary save" id="frm_btn_sub_addlead">Update</button>
-                                        <button type="button" class="btn btn-danger" onclick="go_to('/organization')">Cencel</button>
                                     </div> 
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-primary" onclick="CrmSubmitFormFull('frm_CrmOrganizationEdit','/organizations/update','/organization','Insert Successfully')" id="frm_btn_sub_addlead">Save</button>
+                                        <button type="button" class="btn btn-danger" onclick="go_to('organization')">Cencel</button>
+                                    </div>
                                 </div>              
                         </div>       
                     </form>
