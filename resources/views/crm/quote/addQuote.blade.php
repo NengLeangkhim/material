@@ -229,7 +229,6 @@
                                     </div> 
                                 </div>              
                         </div>
-                        <div id="modal-list-quote"></div>
 
                         <div class="card card-primary" >
                             <div class="card-header" style="background:#1fa8e0">

@@ -48,8 +48,8 @@ class ChartAccountController extends Controller
      */
     public function store(Request $request)
     {
-        DB::beginTransaction();
-        try {
+        // DB::beginTransaction();
+        // try {
             $input = $request->all();
 
             $validator = Validator::make($input, [
@@ -62,7 +62,7 @@ class ChartAccountController extends Controller
             if($validator->fails()){
                 return $this->sendError('Validation Error.', $validator->errors());
             }
-            
+
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
@@ -71,13 +71,13 @@ class ChartAccountController extends Controller
             $sql="insert_bsc_account_charts($request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, $request->parent_id, $request->code, null, $create_by)";
             $q=DB::select("SELECT ".$sql);
 
-            DB::commit();
-            return $this->sendResponse($q, 'Chart account created successfully.');
+        //     DB::commit();
+        //     return $this->sendResponse($q, 'Chart account created successfully.');
 
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            return $this->sendError("Try again!");
-        }
+        // } catch (\Throwable $th) {
+        //     DB::rollBack();
+        //     return $this->sendError("Try again!");
+        // }
     }
 
     /**

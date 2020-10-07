@@ -67,7 +67,7 @@
                                                                         View
                                                                     </a>
                                                                 </div> 
-                                                                <div class="col-md-4">`
+                                                                <div class="col-md-4">
                                                                     <a href="#" class="btn btn-success btn-sm" onclick="goto_Action('/quote/editQuote', '{{ $i }}')">
                                                                         Edit
                                                                     </a>
