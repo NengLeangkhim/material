@@ -56,8 +56,7 @@ class ChartAccountController extends Controller
                 'bsc_account_type_id'  => 'required',
                 'name_en'              => 'required',
                 'ma_company_id'        => 'required',
-                'code'                 => 'required',
-                'create_by'            => 'required'
+                'code'                 => 'required'
             ]);
 
             if($validator->fails()){
