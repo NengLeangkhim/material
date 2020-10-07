@@ -154,36 +154,28 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <table class="table table-bordered border_center" id="crud_table">
-                                        <tr>
-                                            <th>Item</th>
-                                            <th>Description</th>
-                                            <th>Quantity</th>
-                                            <th>Unit Price</th>
-                                            <th>Discount</th>
-                                            <th>Account</th>
-                                            <th>Tax Rate</th>
-                                            <th>Amount</th>
-                                            <th></th>
-                                        </tr>
-                                        <tr id="new_record">
-                                            <td><input type="text"​ name="item" class="form-control border_table"></td>
-                                            <td><input type="text" name="descript" class="form-control border_table"></td>
-                                            <td><input type="text" name="quantity" class="form-control border_table"></td>
-                                            <td><input type="text" name="unit_price" class="form-control border_table"></td>
-                                            <td><input type="text" name="discount" class="form-control border_table"></td>
-                                            <td><input type="text" name="account" class="form-control border_table"></td>
-                                            <td><input type="text" name="tax_rate" class="form-control border_table"></td>
-                                            <td><input type="text" name="amount" class="form-control border_table"></td>
-                                            <td id="resize_td">
-                                                <input type="text" class="form-control border_table">
-                                            </td>
-                                        </tr>
+                                    <table class="table table-bordered" id="invoice_table">
+                                        <thead>
+                                            <tr>
+                                                <th>Item</th>
+                                                <th>Description</th>
+                                                <th>Quantity</th>
+                                                <th>Unit Price</th>
+                                                <th>Discount</th>
+                                                <th>Account</th>
+                                                <th>Tax Rate</th>
+                                                <th>Amount</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
                             <div class="row">
-                                <button type="button" name="add" id="add" class="btn btn-success btn-xs"><i class="fas fa-plus"></i> New Record</button>
+                                <button type="button" name="add" id="invoice_form" class="btn btn-success btn-xs"><i class="fas fa-plus"></i> New Record</button>
                             </div><br/>
                             {{-- ============= detail payment ================= --}}
                             <div class="form-group">
@@ -197,12 +189,12 @@
                                                     <label for="">Total : </label>
                                                 </div>
                                                 <div class="col-sm-6 text_right">
-                                                    <label for="">1000$</label>
+                                                    <label for="" id="txtTotal"></label>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-6 text_right">
-                                                    <label for="">Vat Total : </label>
+                                                    <label for="">VAT Total : </label>
                                                 </div>
                                                 <div class="col-sm-6 text_right">
                                                     <label for="">10%</label>
@@ -260,9 +252,5 @@
         </div>
     </div>
 </section>
-<script>
-    $(document).ready(function(){
-        $('.select2').select2();
-    });
-</script>
+
 <script src="js/bsc/invoice.js"></script>

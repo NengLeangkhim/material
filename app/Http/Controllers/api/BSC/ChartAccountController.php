@@ -56,15 +56,19 @@ class ChartAccountController extends Controller
                 'bsc_account_type_id'  => 'required',
                 'name_en'              => 'required',
                 'ma_company_id'        => 'required',
-                'code'                 => 'required',
-                'create_by'            => 'required'
+                'code'                 => 'required'
             ]);
 
             if($validator->fails()){
                 return $this->sendError('Validation Error.', $validator->errors());
             }
+            
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $create_by = $_SESSION['userid'];
 
-            $sql="insert_bsc_account_charts($request->bsc_account_type_id, $request->name_en, $request->name_kh, $request->ma_currency_id, $request->ma_company_id, $request->parent_id, $request->code, $request->code_prefix_owner_id, $request->create_by)";
+            $sql="insert_bsc_account_charts($request->bsc_account_type_id, $request->name_en, $request->name_kh, null, $request->ma_company_id, $request->parent_id, $request->code, null, $create_by)";
             $q=DB::select("SELECT ".$sql);
 
             DB::commit();
