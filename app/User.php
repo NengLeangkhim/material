@@ -12,7 +12,7 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
 
     //change table name of model
-    protected $table="ma_user";
+    protected $table="users";
 
     /**
      * The attributes that are mass assignable.
