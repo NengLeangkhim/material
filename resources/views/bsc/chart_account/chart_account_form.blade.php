@@ -99,7 +99,7 @@
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
                                             <select class="form-control select2" name="parent_id" id="parent_id">
-                                                <option value="" selected>select item</option>
+                                                <option value="null" selected>select item</option>
                                                 @foreach ($ch_accounts as $ch_account)
                                                     <option value="{{ $ch_account->id }}">{{ $ch_account->name_en }}</option>
                                                 @endforeach

@@ -71,7 +71,7 @@
                                                             <td>{{ $item->name_en }}</td>
                                                             <td>{{ $item->account_type_name }}</td>
                                                             <td style="text-align-last: center">
-                                                                <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
                                                                 <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
                                                                 {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
                                                             </td>
