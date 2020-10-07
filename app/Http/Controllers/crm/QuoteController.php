@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\crm;
+
 use App\model\crm\ModelCrmLead;
 use App\Http\Controllers\Controller;
-// use App\Http\Controllers\api\crm\QuoteController;
+use App\Http\Controllers\api\stock\StockController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -50,13 +51,31 @@ class QuoteController extends Controller
 
 
     //function to get list product 
-    public static function listProduct(){
+    public static function listProduct(Request $request){
         if(isset($_GET['id'])){
-
-            // return view('crm/quote/listProduct');
+            $row_id = $_GET['id'];
+            $request = Request::create('/api/stock/product/', 'GET');
+            $listProduct = json_decode(Route::dispatch($request)->getContent());
+            return view('crm/quote/listProduct', compact('listProduct','row_id'));
         }
 
     }
+
+    public static function listService(Request $request){
+        if(isset($_GET['id'])){
+            $row_id = $_GET['id'];
+            $request = Request::create('/api/stock/service/', 'GET');
+            $listService = json_decode(Route::dispatch($request)->getContent());
+            // print_r($listService);
+            // echo "hello world";
+            // return view('crm/quote/listProduct', compact('listProduct','row_id'));
+        }
+
+    }
+
+
+
+
 
 
 
