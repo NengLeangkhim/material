@@ -11,71 +11,75 @@
 
                     <div class="row pb-3">
                         <div class="col-md-2 col-sm-2 col-4">
-                            <input type="button" class="btn-success" id=""  value="Select">
+                            <input type="button" class="btn-success getItemProduct" id="{{$row_id}}"  value="Select"> 
                         </div> 
                         <div class="col-md-5 col-sm-5 col-4"></div>
                         <div class="col-md-5 col-sm-5 col-4">
                             <input type="search" id="mySearchQuote" class="form-control" placeholder="Search">
                         </div>
                     </div>
-                    <div class="row-12 pt-2 ">
+                    <div class="row-12 pt-2 table-responsive">
                         <table id="tblItemProduct" class="table table-bordered table-hover" style="width: 100%; white-space:nowrap;">
                             <thead>
                                 <tr >
                                     <th>
-                                        <input type="checkbox" id="" name="selectAllProduct" >
+                                        
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" id="checkAllItem" class="custom-control-input checkAllItem" name="checkAllItem" >
+                                            <label class="custom-control-label" for="checkAllItem"></label>
+                                        </div>
                                     </th>
                                     <th>Product Name</th>
                                     <th>Part Number</th>
                                     <th>Unit Price</th>
-                                    <th>Qty/Unit</th>
-                                    <th>Action</th>
+                                    <th>Available In Stock</th>
+                                    <th>Description</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                {{
-                                    $arr[] = ''
-                                }}
-                                @for($i=0; $i<=20; $i++)
-                                    <?php
-                                        $arr[] += $i;
-                                    ?>
-                                @endfor
-                                
-                                {{-- foreach variable --}}
-                                @foreach ($arr as $key=>$val)
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" id="{{$key}}" name="selectAllProduct">
-                                         </td>
-                                        <td>
-                                            <div>
-                                                Product--{{ $key }}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                100
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                10
-                                            </div>
-                                        </td>
 
-                                        <td>
-                                            <div>
-                                                1.0
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                Not a bundle
-                                            </div>
-                                        </td>
-                                    </tr>
+                                {{-- foreach variable --}}
+                                @foreach ($listProduct as $key=>$val)
+                                    @foreach ($val as $key2=>$val2)
+                                            <tr>
+                                                <td class="border">
+                                                    <input type="hidden" id="showItemType_{{$row_id}}" value="Product"> 
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" id="checkbox_{{$key2}}"  class="custom-control-input productSelect"  value="{{$val2->id}}" name="seleteItem">
+                                                        <label class="custom-control-label" for="checkbox_{{$key2}}"></label>
+                                                    </div>
+                                                </td>
+                                                <td class="border">
+                                                    <div id="productName_{{$row_id}}"  class="productName_{{$val2->id}}" >
+                                                        {{$val2->name}}
+                                                    </div>
+                                                </td>
+                                                <td class="border">
+                                                    <div class="productPartNumber_{{$val2->id}}">
+                                                        {{$val2->part_number}}
+                                                    </div>
+                                                </td>
+                                                <td class="border">
+                                                    <div class="productPrice_{{$val2->id}}">
+                                                        {{$val2->product_price}}
+                                                    </div>
+                                                </td>
+
+                                                <td class="border">
+                                                    <div class="stockProduct_{{$val2->id}}">
+                                                        {{$val2->stock_qty}}
+                                                    </div>
+                                                </td>
+                                                <td class="border">
+                                                    <div class="productDescription_{{$val2->id}}">
+                                                        {{$val2->description}}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                   
+                                    @endforeach
+
                                 @endforeach    
                                    
 
@@ -86,5 +90,10 @@
         </div>
     </div>
 
-</div
+</div>
+{{-- <script type="text/javascript">
+    $(document).ready(function(){
+        var table = $('#tblItemProduct').DataTable();
+    });
+</script> --}}
 
