@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api\BSC;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class ChartAccountController extends Controller
 {
@@ -68,7 +68,7 @@ class ChartAccountController extends Controller
             }
             $create_by = $_SESSION['userid'];
 
-            $sql="insert_bsc_account_charts($request->bsc_account_type_id, $request->name_en, $request->name_kh, null, $request->ma_company_id, $request->parent_id, $request->code, null, $create_by)";
+            $sql="insert_bsc_account_charts($request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, $request->parent_id, $request->code, null, $create_by)";
             $q=DB::select("SELECT ".$sql);
 
         //     DB::commit();
