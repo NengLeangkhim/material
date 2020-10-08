@@ -1,6 +1,7 @@
 
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="listQuoteProduct">
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="listQuoteItem">
     <div class="modal-dialog modal-lg" id="confirm_box1">
         <div class="modal-content">
                 <div class=" modal-header text-center">
@@ -10,50 +11,77 @@
 
                     <div class="row pb-3">
                         <div class="col-md-2 col-sm-2 col-4">
-                            <input type="button" class="btn-success" id="" value="Select">
+                            <input type="button" class="btn-success getStockItem" id="{{$row_id}}"  value="Select"> 
                         </div> 
                         <div class="col-md-5 col-sm-5 col-4"></div>
                         <div class="col-md-5 col-sm-5 col-4">
                             <input type="search" id="mySearchQuote" class="form-control" placeholder="Search">
                         </div>
                     </div>
-                    <div class="row-12 pt-2 ">
-                        <table id="tblItemProduct" class="table table-bordered table-hover" style="width: 100%">
+                    <div class="row-12 pt-2 table-responsive">
+                        <table id="tblItemProduct" class="table table-bordered table-hover" style="width: 100%; white-space:nowrap;">
                             <thead>
-                                <tr>
+                                <tr >
                                     <th>
-                                        <input type="checkbox" name="selectAllProduct" >
+                                        
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" id="checkAllItem" class="custom-control-input checkAllItem" name="checkAllItem" >
+                                            <label class="custom-control-label" for="checkAllItem"></label>
+                                        </div>
                                     </th>
-                                    <th>Product Name
-                                    </th>
+                                    <th>Product Name</th>
                                     <th>Part Number</th>
                                     <th>Unit Price</th>
-                                    <th>Commission Rate</th>
-                                    <th>Quantity</th>
-                                    <th>Action</th>
+                                    <th>Available In Stock</th>
+                                    <th>Description</th>
                                 </tr>
                             </thead>
 
                             <tbody>
 
-                                <?php
-                                    $i = 0;
-                                    while ($i <= 25) {
-                                        echo '
+                                {{-- foreach variable --}}
+                                @foreach ($listProduct as $key=>$val)
+                                    @foreach ($val as $key2=>$val2)
                                             <tr>
-                                                <td><input type="checkbox" name="selectAllProduct" ></td>
-                                                <td>BBBB--'.$i.'</td>
-                                                <td>CCCC</td>
-                                                <td>DDDD</td>
-                                                <td>EEEE</td>
-                                                <td>FFFF</td>
-                                                <td>GGGG</td>
+                                                <td class="border">
+                                                    <input type="hidden" id="showItemType_{{$row_id}}" value="Product"> 
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" id="checkbox_{{$key2}}"  class="custom-control-input "  value="{{$val2->id}}" name="seleteItem">
+                                                        <label class="custom-control-label" for="checkbox_{{$key2}}"></label>
+                                                    </div>
+                                                </td>
+                                                <td class="border">
+                                                    <div id="itemName_{{$row_id}}"  class="itemName_{{$val2->id}}" >
+                                                        {{$val2->name}}
+                                                    </div>
+                                                </td>
+                                                <td class="border">
+                                                    <div class="itemPartNumber_{{$val2->id}}">
+                                                        {{$val2->part_number}}
+                                                    </div>
+                                                </td>
+                                                <td class="border">
+                                                    <div class="itemPrice_{{$val2->id}}">
+                                                        {{$val2->product_price}}
+                                                    </div>
+                                                </td>
+
+                                                <td class="border">
+                                                    <div class="stockItem_{{$val2->id}}">
+                                                        {{$val2->stock_qty}}
+                                                    </div>
+                                                </td>
+                                                <td class="border">
+                                                    <div class="itemDescription_{{$val2->id}}">
+                                                        {{$val2->description}}
+                                                    </div>
+                                                </td>
                                             </tr>
-                                        ';
-                                        $i++;
-                                    }
                                    
-                                ?>
+                                    @endforeach
+
+                                @endforeach    
+                                   
 
                             </tbody>
                         </table>
@@ -62,5 +90,10 @@
         </div>
     </div>
 
-</div
+</div>
+{{-- <script type="text/javascript">
+    $(document).ready(function(){
+        var table = $('#tblItemProduct').DataTable();
+    });
+</script> --}}
 

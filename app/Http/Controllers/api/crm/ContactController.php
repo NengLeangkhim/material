@@ -46,20 +46,24 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $create_by = $_SESSION['userid'];
         if($request->isMethod('put')){
             try { 
                 $results = DB::select(
                     'SELECT public."update_crm_lead_contact"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                     array(
                         $request->input('contact_id'),
-                        $request->input('update_by'),
+                        $create_by,
                         $request->input('name_en'),
                         $request->input('name_kh'),
                         $request->input('email'),
                         $request->input('phone'),
                         $request->input('facebook'),
                         $request->input('position'),
-                        $request->input('create_by'),
+                        $create_by,
                         $request->input('national_id'),
                         $request->input('ma_honorifics_id')
                     ));
@@ -78,7 +82,7 @@ class ContactController extends Controller
                         $request->input('phone'),
                         $request->input('facebook'),
                         $request->input('position'),
-                        $request->input('create_by'),
+                        $create_by,
                         $request->input('national_id'),
                         $request->input('ma_honorifics_id')
                     ));
