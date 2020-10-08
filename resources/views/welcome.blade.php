@@ -2,7 +2,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12"><br>
-                    <div class="card card-primary" style="border: 2px solid #1fa8e0">
+                    <div class="card card-primary" style="border: 2px solid #1fa8e0;">
                         {{-- <div class="card-header" style="background-color: #d42931;">
                           <h3 class="card-title">{{ $dept[0]->name??'' }}</h3>
                         </div> --}}
@@ -18,7 +18,7 @@
                                 <h1 style="margin-top:20%;font-weight:bold;color:#d42931">{{ $uself[0]->name??'' }}</h1>
                                 <h5 style="font-weight:bold;color:#d42931">{{ $uself[0]->ma_position??'' }}</h5>
                                 <h5 style="font-weight:bold;color:#d42931">{{ $uself[0]->contact??'' }}</h5>
-                                <img src="img/icons/index.png" width="100%">
+                                <img src="img/icons/boder1.jpg" height="7%" width="80%" style="margin-top: 40px">
                             </div>
                             <div class="col-md-1 d-none d-sm-none d-md-block">
                                 <img id="flower-img1" src="img/icons/stat-flower.png">

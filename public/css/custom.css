@@ -65,19 +65,22 @@ body{
 }
 .profile-pic{
     height: auto;
+    /* margin-left: 10px;
+    margin-top: 30px;
+    margin-bottom: 15px; */
 }
 #flower-img{
     position: absolute;
-    top:-9px;
-    left:-10px;
+    top:-8px;
+    left:-8px;
     height: 50px;
     width: 70px;
     rotate: 140deg;
 }
 #flower-img1{
     position: absolute;
-    bottom:-7px;
-    right:-15px;
+    bottom:-4px;
+    right:-14px;
     height: 50px;
     width: 70px;
     rotate: 300deg;

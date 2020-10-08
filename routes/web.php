@@ -66,7 +66,9 @@ Route::get('/product','crm\ProductsController@getProducts'); //get all Products 
 // Start Organization
 Route::get('/organizations','crm\OrganizationController@getorganization'); //get all Organization  show in table
 Route::get('/organizations/add','crm\OrganizationController@AddOrganization'); //go to add Organization
+Route::post('/organizations/store','crm\OrganizationController@StoreOrganization'); // add Organization
 Route::get('/organizations/edit/{id}','crm\OrganizationController@EditOrganization'); //go to Edit Organization
+Route::post('/organizations/update','crm\OrganizationController@UpdateOrganization'); //Update organization
 Route::get('/organizations/detail','crm\OrganizationController@DetailOrganization'); //get detail organization
 // End Organization
 
@@ -79,7 +81,8 @@ Route::get('/quote/add','crm\QuoteController@addQuote'); // to add qoute
 Route::get('/quote/deleteLeadQuote','crm\QuoteController@deleteLeadQuote'); // get delete lead for quote list
 
 Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quote item table
-Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get one row quote item table
+Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get stock product api to view
+Route::get('/quote/add/listService','crm\QuoteController@listService'); // get stock service api to view
 
 // end quote
 
@@ -1063,7 +1066,7 @@ Route::get('test_chart',function(){
 
 // Chart account
     Route::get('bsc_chart_account_list','bsc\ChartAccountController@list');
-    Route::get('bsc_chart_account_list_edit','bsc\ChartAccountController@edit');
+    Route::get('bsc_chart_account_list_edit/{id}','bsc\ChartAccountController@edit');
     Route::get('bsc_chart_account_form','bsc\ChartAccountController@form');
     Route::post('bsc_chart_account_form_add','bsc\ChartAccountController@add');
 // Invoice
