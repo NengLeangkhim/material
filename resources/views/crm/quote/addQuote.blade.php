@@ -48,16 +48,42 @@
                                                 <label for="exampleInputEmail1">Organization Name<b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                                        <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="English Name"  name='organiz_name'  required>
+                                                    <input type="text" class="form-control" placeholder="Select Lead"  name='organiz_name'  required disabled>
+                                                    <div class="input-group-prepend" align="right">
+                                                        <a href="javascript:voide(0);" class="btn btn-info" ><i class="glyphicon glyphicon-plus"></i></a>
+                                                    </div>
                                                 </div>
                                             </div>
+
+
+                                            <div class="col-md-6">
+                                                <label for="exampleInputEmail1">Lead Branch <b style="color:red">*</b></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control"  name="quoteLeadBranch" id="quoteLeadBranch" placeholder="Select Branch" required disabled>
+                                                    <div class="input-group-prepend" align="right">
+                                                        <a href="javascript:voide(0);" class="btn btn-info" ><i class="glyphicon glyphicon-plus"></i></a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Status <b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                                     </div>
                                                     {{-- Select active & Inactive Organization --}}
                                                     <select  class="form-control" name="qutStatus">
@@ -66,52 +92,34 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
+
+
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Validation<b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-at"></i></span>
+                                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                     </div>
                                                     <input type="date" class="form-control"  name="qutValidate" id="qutValidate" placeholder="Selete Date">
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
                                                 <label for="exampleInputEmail1">Comment <b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                                        <span class="input-group-text"><i class="far fa-comment-alt"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" name="phone"id="exampleInputEmail1" placeholder="Comment" >
+                                                    <textarea rows="3" class="form-control" name="addQuoteComment" placeholder="Comment here..."></textarea>
+                                                    {{-- <input type="text" class="form-control" name="phone"id="exampleInputEmail1" placeholder="Comment" > --}}
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    {{-- <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Website</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fab fa-chrome"></i></span>
-                                                    </div>
-                                                    <input type="text" class="form-control" name="website" id="exampleInputEmail1" placeholder="Website">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Facebook</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fab fa-facebook"></i></span>
-                                                    </div>
-                                                    <input type="text" class="form-control" name="facebook" id="exampleInputEmail1" placeholder="Facebook">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>                                --}}
+                                    </div>                               
                                 </div>  
                         </div>
                         <div class="card card-primary">

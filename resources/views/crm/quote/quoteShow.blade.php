@@ -24,7 +24,7 @@
                             <div class="card-header">
                                 <div class="col-6">
                                     <div class="row">
-                                        <a href="javascript:void(0);" class="btn btn-success CrmAddOrganization" onclick="go_to('/quote/add')" id="CrmAddOrganization"><i class="fas fa-plus"></i> Add Quote</a> 
+                                        <a href="javascript:void(0);" class="btn btn-success CrmAddOrganization" onclick="go_to('/quote/add')" id="CrmAddOrganization"><i class="fas fa-plus"></i> Add New Quote</a> 
                                     </div>
                                 </div>                               
                             </div>
