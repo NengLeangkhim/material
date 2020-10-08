@@ -1,17 +1,17 @@
 
 
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="listQuoteItem">
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="listQuoteLead">
     <div class="modal-dialog modal-lg" id="confirm_box1">
         <div class="modal-content">
                 <div class=" modal-header text-center">
-                    <h4 class="modal-title" id="exampleModalLabel"><b> Add Product </b></h4>
+                    <h4 class="modal-title" id="exampleModalLabel"><b>Add Service</b></h4>
                 </div>
                 <div class=" modal-body ">
 
                     <div class="row pb-3">
                         <div class="col-md-2 col-sm-2 col-4">
-                            <input type="button" class="btn-success getStockItem" id="{{$row_id}}"  value="Select"> 
+                            <input type="button" class="btn-success " id=""  value="Select"> 
                         </div> 
                         <div class="col-md-5 col-sm-5 col-4"></div>
                         <div class="col-md-5 col-sm-5 col-4">
@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <div class="row-12 pt-2 table-responsive">
-                        <table id="tblItemProduct" class="table table-bordered table-hover" style="width: 100%; white-space:nowrap;">
+                        <table id="tblItemService" class="table table-bordered table-hover" style="width: 100%; white-space:nowrap;">
                             <thead>
                                 <tr >
                                     <th>
@@ -29,22 +29,22 @@
                                             <label class="custom-control-label" for="checkAllItem"></label>
                                         </div>
                                     </th>
-                                    <th>Product Name</th>
-                                    <th>Part Number</th>
-                                    <th>Unit Price</th>
-                                    <th>Available In Stock</th>
-                                    <th>Description</th>
+                                    <th>Khmer Name</th>
+                                    <th>English Name</th>
+                                    <th>Email</th>
+                                    <th>Lead Number</th>
+                                    <th>Website</th>
                                 </tr>
                             </thead>
 
                             <tbody>
 
                                 {{-- foreach variable --}}
-                                @foreach ($listProduct as $key=>$val)
+                                @foreach ($listService as $key=>$val)
                                     @foreach ($val as $key2=>$val2)
                                             <tr>
                                                 <td class="border">
-                                                    <input type="hidden" id="showItemType_{{$row_id}}" value="Product"> 
+                                                    <input type="hidden" id="showItemType_{{$row_id}}" value="Service"> 
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" id="checkbox_{{$key2}}"  class="custom-control-input "  value="{{$val2->id}}" name="seleteItem">
                                                         <label class="custom-control-label" for="checkbox_{{$key2}}"></label>
@@ -55,11 +55,7 @@
                                                         {{$val2->name}}
                                                     </div>
                                                 </td>
-                                                <td class="border">
-                                                    <div class="itemPartNumber_{{$val2->id}}">
-                                                        {{$val2->part_number}}
-                                                    </div>
-                                                </td>
+
                                                 <td class="border">
                                                     <div class="itemPrice_{{$val2->id}}">
                                                         {{$val2->product_price}}

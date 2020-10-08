@@ -262,7 +262,7 @@
                         x.onreadystatechange=function(){
                             if(this.readyState==4 && this.status==200){    
                                 document.getElementById('modal-list-quote').innerHTML=this.responseText;
-                                $('#listQuoteProduct').modal('show');
+                                $('#listQuoteItem').modal('show');
                     
                                 let table = $('#tblItemProduct').DataTable({
                                     sDom: 'lrtip',
@@ -283,8 +283,56 @@
         });
     
 
+
+
+        //function for user click add item service 
+        $(document).on('click', '[name=addItemService]', function() {
+
+            setTimeout(function(){ 
+                clicktime = clicktime * 0;
+            }, 4000);
+
+            if(clicktime == 1){
+                return false;
+            }
+
+            var row_id = $(this).attr("id");
+            var id = "id="+row_id;
+            
+            var url= '/quote/add/listService';
+            var x=new XMLHttpRequest();
+            x.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200){    
+
+                    document.getElementById('modal-list-quote').innerHTML=this.responseText;
+                    $('#listQuoteItem').modal('show');
+        
+                    let table = $('#tblItemService').DataTable({
+                        sDom: 'lrtip',
+                        targets:'no-sort',
+                        bSort: false,
+                        select: true,
+                    });   
+
+                    $(document).keyup(function(){
+                        $('#mySearchQuote').on( 'keyup', function () {
+                            table.search($(this).val()).draw();
+                        });
+                    });
+                }
+            }
+            x.open("GET", url + "?" + id , true);
+            x.send();
+            clicktime +=1;
+
+        });
+
+
+
+
+
         //function click to get item to add quote
-        $(document).on('click keyup','.getItemProduct',function(){
+        $(document).on('click keyup','.getStockItem',function(){
                 
                     var btnId = $(this).attr("id");
                     var selectval = new Array;
@@ -302,11 +350,11 @@
                         selectval.forEach(prdVal => {
                             // var prdId = prdVal; // get id of product
                             var itemType = $.trim($("#showItemType_"+btnId+"").val());
-                            var prdName = $.trim($(".productName_"+prdVal+"").text());
-                            var prdPrice = $.trim($(".productPrice_"+prdVal+"").text());
-                            var prdAviableStock = $.trim($(".stockProduct_"+prdVal+"").text());
+                            var prdName = $.trim($(".itemName_"+prdVal+"").text());
+                            var prdPrice = $.trim($(".itemPrice_"+prdVal+"").text());
+                            var prdAviableStock = $.trim($(".stockItem_"+prdVal+"").text());
                             prdInStock = parseInt(prdAviableStock);
-                            var prdDescription = $.trim($(".productDescription_"+prdVal+"").text());
+                            var prdDescription = $.trim($(".itemDescription_"+prdVal+"").text());
                             
                                 stockMessage = "Stock not enough, the available item is ";
                                 numPrdInStock = prdInStock;
@@ -347,11 +395,13 @@
                     }
                     $(".row-quote-item").keyup();
                     //hide modal when click button select item
-                    $('#listQuoteProduct').modal('hide');
+                    $('#listQuoteItem').modal('hide');
         
         });
 
 
+
+        //function click main checkbox to get check all sub checkbox
         $(document).on('click','.checkAllItem',function(){
                     $('input:checkbox').not(this).prop('checked', this.checked);
         });
@@ -362,47 +412,7 @@
 
 
 
-        //function for user click add item service 
-        $(document).on('click', '[name=addItemService]', function() {
 
-            setTimeout(function(){ 
-                clicktime = clicktime * 0;
-            }, 4000);
-
-            if(clicktime == 1){
-                return false;
-            }
-
-            var row_id = $(this).attr("id");
-            var id = "id="+row_id;
-            
-            var url= '/quote/add/listService';
-            var x=new XMLHttpRequest();
-            x.onreadystatechange=function(){
-                if(this.readyState==4 && this.status==200){    
-                    var data= this.responseText;
-                    console.log(data);
-                    // document.getElementById('modal-list-quote').innerHTML=this.responseText;
-                    // $('#listQuoteProduct').modal('show');
-        
-                    // let table = $('#tblItemProduct').DataTable({
-                    //     sDom: 'lrtip',
-                    //     targets:'no-sort',
-                    //     bSort: false,
-                    //     select: true,
-                    // });   
-                    // $(document).keyup(function(){
-                    //     $('#mySearchQuote').on( 'keyup', function () {
-                    //         table.search($(this).val()).draw();
-                    //     });
-                    // });
-                }
-            }
-            x.open("GET", url + "?" + id , true);
-            x.send();
-            clicktime +=1;
-
-        });
 
         
 
