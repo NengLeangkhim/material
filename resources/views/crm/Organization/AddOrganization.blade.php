@@ -141,6 +141,9 @@
                                                     <option>Amory Staff</option>
                                                     <option>Other</option>
                                                 </select>   
+                                                <span class="invalid-feedback" role="alert" id="customer_typeError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>                             
                                         </div>
                                     </div>
@@ -162,6 +165,9 @@
                                                 <div class="input-group-append">
                                                     <span class="input-group-text btn btn-info" data-toggle="modal" data-target="#modal-info"><i class="fas fa-plus"></i></span>
                                                 </div>
+                                                <span class="invalid-feedback" role="alert" id="lead_sourceError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>    
                                         </div>
                                         <div class="col-md-6">
@@ -197,6 +203,9 @@
                                                 <div class="input-group-append">
                                                     <span class="input-group-text btn btn-info" data-toggle="modal" data-target="#modal-info-industry"><i class="fas fa-plus"></i></span>
                                                 </div>
+                                                <span class="invalid-feedback" role="alert" id="lead_industryError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>       
                                         </div>
                                         <div class="col-md-6">
@@ -211,6 +220,9 @@
                                                         <option value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option> 
                                                     @endforeach
                                                 </select>
+                                                <span class="invalid-feedback" role="alert" id="assigendToError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
