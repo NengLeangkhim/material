@@ -149,6 +149,25 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="row">
+                                     <div class="col-md-6">
+                                        <label for="status">Status</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fab fa-stripe-s"></i></span>
+                                            </div>
+                                            <select class="form-control" name="status" id="status">
+                                                <option value="0">Active</option>
+                                                <option value="1">Inactive</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                       
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <input type="hidden" name="contact_id" value="{{$id}}">
                                 <button type="button" class="btn btn-primary" onclick="CrmSubmitFormFull('frm_CrmContactEdit','/contact/update','/contact','Update Successfully')" id="frm_btn_sub_addlead">Update</button>

@@ -133,8 +133,9 @@ class ChartAccountController extends Controller
                 session_start();
             }
             $update_by = $_SESSION['userid'];
+            $status = $request->status == null ? 0 : 1;
 
-            $sql="update_bsc_account_charts($id, $update_by, $request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, $request->parent_id, '$request->status')";
+            $sql="update_bsc_account_charts($id, $update_by, $request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, $request->parent_id, '$status')";
             $q=DB::select("SELECT ".$sql);
 
             DB::commit();
@@ -161,11 +162,11 @@ class ChartAccountController extends Controller
             }
             $update_by = $_SESSION['userid'];
 
-            $sql="delete_bsc_account_charts($request->bsc_account_charts_id, $update_by)";
+            $sql="delete_bsc_account_charts($id, $update_by)";
             $q=DB::select("SELECT ".$sql);
 
             DB::commit();
-            return $this->sendResponse($q, 'Chart account updated successfully.');
+            return $this->sendResponse($q, 'Chart account deleted successfully.');
 
         } catch (\Throwable $th) {
             DB::rollBack();

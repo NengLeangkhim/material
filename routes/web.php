@@ -66,7 +66,9 @@ Route::get('/product','crm\ProductsController@getProducts'); //get all Products 
 // Start Organization
 Route::get('/organizations','crm\OrganizationController@getorganization'); //get all Organization  show in table
 Route::get('/organizations/add','crm\OrganizationController@AddOrganization'); //go to add Organization
+Route::post('/organizations/store','crm\OrganizationController@StoreOrganization'); // add Organization
 Route::get('/organizations/edit/{id}','crm\OrganizationController@EditOrganization'); //go to Edit Organization
+Route::post('/organizations/update','crm\OrganizationController@UpdateOrganization'); //Update organization
 Route::get('/organizations/detail','crm\OrganizationController@DetailOrganization'); //get detail organization
 // End Organization
 
