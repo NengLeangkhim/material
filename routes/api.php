@@ -37,6 +37,9 @@ Route::post('login', 'api\UserController@authenticate');
 
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('user', 'api\UserController@getAuthenticatedUser');
+    Route::get('logout', function (Request $request){
+        $request->user()->token()->revoke();
+    });
 });
 
 // Chart account
