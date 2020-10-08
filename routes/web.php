@@ -1067,6 +1067,7 @@ Route::get('test_chart',function(){
     Route::get('bsc_chart_account_list_edit/{id}','bsc\ChartAccountController@edit');
     Route::get('bsc_chart_account_form','bsc\ChartAccountController@form');
     Route::post('bsc_chart_account_form_add','bsc\ChartAccountController@add');
+    Route::post('bsc_chart_account_form_edit','bsc\ChartAccountController@ch_account_edit');
 // Invoice
     // Invoice
         Route::get('bsc_invoice_invoice_list','bsc\InvoiceController@list');

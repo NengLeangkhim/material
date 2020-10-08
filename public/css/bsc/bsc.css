@@ -40,5 +40,7 @@
 .td_text_center{
     text-align-last: center;
 }
-
+.form-control{
+    height: calc(2.25rem + 15px) !important;
+}
 

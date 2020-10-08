@@ -119,9 +119,34 @@ class ChartAccountController extends Controller
                 $res = app()->handle($request);
                 $company = json_decode($res->getContent()); // convert to json object
                 $companys=$company->data;
-                return view('bsc.chart_account.chart_account_list_edit',compact('ch_account_types','ch_accounts','companys','id'));
+
+            // Get chart account by Id
+                $request = Request::create('/api/bsc_chart_accounts/'.$id, 'GET');
+                $request->headers->set('Accept', 'application/json');
+                // $request->headers->set('Authorization', 'Bearer '.$token);
+                $res = app()->handle($request);
+                $ch_account_by_id = json_decode($res->getContent()); // convert to json object
+                $ch_account_by_ids= $ch_account_by_id->data;
+
+                return view('bsc.chart_account.chart_account_list_edit',compact('ch_account_types','ch_accounts','companys','ch_account_by_ids'));
             }else{
                 return view('no_perms');
+            }
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit;
+        }
+    }
+    public function ch_account_edit(Request $request)
+    {
+        try{
+            $id=$request->id;
+            if(perms::check_perm_module('BSC_0303')){
+                $request = Request::create('api/bsc_chart_accounts/'.$id, 'PUT');
+                $instance = Route::dispatch($request);
+                return $instance;
+            }else{
+                return view('no_perm');
             }
         }catch(Exception $e){
             echo $e->getMessage();
