@@ -18,7 +18,7 @@
         <div class="row">
             <!-- left column -->
             <div class="col-md-12">
-                <form id="frm_chart_account" method="post" action="">
+                <form id="frm_chart_account" method="PUT" action="">
                     @csrf
                     <!-- general form elements -->
                     <div class="card card-primary">

@@ -262,4 +262,22 @@
           };
     
 
+
+
+
+        function getShowPopup(route,id,modal_mainform,modal_form){
+          
+          var id_ = "id="+id;
+          var url= route;
+          var x=new XMLHttpRequest();
+          x.onreadystatechange=function(){
+              if(this.readyState==4 && this.status==200){    
+                  document.getElementById(modal_mainform).innerHTML=this.responseText;
+                  $('#'+modal_form+'').modal('show');
+              }
+          }
+          x.open("GET", url + "?" + id_ , true);
+          x.send();
+        }
+
 //===========================>> End-Quote-CRM JS <<==========================================

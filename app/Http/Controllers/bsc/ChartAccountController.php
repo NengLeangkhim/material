@@ -91,7 +91,7 @@ class ChartAccountController extends Controller
             exit;
         }
     }
-    public function edit()
+    public function edit($id)
     {
         try{
             if(perms::check_perm_module('BSC_0303')){
@@ -111,6 +111,7 @@ class ChartAccountController extends Controller
                 $res = app()->handle($request);
                 $ch_account = json_decode($res->getContent()); // convert to json object
                 $ch_accounts=$ch_account->data;
+
             // Get company
                 $request = Request::create('/api/bsc_show_company', 'GET');
                 $request->headers->set('Accept', 'application/json');
@@ -118,7 +119,7 @@ class ChartAccountController extends Controller
                 $res = app()->handle($request);
                 $company = json_decode($res->getContent()); // convert to json object
                 $companys=$company->data;
-                return view('bsc.chart_account.chart_account_list_edit',compact('ch_account_types','ch_accounts','companys'));
+                return view('bsc.chart_account.chart_account_list_edit',compact('ch_account_types','ch_accounts','companys','id'));
             }else{
                 return view('no_perms');
             }
