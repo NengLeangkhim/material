@@ -6,6 +6,7 @@
         <div class="modal-content">
                 <div class=" modal-header text-center">
                     <h4 class="modal-title" id="exampleModalLabel"><b>Add Service</b></h4>
+                    <button type="button" class="close" data-dismiss="modal">x</button>
                 </div>
                 <div class=" modal-body ">
 
