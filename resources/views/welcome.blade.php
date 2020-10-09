@@ -18,10 +18,10 @@
                                 <h1 style="margin-top:20%;font-weight:bold;color:#d42931">{{ $uself[0]->name??'' }}</h1>
                                 <h5 style="font-weight:bold;color:#d42931">{{ $uself[0]->ma_position??'' }}</h5>
                                 <h5 style="font-weight:bold;color:#d42931">{{ $uself[0]->contact??'' }}</h5>
-                                <img src="img/icons/index2.png" height="7%" width="80%" style="margin-top: 40px">
+                                <img src="img/icons/boder1.jpg" height="7%" width="80%" style="margin-top: 40px">
                             </div>
                             <div class="col-md-1 d-none d-sm-none d-md-block">
-                                <img id="flower-img1" src="img/icons/stat-flowercolor1.png">
+                                <img id="flower-img1" src="img/icons/stat-flowerborder.png">
                             </div>
                             {{-- <div class="col-md-12" id="row_welcome"></div> --}}
                             {{-- <div class="col-md-12 col-sm-12 col-xs-12" style="height: auto;text-align: center;">

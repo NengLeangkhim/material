@@ -8,11 +8,11 @@ body{
     /* opacity: 0.5; */
 }
 .div_animation{ /* Div Animation for <P> menu */
-    /* overflow: hidden; */
-    width: 100%;
+    overflow: hidden; /* hidden when slide */
+    width: 90%;
     display: inline-block;
     margin:0;
-    /* top:25%; */
+    /* top:10px; */
     position: relative;
 }
 .div_animation .nav_animation { /* Class animation menu */
@@ -35,7 +35,7 @@ body{
     border-image: linear-gradient(rgb(0,143,104), rgb(250,224,66)) 1; */
     border: 2px solid transparent;
     /* border-radius: 80px; */
-    background-image: linear-gradient(white, white), linear-gradient(to right, blue,indigo,violet);
+    /* background-image: linear-gradient(white, white), linear-gradient(to right, blue,indigo,violet); */
     background-origin: border-box;
     background-clip: content-box, border-box;
     width: 35px;

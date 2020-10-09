@@ -151,6 +151,7 @@ class perms extends Controller
                        $st.= "<a href='{$item->parent->link}' data-id=".$id++." marquee='id' target='_blank' class='nav-link' >";
                     //    $st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
                     //    $st.= "<img src=".$item->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'>";
+                      //   $st.= "<img src='img/icons/flower2_icon.png' alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'>";
                        $st.= " <p class='title-menu-main'>";
                        $st.=  $item->parent->module_name;
                        $item->child=false;
@@ -159,6 +160,7 @@ class perms extends Controller
                        $st.= "<a href='javascript:void(0);' data-id=".$id++." marquee='id' class='nav-link' onclick=go_to('{$item->parent->link}')>";
                        //$st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
                     //    $st.= "<img src=".$item->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'>";
+                   // $st.= "<img src='img/icons/flower2_icon.png' alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'>";
                        $st.= " <p class='title-menu-main'>";
                        $st.=  $item->parent->module_name;
                    }
@@ -167,6 +169,7 @@ class perms extends Controller
                    $st.= "<a href='javascript:void(0);' data-id=".$id++." marquee='id' class='nav-link'>";
                    //$st.= "<i class='nav-icon ".$item->parent->icon."'></i>";
                 //    $st.= "<img src=".$item->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'>";
+                //$st.= "<img src='img/icons/flower2_icon.png' alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'>";
                    $st.= " <p class='title-menu-main'>";
                    $st.=  $item->parent->module_name;
                }
@@ -197,6 +200,7 @@ class perms extends Controller
                         $st.= "  <a href='javascript:void(0);' data-id=".$id++." marquee='id' class='nav-link'{$rr->parent->link}{$rr->parent->code}  name='menu'> ";
                         //$st.= "  <i class='{$rr->parent->icon} nav-icon'​></i> <i class='right fas fa-angle-left'></i>";
                         // $st.= "  <img style='margin-left:9%;' src=".$rr->parent->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'> <i class='right fas fa-angle-left'></i>";
+                         //$st.= "  <img style='margin-left:9%;' src='img/icons/flower2_icon1' alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'> <i class='right fas fa-angle-left'></i>";
                         $st.= "<div class='div_animation'> <p class='title-menu-main' style='position:relative;margin-left:5%;'>".$rr->parent->module_name."</p> </div> </a>";
                         $st.=self::output_sub($rr->child,'sub');
                         $st.= "  </li></ul> ";
@@ -209,6 +213,7 @@ class perms extends Controller
                         $st.= "  <a href='javascript:void(0);' data-id=".$id++." marquee='id' class='nav-link' $rr->link $rr->code name='menu'> ";
                         //$st.= "  $sp<i class='{$rr->icon} nav-icon'​></i> ";
                         // $st.= "  $sp<img style='margin-left:9%;' src=".$rr->icon." alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'> ";
+                       //  $st.= "  $sp<img style='margin-left:9%;' src='img/icons/flower_icon1.png' alt='' id='nav_main_app' class='nav-icon img-circle img-fluid'> ";
                         $st.= "<div class='div_animation'> <p class='title-menu-main' style='position:relative;margin-left:5%;'>$rr->module_name</p> </div>";
                         $st.= "  </a></li></ul> ";
                     }

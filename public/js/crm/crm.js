@@ -62,26 +62,31 @@
             {  
               if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
                 // console.log(data);
-                google.charts.load('current', {'packages':['bar']});
+                google.charts.load('current', {packages: ['corechart']});
                 google.charts.setOnLoadCallback(CrmLeadDrawChart);
                 function CrmLeadDrawChart() {
                   var data = google.visualization.arrayToDataTable([
-                    ['Month', 'Lead'],
-                    ['Jan', 1000],
-                    ['Feb', 1170],
-                    ['March', 660],
-                    ['April', 1030]
+                    ["Lead","",{role:'style'}],
+                    ["Cold", 10,'color:#007bff'],
+                    ["Junk Lead", 11,'color:#28a745'],
+                    ["Qualified", 66,'color:#ffc107'],
+                    ["Inquiry", 30,'color:#dc3545'],
+                    ["Surveyed", 20,'color:black']
                   ]);
-      
+                  var view = new google.visualization.DataView(data);
+                  view.setColumns([0, 1,
+                                  { calc: "stringify",
+                                    sourceColumn: 1,
+                                    type: "string",
+                                    role: "annotation" },
+                                  2]);
                   var options = {
-                    chart: {
                       title: 'Lead Performance',
-                    }
                   };
       
-                  var chart = new google.charts.Bar(document.getElementById('LeadChart'));
+                  var chart = new google.visualization.BarChart(document.getElementById('LeadChart'));
       
-                  chart.draw(data, google.charts.Bar.convertOptions(options));
+                  chart.draw(view, options);
                 } 
              }else{ 
                $.each( data.errors, function( key, value ) {//foreach show error
