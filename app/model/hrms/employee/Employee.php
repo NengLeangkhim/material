@@ -53,6 +53,9 @@ class Employee extends Model
             ['ma_user.id', '=', $id],
             ['ma_user.is_employee','=','t']
         ])->orderBy('ma_user.first_name_en')->get();
+        if(count($employee)<=0){
+            return null;
+        }
         $userdetail="SELECT has_spouse,child_count FROM ma_user_detail where ma_user_id=".$employee[0]->id;
         $useraddress= "SELECT hom_en,home_kh,street_en,street_kh,gazetteer_code from ma_user_address where ma_user_id=" . $employee[0]->id;
         $spousAndChildren=DB::select($userdetail);

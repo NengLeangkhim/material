@@ -34,9 +34,9 @@
 
                                                 <div class="info-box-content">
                                                     <span class="info-box-text"><h4><strong>Late</strong></h4></span>
-                                                    <span class="info-box-number">Morning : {{$data['attendance_info'][0]}}</span>
+                                                    {{-- <span class="info-box-number">Morning : {{$data['attendance_info'][0]}}</span>
 
-                                                    <span class="info-box-number">Afternoon : {{$data['attendance_info'][4]}}</span>
+                                                    <span class="info-box-number">Afternoon : {{$data['attendance_info'][4]}}</span> --}}
                                                 </div>
                                                 <!-- /.info-box-content -->
                                                 </div>
@@ -48,9 +48,9 @@
 
                                                 <div class="info-box-content">
                                                     <span class="info-box-text"><h4><strong>Absent</strong></h4></span>
-                                                <span class="info-box-number">Morning : {{$data['attendance_info'][1]}}</span>
+                                                {{-- <span class="info-box-number">Morning : {{$data['attendance_info'][1]}}</span>
 
-                                                <span class="info-box-number">Afternoon :{{$data['attendance_info'][5]}}</span>
+                                                <span class="info-box-number">Afternoon :{{$data['attendance_info'][5]}}</span> --}}
                                                 </div>
                                                 <!-- /.info-box-content -->
                                                 </div>
@@ -62,7 +62,7 @@
 
                                                     <div class="info-box-content">
                                                         <span class="info-box-text"><h5><strong>Permission</strong></h5></span>
-                                                    <span class="info-box-number">{{$data['attendance_info'][3]}}</span>
+                                                    {{-- <span class="info-box-number">{{$data['attendance_info'][3]}}</span> --}}
                                                     </div>
                                                     <!-- /.info-box-content -->
                                                 </div>

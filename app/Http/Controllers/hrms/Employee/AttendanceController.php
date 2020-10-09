@@ -140,6 +140,10 @@ class AttendanceController extends Controller
         if (perms::check_perm_module('HRM_090108')) {
             $emid = $_SESSION['userid'];
             $employee = Employee::EmployeeOnRow($emid);
+            if($employee===null){
+                return '<center><h1>Not available</h1></center>';
+            }
+               
             if (isset($_GET['date_from']) && $_GET['date_to']) {
                 $date_from = $_GET['date_from'];
                 $date_to = $_GET['date_to'];
