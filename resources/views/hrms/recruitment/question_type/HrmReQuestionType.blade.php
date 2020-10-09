@@ -14,7 +14,7 @@
                <!-- /.card-header -->
                <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="hrm_tbl_type">
+                        <table class="table table-bordered display nowrap" style="width: 100%" id="hrm_tbl_type">
                             <thead>                  
                               <tr>
                                 <th scope="col">#</th>
@@ -62,7 +62,9 @@
       $(document).ready(
           function(){
              // getTable('productlist','id');
-              $('#hrm_tbl_type').DataTable();
+              $('#hrm_tbl_type').DataTable({
+                scrollX:true
+              });
  
           }
       );

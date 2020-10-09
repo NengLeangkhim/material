@@ -91,8 +91,11 @@ Route::get('/quote/add/listService','crm\QuoteController@listService'); // get s
 Route::get('/crmreport','crm\CrmReportController@CrmIndexReport'); // show index report
 Route::get('/crmreport/lead/chart','crm\CrmReportController@GetLeadChart'); // Get Lead Chart
 Route::get('/crmreport/detaillead','crm\CrmReportController@CrmDetailLeadReport'); // show Lead Detail report
+Route::get('/crmreport/contact/chart','crm\CrmReportController@GetContactChart'); // Get Contact Chart
 Route::get('/crmreport/detailcontact','crm\CrmReportController@CrmDetailContactReport'); // show Contact Detail report
+Route::get('/crmreport/organization/chart','crm\CrmReportController@GetOrganizationChart'); // Get Organization Chart
 Route::get('/crmreport/detailorganization','crm\CrmReportController@CrmDetailOrganizationReport'); // show Organization Detail report
+Route::get('/crmreport/quote/chart','crm\CrmReportController@GetQuoteChart'); // Get Quote Chart
 Route::get('/crmreport/detailquote','crm\CrmReportController@CrmDetailQuoteReport'); // show Quote Detail report
 
 // End Report

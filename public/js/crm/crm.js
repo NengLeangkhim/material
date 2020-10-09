@@ -50,17 +50,14 @@
       // Lead Chart
         function ReportLeadChart(){
           $("#FrmChartReport input").removeClass("is-invalid");//remove all error message
-          // var from = $('input[name="lead from date"]').val()+'-01-01';
-          var from = $('input[id="LeadChartFrom"').val() + '-01-01'
-          var to = $('input[id="LeadChartTo"').val()+'-12-31';
           $.ajax({
             url: '/crmreport/lead/chart',//get link route
             type:'GET',
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-             data:{LeadChartFrom:from,LeadChartTo:to}, //_token: $('#token').val(),
-           // $('#FrmChartReport').serialize(),  
+             data://{LeadChartFrom:from,LeadChartTo:to}, //_token: $('#token').val(),
+            $('#FrmChartReport').serialize(),  
             success:function(data)
             {  
               if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
@@ -98,6 +95,167 @@
             }
           });
         }
+    //Report Contact
+      // Contact Chart
+        function ReportContactChart(){
+          $("#FrmChartContactReport input").removeClass("is-invalid");//remove all error message
+          $.ajax({
+            url: '/crmreport/contact/chart',//get link route
+            type:'GET',
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+             data://{LeadChartFrom:from,LeadChartTo:to}, //_token: $('#token').val(),
+            $('#FrmChartContactReport').serialize(),  
+            success:function(data)
+            {  
+              if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+                // Lead Contact
+                google.charts.load("current", {packages:["corechart"]});
+                google.charts.setOnLoadCallback(CrmContactDrawChart);
+                function CrmContactDrawChart() {
+                  var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['Work',     11],
+                    ['Eat',      2],
+                  ]);
+
+                  var options = {
+                    title: 'My Daily Activities',
+                    is3D: true,
+                  };
+
+                  var chartLead = new google.visualization.PieChart(document.getElementById('ContactChart'));
+                  chartLead.draw(data, options);
+                }
+
+             }else{ 
+               $.each( data.errors, function( key, value ) {//foreach show error
+                   $("#" + key).addClass("is-invalid"); //give read border to input field
+                   // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+                   $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+                   // sweetalert('warning',value);
+               });
+             }
+            
+            }
+          });
+        }
+    //Report Organization
+      // Organization Chart
+      function ReportOrganizationChart(){
+        $("#FrmChartOrganizationReport input").removeClass("is-invalid");//remove all error message
+        $.ajax({
+          url: '/crmreport/organization/chart',//get link route
+          type:'GET',
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+           data://{LeadChartFrom:from,LeadChartTo:to}, //_token: $('#token').val(),
+          $('#FrmChartOrganizationReport').serialize(),  
+          success:function(data)
+          {  
+            if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+            // Organization
+              google.charts.load("current", {packages:["corechart"]});
+              google.charts.setOnLoadCallback(CrmOrganizationDrawChart);
+              function CrmOrganizationDrawChart() {
+                var data = google.visualization.arrayToDataTable([
+                  ['Language', 'Speakers (in millions)'],
+                  ['Assamese', 13], ['Bengali', 83], ['Bodo', 1.4],
+                  ['Dogri', 2.3], ['Gujarati', 46], ['Hindi', 300],
+                  ['Kannada', 38], ['Kashmiri', 5.5], ['Konkani', 5],
+                  ['Maithili', 20], ['Malayalam', 33], ['Manipuri', 1.5],
+                  ['Marathi', 72], ['Nepali', 2.9], ['Oriya', 33],
+                  ['Punjabi', 29], ['Sanskrit', 0.01], ['Santhali', 6.5],
+                  ['Sindhi', 2.5], ['Tamil', 61], ['Telugu', 74], ['Urdu', 52]
+                ]);
+
+                var options = {
+                  title: 'Indian Language Use',
+                  legend: 'none',
+                  pieSliceText: 'label',
+                  slices: {  4: {offset: 0.2},
+                            12: {offset: 0.3},
+                            14: {offset: 0.4},
+                            15: {offset: 0.5},
+                  },
+                };
+
+                var chart_organization = new google.visualization.PieChart(document.getElementById('OrganizationChart'));
+                chart_organization.draw(data, options);
+              }
+              
+
+           }else{ 
+             $.each( data.errors, function( key, value ) {//foreach show error
+                 $("#" + key).addClass("is-invalid"); //give read border to input field
+                 // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+                 $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+                 // sweetalert('warning',value);
+             });
+           }
+          
+          }
+        });
+      }
+    //Report Quote
+      // Quote Chart
+      function ReportQuoteChart(){
+        $("#FrmChartQuoteReport input").removeClass("is-invalid");//remove all error message
+        $.ajax({
+          url: '/crmreport/quote/chart',//get link route
+          type:'GET',
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+           data://{LeadChartFrom:from,LeadChartTo:to}, //_token: $('#token').val(),
+          $('#FrmChartQuoteReport').serialize(),  
+          success:function(data)
+          {  
+            if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+            // Quote Chart  
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(CrmQuoteDrawChart);
+
+            function CrmQuoteDrawChart() {
+              // Some raw data (not necessarily accurate)
+              var data = google.visualization.arrayToDataTable([
+                ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
+                ['2004/05',  165,      938,         522,             998,           450,      614.6],
+                ['2005/06',  135,      1120,        599,             1268,          288,      682],
+                ['2006/07',  157,      1167,        587,             807,           397,      623],
+                ['2007/08',  139,      1110,        615,             968,           215,      609.4],
+                ['2008/09',  136,      691,         629,             1026,          366,      569.6]
+              ]);
+
+              var options = {
+                title : 'Monthly Coffee Production by Country',
+                vAxis: {title: 'Cups'},
+                hAxis: {title: 'Month'},
+                seriesType: 'bars',
+                series: {5: {type: 'line'}}
+              };
+
+              var chart_quote = new google.visualization.ComboChart(document.getElementById('QuoteChart'));
+              chart_quote.draw(data, options);
+            }
+
+              
+
+           }else{ 
+             $.each( data.errors, function( key, value ) {//foreach show error
+                 $("#" + key).addClass("is-invalid"); //give read border to input field
+                 // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+                 $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+                 // sweetalert('warning',value);
+             });
+           }
+          
+          }
+        });
+      }
+    
 // -----------END Report ---------- //
 //////////////////////////==========================END MET KEOSAMBO ====================///////////////////////////////
     // $(document).ready(function(){

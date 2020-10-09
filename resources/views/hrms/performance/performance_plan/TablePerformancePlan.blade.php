@@ -1,4 +1,4 @@
-<table class="table table-bordered" id="hrm_perform_plan">
+<table class="table table-bordered display nowrap" style="width: 100%" id="hrm_perform_plan">
     <thead>
         <tr>
         <th scope="col">No</th>
@@ -43,7 +43,9 @@
 </table>
 <script>
  $(document).ready(function(){
-        $('#hrm_perform_plan').DataTable();
+        $('#hrm_perform_plan').DataTable({
+            "scrollX": true
+        });
     }); 
 </script>
 

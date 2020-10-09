@@ -33,7 +33,7 @@
 
                     </div>
                     <div class="table-responsive" style="margin-top: 15px">
-                        <table class="table table-bordered" id="tbl_schedule_staff">
+                        <table class="table table-bordered display nowrap" style="width: 100%" id="tbl_schedule_staff">
                             <thead>                  
                               <tr>
                                 <th scope="col">#</th>
@@ -96,7 +96,9 @@
     <!-- /page content -->
     <script type='text/javascript'>
       $(document).ready(function(){
-        $('#tbl_schedule_staff').DataTable();
+        $('#tbl_schedule_staff').DataTable({
+            "scrollX": true
+        });
         //function get full calendar
         $('#hrm_calendar_schedule').fullCalendar({
                 header: {
