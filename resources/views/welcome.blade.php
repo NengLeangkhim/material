@@ -9,7 +9,7 @@
                         <!-- /.card-header -->
                         <div class="row" style="padding: 1%;">
                             <div class="col-md-1 d-none d-sm-none d-md-block">
-                                <img id="flower-img" src="img/icons/stat-flowercolor.png">
+                                <img id="flower-img" src="img/icons/stat-flowercolor1.png">
                             </div>
                             <div class="col-md-4">
                                 <img class="profile-pic" src="<?php echo $uself[0]->image??"/storage/avatar7.png";?>" style="width:100%" id='image_'>
@@ -21,7 +21,7 @@
                                 <img src="img/icons/index2.png" height="7%" width="80%" style="margin-top: 40px">
                             </div>
                             <div class="col-md-1 d-none d-sm-none d-md-block">
-                                <img id="flower-img1" src="img/icons/stat-flowercolor.png">
+                                <img id="flower-img1" src="img/icons/stat-flowercolor1.png">
                             </div>
                             {{-- <div class="col-md-12" id="row_welcome"></div> --}}
                             {{-- <div class="col-md-12 col-sm-12 col-xs-12" style="height: auto;text-align: center;">
