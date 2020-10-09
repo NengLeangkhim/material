@@ -19,10 +19,9 @@
                 <table class="table table-bordered" id="tbl_employee" style="width:100%">
                   <thead>                  
                     <tr>
-                      <th>#</th>
+                      <th>Employee ID</th>
                       <th>Name</th>
                       <th>Khmer Name</th>
-                      <th>Employee ID</th>
                       <th>Mobile</th>
                       <th>Role</th>
                       <th>Action</th>
@@ -34,11 +33,9 @@
                     @endphp
                     @foreach ($employee as $e)
                       <tr>
-                      <th>{{ ++$i }}</th>
-                      
+                      <td style="padding-top:24px ">{{ $e->id_number }}</td>
                       <td><img src="{{$e->image}}" alt="" width="50px" height="50px" style="border-radius:50px;margin-right:10px"> {{ $e->firstName." ".$e->lastName }} </td>
                       <td style="padding-top:24px "> {{$e->firstNameKh." ".$e->lastNameKh }} </td>
-                      <td style="padding-top:24px ">{{ $e->id_number }}</td>
                       <td style="padding-top:24px ">{{ $e->contact}}</td>
                       <td style="padding-top:24px ">{{ $e->position }}</td>
                         <td style="padding-top:24px ">
