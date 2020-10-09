@@ -20,7 +20,7 @@
         $("#"+form+" radio").removeClass("is-invalid");//remove all error message
         $.ajax({
           url: url,//get link route
-          type:'POST',
+          type:'POST',//type post or put
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -45,6 +45,60 @@
         });
     }
 // ---------- END Contact---------- //
+// ----------- Report ------------- //
+    //Report Lead
+      // Lead Chart
+        function ReportLeadChart(){
+          $("#FrmChartReport input").removeClass("is-invalid");//remove all error message
+          // var from = $('input[name="lead from date"]').val()+'-01-01';
+          var from = $('input[id="LeadChartFrom"').val() + '-01-01'
+          var to = $('input[id="LeadChartTo"').val()+'-12-31';
+          $.ajax({
+            url: '/crmreport/lead/chart',//get link route
+            type:'GET',
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+             data:{LeadChartFrom:from,LeadChartTo:to}, //_token: $('#token').val(),
+           // $('#FrmChartReport').serialize(),  
+            success:function(data)
+            {  
+              if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+                // console.log(data);
+                google.charts.load('current', {'packages':['bar']});
+                google.charts.setOnLoadCallback(CrmLeadDrawChart);
+                function CrmLeadDrawChart() {
+                  var data = google.visualization.arrayToDataTable([
+                    ['Month', 'Lead'],
+                    ['Jan', 1000],
+                    ['Feb', 1170],
+                    ['March', 660],
+                    ['April', 1030]
+                  ]);
+      
+                  var options = {
+                    chart: {
+                      title: 'Lead Performance',
+                    }
+                  };
+      
+                  var chart = new google.charts.Bar(document.getElementById('LeadChart'));
+      
+                  chart.draw(data, google.charts.Bar.convertOptions(options));
+                } 
+             }else{ 
+               $.each( data.errors, function( key, value ) {//foreach show error
+                   $("#" + key).addClass("is-invalid"); //give read border to input field
+                   // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+                   $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+                   // sweetalert('warning',value);
+               });
+             }
+            
+            }
+          });
+        }
+// -----------END Report ---------- //
 //////////////////////////==========================END MET KEOSAMBO ====================///////////////////////////////
     // $(document).ready(function(){
     //     var a = 0;
@@ -207,5 +261,23 @@
            
           };
     
+
+
+
+
+        function getShowPopup(route,id,modal_mainform,modal_form){
+          
+          var id_ = "id="+id;
+          var url= route;
+          var x=new XMLHttpRequest();
+          x.onreadystatechange=function(){
+              if(this.readyState==4 && this.status==200){    
+                  document.getElementById(modal_mainform).innerHTML=this.responseText;
+                  $('#'+modal_form+'').modal('show');
+              }
+          }
+          x.open("GET", url + "?" + id_ , true);
+          x.send();
+        }
 
 //===========================>> End-Quote-CRM JS <<==========================================
