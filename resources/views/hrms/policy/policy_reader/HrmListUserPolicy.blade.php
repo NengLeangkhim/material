@@ -13,7 +13,7 @@
                <!-- /.card-header -->
                <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="hrm_policy_list_user">
+                        <table class="table table-bordered display nowrap" style="width: 100%" id="hrm_policy_list_user">
                         <thead>                  
                             <tr>
                                 <th scope="col">No</th>
@@ -64,7 +64,9 @@
      $(document).ready(
          function(){
             // getTable('productlist','id');
-             $('#hrm_policy_list_user').DataTable();
+             $('#hrm_policy_list_user').DataTable({
+                 scrollX: true
+             });
          }
      );
    </script>

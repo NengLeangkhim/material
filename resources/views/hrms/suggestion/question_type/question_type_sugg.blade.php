@@ -12,7 +12,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table class="table table-bordered" id="tbl_type_sugg">
+                <table class="table table-bordered display nowrap" style="width: 100%" id="tbl_type_sugg">
                   <thead>                  
                     <tr>
                       <th style="width: 10px">#</th>
@@ -52,9 +52,9 @@
      $(document).ready(
          function(){
             // getTable('productlist','id');
-             $('#tbl_type_sugg').DataTable();
-             $(".table-overflow").doubleScroll();
-
+             $('#tbl_type_sugg').DataTable({
+               scrollX: true
+             });
          }
      );
    </script>
