@@ -28,7 +28,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @php
+                    {{-- @php
                         $i=0;
                     @endphp
                     @foreach ($employee as $e)
@@ -53,7 +53,7 @@
                           </div>
                         </td>
                     </tr>
-                    @endforeach
+                    @endforeach --}}
                   </tbody>
                 </table>
               </div>
