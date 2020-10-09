@@ -162,6 +162,11 @@
         border: 0.5px solid #007bff;
     }
 
+    .selected  {
+        cursor: pointer;
+        background-color: #1fa8e0;
+    }
+
 
 
 
