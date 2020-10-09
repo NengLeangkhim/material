@@ -9,4 +9,6 @@ Route::get('/crm/report/leadByAssignTo', 'api\crm\CrmReportApiController@getLead
 Route::get('/crm/report/leadBySource','api\crm\CrmReportApiController@getLeadReportBySource');
 Route::get('/crm/report/leadByStatus','api\crm\CrmReportApiController@getLeadReportByStatus');
 Route::get('/crm/report/quoteByStatus','api\crm\CrmReportApiController@getQuoteByStatus');
+Route::get('/crm/report/leadReportDetail', 'api\crm\CrmReportApiController@getAllLeadDetail');
+Route::get('/crm/report/quoteReportDetail', 'api\crm\CrmReportApiController@getAllQuoteDetail');
 });
