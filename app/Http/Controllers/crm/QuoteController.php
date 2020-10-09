@@ -50,7 +50,7 @@ class QuoteController extends Controller
 
 
 
-    //function to get list product 
+    //function to get list product to add quote
     public static function listProduct(Request $request){
         if(isset($_GET['id'])){
             $row_id = $_GET['id'];
@@ -61,6 +61,8 @@ class QuoteController extends Controller
 
     }
 
+
+    //function to get list Service to add quote
     public static function listService(Request $request){
         if(isset($_GET['id'])){
             $row_id = $_GET['id'];
@@ -70,6 +72,39 @@ class QuoteController extends Controller
         }
 
     }
+
+
+
+    //function to list organization lead to add lead quote
+    public static function listQuoteLead(Request $request){
+        if(isset($_GET['id'])){
+            $request = Request::create('/api/getlead/', 'GET');
+            $listLead = json_decode(Route::dispatch($request)->getContent());
+            return view('crm/quote/listQuoteLead', compact('listLead'));
+        }
+    }
+
+
+
+    //function to list lead branch to add lead quote
+    public static function listQuoteBranch(Request $request){
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+            $request = Request::create('/api/getbranchbylead/1', 'GET');
+            $listBranch = json_decode(Route::dispatch($request)->getContent());
+            // return $listBranch;
+            return view('crm/quote/listQuoteBranch', compact('listBranch'));
+
+            // return response()->json($listBranch, 200);
+        }
+    }
+    
+
+
+
+
+
+
 
 
 
