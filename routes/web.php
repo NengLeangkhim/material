@@ -89,6 +89,7 @@ Route::get('/quote/add/listService','crm\QuoteController@listService'); // get s
 
 // Start Report
 Route::get('/crmreport','crm\CrmReportController@CrmIndexReport'); // show index report
+Route::get('/crmreport/lead/chart','crm\CrmReportController@GetLeadChart'); // Get Lead Chart
 Route::get('/crmreport/detaillead','crm\CrmReportController@CrmDetailLeadReport'); // show Lead Detail report
 Route::get('/crmreport/detailcontact','crm\CrmReportController@CrmDetailContactReport'); // show Contact Detail report
 Route::get('/crmreport/detailorganization','crm\CrmReportController@CrmDetailOrganizationReport'); // show Organization Detail report
