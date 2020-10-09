@@ -83,6 +83,7 @@ class LeadController extends Controller
         $company_en=$request->input('company_en');
         $company_kh=$request->input('company_kh');
         $primary_email=$request->input('primary_email');
+        // $user_create=$userid;
         $user_create=$request->input('user_create');
         $website=$request->input('website');
         $facebook=$request->input('facebook');
