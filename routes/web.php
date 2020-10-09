@@ -121,7 +121,7 @@ Route::post('access/add','SettingController@add_module_access');
 Route::get('access/json','SettingController@module_access_json');
 Route::post('module/delete','SettingController@delete_module_access');
 
-Route::get('leave_type','');
+// Route::get('leave_type','');
 //refresh select after add
 Route::get('/refreshSel','refreshSelect@refresh_sel');
 //end refresh select after add
