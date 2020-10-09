@@ -121,7 +121,12 @@ Route::post('access/add','SettingController@add_module_access');
 Route::get('access/json','SettingController@module_access_json');
 Route::post('module/delete','SettingController@delete_module_access');
 
-Route::get('leave_type','');
+// leave type
+Route::get('leave_type', 'Setting\LeaveType\LeaveTypeController@leave_type')->name('leave_type');
+Route::get('hrm_modal_leave_type', 'Setting\LeaveType\LeaveTypeController@modal_add_edit_leave_type');
+Route::post('hrm_add_edit_leave_type', 'Setting\LeaveType\LeaveTypeController@add_and_update_leave_type');
+Route::get('hrm_delete_leave_type', 'Setting\LeaveType\LeaveTypeController@delete_leave_type');
+// end leave type
 //refresh select after add
 Route::get('/refreshSel','refreshSelect@refresh_sel');
 //end refresh select after add

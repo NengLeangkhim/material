@@ -1,59 +1,62 @@
-<section>
-<div style="padding:10px 10px 10px 10px">
+
+@extends('setting.layout.master')
+
+@section('content')
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+    <div id="modal"></div>
+    <div style="padding:10px 10px 10px 10px">
     <div class="row">
       <div id="testt"></div>
         <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Employees</strong></h1>
+                <h1 class="card-title hrm-title"><strong> Leave Type</strong></h1>
                 <div class="col-md-12 text-right">
-                    <a href="javascript:;" id="btn_add_employee" class="btn bg-turbo-color" onclick="HRM_AddEditEmployee()"><i class="fas fa-plus"></i> Add Employee</a>
+                    <a href="javascript:;" id="btn_add_employee" class="btn bg-turbo-color" onclick="HRM_ShowDetail('hrm_modal_leave_type','modal_leave_type')"><i class="fas fa-plus"></i> Add Leave Type</a>
                     {{-- <a href="javascript:;" id="btn_add_employee" class="btn bg-turbo-color"><i class="fas fa-plus"></i> Add Employee</a> --}}
                 </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                @php
-                    // print_r($employee);
-                @endphp
                 <table class="table table-bordered" id="tbl_employee" style="white-space:nowrap">
                   <thead>                  
                     <tr>
-                      <th>Employee ID</th>
-                      <th>Name</th>
-                      <th>Khmer Name</th>
-                      <th>Mobile</th>
-                      <th>Role</th>
+                      <th>#</th>
+                      <th>Leave Type</th>
+                      <th>Khmer</th>
+                      <th>Leave Days</th>
+                      <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {{-- @php
+                    @php
                         $i=0;
                     @endphp
-                    @foreach ($employee as $e)
+                    @foreach ($leave_type as $leaveType)
                       <tr>
-                      <td style="padding-top:37px ">{{ $e->id_number }}</td>
-                      <td>
-                          <div class="text-center">
-                              <img src="https://system.turbotech.com{{$e->image}}" alt="" width="50px" height="50px" style="border-radius:50px;margin-right:10px">
-                          </div>
-                          <div class="text-center">
-                              {{ $e->firstName." ".$e->lastName }}
-                          </div>  
-                      </td>
-                      <td style="padding-top:37px "> {{$e->firstNameKh." ".$e->lastNameKh }} </td>
-                      <td style="padding-top:37px ">{{ $e->contact}}</td>
-                      <td style="padding-top:37px ">{{ $e->position }}</td>
-                        <td style="padding-top:37px ">
-                          <div class="row">
-                            <div class="col-md-4"><a href="javascript:;" onclick="HRM_AddEditEmployee({{$e->id}})"><i class="far fa-edit"></i></a></div>
-                            <div class="col-md-4"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_detail_employee','modal_employee_detail',{{$e->id}})"><i class="fas fa-info"></i></a></div>
-                            <div class="col-md-4"><a href="javascript:;"><i class="far fa-trash-alt" onclick="hrm_delete_data({{$e->id}},'hrm_delete_employee','hrm_allemployee','Employee Deleted Succseefully !','HRM_09010103')"></i></a></div>
+                      <td>{{++$i}}</td>
+                      <td> {{$leaveType->name}} </td>
+                      <td >{{ $leaveType->name_kh}}</td>
+                      <td >{{ $leaveType->annual_count}}</td>
+                      <td>{{$leaveType->status}}</td>
+                        <td >
+                          <div class="row text-center">
+                            <div class="col-md-6"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_modal_leave_type','modal_leave_type',{{$leaveType->id}})"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-6"><a href="javascript:;"><i class="far fa-trash-alt" onclick="Delete_Leave_Type({{$leaveType->id}})"></i></a></div>
                           </div>
                         </td>
                     </tr>
-                    @endforeach --}}
+                    @endforeach
                   </tbody>
                 </table>
               </div>
@@ -63,14 +66,38 @@
     </div>
 </div>
 <script>
-  $(document).ready(function() {
-    $('#tbl_employee').DataTable({
-      responsive: true
-    });
-    $(document).ajaxStop(function(){
-      $("#department").select2();
-      $("#position").select2();
-    });
-} );
+  function HRM_ShowDetail(rout,modalName,id=-1){
+        $.ajax({
+            type: 'GET',
+            url: rout,
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                id: id
+            },
+            success: function (data) {
+                document.getElementById('modal').innerHTML = data;
+                $('#'+modalName).modal('show');
+                if(modal.length>0){
+                    $('#'+modal).DataTable({
+                    });
+                }
+            }
+        });
+    }
+
+    setTimeout(function(){
+        $('.alert').hide();
+    }, 2000);
+
+
+    function Delete_Leave_Type(ids){
+        var r = confirm("Are you sure ?");
+        if (r == true) {
+            window.location.href = '/hrm_delete_leave_type?id='+ids;
+        }
+        
+    }
 </script>
-</section>
+@endsection
+
+
