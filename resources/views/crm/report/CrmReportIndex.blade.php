@@ -31,26 +31,35 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                          <div class="row">
-                              <div class="col-md-6">
-                                  <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                      </div>
-                                      <input type="text" class="form-control" placeholder="Select Date" id="ReportLeadFrom"  name='ReportLeadFrom'  required>
-                                    </div>
-                                </div>
+                          <form id="FrmChartReport">
+                            @csrf
+                            <div class="row">
                                 <div class="col-md-6">
-                                  <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                    <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y')?>" id="LeadChartFrom" name='LeadChartFrom'  required>
+                                        <span class="invalid-feedback" role="alert" id="LeadChartFromError"> {{--span for alert--}}
+                                          <strong></strong>
+                                        </span>
                                       </div>
-                                      <input type="text" class="form-control" placeholder="Select Date" id="ReportLeadTo" name='ReportLeadTo'  required>
                                   </div>
-                                </div>
-                          </div>
+                                  <div class="col-md-6">
+                                    <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Select Date" id="LeadChartTo" value="<?php echo date('Y')?>" name='LeadChartTo'  required>
+                                        <span class="invalid-feedback" role="alert" id="LeadChartToError"> {{--span for alert--}}
+                                          <strong></strong>
+                                        </span>
+                                    </div>
+                                  </div>
+                            </div>
+                          </form>
                         </div>
                         <div class="chart">
                             <div id="LeadChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
@@ -198,14 +207,20 @@
 <script>
     $(function () {
       // Date Lead
-      $('#ReportLeadFrom').datetimepicker({
+      $('#LeadChartFrom').datetimepicker({
         format: 'YYYY',
         sideBySide: true,
       });
-      $('#ReportLeadTo').datetimepicker({
+      $("#LeadChartFrom").on("dp.change", function (e) {
+        ReportLeadChart();
+      })
+      $('#LeadChartTo').datetimepicker({
         format: 'YYYY',
         sideBySide: true,
       });
+      $("#LeadChartTo").on("dp.change", function (e) {
+        ReportLeadChart();
+      })
       // Date Contact
       $('#ReportContactFrom').datetimepicker({
         format: 'YYYY-MM',
@@ -235,30 +250,7 @@
       });
     });
     $(function () {
-    // Lead Chart
-    google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses', 'Profit'],
-          ['2014', 1000, 400, 200],
-          ['2015', 1170, 460, 250],
-          ['2016', 660, 1120, 300],
-          ['2017', 1030, 540, 350]
-        ]);
-
-        var options = {
-          chart: {
-            title: 'Lead Performance',
-            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-          }
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('LeadChart'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-    }
+    
     // Lead Contact
     google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChartLead);
@@ -267,9 +259,6 @@
           ['Task', 'Hours per Day'],
           ['Work',     11],
           ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
         ]);
 
         var options = {

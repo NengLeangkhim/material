@@ -25,7 +25,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Management Promoter</strong></h1>
+                    <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Promote Employee</strong></h1>
                     {{-- <div class="col-md-12 text-right">
                         <a href="javascript:;" class="btn bg-turbo-color" onclick="HRM_AddEditEmployee()"><i class="fas fa-user-plus"></i> Add Employee</a>
                     </div> --}}
