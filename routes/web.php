@@ -31,7 +31,8 @@ Route::get('/village', 'addressController@getvillage'); //getvillage
 // =========================CRM SYSTEM==========================
 // start lead
 Route::get('/lead','crm\LeadController@getlead'); // get  all lead  show  in table
-Route::get('/addlead','crm\LeadController@lead'); // add lead
+Route::get('/addlead','crm\LeadController@lead'); // go to lead
+Route::post('/lead/store','crm\LeadController@StoreLead'); // Store lead
 // Route::get('/district','crm\LeadController@getdistrict'); //getdistrict
 // Route::get('/commune','crm\LeadController@getcommune'); //getcommune
 // Route::get('/village','crm\LeadController@getvillage'); //getvillage
@@ -39,7 +40,8 @@ Route::POST('/addleadsource','crm\LeadController@addleadsource'); //addlead sour
 Route::POST('/addleadindustry','crm\LeadController@addleadindustry'); //add leadindustry
 Route::POST('/addlead','crm\LeadController@addlead'); //add leadindustry
 Route::get('/detaillead','crm\LeadController@detaillead'); //add leadindustry
-Route::Get('/editlead/{id}','crm\LeadController@editlead');// edit lead
+Route::Get('/editlead/{id}','crm\LeadController@editlead');// Go to lead
+Route::post('/lead/update','crm\LeadController@UpdateLead');// Update lead
 Route::post('/crm_leasdsource','crm\LeadController@savelead'); // save
 Route::get('/test_map', function(){
     return view('crm.lead.mapShowLatLong');
@@ -54,7 +56,9 @@ Route::get('/test_map', function(){
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination
 Route::get('/contact/add','crm\ContactController@AddContact'); //go to add contact
+Route::post('/contact/store','crm\ContactController@StoreContact'); //store contact
 Route::get('/contact/edit/{id}','crm\ContactController@EditContact');//go to Edit contact
+Route::put('/contact/update','crm\ContactController@UpdateContact'); //Update contact
 Route::get('/contact/detail','crm\ContactController@DetailContact');//go to Detail contact
 Route::get('/product','crm\ProductsController@getProducts'); //get all Products show in table
 // end contact
@@ -62,7 +66,9 @@ Route::get('/product','crm\ProductsController@getProducts'); //get all Products 
 // Start Organization
 Route::get('/organizations','crm\OrganizationController@getorganization'); //get all Organization  show in table
 Route::get('/organizations/add','crm\OrganizationController@AddOrganization'); //go to add Organization
+Route::post('/organizations/store','crm\OrganizationController@StoreOrganization'); // add Organization
 Route::get('/organizations/edit/{id}','crm\OrganizationController@EditOrganization'); //go to Edit Organization
+Route::post('/organizations/update','crm\OrganizationController@UpdateOrganization'); //Update organization
 Route::get('/organizations/detail','crm\OrganizationController@DetailOrganization'); //get detail organization
 // End Organization
 
@@ -75,13 +81,15 @@ Route::get('/quote/add','crm\QuoteController@addQuote'); // to add qoute
 Route::get('/quote/deleteLeadQuote','crm\QuoteController@deleteLeadQuote'); // get delete lead for quote list
 
 Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quote item table
-Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get one row quote item table
+Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get stock product api to view
+Route::get('/quote/add/listService','crm\QuoteController@listService'); // get stock service api to view
 
 // end quote
 
 
 // Start Report
 Route::get('/crmreport','crm\CrmReportController@CrmIndexReport'); // show index report
+Route::get('/crmreport/lead/chart','crm\CrmReportController@GetLeadChart'); // Get Lead Chart
 Route::get('/crmreport/detaillead','crm\CrmReportController@CrmDetailLeadReport'); // show Lead Detail report
 Route::get('/crmreport/detailcontact','crm\CrmReportController@CrmDetailContactReport'); // show Contact Detail report
 Route::get('/crmreport/detailorganization','crm\CrmReportController@CrmDetailOrganizationReport'); // show Organization Detail report
@@ -1041,14 +1049,14 @@ Route::get('test_chart',function(){
 
 // Customer Management
     // Customer
-        Route::get('customer','bsc\CustomerController@customer');
+        Route::get('bsc_customer','bsc\CustomerController@customer');
     // Customer Branch
-        Route::get('customer_branch','bsc\CustomerController@customer_branch');
+        Route::get('bsc_customer_branch','bsc\CustomerController@customer_branch');
         Route::get('customer_branch_detail','bsc\CustomerController@customer_branch_detail');
     // Customer Service
-        Route::get('customer_service','bsc\CustomerController@customer_service');
+        Route::get('bsc_customer_service','bsc\CustomerController@customer_service');
     // Customer Service Detail
-        Route::get('customer_service_detail','bsc\CustomerController@customer_service_detail');
+        Route::get('bsc_customer_service_detail','bsc\CustomerController@customer_service_detail');
         Route::get('customer_service_detail_add','bsc\CustomerController@customer_service_detail_add');
         Route::get('customer_service_detail_edit','bsc\CustomerController@customer_service_detail_edit');
 // Report
@@ -1059,8 +1067,9 @@ Route::get('test_chart',function(){
 
 // Chart account
     Route::get('bsc_chart_account_list','bsc\ChartAccountController@list');
-    Route::get('bsc_chart_account_list_edit','bsc\ChartAccountController@edit');
+    Route::get('bsc_chart_account_list_edit/{id}','bsc\ChartAccountController@edit');
     Route::get('bsc_chart_account_form','bsc\ChartAccountController@form');
+    Route::post('bsc_chart_account_form_add','bsc\ChartAccountController@add');
 // Invoice
     // Invoice
         Route::get('bsc_invoice_invoice_list','bsc\InvoiceController@list');
@@ -1087,7 +1096,7 @@ Route::get('test_chart',function(){
     Route::get('bsc_purchase_purchase_view','bsc\PurchaseController@view');
 
     Route::get('bsc_purchase_purchase_form','bsc\PurchaseController@form');
-        
+
     // View Purchase Payment
     Route::get('bsc_purchase_view_purchase_payment','bsc\PurchasePaymentControllre@view_purchase_payment');
 

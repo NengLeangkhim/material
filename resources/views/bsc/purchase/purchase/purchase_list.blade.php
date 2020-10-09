@@ -22,7 +22,7 @@
                                     <a  href="#" class="btn btn-success purchase_form"  value="bsc_purchase_purchase_form" id="purchase_form"><i class="fas fa-plus"></i> Add New</a>&nbsp;
                             </div>
                             {{-- ======================= Start Tab menu =================== --}}
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-top: 10px;">
                                 <li class="nav-item">
                                   <a class="nav-link active" id="home-tab" data-toggle="tab" href="#all" role="tab" aria-controls="home" aria-selected="true">All</a>
                                 </li>
@@ -175,15 +175,7 @@
         "autoWidth": false,
         });
 
-        // $('#example2').DataTable({
-        // "paging": true,
-        // "lengthChange": false,
-        // "searching": false,
-        // "ordering": true,
-        // "info": true,
-        // "autoWidth": false,
-        // "responsive": true,
-        // });
+        
 
     });
     $('.purchase_form').click(function(e)

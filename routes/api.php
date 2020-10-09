@@ -37,10 +37,15 @@ Route::post('login', 'api\UserController@authenticate');
 
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('user', 'api\UserController@getAuthenticatedUser');
+    Route::get('logout', function (Request $request){
+        $request->user()->token()->revoke();
+    });
 });
 
 // Chart account
 Route::resource('bsc_chart_accounts', 'api\BSC\ChartAccountController');
+Route::get('bsc_show_account_type', 'api\BSC\ChartAccountController@show_account_type');
+Route::get('bsc_show_company', 'api\BSC\ChartAccountController@show_company');
 Route::resource('bsc_purchases', 'api\BSC\PurchaseController');
 
 //======================END BSC=========================

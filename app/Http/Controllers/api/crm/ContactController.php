@@ -56,14 +56,14 @@ class ContactController extends Controller
                     'SELECT public."update_crm_lead_contact"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                     array(
                         $request->input('contact_id'),
-                        $request->input('update_by'),
+                        $create_by,
                         $request->input('name_en'),
                         $request->input('name_kh'),
                         $request->input('email'),
                         $request->input('phone'),
                         $request->input('facebook'),
                         $request->input('position'),
-                        $request->$create_by,
+                        $create_by,
                         $request->input('national_id'),
                         $request->input('ma_honorifics_id')
                     ));
@@ -82,7 +82,7 @@ class ContactController extends Controller
                         $request->input('phone'),
                         $request->input('facebook'),
                         $request->input('position'),
-                        $request->$create_by,
+                        $create_by,
                         $request->input('national_id'),
                         $request->input('ma_honorifics_id')
                     ));

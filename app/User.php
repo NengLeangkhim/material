@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -12,7 +13,7 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
 
     //change table name of model
-    protected $table="ma_user";
+    protected $table="users";
 
     /**
      * The attributes that are mass assignable.
