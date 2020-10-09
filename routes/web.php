@@ -84,6 +84,9 @@ Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quo
 Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get stock product api to view
 Route::get('/quote/add/listService','crm\QuoteController@listService'); // get stock service api to view
 
+Route::get('/quote/add/listQuoteLead','crm\QuoteController@listQuoteLead'); // get organization lead
+Route::get('/quote/add/listQuoteBranch','crm\QuoteController@listQuoteBranch'); // get lead branch
+
 // end quote
 
 
@@ -948,6 +951,7 @@ Route::get('hrm_recruitment_candidate_logout','hrms\recruitment_user\recruitment
 Route::get('hrm_index_user_register',function(){
     return view('hrms.recruitment_user.index_recruitment_register');
 });
+
 
 // view candidate login
 Route::get('hrm_recruitment_login',function(){
