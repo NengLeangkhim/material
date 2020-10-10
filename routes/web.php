@@ -106,6 +106,10 @@ Route::get('/crmreport/detailquote','crm\CrmReportController@CrmDetailQuoteRepor
 
 // End Report
 
+// Dashboard CRM
+Route::get('/crm/dashboard','crm\DashboardController@Index'); // show index report
+// END Dashboard CRM
+
 
 //===========================END CRM=================================
 
