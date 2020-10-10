@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-white navbar-light" style="background: #1fa8e0">
+<nav class="main-header navbar navbar-expand navbar-white navbar-light" style="background: white">
     <!-- Left navbar links -->
     <ul class="navbar-nav" id='nav_bar_sub_r'>
       <li class="nav-item">
@@ -29,7 +29,7 @@
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
       <li class="nav-item">
-        <a href="logout" class="nav-link"><i class="fas fa-power-off "></i></a>
+        <a href="logout" class="nav-link"><i class="fas fa-power-off " style="color:#1fa8e0;"></i></a>
       </li>
       {{-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
