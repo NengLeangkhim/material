@@ -36,7 +36,7 @@
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-12">
-                    <form id="frm_lead" action="">
+                    <form id="frm_addQuote" action="POST">
                         @csrf
                         <!-- general form elements -->
                         <div class="card card-primary">
@@ -53,7 +53,7 @@
                                                         <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control" id="organiz_name"  name="organiz_name"  value=""  placeholder="Select Lead" required disabled>
-                                                    <input type="hidden" id="organiz_id" value="">
+                                                    <input type="hidden" id="organiz_id" name="organiz_id" value="">
                                                     <div class="input-group-prepend" align="right">
                                                         <a href="javascript:void(0);" class="btn btn-info" onclick="getShowPopup('/quote/add/listQuoteLead',1,'modal-list-quote','listQuoteLead','tblQuuteLead','getSelectRow','leadEnName','organiz_id','organiz_name');" ><i class="glyphicon glyphicon-plus"></i></a>
                                                     
@@ -70,7 +70,7 @@
                                                         <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control" id="getLeadBranchName"  name="getLeadBranch"  value=""  placeholder="Select Branch" required disabled>
-                                                    <input type="hidden" id="getLeadBranchId" value="">
+                                                    <input type="hidden" id="getLeadBranchId"  name="getLeadBranchId" value="">
                                                     <div class="input-group-prepend" align="right">
                                                         <a href="javascript:void(0);" class="btn btn-info" id="clickGetBranch"  ><i class="glyphicon glyphicon-plus"></i></a>
                                                     </div>
@@ -87,7 +87,7 @@
                                         <div class="row">
 
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Status <b style="color:red">*</b></label>
+                                                <label for="exampleInputEmail1">Status </label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
@@ -115,14 +115,24 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <label for="exampleInputEmail1">Comment <b style="color:red">*</b></label>
+                                            <div class="col-md-6">
+                                                <label for="exampleInputEmail1">Assign To <b style="color:red">*</b></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class='fas fa-pen-square'></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control"  name="assign_to" id="assign_to" placeholder="Assign To">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label for="exampleInputEmail1">Comment</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="far fa-comment-alt"></i></span>
                                                     </div>
-                                                    <textarea rows="3" class="form-control" name="addQuoteComment" placeholder="Comment here..."></textarea>
-                                                    {{-- <input type="text" class="form-control" name="phone"id="exampleInputEmail1" placeholder="Comment" > --}}
+                                                    <input type="text" class="form-control" name="addQuoteComment" placeholder="Comment here...">
                                                 </div>
                                             </div>
                                         </div>
@@ -143,6 +153,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                     </div>
+                                                    <input type="hidden" name="addressDetailId" value="" disabled>
                                                     <input type="text" class="form-control"  name='homeEN' id="homeEN" placeholder="Number of home" disabled  >    
                                                 </div>
                                             </div>
@@ -252,7 +263,7 @@
                                     <table class="table table-bordered ">
                                         <thead class="thead-item-list">
                                             <tr>
-                                                <th class="td-item-quote-name">Item Name</th>
+                                                <th class="td-item-quote-name"><b style="color:red">*</b> Item Name</th>
                                                 <th class="td-item-quote">Type</th>
                                                 <th style="width: 120px">Quantity</th>
                                                 <th class="td-item-quote">List Price($)</th>
@@ -315,16 +326,17 @@
                         </div>
                         
                         <div class="card-footer">
-                            <button type="button" class="btn btn-primary save" id="frm_btn_sub_addlead">Save</button>
-                            <button type="button" class="btn btn-danger" onclick="go_to('/organization')">Cencel</button>
+                            <button type="button" class="btn btn-primary save"  id="btnQuoteSave">Save</button>
+                            <button type="button" class="btn btn-danger" onclick="go_to('/quote')">Cencel</button>
                         </div>       
                     </form>
                 </div>
             </div>
         </div>
     </section>
+
     {{-- =================Modal lead source========================= --}}
-    <div class="modal fade" id="modal-info">
+    {{-- <div class="modal fade" id="modal-info">
         <form id="ifrm_source" action="/addleadsource" method="POST">
             @csrf
             <div class="modal-dialog">
@@ -352,7 +364,7 @@
         </form>
         <!-- /.modal-dialog -->
       </div>
-       {{-- =================Modal lead industry========================= --}}
+       <!-- =================Modal lead industry========================= -->
     <div class="modal fade" id="modal-info-industry">
         <form id="ifrm_industry" >
             @csrf
@@ -376,12 +388,12 @@
                 <button type="button" class="btn btn-outline-light save_source" onclick="SubForm('/addleadindustry','ifrm_industry','iindustry')">Save </button>
                 </div>
             </div>
-            <!-- /.modal-content -->
             </div>
         </form>
-        <!-- /.modal-dialog -->
-      </div>
+    </div> --}}
 
+    
+    
     <script type="text/javascript" src="js/crm/crmAddRowQuote.js"></script>
     <script type="text/javascript">
             

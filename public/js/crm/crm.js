@@ -458,6 +458,7 @@
                   // console.log(this.responseText);
                   document.getElementById(modal_mainform).innerHTML=this.responseText;
                   $('#'+modal_form+'').modal('show');
+                 
                   getDataTableSelectRow(tblId,btnId,getName,fieldID,fieldName,modal_form);
               }
           }
@@ -633,6 +634,30 @@
           notify_alert('organiz_name','error','bottom','Requirement this field !');
         }
     });
+
+
+
+    //function to add qoute data to database
+    $(document).on('click','#btnQuoteSave',function(){
+          alert('hiii');
+          $.ajax({
+              type: 'POST',
+              url: '/quote/save',
+              headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              data: 
+                $('#frm_addQuote').serialize(),
+
+              success: function(response) {
+                  console.log(response);
+              },
+              error: function(response) {
+                  console.log(response);
+              }
+          });
+    });
+
 
 
 

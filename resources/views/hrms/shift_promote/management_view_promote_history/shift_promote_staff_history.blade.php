@@ -18,7 +18,7 @@
     
                     <div class="card-body">
                         <div class="table-responsive"> 
-                        <table id="tbl_employee" class="table table-bordered" >
+                        <table id="tbl_shifthistory" class="table table-bordered" >
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -40,6 +40,8 @@
                                     {
                                         foreach($allstaffpromote as $key=>$val)
                                         {   
+                                            $date = date_create($val->create_date);
+                                            $approve_date = date_format($date,"Y/M/d H:i:s A");
                                             echo '
                                                 <tr>
                                                     <th scope="row">'.($i+1).'</th>
@@ -47,7 +49,7 @@
                                                     <td>'.$val->ma_user_id.'</td>
                                                     <td>'.$val->position.'</td>
                                                     <td>'.$val->salary.'</td>
-                                                    <td>'.$val->create_date.'</td>
+                                                    <td>'.$approve_date.'</td>
                                                     <td>
                                                         <div style="text-align: center;">
                                                             <a  href="javascript:void(0);" onclick="list_staff_promote_hisotry('.$val->ma_user_id.','.$i.')">

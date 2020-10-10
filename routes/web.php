@@ -87,6 +87,9 @@ Route::get('/quote/add/listService','crm\QuoteController@listService'); // get s
 Route::get('/quote/add/listQuoteLead','crm\QuoteController@listQuoteLead'); // get organization lead
 Route::get('/quote/add/listQuoteBranch','crm\QuoteController@listQuoteBranch'); // get lead branch
 
+Route::post('/quote/save','crm\QuoteController@saveQuote'); // sumit quote data to database api
+
+
 // end quote
 
 
