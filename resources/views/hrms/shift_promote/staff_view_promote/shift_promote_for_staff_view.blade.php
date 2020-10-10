@@ -9,7 +9,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h1 class="card-title hrm-title"><strong><i class="fas fa-user-edit"></i> Your Promote</strong></h1>
+                        <h1 class="card-title hrm-title"><strong><i class="fas fa-user-edit"></i> My Promote</strong></h1>
 
                     </div>
     
