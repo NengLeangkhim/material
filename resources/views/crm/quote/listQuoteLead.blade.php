@@ -42,7 +42,7 @@
                                     @foreach ($val as $key2=>$val2)
                                             <tr id="{{$val2->lead_id}}">
                                                 <td class="border">
-                                                    {{$key2}}
+                                                    {{$key2+1}}
                                                     <input type="hidden" name="leadQuote" id="leadQuote" value="{{$val2->lead_id}}">
                                                 </td>
                                                 <td class="border">

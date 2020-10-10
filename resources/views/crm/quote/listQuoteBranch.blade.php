@@ -42,7 +42,7 @@
                                             <tr id="{{$val2->branch_id}}" >
 
                                                 <td class="border">
-                                                    {{$key2}}
+                                                    {{$key2+1}}
                                                     {{-- hidden use for call get value --}}
                                                     <input type="hidden" name="branchId" id="branchId" value="{{$val2->branch_id}}">
                                                     <input type="hidden"  id="brdcompanyEn_{{$val2->branch_id}}" value="{{$val2->company_en}}">
