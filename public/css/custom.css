@@ -59,6 +59,9 @@ body{
     width: 60%;
     height: 50px;
 }
+.bar-link i{
+    color: #1fa8e0;
+}
 /**** Style Welcome Page  ****/
 #img_profile_company{
     width: 50vh;
