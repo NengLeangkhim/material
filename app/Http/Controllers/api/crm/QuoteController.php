@@ -87,16 +87,14 @@ class QuoteController extends Controller
 
                 // insert to crm_quote 
                 $insert_quote = DB::select(
-                    'SELECT public."insert_crm_quote"(?, ?, ?, ?, ?, ?,?,?)',
+                    'SELECT public."insert_crm_quote"(?, ?, ?, ?, ?, ?)',
                     array(
                         $request->input('lead_id'),
                         $request->input('due_date'),
                         $request->input('assign_to'),
                         $request->input('crm_lead_address_id'),
                         $request->input('subject'),
-                        $createby,
-                        $request->input('discount'),
-                        $request->input('discount_type')
+                        $createby
                     ));
 
                 $quote_id =$insert_quote[0]->insert_crm_quote;
@@ -138,7 +136,9 @@ class QuoteController extends Controller
                             $request->product[$i],
                             $request->price[$i],
                             $request->qty[$i],
-                            $createby
+                            $createby,
+                            $request->discount[$i],
+                            $request->discount_type[$i]
                         ));
                 }
 
