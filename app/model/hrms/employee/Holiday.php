@@ -38,7 +38,8 @@ class Holiday extends Model
 
     // Function for Update Holiday
     public static function UpdateHoliday($id,$up_by,$title,$kh_title,$date,$description,$s_date,$e_date){
-        $sql= "SELECT public.update_hr_attendance_holiday($id,$up_by,'$title','$kh_title','$description','$s_date','$e_date')";
+         $holiday=str_replace("'","''",$title);
+        $sql= "SELECT public.update_hr_attendance_holiday($id,$up_by,'$holiday','$kh_title','$description','$s_date','$e_date')";
         $stm=DB::select($sql);
         if($stm[0]->update_hr_attendance_holiday>0){
             return "Holiday Update Successfully";
