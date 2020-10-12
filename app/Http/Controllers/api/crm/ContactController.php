@@ -46,10 +46,12 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        $create_by = $_SESSION['userid'];
+        // if (session_status() == PHP_SESSION_NONE) {
+        //     session_start();
+        // }
+        // $create_by = $_SESSION['userid'];
+
+        $createby = $request->input('create_by');
         if($request->isMethod('put')){
             try { 
                 $results = DB::select(

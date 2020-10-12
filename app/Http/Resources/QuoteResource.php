@@ -9,6 +9,7 @@ use App\model\api\crm\ModelCrmQuoteStatus as QuoteStatus;
 use App\model\api\crm\ModelCrmQuoteStatusType as QuoteStatusType;
 use App\model\api\crm\Crmlead as Crmlead;
 use App\model\api\crm\ModelCrmQuoteBranchDetail as QuoteBranchDetail;
+use App\model\api\crm\CrmLeadAddress as Address;
 use App\Http\Resources\api\crm\lead\GetLead;
 use DB;
 class QuoteResource extends JsonResource
@@ -22,6 +23,7 @@ class QuoteResource extends JsonResource
     public function toArray($request)
     {
         
+        //get name assign to and createby
         $assign =User::find($this->assign_to,[
             'id',
             'first_name_en'
@@ -31,6 +33,9 @@ class QuoteResource extends JsonResource
             'id',
             'first_name_en'
         ]);
+
+        //get address name
+        $addr = Address::find($this->crm_lead_address_id);
 
 
         //get stock
@@ -64,7 +69,7 @@ class QuoteResource extends JsonResource
             array_push($acknowlegde,$pre);
         }
 
-        // return $quoteBranch;
+        
         //find lead by id 
         $lead = DB::select("select * from crm_lead where id = $this->crm_lead_id");
         
@@ -78,7 +83,7 @@ class QuoteResource extends JsonResource
             "quote_stage"=> $quoteStage,
             "assign_to"=> $assign,
             "subject"=> $this->subject,
-            "crm_lead_address_id"=> $this->crm_lead_address_id,
+            "address"=>$addr,
             "create_date"=> $this->create_date,
             "acknowlegde_by"=>$acknowlegde,
             "create_by"=> $createby

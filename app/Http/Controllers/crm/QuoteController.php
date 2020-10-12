@@ -104,23 +104,32 @@ class QuoteController extends Controller
     //function to save quote data to database
     public static function saveQuote(Request $request){
 
-            $validator = \Validator::make($request->all(),[
-                'organiz_id' =>  [ 'required' ],
-                'getLeadBranchId' =>  ['required'],
-                'assign_to' =>  ['required'],
-                'qutValidate' =>  ['required'],
-                'addressDetailId' =>  ['required'],
-                'assign_to' =>  ['required'],
-                'assign_to' =>  ['required'],
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $byID = $_SESSION['userid'];
 
-                
-                
+            $validator = \Validator::make($request->all(),[
+
+                    'subject_name' =>  ['required'],
+                    'organiz_name' =>  [ 'required' ],
+                    'getLeadBranch' =>  ['required'],
+                    'assign_to' =>  ['required'],
+                    'qutValidate' =>  ['required'],
+                    'addressDetailId' =>  ['required'],
+                    'addQuoteComment' =>  ['required'],
+
                 ],
                 [
-                    'organiz_id.required' => 'This Field is require !!',   //massage validator
-                    'getLeadBranchId.required' => 'This Field is require !!',   //massage validator
+                    'subject_name.required' => 'This Field is require !!',   //massage validator
+                    'organiz_name.required' => 'This Field is require !!',   //massage validator
+                    'getLeadBranch.required' => 'This Field is require !!',   //massage validator
                     'assign_to.required' => 'This Field is require !!',   //massage validator
+                    'qutValidate.required' => 'This Field is require !!',   //massage validator
+                    'addressDetailId.required' => 'This Field is require !!',   //massage validator
+                    'addQuoteComment.required' => 'This Field is require !!',   //massage validator
                 ]
+
             );
 
             if ($validator->fails()) //check validator for fail

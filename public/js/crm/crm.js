@@ -14,6 +14,7 @@
     // }
     // Function Insert And Update CRM is amazing
     function CrmSubmitFormFull(form,url,goto,alert){
+
         $("#"+form+" input").removeClass("is-invalid");//remove all error message
         $("#"+form+" select").removeClass("is-invalid");//remove all error message
         $("#"+form+" textarea").removeClass("is-invalid");//remove all error message
@@ -561,7 +562,7 @@
     $(document).on('click','#clickGetBranch', function(){
         var lead_id = $('#organiz_id').val();
         if(lead_id != ""){
-            // getShowPopup('/quote/add/listQuoteBranch',lead_id,'modal-list-quote','listQuoteBranch','tblQuuteBranch','getSelectRow','branchKhName','getLeadBranchId','getLeadBranchName');
+            // getShowPopup('/quote/add/listQuoteBranch',lead_id,'modal-list-quote','listQuoteBranch','tblQuuteBranch','getSelectRow','branchKhName','getLeadBranchId','getLeadBranch');
             var id_ = "id="+lead_id;
             var url= '/quote/add/listQuoteBranch';
             var x=new XMLHttpRequest();
@@ -602,7 +603,7 @@
                             var village = $.trim($('#brdvillage_'+lead_id+'').val());
 
                             //send value to textbox
-                            $('#getLeadBranchName').val(branchNameEn);
+                            $('#getLeadBranch').val(branchNameEn);
                             $("#homeEN").val(home_en);
                             $("#homeKH").val(home_kh);
                             $("#streetEN").val(street_en);
@@ -639,7 +640,12 @@
 
     //function to add qoute data to database
     $(document).on('click','#btnQuoteSave',function(){
-          alert('hiii');
+
+          $("#frm_addQuote input").removeClass("is-invalid");//remove all error message
+          $("#frm_addQuote select").removeClass("is-invalid");//remove all error message
+          $("#frm_addQuote textarea").removeClass("is-invalid");//remove all error message
+          $("#frm_addQuote radio").removeClass("is-invalid");//remove all error message
+          
           $.ajax({
               type: 'POST',
               url: '/quote/save',
@@ -649,11 +655,25 @@
               data: 
                 $('#frm_addQuote').serialize(),
 
-              success: function(response) {
-                  console.log(response);
+              success:function(data)
+              {
+
+                   console.log(data);
+
+                  if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+                    sweetalert('success',alert);
+                    // go_to(goto);// refresh content 
+                  }else{ 
+                    $.each( data.errors, function( key, value ) {//foreach show error
+                        $("#" + key).addClass("is-invalid"); //give read border to input field
+                        $("#" + key + "_Error").children("strong").text("").text(data.errors[key][0]);
+                        $("#" + key + "_Error").addClass("invalid-feedback");
+
+                    });
+                  }
               },
-              error: function(response) {
-                  console.log(response);
+              error: function(data) {
+                  // console.log(data);
               }
           });
     });
