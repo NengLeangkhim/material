@@ -16,7 +16,7 @@
 
     <link rel="stylesheet" href="css/animate.css">
     
-    <title>Turbotech System</title>
+    <title>Turbotech System UAT</title>
     <style>
         .material-half-bg{
             background-image: url("images/company_logo.png");/*OBBPNP0*/

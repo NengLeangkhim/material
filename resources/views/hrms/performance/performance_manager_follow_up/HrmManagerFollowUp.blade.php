@@ -13,7 +13,7 @@
                <!-- /.card-header -->
                <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="tbl_manager_follow_up">
+                        <table class="table table-bordered display nowrap" style="width: 100%" id="tbl_manager_follow_up">
                             <thead>                  
                               <tr>
                                 <th scope="col">#</th>
@@ -75,7 +75,9 @@
       $(document).ready(
           function(){
              // getTable('productlist','id');
-              $('#tbl_manager_follow_up').DataTable();
+              $('#tbl_manager_follow_up').DataTable({
+                scrollX: true
+              });
           }
       );
     </script>

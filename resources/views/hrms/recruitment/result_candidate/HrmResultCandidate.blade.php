@@ -13,7 +13,7 @@
                <!-- /.card-header -->
                <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="hrm_result_candidate">
+                        <table class="table table-bordered display nowrap" style="width: 100%" id="hrm_result_candidate">
                         <thead>                  
                             <tr>
                                 <th scope="col">#</th>
@@ -72,7 +72,9 @@
     <script type='text/javascript'>
      $(document).ready(
          function(){
-             $('#hrm_result_candidate').DataTable();
+             $('#hrm_result_candidate').DataTable({
+                 scrollX:true
+             });
          }
      );
    </script>

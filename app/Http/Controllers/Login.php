@@ -27,6 +27,9 @@ class Login extends Controller
             }else{
                 return view('login',['message'=>'Permission Denied!','old'=>$request->username]);
             }
+        } else if($result->getStatusCode() == 403){
+            // User status = false or isDeleted = true
+            return view('login',['message'=>'BLOCKED!','old'=>$request->username]);
         } else {
             return view('login',['message'=>'Wrong Username and Password','old'=>$request->username]);
         }
