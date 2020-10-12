@@ -26,7 +26,8 @@ class Holiday extends Model
 
     // insert holiday
     public static function InsertHoliday($title,$khmertitle,$date,$description,$start_date,$end_date,$up_by){
-        $sql= "SELECT public.insert_hr_attendance_holiday('$title','$khmertitle','$description','$start_date','$end_date',$up_by)";
+        $holiday=str_replace("'","''",$title);
+        $sql= "SELECT public.insert_hr_attendance_holiday('$holiday','$khmertitle','$description','$start_date','$end_date',$up_by)";
         $stm=DB::select($sql);
         if($stm[0]->insert_hr_attendance_holiday>0){
             return "Holiday Insert Successfully !";
