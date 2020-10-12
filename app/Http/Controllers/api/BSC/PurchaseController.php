@@ -18,8 +18,9 @@ class PurchaseController extends Controller
     {
         
         $purchases = DB::table('bsc_invoice')
-        ->select('bsc_invoice.*','ma_supplier.name as supplier_name')
+        ->select('bsc_invoice.*','ma_supplier.name as supplier_name','bsc_payment.amount_paid','bsc_payment.date_paid','bsc_payment.due_amount')
         ->leftJoin('ma_supplier','bsc_invoice.ma_supplier_id','=','ma_supplier.id')
+        ->leftJoin('bsc_payment','bsc_invoice.id','=','bsc_payment.bsc_invoice_id')
         ->where([
             ['bsc_invoice.invoice_type','=','purchase'],
             ['bsc_invoice.status','=','t'],
