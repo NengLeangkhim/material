@@ -46,38 +46,38 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <div class="row">
+
+                                            <div class="col-md-6">
+                                                <label for="exampleInputEmail1">Subject Name<b style="color:red">*</b></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="subject_name"  name="subject_name"   placeholder="" required >
+                                                    <span id="subject_name_Error" ><strong></strong></span>
+                                                </div>
+                                            </div>
+
+
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Organization Name<b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" id="organiz_name"  name="organiz_name"  value=""  placeholder="Select Lead" required disabled>
-                                                    <input type="hidden" id="organiz_id" name="organiz_id" value="">
+                                                    <input type="text" class="form-control" id="organiz_name"  name="organiz_name"   placeholder="Select Lead" required  readonly>
                                                     <div class="input-group-prepend" align="right">
                                                         <a href="javascript:void(0);" class="btn btn-info" onclick="getShowPopup('/quote/add/listQuoteLead',1,'modal-list-quote','listQuoteLead','tblQuuteLead','getSelectRow','leadEnName','organiz_id','organiz_name');" ><i class="glyphicon glyphicon-plus"></i></a>
                                                     
                                                     </div>
+                                                    <input type="hidden" id="organiz_id" name="organiz_id" >
+                                                    <span id="organiz_name_Error" ><strong></strong></span>
                                                 </div>
       
                                             </div>
 
 
-                                            <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Lead Branch <b style="color:red">*</b></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-building"></i></span>
-                                                    </div>
-                                                    <input type="text" class="form-control" id="getLeadBranchName"  name="getLeadBranch"  value=""  placeholder="Select Branch" required disabled>
-                                                    <input type="hidden" id="getLeadBranchId"  name="getLeadBranchId" value="">
-                                                    <div class="input-group-prepend" align="right">
-                                                        <a href="javascript:void(0);" class="btn btn-info" id="clickGetBranch"  ><i class="glyphicon glyphicon-plus"></i></a>
-                                                    </div>
-                                                    
 
-                                                </div>
-                                            </div>
 
 
 
@@ -85,6 +85,22 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
+
+                                            <div class="col-md-6">
+                                                <label for="exampleInputEmail1">Lead Branch <b style="color:red">*</b></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="getLeadBranch"  name="getLeadBranch"  value=""  placeholder="Select Branch" required readonly>
+                                                    <div class="input-group-prepend" align="right">
+                                                        <a href="javascript:void(0);" class="btn btn-info" id="clickGetBranch"  ><i class="glyphicon glyphicon-plus"></i></a>
+                                                    </div>
+                                                    <input type="hidden" id="getLeadBranchId"  name="getLeadBranchId" value="">
+                                                    <span id="getLeadBranch_Error" ><strong></strong></span>
+
+                                                </div>
+                                            </div>
 
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Status </label>
@@ -93,13 +109,21 @@
                                                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                                     </div>
                                                     {{-- Select active & Inactive Organization --}}
-                                                    <select  class="form-control" name="qutStatus">
+                                                    <select  class="form-control" name="qutStatus" id="qutStatus">
                                                         <option>Active</option>
                                                         <option>Inactive</option>
                                                     </select>
+                                                    <span id="qutStatus_Error" ><strong></strong></span>
                                                 </div>
                                             </div>
 
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
 
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Validation<b style="color:red">*</b></label>
@@ -108,13 +132,13 @@
                                                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                     </div>
                                                     <input type="date" class="form-control"  name="qutValidate" id="qutValidate" placeholder="Selete Date">
+                                                    <span id="qutValidate_Error" ><strong></strong></span>
+                                                    
                                                 </div>
                                             </div>
 
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
+
+
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Assign To <b style="color:red">*</b></label>
                                                 <div class="input-group">
@@ -122,21 +146,33 @@
                                                         <span class="input-group-text"><i class='fas fa-pen-square'></i></span>
                                                     </div>
                                                     <input type="text" class="form-control"  name="assign_to" id="assign_to" placeholder="Assign To">
+                                                    <span id="assign_to_Error" ><strong></strong></span>
 
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Comment</label>
+        
+
+                                        </div>
+                                    </div>       
+                                    
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="exampleInputEmail1">Comment <b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="far fa-comment-alt"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" name="addQuoteComment" placeholder="Comment here...">
+                                                    <textarea rows="3" class="form-control" name="addQuoteComment" id="addQuoteComment" placeholder="Comment here..." required></textarea>
+                                                    <span id="addQuoteComment_Error" ><strong></strong></span>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>                               
+                                    </div>
+
+
                                 </div>  
                         </div>
                         <div class="card card-primary">
@@ -153,8 +189,10 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                     </div>
-                                                    <input type="hidden" name="addressDetailId" value="" disabled>
-                                                    <input type="text" class="form-control"  name='homeEN' id="homeEN" placeholder="Number of home" disabled  >    
+                                                    <input type="hidden" name="addressDetailId" value=""  disabled>
+                                                    <input type="text" class="form-control"  name='homeEN' id="homeEN" placeholder="Number of home"  disabled  >    
+                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -163,13 +201,9 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-city"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" id="address_city" name="address_city" disabled required>
-                                                    {{-- <select class="form-control select2 city"  id="address_city" name="address_city" onchange="getbranch(this,'idistrict','s','/district')" >
-                                                        <option></option>
-                                                        @foreach($province as $row )
-                                                            <option value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option> 
-                                                        @endforeach
-                                                    </select>      --}}
+                                                    <input type="text" class="form-control" id="address_city" name="address_city"  disabled required>
+                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -185,7 +219,9 @@
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                             </div>
-                                                            <input type="text" class="form-control"  name='streetEN' id="streetEN" placeholder="Number of street" disabled >    
+                                                            <input type="text" class="form-control"  name='streetEN' id="streetEN" placeholder="Number of street"  disabled >    
+                                                            <span id="addressDetailId_Error" ><strong></strong></span>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -197,7 +233,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" id="district" name="district" disabled required>
+                                                    <input type="text" class="form-control" id="district" name="district"  disabled required>
+                                                    <span id="addressDetailId_Error" ><strong></strong></span>
 
                                                 </div>                                                
                                             </div>
@@ -211,7 +248,9 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name='homeKH' id="homeKH" placeholder="Number of home" disabled>    
+                                                    <input type="text" class="form-control"  name='homeKH' id="homeKH" placeholder="Number of home"  disabled>    
+                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+                                                    
                                                 </div>
                                             </div>
                                            
@@ -221,7 +260,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-street-view"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" id="commune" name="commune" disabled required>
+                                                    <input type="text" class="form-control" id="commune" name="commune"  disabled required>
+                                                    <span id="addressDetailId_Error" ><strong></strong></span>
       
                                                 </div> 
                                             </div>
@@ -235,7 +275,9 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name='streetKH' id="streetKH" placeholder="Number of street" disabled >    
+                                                    <input type="text" class="form-control"  name='streetKH' id="streetKH" placeholder="Number of street"  disabled >    
+                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -244,7 +286,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" id="village" name="village" disabled required>
+                                                    <input type="text" class="form-control" id="village" name="village"  disabled required>
+                                                    <span id="addressDetailId_Error" ><strong></strong></span>
                                                     
                                                 </div> 
                                                 
@@ -326,7 +369,7 @@
                         </div>
                         
                         <div class="card-footer">
-                            <button type="button" class="btn btn-primary save"  id="btnQuoteSave">Save</button>
+                            <a href="#" class="btn btn-primary save"  id="btnQuoteSave">Save</a>
                             <button type="button" class="btn btn-danger" onclick="go_to('/quote')">Cencel</button>
                         </div>       
                     </form>

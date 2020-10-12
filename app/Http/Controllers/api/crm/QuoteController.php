@@ -128,7 +128,7 @@ class QuoteController extends Controller
 
                 //get product count
                 $all_product = count(collect($request)->get('product'));
-
+                
                 for ($i = 0; $i < $all_product; $i++)
                 {
                     DB::select(
