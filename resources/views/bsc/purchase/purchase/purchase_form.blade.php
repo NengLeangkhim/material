@@ -20,7 +20,7 @@
                                 <option>Exclusive</option>
                                 <option>Inclusive</option>
                                 <option>Oppa</option>
-                                <option>Other</option>                        
+                                <option>Other</option>
                             </select>
                         </div>
                     </div>
@@ -115,7 +115,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -231,7 +231,7 @@
             var amount = qty * tr.find('.item_unit_price').text();
             tr.find('.item_amount').text(amount);
             showTotal();
-            
+
         });
         $("#purchase_table tbody").delegate('.item_unit_price','keyup',function(){
             tr=$(this).closest('tr');
@@ -239,9 +239,9 @@
             var amount = price * tr.find('.item_qty').text();
             tr.find('.item_amount').text(amount);
             showTotal();
-            
+
         });
-        
+
     });
 
     function showTotal(){
@@ -254,7 +254,7 @@
         document.getElementById('txtTotal').innerHTML=total_amount;
     }
 
-    function inSertTable(count){ 
+    function inSertTable(count){
         var tr = '';
         tr +='<tr id="row'+count+'">'+
                 '<td contenteditable="true" id="txt_name" class="item_name" data-id="'+count+'"></td>'+
@@ -262,11 +262,11 @@
                 '<td contenteditable="true" class="item_qty"></td>'+
                 '<td contenteditable="true" class="item_unit_price"></td>'+
                 '<td contenteditable="true" class="item_account"></td>'+
-                '<td contenteditable="true" class="item_tax"></td>'+
+                '<td style="padding:0 0"><select style="border: 0px; outline: 0px;-webkit-appearance: none;" class="form-control"><option>0%</option><option>10%</option></select></td>'+
                 '<td class="item_amount" id="item_amount"></td>'+
                 '<td style="text-align: center;"><button type="button" name="remove" data-row="row'+count+'" class="btn btn-danger btn-xs remove">x</button></td>'+
-            '</tr>'; 
+            '</tr>';
         $('#purchase_table tbody').append(tr);
     }
-    
+
 </script>

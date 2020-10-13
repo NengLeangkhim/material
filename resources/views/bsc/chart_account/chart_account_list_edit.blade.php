@@ -53,7 +53,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" value="{{ $ch_account_by_ids->code }}" name="code" id="code" placeholder="Code" required="">
+                                            <input type="text" class="form-control" value="{{ $ch_account_by_ids->code }}" name="code" id="code" placeholder="Code" readonly>
                                         </div>
                                      </div>
                                 </div>
@@ -107,7 +107,7 @@
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
                                             <select class="form-control select2" name="parent_id" id="parent_id">
-                                                <option value="">select item</option>
+                                                <option value="null">select item</option>
                                                 @foreach ($ch_accounts as $ch_account)
                                                     <option
                                                         @if ($ch_account->id == $ch_account_by_ids->parent_id)
@@ -157,6 +157,4 @@
     $("#frm_btn_sub_update_chart_account").click(function(){
         submit_form ('/bsc_chart_account_form_edit','frm_chart_account','bsc_chart_account_list');
     });
-
-
 </script>

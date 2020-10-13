@@ -21,7 +21,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="col-12">
-                            <div class="row">
+                            <div class="row​ margin_left">
                                 <a  href="#" class="btn btn-success btn-sm chart_account" ​value="bsc_chart_account_form" id="chart_account"><i class="fas fa-plus"></i> Add Account</a>&nbsp;
                                 <a  href="#" class="btn btn-success btn-sm chart_account" ​value="bsc_chart_account_form" id="chart_account"><i class="far fa-file-excel"></i> Import</a>&nbsp;
                                 <a  href="#" class="btn btn-success btn-sm chart_account" ​value="bsc_chart_account_form" id="chart_account"><i class="far fa-file-excel"></i> Export</a>
@@ -71,8 +71,8 @@
                                                             <td>{{ $item->name_en }}</td>
                                                             <td>{{ $item->account_type_name }}</td>
                                                             <td style="text-align-last: center">
-                                                                <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
                                                                 {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
                                                             </td>
                                                         </tr>
@@ -106,8 +106,8 @@
                                                                             <td>{{ $item->name_en }}</td>
                                                                             <td>{{ $item->account_type_name }}</td>
                                                                             <td style="text-align-last: center">
-                                                                                <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
                                                                                 {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
                                                                             </td>
                                                                         </tr>
@@ -145,8 +145,8 @@
                                                                             <td>{{ $item->name_en }}</td>
                                                                             <td>{{ $item->account_type_name }}</td>
                                                                             <td style="text-align-last: center">
-                                                                                <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
                                                                                 {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
                                                                             </td>
                                                                         </tr>
@@ -184,8 +184,8 @@
                                                                             <td>{{ $item->name_en }}</td>
                                                                             <td>{{ $item->account_type_name }}</td>
                                                                             <td style="text-align-last: center">
-                                                                                <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
                                                                                 {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
                                                                             </td>
                                                                         </tr>
@@ -223,8 +223,8 @@
                                                                             <td>{{ $item->name_en }}</td>
                                                                             <td>{{ $item->account_type_name }}</td>
                                                                             <td style="text-align-last: center">
-                                                                                <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
                                                                                 {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
                                                                             </td>
                                                                         </tr>
@@ -262,8 +262,8 @@
                                                                             <td>{{ $item->name_en }}</td>
                                                                             <td>{{ $item->account_type_name }}</td>
                                                                             <td style="text-align-last: center">
-                                                                                <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
                                                                                 {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
                                                                             </td>
                                                                         </tr>
@@ -298,9 +298,9 @@
                                                                     <td>TT-001</td>
                                                                     <td>Touch Rith</td>
                                                                     <td>Call</td>
-                                                                    <td class="td_text_center">
-                                                                        <a title="Edit" href="javascript:;"​ onclick="go_to('bsc_chart_account_list_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                        <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                    <td style="text-align-last: center">
+                                                                        <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                        <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
                                                                         {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
                                                                     </td>
                                                                 </tr>
@@ -363,6 +363,12 @@
         // });
 
     });
+    // Delete chart account
+        function ch_account_delete(id){
+            alert(id);
+        }
+
+
     $('.chart_account').click(function(e)
     {
         var ld = $(this).attr("​value");

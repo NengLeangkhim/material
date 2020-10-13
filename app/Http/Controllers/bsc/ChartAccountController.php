@@ -82,7 +82,7 @@ class ChartAccountController extends Controller
             if(perms::check_perm_module('BSC_0303')){
                 $request = Request::create('api/bsc_chart_accounts', 'POST');
                 $instance = Route::dispatch($request);
-                return $instance;
+                echo "Add success";
             }else{
                 return view('no_perms');
             }
@@ -144,7 +144,23 @@ class ChartAccountController extends Controller
             if(perms::check_perm_module('BSC_0303')){
                 $request = Request::create('api/bsc_chart_accounts/'.$id, 'PUT');
                 $instance = Route::dispatch($request);
-                return $instance;
+                echo "Success";
+            }else{
+                return view('no_perm');
+            }
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit;
+        }
+    }
+    public function ch_account_delete()
+    {
+        $id=$_GET['id'];
+        try{
+            if(perms::check_perm_module('BSC_0303')){
+                $request = Request::create('api/bsc_chart_accounts/'.$id, 'DELETE');
+                $instance = Route::dispatch($request);
+                echo "Delete Success";
             }else{
                 return view('no_perm');
             }

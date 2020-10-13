@@ -117,3 +117,6 @@
 {{--------------------------CRM---------------------}}
 <script type="text/javascript" src="js/crm/crm.js"></script>
 
+{{-- ---------------------bsc-------------- --}}
+<script src="js/bsc/bsc.js"></script>
+
