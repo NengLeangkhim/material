@@ -183,6 +183,9 @@ function staff_promote_history_detail(id,i){
             if(this.readyState==4 && this.status==200){
                 document.getElementById('prmote_modal_id').innerHTML=this.responseText;
                 $('#shift_view_history_detail').modal('show');
+                let table = $('#tbl_shifthistory').DataTable({
+                    select: true,
+                }); 
             }
         }
         x.open("GET", url + "?"+ s + "&" + m, true);
@@ -211,11 +214,13 @@ function get_shift_report(from,to){
                  _from:from,
                  _to:to,
              },
-     success: function(data){
+        success: function(data){
         
-             document.getElementById("report_promote").innerHTML = data; 
-              
-     }
+            document.getElementById("report_promote").innerHTML = data; 
+            let table = $('#tbl_showreport').DataTable({
+                select: true,
+            }); 
+        }
      });
 
 

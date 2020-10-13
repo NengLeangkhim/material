@@ -38,13 +38,15 @@
                                         {
                                             foreach($shift_promoteByID as $key=>$val)
                                             {   
+                                                $date = date_create($val->create_date);
+                                                $get_date = date_format($date,"Y/M/d H:i:s A");
                                                 echo '
                                                     <tr>
                                                         <th scope="row">'.($i+1).'</th>
                                                         <td>'.$val->first_name_en.' '.$val->last_name_en.'</td>
                                                         <td>'.$val->position.'</td>
                                                         <td>'.$val->salary.'</td>
-                                                        <td>'.$val->create_date.'</td>
+                                                        <td>'.$get_date.'</td>
                                                         <td >
                                                             <a class="btn btn-outline-primary" href="#" onclick="staff_view_promote_detail('.$val->id.')"><i class="fas fa-user-edit"></i>Detail</a>
                                                         </td>

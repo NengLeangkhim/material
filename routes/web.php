@@ -84,6 +84,12 @@ Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quo
 Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get stock product api to view
 Route::get('/quote/add/listService','crm\QuoteController@listService'); // get stock service api to view
 
+Route::get('/quote/add/listQuoteLead','crm\QuoteController@listQuoteLead'); // get organization lead
+Route::get('/quote/add/listQuoteBranch','crm\QuoteController@listQuoteBranch'); // get lead branch
+
+Route::post('/quote/save','crm\QuoteController@saveQuote'); // sumit quote data to database api
+
+
 // end quote
 
 
@@ -91,11 +97,18 @@ Route::get('/quote/add/listService','crm\QuoteController@listService'); // get s
 Route::get('/crmreport','crm\CrmReportController@CrmIndexReport'); // show index report
 Route::get('/crmreport/lead/chart','crm\CrmReportController@GetLeadChart'); // Get Lead Chart
 Route::get('/crmreport/detaillead','crm\CrmReportController@CrmDetailLeadReport'); // show Lead Detail report
+Route::get('/crmreport/contact/chart','crm\CrmReportController@GetContactChart'); // Get Contact Chart
 Route::get('/crmreport/detailcontact','crm\CrmReportController@CrmDetailContactReport'); // show Contact Detail report
+Route::get('/crmreport/organization/chart','crm\CrmReportController@GetOrganizationChart'); // Get Organization Chart
 Route::get('/crmreport/detailorganization','crm\CrmReportController@CrmDetailOrganizationReport'); // show Organization Detail report
+Route::get('/crmreport/quote/chart','crm\CrmReportController@GetQuoteChart'); // Get Quote Chart
 Route::get('/crmreport/detailquote','crm\CrmReportController@CrmDetailQuoteReport'); // show Quote Detail report
 
 // End Report
+
+// Dashboard CRM
+Route::get('/crm/dashboard','crm\DashboardController@Index'); // show index report
+// END Dashboard CRM
 
 
 //===========================END CRM=================================
@@ -956,6 +969,7 @@ Route::get('hrm_recruitment_candidate_logout','hrms\recruitment_user\recruitment
 Route::get('hrm_index_user_register',function(){
     return view('hrms.recruitment_user.index_recruitment_register');
 });
+
 
 // view candidate login
 Route::get('hrm_recruitment_login',function(){

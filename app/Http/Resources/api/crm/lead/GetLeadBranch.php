@@ -17,7 +17,7 @@ class GetLeadBranch extends JsonResource
         return [
             "branch_id"=> $this->branch_id,
             "lead_id"=> $this->lead_id,
-            // "lead_number"=>$this->lead_number,
+            "lead_address_id"=>$this->crm_lead_address_id,
             "company_en"=>$this->name_en_branch,
             "company_kh"=>$this->name_kh_branch,
             "primary_email"=>$this->email_branch,
