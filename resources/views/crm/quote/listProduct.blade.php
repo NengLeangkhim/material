@@ -1,17 +1,19 @@
 
 
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="listQuoteProduct">
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="listQuoteItem">
     <div class="modal-dialog modal-lg" id="confirm_box1">
         <div class="modal-content">
                 <div class=" modal-header text-center">
                     <h4 class="modal-title" id="exampleModalLabel"><b> Add Product </b></h4>
+                    <button type="button" class="close" data-dismiss="modal">x</button>
+
                 </div>
                 <div class=" modal-body ">
 
                     <div class="row pb-3">
                         <div class="col-md-2 col-sm-2 col-4">
-                            <input type="button" class="btn-success getItemProduct" id="{{$row_id}}"  value="Select"> 
+                            <input type="button" class="btn-success getStockItem" id="{{$row_id}}"  value="Select"> 
                         </div> 
                         <div class="col-md-5 col-sm-5 col-4"></div>
                         <div class="col-md-5 col-sm-5 col-4">
@@ -46,33 +48,33 @@
                                                 <td class="border">
                                                     <input type="hidden" id="showItemType_{{$row_id}}" value="Product"> 
                                                     <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" id="checkbox_{{$key2}}"  class="custom-control-input productSelect"  value="{{$val2->id}}" name="seleteItem">
+                                                        <input type="checkbox" id="checkbox_{{$key2}}"  class="custom-control-input "  value="{{$val2->id}}" name="seleteItem">
                                                         <label class="custom-control-label" for="checkbox_{{$key2}}"></label>
                                                     </div>
                                                 </td>
                                                 <td class="border">
-                                                    <div id="productName_{{$row_id}}"  class="productName_{{$val2->id}}" >
+                                                    <div id="itemName_{{$row_id}}"  class="itemName_{{$val2->id}}" >
                                                         {{$val2->name}}
                                                     </div>
                                                 </td>
                                                 <td class="border">
-                                                    <div class="productPartNumber_{{$val2->id}}">
+                                                    <div class="itemPartNumber_{{$val2->id}}">
                                                         {{$val2->part_number}}
                                                     </div>
                                                 </td>
                                                 <td class="border">
-                                                    <div class="productPrice_{{$val2->id}}">
+                                                    <div class="itemPrice_{{$val2->id}}">
                                                         {{$val2->product_price}}
                                                     </div>
                                                 </td>
 
                                                 <td class="border">
-                                                    <div class="stockProduct_{{$val2->id}}">
+                                                    <div class="stockItem_{{$val2->id}}">
                                                         {{$val2->stock_qty}}
                                                     </div>
                                                 </td>
                                                 <td class="border">
-                                                    <div class="productDescription_{{$val2->id}}">
+                                                    <div class="itemDescription_{{$val2->id}}">
                                                         {{$val2->description}}
                                                     </div>
                                                 </td>

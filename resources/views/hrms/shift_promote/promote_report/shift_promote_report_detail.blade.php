@@ -44,7 +44,11 @@
                           <div class="form-group">
                               <label for="exampleInputEmail1">Approved Date  
                               </label>
-                              <input type="text" class="form-control" value="<?php echo $report_detail['0']->create_date; ?> " readonly>
+                              <input type="text" class="form-control" value="<?php 
+                                    $date = date_create($report_detail['0']->create_date);
+                                    $approve_date = date_format($date,"Y/M/d H:i:s A");
+                                    echo $approve_date; 
+                                    ?> " readonly>
                           </div>
                           
                   </div>

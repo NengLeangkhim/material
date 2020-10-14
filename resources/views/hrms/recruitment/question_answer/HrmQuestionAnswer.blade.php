@@ -13,7 +13,7 @@
                </div>
                <!-- /.card-header -->
                <div class="card-body">
-                 <table class="table table-bordered" id="question_recruitment">
+                 <table class="table table-bordered display nowrap" style="width: 100%" id="question_recruitment">
                    <thead>                  
                      <tr>
                          <th scope="col">#</th>
@@ -87,7 +87,9 @@
      $(document).ready(
          function(){
             // getTable('productlist','id');
-             $('#question_recruitment').DataTable();
+             $('#question_recruitment').DataTable({
+               scrollX:true
+             });
          }
      );
    </script>

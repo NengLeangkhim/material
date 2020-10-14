@@ -1,6 +1,5 @@
 
 
-
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -23,6 +22,9 @@
                     padding: 0.3rem !important;
                     border-top: none !important;
                 }
+                .dataTables_wrapper .dataTables_paginate .paginate_button{
+                    padding: none ;
+                }
             </style>
         </head>
 
@@ -34,7 +36,7 @@
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-12">
-                    <form id="frm_lead" action="">
+                    <form id="frm_addQuote" action="POST">
                         @csrf
                         <!-- general form elements -->
                         <div class="card card-primary">
@@ -44,74 +46,133 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <div class="row">
+
+                                            <div class="col-md-6">
+                                                <label for="exampleInputEmail1">Subject Name<b style="color:red">*</b></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="subject_name"  name="subject_name"   placeholder="" required >
+                                                    <span id="subject_name_Error" ><strong></strong></span>
+                                                </div>
+                                            </div>
+
+
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Organization Name<b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                                        <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="English Name"  name='organiz_name'  required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Status <b style="color:red">*</b></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                                    <input type="text" class="form-control" id="organiz_name"  name="organiz_name"   placeholder="Select Lead" required  readonly>
+                                                    <div class="input-group-prepend" align="right">
+                                                        <a href="javascript:void(0);" class="btn btn-info" onclick="getShowPopup('/quote/add/listQuoteLead',1,'modal-list-quote','listQuoteLead','tblQuuteLead','getSelectRow','leadEnName','organiz_id','organiz_name');" ><i class="glyphicon glyphicon-plus"></i></a>
+                                                    
                                                     </div>
-                                                    {{-- Select active & Inactive Organization --}}
-                                                    <select  class="form-control" name="qutStatus">
-                                                        <option>Active</option>
-                                                        <option>Inactive</option>
-                                                    </select>
+                                                    <input type="hidden" id="organiz_id" name="organiz_id" >
+                                                    <span id="organiz_name_Error" ><strong></strong></span>
                                                 </div>
+      
                                             </div>
+
+
+
+
+
+
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
+
+                                            <div class="col-md-6">
+                                                <label for="exampleInputEmail1">Lead Branch <b style="color:red">*</b></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="getLeadBranch"  name="getLeadBranch"  value=""  placeholder="Select Branch" required readonly>
+                                                    <div class="input-group-prepend" align="right">
+                                                        <a href="javascript:void(0);" class="btn btn-info" id="clickGetBranch"  ><i class="glyphicon glyphicon-plus"></i></a>
+                                                    </div>
+                                                    <input type="hidden" id="getLeadBranchId"  name="getLeadBranchId" value="">
+                                                    <span id="getLeadBranch_Error" ><strong></strong></span>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label for="exampleInputEmail1">Status </label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                                    </div>
+                                                    {{-- Select active & Inactive Organization --}}
+                                                    <select  class="form-control" name="qutStatus" id="qutStatus">
+                                                        <option>Active</option>
+                                                        <option>Inactive</option>
+                                                    </select>
+                                                    <span id="qutStatus_Error" ><strong></strong></span>
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Validation<b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-at"></i></span>
+                                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                     </div>
                                                     <input type="date" class="form-control"  name="qutValidate" id="qutValidate" placeholder="Selete Date">
+                                                    <span id="qutValidate_Error" ><strong></strong></span>
+                                                    
                                                 </div>
                                             </div>
+
+
+
                                             <div class="col-md-6">
+                                                <label for="exampleInputEmail1">Assign To <b style="color:red">*</b></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class='fas fa-pen-square'></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control"  name="assign_to" id="assign_to" placeholder="Assign To">
+                                                    <span id="assign_to_Error" ><strong></strong></span>
+
+                                                </div>
+                                            </div>
+
+        
+
+                                        </div>
+                                    </div>       
+                                    
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
                                                 <label for="exampleInputEmail1">Comment <b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                                        <span class="input-group-text"><i class="far fa-comment-alt"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" name="phone"id="exampleInputEmail1" placeholder="Comment" >
+                                                    <textarea rows="3" class="form-control" name="addQuoteComment" id="addQuoteComment" placeholder="Comment here..." required></textarea>
+                                                    <span id="addQuoteComment_Error" ><strong></strong></span>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Website</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fab fa-chrome"></i></span>
-                                                    </div>
-                                                    <input type="text" class="form-control" name="website" id="exampleInputEmail1" placeholder="Website">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Facebook</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fab fa-facebook"></i></span>
-                                                    </div>
-                                                    <input type="text" class="form-control" name="facebook" id="exampleInputEmail1" placeholder="Facebook">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>                                --}}
+
+
                                 </div>  
                         </div>
                         <div class="card card-primary">
@@ -128,7 +189,10 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name='homeEN' id="exampleInputEmail1" placeholder="Number of home"  >    
+                                                    <input type="hidden" name="addressDetailId" value=""  disabled>
+                                                    <input type="text" class="form-control"  name='homeEN' id="homeEN" placeholder="Number of home"  disabled  >    
+                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -137,12 +201,9 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-city"></i></span>
                                                     </div>
-                                                    <select class="form-control select2 city"  id="icity" name="city" onchange="getbranch(this,'idistrict','s','/district')" >
-                                                        <option></option>
-                                                        @foreach($province as $row )
-                                                            <option value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option> 
-                                                        @endforeach
-                                                    </select>     
+                                                    <input type="text" class="form-control" id="address_city" name="address_city"  disabled required>
+                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -158,7 +219,9 @@
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                             </div>
-                                                            <input type="text" class="form-control"  name='streetEN' id="exampleInputEmail1" placeholder="Number of street"  >    
+                                                            <input type="text" class="form-control"  name='streetEN' id="streetEN" placeholder="Number of street"  disabled >    
+                                                            <span id="addressDetailId_Error" ><strong></strong></span>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -170,9 +233,9 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
                                                     </div>
-                                                    <select class="form-control dynamic" name="district" id="idistrict" onchange="getbranch(this,'icommune','s','/commune')" >
-                                                        <option> </option> 
-                                                    </select>
+                                                    <input type="text" class="form-control" id="district" name="district"  disabled required>
+                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+
                                                 </div>                                                
                                             </div>
                                         </div>
@@ -185,7 +248,9 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name='homeKH' id="exampleInputEmail1" placeholder="Number of home" >    
+                                                    <input type="text" class="form-control"  name='homeKH' id="homeKH" placeholder="Number of home"  disabled>    
+                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+                                                    
                                                 </div>
                                             </div>
                                            
@@ -195,9 +260,9 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-street-view"></i></span>
                                                     </div>
-                                                    <select class="form-control dynamic" name="commune" id="icommune" onchange="getbranch(this,'ivillage','s','/village')" >
-                                                        <option> </option>
-                                                    </select>        
+                                                    <input type="text" class="form-control" id="commune" name="commune"  disabled required>
+                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+      
                                                 </div> 
                                             </div>
                                         </div>
@@ -210,7 +275,9 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name='streetKH' id="exampleInputEmail1" placeholder="Number of street"  >    
+                                                    <input type="text" class="form-control"  name='streetKH' id="streetKH" placeholder="Number of street"  disabled >    
+                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -219,9 +286,9 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
                                                     </div>
-                                                    <select class="form-control " name="village" id="ivillage" dats-dependent="village" >
-                                                        <option>select Village</option>                                                        
-                                                    </select>     
+                                                    <input type="text" class="form-control" id="village" name="village"  disabled required>
+                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+                                                    
                                                 </div> 
                                                 
                                             </div>
@@ -239,7 +306,7 @@
                                     <table class="table table-bordered ">
                                         <thead class="thead-item-list">
                                             <tr>
-                                                <th class="td-item-quote-name">Item Name</th>
+                                                <th class="td-item-quote-name"><b style="color:red">*</b> Item Name</th>
                                                 <th class="td-item-quote">Type</th>
                                                 <th style="width: 120px">Quantity</th>
                                                 <th class="td-item-quote">List Price($)</th>
@@ -302,16 +369,17 @@
                         </div>
                         
                         <div class="card-footer">
-                            <button type="button" class="btn btn-primary save" id="frm_btn_sub_addlead">Save</button>
-                            <button type="button" class="btn btn-danger" onclick="go_to('/organization')">Cencel</button>
+                            <a href="#" class="btn btn-primary save"  id="btnQuoteSave">Save</a>
+                            <button type="button" class="btn btn-danger" onclick="go_to('/quote')">Cencel</button>
                         </div>       
                     </form>
                 </div>
             </div>
         </div>
     </section>
+
     {{-- =================Modal lead source========================= --}}
-    <div class="modal fade" id="modal-info">
+    {{-- <div class="modal fade" id="modal-info">
         <form id="ifrm_source" action="/addleadsource" method="POST">
             @csrf
             <div class="modal-dialog">
@@ -339,7 +407,7 @@
         </form>
         <!-- /.modal-dialog -->
       </div>
-       {{-- =================Modal lead industry========================= --}}
+       <!-- =================Modal lead industry========================= -->
     <div class="modal fade" id="modal-info-industry">
         <form id="ifrm_industry" >
             @csrf
@@ -363,12 +431,12 @@
                 <button type="button" class="btn btn-outline-light save_source" onclick="SubForm('/addleadindustry','ifrm_industry','iindustry')">Save </button>
                 </div>
             </div>
-            <!-- /.modal-content -->
             </div>
         </form>
-        <!-- /.modal-dialog -->
-      </div>
+    </div> --}}
 
+    
+    
     <script type="text/javascript" src="js/crm/crmAddRowQuote.js"></script>
     <script type="text/javascript">
             

@@ -14,12 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(['middleware' => ['jwt.verify']], function() {
+    
+});
+
 /*
 |   GET ROUTES
 */
 
 // get all quotes
+
 Route::get('/quotes','api\crm\QuoteController@index');
+
 
 // get contact by id
 Route::get('/quote/{id}','api\crm\QuoteController@show');
@@ -50,5 +56,3 @@ Route::put('/quote','api\crm\QuoteController@store');
 
 // delete quote
 Route::delete('/quote/{id}','api\crm\QuoteController@destroy');
-
-

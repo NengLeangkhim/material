@@ -72,7 +72,9 @@ class QuoteController extends Controller
                         $request->input('assign_to'),
                         $request->input('crm_lead_address_id'),
                         $request->input('subject'),
-                        $request->input('create_by')
+                        $request->input('create_by'),
+                        $request->input('discount'),
+                        $request->input('discount_type')
                     ));
                 return json_encode(["update"=>"success","result"=>$results]);
             } catch(Exception $e){
@@ -85,14 +87,16 @@ class QuoteController extends Controller
 
                 // insert to crm_quote 
                 $insert_quote = DB::select(
-                    'SELECT public."insert_crm_quote"(?, ?, ?, ?, ?, ?)',
+                    'SELECT public."insert_crm_quote"(?, ?, ?, ?, ?, ?,?,?)',
                     array(
                         $request->input('lead_id'),
                         $request->input('due_date'),
                         $request->input('assign_to'),
                         $request->input('crm_lead_address_id'),
                         $request->input('subject'),
-                        $createby
+                        $createby,
+                        $request->input('discount'),
+                        $request->input('discount_type')
                     ));
 
                 $quote_id =$insert_quote[0]->insert_crm_quote;
@@ -124,7 +128,7 @@ class QuoteController extends Controller
 
                 //get product count
                 $all_product = count(collect($request)->get('product'));
-
+                
                 for ($i = 0; $i < $all_product; $i++)
                 {
                     DB::select(

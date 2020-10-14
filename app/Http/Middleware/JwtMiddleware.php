@@ -23,12 +23,15 @@ class JwtMiddleware extends BaseMiddleware
     {
         try {
             $user = JWTAuth::parseToken()->authenticate();
-        } catch (TokenExpiredException $e){
-            return response()->json(['message'=>'TokenExpiredException '.$e->getMessage()], 400);
-        } catch (TokenInvalidException $e){
-            return response()->json(['message'=>'TokenInvalidException '.$e->getMessage()], 400);
-        } catch (JWTException $e){
-            return response()->json(['message'=>'JWTException '.$e->getMessage()], 400);
+        }
+        // catch (TokenExpiredException $e){
+        //     return response()->json(['message'=>'1. TokenExpiredException '.$e->getMessage()], 400);
+        // }
+        // catch (TokenInvalidException $e){
+        //     return response()->json(['message'=>'2. TokenInvalidException '.$e->getMessage()], 400);
+        // }
+        catch (JWTException $e){
+            return response()->json(['message'=>'3. JWTException '.$e->getMessage()], 400);
         }
         return $next($request);
     }

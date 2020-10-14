@@ -4,7 +4,9 @@ namespace App\Http\Controllers\api;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use App\model\api\UserLoginDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -14,6 +16,12 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
 {
+
+    public function guard()
+    {
+        return Auth::Guard();
+    }
+
     public function authenticate(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -27,6 +35,12 @@ class UserController extends Controller
         }
 
         // return response()->json(compact('token'));
+        $loggedUser = $this->guard()->user();
+        if($loggedUser->is_deleted || !$loggedUser->status || $loggedUser->ma_user_login_is_deleted || !$loggedUser->ma_user_login_status){
+            return response()->json(['message'=>'blocked'], 403);
+        }
+        // save login log
+        UserLoginDetail::saveLoginDetail($loggedUser->id);
         return response()->json(['token'=>$token]);
     }
 
@@ -68,5 +82,16 @@ class UserController extends Controller
             }
 
             return response()->json(compact('user'));
+    }
+
+    public function logout(Request $request)
+    {
+        config([
+            'jwt.blacklist_enabled' => true
+        ]);
+        // \Cookie::forget('token');
+        // Auth::logout();
+        JWTAuth::invalidate(JWTAuth::parseToken());
+        return response()->json(['message' => 'Successfully logged out']);
     }
 }

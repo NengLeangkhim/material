@@ -26,6 +26,10 @@ class ChartAccountController extends Controller
         $chart_accounts = DB::table('bsc_account_charts')
                         ->select('bsc_account_charts.*','bsc_account_type.name_en as account_type_name','bsc_account_type.bsc_account_id')
                         ->leftJoin('bsc_account_type','bsc_account_charts.bsc_account_type_id','=','bsc_account_type.id')
+                        ->where([
+                            ['bsc_account_charts.is_deleted','=','f'],
+                            ['bsc_account_charts.status','=','t']
+                        ])
                         ->get();
         return $this->sendResponse($chart_accounts, 'Chart account retrieved successfully.');
     }
@@ -91,7 +95,11 @@ class ChartAccountController extends Controller
         $chart_account = DB::table('bsc_account_charts')
                         ->select('bsc_account_charts.*','bsc_account_type.name_en as account_type_name','bsc_account_type.bsc_account_id')
                         ->leftJoin('bsc_account_type','bsc_account_charts.bsc_account_type_id','=','bsc_account_type.id')
-                        ->where('bsc_account_charts.id',$id)->first();
+                        ->where([
+                            ['bsc_account_charts.id','=',$id],
+                            ['bsc_account_charts.is_deleted','=','f'],
+                            ['bsc_account_charts.status','=','t']
+                        ])->first();
         return $this->sendResponse($chart_account, 'Chart account retrieved successfully.');
     }
 

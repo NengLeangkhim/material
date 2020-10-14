@@ -21,7 +21,7 @@
                <!-- /.card-header -->
                <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="hrm_policy_list">
+                        <table class="table table-bordered display nowrap" style="width: 100%" id="hrm_policy_list">
                         <thead>                  
                             <tr>
                                 <th scope="col">#</th>
@@ -72,7 +72,9 @@
      $(document).ready(
          function(){
             // getTable('productlist','id');
-             $('#hrm_policy_list').DataTable();
+             $('#hrm_policy_list').DataTable({
+               scrollX: true
+             });
          }
      );
    </script>

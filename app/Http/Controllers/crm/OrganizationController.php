@@ -31,6 +31,7 @@ class OrganizationController extends Controller
         $province=ModelCrmLead::CrmGetLeadProvice();
         return view('crm.Organization.AddOrganization',['contact'=>$contact,'lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province]);
     }
+    
     public function StoreOrganization(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
