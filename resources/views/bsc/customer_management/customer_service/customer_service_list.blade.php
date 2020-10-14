@@ -33,12 +33,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Touch Rith</td>
-                                    <td>Phnom Penh</td>
-                                    <td>ISP</td>
-                                    <td>Approve</td>
-                                </tr>
+                                @foreach ($customer_services as $customer_service)
+                                    <tr>
+                                        <td>{{ $customer_service->customer_name }}</td>
+                                        <td>{{ $customer_service->customer_branch }}</td>
+                                        <td>{{ $customer_service->service_name }}</td>
+                                        <td>{{ $customer_service->service_status }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

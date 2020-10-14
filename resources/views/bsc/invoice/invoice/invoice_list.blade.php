@@ -21,7 +21,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="col-12">
-                            <div class="row" style="padding-left: 30px">
+                            <div class="row margin_left">
                                 <!-- <a  href="#" class="btn btn-block btn-success lead" value="addlead" onclick="addlead()"><i class="fas fa-wrench"></i> Add Lead</a>  -->
                                 <a  href="#" class="btn btn-success invoice_form" ​value="bsc_invoice_invoice_form" id="invoice_form"><i class="fas fa-plus"></i> Add New</a>&nbsp;
                             </div><br/>
@@ -67,8 +67,9 @@
                                                         <td>200$</td>
                                                         <td>2020-10-01</td>
                                                         <td>Aprove</td>
-                                                        <td>
-                                                            <a href="#" onclick="go_to('bsc_invoice_invoice_view')" class="btn btn-block btn-info btn-sm detail" ​value="detaillead" ><i class="fas fa-info-circle"></i></a>
+                                                        <td style="text-align-last: center">
+                                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                            <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data(0,'bsc_invoice_delete','bsc_invoice_invoice_view','Invoice Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -105,8 +106,9 @@
                                                                     <td>2020-10-01</td>
                                                                     <td>200$</td>
                                                                     <td>2020-10-01</td>
-                                                                    <td>
-                                                                        <a href="#" onclick="go_to('bsc_invoice_invoice_view')" class="btn btn-block btn-info btn-sm detail" ​value="detaillead" ><i class="fas fa-info-circle"></i></a>
+                                                                    <td style="text-align-last: center">
+                                                                        <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                        <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data(0,'bsc_invoice_delete','bsc_invoice_invoice_view','Invoice Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -146,8 +148,9 @@
                                                                     <td>2020-10-01</td>
                                                                     <td>200$</td>
                                                                     <td>2020-10-01</td>
-                                                                    <td>
-                                                                        <a href="#" onclick="go_to('bsc_invoice_invoice_view')" class="btn btn-block btn-info btn-sm detail" ​value="detaillead" ><i class="fas fa-info-circle"></i></a>
+                                                                    <td style="text-align-last: center">
+                                                                        <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                        <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data(0,'bsc_invoice_delete','bsc_invoice_invoice_view','Invoice Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
                                                                     </td>
                                                                 </tr>
                                                             </tbody>

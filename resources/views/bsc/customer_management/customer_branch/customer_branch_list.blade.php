@@ -33,14 +33,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Touch Rith</td>
-                                    <td>Phnom Penh</td>
-                                    <td>Phnom Penh</td>
-                                    <td>
-                                        <a id="icon_margin_auto" href="#" class="btn btn-block btn-info btn-sm detail" ​value="customer_branch_detail" ><i class="fas fa-info-circle"></i></a>
-                                    </td>
-                                </tr>
+                                @foreach ($customer_branchs as $item)
+                                    <tr>
+                                        <td>{{ $item->customer_name }}</td>
+                                        <td>{{ $item->branch }}</td>
+                                        <td>{{ $item->lead_address }}</td>
+                                        <td>
+                                            <a id="icon_margin_auto" href="#" class="btn btn-block btn-info btn-sm detail" onclick="go_to('customer_branch_detail/{{ $item->id }}')"><i class="fas fa-info-circle"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

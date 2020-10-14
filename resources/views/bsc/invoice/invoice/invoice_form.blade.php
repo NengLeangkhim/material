@@ -14,12 +14,12 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <select class="form-control select2" name="account_type" required>
+                            <select class="form-control select2" name="account_type" id="accounts" required>
                                 <option selected hidden disabled>select item</option>
-                                <option>Exclusive</option>
-                                <option>Inclusive</option>
-                                <option>Oppa</option>
-                                <option>Other</option>
+                                <option value="1">Exclusive</option>
+                                <option value="2">Inclusive</option>
+                                <option value="3">Oppa</option>
+                                <option value="4">Other</option>
                             </select>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <select class="form-control select2" name="customer" required>
+                                            <select class="form-control select2" name="customer" id="customer" required>
                                                 <option selected hidden disabled>select item</option>
                                                 <option>Exclusive</option>
                                                 <option>Inclusive</option>
@@ -70,7 +70,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <select multiple class="form-control select2" name="customer_branch" required>
+                                            <select class="form-control select2" name="customer_branch" id="customer_branch" required multiple="">
                                                 <option>Exclusive</option>
                                                 <option>Inclusive</option>
                                                 <option>Oppa</option>
@@ -189,7 +189,7 @@
                                                     <label for="">Total : </label>
                                                 </div>
                                                 <div class="col-sm-6 text_right">
-                                                    <label for="" id="txtTotal"></label>
+                                                    <label for="" id="txtTotal">00</label>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -197,7 +197,7 @@
                                                     <label for="">VAT Total : </label>
                                                 </div>
                                                 <div class="col-sm-6 text_right">
-                                                    <label for="">10%</label>
+                                                    <label for="" id="txtVatTotal">00</label>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -205,7 +205,7 @@
                                                     <label for="">Grand Total : </label>
                                                 </div>
                                                 <div class="col-sm-6 text_right">
-                                                    <label for="">1000$</label>
+                                                    <label for="" id="txtGrandTotal">00</label>
                                                 </div>
                                             </div>
                                             <hr class="line_in_tag_hr">
@@ -228,7 +228,7 @@
                                             <hr class="line_in_tag_hr2">
                                             <div class="row">
                                                 <div class="col-sm-6 text_right">
-                                                    <label for="">Amount Due : </label>
+                                                    <strong><label for="">Amount Due : </label></strong>
                                                 </div>
                                                 <div class="col-sm-6 text_right">
                                                     <label for="">1000$</label>
@@ -242,7 +242,7 @@
                             {{-- ============= end detail payment ================= --}}
                             <br>
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary save" id="frm_btn_sub_add_chart_account">Save</button>
+                                <button type="button" class="btn btn-primary save" id="frm_btn_sub_invoice">Save</button>
                                 <button type="button" class="btn btn-danger" onclick="go_to('bsc_chart_account_list')">Cencel</button>
                             </div>
                         </div>
@@ -254,3 +254,23 @@
 </section>
 
 <script src="js/bsc/invoice.js"></script>
+{{-- ========== submit chart account =========== --}}
+<script type="text/javascript">
+    $('#frm_btn_sub_invoice').on('click',function(e){
+        var data=$('#accounts').val();
+        alert(data);exit();
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    $.ajax({
+        url: '/bsc_chart_account_form_add',
+        type: 'POST',
+        data: {_token: CSRF_TOKEN, account_type:account_type,code:code,name_en:name_en,name_kh:name_kh,description:description,parent:parent},
+        dataType: 'JSON',
+        success: function (data) {
+                console.log(data);
+            },
+            error: function (error) {
+            }
+    });
+})
+</script>
+

@@ -72,7 +72,9 @@ class QuoteController extends Controller
                         $request->input('assign_to'),
                         $request->input('crm_lead_address_id'),
                         $request->input('subject'),
-                        $request->input('create_by')
+                        $request->input('create_by'),
+                        $request->input('discount'),
+                        $request->input('discount_type')
                     ));
                 return json_encode(["update"=>"success","result"=>$results]);
             } catch(Exception $e){
@@ -124,17 +126,19 @@ class QuoteController extends Controller
 
                 //get product count
                 $all_product = count(collect($request)->get('product'));
-
+                
                 for ($i = 0; $i < $all_product; $i++)
                 {
                     DB::select(
-                        'SELECT public."insert_crm_quote_branch_detail"(?, ?, ?, ?, ?)',
+                        'SELECT public."insert_crm_quote_branch_detail"(?, ?, ?, ?, ?, ?, ?)',
                         array(
                             $quote_branch_id,
                             $request->product[$i],
                             $request->price[$i],
                             $request->qty[$i],
-                            $createby
+                            $createby,
+                            $request->discount[$i],
+                            $request->discount_type[$i]
                         ));
                 }
 

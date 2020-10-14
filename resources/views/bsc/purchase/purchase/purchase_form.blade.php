@@ -115,7 +115,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -300,7 +300,7 @@
                 '<td class="item_tax" style="padding: 0;"><select style="border: 0px; height: 51px;" class="tax form-control"><option value=""></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
                 '<td class="item_amount" id="item_amount"></td>'+
                 '<td style="text-align: center;"><button type="button" name="remove" data-row="row'+count+'" class="btn btn-danger btn-xs remove">x</button></td>'+
-            '</tr>'; 
+            '</tr>';
         $('#purchase_table tbody').append(tr);
     }
     function saveData(){
