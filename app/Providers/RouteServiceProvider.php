@@ -115,6 +115,12 @@ class RouteServiceProvider extends ServiceProvider
         ->namespace($this->namespace)
         ->group(base_path('routes/stock_api/stock.php'));
 
+
+         // 3. --- BSC API ---
+         Route::prefix('api')
+         ->middleware('api')
+         ->namespace($this->namespace)
+         ->group(base_path('routes/bsc_api/report_balancesheet.php'));
     }
 
 
