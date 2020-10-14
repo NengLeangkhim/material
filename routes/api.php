@@ -43,18 +43,16 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('bsc_show_account_type', 'api\BSC\ChartAccountController@show_account_type');
     Route::get('bsc_show_company', 'api\BSC\ChartAccountController@show_company');
     Route::resource('bsc_purchases', 'api\BSC\PurchaseController');
+
+    // Customers
+    Route::resource('bsc_customers', 'api\BSC\CustomerController');
+    // Customer Branch
+    Route::resource('bsc_customer_branch', 'api\BSC\CustomerBranchController');
+    // Customer service
+    Route::resource('bsc_customer_service','api\BSC\CustomerServiceController');
+    // Customer service detail
+    Route::resource('bsc_customer_service_detail','api\BSC\CustomerServiceDetailController');
 });
-
-
-// Customers
-Route::resource('bsc_customers', 'api\BSC\CustomerController');
-// Customer Branch
-Route::resource('bsc_customer_branch', 'api\BSC\CustomerBranchController');
-// Customer service
-Route::resource('bsc_customer_service','api\BSC\CustomerServiceController');
-// Customer service detail
-Route::resource('bsc_customer_service_detail','api\BSC\CustomerServiceDetailController');
-
 //======================END BSC=========================
 
 

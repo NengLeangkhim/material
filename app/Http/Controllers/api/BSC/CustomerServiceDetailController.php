@@ -147,17 +147,17 @@ class CustomerServiceDetailController extends Controller
      */
     public function destroy(Request $request,$id)
     {
-        // DB::beginTransaction();
-        // try {
+        DB::beginTransaction();
+        try {
 
             $sql="delete_ma_customer_service_detail($id, $request->update_by)";
             $q=DB::select("SELECT ".$sql);
 
-        //     DB::commit();
-        //     return $this->sendResponse($q, 'Customer service detail deleted successfully.');
-        // } catch (\Throwable $th) {
-        //     DB::rollBack();
-        //     return $this->sendError("Try again!");
-        // }
+            DB::commit();
+            return $this->sendResponse($q, 'Customer service detail deleted successfully.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->sendError("Try again!");
+        }
     }
 }

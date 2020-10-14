@@ -13,15 +13,16 @@ class CustomerController extends Controller
     public function customer()
     {
         try{
-            // session_start();
-            // $token = $_SESSION['token'];
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
             $request = Request::create('/api/bsc_customers', 'GET');
             $request->headers->set('Accept', 'application/json');
-            // $request->headers->set('Authorization', 'Bearer '.$token);
+            $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $customer = json_decode($res->getContent()); // convert to json object
             $customers=$customer->data;
-
             return view('bsc.customer_management.customer.customer_list',compact('customers'));
         }catch(Exception $e){
             echo $e->getMessage();
@@ -32,11 +33,13 @@ class CustomerController extends Controller
     public function customer_branch()
     {
         try{
-            // session_start();
-            // $token = $_SESSION['token'];
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
             $request = Request::create('/api/bsc_customer_branch', 'GET');
             $request->headers->set('Accept', 'application/json');
-            // $request->headers->set('Authorization', 'Bearer '.$token);
+            $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $customer_branch = json_decode($res->getContent()); // convert to json object
             $customer_branchs=$customer_branch->data;
@@ -49,11 +52,13 @@ class CustomerController extends Controller
 
     public function customer_branch_detail($id)
     {
-        // session_start();
-        // $token = $_SESSION['token'];
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $token = $_SESSION['token'];
         $request = Request::create('/api/bsc_customer_branch/'.$id, 'GET');
         $request->headers->set('Accept', 'application/json');
-        // $request->headers->set('Authorization', 'Bearer '.$token);
+        $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         $customer_branch = json_decode($res->getContent()); // convert to json object
         $customer_branchs= $customer_branch->data;
@@ -64,11 +69,13 @@ class CustomerController extends Controller
     public function customer_service()
     {
         try{
-            // session_start();
-            // $token = $_SESSION['token'];
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
             $request = Request::create('/api/bsc_customer_service', 'GET');
             $request->headers->set('Accept', 'application/json');
-            // $request->headers->set('Authorization', 'Bearer '.$token);
+            $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $customer_service = json_decode($res->getContent()); // convert to json object
             $customer_services=$customer_service->data;
@@ -83,11 +90,13 @@ class CustomerController extends Controller
     public function customer_service_detail()
     {
         try{
-            // session_start();
-            // $token = $_SESSION['token'];
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
             $request = Request::create('/api/bsc_customer_service_detail', 'GET');
             $request->headers->set('Accept', 'application/json');
-            // $request->headers->set('Authorization', 'Bearer '.$token);
+            $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $customer_service_detail = json_decode($res->getContent()); // convert to json object
             $customer_service_details=$customer_service_detail->data;
@@ -102,7 +111,9 @@ class CustomerController extends Controller
     public function customer_service_detail_edit($id)
     {
         try{
-            session_start();
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
             $token = $_SESSION['token'];
             // customer service data
             $request = Request::create('/api/bsc_customer_service', 'GET');
@@ -119,7 +130,7 @@ class CustomerController extends Controller
             $res = app()->handle($request);
             $customer_service_detail = json_decode($res->getContent()); // convert to json object
             $customer_service_details=$customer_service_detail->data;
-            // var_dump($customer_service_details);exit;
+
             return view('bsc.customer_management.customer_service_detail.customer_service_detail_list_edit',compact('customer_service_details','customer_services'));
         }catch(Exception $e){
             echo $e->getMessage();
@@ -130,7 +141,9 @@ class CustomerController extends Controller
     public function customer_service_detail_add()
     {
         try{
-            session_start();
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
             $token = $_SESSION['token'];
             $request = Request::create('/api/bsc_customer_service', 'GET');
             $request->headers->set('Accept', 'application/json');
