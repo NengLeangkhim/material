@@ -145,7 +145,7 @@ class perms extends Controller
         $id=100;
         foreach ($mo as $item){
             if(!empty($item->parent->link)){
-                if(isset(explode("_", $item->parent->link)[1])&&explode("_", $item->parent->link)[1]=='blank'){
+                if(isset(explode("_", $item->parent->link)[1])&&explode("_", $item->parent->link)[0]=='blank'){
                        $item->parent->link=explode("_", $item->parent->link)[1];
                        $st.= "<li class='nav-item has-treevie'>";
                        $st.= "<a href='{$item->parent->link}' data-id=".$id++." marquee='id' target='_blank' class='nav-link' >";
