@@ -52,8 +52,8 @@ class ChartAccountController extends Controller
      */
     public function store(Request $request)
     {
-        // DB::beginTransaction();
-        // try {
+        DB::beginTransaction();
+        try {
             $input = $request->all();
 
             $validator = Validator::make($input, [
@@ -67,21 +67,16 @@ class ChartAccountController extends Controller
                 return $this->sendError('Validation Error.', $validator->errors());
             }
 
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
-            }
-            $create_by = $_SESSION['userid'];
-
-            $sql="insert_bsc_account_charts($request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, $request->parent_id, $request->code, null, $create_by)";
+            $sql="insert_bsc_account_charts($request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, $request->parent_id, $request->code, null, $request->create_by)";
             $q=DB::select("SELECT ".$sql);
 
-        //     DB::commit();
-        //     return $this->sendResponse($q, 'Chart account created successfully.');
+            DB::commit();
+            return $this->sendResponse($q, 'Chart account created successfully.');
 
-        // } catch (\Throwable $th) {
-        //     DB::rollBack();
-        //     return $this->sendError("Try again!");
-        // }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->sendError("Try again!");
+        }
     }
 
     /**
@@ -137,13 +132,9 @@ class ChartAccountController extends Controller
                 return $this->sendError('Validation Error.', $validator->errors());
             }
 
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
-            }
-            $update_by = $_SESSION['userid'];
             $status = $request->status == null ? 0 : 1;
 
-            $sql="update_bsc_account_charts($id, $update_by, $request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, $request->parent_id, '$status')";
+            $sql="update_bsc_account_charts($id, $request->update_by, $request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, $request->parent_id, '$status')";
             $q=DB::select("SELECT ".$sql);
 
             DB::commit();
@@ -161,16 +152,11 @@ class ChartAccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         DB::beginTransaction();
         try {
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
-            }
-            $update_by = $_SESSION['userid'];
-
-            $sql="delete_bsc_account_charts($id, $update_by)";
+            $sql="delete_bsc_account_charts($id, $request->update_by)";
             $q=DB::select("SELECT ".$sql);
 
             DB::commit();
