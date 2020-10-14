@@ -132,9 +132,7 @@ class ChartAccountController extends Controller
                 return $this->sendError('Validation Error.', $validator->errors());
             }
 
-            $status = $request->status == null ? 0 : 1;
-
-            $sql="update_bsc_account_charts($id, $request->update_by, $request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, $request->parent_id, '$status')";
+            $sql="update_bsc_account_charts($id, $request->update_by, $request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, $request->parent_id, '$request->status')";
             $q=DB::select("SELECT ".$sql);
 
             DB::commit();
