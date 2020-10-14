@@ -330,9 +330,66 @@ class CrmReport extends Model
                     due_date,
                     quote_number,
                     comment,
+                    quote_status_name_en,
+                    quote_status_name_kh,
                     crm_quote_status_create_date
                 FROM view_crm_quote_report '.$condition
             );
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    public function getTotalLead($fromDate = null, $toDate = null){
+        try {
+            $dateCondition = ($fromDate == null && $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $condition = 'WHERE is_deleted = \'f\' AND status = \'t\''.$dateCondition;
+            $result = DB::selectOne('SELECT COUNT(*) AS total_lead FROM crm_lead '.$condition);
+        } catch(QueryException $e){
+            return $e->getMessage();
+        }
+        return $result;
+    }
+
+    public function getTotalBranch($fromDate = null, $toDate = null){
+        try {
+            $dateCondition = ($fromDate == null && $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $condition = 'WHERE is_deleted = \'f\' AND status = \'t\''.$dateCondition;
+            $result = DB::selectOne('SELECT COUNT(*) AS total_branch FROM crm_lead_branch '.$condition);
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    public function getTotalLeadBranchSurvey($fromDate = null, $toDate = null){
+        try {
+            $dateCondition = ($fromDate == null && $toDate == null) ? '' : ' AND cs.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $condition = 'WHERE clb.is_deleted = \'f\' AND clb.status = \'t\' AND cs.is_deleted = \'f\' AND cs.status = \'t\''.$dateCondition;
+            $result = DB::selectOne('SELECT COUNT(*) AS total_lead_branch_survey FROM crm_lead_branch AS clb INNER JOIN crm_survey AS cs on clb.id = cs.crm_lead_branch_id '.$condition);
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    public function getTotalQuote($fromDate = null, $toDate = null){
+        try {
+            $dateCondition = ($fromDate == null && $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $condition = 'WHERE is_deleted = \'f\' AND status = \'t\''.$dateCondition;
+            $result = DB::selectOne('SELECT COUNT(*) AS total_quote FROM crm_quote '.$condition);
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    public function getTotalContact($fromDate = null, $toDate = null){
+        try {
+            $dateCondition = ($fromDate == null && $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $condition = 'WHERE is_deleted = \'f\' AND status = \'t\''.$dateCondition;
+            $result = DB::selectOne('SELECT COUNT(*) AS total_contact FROM crm_lead_contact '.$condition);
         } catch(QueryException $e){
             throw $e;
         }

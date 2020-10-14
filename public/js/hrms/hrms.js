@@ -1,5 +1,8 @@
 // Export Data from database to Excel
     function HRMS_ExportHoliday(){
+        if(check_session()){
+            return;
+        }
         window.location.href = "/hrm_export_holiday";
     }
 // Export Data from database to Excel
@@ -7,7 +10,9 @@
 
 // Delete Data
 function hrm_delete_data(id, route, goto, alerts,permission) {
-
+    if(check_session()){
+      return;
+    }
     $.ajax({
         type: 'GET',
         url: 'hrm_delete_data',
@@ -56,6 +61,9 @@ function hrm_delete_data(id, route, goto, alerts,permission) {
 
 // Show modal
 function HRM_ShowDetail(rout,modalName,id=-1,modal=''){
+    if(check_session()){
+      return;
+    }
     $.ajax({
         type: 'GET',
         url: rout,
@@ -76,6 +84,9 @@ function HRM_ShowDetail(rout,modalName,id=-1,modal=''){
 
 // Show password
 function ShowPassword(){
+    if(check_session()){
+      return;
+    }
     var e=document.getElementById('inputsalary');
     if(e.type=="password"){
         e.type="number";
@@ -86,6 +97,9 @@ function ShowPassword(){
 // All Employee
     // Add modal Employee in View
         function HRM_AddEditEmployee(id=-1){
+            if(check_session()){
+                return;
+            }
             $.ajax({
                 type: 'GET',
                 url: '/hrm_add_edit_employee',
@@ -105,6 +119,9 @@ function ShowPassword(){
     // Start Holiday
         // Add Modal Holiday to view
         function HRM_AddAndEditHoliday(id=-1){
+            if(check_session()){
+                return;
+            }
             $.ajax({
                 type: 'GET',
                 url: '/hrm_add_edit_holiday',
@@ -121,7 +138,9 @@ function ShowPassword(){
     // End Holiday
     //  Attendance
         function HRM_ShowAttendanceByDate(){
-            
+            if(check_session()){
+                return;
+            }
             var date = document.getElementById('attendance_date').value;
 
             if(date.length>0){
@@ -153,6 +172,9 @@ function ShowPassword(){
         }
 
         function HRM_CalculateAttendanceDetail($id){
+            if(check_session()){
+                return;
+            }
             var date1 = document.getElementById('attendance_date1').value;
             var date2 = document.getElementById('attendance_date2').value;
             if(date1.length<=0 || date2.length<=0){
@@ -184,6 +206,9 @@ function ShowPassword(){
     // End Attendance
    // Overtime
         function OvertimeDetail(){
+            if(check_session()){
+                return;
+            }
             var m=document.getElementById('otMonth').value;
             var y=document.getElementById('otYear').value;
             $("#otDetail").html(spinner());
@@ -259,7 +284,9 @@ function HRM_CheckStaffTrain(e,trainid){
     }
     // HR Approve Payroll to Finance
     function HR_Approve_Payroll(id,d_from,d_to,month,e,btn,permission){
-
+        if(check_session()){
+            return;
+        }
         $.ajax({
             type: 'GET',
             url: 'hrm_delete_data',
@@ -348,6 +375,9 @@ function HRM_CheckStaffTrain(e,trainid){
 
     // finace approve payroll
     function HRM_Finance_Approve_Payroll(e,eid){
+        if(check_session()){
+            return;
+        }
         if(confirm("Do you want to approve it ?")){
             $.ajax({
                 type: 'GET',
@@ -369,6 +399,9 @@ function HRM_CheckStaffTrain(e,trainid){
 
     // Search payroll by month and year
     function HRM_SearchPayrollByMonthYear(){
+        if(check_session()){
+            return;
+        }
         $("#search_payroll_moth_year").html(spinner());
         var emonth=document.getElementById('select_month_payroll').value;
         var eyear = document.getElementById('select_year_payroll').value;
@@ -390,6 +423,9 @@ function HRM_CheckStaffTrain(e,trainid){
     }
     // HR delect create payroll
     function DeleteComponent(id,date_from,date_to,for_month,permission){
+        if(check_session()){
+            return;
+        }
         $.ajax({
             type: 'GET',
             url: 'hrm_delete_data',
@@ -465,6 +501,9 @@ function HRM_CheckStaffTrain(e,trainid){
 
     // List Payroll by month and year
     function SearchPayrollByMonthYear(){
+        if(check_session()){
+            return;
+        }
         var year = document.getElementById('select_year').value;
         var month = document.getElementById('select_month').value;
         $("#paroll_by_month").html(spinner());
@@ -486,6 +525,9 @@ function HRM_CheckStaffTrain(e,trainid){
     }
 
     function HRM_Export_Payroll(){
+        if(check_session()){
+            return;
+        }
         var year = document.getElementById('select_year_payroll').value;
         var month = document.getElementById('select_month_payroll').value;
         hrm_export_payroll=1;

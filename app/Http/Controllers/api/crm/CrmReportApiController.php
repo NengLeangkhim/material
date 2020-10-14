@@ -22,7 +22,7 @@ class CrmReportApiController extends Controller
      *
      * @var String
      */
-    protected $queryException = 'SQL Error Syntax';
+    protected $queryException = 'SQL Syntax Error';
 
     /**
      * Initialize Object
@@ -229,6 +229,28 @@ class CrmReportApiController extends Controller
 
         try {
             $result = $this->crmReport->getQuoteDetail($assignTo, $status, $fromDate, $toDate);
+        } catch(QueryException $e){
+            return $this->responseError($this->queryException);
+        }
+        return $this->response($result);
+    }
+
+    function getTotalReport(Request $request){
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+        try {
+            $totalLead = $this->crmReport->getTotalLead($fromDate, $toDate);
+            $totalBranch = $this->crmReport->getTotalBranch($fromDate, $toDate);
+            $totalLeadBranchSurvey = $this->crmReport->getTotalLeadBranchSurvey($fromDate, $toDate);
+            $totalQuote = $this->crmReport->getTotalQuote($fromDate, $toDate);
+            $totalContact = $this->crmReport->getTotalContact($fromDate, $toDate);
+            $result = [
+                'total_lead' => $totalLead->total_lead
+                ,'total_branch' => $totalBranch->total_branch
+                ,'total_lead_branch_survey' => $totalLeadBranchSurvey->total_lead_branch_survey
+                ,'total_quote' => $totalQuote->total_quote
+                ,'total_contact' => $totalContact->total_contact
+            ];
         } catch(QueryException $e){
             return $this->responseError($this->queryException);
         }
