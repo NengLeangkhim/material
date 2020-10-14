@@ -181,14 +181,24 @@ class ChartAccountController extends Controller
             $ma_company_id=$request->ma_company_id;
             $parent_id=$request->parent_id;
             $status=$request->status==null ? 0 : 1;
-            $data=array(
 
+            $data=array(
+                'update_by'=>$create_by,
+                'bsc_account_type_id'=>$bsc_account_type_id,
+                'name_en'=>$name_en,
+                'name_kh'=>$name_kh,
+                'ma_company_id'=>$ma_company_id,
+                'parent_id'=>$parent_id,
+                'status'=>$status
             );
-            exit;
+
             if(perms::check_perm_module('BSC_0303')){
                 $request = Request::create('api/bsc_chart_accounts/'.$id, 'PUT',$data);
-                $instance = Route::dispatch($request);
-                echo "Success";
+                $request->headers->set('Accept', 'application/json');
+                $request->headers->set('Authorization', 'Bearer '.$token);
+                $res = app()->handle($request);
+                $response = json_decode($res->getContent()); // convert to json object
+                echo "Update success";
             }else{
                 return view('no_perm');
             }
@@ -199,12 +209,23 @@ class ChartAccountController extends Controller
     }
     public function ch_account_delete()
     {
-        $id=$_GET['id'];
         try{
+            $id=$_GET['id'];
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+            $update_by = $_SESSION['userid'];
+            $data = array(
+                'update_by'=>$update_by
+            );
+
             if(perms::check_perm_module('BSC_0303')){
-                $request = Request::create('api/bsc_chart_accounts/'.$id, 'DELETE');
-                $instance = Route::dispatch($request);
-                echo "Delete Success";
+                $request = Request::create('api/bsc_chart_accounts/'.$id, 'DELETE',$data);
+                $request->headers->set('Accept', 'application/json');
+                $request->headers->set('Authorization', 'Bearer '.$token);
+                $res = app()->handle($request);
+                echo "Delete success";
             }else{
                 return view('no_perm');
             }
