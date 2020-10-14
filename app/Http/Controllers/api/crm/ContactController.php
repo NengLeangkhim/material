@@ -19,7 +19,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contact = Contact::orderBy('id','asc')->where('is_deleted','f')->paginate(10);
+        $contact = Contact::orderBy('id','asc')->where('is_deleted','f')->get();
         return ContactResource::Collection($contact);
     }
 
