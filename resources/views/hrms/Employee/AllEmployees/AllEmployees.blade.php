@@ -16,13 +16,12 @@
                 @php
                     // print_r($employee);
                 @endphp
-                <table class="table table-bordered" id="tbl_employee" style="width:100%">
+                <table class="table table-bordered" id="tbl_employee" style="white-space:nowrap">
                   <thead>                  
                     <tr>
-                      <th>#</th>
+                      <th>Employee ID</th>
                       <th>Name</th>
                       <th>Khmer Name</th>
-                      <th>Employee ID</th>
                       <th>Mobile</th>
                       <th>Role</th>
                       <th>Action</th>
@@ -34,14 +33,19 @@
                     @endphp
                     @foreach ($employee as $e)
                       <tr>
-                      <th>{{ ++$i }}</th>
-                      
-                      <td><img src="{{$e->image}}" alt="" width="50px" height="50px" style="border-radius:50px;margin-right:10px"> {{ $e->firstName." ".$e->lastName }} </td>
-                      <td style="padding-top:24px "> {{$e->firstNameKh." ".$e->lastNameKh }} </td>
-                      <td style="padding-top:24px ">{{ $e->id_number }}</td>
-                      <td style="padding-top:24px ">{{ $e->contact}}</td>
-                      <td style="padding-top:24px ">{{ $e->position }}</td>
-                        <td style="padding-top:24px ">
+                      <td style="padding-top:37px ">{{ $e->id_number }}</td>
+                      <td>
+                          <div class="text-center">
+                              <img src="https://system.turbotech.com{{$e->image}}" alt="" width="50px" height="50px" style="border-radius:50px;margin-right:10px">
+                          </div>
+                          <div class="text-center">
+                              {{ $e->firstName." ".$e->lastName }}
+                          </div>  
+                      </td>
+                      <td style="padding-top:37px "> {{$e->firstNameKh." ".$e->lastNameKh }} </td>
+                      <td style="padding-top:37px ">{{ $e->contact}}</td>
+                      <td style="padding-top:37px ">{{ $e->position }}</td>
+                        <td style="padding-top:37px ">
                           <div class="row">
                             <div class="col-md-4"><a href="javascript:;" onclick="HRM_AddEditEmployee({{$e->id}})"><i class="far fa-edit"></i></a></div>
                             <div class="col-md-4"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_detail_employee','modal_employee_detail',{{$e->id}})"><i class="fas fa-info"></i></a></div>

@@ -18,12 +18,14 @@
                     if($allshiftByID > 0){
                         $i = 0;
                         foreach ($allshiftByID as $key => $val) {
+                            $date = date_create($val->create_date);
+                            $approve_date = date_format($date,"Y/M/d H:i:s A");
                                 echo '<tr class="row_tb_style">
                                 <th scope="row">'.($i+1).'</th>
                                 <td class="row_tb_style">'.$val->first_name_en.' '.$val->last_name_en.'</td>
                                 <td class="row_tb_style">'.$val->position.'</td>
                                 <td class="row_tb_style">'.$val->salary.'</td>
-                                <td class="row_tb_style">'.$val->create_date.'</td>
+                                <td class="row_tb_style">'.$approve_date.'</td>
                                 <td>
                                     <a class="btn" style="color: blue;"href="javascript:void(0);" onclick="staff_promote_history_detail('.$val->ma_user_id.', '.$i.');">Detail</a>
                                 </td>

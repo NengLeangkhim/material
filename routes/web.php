@@ -84,17 +84,31 @@ Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quo
 Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get stock product api to view
 Route::get('/quote/add/listService','crm\QuoteController@listService'); // get stock service api to view
 
+Route::get('/quote/add/listQuoteLead','crm\QuoteController@listQuoteLead'); // get organization lead
+Route::get('/quote/add/listQuoteBranch','crm\QuoteController@listQuoteBranch'); // get lead branch
+
+Route::post('/quote/save','crm\QuoteController@saveQuote'); // sumit quote data to database api
+
+
 // end quote
 
 
 // Start Report
 Route::get('/crmreport','crm\CrmReportController@CrmIndexReport'); // show index report
+Route::get('/crmreport/lead/chart','crm\CrmReportController@GetLeadChart'); // Get Lead Chart
 Route::get('/crmreport/detaillead','crm\CrmReportController@CrmDetailLeadReport'); // show Lead Detail report
+Route::get('/crmreport/contact/chart','crm\CrmReportController@GetContactChart'); // Get Contact Chart
 Route::get('/crmreport/detailcontact','crm\CrmReportController@CrmDetailContactReport'); // show Contact Detail report
+Route::get('/crmreport/organization/chart','crm\CrmReportController@GetOrganizationChart'); // Get Organization Chart
 Route::get('/crmreport/detailorganization','crm\CrmReportController@CrmDetailOrganizationReport'); // show Organization Detail report
+Route::get('/crmreport/quote/chart','crm\CrmReportController@GetQuoteChart'); // Get Quote Chart
 Route::get('/crmreport/detailquote','crm\CrmReportController@CrmDetailQuoteReport'); // show Quote Detail report
 
 // End Report
+
+// Dashboard CRM
+Route::get('/crm/dashboard','crm\DashboardController@Index'); // show index report
+// END Dashboard CRM
 
 
 //===========================END CRM=================================
@@ -119,6 +133,13 @@ Route::post('update/module','SettingController@update');
 Route::post('access/add','SettingController@add_module_access');
 Route::get('access/json','SettingController@module_access_json');
 Route::post('module/delete','SettingController@delete_module_access');
+
+// leave type
+Route::get('leave_type', 'Setting\LeaveType\LeaveTypeController@leave_type')->name('leave_type');
+Route::get('hrm_modal_leave_type', 'Setting\LeaveType\LeaveTypeController@modal_add_edit_leave_type');
+Route::post('hrm_add_edit_leave_type', 'Setting\LeaveType\LeaveTypeController@add_and_update_leave_type');
+Route::get('hrm_delete_leave_type', 'Setting\LeaveType\LeaveTypeController@delete_leave_type');
+// end leave type
 //refresh select after add
 Route::get('/refreshSel','refreshSelect@refresh_sel');
 //end refresh select after add
@@ -948,6 +969,7 @@ Route::get('hrm_recruitment_candidate_logout','hrms\recruitment_user\recruitment
 Route::get('hrm_index_user_register',function(){
     return view('hrms.recruitment_user.index_recruitment_register');
 });
+
 
 // view candidate login
 Route::get('hrm_recruitment_login',function(){

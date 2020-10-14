@@ -3,115 +3,396 @@
 namespace App\model\api\crm;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 
 class CrmReport extends Model
 {
-    public static function getLeadReportByAssignTo($fromDate = null, $toDate = null){
-        $result = DB::select('
-            SELECT DISTINCT ON (ma_user_id) ma_user_id, COUNT(*) AS total_lead
-            FROM (
-                SELECT DISTINCT ON (crm_lead_branch_id) ma_user_id, create_date
-                FROM crm_lead_assign
-                ORDER BY  crm_lead_branch_id, create_date DESC
-                ) AS first_gens
-            '.(($fromDate == null && $toDate == null ) ? ' ' : 'WHERE create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
-            GROUP BY ma_user_id
-        ');
+    /**
+     * Return Get Lead Report By Assign To Query Result
+     *
+     * @param   String|null $fromDate
+     * @param   String|null $toDate
+     * @return mixed
+     * @throws QueryException $e
+     */
+    public function getLeadReportByAssignTo($fromDate = null, $toDate = null){
+        try {
+            $result = DB::select('
+                SELECT DISTINCT ON (ma_user_id) ma_user_id, COUNT(*) AS total_lead
+                FROM (
+                    SELECT DISTINCT ON (crm_lead_branch_id) ma_user_id, create_date
+                    FROM crm_lead_assign
+                    ORDER BY  crm_lead_branch_id, create_date DESC
+                    ) AS first_gens
+                '.(($fromDate == null && $toDate == null ) ? ' ' : 'WHERE create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
+                GROUP BY ma_user_id
+            ');
+        } catch(QueryException $e){
+            throw $e;
+        }
         return $result;
     }
 
-    public static function getUser($id){
-        return DB::selectOne('
-            SELECT first_name_en, first_name_kh, last_name_en, last_name_kh, contact, id_number, sex, image, office_phone
-            FROM ma_user
-            WHERE id = '.$id.'
-        ');
+    /**
+     * Return Get User Query Result
+     *
+     * @param   Integer $id
+     * @return mixed
+     * @throws QueryException $e
+     */
+    public function getUser($id){
+        try {
+            $result = DB::selectOne('
+                SELECT first_name_en, first_name_kh, last_name_en, last_name_kh, contact, id_number, sex, image, office_phone
+                FROM ma_user
+                WHERE id = '.$id.'
+            ');
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
     }
 
-    public static function getLeadsByAssignTo($userId, $fromDate = null, $toDate = null){
-        return DB::select('
-            SELECT * FROM(
+    /**
+     * Return Get Leads By Assign To Query Result
+     *
+     * @param   Integer $userId
+     * @param   String|null $fromDate
+     * @param   String|null $toDate
+     * @return mixed
+     * @throws QueryException $e
+     */
+    public function getLeadsByAssignTo($userId, $fromDate = null, $toDate = null){
+        try {
+            $result = DB::select('
+                SELECT * FROM(
+                    SELECT
+                        DISTINCT ON (clb.id) clb.id, clb.crm_lead_id, clb.name_en, clb.name_kh, clb.crm_lead_address_id, cla.ma_user_id
+                    FROM crm_lead_branch AS clb
+                        INNER JOIN crm_lead_assign AS cla ON clb.id = cla.crm_lead_branch_id
+                    WHERE clb.is_deleted = \'f\' AND clb.status = \'t\' AND cla.is_deleted = \'f\' AND cla.status = \'t\''.(($toDate == null && $fromDate == null) ? ' ' : 'AND cla.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
+                    ORDER BY clb.id, cla.create_date DESC
+                    ) AS temp_date
+                WHERE ma_user_id =
+                '.$userId.'
+            ');
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    /**
+     * Return Get Lead Report By Source Query Result
+     *
+     * @param   String|null $fromDate
+     * @param   String|null $toDate
+     * @return mixed
+     * @throws QueryException $e
+     */
+    public function getLeadReportBySource($fromDate = null, $toDate = null){
+        try {
+            $result = DB::select('
+                SELECT crm_lead_source_id, source_name_en, source_name_kh, COUNT(*) AS total_lead
+                FROM view_crm_lead_report
+                '.(($fromDate == null && $toDate == null) ? ' ' : 'WHERE lead_detail_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
+                GROUP BY crm_lead_source_id, source_name_en, source_name_kh
+            ');
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    /**
+     * Return Get Leads By Source Query Result
+     *
+     * @param   Integer $id
+     * @param   String|null $fromDate
+     * @param   String|null $toDate
+     * @return mixed
+     * @throws QueryException $e
+     */
+    public function getLeadsBySource($id, $fromDate = null, $toDate = null){
+        try {
+            $result = DB::select('
                 SELECT
-                    DISTINCT ON (clb.id) clb.id, clb.crm_lead_id, clb.name_en, clb.name_kh, clb.crm_lead_address_id, cla.ma_user_id
-                FROM crm_lead_branch AS clb
-                    INNER JOIN crm_lead_assign AS cla ON clb.id = cla.crm_lead_branch_id
-                WHERE clb.is_deleted = \'f\' AND clb.status = \'t\' AND cla.is_deleted = \'f\' AND cla.status = \'t\''.(($toDate == null && $fromDate == null) ? ' ' : 'AND cla.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
-                ORDER BY clb.id, cla.create_date DESC
-                ) AS temp_date
-            WHERE ma_user_id =
-            '.$userId.'
-        ');
-    }
-
-    public static function getLeadReportBySource($fromDate = null, $toDate = null){
-        $result = DB::select('
-            SELECT crm_lead_source_id, source_name_en, source_name_kh, COUNT(*) AS total_lead
-            FROM view_crm_lead_report
-            '.(($fromDate == null && $toDate == null) ? ' ' : 'WHERE lead_detail_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
-            GROUP BY crm_lead_source_id, source_name_en, source_name_kh
-        ');
+                    clb.id AS crm_lead_detail_id, cl.customer_name_en, cl.customer_name_kh, cl.email, cl.website, cl.facebook, cl.lead_number, cl.employee_count, cl.current_isp_price, cl.current_isp_speed,
+                    clb.priority, clb.name_en, clb.name_kh, clb.email
+                FROM crm_lead AS cl
+                INNER JOIN crm_lead_branch AS clb ON cl.id = clb.crm_lead_id
+                WHERE cl.crm_lead_source_id = '.$id.' AND cl.is_deleted = \'f\' '.(($fromDate == null && $toDate == null) ? ' ' :'AND clb.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').';
+            ');
+        } catch(QueryException $e){
+            throw $e;
+        }
         return $result;
     }
 
-    public static function getLeadsBySource($id, $fromDate = null, $toDate = null){
-        return DB::select('
-            SELECT
-                clb.id AS crm_lead_detail_id, cl.customer_name_en, cl.customer_name_kh, cl.email, cl.website, cl.facebook, cl.lead_number, cl.employee_count, cl.current_isp_price, cl.current_isp_speed,
-                clb.priority, clb.name_en, clb.name_kh, clb.email
-            FROM crm_lead AS cl
-            INNER JOIN crm_lead_branch AS clb ON cl.id = clb.crm_lead_id
-            WHERE cl.crm_lead_source_id = '.$id.' AND cl.is_deleted = \'f\' '.(($fromDate == null && $toDate == null) ? ' ' :'AND clb.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').';
-        ');
+    /**
+     * Return Get Lead Report By Status Query Result
+     *
+     * @param   String|null $fromDate
+     * @param   String|null $toDate
+     * @return mixed
+     * @throws QueryException $e
+     */
+    public function getLeadReportByStatus($fromDate = null, $toDate = null){
+        try {
+            $result = DB::select('
+                SELECT crm_lead_status_id, status_en, status_kh, count(*) AS total_lead
+                FROM view_crm_lead_report
+                '.(($fromDate == null && $toDate == null) ? ' ' : ' WHERE lead_detail_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ').'
+                GROUP BY crm_lead_status_id, status_en, status_kh
+            ');
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
     }
 
-    public static function getLeadReportByStatus($fromDate = null, $toDate = null){
-        return DB::select('
-            SELECT crm_lead_status_id, status_en, status_kh, count(*) AS total_lead
-            FROM view_crm_lead_report
-            '.(($fromDate == null && $toDate == null) ? ' ' : ' WHERE lead_detail_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ').'
-            GROUP BY crm_lead_status_id, status_en, status_kh
-        ');
-    }
-
-    public static function getLeadBranchesByStatus($id, $fromDate = null, $toDate = null){
-        return DB::select('
-            SELECT crm_lead_branch_id
-            FROM view_crm_lead_report
-            WHERE crm_lead_status_id = '.$id.'
-        '.(($fromDate == null && $toDate == null) ? ' ' : ' AND lead_detail_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE'));
-    }
-
-    public static function getLeadBranchesWithId($id){
-        return DB::selectOne('
-            SELECT id, crm_lead_id, name_en, name_kh, email, crm_lead_address_id
-            FROM crm_lead_branch WHERE id = '.$id.'
-        ');
-    }
-
-    public static function getQuoteByStatus($fromDate = null, $toDate = null){
-        return DB::select('
-        SELECT DISTINCT ON (crm_quote_status_type_id) crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh, COUNT(*) AS total_quotes
-        FROM view_crm_quote_report
-        '.(($fromDate==null && $toDate == null) ? '' : 'WHERE crm_quote_status_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
-        GROUP BY crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh
-        ;
-        ');
-    }
-
-    public static function getQuoteBranchByStatusId($id, $fromDate = null, $toDate = null){
-        return DB::select('
-            SELECT
-                cqb.crm_quote_id AS crm_quote_id, cqb.id AS crm_quote_branch_id, cqb.crm_lead_branch_id,
-                clb.crm_lead_id, clb.name_en, clb.name_kh, clb.crm_lead_address_id, clb.priority
-            FROM crm_quote_branch AS cqb INNER JOIN crm_lead_branch AS clb on cqb.crm_lead_branch_id = clb.id
-            WHERE cqb.crm_quote_id IN (
-                SELECT crm_quote_id
-                FROM view_crm_quote_report
-                WHERE
-                    crm_quote_status_type_id = '.$id.'
-                    '.(($fromDate == null && $toDate == null) ? ' ' : ' AND crm_quote_status_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
+    /**
+     * Return Get Lead Branches By Status Query Result
+     *
+     * @param   Integer $id
+     * @param   String|null $fromDate
+     * @param   String|null $toDate
+     * @return mixed
+     * @throws QueryException $e
+     */
+    public function getLeadBranchesByStatus($id, $fromDate = null, $toDate = null){
+        try {
+            $result = DB::select('
+                SELECT crm_lead_branch_id
+                FROM view_crm_lead_report
+                WHERE crm_lead_status_id = '.$id.'
+                '.(($fromDate == null && $toDate == null) ? ' ' : ' AND lead_detail_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE')
             );
-        ');
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    /**
+     * Return Get Lead Branches With Id Query Result
+     *
+     * @param   Integer $id
+     * @return mixed
+     * @throws QueryException $e
+     */
+    public function getLeadBranchesWithId($id){
+        try {
+            $result = DB::selectOne('
+                SELECT id, crm_lead_id, name_en, name_kh, email, crm_lead_address_id
+                FROM crm_lead_branch WHERE id = '.$id.'
+            ');
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    /**
+     * Return Get Quote By Status Query Result
+     *
+     * @param   String|null $fromDate
+     * @param   String|null $toDate
+     * @return mixed
+     * @throws QueryException $e
+     */
+    public function getQuoteByStatus($fromDate = null, $toDate = null){
+        try {
+            $result = DB::select('
+                SELECT DISTINCT ON (crm_quote_status_type_id) crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh, COUNT(*) AS total_quotes
+                FROM view_crm_quote_report
+                '.(($fromDate==null && $toDate == null) ? '' : 'WHERE crm_quote_status_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
+                GROUP BY crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh
+                ;
+            ');
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    /**
+     * Return Get Quote Branch By Status Id Query Result
+     *
+     * @param   Integer $id
+     * @param   String|null $fromDate
+     * @param   String|null $toDate
+     * @return mixed
+     * @throws QueryException $e
+     */
+    public function getQuoteBranchByStatusId($id, $fromDate = null, $toDate = null){
+        try {
+            $result = DB::select('
+                SELECT
+                    cqb.crm_quote_id AS crm_quote_id, cqb.id AS crm_quote_branch_id, cqb.crm_lead_branch_id,
+                    clb.crm_lead_id, clb.name_en, clb.name_kh, clb.crm_lead_address_id, clb.priority
+                FROM crm_quote_branch AS cqb INNER JOIN crm_lead_branch AS clb on cqb.crm_lead_branch_id = clb.id
+                WHERE cqb.crm_quote_id IN (
+                    SELECT crm_quote_id
+                    FROM view_crm_quote_report
+                    WHERE
+                        crm_quote_status_type_id = '.$id.'
+                        '.(($fromDate == null && $toDate == null) ? ' ' : ' AND crm_quote_status_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
+                );
+            ');
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    /**
+     * Return Get All Lead Detail Query Result
+     *
+     * @param   Integer|null $leadSource
+     * @param   Integer|null $assignTo
+     * @param   Integer|null $status
+     * @param   String|null $fromDate
+     * @param   String|null $toDate
+     * @return mixed
+     * @throws QueryException $e
+     */
+    public function getAllLeadDetail($leadSource = null, $assignTo = null, $status = null, $fromDate = null, $toDate = null){
+        $condition = '';
+        if($leadSource != null || $assignTo != null || $status  != null || ($fromDate != null && $toDate != null)){
+            $condition = ''
+            .''. 'WHERE crm_lead_branch_id IS NOT NULL '
+            .''. (($assignTo == null) ? '' : 'AND assign_to = '.$assignTo).' '
+            .''. (($status == null) ? '' : 'AND crm_lead_status_id = '.$status).' '
+            .''. (($leadSource == null) ? '' : 'AND crm_lead_source_id = '.$leadSource).' '
+            .''. (($fromDate == null && $toDate == null) ? '' : 'AND lead_detail_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE')
+            ;
+        }
+        try {
+            $result = DB::select('
+                SELECT
+                    crm_lead_branch_id,
+                    comment,
+                    branch_name_en,
+                    branch_name_kh,
+                    priority,
+                    customer_name_en,
+                    customer_name_kh,
+                    lead_number,
+                    source_name_en,
+                    source_name_kh,
+                    department_name_en,
+                    department_name_kh,
+                    latlg,
+                    status_en,
+                    status_kh,
+                    assign_to
+                FROM view_crm_lead_report '.$condition.'
+            ');
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    /**
+     * Return Get Quote Detail Query Result
+     *
+     * @param   Integer|null $assignTo
+     * @param   Integer|null $status
+     * @param   String|null $fromDate
+     * @param   String|null $toDate
+     * @return mixed
+     * @throws QueryException $e
+     */
+    public function getQuoteDetail($assignTo = null, $status = null, $fromDate = null, $toDate = null){
+        $condition = '';
+        if($assignTo != null || $status  != null || ($fromDate != null && $toDate != null)){
+            $condition = ''
+            .''. 'WHERE crm_lead_id IS NOT NULL '
+            .''. (($assignTo == null) ? '' : 'AND assign_to = '.$assignTo).' '
+            .''. (($status == null) ? '' : 'AND crm_quote_status_type_id = '.$status).' '
+            .''. (($fromDate == null && $toDate == null) ? '' : 'AND crm_quote_status_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE')
+            ;
+        }
+        try {
+            $result = DB::select('
+                SELECT
+                    crm_lead_id,
+                    crm_quote_id,
+                    customer_name_en,
+                    customer_name_kh,
+                    email,
+                    website,
+                    facebook,
+                    lead_number,
+                    due_date,
+                    quote_number,
+                    comment,
+                    quote_status_name_en,
+                    quote_status_name_kh,
+                    crm_quote_status_create_date
+                FROM view_crm_quote_report '.$condition
+            );
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    public function getTotalLead($fromDate = null, $toDate = null){
+        try {
+            $dateCondition = ($fromDate == null && $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $condition = 'WHERE is_deleted = \'f\' AND status = \'t\''.$dateCondition;
+            $result = DB::selectOne('SELECT COUNT(*) AS total_lead FROM crm_lead '.$condition);
+        } catch(QueryException $e){
+            return $e->getMessage();
+        }
+        return $result;
+    }
+
+    public function getTotalBranch($fromDate = null, $toDate = null){
+        try {
+            $dateCondition = ($fromDate == null && $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $condition = 'WHERE is_deleted = \'f\' AND status = \'t\''.$dateCondition;
+            $result = DB::selectOne('SELECT COUNT(*) AS total_branch FROM crm_lead_branch '.$condition);
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    public function getTotalLeadBranchSurvey($fromDate = null, $toDate = null){
+        try {
+            $dateCondition = ($fromDate == null && $toDate == null) ? '' : ' AND cs.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $condition = 'WHERE clb.is_deleted = \'f\' AND clb.status = \'t\' AND cs.is_deleted = \'f\' AND cs.status = \'t\''.$dateCondition;
+            $result = DB::selectOne('SELECT COUNT(*) AS total_lead_branch_survey FROM crm_lead_branch AS clb INNER JOIN crm_survey AS cs on clb.id = cs.crm_lead_branch_id '.$condition);
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    public function getTotalQuote($fromDate = null, $toDate = null){
+        try {
+            $dateCondition = ($fromDate == null && $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $condition = 'WHERE is_deleted = \'f\' AND status = \'t\''.$dateCondition;
+            $result = DB::selectOne('SELECT COUNT(*) AS total_quote FROM crm_quote '.$condition);
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    public function getTotalContact($fromDate = null, $toDate = null){
+        try {
+            $dateCondition = ($fromDate == null && $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $condition = 'WHERE is_deleted = \'f\' AND status = \'t\''.$dateCondition;
+            $result = DB::selectOne('SELECT COUNT(*) AS total_contact FROM crm_lead_contact '.$condition);
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
     }
 }

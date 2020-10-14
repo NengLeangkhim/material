@@ -18,5 +18,4 @@ class ModuleModel extends Model
         return $stmt;
     }
 
-
 }

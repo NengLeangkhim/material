@@ -153,10 +153,10 @@
 
 /* new add */
 a.nav-link{
-	font-family: khmer OS Content,cursive;
+	font-family: khmer OS Content;
 }
 .select2-selection,.select2-results__option {
-	font-family: khmer OS Content, cursive;
+	font-family: khmer OS Content;
 }
 .bpd{
 	padding: 10px !important;

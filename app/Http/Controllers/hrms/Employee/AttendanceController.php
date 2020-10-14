@@ -137,9 +137,12 @@ class AttendanceController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if (perms::check_perm_module('HRM_09010302')) {
             $emid = $_SESSION['userid'];
             $employee = Employee::EmployeeOnRow($emid);
+            if($employee===null){
+                return '<center><h1>Not available</h1></center>';
+            }
+               
             if (isset($_GET['date_from']) && $_GET['date_to']) {
                 $date_from = $_GET['date_from'];
                 $date_to = $_GET['date_to'];
@@ -160,9 +163,5 @@ class AttendanceController extends Controller
                 "attendance_info" => $attendance_info
             ];
             return view($view)->with('data', $data);
-        } else {
-            return view('modal_no_perms')->with('modal', 'modal_attendance_detail');
-        }
-        return view('hrms/Employee/Attendance/YourAttendance');
     }
 }

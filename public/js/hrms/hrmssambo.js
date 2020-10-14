@@ -1705,6 +1705,7 @@ function ReportPerformance(){
       console.log(data);
       $('#report_table_performance').html(data);
       $('#report_tbl_performance').DataTable({
+        scrollX:true
       });
       $('[data-toggle="tooltip"]').tooltip(); 
     }
@@ -2407,6 +2408,7 @@ function hrm_recruitment_approve(userid,type){
       success: function(data){
           document.getElementById("hrm_recruitment_report_table").innerHTML = data;
           $('#recruitment_report_tbl').DataTable({
+            scrollX:true
           });
           $('[data-toggle="tooltip"]').tooltip();
       }
@@ -2450,6 +2452,7 @@ function hrm_recruitment_approve(userid,type){
       success: function(data){
           document.getElementById("hrm_recruitment_report_table").innerHTML = data
           $('#recruitment_candidate_tbl').DataTable({
+            scrollX:true
           });
       }
     });

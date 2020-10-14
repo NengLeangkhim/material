@@ -8,11 +8,11 @@ body{
     /* opacity: 0.5; */
 }
 .div_animation{ /* Div Animation for <P> menu */
-    /* overflow: hidden; */
-    width: 100%;
+    overflow: hidden; /* hidden when slide */
+    width: 90%;
     display: inline-block;
     margin:0;
-    /* top:25%; */
+    /* top:10px; */
     position: relative;
 }
 .div_animation .nav_animation { /* Class animation menu */
@@ -35,7 +35,7 @@ body{
     border-image: linear-gradient(rgb(0,143,104), rgb(250,224,66)) 1; */
     border: 2px solid transparent;
     /* border-radius: 80px; */
-    background-image: linear-gradient(white, white), linear-gradient(to right, blue,indigo,violet);
+    /* background-image: linear-gradient(white, white), linear-gradient(to right, blue,indigo,violet); */
     background-origin: border-box;
     background-clip: content-box, border-box;
     width: 35px;
@@ -55,8 +55,12 @@ body{
 } */
 .logo-image{
     opacity: .8;
-    margin-left:25%;
-    width: 45%;
+    margin-left:20%;
+    width: 60%;
+    height: 50px;
+}
+.bar-link i{
+    color: #1fa8e0;
 }
 /**** Style Welcome Page  ****/
 #img_profile_company{
@@ -75,7 +79,8 @@ body{
     left:-8px;
     height: 50px;
     width: 70px;
-    rotate: 140deg;
+    /* rotate: 140deg; */
+    transform: rotate(140deg);
 }
 #flower-img1{
     position: absolute;
@@ -83,7 +88,8 @@ body{
     right:-14px;
     height: 50px;
     width: 70px;
-    rotate: 300deg;
+    /* rotate: 300deg; */
+    transform: rotate(300deg);
 }
 #row_welcome{
     position: absolute;

@@ -14,7 +14,7 @@
                <!-- /.card-header -->
                <div class="card-body">
                     <div class="table-responsive" id="table_show_plan" style="padding-top:10px;">
-                        <table class="table table-bordered" id="tbl_performance_score">
+                        <table class="table table-bordered display nowrap" style="width: 100%" id="tbl_performance_score">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
@@ -66,7 +66,9 @@
     </section>
  <script>
     $(document).ready(function(){
-           $('#tbl_performance_score').DataTable();
+           $('#tbl_performance_score').DataTable({
+               scrollX: true
+           });
        }); 
    </script>
  <!-- modal -->

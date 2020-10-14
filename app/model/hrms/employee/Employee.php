@@ -20,14 +20,15 @@ class Employee extends Model
                 ['ma_user.status', '=', 't'],
                 ['ma_user.is_deleted', '=', 'f'],
                 ['hr_payroll_base_salary.status','=','t'],
-                ['hr_payroll_base_salary.is_deleted','=','f']
+                ['hr_payroll_base_salary.is_deleted','=','f'],
+                ['ma_user.is_employee','=','t']
             ])->orderBy('ma_user.first_name_en')->get();
         return $employee;
     }
 
     // List Employee who stop work in company
     public static function Employee_Leave(){
-        $sql= "SELECT id_number,concat(first_name_en,' ',last_name_en) as name_en,concat(first_name_kh,' ',last_name_kh) as name_kh,contact,ma_position.name as position,ma_user.image FROM ma_user INNER JOIN ma_position on ma_user.ma_position_id=ma_position.id where ma_user.status='f' and ma_user.is_deleted='t'";
+        $sql= "SELECT id_number,concat(first_name_en,' ',last_name_en) as name_en,concat(first_name_kh,' ',last_name_kh) as name_kh,contact,ma_position.name as position,ma_user.image FROM ma_user INNER JOIN ma_position on ma_user.ma_position_id=ma_position.id where ma_user.status='f' and ma_user.is_deleted='t' and ma_user.is_employee='t'";
         $employee_leave=DB::select($sql);
         return $employee_leave;
     }
@@ -49,8 +50,12 @@ class Employee extends Model
         ->where([
             ['ma_user.status', '=', 't'],
             ['ma_user.is_deleted', '=', 'f'],
-            ['ma_user.id', '=', $id]
+            ['ma_user.id', '=', $id],
+            ['ma_user.is_employee','=','t']
         ])->orderBy('ma_user.first_name_en')->get();
+        if(count($employee)<=0){
+            return null;
+        }
         $userdetail="SELECT has_spouse,child_count FROM ma_user_detail where ma_user_id=".$employee[0]->id;
         $useraddress= "SELECT hom_en,home_kh,street_en,street_kh,gazetteer_code from ma_user_address where ma_user_id=" . $employee[0]->id;
         $spousAndChildren=DB::select($userdetail);
@@ -130,7 +135,7 @@ class Employee extends Model
 
     // Insert Employee
     public static function InsertEmployee($firstName_en,$lasttName_kh,$email,$contact,$position,$companyid,$branch_id,$company_dept_id,$create_by,$idNumber,$sex,$firstName_kh,$lastName_kh,$image,$OfficePhone,$jointDate,$dateOfBirth,$home_en,$home_kh,$street_en,$street_kh,$latlg,$gazetteer,$martital_status,$spous,$has_children,$children,$salary,$currency,$description,$payrollAccount){
-        $sql= "SELECT public.insert_ma_user('$firstName_en','$lasttName_kh','$email','$contact',$position,$companyid,$branch_id,$company_dept_id,$create_by,'$idNumber','$sex','$firstName_kh','$lastName_kh','$image','$OfficePhone','$jointDate','$dateOfBirth','$home_en','$home_kh','$street_en','$street_kh',null,'$gazetteer',null,'$spous','$has_children',$children,$salary,$currency,'$description','$payrollAccount')";
+        $sql= "SELECT public.insert_ma_user_employee('$firstName_en','$lasttName_kh','$email','$contact',$position,$companyid,$branch_id,$company_dept_id,$create_by,'$idNumber','$sex','$firstName_kh','$lastName_kh','$image','$OfficePhone','$jointDate','$dateOfBirth','$home_en','$home_kh','$street_en','$street_kh',null,'$gazetteer',null,'$spous','$has_children',$children,$salary,$currency,'$description','$payrollAccount')";
         $stm=DB::select($sql);
         if($stm[0]->insert_ma_user>0){
             return "Iaert Successfully";
@@ -155,7 +160,7 @@ class Employee extends Model
 
     // Update Employee
     public static function UpdateEmployee($id,$firstName_en, $lastName_en, $email, $contact, $position, $companyid, $branch_id, $company_dept_id, $create_by, $idNumber, $sex, $firstName_kh, $lastName_kh, $image, $OfficePhone, $jointDate, $dateOfBirth, $home_en, $home_kh, $street_en, $street_kh, $latlg, $gazetteer, $martital_status, $spous, $has_children, $children, $salary, $currency, $description, $payrollAccount){
-       $sql= "SELECT public.update_ma_user($id,'$firstName_en','$lastName_en','$email','$contact',$position,$companyid,$branch_id,$company_dept_id,$create_by,'$idNumber','$sex','$firstName_kh','$lastName_kh','$image','$OfficePhone','$jointDate','$dateOfBirth','$home_en','$home_kh','$street_en','$street_kh',null,'$gazetteer',null,'$spous','$has_children',$children,$salary,$currency,'$description','$payrollAccount','t')";
+       $sql= "SELECT public.update_ma_user_employee($id,'$firstName_en','$lastName_en','$email','$contact',$position,$companyid,$branch_id,$company_dept_id,$create_by,'$idNumber','$sex','$firstName_kh','$lastName_kh','$image','$OfficePhone','$jointDate','$dateOfBirth','$home_en','$home_kh','$street_en','$street_kh',null,'$gazetteer',null,'$spous','$has_children',$children,$salary,$currency,'$description','$payrollAccount','t')";
        $stm=DB::select($sql);
        if($stm[0]->update_ma_user>0){
            return "Update Successfully";

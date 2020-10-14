@@ -31,26 +31,37 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                          <div class="row">
-                              <div class="col-md-6">
-                                  <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                      </div>
-                                      <input type="text" class="form-control" placeholder="Select Date" id="ReportLeadFrom"  name='ReportLeadFrom'  required>
-                                    </div>
-                                </div>
+                          <form id="FrmChartReport">
+                            @csrf
+                            <div class="row">
                                 <div class="col-md-6">
-                                  <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                    <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                        </div>
+                                        <input type="hidden" name="fromDate">
+                                        <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y')?>" id="LeadChartFrom" name='LeadChartFrom'  required>
+                                        <span class="invalid-feedback" role="alert" id="LeadChartFromError"> {{--span for alert--}}
+                                          <strong></strong>
+                                        </span>
                                       </div>
-                                      <input type="text" class="form-control" placeholder="Select Date" id="ReportLeadTo" name='ReportLeadTo'  required>
                                   </div>
-                                </div>
-                          </div>
+                                  <div class="col-md-6">
+                                    <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                        </div>
+                                        <input type="hidden" name="toDate">
+                                        <input type="text" class="form-control" placeholder="Select Date" id="LeadChartTo" value="<?php echo date('Y')?>" name='LeadChartTo'  required>
+                                        <span class="invalid-feedback" role="alert" id="LeadChartToError"> {{--span for alert--}}
+                                          <strong></strong>
+                                        </span>
+                                    </div>
+                                  </div>
+                            </div>
+                          </form>
                         </div>
                         <div class="chart">
                             <div id="LeadChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
@@ -74,26 +85,37 @@
                     </div>
                     <div class="card-body">
                       <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                        <form id="FrmChartContactReport">
+                          @csrf
+                          <div class="row">
+                                <div class="col-md-6">
+                                  <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                      </div>
+                                      <input type="hidden" name="fromDate">
+                                      <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="ReportContactFrom" name='ReportContactFrom'  required>
+                                      <span class="invalid-feedback" role="alert" id="ReportContactFromError"> {{--span for alert--}}
+                                        <strong></strong>
+                                      </span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Select Date" id="ReportContactFrom"  name='ReportContactFrom'  required>
-                                  </div>
-                              </div>
-                              <div class="col-md-6">
-                                <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Select Date" id="ReportContactTo" name='ReportContactTo'  required>
                                 </div>
-                              </div>
-                        </div>
+                                <div class="col-md-6">
+                                  <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                      </div>
+                                      <input type="hidden" name="toDate">
+                                      <input type="text" class="form-control" placeholder="Select Date" id="ReportContactTo" value="<?php echo date('Y-m')?>" name='ReportContactTo'  required>
+                                      <span class="invalid-feedback" role="alert" id="ReportContactToError"> {{--span for alert--}}
+                                        <strong></strong>
+                                      </span>
+                                  </div>
+                                </div>
+                          </div>
+                        </form>
                       </div>
                       <div class="chart-contact">
                         <div id="ContactChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
@@ -119,26 +141,37 @@
                     </div>
                     <div class="card-body">
                       <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                        <form id="FrmChartOrganizationReport">
+                          @csrf
+                          <div class="row">
+                                <div class="col-md-6">
+                                  <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                      </div>
+                                      <input type="hidden" name="fromDate">
+                                      <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="ReportOrganizationFrom" name='ReportOrganizationFrom'  required>
+                                      <span class="invalid-feedback" role="alert" id="ReportOrganizationFromError"> {{--span for alert--}}
+                                        <strong></strong>
+                                      </span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Select Date" id="ReportOrganizationFrom" name='ReportOrganizationFrom'  required>
-                                  </div>
-                              </div>
-                              <div class="col-md-6">
-                                <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Select Date" id="ReportOrganizationTo" name='ReportOrganizationTo'  required>
                                 </div>
-                              </div>
-                        </div>
+                                <div class="col-md-6">
+                                  <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                      </div>
+                                      <input type="hidden" name="toDate">
+                                      <input type="text" class="form-control" placeholder="Select Date" id="ReportOrganizationTo" value="<?php echo date('Y-m')?>" name='ReportOrganizationTo'  required>
+                                      <span class="invalid-feedback" role="alert" id="ReportOrganizationToError"> {{--span for alert--}}
+                                        <strong></strong>
+                                      </span>
+                                  </div>
+                                </div>
+                          </div>
+                        </form>
                       </div>
                       <div class="chart">
                           <div id="OrganizationChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
@@ -162,26 +195,37 @@
                     </div>
                     <div class="card-body">
                       <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                        <form id="FrmChartQuoteReport">
+                          @csrf
+                          <div class="row">
+                                <div class="col-md-6">
+                                  <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                      </div>
+                                      <input type="hidden" name="fromDate">
+                                      <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="ReportQuoteFrom" name='ReportQuoteFrom'  required>
+                                      <span class="invalid-feedback" role="alert" id="ReportQuoteFromError"> {{--span for alert--}}
+                                        <strong></strong>
+                                      </span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Select Date" id="ReportQuoteFrom" name='ReportQuoteFrom'  required>
-                                  </div>
-                              </div>
-                              <div class="col-md-6">
-                                <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Select Date" id="ReportQuoteTo" name='ReportQuoteTo'  required>
                                 </div>
-                              </div>
-                        </div>
+                                <div class="col-md-6">
+                                  <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                      </div>
+                                      <input type="hidden" name="toDate">
+                                      <input type="text" class="form-control" placeholder="Select Date" id="ReportQuoteTo" value="<?php echo date('Y-m')?>" name='ReportQuoteTo'  required>
+                                      <span class="invalid-feedback" role="alert" id="ReportQuoteToError"> {{--span for alert--}}
+                                        <strong></strong>
+                                      </span>
+                                  </div>
+                                </div>
+                          </div>
+                        </form>
                       </div>
                       <div class="chart">
                           <div id="QuoteChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
@@ -196,146 +240,78 @@
     </div><!-- /.container-fluid -->
 </section><!-- end section Main content -->
 <script>
+    $(document).ready(function() {
+      ReportLeadChart();
+      ReportContactChart();
+      ReportOrganizationChart();
+      ReportQuoteChart();
+    });
+    $(window).resize(function(){
+      CrmLeadDrawChart();
+      CrmContactDrawChart();
+      CrmOrganizationDrawChart();
+      CrmQuoteDrawChart();
+    });
     $(function () {
       // Date Lead
-      $('#ReportLeadFrom').datetimepicker({
+      $('#LeadChartFrom').datetimepicker({
         format: 'YYYY',
         sideBySide: true,
       });
-      $('#ReportLeadTo').datetimepicker({
+      $("#LeadChartFrom").on("dp.change", function (e) {
+        ReportLeadChart();
+      })
+      $('#LeadChartTo').datetimepicker({
         format: 'YYYY',
         sideBySide: true,
       });
+      $("#LeadChartTo").on("dp.change", function (e) {
+        ReportLeadChart();
+      })
       // Date Contact
       $('#ReportContactFrom').datetimepicker({
         format: 'YYYY-MM',
         sideBySide: true,
       });
+      $("#ReportContactFrom").on("dp.change", function (e) {
+        ReportContactChart();
+      })
       $('#ReportContactTo').datetimepicker({
         format: 'YYYY-MM',
         sideBySide: true,
       });
+      $("#ReportContactTo").on("dp.change", function (e) {
+        ReportContactChart();
+      })
       // Date Organization
       $('#ReportOrganizationFrom').datetimepicker({
         format: 'YYYY-MM',
         sideBySide: true,
       });
+      $("#ReportOrganizationFrom").on("dp.change", function (e) {
+        ReportOrganizationChart();
+      })
       $('#ReportOrganizationTo').datetimepicker({
         format: 'YYYY-MM',
         sideBySide: true,
       });
+      $("#ReportOrganizationFrom").on("dp.change", function (e) {
+        ReportOrganizationChart();
+      })
       // Date Quote
       $('#ReportQuoteFrom').datetimepicker({
         format: 'YYYY-MM',
         sideBySide: true,
       });
+      $("#ReportQuoteFrom").on("dp.change", function (e) {
+        ReportQuoteChart();
+      })
       $('#ReportQuoteTo').datetimepicker({
         format: 'YYYY-MM',
         sideBySide: true,
       });
+      $("#ReportQuoteFrom").on("dp.change", function (e) {
+        ReportQuoteChart();
+      })
     });
-    $(function () {
-    // Lead Chart
-    google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses', 'Profit'],
-          ['2014', 1000, 400, 200],
-          ['2015', 1170, 460, 250],
-          ['2016', 660, 1120, 300],
-          ['2017', 1030, 540, 350]
-        ]);
-
-        var options = {
-          chart: {
-            title: 'Lead Performance',
-            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-          }
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('LeadChart'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-    }
-    // Lead Contact
-    google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChartLead);
-      function drawChartLead() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
-        ]);
-
-        var options = {
-          title: 'My Daily Activities',
-          is3D: true,
-        };
-
-        var chartLead = new google.visualization.PieChart(document.getElementById('ContactChart'));
-        chartLead.draw(data, options);
-    }
-    // Organization
-    google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChartOrganization);
-      function drawChartOrganization() {
-        var data = google.visualization.arrayToDataTable([
-          ['Language', 'Speakers (in millions)'],
-          ['Assamese', 13], ['Bengali', 83], ['Bodo', 1.4],
-          ['Dogri', 2.3], ['Gujarati', 46], ['Hindi', 300],
-          ['Kannada', 38], ['Kashmiri', 5.5], ['Konkani', 5],
-          ['Maithili', 20], ['Malayalam', 33], ['Manipuri', 1.5],
-          ['Marathi', 72], ['Nepali', 2.9], ['Oriya', 33],
-          ['Punjabi', 29], ['Sanskrit', 0.01], ['Santhali', 6.5],
-          ['Sindhi', 2.5], ['Tamil', 61], ['Telugu', 74], ['Urdu', 52]
-        ]);
-
-        var options = {
-          title: 'Indian Language Use',
-          legend: 'none',
-          pieSliceText: 'label',
-          slices: {  4: {offset: 0.2},
-                    12: {offset: 0.3},
-                    14: {offset: 0.4},
-                    15: {offset: 0.5},
-          },
-        };
-
-        var chart_organization = new google.visualization.PieChart(document.getElementById('OrganizationChart'));
-        chart_organization.draw(data, options);
-    }
-
-    // Quote Chart  
-    google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawVisualization);
-
-      function drawVisualization() {
-        // Some raw data (not necessarily accurate)
-        var data = google.visualization.arrayToDataTable([
-          ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
-          ['2004/05',  165,      938,         522,             998,           450,      614.6],
-          ['2005/06',  135,      1120,        599,             1268,          288,      682],
-          ['2006/07',  157,      1167,        587,             807,           397,      623],
-          ['2007/08',  139,      1110,        615,             968,           215,      609.4],
-          ['2008/09',  136,      691,         629,             1026,          366,      569.6]
-        ]);
-
-        var options = {
-          title : 'Monthly Coffee Production by Country',
-          vAxis: {title: 'Cups'},
-          hAxis: {title: 'Month'},
-          seriesType: 'bars',
-          series: {5: {type: 'line'}}
-        };
-
-        var chart_quote = new google.visualization.ComboChart(document.getElementById('QuoteChart'));
-        chart_quote.draw(data, options);
-    }
-
-    })
   </script>

@@ -11,7 +11,8 @@
             $new_pos = $val->position_name;
             $new_sal = $val->salary;
             $new_com = $val->comment;
-            $approve_date = $val->create_date;
+            $date = date_create($val->create_date);
+            $approve_date = date_format($date,"Y/M/d H:i:s A");
         }
 
         if($i == count($view_promote_detail)-2){

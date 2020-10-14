@@ -37,7 +37,7 @@ Route::get('/village/{id}','api\crm\LeadController@getVillage');
 // get company Branch
 Route::get('/branch','api\crm\LeadController@getLeadBranch');
 // insert lead 
-Route::POST('/insertlead','api\crm\LeadController@insertLead');
+Route::post('/insertlead','api\crm\LeadController@insertLead');
 //get all lead
 Route::get('/getlead','api\crm\LeadController@getLead');
 // get brand by lead id 
