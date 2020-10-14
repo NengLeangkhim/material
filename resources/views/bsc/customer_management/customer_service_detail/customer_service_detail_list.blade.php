@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
                             <thead>
                                 <tr>
                                     <th>Customer Name</th>
@@ -44,18 +44,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Touch Rith</td>
-                                    <td>Phnom Penh</td>
-                                    <td>ISP</td>
-                                    <td>03-10-2020</td>
-                                    <td>03-10-2020</td>
-                                    <td>Approve</td>
-                                    <td class="td_text_center">
-                                        <a title="Edit" href="javascript:;"​ onclick="go_to('customer_service_detail_edit')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                        <a title="Delete" href="javascript:;"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                    </td>
-                                </tr>
+                                @foreach ($customer_service_details as $customer_service_detail)
+                                    <tr>
+                                        <td>{{ $customer_service_detail->customer_name }}</td>
+                                        <td>{{ $customer_service_detail->customer_branch }}</td>
+                                        <td>{{ $customer_service_detail->product_name }}</td>
+                                        <td>{{ $customer_service_detail->effective_date }}</td>
+                                        <td>{{ $customer_service_detail->end_period_date }}</td>
+                                        <td>{{ $customer_service_detail->service_status }}</td>
+                                        <td class="td_text_center">
+                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('customer_service_detail_edit/{{ $customer_service_detail->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                            <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$customer_service_detail->id}},'bsc_customer_service_detail_delete','bsc_customer_service_detail','Customer serivice detail Deleted Succseefully !','BSC_030204')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
