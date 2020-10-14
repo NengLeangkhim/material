@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\model\api\crm\ModelCrmQuote as Quote;
 use App\Http\Resources\QuoteResource;
+use App\model\api\crm\ModelCrmQuoteStatusType as QuoteStatusType;
 use App\Http\Resources\StockResource;
 
 use DB;
@@ -170,5 +171,11 @@ class QuoteController extends Controller
         } catch(Exception $e){
             return json_encode(["delete"=>"fail","result"=> $e->getMessage()]);
         }
+    }
+
+    public function getStatus(){
+        $status = QuoteStatusType::get();
+
+        return json_encode($status);
     }
 }
