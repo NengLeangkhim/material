@@ -15,7 +15,9 @@
                         '<div class=" form-group">' +
                             '<div class="row form-inline2">' +
                                 '<div class="col-md-8 col-sm-8 col-8">' +
-                                    '<input type="text" class="form-control2 txtPrdName_'+i+'"   name="product_name[]" id="txtPrdName_'+i+'"  value="" required placeholder="Product Name" readonly>'+ 
+                                    '<input type="text" class="form-control txtPrdName_'+i+'"   name="product_name[]" id="product_name'+i+'"  value="" required placeholder="Product Name" readonly>'+ 
+                                    '<input type="hidden" name="product[]" id="txtPrdId_'+i+'"  readonly>'+ 
+                                    '<span id="product_name'+i+'Error" ><strong></strong></span>'+
                                 '</div>' +
                                 '<div class="col-md-4 col-sm-4 col-4">' +
                                     '<div class="row-12">'+
@@ -33,13 +35,15 @@
                         '<div id="itemType_'+i+'" class="btn-list-item text-center">----</div>'+
                     '</td>'+
                     '<td style="width: 120px;">' +
-                        '<input type="text"  class="valid-numeric form-control itemQty_'+i+'" name="quantity[]" id="'+i+'"  demo="itemQty"  value="1"  required placeholder="Qty">' +
+                        '<input type="text"  class="valid-numeric form-control itemQty_'+i+' qty'+i+' " name="qty[]" id="'+i+'" data-id="qty'+i+'" demo="itemQty"  value="1"  required placeholder="Qty">' +
                         '<p id="prdNotEnough_'+i+'" class="font-size-14" style="color:red;"></p>'+
-                        '<input type="hidden" id="numItemInStock_'+i+'" value="">'+
+                        '<span id="'+i+'Error" ><strong></strong></span>'+
+
                     '</td>' +
                     '<td class="td-item-quote">' +
                         '<div class="">' +
-                            '<input type="text" class="valid-numeric-float form-control itemPrice_'+i+'" name="listPrice[]" id="'+i+'"  demo="itemPrice" value="0" required placeholder="0.0$">' +
+                            '<input type="text" class="valid-numeric-float form-control itemPrice_'+i+' price'+i+'" name="price[]" id="'+i+'" data-id="price'+i+'"  demo="itemPrice" value="0" required placeholder="0.0$">' +
+                            '<span id="'+i+'Error" ><strong></strong></span>'+
                         '</div>'+
                         '<div class="row pt-1 form-inline">' +
                             '<div class="col-md-6 col-sm-6 col-6">' +
@@ -48,9 +52,13 @@
                                     '<option value="2"><span>+Discount ($)</span> </option>'+
                                 '</select>'+
                             '</div>'+
+
                             '<div class="col-md-6 col-sm-6 col-6 field-input-discount" data-id="'+i+'" id="fieldItemDiscount_'+i+'">' +
-                                '<input type="text"  class="itemDisPercent_'+i+' txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="txtDiscount_'+i+'" demo="itemDisPercent" data-id="'+i+'" value="0" placeholder="0.0%">' +
+                                '<input type="text"  class="itemDisPercent_'+i+' txtbox-quote valid-numeric-float" name="discount[]" id="discount'+i+'" demo="itemDisPercent" data-id="'+i+'" value="0" placeholder="0.0%">' +
+                                '<input type="hidden" value="percent" name="discount_type[]"> '+
+                                '<span id="discountError" ><strong></strong></span>'+
                             '</div>'+
+
                         '</div>' +
                         '<div class="btn-list-item" style="color:black; margin-left: 7px; margin-top:15px;">' +
                             '<span>Total After Discount: </span>'+
@@ -105,17 +113,19 @@
             var textBoxType = "";
             var select_val = $( "select[name='select-itemDiscount_"+row_id+"']" ).val();
             if(select_val == 1){
-                $('#txtDiscount_' + row_id + '').remove();
-                textBoxType = '<input type="text"  class="itemDisPercent_'+row_id+' txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="txtDiscount_'+row_id+'" demo="itemDisPercent" data-id="'+i+'" value="0" required placeholder="0.0%">' ;
+                $('#discount' + row_id + '').remove();
+                textBoxType = '<input type="text"  class="itemDisPercent_'+row_id+' txtbox-quote valid-numeric-float" name="discount[]" id="discount'+row_id+'" demo="itemDisPercent" data-id="'+i+'" value="0" required placeholder="0.0%">' ;
                 $('#fieldItemDiscount_'+row_id+'').append(textBoxType);
+                $('#fieldItemDiscount_'+row_id+'').append('<input type="hidden" value="percent" name="discount_type[]">');
                 $("#quote-sub-discount_"+row_id+"").text(0);
                 $(".row-quote-item").keyup();
 
             }
             if(select_val == 2){
-                $('#txtDiscount_' + row_id + '').remove();
-                textBoxType = '<input type="text"  class="itemDisPrice_'+row_id+' txtbox-quote valid-numeric-float" name="itemDiscountPrice[]" id="txtDiscount_'+row_id+'" demo="itemDisPrice" data-id="'+i+'" value="0" required placeholder="0.0$">' ;
+                $('#discount' + row_id + '').remove();
+                textBoxType = '<input type="text"  class="itemDisPrice_'+row_id+' txtbox-quote valid-numeric-float" name="discount[]" id="discount'+row_id+'" demo="itemDisPrice" data-id="'+i+'" value="0" required placeholder="0.0$">' ;
                 $('#fieldItemDiscount_'+ row_id +'').append(textBoxType);
+                $('#fieldItemDiscount_'+row_id+'').append('<input type="hidden" value="number" name="discount_type[]">');
                 $("#quote-sub-discount_"+row_id+"").text(0);
                 $(".row-quote-item").keyup();
 
@@ -353,6 +363,7 @@
                             var prdName = $.trim($(".itemName_"+prdVal+"").text());
                             var prdPrice = $.trim($(".itemPrice_"+prdVal+"").text());
                             var prdAviableStock = $.trim($(".stockItem_"+prdVal+"").text());
+
                             prdInStock = parseInt(prdAviableStock);
                             var prdDescription = $.trim($(".itemDescription_"+prdVal+"").text());
                             
@@ -361,13 +372,13 @@
 
                                 if(num == 0){
                                     //show item in row quote item  with one select
-                                    $("#txtPrdName_"+btnId+"").val(prdName);
+                                    $("#txtPrdId_"+btnId+"").val(prdVal);
+                                    $("#product_name"+btnId+"").val(prdName);
                                     $("#txtDescription_"+btnId+"").val(prdDescription);
                                     $(".itemPrice_"+btnId+"").val(prdPrice);
                                     $("#itemType_"+btnId+"").text(itemType);
                                     $("#numItemInStock_"+btnId+"").val(numPrdInStock);
                                     $(".itemPrice_"+btnId+"").keyup(); //call function key press to generate data
-
                                     var numPrdInQuote = $(".itemQty_"+btnId+"").val();
                                     if(numPrdInQuote > numPrdInStock){
                                         $("#prdNotEnough_"+btnId+"").text(stockMessage+" "+prdInStock);
@@ -376,7 +387,8 @@
 
                                     //show item in row quote item with multi select
                                     $("#btnAddRowQuoteItem").click();
-                                    $("#txtPrdName_"+(i-1)+"").val(prdName);
+                                    $("#txtPrdId_"+(i-1)+"").val(prdVal);
+                                    $("#product_name"+(i-1)+"").val(prdName);
                                     $("#txtDescription_"+(i-1)+"").val(prdDescription);
                                     $(".itemPrice_"+(i-1)+"").val(prdPrice);
                                     $("#itemType_"+(i-1)+"").text(itemType);

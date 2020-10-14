@@ -60,6 +60,9 @@ class QuoteController extends Controller
             //     'crm_quote_status_type_id' => 'required'
             // ]);
 
+        // echo $request->input('create_by');
+        // exit;
+
         if($request->isMethod('put')){
             try { 
                 $results = DB::select(
@@ -83,6 +86,7 @@ class QuoteController extends Controller
         }else{
             DB::beginTransaction();
             try { 
+
                 $createby = $request->input('create_by');
 
                 // insert to crm_quote 
@@ -130,7 +134,7 @@ class QuoteController extends Controller
                 for ($i = 0; $i < $all_product; $i++)
                 {
                     DB::select(
-                        'SELECT public."insert_crm_quote_branch_detail"(?, ?, ?, ?, ?)',
+                        'SELECT public."insert_crm_quote_branch_detail"(?, ?, ?, ?, ?, ?, ?)',
                         array(
                             $quote_branch_id,
                             $request->product[$i],

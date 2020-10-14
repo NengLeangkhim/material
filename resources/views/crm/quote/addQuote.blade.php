@@ -1,5 +1,8 @@
 
 
+
+
+
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -39,6 +42,13 @@
                     <form id="frm_addQuote" action="POST">
                         @csrf
                         <!-- general form elements -->
+                        <?php 
+                                if (session_status() == PHP_SESSION_NONE) {
+                                    session_start();
+                                }
+                                // $userid = $_SESSION['userid'];
+                                // echo '<input type="hidden" name="create_by" value="'.$userid.'"> ';
+                        ?>
                         <div class="card card-primary">
                                 <div class="card-header" style="background:#1fa8e0">
                                     <h3 class="card-title">Quote Detail</h3>
@@ -53,8 +63,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" id="subject_name"  name="subject_name"   placeholder="" required >
-                                                    <span id="subject_name_Error" ><strong></strong></span>
+                                                    <input type="text" class="form-control" id="subject"  name="subject"   placeholder="" required >
+                                                    <span id="subjectError" ><strong></strong></span>
                                                 </div>
                                             </div>
 
@@ -67,11 +77,10 @@
                                                     </div>
                                                     <input type="text" class="form-control" id="organiz_name"  name="organiz_name"   placeholder="Select Lead" required  readonly>
                                                     <div class="input-group-prepend" align="right">
-                                                        <a href="javascript:void(0);" class="btn btn-info" onclick="getShowPopup('/quote/add/listQuoteLead',1,'modal-list-quote','listQuoteLead','tblQuuteLead','getSelectRow','leadEnName','organiz_id','organiz_name');" ><i class="glyphicon glyphicon-plus"></i></a>
-                                                    
+                                                        <a href="javascript:void(0);" class="btn btn-info" id="btnOrganization" onclick="getShowPopup('/quote/add/listQuoteLead',1,'modal-list-quote','listQuoteLead','tblQuuteLead','getSelectRow','leadEnName','lead_id','organiz_name');" ><i class="glyphicon glyphicon-plus"></i></a>
                                                     </div>
-                                                    <input type="hidden" id="organiz_id" name="organiz_id" >
-                                                    <span id="organiz_name_Error" ><strong></strong></span>
+                                                    <input type="hidden" id="lead_id" name="lead_id" >
+                                                    <span id="organiz_nameError" ><strong></strong></span>
                                                 </div>
       
                                             </div>
@@ -86,22 +95,7 @@
                                     <div class="form-group">
                                         <div class="row">
 
-                                            <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Lead Branch <b style="color:red">*</b></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-building"></i></span>
-                                                    </div>
-                                                    <input type="text" class="form-control" id="getLeadBranch"  name="getLeadBranch"  value=""  placeholder="Select Branch" required readonly>
-                                                    <div class="input-group-prepend" align="right">
-                                                        <a href="javascript:void(0);" class="btn btn-info" id="clickGetBranch"  ><i class="glyphicon glyphicon-plus"></i></a>
-                                                    </div>
-                                                    <input type="hidden" id="getLeadBranchId"  name="getLeadBranchId" value="">
-                                                    <span id="getLeadBranch_Error" ><strong></strong></span>
-
-                                                </div>
-                                            </div>
-
+                                            
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Status </label>
                                                 <div class="input-group">
@@ -109,15 +103,40 @@
                                                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                                     </div>
                                                     {{-- Select active & Inactive Organization --}}
-                                                    <select  class="form-control" name="qutStatus" id="qutStatus">
-                                                        <option>Active</option>
-                                                        <option>Inactive</option>
+                                                    <select  class="form-control" name="crm_quote_status_type_id" id="crm_quote_status_type_id">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+
+                                                        @if(isset($leadstatus))
+                                                            @foreach ($leadstatus as $key=>$val)
+                                                                @foreach ($val as $key2=>$val2)
+                                                                    
+                                                                @endforeach
+                                                            @endforeach
+                                                        @endif
                                                     </select>
-                                                    <span id="qutStatus_Error" ><strong></strong></span>
+                                                    <span id="crm_quote_status_type_idError" ><strong></strong></span>
                                                 </div>
                                             </div>
 
 
+                                            <div class="col-md-6">
+                                                <label for="exampleInputEmail1">Lead Branch <b style="color:red">*</b></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="getLeadBranch"  name="getLeadBranch"  placeholder="Select Branch" required readonly>
+                                                    <div class="input-group-prepend" align="right">
+                                                        <a href="javascript:void(0);" class="btn btn-info" id="clickGetBranch"  ><i class="glyphicon glyphicon-plus"></i></a>
+                                                    </div>
+                                                    <input type="hidden" id="crm_lead_branch_id"  name="crm_lead_branch_id">
+                                                    <span id="getLeadBranchError" ><strong></strong></span>
+
+                                                </div>
+                                            </div>
 
 
                                         </div>
@@ -131,8 +150,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                     </div>
-                                                    <input type="date" class="form-control"  name="qutValidate" id="qutValidate" placeholder="Selete Date">
-                                                    <span id="qutValidate_Error" ><strong></strong></span>
+                                                    <input type="date" class="form-control"  name="due_date" id="due_date" placeholder="Selete Date">
+                                                    <span id="due_dateError" ><strong></strong></span>
                                                     
                                                 </div>
                                             </div>
@@ -145,8 +164,12 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class='fas fa-pen-square'></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name="assign_to" id="assign_to" placeholder="Assign To">
-                                                    <span id="assign_to_Error" ><strong></strong></span>
+                                                    <input type="text" class="form-control"  name="assign_toName" id="assign_toName" placeholder="Assign To" readonly>
+                                                    <div class="input-group-prepend" align="right">
+                                                        <a href="javascript:void(0);" class="btn btn-info" id="" onclick="getShowPopup('/quote/add/listAssignTo',1,'modal-list-quote','listAssignTo','tblAssignTo','getSelectRow','em_name_en','assign_to','assign_toName');" ><i class="glyphicon glyphicon-plus"></i></a>
+                                                    </div>
+                                                    <input type="hidden" id="assign_to" name="assign_to" >
+                                                    <span id="assign_toNameError" ><strong></strong></span>
 
                                                 </div>
                                             </div>
@@ -164,8 +187,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="far fa-comment-alt"></i></span>
                                                     </div>
-                                                    <textarea rows="3" class="form-control" name="addQuoteComment" id="addQuoteComment" placeholder="Comment here..." required></textarea>
-                                                    <span id="addQuoteComment_Error" ><strong></strong></span>
+                                                    <textarea rows="3" class="form-control" name="comment" id="comment" placeholder="Comment here..." required></textarea>
+                                                    <span id="commentError" ><strong></strong></span>
                                                     
                                                 </div>
                                             </div>
@@ -189,9 +212,9 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                     </div>
-                                                    <input type="hidden" name="addressDetailId" value=""  disabled>
+                                                    <input type="hidden" name="crm_lead_address_id" value="1" >
                                                     <input type="text" class="form-control"  name='homeEN' id="homeEN" placeholder="Number of home"  disabled  >    
-                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+                                                    <span id="crm_lead_address_idError" ><strong></strong></span>
                                                     
                                                 </div>
                                             </div>
@@ -202,7 +225,7 @@
                                                         <span class="input-group-text"><i class="fas fa-city"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control" id="address_city" name="address_city"  disabled required>
-                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+                                                    <span id="addressDetailIdError" ><strong></strong></span>
                                                     
                                                 </div>
                                             </div>
@@ -220,7 +243,7 @@
                                                                 <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                             </div>
                                                             <input type="text" class="form-control"  name='streetEN' id="streetEN" placeholder="Number of street"  disabled >    
-                                                            <span id="addressDetailId_Error" ><strong></strong></span>
+                                                            <span id="addressDetailIdError" ><strong></strong></span>
                                                             
                                                         </div>
                                                     </div>
@@ -234,7 +257,7 @@
                                                         <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control" id="district" name="district"  disabled required>
-                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+                                                    <span id="addressDetailIdError" ><strong></strong></span>
 
                                                 </div>                                                
                                             </div>
@@ -249,7 +272,7 @@
                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control"  name='homeKH' id="homeKH" placeholder="Number of home"  disabled>    
-                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+                                                    <span id="addressDetailIdError" ><strong></strong></span>
                                                     
                                                 </div>
                                             </div>
@@ -261,7 +284,7 @@
                                                         <span class="input-group-text"><i class="fas fa-street-view"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control" id="commune" name="commune"  disabled required>
-                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+                                                    <span id="addressDetailIdError" ><strong></strong></span>
       
                                                 </div> 
                                             </div>
@@ -276,7 +299,7 @@
                                                         <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control"  name='streetKH' id="streetKH" placeholder="Number of street"  disabled >    
-                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+                                                    <span id="addressDetailIdError" ><strong></strong></span>
                                                     
                                                 </div>
                                             </div>
@@ -287,7 +310,7 @@
                                                         <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control" id="village" name="village"  disabled required>
-                                                    <span id="addressDetailId_Error" ><strong></strong></span>
+                                                    <span id="addressDetailIdError" ><strong></strong></span>
                                                     
                                                 </div> 
                                                 
