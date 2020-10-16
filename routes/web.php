@@ -802,6 +802,10 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::post('hrm_insert_update_holiday', 'hrms\Employee\HolidayController@InsertUpdateHoliday');
         Route::get('hrm_delete_holiday', 'hrms\Employee\HolidayController@DeleteHoliday');
         Route::get('hrm_export_holiday', 'ExportExcelController@ExortHoliday')->name('export_excel.excel');
+        Route::get('hrm_holiday_calendar',function(){
+            return view('hrms.Employee.Holiday.calendar_holiday');
+        });
+        Route::get('hrm_holiday_calendar_data','hrms\Employee\HolidayController@calendar_holiday');
     // End Holiday
 
     // Start Attendance
