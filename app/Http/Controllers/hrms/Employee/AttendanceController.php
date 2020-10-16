@@ -7,6 +7,7 @@ use App\model\hrms\employee\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\perms;
 use App\model\hrms\employee\MissionAndOutSide;
+use App\model\Setting\LeaveType;
 
 class AttendanceController extends Controller
 {
@@ -78,15 +79,17 @@ class AttendanceController extends Controller
                 $date_to=date('Y-m-d');
                 $view= 'hrms/Employee/Attendance/AttendanceDetail';
             }
-            // $date_from='2020-09-21';
-            // $date_to='2020-09-25';
-            $em_attendance=Attendance::ShowAttendanceByDate($emid,'',$date_from,$date_to,$employee['id_number']);
-            $attendance_info=Attendance::CheckInfoStaff($em_attendance);
-            $data=[
-                "id"=>$employee['id'],
-                "id_number"=>$employee['id_number'],
-                "attendance"=>$em_attendance,
-                "attendance_info"=>$attendance_info
+            $em_attendance = Attendance::ShowAttendanceByDate($emid, '', $date_from, $date_to, $employee['id_number']);
+            $attendance_info = Attendance::CheckInfoStaff($em_attendance);
+            $permission=LeaveType::get_all_permission($emid);
+            $leave_type=LeaveType::get_leave_type();
+            $data = [
+                "id" => $employee['id'],
+                "id_number" => $employee['id_number'],
+                "attendance" => $em_attendance,
+                "attendance_info" => $attendance_info,
+                "permission"=>$permission,
+                "leave_type"=>$leave_type
             ];
             return view($view)->with('data',$data);
         } else {
@@ -141,8 +144,7 @@ class AttendanceController extends Controller
             $employee = Employee::EmployeeOnRow($emid);
             if($employee===null){
                 return '<center><h1>Not available</h1></center>';
-            }
-               
+            } 
             if (isset($_GET['date_from']) && $_GET['date_to']) {
                 $date_from = $_GET['date_from'];
                 $date_to = $_GET['date_to'];
@@ -152,15 +154,17 @@ class AttendanceController extends Controller
                 $date_to = date('Y-m-d');
                 $view = 'hrms/Employee/Attendance/YourAttendance';
             }
-            // $date_from='2020-09-21';
-            // $date_to='2020-09-25';
             $em_attendance = Attendance::ShowAttendanceByDate($emid, '', $date_from, $date_to, $employee['id_number']);
             $attendance_info = Attendance::CheckInfoStaff($em_attendance);
+            $permission=LeaveType::get_all_permission($emid);
+            $leave_type=LeaveType::get_leave_type();
             $data = [
                 "id" => $employee['id'],
                 "id_number" => $employee['id_number'],
                 "attendance" => $em_attendance,
-                "attendance_info" => $attendance_info
+                "attendance_info" => $attendance_info,
+                "permission"=>$permission,
+                "leave_type"=>$leave_type
             ];
             return view($view)->with('data', $data);
     }

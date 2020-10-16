@@ -14,7 +14,7 @@ class LeaveType extends Model
             if($id>0){
                 $checkid="and id=$id";
             }
-            $sql = "SELECT id,name,status,name_kh,annual_count FROM e_request_leaveapplicationform_leave_kind WHERE status='t' and is_deleted='f' $checkid order by name";
+            $sql = "SELECT id,name,status,name_kh,annual_count::INTEGER FROM e_request_leaveapplicationform_leave_kind WHERE status='t' and is_deleted='f' $checkid order by name";
             $leave_type=DB::select($sql);
             return $leave_type;
         } catch (\Throwable $th) {
@@ -64,6 +64,52 @@ class LeaveType extends Model
             } else {
                 return 0;
             }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public static function get_all_permission($id){
+            $sql="SELECT ma_user_id,leave_type_id FROM e_request_temp WHERE ma_user_id=$id";
+            $stm=DB::select($sql);
+            $annual=0;
+            $maternity=0;
+            $special=0;
+            $sick=0;
+            $no_salary=0;
+            foreach($stm as $permission){
+                if($permission->leave_type_id==2){
+                    $maternity++;
+                }elseif($permission->leave_type_id==3){
+                    $special++;
+                }elseif($permission->leave_type_id==4){
+                    $sick++;
+                }elseif($permission->leave_type_id==5){
+                    $no_salary++;
+                }elseif($permission->leave_type_id==1){
+                    $annual++;
+                }
+            }
+            $permission_type=[
+                "annual"=>$annual,
+                "maternity"=>$maternity,
+                "special"=>$special,
+                "sick"=>$sick,
+                "no_salary"=>$no_salary
+            ];
+            return $permission_type;
+    }
+
+
+    public static function get_leave_type(){
+        try {
+            $sql = "SELECT id,annual_count::INTEGER FROM e_request_leaveapplicationform_leave_kind WHERE status='t' and is_deleted='f' order by id";
+            $leave_type=DB::select($sql);
+            $leave=array();
+            foreach($leave_type as $le){
+                array_push($leave,$le->annual_count);
+            }
+            return $leave;
         } catch (\Throwable $th) {
             throw $th;
         }

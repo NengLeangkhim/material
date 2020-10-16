@@ -88,4 +88,10 @@ class HolidayController extends Controller
             return view('noperms');
         }
     }
+
+    // Calculator holiday
+    public static function calendar_holiday(){
+        $holiday=Holiday::get_holiday_calendar();
+        return response()->json($holiday);
+    }
 }
