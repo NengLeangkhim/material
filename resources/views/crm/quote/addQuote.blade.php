@@ -104,16 +104,10 @@
                                                     </div>
                                                     {{-- Select active & Inactive Organization --}}
                                                     <select  class="form-control" name="crm_quote_status_type_id" id="crm_quote_status_type_id">
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-
-                                                        @if(isset($leadstatus))
-                                                            @foreach ($leadstatus as $key=>$val)
-                                                                @foreach ($val as $key2=>$val2)
-                                                                    
-                                                                @endforeach
+                                                        <option value="">Select an Option</option>
+                                                        @if(isset($quotestatus))
+                                                            @foreach ($quotestatus as $key=>$val)
+                                                                    <option name="" value="{{$val->id}}">{{$val->name_en}}</option>
                                                             @endforeach
                                                         @endif
                                                     </select>
@@ -356,6 +350,8 @@
                                                                 <td  ><span style="padding-right: 12px;">Sum Total </span></td>
                                                                 <td  ><div id="sumTotal"> 0.0 </div></td>
                                                             </tr>
+
+
                                                             <tr style="text-align: right">
                                                                 <td >
                                                                     <select class="allItemDiscount btn-list-item mdb-select md-form" name="allDiscount" id="allItemDiscount" >
@@ -372,6 +368,8 @@
                                                                     </div>
                                                                 </td>
                                                             </tr>
+
+
                                                             <tr class="td-total-quote grandTotal" >
                                                                 <td  ><span style="padding-right: 12px;">Grand Total</span></td>
                                                                 <td  ><div id="grandTotal"> 0.0 </div></td>

@@ -30,9 +30,9 @@ class QuoteController extends Controller
     public static function addQuote(Request $request){
         
         $province=ModelCrmLead::CrmGetLeadProvice();
-        $request = Request::create('/api/leadstatus', 'GET');
-        $leadstatus = json_decode(Route::dispatch($request)->getContent());
-        return view('crm/quote/addQuote', compact('province','leadstatus'));
+        $request = Request::create('/api/quote/status', 'GET');
+        $quotestatus = json_decode(Route::dispatch($request)->getContent());
+        return view('crm/quote/addQuote', compact('province','quotestatus'));
     }
 
 
@@ -117,6 +117,7 @@ class QuoteController extends Controller
                     'subject' =>  ['required'],
                     'organiz_name' =>  [ 'required'],
                     'getLeadBranch' =>  ['required'],
+                    'crm_quote_status_type_id' =>  ['required'],
                     'due_date' =>  ['required'],
                     'assign_toName' =>  ['required'],
                     'comment' =>  ['required'],
@@ -144,7 +145,7 @@ class QuoteController extends Controller
                 $request->merge([
                     'create_by' => $create_by,
                 ]);
-                
+
                 $request = Request::create('/api/quote', 'POST' );
                 $response = json_decode(Route::dispatch($request)->getContent());
 

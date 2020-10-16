@@ -55,7 +55,7 @@
 
                             '<div class="col-md-6 col-sm-6 col-6 field-input-discount" data-id="'+i+'" id="fieldItemDiscount_'+i+'">' +
                                 '<input type="text"  class="itemDisPercent_'+i+' txtbox-quote valid-numeric-float" name="discount[]" id="discount'+i+'" demo="itemDisPercent" data-id="'+i+'" value="0" placeholder="0.0%">' +
-                                '<input type="hidden" value="percent" name="discount_type[]"> '+
+                                '<input type="hidden" id="discount_type'+i+'" value="percent" name="discount_type[]"> '+
                                 '<span id="discountError" ><strong></strong></span>'+
                             '</div>'+
 
@@ -116,7 +116,8 @@
                 $('#discount' + row_id + '').remove();
                 textBoxType = '<input type="text"  class="itemDisPercent_'+row_id+' txtbox-quote valid-numeric-float" name="discount[]" id="discount'+row_id+'" demo="itemDisPercent" data-id="'+i+'" value="0" required placeholder="0.0%">' ;
                 $('#fieldItemDiscount_'+row_id+'').append(textBoxType);
-                $('#fieldItemDiscount_'+row_id+'').append('<input type="hidden" value="percent" name="discount_type[]">');
+                // $('#fieldItemDiscount_'+row_id+'').append('<input type="hidden" value="percent" name="discount_type[]">');
+                $('#discount_type'+row_id+'').val('percent'); //discount as price
                 $("#quote-sub-discount_"+row_id+"").text(0);
                 $(".row-quote-item").keyup();
 
@@ -125,7 +126,8 @@
                 $('#discount' + row_id + '').remove();
                 textBoxType = '<input type="text"  class="itemDisPrice_'+row_id+' txtbox-quote valid-numeric-float" name="discount[]" id="discount'+row_id+'" demo="itemDisPrice" data-id="'+i+'" value="0" required placeholder="0.0$">' ;
                 $('#fieldItemDiscount_'+ row_id +'').append(textBoxType);
-                $('#fieldItemDiscount_'+row_id+'').append('<input type="hidden" value="number" name="discount_type[]">');
+                // $('#fieldItemDiscount_'+row_id+'').append('<input type="hidden" value="number" name="discount_type[]">');
+                $('#discount_type'+row_id+'').val('number'); //discount as percent
                 $("#quote-sub-discount_"+row_id+"").text(0);
                 $(".row-quote-item").keyup();
 
