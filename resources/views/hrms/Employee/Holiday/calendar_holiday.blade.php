@@ -12,16 +12,6 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                    {{-- <section id="demos">
-                        <div class="section-content">
-                            <div class="console-log">
-                                <div class="log-content">
-                                    <div class="--noshadow" id="demoEvoCalendar"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </section> --}}
-
                     <div class="--noshadow" id="demoEvoCalendar"></div>
               </div>
               <!-- /.card-body -->
