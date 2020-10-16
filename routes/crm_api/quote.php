@@ -26,6 +26,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
 Route::get('/quotes','api\crm\QuoteController@index');
 
+Route::get('/quote/status','api\crm\QuoteController@getStatus');
 
 // get contact by id
 Route::get('/quote/{id}','api\crm\QuoteController@show');

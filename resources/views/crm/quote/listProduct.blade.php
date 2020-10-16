@@ -48,7 +48,7 @@
                                                 <td class="border">
                                                     <input type="hidden" id="showItemType_{{$row_id}}" value="Product"> 
                                                     <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" id="checkbox_{{$key2}}"  class="custom-control-input "  value="{{$val2->id}}" name="seleteItem">
+                                                        <input type="checkbox" id="checkbox_{{$key2}}"  class="custom-control-input"  value="{{$val2->id}}" name="seleteItem">
                                                         <label class="custom-control-label" for="checkbox_{{$key2}}"></label>
                                                     </div>
                                                 </td>

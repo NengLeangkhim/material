@@ -102,14 +102,13 @@
 <script src="js/hrms/hrms.js"></script>
 <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js" ></script>
 
-<script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
-
-
 {{-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> --}}
 {{-- <script src="js/canvasjs.min.js"></script> --}}
 
 
 <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
+<script src="js/notify.min.js"></script>
+
 
 {{--Google Chart--}}
 <script type="text/javascript" src="js/google_chart.js"></script>
