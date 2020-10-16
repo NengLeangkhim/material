@@ -8,23 +8,109 @@
                 <!-- /.card-header -->
                 
                 <div class="card-body" style="display: block;">
-                        <div class="">
+                    @php
+                        // print_r($data);
+                    @endphp
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <input type="date" name="" id="attendance_date1" class="form-control">
+                                {{-- list detail employee --}}
+
+
+
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <div class="row">
+                                                <div class="col-md-4 col-sm-6 col-12">
+                                                    <div class="info-box">
+                                                    {{-- <span class="info-box-icon bg-info"><i class="fas fa-user"></i></span> --}}
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text text-center"><strong>Annual Leave</strong></span>
+                                                    <span class="info-box-number text-center"><h5><strong>{{$data['permission']['annual']}}/{{$data['leave_type'][0]}}</strong></h5></span>
+                                                    </div>
+                                                    <!-- /.info-box-content -->
+                                                    </div>
+                                                    <!-- /.info-box -->
+                                                </div>
+                                                <div class="col-md-4 col-sm-6 col-12">
+                                                    <div class="info-box">
+                                                    {{-- <span class="info-box-icon bg-info"><i class="fas fa-user"></i></span> --}}
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text text-center"><strong>Maternity Leave</strong></span>
+                                                    <span class="info-box-number text-center"><h5><strong>{{$data['permission']['annual']}}/{{$data['leave_type'][1]}}</strong></h5></span>
+                                                    </div>
+                                                    <!-- /.info-box-content -->
+                                                    </div>
+                                                    <!-- /.info-box -->
+                                                </div>
+                                                <div class="col-md-4 col-sm-6 col-12">
+                                                    <div class="info-box">
+                                                    {{-- <span class="info-box-icon bg-info"><i class="fas fa-user"></i></span> --}}
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text text-center"><strong>Special Leave</strong></span>
+                                                    <span class="info-box-number text-center"><h5><strong>{{$data['permission']['annual']}}/{{$data['leave_type'][2]}}</strong></h5></span>
+                                                    </div>
+                                                    <!-- /.info-box-content -->
+                                                    </div>
+                                                    <!-- /.info-box -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6 col-12">
+                                                    <div class="info-box">
+                                                    {{-- <span class="info-box-icon bg-info"><i class="fas fa-user"></i></span> --}}
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text text-center"><strong>Sick Leave</strong></span>
+                                                    <span class="info-box-number text-center"><h5><strong>{{$data['permission']['annual']}}/{{$data['leave_type'][3]}}</strong></h5></span>
+                                                    </div>
+                                                    <!-- /.info-box-content -->
+                                                    </div>
+                                                    <!-- /.info-box -->
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-12">
+                                                    <div class="info-box">
+                                                    {{-- <span class="info-box-icon bg-info"><i class="fas fa-user"></i></span> --}}
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text text-center"><strong>No Salary Leave</strong></span>
+                                                    <span class="info-box-number text-center"><h5><strong>{{$data['permission']['annual']}}/{{$data['leave_type'][4]}}</strong></h5></span>
+                                                    </div>
+                                                    <!-- /.info-box-content -->
+                                                    </div>
+                                                    <!-- /.info-box -->
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                        <input type="date" name="" id="attendance_date2" class="form-control">
+                                    
+
+
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="date" name="" id="attendance_date1" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="date" name="" id="attendance_date2" class="form-control">
+                                            </div>
+                                        </div>
+                                    <div class="col-md-4">
+                                            <div class="form-group">
+                                                <button class="btn bg-turbo-color form-control" onclick="HRM_CalculateAttendanceDetail({{$data['id']}})">Search</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                        <button class="btn bg-turbo-color form-control" onclick="HRM_CalculateAttendanceDetail({{$data['id']}})">Search</button>
-                                    </div>
-                                </div>
+                                
                                 <div id="hrm_calculate_detail" class="col-md-12">
                                     <div class="col-md-12" style="margin-bottom: 15px">
                                         <div class="row">
