@@ -7,7 +7,7 @@ use App\model\hrms\employee\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\perms;
 use App\model\hrms\employee\MissionAndOutSide;
-use App\model\Setting\LeaveType;
+use App\model\setting\LeaveType;
 
 class AttendanceController extends Controller
 {
