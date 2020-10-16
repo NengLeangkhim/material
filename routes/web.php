@@ -78,14 +78,15 @@ Route::get('/organizations/detail','crm\OrganizationController@DetailOrganizatio
 Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote
 Route::get('/quote/detail','crm\QuoteController@showQuoteListDetail'); // get show quote detail
 Route::get('/quote/add','crm\QuoteController@addQuote'); // to add qoute
+
 Route::get('/quote/deleteLeadQuote','crm\QuoteController@deleteLeadQuote'); // get delete lead for quote list
 
 Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quote item table
 Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get stock product api to view
 Route::get('/quote/add/listService','crm\QuoteController@listService'); // get stock service api to view
-
 Route::get('/quote/add/listQuoteLead','crm\QuoteController@listQuoteLead'); // get organization lead
 Route::get('/quote/add/listQuoteBranch','crm\QuoteController@listQuoteBranch'); // get lead branch
+Route::get('/quote/add/listAssignTo','crm\QuoteController@staffAssignQuote'); // list staff get assign quote
 
 Route::post('/quote/save','crm\QuoteController@saveQuote'); // sumit quote data to database api
 
