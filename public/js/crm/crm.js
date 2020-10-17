@@ -263,6 +263,102 @@
       }
     
 // -----------END Report ---------- //
+// -----------Setting Report ---------- //
+ ////view Manage Setting///////
+ function CrmSettingView(url,table){
+  $.ajax({  
+      url:url,  //get URL to route
+      type:"get",  
+      data:{},  
+      success:function(data){  
+        $('#CrmTabManageSetting').html(data);
+        $('#'+table+'').dataTable({
+          scrollX:true
+        }); //Set table to datatable
+    
+  }  
+  });  
+  }
+  ////Funtion Modal Action Add///////
+  function CrmModalAction(form,modal,button,title){
+    $("#"+form+"").find('input:text, input:password, input:file, select, textarea').val(''); //remove text when show
+    $("#"+form+"").find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');//remove text when show
+    $("#"+form+"").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid");//remove valid all input field
+    $("#"+form+"").attr("method","post");//Set Form method
+    $("#"+modal+"").modal('show'); //Set modal show
+    $("#card_title").text(title); // Set title modal
+    $("#"+button+"").text('Create'); // Set button Create
+  }  
+  function CrmSubmitModalAction(form,button,url,type,modal,alert,goto){
+  $("#"+form+"").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid");//remove valid all input field
+  /// Insert function
+  if($("#"+button+"").text()=='Create') //check condition for create question type 
+  {
+    $.ajax({
+      url:url,
+      type:type,
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+       data: //_token: $('#token').val(),
+       $("#"+form+"").serialize(),
+      success:function(data)
+      {
+        if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+          $("#"+modal+"").modal('hide');
+          sweetalert('success',alert);
+          setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content 
+      }else{
+        // $(".print-error-msg").find("ul").html(''); 
+
+        // $(".print-error-msg").css('display','block');
+
+        $.each( data.errors, function( key, value ) {//foreach show error
+            $("#" + key).addClass("is-invalid"); //give read border to input field
+            // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            //  sweetalert('warning',value);
+            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+        });
+      }
+      }
+    });
+  }
+  /// Update action 
+  if($("#"+button+"").text()=='Update') // Check Condition for update question type
+  {
+    $.ajax({
+      url:url,
+      type:type,
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data: //_token:  $('#token').val(),
+      $("#"+form+"").serialize(),
+      success:function(data)
+      {
+        if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+          $("#"+modal+"").modal('hide');
+          sweetalert('success',alert);
+          setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content 
+      }else{
+        // $(".print-error-msg").find("ul").html(''); 
+
+        // $(".print-error-msg").css('display','block');
+
+        $.each( data.errors, function( key, value ) {//foreach show error
+            $("#" + key).addClass("is-invalid"); //give read border to input field
+            // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            //  sweetalert('warning',value);
+            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+        });
+      }
+      }
+    });
+    }
+  }
+// -----------End Report ---------- //
 //////////////////////////==========================END MET KEOSAMBO ====================///////////////////////////////
     // $(document).ready(function(){
     //     var a = 0;
@@ -456,10 +552,9 @@
           var x=new XMLHttpRequest();
           x.onreadystatechange=function(){
               if(this.readyState==4 && this.status==200){    
-                  // console.log(this.responseText);
+                  console.log(this.responseText);
                   document.getElementById(modal_mainform).innerHTML=this.responseText;
                   $('#'+modal_form+'').modal('show');
-                 
                   getDataTableSelectRow(tblId,btnId,getName,fieldID,fieldName,modal_form);
               }
           }
@@ -488,7 +583,6 @@
 
         //function to get datatable with select row 
         function getDataTableSelectRow(tblId,btnId,getName,fieldID,fieldName,modal_form){
-
             var table = getDataTable(tblId);
             $('#'+tblId+' tbody').on( 'click', 'tr', function () {
                 if ($(this).hasClass('selected') ) {
@@ -547,12 +641,15 @@
 
     //function for notify alert
     function notify_alert(id,type,locat,message){
-        $('#'+id+'').notify(
-            message, 
-            type,
-            { 
-            position:locat,
-            }
+
+        $(id).notify(
+          ""+message+"", // show notify message
+          { 
+            position: locat, // top, left, right...
+            className: type, // type error or success
+            autoHideDelay: 20000, 
+
+          }
         );
     }
 
@@ -560,7 +657,7 @@
 
     //function to get lead branch by lead id 
     $(document).on('click','#clickGetBranch', function(){
-        var lead_id = $('#organiz_id').val();
+        var lead_id = $('#lead_id').val();
         if(lead_id != ""){
             // getShowPopup('/quote/add/listQuoteBranch',lead_id,'modal-list-quote','listQuoteBranch','tblQuuteBranch','getSelectRow','branchKhName','getLeadBranchId','getLeadBranch');
             var id_ = "id="+lead_id;
@@ -585,9 +682,12 @@
                     });
 
                     $('#getSelectRow').click( function () {
+
+
+                        
                         if($('tbody tr').hasClass('selected') == true){
                             var lead_id = $('.selected').attr("id");
-                            $('#getLeadBranchId').val(lead_id);
+                            $('#crm_lead_branch_id').val(lead_id);
 
 
                             //get value from textbox
@@ -632,9 +732,24 @@
             x.open("GET", url + "?" + id_ , true);
             x.send();
         }else{
-          notify_alert('organiz_name','error','bottom','Requirement this field !');
+          notify_alert("#organiz_name","error","bottom","Requirement this field !");
         }
     });
+
+
+
+
+
+
+    $(document).on('click','#btnOrganization', function(){
+                // clear textfieild lead branch
+              $('input[name="getLeadBranch"]').val("");  
+              ('input[name="crm_lead_branch_id"]').val("");
+    });
+
+
+
+
 
 
 
@@ -645,7 +760,6 @@
           $("#frm_addQuote select").removeClass("is-invalid");//remove all error message
           $("#frm_addQuote textarea").removeClass("is-invalid");//remove all error message
           $("#frm_addQuote radio").removeClass("is-invalid");//remove all error message
-          
           $.ajax({
               type: 'POST',
               url: '/quote/save',
@@ -657,27 +771,81 @@
 
               success:function(data)
               {
-
-                   console.log(data);
-
                   if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-                    sweetalert('success',alert);
+                    sweetalert('success','Data has been saved !');
                     // go_to(goto);// refresh content 
+
+                    // use go ot view quote detail
                   }else{ 
-                    $.each( data.errors, function( key, value ) {//foreach show error
+                    var num1 = 0;
+                    $.each(data.errors, function( key, value ) {//foreach show error
+                        if(num1 == 0){
+                          sweetalert('warning', value);
+                        }
+                        num1 += 1;
                         $("#" + key).addClass("is-invalid"); //give read border to input field
-                        $("#" + key + "_Error").children("strong").text("").text(data.errors[key][0]);
-                        $("#" + key + "_Error").addClass("invalid-feedback");
+                        $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+                        $("#" + key + "Error").addClass("invalid-feedback");
+                        console.log(key);
+
+
+                        // check if validate give empty product field
+                        if(key.slice(0, -2) == 'product_name'){
+                              // console.log('require key--'+key);
+                              $.each($("input[name='product_name[]'"),function(index,value){
+                                  var prd_id=  $(this).attr("id");
+                                  if( $(this).val() ==  "" ){
+                                      $(this).addClass("is-invalid"); 
+                                      notify_alert("#"+prd_id+"","error","bottom","This field required !");
+                                  }
+                              });
+                        }
+
+                        // check if validate give empty qty field
+                        if(key.slice(0, -2) == 'qty'){
+                            $.each($("input[name='qty[]'"),function(index,value){
+                                if($(this).val().length <= 0 ){
+                                    $(this).addClass("is-invalid"); 
+                                }
+                            });
+                        }
+
+                        // check if validate give empty price field
+                        if(key.slice(0, -2) == 'price'){
+                          $.each($("input[name='price[]'"),function(index,value){
+                              if($(this).val().length <= 0 ){
+                                  $(this).addClass("is-invalid"); 
+                              }
+                          });
+                        }
+
+                        // check if validate give empty discount field
+                        if(key.slice(0, -2) == 'discount'){
+                          $.each($("input[name='discount[]'"),function(index,value){
+                              if($(this).val().length <= 0 ){
+                                  $(this).addClass("is-invalid"); 
+                              }
+                          });
+                        }
+
+
 
                     });
+                    
                   }
               },
               error: function(data) {
-                  // console.log(data);
+                  console.log('data error when send to http !');
+                  sweetalert('warning','Data not accessing to server!');
               }
           });
     });
 
+
+
+
+
+   
 
 
 

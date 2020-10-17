@@ -53,6 +53,10 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     // Customer service detail
     Route::resource('bsc_customer_service_detail','api\BSC\CustomerServiceDetailController');
 });
+
+
+// Report
+Route::get('/bsc/report/income_statement', 'api\BSC\IncomeStatementApiController@getIncomeStatement');
 //======================END BSC=========================
 
 

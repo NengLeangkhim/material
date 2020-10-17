@@ -137,8 +137,8 @@ class Employee extends Model
     public static function InsertEmployee($firstName_en,$lasttName_kh,$email,$contact,$position,$companyid,$branch_id,$company_dept_id,$create_by,$idNumber,$sex,$firstName_kh,$lastName_kh,$image,$OfficePhone,$jointDate,$dateOfBirth,$home_en,$home_kh,$street_en,$street_kh,$latlg,$gazetteer,$martital_status,$spous,$has_children,$children,$salary,$currency,$description,$payrollAccount){
         $sql= "SELECT public.insert_ma_user_employee('$firstName_en','$lasttName_kh','$email','$contact',$position,$companyid,$branch_id,$company_dept_id,$create_by,'$idNumber','$sex','$firstName_kh','$lastName_kh','$image','$OfficePhone','$jointDate','$dateOfBirth','$home_en','$home_kh','$street_en','$street_kh',null,'$gazetteer',null,'$spous','$has_children',$children,$salary,$currency,'$description','$payrollAccount')";
         $stm=DB::select($sql);
-        if($stm[0]->insert_ma_user>0){
-            return "Iaert Successfully";
+        if($stm[0]->insert_ma_user_employee>0){
+            return "Insert Successfully";
         }else{
             return "error";
         }
@@ -162,7 +162,7 @@ class Employee extends Model
     public static function UpdateEmployee($id,$firstName_en, $lastName_en, $email, $contact, $position, $companyid, $branch_id, $company_dept_id, $create_by, $idNumber, $sex, $firstName_kh, $lastName_kh, $image, $OfficePhone, $jointDate, $dateOfBirth, $home_en, $home_kh, $street_en, $street_kh, $latlg, $gazetteer, $martital_status, $spous, $has_children, $children, $salary, $currency, $description, $payrollAccount){
        $sql= "SELECT public.update_ma_user_employee($id,'$firstName_en','$lastName_en','$email','$contact',$position,$companyid,$branch_id,$company_dept_id,$create_by,'$idNumber','$sex','$firstName_kh','$lastName_kh','$image','$OfficePhone','$jointDate','$dateOfBirth','$home_en','$home_kh','$street_en','$street_kh',null,'$gazetteer',null,'$spous','$has_children',$children,$salary,$currency,'$description','$payrollAccount','t')";
        $stm=DB::select($sql);
-       if($stm[0]->update_ma_user>0){
+       if($stm[0]->update_ma_user_employee>0){
            return "Update Successfully";
        }else{
            return "error";

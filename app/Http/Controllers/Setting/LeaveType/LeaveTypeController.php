@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Setting\LeaveType;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\perms;
-use App\model\Setting\LeaveType;
+use App\model\setting\LeaveType;
 use Illuminate\Http\Request;
 
 class LeaveTypeController extends Controller

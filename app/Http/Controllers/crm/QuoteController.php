@@ -6,6 +6,8 @@ use App\model\crm\ModelCrmLead;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\api\stock\StockController;
 use Illuminate\Http\Request;
+use App\model\crm\ModelCrmQuote;
+
 use Illuminate\Support\Facades\Route;
 
 class QuoteController extends Controller
@@ -25,9 +27,12 @@ class QuoteController extends Controller
     }
 
     // function to add new quote data
-    public static function addQuote(){
+    public static function addQuote(Request $request){
+        
         $province=ModelCrmLead::CrmGetLeadProvice();
-        return view('crm/quote/addQuote', compact('province'));
+        $request = Request::create('/api/quote/status', 'GET');
+        $quotestatus = json_decode(Route::dispatch($request)->getContent());
+        return view('crm/quote/addQuote', compact('province','quotestatus'));
     }
 
 
@@ -94,7 +99,6 @@ class QuoteController extends Controller
             $listBranch = json_decode(Route::dispatch($request)->getContent());
             // return $listBranch;
             return view('crm/quote/listQuoteBranch', compact('listBranch'));
-
             // return response()->json($listBranch, 200);
         }
     }
@@ -107,27 +111,26 @@ class QuoteController extends Controller
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
-            $byID = $_SESSION['userid'];
 
             $validator = \Validator::make($request->all(),[
 
-                    'subject_name' =>  ['required'],
-                    'organiz_name' =>  [ 'required' ],
+                    'subject' =>  ['required'],
+                    'organiz_name' =>  [ 'required'],
                     'getLeadBranch' =>  ['required'],
-                    'assign_to' =>  ['required'],
-                    'qutValidate' =>  ['required'],
-                    'addressDetailId' =>  ['required'],
-                    'addQuoteComment' =>  ['required'],
-
+                    'crm_quote_status_type_id' =>  ['required'],
+                    'due_date' =>  ['required'],
+                    'assign_toName' =>  ['required'],
+                    'comment' =>  ['required'],
+                    'crm_lead_address_id' =>  ['required'],
+                    'product_name.*' =>  ['required'],
+                    'qty.*' =>  ['required'],
+                    'price.*' =>  ['required'],
+                    'discount.*' =>  ['required'],
+                    'discount_type.*' =>  ['required'],
+                    
                 ],
                 [
-                    'subject_name.required' => 'This Field is require !!',   //massage validator
-                    'organiz_name.required' => 'This Field is require !!',   //massage validator
-                    'getLeadBranch.required' => 'This Field is require !!',   //massage validator
-                    'assign_to.required' => 'This Field is require !!',   //massage validator
-                    'qutValidate.required' => 'This Field is require !!',   //massage validator
-                    'addressDetailId.required' => 'This Field is require !!',   //massage validator
-                    'addQuoteComment.required' => 'This Field is require !!',   //massage validator
+                    // 'product_name.*required' => 'This Field is require !!',   //massage validator
                 ]
 
             );
@@ -138,11 +141,34 @@ class QuoteController extends Controller
                     'errors' => $validator->getMessageBag()->toArray() 
                 ));
             }else{
-                echo 'all field completed';
+                $create_by = $_SESSION['userid'];
+                $request->merge([
+                    'create_by' => $create_by,
+                ]);
+
+                $request = Request::create('/api/quote', 'POST' );
+                $response = json_decode(Route::dispatch($request)->getContent());
+
+                if($response->insert=='success'){
+                    return response()->json(['success'=>$response]);
+                }else{
+                    return response()->json(['error'=>$response]);
+                }
             }
 
     }
 
+
+
+    //function to list staff for quote assign to
+    public static function staffAssignQuote(Request $request)
+    {
+        $employee = ModelCrmQuote::getEmployee();
+        if(count($employee) > 0){
+            // print_r($employee);
+            return view('crm/quote/listAssignTo', compact('employee'));
+        }
+    }
 
 
 
