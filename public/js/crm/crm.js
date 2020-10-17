@@ -263,6 +263,102 @@
       }
     
 // -----------END Report ---------- //
+// -----------Setting Report ---------- //
+ ////view Manage Setting///////
+ function CrmSettingView(url,table){
+  $.ajax({  
+      url:url,  //get URL to route
+      type:"get",  
+      data:{},  
+      success:function(data){  
+        $('#CrmTabManageSetting').html(data);
+        $('#'+table+'').dataTable({
+          scrollX:true
+        }); //Set table to datatable
+    
+  }  
+  });  
+  }
+  ////Funtion Modal Action Add///////
+  function CrmModalAction(form,modal,button,title){
+    $("#"+form+"").find('input:text, input:password, input:file, select, textarea').val(''); //remove text when show
+    $("#"+form+"").find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');//remove text when show
+    $("#"+form+"").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid");//remove valid all input field
+    $("#"+form+"").attr("method","post");//Set Form method
+    $("#"+modal+"").modal('show'); //Set modal show
+    $("#card_title").text(title); // Set title modal
+    $("#"+button+"").text('Create'); // Set button Create
+  }  
+  function CrmSubmitModalAction(form,button,url,type,modal,alert,goto){
+  $("#"+form+"").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid");//remove valid all input field
+  /// Insert function
+  if($("#"+button+"").text()=='Create') //check condition for create question type 
+  {
+    $.ajax({
+      url:url,
+      type:type,
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+       data: //_token: $('#token').val(),
+       $("#"+form+"").serialize(),
+      success:function(data)
+      {
+        if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+          $("#"+modal+"").modal('hide');
+          sweetalert('success',alert);
+          setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content 
+      }else{
+        // $(".print-error-msg").find("ul").html(''); 
+
+        // $(".print-error-msg").css('display','block');
+
+        $.each( data.errors, function( key, value ) {//foreach show error
+            $("#" + key).addClass("is-invalid"); //give read border to input field
+            // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            //  sweetalert('warning',value);
+            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+        });
+      }
+      }
+    });
+  }
+  /// Update action 
+  if($("#"+button+"").text()=='Update') // Check Condition for update question type
+  {
+    $.ajax({
+      url:url,
+      type:type,
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data: //_token:  $('#token').val(),
+      $("#"+form+"").serialize(),
+      success:function(data)
+      {
+        if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+          $("#"+modal+"").modal('hide');
+          sweetalert('success',alert);
+          setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content 
+      }else{
+        // $(".print-error-msg").find("ul").html(''); 
+
+        // $(".print-error-msg").css('display','block');
+
+        $.each( data.errors, function( key, value ) {//foreach show error
+            $("#" + key).addClass("is-invalid"); //give read border to input field
+            // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            //  sweetalert('warning',value);
+            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+        });
+      }
+      }
+    });
+    }
+  }
+// -----------End Report ---------- //
 //////////////////////////==========================END MET KEOSAMBO ====================///////////////////////////////
     // $(document).ready(function(){
     //     var a = 0;
