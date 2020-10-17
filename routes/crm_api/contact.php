@@ -13,20 +13,22 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::group(['middleware' => ['jwt.verify']], function() {
+    // get all contacts
+    Route::get('/contacts','api\crm\ContactController@index');
 
-// get all contacts
-Route::get('/contacts','api\crm\ContactController@index');
+    // get contact by id
+    Route::get('/contact/{id}','api\crm\ContactController@show');
 
-// get contact by id
-Route::get('/contact/{id}','api\crm\ContactController@show');
+    // add contact
+    Route::post('/contact','api\crm\ContactController@store');
 
-// add contact
-Route::post('/contact','api\crm\ContactController@store');
+    // edit contact
+    Route::put('/contact','api\crm\ContactController@store');
 
-// edit contact
-Route::put('/contact','api\crm\ContactController@store');
+    // delete contact
+    Route::delete('/contact/{id}/{userid}','api\crm\ContactController@destroy');
 
-// delete contact
-Route::delete('/contact/{id}/{userid}','api\crm\ContactController@destroy');
-
+    
+});
 
