@@ -138,7 +138,7 @@ class Employee extends Model
         $sql= "SELECT public.insert_ma_user_employee('$firstName_en','$lasttName_kh','$email','$contact',$position,$companyid,$branch_id,$company_dept_id,$create_by,'$idNumber','$sex','$firstName_kh','$lastName_kh','$image','$OfficePhone','$jointDate','$dateOfBirth','$home_en','$home_kh','$street_en','$street_kh',null,'$gazetteer',null,'$spous','$has_children',$children,$salary,$currency,'$description','$payrollAccount')";
         $stm=DB::select($sql);
         if($stm[0]->insert_ma_user_employee>0){
-            return "Iaert Successfully";
+            return "Insert Successfully";
         }else{
             return "error";
         }
