@@ -36,7 +36,7 @@
                       <td style="padding-top:37px ">{{ $e->id_number }}</td>
                       <td>
                           <div class="text-center">
-                              <img src="https://system.turbotech.com{{$e->image}}" alt="" width="50px" height="50px" style="border-radius:50px;margin-right:10px">
+                              <img src="{{$e->image}}" alt="" width="50px" height="50px" style="border-radius:50px;margin-right:10px">
                           </div>
                           <div class="text-center">
                               {{ $e->firstName." ".$e->lastName }}
