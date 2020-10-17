@@ -112,6 +112,7 @@ class QuoteController extends Controller
                 session_start();
             }
 
+            $request->create_by = getSession();
             $validator = \Validator::make($request->all(),[
 
                     'subject' =>  ['required'],
