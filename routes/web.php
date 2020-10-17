@@ -111,6 +111,13 @@ Route::get('/crmreport/detailquote','crm\CrmReportController@CrmDetailQuoteRepor
 Route::get('/crm/dashboard','crm\DashboardController@Index'); // show index report
 // END Dashboard CRM
 
+// Setting CRM
+Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show index Setting CRM
+    //-- Lead Status
+    Route::get('/crm/setting/leadstatus','crm\CrmSettingController@CrmLeadStatus'); // show Lead Status Setting CRM
+    Route::post('/crm/setting/leadstatus/store','crm\CrmSettingController@StoreLeadStatus'); // show Lead Status Setting CRM
+Route::get('/crm/setting/leadindustry','crm\CrmSettingController@CrmLeadIndustry'); // show Lead Status Setting CRM
+// END Setting CRM 
 
 //===========================END CRM=================================
 
