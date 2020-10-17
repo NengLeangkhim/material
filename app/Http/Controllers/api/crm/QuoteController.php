@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\model\api\crm\ModelCrmQuote as Quote;
 use App\Http\Resources\QuoteResource;
+use App\model\api\crm\ModelCrmQuoteStatusType as QuoteStatusType;
 use App\Http\Resources\StockResource;
 
 use DB;
@@ -60,6 +61,9 @@ class QuoteController extends Controller
             //     'crm_quote_status_type_id' => 'required'
             // ]);
 
+        // echo $request->input('create_by');
+        // exit;
+
         if($request->isMethod('put')){
             try { 
                 $results = DB::select(
@@ -83,20 +87,19 @@ class QuoteController extends Controller
         }else{
             DB::beginTransaction();
             try { 
+
                 $createby = $request->input('create_by');
 
                 // insert to crm_quote 
                 $insert_quote = DB::select(
-                    'SELECT public."insert_crm_quote"(?, ?, ?, ?, ?, ?,?,?)',
+                    'SELECT public."insert_crm_quote"(?, ?, ?, ?, ?, ?)',
                     array(
                         $request->input('lead_id'),
                         $request->input('due_date'),
                         $request->input('assign_to'),
                         $request->input('crm_lead_address_id'),
                         $request->input('subject'),
-                        $createby,
-                        $request->input('discount'),
-                        $request->input('discount_type')
+                        $createby
                     ));
 
                 $quote_id =$insert_quote[0]->insert_crm_quote;
@@ -132,13 +135,15 @@ class QuoteController extends Controller
                 for ($i = 0; $i < $all_product; $i++)
                 {
                     DB::select(
-                        'SELECT public."insert_crm_quote_branch_detail"(?, ?, ?, ?, ?)',
+                        'SELECT public."insert_crm_quote_branch_detail"(?, ?, ?, ?, ?, ?, ?)',
                         array(
                             $quote_branch_id,
                             $request->product[$i],
                             $request->price[$i],
                             $request->qty[$i],
-                            $createby
+                            $createby,
+                            $request->discount[$i],
+                            $request->discount_type[$i]
                         ));
                 }
 
@@ -170,5 +175,11 @@ class QuoteController extends Controller
         } catch(Exception $e){
             return json_encode(["delete"=>"fail","result"=> $e->getMessage()]);
         }
+    }
+
+    public function getStatus(){
+        $status = QuoteStatusType::get();
+
+        return json_encode($status);
     }
 }
