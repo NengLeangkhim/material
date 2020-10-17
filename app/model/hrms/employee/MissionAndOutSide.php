@@ -109,5 +109,28 @@ class MissionAndOutSide extends Model
 
         return $missionDetail;
 
-    }   
+    }
+
+
+    // List my mission
+    public static function hrm_my_mission($id,$date_from,$date_to){
+        try {
+            $date_from_ = strtotime($date_from);
+            $date_to_ = strtotime($date_to);
+            $datediff = $date_to_-$date_from_;
+            $day=round($datediff / (60 * 60 * 24));
+            $data=array();
+            for($i=0;$i<=$day;$i++){       
+                $date=date('Y-m-d', strtotime("+$i day", $date_from_));
+                $sql="SELECT * FROM hr_mission hm INNER JOIN hr_mission_detail hmd on hm.id=hmd.hr_mission_id WHERE hmd.ma_user_id=$id AND hm.status='t' and hm.is_deleted='f'";
+                $stm=DB::select($sql);
+                array_push($data,$stm[0]->date_from,$stm[0]->date_to);
+            }
+            return $data;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+        
+
+    }
 }

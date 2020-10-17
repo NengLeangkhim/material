@@ -138,7 +138,7 @@ class PurchaseController extends Controller
                 return $this->sendError('Validation Error.', $validator->errors());
             }
 
-            $sql_purchase ="update_bsc_invoice($id, $request->update_by, null, $request->ma_supplier_id, '$request->billing_date', '$request->due_date', $request->reference, null, null, null, null, 'purchase', null, $request->total, $request->vat_total, $request->grand_total, $request->status, null, $request->bsc_account_charts_id, 2, 0, $request->grand_total, $request->status)";
+            $sql_purchase ="update_bsc_invoice($id, $request->update_by, null, $request->ma_supplier_id, '$request->billing_date', '$request->due_date', '$request->reference', null, null, null, null, 'purchase', null, $request->total, $request->vat_total, $request->grand_total, '$request->status', null, $request->bsc_account_charts_id, 2, 0, $request->grand_total, '$request->status')";
 
             // update_bsc_invoice($id, $request->update_by, null, $request->ma_supplier_id, '$request->billing_date', '$request->due_date', $request->reference, null, null, null, null, 'purchase', null, $request->total, $request->vat_total, $request->grand_total, $request->status, null, $request->bsc_account_charts_id, 2, 0, $request->grand_total, $request->status);
 
@@ -150,7 +150,7 @@ class PurchaseController extends Controller
             if($purchase_details != ""){
                 foreach ($purchase_details as $key => $p_detail) {
                     // var_dump($p_detail[stock_product_id]);
-                    $sql_purchase_detail = "update_bsc_invoice_detail($p_detail[bsc_invoice_detail_id], $request->update_by, $id, null, $p_detail[stock_product_id], $p_detail[description], $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], $request->status, $p_detail[description], $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0, $request->status)";
+                    $sql_purchase_detail = "update_bsc_invoice_detail($p_detail[bsc_invoice_detail_id], $request->update_by, $id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], '$request->status', '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0, '$request->status')";
                     $q_purchase_detail=DB::select("SELECT ".$sql_purchase_detail);
                 }
             }
@@ -174,5 +174,38 @@ class PurchaseController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function show_account_payable(Request $request)
+    {
+        $chart_accounts = DB::table('bsc_account_charts')
+        ->where([
+            ['bsc_account_type_id','=',15],
+            ['status','=','t'],
+            ['is_deleted','=','f']
+        ])->get();
+        return $this->sendResponse($chart_accounts, 'Account payable retrieved successfully.');
+    }
+
+    public function show_supplier(Request $request)
+    {
+        $suppliers = DB::table('ma_supplier')
+        ->where([
+            ['status','=','t'],
+            ['is_deleted','=','f']
+        ])->get();
+        return $this->sendResponse($suppliers, 'Supplier retrieved successfully.');
+    }
+
+    public function show_product(Request $request)
+    {
+        $products = DB::table('stock_product')
+        ->select('stock_product.*','bsc_account_charts.name_en as chart_account_name')
+        ->leftJoin('bsc_account_charts','stock_product.bsc_account_charts_id','=','bsc_account_charts.id')
+        ->where([
+            ['stock_product.status','=','t'],
+            ['stock_product.is_deleted','=','f']
+        ])->get();
+        return $this->sendResponse($products, 'Product retrieved successfully.');
     }
 }
