@@ -46,6 +46,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('bsc_show_account_payable', 'api\BSC\PurchaseController@show_account_payable');
     Route::get('bsc_show_supplier', 'api\BSC\PurchaseController@show_supplier');
     Route::get('bsc_show_product', 'api\BSC\PurchaseController@show_product');
+    Route::get('bsc_show_product_single/{id}', 'api\BSC\PurchaseController@show_product_single');
 
     // Customers
     Route::resource('bsc_customers', 'api\BSC\CustomerController');
