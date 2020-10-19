@@ -11,12 +11,14 @@ class profileModel extends Model
     {
         try {
             $r = DB::table('ma_user as us')
-                    ->select('us.*','po.name as positionName','dp.name as deptName','cpdt.company','cpdt.branch','us_add.hom_en','us_add.street_en','us_add.gazetteer_code','sal.rate_month')
+                    ->select('us.*','po.name as positionName','dp.name as deptName','cpdt.company','cpdt.branch','us_add.hom_en','us_add.street_en','us_add.gazetteer_code','sal.rate_month','us_de.martital_status','us_de.has_child')
                     ->leftjoin('ma_position as po','us.ma_position_id','=','po.id')
                     ->leftjoin('ma_company_dept as dp','us.ma_company_dept_id','=','dp.id')
                     ->leftjoin('ma_company_detail as cpdt','us.ma_company_detail_id','=','cpdt.id')
                     ->leftjoin('ma_user_address as us_add','us_add.ma_user_id','=','us.id')
                     ->leftjoin('hr_payroll_base_salary as sal','sal.ma_user_id','=','us.id')
+                    ->leftjoin('ma_user_detail as us_de','us_de.ma_user_id','=','us.id')
+
                     
                     ->where('us.is_deleted','=','f')
                     ->where('us.status','=','t')

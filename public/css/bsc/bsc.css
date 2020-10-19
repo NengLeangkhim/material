@@ -40,5 +40,12 @@
 .td_text_center{
     text-align-last: center;
 }
-
-
+.form-control{
+    height: calc(2.25rem + 15px) !important;
+}
+.margin_left{
+    margin-left: 0;
+}
+#add_payment{
+    margin-left: -10px;
+}
