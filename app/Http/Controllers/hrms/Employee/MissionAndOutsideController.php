@@ -108,15 +108,27 @@ class MissionAndOutsideController extends Controller
             session_start();
         }
         $userid = $_SESSION['userid'];
-        if(isset($_GET['date_from']) && isset($_GET['date_to'])){
-            $date_from=$_GET['date_from'];
-            $date_to=$_GET['date_to'];
-        }else{
-            $date_from=date('Y-m-d');
-            $date_to=date('Y-m-d');
-        }
-
-        $my_mission=MissionAndOutSide::hrm_my_mission($userid,$date_from,$date_to);
+        $my_mission=MissionAndOutSide::hrm_my_mission($userid);
         return view('hrms.Employee.MissionAndOutSide.my_mission')->with('my_mission',$my_mission);
+    }
+
+    function hrm_search_mission(){
+        $year=$_GET['eyear'];
+        $month=$_GET['emonth'];
+        $data=MissionAndOutSide::mission_search($month,$year);
+        return view('hrms/Employee/MissionAndOutSide/mision_search')->with('mission',$data);
+        print_r($data);
+    }
+
+    function hrm_my_mission_search(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userid = $_SESSION['userid'];
+        $year=$_GET['eyear'];
+        $month=$_GET['emonth'];
+        $data=MissionAndOutSide::my_mission_search($userid,$month,$year);
+        return view('hrms/Employee/MissionAndOutSide/mision_search')->with('mission',$data);
+        print_r($data);
     }
 }

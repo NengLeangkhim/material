@@ -88,7 +88,7 @@ class Holiday extends Model
             $data[] = [
                 'id' => "d8jai7s",
                 'name' => $ex_holiday->title,
-                'description' => $ex_holiday->description,
+                'description' => $ex_holiday->title_kh,
                 'date' => [$date1,$date2],
                 'type' => "event",
             ];

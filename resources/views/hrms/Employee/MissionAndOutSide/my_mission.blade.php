@@ -7,14 +7,12 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                  @php
-                      print_r($my_mission);
-                  @endphp
                   <div class="col-md-12">
                       <div class="row">
                           <div class="col-md-4">
                               <label for="">Month</label>
-                              <select name="month" id="" class="form-control">
+                              <select name="month" id="mission_month" class="form-control">
+                                    <option value="" hidden></option>
                                     <option value="1">January</option>
                                     <option value="2">Febbruary</option>
                                     <option value="3">March</option>
@@ -31,7 +29,8 @@
                           </div>
                           <div class="col-md-4">
                               <label for="">Year</label>
-                              <select name="year" id="" class="form-control">
+                              <select name="year" id="mission_year" class="form-control">
+                                  <option value="" hidden></option>
                                     @php
                                         for($i=Date('Y');$i>=2017;$i--){
                                             echo '<option value="'.$i.'">'.$i.'</option>';
@@ -42,11 +41,11 @@
                           </div>
                           <div class="col-md-4">
                               <label for="">Search</label>
-                              <button class="btn btn-info form-control">Search</button>
+                              <button class="btn btn-info form-control" onclick="hrms_search_mission('hrm_my_search_mission')">Search</button>
                           </div>
                       </div>
                   </div>
-                  <div class="col-md-12" style="margin-top: 10px">
+                  <div class="col-md-12" style="margin-top: 10px" id="mission_search">
                         <table class="table table-bordered hrm_table" id="tbl_missionAndOutSide" style="width: 100%">
                             <thead>                  
                                 <tr>
