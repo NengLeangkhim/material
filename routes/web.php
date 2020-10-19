@@ -983,7 +983,6 @@ Route::get('hrm_index_user_register',function(){
     return view('hrms.recruitment_user.index_recruitment_register');
 });
 
-
 // view candidate login
 Route::get('hrm_recruitment_login',function(){
     return view('hrms.recruitment_user.login_user');
