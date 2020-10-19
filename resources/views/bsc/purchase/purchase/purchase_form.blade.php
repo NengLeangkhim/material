@@ -1,9 +1,15 @@
+@php
+    $item = "";
+    foreach($products as $product){
+        $item.="<option value='{$product->id}'>{$product->name}</option>";
+    }
+@endphp
+
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-4">
                 <h1><i class="fas fa-user-plus"></i> Create Purchase</h1>
-                <!-- <h1 class="card-title hrm-title"><strong><i class="fas fa-user-plus"></i> Create Purchase </strong></h1> -->
             </div>
             <div class="col-md-5">
                 <div class="row">
@@ -16,11 +22,12 @@
                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                             </div>
                             <select class="form-control select2" name="account_type" id="account_type">
-                                <option value="null" selected hidden disabled>select item</option>
-                                <option value="1">Exclusive</option>
-                                <option value="2">Inclusive</option>
-                                <option value="3">Oppa</option>
-                                <option value="4">Other</option>                        
+                                <option value="" selected hidden disabled>select item</option>
+
+                                @foreach ($account_payables as $account_payable)
+                                    <option value="{{$account_payable->bsc_account_type_id}}">{{$account_payable->name_en}}</option>
+                                @endforeach
+                               
                             </select>
                         </div>
                     </div>
@@ -44,9 +51,6 @@
                     @csrf
                     <!-- general form elements -->
                     <div class="card card-primary">
-                        <!-- <div class="card-header" style="background:#1fa8e0">
-                            <h3 class="card-title">Purchase Detail</h3>
-                        </div> -->
                         <div class="card-body">
                             <div class="form-group">
                                 <div class="row">
@@ -58,10 +62,11 @@
                                             </div>
                                             <select class="form-control select2" name="account_type" id="purchase_supplier">
                                                 <option selected hidden disabled>select item</option>
-                                                <option>Exclusive</option>
-                                                <option>Inclusive</option>
-                                                <option>Oppa</option>
-                                                <option>Other</option>
+
+                                                @foreach ($suppliers as $supplier)
+                                                    <option value="{{$supplier->id}}">{{$supplier->name}}</option>
+                                                @endforeach
+                                                
                                             </select>
                                         </div>
                                     </div>
@@ -88,7 +93,6 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <!-- <label for="exampleInputEmail1">Parent</label> -->
                                         <label for="exampleInputEmail1">Reference</label>
                                          <div class="input-group">
                                             <div class="input-group-prepend">
@@ -104,7 +108,7 @@
                                     <table id="purchase_table" class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Item</th>
+                                                <th style="min-width: 165px;">Item</th>
                                                 <th>Description</th>
                                                 <th>Quantity</th>
                                                 <th>Unit Price</th>
@@ -191,6 +195,7 @@
                                     </div>
                                 </div>
                             <br/>
+                            <input type="hidden" id='items' value="{{$item}}">
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-primary save" id="frm_btn_sub_add_chart_account" onclick="saveData()">Save</button>
                                 <button type="button" class="btn btn-danger" onclick="go_to('bsc_chart_account_list')">Cencel</button>
@@ -241,14 +246,14 @@
         });
         
 
-        // $("#purchase_table tbody").delegate('.item_qty','keyup',function(){
-        //     tr=$(this).closest('tr');
-        //     var qty=$(this).text();
-        //     var amount = qty * tr.find('.item_unit_price').text();
-        //     tr.find('.item_amount').text(amount);
-        //     showTotal();
+        $("#purchase_table tbody").delegate('.item_qty','keyup',function(){
+            tr=$(this).closest('tr');
+            var qty=$(this).text();
+            var amount = qty * tr.find('.item_unit_price').text();
+            tr.find('.item_amount').text(amount.toFixed(2));
+            showTotal();
             
-        // });
+        });
         
         // Delegate Field Unit Price
         $("#purchase_table tbody").delegate('.item_unit_price','keyup',function(){
@@ -292,11 +297,11 @@
     function inSertTable(count){ 
         var tr = '';
         tr +='<tr id="row'+count+'">'+
-                '<td class="item_name" style="padding: 0;"><select class="item_select stock_product_id" style="width: 100%;height: 51px;"><option value=""></option><option value="1">item1</option><option value="2">item2</option></select></td>'+
+                '<td class="item_name" style="padding: 0;"><select class="item_select stock_product_id" style="width: 100%;height: 51px;"><option value=""></option>'+$("#items").val()+'</select></td>'+
                 '<td contenteditable="true" class="item_des" id="item_des"></td>'+
                 '<td contenteditable="true" class="item_qty" id="item_qty"></td>'+
                 '<td contenteditable="true" class="item_unit_price" id="item_unit_price"></td>'+
-                '<td contenteditable="true" class="item_account" id="item_account"></td>'+
+                '<td class="item_account" id="item_account"></td>'+
                 '<td class="item_tax" style="padding: 0;"><select style="border: 0px; height: 51px;" class="tax form-control"><option value=""></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
                 '<td class="item_amount" id="item_amount"></td>'+
                 '<td style="text-align: center;"><button type="button" name="remove" data-row="row'+count+'" class="btn btn-danger btn-xs remove">x</button></td>'+
