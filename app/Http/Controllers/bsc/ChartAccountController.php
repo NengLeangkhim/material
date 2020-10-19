@@ -28,7 +28,7 @@ class ChartAccountController extends Controller
                     $res = app()->handle($request);
                     $ch_account = json_decode($res->getContent()); // convert to json object
                     $ch_accounts=$ch_account->data;
-                return view('bsc.chart_account.chart_account_list',compact('ch_accounts','ch_account_types'));
+                return view('bsc.chart_account.chart_account_list',compact('ch_accounts'));
             }
         }catch(Exception $ex){
             echo $ex->getMessage();
