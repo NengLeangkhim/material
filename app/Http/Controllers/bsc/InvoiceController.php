@@ -48,7 +48,8 @@ class InvoiceController extends Controller
                 $end_period_date=$request->end_period_date;
                 $deposit_on_payment=$request->deposit_on_payment;
                 $itemDetail=$request->itemDetail;//data is array
-                return $itemDetail;
+                // return $itemDetail;
+                echo "success";
             }else{
                 return ValidateController::validateInvoice($request);
             }

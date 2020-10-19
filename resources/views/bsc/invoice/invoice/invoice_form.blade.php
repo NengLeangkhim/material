@@ -15,13 +15,13 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <select class="form-control select2" name="account_type" id="account_type">
-                                <option selected hidden disabled>select item</option>
-                                <option value="1">Exclusive</option>
-                                <option value="2">Inclusive</option>
-                                <option value="3">Oppa</option>
-                                <option value="4">Other</option>
-                            </select>
+                                <select class="form-control select2" name="account_type" id="account_type">
+                                    <option selected hidden disabled>select item</option>
+                                    <option value="1">Exclusive</option>
+                                    <option value="2">Inclusive</option>
+                                    <option value="3">Oppa</option>
+                                    <option value="4">Other</option>
+                                </select>
                         </div>
                     </div>
                 </div>
@@ -89,9 +89,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input required type="date" class="form-control"  name="billing_date" id="billing_date" required>
+                                            <input type="date" class="form-control"  name="billing_date" id="billing_date">
                                         </div>
-                                        <span id="billing_date"></span>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="exampleInputEmail1">Reference<b class="color_label">*</b></label>
@@ -277,7 +276,6 @@
                 };
             }
         });
-        document.getElementById("edName").required = true;
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             type:"POST",
@@ -302,9 +300,12 @@
                     // go_to(goto);// refresh content
                   }else{
                     $.each( data.errors, function( key, value ) {//foreach show error
+                        // document.getElementById(key).attributes["required"] = "";
+                        // document.getElementById(key).required = true;
                         $("#" + key).addClass("is-invalid"); //give read border to input field
-                        $("#" + key + "_Error").children("strong").text("").text(data.errors[key][0]);
-                        $("#" + key + "_Error").addClass("invalid-feedback");
+
+                        // $("#" + key + "_Error").children("strong").text("").text(data.errors[key][0]);
+                        // $("#" + key + "_Error").addClass("invalid-feedback");
 
                     });
                   }

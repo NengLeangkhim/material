@@ -21,18 +21,18 @@ class ValidateController extends Controller
                 'end_period_date' =>  ['required'],
                 'deposit_on_payment' =>  ['required'],
             ]
-            ,
-            [
-                'account_type.required' => 'This Field is require !!',   //massage validator
-                'customer.required' => 'This Field is require !!',   //massage validator
-                'customer_branch.required' => 'This Field is require !!',   //massage validator
-                'billing_date.required' => 'This Field is require !!',   //massage validator
-                'reference.required' => 'This Field is require !!',   //massage validator
-                'due_date.required' => 'This Field is require !!',   //massage validator
-                'effective_date.required' => 'This Field is require !!',   //massage validator
-                'end_period_date.required' => 'This Field is require !!',   //massage validator
-                'deposit_on_payment.required' => 'This Field is require !!',   //massage validator
-            ]
+            // ,
+            // [
+            //     'account_type.required' => 'This Field is require !!',   //massage validator
+            //     'customer.required' => 'This Field is require !!',   //massage validator
+            //     'customer_branch.required' => 'This Field is require !!',   //massage validator
+            //     'billing_date.required' => 'This Field is require !!',   //massage validator
+            //     'reference.required' => 'This Field is require !!',   //massage validator
+            //     'due_date.required' => 'This Field is require !!',   //massage validator
+            //     'effective_date.required' => 'This Field is require !!',   //massage validator
+            //     'end_period_date.required' => 'This Field is require !!',   //massage validator
+            //     'deposit_on_payment.required' => 'This Field is require !!',   //massage validator
+            // ]
         );
 
         if ($validator->fails()) //check validator for fail
