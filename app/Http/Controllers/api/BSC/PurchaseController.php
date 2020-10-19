@@ -225,7 +225,7 @@ class PurchaseController extends Controller
             ['stock_product.id','=',$id],
             ['stock_product.status','=','t'],
             ['stock_product.is_deleted','=','f']
-        ])->get();
+        ])->first();
         return $this->sendResponse($products, 'Product retrieved successfully.');
     }
 }
