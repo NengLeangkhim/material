@@ -263,8 +263,8 @@
                                         </div><br/>
 
                                     </div>
-                                    <div class="col-md-12 pull-left">
-                                        <button type="button" class="btn btn-success save" id="frm_btn_sub_add_chart_account">Add Payment</button>
+                                    <div class="col-md-12">
+                                        <button id="add_payment" type="button" class="btn btn-success save" id="frm_btn_sub_add_chart_account">Add Payment</button>
                                     </div>
                                 </div>
                             </form>

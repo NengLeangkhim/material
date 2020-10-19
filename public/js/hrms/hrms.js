@@ -550,6 +550,35 @@ function preview_image(event) {
     reader.readAsDataURL(event.target.files[0]);
 }
 
+// Search mission by month
+function hrms_search_mission(route){
+    if(check_session()){
+        return;
+    }
+    var mission_month=document.getElementById('mission_month').value;
+    var mission_year=document.getElementById('mission_year').value;
+    if(mission_month.length<=0 || mission_year.length<=0){
+        alert('Please select month and date !!');
+        return;
+    }
+    $("#mission_search").html(spinner());
+    $.ajax({
+        type: 'GET',
+        url: route,
+        data: {
+            _token: '<?php echo csrf_token() ?>',
+            eyear: mission_year,
+            emonth:mission_month
+        },
+        success: function (data) {
+            document.getElementById('mission_search').innerHTML=data;
+            $('#tbl_missionAndOutSide').DataTable({
+                responsive: true
+            });
+        }
+    });
+}
+
 
 
 

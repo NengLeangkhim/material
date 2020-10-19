@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-md-6">
                       <label>ID Number <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" name="emIdNumber" value="@php if(isset($data[1])){ echo $data[1]['id_number']; } if(isset($data[4])){echo $data[4];}@endphp" required readonly>
+                      <input type="text" class="form-control" name="emIdNumber" value="@php if(isset($data[1])){ echo $data[1]['id_number']; }@endphp" required>
                     </div>
                     <div class="col-md-6">  
                       <label>Sex <span class="text-danger">*</span></label>

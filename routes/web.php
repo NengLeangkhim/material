@@ -761,6 +761,13 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// Modal Show List Candidate
     Route::get('hrm_list_condidate/modal','hrms\recruitment\HrmListCandidateController@hrm_detail_candidate');
+    
+    /// Go to add Candidate
+    Route::get('hrm_list_condidate/add','hrms\recruitment\HrmListCandidateController@hrm_goto_add');
+    /// add Candidate
+    Route::post('hrm_list_condidate/store','hrms\recruitment\HrmListCandidateController@HrmStoreCandidate');
+    /// update Candidate
+    Route::post('hrm_list_condidate/update','hrms\recruitment\HrmListCandidateController@HrmUpdateCandidate');
 
 ///// Result Candidate
     /// Index Result Candidate
@@ -832,6 +839,8 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_delete_missionoutside', 'hrms\Employee\MissionAndOutsideController@DeleteMissionOutSide');
         Route::get('hrm_modal_mission_detail', 'hrms\Employee\MissionAndOutsideController@MissionDetail');
         Route::get('hrm_my_mission','hrms\Employee\MissionAndOutsideController@hrm_my_mission');
+        Route::get('hrm_search_mission','hrms\Employee\MissionAndOutsideController@hrm_search_mission');
+        Route::get('hrm_my_search_mission','hrms\Employee\MissionAndOutsideController@hrm_my_mission_search');
     // End Mission And OutSide
 
     // Start Departement and Position
@@ -983,7 +992,6 @@ Route::get('hrm_index_user_register',function(){
     return view('hrms.recruitment_user.index_recruitment_register');
 });
 
-
 // view candidate login
 Route::get('hrm_recruitment_login',function(){
     return view('hrms.recruitment_user.login_user');
@@ -1086,13 +1094,16 @@ Route::get('test_chart',function(){
         Route::get('bsc_customer','bsc\CustomerController@customer');
     // Customer Branch
         Route::get('bsc_customer_branch','bsc\CustomerController@customer_branch');
-        Route::get('customer_branch_detail','bsc\CustomerController@customer_branch_detail');
+        Route::get('customer_branch_detail/{id}','bsc\CustomerController@customer_branch_detail');
     // Customer Service
         Route::get('bsc_customer_service','bsc\CustomerController@customer_service');
     // Customer Service Detail
         Route::get('bsc_customer_service_detail','bsc\CustomerController@customer_service_detail');
         Route::get('customer_service_detail_add','bsc\CustomerController@customer_service_detail_add');
-        Route::get('customer_service_detail_edit','bsc\CustomerController@customer_service_detail_edit');
+        Route::get('customer_service_detail_edit/{id}','bsc\CustomerController@customer_service_detail_edit');
+        Route::get('bsc_customer_service_detail_delete','bsc\CustomerController@customer_service_detail_delete');
+        Route::post('bsc_customer_service_detail_insert','bsc\CustomerController@customer_service_detail_insert');
+        Route::post('bsc_customer_service_detail_update','bsc\CustomerController@customer_service_detail_update');
 // Report
     // Dashboard
 
@@ -1104,11 +1115,14 @@ Route::get('test_chart',function(){
     Route::get('bsc_chart_account_list_edit/{id}','bsc\ChartAccountController@edit');
     Route::get('bsc_chart_account_form','bsc\ChartAccountController@form');
     Route::post('bsc_chart_account_form_add','bsc\ChartAccountController@add');
+    Route::post('bsc_chart_account_form_edit','bsc\ChartAccountController@ch_account_edit');
+    Route::get('bsc_chart_account_list_delete','bsc\ChartAccountController@ch_account_delete');
 // Invoice
     // Invoice
         Route::get('bsc_invoice_invoice_list','bsc\InvoiceController@list');
         Route::get('bsc_invoice_invoice_view','bsc\InvoiceController@view');
         Route::get('bsc_invoice_invoice_form','bsc\InvoiceController@form');
+        Route::post('bsc_invoice_save','bsc\InvoiceController@invoice_save');
     // View Payment
         Route::get('bsc_invoice_view_payment','bsc\InvoiceController@view_payment');
 
@@ -1126,6 +1140,7 @@ Route::get('test_chart',function(){
 // Purchase
     // Purchase
     Route::get('bsc_purchase_purchase_list','bsc\PurchaseController@list');
+    Route::post('bsc_purchase_save','bsc\PurchaseController@save');
 
     Route::get('bsc_purchase_purchase_view','bsc\PurchaseController@view');
 

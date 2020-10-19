@@ -801,6 +801,7 @@
                               });
                         }
 
+                        
                         // check if validate give empty qty field
                         if(key.slice(0, -2) == 'qty'){
                             $.each($("input[name='qty[]'"),function(index,value){
