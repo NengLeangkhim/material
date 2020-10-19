@@ -15,7 +15,31 @@ class QuoteController extends Controller
 
     // function to get all quote lead 
     public static function showQuoteList(){
-        return view('crm/quote/quoteShow');
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/quotes', 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        $listQuote = json_decode($res->getContent());
+
+        // dd($listQuote);
+        // $arr[] = 'i1';
+        foreach($listQuote as $key=>$val){
+
+            foreach($val as $key2=>$val2){
+
+                // dd($val2->crm_stock);
+                echo count($val2->crm_stock);
+                // foreach($val2->crm_lead as $key3=> $val3){
+                //     $arr[$key3] = $val3;
+                // }
+            }
+        }
+        // print_r($arr);
+        // return view('crm/quote/quoteShow',compact('listQuote'));
     }
 
     // function to get show qoute detail
@@ -111,8 +135,9 @@ class QuoteController extends Controller
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
-
-            $request->create_by = getSession();
+            $userid = $_SESSION['userid'];
+            // echo $userid; exit;
+            // $request->create_by = $userid;
             $validator = \Validator::make($request->all(),[
 
                     'subject' =>  ['required'],
@@ -142,10 +167,11 @@ class QuoteController extends Controller
                     'errors' => $validator->getMessageBag()->toArray() 
                 ));
             }else{
-                $create_by = $_SESSION['userid'];
+                $create_by = $userid;
                 $request->merge([
                     'create_by' => $create_by,
                 ]);
+
 
                 $request = Request::create('/api/quote', 'POST' );
                 $response = json_decode(Route::dispatch($request)->getContent());

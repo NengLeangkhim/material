@@ -29,7 +29,7 @@
                                 </div>                               
                             </div>
                             <div class="card-body ">
-                                <table id="tblQuoteList" class="table table-bordered table-hover" style="white-space:nowrap;">
+                                <table id="tblQuoteList" cellpadding="0" cellspacing="0" class="dataTable table table-bordered table-hover" style="white-space:nowrap;">
                                     <thead>
                                         <tr>
                                             <th>Quote Number</th>
@@ -47,38 +47,42 @@
                                     </thead>
                                     <tbody>
 
-                                            
-                                            @for($i=0; $i<=10; $i++)
+                                        
+                                        @foreach ($listQuote as $val)
+                                            @foreach ($val as $key => $val2)
                                                     <tr>
-                                                        <td>AAAAAA</td>
-                                                        <td>BBBBBBBBBB</td>
-                                                        <td>CCCCCCCCCCCCCC</td>
-                                                        <td>DDDDDDDDDDDDD</td>
-                                                        <td>EEEEEEEEEEEEE</td>
-                                                        <td>FFFFFFFFFFFFF</td>
-                                                        <td>GGGGGGGGGGGGGG</td>
-                                                        <td>HHHHHHHHHHHH</td>
-                                                        <td>IIIIIIIIIIII</td>
+                                                        <td>{{$val2->quote_number}}</td>
+                                                        <td>{{$val2->subject}}</td>
+                                                        <td>{{$val2->crm_lead->customer_name_en}}</td>
+                                                        <td>{{$val2->crm_lead->customer_name_en}}</td>
+                                                        <td>{{$val2->quote_number}}</td>
+                                                        <td>{{$val2->quote_number}}</td>
+                                                        <td>{{$val2->quote_number}}</td>
+                                                        <td>{{$val2->quote_number}}</td>
+                                                        <td>{{$val2->quote_number}}</td>
                                                         <td>
                                                             <div class="row-12 form-inline">
                                                                 <div class="col-md-4">
-                                                                    <a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action('/quote/detail', '{{ $i }}')"  >
+                                                                    <a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action('/quote/detail', '{{ $key }}')"  >
                                                                         {{-- <i class="fas fa-info"> </i>  --}}
                                                                         View
                                                                     </a>
                                                                 </div> 
                                                                 <div class="col-md-4">
-                                                                    <a href="#" class="btn btn-success btn-sm" onclick="goto_Action('/quote/editQuote', '{{ $i }}')">
+                                                                    <a href="#" class="btn btn-success btn-sm" onclick="goto_Action('/quote/editQuote', '{{ $key }}')">
                                                                         Edit
                                                                     </a>
                                                                 </div>  
                                                                 <div class="col-md-4 ">
-                                                                <a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead('/quote/deleteLeadQuote', '{{ $i }}')"> <span class="glyphicon glyphicon-remove"></span>  </a>
+                                                                <a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead('/quote/deleteLeadQuote', '{{ $key }}')"> <span class="glyphicon glyphicon-remove"></span>  </a>
                                                                 </div>  
                                                             </div>
                                                         </td>
                                                     </tr>
-                                            @endfor
+                                            @endforeach
+                                        @endforeach
+                                                        
+                               
 
                                                                     
                                     </tbody>  
@@ -92,11 +96,37 @@
 
 
             <script type="text/javascript">
-                    $(function () {
-                        $("#tblQuoteList").DataTable({
-                        "responsive": true,
-                        "autoWidth": false,
-                        });
+                    // $(function () {
+                    //     var tableb = $("#tblQuoteList").DataTable({
+                    //     "responsive": true,
+                    //     "autoWidth": false,
+                    //     });
+
+
+                    // });
+
+                    $(document).ready(function() {
+                            $("#tblQuoteList").dataTable({
+                                "responsive": true,
+                                "autoWidth": false,
+                            });
+                            $(".dataTable").on("draw.dt", function (e) {			 		
+                                console.log("drawing");
+                                setCustomPagingSigns.call($(this));
+                            }).each(function () {
+                                setCustomPagingSigns.call($(this)); // initialize
+                            });
+
+                            function setCustomPagingSigns() {
+                                var wrapper = this.parent();
+                                wrapper.find("a.previous").text("<");
+                                wrapper.find("a.next").text(">");			
+                            }
                     });
+
+
+    
+  
+   
 
             </script>
