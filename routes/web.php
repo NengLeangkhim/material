@@ -832,6 +832,8 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_delete_missionoutside', 'hrms\Employee\MissionAndOutsideController@DeleteMissionOutSide');
         Route::get('hrm_modal_mission_detail', 'hrms\Employee\MissionAndOutsideController@MissionDetail');
         Route::get('hrm_my_mission','hrms\Employee\MissionAndOutsideController@hrm_my_mission');
+        Route::get('hrm_search_mission','hrms\Employee\MissionAndOutsideController@hrm_search_mission');
+        Route::get('hrm_my_search_mission','hrms\Employee\MissionAndOutsideController@hrm_my_mission_search');
     // End Mission And OutSide
 
     // Start Departement and Position
