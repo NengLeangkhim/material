@@ -761,6 +761,13 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// Modal Show List Candidate
     Route::get('hrm_list_condidate/modal','hrms\recruitment\HrmListCandidateController@hrm_detail_candidate');
+    
+    /// Go to add Candidate
+    Route::get('hrm_list_condidate/add','hrms\recruitment\HrmListCandidateController@hrm_goto_add');
+    /// add Candidate
+    Route::post('hrm_list_condidate/store','hrms\recruitment\HrmListCandidateController@HrmStoreCandidate');
+    /// update Candidate
+    Route::post('hrm_list_condidate/update','hrms\recruitment\HrmListCandidateController@HrmUpdateCandidate');
 
 ///// Result Candidate
     /// Index Result Candidate
@@ -832,6 +839,8 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_delete_missionoutside', 'hrms\Employee\MissionAndOutsideController@DeleteMissionOutSide');
         Route::get('hrm_modal_mission_detail', 'hrms\Employee\MissionAndOutsideController@MissionDetail');
         Route::get('hrm_my_mission','hrms\Employee\MissionAndOutsideController@hrm_my_mission');
+        Route::get('hrm_search_mission','hrms\Employee\MissionAndOutsideController@hrm_search_mission');
+        Route::get('hrm_my_search_mission','hrms\Employee\MissionAndOutsideController@hrm_my_mission_search');
     // End Mission And OutSide
 
     // Start Departement and Position
@@ -982,7 +991,6 @@ Route::get('hrm_recruitment_candidate_logout','hrms\recruitment_user\recruitment
 Route::get('hrm_index_user_register',function(){
     return view('hrms.recruitment_user.index_recruitment_register');
 });
-
 
 // view candidate login
 Route::get('hrm_recruitment_login',function(){
