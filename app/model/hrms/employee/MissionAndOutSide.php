@@ -113,24 +113,31 @@ class MissionAndOutSide extends Model
 
 
     // List my mission
-    public static function hrm_my_mission($id,$date_from,$date_to){
+    public static function hrm_my_mission($id){
         try {
-            $date_from_ = strtotime($date_from);
-            $date_to_ = strtotime($date_to);
-            $datediff = $date_to_-$date_from_;
-            $day=round($datediff / (60 * 60 * 24));
-            $data=array();
-            for($i=0;$i<=$day;$i++){       
-                $date=date('Y-m-d', strtotime("+$i day", $date_from_));
-                $sql="SELECT * FROM hr_mission hm INNER JOIN hr_mission_detail hmd on hm.id=hmd.hr_mission_id WHERE hmd.ma_user_id=$id AND hm.status='t' and hm.is_deleted='f'";
-                $stm=DB::select($sql);
-                array_push($data,$stm[0]->date_from,$stm[0]->date_to);
-            }
-            return $data;
+            $sql="select hm.id,hm.date_from,hm.date_to,hm.type,hm.shift,hm.street,hm.home_number,hm.latlg,hm.gazetteers_code,hm.description FROM hr_mission hm INNER JOIN hr_mission_detail hmd on hm.id=hmd.hr_mission_id WHERE hm.status='t' and hm.is_deleted='f' and hmd.ma_user_id=$id";
+            return DB::select($sql);
         } catch (\Throwable $th) {
             throw $th;
         }
-        
+    }
+    // My mission search
+    public static function my_mission_search($id,$month,$year){
+        $first_date=$year.'-'.$month.'-01';
+        $number = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        $second_date=$year.'-'.$month.'-'.$number;
+        $sql="select hm.id,hm.date_from,hm.date_to,hm.type,hm.shift,hm.street,hm.home_number,hm.latlg,hm.gazetteers_code,hm.description,hmd.ma_user_id FROM hr_mission hm INNER JOIN hr_mission_detail hmd on hm.id=hmd.hr_mission_id WHERE hm.status='t' and hm.is_deleted='f' and hmd.ma_user_id=$id and hm.date_from BETWEEN '$first_date' and '$second_date'";
+        return DB::select($sql);
+    }
 
+
+
+    // mission search
+    public static function mission_search($month,$year){
+        $first_date=$year.'-'.$month.'-01';
+        $number = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        $second_date=$year.'-'.$month.'-'.$number;
+        $sql="SELECT id,date_from,date_to,type,shift,street,home_number,latlg,gazetteers_code,description FROM hr_mission WHERE status='t' and is_deleted='f' and date_from BETWEEN '$first_date' and '$second_date' ";
+        return DB::select($sql);
     }
 }

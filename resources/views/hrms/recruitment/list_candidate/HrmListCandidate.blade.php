@@ -7,7 +7,8 @@
                <div class="card-header">
                  <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i> List Candidate</strong></h1>
                  <div class="col-md-12 text-right">
-
+                    {{-- <button type="button" onclick="go_to('hrm_list_condidate/add')" class="btn bg-gradient-primary"><i class="fas fa-plus"></i> Add Candidate</button> --}}
+                    {!!$add_perm!!}
                  </div>
                </div>
                <!-- /.card-header -->
