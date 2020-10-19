@@ -79,4 +79,20 @@ class Holiday extends Model
         }
         return $data;
     }
+
+    public static function get_holiday_calendar(){
+        $holiday = DB::select("SELECT id,title,title_kh,from_date,to_date,DATE_PART('day', AGE(to_date, from_date))+1 AS days,description FROM hr_attendance_holiday WHERE status='t' and is_deleted='f'");
+        foreach ($holiday as $ex_holiday) {
+            $date1=date('F/d/Y', strtotime($ex_holiday->from_date));
+            $date2=date('F/d/Y', strtotime($ex_holiday->to_date));
+            $data[] = [
+                'id' => "d8jai7s",
+                'name' => $ex_holiday->title,
+                'description' => $ex_holiday->title_kh,
+                'date' => [$date1,$date2],
+                'type' => "event",
+            ];
+        }
+        return $data;
+    }
 }

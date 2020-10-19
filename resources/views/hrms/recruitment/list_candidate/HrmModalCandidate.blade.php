@@ -81,10 +81,6 @@
                                     <td width="30%" class="font-weight-bold">Position:</td>
                                     <td>: {{$position}}</td>
                                   </tr>
-                                  <tr>
-                                    <td width="30%" class="font-weight-bold">Interest</td>
-                                    <td>: {{$interest}}</td>
-                                  </tr>
                                 </tbody>
                             </table>
                         </div><!-- End Col-6 -->

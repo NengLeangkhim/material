@@ -18,86 +18,11 @@ class ReportBalanceSheet extends Controller
         
         if($this->validateDate($dateparam)){
             //All Assets
-            $query = DB::select(
-                'SELECT id,name_en 
-                from bsc_account_type 
-                where bsc_account_id =1'
-            );
-
-            $assets = array();
-            $assets = $query;
-            
-            $n = count($assets);
-            $ReportAsset = array();
-
-            for($i=0; $i<$n; $i++) {
-                $id = $assets[$i]->id;
-                $accountType = DB::select(
-                    "SELECT ac.id,ac.name_en,sum(j.debit_amount) as debit,sum(j.credit_amount) as credit 
-                    from bsc_account_charts as ac 
-                    INNER JOIN bsc_journal as j
-                    ON j.bsc_account_charts_id = ac.id
-                    where ac.bsc_account_type_id ='$id'
-                    and DATE(j.create_date) = '$dateparam'
-                    GROUP BY ac.id"
-                );
-                $ReportAsset[$assets[$i]->name_en] = $accountType;
-            }
-
-
+            $ReportAsset = $this->getReportData(1,$dateparam);
             //All Liablitiy
-            $query2 = DB::select(
-                'SELECT id,name_en 
-                from bsc_account_type 
-                where bsc_account_id =2'
-            );
-
-            $liability = array();
-            $liability = $query2;
-            
-            $n2 = count($liability);
-            $ReportLiability = array();
-
-            for($i=0; $i<$n2; $i++) {
-                $id = $liability[$i]->id;
-                $accountType = DB::select(
-                    "SELECT ac.id,ac.name_en,sum(j.debit_amount) as debit,sum(j.credit_amount) as credit 
-                    from bsc_account_charts as ac 
-                    INNER JOIN bsc_journal as j
-                    ON j.bsc_account_charts_id = ac.id
-                    where ac.bsc_account_type_id ='$id'
-                    and DATE(j.create_date) = '$dateparam'
-                    GROUP BY ac.id"
-                );
-                $ReportLiability[$liability[$i]->name_en] = $accountType;
-            }
-
+            $ReportLiability = $this->getReportData(2,$dateparam);
             //All Equity
-            $query3 = DB::select(
-                'SELECT id,name_en 
-                from bsc_account_type 
-                where bsc_account_id =3'
-            );
-
-            $equity = array();
-            $equity = $query3;
-            
-            $n2 = count($equity);
-            $Reportequity = array();
-
-            for($i=0; $i<$n2; $i++) {
-                $id = $equity[$i]->id;
-                $accountType = DB::select(
-                    "SELECT ac.id,ac.name_en,sum(j.debit_amount) as debit,sum(j.credit_amount) as credit 
-                    from bsc_account_charts as ac 
-                    INNER JOIN bsc_journal as j
-                    ON j.bsc_account_charts_id = ac.id
-                    where ac.bsc_account_type_id ='$id'
-                    and DATE(j.create_date) = '$dateparam'
-                    GROUP BY ac.id"
-                );
-                $ReportEquity[$equity[$i]->name_en] = $accountType;
-            }
+            $ReportEquity =$this->getReportData(3,$dateparam);
 
             return json_encode([
                 'assets'=>$ReportAsset,
@@ -106,9 +31,38 @@ class ReportBalanceSheet extends Controller
             ]);
         }
     }
-
     public function validateDate($date){
         $d = DateTime::createFromFormat('Y-m-d', $date);
         return $d && $d->format('Y-m-d') === $date;
+    }
+
+    public function getReportData($bsc_acc_id,$dateparam){
+        $query = DB::select(
+            "SELECT id,name_en 
+            from bsc_account_type 
+            where bsc_account_id ='$bsc_acc_id'"
+        );
+
+        $acc_type = array();
+        $acc_type = $query;
+
+        $n = count($acc_type);
+        $Report = array();
+
+        for($i=0; $i<$n; $i++) {
+            $id = $acc_type[$i]->id;
+            $accountType = DB::select(
+                "SELECT ac.id,ac.name_en,sum(j.debit_amount) as debit,sum(j.credit_amount) as credit 
+                from bsc_account_charts as ac 
+                INNER JOIN bsc_journal as j
+                ON j.bsc_account_charts_id = ac.id
+                where ac.bsc_account_type_id ='$id'
+                and DATE(j.create_date) <= '$dateparam'
+                GROUP BY ac.id"
+            );
+            $Report[$acc_type[$i]->name_en] = $accountType;
+        }
+
+        return $Report;
     }
 }

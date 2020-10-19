@@ -100,4 +100,35 @@ class MissionAndOutsideController extends Controller
             return view('modal_no_perms')->with('modal', 'modal_mission_detail');
         }
     }
+
+
+    // my mission
+    function hrm_my_mission(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userid = $_SESSION['userid'];
+        $my_mission=MissionAndOutSide::hrm_my_mission($userid);
+        return view('hrms.Employee.MissionAndOutSide.my_mission')->with('my_mission',$my_mission);
+    }
+
+    function hrm_search_mission(){
+        $year=$_GET['eyear'];
+        $month=$_GET['emonth'];
+        $data=MissionAndOutSide::mission_search($month,$year);
+        return view('hrms/Employee/MissionAndOutSide/mision_search')->with('mission',$data);
+        print_r($data);
+    }
+
+    function hrm_my_mission_search(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userid = $_SESSION['userid'];
+        $year=$_GET['eyear'];
+        $month=$_GET['emonth'];
+        $data=MissionAndOutSide::my_mission_search($userid,$month,$year);
+        return view('hrms/Employee/MissionAndOutSide/mision_search')->with('mission',$data);
+        print_r($data);
+    }
 }

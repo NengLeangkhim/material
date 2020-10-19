@@ -21,61 +21,73 @@
         <div class="row">
             <div class="col-lg-3 col-6">
               <!-- small box -->
-              <div class="small-box">
+              <div class="small-box bg-light">
                 <div class="inner">
-                  <h3>150</h3>
-  
-                  <p>New Orders</p>
+                  <div class="row">
+                    <div class="col-8">
+                      <h3 class="text-info">150</h3>
+    
+                      <p>New Leads</p>
+                    </div>
+                    <div class="col-4">
+                      <img src="img/icons/iconfinder_compose_1055085.png">
+                    </div>
+                  </div>
                 </div>
-                <div class="icon">
-                  <i class="ion ion-bag"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
-              <div class="small-box bg-success">
+              <div class="small-box bg-light">
                 <div class="inner">
-                  <h3>53<sup style="font-size: 20px">%</sup></h3>
-  
-                  <p>Bounce Rate</p>
+                  <div class="row">
+                    <div class="col-8">
+                      <h3 class="text-info">102</h3>
+    
+                      <p>Total Contacts</p>
+                    </div>
+                    <div class="col-4">
+                      <img src="img/icons/iconfinder_Phone_3336937.png">
+                    </div>
+                  </div>
                 </div>
-                <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
-              <div class="small-box bg-warning">
+              <div class="small-box bg-light">
                 <div class="inner">
-                  <h3>44</h3>
-  
-                  <p>User Registrations</p>
+                  <div class="row">
+                    <div class="col-8">
+                      <h3 class="text-info">50</h3>
+    
+                      <p>New Quotes</p>
+                    </div>
+                    <div class="col-4">
+                      <img src="img/icons/iconfinder_Mind-Map-Paper_379340.png">
+                    </div>
+                  </div>
                 </div>
-                <div class="icon">
-                  <i class="ion ion-person-add"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
-              <div class="small-box bg-danger">
+              <div class="small-box bg-light">
                 <div class="inner">
-                  <h3>65</h3>
-  
-                  <p>Unique Visitors</p>
+                  <div class="row">
+                    <div class="col-8">
+                      <h3 class="text-info">75</h3>
+    
+                      <p>Survey</p>
+                    </div>
+                    <div class="col-4">
+                      <img src="img/icons/iconfinder_note_1296370.png">
+                    </div>
+                  </div>
                 </div>
-                <div class="icon">
-                  <i class="ion ion-pie-graph"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -86,309 +98,199 @@
               <!-- AREA CHART -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Area Chart</h3>
+                  <h3 class="card-title">Lead Status Chart</h3>
   
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                     </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
                   </div>
                 </div>
                 <div class="card-body">
                   <div class="chart">
-                    <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    <div id="LeadChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></div>
                   </div>
                 </div>
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->
-  
-              <!-- DONUT CHART -->
-              <div class="card card-danger">
-                <div class="card-header">
-                  <h3 class="card-title">Donut Chart</h3>
-  
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-  
-              <!-- PIE CHART -->
-              <div class="card card-danger">
-                <div class="card-header">
-                  <h3 class="card-title">Pie Chart</h3>
-  
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-  
             </div>
             <!-- /.col (LEFT) -->
             <div class="col-md-6">
               <!-- LINE CHART -->
               <div class="card card-info">
                 <div class="card-header">
-                  <h3 class="card-title">Line Chart</h3>
+                  <h3 class="card-title">Quote Status Chart</h3>
   
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                     </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
                   </div>
                 </div>
                 <div class="card-body">
                   <div class="chart">
-                    <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    <div id="QuoteChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></div>
                   </div>
                 </div>
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->
-  
-              <!-- BAR CHART -->
-              <div class="card card-success">
-                <div class="card-header">
-                  <h3 class="card-title">Bar Chart</h3>
-  
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <div class="chart">
-                    <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                  </div>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-  
-              <!-- STACKED BAR CHART -->
-              <div class="card card-success">
-                <div class="card-header">
-                  <h3 class="card-title">Stacked Bar Chart</h3>
-  
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <div class="chart">
-                    <canvas id="stackedBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                  </div>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-  
             </div>
             <!-- /.col (RIGHT) -->
           </div>
           <!-- /.row -->
+          <!-- /.row -->
+        <div class="row">
+          <div class="col-md-6">
+            <!-- AREA CHART -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Survey Chart</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart">
+                  <div id="SurveyChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;" ></div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col (LEFT) -->
+          <div class="col-md-6">
+            <!-- LINE CHART -->
+            <div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">Organization Chart</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart">
+                  <div id="OrgChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;">
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col (RIGHT) -->
+        </div>
+        <!-- /.row -->
     </div>
 </section><!-- end section Main content -->
 <script>
     $(function () {
-      /* ChartJS
-       * -------
-       * Here we will create a few charts using ChartJS
-       */
-  
-      //--------------
-      //- AREA CHART -
-      //--------------
-  
-      // Get context with jQuery - using jQuery's .get() method.
-      var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
-  
-      var areaChartData = {
-        labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [
-          {
-            label               : 'Digital Goods',
-            backgroundColor     : 'rgba(60,141,188,0.9)',
-            borderColor         : 'rgba(60,141,188,0.8)',
-            pointRadius          : false,
-            pointColor          : '#3b8bba',
-            pointStrokeColor    : 'rgba(60,141,188,1)',
-            pointHighlightFill  : '#fff',
-            pointHighlightStroke: 'rgba(60,141,188,1)',
-            data                : [28, 48, 40, 19, 86, 27, 90]
-          },
-          {
-            label               : 'Electronics',
-            backgroundColor     : 'rgba(210, 214, 222, 1)',
-            borderColor         : 'rgba(210, 214, 222, 1)',
-            pointRadius         : false,
-            pointColor          : 'rgba(210, 214, 222, 1)',
-            pointStrokeColor    : '#c1c7d1',
-            pointHighlightFill  : '#fff',
-            pointHighlightStroke: 'rgba(220,220,220,1)',
-            data                : [65, 59, 80, 81, 56, 55, 40]
-          },
-        ]
+    // Chart Lead Status
+    google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(LeadChart);
+    function LeadChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Lead", "Status", { role: "style" } ],
+        ["Cold", 8.94, "#b87333"],
+        ["Junk Lead", 10.49, "silver"],
+        ["Qualified", 19.30, "gold"],
+        ["Inquiry", 21.45, "color: #e5e4e2"],
+        ["Survey", 19.30, "#1fa8e0"]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Status Leads",
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("LeadChart"));
+      chart.draw(view, options);
+    }
+    // Quote CHart
+    google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(QuoteChart);
+      function QuoteChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Work',     11],
+          ['Eat',      2],
+          ['Commute',  2],
+          ['Watch TV', 2],
+          ['Sleep',    7]
+        ]);
+
+        var options = {
+          title: 'My Daily Activities',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('QuoteChart'));
+        chart.draw(data, options);
       }
-  
-      var areaChartOptions = {
-        maintainAspectRatio : false,
-        responsive : true,
-        legend: {
-          display: false
-        },
-        scales: {
-          xAxes: [{
-            gridLines : {
-              display : false,
+    // Survey Chart
+    google.charts.load('current', {packages: ['corechart', 'bar']});
+    google.charts.setOnLoadCallback(SurveyChart);
+
+    function SurveyChart() {
+
+          var data = google.visualization.arrayToDataTable([
+            ['Survey', 'Survey',{ role: "style" } ],
+            ['New York City, NY', 8175000,"#b87333"],
+            ['Los Angeles, CA', 3792000,'blue'],
+            ['Chicago, IL', 2695000,'gold'],
+            ['Houston, TX', 2099000,'red'],
+            ['Philadelphia, PA', 1526000,'cyan']
+          ]);
+
+          var options = {
+            title: 'Chart Survey',
+            chartArea: {width: '50%'},
+            hAxis: {
+              title: 'Total Survey',
+              minValue: 0
+            },
+            vAxis: {
+              title: 'Survey'
             }
-          }],
-          yAxes: [{
-            gridLines : {
-              display : false,
-            }
-          }]
+          };
+
+          var chart = new google.visualization.BarChart(document.getElementById('SurveyChart'));
+
+          chart.draw(data, options);
         }
+    // Organization Chart
+    google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(OrgChart);
+      function OrgChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Work',     11],
+          ['Eat',      2],
+          ['Commute',  2],
+          ['Watch TV', 2],
+          ['Sleep',    7]
+        ]);
+
+        var options = {
+          title: 'My Daily Activities',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('OrgChart'));
+        chart.draw(data, options);
       }
-  
-      // This will get the first returned node in the jQuery collection.
-      var areaChart       = new Chart(areaChartCanvas, { 
-        type: 'line',
-        data: areaChartData, 
-        options: areaChartOptions
-      })
-  
-      //-------------
-      //- LINE CHART -
-      //--------------
-      var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
-      var lineChartOptions = jQuery.extend(true, {}, areaChartOptions)
-      var lineChartData = jQuery.extend(true, {}, areaChartData)
-      lineChartData.datasets[0].fill = false;
-      lineChartData.datasets[1].fill = false;
-      lineChartOptions.datasetFill = false
-  
-      var lineChart = new Chart(lineChartCanvas, { 
-        type: 'line',
-        data: lineChartData, 
-        options: lineChartOptions
-      })
-  
-      //-------------
-      //- DONUT CHART -
-      //-------------
-      // Get context with jQuery - using jQuery's .get() method.
-      var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-      var donutData        = {
-        labels: [
-            'Chrome', 
-            'IE',
-            'FireFox', 
-            'Safari', 
-            'Opera', 
-            'Navigator', 
-        ],
-        datasets: [
-          {
-            data: [700,500,400,600,300,100],
-            backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-          }
-        ]
-      }
-      var donutOptions     = {
-        maintainAspectRatio : false,
-        responsive : true,
-      }
-      //Create pie or douhnut chart
-      // You can switch between pie and douhnut using the method below.
-      var donutChart = new Chart(donutChartCanvas, {
-        type: 'doughnut',
-        data: donutData,
-        options: donutOptions      
-      })
-  
-      //-------------
-      //- PIE CHART -
-      //-------------
-      // Get context with jQuery - using jQuery's .get() method.
-      var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-      var pieData        = donutData;
-      var pieOptions     = {
-        maintainAspectRatio : false,
-        responsive : true,
-      }
-      //Create pie or douhnut chart
-      // You can switch between pie and douhnut using the method below.
-      var pieChart = new Chart(pieChartCanvas, {
-        type: 'pie',
-        data: pieData,
-        options: pieOptions      
-      })
-  
-      //-------------
-      //- BAR CHART -
-      //-------------
-      var barChartCanvas = $('#barChart').get(0).getContext('2d')
-      var barChartData = jQuery.extend(true, {}, areaChartData)
-      var temp0 = areaChartData.datasets[0]
-      var temp1 = areaChartData.datasets[1]
-      barChartData.datasets[0] = temp1
-      barChartData.datasets[1] = temp0
-  
-      var barChartOptions = {
-        responsive              : true,
-        maintainAspectRatio     : false,
-        datasetFill             : false
-      }
-  
-      var barChart = new Chart(barChartCanvas, {
-        type: 'bar', 
-        data: barChartData,
-        options: barChartOptions
-      })
-  
-      //---------------------
-      //- STACKED BAR CHART -
-      //---------------------
-      var stackedBarChartCanvas = $('#stackedBarChart').get(0).getContext('2d')
-      var stackedBarChartData = jQuery.extend(true, {}, barChartData)
-  
-      var stackedBarChartOptions = {
-        responsive              : true,
-        maintainAspectRatio     : false,
-        scales: {
-          xAxes: [{
-            stacked: true,
-          }],
-          yAxes: [{
-            stacked: true
-          }]
-        }
-      }
-  
-      var stackedBarChart = new Chart(stackedBarChartCanvas, {
-        type: 'bar', 
-        data: stackedBarChartData,
-        options: stackedBarChartOptions
-      })
+
     })
   </script>
