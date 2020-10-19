@@ -4,12 +4,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1><i class="fas fa-user"></i> Leads</h1>
+                            <h1><i class="fas fa-user"></i> Branch </h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item active">View Leads</li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('/lead')">Lead</a></li>
+                            <li class="breadcrumb-item active">View Branch By Lead</li>
                             </ol>
                         </div>
                     </div>
@@ -22,45 +22,45 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-header">
+                                {{-- <div class="card-header">
                                     <div class="col-12">
-                                        <div class="row">
+                                        <div class="row"> --}}
                                             <!-- <a  href="#" class="btn btn-block btn-success lead" value="addlead" onclick="addlead()"><i class="fas fa-wrench"></i> Add Lead</a>  -->
-                                            <a  href="#" class="btn btn-success lead" ​value="addlead" id="lead"><i class="fas fa-plus"></i> Add Lead</a> 
-                                        </div>
+                                            {{-- <a  href="#" class="btn btn-success lead" ​value="addlead" id="lead"><i class="fas fa-plus"></i> Add Lead</a>  --}}
+                                        {{-- </div>
                                     </div>                               
-                                </div>
+                                </div> --}}
                                 <div class="card-body">
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Lead Number</th>
-                                                <th>Customer/Comapny Name</th>
+                                                {{-- <th>Lead Number</th> --}}
+                                                <th>Comapny Name EN</th>
+                                                <th>Comapny Name KH</th>
                                                 <th>Email</th>
                                                 <th>Website </th>
                                                 <th>Facebook </th>
-                                                <th>Branch</th>
-                                                {{-- <th>Detail</th> --}}
+                                                <th>Lead status</th>
+                                                <th>Assigned To</th>
+                                                <th>Detail</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- {{dd()}} --}}
                                             <?php 
-                                            for($i =0;$i<sizeof($lead);$i++){
+                                            for($i =0;$i<sizeof($branch);$i++){
                                                 ?>
                                                     <tr>
-                                                        <td>{{$lead[$i]["lead_number"]}}</td>
-                                                        <td>{{$lead[$i]["customer_name_en"]}}</td>
-                                                        <td>{{$lead[$i]["email"]}}</td>
-                                                        <td>{{$lead[$i]["website"]}}</td>
-                                                        {{-- <td>{{$lead[$i]["create_by"]['last_name_en']." ".$lead[$i]["create_by"]['first_name_en']}}</td>                                                 --}}
-                                                        <td>{{$lead[$i]["facebook"]}}</td>                                                
-                                                        <td>
-                                                            <a href="#" class="btn btn-block btn-info btn-sm branch" ​value="branch/{{$lead[$i]["lead_id"]}}" ><i class="fas fa-code-branch"></i></a>                                                             
+                                                        <td>{{$branch[$i]["company_en"]}}</td>
+                                                        <td>{{$branch[$i]["company_kh"]}}</td>
+                                                        <td>{{$branch[$i]["primary_email"]}}</td>
+                                                        <td>{{$branch[$i]["primary_website"]}}</td>
+                                                        <td>{{$branch[$i]["facebook"]}}</td>
+                                                        <td>{{$branch[$i]["lead_status"]}}</td>
+                                                        <td>{{$branch[$i]["create_by"]['last_name_en']." ".$branch[$i]["create_by"]['first_name_en']}}</td>                                                
+                                                         
+                                                        <td>  
+                                                            <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}" ><i class="fas fa-info-circle"></i></a>                                                     
                                                         </td>
-                                                        {{-- <td>  
-                                                            <a href="#" class="btn btn-block btn-info btn-sm detail" ​value="detaillead" ><i class="fas fa-info-circle"></i></a>                                                     
-                                                        </td> --}}
                                                     </tr> 
                                                 <?php
                                             }
@@ -92,25 +92,21 @@
                 "responsive": true,
                 });
             });
-            $('.lead').click(function(e)
-            {
-                var ld = $(this).attr("​value");
-                go_to(ld);
-            })
+            // $('.backlead').click(function(e)
+            // {
+            //     var ld = $(this).attr("​value");
+            //     go_to(ld);
+            // })
             $('.edit').click(function(e)
             {
                 var id = $(this).attr("​value");
                 go_to(id);
             });
-            $('.detail').click(function(e)
+            $('.branchdetail').click(function(e)
             {
                 var id = $(this).attr("​value");
                 go_to(id);
-            });
-            $('.branch').click(function(e)
-            {
-                var id = $(this).attr("​value");
-                go_to(id);
+                // alert(id);
             });
             </script>
             
