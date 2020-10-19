@@ -122,7 +122,7 @@ function inSertTable(count){
             '<td contenteditable="true" class="item_unit_price"></td>'+
             '<td contenteditable="true" class="item_discount"></td>'+
             '<td contenteditable="true" class="item_account"></td>'+
-            '<td style="padding:0 0;" class="item_tax"><select style="border: 0px; outline: 0px;" class="tax form-control custom-select"><option value=""></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
+            '<td style="padding: 0;" class="item_tax"><select style="width: 100%;height: 51px;"><option value=""></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
             '<td class="item_amount" id="item_amount"></td>'+
             '<td style="text-align: center;"><button type="button" name="remove" data-row="row'+count+'" class="btn btn-danger btn-xs remove">x</button></td>'+
         '</tr>';
