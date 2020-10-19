@@ -761,6 +761,13 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// Modal Show List Candidate
     Route::get('hrm_list_condidate/modal','hrms\recruitment\HrmListCandidateController@hrm_detail_candidate');
+    
+    /// Go to add Candidate
+    Route::get('hrm_list_condidate/add','hrms\recruitment\HrmListCandidateController@hrm_goto_add');
+    /// add Candidate
+    Route::post('hrm_list_condidate/store','hrms\recruitment\HrmListCandidateController@HrmStoreCandidate');
+    /// update Candidate
+    Route::post('hrm_list_condidate/update','hrms\recruitment\HrmListCandidateController@HrmUpdateCandidate');
 
 ///// Result Candidate
     /// Index Result Candidate

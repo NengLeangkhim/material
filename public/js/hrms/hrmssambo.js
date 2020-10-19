@@ -2264,6 +2264,85 @@ $(document).on('click', '.hrm_view_list_candidate', function(){
    }
   });
 });
+///// Function insert and Update Candidate ///////
+function HrmSubmitCandidate(){
+  event.preventDefault();
+  $("#hrm_candidate_form").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid");//remove valid all input field
+  var formElement = document.getElementById('hrm_candidate_form');
+  var formData = new FormData(formElement);
+/// Insert function
+if($('#action_hrm_candidate').val()=='Create') //check condition for create question type 
+{
+ 
+  $.ajax({
+    url:'hrm_list_condidate/store',
+    type:'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+     data: //_token: $('#token').val(),
+     //$('#hrm_candidate_form').serialize(),
+        formData,
+        processData: false,
+        contentType: false,
+    success:function(data)
+    {
+      if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+        sweetalert('success','The Candidate has been Insert Successfully !!');
+        setTimeout(function(){ go_to('/hrm_list_condidate'); }, 300);// Set timeout for refresh content 
+    }else{
+      // $(".print-error-msg").find("ul").html(''); 
+
+      // $(".print-error-msg").css('display','block');
+
+      $.each( data.errors, function( key, value ) {//foreach show error
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+          // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+          //  sweetalert('warning',value);
+          $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+      });
+    }
+    }
+  });
+}
+/// Update action 
+if($('#action_hrm_candidate').val()=='Update') // Check Condition for update question type
+{
+  $.ajax({
+    url:'hrm_list_condidate/update',
+    type:'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+     data: //_token: $('#token').val(),
+    // $('#hrm_candidate_form').serialize(),
+    formData,
+    processData: false,
+    contentType: false,
+    success:function(data)
+    {
+      if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+        console.log(data);
+        sweetalert('success','The Candidate has been Update Successfully !!');
+        setTimeout(function(){ go_to('/hrm_list_condidate'); }, 300);// Set timeout for refresh content 
+    }else{
+      // $(".print-error-msg").find("ul").html(''); 
+
+      // $(".print-error-msg").css('display','block');
+
+      $.each( data.errors, function( key, value ) {//foreach show error
+          $("#" + key).addClass("is-invalid"); //give read border to input field
+          // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+          //  sweetalert('warning',value);
+          $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+
+      });
+    }
+    }
+  });
+  }
+}
 ////===== END List Candidate======/////
 
 ////===== Result Candidate =====//////

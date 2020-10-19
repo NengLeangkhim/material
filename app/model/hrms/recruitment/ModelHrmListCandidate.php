@@ -42,4 +42,12 @@ class ModelHrmListCandidate extends Model
                         left join ma_position p on c.ma_position_id=p.id
                         WHERE c.id =?",[$id]);
     }
+    // ===== Function Insert candidate =====////
+    public static function insert_candidate($fname,$lname,$name_kh,$zip_file,$email,$password,$position_id,$cover_letter,$interest){
+        return DB::select('SELECT public.insert_hr_recruitment_candidate(?,?,?,?,?,?,?,?,?)',array($fname,$lname,$name_kh,$zip_file,$email,$password,$position_id,$cover_letter,$interest));
+    }
+    // ===== Function Update candidate =====////
+    public static function update_candidate($id,$userid,$fname,$lname,$name_kh,$zip_file,$email,$password,$candidate_id,$position_id,$status,$cover_letter,$interest,$date){
+        return DB::select('SELECT public.update_hr_recruitment_candidate(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($id,$userid,$fname,$lname,$name_kh,$zip_file,$email,$password,$candidate_id,$position_id,$status,$cover_letter,$interest,$date));
+    }
 }
