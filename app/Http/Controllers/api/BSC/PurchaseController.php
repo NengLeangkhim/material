@@ -16,7 +16,6 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        
         $purchases = DB::table('bsc_invoice')
         ->select('bsc_invoice.*','ma_supplier.name as supplier_name','bsc_payment.amount_paid','bsc_payment.date_paid','bsc_payment.due_amount')
         ->leftJoin('ma_supplier','bsc_invoice.ma_supplier_id','=','ma_supplier.id')
@@ -211,6 +210,19 @@ class PurchaseController extends Controller
         ->select('stock_product.*','bsc_account_charts.name_en as chart_account_name')
         ->leftJoin('bsc_account_charts','stock_product.bsc_account_charts_id','=','bsc_account_charts.id')
         ->where([
+            ['stock_product.status','=','t'],
+            ['stock_product.is_deleted','=','f']
+        ])->get();
+        return $this->sendResponse($products, 'Product retrieved successfully.');
+    }
+
+    public function show_product_single(Request $request, $id)
+    {
+        $products = DB::table('stock_product')
+        ->select('stock_product.*','bsc_account_charts.name_en as chart_account_name')
+        ->leftJoin('bsc_account_charts','stock_product.bsc_account_charts_id','=','bsc_account_charts.id')
+        ->where([
+            ['stock_product.id','=',$id],
             ['stock_product.status','=','t'],
             ['stock_product.is_deleted','=','f']
         ])->get();
