@@ -1,3 +1,4 @@
+<form id="frm_chart_account" action="">
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -14,7 +15,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <select class="form-control select2" name="account_type" id="accounts" required>
+                            <select class="form-control select2" name="account_type" id="account_type">
                                 <option selected hidden disabled>select item</option>
                                 <option value="1">Exclusive</option>
                                 <option value="2">Inclusive</option>
@@ -39,7 +40,7 @@
         <div class="row">
             <!-- left column -->
             <div class="col-md-12">
-                <form id="frm_chart_account" action="">
+                {{-- <form id="frm_chart_account" action=""> --}}
                     @csrf
                     <!-- general form elements -->
                     <div class="card card-primary">
@@ -70,7 +71,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <select class="form-control select2" name="customer_branch" id="customer_branch" required multiple="">
+                                            <select class="form-control select2 is-invalid" name="customer_branch" id="customer_branch" required multiple="">
                                                 <option>Exclusive</option>
                                                 <option>Inclusive</option>
                                                 <option>Oppa</option>
@@ -88,8 +89,9 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input required type="date" class="form-control"  name="billing_date" id="exampleInputEmail1" placeholder="Billing Date">
+                                            <input required type="date" class="form-control"  name="billing_date" id="billing_date" required>
                                         </div>
+                                        <span id="billing_date"></span>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="exampleInputEmail1">Reference<b class="color_label">*</b></label>
@@ -97,7 +99,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <select class="form-control select2" name="reference" required>
+                                            <select class="form-control select2" name="reference" id="reference" required>
                                                 <option selected hidden disabled>select item</option>
                                                 <option>Exclusive</option>
                                                 <option>Inclusive</option>
@@ -116,7 +118,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input required type="date" class="form-control" name="due_date" id="exampleInputEmail1" placeholder="Due Date">
+                                            <input required type="date" class="form-control" name="due_date" id="due_date" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -125,7 +127,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input required type="date" class="form-control" name="effective_date" id="exampleInputEmail1" placeholder="Effective Date">
+                                            <input required type="date" class="form-control" name="effective_date" id="effective_date" required>
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +140,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input required type="date" class="form-control" name="end_period_date" id="exampleInputEmail1" placeholder="Description">
+                                            <input required type="date" class="form-control" name="end_period_date" id="end_period_date" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -147,7 +149,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input required type="date" class="form-control" name="effective_date" id="exampleInputEmail1" placeholder="Description">
+                                            <input required type="date" class="form-control" name="deposit_on_payment" id="deposit_on_payment" required>
                                         </div>
                                     </div>
                                 </div>
@@ -242,35 +244,72 @@
                             {{-- ============= end detail payment ================= --}}
                             <br>
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary save" id="frm_btn_sub_invoice">Save</button>
+                                <button type="button" class="btn btn-primary save" id="frm_btn_sub_invoice" onclick="saveData()">Save</button>
                                 <button type="button" class="btn btn-danger" onclick="go_to('bsc_chart_account_list')">Cencel</button>
                             </div>
                         </div>
                     </div>
-                </form>
+                {{-- </form> --}}
             </div>
         </div>
     </div>
 </section>
-
+</form>
 <script src="js/bsc/invoice.js"></script>
 {{-- ========== submit chart account =========== --}}
 <script type="text/javascript">
-    $('#frm_btn_sub_invoice').on('click',function(e){
-        var data=$('#accounts').val();
-        alert(data);exit();
-    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-    $.ajax({
-        url: '/bsc_chart_account_form_add',
-        type: 'POST',
-        data: {_token: CSRF_TOKEN, account_type:account_type,code:code,name_en:name_en,name_kh:name_kh,description:description,parent:parent},
-        dataType: 'JSON',
-        success: function (data) {
-                console.log(data);
-            },
-            error: function (error) {
+    var itemDetail = [];
+    function saveData(){
+        $("#frm_chart_account select").addClass("is-invalid");
+        $(".stock_product_id").each(function(e){
+            var tr = $(this).closest('tr');
+            var thisInput = $(this).val();
+            if(thisInput != ""){
+                itemDetail[e] = {
+                    stock_product_id: thisInput,
+                    description           : tr.find(".item_des").text(),
+                    qty                   : tr.find(".item_qty").text(),
+                    unit_price            : tr.find(".item_unit_price").text(),
+                    discount              : tr.find(".item_discount").text(),
+                    bsc_account_charts_id : tr.find(".item_account").text(),
+                    tax                   : tr.find(".tax").val(),
+                    amount                : tr.find(".item_amount").text()
+                };
             }
-    });
-})
+        });
+        document.getElementById("edName").required = true;
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type:"POST",
+            url:'/bsc_invoice_save',
+            data:{
+                _token: CSRF_TOKEN,
+                account_type     : $("#account_type").val(),
+                customer         : $("#customer").val(),
+                customer_branch  : $("#customer_branch").val(),
+                billing_date     : $("#billing_date").val(),
+                reference        : $("#reference").val(),
+                due_date         : $("#due_date").val(),
+                effective_date   : $("#effective_date").val(),
+                end_period_date  : $("#end_period_date").val(),
+                deposit_on_payment : $("#deposit_on_payment").val(),
+                itemDetail       : itemDetail
+            },
+            dataType: "JSON",
+            success:function(data){
+                if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+                    sweetalert('success',alert);
+                    // go_to(goto);// refresh content
+                  }else{
+                    $.each( data.errors, function( key, value ) {//foreach show error
+                        $("#" + key).addClass("is-invalid"); //give read border to input field
+                        $("#" + key + "_Error").children("strong").text("").text(data.errors[key][0]);
+                        $("#" + key + "_Error").addClass("invalid-feedback");
+
+                    });
+                  }
+            }
+        });
+    }
 </script>
 

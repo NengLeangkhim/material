@@ -1114,6 +1114,7 @@ Route::get('test_chart',function(){
         Route::get('bsc_invoice_invoice_list','bsc\InvoiceController@list');
         Route::get('bsc_invoice_invoice_view','bsc\InvoiceController@view');
         Route::get('bsc_invoice_invoice_form','bsc\InvoiceController@form');
+        Route::post('bsc_invoice_save','bsc\InvoiceController@invoice_save');
     // View Payment
         Route::get('bsc_invoice_view_payment','bsc\InvoiceController@view_payment');
 
