@@ -836,7 +836,8 @@
                   }
               },
               error: function(data) {
-                  console.log('data error when send to http !');
+                  console.log(data);
+                  // console.log('data error when send to http !');
                   sweetalert('warning','Data not accessing to server!');
               }
           });
