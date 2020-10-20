@@ -1,6 +1,6 @@
 <div class="col-12">
     <div class="row d-flex align-items-stretch">
-      @foreach ($contact_pagination->data as $row )
+      @foreach ($contact_pagination as $row )
       <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch" >
         <div class="card bg-light" style="width:1000px">
           <div class="card-header text-muted border-bottom-0">                                    
@@ -37,6 +37,6 @@
       @endforeach                      
 
     </div> 
-    {{-- {{$contact_pagination->links()}} --}}
+    {{$contact_pagination->links()}}
 </div>
   

@@ -1,9 +1,15 @@
+@php
+    $item = "";
+    foreach($products as $product){
+        $item.="<option value='{$product->id}'>{$product->name}</option>";
+    }
+@endphp
+
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-4">
                 <h1><i class="fas fa-user-plus"></i> Create Purchase</h1>
-                <!-- <h1 class="card-title hrm-title"><strong><i class="fas fa-user-plus"></i> Create Purchase </strong></h1> -->
             </div>
             <div class="col-md-5">
                 <div class="row">
@@ -15,12 +21,13 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                             </div>
-                            <select class="form-control select2" name="account_type" >
-                                <option selected hidden disabled>select item</option>
-                                <option>Exclusive</option>
-                                <option>Inclusive</option>
-                                <option>Oppa</option>
-                                <option>Other</option>
+                            <select class="form-control select2" name="account_type" id="account_type">
+                                <option value="" selected hidden disabled>select item</option>
+
+                                @foreach ($account_payables as $account_payable)
+                                    <option value="{{$account_payable->bsc_account_type_id}}">{{$account_payable->name_en}}</option>
+                                @endforeach
+                               
                             </select>
                         </div>
                     </div>
@@ -44,9 +51,6 @@
                     @csrf
                     <!-- general form elements -->
                     <div class="card card-primary">
-                        <!-- <div class="card-header" style="background:#1fa8e0">
-                            <h3 class="card-title">Purchase Detail</h3>
-                        </div> -->
                         <div class="card-body">
                             <div class="form-group">
                                 <div class="row">
@@ -56,12 +60,13 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                                             </div>
-                                            <select class="form-control select2" name="account_type" >
+                                            <select class="form-control select2" name="account_type" id="purchase_supplier">
                                                 <option selected hidden disabled>select item</option>
-                                                <option>Exclusive</option>
-                                                <option>Inclusive</option>
-                                                <option>Oppa</option>
-                                                <option>Other</option>
+
+                                                @foreach ($suppliers as $supplier)
+                                                    <option value="{{$supplier->id}}">{{$supplier->name}}</option>
+                                                @endforeach
+                                                
                                             </select>
                                         </div>
                                     </div>
@@ -71,7 +76,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input required type="date" class="form-control" name="end_period_date" id="exampleInputEmail1" placeholder="Description">
+                                            <input required type="date" class="form-control" name="end_period_date" id="purchase_date" placeholder="Description">
                                         </div>
                                      </div>
                                 </div>
@@ -84,32 +89,31 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input required type="date" class="form-control" name="end_period_date" id="exampleInputEmail1" placeholder="Description">
+                                            <input required type="date" class="form-control" name="end_period_date" id="purchase_due_date" placeholder="Description">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <!-- <label for="exampleInputEmail1">Parent</label> -->
                                         <label for="exampleInputEmail1">Reference</label>
                                          <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="code" id="exampleInputEmail1" placeholder="Reference" >
+                                            <input type="text" class="form-control" name="code" id="purchase_reference" placeholder="Reference" >
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row table-responsive">
-                                    <table id="purchase_table" class="table table-bordered table-striped">
+                                    <table id="purchase_table" class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Item</th>
+                                                <th style="min-width: 165px;">Item</th>
                                                 <th>Description</th>
                                                 <th>Quantity</th>
                                                 <th>Unit Price</th>
                                                 <th>Account</th>
-                                                <th>Tax Rate</th>
+                                                <th>Tax</th>
                                                 <th>Amount</th>
                                                 <th></th>
                                             </tr>
@@ -136,7 +140,7 @@
                                                         <label for="">Total</label>
                                                     </div>
                                                     <div class="col-sm-6 text_right">
-                                                        <label for="" id="txtTotal">0</label>
+                                                        <label for="" id="txtTotal" class="txtTotal">0</label>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -144,7 +148,7 @@
                                                         <label for="">VAT Total</label>
                                                     </div>
                                                     <div class="col-sm-6 text_right">
-                                                        <label for="">0</label>
+                                                        <label for="" id="txtVatTotal" class="txtVatTotal">0</label>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -152,7 +156,7 @@
                                                         <label for="">Grand Total</label>
                                                     </div>
                                                     <div class="col-sm-6 text_right">
-                                                        <label for="">0</label>
+                                                        <label for="" id="txtGrandTotal">0</label>
                                                     </div>
                                                 </div>
                                                 <hr class="line_in_tag_hr">
@@ -191,8 +195,9 @@
                                     </div>
                                 </div>
                             <br/>
+                            <input type="hidden" id='items' value="{{$item}}">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary save" id="frm_btn_sub_add_chart_account">Save</button>
+                                <button type="button" class="btn btn-primary save" id="frm_btn_sub_add_chart_account" onclick="saveData()">Save</button>
                                 <button type="button" class="btn btn-danger" onclick="go_to('bsc_chart_account_list')">Cencel</button>
                             </div>
                         </div>
@@ -204,16 +209,22 @@
 </section>
 <script>
     $(document).ready(function(){
-        var count = 1;
         $('.select2').select2();
+
+        var count = 1;
         // Loop to Display 4 Table
         for(count=0;count<4;count++){
             inSertTable(count);
         }
+
         // Insert Table
         $('#purchase_form').click(function(){
                 inSertTable(count);
                 count = count + 1;
+                $('.item_select').select2({
+                    containerCssClass: "add_class_select2"
+                });
+                $(".select2 .selection .add_class_select2").css('border','0px');
         });
 
         // Remove Table
@@ -222,51 +233,120 @@
             if($(this).closest('tbody').find('tr').length >1){
                 $('#' + delete_row).remove();
                 showTotal();
+                showGrandTotal();
             }
         });
+        // Can Input only Number and . in Field Quantity and UnitPrice
+        $('.item_qty').keypress(function(e){
+            if (isNaN(String.fromCharCode(e.which))) e.preventDefault();
+        });
+        $('.item_unit_price').keypress(function(e){
+            var x = event.charCode || event.keyCode;
+            if (isNaN(String.fromCharCode(e.which)) && x!=46 || x===32 || x===13 || (x===46 && event.currentTarget.innerText.includes('.'))) e.preventDefault();
+        });
+        
 
         $("#purchase_table tbody").delegate('.item_qty','keyup',function(){
             tr=$(this).closest('tr');
             var qty=$(this).text();
             var amount = qty * tr.find('.item_unit_price').text();
-            tr.find('.item_amount').text(amount);
+            tr.find('.item_amount').text(amount.toFixed(2));
             showTotal();
-
+            
         });
+        
+        // Delegate Field Unit Price
         $("#purchase_table tbody").delegate('.item_unit_price','keyup',function(){
             tr=$(this).closest('tr');
             var price=$(this).text();
             var amount = price * tr.find('.item_qty').text();
-            tr.find('.item_amount').text(amount);
+            tr.find('.item_amount').text(amount.toFixed(2));
             showTotal();
-
+            showGrandTotal();
         });
 
-    });
+        
+        // Remove border select2 in field Item
+        $('.item_select').select2({
+            containerCssClass: "add_class_select2"
+        });
+        $(".select2 .selection .add_class_select2").css('border','0px');
 
+        
+
+    });
+    // Function Calculate Grand Total Amount
+    function showGrandTotal(){
+        let total = parseFloat($('#txtTotal').text());
+        let totalvat = parseFloat($('#txtVatTotal').text());
+        let grandTotal = total + totalvat;
+        document.getElementById('txtGrandTotal').innerHTML=grandTotal.toFixed(2);
+    }
+
+    // Function Calculate Total Amount
     function showTotal(){
         let total_amount = 0;
         $('.item_amount').each(function(e){
-            if(!isNaN(parseInt($(this).text()))){
-                total_amount += parseInt($(this).text());
+            if(!isNaN(parseFloat($(this).text()))){
+                total_amount += parseFloat($(this).text());
             }
         });
-        document.getElementById('txtTotal').innerHTML=total_amount;
+        document.getElementById('txtTotal').innerHTML=total_amount.toFixed(2);
     }
-
-    function inSertTable(count){
+    
+    function inSertTable(count){ 
         var tr = '';
         tr +='<tr id="row'+count+'">'+
-                '<td contenteditable="true" id="txt_name" class="item_name" data-id="'+count+'"></td>'+
-                '<td contenteditable="true" class="item_des"></td>'+
-                '<td contenteditable="true" class="item_qty"></td>'+
-                '<td contenteditable="true" class="item_unit_price"></td>'+
-                '<td contenteditable="true" class="item_account"></td>'+
-                '<td style="padding:0 0"><select style="border: 0px; outline: 0px;-webkit-appearance: none;" class="form-control"><option>0%</option><option>10%</option></select></td>'+
+                '<td class="item_name" style="padding: 0;"><select class="item_select stock_product_id" style="width: 100%;height: 51px;"><option value=""></option>'+$("#items").val()+'</select></td>'+
+                '<td contenteditable="true" class="item_des" id="item_des"></td>'+
+                '<td contenteditable="true" class="item_qty" id="item_qty"></td>'+
+                '<td contenteditable="true" class="item_unit_price" id="item_unit_price"></td>'+
+                '<td class="item_account" id="item_account"></td>'+
+                '<td class="item_tax" style="padding: 0;"><select style="border: 0px; height: 51px;" class="tax form-control"><option value=""></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
                 '<td class="item_amount" id="item_amount"></td>'+
                 '<td style="text-align: center;"><button type="button" name="remove" data-row="row'+count+'" class="btn btn-danger btn-xs remove">x</button></td>'+
             '</tr>';
         $('#purchase_table tbody').append(tr);
     }
-
+    function saveData(){
+     
+        var itemDetail = [];
+        $(".stock_product_id").each(function(e){
+            var tr = $(this).closest('tr');
+            var thisInput = $(this).val();
+            if(thisInput != ""){
+                itemDetail[e] = {
+                    stock_product_id : thisInput,
+                    description      : tr.find(".item_des").text(),
+                    qty              : tr.find(".item_qty").text(),
+                    unit_price       : tr.find(".item_unit_price").text(),
+                    bsc_account_id   : tr.find(".item_account").text(),
+                    tax              : tr.find(".tax").val(),
+                    amount           : tr.find(".item_amount").text()
+                };
+            }
+        });
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type:"POST",
+            url:'/bsc_purchase_save',                    
+            data:{
+                _token: CSRF_TOKEN,
+                bsc_account_charts_id : $("#account_type").val(),
+                suppier_id            : $("#purchase_supplier").val(),
+                billing_date          : $("#purchase_date").val(),
+                due_date              : $("#purchase_due_date").val(),  
+                reference             : $("#purchase_reference").val(),    
+                total                 : $("#txtTotal").text(),
+                vat_total             : $("#txtVatTotal").text(), 
+                grand_total           : $("#txtGrandTotal").text(), 
+                itemDetail            : itemDetail
+            },
+            dataType: "JSON",
+            success:function(data){
+                
+            }
+        });
+    }
+    
 </script>

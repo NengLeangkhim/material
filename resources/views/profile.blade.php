@@ -80,7 +80,7 @@
                                                     @csrf
                                                         <div class="MyPfFrame">
                                                             {{-- <label for="img" class="upload-button"> --}}
-                                                                <img class="profile-pic" src="<?php if(isset($pro) && !empty($pro)){ $pro[0]->image; } else echo "img/general_pic/user_profile3.jpg";?> " id='image_'>
+                                                                <img class="profile_user" src="<?php   if(isset($pro) && !empty($pro)){echo ($pro[0]->image);}else echo "img/general_pic/user_profile3.jpg";?> " id='image_'>
                                                                 {{-- <label for="img" class="pen-hover">
                                                                     <label for="img" class="fas fa-pencil-alt"></label>
                                                                 </label><br> --}}
@@ -129,9 +129,17 @@
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Name in Khmer</dt>
                                                     <dd class="col-sm-8 col-xs-6 col-6 dd" >{{ $pro[0]->first_name_kh." ".$pro[0]->last_name_kh }}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Marital Status</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{ null }}</dd>
-                                                <dt class="col-sm-4 col-xs-6 col-6 dt">Place of Birth</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{ null }}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{ $pro[0]->martital_status }}</dd>
+                                                <dt class="col-sm-4 col-xs-6 col-6 dt">Has Child</dt>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">
+                                                        <?php
+                                                            if($pro[0]->has_child == false){
+                                                                echo 'No';
+                                                            }else{
+                                                                echo $pro[0]->has_child;
+                                                            }
+                                                        ?>
+                                                    </dd>
                                                 {{-- <dt class="col-sm-4 col-xs-6 col-6 dt">Ranking of Age</dt>
                                                     <dd class="col-sm-8 col-xs-6 col-6 dd">30s</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Weight </dt>
@@ -426,7 +434,7 @@
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Salary</dt>
                                                     <dd class="col-sm-8 col-xs-6 col-6 dd" >{{ $pro[0]->rate_month }}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Bank Name </dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >ABA.</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >ABA</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Account Number </dt>
                                                     <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$pro[0]->bank_account}}</dd>
                                             </div>
@@ -484,7 +492,7 @@
                                                 <div class="col-md-8">
                                                     <div class="row">
                                                         <div class="col-md-12">
-                                                            <input type="password" name="new_pass" id="" class="form-control" aria-describedby="passwordHelpBlock" pattern="(?=.*[a-z]).{8,}" title="Use at least 8 characters" required style="font-family: khmer OS Content,cursive !important; font-size:17px;">
+                                                            <input type="password" name="new_pass" id="" class="form-control" aria-describedby="passwordHelpBlock" pattern="(?=.*[a-z]).{8,}" title="Use at least 8 characters" required style=" !important; font-size:17px;">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -534,5 +542,7 @@
                 readURL(this,'image_')
             });
         });
+        img_exist();
     </script>
+    
 </section>

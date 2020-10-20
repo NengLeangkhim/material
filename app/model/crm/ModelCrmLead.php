@@ -4,14 +4,40 @@ namespace App\model\crm;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Http\Request;
 class ModelCrmLead extends Model
 {
 // kopy create at 08/09/2020
 
     // Model get  lead
     public  static function  CrmGetLead(){
-         return DB::select('SELECT * from crm_lead');
+
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/getlead', 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+         return $res->getContent();
+    }
+    // Model get  branch by id
+    public  static function  CrmGetBranch($id){
+
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/getbranchbylead/'.$id, 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        return $res->getContent();
+        // dd($res->getContent());
+    }
+    // Model get detail branch
+    public static function CrmGetDetailBranch($id){
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/getbranch/'.$id, 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        return $res->getContent();
     }
     // Model get  lead by id
     public  static function  CrmGetLeadID($id){
@@ -23,7 +49,7 @@ class ModelCrmLead extends Model
     }
     //Model get lead Status
     public static function CrmGetLeadStatus(){
-        return DB::select('SELECT * from crm_lead_status');
+        return DB::select('SELECT * from crm_lead_status where is_deleted=false and status =true ORDER BY sequence ASC');
     }
     //Model get lead Industry
     public static function CrmGetLeadIndustry(){
