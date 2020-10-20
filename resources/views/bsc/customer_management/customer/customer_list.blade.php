@@ -23,7 +23,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
                             <thead>
                                 <tr>
                                     <th>Lead Number</th>
@@ -38,17 +38,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>TT-001</td>
-                                    <td>Touch Rith</td>
-                                    <td>touchrith@mail.com</td>
-                                    <td>0967898765</td>
-                                    <td>ABA</td>
-                                    <td>200$</td>
-                                    <td>ISP</td>
-                                    <td>Sell</td>
-                                    <td>TT-001</td>
-                                </tr>
+                                @foreach ($customers as $item)
+                                    <tr>
+                                        <td>{{ $item->lead_number }}</td>
+                                        <td>{{ $item->customer_name }}</td>
+                                        <td>{{ $item->lead_email }}</td>
+                                        <td>{{ $item->phone }}</td>
+                                        <td>{{ $item->deposit }}</td>
+                                        <td>{{ $item->balance }}</td>
+                                        <td>{{ $item->invoice_balance }}</td>
+                                        <td>{{ $item->vat_type }}</td>
+                                        <td>{{ $item->vat_number }}</td>
+                                    </tr>
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>

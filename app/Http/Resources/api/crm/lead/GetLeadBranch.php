@@ -3,7 +3,7 @@
 namespace App\Http\Resources\api\crm\lead;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\User;
 class GetLeadBranch extends JsonResource
 {
     /**
@@ -14,6 +14,12 @@ class GetLeadBranch extends JsonResource
      */
     public function toArray($request)
     {
+        $user =User::find($this->create_by,[
+            'id',
+            'first_name_en',
+            'last_name_en',
+            'email'
+        ]);
         return [
             "branch_id"=> $this->branch_id,
             "lead_id"=> $this->lead_id,
@@ -23,6 +29,7 @@ class GetLeadBranch extends JsonResource
             "primary_email"=>$this->email_branch,
             "primary_website"=>$this->website,
             "facebook"=>$this->facebook,
+            "vat_number"=>$this->vat_number,
             "lead_source"=>$this->lead_source,
             "lead_industry"=>$this->lead_industry,
             "company_detail"=>$this->company,
@@ -41,6 +48,7 @@ class GetLeadBranch extends JsonResource
             "email_contact"=>$this->email_contact,
             "facebook_contact"=>$this->facebook_contact,
             "position"=>$this->position,
+            "phone"=>$this->phone,
             "national_id"=>$this->national_id,
             "home_en"=>$this->hom_en,
             "home_kh"=>$this->home_kh,
@@ -55,6 +63,7 @@ class GetLeadBranch extends JsonResource
             "district"=>$this->district,
             "commune"=>$this->commune,
             "village"=>$this->village,
+            "create_by"=>$user,
         ];
     }
 }

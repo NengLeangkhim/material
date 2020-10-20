@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\api\BSC;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomerServiceDetailController extends Controller
 {
@@ -14,7 +16,17 @@ class CustomerServiceDetailController extends Controller
      */
     public function index()
     {
-        //
+        $service_detail=DB::table('ma_customer_service_detail')
+                    ->select('ma_customer_service_detail.*','ma_customer.name as customer_name','ma_customer_branch.branch as customer_branch','stock_product.name as product_name')
+                    ->leftJoin('ma_customer_service','ma_customer_service.id','=','ma_customer_service_detail.ma_customer_service_id')
+                    ->leftJoin('ma_customer','ma_customer.id','=','ma_customer_service.ma_customer_id')
+                    ->leftJoin('ma_customer_branch','ma_customer_branch.id','=','ma_customer_service.ma_customer_branch_id')
+                    ->leftJoin('stock_product','stock_product.id','=','ma_customer_service.stock_product_id')
+                    ->where([
+                        ['ma_customer_service_detail.status','=','t'],
+                        ['ma_customer_service_detail.is_deleted','=','f']
+                    ])->get();
+        return $this->sendResponse($service_detail, 'Customer service detail retrieved successfully.');
     }
 
     /**
@@ -35,7 +47,30 @@ class CustomerServiceDetailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $input = $request->all();
+            $validator = Validator::make($input, [
+                'end_period_date'       => 'required',
+                'effective_date'        => 'required',
+                'customer_service'      => 'required',
+                'create_by'             => 'required',
+                'service_status_detail' => 'required',
+            ]);
+            if($validator->fails()){
+                return $this->sendError('Validation Error.', $validator->errors());
+            }
+
+            $sql="insert_ma_customer_service_detail($request->customer_service, '$request->effective_date', '$request->end_period_date','$request->service_status_detail', $request->create_by)";
+            $q=DB::select("SELECT ".$sql);
+
+            DB::commit();
+            return $this->sendResponse($q, 'Customer service detail created successfully.');
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->sendError("Try again!");
+        }
     }
 
     /**
@@ -46,7 +81,14 @@ class CustomerServiceDetailController extends Controller
      */
     public function show($id)
     {
-        //
+        $customer_service_detail=DB::table('ma_customer_service_detail')
+                                ->select('ma_customer_service_detail.*','ma_customer.name as customer_name','ma_customer_branch.branch as customer_branch','stock_product.name as product_name')
+                                ->leftJoin('ma_customer_service','ma_customer_service.id','=','ma_customer_service_detail.ma_customer_service_id')
+                                ->leftJoin('ma_customer','ma_customer.id','=','ma_customer_service.ma_customer_id')
+                                ->leftJoin('ma_customer_branch','ma_customer_branch.id','=','ma_customer_service.ma_customer_branch_id')
+                                ->leftJoin('stock_product','stock_product.id','=','ma_customer_service.stock_product_id')
+                                ->where('ma_customer_service_detail.id',$id)->first();
+        return $this->sendResponse($customer_service_detail, 'Customer service detail retrieved successfully.');
     }
 
     /**
@@ -69,7 +111,32 @@ class CustomerServiceDetailController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $input = $request->all();
+
+            $validator = Validator::make($input, [
+                'create_by'             => 'required',
+                'customer_service'      => 'required',
+                'effective_date'        => 'required',
+                'end_period_date'       => 'required',
+                'service_status_detail' => 'required',
+                'status'                => 'required'
+            ]);
+
+            if($validator->fails()){
+                return $this->sendError('Validation Error.', $validator->errors());
+            }
+
+            $sql="update_ma_customer_service_detail($id,$request->create_by, $request->customer_service, '$request->effective_date', '$request->end_period_date', '$request->service_status_detail', '$request->status')";
+            $q=DB::select("SELECT ".$sql);
+            DB::commit();
+            return $this->sendResponse($q, 'Customer service detail updated successfully.');
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->sendError("Try again!");
+        }
     }
 
     /**
@@ -78,8 +145,19 @@ class CustomerServiceDetailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        DB::beginTransaction();
+        try {
+
+            $sql="delete_ma_customer_service_detail($id, $request->update_by)";
+            $q=DB::select("SELECT ".$sql);
+
+            DB::commit();
+            return $this->sendResponse($q, 'Customer service detail deleted successfully.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->sendError("Try again!");
+        }
     }
 }

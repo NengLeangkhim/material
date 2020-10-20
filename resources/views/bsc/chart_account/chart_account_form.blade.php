@@ -142,6 +142,7 @@
                             </div> --}}
                             <br>
                             <div class="col-md-12">
+                                <!-- <input type="hidden" name="create_by" value="11"> -->
                                 <button type="button" class="btn btn-primary save" id="frm_btn_sub_add_chart_account">Save</button>
                                 <button type="button" class="btn btn-danger" onclick="go_to('bsc_chart_account_list')">Cencel</button>
                             </div>
@@ -162,43 +163,3 @@
         submit_form ('/bsc_chart_account_form_add','frm_chart_account','bsc_chart_account_list');
     });
 </script>
-
-{{-- ========== submit chart account =========== --}}
-{{-- <script type="text/javascript">
-    $('#frm_btn_sub_add_chart_account').on('click',function(e){
-        var account_type=$('#account_type').val();
-        var code=$('#code').val();
-        var name_en=$('#name_en').val();
-        var name_kh=$('#name_kh').val();
-        var description=$('#description').val();
-        var parent=$('#parent').val();
-    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-    $.ajax({
-        url: '/bsc_chart_account_form_add',
-        type: 'POST',
-        data: {_token: CSRF_TOKEN, account_type:account_type,code:code,name_en:name_en,name_kh:name_kh,description:description,parent:parent},
-        dataType: 'JSON',
-        success: function (data) {
-                console.log(data);
-                // $.notify({
-                //     title: "Save Completed : ",
-                //     message: "Driver save is successful!",
-                //     icon: 'fa fa-check'
-                // },{
-                //     type: "info"
-                // });
-                // location.reload();
-            },
-            error: function (error) {
-                // $.notify({
-                //     title: "Save error : ",
-                //     message: "Driver save is not success!",
-                //     icon: 'fa fa-times'
-                // },{
-                //     type: "danger"
-                // });
-            }
-    });
-})
-</script> --}}
-{{-- ========== submit chart account =========== --}}

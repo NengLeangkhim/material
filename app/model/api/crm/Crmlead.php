@@ -76,6 +76,10 @@ class Crmlead extends Model
             ['ma_company_dept.id', '=', 5]
         ])->orderBy('ma_user.first_name_en','ASC')->get();    
     }
+    // get lead current speed isp
+    public static function leadcurrentspeedisp(){
+        return DB::select('SELECT id,name_en,name_kh from crm_lead_current_isp where is_deleted=false and status=true');
+    }
     //get lead  Branch 
     public static function leadBranch(){
         return DB::select('SELECT  id,branch as name  FROM "public"."ma_company_branch" Where status=true and is_deleted=false');
@@ -122,10 +126,10 @@ class Crmlead extends Model
                      CrmLead::insertleaddetail($branch_id,$lead_status,$comment,$user_create);
                          
                      //insert into table crm_survey
-                     Crm::insertsurey($branch_id,$user_create);
+                     CrmLead::insertsurey($branch_id,$user_create);
 
                      // return json_encode(["result"=>$address_id,$lead_id,$branch_id,$contact_id]);
-                     return json_encode(["result"=>"Success"]);
+                     return json_encode(["result"=>"success"]);
                 }
                 catch(Exception $e)
                 {
@@ -200,10 +204,10 @@ class Crmlead extends Model
                         CrmLead::insertleaddetail($branch_id,$lead_status,$comment,$user_create);
                         
                          //insert into table crm_survey
-                        Crm::insertsurey($branch_id,$user_create);
+                        CrmLead::insertsurey($branch_id,$user_create);
 
                         // return json_encode(["result"=>$address_id,$lead_id,$branch_id,$contact_id]);
-                        return json_encode(["result"=>"Success"]);
+                        return json_encode(["result"=>"success"]);
                            
                 }
                 catch(Exception $e)
@@ -402,7 +406,7 @@ class Crmlead extends Model
     public  static function insertsurey($branch_id,$user_create){
         if(isset($branch_id)){
             try{
-                $result=DB::select('SELECT insert_crm_survey(?,?,?,?)',
+                $result=DB::select('SELECT insert_crm_survey(?,?)',
                 array(
                     $branch_id,
                     $user_create
@@ -426,16 +430,16 @@ class Crmlead extends Model
         lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
         crm_lead.vat_number,cls.name_en as lead_source,cli.name_en as lead_industry,mcd.company,sp.name as service_name,sp.id as servie_id,
         lb.create_date as date_create_branch,
-        lb.create_by as user_create_branch_id,ld.comment,
+        lb.create_by as user_create_branch_id,ld.comment,lb.crm_lead_address_id,
          lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,
-         lc.email as email_contact, lc.facebook as facebook_contact, lc.position,
+         lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,
         lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
-        ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,
+        ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,
         (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
         (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,3)) as province,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,5)) as district,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,7)) as commune,
+        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,2)) as province,
+        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,4)) as district,
+        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,6)) as commune,
         (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village
         from  crm_lead_branch_crm_lead_contact_rel lbc
         left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
@@ -457,7 +461,7 @@ class Crmlead extends Model
     }
     //get  all lead 
     public static function getlead(){
-        $lead= DB::select('select * from  crm_lead');
+        $lead= DB::select('SELECT * FROM  crm_lead  ORDER BY id ASC');
         return $lead;
     }
     public static function getbranch_lead($id){
@@ -467,14 +471,14 @@ class Crmlead extends Model
         lb.create_date as date_create_branch,
         lb.create_by as user_create_branch_id,ld.comment,
          lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,lb.crm_lead_address_id,
-         lc.email as email_contact, lc.facebook as facebook_contact, lc.position,
+         lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,
         lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
-        ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,
+        ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,
         (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
         (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,3)) as province,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,5)) as district,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,7)) as commune,
+        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,2)) as province,
+        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,4)) as district,
+        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,6)) as commune,
         (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village
         from  crm_lead_branch_crm_lead_contact_rel lbc
         left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
@@ -502,14 +506,14 @@ class Crmlead extends Model
         lb.create_date as date_create_branch,
         lb.create_by as user_create_branch_id,ld.comment,lb.crm_lead_address_id,
          lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,
-         lc.email as email_contact, lc.facebook as facebook_contact, lc.position,
+         lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,
         lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
-        ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,
+        ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,
         (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
         (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,3)) as province,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,5)) as district,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,7)) as commune,
+        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,2)) as province,
+        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,4)) as district,
+        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,6)) as commune,
         (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village
         from  crm_lead_branch_crm_lead_contact_rel lbc
         left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
