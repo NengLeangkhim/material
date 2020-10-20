@@ -95,8 +95,7 @@
                                         <dt class="col-sm-4 dt">Lead Status </dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["lead_status"]}} </dd>
                                         <dt class="col-sm-4 dt">Assigened To </dt>
-                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]['create_by']["last_name_en"]}} {{$detailbranch[$i]['create_by']["first_name_en"]}} 
-                                        </dd>
+                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]['assig']}}  </dd>
                                         <dt class="col-sm-4 dt">Service </dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["service"]}} </dd>
                                         <dt class="col-sm-4 dt">Current ISP </dt>
@@ -177,7 +176,7 @@
                                         <dt class="col-sm-4 dt">Home number KH</dt>
                                         <dd class="col-sm-8 dd" ># {{$detailbranch[$i]["home_kh"]}}</dd>
                                         <dt class="col-sm-4 dt">City/Province</dt>
-                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["province"]}}/dd>
+                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["province"]}}</dd>
                                         {{-- <dd class="col-sm-8 offset-sm-4">Primary Email</dd> --}}
                                         <dt class="col-sm-4 dt">District/Khan</dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["district"]}}</dd>
@@ -191,6 +190,8 @@
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["address_kh"]}} </dd>
                                         <dt class="col-sm-4 dt">LatLg</dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["latlong"]}} </dd>
+                                        <dt class="col-sm-4 dt">Address type</dt>
+                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["address_type"]}} </dd>
                                         {{-- <dd class="col-sm-8">
                                             <input type="text" class="form-control"  name='latlng' id="latlong" placeholder="11.123456, 104.123456 Example" >
                                         </dd> --}}

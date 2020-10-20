@@ -407,8 +407,9 @@
                         for(var i=0; i<response['data'].length ;i++){
                             var id = response['data'][i].id;
                             var name = response['data'][i].name;
+                            var company = response['data'][i].company;
                             // alert(name);
-                            var option = "<option value='"+id+"'>"+name+"</option>"; 
+                            var option = "<option value='"+id+"'>"+name+" / "+company+"</option>"; 
 
                             $("#branch").append(option); 
                         }
@@ -465,12 +466,18 @@
         // get  lead in  selection 
         $('#lead_id').ready(function(){
           // $('#lead_id').find('option').not(':first').remove();
+          // $token = $_SESSION['token'];
+          var myvar= $( "#lead_id" ).val();
+          // alert(myvar);
+         
               $.ajax({
                   url:'api/getlead',
                   type:'get',
                   dataType:'json',
-                  success:function(response){
-            
+                  headers: {
+                    'Authorization': `Bearer ${myvar}`,
+                },              
+                  success:function(response){                  
                           for(var i=0; i<response['data'].length ;i++){
                               var id = response['data'][i].lead_id;
                               var name = response['data'][i].customer_name_en;
@@ -483,12 +490,17 @@
                   }
               })
           })
+          
           $('#contact_id').ready(function(){
             // $('#lead_id').find('option').not(':first').remove();
+            var myvar= $( "#contact_id" ).val();
                 $.ajax({
                     url:'api/contacts',
                     type:'get',
                     dataType:'json',
+                    headers: {
+                      'Authorization': `Bearer ${myvar}`,
+                  },
                     success:function(response){
               
                             for(var i=0; i<response['data'].length ;i++){

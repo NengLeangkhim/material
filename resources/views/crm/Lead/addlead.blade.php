@@ -23,13 +23,13 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-md-6">
-                                <label for="lead">Sreach Lead<b style="color:red">*</b></label>
+                                <label for="lead">Search Lead<b style="color:red">*</b></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                     </div>
-                                    <select class="form-control select2" name="lead_id" id="lead_id">
-                                        <option value=''>-- Select Lead  --</option>                                      
+                                    <select class="form-control select2" name="lead_id" id="lead_id" >
+                                    <option value='{{$_SESSION['token']}}'>-- Select Lead  --</option>                                      
                                     </select>
                                    
                                 </div>
@@ -320,13 +320,13 @@
                                 <div class="form-group">
                                     <div class="row">
                                        <div class="col-md-6">
-                                        <label for="contact">Sreach Contact<b style="color:red">*</b></label>
+                                        <label for="contact">Search Contact<b style="color:red">*</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                             </div>
                                             <select class="form-control select2" name="contact_id" id="contact_id">
-                                                <option value=''>-- Select Contact  --</option>                                      
+                                                <option value='{{$_SESSION['token']}}' >-- Select Contact  --</option>                                      
                                             </select>
                                            
                                         </div>
