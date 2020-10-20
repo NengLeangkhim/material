@@ -59,6 +59,7 @@ Route::post('/contact/store','crm\ContactController@StoreContact'); //store cont
 Route::get('/contact/edit/{id}','crm\ContactController@EditContact');//go to Edit contact
 Route::put('/contact/update','crm\ContactController@UpdateContact'); //Update contact
 Route::get('/contact/detail','crm\ContactController@DetailContact');//go to Detail contact
+Route::get('/contact/delete','crm\ContactController@DeleteContact');//Delete contact
 Route::get('/product','crm\ProductsController@getProducts'); //get all Products show in table
 // end contact
 
