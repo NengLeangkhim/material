@@ -32,13 +32,13 @@ class HrmPerformScheduleController extends Controller
                 $dept = $row->ma_company_dept_id;
                 $id_user = $row->id;
             }
-            if($group==5 || $group==1){ //permission check for CEO and Admin
+            if(perms::check_perm_module('HRM_09070104')){ //permission check for CEO and Admin
                 $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_top(); //query policy user 
                 $get_plan = ModelHrmPlan::hrm_get_plan_detial_ceo();// get query from performance plan
                 $staff = ModelHrmPermission::hrm_get_staff_ceo();// get query from staff table
-            }else if($group==4){//permission each departement
+            }else if(perms::check_perm_module('HRM_09070105')){//permission each departement
                 $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_dept($dept);
-                $get_plan = ModelHrmPlan::hrm_get_plan_detial_dept($dept);// get query from performance plan 
+                $get_plan = ModelHrmPlan::hrm_get_plan_detial_dept($dept);// get query from performance plan
                 $staff = ModelHrmPermission::hrm_get_staff_dept($dept);// get query from staff table
             }else{//permission check user
                 $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_staff($userid);
