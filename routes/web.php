@@ -117,7 +117,7 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     Route::get('/crm/setting/leadstatus','crm\CrmSettingController@CrmLeadStatus'); // show Lead Status Setting CRM
     Route::post('/crm/setting/leadstatus/store','crm\CrmSettingController@StoreLeadStatus'); // show Lead Status Setting CRM
 Route::get('/crm/setting/leadindustry','crm\CrmSettingController@CrmLeadIndustry'); // show Lead Status Setting CRM
-// END Setting CRM 
+// END Setting CRM
 
 //===========================END CRM=================================
 
@@ -1071,7 +1071,7 @@ Route::get('test_chart',function(){
         // Balance Sheet
 
         // Profit and Loss
-
+        Route::get('/bsc_report_is','api\BSC\IncomeStatementApiController@getIS');
     // Accounting Report
         // Account Transaction
 

@@ -46,9 +46,6 @@ Route::get('bsc_show_account_type', 'api\BSC\ChartAccountController@show_account
 Route::get('bsc_show_company', 'api\BSC\ChartAccountController@show_company');
 Route::resource('bsc_purchases', 'api\BSC\PurchaseController');
 
-
-// Report
-Route::get('/bsc/report/income_statement', 'api\BSC\IncomeStatementApiController@getIncomeStatement');
 //======================END BSC=========================
 
 
