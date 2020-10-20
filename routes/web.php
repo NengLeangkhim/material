@@ -514,6 +514,12 @@ Route::get('hrm_question_answer_sugg/modal/result','hrms\suggestion\QuestionAnsw
 
 // Route Update Status Checkbox //
 Route::get('hrm_question_answer_sugg/checkbox','hrms\suggestion\QuestionAnswerController@update_status_question_sugg');
+
+// Get Staff User Suggestion by HR Department or Top Management
+Route::get('/hrm_user_suggested', 'hrms\suggestion\QuestionAnswerController@getUserSuggested');
+
+// Get Staff Submitted the Question Answer as Report
+Route::get('/hrm_employee_suggestion_report', 'hrms\suggestion\QuestionAnswerController@getSuggestionSurveyReport');
 //////========END QUESTION & Answer==========/////
 
 //////======== SUGGESTION BOX =============///////
@@ -760,7 +766,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// Modal Show List Candidate
     Route::get('hrm_list_condidate/modal','hrms\recruitment\HrmListCandidateController@hrm_detail_candidate');
-    
+
     /// Go to add Candidate
     Route::get('hrm_list_condidate/add','hrms\recruitment\HrmListCandidateController@hrm_goto_add');
     /// add Candidate

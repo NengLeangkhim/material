@@ -3,6 +3,7 @@
 namespace App\model\hrms\suggestion;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 
 class ModelQuestionAnswer extends Model
@@ -17,7 +18,7 @@ class ModelQuestionAnswer extends Model
                              ->leftjoin('hr_suggestion_question_type as qt','q.hr_suggestion_question_type_id','=','qt.id')
                              ->where('q.is_deleted','=','f')
                              ->orderBy('q.id','ASC')
-                             ->get(); 
+                             ->get();
           return $question_sugg_get;
        }
       // ===== Function get data Question Type =====////
@@ -25,12 +26,12 @@ class ModelQuestionAnswer extends Model
         $question_type_sugg_get = DB::table('hr_suggestion_question_type')
                            ->select('id','name')
                            ->where('is_deleted','=','f')
-                           ->get(); 
+                           ->get();
         return $question_type_sugg_get;
      }
       // ===== Function Insert data Question =====////
       public static function hrm_insert_question_sugg($question_name,$id_type,$userid){
-         
+
          return DB::select('SELECT public.insert_hr_suggestion_question(?,?,?)',array($question_name,$id_type,$userid));
       }
       // ===== Function model get data question for update =====////
@@ -38,7 +39,7 @@ class ModelQuestionAnswer extends Model
       return  DB::table('hr_suggestion_question')
       ->select('question','hr_suggestion_question_type_id')
       ->where('id','=',$id)
-      ->get(); 
+      ->get();
       }
        // ===== function model update question ===== //
       public static function hrm_update_questions($id,$userid,$question_name,$status,$id_type){
@@ -54,12 +55,12 @@ class ModelQuestionAnswer extends Model
                             ->select('sq.id','sq.question','sq.hr_suggestion_question_type_id','sqt.name')
                             ->leftjoin('hr_suggestion_question_type as sqt','sq.hr_suggestion_question_type_id','=','sqt.id')
                             ->where('sq.id','=',$id)
-                            ->get(); 
+                            ->get();
          return $question_sugg_get;
       }
       // ===== Function Insert data Answer =====////
       public static function hrm_insert_answer_sugg($id_question,$answer_name,$userid){
-         
+
          return DB::select('SELECT public.insert_hr_suggestion_answer(?,?,?)',array($id_question,$answer_name,$userid));
       }
       // ===== Function get data Question for Answer =====////
@@ -67,7 +68,7 @@ class ModelQuestionAnswer extends Model
          $answer_sugg_get = DB::table('hr_suggestion_answer')
                                ->select('*')
                                ->where('hr_suggestion_question_id','=',$id)
-                               ->get(); 
+                               ->get();
          return $answer_sugg_get;
       }
       // ===== function update question and answer ========//
@@ -89,7 +90,7 @@ class ModelQuestionAnswer extends Model
       }
       // Get submit result
       public static function hrm_result_suggestion($id){
-         return DB::select('SELECT s.*,a.answer,q.question from hr_suggestion_submited s 
+         return DB::select('SELECT s.*,a.answer,q.question from hr_suggestion_submited s
          left join hr_suggestion_answer a on s.hr_suggestion_answer_id=a.id
          left join hr_suggestion_question q on s.hr_suggestion_question_id = q.id
          where s.hr_suggestion_question_id=? order by s.create_date DESC', [$id]);
@@ -98,5 +99,68 @@ class ModelQuestionAnswer extends Model
       public static function hrm_checkbox_answer_sugg($status,$id){
          return DB::select('UPDATE hr_suggestion_question SET  status=? WHERE id =?',["$status",$id]);
       }
+
+
+    public function getUserSuggested(){
+        try {
+            $result = DB::select('
+                SELECT answer_text, create_date
+                FROM hr_suggestion_submited WHERE hr_suggestion_question_id = 12 and is_deleted = \'f\' and status = \'t\'
+                ORDER BY id DESC
+            ');
+        } catch(QueryException $e){
+            throw $e;
+        }
+
+        return $result;
+    }
+
+    // MARK: Not yet use this.
+    public function getSuggestionSurveyReport(){
+        try {
+            $result = DB::select('');
+        } catch(QueryException $e){
+            throw $e;
+        }
+
+        return $result;
+    }
+
+    public function getAllQuestion(){
+        try {
+            $result = DB::select('
+                SELECT sq.id, sq.question, sq.hr_suggestion_question_type_id, sqt.name
+                FROM hr_suggestion_question AS sq
+                    INNER JOIN hr_suggestion_question_type as sqt on sq.hr_suggestion_question_type_id = sqt.id
+                WHERE sq.status = \'t\' AND sq.is_deleted = \'f\' AND sqt.status = \'t\' AND sqt.is_deleted = \'f\' AND sqt.id <> 4
+                ORDER BY sqt.id, sq.id
+            ');
+        } catch(QueryException $e){
+            throw $e;
+        }
+
+        return $result;
+    }
+
+    public function getAllAnswersByQuestionId($id, $isMCQ = false){
+        try {
+            $statement = '
+                SELECT answer_text
+                FROM hr_suggestion_submited as ss
+                WHERE ss.hr_suggestion_question_id = '.$id.' AND ss.status = \'t\' AND ss.is_deleted = \'f\'
+            ';
+            $statementMCQ = '
+                SELECT DISTINCT ON (sa.id) sa.answer, COUNT(*) AS total_suggestion
+                FROM hr_suggestion_submited as ss INNER JOIN hr_suggestion_answer AS sa on ss.hr_suggestion_answer_id = sa.id
+                WHERE ss.hr_suggestion_question_id = '.$id.' AND ss.status = \'t\' AND ss.is_deleted = \'f\' AND sa.status = \'t\' AND sa.is_deleted = \'f\'
+                GROUP BY sa.id
+            ';
+            $result = DB::select($isMCQ ? $statementMCQ : $statement);
+        } catch(QueryException $e){
+            throw $e;
+        }
+
+        return $result;
+    }
 }
 
