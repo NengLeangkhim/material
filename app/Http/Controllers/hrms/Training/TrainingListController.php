@@ -120,4 +120,10 @@ class TrainingListController extends Controller
         $trainList=new TrainingList();
         $data=$trainList->DeleteTrainingList($id,$userid);
     }
+
+    function my_training(){
+        session_start();
+        $userid = $_SESSION['userid'];
+        return view('hrms/Training/my_training');
+    }
 }

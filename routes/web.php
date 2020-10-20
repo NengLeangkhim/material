@@ -59,6 +59,7 @@ Route::post('/contact/store','crm\ContactController@StoreContact'); //store cont
 Route::get('/contact/edit/{id}','crm\ContactController@EditContact');//go to Edit contact
 Route::put('/contact/update','crm\ContactController@UpdateContact'); //Update contact
 Route::get('/contact/detail','crm\ContactController@DetailContact');//go to Detail contact
+Route::get('/contact/delete','crm\ContactController@DeleteContact');//Delete contact
 Route::get('/product','crm\ProductsController@getProducts'); //get all Products show in table
 // end contact
 
@@ -865,12 +866,15 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_modal_add_edit', 'hrms\Employee\OverTimeController@ShowModalAddAndEdit');
         Route::post('hrm_insert_update_overtime','hrms\Employee\OverTimeController@InsertUpdateOvertime');
         Route::get('hrm_delete_overtime', 'hrms\Employee\OverTimeController@DeleteOvertime');
+        Route::get('hrm_my_overtime','hrms\Employee\OverTimeController@my_overtime');
     // End Overtime
 
 // End Employee
 
 // Start Training
-
+    // My Training
+        Route::get('hrm_my_trainning','hrms\Training\TrainingListController@my_training');
+    // End My Training
     // Training List
         Route::get('hrm_traininglist','hrms\Training\TrainingListController@TrainingList');
         Route::get('hrm_modal_traininglist', 'hrms\Training\TrainingListController@ModalTrainingList');

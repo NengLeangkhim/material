@@ -579,6 +579,34 @@ function hrms_search_mission(route){
     });
 }
 
+function my_overtime_search(){
+    var month=document.getElementById('otMonth').value;
+    var year=document.getElementById('otYear').value;
+    $.ajax({
+        type: 'GET',
+        url: 'hrm_my_overtime',
+        async:false,
+        data: {
+            _token: '<?php echo csrf_token() ?>',
+            eyear: year,
+            emonth:month
+        },
+        success: function (data) {
+            console.log(data);
+            var ab=JSON.parse(data);
+            var i=0;
+            $("#tbl_overtime").DataTable().destroy();
+            $("#tbl_overtime tbody").empty();
+            $.each(ab, function(i, value) {
+                i++;
+                var tr="<tr><th>"+i+"</th><td>"+value.overtime_date+"</td><td>"+value.start_time+"</td><td>"+value.end_time+"</td><td>"+value.description+"</td><td>"+value.approve+"</td></tr>";
+                 $("#tbl_overtime").append(tr);
+            });
+            $('#tbl_overtime').DataTable();
+        }
+    });
+}
+
 
 
 

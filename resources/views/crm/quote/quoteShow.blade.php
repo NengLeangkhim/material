@@ -29,64 +29,87 @@
                                 </div>                               
                             </div>
                             <div class="card-body ">
-                                <table id="tblQuoteList" cellpadding="0" cellspacing="0" class="dataTable table table-bordered table-hover" style="white-space:nowrap;">
-                                    <thead>
-                                        <tr>
-                                            <th>Quote Number</th>
-                                            <th>Subject</th>
-                                            <th>Organization Name</th>
-                                            <th>Contact Name</th>
-                                            <th>Total</th>
-                                            <th>Quote Stage</th>
-                                            <th>Assigned To </th>
-                                            <th>Convert To BSC</th>
-                                            <th>Modified Time</th>
-                                            <th>Action</th>
+                                <div class="table-responsive">
+                                        <table id="tblQuoteList"  class=" table table-bordered table-hover" style="white-space:nowrap;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Quote Number</th>
+                                                    <th>Subject</th>
+                                                    <th>Organization Name</th>
+                                                    <th>Contact Name</th>
+                                                    <th>Total</th>
+                                                    <th>Quote Stage</th>
+                                                    <th>Assigned To </th>
+                                                    <th>Convert To BSC</th>
+                                                    <th>Modified Time</th>
+                                                    <th>Action</th>
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
-                                        
-                                        @foreach ($listQuote as $val)
-                                            @foreach ($val as $key => $val2)
-                                                    <tr>
-                                                        <td>{{$val2->quote_number}}</td>
-                                                        <td>{{$val2->subject}}</td>
-                                                        <td>{{$val2->crm_lead->customer_name_en}}</td>
-                                                        <td>{{$val2->crm_lead->customer_name_en}}</td>
-                                                        <td>{{$val2->quote_number}}</td>
-                                                        <td>{{$val2->quote_number}}</td>
-                                                        <td>{{$val2->quote_number}}</td>
-                                                        <td>{{$val2->quote_number}}</td>
-                                                        <td>{{$val2->quote_number}}</td>
-                                                        <td>
-                                                            <div class="row-12 form-inline">
-                                                                <div class="col-md-4">
-                                                                    <a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action('/quote/detail', '{{ $key }}')"  >
-                                                                        {{-- <i class="fas fa-info"> </i>  --}}
-                                                                        View
-                                                                    </a>
-                                                                </div> 
-                                                                <div class="col-md-4">
-                                                                    <a href="#" class="btn btn-success btn-sm" onclick="goto_Action('/quote/editQuote', '{{ $key }}')">
-                                                                        Edit
-                                                                    </a>
-                                                                </div>  
-                                                                <div class="col-md-4 ">
-                                                                <a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead('/quote/deleteLeadQuote', '{{ $key }}')"> <span class="glyphicon glyphicon-remove"></span>  </a>
-                                                                </div>  
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                            @endforeach
-                                        @endforeach
-                                                        
-                               
+                                                
+                                                @foreach ($listQuote as $val)
+                                                    @foreach ($val as $key => $val2)
+                                                            <tr>
+                                                                <td>{{$val2->quote_number}}</td>
+                                                                <td>{{$val2->subject}}</td>
+                                                                <td>{{$val2->crm_lead->customer_name_en}}</td> 
+                                                                <td>{{$val2->crm_lead->customer_name_en}}</td> <!-- Contact Name -->
+                                                                <td>
+                                                                    <?php $sumTotal = 0;?>
+                                                                    @foreach ($val2->crm_stock as $key3=>$val3)
+                                                                            @if($val3->discount_type == "percent")
+                                                                                    <?php
+                                                                                        
+                                                                                        $dis = (($val3->price * $val3->qty) * $val3->discount / 100);
+                                                                                        $total = ($val3->price * $val3->qty) - $dis;
+                                                                                        $sumTotal += $total;
+                                                                                        
+                                                                                    ?>
+                                                                            @else
+                                                                                    <?php
+                                                                                        $total = ($val3->price * $val3->qty) - $val3->discount;
+                                                                                        $sumTotal += $total;
 
+                                                                                    ?>
+                                                                            @endif
+                                                                    @endforeach
+                                                                    {{ $GrandTT = number_format($sumTotal, 2, '.', '')." $" }}
                                                                     
-                                    </tbody>  
-                                </table>
+                                                                </td>
+                                                                <td>{{$val2->quote_number}}</td>
+                                                                <td>{{$val2->quote_number}}</td>
+                                                                <td>{{$val2->quote_number}}</td>
+                                                                <td>{{$val2->quote_number}}</td>
+                                                                <td>
+                                                                    <div class="row-12 form-inline">
+                                                                        <div class="col-md-4">
+                                                                            <a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action('/quote/detail', '{{ $key }}')"  >
+                                                                                {{-- <i class="fas fa-info"> </i>  --}}
+                                                                                View
+                                                                            </a>
+                                                                        </div> 
+                                                                        <div class="col-md-4">
+                                                                            <a href="#" class="btn btn-success btn-sm" onclick="goto_Action('/quote/editQuote', '{{ $key }}')">
+                                                                                Edit
+                                                                            </a>
+                                                                        </div>  
+                                                                        <div class="col-md-4 ">
+                                                                        <a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead('/quote/deleteLeadQuote', '{{ $key }}')"> <span class="glyphicon glyphicon-remove"></span>  </a>
+                                                                        </div>  
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                    @endforeach
+                                                @endforeach
+                                                                
+                                    
+
+                                                                            
+                                            </tbody>  
+                                        </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -96,33 +119,33 @@
 
 
             <script type="text/javascript">
-                    // $(function () {
-                    //     var tableb = $("#tblQuoteList").DataTable({
-                    //     "responsive": true,
-                    //     "autoWidth": false,
-                    //     });
+                    $(function () {
+                        $("#tblQuoteList").DataTable({
+                            "responsive": true,
+                            "autoWidth": false,
+                        });
 
 
-                    // });
-
-                    $(document).ready(function() {
-                            $("#tblQuoteList").dataTable({
-                                "responsive": true,
-                                "autoWidth": false,
-                            });
-                            $(".dataTable").on("draw.dt", function (e) {			 		
-                                console.log("drawing");
-                                setCustomPagingSigns.call($(this));
-                            }).each(function () {
-                                setCustomPagingSigns.call($(this)); // initialize
-                            });
-
-                            function setCustomPagingSigns() {
-                                var wrapper = this.parent();
-                                wrapper.find("a.previous").text("<");
-                                wrapper.find("a.next").text(">");			
-                            }
                     });
+
+                    // $(document).ready(function() {
+                    //         $("#tblQuoteList").dataTable({
+                    //             "responsive": true,
+                    //             "autoWidth": false,
+                    //         });
+                    //         $(".dataTable").on("draw.dt", function (e) {			 		
+                    //             console.log("drawing");
+                    //             setCustomPagingSigns.call($(this));
+                    //         }).each(function () {
+                    //             setCustomPagingSigns.call($(this)); // initialize
+                    //         });
+
+                    //         function setCustomPagingSigns() {
+                    //             var wrapper = this.parent();
+                    //             wrapper.find("a.previous").text("<");
+                    //             wrapper.find("a.next").text(">");			
+                    //         }
+                    // });
 
 
     

@@ -1,5 +1,8 @@
 
   @php
+   if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+            }
       foreach($contact as $row){
       //  $honor = $row->ma_honorifics_id;
         $id = $row->id;
@@ -43,6 +46,7 @@
                         </div>                            
                         <div class="card-body">
                             <div class="form-group">
+                                <input type="hidden" name="create_by" value="{{$_SESSION['userid']}}">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label for="ma_honorifics_id">Honorifics <b style="color:red">*</b></label>

@@ -45,6 +45,50 @@
           }
         });
     }
+    //======= Funtion delete=======//
+function Crm_delete(id,route,goto,alert) {
+  event.preventDefault();
+  Swal.fire({ //get from sweetalert function
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.value) {
+      $.ajax({
+        url:route,   //Request send to "action.php page"
+        data:{id:id},
+        type:"GET",    //Using of Post method for send data
+        success:function(data){
+          console.log(data);
+          // if(data =='error'){
+          //      //sweetalert('success',alert);
+          //    //  setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
+          //      Swal.fire(
+          //        'Deleted!',
+          //          'Delete Error',
+          //        'error'
+          //      )
+          // }else{
+              //sweetalert('success',alert);
+            setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
+            Swal.fire(
+              'Deleted!',
+                alert,
+              'success'
+            )
+          // }
+        }
+        
+       });
+      
+    }
+  })
+ 
+};
 // ---------- END Contact---------- //
 // ----------- Report ------------- //
     //Report Lead
