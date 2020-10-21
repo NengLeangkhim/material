@@ -35,8 +35,8 @@
                     @php
                         // print_r($allEmployee);
                     @endphp
-                <div class="table-responsive"> 
-                    <table class="table table-bordered" id="tbl_employee">
+                <div class="table-responsive "> 
+                    <table class="table table-bordered text-center" id="tbl_employee">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -84,7 +84,7 @@
                                 <td>{{$employee->position}}</td>
                                 <td>{{$employee->rate_month}}</td>
                                 <td >
-                                    <a class="btn btn-outline-primary" href="#" onclick="Edit_Promote_Staff({{$employee->id}}, {{$employee->ma_position_id}})"><i class="fas fa-user-edit"></i>Promote</a>
+                                    <a class="btn-sm btn btn-outline-primary" href="#" onclick="Edit_Promote_Staff({{$employee->id}}, {{$employee->ma_position_id}})"><i class="fas fa-user-edit"></i>Promote</a>
                                </td>
                                 </tr>
 
