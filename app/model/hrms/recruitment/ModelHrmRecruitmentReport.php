@@ -140,6 +140,7 @@ class ModelHrmRecruitmentReport extends Model
             join ma_user s on appr.create_by= s.id
             join hr_recruitment_candidate_answer ua on u.id=ua.hr_recruitment_candidate_id
             where hr_approval_status='$st'
+            and u.is_deleted='f'
             and appr.create_date BETWEEN '$from 00:00:00' and '$to 23:59:59'
             and (ua.hr_recruitment_candidate_id,start_time) in
             (  Select
