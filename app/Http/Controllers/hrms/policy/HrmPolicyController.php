@@ -27,7 +27,7 @@ class HrmPolicyController extends Controller
                   $table_perm= '<tbody>';
                 foreach($policy_list as $row){
                     $create = $row->create_date;
-                  $table_perm.= ' 
+                  $table_perm.= '
                     <tr>
                         <th>'.$i++.'</th>
                         <td>'.$row->name.'</td>
@@ -86,7 +86,7 @@ class HrmPolicyController extends Controller
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
             if(perms::check_perm_module('HRM_09060101')){//module code list data tables id=136
@@ -112,14 +112,14 @@ class HrmPolicyController extends Controller
             }
             $id = $_POST['id'];
             $policy_get = array();
-            $policy_get= ModelHrmPolicy::hrm_get_policy($id); 
+            $policy_get= ModelHrmPolicy::hrm_get_policy($id);
             return response()->json($policy_get);
     }
 
     //function update Policy //
     public function HrmUpdatePolicy(Request $request)
     {
-        if (session_status() == PHP_SESSION_NONE) 
+        if (session_status() == PHP_SESSION_NONE)
         {
             session_start();
         }
@@ -143,7 +143,7 @@ class HrmPolicyController extends Controller
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
             if(perms::check_perm_module('HRM_09060102')){//module code list data tables id=137
@@ -167,7 +167,7 @@ class HrmPolicyController extends Controller
                     return view('no_perms');
                 }
         }
-            
+
     }
     // function deleted question//
     public function HrmDeletePolicy()
@@ -177,7 +177,7 @@ class HrmPolicyController extends Controller
             }
         if(perms::check_perm_module('HRM_09060103')){//module code list data tables id=138
         $id = $_GET['id'];
-        $userid = $_SESSION['userid'];   
+        $userid = $_SESSION['userid'];
         $question_type_sugg=ModelHrmPolicy::hrm_delete_policy($id,$userid);
         //var_dump($question_type_sugg);
         }else{
@@ -188,10 +188,10 @@ class HrmPolicyController extends Controller
     public function HrmViewPolicy(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
-            } 
+            }
             $id= $_GET['id'];
             $policy_get = ModelHrmPolicy::hrm_get_policy($id); //query question suggestion
-            return view('hrms/policy/list_policy/HrmModalViewPolicy', ['policy_get' => $policy_get]);  
+            return view('hrms/policy/list_policy/HrmModalViewPolicy', ['policy_get' => $policy_get]);
     }
     //function insert policy user //
     public function HrmInsertPolicyUser(Request $request){
@@ -209,13 +209,13 @@ class HrmPolicyController extends Controller
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
             $userid= $_SESSION['userid'];
             $start_time = $request->start_time;
             date_default_timezone_set("Asia/Phnom_Penh"); //set time zone
-            $end_time = date("Y-m-d H:i:s"); // get current date time 
+            $end_time = date("Y-m-d H:i:s"); // get current date time
             $current = 0;
             $id_policy = $request->id_policy;
             $insert_policy = ModelHrmPolicy::hrm_insert_policy_user($userid,$start_time,$end_time,$id_policy,$current,$userid); //insert data
@@ -226,7 +226,7 @@ class HrmPolicyController extends Controller
      public function HrmIndexUserPolicy(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
-            } 
+            }
             $userid = $_SESSION['userid'];
             $permission = ModelHrmPermission::hrm_get_permission($userid);
             foreach($permission as $row){
@@ -234,19 +234,97 @@ class HrmPolicyController extends Controller
                 $group = $row->ma_group_id;
             }
             if($group==5){ //permission check for CEO
-                $policy_user = ModelHrmPolicy::hrm_get_tbl_policy_user(); //query policy user 
+                $policy_user = ModelHrmPolicy::hrm_get_tbl_policy_user(); //query policy user
             }else{//permission each departement
                 $policy_user = ModelHrmPolicy::hrm_get_tbl_policy_user_dept($dept);
             }
-            return view('hrms/policy/policy_reader/HrmListUserPolicy', ['policy_user' => $policy_user]); 
-    } 
+            return view('hrms/policy/policy_reader/HrmListUserPolicy', ['policy_user' => $policy_user]);
+    }
     // function Show table User read Policy //
     public function HrmModalUserPolicy(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
-            } 
+            }
             $id_policy_user = $_GET['id'];
             $policy_user = ModelHrmPolicy::hrm_get_policy_user($id_policy_user); //query policy user
-            return view('hrms/policy/policy_reader/HrmModalDetailUserPolicy', ['policy_user' => $policy_user]);  
+            return view('hrms/policy/policy_reader/HrmModalDetailUserPolicy', ['policy_user' => $policy_user]);
+    }
+//add new policy function
+    public function policy_user_list()
+    {
+
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if(perms::check_perm_module('HRM_090603')){//module code list data tables id=93
+            $userid = $_SESSION['userid'];
+
+            $policy_list = ModelHrmPolicy::hrm_get_policy_by_user();
+            $i=1;// variable increase number for table
+                $table_perm= '<tbody>';
+            foreach($policy_list as $row){
+                $create = $row->create_date;
+                $table_perm.= '
+                <tr>
+                    <th>'.$i++.'</th>
+                    <td>'.$row->name.'</td>
+                    <td>'.$row->username.'</td>
+                    <td>'.date('Y-m-d H:i:s',strtotime($create)).'</td>
+                    <td class="text-center">';
+                $table_perm.= '
+                <div class="dropdown">
+                    <button id="'.$row->id.'"  class=" btn btn-info hrm_item hrm_view_policy">
+                        view
+                    </button>
+                    <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">';
+                $table_perm.= ' </div>
+                            </div>
+                        </td>
+                    </tr>';
+            }
+                $table_perm.='</tbody>';
+            return view('hrms/policy/list_policy/HrmPolicyUserList', ['table_perm' =>$table_perm]);
+        }else{
+            return view('no_perms');
+        }
+    }
+
+    public function policy_user_history()
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $id = $_SESSION['userid'];
+        $history=ModelHrmPolicy::get_history_by_user($id);
+        return view('hrms/policy/policy_reader/HrmHistoryPolicy',compact('history'));
+    }
+
+    public function policy_report()
+    {
+        $users=ModelHrmPolicy::get_user_data();
+        $read_policys=ModelHrmPolicy::get_read_policy();
+        return view('hrms/policy/policy_reader/HrmHistoryPolicyReport',compact('users','read_policys'));
+    }
+
+    public function get_policy_report_data(Request $request)
+    {
+        $f=$request->from;
+        $t=$request->to;
+        $from=$f.' '.'00:00:00';
+        $to=$t.' '.'24:00:00';
+        $policy=ModelHrmPolicy::policy_history_report($from,$to);
+        return json_encode($policy);
+    }
+
+    public function get_read_policy_report_data(Request $request)
+    {
+        $f=$request->from;
+        $t=$request->to;
+        $from=$f.' '.'00:00:00';
+        $to=$t.' '.'24:00:00';
+        $user=$request->user;
+        $read_policy=$request->read_policy;
+        $results=ModelHrmPolicy::get_read_policy_report($from,$to,$user,$read_policy);
+        return $results;
     }
 }
