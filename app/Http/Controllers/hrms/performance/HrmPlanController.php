@@ -24,7 +24,7 @@ class HrmPlanController extends Controller
                  $add_perm='';
         }
         if(perms::check_perm_module('HRM_090704')){//module code list data tables id=99
-            return view('hrms/performance/performance_plan/PerformancePlanAndDetail',['add_perm'=>$add_perm]); 
+            return view('hrms/performance/performance_plan/PerformancePlanAndDetail',['add_perm'=>$add_perm]);
         }else{
             return view('no_perms');
         }
@@ -36,14 +36,11 @@ class HrmPlanController extends Controller
             } 
         if(perms::check_perm_module('HRM_090704')){//module code list data tables id=99
             $userid = $_SESSION['userid'];
-            $permission = ModelHrmPermission::hrm_get_permission($userid);
-            foreach($permission as $row){
-                $group = $row->ma_group_id;
-            }
-            if($group==5 || $group==1){ //permission check for CEO and Admin
-                $perform_plan = ModelHrmPlan::hrm_get_tbl_perform_plan(); //query policy user 
-            }else{//permission each departement
-                $perform_plan = ModelHrmPlan::hrm_get_tbl_perform_plan_dept($userid);
+                //permission each departement
+            $perform_plan = ModelHrmPlan::hrm_get_tbl_perform_plan_dept($userid);
+            //permission check for CEO and Admin
+            if(perms::check_perm_module('HRM_09070407')){//code for view all plan
+                $perform_plan = ModelHrmPlan::hrm_get_tbl_perform_plan(); //query policy user
             }
             $i=1;// variable increase number for table
             $table_perm= '<tbody>';
@@ -199,5 +196,5 @@ class HrmPlanController extends Controller
             }
             $plan_detail_get = ModelHrmPlanDetail::hrm_get_plan_detail($id_plan); 
             return view('hrms/performance/performance_plan/HrmViewPerformPlan', ['perform_plan' => $plan,'perform_plan_detail' =>$plan_detail_get]);
-    } 
+    }
 }

@@ -5,7 +5,6 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1><strong style="font-size: 25px; margin-top:5px;"><i class="fas fa-list"></i>  List </strong></h1>
-                <!-- <h1 class="card-title hrm-title"><strong><i class="fas fa-list"></i> List <strong></h1> -->
             </div>
         </div>
     </div><!-- /.container-fluid -->
@@ -18,10 +17,9 @@
                     <div class="card-header">
                         <div class="col-12">
                             <div class="row">
-                                    <!-- <a  href="#" class="btn btn-block btn-success lead" value="addlead" onclick="addlead()"><i class="fas fa-wrench"></i> Add Lead</a>  -->
-                                    <a  href="#" class="btn btn-success purchase_form"  value="bsc_purchase_purchase_form" id="purchase_form"><i class="fas fa-plus"></i> Add New</a>&nbsp;
+                                <a  href="#" class="btn btn-success purchase_form"  value="bsc_purchase_purchase_form" id="purchase_form"><i class="fas fa-plus"></i> Add New</a>&nbsp;
                             </div>
-                            {{-- ======================= Start Tab menu =================== --}}
+                            <!------------------------------------ Start Tab Menu ------------------------->
                             <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-top: 10px;">
                                 <li class="nav-item">
                                   <a class="nav-link active" id="home-tab" data-toggle="tab" href="#all" role="tab" aria-controls="home" aria-selected="true">All</a>
@@ -34,15 +32,16 @@
                                 </li>
 
                             </ul><br/>
-                            {{-- ======================= End Tab menu =================== --}}
+                            <!------------------------------------ End Tab Menu ---------------------------------->
+
                                 <div class="tab-content" id="myTabContent">
-                                    {{-- ============================ Start Tab all ======================= --}}
+                                    <!------------------------------------ Start Tab All ------------------------->
                                     <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="card-body">
                                             <table id="example1" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>Purchase</th>
+                                                        <th>Purchase #</th>
                                                         <th>Supplier</th>
                                                         <th>Date</th>
                                                         <th>Due Date</th>
@@ -53,26 +52,50 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>TT-001</td>
-                                                        <td>Touch Rith</td>
-                                                        <td>Keo Raksmey</td>
-                                                        <td>2020-10-01</td>
-                                                        <td>200$</td>
-                                                        <td>2020-10-01</td>
-                                                        <td>Aprove</td>
-                                                        <td>
-                                                            <a href="#" onclick="go_to('bsc_purchase_purchase_view')" class="btn btn-block btn-info btn-sm detail" ​value="detaillead" ><i class="fas fa-info-circle"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                
+                                                    @foreach($purchases as $purchase)
+                                                        @php 
+                                                            $amount_paid = 0;
+                                                            $due_amount = 0;
+                                                            $status = '';
+                                                    
+                                                            if($purchase->amount_paid == null && $purchase->due_amount == null){
+                                                                $amount_paid = 0;
+                                                                $due_amount = $purchase->grand_total;
+                                                                $status = 'Awaiting Payment';
+                                                            }else{
+                                                                $amount_paid = $purchase->amount_paid;
+                                                                $due_amount = $purchase->due_amount;
+                                                                $status = 'Paid'; 
+                                                            }
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $purchase->invoice_number }}</td>
+                                                            <td>{{ $purchase->supplier_name }}</td>
+                                                            <td>{{ $purchase->billing_date }}</td>
+                                                            <td>{{ $purchase->due_date }}</td>
+                                                            <td>{{ $amount_paid }}</td>
+                                                            <td>{{ $due_amount}}</td>
+                                                            <td>{{ $status }}</td>
+                                                            <td style="text-align: center;">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <a href="javascript:;" onclick="go_to('bsc_purchase_purchase_view')"><i class="far fa-edit"></i></a>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <a href="javascript:"><i class="far fa-trash-alt" onclick="purchase_delete_data()"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-                                    {{-- ============================ End Tab all ======================= --}}
 
-                                    {{-- ============================ Start Tabl awaiting ======================= --}}
+                                    <!------------------------------------ End Tab All -------------------------------->
+
+                                    <!------------------------------------ Start Tab Awaiting ------------------------->
                                     <div class="tab-pane fade" id="awaiting" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="tab-content" id="myTabContent">
                                             <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
@@ -81,7 +104,7 @@
                                                         <table id="example2" class="table table-bordered table-striped">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Purchase</th>
+                                                                    <th>Purchase #</th>
                                                                     <th>Supplier</th>
                                                                     <th>Date</th>
                                                                     <th>Due Date</th>
@@ -91,17 +114,40 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>TT-001</td>
-                                                                    <td>Mey Mey</td>
-                                                                    <td>Keo Raksmey</td>
-                                                                    <td>2020-10-01</td>
-                                                                    <td>200$</td>
-                                                                    <td>2020-10-01</td>
-                                                                    <td>
-                                                                        <a href="#" onclick="go_to('bsc_purchase_purchase_view')" class="btn btn-block btn-info btn-sm detail" ​value="detaillead" ><i class="fas fa-info-circle"></i></a>
-                                                                    </td>
-                                                                </tr>
+                                                                @foreach($purchases as $purchase)
+                                                                    @if($purchase->due_amount == null || $purchase->due_amount != 0)
+                                                                        @php 
+                                                                            $amount_paid = 0;
+                                                                            $due_amount = 0;
+                                                                            
+                                                                            if($purchase->due_amount == null){
+                                                                                $amount_paid = 0;
+                                                                                $due_amount = $purchase->grand_total;
+                                                                            }else{
+                                                                                $amount_paid = $purchase->amount_paid;
+                                                                                $due_amount = $purchase->due_amount;
+                                                                            }
+                                                                        @endphp
+                                                                        <tr>
+                                                                            <td>{{ $purchase->invoice_number }}</td>
+                                                                            <td>{{ $purchase->supplier_name }}</td>
+                                                                            <td>{{ $purchase->billing_date }}</td>
+                                                                            <td>{{ $purchase->due_date }}</td>
+                                                                            <td>{{ $amount_paid }}</td>
+                                                                            <td>{{ $due_amount }}</td>
+                                                                            <td style="text-align: center;">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-6">
+                                                                                        <a href="javascript:;" onclick="go_to('bsc_purchase_purchase_view')"><i class="far fa-edit"></i></a>
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <a href="javascript:"><i class="far fa-trash-alt" onclick="purchase_delete_data()"></i></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endif
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -109,9 +155,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- ============================ End Tabl awaiting ======================= --}}
+                                    <!------------------------------------ End Tab Awaiting ------------------------->
 
-                                    {{-- ============================ Start Tabl paid ======================= --}}
+                                    <!------------------------------------ Start Tab paid --------------------------->
                                     <div class="tab-pane fade" id="paid" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="tab-content" id="myTabContent">
                                             <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
@@ -120,7 +166,7 @@
                                                         <table id="example3" class="table table-bordered table-striped">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Purchase</th>
+                                                                    <th>Purchase #</th>
                                                                     <th>Supplier</th>
                                                                     <th>Date</th>
                                                                     <th>Due Date</th>
@@ -130,17 +176,28 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>TT-001</td>
-                                                                    <td>Touch Rith</td>
-                                                                    <td>Keo Raksmey</td>
-                                                                    <td>2020-10-01</td>
-                                                                    <td>200$</td>
-                                                                    <td>2020-10-01</td>
-                                                                    <td>
-                                                                        <a href="#" onclick="go_to('bsc_purchase_purchase_view')" class="btn btn-block btn-info btn-sm detail" ​value="detaillead" ><i class="fas fa-info-circle"></i></a>
-                                                                    </td>
-                                                                </tr>
+                                                                @foreach($purchases as $purchase)
+                                                                    @if($purchase->due_amount == 0 && $purchase->due_amount != null)
+                                                                        <tr>
+                                                                            <td>{{ $purchase->invoice_number }}</td>
+                                                                            <td>{{ $purchase->supplier_name }}</td>
+                                                                            <td>{{ $purchase->billing_date }}</td>
+                                                                            <td>{{ $purchase->due_date }}</td>
+                                                                            <td>{{ $purchase->amount_paid }}</td>
+                                                                            <td>{{ $purchase->due_amount }}</td>
+                                                                            <td style="text-align: center;">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-6">
+                                                                                        <a href="javascript:;" onclick="go_to('bsc_purchase_purchase_view')"><i class="far fa-edit"></i></a>
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <a href="javascript:"><i class="far fa-trash-alt" onclick="purchase_delete_data()"></i></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endif
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -148,7 +205,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- ============================ End Tabl paid ======================= --}}
+                                    <!------------------------------------ End Tab Paid ------------------------->
                             </div>
                         </div>
                     </div>
@@ -161,23 +218,20 @@
 <script type="text/javascript">
 
     $(function () {
-        
         $("#example1").DataTable({
-        "responsive": true,
-        "autoWidth": false,
+            "responsive": true,
+            "autoWidth": false,
         });
         $("#example2").DataTable({
-        "responsive": true,
-        "autoWidth": false,
+            "responsive": true,
+            "autoWidth": false,
         });
         $("#example3").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        });
-
-        
-
+         "responsive": true,
+            "autoWidth": false,
+        }); 
     });
+
     $('.purchase_form').click(function(e)
     {
         var ld = $(this).attr("value");
@@ -193,4 +247,26 @@
         var id = $(this).attr("value");
         go_to(id);
     });
+
+    // function alert delete dailog
+    function purchase_delete_data(){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to delete this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+                
+            )
+            }
+        })
+    }
 </script>

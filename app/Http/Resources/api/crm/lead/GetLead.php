@@ -3,7 +3,7 @@
 namespace App\Http\Resources\api\crm\lead;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\User;
 class GetLead extends JsonResource
 {
     /**
@@ -14,6 +14,12 @@ class GetLead extends JsonResource
      */
     public function toArray($request)
     {
+        $user =User::find($this->create_by,[
+            'id',
+            'first_name_en',
+            'last_name_en',
+            'email'
+        ]);
         return [
             "lead_id"=> $this->id,
             "lead_number"=>$this->lead_number,
@@ -21,6 +27,8 @@ class GetLead extends JsonResource
             "customer_name_kh"=>$this->customer_name_kh,
             "email"=>$this->email,
             "website"=>$this->website,
+            "facebook"=>$this->facebook,
+            "create_by"=>$user
            
         ];
     }

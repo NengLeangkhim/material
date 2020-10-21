@@ -37,27 +37,34 @@
                                                 <th>Lead Number</th>
                                                 <th>Customer/Comapny Name</th>
                                                 <th>Email</th>
-                                                <th>phone</th>
                                                 <th>Website </th>
-                                                <th>Assigned To </th>
-                                                <th>Detail</th>
+                                                <th>Facebook </th>
+                                                <th>Branch</th>
+                                                {{-- <th>Detail</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($lead as $row)
-                                            <tr>
-                                                <td>{{$row->lead_number}}</td>
-                                                <td>{{$row->customer_name_en}}</td>
-                                                <td>{{$row->email}}</td>
-                                                <td>{{$row->website}}</td>
-                                                <td>{{$row->status}}</td>
-                                                <td>{{$row->create_by}}</td>
-                                                <td>
-                                                {{-- <a href="#" class="btn btn-block btn-info btn-sm edit" ​value="editlead/{{$row->id}}" ><i class="fas fa-wrench"></i></a>detaillead --}}
-                                                <a href="#" class="btn btn-block btn-info btn-sm detail" ​value="detaillead" ><i class="fas fa-info-circle"></i></a>
-                                                </td>
-                                            </tr>                                       
-                                        @endforeach
+                                            {{-- {{dd()}} --}}
+                                            <?php 
+                                            for($i =0;$i<sizeof($lead);$i++){
+                                                ?>
+                                                    <tr>
+                                                        <td>{{$lead[$i]["lead_number"]}}</td>
+                                                        <td>{{$lead[$i]["customer_name_en"]}}</td>
+                                                        <td>{{$lead[$i]["email"]}}</td>
+                                                        <td>{{$lead[$i]["website"]}}</td>
+                                                        {{-- <td>{{$lead[$i]["create_by"]['last_name_en']." ".$lead[$i]["create_by"]['first_name_en']}}</td>                                                 --}}
+                                                        <td>{{$lead[$i]["facebook"]}}</td>                                                
+                                                        <td>
+                                                            <a href="#" class="btn btn-block btn-info btn-sm branch" ​value="branch/{{$lead[$i]["lead_id"]}}" ><i class="fas fa-code-branch"></i></a>                                                             
+                                                        </td>
+                                                        {{-- <td>  
+                                                            <a href="#" class="btn btn-block btn-info btn-sm detail" ​value="detaillead" ><i class="fas fa-info-circle"></i></a>                                                     
+                                                        </td> --}}
+                                                    </tr> 
+                                                <?php
+                                            }
+                                            ?>
                                         </tbody>  
                                     </table>
                                 </div>
@@ -96,6 +103,11 @@
                 go_to(id);
             });
             $('.detail').click(function(e)
+            {
+                var id = $(this).attr("​value");
+                go_to(id);
+            });
+            $('.branch').click(function(e)
             {
                 var id = $(this).attr("​value");
                 go_to(id);

@@ -110,11 +110,10 @@ body{
 
  /* style use for employee profile */
 
- .profile-pic {
+ .profile_user {
     max-width: 150px;
     height: 200px;
     max-height: 210px;
-
     border: 1px solid #1fa8e0;
     border-radius: 2px;
     /* display: block; */

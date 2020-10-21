@@ -26,9 +26,9 @@ class HrmManagerFollowUpController extends Controller
                 $group = $row->ma_group_id;
                 $dept = $row->ma_company_dept_id;
             }
-            if($group==5 || $group==1){ //permission check for CEO and Admin
+            if(perms::check_perm_module('HRM_09070304')){ //permission check for CEO and Admin
                 $manager_follow_up = ModelHrmManagerFollowUp::hrm_get_manager_follow_up_top(); //query database
-            }elseif($group==4){//permission each departement
+            }elseif(perms::check_perm_module('HRM_09070305')){//permission each departement 
                 $manager_follow_up = ModelHrmManagerFollowUp::hrm_get_manager_follow_up_dept($dept); //query database
             }else{//permission check user
                 $manager_follow_up = ModelHrmManagerFollowUp::hrm_get_manager_follow_up_staff($userid); //query database

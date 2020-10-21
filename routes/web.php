@@ -29,17 +29,16 @@ Route::get('/commune', 'addressController@getcommune'); //getcommune
 Route::get('/village', 'addressController@getvillage'); //getvillage
 // End Get Address
 // =========================CRM SYSTEM==========================
-// start lead
+// start leads
 Route::get('/lead','crm\LeadController@getlead'); // get  all lead  show  in table
+Route::get('/branch/{id}','crm\LeadController@getbranch'); // get  all branch  show  in table by lead id
+Route::get('/detailbranch/{id}','crm\LeadController@getdetailbranch'); // get detail branch
 Route::get('/addlead','crm\LeadController@lead'); // go to lead
 Route::post('/lead/store','crm\LeadController@StoreLead'); // Store lead
-// Route::get('/district','crm\LeadController@getdistrict'); //getdistrict
-// Route::get('/commune','crm\LeadController@getcommune'); //getcommune
-// Route::get('/village','crm\LeadController@getvillage'); //getvillage
 Route::POST('/addleadsource','crm\LeadController@addleadsource'); //addlead source
 Route::POST('/addleadindustry','crm\LeadController@addleadindustry'); //add leadindustry
 Route::POST('/addlead','crm\LeadController@addlead'); //add leadindustry
-Route::get('/detaillead','crm\LeadController@detaillead'); //add leadindustry
+Route::get('/detaillead/{id}','crm\LeadController@detaillead'); //add leadindustry
 Route::Get('/editlead/{id}','crm\LeadController@editlead');// Go to lead
 Route::post('/lead/update','crm\LeadController@UpdateLead');// Update lead
 Route::post('/crm_leasdsource','crm\LeadController@savelead'); // save
@@ -60,6 +59,7 @@ Route::post('/contact/store','crm\ContactController@StoreContact'); //store cont
 Route::get('/contact/edit/{id}','crm\ContactController@EditContact');//go to Edit contact
 Route::put('/contact/update','crm\ContactController@UpdateContact'); //Update contact
 Route::get('/contact/detail','crm\ContactController@DetailContact');//go to Detail contact
+Route::get('/contact/delete','crm\ContactController@DeleteContact');//Delete contact
 Route::get('/product','crm\ProductsController@getProducts'); //get all Products show in table
 // end contact
 
@@ -515,6 +515,12 @@ Route::get('hrm_question_answer_sugg/modal/result','hrms\suggestion\QuestionAnsw
 
 // Route Update Status Checkbox //
 Route::get('hrm_question_answer_sugg/checkbox','hrms\suggestion\QuestionAnswerController@update_status_question_sugg');
+
+// Get Staff User Suggestion by HR Department or Top Management
+Route::get('/hrm_user_suggested', 'hrms\suggestion\QuestionAnswerController@getUserSuggested');
+
+// Get Staff Submitted the Question Answer as Report
+Route::get('/hrm_employee_suggestion_report', 'hrms\suggestion\QuestionAnswerController@getSuggestionSurveyReport');
 //////========END QUESTION & Answer==========/////
 
 //////======== SUGGESTION BOX =============///////
@@ -860,12 +866,21 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_modal_add_edit', 'hrms\Employee\OverTimeController@ShowModalAddAndEdit');
         Route::post('hrm_insert_update_overtime','hrms\Employee\OverTimeController@InsertUpdateOvertime');
         Route::get('hrm_delete_overtime', 'hrms\Employee\OverTimeController@DeleteOvertime');
+        Route::get('hrm_my_overtime','hrms\Employee\OverTimeController@my_overtime');
     // End Overtime
 
 // End Employee
 
 // Start Training
-
+    // Training Report
+        Route::get('hrm_report_training',function(){
+            return view('hrms/Training/report_training_schedule');
+        });
+        Route::get('hrm_training_report_search','hrms\Training\TrainingListController@training_report_search');
+    // End TRaining Report
+    // My Training
+        Route::get('hrm_my_trainning','hrms\Training\TrainingListController@my_training');
+    // End My Training
     // Training List
         Route::get('hrm_traininglist','hrms\Training\TrainingListController@TrainingList');
         Route::get('hrm_modal_traininglist', 'hrms\Training\TrainingListController@ModalTrainingList');
@@ -1085,7 +1100,7 @@ Route::get('test_chart',function(){
         // Balance Sheet
 
         // Profit and Loss
-
+        Route::get('/bsc_report_is','api\BSC\IncomeStatementApiController@getIS');
     // Accounting Report
         // Account Transaction
 
@@ -1145,6 +1160,7 @@ Route::get('test_chart',function(){
 // Purchase
     // Purchase
     Route::get('bsc_purchase_purchase_list','bsc\PurchaseController@list');
+    Route::post('bsc_purchase_save','bsc\PurchaseController@save');
 
     Route::get('bsc_purchase_purchase_view','bsc\PurchaseController@view');
 

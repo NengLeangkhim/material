@@ -76,7 +76,8 @@
           function(){
              // getTable('productlist','id');
               $('#tbl_manager_follow_up').DataTable({
-                scrollX: true
+                // scrollX: true
+                responsive:true,
               });
           }
       );

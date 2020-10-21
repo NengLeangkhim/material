@@ -28,7 +28,5 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     // delete contact
     Route::delete('/contact/{id}/{userid}','api\crm\ContactController@destroy');
-
-    
 });
 

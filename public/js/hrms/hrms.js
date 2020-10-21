@@ -579,6 +579,61 @@ function hrms_search_mission(route){
     });
 }
 
+function my_overtime_search(){
+    var month=document.getElementById('otMonth').value;
+    var year=document.getElementById('otYear').value;
+    $.ajax({
+        type: 'GET',
+        url: 'hrm_my_overtime',
+        async:false,
+        data: {
+            _token: '<?php echo csrf_token() ?>',
+            eyear: year,
+            emonth:month
+        },
+        success: function (data) {
+            console.log(data);
+            var ab=JSON.parse(data);
+            var i=0;
+            $("#tbl_overtime").DataTable().destroy();
+            $("#tbl_overtime tbody").empty();
+            $.each(ab, function(i, value) {
+                i++;
+                var tr="<tr><th>"+i+"</th><td>"+value.overtime_date+"</td><td>"+value.start_time+"</td><td>"+value.end_time+"</td><td>"+value.description+"</td><td>"+value.approve+"</td></tr>";
+                 $("#tbl_overtime").append(tr);
+            });
+            $('#tbl_overtime').DataTable();
+        }
+    });
+}
+
+
+function report_training_search(){
+    var from=document.getElementById('date_from').value;
+    var to=document.getElementById('date_to').value;
+    if(from.length<=0 || to.length<=0 || new Date(from)>new Date(to)){
+        alert('Please Select date and date must be bigger than today');
+        return;
+    }
+    $("#training_report_search").html(spinner());
+    $.ajax({
+        type: 'GET',
+        url: 'hrm_training_report_search',
+        async:false,
+        data: {
+            _token: '<?php echo csrf_token() ?>',
+            date_from: from,
+            date_to:to
+        },
+        success: function (data) {
+            document.getElementById('training_report_search').innerHTML=data;
+            $( "table" ).each(function( index,item ) {
+       $(this).DataTable();
+    });
+        }
+    });
+}
+
 
 
 

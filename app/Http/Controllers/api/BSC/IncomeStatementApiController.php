@@ -17,6 +17,11 @@ class IncomeStatementApiController extends Controller
         $this->is = new IncomeStatement();
     }
 
+    public function getIS(Request $request){
+        $data = $this->getIncomeStatement($request);
+        return view('bsc.report.financial_report.profit_and_loss.profit_and_loss');
+    }
+
     public function getIncomeStatement(Request $request){
         $fromDate = $request->fromDate;
         $toDate = $request->toDate;
@@ -48,12 +53,11 @@ class IncomeStatementApiController extends Controller
     protected function getTotalSameCurrency($value = []){
         $total = [];
         foreach($value as $val){
+            $str = $val->currency_name_en;
             try {
-                $str = $val->currency_name_en;
                 $total[$str] += $val->total_debit;
             } catch(Exception $e){
-                $str = $val->currency_name_en;
-                $str = $val->currency_name_en;
+                $total[$str] = 0;
                 $total[$str] += $val->total_debit;
             }
         }

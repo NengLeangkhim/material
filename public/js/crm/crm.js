@@ -45,6 +45,50 @@
           }
         });
     }
+    //======= Funtion delete=======//
+function Crm_delete(id,route,goto,alert) {
+  event.preventDefault();
+  Swal.fire({ //get from sweetalert function
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.value) {
+      $.ajax({
+        url:route,   //Request send to "action.php page"
+        data:{id:id},
+        type:"GET",    //Using of Post method for send data
+        success:function(data){
+          console.log(data);
+          // if(data =='error'){
+          //      //sweetalert('success',alert);
+          //    //  setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
+          //      Swal.fire(
+          //        'Deleted!',
+          //          'Delete Error',
+          //        'error'
+          //      )
+          // }else{
+              //sweetalert('success',alert);
+            setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
+            Swal.fire(
+              'Deleted!',
+                alert,
+              'success'
+            )
+          // }
+        }
+        
+       });
+      
+    }
+  })
+ 
+};
 // ---------- END Contact---------- //
 // ----------- Report ------------- //
     //Report Lead
@@ -387,7 +431,7 @@
     //     });
     // });
 
-    // get data into combobox branch
+    // get data into combobox branch 
     $('#branch').ready(function(){
         $('#branch').find('option').not(':first').remove();
             $.ajax({
@@ -407,8 +451,9 @@
                         for(var i=0; i<response['data'].length ;i++){
                             var id = response['data'][i].id;
                             var name = response['data'][i].name;
+                            var company = response['data'][i].company;
                             // alert(name);
-                            var option = "<option value='"+id+"'>"+name+"</option>"; 
+                            var option = "<option value='"+id+"'>"+name+" / "+company+"</option>"; 
 
                             $("#branch").append(option); 
                         }
@@ -417,11 +462,108 @@
             })
 
         })
+     // get  current_speed_isp in  selection 
+        $('#current_speed_isp').ready(function(){
+          $('#current_speed_isp').find('option').not(':first').remove();
+              $.ajax({
+                  url:'api/currentsppedisp',
+                  type:'get',
+                  dataType:'json',
+                  success:function(response){
+            
+                          for(var i=0; i<response['data'].length ;i++){
+                              var id = response['data'][i].id;
+                              var name = response['data'][i].name_en;
+                              // alert(name);
+                              var option = "<option value='"+id+"'>"+name+"</option>"; 
+  
+                              $("#current_speed_isp").append(option); 
+                          }
+                  //     }
+                  }
+              })
+  
+          })
+  
+      // get  service in  selection 
+        $('#service').ready(function(){
+          $('#service').find('option').not(':first').remove();
+              $.ajax({
+                  url:'api/stock/service',
+                  type:'get',
+                  dataType:'json',
+                  success:function(response){
+            
+                          for(var i=0; i<response['data'].length ;i++){
+                              var id = response['data'][i].id;
+                              var name = response['data'][i].name;
+                              // alert(name);
+                              var option = "<option value='"+id+"'>"+name+"</option>"; 
+  
+                              $("#service").append(option); 
+                          }
+                  //     }
+                  }
+              })
+  
+          })
+        // get  lead in  selection 
+        $('#lead_id').ready(function(){
+          // $('#lead_id').find('option').not(':first').remove();
+          // $token = $_SESSION['token'];
+          var myvar= $( "#lead_id" ).val();
+          // alert(myvar);
+         
+              $.ajax({
+                  url:'api/getlead',
+                  type:'get',
+                  dataType:'json',
+                  headers: {
+                    'Authorization': `Bearer ${myvar}`,
+                },              
+                  success:function(response){                  
+                          for(var i=0; i<response['data'].length ;i++){
+                              var id = response['data'][i].lead_id;
+                              var name = response['data'][i].customer_name_en;
+                              // alert(name);
+                              var option = "<option value='"+id+"'>"+name+"</option>"; 
 
-        $('.lead').click(function(e)        {
+                              $("#lead_id").append(option); 
+                          }
+                
+                  }
+              })
+          })
+          
+          $('#contact_id').ready(function(){
+            // $('#lead_id').find('option').not(':first').remove();
+            var myvar= $( "#contact_id" ).val();
+                $.ajax({
+                    url:'api/contacts',
+                    type:'get',
+                    dataType:'json',
+                    headers: {
+                      'Authorization': `Bearer ${myvar}`,
+                  },
+                    success:function(response){
+              
+                            for(var i=0; i<response['data'].length ;i++){
+                                var id = response['data'][i].id;
+                                var name = response['data'][i].name_en;
+                                // alert(name);
+                                var option = "<option value='"+id+"'>"+name+"</option>"; 
+  
+                                $("#contact_id").append(option); 
+                            }
+                  
+                    }
+                })
+            })
+            //click back to home
+        $('.lead').click(function(e){
             var ld = $(this).attr("​value");
             e.preventDefault();  
-            // alert(ld);
+            alert(ld);
                 $.ajax({   
                     type: 'GET',   
                     url:ld,
@@ -431,6 +573,7 @@
                 }
             });
         })
+
         $(function(){
              //Initialize Select2 Elements
                  $('.select2').select2()
@@ -449,6 +592,48 @@
             submit_form ('/addlead','frm_lead','lead');
         })
 
+        // get value in search contact from selection and show in each field
+        $( "#contact_id" ).change(function() {
+          var to = $(this). children("option:selected"). val();
+          // alert(to);
+          $.ajax({
+            url:'/api/contact/'+to,
+            type:'get',
+            dataType:'json',
+            success:function(response){
+      
+                        var name_en = response['data'].name_en;
+                        var name_kh = response['data'].name_kh;             
+                        var email = response['data'].email;             
+                        var phone = response['data'].phone;             
+                        var national_id = response['data'].national_id;             
+                        var position = response['data'].position;             
+                        var honorifics = response['data'].honorifics.name_en;  
+                        var honorifics_id = response['data'].honorifics.id;  
+                        // alert(honorifics);           
+                        $("#name_en").val(name_en); 
+                        $("#name_kh").val(name_kh); 
+                        $("#email").val(email); 
+                        $("#phone").val(phone); 
+                        $("#national_id").val(national_id); 
+                        $("#position").val(position); 
+                        // $("#ma_honorifics_id").val(honorifics); 
+                        var option = "<option value='"+honorifics_id+" 'selected>"+honorifics+"</option>"; 
+  
+                       $("#ma_honorifics_id").append(option); 
+
+                        $('#name_en').prop('readonly', true);
+                        $('#name_kh').prop('readonly', true);
+                        $('#email').prop('readonly', true);
+                        $('#phone').prop('readonly', true);
+                        $('#national_id').prop('readonly', true);
+                        $('#position').prop('readonly', true);
+                        $('#ma_honorifics_id').attr('disabled', true);
+               
+          
+            }
+        })
+        });
         
 
 
@@ -836,7 +1021,8 @@
                   }
               },
               error: function(data) {
-                  console.log('data error when send to http !');
+                  console.log(data);
+                  // console.log('data error when send to http !');
                   sweetalert('warning','Data not accessing to server!');
               }
           });

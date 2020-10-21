@@ -22,6 +22,16 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
+                            <div class="col-md-8"></div>
+                            <div class="col-md-4 text_right">
+                                <a href="#" class="btn btn-success purchase_form"  value="" id="">Print</a>
+                                <a href="#" class="btn btn-secondary purchase_form"  value="" id="">Edit</a>
+                                <a href="#" class="btn btn-danger purchase_form"  value="" id="">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-header">
+                        <div class="row">
                             <div class="col-md-4"> 
                                 <label for="" class="account_name">Account Name :</label><br/>
                                 <label for="">Date :</label><br/>
@@ -33,7 +43,7 @@
                             </div>
                                 <div class="col-md-4"> 
                                 <label for="">Reference :</label><br/>
-                                <label for="">Purchase :</label><br/>
+                                <label for="">Purchase# :</label><br/>
                             </div>
                         </div>                               
                     </div>
@@ -51,12 +61,12 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th>Iphone</th>
-                                    <th>Iphone 11 Pro</th>
-                                    <th>10</th>
-                                    <th>1000$</th>
-                                    <th>0.10</th>
-                                    <th>10000$</th>
+                                    <td>Iphone</td>
+                                    <td>Iphone 11 Pro</td>
+                                    <td>10</td>
+                                    <td>001215699</td>
+                                    <td>0.10</td>
+                                    <td>10000$</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -141,7 +151,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" name="code" id="exampleInputEmail1" placeholder="Amount Paid" >
+                                        <input type="number" class="form-control" name="code" id="exampleInputEmail1" placeholder="Amount Paid" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -150,7 +160,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" name="code" id="exampleInputEmail1" placeholder="Date Paid" >
+                                        <input type="date" class="form-control" name="code" id="exampleInputEmail1" placeholder="Date Paid" >
                                     </div>
                                 </div>
                             </div>
