@@ -117,7 +117,7 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     Route::get('/crm/setting/leadstatus','crm\CrmSettingController@CrmLeadStatus'); // show Lead Status Setting CRM
     Route::post('/crm/setting/leadstatus/store','crm\CrmSettingController@StoreLeadStatus'); // show Lead Status Setting CRM
 Route::get('/crm/setting/leadindustry','crm\CrmSettingController@CrmLeadIndustry'); // show Lead Status Setting CRM
-// END Setting CRM 
+// END Setting CRM
 
 //===========================END CRM=================================
 
@@ -761,7 +761,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// Modal Show List Candidate
     Route::get('hrm_list_condidate/modal','hrms\recruitment\HrmListCandidateController@hrm_detail_candidate');
-    
+
     /// Go to add Candidate
     Route::get('hrm_list_condidate/add','hrms\recruitment\HrmListCandidateController@hrm_goto_add');
     /// add Candidate
@@ -1042,7 +1042,12 @@ Route::get('hrm_get_quiz_result','hrms\recruitment_user\recruitment_userControll
 // route for user get hr result
 Route::get('hrm_recruitment_get_hr_result','hrms\recruitment_user\recruitment_userController@check_hr_resultContrl');
 
-
+//=============== add new HR ======================
+Route::get('hrm_policy_user_list','hrms\policy\HrmPolicyController@policy_user_list');
+Route::get('hrm_history_policy','hrms\policy\HrmPolicyController@policy_user_history');
+Route::get('hrm_policy_report','hrms\policy\HrmPolicyController@policy_report');
+Route::post('hrm_policy_report','hrms\policy\HrmPolicyController@get_policy_report_data');
+Route::post('hrm_read_policy_report','hrms\policy\HrmPolicyController@get_read_policy_report_data');
 
 //=============End recruitment candidate===========
 
