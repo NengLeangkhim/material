@@ -14,24 +14,24 @@ class ModelHrmListCandidate extends Model
                             join ma_position p on c.ma_position_id=p.id
                             left join hr_recruitment_candidate_answer ca on c.id = ca.hr_recruitment_candidate_id
                             left join (
-                            SELECT 
-                                    hr_recruitment_candidate_id, 
+                            SELECT
+                                    hr_recruitment_candidate_id,
                                     hr_approval_status
-                                FROM 
+                                FROM
                                     hr_recruitment_candidate_detail
                                 where  ( hr_recruitment_candidate_id, create_date) IN
                             (
-                                SELECT 
-                                    hr_recruitment_candidate_id, 
+                                SELECT
+                                    hr_recruitment_candidate_id,
                                     MAX(create_date)
-                                FROM 
+                                FROM
                                     hr_recruitment_candidate_detail
-                                GROUP BY 
+                                GROUP BY
                                     hr_recruitment_candidate_id
-                            ) 
-                                GROUP BY 
+                            )
+                                GROUP BY
                                     hr_recruitment_candidate_id,hr_approval_status
-                            )appr on (c.id=appr.hr_recruitment_candidate_id)  
+                            )appr on (c.id=appr.hr_recruitment_candidate_id)
                             where c.is_deleted='f'
                             group by c.id,p.name,appr.hr_approval_status,ca.is_deleted
                             ");
@@ -50,4 +50,34 @@ class ModelHrmListCandidate extends Model
     public static function update_candidate($id,$userid,$fname,$lname,$name_kh,$zip_file,$email,$password,$candidate_id,$position_id,$status,$cover_letter,$interest,$date){
         return DB::select('SELECT public.update_hr_recruitment_candidate(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($id,$userid,$fname,$lname,$name_kh,$zip_file,$email,$password,$candidate_id,$position_id,$status,$cover_letter,$interest,$date));
     }
+
+    // ===== Function get candidate by date=====////
+    public static function get_candidate_by_date($from,$to){
+        return DB::select("SELECT c.*,p.name,appr.hr_approval_status,ca.is_deleted as check_quiz,null as status_appr,null as comment,null as staff,null as start_time from hr_recruitment_candidate c
+            join ma_position p on c.ma_position_id=p.id
+            left join hr_recruitment_candidate_answer ca on c.id = ca.hr_recruitment_candidate_id
+            left join (
+            SELECT
+                    hr_recruitment_candidate_id,
+                    hr_approval_status
+                FROM
+                    hr_recruitment_candidate_detail
+                where  ( hr_recruitment_candidate_id, create_date) IN
+            (
+                SELECT
+                    hr_recruitment_candidate_id,
+                    MAX(create_date)
+                FROM
+                    hr_recruitment_candidate_detail
+                GROUP BY
+                    hr_recruitment_candidate_id
+            )
+                GROUP BY
+                    hr_recruitment_candidate_id,hr_approval_status
+            )appr on (c.id=appr.hr_recruitment_candidate_id)
+            where c.is_deleted='f'
+            and ca.create_date BETWEEN '2020-09-10 00:00:00' and '2020-09-21 23:59:59'
+            group by c.id,p.name,appr.hr_approval_status,ca.is_deleted
+            ");
+        }
 }

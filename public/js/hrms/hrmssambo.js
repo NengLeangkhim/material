@@ -1,3 +1,5 @@
+const { take } = require("lodash");
+
 //====== Fuction Alert ======//
 function sweetalert(type,title){
   const Toast = Swal.mixin({
@@ -48,12 +50,12 @@ function hrm_delete(id,route,goto,alert) {
             )
           // }
         }
-        
+
        });
-      
+
     }
   })
- 
+
 };
 /// Function Get Name For Input Type 'FIle'//
 function hrm_get_name_file(name_input,id_label){
@@ -61,13 +63,13 @@ function hrm_get_name_file(name_input,id_label){
     if(filename !=''){
       $('#'+id_label).text(filename);
     }else{
-      $('#'+id_label).text('Choose File'); 
+      $('#'+id_label).text('Choose File');
     }
-                
+
 }
 /////////////=================================EMPLOYEE SUGGESTION =============================///////////////
 
-////==========Question Type Suggestion============//// 
+////==========Question Type Suggestion============////
 
 //======View Modal for Question Type Suggestion =====//
 function AddNewQ_type_sugg(){
@@ -77,15 +79,15 @@ function AddNewQ_type_sugg(){
       $('#card_title').text('Add Question Type');
       $('#question_type_sugg').val('');
       $('#action_q_t_sugg').text('Create'); // Give value to button action of question type submit
-} 
+}
 //======= ADD and update Question Type ========//
 function HrmAddQuestionTypeSugg(){
     event.preventDefault();
     $("#question_type_sugg_form input").removeClass("is-invalid");
-    /// Insert question type 
-    if($('#action_q_t_sugg').text()=='Create') //check condition for create question type 
+    /// Insert question type
+    if($('#action_q_t_sugg').text()=='Create') //check condition for create question type
     {
-     
+
       $.ajax({
         url:'hrm_question_type_sugg/add',
         type:'POST',
@@ -93,17 +95,17 @@ function HrmAddQuestionTypeSugg(){
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
          data: //_token: $('#token').val(),
-        $('#question_type_sugg_form').serialize(), 
-        
+        $('#question_type_sugg_form').serialize(),
+
         success:function(data)
         {
           if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
             console.log(data);
             $('#q_type_sugg_modal').modal('hide');
             sweetalert('success','The Question Type has been Insert Successfully !!');
-            setTimeout(function(){ go_to('hrm_question_type_sugg'); }, 300);// Set timeout for refresh content 
+            setTimeout(function(){ go_to('hrm_question_type_sugg'); }, 300);// Set timeout for refresh content
         }else{
-          // $(".print-error-msg").find("ul").html(''); 
+          // $(".print-error-msg").find("ul").html('');
 
           // $(".print-error-msg").css('display','block');
 
@@ -127,14 +129,14 @@ function HrmAddQuestionTypeSugg(){
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: //_token:  $('#token').val(),
-                $('#question_type_sugg_form').serialize(),    
+                $('#question_type_sugg_form').serialize(),
         success:function(data)
         {
           if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
             console.log(data);
             $('#q_type_sugg_modal').modal('hide');
             sweetalert('success','The Question Type has been Update Successfully !!');
-            setTimeout(function(){ go_to('hrm_question_type_sugg'); }, 300);// Set timeout for refresh content 
+            setTimeout(function(){ go_to('hrm_question_type_sugg'); }, 300);// Set timeout for refresh content
         }else{
           // $(".print-error-msg").find("ul").html('');
 
@@ -149,7 +151,7 @@ function HrmAddQuestionTypeSugg(){
         }
       });
     }
- 
+
    };
 //======= END ADD and update Question Type ========//
 
@@ -167,10 +169,10 @@ function HrmAddQuestionTypeSugg(){
             $('#card_title').text("Update Question Type");
             $('.print-error-msg').hide();
             $("#question_type_sugg_form input").removeClass("is-invalid");
-            $('#action_q_t_sugg_id').val(id);     //It will define value of id variable for update 
+            $('#action_q_t_sugg_id').val(id);     //It will define value of id variable for update
             $.each(data, function(i, e){ //read array json for show to textbox
-              $('#question_type_sugg').val(data[i].name);     
-              });     
+              $('#question_type_sugg').val(data[i].name);
+              });
          }
         });
        });
@@ -210,14 +212,14 @@ function detele_q_t_sugg(id) {
           }
         }
        });
-      
+
     }
   })
- 
-};
-////========== END Question Type Suggestion============//// 
 
-////==========Question Suggestion============//// 
+};
+////========== END Question Type Suggestion============////
+
+////==========Question Suggestion============////
 //========= function popup modal for add =======//
 function AddNewQuestionSugg(){
     $('#q_sugg_modal').modal('show');
@@ -229,17 +231,17 @@ function AddNewQuestionSugg(){
     $('#card_title').text("Create Questions");
     $('#statusType').val('1');
     $('#action_q_sugg').text('Create');
-} 
+}
 
 function HrmSubmitQuestionSugg(){
   event.preventDefault();
   $("#question_sugggestion_form textarea").removeClass("is-invalid");
   $("#question_sugggestion_form #question_type_id_sugg").removeClass("is-invalid");
   $(".invalid-feedback").children("strong").text("");
-  /// Insert question 
-  if($('#action_q_sugg').text()=='Create') //check condition for create question type 
+  /// Insert question
+  if($('#action_q_sugg').text()=='Create') //check condition for create question type
   {
-   
+
     $.ajax({
       url:'hrm_question_answer_sugg/store',
       type:'POST',
@@ -247,17 +249,17 @@ function HrmSubmitQuestionSugg(){
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
        data: //_token: $('#token').val(),
-      $('#question_sugggestion_form').serialize(), 
-      
+      $('#question_sugggestion_form').serialize(),
+
       success:function(data)
       {
         if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
           console.log(data);
           $('#q_sugg_modal').modal('hide');
           sweetalert('success','The Question has been Insert Successfully !!');
-          setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 300);// Set timeout for refresh content 
+          setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 300);// Set timeout for refresh content
       }else{
-        // $(".print-error-msg").find("ul").html(''); 
+        // $(".print-error-msg").find("ul").html('');
 
         // $(".print-error-msg").css('display','block');
 
@@ -272,7 +274,7 @@ function HrmSubmitQuestionSugg(){
       }
     });
   }
-  /// Update action Question 
+  /// Update action Question
   if($('#action_q_sugg').text()=='Update') // Check Condition for update question type
   {
     $.ajax({
@@ -282,14 +284,14 @@ function HrmSubmitQuestionSugg(){
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       data: //_token:  $('#token').val(),
-              $('#question_sugggestion_form').serialize(),    
+              $('#question_sugggestion_form').serialize(),
       success:function(data)
       {
         if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
           console.log(data);
           $('#q_sugg_modal').modal('hide');
           sweetalert('success','The Question has been Update Successfully !!');
-          setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 300);// Set timeout for refresh content 
+          setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 300);// Set timeout for refresh content
       }else{
         // $(".print-error-msg").find("ul").html('');
 
@@ -305,7 +307,7 @@ function HrmSubmitQuestionSugg(){
       }
     });
   }
- 
+
    };
 //======= Funtion get value from database Question to show on modal update =======//
 $(document).on('click', '.update_q_sugg', function(){
@@ -323,11 +325,11 @@ $(document).on('click', '.update_q_sugg', function(){
       $("#question_sugggestion_form textarea").removeClass("is-invalid");//remove all error message
       $("#question_sugggestion_form #question_type_id_sugg").removeClass("is-invalid");
       $(".invalid-feedback").children("strong").text("");
-      $('#q_sugg_id').val(id);     //It will define value of id variable for update 
+      $('#q_sugg_id').val(id);     //It will define value of id variable for update
       $.each(data, function(i, e){ //read array json for show to textbox
-        $('#question_name_sugg').val(data[i].question);  
-        $('#question_type_id_sugg').val(data[i].hr_suggestion_question_type_id)   
-        });     
+        $('#question_name_sugg').val(data[i].question);
+        $('#question_type_id_sugg').val(data[i].hr_suggestion_question_type_id)
+        });
    }
   });
  });
@@ -335,7 +337,7 @@ $(document).on('click', '.update_q_sugg', function(){
 
 //======= Function checkbox update status
 $(document).on('click', '.HrmCheckBoxSuggQA', function(){
-  var checked = $(this).is(":checked");             
+  var checked = $(this).is(":checked");
                     if(checked)
                     {
                       var id = $(this).val();
@@ -353,7 +355,7 @@ $(document).on('click', '.HrmCheckBoxSuggQA', function(){
                       success:function(data)
                       {
                         setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 100);// Set timeout for refresh content
-                        sweetalert('success','The Question has been Update Status Successfully !!'); 
+                        sweetalert('success','The Question has been Update Status Successfully !!');
                       }
                      });
                     }
@@ -375,13 +377,13 @@ $(document).on('click', '.HrmCheckBoxSuggQA', function(){
                       {
                         setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 100);// Set timeout for refresh content
                         sweetalert('warning','The Question has been Update Status Successfully !!');
-                       
+
                       }
                     });
                     }
 
 });
-////========== END Question Suggestion============//// 
+////========== END Question Suggestion============////
 ////========== Answer Suggestion============////
 ///Get modal show for add answer //
 $(document).on('click', '.add_answer_sugg', function(){
@@ -408,17 +410,17 @@ function HrmSubmitAnswerSugg(){
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   },
      data: //_token: $('#token').val(),
-    $('#answer_sugggestion_form').serialize(), 
-    
+    $('#answer_sugggestion_form').serialize(),
+
     success:function(data)
     {
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
         console.log(data);
         $('#answer_add_sugg_modal').modal('hide');
         sweetalert('success','The Answer has been Insert Successfully !!');
-        setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 300);// Set timeout for refresh content
     }else{
-      // $(".print-error-msg").find("ul").html(''); 
+      // $(".print-error-msg").find("ul").html('');
 
       // $(".print-error-msg").css('display','block');
 
@@ -471,17 +473,17 @@ function HrmUpdateQuestionAnswerSugg(){
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   },
      data: //_token: $('#token').val(),
-    $('#question_answer_sugg_form').serialize(), 
-    
+    $('#question_answer_sugg_form').serialize(),
+
     success:function(data)
     {
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
         console.log(data);
         $('#modal_update_queston_answer_sugg').modal('hide');
         sweetalert('success','The Answer And Question has been Update Successfully !!');
-        setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('hrm_question_answer_sugg'); }, 300);// Set timeout for refresh content
     }else{
-      $(".print-error-msg").find("ul").html(''); 
+      $(".print-error-msg").find("ul").html('');
 
       $(".print-error-msg").css('display','block');
 
@@ -529,7 +531,7 @@ $(document).on('click', '.hrm_delete_question_answer', function(){
         )
         }
        });
-      
+
     }
   })
 })
@@ -560,15 +562,15 @@ function HrmSubmitSuggestion(){
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   },
      data: //_token: $('#token').val(),
-    $('#suggestion_comment_form').serialize(), 
-    
+    $('#suggestion_comment_form').serialize(),
+
     success:function(data)
     {
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
         console.log(data);
         sweetalert('success','The Submit has been Submit Successfully !!');
-        go_to('/welcome');// refresh content 
-    }else{ 
+        go_to('/welcome');// refresh content
+    }else{
       $.each( data.errors, function( key, value ) {//foreach show error
           $("#" + key).addClass("is-invalid"); //give read border to input field
           // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
@@ -593,14 +595,14 @@ function HrmSubmitSurvey(){
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   },
      data: //_token: $('#token').val(),
-    $('#suggestion_survey_form').serialize(), 
-    
+    $('#suggestion_survey_form').serialize(),
+
     success:function(data)
     {
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
         sweetalert('success','The Submit has been Submit Successfully !!');
-        go_to('/welcome');// refresh content  
-      }else{ 
+        go_to('/welcome');// refresh content
+      }else{
        var index_array = $('input[name="question_radio[]"]').map(function(){return $(this).val();}).get();// variable get id index question option
           $.each(index_array,function(key,value){
             i++;
@@ -608,7 +610,7 @@ function HrmSubmitSurvey(){
                $("label[id='radio_ans["+value+"]']").addClass("text-danger");
             }
           });
-       
+
         $.each( data.errors, function( key, value ) {//foreach show error
             sweetalert('warning','Please Fill All The Fields');
             var name = $("textarea[name='"+key+"']");
@@ -633,13 +635,13 @@ function HrmSubmitSurvey(){
 function HrmAddPolicy(){
   $('#hrm_policy_modal').modal('show');
   $('#policy_name').val('');
-  $('#policy_file').val(''); 
+  $('#policy_file').val('');
   $('#policy_name').removeClass("is-invalid");
   $('#policy_file').removeClass("is-invalid");
   $(".invalid-feedback").children("strong").text("");
   $('#card_title').text(' Add Policy');
   $('#action_policy').text('Create');
-} 
+}
 //function insert policy //
 function HrmSubmitPolicy(){
   event.preventDefault();
@@ -647,10 +649,10 @@ function HrmSubmitPolicy(){
   var formData = new FormData(formElement);
   $('#policy_name').removeClass("is-invalid");
   $('#policy_file').removeClass("is-invalid");
-  /// Insert function 
-  if($('#action_policy').text()=='Create') //check condition for create question type 
+  /// Insert function
+  if($('#action_policy').text()=='Create') //check condition for create question type
   {
-   
+
     $.ajax({
       url:'hrm_list_policy/store',
       type:'POST',
@@ -667,9 +669,9 @@ function HrmSubmitPolicy(){
           console.log(data);
           $('#hrm_policy_modal').modal('hide');
           sweetalert('success','The Policy has been Insert Successfully !!');
-          setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content 
+          setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content
       }else{
-        // $(".print-error-msg").find("ul").html(''); 
+        // $(".print-error-msg").find("ul").html('');
 
         // $(".print-error-msg").css('display','block');
 
@@ -703,7 +705,7 @@ function HrmSubmitPolicy(){
           console.log(data);
           $('#hrm_policy_modal').modal('hide');
           sweetalert('success','The Policy has been Update Successfully !!');
-          setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content 
+          setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content
       }else{
         // $(".print-error-msg").find("ul").html('');
 
@@ -734,18 +736,18 @@ function HrmSubmitPolicy(){
    dataType:"json",   //Here we have define json data type, so server will send data in json format.
    success:function(data){
       $('#hrm_policy_modal').modal('show');   //It will display modal on webpage
-      $('#action_policy').text("Update"); 
+      $('#action_policy').text("Update");
       $('#card_title').text("Update Policy")     //This code will change Button value to Update
       $('#policy_id').val(id);     //It will define value of id variable to this customer id hidden field
       $('#operation').val('Update');
       $('#policy_name').removeClass("is-invalid");
       $('#policy_file').removeClass("is-invalid");
       $.each(data, function(i, e){ //read array json for show to textbox
-        $('#hidden_pdf').val(data[i].file_path);// Set to span and get hidden for value 
+        $('#hidden_pdf').val(data[i].file_path);// Set to span and get hidden for value
         $('#policy_name').val(data[i].name);
-        $('#policy_file_name').text(data[i].file_path);    
-        });     
-     
+        $('#policy_file_name').text(data[i].file_path);
+        });
+
    }
   });
  });
@@ -753,10 +755,10 @@ function HrmSubmitPolicy(){
  $(document).on('click', '.hrm_view_policy', function(){
   var currentdate = new Date();
   var start_time =currentdate.getFullYear() + "-"
-  + (currentdate.getMonth()+1)  + "-" 
-  + currentdate.getDate() + "   "  
-  + currentdate.getHours() + ":"  
-  + currentdate.getMinutes() + ":" 
+  + (currentdate.getMonth()+1)  + "-"
+  + currentdate.getDate() + "   "
+  + currentdate.getHours() + ":"
+  + currentdate.getMinutes() + ":"
   + currentdate.getSeconds();
   var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
   $.ajax({
@@ -782,17 +784,17 @@ function sumbit_policy(){
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   },
      data: //_token: $('#token').val(),
-    $('#hrm_policy_view_form').serialize(), 
-    
+    $('#hrm_policy_view_form').serialize(),
+
     success:function(data)
     {
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
         console.log(data);
         $('#hrm_view_policy_modal').modal('hide');
         sweetalert('success','Thanks for reading policy !!');
-        setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content
     }else{
-      // $(".print-error-msg").find("ul").html(''); 
+      // $(".print-error-msg").find("ul").html('');
 
       // $(".print-error-msg").css('display','block');
 
@@ -841,34 +843,34 @@ $(document).on('click', '.hrm_view_policy_user', function(){
   }
  ////view Table plan///////
   function view_table_plan(){
-    $.ajax({  
-        url:"hrm_list_plan_performance/plan",  
-        type:"get",  
-        data:{},  
-        success:function(data){  
-          $('#table_show_plan').html(data);  
-  }  
-  });  
+    $.ajax({
+        url:"hrm_list_plan_performance/plan",
+        type:"get",
+        data:{},
+        success:function(data){
+          $('#table_show_plan').html(data);
+  }
+  });
   }
   ////view Table plan detail///////
   function view_table_plan_detail(){
-  $.ajax({  
-      url:"hrm_list_plan_performance/plandetail",  
-      type:"get",  
-      data:{},  
-      success:function(data){  
-        $('#table_show_plan').html(data);  
-  }  
-  });  
+  $.ajax({
+      url:"hrm_list_plan_performance/plandetail",
+      type:"get",
+      data:{},
+      success:function(data){
+        $('#table_show_plan').html(data);
+  }
+  });
   }
   ///// Function insert plan ///////
   function HrmSubmitPerformPlan(){
     event.preventDefault();
   $('#hrm_perform_plan_form input').removeClass("is-invalid");//remove valid all input field
   /// Insert function
-  if($('#action_plan').text()=='Create') //check condition for create question type 
+  if($('#action_plan').text()=='Create') //check condition for create question type
   {
-   
+
     $.ajax({
       url:'hrm_list_plan_performance/addplan',
       type:'POST',
@@ -883,9 +885,9 @@ $(document).on('click', '.hrm_view_policy_user', function(){
           console.log(data);
           $('#hrm_perform_plan_modal').modal('hide');
           sweetalert('success','The Plan has been Insert Successfully !!');
-          setTimeout(function(){ go_to('hrm_list_plan_performance'); }, 300);// Set timeout for refresh content 
+          setTimeout(function(){ go_to('hrm_list_plan_performance'); }, 300);// Set timeout for refresh content
       }else{
-        // $(".print-error-msg").find("ul").html(''); 
+        // $(".print-error-msg").find("ul").html('');
 
         // $(".print-error-msg").css('display','block');
 
@@ -900,7 +902,7 @@ $(document).on('click', '.hrm_view_policy_user', function(){
       }
     });
   }
-  /// Update action 
+  /// Update action
   if($('#action_plan').text()=='Update') // Check Condition for update question type
   {
     $.ajax({
@@ -917,9 +919,9 @@ $(document).on('click', '.hrm_view_policy_user', function(){
           console.log(data);
           $('#hrm_perform_plan_modal').modal('hide');
           sweetalert('success','The Plan has been Update Successfully !!');
-          setTimeout(function(){ go_to('hrm_list_plan_performance'); }, 300);// Set timeout for refresh content 
+          setTimeout(function(){ go_to('hrm_list_plan_performance'); }, 300);// Set timeout for refresh content
       }else{
-        // $(".print-error-msg").find("ul").html(''); 
+        // $(".print-error-msg").find("ul").html('');
 
         // $(".print-error-msg").css('display','block');
 
@@ -951,12 +953,12 @@ $(document).on('click', '.hrm_view_policy_user', function(){
         $('.print-error-msg').hide();
         $('#hrm_perform_plan_form input').removeClass("is-invalid");//remove valid all input field
         $(".invalid-feedback").children("strong").text("");
-        $('#plan_id').val(id);     //It will define value of id variable for update 
+        $('#plan_id').val(id);     //It will define value of id variable for update
         $.each(data, function(i, e){ //read array json for show to textbox
           $('#plan_name').val(data[i].name);
           $('#plan_from').val(data[i].date_from);
           $('#plan_to').val(data[i].date_to);
-          });     
+          });
     }
     });
   });
@@ -969,7 +971,7 @@ $(document).on('click', '.hrm_view_policy_user', function(){
   //   data:{id:id},//Send data to server
   //   success:function(data){
   //       $('#ShowModalPlan').html(data);
-  //       $('#hrm_view_plan_modal').modal('show');   //It will display modal on webpage   
+  //       $('#hrm_view_plan_modal').modal('show');   //It will display modal on webpage
   //   }
   //   });
   // });
@@ -977,7 +979,7 @@ $(document).on('click', '.hrm_view_policy_user', function(){
 ////===== Performance plan Detail====/////////
 ///// Show Modal Add Plan detail /////
 $(document).on('click','.hrm_add_plan_detail', function(){
-  var id = $(this).attr("id"); 
+  var id = $(this).attr("id");
   $.ajax({
     url:"hrm_list_plan_performance/modalplandetail",
     type:"GET",
@@ -986,10 +988,10 @@ $(document).on('click','.hrm_add_plan_detail', function(){
       $('#ShowModalPlan').html(data);
       $('#hrm_perform_plan_detail_modal').modal('show');
       $('#plan_detail_name').val(''); //clear fields
-      $('#plan_detail_task').val(''); 
-      $('#plan_detail_from').val(''); 
-      $('#plan_detail_to').val(''); 
-      $('#plan_detail_parent').val(''); 
+      $('#plan_detail_task').val('');
+      $('#plan_detail_from').val('');
+      $('#plan_detail_to').val('');
+      $('#plan_detail_parent').val('');
       $('#plan_detail_name').removeClass("is-invalid"); //remove border red for error
       $('#plan_detail_task').removeClass("is-invalid");
       $('#plan_detail_from').removeClass("is-invalid");
@@ -1007,9 +1009,9 @@ function HrmAddPlanDetail(){
   $('#hrm_perform_plan_detail_form input').removeClass("is-invalid");//remove valid all input field
   $('#plan_detail_task').removeClass("is-invalid");
   /// Insert function
-  if($('#action_plan_detail').text()=='Create') //check condition for create 
+  if($('#action_plan_detail').text()=='Create') //check condition for create
   {
-   
+
     $.ajax({
       url:'hrm_list_plan_performance/addplandetail',
       type:'POST',
@@ -1024,9 +1026,9 @@ function HrmAddPlanDetail(){
           console.log(data);
           $('#hrm_perform_plan_detail_modal').modal('hide');
           sweetalert('success','The Plan Detail has been Insert Successfully !!');
-          setTimeout(function(){ go_to('hrm_list_plan_performance'); }, 300);// Set timeout for refresh content 
+          setTimeout(function(){ go_to('hrm_list_plan_performance'); }, 300);// Set timeout for refresh content
       }else{
-        // $(".print-error-msg").find("ul").html(''); 
+        // $(".print-error-msg").find("ul").html('');
 
         // $(".print-error-msg").css('display','block');
 
@@ -1041,8 +1043,8 @@ function HrmAddPlanDetail(){
       }
     });
   }
-  /// Update action 
-  if($('#action_plan_detail').text()=='Update') // Check Condition for update 
+  /// Update action
+  if($('#action_plan_detail').text()=='Update') // Check Condition for update
   {
     $.ajax({
       url:'hrm_list_plan_performance/updateplandetail',
@@ -1058,9 +1060,9 @@ function HrmAddPlanDetail(){
           console.log(data);
           $('#hrm_perform_plan_detail_modal').modal('hide');
           sweetalert('success','The Plan Detail has been Update Successfully !!');
-          setTimeout(function(){ go_to('hrm_list_plan_performance'); }, 300);// Set timeout for refresh content 
+          setTimeout(function(){ go_to('hrm_list_plan_performance'); }, 300);// Set timeout for refresh content
       }else{
-        // $(".print-error-msg").find("ul").html(''); 
+        // $(".print-error-msg").find("ul").html('');
 
         // $(".print-error-msg").css('display','block');
 
@@ -1099,11 +1101,11 @@ function hrm_update_perform_plan_detail(id,id_plan){
             var show = data1;
             $.each(show, function(i, e){ //read array json for show to textbox
               $('#plan_detail_name').val(show[i].name);
-              $('#plan_detail_task').val(show[i].task); 
-              $('#plan_detail_from').val(show[i].date_from); 
-              $('#plan_detail_to').val(show[i].date_to); 
+              $('#plan_detail_task').val(show[i].task);
+              $('#plan_detail_from').val(show[i].date_from);
+              $('#plan_detail_to').val(show[i].date_to);
               $('#plan_detail_parent').val(show[i].parent_id);
-              });    
+              });
             $('#plan_detail_name').removeClass("is-invalid"); //remove border red for error
             $('#plan_detail_task').removeClass("is-invalid");
             $('#plan_detail_from').removeClass("is-invalid");
@@ -1113,7 +1115,7 @@ function hrm_update_perform_plan_detail(id,id_plan){
           }
         })
     }
-  })  
+  })
 };
 
 //// View modal Plan Detail///
@@ -1125,7 +1127,7 @@ $(document).on('click', '.hrm_view_perform_plan_detail', function(){
   data:{id:id},//Send data to server
   success:function(data){
       $('#ShowModalPlan').html(data);
-      $('#hrm_view_plan_detail_modal').modal('show');   //It will display modal on webpage   
+      $('#hrm_view_plan_detail_modal').modal('show');   //It will display modal on webpage
   }
   });
 });
@@ -1156,7 +1158,7 @@ $(document).on('click', '.hrm_view_perform_plan_detail', function(){
   $('#card_title').text('Add Schedule');
   $('#action_schedule_staff').text('Create');
 }
-///// Function query combobox plan detail 
+///// Function query combobox plan detail
 ////// Fuction get_plan_schedule//////
 function get_plan_schedule(id){
   $.ajax({
@@ -1173,10 +1175,10 @@ function get_plan_schedule(id){
         success:function(data){
               // console.log(data);  combobox_plan_detail
               $.each(data, function(i, e){ //read array json for show to textbox
-                $('#plan_from_schedule').val(data[i].date_from); 
-                $('#plan_to_schedule').val(data[i].date_to); 
-                });    
-               $('#schedule_plan_detail').html(data1);  
+                $('#plan_from_schedule').val(data[i].date_from);
+                $('#plan_to_schedule').val(data[i].date_to);
+                });
+               $('#schedule_plan_detail').html(data1);
         }
        });
     }
@@ -1193,9 +1195,9 @@ function get_plan_detail_schedule(id){
     success:function(data){
           // console.log(data);  combobox_plan_detail
           $.each(data, function(i, e){ //read array json for show to textbox
-           $('#schedule_detail_task').text(data[i].task); 
-           $('#schedule_detail_from').val(data[i].date_from);   
-           $('#schedule_detail_to').val(data[i].date_to);   
+           $('#schedule_detail_task').text(data[i].task);
+           $('#schedule_detail_from').val(data[i].date_from);
+           $('#schedule_detail_to').val(data[i].date_to);
         })
     }
    });
@@ -1204,9 +1206,9 @@ function get_plan_detail_schedule(id){
 function HrmSubmitPerformSchedule(){
   event.preventDefault();
 /// Insert function
-if($('#action_schedule_staff').text()=='Create') //check condition for create question type 
+if($('#action_schedule_staff').text()=='Create') //check condition for create question type
 {
- 
+
   $.ajax({
     url:'hrm_performance_staff_schedule/store',
     type:'POST',
@@ -1221,9 +1223,9 @@ if($('#action_schedule_staff').text()=='Create') //check condition for create qu
         console.log(data);
         $('#hrm_perform_schedule_modal').modal('hide');
         sweetalert('success','The Schedule has been Insert Successfully !!');
-        setTimeout(function(){ go_to('hrm_performance_staff_schedule'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('hrm_performance_staff_schedule'); }, 300);// Set timeout for refresh content
     }else{
-      // $(".print-error-msg").find("ul").html(''); 
+      // $(".print-error-msg").find("ul").html('');
 
       // $(".print-error-msg").css('display','block');
 
@@ -1238,7 +1240,7 @@ if($('#action_schedule_staff').text()=='Create') //check condition for create qu
     }
   });
 }
-/// Update action 
+/// Update action
 if($('#action_schedule_staff').text()=='Update') // Check Condition for update question type
 {
   $.ajax({
@@ -1255,9 +1257,9 @@ if($('#action_schedule_staff').text()=='Update') // Check Condition for update q
         console.log(data);
         $('#hrm_perform_schedule_modal').modal('hide');
         sweetalert('success','The Schedule has been Update Successfully !!');
-        setTimeout(function(){ go_to('hrm_performance_staff_schedule'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('hrm_performance_staff_schedule'); }, 300);// Set timeout for refresh content
     }else{
-      // $(".print-error-msg").find("ul").html(''); 
+      // $(".print-error-msg").find("ul").html('');
 
       // $(".print-error-msg").css('display','block');
 
@@ -1291,7 +1293,7 @@ function hrm_update_perform_schedule(id,id_plan){
       $('#hrm_perform_schedule_form input').removeClass("is-invalid");//remove valid all input field
       $('#hrm_perform_schedule_form textarea').removeClass("is-invalid");//remove valid all input field
       $('#hrm_perform_schedule_form select').removeClass("is-invalid");//remove valid all input field
-      $('#schedule_plan_id').val(id);     //It will define value of id variable for update 
+      $('#schedule_plan_id').val(id);     //It will define value of id variable for update
       $.each(data, function(i, e){ //read array json for show to textbox
         $('#plan_schedule').val(data[i].plan_id);
         $('#plan_from_schedule').val(data[i].plan_from);
@@ -1304,8 +1306,8 @@ function hrm_update_perform_schedule(id,id_plan){
         $('#staff_schedule').val(data[i].ma_user_id);
         $('#staff_from_schedule').val(data[i].date_from);
         $('#staff_to_schedule').val(data[i].date_to);
-        $('#staff_comment_schedule').text(data[i].comment);  
-        });     
+        $('#staff_comment_schedule').text(data[i].comment);
+        });
   }
   });
 },300);
@@ -1319,7 +1321,7 @@ $(document).on('click', '.hrm_view_perform_schedule', function(){
   data:{id:id},//Send data to server
   success:function(data){
       $('#modal_for_view_schedule').html(data);
-      $('#hrm_view_perform_schedule_modal').modal('show');   //It will display modal on webpage   
+      $('#hrm_view_perform_schedule_modal').modal('show');   //It will display modal on webpage
   }
   });
 });
@@ -1335,7 +1337,7 @@ $(document).on('click', '.hrm_view_perform_schedule', function(){
 //   data:{id:id},//Send data to server
 //   success:function(data){
 //       $('#modal_for_view_schedule').html(data);
-//       $('#hrm_perform_follow_modal').modal('show');   //It will display modal on webpage  
+//       $('#hrm_perform_follow_modal').modal('show');   //It will display modal on webpage
 //       $('#action_follow_up').text("Create"); //This code will change Button value to Update
 //       $('#card_title').text("Add Follow Up");
 //       $('.print-error-msg').hide();
@@ -1344,7 +1346,7 @@ $(document).on('click', '.hrm_view_perform_schedule', function(){
 //       $('#follow_up_percentage').text('');
 //       $('#follow_up_reason').text('');
 //       $('#follow_up_challenge').text('');
-//       $('#follow_up_comment').text('');  
+//       $('#follow_up_comment').text('');
 
 //   }
 //   });
@@ -1353,9 +1355,9 @@ $(document).on('click', '.hrm_view_perform_schedule', function(){
 function HrmSubmitStaffFollowUp(){
   event.preventDefault();
 /// Insert function
-if($('#action_follow_up').val()=='Create') //check condition for create question type 
+if($('#action_follow_up').val()=='Create') //check condition for create question type
 {
- 
+
   $.ajax({
     url:'/hrm_performance_follow_up/store',
     type:'POST',
@@ -1369,9 +1371,9 @@ if($('#action_follow_up').val()=='Create') //check condition for create question
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
         console.log(data);
         sweetalert('success','The Staff Follow Up has been Insert Successfully !!');
-        setTimeout(function(){ go_to('/hrm_performance_staff_schedule'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('/hrm_performance_staff_schedule'); }, 300);// Set timeout for refresh content
     }else{
-      // $(".print-error-msg").find("ul").html(''); 
+      // $(".print-error-msg").find("ul").html('');
 
       // $(".print-error-msg").css('display','block');
 
@@ -1386,7 +1388,7 @@ if($('#action_follow_up').val()=='Create') //check condition for create question
     }
   });
 }
-/// Update action 
+/// Update action
 if($('#action_follow_up').val()=='Update') // Check Condition for update question type
 {
   $.ajax({
@@ -1402,9 +1404,9 @@ if($('#action_follow_up').val()=='Update') // Check Condition for update questio
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
         console.log(data);
         sweetalert('success','The Staff Follow Up has been Updated Successfully !!');
-        setTimeout(function(){ go_to('/hrm_performance_follow_up'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('/hrm_performance_follow_up'); }, 300);// Set timeout for refresh content
     }else{
-      // $(".print-error-msg").find("ul").html(''); 
+      // $(".print-error-msg").find("ul").html('');
 
       // $(".print-error-msg").css('display','block');
 
@@ -1429,7 +1431,7 @@ $(document).on('click', '.hrm_view_perform_staff_follow_up', function(){
   data:{id:id},//Send data to server
   success:function(data){
       $('#modal_for_view_follow_up').html(data);
-      $('#hrm_view_staff_follow_up_modal').modal('show');   //It will display modal on webpage   
+      $('#hrm_view_staff_follow_up_modal').modal('show');   //It will display modal on webpage
   }
   });
 });
@@ -1440,9 +1442,9 @@ $(document).on('click', '.hrm_view_perform_staff_follow_up', function(){
 function HrmSubmitManagerFollowUp(){
   event.preventDefault();
 /// Insert function
-if($('#action_manage_follow_up').val()=='Create') //check condition for create question type 
+if($('#action_manage_follow_up').val()=='Create') //check condition for create question type
 {
- 
+
   $.ajax({
     url:'/hrm_performance_follow_up_manager/store',
     type:'POST',
@@ -1456,9 +1458,9 @@ if($('#action_manage_follow_up').val()=='Create') //check condition for create q
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
         console.log(data);
         sweetalert('success','The Manager Follow Up has been Insert Successfully !!');
-        setTimeout(function(){ go_to('/hrm_performance_follow_up'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('/hrm_performance_follow_up'); }, 300);// Set timeout for refresh content
     }else{
-      // $(".print-error-msg").find("ul").html(''); 
+      // $(".print-error-msg").find("ul").html('');
 
       // $(".print-error-msg").css('display','block');
 
@@ -1473,7 +1475,7 @@ if($('#action_manage_follow_up').val()=='Create') //check condition for create q
     }
   });
 }
-/// Update action 
+/// Update action
 if($('#action_manage_follow_up').val()=='Update') // Check Condition for update question type
 {
   $.ajax({
@@ -1489,9 +1491,9 @@ if($('#action_manage_follow_up').val()=='Update') // Check Condition for update 
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
         console.log(data);
         sweetalert('success','The Manager Follow Up has been Update Successfully !!');
-        setTimeout(function(){ go_to('/hrm_performance_follow_up_manager'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('/hrm_performance_follow_up_manager'); }, 300);// Set timeout for refresh content
     }else{
-      // $(".print-error-msg").find("ul").html(''); 
+      // $(".print-error-msg").find("ul").html('');
 
       // $(".print-error-msg").css('display','block');
 
@@ -1516,7 +1518,7 @@ $(document).on('click', '.hrm_view_manager_follow_up', function(){
   data:{id:id},//Send data to server
   success:function(data){
       $('#modal_view_manager_follow_up').html(data);
-      $('#hrm_view_manager_follow_up_modal').modal('show');   //It will display modal on webpage   
+      $('#hrm_view_manager_follow_up_modal').modal('show');   //It will display modal on webpage
   }
   });
 });
@@ -1538,9 +1540,9 @@ function HrmSubmitPerformScore(){
   event.preventDefault();
   $('#hrm_perform_score_form input').removeClass("is-invalid");//remove valid all input field
 /// Insert function
-if($('#action_performance_score').text()=='Create') //check condition for create  
+if($('#action_performance_score').text()=='Create') //check condition for create
 {
- 
+
   $.ajax({
     url:'hrm_performance_score/store',
     type:'POST',
@@ -1555,9 +1557,9 @@ if($('#action_performance_score').text()=='Create') //check condition for create
         console.log(data);
         $('#hrm_perform_score_modal').modal('hide');
         sweetalert('success','The Score has been Insert Successfully !!');
-        setTimeout(function(){ go_to('hrm_performance_score'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('hrm_performance_score'); }, 300);// Set timeout for refresh content
     }else{
-      // $(".print-error-msg").find("ul").html(''); 
+      // $(".print-error-msg").find("ul").html('');
 
       // $(".print-error-msg").css('display','block');
 
@@ -1572,8 +1574,8 @@ if($('#action_performance_score').text()=='Create') //check condition for create
     }
   });
 }
-/// Update action 
-if($('#action_performance_score').text()=='Update') // Check Condition for update 
+/// Update action
+if($('#action_performance_score').text()=='Update') // Check Condition for update
 {
   $.ajax({
     url:'hrm_performance_score/update',
@@ -1589,9 +1591,9 @@ if($('#action_performance_score').text()=='Update') // Check Condition for updat
         console.log(data);
         $('#hrm_perform_score_modal').modal('hide');
         sweetalert('success','The Score has been Updated Successfully !!');
-        setTimeout(function(){ go_to('hrm_performance_score'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('hrm_performance_score'); }, 300);// Set timeout for refresh content
     }else{
-      // $(".print-error-msg").find("ul").html(''); 
+      // $(".print-error-msg").find("ul").html('');
 
       // $(".print-error-msg").css('display','block');
 
@@ -1626,11 +1628,11 @@ $(document).on('click', '.hrm_update_perform_score', function(){
       $('#hrm_perform_score_form input').removeClass("is-invalid");//remove valid all input field
       $(".invalid-feedback").children("strong").text("");
       $.each(data, function(i, e){ //read array json for show to textbox
-        $('#score_name').val(data[i].name)// Set to span and get hidden for value 
+        $('#score_name').val(data[i].name)// Set to span and get hidden for value
         value_score = parseInt(data[i].value);
-        $('#score_value').val(value_score);    
-        });     
-     
+        $('#score_value').val(value_score);
+        });
+
    }
   });
  });
@@ -1668,7 +1670,7 @@ $(document).on('click', '.hrm_update_perform_score', function(){
               }
             }
           });
-          
+
         }
       })
 
@@ -1690,7 +1692,7 @@ function ReportPerformance(){
     success:function(data)
     {
       if(typeof(data.errors) != "undefined" && data.errors !== null) { //condition for check success
-         // $(".print-error-msg").find("ul").html(''); 
+         // $(".print-error-msg").find("ul").html('');
 
       // $(".print-error-msg").css('display','block');
 
@@ -1700,30 +1702,30 @@ function ReportPerformance(){
           sweetalert('warning',value);
         //$("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
     });
-      
+
     }else{
       console.log(data);
       $('#report_table_performance').html(data);
       $('#report_tbl_performance').DataTable({
         scrollX:true
       });
-      $('[data-toggle="tooltip"]').tooltip(); 
+      $('[data-toggle="tooltip"]').tooltip();
     }
     }
-   }); 
+   });
 }
  //// View Detail Report //////
  function view_detail_report(id){
-  $.ajax({  
-      url:"hrm_performance_follow_up_manager/modal/view",  
-      method:"GET",  
-      data:{id:id},  
-      success:function(data){  
-       $('#modal_report_performance').html(data);  
+  $.ajax({
+      url:"hrm_performance_follow_up_manager/modal/view",
+      method:"GET",
+      data:{id:id},
+      success:function(data){
+       $('#modal_report_performance').html(data);
        setTimeout(function(){$('#hrm_view_manager_follow_up_modal').modal("show");},200);
-  }  
-  }); 
-   
+  }
+  });
+
  }
 ////================ END Performance Report ============//////
 /////////////================================= END Performance =============================///////////////
@@ -1738,16 +1740,16 @@ function ReportPerformance(){
       $('#card_title').text('Add Question Type');
       $('#question_type').val('');
       $('#action_question_type').text('Create'); // Give value to button action of question type submit
-    } 
+    }
 
     ///// Function insert and Update Question type ///////
     function HrmAddQuestionTypeRe(){
       event.preventDefault();
       $('#question_type_re_form input').removeClass("is-invalid");//remove valid all input field
     /// Insert function
-    if($('#action_question_type').text()=='Create') //check condition for create  
+    if($('#action_question_type').text()=='Create') //check condition for create
     {
-    
+
       $.ajax({
         url:'hrm_questiontype/store',
         type:'POST',
@@ -1762,9 +1764,9 @@ function ReportPerformance(){
             console.log(data);
             $('#q_type_re_modal').modal('hide');
             sweetalert('success','The Question Type has been Insert Successfully !!');
-            setTimeout(function(){ go_to('hrm_questiontype'); }, 300);// Set timeout for refresh content 
+            setTimeout(function(){ go_to('hrm_questiontype'); }, 300);// Set timeout for refresh content
         }else{
-          // $(".print-error-msg").find("ul").html(''); 
+          // $(".print-error-msg").find("ul").html('');
 
           // $(".print-error-msg").css('display','block');
 
@@ -1779,8 +1781,8 @@ function ReportPerformance(){
         }
       });
     }
-    /// Update action 
-    if($('#action_question_type').text()=='Update') // Check Condition for update 
+    /// Update action
+    if($('#action_question_type').text()=='Update') // Check Condition for update
     {
       $.ajax({
         url:'hrm_questiontype/update',
@@ -1796,9 +1798,9 @@ function ReportPerformance(){
             console.log(data);
             $('#q_type_re_modal').modal('hide');
             sweetalert('success','The Question Type has been Updated Successfully !!');
-            setTimeout(function(){ go_to('hrm_questiontype'); }, 300);// Set timeout for refresh content 
+            setTimeout(function(){ go_to('hrm_questiontype'); }, 300);// Set timeout for refresh content
         }else{
-          // $(".print-error-msg").find("ul").html(''); 
+          // $(".print-error-msg").find("ul").html('');
 
           // $(".print-error-msg").css('display','block');
 
@@ -1828,10 +1830,10 @@ function ReportPerformance(){
           $('#card_title').text("Update Question Type");
           $('.print-error-msg').hide();
           $('#question_type_re_form input').removeClass("is-invalid");//remove valid all input field
-          $('#question_type_id').val(id);     //It will define value of id variable for update 
+          $('#question_type_id').val(id);     //It will define value of id variable for update
           $.each(data, function(i, e){ //read array json for show to textbox
-            $('#question_type').val(data[i].name);     
-            });     
+            $('#question_type').val(data[i].name);
+            });
        }
       });
     });
@@ -1870,10 +1872,10 @@ function ReportPerformance(){
               }
             }
           });
-          
+
         }
       })
-    
+
     };
 ////====== END Question Type Recruitment ====///
 
@@ -1896,9 +1898,9 @@ function ReportPerformance(){
     function HrmSubmitQuestion(){
       event.preventDefault();
       /// Insert function
-      if($('#action_question').text()=='Create') //check condition for create  
+      if($('#action_question').text()=='Create') //check condition for create
       {
-      
+
         $.ajax({
           url:'hrm_question/store',
           type:'POST',
@@ -1913,9 +1915,9 @@ function ReportPerformance(){
               console.log(data);
               $('#q_recruitment_modal').modal('hide');
               sweetalert('success','The Question has been Insert Successfully !!');
-              setTimeout(function(){ go_to('hrm_question'); }, 300);// Set timeout for refresh content 
+              setTimeout(function(){ go_to('hrm_question'); }, 300);// Set timeout for refresh content
           }else{
-            // $(".print-error-msg").find("ul").html(''); 
+            // $(".print-error-msg").find("ul").html('');
 
             // $(".print-error-msg").css('display','block');
 
@@ -1930,8 +1932,8 @@ function ReportPerformance(){
           }
         });
       }
-      /// Update action 
-      if($('#action_question').text()=='Update') // Check Condition for update 
+      /// Update action
+      if($('#action_question').text()=='Update') // Check Condition for update
       {
         $.ajax({
           url:'hrm_question/update',
@@ -1947,9 +1949,9 @@ function ReportPerformance(){
               console.log(data);
               $('#q_recruitment_modal').modal('hide');
               sweetalert('success','The Question has been Updated Successfully !!');
-              setTimeout(function(){ go_to('hrm_question'); }, 300);// Set timeout for refresh content 
+              setTimeout(function(){ go_to('hrm_question'); }, 300);// Set timeout for refresh content
           }else{
-            // $(".print-error-msg").find("ul").html(''); 
+            // $(".print-error-msg").find("ul").html('');
 
             // $(".print-error-msg").css('display','block');
 
@@ -1981,13 +1983,13 @@ function ReportPerformance(){
           $("#question_recruitment_form textarea").removeClass("is-invalid");
           $("#question_recruitment_form select").removeClass("is-invalid");
           $(".invalid-feedback").children("strong").text("");/// remove errror massage
-          $('#hr_recruitment_question_id').val(id);     //It will define value of id variable for update 
-          $.each(data, function(i, e){ //read array json for show to textbox 
+          $('#hr_recruitment_question_id').val(id);     //It will define value of id variable for update
+          $.each(data, function(i, e){ //read array json for show to textbox
             $('#question_name').val(data[i].question);
             $('#question_type').val(data[i].hr_recruitment_question_type_id);
             $('#departement').val(data[i].ma_company_dept_id);
-            $('#position').val(data[i].ma_position_id);   
-            });  
+            $('#position').val(data[i].ma_position_id);
+            });
        }
       });
     });
@@ -2018,17 +2020,17 @@ function HrmSubmitAnswer(){
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   },
      data: //_token: $('#token').val(),
-    $('#answer_recruitment_form').serialize(), 
-    
+    $('#answer_recruitment_form').serialize(),
+
     success:function(data)
     {
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
         console.log(data);
         $('#answer_recruitment_modal').modal('hide');
         sweetalert('success','The Answer has been Insert Successfully !!');
-        setTimeout(function(){ go_to('hrm_question'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('hrm_question'); }, 300);// Set timeout for refresh content
     }else{
-      $(".print-error-msg").find("ul").html(''); 
+      $(".print-error-msg").find("ul").html('');
 
       $(".print-error-msg").css('display','block');
 
@@ -2043,7 +2045,7 @@ function HrmSubmitAnswer(){
             name = $("textarea[name='"+arr[0]+"[]']:eq("+arr[1]+")");
           }
           name.addClass("is-invalid");
-          
+
 
       });
     }
@@ -2084,16 +2086,16 @@ $(document).on('click', '.hrm_question_answer_re', function(){
           $("#update_QA_recruitment_form textarea").removeClass("is-invalid");
           $("#update_QA_recruitment_form select").removeClass("is-invalid");
           $(".invalid-feedback").children("strong").text("");/// remove errror massage
-          $('#question_id_edit').val(id);     //It will define value of id variable for update 
-          $.each(data1, function(i, e){ //read array json for show to textbox 
+          $('#question_id_edit').val(id);     //It will define value of id variable for update
+          $.each(data1, function(i, e){ //read array json for show to textbox
             $('#question_name_edit').val(data1[i].question);
             $('#question_type_edit').val(data1[i].hr_recruitment_question_type_id);
             $('#departement_edit').val(data1[i].ma_company_dept_id);
-            $('#position_edit').val(data1[i].ma_position_id);   
+            $('#position_edit').val(data1[i].ma_position_id);
             });
             }
           });
-        
+
    }
   });
 });
@@ -2107,17 +2109,17 @@ $(document).on('click', '.hrm_question_answer_re', function(){
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
        data: //_token: $('#token').val(),
-      $('#update_QA_recruitment_form').serialize(), 
-      
+      $('#update_QA_recruitment_form').serialize(),
+
       success:function(data)
       {
         if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
           console.log(data);
           $('#q_a_recruitment_modal').modal('hide');
           sweetalert('success','The Question And Answer has been Update Successfully !!');
-          setTimeout(function(){ go_to('hrm_question'); }, 300);// Set timeout for refresh content 
+          setTimeout(function(){ go_to('hrm_question'); }, 300);// Set timeout for refresh content
       }else{
-        $(".print-error-msg").find("ul").html(''); 
+        $(".print-error-msg").find("ul").html('');
         $(".print-error-msg").css('display','block');
         $.each( data.errors, function( key, value ) {//foreach show error
             // $("#" + key).addClass("is-invalid"); //give read border to input field
@@ -2147,14 +2149,14 @@ function AddNewQuestionKnowledge(){
   $('#question_knowledge').val('');// set empty field
   $('#departement_knowledge').val('');
   $('#action_knowledge').text('Create'); // Give value to button action of question type submit
-} 
+}
 ///// Function insert and Update Question type ///////
 function HrmAddQuestionKnowledge(){
   event.preventDefault();
   $("#question_knowledge_form textarea").removeClass("is-invalid");
   $("#question_knowledge_form select").removeClass("is-invalid");//remove valid all input field
 /// Insert function
-if($('#action_knowledge').text()=='Create') //check condition for create  
+if($('#action_knowledge').text()=='Create') //check condition for create
 {
 
   $.ajax({
@@ -2171,9 +2173,9 @@ if($('#action_knowledge').text()=='Create') //check condition for create
         console.log(data);
         $('#question_knowledge_modal').modal('hide');
         sweetalert('success','The Question has been Insert Successfully !!');
-        setTimeout(function(){ go_to('hrm_list_knowledge_question'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('hrm_list_knowledge_question'); }, 300);// Set timeout for refresh content
     }else{
-      // $(".print-error-msg").find("ul").html(''); 
+      // $(".print-error-msg").find("ul").html('');
 
       // $(".print-error-msg").css('display','block');
 
@@ -2188,8 +2190,8 @@ if($('#action_knowledge').text()=='Create') //check condition for create
     }
   });
 }
-/// Update action 
-if($('#action_knowledge').text()=='Update') // Check Condition for update 
+/// Update action
+if($('#action_knowledge').text()=='Update') // Check Condition for update
 {
   $.ajax({
     url:'hrm_list_knowledge_question/update',
@@ -2205,9 +2207,9 @@ if($('#action_knowledge').text()=='Update') // Check Condition for update
         console.log(data);
         $('#question_knowledge_modal').modal('hide');
         sweetalert('success','The Question has been Updated Successfully !!');
-        setTimeout(function(){ go_to('hrm_list_knowledge_question'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('hrm_list_knowledge_question'); }, 300);// Set timeout for refresh content
     }else{
-      // $(".print-error-msg").find("ul").html(''); 
+      // $(".print-error-msg").find("ul").html('');
 
       // $(".print-error-msg").css('display','block');
 
@@ -2239,11 +2241,11 @@ $(document).on('click', '.update_qestion_knowledge', function(){
           $("#question_knowledge_form textarea").removeClass("is-invalid");
           $("#question_knowledge_form select").removeClass("is-invalid");
           $(".invalid-feedback").children("strong").text("");/// remove errror massage
-          $('#question_knowledge_id').val(id);     //It will define value of id variable for update 
-          $.each(data, function(i, e){ //read array json for show to textbox 
+          $('#question_knowledge_id').val(id);     //It will define value of id variable for update
+          $.each(data, function(i, e){ //read array json for show to textbox
             $('#question_knowledge').val(data[i].question);
-            $('#departement_knowledge').val(data[i].ma_company_dept_id); 
-            });  
+            $('#departement_knowledge').val(data[i].ma_company_dept_id);
+            });
    }
   });
 });
@@ -2271,9 +2273,9 @@ function HrmSubmitCandidate(){
   var formElement = document.getElementById('hrm_candidate_form');
   var formData = new FormData(formElement);
 /// Insert function
-if($('#action_hrm_candidate').val()=='Create') //check condition for create question type 
+if($('#action_hrm_candidate').val()=='Create') //check condition for create question type
 {
- 
+
   $.ajax({
     url:'hrm_list_condidate/store',
     type:'POST',
@@ -2289,9 +2291,9 @@ if($('#action_hrm_candidate').val()=='Create') //check condition for create ques
     {
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
         sweetalert('success','The Candidate has been Insert Successfully !!');
-        setTimeout(function(){ go_to('/hrm_list_condidate'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('/hrm_list_condidate'); }, 300);// Set timeout for refresh content
     }else{
-      // $(".print-error-msg").find("ul").html(''); 
+      // $(".print-error-msg").find("ul").html('');
 
       // $(".print-error-msg").css('display','block');
 
@@ -2306,7 +2308,7 @@ if($('#action_hrm_candidate').val()=='Create') //check condition for create ques
     }
   });
 }
-/// Update action 
+/// Update action
 if($('#action_hrm_candidate').val()=='Update') // Check Condition for update question type
 {
   $.ajax({
@@ -2325,9 +2327,9 @@ if($('#action_hrm_candidate').val()=='Update') // Check Condition for update que
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
         console.log(data);
         sweetalert('success','The Candidate has been Update Successfully !!');
-        setTimeout(function(){ go_to('/hrm_list_condidate'); }, 300);// Set timeout for refresh content 
+        setTimeout(function(){ go_to('/hrm_list_condidate'); }, 300);// Set timeout for refresh content
     }else{
-      // $(".print-error-msg").find("ul").html(''); 
+      // $(".print-error-msg").find("ul").html('');
 
       // $(".print-error-msg").css('display','block');
 
@@ -2348,31 +2350,31 @@ if($('#action_hrm_candidate').val()=='Update') // Check Condition for update que
 ////===== Result Candidate =====//////
 ///Function View CV
 function hrm_view_cv_detail(id){
-  $.ajax({  
-    url:"hrm_list_result_condidate/modal/cv",  
-    type:"get",  
-    data:{id:id},  
-    success:function(data){  
-        // get id of div in admincheck.php for show modal 
-         $('#ModalShowResult').html(data);  
+  $.ajax({
+    url:"hrm_list_result_condidate/modal/cv",
+    type:"get",
+    data:{id:id},
+    success:function(data){
+        // get id of div in admincheck.php for show modal
+         $('#ModalShowResult').html(data);
          // set time out for modal view
          $('#HrmModalViewCv').modal('show');
 }
-});     
-}  
+});
+}
 ///Function View Knowledge Question
 function hrm_view_all_normal_q(){
-  $.ajax({  
-    url:"hrm_list_result_condidate/modal/knowledge",  
-    type:"get",  
-    data:{},  
-    success:function(data){  
-        // get id of div in admincheck.php for show modal 
-         $('#ModalShowResult').html(data);  
+  $.ajax({
+    url:"hrm_list_result_condidate/modal/knowledge",
+    type:"get",
+    data:{},
+    success:function(data){
+        // get id of div in admincheck.php for show modal
+         $('#ModalShowResult').html(data);
          // set time out for modal view
-         $('#HrmModalKnowledgeQuestion').modal('show');  
+         $('#HrmModalKnowledgeQuestion').modal('show');
 }
-});     
+});
 }
 function hrm_recruitment_approve(userid,type){
   comment=$('textarea#recruitment_approve_comment').val();
@@ -2389,7 +2391,7 @@ function hrm_recruitment_approve(userid,type){
       },
       success: function(data){
         sweetalert('success','The Approval has been Submit Successfully !!');
-        go_to('hrm_list_result_condidate');//refresh content  
+        go_to('hrm_list_result_condidate');//refresh content
        }
   });
 }
@@ -2411,13 +2413,17 @@ function hrm_recruitment_approve(userid,type){
       },
       dataType:"json",
       success: function(data){
-        $('#re_all').val('អ្នកដាក់ពាក្យ'+' '+'( '+data.all+' )');
-        $('#re_app').val('អ្នកជាប់'+' '+'( '+data.app+' )');
-        $('#re_pen').val('អ្នករង់ចាំ'+' '+'( '+data.pen+' )');
-        $('#re_rej').val('អ្នកបដិសេដ'+' '+'( '+data.rej+' )');
+        $('#re_all').val('Candidate'+' '+'( '+data.all+' )');
+        $('#re_new').val('New'+' '+'( '+data.new+' )');
+        $('#re_taken').val('Taken'+' '+'( '+data.taken+' )');
+        $('#re_app').val('Passed'+' '+'( '+data.app+' )');
+        $('#re_pen').val('Pending'+' '+'( '+data.pen+' )');
+        $('#re_rej').val('Reject'+' '+'( '+data.rej+' )');
         var applies = data.all;
         var approve = data.app;
         var pending = data.pen;
+        var newemp = data.new;
+        var taken = data.taken;
         var reject = data.rej;
         //var data1 = [data.all,data.app,data.pen,data.rej];
         // new Chart(document.getElementById("chart-area"), {
@@ -2450,8 +2456,10 @@ function hrm_recruitment_approve(userid,type){
             ['Approve', approve],
             ['Pending', pending],
             ['Reject', reject],
+            ['New', newemp],
+            ['Taken', taken]
           ]);
-  
+
           var options = {
             is3D: true,
             pieSliceText: 'value',
@@ -2460,7 +2468,7 @@ function hrm_recruitment_approve(userid,type){
               text: 'value'
           }
           };
-  
+
           var chart = new google.visualization.PieChart(document.getElementById('hrm-recruitment-chart-area'));
           chart.draw(data, options);
         }
@@ -2495,22 +2503,22 @@ function hrm_recruitment_approve(userid,type){
   }
   //// Function Modal Get Result Candidate
   function view_result_condidate_report(id,date){
-    $.ajax({  
-      url:'hrm_report_recruitment/report/modal/result',  
+    $.ajax({
+      url:'hrm_report_recruitment/report/modal/result',
       type:"GET",
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       data:{id:id,
             date:date
-      },  
-      success:function(data){  
-        // get id of div in admincheck.php for show modal  
+      },
+      success:function(data){
+        // get id of div in admincheck.php for show modal
         document.getElementById("modal_report_recruitment").innerHTML = data;
          // set time out for modal view
          setTimeout(function(){$('#view_result_candidate_modal').modal("show");},200);
-      }  
-    });  
+      }
+    });
   }
   ///// Function Show table candidate applied
   function get_report_cv_detail(from,to){

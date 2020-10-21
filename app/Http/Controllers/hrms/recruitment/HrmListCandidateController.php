@@ -23,8 +23,8 @@ class HrmListCandidateController extends Controller
                  }else{
                      $add_perm='';
                 }
-                  $candidate = ModelHrmListCandidate::get_tbl_recruitment_candidate();
-                  $i=1;// variable increase number for table
+                $candidate = ModelHrmListCandidate::get_tbl_recruitment_candidate();
+                $i=1;// variable increase number for table
                 $table_perm= '<tbody>';
                 foreach($candidate as $row){
                     $table_perm.= ' 
