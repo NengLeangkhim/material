@@ -1057,7 +1057,12 @@ Route::get('hrm_get_quiz_result','hrms\recruitment_user\recruitment_userControll
 // route for user get hr result
 Route::get('hrm_recruitment_get_hr_result','hrms\recruitment_user\recruitment_userController@check_hr_resultContrl');
 
-
+//=============== add new HR ======================
+Route::get('hrm_policy_user_list','hrms\policy\HrmPolicyController@policy_user_list');
+Route::get('hrm_history_policy','hrms\policy\HrmPolicyController@policy_user_history');
+Route::get('hrm_policy_report','hrms\policy\HrmPolicyController@policy_report');
+Route::post('hrm_policy_report','hrms\policy\HrmPolicyController@get_policy_report_data');
+Route::post('hrm_read_policy_report','hrms\policy\HrmPolicyController@get_read_policy_report_data');
 
 //=============End recruitment candidate===========
 
