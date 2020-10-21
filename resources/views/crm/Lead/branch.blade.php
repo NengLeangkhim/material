@@ -56,7 +56,7 @@
                                                         <td>{{$branch[$i]["primary_website"]}}</td>
                                                         <td>{{$branch[$i]["facebook"]}}</td>
                                                         <td>{{$branch[$i]["lead_status"]}}</td>
-                                                        <td>{{$branch[$i]["create_by"]['last_name_en']." ".$branch[$i]["create_by"]['first_name_en']}}</td>                                                
+                                                        <td>{{$branch[$i]['assig']}}</td>                                                
                                                          
                                                         <td>  
                                                             <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}" ><i class="fas fa-info-circle"></i></a>                                                     
