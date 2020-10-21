@@ -2,7 +2,7 @@
  
 
             <div class=" table-responsive">
-                <table  id="tbl_showreport" style="width:100%" class="table table-bordered table-hover" >
+                <table  id="tbl_showreport" style="width:100%" class="text-center table table-bordered table-hover" >
                     <thead>
                         <tr>
                             <th >#</th>
@@ -27,20 +27,20 @@
                                                     <td> '. $val[$i]->salary.'</td>           
                                                     <td> '. $approve_date.'</td>
                                                     <td> 
-                                                        <a class="btn btn-outline-primary" href="javascript:void(0);"   onclick="staff_promote_report_detail('.$val[$i]->ma_user_id.', \''.$val[$i]->create_date.'\');">Detail</a>
+                                                        <a class="btn-sm btn btn-outline-primary" href="javascript:void(0);"   onclick="staff_promote_report_detail('.$val[$i]->ma_user_id.', \''.$val[$i]->create_date.'\');">Detail</a>
                                                     </td>
                                                     
                                             </tr> ';
                                 }
                             }
-                            else 
-                                { 
-                                    echo '
-                                        <tr> 
-                                            <td colspan="6"><h6 style="text-align: center;">No data available in table!</h6></td>
-                                        </tr>
-                                    ';
-                                }
+                            // else 
+                            //     { 
+                            //         echo '
+                            //             <tr> 
+                            //                 <td colspan="6"><h6 style="text-align: center;">No data available in table!</h6></td>
+                            //             </tr>
+                            //         ';
+                            //     }
                         ?>
                     </tbody>
                 </table>
