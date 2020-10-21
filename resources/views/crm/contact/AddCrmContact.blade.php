@@ -43,8 +43,9 @@
                                                 </div>
                                                 <select class="form-control" name="ma_honorifics_id" id="ma_honorifics_id" required>
                                                     <option value="">None</option>
-                                                    <option value="1">Mr</option>
-                                                    <option value="2">Mrs</option>
+                                                    @foreach ($honorifics->data as $row)
+                                                    <option value="{{$row->id}}">{{$row->name}}</option> 
+                                                    @endforeach
                                                 </select>
                                                 <span class="invalid-feedback" role="alert" id="ma_honorifics_idError"> {{--span for alert--}}
                                                     <strong></strong>
