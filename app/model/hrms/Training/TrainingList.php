@@ -187,10 +187,10 @@ class TrainingList extends Model
             JOIN (select * from hr_training_trainer where status='t' and is_deleted='f' ) as htt on htt.id=hts.hr_training_trainer_id 
 						
 						WHERE
-						hts.training_date_from::date BETWEEN '2020-02-01'::date and '2020-10-21'::date
-						or hts.training_date_to::date BETWEEN '2020-02-01'::date and '2020-10-21'::date 
-						or ht.actual_date_from::date BETWEEN '2020-02-01'::date and '2020-10-21'::date 
-						or ht.actual_date_to::date BETWEEN '2020-02-01'::date and '2020-10-21'::date;";
+						hts.training_date_from::date BETWEEN '$date_from'::date and '$date_to'::date
+						or hts.training_date_to::date BETWEEN '$date_from'::date and '$date_to'::date 
+						or ht.actual_date_from::date BETWEEN '$date_from'::date and '$date_to'::date 
+						or ht.actual_date_to::date BETWEEN '$date_from'::date and '$date_to'::date;";
             return DB::select($sql);
         } catch (\Throwable $th) {
             throw $th;
