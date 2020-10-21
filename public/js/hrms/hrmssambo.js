@@ -1,4 +1,4 @@
-const { take } = require("lodash");
+
 
 //====== Fuction Alert ======//
 function sweetalert(type,title){
