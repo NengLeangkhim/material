@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\perms;
 use App\model\hrms\suggestion\ModelQuestionAnswer;
+use Illuminate\Database\QueryException;
+
 class QuestionAnswerController extends Controller
 {
     //
@@ -28,7 +30,7 @@ class QuestionAnswerController extends Controller
                   $table_perm= '<tbody>';
                 foreach($question_sugg as $row){
                     $create = $row->create_date;
-                  $table_perm.= ' 
+                  $table_perm.= '
                     <tr>
                         <th>'.$i++.'</th>
                         <td>'.$row->question.'</td>
@@ -48,7 +50,7 @@ class QuestionAnswerController extends Controller
                         $table_perm.='<input type="checkbox" disable class="custom-control-input "> <label class="custom-control-label" for="checkbox_sugg_q_a'.$k++.'" style="color:red;"> Inactive</label>';
                     }
                    }
-                  $table_perm.='</div>';    
+                  $table_perm.='</div>';
                   $table_perm.='</td>';
                   if($row->hr_suggestion_question_type_id==1){ //condition check for question option
                         $table_perm.='<td class="text-center">';
@@ -127,7 +129,7 @@ class QuestionAnswerController extends Controller
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
             if(perms::check_perm_module('HRM_09080101')){//module code list data tables id=131
@@ -148,13 +150,13 @@ class QuestionAnswerController extends Controller
             }
             $id = $_GET['id'];
             $question_sugg = array();
-            $question_sugg= ModelQuestionAnswer::hrm_get_update_question($id); 
+            $question_sugg= ModelQuestionAnswer::hrm_get_update_question($id);
             return response()->json($question_sugg);
     }
     //function update question type //
     public function EditQuestionSugg(Request $request)
     {
-        if (session_status() == PHP_SESSION_NONE) 
+        if (session_status() == PHP_SESSION_NONE)
         {
             session_start();
         }
@@ -173,7 +175,7 @@ class QuestionAnswerController extends Controller
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
             if(perms::check_perm_module('HRM_09080102')){//module code list data tables id=132
@@ -187,7 +189,7 @@ class QuestionAnswerController extends Controller
                     return view('no_perms');
                 }
         }
-            
+
     }
     // function deleted question//
     public function delete_question_sugg()
@@ -197,7 +199,7 @@ class QuestionAnswerController extends Controller
             }
         if(perms::check_perm_module('HRM_09080103')){//module code list data tables id=133
         $id = $_GET['id'];
-        $userid = $_SESSION['userid'];   
+        $userid = $_SESSION['userid'];
         $question_type_sugg=ModelQuestionAnswer::hrm_delete_question($id,$userid);
         //var_dump($question_type_sugg);
         }else{
@@ -208,7 +210,7 @@ class QuestionAnswerController extends Controller
     public function hrm_modal_add_answer(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
-            } 
+            }
         if(perms::check_perm_module('HRM_09080104')){ //module code list data tables id=134
             $id= $_GET['id'];
             $question_sugg_get = ModelQuestionAnswer::hrm_get_question_sugg($id); //query question suggestion
@@ -216,7 +218,7 @@ class QuestionAnswerController extends Controller
         }else{
             return view('no_perms');
         }
-        
+
     }
 
     //function insert Answer //
@@ -235,36 +237,36 @@ class QuestionAnswerController extends Controller
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
                 $answer_name= $request->answer_name_sugg;
                 $id_question = $request->question_sugg_id;
                 $userid = $_SESSION['userid'];
                 $answer= ModelQuestionAnswer::hrm_insert_answer_sugg($id_question,$answer_name,$userid); //get function insert from model
-                return response()->json(['success'=>'Record is successfully added']);   
+                return response()->json(['success'=>'Record is successfully added']);
         }
     }
     // function view modal detail question and answer //
     public function hrm_view_detail_qestion_answer(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
-            } 
+            }
             $id= $_GET['id'];
             $question_sugg_view = ModelQuestionAnswer::hrm_get_question_sugg($id); //query question suggestion
             $answer_sugg_get = ModelQuestionAnswer::hrm_get_answer_sugg($id); //query answer suggestion
-            return view('hrms/suggestion/question_answer/ModalDetailQuestionAnswerSugg', ['question_sugg_view' => $question_sugg_view,'answer_sugg'=>$answer_sugg_get]);    
+            return view('hrms/suggestion/question_answer/ModalDetailQuestionAnswerSugg', ['question_sugg_view' => $question_sugg_view,'answer_sugg'=>$answer_sugg_get]);
     }
     // function update modal detail question and answer //
     public function hrm_update_detail_qestion_answer(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
-            } 
+            }
                 if(perms::check_perm_module('HRM_09080105')){ //module code list data tables id=135
                 $id= $_GET['id'];
                 $question_sugg_view = ModelQuestionAnswer::hrm_get_question_sugg($id); //query question suggestion
                 $answer_sugg_get = ModelQuestionAnswer::hrm_get_answer_sugg($id); //query answer suggestion
-                return view('hrms/suggestion/question_answer/ModalUpdateQuestionAnswerSugg', ['question_sugg_view' => $question_sugg_view,'answer_sugg'=>$answer_sugg_get]);    
+                return view('hrms/suggestion/question_answer/ModalUpdateQuestionAnswerSugg', ['question_sugg_view' => $question_sugg_view,'answer_sugg'=>$answer_sugg_get]);
             }else{
                 return view('no_perms');
             }
@@ -273,7 +275,7 @@ class QuestionAnswerController extends Controller
     public function hrm_edit_detail_qestion_answer(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
-            } 
+            }
             $validator = \Validator::make($request->all(), [
                 'question_name1' => [ 'required'
                                         ],
@@ -281,7 +283,7 @@ class QuestionAnswerController extends Controller
                                         ],
                 "answer_name.*"  => "required|string|distinct",
             ],
-            [   
+            [
                 'question_name1.required' => 'The Question Field is Required !!',   //massage validator
                 'answer_name.*.required' => 'The Answer Field is Required !!',
                 ]
@@ -289,7 +291,7 @@ class QuestionAnswerController extends Controller
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
             $userid = $_SESSION['userid'];
@@ -306,7 +308,7 @@ class QuestionAnswerController extends Controller
             foreach( $answer_name_edit as $key => $answer ) {
             $answer= ModelQuestionAnswer::hrm_edit_answer_sugg($answer,$answer_status[$key],$answer_id[$key],$userid); //get function update from model
             }
-            return response()->json(['success'=>'Record is successfully Update']);   
+            return response()->json(['success'=>'Record is successfully Update']);
         }
     }
     // function deleted delete question and answer//
@@ -317,13 +319,13 @@ class QuestionAnswerController extends Controller
             }
         if(perms::check_perm_module('HRM_09080103')){//module code list data tables id=133
         $id = $_GET['id'];
-        $userid = $_SESSION['userid'];   
+        $userid = $_SESSION['userid'];
         $question_type_sugg=ModelQuestionAnswer::hrm_delete_question($id,$userid);
         $answer_get = ModelQuestionAnswer::hrm_get_answer_sugg($id);
         foreach($answer_get as $row){ // Get id from Answer by id question
             $id_answer[] = $row->id;
         }
-        foreach( $id_answer as $key => $answer ) { //Delete answer by id question 
+        foreach( $id_answer as $key => $answer ) { //Delete answer by id question
         ModelQuestionAnswer::hrm_delete_answer_sugg($answer,$userid);
         }
         }else{
@@ -334,10 +336,10 @@ class QuestionAnswerController extends Controller
     public function hrm_view_result_suggestion(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
-            } 
+            }
             $id= $_GET['id'];
             $result = ModelQuestionAnswer::hrm_result_suggestion($id); //query result suggestion
-            return view('hrms/suggestion/question_answer/ModalResultSuggestion', ['result' => $result]);    
+            return view('hrms/suggestion/question_answer/ModalResultSuggestion', ['result' => $result]);
     }
     // function Update Status Question //
     public function update_status_question_sugg()
@@ -347,10 +349,59 @@ class QuestionAnswerController extends Controller
             }
         if(perms::check_perm_module('HRM_09080105')){ //module code list data tables id=135
         $id = $_GET['id'];
-        $status = $_GET['statusType'];   
+        $status = $_GET['statusType'];
         $question_type_sugg=ModelQuestionAnswer::hrm_checkbox_answer_sugg($status,$id);
         }else{
             return view('no_perms');
         }
+    }
+
+    protected $modelQuestionAnswer;
+
+    public function __construct()
+    {
+        $this->modelQuestionAnswer = new ModelQuestionAnswer();
+    }
+
+
+    public function getUserSuggested(){
+        if(session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+        if(!perms::check_perm('HRM_090805')){
+            return view('no_perms');
+        }
+        try {
+            $suggestedList = $this->modelQuestionAnswer->getUserSuggested();
+        } catch(QueryException $e){
+            dd('ERROR'); exit;
+        }
+        return view('hrms.suggestion.staff_suggestion.staffSuggestion',['suggestedList'=>$suggestedList]);
+    }
+
+    public function getSuggestionSurveyReport(){
+        if(session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+        if(!perms::check_perm('HRM_090804')){
+            return view('no_perms');
+        }
+        try {
+            $questionList = $this->modelQuestionAnswer->getAllQuestion();
+            foreach($questionList as $question){
+                switch($question->hr_suggestion_question_type_id){
+                    case 1 : // MCQ Question Type
+                        $question->is_mcq = true;
+                    break;
+                    default : // All Question Type
+                        $question->is_mcq = false;
+                }
+                $question->question_answer_list = $this->modelQuestionAnswer->getAllAnswersByQuestionId($question->id, $question->is_mcq);
+            }
+        } catch(QueryException $e){
+            dd('ERROR'); exit;
+        }
+        // dd($questionList); exit;
+        return view('hrms.suggestion.suggestion_report.HrmSuggestionReport',['questionList'=>$questionList]);
     }
 }

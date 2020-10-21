@@ -27,19 +27,21 @@ class QuoteController extends Controller
 
         // dd($listQuote);
         // $arr[] = 'i1';
-        foreach($listQuote as $key=>$val){
+        // foreach($listQuote as $key=>$val){
 
-            foreach($val as $key2=>$val2){
+        //     foreach($val as $key2=>$val2){
 
-                // dd($val2->crm_stock);
-                echo count($val2->crm_stock);
-                // foreach($val2->crm_lead as $key3=> $val3){
-                //     $arr[$key3] = $val3;
-                // }
-            }
-        }
+        //         // dd($val2->crm_stock);
+        //         // echo count($val2->crm_stock);
+
+        //         foreach($val2->crm_stock as $key3=> $val3){
+        //             dd($val3->price);
+        //             dd($val3->qty);
+        //         }
+        //     }
+        // }
         // print_r($arr);
-        // return view('crm/quote/quoteShow',compact('listQuote'));
+        return view('crm/quote/quoteShow',compact('listQuote'));
     }
 
     // function to get show qoute detail

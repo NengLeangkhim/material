@@ -4,7 +4,7 @@ namespace App\Http\Resources\api\crm\lead;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LeadBranch extends JsonResource
+class GetHonorifics extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,7 @@ class LeadBranch extends JsonResource
     {
         return [
             "id"=> $this->id,
-            "name"=>$this->name,
-            "company"=>$this->company,
+            "name"=>$this->lead_name,
         ];
     }
 }
