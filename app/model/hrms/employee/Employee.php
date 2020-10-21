@@ -51,7 +51,8 @@ class Employee extends Model
             ['ma_user.status', '=', 't'],
             ['ma_user.is_deleted', '=', 'f'],
             ['ma_user.id', '=', $id],
-            ['ma_user.is_employee','=','t']
+            ['ma_user.is_employee','=','t'],
+            ['hr_payroll_base_salary.status','=','t']
         ])->orderBy('ma_user.first_name_en')->get();
         if(count($employee)<=0){
             return null;

@@ -29,7 +29,7 @@
                             $i=1;
                         @endphp
                         <tbody>
-                            @foreach ($policy_user as $row)
+                            @foreach ($history as $row)
                             @php
                                 $start = $row->start_time;
                                 $end = $row->end_time;
@@ -39,10 +39,10 @@
                             @endphp
                             <tr>
                                 <th>{{$i++}}</th>
-                                <td>{{$row->first_name_en.' '.$row->last_name_en}}</td>
+                                <td>{{$row->name}}</td>
                                 <td>{{$row->position_name}}</td>
                                 <td>{{$interval->format('%H h %i mn %s sec')}}</td>
-                                <td>{{$row->name_policy}}</td>
+                                <td>{{$row->policy_name}}</td>
                                 <td>{{$ts2->format('Y-M-d H:i:s')}}</td>
                                 <td class="text-center">
                                     <button type="button" id="{{$row->id}}" class="btn btn-info hrm_view_policy_user">Detail</button>
