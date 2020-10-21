@@ -1141,7 +1141,7 @@ Route::get('test_chart',function(){
     // Purchase
     Route::get('bsc_purchase_purchase_list','bsc\PurchaseController@list');
     Route::post('bsc_purchase_save','bsc\PurchaseController@save');
-
+    Route::post('bsc_purchase_get_by_id','bsc\PurchaseController@get_product_by_id');
     Route::get('bsc_purchase_purchase_view','bsc\PurchaseController@view');
 
     Route::get('bsc_purchase_purchase_form','bsc\PurchaseController@form');
