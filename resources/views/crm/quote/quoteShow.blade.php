@@ -78,10 +78,10 @@
                                                                     {{ $GrandTT = number_format($sumTotal, 2, '.', '')." $" }}
                                                                     
                                                                 </td>
-                                                                <td>{{$val2->quote_number}}</td>
-                                                                <td>{{$val2->quote_number}}</td>
-                                                                <td>{{$val2->quote_number}}</td>
-                                                                <td>{{$val2->quote_number}}</td>
+                                                                <td>@foreach ($val2->quote_stage as $key3=>$val3) {{$val3->name_en}} @endforeach </td>
+                                                                <td>{{$val2->assign_to->first_name_en}}</td>
+                                                                <td>Not Yet Data</td>
+                                                                <td>{{$val2->due_date}}</td>
                                                                 <td>
                                                                     <div class="row-12 form-inline">
                                                                         <div class="col-md-4">

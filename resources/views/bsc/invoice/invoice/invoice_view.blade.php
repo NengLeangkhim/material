@@ -264,7 +264,8 @@
 
                                     </div>
                                     <div class="col-md-12">
-                                        <button id="add_payment" type="button" class="btn btn-success save" id="frm_btn_sub_add_chart_account">Add Payment</button>
+                                        <button id="add_payment" type="button" class="btn btn-success save" id="frm_btn_sub_add_chart_account">Add Payment</button>&nbsp;&nbsp;&nbsp;
+                                        <button id="add_payment" onclick="go_to('bsc_invoice_invoice_list')" type="button" class="btn btn-danger save" id="frm_btn_sub_add_chart_account">Cancel</button>
                                     </div>
                                 </div>
                             </form>

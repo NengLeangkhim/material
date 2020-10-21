@@ -14,8 +14,8 @@
                     </div>
     
                     <div class="card-body">
-                        <div class="table-responsive"> 
-                            <table class="table table-bordered" id="tbl_employee">
+                        <div class="table-responsive "> 
+                            <table class="table table-bordered text-center text-nowrap " id="tbl_employee" >
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -48,7 +48,7 @@
                                                         <td>'.$val->salary.'</td>
                                                         <td>'.$get_date.'</td>
                                                         <td >
-                                                            <a class="btn btn-outline-primary" href="#" onclick="staff_view_promote_detail('.$val->id.')"><i class="fas fa-user-edit"></i>Detail</a>
+                                                            <a class="btn-sm btn btn-outline-primary" href="#" onclick="staff_view_promote_detail('.$val->id.')"><i class="fas fa-user-edit"></i>Detail</a>
                                                         </td>
                                                     </tr>
                                                 ';

@@ -13,8 +13,8 @@ class ModelHrmPlan extends Model
      // ===== Function get data for table for CEO =====////
      public static function hrm_get_tbl_perform_plan(){
         $plan_ceo= DB::table('hr_performance_plan as p')
-                           ->select('p.*','ud.username')
-                           ->leftjoin('ma_user_login as ud','p.create_by','=','ud.ma_user_id')
+                           ->select('p.*',DB::raw("ud.first_name_en||' '||ud.last_name_en as username"))
+                           ->leftjoin('ma_user as ud','p.create_by','=','ud.id')
                            ->where('p.is_deleted','=','f')
                            ->orderBy('p.id','ASC')
                            ->get(); 
@@ -23,8 +23,8 @@ class ModelHrmPlan extends Model
       // ===== Function get data for table for Head Each departement =====////
       public static function hrm_get_tbl_perform_plan_dept($userid){
         $plan_dept = DB::table('hr_performance_plan as p')
-                           ->select('p.*','ud.username')
-                           ->leftjoin('ma_user_login as ud','p.create_by','=','ud.ma_user_id')
+                           ->select('p.*',DB::raw("ud.first_name_en||' '||ud.last_name_en as username"))
+                           ->leftjoin('ma_user as ud','p.create_by','=','ud.id')
                            ->where([
                             ['p.is_deleted', '=', 'f'],
                             ['p.create_by', '=', $userid],

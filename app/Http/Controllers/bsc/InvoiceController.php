@@ -36,23 +36,17 @@ class InvoiceController extends Controller
     public function invoice_save(Request $request)
     {
         try{
-            if(!ValidateController::validateInvoice($request))
-            {
-                $account_type=$request->account_type;
-                $customer=$request->customer;
-                $customer_branch=$request->customer_branch;//data is array
-                $billing_date=$request->billing_date;
-                $reference=$request->reference;
-                $due_date=$request->due_date;
-                $effective_date=$request->effective_date;
-                $end_period_date=$request->end_period_date;
-                $deposit_on_payment=$request->deposit_on_payment;
-                $itemDetail=$request->itemDetail;//data is array
-                // return $itemDetail;
-                echo "success";
-            }else{
-                return ValidateController::validateInvoice($request);
-            }
+            $account_type=$request->account_type;
+            $customer=$request->customer;
+            $customer_branch=$request->customer_branch;//data is array
+            $billing_date=$request->billing_date;
+            $reference=$request->reference;
+            $due_date=$request->due_date;
+            $effective_date=$request->effective_date;
+            $end_period_date=$request->end_period_date;
+            $deposit_on_payment=$request->deposit_on_payment;
+            $itemDetail=$request->itemDetail;//data is array
+            echo "success";
         }catch(Exception $e){
             echo $e->getMessage();
             exit();

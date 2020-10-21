@@ -41,7 +41,17 @@ class ContactController extends Controller
         }
     }
     public function AddContact(){
-        return view('crm.contact.AddCrmContact');
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/honorifics', 'GET');
+            //$contact_table = json_decode(Route::dispatch($request_contact)->getContent());
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $honorifics = json_decode($res->getContent());
+        return view('crm.contact.AddCrmContact',['honorifics'=>$honorifics]);
     }
     public function StoreContact(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
@@ -112,8 +122,14 @@ class ContactController extends Controller
             $get_contact->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($get_contact);
             $contact = json_decode($res->getContent());
+            $request_honor = Request::create('/api/honorifics', 'GET');
+            //$contact_table = json_decode(Route::dispatch($request_contact)->getContent());
+            $request_honor->headers->set('Accept', 'application/json');
+            $request_honor->headers->set('Authorization', 'Bearer '.$token);
+            $res_honor = app()->handle($request_honor);
+            $honorifics = json_decode($res_honor->getContent());
             //$contact = json_decode(Route::dispatch($get_contact)->getContent()); //Convert Json data
-            return view('crm.contact.EditCrmContact',['contact'=>$contact]);
+            return view('crm.contact.EditCrmContact',['contact'=>$contact,'honorifics'=>$honorifics]);
         }else{
             return view('no_perms');
         }

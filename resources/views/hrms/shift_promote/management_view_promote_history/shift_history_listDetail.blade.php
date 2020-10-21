@@ -11,45 +11,81 @@
             </button>
         </div>
         <div class="modal-body">
-        <form action="../controller/shift_promote/promote_update.php" method="POST">
+        <form action="" method="">
             <div class="row">
                 <!-- Display New Position -->
-                <div class="col-lg-2"></div>
-                <div class="col-lg-8">
-                        <!-- <div class=" text-center modal-header title_promote ">
-                            <p class="modal-title" id="">New Position</p>
-                        </div> -->
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Staff Name  
-                            </label>
-                            <input type="text" class="form-control" value="<?php echo $his_listDetail->first_name_en." ".$his_listDetail->last_name_en; ?>" placeholder="" name="" readonly >        
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Get Position  
-                            </label>
-                            <input type="text" class="form-control" value="<?php echo $his_listDetail->position; ?>" placeholder="" name="" readonly >        
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Get Salary 
-                            </label>
-                            <input type="text" class="form-control" value="<?php echo $his_listDetail->salary;?>" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Approved Date 
-                            </label>
-                            <input type="text" class="form-control" value="<?php  
-                                $date = date_create($his_listDetail->create_date);
-                                $approve_date = date_format($date,"Y/M/d H:i:s A");
-                                echo $approve_date; ?> " readonly>
-                        </div>
-                        <div class="form-group">
-                            <h6 >Comment</h6>
-                            <div style="padding: 15px; border: 1px solid green; border-radius: 4px;">
-                                <p><?php echo $his_listDetail->comment; ?></p>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div>
+                            <div class="text-center modal-header title_promote pb-2 ">
+                                <p class="modal-title" >Old Position</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Staff Name  
+                                </label>
+                                <input type="text" class="form-control" value="<?php echo $old_position->first_name_en." ".$old_position->last_name_en; ?>" placeholder="" name="" readonly >        
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Get Position  
+                                </label>
+                                <input type="text" class="form-control" value="<?php echo $old_position->position; ?>" placeholder="" name="" readonly >        
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Get Salary 
+                                </label>
+                                <input type="text" class="form-control" value="<?php echo $old_position->salary;?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Approved Date 
+                                </label>
+                                <input type="text" class="form-control" value="<?php  
+                                    $date = date_create($old_position->create_date);
+                                    $approve_date = date_format($date,"Y/M/d H:i:s A");
+                                    echo $approve_date; ?> " readonly>
+                            </div>
+                            <div class="form-group">
+                                <h6 >Comment</h6>
+                                <div style="padding: 15px; border: 1px solid green; border-radius: 4px;">
+                                    <p><?php echo $old_position->comment; ?></p>
+                                </div>
                             </div>
                         </div>
                 </div>
-                <div class="col-lg-2"></div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div>
+                            <div class=" text-center modal-header title_promote pb-2">
+                                <p class="modal-title" >Current Position</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Staff Name  
+                                </label>
+                                <input type="text" class="form-control" value="<?php echo $current_position->first_name_en." ".$current_position->last_name_en; ?>" placeholder="" name="" readonly >        
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Get Position  
+                                </label>
+                                <input type="text" class="form-control" value="<?php echo $current_position->position; ?>" placeholder="" name="" readonly >        
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Get Salary 
+                                </label>
+                                <input type="text" class="form-control" value="<?php echo $current_position->salary;?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Approved Date 
+                                </label>
+                                <input type="text" class="form-control" value="<?php  
+                                    $date = date_create($current_position->create_date);
+                                    $approve_date = date_format($date,"Y/M/d H:i:s A");
+                                    echo $approve_date; ?> " readonly>
+                            </div>
+                            <div class="form-group">
+                                <h6 >Comment</h6>
+                                <div style="padding: 15px; border: 1px solid green; border-radius: 4px;">
+                                    <p><?php echo $current_position->comment; ?></p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
             </div>
         </form>
         </div>
