@@ -45,6 +45,50 @@
           }
         });
     }
+    //======= Funtion delete=======//
+function Crm_delete(id,route,goto,alert) {
+  event.preventDefault();
+  Swal.fire({ //get from sweetalert function
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.value) {
+      $.ajax({
+        url:route,   //Request send to "action.php page"
+        data:{id:id},
+        type:"GET",    //Using of Post method for send data
+        success:function(data){
+          console.log(data);
+          // if(data =='error'){
+          //      //sweetalert('success',alert);
+          //    //  setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
+          //      Swal.fire(
+          //        'Deleted!',
+          //          'Delete Error',
+          //        'error'
+          //      )
+          // }else{
+              //sweetalert('success',alert);
+            setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
+            Swal.fire(
+              'Deleted!',
+                alert,
+              'success'
+            )
+          // }
+        }
+        
+       });
+      
+    }
+  })
+ 
+};
 // ---------- END Contact---------- //
 // ----------- Report ------------- //
     //Report Lead
@@ -407,8 +451,9 @@
                         for(var i=0; i<response['data'].length ;i++){
                             var id = response['data'][i].id;
                             var name = response['data'][i].name;
+                            var company = response['data'][i].company;
                             // alert(name);
-                            var option = "<option value='"+id+"'>"+name+"</option>"; 
+                            var option = "<option value='"+id+"'>"+name+" / "+company+"</option>"; 
 
                             $("#branch").append(option); 
                         }
@@ -465,12 +510,18 @@
         // get  lead in  selection 
         $('#lead_id').ready(function(){
           // $('#lead_id').find('option').not(':first').remove();
+          // $token = $_SESSION['token'];
+          var myvar= $( "#lead_id" ).val();
+          // alert(myvar);
+         
               $.ajax({
                   url:'api/getlead',
                   type:'get',
                   dataType:'json',
-                  success:function(response){
-            
+                  headers: {
+                    'Authorization': `Bearer ${myvar}`,
+                },              
+                  success:function(response){                  
                           for(var i=0; i<response['data'].length ;i++){
                               var id = response['data'][i].lead_id;
                               var name = response['data'][i].customer_name_en;
@@ -483,12 +534,17 @@
                   }
               })
           })
+          
           $('#contact_id').ready(function(){
             // $('#lead_id').find('option').not(':first').remove();
+            var myvar= $( "#contact_id" ).val();
                 $.ajax({
                     url:'api/contacts',
                     type:'get',
                     dataType:'json',
+                    headers: {
+                      'Authorization': `Bearer ${myvar}`,
+                  },
                     success:function(response){
               
                             for(var i=0; i<response['data'].length ;i++){
