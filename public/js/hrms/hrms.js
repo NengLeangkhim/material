@@ -611,7 +611,7 @@ function my_overtime_search(){
 function report_training_search(){
     var from=document.getElementById('date_from').value;
     var to=document.getElementById('date_to').value;
-    if(from.length<=0 || to.length<=0 || new Date() < new Date(from) || new Date() < new Date(to) || new Date(from)>new Date(to)){
+    if(from.length<=0 || to.length<=0 || new Date(from)>new Date(to)){
         alert('Please Select date and date must be bigger than today');
         return;
     }
@@ -627,6 +627,9 @@ function report_training_search(){
         },
         success: function (data) {
             document.getElementById('training_report_search').innerHTML=data;
+            $( "table" ).each(function( index,item ) {
+       $(this).DataTable();
+    });
         }
     });
 }
