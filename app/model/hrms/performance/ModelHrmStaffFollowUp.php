@@ -66,12 +66,12 @@ class ModelHrmStaffFollowUp extends Model
     // ===== Function get follow up =====////
     public static function hrm_get_follow_up_staff($id){
         $follow_up_user = DB::table('hr_performance_schedule as ps')
-                        ->select('ps.*','ud.username',DB::raw("CONCAT(s.first_name_en,' ',s.last_name_en) AS name_staff"),
+                        ->select('ps.*',DB::raw("ud.first_name_en||' '||ud.last_name_en as username"),DB::raw("CONCAT(s.first_name_en,' ',s.last_name_en) AS name_staff"),
                         'pd.name as pd_name','pd.hr_performance_plan_id','pd.id as pd_id','pd.task as pd_task','pd.date_from as pd_from','pd.date_to as pd_to',
                         'p.name as plan_name','p.date_from as plan_from','p.date_to as plan_to','p.id as plan_id',
                         'pf.percentage','pf.reason','pf.action_date_from','pf.action_date_to','pf.challenge','pf.comment as pf_cmt')
                         ->join('ma_user as s','ps.ma_user_id','=','s.id')
-                        ->join('ma_user_login as ud','ps.create_by','=','ud.ma_user_id')
+                        ->join('ma_user as ud','ps.create_by','=','ud.id')
                         ->join('hr_performance_plan_detail as pd','ps.hr_performance_plan_detail_id','=','pd.id')
                         ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')
                         ->leftjoin('hr_performance_follow_up as pf','ps.id','=','pf.hr_performance_schedule_id')
@@ -84,14 +84,14 @@ class ModelHrmStaffFollowUp extends Model
      // ===== Function get data for edit follow up =====////
      public static function hrm_get_edit_follow_up_staff($id){
         $follow_up_user = DB::table('hr_performance_follow_up as pf')
-                            ->select('pf.*','ma_user_login.username',DB::raw("CONCAT(s.first_name_en,' ',s.last_name_en) AS name_staff"),
+                            ->select('pf.*',DB::raw("ud.first_name_en||' '||ud.last_name_en as username"),DB::raw("CONCAT(s.first_name_en,' ',s.last_name_en) AS name_staff"),
                                     'ps.hr_performance_plan_detail_id','ps.ma_user_id','ps.create_by as ps_create_by','ps.id as ps_id','ps.date_from as ps_from','ps.date_to as ps_to','ps.create_date as ps_create_date','ps.comment as ps_cmt',
                                     'pd.name as pd_name','pd.hr_performance_plan_id','pd.id as pd_id','pd.task as pd_task','pd.date_from as pd_from','pd.date_to as pd_to',
                                     'p.name as plan_name','p.date_from as plan_from','p.date_to as plan_to','p.id as plan_id'
                                     )
                             ->join('hr_performance_schedule as ps','pf.hr_performance_schedule_id','=','ps.id')
                             ->join('ma_user as s','ps.ma_user_id','=','s.id')
-                            ->join('ma_user_login','ps.create_by','=','ma_user_login.ma_user_id')
+                            ->join('ma_user as ud','ps.create_by','=','ud.id')
                             ->join('hr_performance_plan_detail as pd','ps.hr_performance_plan_detail_id','=','pd.id')
                             ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')
                             ->where([

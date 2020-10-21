@@ -88,6 +88,7 @@ foreach($permission as $row){
              // getTable('productlist','id');
               $('#tbl_staff_follow_up').DataTable({
                 // scrollX: true
+                responsive:true,
               });
           }
       );
