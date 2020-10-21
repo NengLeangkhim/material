@@ -109,7 +109,21 @@ class PurchaseController extends Controller
             ['bsc_invoice.status','=','t'],
             ['bsc_invoice.is_deleted','=','f']
         ])->first();
-        return $this->sendResponse($purchase, 'Purchase retrieved successfully.');
+        
+        $purchase_detail = DB::table('bsc_invoice_detail')
+        ->select('bsc_invoice_detail.*','bsc_account_charts.name_en as chart_account_name')
+        ->leftJoin('bsc_invoice_detail_bsc_journal_rel','bsc_invoice_detail.id','=','bsc_invoice_detail_bsc_journal_rel.bsc_invoice_detail_id')
+        ->leftJoin('bsc_journal','bsc_invoice_detail_bsc_journal_rel.bsc_journal_id','=','bsc_journal.id')
+        ->leftJoin('bsc_account_charts','bsc_journal.bsc_account_charts_id','=','bsc_account_charts.id')
+        ->where([
+            ['bsc_invoice_detail.bsc_invoice_id','=',$id],
+            ['bsc_invoice_detail.status','=','t'],
+            ['bsc_invoice_detail.is_deleted','=','f']
+        ])->get();
+
+        $arr_purchase = compact('purchase','purchase_detail');
+
+        return $this->sendResponse($arr_purchase, 'Purchase retrieved successfully.');
     }
 
     /**

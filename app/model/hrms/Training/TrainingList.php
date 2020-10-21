@@ -173,5 +173,9 @@ class TrainingList extends Model
         $sql= "SELECT public.delete_hr_training_schedule($id,$by)";
         $stm=DB::select($sql);
     }
+
+    public static function my_training($id){
+
+    }
         
 }

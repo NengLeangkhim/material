@@ -14,6 +14,8 @@ use App\Http\Resources\api\crm\lead\Address;
 use App\Http\Resources\api\crm\lead\LeadBranch;
 use App\Http\Resources\api\crm\lead\GetLead;
 use App\Http\Resources\api\crm\lead\GetLeadBranch;
+use App\Http\Resources\api\crm\lead\GetHonorifics;
+use App\Http\Resources\api\crm\lead\LeadCurrentSpeedIsp;
 
 
 
@@ -54,6 +56,17 @@ class LeadController extends Controller
         // return $contact;
         return AssigResource::Collection($contact);
     }
+    // get honorifics
+    public function getHonorifics(){
+        $honorifics = Lead::gethonorifics(); 
+        return GetHonorifics::Collection($honorifics);
+    }
+    // get lead currentsppedisp
+    public function getcurrentspeedisp(){
+        $isp = Lead::leadcurrentspeedisp();
+        // return $contact;
+        return LeadCurrentSpeedIsp::Collection($isp);
+    }
     // get lead Address
         // get province
         public function getProvince(){$province=addressModel::GetProviceAPI();return Address::Collection($province);}
@@ -65,28 +78,29 @@ class LeadController extends Controller
         public function getVillage($id){$village=addressModel::GetLeadVillage($id);return Address::Collection($village);}
     // get service 
     public function getLeadBranch(){
-        $service=Lead::leadBranch();
-        return LeadBranch::Collection($service);
+        $companybranch=Lead::leadBranch();
+        return LeadBranch::Collection($companybranch);
     }
     //  insert lead 
     public  static function  insertLead(Request $request){
         //Lead 
-        // if (session_status() == PHP_SESSION_NONE) {
-        //     session_start();
-        // }
-        // $userid = $_SESSION['userid'];
-        $userid = 1;
-        // return $userid;
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userid = $_SESSION['userid'];
+        // $token=$_SESSION['token'];
+        // $userid = 1;
+        // return $userid."/".$userid;
         
-        $lead_id=$request->input('lead_id');
-        $con_id=$request->input('contact_id');
+        $lead_id=$request->input('lead_id')!=""? $request->input('lead_id'):"null";
+        $con_id=$request->input('contact_id')!=""? $request->input('contact_id'):"null";
         $company_en=$request->input('company_en');
         $company_kh=$request->input('company_kh');
         $primary_email=$request->input('primary_email');
-        // $user_create=$userid;
-        $user_create=$request->input('user_create');
+        $user_create=$userid;
+        // $user_create=$request->input('user_create');
         $website=$request->input('website');
-        $facebook=$request->input('facebook');
+        $facebook=$request->input('company_facebook');
         $vat_number=$request->input('vat_number');
         $company_branch=$request->input('branch');
         $lead_source=$request->input('lead_source');
@@ -102,8 +116,8 @@ class LeadController extends Controller
         //contact detail
         $name_kh=$request->input('name_kh');
         $name_en=$request->input('name_en');
-        $gender=$request->input('gender');
-        $facebook_con=$request->input('facebook');
+        $gender=$request->input('ma_honorifics_id');
+        $facebook_con= $request->input('facebook')!=''? $request->input('facebook'):"null";
         $email=$request->input('email');
         $phone=$request->input('phone');
         $position=$request->input('position');
@@ -116,14 +130,19 @@ class LeadController extends Controller
         $street_kh=$request->input('street_kh');
         $latlong=$request->input('latlong');
         $address_type=$request->input('address_type');
-        $addresscode=$request->input('addresscode');
+        $addresscode=$request->input('village');
 
+        // return $userid;
+        // var_dump($lead_id);
         return  Lead::insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
         $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
         $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
         $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment);
     }
+    // edit lead 
+    // public static function editlead(){
 
+    // }
     // get all branch
     public function getbranch(){
         $branch = Lead::getbranch();

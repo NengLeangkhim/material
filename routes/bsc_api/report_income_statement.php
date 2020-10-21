@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| API Routes (By Seakthong)
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
@@ -14,4 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/organizies','api\crm\OrganizeController@index');
+/*
+|   GET ROUTES
+*/
+
+// get income statement report
+Route::get('/bsc/report/income_statement', 'api\BSC\IncomeStatementApiController@getIncomeStatement');

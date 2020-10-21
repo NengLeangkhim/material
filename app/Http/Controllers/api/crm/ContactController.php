@@ -51,7 +51,7 @@ class ContactController extends Controller
         // }
         // $create_by = $_SESSION['userid'];
 
-        $createby = $request->input('create_by');
+        $create_by = $request->input('create_by');
         if($request->isMethod('put')){
             try { 
                 $results = DB::select(
@@ -65,7 +65,7 @@ class ContactController extends Controller
                         $request->input('phone'),
                         $request->input('facebook'),
                         $request->input('position'),
-                        $create_by,
+                        $request->input('status'),
                         $request->input('national_id'),
                         $request->input('ma_honorifics_id')
                     ));

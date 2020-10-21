@@ -15,29 +15,30 @@
          </div><!-- /.container-fluid -->
     </section>
     <section class="content">
+        <form id="frm_Crmlead" method="POST">
+            @csrf
         <div class="container-fluid">
-            <div class="row">
+            {{-- <div class="row"> --}}
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="col-md-6">
+                                <label for="lead">Search Lead<b style="color:red">*</b></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="far fa-list-alt"></i></span>
+                                        <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Search Lead"  name='Search'>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text btn btn-info" data-toggle="modal" data-target="#modal-info"><i class="fas fa-search"></i></span>
-                                    </div>
+                                    <select class="form-control select2" name="lead_id" id="lead_id" >
+                                    <option value='{{$_SESSION['token']}}'>-- Select Lead  --</option>                                      
+                                    </select>
+                                   
                                 </div>
                             </div>
                         </div>
-                      </div>
+                    </div>
                 </div>
                 <!-- left column -->
-                <div class="col-md-12">
-                    <form id="frm_Crmlead">
-                        @csrf
+                <div class="col-md-12">                   
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header" style="background:#1fa8e0">
@@ -131,11 +132,11 @@
                                                     <span class="input-group-text"><i class="fab fa-tumblr"></i></span>
                                                 </div>
                                                 <select class="form-control" name="current_speed_isp" id="current_speed_isp">
-                                                    <option></option>
-                                                    <option>Exclusive</option>
+                                                    <option value=''>-- Select Current Speed Isp --</option>
+                                                    {{-- <option>Exclusive</option>
                                                     <option>Inclusive</option>
                                                     <option>Oppa</option>
-                                                    <option>Other</option>
+                                                    <option>Other</option> --}}
                                                 </select>
                                             </div>
                                         </div>
@@ -181,14 +182,14 @@
                                                     <span class="input-group-text"><i class="fas fa-tty"></i></span>
                                                 </div>
                                                 <select class="form-control" name="lead_source" id="lead_source" >
-                                                    <option></option>
+                                                    <option value=''>-- Select Lead Source --</option>
                                                     @foreach($lead_source as $row)
                                                         <option value="{{$row->id}}">{{$row->lead_source}}</option>
                                                     @endforeach
                                                 </select>
-                                                <div class="input-group-append">
+                                                {{-- <div class="input-group-append">
                                                     <span class="input-group-text btn btn-info" data-toggle="modal" data-target="#modal-info"><i class="fas fa-plus"></i></span>
-                                                </div>
+                                                </div> --}}
                                                 <span class="invalid-feedback" role="alert" id="lead_sourceError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
@@ -205,9 +206,9 @@
                                                     <span class="input-group-text"><i class="fas fa-unlock"></i></span>
                                                 </div>
                                                 <select class="form-control" name="lead_status" id="lead_status">
-                                                    <option ></option>
-                                                    @foreach($lead_status['result'] as $row)
-                                                        <option value="{{$row['id']}}">{{$row['name']}}</option>
+                                                    <option value=''>-- Select Lead Status --</option>
+                                                    @foreach($lead_status as $row)
+                                                        <option value="{{$row->id}}">{{$row->name_en}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -219,14 +220,11 @@
                                                     <span class="input-group-text"><i class="fas fa-industry"></i></span>
                                                 </div>
                                                 <select class="form-control " name="lead_industry" id="lead_industry" >
-                                                    <option> </option>
+                                                    <option value=''>-- Select Lead Indusry --</option>
                                                     @foreach($lead_industry as $row )
                                                         <option value="{{$row->id}}">{{$row->name_en}}</option>
                                                     @endforeach
                                                 </select>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text btn btn-info" data-toggle="modal" data-target="#modal-info-industry"><i class="fas fa-plus"></i></span>
-                                                </div>
                                                 <span class="invalid-feedback" role="alert" id="lead_industryError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
@@ -242,8 +240,8 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                                 </div>
-                                                <select class="form-control" name="assig_to" id="assig_to">
-                                                    <option></option>
+                                                <select class="form-control select2" name="assig_to" id="assig_to">
+                                                    <option value=''>-- Select Lead Assigened To --</option>
                                                     @foreach($assig_to as $row )
                                                         <option value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option>
                                                     @endforeach
@@ -259,11 +257,10 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fab fa-speakap"></i></span>
                                                 </div>
-                                                <select class="form-control" name="service" id="service">
-                                                    <option></option>
-                                                    {{-- @foreach($assig_to as $row )
-                                                        <option value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option>
-                                                    @endforeach --}}
+                                                <select class="form-control select2bs4 "  multiple="multiple" name="service" id="service">
+                                                    <option value=''>-- Select Lead Assigened To --</option>
+                                                    
+                                                   
                                                 </select>
                                                 <span class="invalid-feedback" role="alert" id="serviceError"> {{--span for alert--}}
                                                     <strong></strong>
@@ -314,6 +311,26 @@
                                                 <input type="text" class="form-control" name="comment" id="comment" placeholder="Current Price">
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-primary">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="row">
+                                       <div class="col-md-6">
+                                        <label for="contact">Search Contact<b style="color:red">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user-check"></i></span>
+                                            </div>
+                                            <select class="form-control select2" name="contact_id" id="contact_id">
+                                                <option value='{{$_SESSION['token']}}' >-- Select Contact  --</option>                                      
+                                            </select>
+                                           
+                                        </div>
+                                       </div>
                                     </div>
                                 </div>
                             </div>
@@ -380,14 +397,39 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="row">
-                                         <div class="col-md-6">
-                                            <label for="position">Position</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                    <div class="row">                                        
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label for="honorifics">Honorifics<b style="color:red">*</b></label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"><i class="fas fa-industry"></i></span>
+                                                                </div>
+                                                                <select class="form-control " name="ma_honorifics_id" id="ma_honorifics_id" >
+                                                                    <option value=''>-- Select Contact Honorifics --</option>                                                                 
+                                                                    <option value='1'>Mr</option>
+                                                                    <option value='2'>Ms</option>
+                                                                  
+                                                                </select>
+                                                                {{-- <span class="invalid-feedback" role="alert" id="ma_honorifics_idError"> {{--span for alert--}}
+                                                                    {{-- <strong></strong> --}}
+                                                                {{-- </span> --}}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="position">Position</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                                                </div>
+                                                                <input type="text" class="form-control" name="position" id="position" placeholder="Position">
+                                                            </div>
+                                                        </div> 
+                                                    </div>
                                                 </div>
-                                                <input type="text" class="form-control" name="position" id="position" placeholder="Website">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -448,7 +490,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-city"></i></span>
                                                     </div>
-                                                    <select class="form-control select2 city"  id="addresscode" name="addresscode" onchange="getbranch(this,'district','s','/district')" >
+                                                    <select class="form-control select2 addresscode"  id="addresscode" name="addresscode" onchange="getbranch(this,'district','s','/district')" >
                                                         <option></option>
                                                      @foreach($province as $row )
                                                         <option value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option>
@@ -590,69 +632,13 @@
                                         <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
                                     </div>
                                 </div>
-                            </div>
-                    </form>
-                </div>
+                            </div>                  
+                 </div>
+             </div>
             </div>
-        </div>
+        </form>
     </section>
-    {{-- =================Modal lead source========================= --}}
-    <div class="modal fade" id="modal-info">
-        <form id="ifrm_source" action="/addleadsource" method="POST">
-            @csrf
-            <div class="modal-dialog">
-            <div class="modal-content bg-info">
-                <div class="modal-header">
-                <h4 class="modal-title">Create Lead Source</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-tty"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="lead_source" name="source" id="exampleInputEmail1" placeholder="Website" required>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline-light save_source" onclick="SubForm('/addleadsource','ifrm_source','ileadsource')">Save </button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-            </div>
-        </form>
-        <!-- /.modal-dialog -->
-      </div>
-       {{-- =================Modal lead industry========================= --}}
-    <div class="modal fade" id="modal-info-industry">
-        <form id="ifrm_industry" >
-            @csrf
-            <div class="modal-dialog">
-            <div class="modal-content bg-info">
-                <div class="modal-header">
-                <h4 class="modal-title">Create Lead industry</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-industry"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="lead_source" name="industry"  placeholder="Website" required>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline-light save_source" onclick="SubForm('/addleadindustry','ifrm_industry','iindustry')">Save </button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-            </div>
-        </form>
-        <!-- /.modal-dialog -->
+ 
       </div>
       <script type="text/javascript" src="js/crm/crm.js"></script>
 
@@ -720,5 +706,5 @@
             clearMarkers();
             markers = [];
         }
-
+        
     </script>
