@@ -36,7 +36,7 @@ class SettingController extends Controller
             $staff="SELECT id,first_name_en||' '||last_name_en as name from ma_user order by name";
             $staff=DB::select($staff);
 
-            $module="SELECT id,name,code from ma_module order by name";
+            $module="SELECT id,name||' '||code as name ,code from ma_module order by name";
             $module=DB::select($module);
 
             $ma="SELECT mma.id as module_id, mm.name,mm.code,mm.icon,mp.name as position,mg.name as group,mcd.name as department

@@ -173,5 +173,38 @@ class TrainingList extends Model
         $sql= "SELECT public.delete_hr_training_schedule($id,$by)";
         $stm=DB::select($sql);
     }
+
+    public static function my_training($id){
+
+    }
+
+    public static function training_report_search($date_from,$date_to){
+        try {
+            $sql="SELECT ht.id as hrid,hts.id,htl.id as typeid,htt.id as trainerid,htl.name as type,htt.name as trainer,hts.training_date_from as schet_f_date,hts.training_date_to as schet_t_date,ht.actual_date_from as actual_f_date,ht.actual_date_to as actual_t_date,hts.status,hts.description as schet_description, ht.description as actual_description,hts.file
+            from (select * from hr_training_schedule where is_deleted='f' and status='t') as hts 
+						LEFT JOIN (select * from hr_training where status='t' and is_deleted='f' ) as ht on hts.id=ht.hr_training_schedule_id
+            JOIN (select * from hr_training_list where status='t' and is_deleted='f' ) as htl on hts.hr_training_list_id=htl.id
+            JOIN (select * from hr_training_trainer where status='t' and is_deleted='f' ) as htt on htt.id=hts.hr_training_trainer_id 
+						
+						WHERE
+						hts.training_date_from::date BETWEEN '2020-02-01'::date and '2020-10-21'::date
+						or hts.training_date_to::date BETWEEN '2020-02-01'::date and '2020-10-21'::date 
+						or ht.actual_date_from::date BETWEEN '2020-02-01'::date and '2020-10-21'::date 
+						or ht.actual_date_to::date BETWEEN '2020-02-01'::date and '2020-10-21'::date;";
+            return DB::select($sql);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    // List staff training
+    public static function list_staff_training($hr_training_staff_id){
+        try {
+            $sql="SELECT concat(mu.first_name_en,' ',mu.last_name_en) as name,mu.image FROM hr_training_staff hts INNER JOIN ma_user mu on hts.ma_user_id=mu.id where hts.hr_training_id=$hr_training_staff_id and hts.status='t' and hts.is_deleted='f'" ;
+            return DB::select($sql);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
         
 }

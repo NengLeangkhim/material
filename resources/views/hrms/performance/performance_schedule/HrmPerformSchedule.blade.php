@@ -97,7 +97,8 @@
     <script type='text/javascript'>
       $(document).ready(function(){
         $('#tbl_schedule_staff').DataTable({
-            "scrollX": true
+            // "scrollX": true
+            responsive:true,
         });
         //function get full calendar
         $('#hrm_calendar_schedule').fullCalendar({

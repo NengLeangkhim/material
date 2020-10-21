@@ -100,4 +100,23 @@ class OverTimeController extends Controller
             return view('noperms');
         }
     }
+
+
+    function my_overtime(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userid = $_SESSION['userid'];
+        if(isset($_GET['emonth']) && isset($_GET['eyear'])){
+            $month=$_GET['emonth'];
+            $year=$_GET['eyear'];
+            return json_encode(OverTime::my_overtime($userid,$month,$year));
+        }else{
+            $month=date('m');
+            $year=date('Y');
+            $overtime=OverTime::my_overtime($userid,$month,$year);
+            return view('hrms/Employee/OverTime/my_overtime')->with('overtime',$overtime);
+        }
+        
+    }
 }

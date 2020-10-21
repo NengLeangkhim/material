@@ -117,7 +117,7 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     Route::get('/crm/setting/leadstatus','crm\CrmSettingController@CrmLeadStatus'); // show Lead Status Setting CRM
     Route::post('/crm/setting/leadstatus/store','crm\CrmSettingController@StoreLeadStatus'); // show Lead Status Setting CRM
 Route::get('/crm/setting/leadindustry','crm\CrmSettingController@CrmLeadIndustry'); // show Lead Status Setting CRM
-// END Setting CRM 
+// END Setting CRM
 
 //===========================END CRM=================================
 
@@ -515,6 +515,12 @@ Route::get('hrm_question_answer_sugg/modal/result','hrms\suggestion\QuestionAnsw
 
 // Route Update Status Checkbox //
 Route::get('hrm_question_answer_sugg/checkbox','hrms\suggestion\QuestionAnswerController@update_status_question_sugg');
+
+// Get Staff User Suggestion by HR Department or Top Management
+Route::get('/hrm_user_suggested', 'hrms\suggestion\QuestionAnswerController@getUserSuggested');
+
+// Get Staff Submitted the Question Answer as Report
+Route::get('/hrm_employee_suggestion_report', 'hrms\suggestion\QuestionAnswerController@getSuggestionSurveyReport');
 //////========END QUESTION & Answer==========/////
 
 //////======== SUGGESTION BOX =============///////
@@ -761,7 +767,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// Modal Show List Candidate
     Route::get('hrm_list_condidate/modal','hrms\recruitment\HrmListCandidateController@hrm_detail_candidate');
-    
+
     /// Go to add Candidate
     Route::get('hrm_list_condidate/add','hrms\recruitment\HrmListCandidateController@hrm_goto_add');
     /// add Candidate
@@ -860,12 +866,21 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_modal_add_edit', 'hrms\Employee\OverTimeController@ShowModalAddAndEdit');
         Route::post('hrm_insert_update_overtime','hrms\Employee\OverTimeController@InsertUpdateOvertime');
         Route::get('hrm_delete_overtime', 'hrms\Employee\OverTimeController@DeleteOvertime');
+        Route::get('hrm_my_overtime','hrms\Employee\OverTimeController@my_overtime');
     // End Overtime
 
 // End Employee
 
 // Start Training
-
+    // Training Report
+        Route::get('hrm_report_training',function(){
+            return view('hrms/Training/report_training_schedule');
+        });
+        Route::get('hrm_training_report_search','hrms\Training\TrainingListController@training_report_search');
+    // End TRaining Report
+    // My Training
+        Route::get('hrm_my_trainning','hrms\Training\TrainingListController@my_training');
+    // End My Training
     // Training List
         Route::get('hrm_traininglist','hrms\Training\TrainingListController@TrainingList');
         Route::get('hrm_modal_traininglist', 'hrms\Training\TrainingListController@ModalTrainingList');
@@ -1080,7 +1095,7 @@ Route::get('test_chart',function(){
         // Balance Sheet
 
         // Profit and Loss
-
+        Route::get('/bsc_report_is','api\BSC\IncomeStatementApiController@getIS');
     // Accounting Report
         // Account Transaction
 

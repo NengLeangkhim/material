@@ -120,4 +120,44 @@ class TrainingListController extends Controller
         $trainList=new TrainingList();
         $data=$trainList->DeleteTrainingList($id,$userid);
     }
+
+    function my_training(){
+        session_start();
+        $userid = $_SESSION['userid'];
+        return view('hrms/Training/my_training');
+    }
+
+    function training_report_search(){
+        $from_date=$_GET['date_from'];
+        $to_date=$_GET['date_to'];
+        $training_report=TrainingList::training_report_search($from_date,$to_date);
+        $data=[];
+        $i=0;
+        if(!empty($training_report)){
+            foreach($training_report as $train){
+                $i++;
+                if(strlen($train->hrid)>0){
+                    $staff_trained=TrainingList::list_staff_training($train->hrid);
+                }else{
+                    $staff_trained=array();
+                }
+                $training_report_search=[
+                    "training_course"=>$train->type,
+                    "trainer"=>$train->trainer,
+                    "schet_f_date"=>$train->schet_f_date,
+                    "schet_t_date"=>$train->schet_t_date,
+                    "actual_f_date"=>$train->actual_f_date,
+                    "actual_t_date"=>$train->actual_t_date,
+                    "status"=>$train->status,
+                    "schet_description"=>$train->schet_description,
+                    "actual_description"=>$train->actual_description,
+                    "file"=>$train->file,
+                    "employee"=>$staff_trained
+                ];
+                array_push($data,$training_report_search);
+            }
+        }
+        // return $i;
+        return view('hrms/Training/training_report_search')->with('report_training_schedule',$data);
+    }
 }
