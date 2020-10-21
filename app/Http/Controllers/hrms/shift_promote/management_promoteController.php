@@ -24,8 +24,9 @@ class management_promoteController extends Controller
 
         if(isset($_GET['id'])){
             $staffid = $_GET['id'];
-            // $StaffByID = management_promoteModel::AllEmployeeByID($staffid);
-            $StaffByID = Employee::EmployeeOnRow($staffid);
+            $StaffByID = management_promoteModel::AllEmployeeByID($staffid);
+            // $StaffByID = Employee::EmployeeOnRow($staffid);
+            // dump($StaffByID);
             $get_postion = management_promoteModel::position();
             // print_r($get_postion);
             return view('hrms/shift_promote/management_promote/shift_promote_manager_edit', ['staffbyid' => $StaffByID, 'get_position' =>  $get_postion]);
