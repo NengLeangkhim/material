@@ -167,8 +167,7 @@ class HrmResultCandidateController extends Controller
                 $position_id = $row->ma_position_id;
                 $name_kh = $row->name_kh;
             }
-            $name = $fname.' '.$lname;
-            $move =   ModelHrmResultCandidate::hrm_move_candidate($name,$email,$position_id,$name_kh,$userid);
+            $move =   ModelHrmResultCandidate::hrm_move_candidate($fname,$lname,$email,$position_id,$name_kh,$userid);
             }
             return 'successfully submit'; 
         }else{
