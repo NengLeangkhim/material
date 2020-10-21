@@ -177,5 +177,17 @@ class TrainingList extends Model
     public static function my_training($id){
 
     }
+
+    public static function training_report_search($date_from,$date_to){
+        try {
+            $sql="SELECT ht.id as hrid,hts.id,htl.id as typeid,htt.id as trainerid,htl.name as type,htt.name as trainer,hts.training_date_from as schet_f_date,hts.training_date_to as schet_t_date,ht.actual_date_from as actual_f_date,ht.actual_date_to as actual_t_date,hts.status,hts.description as schet_description, ht.description as actual_description,hts.file
+            from hr_training_schedule hts LEFT JOIN hr_training ht on hts.id=ht.hr_training_schedule_id
+            JOIN hr_training_list htl on hts.hr_training_list_id=htl.id
+            JOIN hr_training_trainer htt on htt.id=hts.hr_training_trainer_id WHERE hts.is_deleted='f' and hts.training_date_from BETWEEN '$date_from' and '$date_to' or hts.training_date_to BETWEEN '$date_from' and '$date_to' or ht.actual_date_from BETWEEN '$date_from' and '$date_to' or ht.actual_date_to BETWEEN '$date_from' and '$date_to'";
+            return DB::select($sql);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
         
 }

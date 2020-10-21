@@ -126,4 +126,11 @@ class TrainingListController extends Controller
         $userid = $_SESSION['userid'];
         return view('hrms/Training/my_training');
     }
+
+    function training_report_search(){
+        $from_date=$_GET['date_from'];
+        $to_date=$_GET['date_to'];
+        $training_report=TrainingList::training_report_search($from_date,$to_date);
+        return view('hrms/Training/training_report_search')->with('report_training_schedule',$training_report);
+    }
 }

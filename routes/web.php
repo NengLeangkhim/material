@@ -866,6 +866,12 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 // End Employee
 
 // Start Training
+    // Training Report
+        Route::get('hrm_report_training',function(){
+            return view('hrms/Training/report_training_schedule');
+        });
+        Route::get('hrm_training_report_search','hrms\Training\TrainingListController@training_report_search');
+    // End TRaining Report
     // My Training
         Route::get('hrm_my_trainning','hrms\Training\TrainingListController@my_training');
     // End My Training
