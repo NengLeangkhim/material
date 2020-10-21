@@ -67,7 +67,8 @@
                                             <td>{{$row->facebook}}</td>
                                             <td>{{$row->email}}</td>
                                             <td>
-                                                <a href="#" class="btn btn-block btn-info btn-sm CrmEditContact" ​value="/contact/edit/{{$row->id}}"><i class="fas fa-wrench"></i></a>
+                                                <a href="#" class="btn btn-info btn-sm CrmEditContact" ​value="/contact/edit/{{$row->id}}"><i class="fas fa-wrench"></i></a>
+                                                <a href="javascript:void(0);" class="btn btn-danger btn-sm CrmDeleteContact" onclick="Crm_delete({{$row->id}},'/contact/delete','/contact','Deleted successfully')"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>                                       
                                     @endforeach

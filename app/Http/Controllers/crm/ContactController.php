@@ -83,9 +83,15 @@ class ContactController extends Controller
                 'errors' => $validator->getMessageBag()->toArray() 
             ));
         }else{
-            if(perms::check_perm_module('CRM_020202')){//module code list 
-                $create_contact = Request::create('/api/contact','POST');
-                $response = json_decode(Route::dispatch($create_contact)->getContent());
+            if(perms::check_perm_module('CRM_020202')){//module code list   
+                $token = $_SESSION['token'];
+                $create_contact = Request::create('/api/contact','POST',$request->all());
+                //$contact_table = json_decode(Route::dispatch($request_contact)->getContent());
+                $create_contact->headers->set('Accept', 'application/json');
+                $create_contact->headers->set('Authorization', 'Bearer '.$token);
+                $res = app()->handle($create_contact);
+                $response = json_decode($res->getContent());
+                //$response = json_decode(Route::dispatch($create_contact)->getContent());
                 if($response->insert=='success'){
                     return response()->json(['success'=>'Record is successfully added']);
                 }
@@ -99,8 +105,14 @@ class ContactController extends Controller
             session_start();
         }
         if(perms::check_perm_module('CRM_020203')){//module code
+            $token = $_SESSION['token'];
             $get_contact = Request::create('/api/contact/'.$id, 'GET'); //Request to Route API
-            $contact = json_decode(Route::dispatch($get_contact)->getContent()); //Convert Json data
+            //$detail_contact = json_decode(Route::dispatch($request_detail)->getContent());
+            $get_contact->headers->set('Accept', 'application/json');
+            $get_contact->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($get_contact);
+            $contact = json_decode($res->getContent());
+            //$contact = json_decode(Route::dispatch($get_contact)->getContent()); //Convert Json data
             return view('crm.contact.EditCrmContact',['contact'=>$contact]);
         }else{
             return view('no_perms');
@@ -147,12 +159,18 @@ class ContactController extends Controller
             ));
         }else{
             if(perms::check_perm_module('CRM_020202')){//module code list 
-                $update_contact = Request::create('/api/contact','put');
-                $response = json_decode(Route::dispatch($update_contact)->getContent());
-                dd($response);
-                // if($response->update=='success'){
-                //     return response()->json(['success'=>'Record is successfully Update']);
-                // }
+                $token = $_SESSION['token'];
+                $update_contact = Request::create('/api/contact','put',$request->all());
+                //$detail_contact = json_decode(Route::dispatch($request_detail)->getContent());
+                $update_contact->headers->set('Accept', 'application/json');
+                $update_contact->headers->set('Authorization', 'Bearer '.$token);
+                $res = app()->handle($update_contact);
+                $response = json_decode($res->getContent()); 
+               // $response = json_decode(Route::dispatch($update_contact)->getContent());
+                //dd($response);
+                if($response->update=='success'){
+                    return response()->json(['success'=>'Record is successfully Update']);
+                }
             }else{
                 return view('no_perms');
             }
@@ -164,9 +182,36 @@ class ContactController extends Controller
         }
         if(perms::check_perm_module('CRM_020204')){//module code
             $id= $_GET['id'];
+            $token = $_SESSION['token'];
             $request_detail = Request::create('/api/contact/'.$id, 'GET');
-            $detail_contact = json_decode(Route::dispatch($request_detail)->getContent());
+            //$detail_contact = json_decode(Route::dispatch($request_detail)->getContent());
+            $request_detail->headers->set('Accept', 'application/json');
+            $request_detail->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request_detail);
+            $detail_contact = json_decode($res->getContent());
             return view('crm.contact.DetailCrmContact',['detail'=>$detail_contact]);
+        }else{
+            return view('no_perms');
+        }
+    }
+    public function DeleteContact(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if(perms::check_perm_module('CRM_020204')){//module code
+            $id= $_GET['id'];
+            $userid= $_SESSION['userid'];
+            $token = $_SESSION['token'];
+            $request_delete = Request::create('/api/contact/'.$id.'/'.$userid, 'Delete');
+            //$detail_contact = json_decode(Route::dispatch($request_detail)->getContent());
+            $request_delete->headers->set('Accept', 'application/json');
+            $request_delete->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request_delete);
+            $response = json_decode($res->getContent());
+            dd($response);
+            if($response->delete=='success'){
+                return response()->json(['success'=>'Record is successfully Update']);
+            }
         }else{
             return view('no_perms');
         }

@@ -14,6 +14,7 @@ use App\Http\Resources\api\crm\lead\Address;
 use App\Http\Resources\api\crm\lead\LeadBranch;
 use App\Http\Resources\api\crm\lead\GetLead;
 use App\Http\Resources\api\crm\lead\GetLeadBranch;
+use App\Http\Resources\api\crm\lead\GetHonorifics;
 use App\Http\Resources\api\crm\lead\LeadCurrentSpeedIsp;
 
 
@@ -55,6 +56,11 @@ class LeadController extends Controller
         // return $contact;
         return AssigResource::Collection($contact);
     }
+    // get honorifics
+    public function getHonorifics(){
+        $honorifics = Lead::gethonorifics(); 
+        return GetHonorifics::Collection($honorifics);
+    }
     // get lead currentsppedisp
     public function getcurrentspeedisp(){
         $isp = Lead::leadcurrentspeedisp();
@@ -72,8 +78,8 @@ class LeadController extends Controller
         public function getVillage($id){$village=addressModel::GetLeadVillage($id);return Address::Collection($village);}
     // get service 
     public function getLeadBranch(){
-        $service=Lead::leadBranch();
-        return LeadBranch::Collection($service);
+        $companybranch=Lead::leadBranch();
+        return LeadBranch::Collection($companybranch);
     }
     //  insert lead 
     public  static function  insertLead(Request $request){
