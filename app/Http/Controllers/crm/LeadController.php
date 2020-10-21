@@ -9,6 +9,9 @@ use App\model\crm\ModelCrmLead;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Route;
+use App\model\api\crm\Crmlead as Lead;
+use App\Http\Resources\api\crm\lead\LeadBranch;
+use App\Http\Controllers\api\stock\StockController;
 
 class LeadController extends Controller
 {
@@ -36,7 +39,7 @@ class LeadController extends Controller
     }
     // get branch show by API
     public function  getdetailbranch($id){
-        if(perms::check_perm_module('CRM_0210')){//module codes
+        if(perms::check_perm_module('CRM_020506')){//module codes
             $detail_branch=ModelCrmLead::CrmGetDetailBranch($id);
             $result =json_decode($detail_branch,true);
             // dd($result);
@@ -45,12 +48,9 @@ class LeadController extends Controller
             return view('no_perms');
         }
     }
+    // add lead or branch
     public function lead(){
         $lead_source=ModelCrmLead::CrmGetLeadSource();
-        //  $lead_status=json_decode(file_get_contents('https://turbotech.com/api/lead/lead_status.php'),true);
-        //  $request = Request::create('/api/contacts', 'GET');
-        //  $instance = json_decode(Route::dispatch($request)->getContent());
-        //  dd($instance);
         $lead_status=ModelCrmLead::CrmGetLeadStatus();
         $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
         $assig_to=ModelCrmLead::CrmGetLeadAssigTo();
@@ -60,6 +60,35 @@ class LeadController extends Controller
         }else{
             return view('no_perms');
         }
+    }
+    // edit branch or lead
+    public function editlead($id) {   
+        // $param = $id;
+        if(perms::check_perm_module('CRM_020505')){//module codes
+            $sql=ModelCrmLead::CrmGetLeadID($id);
+            $result =json_decode($sql,true);
+            $lead_source=ModelCrmLead::CrmGetLeadSource();
+            $lead_status=ModelCrmLead::CrmGetLeadStatus();
+            $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
+            $assig_to=ModelCrmLead::CrmGetLeadAssigTo();
+            $province=ModelCrmLead::CrmGetLeadProvice();
+            $isp = Lead::leadcurrentspeedisp();
+            $honorifics = Lead::gethonorifics();
+            $ser= new StockController();
+            $serv=$ser->getStockPopup('service');
+            $service=json_encode($serv,true);
+            $service1=json_decode($service,true);
+            $companybranch=Lead::leadBranch();
+          
+            // dd($district);
+            // dd($commune);
+            // dd($village);
+            return view('crm.Lead.editlead',['updatelead'=>$result["data"],'honorifics'=>$honorifics,'service'=>$service1["original"]["data"],'companybranch'=>$companybranch,'lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province,'currentisp'=>$isp]);
+        
+        }else{
+            return view('no_perms');
+        }
+        return $id;
     }
     public function StoreLead(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
@@ -214,19 +243,7 @@ class LeadController extends Controller
         }
     }
 
-    // public function addlead(){
-    //     session_start();
-    // }
-    // public function editlead(Request $request,$id) {   
-    //     // $param = $id;
-    //     // if(perms::check_perm_module('CRM_020505')){//module codes
-    //     //     $sql=ModelCrmLead::CrmGetLeadID($id);
-    //     //     return view('crm.Lead.editlead')->with('lead',$sql);
-    //     // }else{
-    //     //     return view('no_perms');
-    //     // }
-    //     return $id;
-    // }
+    
     public function UpdateLead(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -339,7 +356,5 @@ class LeadController extends Controller
             }
         }
     }
-    public function editlead(){
-        return view('crm.Lead.editlead');
-    }
+    
 }

@@ -41,7 +41,12 @@ class ModelCrmLead extends Model
     }
     // Model get  lead by id
     public  static function  CrmGetLeadID($id){
-        return DB::select('SELECT * from crm_lead WHERE id='.$id);
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/getbranch/'.$id, 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        return $res->getContent();
    }
     //Model get Lead source
     public static function CrmGetLeadSource(){
@@ -53,7 +58,7 @@ class ModelCrmLead extends Model
     }
     //Model get lead Industry
     public static function CrmGetLeadIndustry(){
-        return DB::select("SELECT * from  crm_lead_industry");
+        return DB::select("SELECT * from  crm_lead_industry ");
     }
     //Model get lead user assigned to
     public static function CrmGetLeadAssigTo(){

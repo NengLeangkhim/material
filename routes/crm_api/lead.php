@@ -48,8 +48,8 @@ Route::get('/village/{id}','api\crm\LeadController@getVillage');
 Route::get('/branch','api\crm\LeadController@getLeadBranch');
 // insert lead 
 Route::post('/insertlead','api\crm\LeadController@insertLead');
-//get all lead
-// Route::get('/getlead','api\crm\LeadController@getLead');
+//get all Honorifics
+Route::get('/honorifics','api\crm\LeadController@getHonorifics');
 // get brand by lead id 
 // Route::get('/getbranchbylead/{id}','api\crm\LeadController@getbranch_lead');
 // get  all branch 
