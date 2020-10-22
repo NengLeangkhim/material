@@ -18,23 +18,28 @@
                     <tbody>
                         <?php 
                             $val = $promote_report;
-                            if(count($val) > 0){
+                            if(is_array($val)){
                                 for($i=0; $i<count($val); $i++){
                                     $date = date_create($val[$i]->create_date);
                                     $approve_date = date_format($date,"Y/M/d H:i:s A");
                                         echo'<tr style="text-align: center;">
                                                     <td >'.($i+1).'</td>
                                                     <td> '. $val[$i]->first_name_en.' '.$val[$i]->last_name_en.'</td>
-                                                    <td> Old pos</td>
+                                                    <td>'; 
+                                                        if(!empty($old_position[$i][0]->old_position)){
+                                                                echo ($old_position[$i][0]->old_position);
+                                                        }
+                                        echo'       </td>
                                                     <td> '. $val[$i]->position.'</td>
-                                                    <td> Old salary</td>  
+                                                    <td> '. $val[$i]->old_salary.'</td>  
                                                     <td> '. $val[$i]->salary.'</td>           
                                                     <td> '. $approve_date.'</td>
                                                     <td> 
                                                         <a class="btn-sm btn btn-outline-primary" href="javascript:void(0);"   onclick="staff_promote_report_detail('.$val[$i]->ma_user_id.', \''.$val[$i]->create_date.'\');">Detail</a>
                                                     </td>
                                                     
-                                            </tr> ';
+                                                </tr> 
+                                            ';
                                 }
                             }
                             // else 

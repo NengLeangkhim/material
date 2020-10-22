@@ -159,24 +159,24 @@ class management_promoteModel extends Model
     /*  function to get all staff promote between two date for report search*/
     public static function get_promoteByDate($from,$to,$dept){
         if($dept == ''){
-                $sql = "SELECT hs.id, s.id as ma_user_id, s.first_name_en, s.last_name_en, p.name as position, hs.salary, hs.create_date, hs.create_by, hs.comment FROM 
+                $sql = "SELECT hs.id, s.id as ma_user_id, s.first_name_en, s.last_name_en, p.name as position, hs.salary , hs.create_date, hs.create_by, hs.comment, hs.old_salary, hs.old_position_id FROM 
                         ((hr_shift  hs 
                         INNER JOIN ma_user s ON hs.ma_user_id = s.id) 
-                        INNER JOIN ma_position p ON hs.position_id = p.id) 
+                        INNER JOIN ma_position p ON hs.position_id = p.id ) 
+                        
                         WHERE hs.create_date Between  '$from 00:00:00'  AND  '$to 23:59:59'
                         ORDER BY hs.create_date DESC";
                 $r = DB::select($sql);
         }else{
 
-                $sql = "SELECT hs.id, s.id as ma_user_id, s.first_name_en ,s.last_name_en, p.name as position, hs.salary, hs.create_date, hs.create_by, hs.comment ,dept.name as dept_name FROM 
-                        ((hr_shift  hs 
-                        INNER JOIN ma_user s ON hs.ma_user_id = s.id) 
-                        INNER JOIN ma_position p ON hs.position_id = p.id)
-                        JOIN ma_company_dept dept ON dept.id = s.ma_company_dept_id 
-                        WHERE hs.create_date Between  '$from 00:00:00'  AND  '$to 23:59:59'
-                        AND dept.id = $dept
-                        ORDER BY hs.create_date DESC ";
-                        
+                    $sql = "SELECT hs.id, s.id as ma_user_id, s.first_name_en ,s.last_name_en, p.name as position, hs.salary, hs.create_date, hs.create_by, hs.comment, hs.old_salary, hs.old_position_id ,dept.name as dept_name FROM 
+                            ((hr_shift  hs 
+                            INNER JOIN ma_user s ON hs.ma_user_id = s.id) 
+                            INNER JOIN ma_position p ON hs.position_id = p.id)
+                            JOIN ma_company_dept dept ON dept.id = s.ma_company_dept_id 
+                            WHERE hs.create_date Between  '$from 00:00:00'  AND  '$to 23:59:59'
+                            AND dept.id = $dept
+                            ORDER BY hs.create_date DESC ";
                 $r = DB::select($sql);
         }
             return $r;
@@ -189,7 +189,7 @@ class management_promoteModel extends Model
 
     /*  function to select view shift promte report detail by staff id*/
     public static function promote_report_detailByID_Date($id,$date){
-        $sql = "SELECT hs.id, s.id as ma_user_id, s.first_name_en, s.last_name_en, p.name as position, hs.salary, hs.create_date, hs.create_by, hs.comment FROM 
+        $sql = "SELECT hs.id, s.id as ma_user_id, s.first_name_en, s.last_name_en, p.name as position, hs.salary,hs.old_salary, hs.old_position_id, hs.create_date, hs.create_by, hs.comment FROM 
                 ((hr_shift  hs 
                 INNER JOIN ma_user s ON hs.ma_user_id = s.id) 
                 INNER JOIN ma_position p ON hs.position_id = p.id)
@@ -204,7 +204,6 @@ class management_promoteModel extends Model
     // function to get department for search shift promote
     public static  function getDept()
     {
-
         try {
                 $r = DB::table('ma_company_dept')
                     ->where('status','=','t')
@@ -217,6 +216,15 @@ class management_promoteModel extends Model
                 echo 'exited';
                 exit;
         }
+    }
+
+
+
+    public static function getPositionById($id){
+
+        $sql = "SELECT id, name as old_position FROM ma_position WHERE id = $id AND status='t'";
+        $r = DB::select($sql);
+        return $r;
     }
 
 
