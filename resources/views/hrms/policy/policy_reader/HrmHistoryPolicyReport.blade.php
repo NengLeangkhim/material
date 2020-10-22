@@ -105,7 +105,7 @@
                                                                         <label for="exampleInputEmail1">Read Policy</label>
                                                                         <div class="input-group">
                                                                             <select name="mypolicy" id="mypolicy" class="form-control select2" style="width: 100%">
-                                                                                <option value="null" selected hidden disabled>select policy</option>
+                                                                                <option value="null">select policy</option>
                                                                                 @foreach ($read_policys as $read_policy)
                                                                                     <option value="{{ $read_policy->id }}">{{ $read_policy->name }}</option>
                                                                                 @endforeach
@@ -116,8 +116,8 @@
                                                                     <div class="col-md-6">
                                                                         <label for="exampleInputEmail1">User</label>
                                                                         <div class="input-group">
-                                                                            <select name="" id="user" class="form-control select2" style="width: 100%">
-                                                                                <option value="null" selected hidden disabled>select user</option>
+                                                                            <select name="user" id="user" class="form-control select2" style="width: 100%">
+                                                                                <option value="null">select user</option>
                                                                                 @foreach ($users as $user)
                                                                                     <option value="{{ $user->id }}">{{ $user->user_name }}</option>
                                                                                 @endforeach
@@ -263,14 +263,14 @@
                 },
                 dataType: "JSON",
                 success:function(data){
-                    $("#example1").DataTable().destroy();
-                    $("#example1 tbody").empty();
+                    $("#example2").DataTable().destroy();
+                    $("#example2 tbody").empty();
                     $.each(data, function(i, value) {
                         create_date=moment(value.create_date).format('DD-MM-YYYY LTS');
-                        let tr="<tr><td>"+value.name+"</td><td>"+value.user_name+"</td><td>"+create_date+"</td></tr>";
-                        $("#example1").append(tr);
+                        let tr="<tr><td>"+value.name+"</td><td>"+value.position_name+"</td><td>"+value.policy_name+"</td><td>"+create_date+"</td></tr>";
+                        $("#example2").append(tr);
                     });
-                    $('#example1').DataTable();
+                    $('#example2').DataTable();
                 }
             });
         }
