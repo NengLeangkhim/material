@@ -14,21 +14,23 @@ class shift_promote_historyController extends Controller
     public function all_staff_promote(){
         $all_promote = management_promoteModel::all_shift_promote();
         $x = 0;
+        $staff_was_promote = '';
         if(count($all_promote) > 0){
-
             $get_array[$x] = $all_promote[0];
             for($i=0; $i< count($all_promote); $i++){
                 if($get_array[$x]->ma_user_id != $all_promote[$i]->ma_user_id){                    
                     $r = management_promoteModel::all_shift_promoteByID($all_promote[$i]->ma_user_id);
                     if(count($r) > 1){
                         $get_array[$x+=1] = $all_promote[$i];
-                        $staff_was_promote[]  = $all_promote[$i];
+                        $data[]  = $all_promote[$i];
                     }
                 }
             }  
             // dd($staff_was_promote);
-            return view('hrms/shift_promote/management_view_promote_history/shift_promote_staff_history', ['allstaffpromote' => $staff_was_promote]);
+            $staff_was_promote = $data;
         }      
+        return view('hrms/shift_promote/management_view_promote_history/shift_promote_staff_history', ['allstaffpromote' => $staff_was_promote]);
+
     }
 
 

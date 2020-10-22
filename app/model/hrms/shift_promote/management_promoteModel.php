@@ -83,7 +83,7 @@ class management_promoteModel extends Model
                 FROM ((hr_shift  hs
                 INNER JOIN ma_user s ON hs.ma_user_id = s.id) 
                 INNER JOIN ma_position p ON hs.position_id = p.id) 
-                WHERE hs.status='t' AND hs.is_deleted='f' AND hs.create_date = (SELECT MAX(create_date) FROM hr_shift  WHERE ma_user_id= $id)";
+                WHERE hs.status='t' AND hs.is_deleted='f' AND  ma_user_id= $id order by hs.create_date DESC";
         $r = DB::select($sql);
         return $r;
 
@@ -94,14 +94,13 @@ class management_promoteModel extends Model
 
 
 
-    /* function get detail to staff view thier promote */
-    public static function get_promote_staff_detail($id){
-        $sql = "SELECT s.first_name_en, s.last_name_en, p.name as position_name, hs.salary, hs.create_date, hs.comment
+    /* function get detail to staff view their promote */
+    public static function get_promote_staff_detail($shiftID){
+        $sql = "SELECT s.first_name_en, s.last_name_en, p.name as position_name, hs.salary, hs.old_salary, hs.old_position_id, hs.create_date, hs.comment
                 FROM ((hr_shift hs 
                 INNER JOIN ma_user s ON hs.ma_user_id = s.id ) 
                 INNER JOIN ma_position p ON hs.position_id = p.id) 
-                WHERE ma_user_id = $id order by create_date ASC";
-
+                WHERE hs.id = $shiftID AND hs.status='t' AND hs.is_deleted = 'f' ";
         $r = DB::select($sql);
         return $r; 
     }
@@ -137,7 +136,7 @@ class management_promoteModel extends Model
                 ((hr_shift  hs 
                     INNER JOIN ma_user s ON hs.ma_user_id = s.id) 
                     INNER JOIN ma_position p ON hs.position_id = p.id) 
-                WHERE s.id = $id order by hs.create_date DESC ";
+                    WHERE s.id = $id AND hs.status='t' AND hs.is_deleted = 'f' order by hs.create_date DESC ";
         $r = DB::select($sql);
         return $r; 
     }
@@ -163,8 +162,7 @@ class management_promoteModel extends Model
                         ((hr_shift  hs 
                         INNER JOIN ma_user s ON hs.ma_user_id = s.id) 
                         INNER JOIN ma_position p ON hs.position_id = p.id ) 
-                        
-                        WHERE hs.create_date Between  '$from 00:00:00'  AND  '$to 23:59:59'
+                        WHERE hs.create_date Between  '$from 00:00:00'  AND  '$to 23:59:59' AND hs.status='t' AND hs.is_deleted = 'f'
                         ORDER BY hs.create_date DESC";
                 $r = DB::select($sql);
         }else{
@@ -174,7 +172,7 @@ class management_promoteModel extends Model
                             INNER JOIN ma_user s ON hs.ma_user_id = s.id) 
                             INNER JOIN ma_position p ON hs.position_id = p.id)
                             JOIN ma_company_dept dept ON dept.id = s.ma_company_dept_id 
-                            WHERE hs.create_date Between  '$from 00:00:00'  AND  '$to 23:59:59'
+                            WHERE hs.create_date Between  '$from 00:00:00'  AND  '$to 23:59:59' AND hs.status='t' AND hs.is_deleted = 'f'
                             AND dept.id = $dept
                             ORDER BY hs.create_date DESC ";
                 $r = DB::select($sql);
@@ -193,7 +191,7 @@ class management_promoteModel extends Model
                 ((hr_shift  hs 
                 INNER JOIN ma_user s ON hs.ma_user_id = s.id) 
                 INNER JOIN ma_position p ON hs.position_id = p.id)
-                WHERE hs.create_date = '$date' AND s.id = $id ";
+                WHERE hs.create_date = '$date' AND hs.status='t' AND hs.is_deleted = 'f' AND s.id = $id ";
         $r = DB::select($sql);
         return $r; 
     }
