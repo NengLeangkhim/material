@@ -112,10 +112,11 @@ class PurchaseController extends Controller
         ])->first();
         
         $purchase_detail = DB::table('bsc_invoice_detail')
-        ->select('bsc_invoice_detail.*','bsc_account_charts.name_en as chart_account_name')
+        ->select('bsc_invoice_detail.*','bsc_account_charts.name_en as chart_account_name','stock_product.name as product_name')
         ->leftJoin('bsc_invoice_detail_bsc_journal_rel','bsc_invoice_detail.id','=','bsc_invoice_detail_bsc_journal_rel.bsc_invoice_detail_id')
         ->leftJoin('bsc_journal','bsc_invoice_detail_bsc_journal_rel.bsc_journal_id','=','bsc_journal.id')
         ->leftJoin('bsc_account_charts','bsc_journal.bsc_account_charts_id','=','bsc_account_charts.id')
+        ->leftJoin('stock_product','bsc_invoice_detail.stock_product_id','=','stock_product.id')
         ->where([
             ['bsc_invoice_detail.bsc_invoice_id','=',$id],
             ['bsc_invoice_detail.status','=','t'],
