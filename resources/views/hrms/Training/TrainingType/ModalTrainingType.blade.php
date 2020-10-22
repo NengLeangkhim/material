@@ -19,7 +19,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Training Type <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="trainingType" value="@php if(isset($data[0])){echo $data[0][0]->name;} @endphp">
+                  <input type="text" class="form-control" name="trainingType" value="@php if(isset($data[0])){echo $data[0][0]->name;} @endphp" required>
                 </div>
                 <!-- /.form-group -->
                 
