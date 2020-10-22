@@ -10,7 +10,7 @@ class ModelHrmRecruitmentReport extends Model
     //
     // ===== Function model get data all candidate=====////
     public static function get_candidate_apply($from,$to){
-            return DB::select("SELECT COUNT(*) from hr_recruitment_candidate where is_deleted='f' and register_date between '$from 00:00:00' and '$to 23:59:59'");
+            return DB::select("SELECT COUNT(*) from hr_recruitment_candidate where is_deleted='f' and create_date between '$from 00:00:00' and '$to 23:59:59'");
     }
     // ===== Function model get data candidate pass=====////
     public static function get_candidate_pass($from,$to){
@@ -203,7 +203,7 @@ class ModelHrmRecruitmentReport extends Model
             GROUP BY
                 hr_recruitment_candidate_id,hr_approval_status
         )appr on (c.id=appr.hr_recruitment_candidate_id)
-        where c.is_deleted='f' and  c.register_date BETWEEN '$from 00:00:00' and '$to 23:59:59'
+        where c.is_deleted='f' and  c.create_date BETWEEN '$from 00:00:00' and '$to 23:59:59'
         group by c.id,p.name,appr.hr_approval_status,ca.is_deleted");
     }
 
