@@ -16,16 +16,15 @@ class profileModel extends Model
                     ->leftjoin('ma_company_dept as dp','us.ma_company_dept_id','=','dp.id')
                     ->leftjoin('ma_company_detail as cpdt','us.ma_company_detail_id','=','cpdt.id')
                     ->leftjoin('ma_user_address as us_add','us_add.ma_user_id','=','us.id')
-                    ->leftjoin('hr_payroll_base_salary as sal','sal.ma_user_id','=','us.id')
+                    ->leftjoin('hr_payroll_base_salary as sal','sal.ma_user_id','=','us.id')->where('sal.status','=','t')
                     ->leftjoin('ma_user_detail as us_de','us_de.ma_user_id','=','us.id')
-                
                     ->where('us.is_deleted','=','f')
                     ->where('us.status','=','t')
                     ->where('us.id','=',$id)
                     ->orderBy('us.id','ASC')
                     ->get(); 
             return $r;
-            
+                
         }catch(\Illuminate\Database\QueryException $ex){
             dump($ex->getMessage());
             echo '<br><a href="/">go back</a><br>';
