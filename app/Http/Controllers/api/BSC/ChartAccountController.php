@@ -60,7 +60,8 @@ class ChartAccountController extends Controller
                 'bsc_account_type_id'  => 'required',
                 'name_en'              => 'required',
                 'ma_company_id'        => 'required',
-                'code'                 => 'required'
+                'code'                 => 'required',
+                'create_by'            => 'required'
             ]);
 
             if($validator->fails()){
@@ -125,7 +126,8 @@ class ChartAccountController extends Controller
             $validator = Validator::make($input, [
                 'bsc_account_type_id'  => 'required',
                 'name_en'              => 'required',
-                'ma_company_id'        => 'required'
+                'ma_company_id'        => 'required',
+                'update_by'            => 'required'
             ]);
 
             if($validator->fails()){
