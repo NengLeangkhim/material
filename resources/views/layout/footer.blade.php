@@ -91,6 +91,15 @@
   $(document).ready(
     function(){
       go_to('welcome');
+      $('body').overlayScrollbars({
+              className: 'os-theme-dark',
+              sizeAutoCapable: true,
+              scrollbars: {
+                autoHide: '3',
+                clickScrolling: true,
+                // visibility : 'auto',
+              }
+            });
     }
   );
 </script>
