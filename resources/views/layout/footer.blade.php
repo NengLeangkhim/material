@@ -92,14 +92,52 @@
     function(){
       go_to('welcome');
       $('body').overlayScrollbars({
-              className: 'os-theme-dark',
-              sizeAutoCapable: true,
-              scrollbars: {
-                autoHide: '3',
-                clickScrolling: true,
-                // visibility : 'auto',
-              }
-            });
+    scrollbars : {
+        visibility       : "auto",
+        autoHide         : "scroll",
+        autoHideDelay    : 800,
+        dragScrolling    : true,
+        clickScrolling   : false,
+        touchSupport     : true,
+        snapHandle       : false
+    },
+});
+$(window).on('shown.bs.modal', function() {
+  $('.modal').overlayScrollbars({
+    className            : "os-theme-dark",
+    resize               : "none",
+    sizeAutoCapable      : true,
+    clipAlways           : true,
+    normalizeRTL         : true,
+    paddingAbsolute      : false,
+    autoUpdate           : null,
+    autoUpdateInterval   : 33, 
+    updateOnLoad         : ["img"],
+    nativeScrollbarsOverlaid : {
+        showNativeScrollbars   : false,
+        initialize             : true 
+    },
+    overflowBehavior : {
+        x : "scroll",
+        y : "scroll"
+    },
+    scrollbars : {
+        visibility       : "auto",
+        autoHide         : "scroll",
+        autoHideDelay    : 800,
+        dragScrolling    : true,
+        clickScrolling   : false,
+        touchSupport     : true,
+        snapHandle       : false
+    },
+    textarea : {
+        dynWidth       : false,
+        dynHeight      : false,
+        inheritedAttrs : ["style", "class"]
+    },
+});
+});
+
     }
   );
 </script>
