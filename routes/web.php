@@ -141,6 +141,7 @@ Route::post('update/module','SettingController@update');
 Route::post('access/add','SettingController@add_module_access');
 Route::get('access/json','SettingController@module_access_json');
 Route::post('module/delete','SettingController@delete_module_access');
+Route::post('module/undelete','SettingController@undelete_module_access');
 
 // leave type
 Route::get('leave_type', 'Setting\LeaveType\LeaveTypeController@leave_type')->name('leave_type');

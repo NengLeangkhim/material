@@ -58,7 +58,7 @@ class SettingController extends Controller
     }
     public function module_access_json(){
         $ma="SELECT mma.id as module_id, mm.name,mm.code,mm.icon,mp.name as position,mg.name as group,mcd.name as department
-        ,mu.first_name_en||' '||mu.last_name_en as user
+        ,mu.first_name_en||' '||mu.last_name_en as user,mma.is_deleted,mma.status
         -- ,mma.ma_user_id as user
             -- ,case when count(mma.id) OVER (partition by mm.id)=0 then 1 else count(mma.id) OVER (partition by mm.id) end as count
          FROM ma_module_access mma
@@ -191,6 +191,20 @@ class SettingController extends Controller
         $userId=$_SESSION['userid'];
         $module_access_id=$request->module_access_id;
         $sql="SELECT * FROM public.delete_ma_module_access(
+            ".$module_access_id.",
+            ".$userId."
+        )";
+        $stmt=DB::select($sql);
+        if(count($stmt)>0){
+            return json_encode($stmt);
+        }else{
+            return "Delete ma module access not success";
+        }
+    }
+    public function undelete_module_access(Request $request){
+        $userId=$_SESSION['userid'];
+        $module_access_id=$request->module_access_id;
+        $sql="SELECT * FROM public.undelete_ma_module_access(
             ".$module_access_id.",
             ".$userId."
         )";
