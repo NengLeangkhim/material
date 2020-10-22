@@ -15,7 +15,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                                <select class="form-control select2" name="account_type" id="account_type">
+                                <select class="form-control select2 input_required" name="account_type" id="account_type">
                                     <option selected hidden disabled>select item</option>
                                     <option value="1">Exclusive</option>
                                     <option value="2">Inclusive</option>
@@ -56,7 +56,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <select class="form-control select2" name="customer" id="customer" required>
+                                            <select class="form-control select2 input_required" name="customer" id="customer">
                                                 <option selected hidden disabled>select item</option>
                                                 <option>Exclusive</option>
                                                 <option>Inclusive</option>
@@ -71,7 +71,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <select class="form-control select2 is-invalid" name="customer_branch" id="customer_branch" required multiple="">
+                                            <select class="form-control select2 input_required" name="customer_branch" id="customer_branch" multiple="">
                                                 <option>Exclusive</option>
                                                 <option>Inclusive</option>
                                                 <option>Oppa</option>
@@ -89,7 +89,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input type="date" class="form-control"  name="billing_date" id="billing_date">
+                                            <input type="date" class="form-control input_required"  name="billing_date" id="billing_date">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -98,7 +98,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <select class="form-control select2" name="reference" id="reference" required>
+                                            <select class="form-control select2 input_required" name="reference" id="reference">
                                                 <option selected hidden disabled>select item</option>
                                                 <option>Exclusive</option>
                                                 <option>Inclusive</option>
@@ -117,7 +117,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input required type="date" class="form-control" name="due_date" id="due_date" required>
+                                            <input type="date" class="form-control input_required" name="due_date" id="due_date">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -126,7 +126,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input required type="date" class="form-control" name="effective_date" id="effective_date" required>
+                                            <input type="date" class="form-control input_required" name="effective_date" id="effective_date">
                                         </div>
                                     </div>
                                 </div>
@@ -139,7 +139,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input required type="date" class="form-control" name="end_period_date" id="end_period_date" required>
+                                            <input type="date" class="form-control input_required" name="end_period_date" id="end_period_date">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -148,7 +148,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input required type="date" class="form-control" name="deposit_on_payment" id="deposit_on_payment" required>
+                                            <input type="number" class="form-control input_required" name="deposit_on_payment" id="deposit_on_payment">
                                         </div>
                                     </div>
                                 </div>
@@ -259,58 +259,55 @@
 <script type="text/javascript">
     var itemDetail = [];
     function saveData(){
-        $("#frm_chart_account select").addClass("is-invalid");
-        $(".stock_product_id").each(function(e){
-            var tr = $(this).closest('tr');
-            var thisInput = $(this).val();
-            if(thisInput != ""){
-                itemDetail[e] = {
-                    stock_product_id: thisInput,
-                    description           : tr.find(".item_des").text(),
-                    qty                   : tr.find(".item_qty").text(),
-                    unit_price            : tr.find(".item_unit_price").text(),
-                    discount              : tr.find(".item_discount").text(),
-                    bsc_account_charts_id : tr.find(".item_account").text(),
-                    tax                   : tr.find(".tax").val(),
-                    amount                : tr.find(".item_amount").text()
-                };
-            }
+        let num_miss = 0;
+        $(".input_required").each(function(){
+            if($(this).val()=="" || $(this).val()==null){ num_miss++;}
         });
-        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        $.ajax({
-            type:"POST",
-            url:'/bsc_invoice_save',
-            data:{
-                _token: CSRF_TOKEN,
-                account_type     : $("#account_type").val(),
-                customer         : $("#customer").val(),
-                customer_branch  : $("#customer_branch").val(),
-                billing_date     : $("#billing_date").val(),
-                reference        : $("#reference").val(),
-                due_date         : $("#due_date").val(),
-                effective_date   : $("#effective_date").val(),
-                end_period_date  : $("#end_period_date").val(),
-                deposit_on_payment : $("#deposit_on_payment").val(),
-                itemDetail       : itemDetail
-            },
-            dataType: "JSON",
-            success:function(data){
-                if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-                    sweetalert('success',alert);
-                    // go_to(goto);// refresh content
-                  }else{
-                    $.each( data.errors, function( key, value ) {//foreach show error
-                        // document.getElementById(key).attributes["required"] = "";
-                        // document.getElementById(key).required = true;
-                        $("#" + key).addClass("is-invalid"); //give read border to input field
+        if(num_miss>0){
+            $(".input_required").each(function(){
+                if($(this).val()=="" || $(this).val()==null){ $(this).css("border-color","red"); }
+            });
+            sweetalert('error', 'Please input or select field *');
+        }else{
+            $(".stock_product_id").each(function(e){
+                var tr = $(this).closest('tr');
+                var thisInput = $(this).val();
+                if(thisInput != ""){
+                    itemDetail[e] = {
+                        stock_product_id: thisInput,
+                        description           : tr.find(".item_des").text(),
+                        qty                   : tr.find(".item_qty").text(),
+                        unit_price            : tr.find(".item_unit_price").text(),
+                        discount              : tr.find(".item_discount").text(),
+                        bsc_account_charts_id : tr.find(".item_account").text(),
+                        tax                   : tr.find(".tax").val(),
+                        amount                : tr.find(".item_amount").text()
+                    };
+                }
+            });
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type:"POST",
+                url:'/bsc_invoice_save',
+                data:{
+                    _token: CSRF_TOKEN,
+                    account_type     : $("#account_type").val(),
+                    customer         : $("#customer").val(),
+                    customer_branch  : $("#customer_branch").val(),
+                    billing_date     : $("#billing_date").val(),
+                    reference        : $("#reference").val(),
+                    due_date         : $("#due_date").val(),
+                    effective_date   : $("#effective_date").val(),
+                    end_period_date  : $("#end_period_date").val(),
+                    deposit_on_payment : $("#deposit_on_payment").val(),
+                    itemDetail       : itemDetail
+                },
+                dataType: "JSON",
+                success:function(data){
 
-                        // $("#" + key + "_Error").children("strong").text("").text(data.errors[key][0]);
-                        // $("#" + key + "_Error").addClass("invalid-feedback");
-
-                    });
-                  }
-            }
-        });
+                }
+            });
+        }
     }
 </script>
 
