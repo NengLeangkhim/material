@@ -1,7 +1,7 @@
 
 
 @include('layout.header')
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed" data-scrollbar-auto-hide="n">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div id="modal"></div>
     <div class="wrapper">
         @include('menu.right_navbar')
