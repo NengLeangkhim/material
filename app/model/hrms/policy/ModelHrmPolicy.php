@@ -12,11 +12,11 @@ class ModelHrmPolicy extends Model
      // ===== Function get data for table =====////
       public static function hrm_get_tbl_policy(){
           $policy = DB::table('hr_policy as p')
-                             ->select('p.*','ma_user_login.username')
-                             ->leftjoin('ma_user_login','p.create_by','=','ma_user_login.ma_user_id')
+                             ->select('p.*',DB::raw("ma_user.first_name_en||' '||ma_user.last_name_en as username"))
+                             ->leftjoin('ma_user','p.create_by','=','ma_user.id')
                              ->where('p.is_deleted','=','f')
                              ->orderBy('p.id','ASC')
-                             ->get(); 
+                             ->get();
           return $policy;
        }
      // ===== Function insert policy ======//
@@ -28,7 +28,7 @@ class ModelHrmPolicy extends Model
         return  DB::table('hr_policy')
       ->select('*')
       ->where('id','=',$id)
-      ->get(); 
+      ->get();
       }
       // ===== Function Update policy ======//
       public static function hrm_update_policy($id_policy,$userid,$policy_name,$path,$status){
@@ -51,7 +51,7 @@ class ModelHrmPolicy extends Model
         ->join('hr_policy as p','p_u.id_policy','=','p.id')
         ->where('p_u.is_deleted','=','f')
         ->orderBy('p_u.id','ASC')
-        ->get(); 
+        ->get();
     }
     //====== Function show index user policy for Head of Each Departement ====//
     public static function hrm_get_tbl_policy_user_dept($dept){
@@ -65,7 +65,7 @@ class ModelHrmPolicy extends Model
             ['s.ma_company_dept_id', '=', $dept],
         ])
         ->orderBy('p_u.id','ASC')
-        ->get(); 
+        ->get();
     }
     //====== Function select user policy ====//
     public static function hrm_get_policy_user($id){
@@ -76,7 +76,80 @@ class ModelHrmPolicy extends Model
         ->join('hr_policy as p','p_u.hr_policy_id','=','p.id')
         ->where('p_u.id','=',$id)
         ->orderBy('p_u.id','ASC')
-        ->get(); 
+        ->get();
     }
-    
+    // get policy by user list
+    public static function hrm_get_policy_by_user()
+    {
+        $policy = DB::table('hr_policy as p')
+                             ->select('p.*',DB::raw("ma_user.first_name_en||' '||ma_user.last_name_en as username"))
+                             ->leftjoin('ma_user','p.create_by','=','ma_user.id')
+                             ->where('p.is_deleted','=','f')
+                             ->orderBy('p.id','ASC')
+                             ->get();
+          return $policy;
+    }
+    // get policy history by user
+    public static function get_history_by_user($id)
+    {
+        $sql=DB::select("SELECT hpu.*,concat(mu.first_name_en,' ',mu.last_name_en) as name,hp.name as policy_name,mp.name as position_name FROM hr_policy_user hpu
+        INNER JOIN ma_user mu on mu.id=hpu.ma_user_id
+        INNER JOIN hr_policy hp on hp.id=hpu.hr_policy_id
+        INNER JOIN ma_position mp ON mp.id=mu.ma_position_id
+        WHERE hpu.ma_user_id=$id");
+        return $sql;
+    }
+
+    // get policy report
+    public static function policy_history_report($from,$to)
+    {
+        $sql=DB::select("SELECT hp.*,concat(mu.first_name_en,' ',mu.last_name_en) as user_name FROM hr_policy hp
+        JOIN ma_user mu ON mu.id=hp.create_by
+        WHERE hp.status='t' AND hp.is_deleted='f' AND hp.create_date BETWEEN '$from' and '$to'");
+        return $sql;
+    }
+
+    // get user data
+    public static function get_user_data()
+    {
+        $sql=DB::select("SELECT mu.id,concat(mu.first_name_en,' ',mu.last_name_en) as user_name FROM ma_user mu WHERE mu.status='t' AND mu.is_deleted='f' and mu.is_employee='t'");
+        return $sql;
+    }
+
+    // get read policy
+    public static function get_read_policy()
+    {
+        $sql=DB::select("SELECT hpu.id,hp.name FROM hr_policy_user hpu
+            JOIN hr_policy hp ON hp.id=hpu.hr_policy_id
+            WHERE hpu.status='t' AND hp.is_deleted='f'");
+        return $sql;
+    }
+
+    // get read policy report
+    public static function get_read_policy_report($from,$to,$user,$read_policy)
+    {
+        if($user==null && $read_policy==null)
+        {
+            $sql=DB::select("SELECT hpu.*,concat(mu.first_name_en,' ',mu.last_name_en) as name,hp.name as policy_name,mp.name as position_name FROM hr_policy_user hpu
+                INNER JOIN ma_user mu on mu.id=hpu.ma_user_id
+                INNER JOIN hr_policy hp on hp.id=hpu.hr_policy_id
+                INNER JOIN ma_position mp ON mp.id=mu.ma_position_id
+                WHERE hpu.status='t' AND hpu.is_deleted='f' AND hpu.create_date BETWEEN '$from' and '$to'");
+            return $sql;
+        }
+        if($user==null)
+        {
+            $sql=DB::select("SELECT hpu.*,concat(mu.first_name_en,' ',mu.last_name_en) as name,hp.name as policy_name,mp.name as position_name FROM hr_policy_user hpu
+            INNER JOIN ma_user mu on mu.id=hpu.ma_user_id
+            INNER JOIN hr_policy hp on hp.id=hpu.hr_policy_id
+            INNER JOIN ma_position mp ON mp.id=mu.ma_position_id
+            WHERE hpu.status='t' AND hpu.is_deleted='f' AND mu.id=$user AND hpu.create_date BETWEEN '$from' and '$to'");
+            return $sql;
+        }
+        if($read_policy==null)
+        {
+            $sql=DB::select("");
+            return $sql;
+        }
+    }
 }

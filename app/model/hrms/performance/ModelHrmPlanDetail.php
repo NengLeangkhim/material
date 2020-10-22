@@ -11,8 +11,8 @@ class ModelHrmPlanDetail extends Model
     // ===== Function get data for table for CEO =====////
     public static function hrm_get_tbl_perform_plan_detail(){
         $plan_detail_ceo= DB::table('hr_performance_plan_detail as pd')
-                           ->select('pd.*','p.name as name_plan','pd1.name as name_parent','ud.username')
-                           ->join('ma_user_login as ud','pd.create_by','=','ud.ma_user_id')
+                           ->select('pd.*','p.name as name_plan','pd1.name as name_parent',DB::raw("ud.first_name_en||' '||ud.last_name_en as username"))
+                           ->join('ma_user as ud','pd.create_by','=','ud.id')
                            ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')
                            ->leftjoin('hr_performance_plan_detail as pd1','pd.parent_id','=','pd1.id')
                            ->where('pd.is_deleted','=','f')
@@ -24,8 +24,8 @@ class ModelHrmPlanDetail extends Model
     // ===== Function get data for table for Head Each departement =====////
     public static function hrm_get_tbl_perform_plan_detail_dept($userid){
         $plan_detail= DB::table('hr_performance_plan_detail as pd')
-                           ->select('pd.*','p.name as name_plan','pd1.name as name_parent','ud.username')
-                           ->join('ma_user_login as ud','pd.create_by','=','ud.ma_user_id')
+                           ->select('pd.*','p.name as name_plan','pd1.name as name_parent',DB::raw("ud.first_name_en||' '||ud.last_name_en as username"))
+                           ->join('ma_user as ud','pd.create_by','=','ud.id')
                            ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')
                            ->leftjoin('hr_performance_plan_detail as pd1','pd.parent_id','=','pd1.id')
                            ->where([
@@ -66,8 +66,8 @@ class ModelHrmPlanDetail extends Model
      public static function hrm_get_plan_detail_view($id){
         $plan_detail= DB::table('hr_performance_plan_detail as pd')
                            ->select('pd.*','p.name as name_plan','p.date_from as plan_from',
-                            'p.date_to as plan_to','pd1.name as parent_name','ud.username')
-                           ->join('ma_user_login as ud','pd.create_by','=','ud.ma_user_id')
+                            'p.date_to as plan_to','pd1.name as parent_name',DB::raw("ud.first_name_en||' '||ud.last_name_en as username"))
+                           ->join('ma_user as ud','pd.create_by','=','ud.id')
                            ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')
                            ->leftjoin('hr_performance_plan_detail as pd1','pd.parent_id','=','pd1.id')
                            ->where('pd.id','=',$id)

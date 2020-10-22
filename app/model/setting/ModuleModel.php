@@ -13,7 +13,7 @@ class ModuleModel extends Model
         return $stmt;
     }
     public static function get_parent(){
-        $sql="SELECT id,name FROM ma_module";
+        $sql="SELECT id,name||' '||code as name FROM ma_module";
         $stmt=DB::select($sql);
         return $stmt;
     }

@@ -16,7 +16,7 @@ class HrmPerformReportController extends Controller
     public function HrmIndexPerformReport(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
-            } 
+            }
         if(perms::check_perm_module('HRM_090706')){//module code list data tables id=101
             $userid = $_SESSION['userid'];
             $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
@@ -24,15 +24,15 @@ class HrmPerformReportController extends Controller
                 $group = $row->ma_group_id;
                 $dept = $row->ma_company_dept_id;
             }
-            if($group==5 || $group==1){ //permission check for CEO and Admin
+            if(perms::check_perm_module('HRM_09070601')){ //permission check for CEO and Admin
                 $department = ModelHrmPermission::hrm_get_dept_ceo(); //query database
-                
-            }else if($group==4){//permission each departement
+
+            }else if(perms::check_perm_module('HRM_09070602')){//permission each departement
                 $department = ModelHrmPermission::hrm_get_dept_dept($dept); //query database
             }else{
                 $department = ModelHrmPermission::hrm_get_dept_dept($dept); //query database
-            }    
-            return view('hrms/performance/performance_report/HrmPerformanceReport',['dept'=>$department]); 
+            }
+            return view('hrms/performance/performance_report/HrmPerformanceReport',['dept'=>$department]);
         }else{
             return view('no_perms');
         }
@@ -54,7 +54,7 @@ class HrmPerformReportController extends Controller
                                         ],
             ],
             [
-                'dept_performance.required' => 'Please Select Department !!',   //massage validator 
+                'dept_performance.required' => 'Please Select Department !!',   //massage validator
                 'from_performance.required' => 'Please Select Date !!',
                 'to_performance.required' => 'Please Select Date !!',
                 'to_performance.after' => 'Please Select Date Larger than Date From!!',
@@ -63,7 +63,7 @@ class HrmPerformReportController extends Controller
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
             if(perms::check_perm_module('HRM_090706')){//module code list data tables id=101
@@ -76,5 +76,5 @@ class HrmPerformReportController extends Controller
                 return view('no_perms');
             }
         }
-    }  
+    }
 }
