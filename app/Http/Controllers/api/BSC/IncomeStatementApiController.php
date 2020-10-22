@@ -79,12 +79,21 @@ class IncomeStatementApiController extends Controller
             $pre_result = [
                 'header' => [
                     'from_date' => $firstDay,
-                    'to_date' => $lastDay],
+                    'to_date' => $lastDay
+                ],
                 'body' => $this->incomeStatement($firstDay, $lastDay)];
             array_push($result, $pre_result);
         }
 
-        return $this->sendResponse($result,$typeName);
+        $data = [
+            'header' => [
+                'type' => $typeName,
+                'comparison' => $comparison
+            ],
+            'body' => $result
+        ];
+
+        return $this->sendResponse($data,$typeName);
     }
 
     public function incomeStatement($fromDate, $toDate){
