@@ -22,7 +22,7 @@
                       <!-- /.card-header -->
                       <div class="card-body">
                         <div class="container-fluid">
-                            <table class="table table-bordered" id="tbl_employee" style="width: 100%;">
+                            <table class="table table-bordered nowrap" id="tbl_employee" style="width: 100%;">
                                 <thead>
                                   <tr>
                                     <th>Module Name</th>
@@ -32,6 +32,8 @@
                                     <th>Group</th>
                                     <th>Department</th>
                                     <th>User</th>
+                                    <th>Status</th>
+                                    <th>Is Deleted</th>
                                     <th>Action</th>
                                   </tr>
                                 </thead>
@@ -90,8 +92,11 @@
                     { data: 'group' },
                     { data: 'department' },
                     { data: 'user' },
+                    { data: 'status' },
+                    { data: 'is_deleted' },
                     { data: "module_id"  ,  "render": function ( data, type, full, meta ) {
-                        return '<a type="button"  onclick="delete_access('+data+')"><i class="far fas fa-trash"></i></a>';
+                        return '<a type="button"  onclick="delete_access('+data+')"><i class="far fas fa-trash"></i></a>'+
+                        '&nbsp&nbsp<a type="button"  onclick="undelete_access('+data+')"><i class="far fas fa-recycle"></i></a>';
                         }}
                 ],
                 rowsGroup: [
@@ -99,6 +104,7 @@
                     1,
                     2
                 ],
+                scrollX:true,
             });
         } );
     </script>
@@ -2722,6 +2728,24 @@
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                     url: '/module/delete',
+                    type: 'POST',
+                    data: {_token: CSRF_TOKEN, module_access_id:module_access_id},
+                    dataType: 'JSON',
+                    success: function (data) {
+
+                        location.reload();
+                    },
+                    error: function (error) {
+
+                    }
+            });
+    }
+
+    function undelete_access(id){
+        module_access_id=id;
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                    url: '/module/undelete',
                     type: 'POST',
                     data: {_token: CSRF_TOKEN, module_access_id:module_access_id},
                     dataType: 'JSON',

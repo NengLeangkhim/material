@@ -20,14 +20,11 @@ class HrmPlanDetailController extends Controller
             } 
         if(perms::check_perm_module('HRM_090704')){//module code list data tables id=99
             $userid = $_SESSION['userid'];
-            $permission = ModelHrmPermission::hrm_get_permission($userid);
-            foreach($permission as $row){
-                $group = $row->ma_group_id;
-            }
-            if($group==5 || $group==1){ //permission check for CEO and Admin
-                $plan_detail = ModelHrmPlanDetail::hrm_get_tbl_perform_plan_detail(); //query policy user 
-            }else{//permission each departement
+            ///permission each departement
                 $plan_detail = ModelHrmPlanDetail::hrm_get_tbl_perform_plan_detail_dept($userid);
+            //permission check for CEO and Admin
+            if(perms::check_perm_module('HRM_09070408')){//code for view all plan
+                $plan_detail = ModelHrmPlanDetail::hrm_get_tbl_perform_plan_detail();  //query policy user
             }
             $i=1;// variable increase number for table
             $table_perm= '<tbody>';
