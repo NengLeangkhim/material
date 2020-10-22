@@ -325,6 +325,6 @@ class HrmPolicyController extends Controller
         $user=$request->user;
         $read_policy=$request->read_policy;
         $results=ModelHrmPolicy::get_read_policy_report($from,$to,$user,$read_policy);
-        return $results;
+        return json_encode($results);
     }
 }
