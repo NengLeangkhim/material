@@ -26,45 +26,71 @@ class TrainingList extends Model
             JOIN hr_training_trainer htt on htt.id=hts.hr_training_trainer_id WHERE hts.is_deleted='f'" . $st;
         return DB::select($sql);
     }
-
+    // id hr_training
     function TrainingStaff($hrid){
         $sql= "SELECT hts.ma_user_id, s.first_name_en, s.last_name_en  FROM hr_training_staff hts INNER JOIN ma_user s on hts.ma_user_id=s.id where hr_training_id=$hrid and hts.is_deleted='f'";
         return DB::select($sql);
+    }
+    // id schedule
+    public static function TrainingStaff_schedule_id($hrid){
+        $sql= "SELECT hts.ma_user_id, s.first_name_en, s.last_name_en  FROM hr_training_staff hts INNER JOIN ma_user s on hts.ma_user_id=s.id where hr_training_schedule_id=$hrid and hts.is_deleted='f'";
+        return DB::select($sql);
+    }
 
+    // staff training chage status
+    public static function staff_training_change_status_schedule_id($id){
+        $sql="UPDATE hr_training_staff set status='f',is_deleted='t' WHERE hr_training_schedule_id=$id RETURNING id";
+        return DB::select($sql);
+    }
+    public static function staff_training_change_status_training_id($id){
+        $sql="UPDATE hr_training_staff set status='f',is_deleted='t' WHERE hr_training_id=$id RETURNING id";
+        return DB::select($sql);
     }
 
     function InsertTrainingList($file,$filename,$trainType,$date_from,$date_to,$description,$schetule_status,$by,$trainer,$staff){
         try{
-            
-            
-        }catch(Throwable $e){
-            report($e);
-        }
-        $uploaddir = public_path('/media/hrms/Training/');
-        $uploadfile = $uploaddir . basename($file);
-        $filedirectory = '/media/hrms/Training/' . $file;
-        if (move_uploaded_file($filename, $uploadfile)) {
-            $sql = "SELECT public.insert_hr_training_schedule($trainType,'$date_from','$date_to','$description',$by,$trainer,'$filedirectory')";
-            $stm = DB::select($sql);
-            if ($stm[0]->insert_hr_training_schedule > 0) {
-                if ($schetule_status == 't') {
-                    $training_hr = self::InsertTrainingHr($stm[0]->insert_hr_training_schedule, $date_from, $date_to, $description, $by, $staff);
-                    if ($training_hr == 'error') {
-                        return 'error';
+            $uploaddir = public_path('/media/hrms/Training/');
+            $uploadfile = $uploaddir . basename($file);
+            $filedirectory = '/media/hrms/Training/' . $file;
+            if(move_uploaded_file($filename, $uploadfile)) {
+                $sql = "SELECT public.insert_hr_training_schedule($trainType,'$date_from','$date_to','$description',$by,$trainer,'$filedirectory')";
+                $stm = DB::select($sql);
+                if ($stm[0]->insert_hr_training_schedule > 0) {
+                    if ($schetule_status == 't') {
+                        $training_hr = self::InsertTrainingHr($stm[0]->insert_hr_training_schedule, $date_from, $date_to, $description, $by, $staff);
+                        if ($training_hr == 'error') {
+                            return 'error';
+                        } else {
+                            return "Training List Insert Successfully";
+                        }
                     } else {
-                        return "Training List Insert Successfully";
+
+                        return self::Insert_hr_traininng_schedule_staff($stm[0]->insert_hr_training_schedule,$staff,$by);
                     }
                 } else {
-                    return "Training List Insert Successfully";
+                    return "error";
                 }
             } else {
-                return "error";
+                echo "error";
             }
-        } else {
-            echo "error";
+            
+        }catch(Throwable $e){
+            throw($e);
         }
     }
 
+    public static function Insert_hr_traininng_schedule_staff($hr_training_schedule_id,$staff,$create_by){
+        foreach($staff as $em){
+            $sql="select public.insert_hr_training_schedule_staff($hr_training_schedule_id,$em,$create_by)";
+            $staff_train=DB::select($sql);
+        }
+        if($staff_train[0]->insert_hr_training_schedule_staff>0){
+            return 'Training List Insert Successfully';
+        }else{
+            return 'error';
+        }
+        
+    }
     function UpdateTrainingList($file, $filename, $trainType, $date_from, $date_to, $description, $schetule_status, $by, $trainer,$id,$namefile,$staff){
         if(strlen($file)>0){
             $uploaddir = public_path('/media/hrms/Training/');
@@ -82,7 +108,8 @@ class TrainingList extends Model
                             return "Training List Update Successfully";
                         }
                     } else {
-                        return "Training List Update Successfully";
+                        self::staff_training_change_status_schedule_id($stm[0]->update_hr_training_schedule);
+                        return self::Insert_hr_traininng_schedule_staff($stm[0]->update_hr_training_schedule,$staff,$by);
                     }
                 } else {
                     return "error";
@@ -96,6 +123,7 @@ class TrainingList extends Model
             $stm = DB::select($sql);
             if ($stm[0]->update_hr_training_schedule > 0) {
                 if ($schetule_status == 't') {
+                    self::staff_training_change_status_training_id($stm[0]->update_hr_training_schedule);
                     $training_hr = self::InsertTrainingHr($stm[0]->update_hr_training_schedule, $date_from, $date_to, $description, $by, $staff);
                     if ($training_hr == 'error') {
                         return 'error';
@@ -103,7 +131,8 @@ class TrainingList extends Model
                         return "Training List Update Successfully";
                     }
                 } else {
-                    return "Training List Update Successfully";
+                    self::staff_training_change_status_schedule_id($stm[0]->update_hr_training_schedule);
+                    return self::Insert_hr_traininng_schedule_staff($stm[0]->update_hr_training_schedule,$staff,$by);
                 }
             } else {
                 return "error";
@@ -115,51 +144,52 @@ class TrainingList extends Model
 
     function InsertStaffTraining($id,$staffid,$by){
         try{
-            
+             foreach ($staffid as $sid) {
+                $sql = "SELECT public.insert_hr_training_staff($id,$sid,$by)";
+                $stm = DB::select($sql);
+            }
+            if ($stm[0]->insert_hr_training_staff > 0) {
+                return "Successfully";
+            } else {
+                return "error";
+            }
         }catch(Throwable $e){
             report($e);
-        }
-        foreach ($staffid as $sid) {
-            $sql = "SELECT public.insert_hr_training_staff($id,$sid,$by)";
-            $stm = DB::select($sql);
-        }
-        if ($stm[0]->insert_hr_training_staff > 0) {
-            return "Successfully";
-        } else {
-            return "error";
         }
     }
 
     function InsertTrainingHr($id,$date_from,$date_to,$description,$by,$staff){
         
         try{
-            
-        }catch(Throwable $e){
-            report($e);
-        }
-        $script= "SELECT id from hr_training WHERE status='t' and is_deleted='f' and hr_training_schedule_id=$id";
-        $std=DB::select($script);
-        if(count($std)>0){
-            $trainingstaff = self::InsertStaffTraining($std[0]->id, $staff, $by);
-            if ($trainingstaff == 'errer') {
-                return "error";
-            } else {
-                return "Successfull";
-            }
-        }else{
-            $sql = "SELECT public.insert_hr_training($id,'$date_from','$date_to','$description',$by)";
-            $stm = DB::select($sql);
-            if ($stm[0]->insert_hr_training > 0) {
-                $trainingstaff = self::InsertStaffTraining($stm[0]->insert_hr_training, $staff, $by);
+            $script= "SELECT id from hr_training WHERE status='t' and is_deleted='f' and hr_training_schedule_id=$id";
+            $std=DB::select($script);
+            if(count($std)>0){
+                self::staff_training_change_status_training_id($std[0]->id);
+                $trainingstaff = self::InsertStaffTraining($std[0]->id, $staff, $by);
                 if ($trainingstaff == 'errer') {
                     return "error";
                 } else {
                     return "Successfull";
                 }
-            } else {
-                return "error";
+            }else{
+                $sql = "SELECT public.insert_hr_training($id,'$date_from','$date_to','$description',$by)";
+                $stm = DB::select($sql);
+                if ($stm[0]->insert_hr_training > 0) {
+                    self::staff_training_change_status_training_id($stm[0]->insert_hr_training);
+                    $trainingstaff = self::InsertStaffTraining($stm[0]->insert_hr_training, $staff, $by);
+                    if ($trainingstaff == 'errer') {
+                        return "error";
+                    } else {
+                        return "Successfull";
+                    }
+                } else {
+                    return "error";
+                }
             }
+        }catch(Throwable $e){
+            throw($e);
         }
+        
     }
 
     function DeleteTrainingStaff($staffid,$hrid){
@@ -185,7 +215,6 @@ class TrainingList extends Model
 						LEFT JOIN (select * from hr_training where status='t' and is_deleted='f' ) as ht on hts.id=ht.hr_training_schedule_id
             JOIN (select * from hr_training_list where status='t' and is_deleted='f' ) as htl on hts.hr_training_list_id=htl.id
             JOIN (select * from hr_training_trainer where status='t' and is_deleted='f' ) as htt on htt.id=hts.hr_training_trainer_id 
-						
 						WHERE
 						hts.training_date_from::date BETWEEN '$date_from'::date and '$date_to'::date
 						or hts.training_date_to::date BETWEEN '$date_from'::date and '$date_to'::date 

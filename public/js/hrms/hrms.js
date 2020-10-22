@@ -228,15 +228,20 @@ function ShowPassword(){
    // End Overtime
 // End Employee
 // Training
-    function HRM_TrainedOrNot(e){
-        if(e.value=='t'){
-            document.getElementById("divtabletrainingstaff").classList.remove("d-none");
-            document.getElementById("divtabletrainingstaff").style.display = "block";
+    
+    function hrm_chechEmployee_training(){
+        var countchecked = $("table input[type=checkbox]:checked").length;
+        if(countchecked>0){
+            submit_form ('hrm_insert_update_traininglist','fm_training_list','hrm_traininglist','modal_traininglist');
         }else{
-            document.getElementById("divtabletrainingstaff").style.display = "none";
+            alert('Please check employee');
         }
+        
     }
 
+function hrm_show_em_table(){
+
+}
 function hrm_training_checkAll(ele) {
     var checkboxes = document.getElementsByTagName('input');
     if (ele.checked) {
@@ -256,23 +261,23 @@ function hrm_training_checkAll(ele) {
 }
 
 
-function HRM_CheckStaffTrain(e,trainid){
-    if(e.checked==false){
-        // alert(e.value);
-        $.ajax({
-            type: 'GET',
-            url: '/hrm_delete_trainingstaff',
-            data: {
-                _token: '<?php echo csrf_token() ?>',
-                staffid: e.value,
-                trainid: trainid
-            },
-            success: function (data) {
-                document.getElementById('otDetail').innerHTML = data;
-            }
-        });
-    }
-}
+// function HRM_CheckStaffTrain(e,trainid){
+//     if(e.checked==false){
+//         // alert(e.value);
+//         $.ajax({
+//             type: 'GET',
+//             url: '/hrm_delete_trainingstaff',
+//             data: {
+//                 _token: '<?php echo csrf_token() ?>',
+//                 staffid: e.value,
+//                 trainid: trainid
+//             },
+//             success: function (data) {
+//                 document.getElementById('otDetail').innerHTML = data;
+//             }
+//         });
+//     }
+// }
 // End Training
 // Payroll
     function PrintDiv(id){
@@ -611,6 +616,7 @@ function my_overtime_search(){
 function report_training_search(){
     var from=document.getElementById('date_from').value;
     var to=document.getElementById('date_to').value;
+    var departmen=$('#training_report_department').val();
     if(from.length<=0 || to.length<=0 || new Date(from)>new Date(to)){
         alert('Please Select date and date must be bigger than today');
         return;
@@ -623,7 +629,8 @@ function report_training_search(){
         data: {
             _token: '<?php echo csrf_token() ?>',
             date_from: from,
-            date_to:to
+            date_to:to,
+            dep:departmen
         },
         success: function (data) {
             document.getElementById('training_report_search').innerHTML=data;
