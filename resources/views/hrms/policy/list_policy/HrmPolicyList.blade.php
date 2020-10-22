@@ -22,7 +22,7 @@
                <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered display nowrap" style="width: 100%" id="hrm_policy_list">
-                        <thead>                  
+                        <thead>
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Policy Name</th>
@@ -33,18 +33,18 @@
                             </tr>
                         </thead>
                         {{-- @php
-                            $i=1;   
+                            $i=1;
                         @endphp
-                        
+
                             @foreach ($policy as $row)
                             @php
                                 $create = $row->create_date;
                                 $ts1 = new DateTime($create); //convert string to date format
                             @endphp --}}
-                            
-                                  
+
+
                                       {!!$table_perm!!}
-                                   
+
                                 {{-- <div class="dropdown">
                                     <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Action
@@ -57,12 +57,12 @@
                                         @endif
                                     </div>
                                     </div> --}}
-                              
+
                         </table>
                     </div>
                </div>
                <!-- /.card-body -->
-               
+
              <!-- /.card -->
      </div>
  </div>

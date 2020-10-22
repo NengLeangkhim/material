@@ -10,8 +10,24 @@ class shift_promote_reportController extends Controller
 {
     
 
+
+    // function to show select shift promote report
+    public function selectReportPromote(){
+        $dept = management_promoteModel::getDept();
+        // dd($r);
+        if(count($dept) > 0){
+
+            return view('hrms.shift_promote.promote_report.shift_promote_report',compact('dept'));
+        }
+        echo 'no data query';
+    }
+
+
+    //function for get date from & date to & department to search shift promote 
     public function promote_report_view(){
-        if(isset($_GET['_from']) && isset($_GET['_to'])){
+        if(isset($_GET['_from']) && isset($_GET['_to']) && isset($_GET['dept_id'])){
+            $deptID = $_GET['dept_id'];
+            // echo $deptID; exit;
             $date_from = $_GET['_from'];
             if(empty($date_from)){
                 $date_from='2010-01-01';
@@ -25,7 +41,8 @@ class shift_promote_reportController extends Controller
                 $date_from= $date_to;
                 $date_to=$f;
             }
-            $promote_report = management_promoteModel::get_promoteByDate($date_from, $date_to);
+            $promote_report = management_promoteModel::get_promoteByDate($date_from, $date_to, $deptID);
+            // dd($promote_report); exit;
             return view('hrms/shift_promote/promote_report/shift_promote_report_show', ['promote_report' => $promote_report]);
         }
         

@@ -47,7 +47,8 @@
 <script>
  $(document).ready(function(){
         $('#hrm_perform_plan').DataTable({
-            "scrollX": true
+            // "scrollX": true
+            responsive:true,
         });
     }); 
 </script>

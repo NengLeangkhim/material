@@ -206,6 +206,8 @@ function staff_promote_history_detail(id,i){
 
 function get_shift_report(from,to){
 
+    
+    var deptId = $('#department_id').val();
     $.ajax({
         type:'get',
         url: "/hrm_shift_promote_report_search_view",
@@ -213,13 +215,16 @@ function get_shift_report(from,to){
                  _token:'<?php echo csrf_token() ?>',
                  _from:from,
                  _to:to,
+                 dept_id:deptId,
              },
         success: function(data){
         
             document.getElementById("report_promote").innerHTML = data; 
-            let table = $('#tbl_showreport').DataTable({
-                select: true,
+            var table = $('#tbl_showreport').DataTable({
+                "responsive": true,
+                
             }); 
+            // new $.fn.dataTable.FixedHeader(table);
         }
      });
 

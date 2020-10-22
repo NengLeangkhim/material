@@ -141,6 +141,7 @@ Route::post('update/module','SettingController@update');
 Route::post('access/add','SettingController@add_module_access');
 Route::get('access/json','SettingController@module_access_json');
 Route::post('module/delete','SettingController@delete_module_access');
+Route::post('module/undelete','SettingController@undelete_module_access');
 
 // leave type
 Route::get('leave_type', 'Setting\LeaveType\LeaveTypeController@leave_type')->name('leave_type');
@@ -866,6 +867,15 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
 // Start Training
 
+    // Training Report
+        Route::get('hrm_report_training',function(){
+            return view('hrms/Training/report_training_schedule');
+        });
+        Route::get('hrm_training_report_search','hrms\Training\TrainingListController@training_report_search');
+    // End TRaining Report
+    // My Training
+        Route::get('hrm_my_trainning','hrms\Training\TrainingListController@my_training');
+    // End My Training
     // Training List
         Route::get('hrm_traininglist','hrms\Training\TrainingListController@TrainingList');
         Route::get('hrm_modal_traininglist', 'hrms\Training\TrainingListController@ModalTrainingList');
@@ -964,9 +974,10 @@ Route::get('hrm_shift_history_listDetail','hrms\shift_promote\shift_promote_hist
 // end view history
 
 // shift promote report
-Route::get('hrm_shift_promote_report',function(){
-    return view('hrms.shift_promote.promote_report.shift_promote_report');
-});
+Route::get('hrm_shift_promote_report','hrms\shift_promote\shift_promote_reportController@selectReportPromote');
+// Route::get('hrm_shift_promote_report',function(){
+//     return view('hrms.shift_promote.promote_report.shift_promote_report');
+// });
 Route::get('hrm_shift_promote_report_search_view','hrms\shift_promote\shift_promote_reportController@promote_report_view');
 Route::get('hrm_shift_promote_report_search_view_detail','hrms\shift_promote\shift_promote_reportController@promote_report_view_detail');
 // end shift promote report
@@ -1042,7 +1053,12 @@ Route::get('hrm_get_quiz_result','hrms\recruitment_user\recruitment_userControll
 // route for user get hr result
 Route::get('hrm_recruitment_get_hr_result','hrms\recruitment_user\recruitment_userController@check_hr_resultContrl');
 
-
+//=============== add new HR ======================
+Route::get('hrm_policy_user_list','hrms\policy\HrmPolicyController@policy_user_list');
+Route::get('hrm_history_policy','hrms\policy\HrmPolicyController@policy_user_history');
+Route::get('hrm_policy_report','hrms\policy\HrmPolicyController@policy_report');
+Route::post('hrm_policy_report','hrms\policy\HrmPolicyController@get_policy_report_data');
+Route::post('hrm_read_policy_report','hrms\policy\HrmPolicyController@get_read_policy_report_data');
 
 //=============End recruitment candidate===========
 

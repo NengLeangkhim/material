@@ -39,10 +39,14 @@
           </div>
           <div class="modal-body">
           {{-- <form action="../controller/shift_promote/promote_update.php" method="POST"> --}}
-              <div class="row-12" style="background-color:powderblue; border-radius: 5px; margin-bottom: 15px">
-                  <div style="border: 0.0001px solid blue; border-radius: 5px; padding-top: 10px; padding-left: 5px; padding-bottom:10px; ">
-                      <h6 style="color: black;"><b>Name:</b> <?php echo $name; ?> </h6>
-                  </div>
+              <div class="row-12" style=" border-radius: 5px;">
+                 
+                    <div class="form-inline p-2 mb-3" style="background-color:powderblue; border-radius: 5px;">
+                        <label class="">Name: </label>
+                        <label class="ml-5 ">{{$name}} </label>
+                        {{-- <p class="">{{$name}}</p> --}}
+                        
+                    </div>
               </div>
               <div class="row">
   
@@ -88,7 +92,7 @@
                   </div>
                   <div class="col-md-12">
                       <div class="form-group">
-                      <h6 >Comment</h6>
+                      <label >Comment</label>
                       <div style="padding: 15px; border: 1px solid green; border-radius: 4px;">
                           <p><?php echo $new_com; ?></p>
                       </div>

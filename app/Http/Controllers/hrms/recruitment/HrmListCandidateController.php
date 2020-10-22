@@ -23,11 +23,11 @@ class HrmListCandidateController extends Controller
                  }else{
                      $add_perm='';
                 }
-                  $candidate = ModelHrmListCandidate::get_tbl_recruitment_candidate();
-                  $i=1;// variable increase number for table
+                $candidate = ModelHrmListCandidate::get_tbl_recruitment_candidate();
+                $i=1;// variable increase number for table
                 $table_perm= '<tbody>';
                 foreach($candidate as $row){
-                    $table_perm.= ' 
+                    $table_perm.= '
                         <tr>
                             <th>'.$i++.'</th>
                             <td>'.$row->fname.' '.$row->lname.'</td>
@@ -92,7 +92,7 @@ class HrmListCandidateController extends Controller
                         return view('no_perms');
                     }
                }else{
-                if(perms::check_perm_module('HRM_09090102')){//module code 
+                if(perms::check_perm_module('HRM_09090102')){//module code
                     $action = 'create';
                     $position= ModelHrmPermission::hrm_get_position();
                     return view('hrms/recruitment/list_candidate/HrmActionCandidate',['action'=>$action,'position'=>$position]);
@@ -138,16 +138,17 @@ class HrmListCandidateController extends Controller
             if ($validator->fails()) //check validator for fail
             {
                 return response()->json(array(
-                    'errors' => $validator->getMessageBag()->toArray() 
+                    'errors' => $validator->getMessageBag()->toArray()
                 ));
             }else{
-                if(perms::check_perm_module('HRM_09090102')){//module code 
+                if(perms::check_perm_module('HRM_09090102')){//module code
                 $userid= $_SESSION['userid'];
                  $fname = $request->fname;
                  $lname = $request->lname;
                  $name_kh = $request->name_kh;
                  $email = $request->email;
                  $password = $request->pw;
+                 $p = $this->en($password);
                  $position_id = $request->position;
                  $interest = '';
                  $file_cv = $request->file('cv');// GET File
@@ -157,7 +158,7 @@ class HrmListCandidateController extends Controller
                  $file_cover_letter = $request->file('cover_letter');// GET File
                  $cover_letter = $file_cover_letter->getClientOriginalName(); // GET File name
                  $file_cover_letter->move($destinationPath,$cover_letter); // move file to directory
-                 $insert_candidate = ModelHrmListCandidate::insert_candidate($fname,$lname,$name_kh,$zip_file,$email,$password,$position_id,$cover_letter,$interest); //insert data
+                 $insert_candidate = ModelHrmListCandidate::insert_candidate($fname,$lname,$name_kh,$zip_file,$email,$p,$position_id,$cover_letter,$interest); //insert data
                 return response()->json(['success'=>'Record is successfully added']);
                 }else{
                     return view('no_perms');
@@ -201,10 +202,10 @@ class HrmListCandidateController extends Controller
           if ($validator->fails()) //check validator for fail
           {
               return response()->json(array(
-                  'errors' => $validator->getMessageBag()->toArray() 
+                  'errors' => $validator->getMessageBag()->toArray()
               ));
           }else{
-              if(perms::check_perm_module('HRM_09090103')){//module code 
+              if(perms::check_perm_module('HRM_09090103')){//module code
                 $email = $request->email;
                 $destinationPath = public_path('/media/file_candidate_recruitment/'.$email.'/'); //path for move
                 if($request->file('cv') !=''){
@@ -227,18 +228,29 @@ class HrmListCandidateController extends Controller
                $lname = $request->lname;
                $name_kh = $request->name_kh;
                $password = $request->pw;
+               $p= $this->en($password);
                $position_id = $request->position;
                $interest = '';
                $status= 't';
                date_default_timezone_set("Asia/Phnom_Penh");
                $date = date("Y/m/d h:i:sa");
                $candidate = $request->candidate;
-               $update_candidate = ModelHrmListCandidate::update_candidate($id,$userid,$fname,$lname,$name_kh,$zip_file,$email,$password,$candidate,$position_id,$status,$cover_letter,$interest,$date); //insert data
+               $update_candidate = ModelHrmListCandidate::update_candidate($id,$userid,$fname,$lname,$name_kh,$zip_file,$email,$p,$candidate,$position_id,$status,$cover_letter,$interest,$date); //insert data
               return response()->json(['success'=>'Record is successfully update']);
               }else{
                   return view('no_perms');
               }
           }
+    }
+
+    // function for encrypt user password
+    public function en($st){
+        $r="";
+        for($i=0;$i<strlen($st);$i++){
+            $r.=ord(substr($st,$i,1));
+        }
+        $rr=md5($r);
+        return $rr;
     }
 
 }

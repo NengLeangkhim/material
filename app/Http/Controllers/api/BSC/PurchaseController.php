@@ -56,7 +56,8 @@ class PurchaseController extends Controller
                 'billing_date'          => 'required',
                 'due_date'              => 'required',
                 'total'                 => 'required',
-                'grand_total'           => 'required'
+                'grand_total'           => 'required',
+                'create_by'             => 'required'
             ]);
 
             if($validator->fails()){
@@ -97,7 +98,7 @@ class PurchaseController extends Controller
     public function show($id)
     {
         $purchase = DB::table('bsc_invoice')
-        ->select('bsc_invoice.*','bsc_account_charts.name_en as chart_account_name','ma_supplier.name as supplier_name','bsc_payment.amount_paid','bsc_payment.date_paid','bsc_payment.due_amount')
+        ->select('bsc_invoice.*','bsc_account_charts.name_en as chart_account_name','bsc_account_charts.id as chart_account_id','ma_supplier.name as supplier_name','bsc_payment.amount_paid','bsc_payment.date_paid','bsc_payment.due_amount')
         ->leftJoin('bsc_invoice_bsc_journal_rel','bsc_invoice.id','=','bsc_invoice_bsc_journal_rel.bsc_invoice_id')
         ->leftJoin('bsc_journal','bsc_invoice_bsc_journal_rel.bsc_journal_id','=','bsc_journal.id')
         ->leftJoin('bsc_account_charts','bsc_journal.bsc_account_charts_id','=','bsc_account_charts.id')
@@ -156,7 +157,8 @@ class PurchaseController extends Controller
                 'billing_date'          => 'required',
                 'due_date'              => 'required',
                 'total'                 => 'required',
-                'grand_total'           => 'required'
+                'grand_total'           => 'required',
+                'update_by'             => 'required'
             ]);
 
             if($validator->fails()){

@@ -177,8 +177,8 @@ class ModelHrmResultCandidate extends Model
         return DB::select('SELECT public.insert_hr_recruitment_candidate_detail(?,?,?,?)',array($candidate_id,$appr_type,$comment,$userid));
     }
     // ===== Function model move candidate to staff =====////
-    public static function hrm_move_candidate($name,$email,$position_id,$name_kh,$userid){
-        return DB::select("SELECT public.insert_ma_user('$name','$email','', '',$position_id,8,16,Null,$userid,'',Null,'$name_kh','','',Null)");
+    public static function hrm_move_candidate($fname,$lname,$email,$position_id,$name_kh,$userid){
+        return DB::select("SELECT public.insert_ma_user_employee('$fname','$lname','$email','',$position_id,8,16,Null,$userid,'',Null,'$name_kh','','','',Null,Null,'','','','','','',Null,Null,Null,Null,1,Null,'','')");
     }
 
 
