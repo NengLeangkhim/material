@@ -25,7 +25,7 @@ class TrainerController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if (perms::check_perm_module('HRM_090509')) {
+        if (perms::check_perm_module('HRM_09050301')) {
             $t = new Trainer();
             $id=$_GET['id'];
             $data=array();
@@ -42,7 +42,7 @@ class TrainerController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if (perms::check_perm_module('HRM_090503')) {
+        if (perms::check_perm_module('HRM_09050301')) {
             $t = new Trainer();
             $id = $_POST['id'];
             $trainer=$_POST['trainer'];
@@ -65,7 +65,7 @@ class TrainerController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if (perms::check_perm_module('HRM_090503')) {
+        if (perms::check_perm_module('HRM_09050302')) {
             $t = new Trainer();
             $id=$_GET['id'];
             $userid = $_SESSION['userid'];
