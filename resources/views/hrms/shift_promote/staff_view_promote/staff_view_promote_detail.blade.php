@@ -44,8 +44,8 @@
                     <div class="form-inline p-2 mb-3" style="background-color:powderblue; border-radius: 5px;">
                         <label class="">Name: </label>
                         <label class="ml-5 ">{{$name}} </label>
-
                         {{-- <p class="">{{$name}}</p> --}}
+                        
                     </div>
               </div>
               <div class="row">
@@ -92,7 +92,7 @@
                   </div>
                   <div class="col-md-12">
                       <div class="form-group">
-                      <h6 >Comment</h6>
+                      <label >Comment</label>
                       <div style="padding: 15px; border: 1px solid green; border-radius: 4px;">
                           <p><?php echo $new_com; ?></p>
                       </div>

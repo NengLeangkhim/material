@@ -76,7 +76,7 @@ class ModelHrmListCandidate extends Model
                     hr_recruitment_candidate_id,hr_approval_status
             )appr on (c.id=appr.hr_recruitment_candidate_id)
             where c.is_deleted='f'
-            and ca.create_date BETWEEN '2020-09-10 00:00:00' and '2020-09-21 23:59:59'
+            and ca.create_date BETWEEN '$from 00:00:00' and '$to 23:59:59'
             group by c.id,p.name,appr.hr_approval_status,ca.is_deleted
             ");
         }

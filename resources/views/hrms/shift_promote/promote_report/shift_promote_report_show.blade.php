@@ -1,14 +1,16 @@
  
  
 
-            <div class=" table-responsive">
-                <table  id="tbl_showreport" style="width:100%" class="text-center table table-bordered table-hover" >
+            <div class="table-responsive">
+                <table  id="tbl_showreport" style="width:100%; white-space: nowrap;" class="table table-bordered table-hover " >
                     <thead>
                         <tr>
                             <th >#</th>
                             <th >Name</th>
-                            <th >Get Position</th>
-                            <th >Get Salary</th>
+                            <th >Old Position</th>
+                            <th >New Position</th>
+                            <th >Old Salary</th>
+                            <th >New Salary</th>
                             <th >Approved Date</th>
                             <th >Action</th>
                         </tr>
@@ -21,9 +23,11 @@
                                     $date = date_create($val[$i]->create_date);
                                     $approve_date = date_format($date,"Y/M/d H:i:s A");
                                         echo'<tr style="text-align: center;">
-                                                    <th >'.($i+1).'</th>
+                                                    <td >'.($i+1).'</td>
                                                     <td> '. $val[$i]->first_name_en.' '.$val[$i]->last_name_en.'</td>
+                                                    <td> Old pos</td>
                                                     <td> '. $val[$i]->position.'</td>
+                                                    <td> Old salary</td>  
                                                     <td> '. $val[$i]->salary.'</td>           
                                                     <td> '. $approve_date.'</td>
                                                     <td> 
@@ -46,14 +50,13 @@
                 </table>
             </div>
 
-            <script type="text/javascript">
-                // $(document).ready(function(){
-                //     let table = $('#tbl_showreport').DataTable({
-                //         // sDom: 'lrtip',
-                //         // targets:'no-sort',
-                //         // bSort: false,
-                //         select: true,
-                //     });   
-                // });
+            {{-- <script type="text/javascript">
 
-            </script>
+                $(document).ready(function(){
+                    
+                    $('#tbl_showreport').DataTable({
+                        "responsive": true                        
+                    });   
+                });
+
+            </script> --}}

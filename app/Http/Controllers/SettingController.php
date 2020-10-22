@@ -41,7 +41,6 @@ class SettingController extends Controller
 
             $ma="SELECT mma.id as module_id, mm.name,mm.code,mm.icon,mp.name as position,mg.name as group,mcd.name as department
             ,mu.first_name_en||' '||mu.last_name_en as user
-            -- ,mma.ma_user_id as user
                 ,case when count(mma.id) OVER (partition by mm.id)=0 then 1 else count(mma.id) OVER (partition by mm.id) end as count
             FROM ma_module mm
             left JOIN ma_module_access mma ON mm.id=mma.ma_module_id
@@ -49,7 +48,6 @@ class SettingController extends Controller
             left JOIN ma_group mg ON mg.id=mma.ma_group_id
             left JOIN ma_company_dept mcd ON mcd.id=mma.ma_company_dept_id
             left JOIN ma_user mu ON mu.id=mma.ma_user_id
-            WHERE mm.status='t'
             ORDER BY mm.id";
             $module_access=DB::select($ma);
 
@@ -60,7 +58,7 @@ class SettingController extends Controller
     }
     public function module_access_json(){
         $ma="SELECT mma.id as module_id, mm.name,mm.code,mm.icon,mp.name as position,mg.name as group,mcd.name as department
-        ,mu.first_name_en||' '||mu.last_name_en as user
+        ,mu.first_name_en||' '||mu.last_name_en as user,mma.is_deleted,mma.status
         -- ,mma.ma_user_id as user
             -- ,case when count(mma.id) OVER (partition by mm.id)=0 then 1 else count(mma.id) OVER (partition by mm.id) end as count
          FROM ma_module_access mma
@@ -69,7 +67,6 @@ class SettingController extends Controller
         left JOIN ma_group mg ON mg.id=mma.ma_group_id
         left JOIN ma_company_dept mcd ON mcd.id=mma.ma_company_dept_id
         left JOIN ma_user mu ON mu.id=mma.ma_user_id
-        WHERE mm.status='t' AND mma.is_deleted='f'
         ORDER BY mma.id";
         $module_access=array('data'=>DB::select($ma));
         echo json_encode($module_access);
@@ -194,6 +191,20 @@ class SettingController extends Controller
         $userId=$_SESSION['userid'];
         $module_access_id=$request->module_access_id;
         $sql="SELECT * FROM public.delete_ma_module_access(
+            ".$module_access_id.",
+            ".$userId."
+        )";
+        $stmt=DB::select($sql);
+        if(count($stmt)>0){
+            return json_encode($stmt);
+        }else{
+            return "Delete ma module access not success";
+        }
+    }
+    public function undelete_module_access(Request $request){
+        $userId=$_SESSION['userid'];
+        $module_access_id=$request->module_access_id;
+        $sql="SELECT * FROM public.undelete_ma_module_access(
             ".$module_access_id.",
             ".$userId."
         )";
