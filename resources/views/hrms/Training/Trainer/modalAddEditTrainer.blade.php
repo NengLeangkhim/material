@@ -22,12 +22,12 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Trainer <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="trainer" value="@php if(isset($data[0])){echo $data[0][0]->name;} @endphp">
+                  <input type="text" class="form-control" name="trainer" value="@php if(isset($data[0])){echo $data[0][0]->name;} @endphp" required>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Telephone <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="telephone" value="@php if(isset($data[0])){echo $data[0][0]->telephone;} @endphp">
+                  <input type="tel" class="form-control" name="telephone" value="@php if(isset($data[0])){echo $data[0][0]->telephone;} @endphp" required>
                 </div>
                 <!-- /.form-group -->
               </div>
@@ -54,7 +54,7 @@
               </div>
               <div class="col-md-12">
                   <div class="form-group">
-                  <label>Description <span class="text-danger">*</span></label>
+                  <label>Description</label>
                   <textarea name="description" id="" rows="5" class="form-control">@php if(isset($data[0])){echo $data[0][0]->description;} @endphp</textarea>
                 </div>
               </div>

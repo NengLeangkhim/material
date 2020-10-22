@@ -38,18 +38,18 @@
                          <td>{{$data[0][0]->schet_t_date}}</td>
                      </tr>
                      <tr>
-                         <th>Trained or Not</th>
+                         <th>Is Trained</th>
                          <th>:</th>
                          <td>@php
                              if(Str::length($data[0][0]->hrid)>0){
-                                 echo "Trained";
+                                 echo "Yes";
                              }else {
-                                 echo "Not Trained";
+                                 echo "No";
                              }
                          @endphp</td>
                      </tr>
                      <tr>
-                     <th rowspan="{{count($data[1])+1}}">Staff Trained</th>
+                     <th rowspan="{{count($data[1])+1}}">Trainee</th>
                          <th rowspan="{{count($data[1])+1}}">:</th>
                      </tr>
                      @foreach ($data[1] as $strain)
