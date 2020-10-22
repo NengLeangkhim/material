@@ -57,7 +57,7 @@
 
                 <div class="row-12">
                     <div class="form-group">
-                        <h6 >Comment</h6>
+                        <label >Comment</label>
                         <div style="padding: 15px; border: 1px solid green; border-radius: 4px;">
                             <p><?php echo $report_detail['0']->comment; ?></p>
                         </div>

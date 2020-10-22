@@ -973,9 +973,10 @@ Route::get('hrm_shift_history_listDetail','hrms\shift_promote\shift_promote_hist
 // end view history
 
 // shift promote report
-Route::get('hrm_shift_promote_report',function(){
-    return view('hrms.shift_promote.promote_report.shift_promote_report');
-});
+Route::get('hrm_shift_promote_report','hrms\shift_promote\shift_promote_reportController@selectReportPromote');
+// Route::get('hrm_shift_promote_report',function(){
+//     return view('hrms.shift_promote.promote_report.shift_promote_report');
+// });
 Route::get('hrm_shift_promote_report_search_view','hrms\shift_promote\shift_promote_reportController@promote_report_view');
 Route::get('hrm_shift_promote_report_search_view_detail','hrms\shift_promote\shift_promote_reportController@promote_report_view_detail');
 // end shift promote report
