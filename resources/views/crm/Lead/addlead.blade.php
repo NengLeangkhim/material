@@ -28,8 +28,10 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                     </div>
+                                    <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead">
                                     <select class="form-control select2" name="lead_id" id="lead_id" >
-                                    <option value='{{$_SESSION['token']}}'>-- Select Lead  --</option>                                      
+                                    {{-- <option value=''>-- Select Lead  --</option>                                       --}}
+                                    <option value=''>-- Select Lead  --</option>                                      
                                     </select>
                                    
                                 </div>
@@ -293,15 +295,42 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
-                                         <div class="col-md-6">
-                                            <label for="employee_count">Employee Count</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-user-friends"></i></span>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label for="honorifics">Prioroty</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"><i class="fas fa-industry"></i></span>
+                                                                </div>
+                                                                <select class="form-control " name="prioroty" id="prioroty" >
+                                                                    <option value=''>-- Select  Prioroty --</option>                                                                 
+                                                                    <option value='urgent'>Urgent</option>
+                                                                    <option value='high'>Hight</option>
+                                                                    <option value='medium'>Medium</option>
+                                                                    <option value='low'>Low</option>
+                                                                  
+                                                                </select>
+                                                                {{-- <span class="invalid-feedback" role="alert" id="ma_honorifics_idError"> {{--span for alert--}}
+                                                                    {{-- <strong></strong> --}}
+                                                                {{-- </span> --}}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="employee_count">Employee Count</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"><i class="fas fa-user-friends"></i></span>
+                                                                </div>
+                                                                <input type="text" class="form-control" name="employee_count" id="employee_count" placeholder="Current Speed">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <input type="text" class="form-control" name="employee_count" id="employee_count" placeholder="Current Speed">
                                             </div>
-                                        </div>
+                                        </div>                                        
                                         <div class="col-md-6">
                                             <label for="comment">Comment</label>
                                             <div class="input-group">
@@ -325,8 +354,10 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                             </div>
+                                            <input type="text" hidden value="{{$_SESSION['token']}}" id="getcontact">
                                             <select class="form-control select2" name="contact_id" id="contact_id">
-                                                <option value='{{$_SESSION['token']}}' >-- Select Contact  --</option>                                      
+                                                {{-- <option value='{{$_SESSION['token']}}' >-- Select Contact  --</option>                                       --}}
+                                                <option value=''>-- Select Contact  --</option>                                      
                                             </select>
                                            
                                         </div>
