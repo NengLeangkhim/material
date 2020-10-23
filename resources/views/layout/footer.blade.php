@@ -111,15 +111,10 @@ $(window).on('shown.bs.modal', function() {
     normalizeRTL         : true,
     paddingAbsolute      : false,
     autoUpdate           : null,
-    autoUpdateInterval   : 33, 
-    updateOnLoad         : ["img"],
+    autoUpdateInterval   : 33,
     nativeScrollbarsOverlaid : {
         showNativeScrollbars   : false,
         initialize             : true 
-    },
-    overflowBehavior : {
-        x : "scroll",
-        y : "scroll"
     },
     scrollbars : {
         visibility       : "auto",
@@ -129,11 +124,6 @@ $(window).on('shown.bs.modal', function() {
         clickScrolling   : false,
         touchSupport     : true,
         snapHandle       : false
-    },
-    textarea : {
-        dynWidth       : false,
-        dynHeight      : false,
-        inheritedAttrs : ["style", "class"]
     },
 });
 });
