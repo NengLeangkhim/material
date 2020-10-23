@@ -205,7 +205,13 @@ class TrainingList extends Model
     }
 
     public static function my_training($id){
-
+        $sql="SELECT ht.id as hrid,hts.id,htl.id as typeid,htt.id as trainerid,htl.name as type,htt.name as trainer,hts.training_date_from as schet_f_date,hts.training_date_to as schet_t_date,ht.actual_date_from as actual_f_date,ht.actual_date_to as actual_t_date,hts.status,hts.description as schet_description, ht.description as actual_description,hts.file
+            from (select * from hr_training_schedule where is_deleted='f' and status='t') as hts 
+						LEFT JOIN (select * from hr_training where status='t' and is_deleted='f' ) as ht on hts.id=ht.hr_training_schedule_id
+            JOIN (select * from hr_training_list where status='t' and is_deleted='f' ) as htl on hts.hr_training_list_id=htl.id
+            JOIN (select * from hr_training_trainer where status='t' and is_deleted='f' ) as htt on htt.id=hts.hr_training_trainer_id
+                        JOIN (SELECT * FROM hr_training_staff WHERE status='t' and is_deleted='f') as htss on htss.hr_training_id=ht.id or htss.hr_training_schedule_id=hts.id WHERE htss.ma_user_id=$id";
+        return DB::select($sql);
     }
 
     public static function training_report_search($date_from,$date_to){

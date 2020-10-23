@@ -8,7 +8,7 @@
                   <div class="row">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
-                      <select class="form-control" id="select_year" onchange="SearchPayrollByMonthYear()">
+                      <select class="form-control" id="select_year" id="payroll_list_year" onchange="SearchPayrollByMonthYear()">
                           @php
                               for($y=2013;$y<=date('Y');$y++){
                                 echo '<option value="'.$y.'">'.$y.'</option>';
@@ -17,7 +17,7 @@
                       </select>
                     </div>
                     <div class="col-md-4">
-                       <select class="form-control" id="select_month" onchange="SearchPayrollByMonthYear()">
+                       <select class="form-control" id="select_month" id="payroll_list_month" onchange="SearchPayrollByMonthYear()">
                           <option value="1">January</option>
                           <option value="2">February</option>
                           <option value="3">March</option>
@@ -80,8 +80,8 @@
                               }
                           @endphp
                           <button id="btn_{{$empayroll[0]}}" {{$disable}} style="margin-right:15px;border:none;background-color:none;color:#007bff;" href="javascrip:;" class="btn" onclick="DeleteComponent({{$empayroll[0]}},'{{$empayroll[7]}}','{{$empayroll[8]}}',{{$empayroll[9]}},'HRM_09040401')"><i class="far fa-trash-alt" ></i></button>
-                          <a style="margin-right:15px" href="javascript:;" onclick="HRM_ShowDetail('hrm_paroll_detail','modal_payrolldetail',{{$empayroll[0]}})"><i class="fas fa-info"></i></a>
-                            <button id="btn_approve_{{$empayroll[0]}}" {{$disable}} class="btn {{$bg}} btn-sm" onclick="HR_Approve_Payroll({{$empayroll[0]}},'{{$empayroll[7]}}','{{$empayroll[8]}}',{{$empayroll[9]}},'btn_approve_{{$empayroll[0]}}','btn_{{$empayroll[0]}}','HRM_09040403')">Approved</button>
+                          <a style="margin-right:15px" href="javascript:;" onclick="hrms_Payroll_List_Detail('hrm_paroll_list_detail','modal_payrolldetail',{{$empayroll[0]}})"><i class="fas fa-info"></i></a>
+                            <button id="btn_approve_{{$empayroll[0]}}" {{$disable}} class="btn {{$bg}} btn-sm" onclick="HR_Approve_Payroll({{$empayroll[0]}},'{{$empayroll[7]}}','{{$empayroll[8]}}',{{$empayroll[9]}},'btn_approve_{{$empayroll[0]}}','btn_{{$empayroll[0]}}','HRM_09040403')">Approve</button>
                         </td>
                     </tr>
                     @endforeach
