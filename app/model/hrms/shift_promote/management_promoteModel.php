@@ -118,7 +118,7 @@ class management_promoteModel extends Model
         $sql = "SELECT hs.id, s.id as ma_user_id, s.first_name_en, s.last_name_en,concat(s.first_name_en,' ',s.last_name_en) as full_en_name , p.name as position, hs.salary, hs.create_date, hs.comment FROM 
                 ((hr_shift  hs 
                 INNER JOIN ma_user s ON hs.ma_user_id = s.id) 
-                INNER JOIN ma_position p ON hs.position_id = p.id) WHERE hs.status = 't' AND hs.is_deleted = 'f' order by full_en_name ASC ";
+                INNER JOIN ma_position p ON hs.position_id = p.id) WHERE hs.status = 't' AND hs.is_deleted = 'f' order by full_en_name ASC, hs.create_date DESC ";
         $r = DB::select($sql);
         return $r; 
     }
