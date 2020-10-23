@@ -12,7 +12,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <link rel="icon" href="img/icon.png">
-  <title>Turbotech System UAT</title>
+  <title>TURBOTECH</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
