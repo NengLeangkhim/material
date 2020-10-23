@@ -21,8 +21,11 @@
     </section>  
     <section class="content">
         <div class="container-fluid">
+            <form id="frm_CrmleadEdit">
+                @csrf
             <div class="row">
                 <div class="col-md-12">
+                   
                     <div class="card">
                         <div class="card-body">
                             <div class="col-md-6">
@@ -31,23 +34,30 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                     </div>
-                                    <select class="form-control select2" name="lead_id" id="lead_id1">
-                                        <option value='{{$_SESSION['token']}}'>-- Select Lead  --</option>                                      
-                                    </select>
-                                   
+                                    <?php
+                                        for($i =0;$i<sizeof($updatelead); $i++){
+                                        ?> 
+                                            <select class="form-control select2" name="lead_id" id="lead_id">
+                                                <option value=''>-- Select Lead  --</option>   
+                                                @foreach($lead as $key)
+                                                    <option value="{{$key->id}}" {{$key->id==$updatelead[$i]['lead_id'] ? 'selected="selected"':''}}> {{$key->customer_name_en}}</option>                                                               
+                                                @endforeach                                   
+                                            </select>
+                                            <?php
+                                        }
+                                        
+                                    ?>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- left column -->
-                <div class="col-md-12">
-                    <form id="frm_CrmleadEdit">
-                        @csrf
+                <div class="col-md-12">                    
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header" style="background:#1fa8e0">
-                                <h3 class="card-title">Lead Detail</h3>
+                                <h3 class="card-title">Branch Detail</h3>
                             </div>                            
                             <div class="card-body">
                                 <?php
@@ -61,6 +71,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                         </div>
+                                                        <input type="text" class="form-control" hidden placeholder="Customer Name English" value="{{$updatelead[$i]['branch_id']}}"  name='branch_id' id="branch_id"  required>
                                                         <input type="text" class="form-control" placeholder="Customer Name English" value="{{$updatelead[$i]['company_en']}}"  name='company_en' id="company_en"  required>
                                                         <span class="invalid-feedback" role="alert" id="company_enError"> {{--span for alert--}}
                                                             <strong></strong>
@@ -204,6 +215,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fas fa-unlock"></i></span>
                                                         </div>
+                                                    <input type=" " hidden value="{{$updatelead[$i]['lead_detail_id']}}" name="lead_detail_id">
                                                         <select class="form-control" name="lead_status" id="lead_status">
                                                             <option ></option>
                                                             @foreach($lead_status as $row)
@@ -239,6 +251,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                                         </div>
+                                                        <input type="text" hidden value="{{$updatelead[$i]['lead_assig_id']}}" name="assig_to_id" id="assig_to_id">
                                                         <select class="form-control select2" name="assig_to" id="assig_to">
                                                             <option></option>
                                                             @foreach($assig_to as $row )
@@ -256,6 +269,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fab fa-speakap"></i></span>
                                                         </div>
+                                                    <input type="text" hidden value="{{$updatelead[$i]['lead_item_id'] }}" name="lead_item_id">
                                                         <select class="form-control select2bs4" name="service" id="service">
                                                             {{-- <option></option> --}}
                                                             <?php 
@@ -301,14 +315,45 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <label for="employee_count">Employee Count</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i class="fas fa-user-friends"></i></span>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label for="honorifics">Prioroty</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text"><i class="fas fa-industry"></i></span>
+                                                                        </div>
+                                                                        <select class="form-control " name="prioroty" id="prioroty" >
+                                                                            <option value=''>-- Select  Prioroty --</option>                                                                 
+                                                                            {{-- <option value='urgent'>Urgent</option>
+                                                                            <option value='high'>Hight</option>
+                                                                            <option value='medium'>Medium</option>
+                                                                            <option value='low'>Low</option> --}}
+                                                                            <option value="{{$updatelead[$i]['priority']}}"  {{$updatelead[$i]['priority']=='urgent' ? 'selected="selected"':''}}>Urgent</option>
+                                                                            <option value="{{$updatelead[$i]['priority']}}"  {{$updatelead[$i]['priority']=='high' ? 'selected="selected"':''}}>Hight</option>
+                                                                            <option value="{{$updatelead[$i]['priority']}}"  {{$updatelead[$i]['priority']=='medium' ? 'selected="selected"':''}}>Medium</option>
+                                                                            <option value="{{$updatelead[$i]['priority']}}"  {{$updatelead[$i]['priority']=='low' ? 'selected="selected"':''}}>Low</option>
+                                                                          
+                                                                        </select>
+                                                                        {{-- <span class="invalid-feedback" role="alert" id="ma_honorifics_idError"> {{--span for alert--}}
+                                                                            {{-- <strong></strong> --}}
+                                                                        {{-- </span> --}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label for="employee_count">Employee Count</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text"><i class="fas fa-user-friends"></i></span>
+                                                                        </div>
+                                                                        <input type="text" class="form-control" name="employee_count" id="employee_count"  value="{{$updatelead[$i]['employee_count']}}" placeholder="Current Speed">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <input type="text" class="form-control" name="employee_count" id="employee_count"  value="{{$updatelead[$i]['employee_count']}}" placeholder="Current Speed">
                                                     </div>
-                                                </div>
+                                                </div>  
                                                 <div class="col-md-6">
                                                     <label for="comment">Comment</label>
                                                     <div class="input-group">
@@ -326,6 +371,41 @@
                             </div>  
                         </div>
                         <div class="card card-primary">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="row">
+                                       <div class="col-md-6">
+                                        <label for="contact">Search Contact<b style="color:red">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user-check"></i></span>
+                                            </div>
+                                            <input type="text" hidden value="{{$_SESSION['token']}}" id="getcontact">
+                                            <?php
+                                                for($i =0;$i<sizeof($updatelead); $i++){
+                                                ?> 
+                                                    <select class="form-control select2" name="contact_id" id="contact_id">
+                                                        <option value=''>-- Select Contact  --</option> 
+                                                        <?php 
+                                                            for($j=0; $j<sizeof($contact); $j++){
+                                                                ?>
+                                                                    <option value="{{$contact[$j]['id']}}" {{$contact[$j]['id']==$updatelead[$i]['contact_id'] ? 'selected="selected"':''}}> {{$contact[$j]['name_en']}}</option>                                                               
+                                                       
+                                                                <?php
+                                                            }
+                                                        ?>                                     
+                                                    </select>
+                                                    <?php
+                                                }
+                                                
+                                            ?>                                           
+                                        </div>
+                                       </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-primary">
                             <div class="card-header" style="background:#1fa8e0">
                                 <h3 class="card-title">Contact Detail</h3>
                             </div>                            
@@ -341,6 +421,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                         </div>
+                                                        <input type="text" class="form-control" hidden value="{{$updatelead[$i]['lead_con_bran_id']}}"  name='lead_con_bran_id' id="lead_con_bran_id" >
                                                         <input type="text" class="form-control" placeholder="Frist Name"  value="{{$updatelead[$i]['name_kh_contact']}}"  name='name_kh' id="name_kh" >
                                                         <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
                                                             <strong></strong>
@@ -402,9 +483,13 @@
                                                                             <span class="input-group-text"><i class="fas fa-industry"></i></span>
                                                                         </div>
                                                                         <select class="form-control " name="ma_honorifics_id" id="ma_honorifics_id" >
-                                                                            <option value=''>-- Select Contact Honorifics --</option>                                                                 
-                                                                            <option value='1'>Mr</option>
-                                                                            <option value='2'>Ms</option>
+                                                                            <option value=''>-- Select Contact Honorifics --</option>      
+                                                                               
+                                                                             @foreach($honorifics as $row )
+                                                                                <option value="{{$row->id}}" {{$row->lead_name==$updatelead[$i]['gender'] ? 'selected="selected"':''}}> {{$row->lead_name}}</option>                                                               
+                                                                            @endforeach                                      
+                                                                            {{-- <option value='1'>Mr</option>
+                                                                            <option value='2'>Ms</option> --}}
                                                                           
                                                                         </select>
                                                                         {{-- <span class="invalid-feedback" role="alert" id="ma_honorifics_idError"> {{--span for alert--}}
@@ -461,6 +546,7 @@
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                                                     </div>
+                                                                                     <input type="text" hidden value="{{$updatelead[$i]['lead_address_id']}}" id='address_id' name='address_id'>
                                                                                     <input type="text" class="form-control"  name='home_en' value="{{$updatelead[$i]['home_en']}}" id="home_en" placeholder="Number of home"  >
                                                                                     <span class="invalid-feedback" role="alert" id="home_enError"> {{--span for alert--}}
                                                                                         <strong></strong>
@@ -628,51 +714,68 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
-                                                        <button type="button" class="btn btn-primary" id="frm_btn_sub_addlead" onclick="CrmSubmitFormFull('frm_CrmleadEdit','/lead/update','/lead','Insert Successfully')">Save</button>
+                                                        <button type="button" class="btn btn-primary" id="frm_btn_sub_addlead" onclick="CrmSubmitFormFull('frm_CrmleadEdit','/lead/update','/lead','Update Successfully')">Update</button>
                                                         <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
                                                     </div>
                                                 </div>                            
-                                </form>
+                               
                             </div>
                         <?php
                     }
                 ?>
             </div>
+        </form>
         </div>
     </section>
 
     <script type="text/javascript">
-    // get  lead in  selection  in edit branch
-    // $('#clicklead').change(function(){
-    //     alert();
-    // });
-    $('#lead_id1').ready(function(){
-            // $('#lead_id').find('option').not(':first').remove();
-            // $token = $_SESSION['token'];
-            var myvar= $( "#lead_id1" ).val();
-           
-           
-                $.ajax({
-                    url:'api/getlead',
-                    type:'get',
-                    dataType:'json',
-                    headers: {
-                      'Authorization': `Bearer ${myvar}`,
-                  },              
-                    success:function(response){                  
-                            for(var i=0; i<response['data'].length ;i++){
-                                var id = response['data'][i].lead_id;
-                                var name = response['data'][i].customer_name_en;
-                                // alert(name);
-                                var option = "<option value='"+id+"'>"+name+"</option>"; 
+    
+    $( "#contact_id" ).change(function() {
+          var to = $(this). children("option:selected"). val();
+          var myvar= $( "#getcontact" ).val();
+        //   alert(to);
+          $.ajax({
+            url:'/api/contact/'+to,
+            type:'get',
+            dataType:'json',
+            headers: {
+              'Authorization': `Bearer ${myvar}`,
+          },
+            success:function(response){
+      
+                        var name_en = response['data'].name_en;
+                        var name_kh = response['data'].name_kh;             
+                        var email = response['data'].email;             
+                        var phone = response['data'].phone;             
+                        var national_id = response['data'].national_id;             
+                        var position = response['data'].position;             
+                        var honorifics = response['data'].honorifics.name_en;  
+                        var honorifics_id = response['data'].honorifics.id;  
+                        // alert(honorifics);           
+                        $("#name_en").val(name_en); 
+                        $("#name_kh").val(name_kh); 
+                        $("#email").val(email); 
+                        $("#phone").val(phone); 
+                        $("#national_id").val(national_id); 
+                        $("#position").val(position); 
+                        // $("#ma_honorifics_id").val(honorifics); 
+                        var option = "<option value='"+honorifics_id+" 'selected>"+honorifics+"</option>"; 
   
-                                $("#lead_id1").append(option); 
-                            }
-                  
-                    }
-                })
-            })
-            $('.lead').click(function(e)
+                       $("#ma_honorifics_id").append(option); 
+
+                        // $('#name_en').prop('readonly', true);
+                        // $('#name_kh').prop('readonly', true);
+                        // $('#email').prop('readonly', true);
+                        // $('#phone').prop('readonly', true);
+                        // $('#national_id').prop('readonly', true);
+                        // $('#position').prop('readonly', true);
+                        // $('#ma_honorifics_id').attr('disabled', true);
+               
+          
+            }
+        })
+        });
+            $('.lead ').click(function(e)
             {
                 var ld = $(this).attr("​value");
                 e.preventDefault();  
