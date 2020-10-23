@@ -18,6 +18,7 @@ class LeadBranch extends JsonResource
             "id"=> $this->id,
             "name"=>$this->name,
             "company"=>$this->company,
+            "ma_company_branch_id"=>$this->ma_company_branch_id,
         ];
     }
 }

@@ -68,7 +68,12 @@ class TrainingListController extends Controller
             $file= $_FILES['document']['tmp_name'];
             $description=$_POST['description'];
             $namefile=$_POST['namefile'];
-            $chech_status=$_POST['schet_status'];
+            if(isset($_POST['schet_status'])){
+                $chech_status=$_POST['schet_status'];
+            }else{
+                $chech_status='t';
+            }
+            
             $staff=array();
             if(isset($_POST['check'])) {
                 $staff = $_POST['check'];
