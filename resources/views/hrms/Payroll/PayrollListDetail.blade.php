@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="card card-default">
           <div class="card-header">
-            <h3 class="card-title hrm-title"><strong>Payroll Detail</strong></h3>
+            <h3 class="card-title hrm-title"><strong>Payroll List Detail</strong></h3>
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="remove" data-dismiss="modal"><i class="fas fa-times"></i></button>
             </div>
@@ -84,36 +84,6 @@
                                                         <td class="col-md-3"><i class="fa fa-inr"></i>$ 10</td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-right">
-                                                        <p>
-                                                            <strong>Total Amount: </strong>
-                                                        </p>
-                                                        <p>
-                                                            <strong>Late Fees: </strong>
-                                                        </p>
-                                                        <p>
-                                                            <strong>Payable Amount: </strong>
-                                                        </p>
-                                                        <p>
-                                                            <strong>Balance Due: </strong>
-                                                        </p>
-                                                        </td>
-                                                        <td>
-                                                        <p>
-                                                            <strong><i class="fa fa-inr"></i>$ 65,500</strong>
-                                                        </p>
-                                                        <p>
-                                                            <strong><i class="fa fa-inr"></i>$ 500</strong>
-                                                        </p>
-                                                        <p>
-                                                            <strong><i class="fa fa-inr"></i>$ 1300</strong>
-                                                        </p>
-                                                        <p>
-                                                            <strong><i class="fa fa-inr"></i>$ 9500</strong>
-                                                        </p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
                                                     
                                                         <td class="text-right"><h2><strong>Total: </strong></h2></td>
                                                         <td class="text-left text-danger"><h2><strong> 31.566</strong></h2></td>
@@ -143,10 +113,6 @@
                                             </div>
                                         </div>
                             </div>
-                        </div>
-                        <div class="col-md-12 text-right" style="margin-top: 20px">
-                            <button class="btn btn-default bg-turbo-color" onclick="PrintDiv('payslipPrint')">Print</button>
-                            <button class="btn btn-danger">Cancel</button>
                         </div>
 					</div>
 					<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">

@@ -123,7 +123,8 @@ class TrainingListController extends Controller
     function my_training(){
         session_start();
         $userid = $_SESSION['userid'];
-        return view('hrms/Training/my_training');
+        $training=TrainingList::my_training($userid);
+        return view('hrms/Training/my_training')->with('training',$training);
     }
 
     function training_report_search(){

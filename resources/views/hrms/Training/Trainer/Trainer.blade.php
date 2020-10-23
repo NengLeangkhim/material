@@ -42,8 +42,8 @@
                         <td>{{$trainer->description}}</td>
                             <td>
                                 <div class="row">
-                                    <div class="col-md-6"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_modal_add_edit_trainer','modal_trainer',{{$trainer->id}})"><i class="far fa-edit"></i></a></div>
-                                    <div class="col-md-6"><a href="javascrip:;" onclick="hrm_delete_data({{$trainer->id}},'hrm_delete_trainer','hrm_trainer','Trainer Delete Successfully','HRM_09050302')"><i class="far fa-trash-alt" onclick=""></i></a></div>
+                                    <div class="col-md-6"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_modal_add_edit_trainer','modal_trainer',{{$trainer->id}})"><i class="far fa-edit"></i></a></div>
+                                    <div class="col-md-6"><a href="javascript:;" onclick="hrm_delete_data({{$trainer->id}},'hrm_delete_trainer','hrm_trainer','Trainer Delete Successfully','HRM_09050302')"><i class="far fa-trash-alt" onclick=""></i></a></div>
                                 </div>
                             </td>
                         </tr>
