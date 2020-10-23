@@ -34,75 +34,11 @@
                                         <th scope=" ">Action</th>
                                     </tr>
                                 </thead>
-                                {{-- <tbody>
-                                    
-                                    @php
-                                        $data = 'data';
-                                        $i = 0;
-                                        if(is_array($allstaffpromote))
-                                        {
-                                            foreach($allstaffpromote as $key=>$val)
-                                            {   
-                                                $date = date_create($val->create_date);
-                                                $approve_date = date_format($date,"Y/M/d H:i:s A");
-                                
-
-                                                echo '
-                                                    <tr>
-                                                        <td >'.($i+1).'</td>
-                                                        <td>'.$val->first_name_en.' '.$val->last_name_en.'</td>
-                                                        <td>'.$val->ma_user_id.'</td>
-                                                        <td>'.$val->position.'</td>
-                                                        <td>'.$val->salary.'</td>
-                                                        <td>'.$approve_date.'</td>
-                                                        <td>
-                                                            <div style="text-align: center;">
-                                                                <a  href="javascript:void(0);" onclick="list_staff_promote_hisotry('.$val->ma_user_id.','.$i.')">
-                                                                    <span ><img src="/img/icons/plus_icon1.png" style="width: 22px; hight: 22px;"></span>
-                                                                </a>
-                                                        
-                                                                <a  href="javascript:void(0);" onclick="exit_list_history('.$i.')">
-                                                                    <span ><img src="/img/icons/subtract_icon1.png" style="width: 25px; hight: 25px;"></span>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td >'.$data.'</td>
-                                                        <td>'.$data.'</td>
-                                                        <td>'.$data.'</td>
-                                                        <td>'.$data.'</td>
-                                                        <td>'.$data.'</td>
-                                                        <td>'.$data.'</td>
-                                                        <td>
-                                                            <div style="text-align: center;">
-                                                                <a  href="javascript:void(0);" onclick="list_staff_promote_hisotry('.$data.','.$data.')">
-                                                                    <span ><img src="/img/icons/plus_icon1.png" style="width: 22px; hight: 22px;"></span>
-                                                                </a>
-                                                        
-                                                                <a  href="javascript:void(0);" onclick="exit_list_history('.$data.')">
-                                                                    <span ><img src="/img/icons/subtract_icon1.png" style="width: 25px; hight: 25px;"></span>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                ';
-                                            $i++;
-                                            }
-                                        } 
-                        
-                                    @endphp
-        
-        
-                                </tbody> --}}
+    
 
                                 <tbody>
-                                        
                                         @if(is_array($allstaffpromote))
-                                                  
                                             @foreach($allstaffpromote as $key=>$val)
-                                                    
                                                     <?php
                                                         $date = date_create($val->create_date);
                                                         $approve_date = date_format($date,"Y/M/d H:i:s A");

@@ -19,14 +19,40 @@
                     </div>
                     <div class="card-body">
                             <div class="row" style="margin-top:1%">
-                                <p class="word-tbody col-1 text-center">From</p>
-                                <input type="date" name="" id="date_from" class="form-control col-3" value="<?php echo $f = date('Y-m-d'); ?>" >
-                                <p class="word-tbody col-1 text-center">To</p>
-                                <input type="date" name="" id="date_to" class="form-control col-3" value="<?php echo date('Y-m-d'); ?>" >
-                                <div class="btn-cover">
-                                        {{-- <a class="btn btn_search_report" href='javascript:void(0);' onclick= "get_shift_report(document.getElementById('date_from').value, document.getElementById('date_to').value );"><i class="fa fa-search"></i> Search</a> --}}
-                                        <a class="btn btn-info" href='javascript:void(0);' onclick= "get_shift_report(document.getElementById('date_from').value, document.getElementById('date_to').value );"><i class="fa fa-search"></i> Search</a>
 
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 form-inline p-2">
+                                            <label class="">From
+                                                <input type="date" name="" id="date_from" class="ml-2 form-control " value="<?php echo $f = date('Y-m-d'); ?>" >
+                                            </label>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 form-inline p-2">
+                                            <label class="">To
+                                                <input type="date" name="" id="date_to" class="ml-2 form-control" value="<?php echo date('Y-m-d'); ?>" >
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="row">
+                                        <div class="p-2 col-md-6  col-sm-6">
+                                            <select id="department_id" class="form-control">
+                                                <option value="">All Department</option>
+                                                @if(isset($dept))
+                                                    @foreach($dept as $key=>$val)
+                                                        <option value="{{$val->id}}">{{$val->name}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
+                                        <div class="p-2 col-md-6 col-sm-6">
+                                            <div class="btn-cover">
+                                                <a class="btn btn-info" href='javascript:void(0);' onclick= "get_shift_report(document.getElementById('date_from').value, document.getElementById('date_to').value);"><i class="fa fa-search"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div><br>
 

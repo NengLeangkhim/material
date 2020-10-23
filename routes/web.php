@@ -141,6 +141,7 @@ Route::post('update/module','SettingController@update');
 Route::post('access/add','SettingController@add_module_access');
 Route::get('access/json','SettingController@module_access_json');
 Route::post('module/delete','SettingController@delete_module_access');
+Route::post('module/undelete','SettingController@undelete_module_access');
 
 // leave type
 Route::get('leave_type', 'Setting\LeaveType\LeaveTypeController@leave_type')->name('leave_type');
@@ -979,9 +980,10 @@ Route::get('hrm_shift_history_listDetail','hrms\shift_promote\shift_promote_hist
 // end view history
 
 // shift promote report
-Route::get('hrm_shift_promote_report',function(){
-    return view('hrms.shift_promote.promote_report.shift_promote_report');
-});
+Route::get('hrm_shift_promote_report','hrms\shift_promote\shift_promote_reportController@selectReportPromote');
+// Route::get('hrm_shift_promote_report',function(){
+//     return view('hrms.shift_promote.promote_report.shift_promote_report');
+// });
 Route::get('hrm_shift_promote_report_search_view','hrms\shift_promote\shift_promote_reportController@promote_report_view');
 Route::get('hrm_shift_promote_report_search_view_detail','hrms\shift_promote\shift_promote_reportController@promote_report_view_detail');
 // end shift promote report

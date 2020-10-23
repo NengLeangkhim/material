@@ -15,7 +15,11 @@
 
     
 <section class="content">
-
+<style>
+    .table td, .table th {
+        padding: .6rem !important;
+    }   
+</style>  
 <div id="prmote_modal_id">
 </div>
 <div style="padding:10px 10px 10px 10px">

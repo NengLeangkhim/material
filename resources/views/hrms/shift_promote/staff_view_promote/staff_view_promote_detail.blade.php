@@ -4,24 +4,24 @@
 
 
     // code to get old position & new position to staff viewer
-    $i = 0;
-    foreach ($view_promote_detail as $key => $val) {
-        $name = $val->first_name_en." ".$val->last_name_en;
-        if($i == count($view_promote_detail)-1){
-            $new_pos = $val->position_name;
-            $new_sal = $val->salary;
-            $new_com = $val->comment;
-            $date = date_create($val->create_date);
-            $approve_date = date_format($date,"Y/M/d H:i:s A");
-        }
+    // $i = 0;
+    // foreach ($view_promote_detail as $key => $val) {
+    //     $name = $val->first_name_en." ".$val->last_name_en;
+    //     if($i == count($view_promote_detail)-1){
+    //         $new_pos = $val->position_name;
+    //         $new_sal = $val->salary;
+    //         $new_com = $val->comment;
+            // $date = date_create($val->create_date);
+    //         $approve_date = date_format($date,"Y/M/d H:i:s A");
+    //     }
 
-        if($i == count($view_promote_detail)-2){
-            $old_pos = $val->position_name;
-            $old_sal = $val->salary;
-        }
-        $i++;
+    //     if($i == count($view_promote_detail)-2){
+    //         $old_pos = $val->position_name;
+    //         $old_sal = $val->salary;
+    //     }
+    //     $i++;
        
-    }
+    // }
 
 ?>
 
@@ -39,65 +39,63 @@
           </div>
           <div class="modal-body">
           {{-- <form action="../controller/shift_promote/promote_update.php" method="POST"> --}}
-              <div class="row-12" style=" border-radius: 5px;">
-                 
-                    <div class="form-inline p-2 mb-3" style="background-color:powderblue; border-radius: 5px;">
-                        <label class="">Name: </label>
-                        <label class="ml-5 ">{{$name}} </label>
-
-                        {{-- <p class="">{{$name}}</p> --}}
+                <div class="row">
+                    <div class="col-12 pb-3">
+                        <div class="form-control back-color-blue btn-info">
+                                <label class="">Name: </label>
+                                <label class="pl-4 ">{{$promote_detail[0]->first_name_en." ".$promote_detail[0]->last_name_en}} </label>
+                        </div>
                     </div>
-              </div>
-              <div class="row">
-  
-                  <!-- Display Old Position -->
-                  <div class="col-lg-6 col-md-6">
-                          
-                          <div class="form-group">
-                              <label for="exampleInputEmail1">Old Position <span class="text-danger">   </span>
-                              </label>
-                                  <?php
-                                       
-                                      echo ' <input type="text" class="form-control" value="'.$old_pos.'" placeholder="" name="nameshow" readonly>';
-                                  ?>
-                      </div>
-                      <div class="form-group">
-                          <label for="exampleInputEmail1">Salary<span class="text-danger">   </span>
-                          </label>
-                          <input type="text" class="form-control" value="<?php echo $old_sal;  ?>" placeholder="" name="salaryshow" readonly>
-                      </div>
-                  </div>
-                  <!-- Display New Position -->
-                  <div class="col-lg-6 col-md-6">
-                          <!-- <div class=" text-center modal-header title_promote ">
-                              <p class="modal-title" id="">New Position</p>
-                          </div> -->
-                          <div class="form-group">
-                              <label for="exampleInputEmail1">To Position <span class="text-danger">   </span>
-                              </label>
-                              <input type="text" class="form-control" value="<?php echo $new_pos; ?>" placeholder="" name="" readonly >
-                              
-                      </div>
-                      <div class="form-group">
-                          <label for="exampleInputEmail1">To Salary<span class="text-danger">   </span>
-                          </label>
-                          <input type="text" class="form-control" value="<?php echo $new_sal; ?>" readonly>
-                      </div>
-                      <div class="form-group">
-                          <label for="exampleInputEmail1">Approved Date<span class="text-danger">   </span>
-                          </label>
-                          <input type="text" class="form-control" value="<?php echo $approve_date; ?> " readonly>
-                      </div>
-                      
-                  </div>
-                  <div class="col-md-12">
-                      <div class="form-group">
-                      <h6 >Comment</h6>
-                      <div style="padding: 15px; border: 1px solid green; border-radius: 4px;">
-                          <p><?php echo $new_com; ?></p>
-                      </div>
-                  </div>
-              </div>
+                </div>
+                <div class="row">
+    
+                    <!-- Display Old Position -->
+                    <div class="col-lg-6 col-md-6">
+                            
+                            <div class="form-group">
+                                    <label for="exampleInputEmail1">Old Position <span class="text-danger">   </span>
+                                    </label>
+                                    <input type="text" class="form-control" value="@if(!empty($old_position)){{$old_position[0]->old_position}} @endif" placeholder="" name="nameshow" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Salary<span class="text-danger">   </span>
+                            </label>
+                                <input type="text" class="form-control" value="{{$promote_detail[0]->old_salary}}" placeholder="" name="salaryshow" readonly>
+                        </div>
+                    </div>
+                    <!-- Display New Position -->
+                    <div class="col-lg-6 col-md-6">
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">To Position <span class="text-danger">   </span>
+                                </label>
+                                <input type="text" class="form-control" value="{{$promote_detail[0]->position_name}}" placeholder="" name="" readonly >
+                                
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">To Salary<span class="text-danger">   </span>
+                            </label>
+                            <input type="text" class="form-control" value="{{$promote_detail[0]->salary}}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Approved Date<span class="text-danger">   </span>
+                            </label>
+                            <?php
+                                    $date = date_create($promote_detail[0]->create_date);
+                                    $approve_date = date_format($date,"Y/M/d H:i:s A");
+                            ?>
+                            <input type="text" class="form-control" value="{{$approve_date}}" readonly>
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                        <label >Comment</label>
+                        <div style="padding: 15px; border: 1px solid green; border-radius: 4px;">
+                            <p>{{$promote_detail[0]->comment}}</p>
+                        </div>
+                    </div>
+                </div>
           {{-- </form> --}}
           </div>
       </div>
