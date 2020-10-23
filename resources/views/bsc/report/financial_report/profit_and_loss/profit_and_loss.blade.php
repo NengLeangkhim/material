@@ -68,18 +68,7 @@
             </div>
             <hr>
             <div class="is-report-body">
-                <div id="income-section">
-                    {{-- <h4>Income Section</h4>
-                    <div class="income-body">
-                        <div class="income-list">
-                            <div class="row justify-content-between">
-                                <div class="income-name col-6">First Income</div>
-                                <div class="income-value col-2">100</div>
-                                <div class="income-value col-2">200</div>
-                            </div>
-                        </div>
-                    </div> --}}
-                </div>
+                <div id="income-section"></div>
                 <hr>
                 <div id="cogs-section"></div>
                 <hr>
@@ -87,7 +76,7 @@
                 <hr>
                 <div id="expense-section"></div>
                 <hr>
-                <div id="net-section"></div>
+                <div id="net-income-section"></div>
 
             </div>
             <div class="is-report-footer">
@@ -105,33 +94,136 @@
                 type: 'GET',
                 data: {
                     type : 1,
-                    comparison : 3,
-                    fromDate : '2020-09-01',
-                    toDate : '2020-09-31'
+                    comparison : 5,
+                    fromDate : '2020-10-01',
+                    toDate : '2020-10-30'
                 },
                 success: function(data){
-                    // console.log(data)
-                    /*
-                    |12-num|1|1|1|1|
-                    */
-                    // for(i=0; i<data.header.comparison + 1, i++) {
+                    console.log(data)
+                    var n = data.data.header.comparison;
+                    console.log(n)
+                    for(var i=0; i<=n; i++) {
+                        var d = data.data.body[i]
+                        switch(i) {
+                            case 0 :
+                                $('#income-section').replaceWith(`
+                                    <h4>Income Section</h4>
+                                    <div class="income-body">
+                                        ${d.body.income_list.map(e=>
+                                        `
+                                            <div class="income-list row">
+                                                <div class="income-name-${e.id} col-6">${e.name_en}</div>
+                                                <div class="income-value col-2 text-right">${e.total_debit}</div>
+                                            </div>
+                                        `).join("")}
+                                        ${d.body.total_income.map(e=>
+                                        `
+                                            <div class="income-list row">
+                                                <div class="income-total-${e.currency} col-6 bold">Total Income ${e.currency}</div>
+                                                <div class="income-value col-2 bold text-right">${e.value}</div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                `);
+                                $('#cogs-section').replaceWith(`
+                                    <h4>SOGS Section</h4>
+                                    <div class="cogs-body">
+                                        ${d.body.cogs_list.map(e=>
+                                        `
+                                            <div class="income-list row">
+                                                <div class="income-name-${e.id} col-6">${e.name_en}</div>
+                                                <div class="income-value col-2 text-right">${e.total_debit}</div>
+                                            </div>
+                                        `).join("")}
+                                        ${d.body.total_cogs.map(e=>
+                                        `
+                                            <div class="income-list row">
+                                                <div class="income-total-${e.currency} col-6 bold">Total Income ${e.currency}</div>
+                                                <div class="income-value col-2 bold text-right">${e.value}</div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                `);
+                                $('#gross-profit-section').replaceWith(`
+                                    <h4>Gross Profit Section</h4>
+                                    <div class="gross-profit-body">
+                                        ${d.body.gross_profit.map(e=>
+                                        `
+                                            <div class="income-list row">
+                                                <div class="income-total-${e.currency} col-6 bold">Total Income ${e.currency}</div>
+                                                <div class="income-value col-2 bold text-right">${e.value}</div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                `);
+                                $('#expense-section').replaceWith(`
+                                    <h4>Expense Section</h4>
+                                    <div class="cogs-body">
+                                        ${d.body.expense_list.map(e=>
+                                        `
+                                            <div class="income-list row">
+                                                <div class="income-name-${e.id} col-6">${e.name_en}</div>
+                                                <div class="income-value col-2 text-right">${e.total_debit}</div>
+                                            </div>
+                                        `).join("")}
+                                        ${d.body.total_expense.map(e=>
+                                        `
+                                            <div class="income-list row">
+                                                <div class="income-total-${e.currency} col-6 bold">Total Income ${e.currency}</div>
+                                                <div class="income-value col-2 bold text-right">${e.value}</div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                `);
+                                $('#net-income-section').replaceWith(`
+                                    <h4>Net Income Section</h4>
+                                    <div class="gross-profit-body">
+                                        ${d.body.net_income.map(e=>
+                                        `
+                                            <div class="income-list row">
+                                                <div class="income-total-${e.currency} col-6 bold">Total Income ${e.currency}</div>
+                                                <div class="income-value col-2 bold text-right">${e.value}</div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                `);
 
-                    // }
-                    var data_1 = data.data.body[0]
-                    console.log(data_1)
 
-                    $('#income-section').append(''+
-                    '<h4>Income Section</h4>' +
-                    '<div class="income-body">' +
-                        '<div class="income-list">' +
-                            '<div class="row justify-content-between">' +
-                                '<div class="income-name col-6">First Income</div>' +
-                                '<div class="income-value col-2">100</div>' +
-                                '<div class="income-value col-2">200</div>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>'
-                    +'');
+                                // ${d.body.total_income.each(e=>``).join('')}
+                                // var total_income = d.body.total_income
+                                // for(var k in total_income){
+                                //     $('.income-body').append(`
+                                //     <div class="income-list row">
+                                //         <div class="income-total-${k} col-6">Total Income ${k}</div>
+                                //         <div class="income-total-${k} col-2">${total_income[k]}</div>
+                                //     </div>`)
+                                // }
+                            break;
+                            default :
+                                // Check Previous Data First.
+                                // Add Income List
+
+                        }
+
+                    }
+                    // .forEach(e => {
+                    //     $('.income-body').append(`<div class="income-list row"><div class="income-name-${e.id} col-6">${e.name_en}</div><div class="income-value col-2">${e.total_credit}</div></div>`)
+                    // });
+                    //     ''+
+                    // '<h4>Income Section</h4>' +
+                    // '<div class="income-body">' +
+                    //     '<div class="income-list">' +
+                    //         '<div class="row justify-content-between">' +
+                    //             '<div class="income-name col-6">First Income</div>' +
+                    //             '<div class="income-value col-2">100</div>' +
+                    //         '</div>' +
+                    //         '<div class="row justify-content-between">' +
+                    //             '<div class="income-name col-6">First Income</div>' +
+                    //             '<div class="income-value col-2">100</div>' +
+                    //         '</div>' +
+                    //     '</div>' +
+                    // '</div>'
+                    // +'');
                     /*
                         data [
                             {
@@ -176,6 +268,9 @@
                             }
                         ]
                     */
+                },
+                fail : function(){
+                    alert("ERROR")
                 },
                 dataType: "JSON"
             });

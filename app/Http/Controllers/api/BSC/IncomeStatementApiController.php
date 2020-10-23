@@ -152,6 +152,7 @@ class IncomeStatementApiController extends Controller
     }
 
     protected function getTotalSameCurrency($value = []){
+        $result = [];
         $total = [];
         foreach($value as $val){
             $str = $val->currency_name_en;
@@ -162,19 +163,24 @@ class IncomeStatementApiController extends Controller
                 $total[$str] += $val->total_debit;
             }
         }
-        return $total;
+        foreach($total as $k => $val) {
+            array_push($result, ['currency' => $k, 'value' => $val]);
+        }
+        return $result;
     }
 
     // MARK: - total = firstValue - secondValue
     protected function getTotalSubstraction($firstValue = [], $secondValue = []){
-        foreach($secondValue as $sKey => $sv){
-            try{
-                $firstValue[$sKey] = $firstValue[$sKey] - $sv;
-            } catch(Exception $e){
-                $firstValue[$sKey] = $sv;
+        $result = [];
+        foreach($firstValue as $f){
+            foreach($secondValue as $s){
+                if($f['currency'] == $s['currency']) {
+                    $s['value'] = $f['value'] - $s['value'];
+                    array_push($result, ['currency' => $f['currency'], 'value' => $s['value']]);
+                }
             }
         }
-        return $firstValue;
+        return $result;
     }
 
 }
