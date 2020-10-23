@@ -287,6 +287,65 @@ function hrm_training_checkAll(ele) {
         newWin.print();
         newWin.close();
     }
+
+
+    // Payroll List Detail
+    function hrms_Payroll_List_Detail(rout,modalName,id=-1,modal=''){
+    if(check_session()){
+      return;
+    }
+    var year=$('#payroll_list_year').val();
+    var month=$('#payroll_list_month').val();
+    $.ajax({
+        type: 'GET',
+        url: rout,
+        data: {
+            _token: '<?php echo csrf_token() ?>',
+            id: id
+        },
+        success: function (data) {
+            document.getElementById('modal').innerHTML = data;
+            $('#'+modalName).modal('show');
+            if(modal.length>0){
+                $('#'+modal).DataTable({
+                });
+            }
+        }
+    });
+}
+    function hrms_Payroll_List_Details(id,modal,permission){
+        if(check_session()){
+            return;
+        }
+        $.ajax({
+            type: 'GET',
+            url: 'hrm_delete_data',
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                perm: permission
+            },
+            success: function (data) {
+                if (data == '1') {
+                    var year=$('#payroll_list_year').val();
+                    var month=$('#payroll_list_month').val();
+                    $.ajax({
+                        type:'GET',
+                        url:'hrm_paroll_list_detail',
+                        data:{
+                            _token:'<?php echo csrf_token() ?>',
+                            user_id:id
+                        },
+                        success: function(data){
+                            $('#modal').innerHTML(data);
+                            $('#'+modal).modal('show');
+                        }
+                    });
+                } else {
+                    alert('No Permission');
+                }
+            }
+        });
+    }
     // HR Approve Payroll to Finance
     function HR_Approve_Payroll(id,d_from,d_to,month,e,btn,permission){
         if(check_session()){
@@ -305,11 +364,11 @@ function hrm_training_checkAll(ele) {
                     Swal.fire({ //get from sweetalert function
                         title: 'Are you sure?',
                         text: "You won't be able to revert this!",
-                        icon: 'warning',
+                        icon: 'info',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
+                        confirmButtonText: 'Yes,Approve it!'
                     }).then((result) => {
                         if (result.value) {
                             $.ajax({
@@ -323,7 +382,7 @@ function hrm_training_checkAll(ele) {
                                 },
                                 type: "GET",    //Using of Post method for send data
                                 success: function (data) {
-                                    // setTimeout(function () { go_to(goto); }, 300);// Set timeout for refresh content
+                                    setTimeout(function () { go_to('hrm_payroll_list'); }, 300);// Set timeout for refresh content
                                     Swal.fire(
                                         'Deleted!',
                                         'Delete Successfully',

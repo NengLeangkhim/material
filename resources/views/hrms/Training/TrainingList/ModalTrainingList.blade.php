@@ -87,7 +87,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                     <label>Is Trained <span class="text-danger">*</span></label>
-                    <select name="schet_status" id="hrm_trained_or_not" class="form-control" onchange="HRM_TrainedOrNot(this)">
+                    <select name="schet_status" id="hrm_trained_or_not" class="form-control" onchange="HRM_TrainedOrNot(this)" @php if(isset($data[2])==true && Str::length($data[2][0]->hrid)>0){echo 'disabled';} @endphp>
                       @php
                         if(isset($data[2])){
                           if(Str::length($data[2][0]->hrid)>0){

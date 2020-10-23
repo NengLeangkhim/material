@@ -1136,6 +1136,7 @@ $(document).on('click', '.hrm_view_perform_plan_detail', function(){
 ////===== Performance Schedule =====////////
  //function show modal add
  function HrmAddSchedule(){
+   $('.select2').select2();
   $('#hrm_perform_schedule_modal').modal('show');
   //performance plan
   $('#plan_schedule').val('');
