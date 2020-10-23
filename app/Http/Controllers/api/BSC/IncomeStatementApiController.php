@@ -183,4 +183,37 @@ class IncomeStatementApiController extends Controller
         return $result;
     }
 
+    private function mergeTwoArray($firstValue, $secondValue){
+
+    }
+
+    private function mergeArray($firstValue = []){
+        foreach($firstValue as $key => $value){
+            try {
+                foreach($value as $k => $val){
+                    $value[$k] = [
+                        'id'=>$val->id,
+                        'name_en' => $val->name_en,
+                        'name_kh' => $val->name_kh,
+                        'value' => [
+                            'ma_currency_id' => $val->ma_currency_id,
+                            'currency_name_en' => $val->currency_name_en,
+                            'currency_name_kh' => $val->currency_name_kh,
+                            'total_debit' => $val->total_debit,
+                            'total_credit' => $val->total_credit
+                        ]
+                    ];
+                }
+                $firstValue[$key] = $value;
+            } catch(Exception $e){
+                $pre_val = [];
+                foreach($value as $k => $val){
+                    array_push($pre_val, $val);
+                }
+                $firstValue[$key] = [$pre_val];
+            }
+        }
+        return $firstValue;
+    }
+
 }
