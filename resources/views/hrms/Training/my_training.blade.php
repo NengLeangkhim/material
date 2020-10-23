@@ -45,7 +45,7 @@
                         <td><a href="{{$tl->file}}" target="blank">document</a></td>
                         <td>{{$tl->schet_description}}</td>
                         <td class="text-center">
-                            <div class="col-md-4"><a href="javascrip:;" class="btn" onclick="HRM_ShowDetail('hrm_traininglist_detail','modal_traininglist_detail',{{$tl->id}})"><i class="fas fa-info"></i></a></div>
+                            <div class="col-md-4"><a href="javascript:;" class="btn" onclick="HRM_ShowDetail('hrm_traininglist_detail','modal_traininglist_detail',{{$tl->id}})"><i class="fas fa-info"></i></a></div>
                           </div>
                         </td>
                     </tr>

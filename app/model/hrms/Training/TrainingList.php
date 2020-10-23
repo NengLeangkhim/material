@@ -235,7 +235,23 @@ class TrainingList extends Model
     // List staff training
     public static function list_staff_training($hr_training_staff_id){
         try {
-            $sql="SELECT concat(mu.first_name_en,' ',mu.last_name_en) as name,mu.image FROM hr_training_staff hts INNER JOIN ma_user mu on hts.ma_user_id=mu.id where hts.hr_training_id=$hr_training_staff_id and hts.status='t' and hts.is_deleted='f'" ;
+            $sql="select * ,
+(select first_name_en||' '||last_name_en from ma_user where id=hts.ma_user_id) as trainee,
+case when hts.hr_training_schedule_id is null then (select name from hr_training_list where id=(select hr_training_list_id from hr_training_schedule where id=(select hr_training_schedule_id from hr_training where id=hts.hr_training_id))) 
+else
+(select name from hr_training_list where id=(select hr_training_list_id from hr_training_schedule where id=hts.hr_training_schedule_id))
+end
+as course
+from hr_training_staff hts
+where 
+'t' and 
+((hr_training_schedule_id in (select id from hr_training_schedule where status='t' and is_deleted='f' ))
+or
+(hr_training_id in (select id from hr_training where status='t' and is_deleted='f' and hr_training_schedule_id in (select id from hr_training_schedule where status='t' and is_deleted='f' )))
+)
+and status='t' and is_deleted='f' 
+and ma_user_id=$hr_training_staff_id
+ORDER BY id" ;
             return DB::select($sql);
         } catch (\Throwable $th) {
             throw $th;
