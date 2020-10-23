@@ -37,17 +37,22 @@
                         {{-- </div> --}}
                     </div>
                 </div>
-                <div class="col-6 " >
+                <div class="col-md-6 ">
                    <div class="row">
                     <?php
                     for($i =0;$i<sizeof($detailbranch); $i++){
                         ?>
-                         <div class="col-6 " align="right"><button type="button" ​value="editlead/{{$detailbranch[$i]["branch_id"]}}" class="btn btn-primary btn-md CrmLeadEdit">Edit</button></div>
+                         <div class="col-md-6 " align="center">
+                            <button type="button" ​value="editlead/{{$detailbranch[$i]["branch_id"]}}" class="btn btn-primary btn-md CrmLeadEdit" >Edit</button>
+                            <input type="text" hidden value="{{$detailbranch[$i]["lead_status"]}}"  id="lead_status" >
+                            <button type="button"  class="btn btn-success btn-md"  id="btn_convert"  value="{{$detailbranch[$i]["branch_id"]}}" >Convert</button>
+                        </div>
+                         
+                        <div class="col-md-6 " align="left"></div>
                        
                         <?php
                     }
                     ?>
-                        <div class="col-6 " align="left"><button type="button"  class="btn btn-success btn-md">Convert</button></div>
                    </div>
                 </div>
               </div>
@@ -61,9 +66,9 @@
                 {{-- Lead detail --}}
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">
+                        <h3 class="card-title" style="color:#1fa8e0;font-weight:bold">
                             {{-- <i class="fas fa-text-width"></i> --}}
-                            Lead Detail
+                            Detail Branch
                         </h3>
                     </div>
                     <!-- /.card-header -->
@@ -74,6 +79,8 @@
                            <?php
                                 for($i =0;$i<sizeof($detailbranch); $i++){
                                     ?>
+                                        <dt class="col-sm-4 dt">Lead Number</dt>
+                                        <dd class="col-sm-8 dd" >{{$detailbranch[$i]["lead_number"]}}</dd>
                                         <dt class="col-sm-4 dt">Company Name English</dt>
                                         <dd class="col-sm-8 dd" >{{$detailbranch[$i]["company_en"]}}</dd>
                                         <dt class="col-sm-4 dt">Company Name Khmer</dt>
@@ -106,6 +113,10 @@
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["current_isp_price"]}} </dd>
                                         <dt class="col-sm-4 dt">Employee Count</dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["employee_count"]}} </dd>
+                                        <dt class="col-sm-4 dt">Priority</dt>
+                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["priority"]}} </dd>
+                                        <dt class="col-sm-4 dt">Comment</dt>
+                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["comment"]}} </dd>
                                     <?php
                                 }
                            ?>                           
@@ -119,7 +130,7 @@
                 {{-- contact detail --}}
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">
+                        <h3 class="card-title" style="color:#1fa8e0;font-weight:bold">
                             {{-- <i class="fas fa-text-width"></i> --}}
                             Contact Detail
                         </h3>
@@ -156,7 +167,7 @@
                     {{-- address detail --}}
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">
+                        <h3 class="card-title" style="color:#1fa8e0;font-weight:bold">
                             {{-- <i class="fas fa-text-width"></i> --}}
                             Address Detail
                         </h3>
@@ -192,9 +203,9 @@
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["latlong"]}} </dd>
                                         <dt class="col-sm-4 dt">Address type</dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["address_type"]}} </dd>
-                                        {{-- <dd class="col-sm-8">
-                                            <input type="text" class="form-control"  name='latlng' id="latlong" placeholder="11.123456, 104.123456 Example" >
-                                        </dd> --}}
+                                        {{-- <dd class="col-sm-8"> --}}
+                                            <input type="text" class="form-control"  hidden name='latlng' id="latlong" value="{{$detailbranch[$i]["latlong"]}}" >
+                                        {{-- </dd> --}}
                                     <?php
                                 }
                             ?>  
@@ -278,10 +289,16 @@
 
         function initMap() {
 
-            var haightAshbury = {
-                lat: 11.609033,
-                lng: 104.789047,
-            };
+            var latlong =document.getElementById('latlong').value;
+                    latlong.replace('/[\(\)]//g','');
+                    var coords = latlong.split(',');
+                    var lat = parseFloat(coords[0]);
+                    var long = parseFloat(coords[1]);
+
+                    var haightAshbury = {
+                        lat:lat,
+                        lng:long 
+                    };
 
 
             var get_latlng = 0;
@@ -293,7 +310,7 @@
 
             //declear default value for latlong on map
             addMarker(haightAshbury);
-            document.getElementById('latlong').value = '11.620803, 104.892215';
+            // document.getElementById('latlong').value = '11.620803, 104.892215';
            
             // This event listener will call addMarker() when the map is clicked.
             map.addListener('click', function(event) {
@@ -338,4 +355,24 @@
                 var id = $(this).attr("​value");
                 go_to(id);
             });
+        $('#lead_status').ready(function(){
+            // var id = $(this).attr("​value");
+            var val=document.getElementById("lead_status").value;
+            // alert(val);
+            if(val!="qualified"){
+                // alert("yes");
+                document.getElementById("btn-md").hidden = false;
+
+            }
+            else
+            {
+                 // alert("no");
+                document.getElementById("btn-md").hidden = true;
+            }
+        })
+        //click to convert branch
+        $('#btn_convert').click(function(){
+            var val=document.getElementById("btn_convert").value;
+          alert(val);
+        });
     </script>
