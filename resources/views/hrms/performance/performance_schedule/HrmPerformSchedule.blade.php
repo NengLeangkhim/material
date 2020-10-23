@@ -162,11 +162,11 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="plan_name">Plan Name<span class="text-danger">*</span></label>
-                                        <select name="plan_schedule" required id="plan_schedule" class="form-control plan_schedule">
+                                        <select name="plan_schedule" required id="plan_schedule" onchange="get_plan_schedule(this.value)" class="form-control plan_schedule select2">
                                             <option value="">Please Select Plan</option>
                                             <?php 
                                                     foreach($plan as $row_plan ){ 
-                                                    echo "<option  onclick='get_plan_schedule(".$row_plan->id.")' value=".$row_plan->id.">$row_plan->name</option>";
+                                                    echo "<option   value=".$row_plan->id.">$row_plan->name</option>";
                                                     }
                                             ?>  
                                         </select>
@@ -201,7 +201,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label for="staff_schedule">Staff Name<span class="text-danger">*</span></label>
-                                    <select name="staff_schedule" required id="staff_schedule" class="form-control">
+                                    <select name="staff_schedule" required id="staff_schedule" class="form-control select2">
                                         <option value="">Please Select Staff</option>
                                         <?php 
                                                 foreach($staff as $row_staff ){ 

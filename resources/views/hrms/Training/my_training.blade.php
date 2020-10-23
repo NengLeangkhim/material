@@ -8,9 +8,6 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                @php
-                    // print_r($data);
-                @endphp
                 <table class="table table-bordered" id="tbl_employee" style="width:100%">
                   <thead>                  
                     <tr>
@@ -18,7 +15,7 @@
                       <th>Traning Course</th>
                       <th>Trainer</th>
                       <th>Duration</th>
-                      <th>Status</th>
+                      <th>Is Trained</th>
                       <th>Document</th>
                       <th>Description</th>
                       <th>Action</th>
@@ -28,30 +25,31 @@
                     @php
                         $i=0;
                     @endphp
-                    {{-- @foreach ($data as $tl)
+                    @foreach ($training as $tl)
                       <tr>
                       <th>{{++$i}}</th>
                       <td>{{$tl->type}}</td>
                       <td>{{$tl->trainer}}</td>
-                      <td>{{$tl->schet_f_date}}</td>
+                      @if (Str::length($tl->actual_f_date)>0)
+                          <td>{{date('d-m-Y', strtotime($tl->actual_f_date))}}/{{date('d-m-Y', strtotime($tl->actual_t_date))}}</td>
+                      @else
+                          <td>{{date('d-m-Y', strtotime($tl->schet_f_date))}}/{{date('d-m-Y', strtotime($tl->schet_t_date))}}</td>
+                      @endif
                       <td>@php
                           if(Str::length($tl->hrid)>0){
-                            echo "Trainted";
+                            echo "Yes";
                           }else {
-                            echo "Not Trained";
+                            echo "No";
                           }
                       @endphp</td>
                         <td><a href="{{$tl->file}}" target="blank">document</a></td>
                         <td>{{$tl->schet_description}}</td>
-                        <td>
-                          <div class="row">
-                            <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_modal_traininglist','modal_traininglist',{{$tl->id}})"><i class="far fa-edit"></i></a></div>
-                            <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_traininglist_detail','modal_traininglist_detail',{{$tl->id}})"><i class="fas fa-info"></i></a></div>
-                            <div class="col-md-4"><a href="javascrip:;" onclick="hrm_delete_data({{$tl->id}},'hrm_delete_traininglist','hrm_traininglist','Training List is Delete !','HRM_09050101')"><i class="far fa-trash-alt"></i></a></div>
+                        <td class="text-center">
+                            <div class="col-md-4"><a href="javascript:;" class="btn" onclick="HRM_ShowDetail('hrm_traininglist_detail','modal_traininglist_detail',{{$tl->id}})"><i class="fas fa-info"></i></a></div>
                           </div>
                         </td>
                     </tr>
-                    @endforeach --}}
+                    @endforeach
                       
                   </tbody>
                 </table>

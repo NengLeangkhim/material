@@ -26,9 +26,10 @@ class shift_promote_historyController extends Controller
                     }
                 }
             }  
-            // dd($staff_was_promote);
             $staff_was_promote = $data;
         }      
+        // dd($staff_was_promote);
+
         return view('hrms/shift_promote/management_view_promote_history/shift_promote_staff_history', ['allstaffpromote' => $staff_was_promote]);
 
     }
