@@ -86,69 +86,42 @@ class Crmlead extends Model
     }
     //get lead  Branch 
     public static function leadBranch(){
-        return DB::select('SELECT  id,branch as name,company  FROM "public"."ma_company_detail" Where status=true and is_deleted=false');
+        return DB::select('SELECT  id,branch as name,company,ma_company_branch_id  FROM "public"."ma_company_detail" Where status=true and is_deleted=false');
     }
 
     public static function insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
     $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
     $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-    $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment){
+    $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty)
+    {
         
-        if(DB::select('SELECT id from  crm_lead where id='.$lead_id))
-        {
-            if(isset($company_en)){
-                try{
-                     //insert Into crm_lead_address
-                     $address=Crmlead::insertaddress ($lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode,$user_create);
-                     $address_id=$address[0]->insert_crm_lead_address;
-         
-                     //insert into crm_lead_branch
-                     $branch=CrmLead::insertbranch ($lead_id,$company_en,$company_kh,$primary_email,$address_id,$user_create);
-                     $branch_id=$branch[0]->insert_crm_lead_branch;
-         
-                     //insert into crm_lead_assign
-                     CrmLead::insertassign ($branch_id,$assig_to,$user_create);
-         
-                     //insert into crm_lead_comtact
-                     if(DB::select('SELECT id FROM crm_lead_contact WHERE id='.$con_id))
-                     {
-                             $contact_id=$con_id;
-                     }
-                     else
-                     {
-                         $contact=CrmLead::insertcontact($name_en,$name_kh,$email,$phone,$facebook,$position,$user_create,$national_id,$gender);
-                         $contact_id=$contact[0]->insert_crm_lead_contact;
-                     }
-         
-                     //insert into crm_lead_brach_contact_rel
-                     CrmLead::insert_branch_contact_rel($branch_id,$contact_id);
-         
-                     //insert into crm_lead_item
-                     CrmLead::insertleaditems($branch_id,$service,$address_id,$user_create);
-         
-                     //insert into crm_lead_detail
-                     CrmLead::insertleaddetail($branch_id,$lead_status,$comment,$user_create);
-                         
-                     //insert into table crm_survey
-                     CrmLead::insertsurey($branch_id,$user_create);
-
-                     // return json_encode(["result"=>$address_id,$lead_id,$branch_id,$contact_id]);
-                     return json_encode(["result"=>"success"]);
-                }
-                catch(Exception $e)
-                {
-                    return json_encode(["insert"=>"fail insert lead","result"=> $e->getMessage()]);
-                }
-            }
-            else
-            {
-                return json_encode(['insert'=>'not found data']);
-            }
+        if($lead_id!=='null')
+        {           
+             
+            return CrmLead::addbranchinlead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
+             $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
+             $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+             $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty);
+       
             
         }
         else
         {
-            if(isset($company_en)){        
+         
+            return Crmlead::addlead($con_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
+            $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
+            $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+            $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty);
+            
+        }
+    }
+    // add lead
+    public static function addlead($con_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
+    $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
+    $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+    $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty){
+
+        if(isset($company_en)){        
                 try{
                     // insert into table crm_lead
                     $result= DB::select('SELECT "public".insert_crm_lead(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
@@ -180,14 +153,14 @@ class Crmlead extends Model
                         $address_id=$address[0]->insert_crm_lead_address;
             
                         //insert into crm_lead_branch
-                        $branch=CrmLead::insertbranch ($lead_id,$company_en,$company_kh,$primary_email,$address_id,$user_create);
+                        $branch=CrmLead::insertbranch ($lead_id,$company_en,$company_kh,$primary_email,$address_id,$user_create,$prioroty);
                         $branch_id=$branch[0]->insert_crm_lead_branch;
             
                         //insert into crm_lead_assign
                         CrmLead::insertassign ($branch_id,$assig_to,$user_create);
             
                         //insert into crm_lead_comtact
-                        if(DB::select('SELECT id FROM crm_lead_contact WHERE id='.$con_id))
+                        if($con_id!=='null')
                         {
                                 $contact_id=$con_id;
                         }
@@ -211,7 +184,7 @@ class Crmlead extends Model
                         CrmLead::insertsurey($branch_id,$user_create);
 
                         // return json_encode(["result"=>$address_id,$lead_id,$branch_id,$contact_id]);
-                        return json_encode(["result"=>"success"]);
+                        return json_encode(["insert"=>"success"]);
                            
                 }
                 catch(Exception $e)
@@ -224,10 +197,64 @@ class Crmlead extends Model
             {
                return json_encode(['insert'=>'not found data']);
             }
-            
-        }
-    }
 
+    }
+    // add branch by lead id
+    public static function addbranchinlead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
+    $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
+    $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+    $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty){
+
+        // return "df";
+        if(isset($company_en)){
+                try{
+                     //insert Into crm_lead_address
+                     $address=Crmlead::insertaddress ($lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode,$user_create);
+                     $address_id=$address[0]->insert_crm_lead_address;
+         
+                     //insert into crm_lead_branch
+                     $branch=CrmLead::insertbranch ($lead_id,$company_en,$company_kh,$primary_email,$address_id,$user_create,$prioroty);
+                     $branch_id=$branch[0]->insert_crm_lead_branch;
+         
+                     //insert into crm_lead_assign
+                     CrmLead::insertassign ($branch_id,$assig_to,$user_create);
+         
+                     //insert into crm_lead_comtact
+                     if($con_id!=='null')
+                     {
+                             $contact_id=$con_id;
+                     }
+                     else
+                     {
+                         $contact=CrmLead::insertcontact($name_en,$name_kh,$email,$phone,$facebook,$position,$user_create,$national_id,$gender);
+                         $contact_id=$contact[0]->insert_crm_lead_contact;
+                     }
+         
+                     //insert into crm_lead_brach_contact_rel
+                     CrmLead::insert_branch_contact_rel($branch_id,$contact_id);
+         
+                     //insert into crm_lead_item
+                     CrmLead::insertleaditems($branch_id,$service,$address_id,$user_create);
+         
+                     //insert into crm_lead_detail
+                     CrmLead::insertleaddetail($branch_id,$lead_status,$comment,$user_create);
+                         
+                     //insert into table crm_survey
+                     CrmLead::insertsurey($branch_id,$user_create);
+
+                     // return json_encode(["result"=>$address_id,$lead_id,$branch_id,$contact_id]);
+                     return json_encode(["insert"=>"success"]);
+                }
+                catch(Exception $e)
+                {
+                    return json_encode(["insert"=>"fail insert lead","result"=> $e->getMessage()]);
+                }
+            }
+            else
+            {
+                return json_encode(['insert'=>'not found data']);
+            }
+    }
     //insert into table crm_lead_address
     public  static function insertaddress ($lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode,$user_create){
         if(isset($lead_id)){
@@ -259,7 +286,7 @@ class Crmlead extends Model
 
     }
     //insert into table crm_lead_branch
-    public  static function insertbranch ($lead_id,$company_en,$company_kh,$primary_email,$address_id,$user_create){
+    public  static function insertbranch ($lead_id,$company_en,$company_kh,$primary_email,$address_id,$user_create,$prioroty){
         if(isset($lead_id)){
             try{
                 // $priority='urgent';
@@ -270,7 +297,7 @@ class Crmlead extends Model
                     $company_kh,
                     $primary_email,
                     $address_id,
-                    'urgent',
+                    $prioroty,
                     $user_create
                 )
             );
@@ -430,15 +457,15 @@ class Crmlead extends Model
 
     //get  all lead 
     public static function getbranch(){
-        return DB::select("SELECT  crm_lead.lead_number,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
+        return DB::select("SELECT  crm_lead.lead_number,clitem.id as lead_item_id,lbc.id as lead_con_bran_id,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
         lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
         crm_lead.vat_number,cls.name_en as lead_source,cli.name_en as lead_industry,mcd.company,sp.name as service_name,sp.id as servie_id,
         lb.create_date as date_create_branch,
         lb.create_by as user_create_branch_id,ld.comment,lb.crm_lead_address_id,
          lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,
          lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,
-        lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
-        ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,
+        lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.id as lead_assig_id,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
+        ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,ld.id as lead_detail_id,
         (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
         (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,ladd.address_type,
         (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,2)) as province,
@@ -469,15 +496,15 @@ class Crmlead extends Model
         return $lead;
     }
     public static function getbranch_lead($id){
-        return DB::select("SELECT  crm_lead.lead_number,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
+        return DB::select("SELECT  crm_lead.lead_number,clitem.id as lead_item_id,lbc.id as lead_con_bran_id,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
         lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
         crm_lead.vat_number,cls.name_en as lead_source,cli.name_en as lead_industry,mcd.company,sp.name as service_name,sp.id as servie_id,
         lb.create_date as date_create_branch,
         lb.create_by as user_create_branch_id,ld.comment,
          lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,lb.crm_lead_address_id,
          lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,
-        lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
-        ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,
+        lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.id as lead_assig_id,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
+        ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,ld.id as lead_detail_id,
         (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
         (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,ladd.address_type,
         (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,2)) as province,
@@ -504,15 +531,15 @@ class Crmlead extends Model
     }
     //get   lead  by id
     public static function getbranchById($id){
-        return DB::select("SELECT  crm_lead.lead_number,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
+        return DB::select("SELECT  crm_lead.lead_number,clitem.id as lead_item_id,lbc.id as lead_con_bran_id,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
         lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
         crm_lead.vat_number,cls.name_en as lead_source,cli.name_en as lead_industry,mcd.company,sp.name as service_name,sp.id as servie_id,
         lb.create_date as date_create_branch,
         lb.create_by as user_create_branch_id,ld.comment,lb.crm_lead_address_id,
          lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,
          lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,
-        lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
-        ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,
+        lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.id as lead_assig_id,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
+        ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,ld.id as lead_detail_id,
         (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
         (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,ladd.address_type,
         (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,2)) as province,
@@ -537,5 +564,238 @@ class Crmlead extends Model
         join stock_product sp on sp.id= clitem.stock_product_id 
         where ld.status=true and ld.is_deleted=false and lb.id=$id");
     }
+    // update Branch
+    public static function updatebranch($lead_address_id,$lead_detail_id,$lead_item_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
+    $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,
+    $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+    $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty){
 
+        try{
+            // update address
+            $address=Crmlead::updateleadaddress($lead_address_id,$user_create,$lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode);
+            $address_id=$address[0]->update_crm_lead_address;
+            // update branch
+            $branch=Crmlead::updatetablebranch($branch_id,$user_create,$lead_id,$company_en,$company_kh,$primary_email,$address_id,$prioroty);
+            $branch_id=$branch[0]->update_crm_lead_branch;
+            //update assgin to
+            Crmlead::updatetableassigto($assig_to_id,$user_create,$branch_id,$assig_to);            
+
+            // update contact
+            $contact=Crmlead::updatetablecontact($con_id,$user_create,$name_en,$name_kh,$email,$phone,$facebook_con,$position,$national_id,$gender);
+            $contact_id=$contact[0]->update_crm_lead_contact;
+            
+            //update branch and contact rel
+            Crmlead::updatetablebranch_contact_rel($lead_con_bran_id,$user_create,$branch_id,$contact_id);
+
+            // update branch item 
+             Crmlead::updatetableleaditem($lead_item_id,$user_create,$branch_id,$service,$address_id);
+
+            // update lead detail
+            Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,$lead_status,$comment);
+
+            return  json_encode(["update"=>'success']);
+   
+        }catch(Exception $e){
+            return json_encode(["update"=>"fail update branch","result"=> $e->getMessage()]);
+        }
     }
+    //update in table branch
+    public static function updateleadaddress($lead_address_id,$user_create,$lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode){
+        // var_dump($lead_id);
+        if(isset($lead_address_id)){
+            try{
+                // $priority='urgent';
+                $result=DB::select('SELECT update_crm_lead_address(?,?,?,?,?,?,?,?,?,?,?)',
+                array(
+                    $lead_address_id,
+                    $user_create,
+                    $lead_id,
+                    't',
+                    $address_type,
+                    $home_en,
+                    $home_kh,
+                    $street_en,
+                    $street_kh,
+                    $latlong,
+                    $addresscode
+                )
+            );
+                return  $result;
+                // var_dump($result);
+            }catch(Exception $e){
+                return json_encode(["update"=>"fail update_crm_lead_address","result"=> $e->getMessage()]);
+            }
+        }
+        else
+        {
+            return json_encode(['update'=>'not found data']);
+        }
+    }
+    // update branch
+    public static function updatetablebranch($branch_id,$user_create,$lead_id,$company_en,$company_kh,$primary_email,$address_id,$prioroty){
+        if(isset($branch_id)){
+            try{
+                // $priority='urgent';
+                $result=DB::select('SELECT update_crm_lead_branch(?,?,?,?,?,?,?,?,?)',
+                array(
+                    $branch_id,
+                    $user_create,
+                    $lead_id,
+                    $company_en,
+                    $company_kh,
+                    $primary_email,
+                    $address_id,
+                    $prioroty,
+                    't',
+                )
+            );
+                return  $result;
+                // var_dump($result);
+            }catch(Exception $e){
+                return json_encode(["update"=>"fail update_crm_lead_branch","result"=> $e->getMessage()]);
+            }
+        }
+        else
+        {
+            return json_encode(['update'=>'not found data']);
+        }
+    }
+    // update assig to 
+    public static function updatetableassigto($assig_to_id,$user_create,$branch_id,$assig_to){
+        if(isset($assig_to_id)){
+            try{
+                // $priority='urgent';
+                $result=DB::select('SELECT update_crm_lead_assign(?,?,?,?,?)',
+                array(
+                    $assig_to_id,
+                    $user_create,
+                    $branch_id,
+                    $assig_to,
+                    't',
+                )
+            );
+                return  $result;
+                // var_dump($result);
+            }catch(Exception $e){
+                return json_encode(["update"=>"fail update_crm_lead_assign","result"=> $e->getMessage()]);
+            }
+        }
+        else
+        {
+            return json_encode(['update'=>'not found data']);
+            
+        }
+    }
+    // update contact
+    public static function updatetablecontact($con_id,$user_create,$name_en,$name_kh,$email,$phone,$facebook_con,$position,$national_id,$gender){
+        if(isset($con_id)){
+            try{
+                // $priority='urgent';
+                $result=DB::select('SELECT update_crm_lead_contact(?,?,?,?,?,?,?,?,?,?,?)',
+                array(
+                    $con_id,
+                    $user_create,
+                    $name_en,
+                    $name_kh,
+                    $email,
+                    $phone,
+                    $facebook_con,
+                    $position,
+                    't',
+                    $national_id,
+                    $gender
+                )
+            );
+                return  $result;
+                // var_dump($result);
+            }catch(Exception $e){
+                return json_encode(["update"=>"fail update_crm_lead_contact","result"=> $e->getMessage()]);
+            }
+        }
+        else
+        {
+            return json_encode(['update'=>'not found data']);
+            
+        }
+    }
+    // update branch and contact rel
+    public static function updatetablebranch_contact_rel($lead_con_bran_id,$user_create,$branch_id,$contact_id){
+        if(isset($lead_con_bran_id)){
+            try{
+                // $priority='urgent';
+                $result=DB::select('SELECT update_crm_lead_branch_crm_lead_contact_rel(?,?,?,?,?)',
+                array(
+                    $lead_con_bran_id,
+                    $user_create,
+                    $branch_id,
+                    $contact_id,
+                    't',
+                )
+            );
+                return  $result;
+                // var_dump($result);
+            }catch(Exception $e){
+                return json_encode(["update"=>"fail update_crm_lead_branch_crm_lead_contact_rel","result"=> $e->getMessage()]);
+            }
+        }
+        else
+        {
+            return json_encode(['update'=>'not found data']);
+            
+        }
+    }
+    // update branch item
+    public static function updatetableleaditem($lead_item_id,$user_create,$branch_id,$service,$address_id){
+        if(isset($lead_item_id)){
+            try{
+                // $priority='urgent';
+                $result=DB::select('SELECT update_crm_lead_items(?,?,?,?,?,?)',
+                array(
+                    $lead_item_id,
+                    $user_create,
+                    $branch_id,
+                    $service,
+                    $address_id,
+                    't',
+                )
+            );
+                return  $result;
+                // var_dump($result);
+            }catch(Exception $e){
+                return json_encode(["update"=>"fail update_crm_lead_items","result"=> $e->getMessage()]);
+            }
+        }
+        else
+        {
+            return json_encode(['update'=>'not found data']);
+            
+        }
+    }
+    // update lead detail 
+    public static function updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,$lead_status,$comment){
+        if(isset($lead_detail_id)){
+            try{
+                // $priority='urgent';
+                $result=DB::select('SELECT update_crm_lead_detail(?,?,?,?,?,?)',
+                array(
+                    $lead_detail_id,
+                    $user_create,
+                    $branch_id,
+                    $lead_status,
+                    $comment,
+                    't',
+                )
+            );
+                return  $result;
+                // var_dump($result);
+            }catch(Exception $e){
+                return json_encode(["update"=>"fail update_crm_lead_detail","result"=> $e->getMessage()]);
+            }
+        }
+        else
+        {
+            return json_encode(['update'=>'not found data']);
+            
+        }
+    }
+}

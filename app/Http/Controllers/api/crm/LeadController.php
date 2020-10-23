@@ -88,12 +88,10 @@ class LeadController extends Controller
             session_start();
         }
         $userid = $_SESSION['userid'];
-        // $token=$_SESSION['token'];
-        // $userid = 1;
-        // return $userid."/".$userid;
         
         $lead_id=$request->input('lead_id')!=""? $request->input('lead_id'):"null";
         $con_id=$request->input('contact_id')!=""? $request->input('contact_id'):"null";
+        $prioroty=$request->input('prioroty')!=""? $request->input('prioroty'):"urgent";
         $company_en=$request->input('company_en');
         $company_kh=$request->input('company_kh');
         $primary_email=$request->input('primary_email');
@@ -132,17 +130,76 @@ class LeadController extends Controller
         $address_type=$request->input('address_type');
         $addresscode=$request->input('village');
 
-        // return $userid;
+        // return $lead_id;
         // var_dump($lead_id);
         return  Lead::insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
         $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
         $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-        $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment);
+        $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty);
     }
-    // edit lead 
-    // public static function editlead(){
+    // update lead 
+    public static function updatebranch(Request $request){
 
-    // }
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $userid = $_SESSION['userid'];
+            
+            $lead_id=$request->input('lead_id');
+            $con_id=$request->input('contact_id');
+            $prioroty=$request->input('prioroty');
+            $lead_address_id=$request->input('address_id');
+            $lead_con_bran_id=$request->input('lead_con_bran_id');
+            $lead_detail_id=$request->input('lead_detail_id');
+            $lead_item_id=$request->input('lead_item_id');
+            $branch_id=$request->input('branch_id');
+            $company_en=$request->input('company_en');
+            $company_kh=$request->input('company_kh');
+            $primary_email=$request->input('primary_email');
+            // $user_create=$request->input('user_create');
+            $user_create=$userid;
+            $website=$request->input('website');
+            $facebook=$request->input('company_facebook');
+            $vat_number=$request->input('vat_number');
+            $company_branch=$request->input('branch');
+            $lead_source=$request->input('lead_source');
+            $lead_status=$request->input('lead_status');
+            $lead_industry=$request->input('lead_industry');
+            $assig_to_id=$request->input('assig_to_id');
+            $assig_to=$request->input('assig_to');
+            $service=$request->input('service');
+            $current_speed_isp=$request->input('current_speed_isp');
+            $current_speed=$request->input('current_speed');
+            $current_price=$request->input('current_price');
+            $employee_count=$request->input('employee_count');
+            $comment=$request->input('comment');
+            //contact detail
+            $name_kh=$request->input('name_kh');
+            $name_en=$request->input('name_en');
+            $gender=$request->input('ma_honorifics_id');
+            $facebook_con= $request->input('facebook')!=''? $request->input('facebook'):"null";
+            $email=$request->input('email');
+            $phone=$request->input('phone');
+            $position=$request->input('position');
+            $national_id=$request->input('national_id');
+    
+            //address detail
+            $home_en=$request->input('home_en');
+            $home_kh=$request->input('home_kh');
+            $street_en=$request->input('street_en');
+            $street_kh=$request->input('street_kh');
+            $latlong=$request->input('latlong');
+            $address_type=$request->input('address_type');
+            $addresscode=$request->input('village');
+    
+          
+            // var_dump($lead_item_id);
+            return  Lead::updatebranch($lead_address_id,$lead_detail_id,$lead_item_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
+            $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,
+            $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+            $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty);
+    }
+    
     // get all branch
     public function getbranch(){
         $branch = Lead::getbranch();
