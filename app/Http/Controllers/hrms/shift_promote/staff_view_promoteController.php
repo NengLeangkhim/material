@@ -14,10 +14,15 @@ class staff_view_promoteController extends Controller
                 session_start();
             }
             $userid = $_SESSION['userid'];
-            // $userid = 262;
             $r = management_promoteModel::get_shift_promoteByID($userid);
-            return view('hrms/shift_promote/staff_view_promote/shift_promote_for_staff_view', ['shift_promoteByID' => $r]);
-            // return view('hrms\shift_promote\staff_view_promote\staff_view_promote_detail', ['shift_promoteByID' => $r]);
+            // dd($r);
+            if(count($r) > 2){
+                $data = $r;
+            }else{
+                $data = '';
+            }
+            return view('hrms/shift_promote/staff_view_promote/shift_promote_for_staff_view', ['shift_promoteByID' => $data]);
+
         }
 
 
@@ -26,12 +31,22 @@ class staff_view_promoteController extends Controller
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
-            $userid = $_SESSION['userid'];
-            // $userid = 262;
-            $r = management_promoteModel::get_promote_staff_detail($userid);
-            // print_r($r);
-            // echo count($r)-1;
-            return view('hrms/shift_promote/staff_view_promote/staff_view_promote_detail', ['view_promote_detail' => $r]);
+
+            if(isset($_GET['id'])){
+                    $shift_id = $_GET['id'];
+                    $userid = $_SESSION['userid'];
+                    $r = management_promoteModel::get_promote_staff_detail($shift_id);
+                    if(count($r) > 0){
+                        if($r[0]->old_position_id != ''){
+                            $old_pos = management_promoteModel::getPositionById($r[0]->old_position_id);
+                        }else{
+                            $old_pos = '';
+                        }
+
+                    } 
+                    // dd($old_pos);
+                    return view('hrms/shift_promote/staff_view_promote/staff_view_promote_detail', ['promote_detail' => $r,'old_position'=>$old_pos]);
+            }   
         }
 
 

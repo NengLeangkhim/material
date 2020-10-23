@@ -22,7 +22,7 @@ class ModelHrmPerformReport extends Model
                         ['pfm.is_deleted', '=', 'f'],
                         ['s.ma_company_dept_id', '=', $dept],
                     ])
-                    ->whereBetween('pfm.create_date',[$from, $to])
+                    ->whereRaw('pfm.create_date::date between ? and ?',[$from, $to])
                     ->orderBy('pfm.id','ASC')
                     ->get(); 
         return $report;

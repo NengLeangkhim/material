@@ -31,8 +31,8 @@
                         <td>{{$t->description}}</td>
                             <td>
                               <div class="row text-center">
-                                <div class="col-md-6"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_modal_trainingtype','modal_trainingType',{{$t->id}})"><i class="far fa-edit"></i></a></div>
-                                <div class="col-md-6"><a href="javascrip:;" onclick="hrm_delete_data({{$t->id}},'hrm_delete_trainingtype','hrm_trainingtype','Training Type Delete Successfully','HRM_09050202')"><i class="far fa-trash-alt" onclick=""></i></a></div>
+                                <div class="col-md-6"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_modal_trainingtype','modal_trainingType',{{$t->id}})"><i class="far fa-edit"></i></a></div>
+                                <div class="col-md-6"><a href="javascript:;" onclick="hrm_delete_data({{$t->id}},'hrm_delete_trainingtype','hrm_trainingtype','Training Type Delete Successfully','HRM_09050202')"><i class="far fa-trash-alt" onclick=""></i></a></div>
                               </div>
                             </td>
                         </tr>

@@ -228,15 +228,20 @@ function ShowPassword(){
    // End Overtime
 // End Employee
 // Training
-    function HRM_TrainedOrNot(e){
-        if(e.value=='t'){
-            document.getElementById("divtabletrainingstaff").classList.remove("d-none");
-            document.getElementById("divtabletrainingstaff").style.display = "block";
+    
+    function hrm_chechEmployee_training(){
+        var countchecked = $("table input[type=checkbox]:checked").length;
+        if(countchecked>0){
+            submit_form ('hrm_insert_update_traininglist','fm_training_list','hrm_traininglist','modal_traininglist');
         }else{
-            document.getElementById("divtabletrainingstaff").style.display = "none";
+            alert('Please check employee');
         }
+        
     }
 
+function hrm_show_em_table(){
+
+}
 function hrm_training_checkAll(ele) {
     var checkboxes = document.getElementsByTagName('input');
     if (ele.checked) {
@@ -256,23 +261,23 @@ function hrm_training_checkAll(ele) {
 }
 
 
-function HRM_CheckStaffTrain(e,trainid){
-    if(e.checked==false){
-        // alert(e.value);
-        $.ajax({
-            type: 'GET',
-            url: '/hrm_delete_trainingstaff',
-            data: {
-                _token: '<?php echo csrf_token() ?>',
-                staffid: e.value,
-                trainid: trainid
-            },
-            success: function (data) {
-                document.getElementById('otDetail').innerHTML = data;
-            }
-        });
-    }
-}
+// function HRM_CheckStaffTrain(e,trainid){
+//     if(e.checked==false){
+//         // alert(e.value);
+//         $.ajax({
+//             type: 'GET',
+//             url: '/hrm_delete_trainingstaff',
+//             data: {
+//                 _token: '<?php echo csrf_token() ?>',
+//                 staffid: e.value,
+//                 trainid: trainid
+//             },
+//             success: function (data) {
+//                 document.getElementById('otDetail').innerHTML = data;
+//             }
+//         });
+//     }
+// }
 // End Training
 // Payroll
     function PrintDiv(id){
@@ -281,6 +286,65 @@ function HRM_CheckStaffTrain(e,trainid){
         newWin.document.write(divToPrint.outerHTML);
         newWin.print();
         newWin.close();
+    }
+
+
+    // Payroll List Detail
+    function hrms_Payroll_List_Detail(rout,modalName,id=-1,modal=''){
+    if(check_session()){
+      return;
+    }
+    var year=$('#payroll_list_year').val();
+    var month=$('#payroll_list_month').val();
+    $.ajax({
+        type: 'GET',
+        url: rout,
+        data: {
+            _token: '<?php echo csrf_token() ?>',
+            id: id
+        },
+        success: function (data) {
+            document.getElementById('modal').innerHTML = data;
+            $('#'+modalName).modal('show');
+            if(modal.length>0){
+                $('#'+modal).DataTable({
+                });
+            }
+        }
+    });
+}
+    function hrms_Payroll_List_Details(id,modal,permission){
+        if(check_session()){
+            return;
+        }
+        $.ajax({
+            type: 'GET',
+            url: 'hrm_delete_data',
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                perm: permission
+            },
+            success: function (data) {
+                if (data == '1') {
+                    var year=$('#payroll_list_year').val();
+                    var month=$('#payroll_list_month').val();
+                    $.ajax({
+                        type:'GET',
+                        url:'hrm_paroll_list_detail',
+                        data:{
+                            _token:'<?php echo csrf_token() ?>',
+                            user_id:id
+                        },
+                        success: function(data){
+                            $('#modal').innerHTML(data);
+                            $('#'+modal).modal('show');
+                        }
+                    });
+                } else {
+                    alert('No Permission');
+                }
+            }
+        });
     }
     // HR Approve Payroll to Finance
     function HR_Approve_Payroll(id,d_from,d_to,month,e,btn,permission){
@@ -300,11 +364,11 @@ function HRM_CheckStaffTrain(e,trainid){
                     Swal.fire({ //get from sweetalert function
                         title: 'Are you sure?',
                         text: "You won't be able to revert this!",
-                        icon: 'warning',
+                        icon: 'info',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
+                        confirmButtonText: 'Yes,Approve it!'
                     }).then((result) => {
                         if (result.value) {
                             $.ajax({
@@ -318,7 +382,7 @@ function HRM_CheckStaffTrain(e,trainid){
                                 },
                                 type: "GET",    //Using of Post method for send data
                                 success: function (data) {
-                                    // setTimeout(function () { go_to(goto); }, 300);// Set timeout for refresh content
+                                    setTimeout(function () { go_to('hrm_payroll_list'); }, 300);// Set timeout for refresh content
                                     Swal.fire(
                                         'Deleted!',
                                         'Delete Successfully',
@@ -611,6 +675,7 @@ function my_overtime_search(){
 function report_training_search(){
     var from=document.getElementById('date_from').value;
     var to=document.getElementById('date_to').value;
+    var departmen=$('#training_report_department').val();
     if(from.length<=0 || to.length<=0 || new Date(from)>new Date(to)){
         alert('Please Select date and date must be bigger than today');
         return;
@@ -623,7 +688,8 @@ function report_training_search(){
         data: {
             _token: '<?php echo csrf_token() ?>',
             date_from: from,
-            date_to:to
+            date_to:to,
+            dep:departmen
         },
         success: function (data) {
             document.getElementById('training_report_search').innerHTML=data;

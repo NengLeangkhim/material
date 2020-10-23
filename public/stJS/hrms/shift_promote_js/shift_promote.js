@@ -130,7 +130,7 @@ function staff_view_promote_detail(id){
             $('#modal_staff_view_promote').modal('show');
         }
     }
-    x.open("GET", url + "?" + v , true);
+    x.open("GET", url + "?" + v, true);
     x.send();
 
 }

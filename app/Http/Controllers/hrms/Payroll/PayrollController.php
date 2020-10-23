@@ -89,7 +89,8 @@ class PayrollController extends Controller
             $data = array();
             $em = new Employee();
             $data[0] = $em->EmployeeOnRow($id);
-            return view('hrms/Payroll/PayrollDetail')->with('data', $data);
+            
+            return view('hrms/Payroll/PayrollListDetail')->with('data', $data);
         }else{
             return view('modal_no_perms')->with('modal', 'modal_payrolldetails');
         }
