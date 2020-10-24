@@ -8,7 +8,6 @@
     }
     .is-report {
         padding: 16px;
-        width: 80%;
         margin: 0 auto;
     }
     .income-list, .is-report-list {
@@ -68,18 +67,11 @@
                   <p class="card-text">For the year ended (DATE)</p>
             </div>
             <hr>
-            <div class="is-report-body">
-                <div id="income-section"></div>
-                <hr>
-                <div id="cogs-section"></div>
-                <hr>
-                <div id="gross-profit-section"></div>
-                <hr>
-                <div id="expense-section"></div>
-                <hr>
-                <div id="net-income-section"></div>
-
+            <div id="is-report-sub-header" class="row"></div>
+            <hr>
+            <div id="is-report-body">
             </div>
+            <hr>
             <div class="is-report-footer">
 
             </div>
@@ -94,31 +86,26 @@
                 url: "/api/bsc/report/pl",
                 type: 'GET',
                 data: {
-                    type : 1,
-                    comparison : 5,
-                    fromDate : '2020-11-02',
-                    toDate : '2020-11-15'
+                    type : 2,
+                    comparison : 2,
+                    fromDate : '2020-10-02',
+                    toDate : '2020-10-15'
                 },
-                success: function(data){
-                    var n = data.data.header.comparison;
-                    for(var i=0; i<=n; i++) {
-                        var d = data.data.body[i].body
-                        switch(i) {
-                            case 0 :
-                                setReportSection('Income Section', 'income', d.income_list, d.total_income, i);
-                                setReportSection('SOGS Section', 'cogs', d.cogs_list, d.total_cogs, i);
-                                setReportSection('Gross Profit Section', 'gross-profit', [], d.gross_profit, i);
-                                setReportSection('Expense Section', 'expense', d.expense_list, d.total_expense, i);
-                                setReportSection('Net Income Section', 'net-income', [], d.net_income, i);
-                            break;
-                            default :
-                                setSecondReportSection('income', d.income_list, d.total_income, i);
-                                setSecondReportSection('cogs', d.cogs_list, d.total_cogs, i);
-                                setSecondReportSection('gross-profit', [], d.gross_profit, i);
-                                setSecondReportSection('expense', d.expense_list, d.total_expense, i);
-                                setSecondReportSection('net-income', [], d.net_income, i);
-                        }
-
+                success: function(response){
+                    console.log(response)
+                    if(response.success){
+                        var data = response.data
+                        var col = 12 - ((data.header).length)
+                        var headerId = '#is-report-sub-header'
+                        var bodyId = '#is-report-body'
+                        $(headerId).empty()
+                        $(bodyId).empty()
+                        setReportHeader(headerId,data.header, col)
+                        setDataList(bodyId, 'Income', data.body.income_list, col)
+                        setDataList(bodyId, 'COGS', data.body.cogs_list, col)
+                        setCalculateDataList(bodyId, 'Gross Profit', data.body.gross_profit, col)
+                        setDataList(bodyId, 'Expense', data.body.expense_list, col   )
+                        setCalculateDataList(bodyId, 'Net Income', data.body.net_income , col)
                     }
                 },
                 fail : function(){
@@ -128,60 +115,62 @@
             });
         });
 
+        var setReportHeader = (id, data, col)=>{
+            $(id).append(`
+                <div class="col-${col}"></div>
+            `)
+
+            $.each(data, function(index, header){
+                $(id).append(`
+                <div class="col-1">${header.fromDate}</div>
+            `)
+            })
+        }
 
 
-        var setReportSection = (name, tagName, listValue = null, totalValue, forReportIndex)=> {
-            $(`#${tagName}-section`).replaceWith(`
-                <h4>${name}</h4>
-                <div class="${tagName}-body">
-                    ${listValue.map(e=>
-                    `
-                        <div class="${tagName}-list row is-report-list" id="${tagName}-name-${e.id}">
-                            <div class="${tagName}-name-${e.id} col-6">${e.name_en}</div>
-                            <div class="${tagName}-value col-1 text-right" id="${tagName}-report-num-${forReportIndex}">${e.total_debit}</div>
+        var setDataList = (id, name, list, col)=>{
+            $(id).append(`
+                <div id="${name}-section">
+                    <h4>${name} Section</h4>
+                    <hr>
+                    ${list.data.map(e=>`
+                        <div class="row">
+                            <div class="col-${col}">${e.name_en}</div>
+                            ${e.value_list.map(ef=>`
+                                <div class="col-1 text-right">${ef.total_debit == 0 ? '-' : ef.total_debit}</div>
+                            `).join('')}
                         </div>
-                    `).join("")}
-                    ${totalValue.map(e=>
-                    `
-                        <div class="${tagName}-list row is-report-list" id="${tagName}-total-${e.currency}">
-                            <div class="${tagName}-total-${e.currency} col-6 bold">Total ${name} ${e.currency}</div>
-                            <div class="${tagName}-total-value col-1 bold text-right" id="${tagName}-total-report-num-${forReportIndex}">${e.value}</div>
+                    `).join('')}
+                    ${list.total_list.map(e=>`
+                        <div class="row bold">
+                            <div class="col-${col}">${name} in ${e.currency_name_en}</div>
+                            ${e.value_list.map(ef=>`
+                                <div class="col-1 text-right">${ef.total_debit == 0 ? '-' : ef.total_debit}</div>
+                            `).join('')}
                         </div>
                     `).join('')}
                 </div>
-            `);
+                <hr>
+            `)
         }
 
-        var setSecondReportSection = (tagName, listValue, totalValue, forReportIndex) => {
-            $.each(listValue, function(index, value){
-                if($(`#${tagName}-name-${value.id}`)[0] == undefined) {
-                    $(`.${tagName}-body`).append(`
-                        <div class="${tagName}-list row is-report-list" id="${tagName}-name-${value.id}">
-                            <div class="${tagName}-name-${value.id} col-6">${value.name_en}</div>
-                            <div class="${tagName}-value col-1 text-right" id="${tagName}-report-num-0">-</div>
-                            <div class="${tagName}-value col-1 text-right" id="${tagName}-report-num-${forReportIndex}">${value.total_debit}</div>
+        var setCalculateDataList = (id, name, list, col)=>{
+            $(id).append(`
+                <div id="${name}-section">
+                    <h4>${name} Section</h4>
+                    <hr>
+                    ${list.map(e=>`
+                        <div class="row bold">
+                            <div class="col-${col}">${name} in ${e.currency_name_en}</div>
+                            ${e.value_list.map(ef=>`
+                                <div class="col-1 text-right">${ef.total_debit == 0 ? '-' : ef.total_debit}</div>
+                            `).join('')}
                         </div>
-                    `);
-                } else {
-                    $(`#${tagName}-name-${value.id}`).append(`
-                        <div class="${tagName}-value col-1 text-right" id="${tagName}-report-num-${forReportIndex}">${value.total_debit}</div>
-                    `);
-                }
-            })
-            $.each(totalValue, function(index, value){
-                if($(`#${tagName}-total-${value.id}`)[0] == undefined) {
-                    $(`.${tagName}-body`).append(
-                    `
-                        <div class="${tagName}-list row is-report-list" id="${tagName}-total-${value.currency}">
-                            <div class="${tagName}-total-${value.currency} col-6 bold">Total ${name} ${value.currency}</div>
-                            <div class="${tagName}-total-value col-1 bold text-right" id="${tagName}-total-report-num-0">-</div>
-                            <div class="${tagName}-total-value col-1 bold text-right" id="${tagName}-total-report-num-${forReportIndex}">${value.value}</div>
-                        </div>
-                    `)
-                }
-            })
+                    `).join('')}
+                </div>
+                <hr>
+            `)
         }
-
     });
 
 </script>
