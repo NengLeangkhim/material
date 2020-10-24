@@ -172,8 +172,13 @@ class ModelHrmRecruitmentReport extends Model
         $candidate = ModelHrmListCandidate::get_candidate_by_date($from,$to);
         $taken=[];
         foreach($candidate as $row){
-            //status new
-            if(is_null($row->hr_approval_status) && $row->check_quiz==0){
+            //status taken
+
+            if(is_null($row->check_quiz) && is_null($row->hr_approval_status)){
+                // array_push($new,$row);
+            }
+            //status taken
+            elseif(is_null($row->hr_approval_status) && $row->check_quiz==0){
                 array_push($taken,$row);
             }
         }
