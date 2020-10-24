@@ -116,7 +116,7 @@ class Payroll extends Model
     }
 
     public static function GetValueFromComponent($id,$name,$role,$baseSalary,$month,$year){
-        $sql= "select hpc.value,hpct.name,hpc.date_from,hpc.date_to,hpc.for_month,hpc.approve from hr_payroll_component hpc
+        $sql= "select hpc.value,hpct.name,hpc.date_from,hpc.date_to,hpc.for_month,hpc.approve,hpc.for_year from hr_payroll_component hpc
                 INNER JOIN hr_payroll_component_type hpct on hpct.id=hpc.hr_payroll_component_type_id         
                 where hpc.ma_user_id=$id and hpc.status='t' and hpc.is_deleted='f' and hpc.for_month=$month and for_year=$year";
         $stm = DB::select($sql);
@@ -139,9 +139,10 @@ class Payroll extends Model
                 $date_from=$payrolltype->date_from;
                 $date_to=$payrolltype->date_to;
                 $month=$payrolltype->for_month;
+                $year=$payrolltype->for_year;
                 $approve=$payrolltype->approve;
             }
-            array_push($data,$id,$name,$role,$baseSalary,$overtime,$commission,$bonus,$date_from,$date_to,$month,$approve);
+            array_push($data,$id,$name,$role,$baseSalary,$overtime,$commission,$bonus,$date_from,$date_to,$month,$year,$approve);
             return $data;
         }else{
             return null;
@@ -172,7 +173,7 @@ class Payroll extends Model
 
     // for finance check 
     public static function Payroll($month,$year){
-        $sql="select hpl.id,hpl.approve, mu.first_name_en, mu.last_name_en ,mu.id_number,mp.name as position,hpl.bonus_value,hpl.tax from hr_payroll_list hpl 
+        $sql="select mu.id as userid, hpl.id,hpl.approve, mu.first_name_en, mu.last_name_en ,mu.id_number,mp.name as position,hpl.bonus_value,hpl.tax from hr_payroll_list hpl 
             INNER JOIN ma_user mu on hpl.ma_user_id=mu.id
             INNER JOIN ma_position mp ON mu.ma_position_id=mp.id 
             where hpl.id in(select hr_payroll_list_id from hr_payroll_list_hr_payroll_component_rel hplhpc 
@@ -189,11 +190,11 @@ class Payroll extends Model
 
 
     public static function ExportPayroll_Excel($month,$year){
-        $sql= "select mu.first_name_en, mu.last_name_en,mu.id_number,hp.base_salary,hp.add_on,hp.tax,(hp.base_salary+hp.add_on)-hp.tax as netsalary from hr_payroll hp INNER JOIN ma_user mu on hp.ma_user_id= mu.id
+        $sql= "select mu.first_name_en, mu.last_name_en,mu.id_number,hp.base_salary,hp.add_on,hp.tax,(hp.base_salary+hp.add_on)-hp.tax as netsalary,mu.bank_account from hr_payroll hp INNER JOIN ma_user mu on hp.ma_user_id= mu.id
                 where hp.id in(select hplhp.hr_payroll_id from hr_payroll_list_hr_payroll_component_rel hplhpc join hr_payroll_component hpc on hplhpc.hr_payroll_component_id=hpc.id  join hr_payroll_list_hr_payroll_rel hplhp on hplhp.hr_payroll_list_id=hplhpc.hr_payroll_list_id 
                 where hpc.for_month=$month and hpc.for_year=$year) and hp.status='t' and hp.is_deleted='f'";
         $stm=DB::select($sql);
-        $data[]=['No','name','ID Number','Base Salary','Add On','Tax','Net Salary'];
+        $data[]=['No','name','ID Number','Base Salary','Add On','Tax','Net Salary','Bank Account'];
         $i=0;
         foreach($stm as $ex_payroll){
             $data[]=[
@@ -203,9 +204,137 @@ class Payroll extends Model
                 'Base Salary'=>$ex_payroll->base_salary,
                 'Add On'=>$ex_payroll->add_on,
                 'Tax'=>$ex_payroll->tax,
-                'Net Salary'=>$ex_payroll->netsalary
+                'Net Salary'=>$ex_payroll->netsalary,
+                'Bank Account'=>$ex_payroll->bank_account
             ];
         }
         return $data;
+    }
+
+    public static function payroll_list_overtime_detail($userid,$date_from,$date_to,$month,$year){
+        $sql="select ho.* 
+            from hr_overtime ho
+            join hr_overtime_hr_payroll_component_rel hohpc on ho.id=hohpc.hr_overtime_id
+            where hohpc.hr_payroll_component_id=
+            (select id from hr_payroll_component where hr_payroll_component_type_id=(select id from hr_payroll_component_type where table_name='hr_overtime') and ma_user_id=$userid and date_from='$date_from' and date_to='$date_to' and for_month=$month::SMALLINT and for_year=$year::SMALLINT)";
+            return DB::select($sql);
+    }
+    public static function payroll_list_mission_detail($userid,$date_from,$date_to,$month,$year){
+        $sql="select hc.* 
+            from hr_commision hc
+            join hr_commision_hr_payroll_component_rel hchpc on hc.id=hchpc.hr_commision_id
+            where hchpc.hr_payroll_component_id=
+            (select id from hr_payroll_component where hr_payroll_component_type_id=(select id from hr_payroll_component_type where table_name='hr_commision') 
+            and ma_user_id=$userid and date_from='$date_from' and date_to='$date_to' and for_month=$month::SMALLINT and for_year=$year::SMALLINT
+            );";
+        return DB::select($sql);
+    }
+
+    //Payroll Detail
+    public static function payroll_detail_employee($payroll_list_id){
+        $sql="SELECT concat(mu.first_name_en,' ',mu.last_name_en) as name,mu.image,mu.contact,mu.id_number,mu.email,hpl.bonus_value,hpl.tax,hpl.tax_exception FROM hr_payroll_list hpl INNER JOIN ma_user mu on hpl.ma_user_id=mu.id WHERE hpl.id=$payroll_list_id and hpl.status='t' and hpl.is_deleted='f' and mu.status='t' and mu.is_deleted='f' and mu.is_employee='t'";
+        return DB::select($sql);
+    }
+    public static function payrol_detail($payroll_list_id){
+        $sql="select 
+            hpc.* ,
+            hpct.name as value_type
+            from hr_payroll_component hpc
+            right join hr_payroll_component_type hpct on hpct.id=hpc.hr_payroll_component_type_id
+            join hr_payroll_list_hr_payroll_component_rel hplhpc on hplhpc.hr_payroll_component_id=hpc.id
+            where 
+            hplhpc.hr_payroll_list_id=$payroll_list_id";
+            $stm=DB::select($sql);
+            $baseSalary=0;
+            $overtime=0;
+            $commission=0;
+            $bonus=0;
+            foreach($stm as $payroll_amount){
+                if($payroll_amount->hr_payroll_component_type_id==5){
+                    $baseSalary=$payroll_amount->value;
+                }elseif($payroll_amount->hr_payroll_component_type_id==4){
+                    $overtime=$payroll_amount->value;
+                }elseif($payroll_amount->hr_payroll_component_type_id==1){
+                    $commission=$payroll_amount->value;
+                }
+            }
+            $data=[
+                "base_salary"=>$baseSalary,
+                "overtime"=>$overtime,
+                "commission"=>$commission,
+                "bonus"=>$bonus
+            ];
+        return $data;
+    }
+
+    // report payroll List
+    public static function payroll_list_report($id,$name,$role,$baseSalary){
+        $sql= "select hpc.value,hpct.name,hpc.date_from,hpc.date_to,hpc.for_month,hpc.approve,hpc.for_year from hr_payroll_component hpc
+                INNER JOIN hr_payroll_component_type hpct on hpct.id=hpc.hr_payroll_component_type_id         
+                where hpc.ma_user_id=$id and hpc.status='t' and hpc.is_deleted='f'";
+        $stm = DB::select($sql);
+        if(isset($stm[0])){
+            $data=array();
+            $overtime=0;
+            $baseSalary=0;
+            $commission=0;
+            $bonus=0;
+            foreach($stm as $payrolltype){
+                if($payrolltype->name== 'Base Salary'){
+                    $baseSalary=$payrolltype->value;
+                }elseif($payrolltype->name== 'Overtime'){
+                    $overtime=$payrolltype->value;
+                } elseif ($payrolltype->name == 'Commision') {
+                    $commission = $payrolltype->value;
+                } elseif ($payrolltype->name == 'Overtime') {
+                    $overtime = $payrolltype->value;
+                }
+                $date_from=$payrolltype->date_from;
+                $date_to=$payrolltype->date_to;
+                $month=$payrolltype->for_month;
+                $year=$payrolltype->for_year;
+                $approve=$payrolltype->approve;
+            }
+            array_push($data,$id,$name,$role,$baseSalary,$overtime,$commission,$bonus,$date_from,$date_to,$month,$year,$approve);
+            return $data;
+        }else{
+            return null;
+        }
+    }
+    public static function payroll_list_report_all($em){
+        $data=array();
+        $getdata=array();
+        foreach($em as $emp){
+            $get_full_en_name = $emp->firstName." ".$emp->lastName;
+            $getdata=self::payroll_list_report($emp->id,$get_full_en_name,$emp->position,1);
+            if($getdata!=null){
+                array_push($data,$getdata);
+            }
+        }
+        return $data;
+    }
+    public static function payroll_list_report_month_year($em,$month,$year){
+        $data=array();
+        $getdata=array();
+        foreach($em as $emp){
+            $get_full_en_name = $emp->firstName." ".$emp->lastName;
+            $getdata=self::GetValueFromComponent($emp->id,$get_full_en_name,$emp->position,1,$month,$year);
+            if($getdata!=null){
+                array_push($data,$getdata);
+            }
+        }
+        return $data;
+    }
+
+
+
+    // report payroll
+    public static function payroll_report_all(){
+        $sql="select mu.id as userid, hpl.id,hpl.approve, mu.first_name_en, mu.last_name_en ,mu.id_number,mp.name as position,hpl.bonus_value,hpl.tax from hr_payroll_list hpl 
+            INNER JOIN ma_user mu on hpl.ma_user_id=mu.id
+            INNER JOIN ma_position mp ON mu.ma_position_id=mp.id 
+            where hpl.id in(select hr_payroll_list_id from hr_payroll_list_hr_payroll_component_rel hplhpc 
+            join hr_payroll_component hpc on hplhpc.hr_payroll_component_id=hpc.id)";
+        return $stm=DB::select($sql);
     }
 }
