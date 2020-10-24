@@ -695,32 +695,48 @@ function submit_form (route,form,goto,idmodal=''){
       }
     if(SubformValid(form))
     {
-        if(OnSubmitCofirm('Are You sure ?')){
-            if(idmodal.length>0){
-                $("#"+idmodal).modal("hide");
-            }
-            var formElement = document.getElementById(form);
-            var formData = new FormData(formElement);
-            var request = new XMLHttpRequest();
-            request.open("POST", route);
-            request.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    data=this.responseText;
-                    if(data=='error'){
-                        sweetalert('error', 'Data has Problem');
-                    }else{
-                        // sweetalert('success',this.responseText);
-                        alert(this.responseText);
-                        go_to(goto);
-                    }
+        Swal.fire({ //get from sweetalert function
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK'
+          }).then((result) => {
+            if (result.value) {
+                if(idmodal.length>0){
+                    $("#"+idmodal).modal("hide");
                 }
-            };
-            request.send(formData);
-        }
+                form_submit(form,route,goto);
+            }
+          });
     }
  }
-
-
+function form_submit(form,route,goto){
+    var formElement = document.getElementById(form);
+    var formData = new FormData(formElement);
+    var request = new XMLHttpRequest();
+    request.open("POST", route);
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            data=this.responseText;
+            if(data=='error'){
+                sweetalert('error', 'Data has Problem');
+            }else{
+                Swal.fire(
+                    'Success',
+                      alert,
+                    'success'
+                  )
+                // sweetalert('success',this.responseText);
+                // alert(this.responseText);
+                go_to(goto);
+            }
+        }
+    };
+    request.send(formData);
+}
 
  function img_exist(){
     $( "img" ).each(function( index,item ) {
