@@ -433,23 +433,15 @@ function Crm_delete(id,route,goto,alert) {
 
     // get data into combobox branch 
     $('#branch').ready(function(){
-        $('#branch').find('option').not(':first').remove();
+        // $('#branch').find('option').not(':first').remove();
             $.ajax({
                 // url:'http://127.0.0.1:8000/api/branch',
                 url:'api/branch',
                 type:'get',
                 dataType:'json',
                 success:function(response){
-                 
-                //     var len=0;
-                //     if(response['data']!= null){
-                //         len=response['data'].length;
-                //         alert(len);
-                //     }
-                //     if(len>0){
-                //         //read data and create <option>
                         for(var i=0; i<response['data'].length ;i++){
-                            var id = response['data'][i].id;
+                            var id = response['data'][i].ma_company_branch_id;
                             var name = response['data'][i].name;
                             var company = response['data'][i].company;
                             // alert(name);
@@ -508,10 +500,10 @@ function Crm_delete(id,route,goto,alert) {
   
           })
         // get  lead in  selection 
-        $('#lead_id').ready(function(){
+        $('#lead_id #getlead').ready(function(){
           // $('#lead_id').find('option').not(':first').remove();
           // $token = $_SESSION['token'];
-          var myvar= $( "#lead_id" ).val();
+          var myvar= $( "#getlead" ).val();
           // alert(myvar);
          
               $.ajax({
@@ -534,10 +526,10 @@ function Crm_delete(id,route,goto,alert) {
                   }
               })
           })
-          
-          $('#contact_id').ready(function(){
+          // get contact in add lead
+          $('#contact_id  #getcontact').ready(function(){
             // $('#lead_id').find('option').not(':first').remove();
-            var myvar= $( "#contact_id" ).val();
+            var myvar= $( "#getcontact" ).val();
                 $.ajax({
                     url:'api/contacts',
                     type:'get',
@@ -559,9 +551,9 @@ function Crm_delete(id,route,goto,alert) {
                     }
                 })
             })
+        
             //click back to home
         $('.lead').click(function(e){
-            var ld = $(this).attr("​value");
             e.preventDefault();  
             alert(ld);
                 $.ajax({   
@@ -595,11 +587,15 @@ function Crm_delete(id,route,goto,alert) {
         // get value in search contact from selection and show in each field
         $( "#contact_id" ).change(function() {
           var to = $(this). children("option:selected"). val();
+          var myvar= $( "#getcontact" ).val();
           // alert(to);
           $.ajax({
             url:'/api/contact/'+to,
             type:'get',
             dataType:'json',
+            headers: {
+              'Authorization': `Bearer ${myvar}`,
+          },
             success:function(response){
       
                         var name_en = response['data'].name_en;
