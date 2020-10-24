@@ -45,13 +45,13 @@ class HrmPerformReportController extends Controller
             $validator = \Validator::make($request->all(), [
                 'dept_performance' =>  [  'required'
                                 ],
-                'from_performance' => [ 'required',
-                                 'date'
-                                        ],
-                'to_performance' => [ 'required',
-                                'date',
-                                'after_or_equal:from_performance'
-                                        ],
+                // 'from_performance' => [ 'required',
+                //                  'date'
+                //                         ],
+                // 'to_performance' => [ 'required',
+                //                 'date',
+                //                 'after_or_equal:from_performance'
+                //                         ],
             ],
             [
                 'dept_performance.required' => 'Please Select Department !!',   //massage validator
@@ -68,9 +68,9 @@ class HrmPerformReportController extends Controller
         }else{
             if(perms::check_perm_module('HRM_090706')){//module code list data tables id=101
             $dept = $request->dept_performance;
-            $from = $request->from_performance;
-            $to = $request->to_performance;
-            $report = ModelHrmPerformReport::hrm_get_tbl_perform_report($dept,$from.' '.'00:00:00',$to.' '.'23:59:59'); //query
+            $from = $request->from_performance??'1999-01-01';
+            $to = $request->to_performance??date("Y-m-d");
+            $report = ModelHrmPerformReport::hrm_get_tbl_perform_report($dept,$from,$to); //query
             return view('hrms/performance/performance_report/HrmTableReportPerform',['report'=>$report]);
             }else{
                 return view('no_perms');

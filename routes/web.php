@@ -919,7 +919,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_payroll_list', 'hrms\Payroll\PayrollController@PayrollList');
         Route::get('hrm_payslip', 'hrms\Payroll\PayrollController@ModalPayslip');
         Route::get('hrm_payrollitems', 'hrms\Payroll\PayrollController@ModalPayrollItems');
-        Route::get('hrm_paroll_detail', 'hrms\Payroll\PayrollController@Payroll_List_Detail');
+        Route::get('hrm_paroll_list_detail', 'hrms\Payroll\PayrollController@Payroll_List_Detail');
         Route::get('hrm_hrapprove_payroll', 'hrms\Payroll\PayrollController@HR_ApprovePayroll');
         Route::get('hrm_hrdelete_component', 'hrms\Payroll\PayrollController@DeleteComponent');
         Route::get('hrm_showpayrollbymonth', 'hrms\Payroll\PayrollController@PayrollList');

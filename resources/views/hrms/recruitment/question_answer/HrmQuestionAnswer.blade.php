@@ -88,7 +88,8 @@
          function(){
             // getTable('productlist','id');
              $('#question_recruitment').DataTable({
-               scrollX:true
+               scrollX:true,
+              responsive:true,
              });
          }
      );

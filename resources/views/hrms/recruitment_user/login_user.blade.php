@@ -19,8 +19,7 @@
     <title>User Login</title>
     <style>
         .material-half-bg{
-            /* background-image: url("images/company_logo.png");OBBPNP0 */
-            background-image: url("images/OBBPNP0.jpg");
+            background-image: url("images/company_logo.png");OBBPNP0
             background-color: black;
             background-repeat: no-repeat;
             background-size: cover;
@@ -29,6 +28,10 @@
         }
         .form-control{
             font-family: khmer OS Content, cursive​​​;
+        }
+
+        .no-shadow {
+            box-shadow: none!important;
         }
 
     </style>
@@ -41,13 +44,12 @@
     </div>
     <section class="login-content">
         {{-- <div class="login-box"> --}}
-        <div class="">
+        <div class="login-box">
             
-            <form class="login-form" action="/hrm_recruitment_login" method="post" style="padding: 15px; border-radius: 3px; width: 120%; box-shadow: 0px 1px 5px 5px rgba(56, 54, 54, 0.5)">
+            <form class="login-form" action="/hrm_recruitment_login" method="post" >
                 @csrf
-                <h3 class="login-head" style="text-align: center;">
-                    <img src="img/icons/user_icon3.png" width="35%" height="35%"  alt="" style=" border-radius: 50%; border: 1px solid rgb(126, 115, 94);">
-                </h3>
+                <h3 class="login-head"><img src="images/turbotech.png" width="85%" height="85%" alt=""></h3>
+
                 <h4 style="text-align: center; color: blue;">User Login</h4>
                 <div class="form-group" style="width: 100%;" >
                     <label class="control-label"><b>User Email</b></label>
@@ -71,7 +73,7 @@
                     <button type="submit" class="btn btn-danger btn-block" name="btn_userLogin" >SIGN IN</button>
                 </div>
 
-                <div class="form-group btn-container" style="text-align: center	;">
+                <div class="form-group btn-container pt-2" style="text-align: center	;">
                     <a href="hrm_index_user_register"><h5>Create Account <i style="font-size:18px; "class="fas fa-long-arrow-alt-right"></i></h5></a>
                 </div>
 
@@ -109,4 +111,7 @@
         Swal.fire('Please input the correct email or password !')
     }
 </script>
+
+
+
 

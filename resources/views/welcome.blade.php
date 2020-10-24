@@ -29,7 +29,7 @@
                             </div> --}}
                             {{-- <div class="col-md-12 col-sm-12 col-xs-12" style="height: auto;text-align: center;">
                                 <div class="card" style="padding: 3%;">
-                                    <img class="profile-pic" src="<?php echo $uself[0]->image??"/storage/avatar7.png";?>" style="width:100%" id='image_'>
+                                    <img class="profile-pic" src="<?php //echo $uself[0]->image??"/storage/avatar7.png";?>" style="width:100%" id='image_'>
                                     <p>{{ $uself[0]->contact??'' }}</p>
                                     <table style="width:100%">
                                         <tr>
@@ -49,7 +49,7 @@
                             </div> --}}
                             {{-- <div class="col-md-4 col-xs-4 col-sm-4" style="position: relative">
                                 <div class="card" style="padding: 3%;">
-                                    <img class="profile-pic" src="<?php echo $head[0]->image??"/storage/avatar7.png";?>" style="width:100%" id='image_'>
+                                    <img class="profile-pic" src="<?php //echo $head[0]->image??"/storage/avatar7.png";?>" style="width:100%" id='image_'>
                                     <p>{{ $head[0]->phone??'' }}</p>
                                     <table style="width:100%">
                                         <tr>
@@ -69,7 +69,7 @@
                             </div> --}}
                             {{-- <div class="col-md-4 col-xs-4 col-sm-4">
                                 <div class="card" style="padding: 3%;">
-                                    <img class="profile-pic" src="<?php echo $uself[0]->image??"/storage/avatar7.png";?>" style="width:100%" id='image_'>
+                                    <img class="profile-pic" src="<?php //echo $uself[0]->image??"/storage/avatar7.png";?>" style="width:100%" id='image_'>
                                     <p>{{ $uself[0]->contact??'' }}</p>
                                     <table style="width:100%">
                                         <tr>

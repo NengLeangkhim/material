@@ -50,6 +50,7 @@ class ModelHrmPerformSchedule extends Model
                             ->leftjoin('hr_performance_manager_follow_up as pfm','ps.id','=','pfm.hr_performance_schedule_id')
                             ->where([
                                 ['ps.is_deleted', '=', 'f'],
+                                ['ps.status', '=', 't'],
                                 ['ps.ma_user_id', '=', $userid],
                             ])
                             ->orWhere('ud.id', '=', $userid)
