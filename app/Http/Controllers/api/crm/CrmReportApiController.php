@@ -264,7 +264,7 @@ class CrmReportApiController extends Controller
      * @param String $format
      * @return Boolean
      */
-    function validateDate($date, $format = 'Y-m-d')
+    protected function validateDate($date, $format = 'Y-m-d')
     {
         $d = DateTime::createFromFormat($format, $date);
         return $d && $d->format($format) === $date;
@@ -278,7 +278,7 @@ class CrmReportApiController extends Controller
      * @param   String $message
      * @return mixed
      */
-    function response($data, $statusCode = 200, $message = 'successfully') {
+    protected function response($data, $statusCode = 200, $message = 'successfully') {
         return response()->json(['data' => $data, 'message' => $message, 'status' => $statusCode], $statusCode);
     }
 
@@ -290,7 +290,7 @@ class CrmReportApiController extends Controller
      * @param   String $message
      * @return mixed
      */
-    function responseError($error, $statusCode = 500, $message = 'failed') {
+    protected function responseError($error, $statusCode = 500, $message = 'failed') {
         return response()->json(['error' => $error, 'message' => $message, 'status' => $statusCode], $statusCode);
     }
 }
