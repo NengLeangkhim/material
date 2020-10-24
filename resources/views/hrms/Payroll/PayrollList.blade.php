@@ -10,6 +10,7 @@
                     <div class="col-md-4">
                       <select class="form-control" id="select_year" id="payroll_list_year" onchange="SearchPayrollByMonthYear()">
                           @php
+                             
                               for($y=2013;$y<=date('Y');$y++){
                                 echo '<option value="'.$y.'">'.$y.'</option>';
                               }
@@ -37,9 +38,6 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body" id="paroll_by_month">
-                  @php
-                      // print_r($data[1]);
-                  @endphp
                 <table class="table table-bordered" id="tbl_payroll" style="width: 100%">
                   <thead>                  
                     <tr>
@@ -70,7 +68,7 @@
                         <td class="text-center">
                           
                           @php
-                              if($empayroll[10]==1){
+                              if($empayroll[11]==1){
                                 $bg="bg-danger disabled";
                                 $disable="disabled";
                               }else {
@@ -79,8 +77,8 @@
                                 echo '';
                               }
                           @endphp
-                          <button id="btn_{{$empayroll[0]}}" {{$disable}} style="margin-right:15px;border:none;background-color:none;color:#007bff;" href="javascrip:;" class="btn" onclick="DeleteComponent({{$empayroll[0]}},'{{$empayroll[7]}}','{{$empayroll[8]}}',{{$empayroll[9]}},'HRM_09040401')"><i class="far fa-trash-alt" ></i></button>
-                          <a style="margin-right:15px" href="javascript:;" onclick="hrms_Payroll_List_Detail('hrm_paroll_list_detail','modal_payrolldetail',{{$empayroll[0]}})"><i class="fas fa-info"></i></a>
+                            <button id="btn_{{$empayroll[0]}}" {{$disable}} style="margin-right:15px;border:none;background-color:none;color:#007bff;" href="javascrip:;" class="btn" onclick="DeleteComponent({{$empayroll[0]}},'{{$empayroll[7]}}','{{$empayroll[8]}}',{{$empayroll[9]}},'HRM_09040401')"><i class="far fa-trash-alt" ></i></button>
+                            <a style="margin-right:15px" href="javascript:;" onclick="hrms_Payroll_List_Detail('hrm_paroll_list_detail','modal_payrolldetail',{{$empayroll[0]}},'{{$empayroll[7]}}','{{$empayroll[8]}}',{{$empayroll[9]}},{{$empayroll[10]}})"><i class="fas fa-info"></i></a>
                             <button id="btn_approve_{{$empayroll[0]}}" {{$disable}} class="btn {{$bg}} btn-sm" onclick="HR_Approve_Payroll({{$empayroll[0]}},'{{$empayroll[7]}}','{{$empayroll[8]}}',{{$empayroll[9]}},'btn_approve_{{$empayroll[0]}}','btn_{{$empayroll[0]}}','HRM_09040403')">Approve</button>
                         </td>
                     </tr>
