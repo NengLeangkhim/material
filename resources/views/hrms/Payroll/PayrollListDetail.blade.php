@@ -11,13 +11,13 @@
           <!-- /.card-header -->
           <div class="card-body" style="display: block;" id="payslipPrint">
             @php
-                // print_r($data);
+                // dump($data[3]);
             @endphp
 					<div class="nav nav-tabs" id="nav-tab" role="tablist">
 						<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Payslip</a>
 						<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Overtime</a>
-						<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Commission</a>
-						<a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">Bonus</a>
+						{{-- <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Commission</a>
+						<a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">Bonus</a> --}}
 					</div>
 				</nav>
 				<div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
@@ -63,30 +63,30 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Description</th>
-                                                        <th>Amount</th>
+                                                        <th style="width:200px">Amount</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
                                                         <td class="col-md-9">Base Salary</td>
-                                                        <td class="col-md-3"><i class="fa fa-inr"></i>$ 200</td>
+                                                        <td class="col-md-3"><i class="fa fa-inr"></i>$ {{$data[1][3]}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="col-md-9">Overtime</td>
-                                                        <td class="col-md-3"><i class="fa fa-inr"></i>$ 20</td>
+                                                    <td class="col-md-3"><i class="fa fa-inr"></i>$ {{$data[1][4]}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="col-md-9">Commission</td>
-                                                        <td class="col-md-3"><i class="fa fa-inr"></i>$ 20</td>
+                                                    <td class="col-md-3"><i class="fa fa-inr"></i>$ {{$data[1][5]}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="col-md-9">Bonus</td>
-                                                        <td class="col-md-3"><i class="fa fa-inr"></i>$ 10</td>
+                                                    <td class="col-md-3"><i class="fa fa-inr"></i>$ {{$data[1][6]}}</td>
                                                     </tr>
                                                     <tr>
                                                     
                                                         <td class="text-right"><h2><strong>Total: </strong></h2></td>
-                                                        <td class="text-left text-danger"><h2><strong> 31.566</strong></h2></td>
+                                                    <td class="text-left text-danger" style="width:200px"><h2><strong> ${{$data[1][3]+$data[1][4]+$data[1][5]+$data[1][6]}}</strong></h2></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -95,20 +95,9 @@
                                             <div class="row">
                                                 <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                                                     <div class="receipt-right">
-                                                        <p><b>Date :</b> 15 Aug 2016</p>
-                                                        <h5 style="color: rgb(140, 140, 140);">Thank you for your business!</h5>
+                                                    <p><b>Date :</b> {{$data[1][7]}} to {{$data[1][8]}}</p>
+                                                        {{-- <h5 style="color: rgb(140, 140, 140);">Thank you for your business!</h5> --}}
                                                     </div>
-                                                </div>
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                                    {{-- <div class="receipt-left">
-                                                        <h1>Signature</h1>
-                                                    </div>
-                                                    <div class="receipt-left">
-                                                        <h1>.................</h1>
-                                                    </div>
-                                                    <div class="receipt-left">
-                                                        <h1>Seng Kimsros</h1>
-                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -120,56 +109,48 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
                                     <th>Date</th>
                                     <th>From</th>
                                     <th>To</th>
                                     <th>Hours</th>
-                                    <th>Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th>1</th>
-                                    <td>Seng Kimsros</td>
-                                    <td>27/08/2020</td>
-                                    <td>5:30</td>
-                                    <td>7:00</td>
-                                    <td>1.5</td>
-                                    <td>@php
-                                        echo 1.5*5;
-                                    @endphp</td>
-                                </tr>
-                                <tr>
-                                    <th>1</th>
-                                    <td>Seng Kimsros</td>
-                                    <td>27/08/2020</td>
-                                    <td>5:30</td>
-                                    <td>7:00</td>
-                                    <td>1.5</td>
-                                    <td>@php
-                                        echo 1.5*5;
-                                    @endphp</td>
-                                </tr>
-                                <tr>
-                                    <th>1</th>
-                                    <td>Seng Kimsros</td>
-                                    <td>27/08/2020</td>
-                                    <td>5:30</td>
-                                    <td>7:00</td>
-                                    <td>1.5</td>
-                                    <td>@php
-                                        echo 1.5*5;
-                                    @endphp</td>
-                                </tr>
+                                @php
+                                    $i=0;
+                                @endphp
+                                @foreach ($data[2] as $overtime)
+                                    <tr>
+                                        <th>{{++$i}}</th>
+                                    <td>{{$overtime->overtime_date}}</td>
+                                    <td>{{$overtime->start_time}}</td>
+                                        <td>{{$overtime->end_time}}</td>
+                                    <td>{{((strtotime($overtime->end_time)-strtotime($overtime->start_time))/60)/60}}</td>
+                                        
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
 					</div>
 					<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-						<h1>Commission ?</h1>
+						<table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Commission</th>
+                                    <th>$ 0</th>
+                                </tr>
+                            </thead>
+                        </table>
 					</div>
 					<div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
-						<h1>Bonus ?</h1>
+						<table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Bonus</th>
+                                    <th>$ 0</th>
+                                </tr>
+                            </thead>
+                        </table>
 					</div>
 				</div>
           </div>

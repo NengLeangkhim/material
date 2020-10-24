@@ -50,12 +50,14 @@
 
     $(document).ready(function(){
         google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(renderAnswerChart);
         function renderAnswerChart(){
             $questionList = {!! json_encode($questionList, JSON_HEX_TAG) !!};
             $.each($questionList, function(index, question){
                 if(question.is_mcq) {
-                    drawChart(index, question.question_answer_list);
+                    if(!(question.question_answer_list.length < 1)){
+                        drawChart(index, question.question_answer_list);
+                    }
                 }
             })
         }
