@@ -83,6 +83,11 @@
                 height: 400,
                 bar: {groupWidth: "50%"},
                 legend: { position: "none" },
+                vAxis: {
+                    viewWindow:{
+                        min:0
+                    }
+                },
             };
             var chart = new google.visualization.ColumnChart(document.getElementById('answer-chart-'+id));
             chart.draw(view, options);
