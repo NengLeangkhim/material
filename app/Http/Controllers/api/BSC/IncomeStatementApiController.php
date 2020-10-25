@@ -4,18 +4,14 @@ namespace App\Http\Controllers\api\BSC;
 
 use App\Http\Controllers\Controller;
 use App\model\api\BSC\IncomeStatement;
-use Carbon\Traits\Comparison;
-use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Symfony\Component\VarDumper\VarDumper;
 
-class IncomeStatementApiController extends Controller
-{
+class IncomeStatementApiController extends Controller {
+
     protected $is;
 
-    function __construct()
-    {
+    function __construct(){
         $this->is = new IncomeStatement();
     }
 
@@ -28,8 +24,8 @@ class IncomeStatementApiController extends Controller
 
         $type = $request->type;
         $comparison = $request->comparison;
-        $fromDate = $request->fromDate;
-        $toDate = $request->toDate;
+        $fromDate = $request->from_date;
+        $toDate = $request->to_date;
         $result = [];
         $dateList = [];
         for($i=0; $i<$comparison + 1; $i++){
@@ -116,7 +112,7 @@ class IncomeStatementApiController extends Controller
         // return $this->sendResponse($income_statement, '');
     }
 
-    protected function mergeFirstList($secondList, $totalList) {
+    protected function mergeFirstList($secondList, $totalList, $index = 0, $isAppend = true){
         $newList = ['data'=>[], 'total_list'=>[]];
         foreach($secondList as $value){
             $newValue = [
@@ -135,22 +131,37 @@ class IncomeStatementApiController extends Controller
         }
 
         $newList['total_list'] = $totalList;
+        for($i=0; $i<$index; $i++){
+            $newList = $this->generateEmptyDataList($newList, $isAppend);
+        }
         return $newList;
     }
 
-    protected function generateEmptyDataList($firstList){
+    protected function generateEmptyDataList($firstList, $isAppend = true){
         foreach($firstList['data'] as $key => $value){
-            array_push($firstList['data'][$key]['value_list'], [
+            $isAppend ? array_push($firstList['data'][$key]['value_list'], [
                 "total_debit"=> 0,
                 "total_credit"=> 0
-            ]);
+            ])
+            :
+            array_unshift($firstList['data'][$key]['value_list'], [
+                "total_debit"=> 0,
+                "total_credit"=> 0
+            ])
+            ;
         }
 
         foreach($firstList['total_list'] as $key => $value){
-            array_push($firstList['total_list'][$key]['value_list'], [
+           $isAppend ? array_push($firstList['total_list'][$key]['value_list'], [
                 "total_debit"=> 0,
                 "total_credit"=> 0
-            ]);
+            ])
+            :
+            array_unshift($firstList['total_list'][$key]['value_list'], [
+                "total_debit"=> 0,
+                "total_credit"=> 0
+            ])
+            ;
         }
         return $firstList;
     }
@@ -223,8 +234,12 @@ class IncomeStatementApiController extends Controller
     }
 
     protected function mergeList($index, $firstList, $secondList, $totalList){
-        if($index == 0) {
-            return $this->mergeFirstList($secondList, $totalList);
+        if(empty($firstList)) {
+            if(!empty($secondList)){
+                return $this->mergeFirstList($secondList, $totalList, $index, false);
+            } else {
+                return [];
+            }
         } else {
             $firstList = $this->generateEmptyDataList($firstList);
             $firstList['data'] = $this->setDataForAccountList($index, $firstList, $secondList);
@@ -233,12 +248,18 @@ class IncomeStatementApiController extends Controller
         }
     }
 
-    protected function generateEmptySubtractedData($firstList){
+    protected function generateEmptySubtractedData($firstList, $isAppend = true){
         foreach($firstList as $key => $value){
-            array_push($firstList[$key]['value_list'], [
+            $isAppend ? array_push($firstList[$key]['value_list'], [
                 "total_debit"=> 0,
                 "total_credit"=> 0
-            ]);
+            ])
+            :
+            array_unshift($firstList[$key]['value_list'], [
+                "total_debit"=> 0,
+                "total_credit"=> 0
+            ])
+            ;
         }
         return $firstList;
     }
@@ -275,9 +296,15 @@ class IncomeStatementApiController extends Controller
     }
 
     protected function mergeSubtractedList($index, $firstList, $secondList){
-        // dd($firstList, $secondList);
-        if($index == 0){
-            return $secondList;
+        if(empty($firstList)){
+            if(!empty($secondList)){
+                for($i=0; $i<$index; $i++){
+                    $secondList = $this->generateEmptySubtractedData($secondList, false);
+                }
+                return $secondList;
+            } else {
+                return [];
+            }
         } else {
             $firstList = $this->generateEmptySubtractedData($firstList);
             return $this->setDataForSubtractedList($index, $firstList, $secondList);
@@ -326,7 +353,6 @@ class IncomeStatementApiController extends Controller
         ];
         return $finalReport;
     }
-
 
     public function getIncomeStatement(Request $request){
         $fromDate = $request->fromDate;

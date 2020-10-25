@@ -21,22 +21,26 @@
         <div class="is-menu row justify-content-between">
             <div class="is-menu-left col-9 row justify-content-start">
                 <div class="input-group col-8">
-                    <input type="date" class="form-control" aria-label="Text input with dropdown button">
-                    <input type="date" class="form-control" aria-label="Text input with dropdown button">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                      </div>
+                    <input type="date" id="from-date" class="form-control" aria-label="Text input with dropdown button">
+                    <input type="date" id="to-date" class="form-control" aria-label="Text input with dropdown button">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-tty"></i></span>
                     </div>
+                    <select class="form-control" name="select_source" id="is-report-type">
+                        <option value="0" disabled>Report Type</option>
+                        <option value="1">Monthly</option>
+                        <option value="2">Quarterly</option>
+                        <option value="3">Yearly</option>
+                    </select>
                 </div>
                 <div class="input-group col-2">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">NONE</button>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                      </div>
-                    </div>
+                    <select class="form-control" name="select_source" id="is-comparison-number">
+                        <option value="0">None</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
                 </div>
 
                 <div class="input-group col-2">
@@ -82,14 +86,15 @@
 <script>
     $(document).ready(function(){
         $('#btn-get-report').click(function(){
+            console.log()
             $.ajax({
                 url: "/api/bsc/report/pl",
                 type: 'GET',
                 data: {
-                    type : 2,
-                    comparison : 2,
-                    fromDate : '2020-10-02',
-                    toDate : '2020-10-15'
+                    type : $('#is-report-type').val() == 0 ? 1 : $('#is-report-type').val(),
+                    comparison : $('#is-comparison-number').val(),
+                    from_date : $('#from-date').val(),
+                    to_date : $('#to-date').val()
                 },
                 success: function(response){
                     console.log(response)
