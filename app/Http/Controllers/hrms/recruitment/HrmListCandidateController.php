@@ -176,7 +176,6 @@ class HrmListCandidateController extends Controller
                   'fname' => ['required'],
                   'lname' => ['required'],
                   'name_kh' => ['required'],
-                  'pw' => ['required'],
                   'position' => ['required'],
                   'email' =>  [  'required',
                                       'max:255',
@@ -194,7 +193,6 @@ class HrmListCandidateController extends Controller
                   'lname.required' => 'The Field is Required !!',   //massage validator
                   'name_kh.required' => 'The Field is Required !!',   //massage validator
                   'email.required' => 'The Field is Required !!',   //massage validator
-                  'pw.required' => 'The Field is Required !!',   //massage validator
                   'position.required' => 'The Field is Required !!',   //massage validator
                   'email.unique' => 'The Email is Already Exist !!',   //massage validator
                   'cv.mimes' => 'Please Select Pdf File Only !!',
@@ -231,8 +229,12 @@ class HrmListCandidateController extends Controller
                $fname = $request->fname;
                $lname = $request->lname;
                $name_kh = $request->name_kh;
-               $password = $request->pw;
-               $p= $this->en($password);
+               if(isset($request->pw)){
+                $password = $request->pw;
+                $p =$this->en($password);
+                }else{
+                    $p = $request->pw_update;
+                }
                $position_id = $request->position;
                $interest = '';
                $status= 't';
@@ -255,6 +257,11 @@ class HrmListCandidateController extends Controller
         }
         $rr=md5($r);
         return $rr;
+    }
+    public static function aes_de($inputText,$inputKey){
+        $blockSize = 256;
+        $aes = new AES($inputText, $inputKey, $blockSize);
+        return $aes->decrypt();
     }
 
 }
