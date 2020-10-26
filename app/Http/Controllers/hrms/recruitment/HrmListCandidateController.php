@@ -118,9 +118,9 @@ class HrmListCandidateController extends Controller
                                         ->where(function ($query) use ($request) {
                                         return $query->where('is_deleted', 'f');})
                                             ],
-                    'cv' => ['mimes:pdf',
+                    'cv' => ['mimes:pdf','max:10240'
                                             ],
-                    'cover_letter' => [ 'mimes:pdf',
+                    'cover_letter' => [ 'mimes:pdf','max:10240'
                                             ],
                 ],
                 [
@@ -133,6 +133,8 @@ class HrmListCandidateController extends Controller
                     'email.unique' => 'The Email is Already Exist !!',   //massage validator
                     'cv.mimes' => 'Please Select Pdf File Only !!',
                     'cover_letter.mimes' => 'Please Select Pdf File Only !!',
+                    'cv.max' => 'The file is too large !!',
+                    'cover_letter.max' => 'The file is too large !!',
                     ]
                 );
             if ($validator->fails()) //check validator for fail
@@ -182,9 +184,9 @@ class HrmListCandidateController extends Controller
                                       ->where(function ($query) use ($request) {
                                       return $query->where('is_deleted', 'f');})
                                           ],
-                  'cv' => [ 'mimes:pdf',
+                  'cv' => [ 'mimes:pdf','max:10240'
                                           ],
-                  'cover_letter' => ['mimes:pdf',
+                  'cover_letter' => ['mimes:pdf','max:10240',
                                           ],
               ],
               [
@@ -197,6 +199,8 @@ class HrmListCandidateController extends Controller
                   'email.unique' => 'The Email is Already Exist !!',   //massage validator
                   'cv.mimes' => 'Please Select Pdf File Only !!',
                   'cover_letter.mimes' => 'Please Select Pdf File Only !!',
+                  'cv.max' => 'The file is too large !!',
+                  'cover_letter.max' => 'The file is too large !!',
                   ]
               );
           if ($validator->fails()) //check validator for fail
