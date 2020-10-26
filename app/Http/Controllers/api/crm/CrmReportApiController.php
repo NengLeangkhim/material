@@ -69,11 +69,9 @@ class CrmReportApiController extends Controller
                 $res->lead_branch_list = $this->crmReport->getLeadsByAssignTo($res->ma_user_id, $fromDate, $toDate);
             }
         } catch(QueryException $e){
-            return $this->responseError($this->queryException);
+            return $this->sendError($this->queryException);
         }
-
-
-        return $this->response($result, $status, $message);
+        return $this->sendResponse($result, $message);
 
     }
 
@@ -113,11 +111,9 @@ class CrmReportApiController extends Controller
                 $res->lead_list = $this->crmReport->getLeadsBySource($res->crm_lead_source_id, $fromDate, $toDate);
             }
         } catch(QueryException $e){
-            return $this->responseError($this->queryException);
+            return $this->sendError($this->queryException);
         }
-
-
-        return $this->response($result, $status, $message);
+        return $this->sendResponse($result, $message);
     }
 
     /**
@@ -127,8 +123,8 @@ class CrmReportApiController extends Controller
      * @return mixed
      */
     public function getLeadReportByStatus(Request $request){
-        $fromDate = $request->fromDate;
-        $toDate = $request->toDate;
+        $fromDate = $request->from_date;
+        $toDate = $request->to_date;
         try {
             $result = $this->crmReport->getLeadReportByStatus($fromDate, $toDate);
 
@@ -141,13 +137,10 @@ class CrmReportApiController extends Controller
                 $res->lead_branchList = $branches;
             }
         } catch(QueryException $e){
-            return $this->responseError($this->queryException);
+            return $this->sendError($this->queryException);
         }
-
-
-        $status = 200;
         $message = 'lead report by status';
-        return $this->response($result, $status, $message);
+        return $this->sendResponse($result, $message);
     }
 
     /**
@@ -187,10 +180,9 @@ class CrmReportApiController extends Controller
             }
 
         } catch(QueryException $e){
-            return $this->responseError($this->queryException);
+            return $this->sendError($this->queryException);
         }
-
-        return $this->response($result, $status, $message);
+        return $this->sendResponse($result, $message);
     }
 
     /**
@@ -209,10 +201,9 @@ class CrmReportApiController extends Controller
         try {
             $result = $this->crmReport->getAllLeadDetail($leadSource, $assignTo, $status, $fromDate, $toDate);
         } catch(QueryException $e){
-            return $this->responseError($this->queryException);
+            return $this->sendError($this->queryException);
         }
-
-        return $this->response($result);
+        return $this->sendResponse($result, '');
     }
 
     /**
@@ -230,9 +221,9 @@ class CrmReportApiController extends Controller
         try {
             $result = $this->crmReport->getQuoteDetail($assignTo, $status, $fromDate, $toDate);
         } catch(QueryException $e){
-            return $this->responseError($this->queryException);
+            return $this->sendError($this->queryException);
         }
-        return $this->response($result);
+        return $this->sendResponse($result, '');
     }
 
     function getTotalReport(Request $request){
@@ -252,9 +243,9 @@ class CrmReportApiController extends Controller
                 ,'total_contact' => $totalContact->total_contact
             ];
         } catch(QueryException $e){
-            return $this->responseError($this->queryException);
+            return $this->sendError($this->queryException);
         }
-        return $this->response($result);
+        return $this->sendResponse($result,'');
     }
 
     /**
@@ -268,29 +259,5 @@ class CrmReportApiController extends Controller
     {
         $d = DateTime::createFromFormat($format, $date);
         return $d && $d->format($format) === $date;
-    }
-
-    /**
-     * Response Custom Successfully as JSON Format.
-     *
-     * @param   Array<any> $data
-     * @param   Number $statusCode
-     * @param   String $message
-     * @return mixed
-     */
-    protected function response($data, $statusCode = 200, $message = 'successfully') {
-        return response()->json(['data' => $data, 'message' => $message, 'status' => $statusCode], $statusCode);
-    }
-
-    /**
-     * Response Custom Error as JSON Format.
-     *
-     * @param   String $error
-     * @param   Number $statusCode
-     * @param   String $message
-     * @return mixed
-     */
-    protected function responseError($error, $statusCode = 500, $message = 'failed') {
-        return response()->json(['error' => $error, 'message' => $message, 'status' => $statusCode], $statusCode);
     }
 }

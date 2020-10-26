@@ -91,7 +91,6 @@
                                         <th>email</th>
                                         <th>Website</th>
                                         <th>Status</th>
-                                        <th>Detail</th>
                                     </tr>
                                 </thead>
                                 <tbody id="quote-detail-body">
@@ -163,14 +162,12 @@
                                 <td>${data.email}</td>
                                 <td>${data.website}</td>
                                 <td>${data.quote_status_name_en}</td>
-                                <td>
-                                {{-- <a href="#" class="btn btn-block btn-info btn-sm edit" ​value="editlead/{{$row->id}}" ><i class="fas fa-wrench"></i></a>detaillead --}}
-                                <a href="#" class="btn btn-block btn-info btn-sm organization_detail" ​value="/organizations/detail" ><i class="fas fa-info-circle"></i></a>
-                                </td>
                             </tr>
                             `)
                         })
                     }
+                    $('#OrganizationTbl').DataTable();
+
                 },
                 fail : function(){
                     console.log("ERROR");
