@@ -187,10 +187,10 @@
                             <form action="">
                                 @csrf
                                 <div class="card-body">
-                                    <label for="">Receive a Payment</label><br/>
+                                    <strong><h4 for="" style="text-align: center">Receive a Payment</h4><strong><br/>
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Amount Paid <b class="color_label">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
@@ -199,7 +199,7 @@
                                                     <input required type="text" class="form-control"  name="amount_paid" id="exampleInputEmail1" placeholder="Amount Paid">
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Date paid<b class="color_label">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
@@ -208,7 +208,10 @@
                                                     <input required type="date" class="form-control"  name="date_paid" id="exampleInputEmail1" placeholder="Date Paid">
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Paid To<b class="color_label">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
@@ -223,7 +226,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Reference<b class="color_label">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
@@ -232,7 +235,7 @@
                                                     <input required type="text" class="form-control"  name="reference" id="exampleInputEmail1" placeholder="Reference">
                                                 </div>
                                             </div>
-                                        </div><br/>
+                                        </div>
 
                                     </div>
                                     <div class="col-md-12">
