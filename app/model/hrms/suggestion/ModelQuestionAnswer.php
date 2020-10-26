@@ -149,11 +149,19 @@ class ModelQuestionAnswer extends Model
                 FROM hr_suggestion_submited as ss
                 WHERE ss.hr_suggestion_question_id = '.$id.' AND ss.status = \'t\' AND ss.is_deleted = \'f\'
             ';
+
             $statementMCQ = '
-                SELECT DISTINCT ON (sa.id) sa.answer, COUNT(*) AS total_suggestion
-                FROM hr_suggestion_submited as ss INNER JOIN hr_suggestion_answer AS sa on ss.hr_suggestion_answer_id = sa.id
-                WHERE ss.hr_suggestion_question_id = '.$id.' AND ss.status = \'t\' AND ss.is_deleted = \'f\' AND sa.status = \'t\' AND sa.is_deleted = \'f\'
-                GROUP BY sa.id
+                WITH me AS (
+                    SELECT DISTINCT ON (ss.hr_suggestion_answer_id) hr_suggestion_question_id, hr_suggestion_answer_id, COUNT(*) AS total_answer
+                    FROM hr_suggestion_submited ss
+                    WHERE ss.hr_suggestion_answer_id IS NOT NULL and ss.is_deleted = false and ss.status = true
+                    GROUP BY ss.hr_suggestion_answer_id, hr_suggestion_question_id
+                )
+                SELECT sa.hr_suggestion_question_id, answer, COALESCE(total_answer, null, 0, total_answer) total_suggestion
+                FROM hr_suggestion_answer sa FULL JOIN me on sa.id = me.hr_suggestion_answer_id
+                WHERE sa.hr_suggestion_question_id = '.$id.' and sa.is_deleted = false and sa.status = true
+                ORDER BY sa.hr_suggestion_question_id
+            ;
             ';
             $result = DB::select($isMCQ ? $statementMCQ : $statement);
         } catch(QueryException $e){
