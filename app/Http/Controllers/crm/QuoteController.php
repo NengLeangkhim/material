@@ -153,7 +153,7 @@ class QuoteController extends Controller
 
 
 
-    //function to list organization lead to add lead quote
+    //function to list lead to add lead quote
     public static function listQuoteLead(Request $request){
 
         if(isset($_GET['id'])){
@@ -190,8 +190,6 @@ class QuoteController extends Controller
             $listBranch = json_decode($res->getContent());
 
             // dd($listBranch);
-            // $request = Request::create('/api/getbranchbylead/'.$id.'', 'GET');
-            // $listBranch = json_decode(Route::dispatch($request)->getContent());
             return view('crm/quote/listQuoteBranch', compact('listBranch'));
         }
     }

@@ -830,9 +830,12 @@ function Crm_delete(id,route,goto,alert) {
 
 
 
+
+
     //function to get lead branch by lead id
     $(document).on('click','#clickGetBranch', function(){
         var lead_id = $('#lead_id').val();
+
         if(lead_id != ""){
             // getShowPopup('/quote/add/listQuoteBranch',lead_id,'modal-list-quote','listQuoteBranch','tblQuuteBranch','getSelectRow','branchKhName','getLeadBranchId','getLeadBranch');
             var id_ = "id="+lead_id;
@@ -858,35 +861,20 @@ function Crm_delete(id,route,goto,alert) {
 
                     $('#getSelectRow').click( function () {
 
-
-
                         if($('tbody tr').hasClass('selected') == true){
                             var lead_id = $('.selected').attr("id");
                             $('#crm_lead_branch_id').val(lead_id);
 
-
                             //get value from textbox
 
                             var branchNameEn = $.trim($('#brdcompanyEn_'+lead_id+'').val());
-                            var home_en = $.trim($('#brdnameEn_'+lead_id+'').val());
-                            var home_kh = $.trim($('#brdnameKh_'+lead_id+'').val());
-                            var street_en = $.trim($('#brdstreetEn_'+lead_id+'').val());
-                            var street_kh = $.trim($('#brdstreetKh_'+lead_id+'').val());
-                            var province = $.trim($('#brdprvince_'+lead_id+'').val());
-                            var district = $.trim($('#brddistrict_'+lead_id+'').val());
-                            var commune = $.trim($('#brdcommue_'+lead_id+'').val());
-                            var village = $.trim($('#brdvillage_'+lead_id+'').val());
+                            var address = $.trim($('#brdnameEn_'+lead_id+'').val());
+
 
                             //send value to textbox
                             $('#getLeadBranch').val(branchNameEn);
-                            $("#homeEN").val(home_en);
-                            $("#homeKH").val(home_kh);
-                            $("#streetEN").val(street_en);
-                            $("#streetKH").val(street_kh);
-                            $("#address_city").val(province);
-                            $("#district").val(district);
-                            $("#commune").val(commune);
-                            $("#village").val(village);
+                            $("#homeEN").val(address);
+
 
                             //close modal
                             $('#listQuoteBranch').modal('hide');

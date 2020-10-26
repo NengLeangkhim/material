@@ -4,7 +4,7 @@ namespace App\Http\Controllers\hrms\shift_promote;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\model\hrms\shift_promote\management_promoteModel; 
+use App\model\hrms\shift_promote\management_promoteModel;
 
 class staff_view_promoteController extends Controller
 {
@@ -43,10 +43,10 @@ class staff_view_promoteController extends Controller
                             $old_pos = '';
                         }
 
-                    } 
+                    }
                     // dd($old_pos);
                     return view('hrms/shift_promote/staff_view_promote/staff_view_promote_detail', ['promote_detail' => $r,'old_position'=>$old_pos]);
-            }   
+            }
         }
 
 

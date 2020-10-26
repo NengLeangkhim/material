@@ -70,7 +70,7 @@
 
 
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Organization Name<b style="color:red">*</b></label>
+                                                <label for="exampleInputEmail1">Lead Name<b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
@@ -97,7 +97,7 @@
 
 
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Status </label>
+                                                <label for="exampleInputEmail1">Status  <b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
@@ -116,7 +116,7 @@
                                             </div>
 
 
-                                            <div class="col-md-6">
+                                            {{-- <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Lead Branch <b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
@@ -129,8 +129,23 @@
                                                     <input type="hidden" id="crm_lead_branch_id"  name="crm_lead_branch_id">
                                                     <span id="getLeadBranchError" ><strong></strong></span>
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
+                                            <div class="col-md-6">
+                                                <label for="exampleInputEmail1">Assign To <b style="color:red">*</b></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class='fas fa-pen-square'></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control"  name="assign_toName" id="assign_toName" placeholder="Assign To" readonly>
+                                                    <div class="input-group-prepend" align="right">
+                                                        <a href="javascript:void(0);" class="btn btn-info" id="" onclick="getShowPopup('/quote/add/listAssignTo',1,'modal-list-quote','listAssignTo','tblAssignTo','getSelectRow','em_name_en','assign_to','assign_toName');" ><i class="glyphicon glyphicon-plus"></i></a>
+                                                    </div>
+                                                    <input type="hidden" id="assign_to" name="assign_to" >
+                                                    <span id="assign_toNameError" ><strong></strong></span>
+
+                                                </div>
+                                            </div>
 
                                         </div>
                                     </div>
@@ -150,44 +165,21 @@
                                             </div>
 
 
-
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Assign To <b style="color:red">*</b></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class='fas fa-pen-square'></i></span>
-                                                    </div>
-                                                    <input type="text" class="form-control"  name="assign_toName" id="assign_toName" placeholder="Assign To" readonly>
-                                                    <div class="input-group-prepend" align="right">
-                                                        <a href="javascript:void(0);" class="btn btn-info" id="" onclick="getShowPopup('/quote/add/listAssignTo',1,'modal-list-quote','listAssignTo','tblAssignTo','getSelectRow','em_name_en','assign_to','assign_toName');" ><i class="glyphicon glyphicon-plus"></i></a>
-                                                    </div>
-                                                    <input type="hidden" id="assign_to" name="assign_to" >
-                                                    <span id="assign_toNameError" ><strong></strong></span>
-
-                                                </div>
-                                            </div>
-
-
-
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-12">
                                                 <label for="exampleInputEmail1">Comment <b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="far fa-comment-alt"></i></span>
                                                     </div>
-                                                    <textarea rows="3" class="form-control" name="comment" id="comment" placeholder="Comment here..." required></textarea>
+                                                    <input type="text" class="form-control" name="comment" id="comment" placeholder="Comment here..." required>
                                                     <span id="commentError" ><strong></strong></span>
 
                                                 </div>
                                             </div>
+
+
                                         </div>
                                     </div>
-
 
                                 </div>
                         </div>
@@ -319,72 +311,120 @@
                             <div class="card-header" style="background:#1fa8e0">
                                 <h3 class="card-title">Item Detail</h3>
                             </div>
-                            <div class="card-body table-responsive">
-                                <div class="row-12 max-min-table" style="margin-right:4px;">
-                                    <table class="table table-bordered ">
-                                        <thead class="thead-item-list">
-                                            <tr>
-                                                <th class="td-item-quote-name"><b style="color:red">*</b> Item Name</th>
-                                                <th class="td-item-quote">Type</th>
-                                                <th style="width: 120px">Quantity</th>
-                                                <th class="td-item-quote">List Price($)</th>
-                                                <th class="td-item-quote">Total($)</th>
-                                                <th style="width: 50px;" >
-                                                    <button type="button" class="btn btn-info" id="btnAddRowQuoteItem" ><span><i class="fa fa-plus"></i></span></button>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="add_row_tablequoteItem">
-                                            {{-- field to add new row to table --}}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="row-12 max-min-table-total">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr class="fieldGrandTotal">
-                                                <td style="width: 50%"><input type="hidden"></td>
-                                                <td  >
-                                                    <table class="table table-bordered tr-quote-row">
-                                                        <tbody>
-                                                            <tr style="text-align: right">
-                                                                <td  ><span style="padding-right: 12px;">Sum Total </span></td>
-                                                                <td  ><div id="sumTotal"> 0.0 </div></td>
-                                                            </tr>
+                            <div class="card-body ">
+                                <div class="table-responsive">
 
+                                        <!-- Add Product Lead Content -->
+                                        <div class="row-12">
+                                            <div class="col-12">
+                                                <div class="row-12 pb-3">
+                                                        <div class="input-group-prepend">
+                                                            <a href="javascript:void(0);" class="btn btn-primary font-weight-bold" id="clickGetBranch" ><i class="fas fa-plus"></i> Add Lead Branch</a>
+                                                        </div>
+                                                </div>
 
-                                                            <tr style="text-align: right">
-                                                                <td >
-                                                                    <select class="allItemDiscount btn-list-item mdb-select md-form" name="allDiscount" id="allItemDiscount" >
-                                                                        <option value="1"><span>+Discount (%)</span> </option>
-                                                                        <option value="2"><span>+Discount ($)</span> </option>
-                                                                    </select>
-                                                                </td>
-                                                                <td class="rowGrandDiscount">
-                                                                    <div id="allDiscount">
-                                                                        <input type="text" style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="itemDiscountPercent" value="0" placeholder="0.0%" required>
+                                                <div class="row-12 form-group max-min-table" id="content-quote-product" style="margin-right:4px;">
+
+                                                        <div class="form-group border border-success rounded  p-3">
+                                                                <div class="col-12" align="right">
+                                                                    <button type="button" class="close" style="color:blue;" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="form-group col-8">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="font-weight-bold input-group-text">Branch:</span>
+                                                                        </div>
+                                                                        <input type="text" class="form-control" id="branch"  name="branch"   placeholder="" required readonly>
                                                                     </div>
-                                                                    <div  id="totalDiscount">
-                                                                        0
+                                                                </div>
+
+                                                                <div class="form-group col-8">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="font-weight-bold input-group-text">Address:</span>
+                                                                        </div>
+                                                                        <input type="text" class="form-control" id="branchAddress"  name="branchAddress"   placeholder="" required readonly>
                                                                     </div>
-                                                                </td>
-                                                            </tr>
+                                                                </div>
+
+                                                                <div class="col-12">
+                                                                        <table class="table table-bordered ">
+                                                                            <thead class="thead-item-list">
+                                                                                <tr>
+                                                                                    <th class="td-item-quote-name"><b style="color:red">*</b> Item Name</th>
+                                                                                    <th class="td-item-quote">Type</th>
+                                                                                    <th style="width: 120px">Quantity</th>
+                                                                                    <th class="td-item-quote">List Price($)</th>
+                                                                                    <th class="td-item-quote">Total($)</th>
+                                                                                    <th style="width: 50px;" >
+                                                                                        <button type="button" class="btn btn-info" id="btnAddRowQuoteItem" ><span><i class="fa fa-plus"></i></span></button>
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody id="add_row_tablequoteItem">
+                                                                                {{-- field to add new row to table --}}
+                                                                            </tbody>
+                                                                        </table>
+                                                                </div>
+                                                        </div>
 
 
-                                                            <tr class="td-total-quote grandTotal" >
-                                                                <td  ><span style="padding-right: 12px;">Grand Total</span></td>
-                                                                <td  ><div id="grandTotal"> 0.0 </div></td>
-                                                            </tr>
+                                                </div>
 
-                                                        </tbody>
-                                                    </table>
+                                            </div>
+                                        </div>
 
 
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                        <!-- Grand Total Content -->
+                                        <div class="row-12 max-min-table-total">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr class="fieldGrandTotal">
+                                                        <td style="width: 50%"><input type="hidden"></td>
+                                                        <td  >
+                                                            <table class="table table-bordered tr-quote-row">
+                                                                <tbody>
+                                                                    <tr style="text-align: right">
+                                                                        <td  ><span style="padding-right: 12px;">Sum Total </span></td>
+                                                                        <td  ><div id="sumTotal"> 0.0 </div></td>
+                                                                    </tr>
 
-                                    </table>
+
+                                                                    <tr style="text-align: right">
+                                                                        <td >
+                                                                            <select class="allItemDiscount btn-list-item mdb-select md-form" name="allDiscount" id="allItemDiscount" >
+                                                                                <option value="1"><span>+Discount (%)</span> </option>
+                                                                                <option value="2"><span>+Discount ($)</span> </option>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td class="rowGrandDiscount">
+                                                                            <div id="allDiscount">
+                                                                                <input type="text" style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="itemDiscountPercent" value="0" placeholder="0.0%" required>
+                                                                            </div>
+                                                                            <div  id="totalDiscount">
+                                                                                0
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr class="td-total-quote grandTotal" >
+                                                                        <td  ><span style="padding-right: 12px;">Grand Total</span></td>
+                                                                        <td  ><div id="grandTotal"> 0.0 </div></td>
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+
+
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
                                 </div>
                             </div>
 
