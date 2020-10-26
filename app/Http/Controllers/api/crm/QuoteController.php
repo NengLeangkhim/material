@@ -115,37 +115,83 @@ class QuoteController extends Controller
                     ));
 
 
-                // insert to crm_quote_branch
-                $insert_quote_branch = DB::select(
-                    'SELECT public."insert_crm_quote_branch"(?, ?, ?)',
-                    array(
-                        $quote_id,
-                        $request->input('crm_lead_branch_id'),
-                        $createby
-                    ));
 
-                $quote_branch_id =$insert_quote_branch[0]->insert_crm_quote_branch;
+                // get all crm_quote_branch
+                $allbranch = count(collect($request)->get('lead_branch'));
+
+
+                for ($q = 0; $q < $allbranch; $q++)
+                {
+                    // insert to crm_quote_branch
+                    $insert_quote_branch = DB::select(
+                        'SELECT public."insert_crm_quote_branch"(?, ?, ?)',
+                        array(
+                            $quote_id,
+                            $request->get('lead_branch')[$q],
+                            $createby
+                        ));
+
+                    $quote_branch_id =$insert_quote_branch[0]->insert_crm_quote_branch;
+
+
+                    //product count
+
+                    $product = $request->get("product".($q+1));
+                    $price = $request->get("price".($q+1));
+                    $qty = $request->get("qty".($q+1));
+                    $discount = $request->get("discount".($q+1));
+                    $discount_type = $request->get("discount_type".($q+1));
+
+                    $all_product = count(collect($request)->get("product".($q+1)));
+
+                    //insert product
+                    for ($i = 0; $i < $all_product; $i++)
+                    {
+                        DB::select(
+                            'SELECT public."insert_crm_quote_branch_detail"(?, ?, ?, ?, ?, ?, ?)',
+                            array(
+                                $quote_branch_id,
+                                $product[$i],
+                                $price[$i],
+                                $qty[$i],
+                                $createby,
+                                $discount[$i],
+                                $discount_type[$i]
+                            ));
+                    }
+                }
+
+                // insert to crm_quote_branch
+                // $insert_quote_branch = DB::select(
+                //     'SELECT public."insert_crm_quote_branch"(?, ?, ?)',
+                //     array(
+                //         $quote_id,
+                //         $request->input('crm_lead_branch_id'),
+                //         $createby
+                //     ));
+
+                // $quote_branch_id =$insert_quote_branch[0]->insert_crm_quote_branch;
 
 
                 // insert to crm_quote_branch_detail
 
                 //get product count
-                $all_product = count(collect($request)->get('product'));
+                // $all_product = count(collect($request)->get('product'));
 
-                for ($i = 0; $i < $all_product; $i++)
-                {
-                    DB::select(
-                        'SELECT public."insert_crm_quote_branch_detail"(?, ?, ?, ?, ?, ?, ?)',
-                        array(
-                            $quote_branch_id,
-                            $request->product[$i],
-                            $request->price[$i],
-                            $request->qty[$i],
-                            $createby,
-                            $request->discount[$i],
-                            $request->discount_type[$i]
-                        ));
-                }
+                // for ($i = 0; $i < $all_product; $i++)
+                // {
+                //     DB::select(
+                //         'SELECT public."insert_crm_quote_branch_detail"(?, ?, ?, ?, ?, ?, ?)',
+                //         array(
+                //             $quote_branch_id,
+                //             $request->product[$i],
+                //             $request->price[$i],
+                //             $request->qty[$i],
+                //             $createby,
+                //             $request->discount[$i],
+                //             $request->discount_type[$i]
+                //         ));
+                // }
 
                 DB::commit();
                 return json_encode(["insert"=>"success","result"=>[]]);
