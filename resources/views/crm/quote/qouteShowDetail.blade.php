@@ -13,26 +13,27 @@
             </div>
         </div>
      </div>
-</section> 
+</section>
 <section class="content">
+
     <div class="container-fluid">
       <!-- COLOR PALETTE -->
         <div class="card card-default color-palette-box card-header">
             <div class="col-12" >
               <div class="row">
                 <div class="col-6">
-                    <div class="row"> 
+                    <div class="row">
                             {{-- <div class="> --}}
                             <h3 class="card-title"​>
                                 <i class="fas fa-hotel" style="padding-right:15px; font-size:35px"></i>
-                                    Subject Name
+                                    {{$listQuoteDetail->data->subject}}
                             </h3>
                         {{-- </div> --}}
                     </div>
                 </div>
                 <div class="col-6" >
                    <div class="row">
-                        <div class="col-8"></div> 
+                        <div class="col-8"></div>
                         <div class="col-4" >
                             <button type="button" ​value="/" class="btn btn-primary btn-block btn-md ">Convert To BSC</button>
                         </div>
@@ -42,7 +43,7 @@
             </div>
         </div>
     </div>
-      <!-- /.card -->      
+      <!-- /.card -->
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-9">
@@ -59,32 +60,31 @@
                     <div class="card-body">
                         <dl class="row">
                             <dt class="col-sm-4 dt" >Subject</dt>
-                                <dd class="col-sm-8 dd" >N00004</dd>
+                                <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->subject}}</dd>
                             <dt class="col-sm-4 dt">Contact Name</dt>
-                                <dd class="col-sm-8 dd" >Bo Entertainment</dd>
+                                <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->crm_lead->customer_name_en}} </dd>
                             <dt class="col-sm-4 dt">Assign To</dt>
-                                <dd class="col-sm-8 dd">Oppa Bo </dd>
+                                <dd class="col-sm-8 dd">{{$listQuoteDetail->data->assign_to->first_name_en}} </dd>
                             <dt class="col-sm-4 dt">Quote Number</dt>
-                                <dd class="col-sm-8 dd">TT-001</dd>
-                            <dt class="col-sm-4 dt">Valid Until </dt>
-                                <dd class="col-sm-8 dd">09-09-2020</dd>
-                            <dt class="col-sm-4 dt">Approval </dt>
-                                <dd class="col-sm-8 dd">Approved</dd>
-                            <dt class="col-sm-4 dt">Convert To BSC </dt>
-                                <dd class="col-sm-8 dd">Yes</dd>
-                            {{-- /// --}}
+                                <dd class="col-sm-8 dd">{{$listQuoteDetail->data->quote_number}}</dd>
+                            {{-- <dt class="col-sm-4 dt">Valid Until </dt> --}}
+                                {{-- <dd class="col-sm-8 dd">{{$listQuoteDetail->data->subject}}</dd> --}}
+                            {{-- <dt class="col-sm-4 dt">Convert To BSC </dt> --}}
+                                {{-- <dd class="col-sm-8 dd">{{$listQuoteDetail->data->subject}}</dd> --}}
                             <dt class="col-sm-4 dt">Quote Stage </dt>
-                                <dd class="col-sm-8 dd">Accepted </dd>
-                            <dt class="col-sm-4 dt">Create Date </dt>
-                                <dd class="col-sm-8 dd">10-10-2020</dd>
-                            <dt class="col-sm-4 dt">Modified Time </dt>
-                                <dd class="col-sm-8 dd">10-10-2020</dd>
-                            <dt class="col-sm-4 dt">Organizations Name </dt>
-                                <dd class="col-sm-8 dd">Dara Sok</dd>
-                            <dt class="col-sm-4 dt">Opportunity Name </dt>
-                                <dd class="col-sm-8 dd"></dd>
+                                <dd class="col-sm-8 dd">{{$listQuoteDetail->data->quote_stage[0]->name_en}}</dd>
+                            <dt class="col-sm-4 dt">Create Date</dt>
+                                        <?php
+                                            $date = date_create($listQuoteDetail->data->create_date);
+                                            $create_date = date_format($date, 'Y-m-d H:i:s A');
+                                        ?>
+                                <dd class="col-sm-8 dd">{{$create_date}}</dd>
+                            {{-- <dt class="col-sm-4 dt">Modified Time </dt> --}}
+                                {{-- <dd class="col-sm-8 dd">{{$listQuoteDetail->data->subject}}</dd> --}}
+                            <dt class="col-sm-4 dt">Organizations Name</dt>
+                                <dd class="col-sm-8 dd">No Source</dd>
                             <dt class="col-sm-4 dt">Comment </dt>
-                                <dd class="col-sm-8 dd">Quote Product for turbotech</dd>
+                                <dd class="col-sm-8 dd">No Source</dd>
                         </dl>
                     </div>
                     <!-- /.card-body -->
@@ -95,22 +95,21 @@
                  <div class="card">
                     <div class="card-header">
                         <h1 class="card-title" style="font-weight: bold">
-                            {{-- <i class="fas fa-text-width"></i> --}}
                             Acknowledgement
                         </h1>
                     </div>
                     <!-- /.card-header -->
                      <div class="card-body">
                         <dl class="row">
-                            <dt class="col-sm-4 dt" >Acknowledged by</dt>
-                                <dd class="col-sm-8 dd" >Sok Dara</dd>
-                            <dt class="col-sm-4 dt">Prepared by</dt>
-                                <dd class="col-sm-8 dd" >Sok Visa</dd>
-                            <dt class="col-sm-4 dt">Position</dt>
-                                <dd class="col-sm-8 dd">Manager</dd>
+                            <dt class="col-sm-4 dt" >Create by</dt>
+                                <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->create_by->first_name_en}}</dd>
+                            <dt class="col-sm-4 dt">Finance Manager</dt>
+                                <dd class="col-sm-8 dd" >Name BBBB</dd>
+                            <dt class="col-sm-4 dt">Sale Manager</dt>
+                                <dd class="col-sm-8 dd">Name CCCC</dd>
                         </dl>
-                    </div>  
-                 
+                    </div>
+
                 </div>
 
 
@@ -126,21 +125,21 @@
                      <div class="card-body">
                         <dl class="row">
                             <dt class="col-sm-4 dt" >Street</dt>
-                                <dd class="col-sm-8 dd" >St 1234</dd>
+                                <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->address->street_en}}</dd>
                             <dt class="col-sm-4 dt">Home number</dt>
-                                <dd class="col-sm-8 dd" ># 12A</dd>
-                            <dt class="col-sm-4 dt">City/Province</dt>
-                                <dd class="col-sm-8 dd">Phnom penh</dd>
-                            <dt class="col-sm-4 dt">District/Khan</dt>
-                                <dd class="col-sm-8 dd">Chamkar Mon</dd>
+                                <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->address->hom_en}}</dd>
+                            <dt class="col-sm-4 dt">Address</dt>
+                                <dd class="col-sm-8 dd">{{$address[0]->get_gazetteers_address_en}}</dd>
+                            {{-- <dt class="col-sm-4 dt">District/Khan</dt>
+                                <dd class="col-sm-8 dd">{{$listQuoteDetail->data->address}}</dd>
                             <dt class="col-sm-4 dt">Commune/Sangkat </dt>
-                                <dd class="col-sm-8 dd">Tonle Basak </dd>
+                                <dd class="col-sm-8 dd">{{$listQuoteDetail->data->address}}</dd>
                             <dt class="col-sm-4 dt">Village</dt>
-                                <dd class="col-sm-8 dd">Phum 12 </dd>
-                            
+                                <dd class="col-sm-8 dd">{{$listQuoteDetail->data->address}}</dd> --}}
+
                         </dl>
-                    </div>  
-                  
+                    </div>
+
                 </div>
 
 
@@ -159,75 +158,106 @@
                                 <thead class="font-weight-bold font-size-14">
                                     <tr>
                                         <td class="">Item Name</td>
-                                        <td class="">Type</td>
+                                        {{-- <td class="">Type</td> --}}
                                         <td style="">Quantity</td>
-                                        <td class="">List Price</td>
+                                        <td class="">Price</td>
                                         <td class="">Total</td>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @for($i=0; $i<=5;$i++)
-                                        <tr id="row'+i+'" data-id="'+i+'" class="tr-quote-row row-quote-item">
-                                            <td class="td-item-quote-name">
-                                                <div class=" form-group">
-                                                    <div class="row font-size-14">
-                                                        <div class="col-md-12 col-sm-12 col-12">
-                                                            Fiber Cable AAC 9/125 x 4C (FTTH) Focal Brand 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="font-size-14">
-                                                    <span>Product</span>
-                                                </div>
-                                            </td>
-                                            <td style="">
-                                                <div class="font-size-14">
-                                                    <span>100</span>
-                                                </div>
-                                            </td>
-                                            <td class="">
-                                                <div class="row-12 font-size-14">
-                                                    <span>100</span>
-                                                </div>
-                                                <div class="row-12 pt-1 btn-list-item font-size-14">
-                                                    <div class="font-weight-normal">
-                                                        <div>
-                                                            (-) Discount:
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row-12 pt-1 btn-list-item font-size-14">
-                                                    <div class="font-weight-normal">
-                                                        <div>
-                                                            Total After Discount:
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div style="color:red;" class="row-12 pt-1 btn-list-item font-size-14">
-                                                    <div class="font-weight-normal">
-                                                        <span>Net Price: </span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="">
-                                                <div id="quote-sub-total_'+i+'" class="font-size-14 ">1000</div>
-                                                <div id="quote-sub-discount_'+i+'" class="font-size-14 pt-1">100</div>
-                                                <div id="quote-after-sub-disc_'+i+'" class="font-size-14 pt-1">900</div>
-                                                <div id="quote-netPrice_'+i+'" style="color:red;" class="font-size-14 pt-1 ">900</div>
-                                            </td>
-                                            
-                                        </tr>
-                                    @endfor
-                                    <tr>
+                                    {{-- {{count($listQuoteDetail->data->crm_stock).'Data'}} --}}
+                                    @php $grandTotal = 0 @endphp
+                                    @foreach($listQuoteDetail->data->crm_stock as $k=>$val)
+                                        {{-- {{$val->stock_product_id}} --}}
+                                            <tr id="row'+i+'" data-id="'+i+'" class="tr-quote-row row-quote-item">
+                                                <td class="td-item-quote-name">
+                                                    <div class=" form-group">
+                                                        <div class="row font-size-14">
+                                                            <div class="col-md-12 col-sm-12 col-12">
+                                                                @if($product[$k][0]->id == $val->stock_product_id)
+                                                                        {{$product[$k][0]->name}}
 
-                                    </tr>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                {{-- <td>
+                                                    <div class="font-size-14">
+                                                        <span>Product</span>
+                                                    </div>
+                                                </td> --}}
+                                                <td style="">
+                                                    <div class="font-size-14">
+                                                        <span>{{number_format($val->qty, 2, '.', '')}}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="">
+                                                    <div class="row-12 font-size-14">
+                                                        <span>{{$val->price}}</span>
+                                                    </div>
+                                                    <div class="row-12 pt-1 btn-list-item font-size-14">
+                                                            <?php
+                                                                    if($val->discount_type == 'number')
+                                                                        {$dis = '$';}
+                                                                    else
+                                                                        {$dis = '%';}
+                                                            ?>
+                                                        <div class="font-weight-normal">
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        (-) Discount({{ $dis }}):
+                                                                    </div>
+                                                                    <div class="col-6 text-right">
+                                                                        {{number_format($val->discount, 2, '.', '')}}
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row-12 pt-1 btn-list-item font-size-14">
+                                                        <div class="font-weight-normal">
+                                                            <div>
+                                                                Total After Discount:
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="color:red;" class="row-12 pt-1 btn-list-item font-size-14">
+                                                        <div class="font-weight-normal">
+                                                            <span>Net Price: </span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="">
+                                                    <?php
+                                                        //function to calculate price discount
+                                                        $unitTotal = ($val->qty * $val->price);
+                                                        if($dis == "%"){
+                                                            $val =  ($unitTotal * $val->discount) / 100;
+                                                            $afterDis = ($unitTotal - $val);
+                                                            $grandTotal += $afterDis;
+                                                        }else{
+
+                                                            $afterDis =  $unitTotal - $val->discount;
+                                                            $val = $val->discount;
+                                                            $grandTotal += $afterDis;
+                                                        }
+                                                        $grandTotal;
+                                                    ?>
+                                                    <div id="quote-sub-total_'+i+'" class="font-size-14 ">{{$unitTotal}}</div>
+                                                    <div id="quote-sub-discount_'+i+'" class="font-size-14 pt-1">{{number_format($val, 0, '.', '')}}</div>
+                                                    <div id="quote-after-sub-disc_'+i+'" class="font-size-14 pt-1">{{$afterDis}}</div>
+                                                    <div id="quote-netPrice_'+i+'" style="color:red;" class="font-size-14 pt-1 ">{{ $afterDis }}</div>
+                                                </td>
+
+                                            </tr>
+                                    @endforeach
+
+
                                 </tbody>
-                                
+
                             </table>
-                                
+
                         </dl>
 
                         {{-- table row to show grand total item --}}
@@ -237,83 +267,21 @@
                                     <tr>
                                         <td width="83%">
                                             <div class="pull-right">
-                                                <b>Items Total</b>
+                                                <b>Grand Total</b>
                                             </div>
                                         </td>
                                         <td>
                                             <span class="pull-right">
-                                            <b>282.00</b>
+                                                <b>{{number_format($grandTotal, 2, '.', '')  }}($)</b>
                                             </span>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="83%">
-                                            <span class="pull-right">
-                                                        (-)&nbsp;<b><a class="inventoryLineItemDetails" href="javascript:void(0)" id="finalDiscount" data-info="Final Discount Amount =  0.000 % of 282.00 = 0.00">Discount</a></b>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="pull-right">
-                                            0.00
-                                            </span>
-                                
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="83%">
-                                            <span class="pull-right">
-                                            (+)&nbsp;<b>Shipping &amp; Handling Charges </b>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="pull-right">
-                                            0.00
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="83%">
-                                            <span class="pull-right">
-                                            <b>Pre Tax Total </b>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="pull-right">
-                                            282.00
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                    </tr>
-                                    <tr>
-                                        <td width="83%">
-                                            <span class="pull-right">
-                                            <b>Adjustment</b>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="pull-right">
-                                            0.00
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="83%">
-                                            <span class="pull-right">
-                                            <b>Grand Total</b>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="pull-right">
-                                            310.20
-                                            </span>
-                                        </td>
+
                                     </tr>
                                 </tbody>
                             </table>
                         </dl>
-                    </div>  
-                    
+                    </div>
+
                 </div>
 
 
@@ -322,7 +290,7 @@
             <div class="col-md-3">
                 <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">More</h3>        
+                            <h3 class="card-title">More</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                 <i class="fas fa-minus"></i></button>
