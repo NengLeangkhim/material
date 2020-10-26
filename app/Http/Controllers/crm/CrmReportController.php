@@ -11,7 +11,7 @@ class CrmReportController extends Controller
 {
     //Index Report
     public function CrmIndexReport(){
-        if(perms::check_perm_module('CRM_0201')){//module code list 
+        if(perms::check_perm_module('CRM_0201')){//module code list
             return view('crm.report.CrmReportIndex');
         }else{
             $data= 'modal_report';
@@ -23,7 +23,7 @@ class CrmReportController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
             }
-            $validator = \Validator::make($request->all(), 
+            $validator = \Validator::make($request->all(),
                 [
                     'LeadChartFrom' => [ 'required',
                                     'date_format:"Y"'
@@ -42,7 +42,7 @@ class CrmReportController extends Controller
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
             if(perms::check_perm_module('CRM_020101')){//module code list
@@ -68,7 +68,7 @@ class CrmReportController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
             }
-            $validator = \Validator::make($request->all(), 
+            $validator = \Validator::make($request->all(),
                 [
                     'ReportContactFrom' => [ 'required',
                                     'date_format:"Y-m"'
@@ -87,7 +87,7 @@ class CrmReportController extends Controller
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
             if(perms::check_perm_module('CRM_020101')){//module code list
@@ -113,7 +113,7 @@ class CrmReportController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
             }
-            $validator = \Validator::make($request->all(), 
+            $validator = \Validator::make($request->all(),
                 [
                     'ReportOrganizationFrom' => [ 'required',
                                     'date_format:"Y-m"'
@@ -132,7 +132,7 @@ class CrmReportController extends Controller
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
             if(perms::check_perm_module('CRM_020101')){//module code list
@@ -158,7 +158,7 @@ class CrmReportController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
             }
-            $validator = \Validator::make($request->all(), 
+            $validator = \Validator::make($request->all(),
                 [
                     'ReportQuoteFrom' => [ 'required',
                                     'date_format:"Y-m"'
@@ -177,7 +177,7 @@ class CrmReportController extends Controller
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
             if(perms::check_perm_module('CRM_020101')){//module code list

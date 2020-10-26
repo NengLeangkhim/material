@@ -35,6 +35,7 @@ class ModelHrmPermission extends Model
                        ["ma_company_dept_id","=",$dept],
                        ["is_employee",'=','t']
                    ])
+                   ->orderBy('name','ASC')
                    ->get();
      }
     //=== Function Get data from table Department for ceo===//
@@ -47,6 +48,7 @@ class ModelHrmPermission extends Model
                            ["status",'=','t']
                        ]
                        )
+                   ->orderBy('name','ASC')
                    ->get();
     }
     //=== Function Get data from table Department for Head Dept===//
@@ -58,6 +60,7 @@ class ModelHrmPermission extends Model
                     ["status",'=','t'],
                     ["id","=",$id]
                    ])
+                   ->orderBy('name','ASC')
                    ->get();
     }
     //=== Function Get data from table Position===//
@@ -65,6 +68,7 @@ class ModelHrmPermission extends Model
         return DB::table('ma_position')
                    ->select("id","name","is_deleted")
                    ->where("is_deleted","=","f")
+                   ->orderBy('name','ASC')
                    ->get();
     }
 }
