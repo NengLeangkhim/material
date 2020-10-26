@@ -39,94 +39,55 @@
                                     <div class="col-md-6">
                                         <div class="row">
 
-                                            <div class="col-sm-6">
-                                                <label for="">Account Name : </label>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="">{{ $invoices->chart_account_name }}</label>
+                                            <div class="col-sm-12">
+                                                <p for="">Account Name : &nbsp;{{ $invoices->chart_account_name }}</p>
                                             </div>
 
-                                            <div class="col-sm-6">
-                                                <label for="">Customer Name : </label>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="">{{ $invoices->customer_name }}</label>
+                                            <div class="col-sm-12">
+                                                <p for="">Customer Name : &nbsp;{{ $invoices->customer_name }}</p>
                                             </div>
 
-                                            <div class="col-sm-6">
-                                                <label for="">Deposit : </label>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="">{{ $invoices->deposit_on_payment }}</label>
+                                            <div class="col-sm-12">
+                                                <p for="">Deposit : &nbsp;{{ $invoices->deposit_on_payment }}</p>
                                             </div>
 
-                                            <div class="col-sm-6">
-                                                <label for="">Balance : </label>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="">{{ $invoices->customer_balance }}</label>
+                                            <div class="col-sm-12">
+                                                <p for="">Balance : &nbsp;{{ $invoices->customer_balance }}</p>
                                             </div>
 
-                                            <div class="col-sm-6">
-                                                <label for="">Invoice Balance : </label>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="">{{ $invoices->customer_invoice_balance }}</label>
+                                            <div class="col-sm-12">
+                                                <p for="">Invoice Balance : &nbsp;{{ $invoices->customer_invoice_balance }}</p>
                                             </div>
 
-                                            <div class="col-sm-6">
-                                                <label for="">Billing Date : </label>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="">{{ date('d-m-Y', strtotime($invoices->billing_date)) }}</label>
+                                            <div class="col-sm-12">
+                                                <p for="">Billing Date : &nbsp;{{ date('d-m-Y', strtotime($invoices->billing_date)) }}</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="row">
-                                            <div class="col-sm-5">
-                                                <label for="">Invoice : </label>
+                                            <div class="col-sm-12">
+                                                <p for="">Invoice : &nbsp;{{ $invoices->invoice_number }}</p>
                                             </div>
-                                            <div class="col-sm-7">
-                                                <label for="">{{ $invoices->invoice_number }}</label>
+
+                                            <div class="col-sm-12">
+                                                <p for="">Reference : &nbsp;{{ $invoices->reference }}</p>
                                             </div>
 
                                             <div class="col-sm-5">
-                                                <label for="">Reference : </label>
-                                            </div>
-                                            <div class="col-sm-7">
-                                                <label for="">{{ $invoices->reference }}</label>
+                                                <p for="">Due Date : &nbsp;{{ date('d-m-Y', strtotime($invoices->due_date)) }}</p>
                                             </div>
 
-                                            <div class="col-sm-5">
-                                                <label for="">Due Date : </label>
-                                            </div>
-                                            <div class="col-sm-7">
-                                                <label for="">{{ date('d-m-Y', strtotime($invoices->due_date)) }}</label>
+                                            <div class="col-sm-12">
+                                                <p for="">Effective Date : &nbsp;{{ date('d-m-Y', strtotime($invoices->effective_date)) }}</p>
                                             </div>
 
-                                            <div class="col-sm-5">
-                                                <label for="">Effective Date : </label>
-                                            </div>
-                                            <div class="col-sm-7">
-                                                <label for="">{{ date('d-m-Y', strtotime($invoices->effective_date)) }}</label>
+                                            <div class="col-sm-12">
+                                                <p for="">End Period Date : &nbsp;{{ date('d-m-Y', strtotime($invoices->end_period_date)) }}</p>
                                             </div>
 
-                                            <div class="col-sm-5">
-                                                <label for="">End Period Date : </label>
-                                            </div>
-                                            <div class="col-sm-7">
-                                                <label for="">{{ date('d-m-Y', strtotime($invoices->end_period_date)) }}</label>
-                                            </div>
-
-                                            <div class="col-sm-5">
-                                                <label for="">Address : </label>
-                                            </div>
-                                            <div class="col-sm-7">
-                                                @php
-
-                                                @endphp
-                                                <label for="">{{ $invoices->address }}</label>
+                                            <div class="col-sm-12">
+                                                <p for="">Address : &nbsp;{{ $invoices->address }}</p>
                                             </div>
                                         </div>
                                     </div>
