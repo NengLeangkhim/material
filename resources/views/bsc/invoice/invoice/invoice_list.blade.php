@@ -138,7 +138,7 @@
                                                                         <td>{{ $due_amount }}</td>
                                                                         <td style="text-align-last: center">
                                                                             <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                            <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data(0,'bsc_invoice_delete','bsc_invoice_invoice_view','Invoice Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>
                                                                         </td>
                                                                     </tr>
                                                                 @endforeach
@@ -183,7 +183,7 @@
                                                                             <td>{{ $invoice->due_amount }}</td>
                                                                             <td style="text-align-last: center">
                                                                                 <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data(0,'bsc_invoice_delete','bsc_invoice_invoice_view','Invoice Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>
                                                                             </td>
                                                                         </tr>
                                                                     @endif
