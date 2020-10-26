@@ -9,13 +9,16 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-4">
-                <h1><i class="fas fa-user-plus"></i> Create Purchase</h1>
+                <h1><i class="fas fa-edit"></i> Update Purchase</h1>
             </div>
             <div class="col-md-5">
                 <div class="row">
                     <div class="col-md-5">
                         <label for="exampleInputEmail1">Choose Account <b style="color:red">*</b> </label>
                     </div>
+                   {{-- @php
+                       dd();
+                   @endphp --}}
                     <div class="col-md-7">
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -25,7 +28,12 @@
                                 <option value="" selected hidden disabled>select item</option>
 
                                 @foreach ($account_payables as $account_payable)
-                                    <option value="{{$account_payable->id}}">{{$account_payable->name_en}}</option>
+                                    <option 
+                                        @if ($purchase->chart_account_id == $account_payable->id)
+                                            selected
+                                        @endif
+                                        value="{{$account_payable->id}}">{{$account_payable->name_en}}
+                                    </option>
                                 @endforeach
                                
                             </select>
@@ -65,19 +73,25 @@
                                                 <option selected hidden disabled>select item</option>
 
                                                 @foreach ($suppliers as $supplier)
-                                                    <option value="{{$supplier->id}}">{{$supplier->name}}</option>
+                                                    <option 
+                                                        @if ($purchase->ma_supplier_id == $supplier->id)
+                                                            selected
+                                                        @endif
+                                                        value="{{$supplier->id}}">{{$supplier->name}}
+                                                    </option>
                                                 @endforeach
                                                 
                                             </select>
                                         </div>
                                     </div>
+                                    <input type="hidden" id="purchase_id" value="{{ $purchase->id }}">
                                     <div class="col-md-6">
                                          <label for="exampleInputEmail1">Date <b style="color:red">*</b></label>
                                          <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input required type="date" class="form-control input_required" name="end_period_date" id="purchase_date">
+                                            <input required type="date" value="{{date('Y-m-d', strtotime($purchase->billing_date))}}" class="form-control input_required" name="end_period_date" id="purchase_date">
                                         </div>
                                      </div>
                                 </div>
@@ -90,7 +104,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input required type="date" class="form-control input_required" name="end_period_date" id="purchase_due_date" placeholder="Description">
+                                            <input required type="date" value="{{date('Y-m-d', strtotime($purchase->due_date))}}" class="form-control input_required" name="end_period_date" id="purchase_due_date" placeholder="Description">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -99,7 +113,22 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="code" id="purchase_reference" placeholder="Reference" >
+                                            <input type="text" value="{{$purchase->reference}}" class="form-control" name="code" id="purchase_reference" placeholder="Reference">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="status">Status</label>
+                                        <div class="custom-control custom-switch">
+                                            <input
+                                            @if ($purchase->status==true)
+                                                checked
+                                            @endif
+                                                type="checkbox" class="custom-control-input" id="status" name="status" value="1">
+                                            <label class="custom-control-label" for="status"></label>
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +149,40 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($purchase_detail as $key => $p_detail)
+                                                @php
+                                                    $row_count = $key;
+                                                @endphp
+                                                <tr id="row{{$key}}">
+                                                    <td class="item_name" style="padding: 0;max-width: 165px;overflow: auto;">
+                                                    <select  data-is_old="1" data-is_new="0" data-is_delete="0" class="item_select stock_product_id" style="width: 100%;height: 51px;" data-purchase_detail_id="{{$p_detail->id}}"><option value=""></option>
+                                                            @foreach ($products as $product)
+                                                                <option 
+                                                                    @if ($p_detail->stock_product_id == $product->id)
+                                                                        selected
+                                                                    @endif
+                                                                    value="{{$product->id}}">{{$product->name}}
+                                                                </option>";
+                                                            @endforeach
+                                                        </select>
+                                                    </td>
 
+                                                    <td contenteditable="true" class="item_des" id="item_des">{{$p_detail->description}}</td>
+                                                    <td contenteditable="true" class="item_qty" id="item_qty">{{$p_detail->qty}}</td>
+                                                    <td contenteditable="true" class="item_unit_price" id="item_unit_price">{{$p_detail->unit_price}}</td>
+                                                    <td class="item_account" id="item_account" data-id="{{$p_detail->bsc_account_charts_id}}">{{$p_detail->chart_account_name}}</td>
+                                                    <td class="item_tax" style="padding: 0;">
+                                                        <select style="border: 0px; height: 51px;" class="tax form-control">
+                                                            <option value=""></option>
+                                                            <option  value="1" selected>Tax</option>
+                                                            <option value="0">No Tax</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="item_amount" id="item_amount">{{$p_detail->amount}}</td>
+                                                    <td style="text-align: center;"><button type="button" name="remove" data-row="row{{$key}}" class="btn btn-danger btn-xs remove">x</button></td>
+                                                </tr>
+                                         @endforeach
+                                            <input type="hidden" id="row_count" value="{{$row_count}}">
                                         </tbody>
                                     </table>
                                 </div>
@@ -196,9 +258,10 @@
                                     </div>
                                 </div>
                             <br/>
+                            <input type="hidden" value='data-is_old="1" data-is_new="0" data-is_delete="1"'  id="add_attr">
                             <input type="hidden" id='items' value="{{$item}}">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary save" id="frm_btn_sub_add_chart_account" onclick="saveData()">Save</button>
+                                <button type="button" class="btn btn-primary save" id="frm_btn_sub_add_chart_account" onclick="updateData()">Update</button>
                                 <button type="button" class="btn btn-danger" onclick="go_to('bsc_purchase_purchase_list')">Cencel</button>
                             </div>
                         </div>
@@ -211,13 +274,11 @@
 <script>
     $(document).ready(function(){
         $('.select2').select2();
-        var count = 1;
-        // Loop to Display 4 Table
-        for(count=0;count<4;count++){
-            inSertTable(count);
-        }
 
         // Insert Table
+        let count=parseInt($('#row_count').val())+1;
+        showTotal();
+        showGrandTotal();
         $('#purchase_form').click(function(){
             inSertTable(count);
             count = count + 1;
@@ -229,13 +290,17 @@
 
         // Remove Table
         $(document).on('click', '.remove', function(){
+            tr=$(this).closest('tr');
             var delete_row = $(this).data("row");
             if($(this).closest('tbody').find('tr').length >1){
-                $('#' + delete_row).remove();
+                // $('#' + delete_row).remove();
+                $('#' + delete_row).hide();
+                tr.find('.stock_product_id').attr('data-is_delete','1','data-is_old','1','data-is_new','0');
                 showTotal();
                 showGrandTotal();
             }
         });
+
         // Can Input only Number and . in Field Quantity and UnitPrice
         $('.item_qty').keypress(function(e){
             if (isNaN(String.fromCharCode(e.which))) e.preventDefault();
@@ -331,7 +396,7 @@
     function inSertTable(count){ 
         var tr = '';
         tr +='<tr id="row'+count+'">'+
-                '<td class="item_name" style="padding: 0;max-width: 165px;overflow: auto;"><select class="item_select stock_product_id" style="width: 100%;height: 51px;"><option value=""></option>'+$("#items").val()+'</select></td>'+
+                '<td class="item_name" style="padding: 0;max-width: 165px;overflow: auto;"><select class="item_select stock_product_id" style="width: 100%;height: 51px;" data-is_old="0" data-is_new="1" data-is_delete="0"><option value=""></option>'+$("#items").val()+'</select></td>'+
                 '<td contenteditable="true" class="item_des" id="item_des"></td>'+
                 '<td contenteditable="true" class="item_qty" id="item_qty"></td>'+
                 '<td contenteditable="true" class="item_unit_price" id="item_unit_price"></td>'+
@@ -343,8 +408,9 @@
         $('#purchase_table tbody').append(tr);
     }
 
+
     // function save all data
-    function saveData(){
+    function updateData(){
 
         let num_miss = 0;
         $(".input_required").each(function(){
@@ -362,22 +428,27 @@
                 var thisInput = $(this).val();
                 if(thisInput != ""){
                     itemDetail[e] = {
-                        stock_product_id        : thisInput,
-                        description             : tr.find(".item_des").text(),
-                        qty                     : tr.find(".item_qty").text(),
-                        unit_price              : tr.find(".item_unit_price").text(),
-                        bsc_account_charts_id   : tr.find(".item_account").attr('data-id'),
-                        tax                     : tr.find(".tax").val(),
-                        amount                  : tr.find(".item_amount").text()
+                        bsc_invoice_detail_id       : $(this).attr("data-purchase_detail_id"),
+                        stock_product_id            : thisInput,
+                        is_old                 : $(this).attr("data-is_old"),
+                        is_new                 : $(this).attr("data-is_new"),
+                        is_delete                 : $(this).attr("data-is_delete"),
+                        description                 : tr.find(".item_des").text(),
+                        qty                         : tr.find(".item_qty").text(),
+                        unit_price                  : tr.find(".item_unit_price").text(),
+                        bsc_account_charts_id       : tr.find(".item_account").attr('data-id'),
+                        tax                         : tr.find(".tax").val(),
+                        amount                      : tr.find(".item_amount").text()
                     };
                 }
             });
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 type:"POST",
-                url:'/bsc_purchase_save',                    
+                url:'/bsc_purchase_update_data',                    
                 data:{
                     _token: CSRF_TOKEN,
+                    purchase_id           : $("#purchase_id").val(),
                     bsc_account_charts_id : $("#purchase_account_chart_id").val(),
                     suppier_id            : $("#purchase_supplier").val(),
                     billing_date          : $("#purchase_date").val(),
@@ -386,15 +457,15 @@
                     total                 : $("#txtTotal").text(),
                     vat_total             : $("#txtVatTotal").text(), 
                     grand_total           : $("#txtGrandTotal").text(), 
+                    status                : $("#status").val(),
                     itemDetail            : itemDetail
                 },
                 dataType: "JSON",
                 success:function(data){
-
-                    if(data.saved.success == false){
-                        alert("fail to insert");
-                    }else{
-                        //alert("insert success");    
+                    
+                    if(data.updateds.success == false){
+                        alert("fail to update");
+                    }else{    
                         go_to('bsc_purchase_purchase_list');
                     }
                 }
