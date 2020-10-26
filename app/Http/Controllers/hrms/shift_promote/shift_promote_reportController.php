@@ -41,9 +41,22 @@ class shift_promote_reportController extends Controller
                 $date_from= $date_to;
                 $date_to=$f;
             }
+
             $promote_report = management_promoteModel::get_promoteByDate($date_from, $date_to, $deptID);
-            // dd($promote_report); exit;
-            return view('hrms/shift_promote/promote_report/shift_promote_report_show', ['promote_report' => $promote_report]);
+            
+            if(count($promote_report) > 0){
+                foreach ($promote_report as $key => $val) {
+                    if($val->old_position_id != ''){
+                        $old_position[$key] = management_promoteModel::getPositionById($val->old_position_id);
+                    }else{
+                        $old_position[$key] = '';
+                    }
+                }
+            }else{
+                $promote_report = 0;
+                $old_position = 0;
+            }
+            return view('hrms/shift_promote/promote_report/shift_promote_report_show', ['promote_report' => $promote_report,'old_position' => $old_position]);
         }
         
     }
@@ -59,7 +72,16 @@ class shift_promote_reportController extends Controller
             $id = $_GET['staffid'];
             $date = $_GET['date'];
             $r =  management_promoteModel::promote_report_detailByID_Date($id,$date);
-            return view('hrms/shift_promote/promote_report/shift_promote_report_detail', ['report_detail' => $r]);
+            if(count($r) > 0){
+                if($r[0]->old_position_id != ''){
+                    $old_position = management_promoteModel::getPositionById($r[0]->old_position_id);
+                }else{
+                    $old_position = "";
+                }
+                // $old_position = management_promoteModel::getPositionById($r[0]->old_position_id);
+            }
+            // dd($old_position[0]->old_position);
+            return view('hrms/shift_promote/promote_report/shift_promote_report_detail', ['report_detail' => $r,'old_position'=>$old_position]);
 
         }   
         

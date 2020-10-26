@@ -78,7 +78,7 @@ class OverTime extends Model
             $d = cal_days_in_month(CAL_GREGORIAN, $month, $year);
             $start_date = $year . "-" . $month . "-01";
             $end_date = $year . "-" . $month . "-" . $d;
-            $sql = "select count(*) FROM hr_overtime where is_deleted='f' and overtime_date BETWEEN '$start_date' and '$end_date'";
+            $sql = "select count(*) from (select count(*) FROM hr_overtime where is_deleted='f' and overtime_date BETWEEN '$start_date' and '$end_date' GROUP BY ma_user_id) as tbl";
             return DB::select($sql);
         } catch (Throwable $e) {
             report($e);

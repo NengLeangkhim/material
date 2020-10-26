@@ -74,13 +74,21 @@ class HrmRecruitmentReportController extends Controller
                 }
                 $output["new"] = ModelHrmRecruitmentReport::get_candidate_new($from,$to);
                 $output["taken"] = ModelHrmRecruitmentReport::get_candidate_taken($from,$to);
+
                 echo json_encode($output);
             }else if(isset($_POST['_reportdetail'])){
                 $st = $_POST['_type'];
                 $get_candidate_result = ModelHrmRecruitmentReport::get_candidate_result($from,$to,$st);
                 return view('hrms/recruitment/report_recruitment/HrmTableResultCandidate',['result'=>$get_candidate_result]);
             }else if(isset($_POST['_report_cv_detail'])){
-                $get_candidate = ModelHrmRecruitmentReport::get_candidate($from,$to);
+                $st = $_POST['st'];
+                if($_POST['st']=='all'){
+                    $get_candidate = ModelHrmRecruitmentReport::get_candidate($from,$to);
+                }elseif($_POST['st']=='new'){
+                    $get_candidate = ModelHrmRecruitmentReport::get_candidate_result($from,$to,$st);
+                }else{
+                    $get_candidate = ModelHrmRecruitmentReport::get_candidate_result($from,$to,$st);
+                }
                 return view('hrms/recruitment/report_recruitment/HrmTableCandidate',['candidate'=>$get_candidate]);
             }
         }else{

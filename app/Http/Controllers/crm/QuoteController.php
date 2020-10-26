@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 class QuoteController extends Controller
 {
 
+
     // function to get all quote lead 
     public static function showQuoteList(){
         if (session_status() == PHP_SESSION_NONE) {
@@ -54,7 +55,9 @@ class QuoteController extends Controller
 
     // function to add new quote data
     public static function addQuote(Request $request){
-        
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $province=ModelCrmLead::CrmGetLeadProvice();
         $request = Request::create('/api/quote/status', 'GET');
         $quotestatus = json_decode(Route::dispatch($request)->getContent());
@@ -83,6 +86,9 @@ class QuoteController extends Controller
 
     //function to get list product to add quote
     public static function listProduct(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(isset($_GET['id'])){
             $row_id = $_GET['id'];
             $request = Request::create('/api/stock/product/', 'GET');
@@ -95,6 +101,9 @@ class QuoteController extends Controller
 
     //function to get list Service to add quote
     public static function listService(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(isset($_GET['id'])){
             $row_id = $_GET['id'];
             $request = Request::create('/api/stock/service/', 'GET');
@@ -108,10 +117,20 @@ class QuoteController extends Controller
 
     //function to list organization lead to add lead quote
     public static function listQuoteLead(Request $request){
+
         if(isset($_GET['id'])){
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
             $request = Request::create('/api/getlead/', 'GET');
-            $listLead = json_decode(Route::dispatch($request)->getContent());
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $listLead = json_decode($res->getContent());
+            // dd($listLead);
             return view('crm/quote/listQuoteLead', compact('listLead'));
+
         }
     }
 
@@ -119,6 +138,9 @@ class QuoteController extends Controller
 
     //function to list lead branch to add lead quote
     public static function listQuoteBranch(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(isset($_GET['id'])){
             $id = $_GET['id'];
             $request = Request::create('/api/getbranchbylead/'.$id.'', 'GET');

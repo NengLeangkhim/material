@@ -34,11 +34,11 @@ class QuoteController extends Controller
     public function show($id)
     {
         $quote = Quote::findOrFail($id);
-        return new QuoteResource($quote);   
+        return new QuoteResource($quote);
     }
 
-    
-    
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -65,7 +65,7 @@ class QuoteController extends Controller
         // exit;
 
         if($request->isMethod('put')){
-            try { 
+            try {
                 $results = DB::select(
                     'SELECT public."update_crm_quote"(?, ?, ?, ?, ?, ?, ?, ?)',
                     array(
@@ -86,11 +86,11 @@ class QuoteController extends Controller
             }
         }else{
             DB::beginTransaction();
-            try { 
+            try {
 
                 $createby = $request->input('create_by');
 
-                // insert to crm_quote 
+                // insert to crm_quote
                 $insert_quote = DB::select(
                     'SELECT public."insert_crm_quote"(?, ?, ?, ?, ?, ?)',
                     array(
@@ -115,7 +115,7 @@ class QuoteController extends Controller
                     ));
 
 
-                // insert to crm_quote_branch 
+                // insert to crm_quote_branch
                 $insert_quote_branch = DB::select(
                     'SELECT public."insert_crm_quote_branch"(?, ?, ?)',
                     array(
@@ -126,12 +126,12 @@ class QuoteController extends Controller
 
                 $quote_branch_id =$insert_quote_branch[0]->insert_crm_quote_branch;
 
-                
+
                 // insert to crm_quote_branch_detail
 
                 //get product count
                 $all_product = count(collect($request)->get('product'));
-                
+
                 for ($i = 0; $i < $all_product; $i++)
                 {
                     DB::select(
@@ -164,7 +164,7 @@ class QuoteController extends Controller
      */
     public function destroy($id,$user_id)
     {
-        try { 
+        try {
             $results = DB::select(
                 'SELECT public."delete_crm_quote"(?, ?)',
                 array(
