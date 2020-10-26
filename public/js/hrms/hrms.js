@@ -290,18 +290,20 @@ function hrm_training_checkAll(ele) {
 
 
     // Payroll List Detail
-    function hrms_Payroll_List_Detail(rout,modalName,id=-1,modal=''){
+    function hrms_Payroll_List_Detail(rout,modalName,id=-1,date1,date2,months,years,modal=''){
     if(check_session()){
       return;
     }
-    var year=$('#payroll_list_year').val();
-    var month=$('#payroll_list_month').val();
     $.ajax({
         type: 'GET',
         url: rout,
         data: {
             _token: '<?php echo csrf_token() ?>',
-            id: id
+            id: id,
+            first_date :date1,
+            end_date :date2,
+            month :months,
+            year :years
         },
         success: function (data) {
             document.getElementById('modal').innerHTML = data;
@@ -346,6 +348,33 @@ function hrm_training_checkAll(ele) {
             }
         });
     }
+
+
+    // Show Payroll Detail
+    function hrms_payroll_detail(id,list_id){
+    if(check_session()){
+      return;
+    }
+    $.ajax({
+        type: 'GET',
+        url: 'hrm_payroll_detail',
+        data: {
+            _token: '<?php echo csrf_token() ?>',
+            id: id,
+            payroll_list_id:list_id
+        },
+        success: function (data) {
+            document.getElementById('modal').innerHTML = data;
+            $('#modal_payrolldetails').modal('show');
+            if(modal.length>0){
+                $('#modal_payrolldetails').DataTable({
+                });
+            }
+        }
+    });
+}
+
+
     // HR Approve Payroll to Finance
     function HR_Approve_Payroll(id,d_from,d_to,month,e,btn,permission){
         if(check_session()){
@@ -370,6 +399,9 @@ function hrm_training_checkAll(ele) {
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Yes,Approve it!'
                     }).then((result) => {
+                        data=[
+                            '','',''
+                        ]
                         if (result.value) {
                             $.ajax({
                                 url: '/hrm_hrapprove_payroll',   //Request send to "action.php page"
@@ -384,11 +416,10 @@ function hrm_training_checkAll(ele) {
                                 success: function (data) {
                                     setTimeout(function () { go_to('hrm_payroll_list'); }, 300);// Set timeout for refresh content
                                     Swal.fire(
-                                        'Deleted!',
-                                        'Delete Successfully',
+                                        'Approved!',
+                                        'Approved Successfully',
                                         'success'
                                     )
-                                    // }
                                 }
 
                             });
@@ -396,7 +427,11 @@ function hrm_training_checkAll(ele) {
                         }
                     })
                 } else {
-                    alert('No Permission');
+                   Swal.fire(
+                        'Approved!',
+                        'You do not have permission',
+                        'success'
+                    )
                 }
             }
         });
@@ -451,7 +486,14 @@ function hrm_training_checkAll(ele) {
                     id: eid
                 },
                 success: function (data) {
-                    alert(data);
+                    // Swal.fire({
+                    //     position: 'top-end',
+                    //     icon: 'success',
+                    //     title: 'Approved',
+                    //     showConfirmButton: false,
+                    //     timer: 1500
+                    // })
+                    alert_show('success','Approved Payroll Completely');
                     e.disabled=true;
                     e.classList.remove("bg-info");
                     e.classList.add("btn-danger");
@@ -459,6 +501,7 @@ function hrm_training_checkAll(ele) {
             });
         }
     }
+
 
 
     // Search payroll by month and year
@@ -694,10 +737,154 @@ function report_training_search(){
         success: function (data) {
             document.getElementById('training_report_search').innerHTML=data;
             $( "table" ).each(function( index,item ) {
-       $(this).DataTable();
-    });
+            $(this).DataTable();
+        });
         }
     });
+}
+
+
+
+// Payroll List Report
+function custom_payroll_list_report(){
+    var custom=$('#custom_select_payroll_list_report').val();
+    if(custom=='t'){
+        $('#select_year_payroll').prop('disabled', 'disabled');
+        $('#select_month_payroll').prop('disabled', 'disabled');
+        $.ajax({
+            type: 'GET',
+            url: 'hrm_payroll_list_report_search',
+            async:false,
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                all: custom
+            },
+            success: function (data) {
+                // document.getElementById('training_report_search').innerHTML=data;
+                var ab=JSON.parse(data);
+                var i=0;
+                $("#tbl_payroll_list_report").DataTable().destroy();
+                $("#tbl_payroll_list_report tbody").empty();
+                $.each(ab, function(i, value) {
+                    i++;
+                    if(value[11]==true){
+                        var btn='<label class="btn btn-danger btn-sm">Yes</label>';
+                    }else{
+                        var btn='<label class="btn btn-info btn-sm">No</label>';
+                    }
+                    var tr="<tr><th>"+i+"</th><td>"+value[1]+"</td><td>"+value[2]+"</td><td>"+value[3]+"</td><td>"+value[4]+"</td><td>"+value[5]+"</td><td>"+value[6]+"</td><td class='text-center'>"+btn+"</td></tr>";
+                    $("#tbl_payroll_list_report").append(tr);
+                });
+                $('#tbl_payroll_list_report').DataTable();
+                }       
+        });
+    }else{
+        $('#select_year_payroll').prop('disabled', false);
+        $('#select_month_payroll').prop('disabled', false);
+        var years=$('#select_year_payroll').val();
+        var months=$('#select_month_payroll').val();
+        $.ajax({
+            type: 'GET',
+            url: 'hrm_payroll_list_report_search',
+            async:false,
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                month: months,
+                year:years
+            },
+            success: function (data) {
+                // document.getElementById('training_report_search').innerHTML=data;
+                var ab=JSON.parse(data);
+                var i=0;
+                $("#tbl_payroll_list_report").DataTable().destroy();
+                $("#tbl_payroll_list_report tbody").empty();
+                $.each(ab, function(i, value) {
+                    i++;
+                    if(value[11]==true){
+                        var btn='<label class="btn btn-danger btn-sm">Yes</label>';
+                    }else{
+                        var btn='<label class="btn btn-info btn-sm">No</label>';
+                    }
+                    var tr="<tr><th>"+i+"</th><td>"+value[1]+"</td><td>"+value[2]+"</td><td>"+value[3]+"</td><td>"+value[4]+"</td><td>"+value[5]+"</td><td>"+value[6]+"</td><td class='text-center'>"+btn+"</td></tr>";
+                    $("#tbl_payroll_list_report").append(tr);
+                });
+                $('#tbl_payroll_list_report').DataTable();     
+            }       
+        });
+    }
+}
+
+
+
+
+// Payroll Report
+function custom_payroll_report(){
+    var custom=$('#custom_select_payroll_report').val();
+    if(custom=='t'){
+        $('#select_year_payroll').prop('disabled', 'disabled');
+        $('#select_month_payroll').prop('disabled', 'disabled');
+        $.ajax({
+            type: 'GET',
+            url: 'hrm_payroll_report_search',
+            async:false,
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                all: custom
+            },
+            success: function (data) {
+                // document.getElementById('training_report_search').innerHTML=data;
+                console.log(data);
+                var ab=JSON.parse(data);
+                var i=0;
+                $("#tbl_payroll_report").DataTable().destroy();
+                $("#tbl_payroll_report tbody").empty();
+                $.each(ab, function(i, value) {
+                    i++;
+                    if(value.approve==true){
+                        var btn='<label class="btn btn-danger btn-sm">Yes</label>';
+                    }else{
+                        var btn='<label class="btn btn-info btn-sm">No</label>';
+                    }
+                    var tr="<tr><th>"+i+"</th><td>"+value.first_name_en+" "+value.last_name_en+"</td><td>"+value.id_number+"</td><td>"+value.position+"</td><td>"+value.bonus_value+"</td><td>"+value.tax+"</td><td>"+(value.bonus_value-value.tax)+"</td><td class='text-center'>"+btn+"</td></tr>";
+                    $("#tbl_payroll_report").append(tr);
+                });
+                $('#tbl_payroll_report').DataTable();
+                }       
+        });
+    }else{
+        $('#select_year_payroll').prop('disabled', false);
+        $('#select_month_payroll').prop('disabled', false);
+        var years=$('#select_year_payroll').val();
+        var months=$('#select_month_payroll').val();
+        $.ajax({
+            type: 'GET',
+            url: 'hrm_payroll_report_search',
+            async:false,
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                month: months,
+                year:years
+            },
+            success: function (data) {
+                // document.getElementById('training_report_search').innerHTML=data;
+                var ab=JSON.parse(data);
+                var i=0;
+                $("#tbl_payroll_report").DataTable().destroy();
+                $("#tbl_payroll_report tbody").empty();
+                $.each(ab, function(i, value) {
+                    i++;
+                    if(value.approve==true){
+                        var btn='<label class="btn btn-danger btn-sm">Yes</label>';
+                    }else{
+                        var btn='<label class="btn btn-info btn-sm">No</label>';
+                    }
+                    var tr="<tr><th>"+i+"</th><td>"+value.first_name_en+" "+value.last_name_en+"</td><td>"+value.id_number+"</td><td>"+value.position+"</td><td>"+value.bonus_value+"</td><td>"+value.tax+"</td><td>"+(value.bonus_value-value.tax)+"</td><td class='text-center'>"+btn+"</td></tr>";
+                    $("#tbl_payroll_report").append(tr);
+                });
+                $('#tbl_payroll_report').DataTable();     
+            }       
+        });
+    }
 }
 
 

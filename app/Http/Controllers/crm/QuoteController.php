@@ -14,7 +14,7 @@ class QuoteController extends Controller
 {
 
 
-    // function to get all quote lead 
+    // function to get all quote lead
     public static function showQuoteList(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -25,30 +25,35 @@ class QuoteController extends Controller
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         $listQuote = json_decode($res->getContent());
-
-        // dd($listQuote);
-        // $arr[] = 'i1';
-        // foreach($listQuote as $key=>$val){
-
-        //     foreach($val as $key2=>$val2){
-
-        //         // dd($val2->crm_stock);
-        //         // echo count($val2->crm_stock);
-
-        //         foreach($val2->crm_stock as $key3=> $val3){
-        //             dd($val3->price);
-        //             dd($val3->qty);
-        //         }
-        //     }
-        // }
-        // print_r($arr);
         return view('crm/quote/quoteShow',compact('listQuote'));
     }
 
     // function to get show qoute detail
     public static function showQuoteListDetail(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(isset($_GET['id_'])){
-            return view('crm/quote/qouteShowDetail');
+            $quoId = $_GET['id_'];
+
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/quote/'.$quoId.'', 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $listQuoteDetail = json_decode($res->getContent());
+            if($listQuoteDetail != ''){
+                $address = ModelCrmQuote::getAddress($listQuoteDetail->data->address->gazetteer_code); //get address detail by code
+                foreach($listQuoteDetail->data->crm_stock as $k=>$val){
+                    $product[] = ModelCrmQuote::getProduct($val->stock_product_id);// get info product by id
+                }
+            }else{
+                echo 'emtry';
+            }
+            // dd($product);
+            return view('crm/quote/qouteShowDetail', compact('listQuoteDetail','address','product'));
+
+
         }
 
     }
@@ -59,21 +64,40 @@ class QuoteController extends Controller
             session_start();
         }
         $province=ModelCrmLead::CrmGetLeadProvice();
+
+        $token = $_SESSION['token'];
         $request = Request::create('/api/quote/status', 'GET');
-        $quotestatus = json_decode(Route::dispatch($request)->getContent());
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        $quotestatus = json_decode($res->getContent());
+
+        // $request = Request::create('/api/quote/status', 'GET');
+        // $quotestatus = json_decode(Route::dispatch($request)->getContent());
         return view('crm/quote/addQuote', compact('province','quotestatus'));
     }
 
 
     // function to delete lead from quote list
     public static function deleteLeadQuote(){
-        $status_delete = true;
-        if($status_delete == true){
-            return 1;
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
         }
+        if(isset($_GET['id'])){
+            $quoId = $_GET['id'];
+
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/quote/'.$quoId.'', 'delete');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $result = json_decode($res->getContent());
+            dd($result);
+        }
+
     }
 
-    
+
 
     // function to add one new row table quote item
     public static function addRow(){
@@ -91,8 +115,15 @@ class QuoteController extends Controller
         }
         if(isset($_GET['id'])){
             $row_id = $_GET['id'];
+            $token = $_SESSION['token'];
             $request = Request::create('/api/stock/product/', 'GET');
-            $listProduct = json_decode(Route::dispatch($request)->getContent());
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $listProduct = json_decode($res->getContent());
+
+            // $request = Request::create('/api/stock/product/', 'GET');
+            // $listProduct = json_decode(Route::dispatch($request)->getContent());
             return view('crm/quote/listProduct', compact('listProduct','row_id'));
         }
 
@@ -106,8 +137,15 @@ class QuoteController extends Controller
         }
         if(isset($_GET['id'])){
             $row_id = $_GET['id'];
+            $token = $_SESSION['token'];
             $request = Request::create('/api/stock/service/', 'GET');
-            $listService = json_decode(Route::dispatch($request)->getContent());
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $listService = json_decode($res->getContent());
+
+            // $request = Request::create('/api/stock/service/', 'GET');
+            // $listService = json_decode(Route::dispatch($request)->getContent());
             return view('crm/quote/listService', compact('listService','row_id'));
         }
 
@@ -143,14 +181,21 @@ class QuoteController extends Controller
         }
         if(isset($_GET['id'])){
             $id = $_GET['id'];
+
+            $token = $_SESSION['token'];
             $request = Request::create('/api/getbranchbylead/'.$id.'', 'GET');
-            $listBranch = json_decode(Route::dispatch($request)->getContent());
-            // return $listBranch;
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $listBranch = json_decode($res->getContent());
+
+            // dd($listBranch);
+            // $request = Request::create('/api/getbranchbylead/'.$id.'', 'GET');
+            // $listBranch = json_decode(Route::dispatch($request)->getContent());
             return view('crm/quote/listQuoteBranch', compact('listBranch'));
-            // return response()->json($listBranch, 200);
         }
     }
-    
+
 
 
     //function to save quote data to database
@@ -177,7 +222,7 @@ class QuoteController extends Controller
                     'price.*' =>  ['required'],
                     'discount.*' =>  ['required'],
                     'discount_type.*' =>  ['required'],
-                    
+
                 ],
                 [
                     // 'product_name.*required' => 'This Field is require !!',   //massage validator
@@ -188,7 +233,7 @@ class QuoteController extends Controller
             if ($validator->fails()) //check validator for fail
             {
                 return response()->json(array(
-                    'errors' => $validator->getMessageBag()->toArray() 
+                    'errors' => $validator->getMessageBag()->toArray()
                 ));
             }else{
                 $create_by = $userid;
@@ -196,9 +241,15 @@ class QuoteController extends Controller
                     'create_by' => $create_by,
                 ]);
 
+                $token = $_SESSION['token'];
+                $request = Request::create('/api/quote', 'POST');
+                $request->headers->set('Accept', 'application/json');
+                $request->headers->set('Authorization', 'Bearer '.$token);
+                $res = app()->handle($request);
+                $response = json_decode($res->getContent());
 
-                $request = Request::create('/api/quote', 'POST' );
-                $response = json_decode(Route::dispatch($request)->getContent());
+                // $request = Request::create('/api/quote', 'POST' );
+                // $response = json_decode(Route::dispatch($request)->getContent());
 
                 if($response->insert=='success'){
                     return response()->json(['success'=>$response]);

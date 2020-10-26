@@ -20,13 +20,13 @@ function go_to(route){
 
             $(".content-wrapper").show();
             $(".content-wrapper").html(data);
-            
+
         },
         error:function(){
           $(".content-wrapper").html(jerror());
         }
     });
-  
+
 }
 
 
@@ -88,19 +88,19 @@ function autoSubmit() {
     // var auto = setTimeout(function(){ autoRefresh(); }, 100);
     function alert15min(){
         $.notify(
-            "Your answer will be auto submit in 15 minutes more !", 
+            "Your answer will be auto submit in 15 minutes more !",
             { position:"top center" }
         );
     }
     function alert10min(){
         $.notify(
-            "Your answer will be auto submit in 10 minutes more !", 
+            "Your answer will be auto submit in 10 minutes more !",
             { position:"top center" }
         );
     }
     function alert5min(){
         $.notify(
-            "Your answer will be auto submit in 5 minutes more !", 
+            "Your answer will be auto submit in 5 minutes more !",
             { position:"top center" }
         );
     }
@@ -116,6 +116,7 @@ function autoSubmit() {
     // set time out 1 hour to submit form
     setTimeout(function(){ submitform(); }, (1000 * 60 * 60));
 
+
 }
 
 
@@ -124,72 +125,88 @@ function autoSubmit() {
 
 
   // function user click start quiz & auto submit answer
-  var num_click = 1;
+  var num_click = 0;
   function user_start_quiz(route){
 
     var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     var today = new Date();
     var dd = today.getDate();
-    var mm = months[today.getMonth()]; 
+    var mm = months[today.getMonth()];
     var yyyy = today.getFullYear();
     var n = today.toLocaleString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    var myTime = dd + '-' + mm +'-'+ yyyy + '/' + n; 
+    var myTime = dd + '-' + mm +'-'+ yyyy + '/' + n;
 
-    if(num_click == 1){
-      autoSubmit();
-      $.ajax({
-          type: 'GET',
-          url:route,
-          success:function(data){
-            
-              if(data == 'user_expire'){
-                Swal.fire('This user already take quiz !');
-              }else{
-                
-                $(".content-wrapper").show();
-                $(".content-wrapper").html(data);
-                document.getElementById("starttime_quiz").innerHTML = myTime;
-              }
-              
-          },
-          error:function(){
-            Swal.fire('មិនទាន់មានសំនួរ សម្រាប់មុខដំណែងការងារនេះ !')  
-          },
+        $.ajax({
+            type: 'GET',
+            url:route,
+            success:function(data){
+                var myobj = document.getElementById("countdown");
+                if(myobj != null){
+                    myobj.remove();
+                    console.log(myobj);
+                }
 
-          
-          
 
-      });
-          var d = new Date();
-                // var f = new Date(d.getTime());
-                d.setMinutes(d.getMinutes() + 60);
-                // Set the date we're counting down to
-                var countDownDate = new Date(d).getTime();
-                // Update the count down every 1 second
-                var x = setInterval(function() {
-                    // Get today's date and time
-                    var now = new Date().getTime();
-                    // Find the distance between now and the count down date
-                    var distance = countDownDate - now;   
-                    // Time calculations for days, hours, minutes and seconds
-                    // var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    var hours = Math.floor((distance % (86400000)) / (3600000));
-                    var minutes = Math.floor((distance % (3600000)) / (60000));
-                    var seconds = Math.floor((distance % (60000)) / 1000);
-                    // Output the result in an element with id="demo"
-                    document.getElementById("countdown").innerHTML = hours + "h "
-                    + minutes + "m " + seconds + "s ";
-                    // If the count down is over, write some text 
-                    if (distance < 0) {
-                        clearInterval(x);
-                        document.getElementById("countdown").innerHTML = "EXPIRED";
-                    }
-            }, 1000); 
-        num_click += 1;
-    }
-      
+                clearTimer(num_click);
+                num_click+=1;
+                countDownTime(60,'showTimer'+num_click+'');
+                setTimeout(function(){  autoSubmit(); }, (15000));
+
+                if(data == 'user_expire'){
+                    Swal.fire('This user has already taken the quiz!!');
+                }else{
+                    $(".content-wrapper").show();
+                    $(".content-wrapper").html(data);
+                    document.getElementById("starttime_quiz").innerHTML = myTime;
+                }
+
+            },
+            error:function(){
+                Swal.fire('មិនទាន់មានសំនួរ សម្រាប់មុខដំណែងការងារនេះ !')
+            },
+        });
 
   }
+
+    function clearTimer(i){
+        $(document).ready(function(){
+            $("h6 #showTimer"+i+"").remove();
+            $("div .countdown").append("<h6 id='showTimer"+(i+1)+"'></h6>");
+        });
+    }
+
+
+    function countDownTime(numberCount,showId){
+            // console.log('id_coudnto=='+showId);
+            var d = new Date();
+            // var f = new Date(d.getTime());
+            d.setMinutes(d.getMinutes() + numberCount); //as minutes
+            // Set the date we're counting down to
+            var countDownDate = new Date(d).getTime();
+            // Update the count down every 1 second
+            var x = setInterval(function() {
+                // Get today's date and time
+                var now = new Date().getTime();
+                // Find the distance between now and the count down date
+                var distance = countDownDate - now;
+                // Time calculations for days, hours, minutes and seconds
+                // var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (86400000)) / (3600000));
+                var minutes = Math.floor((distance % (3600000)) / (60000));
+                var seconds = Math.floor((distance % (60000)) / 1000);
+                // Output the result in an element with id="demo"
+                var time  = hours + "h " + minutes + "m " + seconds + "s ";
+                console.log(time);
+                document.getElementById(showId).innerHTML = time;
+                // If the count down is over, write some text
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById(showId).innerHTML = "EXPIRED";
+                }
+            }, 1000);
+    }
+
+
 
 
 
@@ -210,10 +227,10 @@ function autoSubmit() {
                     }else{
                       var id = "#q_option_id" + x;
                       $(id).show();
-                    }   
+                    }
                 }
                 back = next;
-                next += 1;  
+                next += 1;
                 break;
           case next = 2:
                 for(var x=1; x<=40; x++){
@@ -252,15 +269,15 @@ function autoSubmit() {
                     }else{
                       var id = "#q_option_id" + x;
                       $(id).hide();
-                    }   
+                    }
                 }
                 next = back;
                 back -= 1;
                 break;
-              
-            
+
+
         case back = 2:
-            
+
               for(var x=1; x<=40; x++){
                 $('#title_q_option').show();
                 $('#sub_title_q_option').show();
@@ -282,10 +299,10 @@ function autoSubmit() {
               next = back;
               back -= 1;
               break;
-           
-      case back = 0: 
+
+      case back = 0:
             break;
-     
+
       }
   }
 
@@ -300,7 +317,7 @@ function autoSubmit() {
     var url= "/hrm_get_quiz_result";
     var x=new XMLHttpRequest();
     x.onreadystatechange=function(){
-        if(this.readyState==4 && this.status==200){    
+        if(this.readyState==4 && this.status==200){
             document.getElementById('show_result').innerHTML=this.responseText;
         }
     }

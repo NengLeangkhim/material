@@ -6,7 +6,7 @@
         $question_option_choice = $user_question['question_option_choice'];
         $question_writing = $user_question['question_writing'];
     }
-    
+
 
 
     if (session_status() == PHP_SESSION_NONE) {
@@ -14,8 +14,8 @@
     }
     date_default_timezone_set("Asia/Phnom_Penh");
     $_SESSION['start_time'] = date("Y-m-d h:i:s ");
-    
-   
+
+
 @endphp
 
 
@@ -26,7 +26,7 @@
     </div>
     <div style="padding:10px 10px 10px 10px">
         <div class="row">
-            
+
             <div class="col-md-12">
 
                 <div class="card">
@@ -37,7 +37,10 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div style="padding: 0px 10px 0px 40%;">
-                                        <label>Expire: </label><h6 id="countdown" class="h6 font-size" style=""> </h6>
+                                        <label>Expire: </label>
+                                        <div id="countdown" class="countdown h6 font-size" style="color:blue;">
+                                            {{-- <h6 id="showTimer0">hello world</h6> --}}
+                                        </div>
                                     </div>
                                     <marquee behavior="scroll" direction="left" scrollamount='3'  style='color: orange;'>Answer will be auto submit when time expired​ !</marquee>
 
@@ -53,9 +56,9 @@
                         <div class="card-body">
 
                             <form  name="myFormQuestion" id="myFormQuestion"  action="/hrm_recruitment_user_submit_answer" method="POST">
-                                @csrf 
+                                @csrf
 
-                                <div class="table-responsive"> 
+                                <div class="table-responsive">
 
                                     {{-- <table class="table table-bordered" id="tbl_employee"> --}}
                                     <table class="table " id="tbl_employee">
@@ -72,7 +75,7 @@
                                                             <tr id="sub_title_q_option" ><td colspan="4">   <h5 class="kh-font-batt" >*សូមជ្រើសរើសយកចម្លើយដែលត្រឹមត្រូវនៃសំនួរខាងក្រោម៖</h5></td></tr>
 
                                                         ';
-                                                            
+
                                                 @endphp
 
                                         </thead>
@@ -88,23 +91,23 @@
                                                                                 <tr id="q_option_id'.$x.'" >
                                                                                     <th class="main_question kh-font-batt" colspan="4">
                                                                                         '.($i+1).'. '.$question_option[$i]->question.'
-                                                                                    </th>                                
+                                                                                    </th>
                                                                                 </tr>
                                                                                 <tr id="q_option_id'.($x+1).'" >
-                                                                            '; 
+                                                                            ';
 
                                                                             $x +=2;
                                                                             // echo question option answer choice
-                                                                            
-                                                                            foreach ($question_option_choice[$i] as $key => $value) 
-                                                                            {                                                    
-                                                                                // echo '                                                                                      
+
+                                                                            foreach ($question_option_choice[$i] as $key => $value)
+                                                                            {
+                                                                                // echo '
                                                                                 //     <td>
-                                                                                //         <label style="font-weight: 500;"  class="label-radio"><span class="radio"></span> 
-                                                                                //             <input type="radio" class="" id="radio-id-'.$i.'" name="id_question['.$question_option[$i]->id.']"  value="'.$value->id.'"> 
+                                                                                //         <label style="font-weight: 500;"  class="label-radio"><span class="radio"></span>
+                                                                                //             <input type="radio" class="" id="radio-id-'.$i.'" name="id_question['.$question_option[$i]->id.']"  value="'.$value->id.'">
                                                                                 //             <span class="kh-font-batt">'.$value->choice.'</span>
                                                                                 //         </label>
-                                                                                //     </td>                                                                                            
+                                                                                //     </td>
                                                                                 // ';
 
 
@@ -121,7 +124,7 @@
                                                                                 //         </div>
                                                                                 //     </td>
                                                                                 // ';
-                                                                                
+
 
 
 
@@ -159,35 +162,35 @@
 
                                                                             }
                                                                         echo    '</tr>
-                                                                            
+
                                                                             ';
-                                                                    
+
                                                             }
 
 
 
                                                             // loop for echo question writing
                                                             echo '
-                        
+
                                                                             <tr id="title_q_writing">
                                                                                 <th colspan="4">
                                                                                     <h3 style="text-align:center;"><b>II. Question Writing</b></h3>
                                                                                 </th>
-                                                                            
+
                                                                             </tr>
                                                                             <tr id="sub_title_q_writing" ><td colspan="4">   <h5 class="kh-font-batt" >*សូមបំពេញចម្លើយនូវសំនួរខាងក្រោម៖</h5></td></tr>
-                                                                        
+
 
                                                                 ';
-                                                            
-                                                            
+
+
                                                             $xx = 1;
                                                             for ($i=0; $i < count($question_writing) ; $i++){
                                                                     echo '
                                                                             <tr id="q_writing_id'.$xx.'">
                                                                                 <th class="main_question kh-font-batt" colspan="4">
                                                                                     '.($i+1).'. '.$question_writing[$i]->question.'
-                                                                                </th>                                
+                                                                                </th>
                                                                             </tr>
                                                                             <tr id="q_writing_id'.($xx+1).'">
                                                                                 <td colspan="4">
@@ -202,7 +205,7 @@
 
 
                                                 @endphp
-                
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -213,7 +216,7 @@
                                         <div class="form-inline">
                                             <div  style="padding: 5px;">
                                                 {{-- <a class="btn-next" id="btn_back_ques" href="#" onclick='BackQuestion()'>
-                                                    <span class="span"><i class="fa fa-angle-double-left" style="font-size:24px; color:blue; margin-right: 5px;"></i></span><label>Back</label> 
+                                                    <span class="span"><i class="fa fa-angle-double-left" style="font-size:24px; color:blue; margin-right: 5px;"></i></span><label>Back</label>
                                                 </a> --}}
                                                 <a href="#">
                                                     <button  type="button" class="btn btn-success" id="btn_back_ques" onclick='BackQuestion()'  style="padding: 1px; width: 80px;"><span class="span"><i class="fa fa-angle-double-left" style=" font-size:20px; margin-right: 5px;"></i> Back</button>
@@ -236,25 +239,28 @@
 
                                     </div>
                                     <div class="col-sm-4" style="padding-left: 10%;">
-                                        
-                                        <button type="submit" id="submitbutton" class="btn btn-info btn-lg" name="btnSubmitAnswer" style="padding: 1px; width: 120px;"> 
+
+                                        <button type="submit" id="submitbutton" class="btn btn-info btn-lg" name="btnSubmitAnswer" style="padding: 1px; width: 120px;">
                                             <span class="glyphicon glyphicon-send"></span> Submit
                                         </button>
 
                                     </div>
                                 </div>
                             </form>
-                                
+
                         </div>
                 </div>
-    
+
             </div>
         </div>
     </div>
-            
 
-    
+
+
     <script type="text/javascript">
+
+
+
         for(var x=1; x<=40; x++){
             if( x > 20){
                 var id_q_option = "#q_option_id" + x;
@@ -262,7 +268,7 @@
             }else{
                 var id_q_writing = "#q_writing_id" + x;
                 $(id_q_writing).hide();
-            }     
+            }
         }
         $('#sub_title_q_writing').hide();
         $('#title_q_writing').hide();
@@ -270,6 +276,6 @@
         document.getElementById("btn_back_ques").disabled = true;
 
     </script>
-    
-    
+
+
 </section>
