@@ -313,9 +313,6 @@
                                                                     <option value='low'>Low</option>
                                                                   
                                                                 </select>
-                                                                {{-- <span class="invalid-feedback" role="alert" id="ma_honorifics_idError"> {{--span for alert--}}
-                                                                    {{-- <strong></strong> --}}
-                                                                {{-- </span> --}}
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -617,22 +614,40 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="address_type">Address Type <b style="color:red">*</b></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label for="address_type">Address Type <b style="color:red">*</b></label>
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
+                                                                    </div>
+                                                                    <select class="form-control " name="address_type" id="address_type" >
+                                                                        <option value="">Select Address Type</option>
+                                                                        <option value="billing">Billing</option>
+                                                                        <option value="install">Install</option>
+                                                                        <option value="main">Main</option>
+                                                                    </select>
+                                                                    <span class="invalid-feedback" role="alert" id="address_typeError"> {{--span for alert--}}
+                                                                        <strong></strong>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="address_type"></label>
+                                                                <div class="input-group">
+                                                                </div>
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="checksurvey" >
+                                                                    <label for="customCheckbox2"  class="custom-control-label">Survey Or Not</label>
+                                                                </div>                                                                
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <select class="form-control " name="address_type" id="address_type" >
-                                                        <option value="">Select Address Type</option>
-                                                        <option value="billing">Billing</option>
-                                                        <option value="install">Install</option>
-                                                        <option value="main">Main</option>
-                                                    </select>
-                                                    <span class="invalid-feedback" role="alert" id="address_typeError"> {{--span for alert--}}
-                                                        <strong></strong>
-                                                    </span>
                                                 </div>
-                                            </div>
+                                            </div>            
+                                            
                                             <div class="col-md-6">
                                                 <label for="village">Village <b style="color:red">*</b></label>
                                                 <div class="input-group">

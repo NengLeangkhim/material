@@ -49,6 +49,25 @@ Route::get('/test_map', function(){
 
 //end lead
 
+// start survey
+
+Route::get('/schedule','crm\CrmScheduleController@index');
+
+// end survey
+
+// start survey
+//get survey 
+Route::get('/survey','crm\CrmSurveyController@index');
+
+
+//get detail survey
+Route::get('/detailsurvey/{id}','crm\CrmSurveyController@detailsurvey'); 
+//insert survey
+Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
+
+// end survey
+
+
 
 
 // start contact

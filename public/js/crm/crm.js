@@ -555,7 +555,7 @@ function Crm_delete(id,route,goto,alert) {
             //click back to home
         $('.lead').click(function(e){
             e.preventDefault();  
-            alert(ld);
+            // alert(ld);
                 $.ajax({   
                     type: 'GET',   
                     url:ld,

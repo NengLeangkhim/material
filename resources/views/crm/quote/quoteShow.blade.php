@@ -32,17 +32,17 @@
                                 <div class="table-responsive">
                                         <table id="tblQuoteList"  class=" table table-bordered table-hover" style="white-space:nowrap;">
                                             <thead>
-                                                <tr>
-                                                    <th>Quote Number</th>
-                                                    <th>Subject</th>
-                                                    <th>Organization Name</th>
-                                                    <th>Contact Name</th>
-                                                    <th>Total</th>
-                                                    <th>Quote Stage</th>
-                                                    <th>Assigned To </th>
-                                                    <th>Convert To BSC</th>
-                                                    <th>Modified Time</th>
-                                                    <th>Action</th>
+                                                <tr style="background: #1fa8e0">
+                                                    <th style="color: #FFFFFF">Quote Number</th>
+                                                    <th style="color: #FFFFFF">Subject</th>
+                                                    <th style="color: #FFFFFF">Organization Name</th>
+                                                    <th style="color: #FFFFFF">Contact Name</th>
+                                                    <th style="color: #FFFFFF">Total</th>
+                                                    <th style="color: #FFFFFF">Quote Stage</th>
+                                                    <th style="color: #FFFFFF">Assigned To </th>
+                                                    <th style="color: #FFFFFF">Convert To BSC</th>
+                                                    <th style="color: #FFFFFF">Modified Time</th>
+                                                    <th style="color: #FFFFFF">Action</th>
 
                                                 </tr>
                                             </thead>
