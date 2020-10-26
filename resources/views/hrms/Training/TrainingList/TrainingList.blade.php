@@ -17,17 +17,17 @@
                 <div class="col-md-12">
                   <ul class="nav nav-tabs border_transparent" id="myTab" role="tablist">
                       <li class="nav-item">
-                          <a class="nav-link" id="home-tab" data-toggle="tab" href="#all" role="tab" aria-controls="home" aria-selected="false">All</a>
+                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#all" role="tab" aria-controls="home" aria-selected="false">All</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#trained" role="tab" aria-controls="profile" aria-selected="true">Trained</a>
+                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#trained" role="tab" aria-controls="profile" aria-selected="true">Trained</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#still_not_trained" role="tab" aria-controls="profile" aria-selected="false">Still not trained</a>
+                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#still_not_trained" role="tab" aria-controls="profile" aria-selected="false">Not trained</a>
                       </li>
                    </ul>
                    <div class="tab-content" id="myTabContent">    
-                        <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="tab-pane fade active show" id="all" role="tabpanel" aria-labelledby="home-tab">
                             <div class="card-body"> 
 
                               <div class="col-md-12">
@@ -62,9 +62,9 @@
                                         <td>{{$tl->schet_description}}</td>
                                         <td>
                                           <div class="row">
-                                            <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_modal_traininglist','modal_traininglist',{{$tl->id}})"><i class="far fa-edit"></i></a></div>
-                                            <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_traininglist_detail','modal_traininglist_detail',{{$tl->id}})"><i class="fas fa-info"></i></a></div>
-                                            <div class="col-md-4"><a href="javascrip:;" onclick="hrm_delete_data({{$tl->id}},'hrm_delete_traininglist','hrm_traininglist','Training List is Delete !','HRM_09050101')"><i class="far fa-trash-alt"></i></a></div>
+                                            <div class="col-md-4"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_modal_traininglist','modal_traininglist',{{$tl->id}})"><i class="far fa-edit"></i></a></div>
+                                            <div class="col-md-4"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_traininglist_detail','modal_traininglist_detail',{{$tl->id}})"><i class="fas fa-info"></i></a></div>
+                                            <div class="col-md-4"><a href="javascript:;" onclick="hrm_delete_data({{$tl->id}},'hrm_delete_traininglist','hrm_traininglist','Training List is Delete !','HRM_09050101')"><i class="far fa-trash-alt"></i></a></div>
                                           </div>
                                         </td>
                                     </tr>
@@ -80,7 +80,7 @@
 
                             </div>
                         </div>
-                        <div class="tab-pane fade active show" id="trained" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="tab-pane fade" id="trained" role="tabpanel" aria-labelledby="home-tab">
                             <div class="card-body">
                               
 
@@ -112,9 +112,9 @@
                                             <td>{{$tl->schet_description}}</td>
                                             <td>
                                               <div class="row">
-                                                <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_modal_traininglist','modal_traininglist',{{$tl->id}})"><i class="far fa-edit"></i></a></div>
-                                                <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_traininglist_detail','modal_traininglist_detail',{{$tl->id}})"><i class="fas fa-info"></i></a></div>
-                                                <div class="col-md-4"><a href="javascrip:;" onclick="hrm_delete_data({{$tl->id}},'hrm_delete_traininglist','hrm_traininglist','Training List is Delete !','HRM_09050101')"><i class="far fa-trash-alt"></i></a></div>
+                                                <div class="col-md-4"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_modal_traininglist','modal_traininglist',{{$tl->id}})"><i class="far fa-edit"></i></a></div>
+                                                <div class="col-md-4"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_traininglist_detail','modal_traininglist_detail',{{$tl->id}})"><i class="fas fa-info"></i></a></div>
+                                                <div class="col-md-4"><a href="javascript:;" onclick="hrm_delete_data({{$tl->id}},'hrm_delete_traininglist','hrm_traininglist','Training List is Delete !','HRM_09050101')"><i class="far fa-trash-alt"></i></a></div>
                                               </div>
                                             </td>
                                         </tr>
@@ -161,9 +161,9 @@
                                             <td>{{$tl->schet_description}}</td>
                                             <td>
                                               <div class="row">
-                                                <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_modal_traininglist','modal_traininglist',{{$tl->id}})"><i class="far fa-edit"></i></a></div>
-                                                <div class="col-md-4"><a href="javascrip:;" onclick="HRM_ShowDetail('hrm_traininglist_detail','modal_traininglist_detail',{{$tl->id}})"><i class="fas fa-info"></i></a></div>
-                                                <div class="col-md-4"><a href="javascrip:;" onclick="hrm_delete_data({{$tl->id}},'hrm_delete_traininglist','hrm_traininglist','Training List is Delete !','HRM_09050101')"><i class="far fa-trash-alt"></i></a></div>
+                                                <div class="col-md-4"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_modal_traininglist','modal_traininglist',{{$tl->id}})"><i class="far fa-edit"></i></a></div>
+                                                <div class="col-md-4"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_traininglist_detail','modal_traininglist_detail',{{$tl->id}})"><i class="fas fa-info"></i></a></div>
+                                                <div class="col-md-4"><a href="javascript:;" onclick="hrm_delete_data({{$tl->id}},'hrm_delete_traininglist','hrm_traininglist','Training List is Delete !','HRM_09050101')"><i class="far fa-trash-alt"></i></a></div>
                                               </div>
                                             </td>
                                         </tr>

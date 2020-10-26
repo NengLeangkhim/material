@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\model\api\crm\Crmlead as Lead;
 use App\Http\Resources\api\crm\lead\LeadBranch;
 use App\Http\Controllers\api\stock\StockController;
+use App\Http\Controllers\api\crm\ContactController;
 
 class LeadController extends Controller
 {
@@ -50,12 +51,13 @@ class LeadController extends Controller
     }
     // add lead or branch
     public function lead(){
-        $lead_source=ModelCrmLead::CrmGetLeadSource();
-        $lead_status=ModelCrmLead::CrmGetLeadStatus();
-        $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
-        $assig_to=ModelCrmLead::CrmGetLeadAssigTo();
-        $province=ModelCrmLead::CrmGetLeadProvice();
+       
         if(perms::check_perm_module('CRM_020504')){//module codes
+            $lead_source=ModelCrmLead::CrmGetLeadSource();
+            $lead_status=ModelCrmLead::CrmGetLeadStatus();
+            $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
+            $assig_to=ModelCrmLead::CrmGetLeadAssigTo();
+            $province=ModelCrmLead::CrmGetLeadProvice();
             return view('crm.Lead.addlead',['lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province]);
         }else{
             return view('no_perms');
@@ -78,12 +80,14 @@ class LeadController extends Controller
             $serv=$ser->getStockPopup('service');
             $service=json_encode($serv,true);
             $service1=json_decode($service,true);
-            $companybranch=Lead::leadBranch();
-          
-            // dd($district);
-            // dd($commune);
-            // dd($village);
-            return view('crm.Lead.editlead',['updatelead'=>$result["data"],'honorifics'=>$honorifics,'service'=>$service1["original"]["data"],'companybranch'=>$companybranch,'lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province,'currentisp'=>$isp]);
+            $companybranch=Lead::leadBranch(); 
+            $lead=Lead::getlead(); 
+            $con= new ContactController();
+            $contact=$con->index();
+            $contact_n=json_encode($contact,true);
+            $contact=json_decode($contact_n,true);
+            // dd($contact);
+            return view('crm.Lead.editlead',['updatelead'=>$result["data"],'lead'=>$lead,'contact'=>$contact,'honorifics'=>$honorifics,'service'=>$service1["original"]["data"],'companybranch'=>$companybranch,'lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province,'currentisp'=>$isp]);
         
         }else{
             return view('no_perms');
@@ -191,12 +195,14 @@ class LeadController extends Controller
                 'errors' => $validator->getMessageBag()->toArray() 
             ));
         }else{
-            if(perms::check_perm_module('CRM_020504')){//module code list 
-                $create_contact = Request::create('/api/insertlead','POST');
-                $response = json_decode(Route::dispatch($create_contact)->getContent());
-                // // return $create_contact;
-                // var_dump($response);
-                if($response->result=='success'){
+            if(perms::check_perm_module('CRM_020504')){//module code list
+                $token = $_SESSION['token'];
+                $create_contact = Request::create('/api/insertlead','POST',$request->all());
+                $create_contact->headers->set('Accept', 'application/json');
+                $create_contact->headers->set('Authorization', 'Bearer '.$token);
+                $res = app()->handle($create_contact);
+                $response = json_decode($res->getContent());
+                if($response->insert==='success'){
                     return response()->json(['success'=>'Record is successfully added']);
                 }
             }else{
@@ -320,8 +326,8 @@ class LeadController extends Controller
                 'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
                 'name_en.required' => 'This Field is require !!',   //massage validator
                 'name_kh.required' => 'This Field is require !!',   //massage validator
-                'email.required' => 'This Field is require !!',   //massage validator
-                'phone.required' => 'This Field is require !!',   //massage validator
+                // 'email.required' => 'This Field is require !!',   //massage validator
+                // 'phone.required' => 'This Field is require !!',   //massage validator
                 'home_en.required' => 'This Field is require !!',   //massage validator
                 'street_en.required' => 'This Field is require !!',   //massage validator
                 'home_kh.required' => 'This Field is require !!',   //massage validator
@@ -346,11 +352,16 @@ class LeadController extends Controller
             ));
         }else{
             if(perms::check_perm_module('CRM_020505')){//module code list 
-                // $create_contact = Request::create('/api/contact','POST');
-                // $response = json_decode(Route::dispatch($create_contact)->getContent());
-                // if($response->insert=='success'){
-                //     return response()->json(['success'=>'Record is successfully added']);
-                // }
+                $token = $_SESSION['token'];
+                $create_contact = Request::create('/api/updatebranch','POST',$request->all());
+                $create_contact->headers->set('Accept', 'application/json');
+                $create_contact->headers->set('Authorization', 'Bearer '.$token);
+                $res = app()->handle($create_contact);
+                $response = json_decode($res->getContent());
+                // return $res;
+                if($response->update=='success'){
+                    return response()->json(['success'=>'Record is successfully added']);
+                }
             }else{
                 return view('no_perms');
             }

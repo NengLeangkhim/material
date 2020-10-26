@@ -20,6 +20,10 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('/getbranchbylead/{id}','api\crm\LeadController@getbranch_lead');
     // get branch by id 
     Route::get('/getbranch/{id}','api\crm\LeadController@getbranchById');
+    // insert lead 
+    Route::post('/insertlead','api\crm\LeadController@insertLead');
+    // Update lead 
+    Route::post('/updatebranch','api\crm\LeadController@updatebranch');
 });
 // get all lead source
 Route::get('/leadsource','api\crm\LeadController@getLeadSource');
@@ -47,7 +51,7 @@ Route::get('/village/{id}','api\crm\LeadController@getVillage');
 // get company Branch
 Route::get('/branch','api\crm\LeadController@getLeadBranch');
 // insert lead 
-Route::post('/insertlead','api\crm\LeadController@insertLead');
+// Route::post('/insertlead','api\crm\LeadController@insertLead');
 //get all Honorifics
 Route::get('/honorifics','api\crm\LeadController@getHonorifics');
 // get brand by lead id 
@@ -55,7 +59,6 @@ Route::get('/honorifics','api\crm\LeadController@getHonorifics');
 // get  all branch 
 Route::get('/getbranch','api\crm\LeadController@getbranch');
 
-// edit lead 
-// Route::post('/editlead','api\crm\LeadController@editLead');
+
 
 

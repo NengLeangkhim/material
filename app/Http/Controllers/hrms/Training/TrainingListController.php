@@ -42,7 +42,7 @@ class TrainingListController extends Controller
                 if(strlen($data[2][0]->hrid)>0){
                     $data[3]=$trainList->TrainingStaff($data[2][0]->hrid);
                 }else{
-                    $data[3] = $trainList->TrainingStaff(0);
+                    $data[3] = $trainList->TrainingStaff_schedule_id($data[2][0]->id);
                 }
             }
             $data[4]=$em->AllEmployee();
@@ -68,13 +68,17 @@ class TrainingListController extends Controller
             $file= $_FILES['document']['tmp_name'];
             $description=$_POST['description'];
             $namefile=$_POST['namefile'];
-            $chech_status=$_POST['schet_status'];
+            if(isset($_POST['schet_status'])){
+                $chech_status=$_POST['schet_status'];
+            }else{
+                $chech_status='t';
+            }
+            
             $staff=array();
-            if (isset($_POST['check'])) {
+            if(isset($_POST['check'])) {
                 $staff = $_POST['check'];
             }
             $trainList = new TrainingList();
-            // print_r($staff);
             if($id>0){
                 $stm=$trainList->UpdateTrainingList($filename,$file,$trainingType,$startdate,$enddate,$description,$chech_status,$userid,$trainer,$id,$namefile,$staff);
             }else{
@@ -104,7 +108,7 @@ class TrainingListController extends Controller
             if (strlen($data[0][0]->hrid) > 0) {
                 $data[1] = $trainList->TrainingStaff($data[0][0]->hrid);
             } else {
-                $data[1] = $trainList->TrainingStaff(0);
+                 $data[1] = $trainList->TrainingStaff_schedule_id($data[0][0]->id);
             }
             return view('hrms/Training/TrainingList/TrainingListDetail')->with('data', $data);
         }else{
@@ -124,7 +128,8 @@ class TrainingListController extends Controller
     function my_training(){
         session_start();
         $userid = $_SESSION['userid'];
-        return view('hrms/Training/my_training');
+        $training=TrainingList::my_training($userid);
+        return view('hrms/Training/my_training')->with('training',$training);
     }
 
     function training_report_search(){

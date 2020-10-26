@@ -29,16 +29,17 @@ Route::get('/commune', 'addressController@getcommune'); //getcommune
 Route::get('/village', 'addressController@getvillage'); //getvillage
 // End Get Address
 // =========================CRM SYSTEM==========================
-// start leads
+// start lead
 Route::get('/lead','crm\LeadController@getlead'); // get  all lead  show  in table
-Route::get('/branch/{id}','crm\LeadController@getbranch'); // get  all branch  show  in table by lead id
-Route::get('/detailbranch/{id}','crm\LeadController@getdetailbranch'); // get detail branch
 Route::get('/addlead','crm\LeadController@lead'); // go to lead
 Route::post('/lead/store','crm\LeadController@StoreLead'); // Store lead
+// Route::get('/district','crm\LeadController@getdistrict'); //getdistrict
+// Route::get('/commune','crm\LeadController@getcommune'); //getcommune
+// Route::get('/village','crm\LeadController@getvillage'); //getvillage
 Route::POST('/addleadsource','crm\LeadController@addleadsource'); //addlead source
 Route::POST('/addleadindustry','crm\LeadController@addleadindustry'); //add leadindustry
 Route::POST('/addlead','crm\LeadController@addlead'); //add leadindustry
-Route::get('/detaillead/{id}','crm\LeadController@detaillead'); //add leadindustry
+Route::get('/detaillead','crm\LeadController@detaillead'); //add leadindustry
 Route::Get('/editlead/{id}','crm\LeadController@editlead');// Go to lead
 Route::post('/lead/update','crm\LeadController@UpdateLead');// Update lead
 Route::post('/crm_leasdsource','crm\LeadController@savelead'); // save
@@ -59,7 +60,6 @@ Route::post('/contact/store','crm\ContactController@StoreContact'); //store cont
 Route::get('/contact/edit/{id}','crm\ContactController@EditContact');//go to Edit contact
 Route::put('/contact/update','crm\ContactController@UpdateContact'); //Update contact
 Route::get('/contact/detail','crm\ContactController@DetailContact');//go to Detail contact
-Route::get('/contact/delete','crm\ContactController@DeleteContact');//Delete contact
 Route::get('/product','crm\ProductsController@getProducts'); //get all Products show in table
 // end contact
 
@@ -117,7 +117,7 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     Route::get('/crm/setting/leadstatus','crm\CrmSettingController@CrmLeadStatus'); // show Lead Status Setting CRM
     Route::post('/crm/setting/leadstatus/store','crm\CrmSettingController@StoreLeadStatus'); // show Lead Status Setting CRM
 Route::get('/crm/setting/leadindustry','crm\CrmSettingController@CrmLeadIndustry'); // show Lead Status Setting CRM
-// END Setting CRM
+// END Setting CRM 
 
 //===========================END CRM=================================
 
@@ -516,12 +516,6 @@ Route::get('hrm_question_answer_sugg/modal/result','hrms\suggestion\QuestionAnsw
 
 // Route Update Status Checkbox //
 Route::get('hrm_question_answer_sugg/checkbox','hrms\suggestion\QuestionAnswerController@update_status_question_sugg');
-
-// Get Staff User Suggestion by HR Department or Top Management
-Route::get('/hrm_user_suggested', 'hrms\suggestion\QuestionAnswerController@getUserSuggested');
-
-// Get Staff Submitted the Question Answer as Report
-Route::get('/hrm_employee_suggestion_report', 'hrms\suggestion\QuestionAnswerController@getSuggestionSurveyReport');
 //////========END QUESTION & Answer==========/////
 
 //////======== SUGGESTION BOX =============///////
@@ -768,7 +762,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// Modal Show List Candidate
     Route::get('hrm_list_condidate/modal','hrms\recruitment\HrmListCandidateController@hrm_detail_candidate');
-
+    
     /// Go to add Candidate
     Route::get('hrm_list_condidate/add','hrms\recruitment\HrmListCandidateController@hrm_goto_add');
     /// add Candidate
@@ -867,12 +861,12 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_modal_add_edit', 'hrms\Employee\OverTimeController@ShowModalAddAndEdit');
         Route::post('hrm_insert_update_overtime','hrms\Employee\OverTimeController@InsertUpdateOvertime');
         Route::get('hrm_delete_overtime', 'hrms\Employee\OverTimeController@DeleteOvertime');
-        Route::get('hrm_my_overtime','hrms\Employee\OverTimeController@my_overtime');
     // End Overtime
 
 // End Employee
 
 // Start Training
+
     // Training Report
         Route::get('hrm_report_training',function(){
             return view('hrms/Training/report_training_schedule');
@@ -919,16 +913,19 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_payroll_list', 'hrms\Payroll\PayrollController@PayrollList');
         Route::get('hrm_payslip', 'hrms\Payroll\PayrollController@ModalPayslip');
         Route::get('hrm_payrollitems', 'hrms\Payroll\PayrollController@ModalPayrollItems');
-        Route::get('hrm_paroll_detail', 'hrms\Payroll\PayrollController@Payroll_List_Detail');
+        Route::get('hrm_paroll_list_detail', 'hrms\Payroll\PayrollController@Payroll_List_Detail');
         Route::get('hrm_hrapprove_payroll', 'hrms\Payroll\PayrollController@HR_ApprovePayroll');
         Route::get('hrm_hrdelete_component', 'hrms\Payroll\PayrollController@DeleteComponent');
-        Route::get('hrm_showpayrollbymonth', 'hrms\Payroll\PayrollController@PayrollList');
+        Route::get('hrm_payroll_list_report','hrms\Payroll\PayrollController@payroll_list_report');
+        Route::get('hrm_payroll_list_report_search','hrms\Payroll\PayrollController@payroll_list_report_search');
     // End Payroll List
 
     // Payroll
         Route::get('hrm_payroll', 'hrms\Payroll\PayrollController@Payroll');
         Route::get('hrm_finance_approve_payroll', 'hrms\Payroll\PayrollController@FinanceApprovePayroll');
         Route::get('hrm_payroll_detail', 'hrms\Payroll\PayrollController@PayrollDetails');
+        Route::get('hrm_payroll_report','hrms\Payroll\PayrollController@payroll_report');
+        Route::get('hrm_payroll_report_search','hrms\Payroll\PayrollController@payroll_report_search');
     // End Payroll
 
         Route::get('taxation', 'hrms\Payroll\PayrollController@Taxation');
@@ -1102,7 +1099,7 @@ Route::get('test_chart',function(){
         // Balance Sheet
 
         // Profit and Loss
-        Route::get('/bsc_report_is','api\BSC\IncomeStatementApiController@getIS');
+
     // Accounting Report
         // Account Transaction
 
@@ -1165,10 +1162,11 @@ Route::get('test_chart',function(){
     // Purchase
     Route::get('bsc_purchase_purchase_list','bsc\PurchaseController@list');
     Route::post('bsc_purchase_save','bsc\PurchaseController@save');
-
-    Route::get('bsc_purchase_purchase_view','bsc\PurchaseController@view');
-
+    Route::post('bsc_purchase_get_by_id','bsc\PurchaseController@get_product_by_id');
+    Route::get('bsc_purchase_purchase_view/{id}','bsc\PurchaseController@view');
+    Route::get('bsc_purchase_purchase_edit_data/{id}','bsc\PurchaseController@purchase_edit');
     Route::get('bsc_purchase_purchase_form','bsc\PurchaseController@form');
+    Route::post('bsc_purchase_update_data','bsc\PurchaseController@update_data');
 
     // View Purchase Payment
     Route::get('bsc_purchase_view_purchase_payment','bsc\PurchasePaymentControllre@view_purchase_payment');

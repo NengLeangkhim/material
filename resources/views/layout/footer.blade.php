@@ -91,6 +91,43 @@
   $(document).ready(
     function(){
       go_to('welcome');
+      $('body').overlayScrollbars({
+    scrollbars : {
+        visibility       : "auto",
+        autoHide         : "scroll",
+        autoHideDelay    : 800,
+        dragScrolling    : true,
+        clickScrolling   : false,
+        touchSupport     : true,
+        snapHandle       : false
+    },
+});
+$(window).on('shown.bs.modal', function() {
+  $('.modal').overlayScrollbars({
+    className            : "os-theme-dark",
+    resize               : "none",
+    sizeAutoCapable      : true,
+    clipAlways           : true,
+    normalizeRTL         : true,
+    paddingAbsolute      : false,
+    autoUpdate           : null,
+    autoUpdateInterval   : 33,
+    nativeScrollbarsOverlaid : {
+        showNativeScrollbars   : false,
+        initialize             : true 
+    },
+    scrollbars : {
+        visibility       : "auto",
+        autoHide         : "scroll",
+        autoHideDelay    : 800,
+        dragScrolling    : true,
+        clickScrolling   : false,
+        touchSupport     : true,
+        snapHandle       : false
+    },
+});
+});
+
     }
   );
 </script>
