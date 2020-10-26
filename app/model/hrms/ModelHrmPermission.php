@@ -18,7 +18,11 @@ class ModelHrmPermission extends Model
     public static function hrm_get_staff_ceo(){
         return DB::table('ma_user as s')
                    ->select("id","s.first_name_en", "s.last_name_en","id_number")
-                   ->where("is_deleted","=","f")
+                   ->where([
+                        ["is_deleted","=","f"],
+                        ["status",'=','t'],
+                        ["is_employee",'=','t']
+                    ])
                    ->get();
      }
     //=== Function Get data from staff for Dept===//
@@ -27,7 +31,9 @@ class ModelHrmPermission extends Model
                    ->select("id","s.first_name_en", "s.last_name_en","id_number")
                    ->where([
                        ["is_deleted","=","f"],
-                       ["ma_company_dept_id","=",$dept]
+                       ["status",'=','t'],
+                       ["ma_company_dept_id","=",$dept],
+                       ["is_employee",'=','t']
                    ])
                    ->get();
      }

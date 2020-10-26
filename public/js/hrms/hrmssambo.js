@@ -1136,6 +1136,7 @@ $(document).on('click', '.hrm_view_perform_plan_detail', function(){
 ////===== Performance Schedule =====////////
  //function show modal add
  function HrmAddSchedule(){
+   $('.select2').select2();
   $('#hrm_perform_schedule_modal').modal('show');
   //performance plan
   $('#plan_schedule').val('');
@@ -2521,7 +2522,7 @@ function hrm_recruitment_approve(userid,type){
     });
   }
   ///// Function Show table candidate applied
-  function get_report_cv_detail(from,to){
+  function get_report_cv_detail(st,from,to){
     //   if(check_session()){
     //   return;
     // }
@@ -2534,7 +2535,8 @@ function hrm_recruitment_approve(userid,type){
       data:{
           _from:from,
           _to:to,
-          _report_cv_detail:'hello'
+          _report_cv_detail:'hello',
+          st:st,
       },
       success: function(data){
           document.getElementById("hrm_recruitment_report_table").innerHTML = data

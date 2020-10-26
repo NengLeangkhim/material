@@ -63,7 +63,8 @@
           function(){
              // getTable('productlist','id');
               $('#hrm_tbl_type').DataTable({
-                scrollX:true
+                // scrollX:true
+                responsive:true,
               });
  
           }

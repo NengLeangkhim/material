@@ -75,7 +75,8 @@
          function(){
             // getTable('productlist','id');
              $('#hrm_list_candidate').DataTable({
-                 scrollX:true
+                //  scrollX:true
+                responsive:true,
              });
          }
      );

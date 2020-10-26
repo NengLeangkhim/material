@@ -19,7 +19,7 @@
                     <div class="row">
                       <div class="col-md-2">
                         <label for="">Employee</label>
-                        <select name="employeeid" id="" class="form-control">
+                        <select name="employeeid" id="" class="form-control" required>
                         <option value="-1">All Employee</option>
                           @foreach ($data[0] as $em)
                         <option value="{{$em->id}}">{{$em->firstName.' '.$em->lastName}}</option>
@@ -28,15 +28,15 @@
                       </div>
                       <div class="col-md-2">
                         <label for="">From</label>
-                        <input type="date" name="from" id="" class="form-control">
+                        <input type="date" name="from" id="" class="form-control" required>
                       </div>
                       <div class="col-md-2">
                         <label for="">To</label>
-                        <input type="date" name="to" id="" class="form-control">
+                        <input type="date" name="to" id="" class="form-control" required>
                       </div>
                       <div class="col-md-2">
                         <label for="">Month</label>
-                        <select name="month" id="" class="form-control">
+                        <select name="month" id="" class="form-control" required>
                           <option value="1">January</option>
                           <option value="2">February</option>
                           <option value="3">March</option>
@@ -53,7 +53,7 @@
                       </div>
                       <div class="col-md-2">
                         <label for="">Year</label>
-                        <select name="year" id="" class="form-control">
+                        <select name="year" id="" class="form-control" required>
                           @php
                               for($i=date('Y');$i>=2013;$i--){
                                 echo '<option value="'.$i.'">'.$i.'</option>';
