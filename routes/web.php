@@ -1161,6 +1161,7 @@ Route::get('test_chart',function(){
     Route::get('bsc_purchase_purchase_view/{id}','bsc\PurchaseController@view');
     Route::get('bsc_purchase_purchase_edit_data/{id}','bsc\PurchaseController@purchase_edit');
     Route::get('bsc_purchase_purchase_form','bsc\PurchaseController@form');
+    Route::post('bsc_purchase_update_data','bsc\PurchaseController@update_data');
 
     // View Purchase Payment
     Route::get('bsc_purchase_view_purchase_payment','bsc\PurchasePaymentControllre@view_purchase_payment');
