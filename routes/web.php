@@ -922,6 +922,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_paroll_list_detail', 'hrms\Payroll\PayrollController@Payroll_List_Detail');
         Route::get('hrm_hrapprove_payroll', 'hrms\Payroll\PayrollController@HR_ApprovePayroll');
         Route::get('hrm_hrdelete_component', 'hrms\Payroll\PayrollController@DeleteComponent');
+        Route::get('hrm_showpayrollbymonth', 'hrms\Payroll\PayrollController@PayrollList');
         Route::get('hrm_payroll_list_report','hrms\Payroll\PayrollController@payroll_list_report');
         Route::get('hrm_payroll_list_report_search','hrms\Payroll\PayrollController@payroll_list_report_search');
     // End Payroll List
@@ -1184,3 +1185,6 @@ Route::get('test_chart',function(){
 
 // ========================================================> END TOUCH RITH <======================================================== //
 //============================================================> END BSC <===============================================================///
+
+
+// Route::get('testing','');
