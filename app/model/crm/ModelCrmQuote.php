@@ -10,14 +10,14 @@ class ModelCrmQuote extends Model
     //function to get all info employee & position
     public static function getEmployee(){
         try {
-                
+
             $r = DB::table('ma_user as us')
                     ->select('us.*','po.name as positionName')
                     ->leftjoin('ma_position as po','us.ma_position_id','=','po.id')
                     ->where('us.is_deleted','=','f')
                     ->where('us.status','=','t')
                     ->orderBy('us.id','ASC')
-                    ->get(); 
+                    ->get();
 
             return $r;
 

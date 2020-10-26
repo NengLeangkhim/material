@@ -17,7 +17,7 @@
                 </div>
             </div>
          </div><!-- /.container-fluid -->
-    </section>  
+    </section>
     <section class="content">
         <head>
             <style>
@@ -42,7 +42,7 @@
                     <form id="frm_addQuote" action="POST">
                         @csrf
                         <!-- general form elements -->
-                        <?php 
+                        <?php
                                 if (session_status() == PHP_SESSION_NONE) {
                                     session_start();
                                 }
@@ -52,7 +52,7 @@
                         <div class="card card-primary">
                                 <div class="card-header" style="background:#1fa8e0">
                                     <h3 class="card-title">Quote Detail</h3>
-                                </div>                            
+                                </div>
                                 <div class="card-body">
                                     <div class="form-group">
                                         <div class="row">
@@ -82,7 +82,7 @@
                                                     <input type="hidden" id="lead_id" name="lead_id" >
                                                     <span id="organiz_nameError" ><strong></strong></span>
                                                 </div>
-      
+
                                             </div>
 
 
@@ -95,7 +95,7 @@
                                     <div class="form-group">
                                         <div class="row">
 
-                                            
+
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Status </label>
                                                 <div class="input-group">
@@ -128,7 +128,6 @@
                                                     </div>
                                                     <input type="hidden" id="crm_lead_branch_id"  name="crm_lead_branch_id">
                                                     <span id="getLeadBranchError" ><strong></strong></span>
-
                                                 </div>
                                             </div>
 
@@ -146,7 +145,7 @@
                                                     </div>
                                                     <input type="date" class="form-control"  name="due_date" id="due_date" placeholder="Selete Date">
                                                     <span id="due_dateError" ><strong></strong></span>
-                                                    
+
                                                 </div>
                                             </div>
 
@@ -168,11 +167,11 @@
                                                 </div>
                                             </div>
 
-        
+
 
                                         </div>
-                                    </div>       
-                                    
+                                    </div>
+
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-12">
@@ -183,23 +182,25 @@
                                                     </div>
                                                     <textarea rows="3" class="form-control" name="comment" id="comment" placeholder="Comment here..." required></textarea>
                                                     <span id="commentError" ><strong></strong></span>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
 
-                                </div>  
+                                </div>
                         </div>
-                        <div class="card card-primary">
+
+
+                        {{-- <div class="card card-primary">
                                 <div class="card-header" style="background:#1fa8e0">
                                     <h3 class="card-title">Address Detail</h3>
-                                </div>                           
+                                </div>
                                 <div class="card-body">
                                     <div class="form-group">
                                         <div class="row">
-                                            
+
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1"> Home(EN)<b style="color:red">*</b></label>
                                                 <div class="input-group">
@@ -207,9 +208,9 @@
                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                     </div>
                                                     <input type="hidden" name="crm_lead_address_id" value="1" >
-                                                    <input type="text" class="form-control"  name='homeEN' id="homeEN" placeholder="Number of home"  disabled  >    
+                                                    <input type="text" class="form-control"  name='homeEN' id="homeEN" placeholder="Number of home"  disabled  >
                                                     <span id="crm_lead_address_idError" ><strong></strong></span>
-                                                    
+
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -220,14 +221,14 @@
                                                     </div>
                                                     <input type="text" class="form-control" id="address_city" name="address_city"  disabled required>
                                                     <span id="addressDetailIdError" ><strong></strong></span>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <div class="row">
-                                            
+
                                             <div class="col-md-6">
                                                 <div class="row">
                                                     <div class="col-md-12">
@@ -236,14 +237,14 @@
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                             </div>
-                                                            <input type="text" class="form-control"  name='streetEN' id="streetEN" placeholder="Number of street"  disabled >    
+                                                            <input type="text" class="form-control"  name='streetEN' id="streetEN" placeholder="Number of street"  disabled >
                                                             <span id="addressDetailIdError" ><strong></strong></span>
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Khan/District <b style="color:red">*</b></label>
                                                 <div class="input-group">
@@ -253,10 +254,10 @@
                                                     <input type="text" class="form-control" id="district" name="district"  disabled required>
                                                     <span id="addressDetailIdError" ><strong></strong></span>
 
-                                                </div>                                                
+                                                </div>
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -265,12 +266,12 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name='homeKH' id="homeKH" placeholder="Number of home"  disabled>    
+                                                    <input type="text" class="form-control"  name='homeKH' id="homeKH" placeholder="Number of home"  disabled>
                                                     <span id="addressDetailIdError" ><strong></strong></span>
-                                                    
+
                                                 </div>
                                             </div>
-                                           
+
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Sengkat/Commune <b style="color:red">*</b></label>
                                                 <div class="input-group">
@@ -279,11 +280,11 @@
                                                     </div>
                                                     <input type="text" class="form-control" id="commune" name="commune"  disabled required>
                                                     <span id="addressDetailIdError" ><strong></strong></span>
-      
-                                                </div> 
+
+                                                </div>
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -292,9 +293,9 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name='streetKH' id="streetKH" placeholder="Number of street"  disabled >    
+                                                    <input type="text" class="form-control"  name='streetKH' id="streetKH" placeholder="Number of street"  disabled >
                                                     <span id="addressDetailIdError" ><strong></strong></span>
-                                                    
+
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -305,19 +306,19 @@
                                                     </div>
                                                     <input type="text" class="form-control" id="village" name="village"  disabled required>
                                                     <span id="addressDetailIdError" ><strong></strong></span>
-                                                    
-                                                </div> 
-                                                
+
+                                                </div>
+
                                             </div>
                                         </div>
-                                    </div> 
-                                </div>              
-                        </div>
+                                    </div>
+                                </div>
+                        </div> --}}
 
                         <div class="card card-primary" >
                             <div class="card-header" style="background:#1fa8e0">
                                 <h3 class="card-title">Item Detail</h3>
-                            </div>                            
+                            </div>
                             <div class="card-body table-responsive">
                                 <div class="row-12 max-min-table" style="margin-right:4px;">
                                     <table class="table table-bordered ">
@@ -329,7 +330,7 @@
                                                 <th class="td-item-quote">List Price($)</th>
                                                 <th class="td-item-quote">Total($)</th>
                                                 <th style="width: 50px;" >
-                                                    <button type="button" class="btn btn-info" id="btnAddRowQuoteItem" ><span><i class="fa fa-plus"></i></span></button> 
+                                                    <button type="button" class="btn btn-info" id="btnAddRowQuoteItem" ><span><i class="fa fa-plus"></i></span></button>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -360,7 +361,7 @@
                                                                     </select>
                                                                 </td>
                                                                 <td class="rowGrandDiscount">
-                                                                    <div id="allDiscount"> 
+                                                                    <div id="allDiscount">
                                                                         <input type="text" style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="itemDiscountPercent" value="0" placeholder="0.0%" required>
                                                                     </div>
                                                                     <div  id="totalDiscount">
@@ -374,25 +375,25 @@
                                                                 <td  ><span style="padding-right: 12px;">Grand Total</span></td>
                                                                 <td  ><div id="grandTotal"> 0.0 </div></td>
                                                             </tr>
-                                                            
+
                                                         </tbody>
                                                     </table>
-                                                    
-                                                    
+
+
                                                 </td>
                                             </tr>
                                         </tbody>
-                                        
+
                                     </table>
-                                </div>                 
-                            </div>  
-                            
+                                </div>
+                            </div>
+
                         </div>
-                        
+
                         <div class="card-footer">
                             <a href="#" class="btn btn-primary save"  id="btnQuoteSave">Save</a>
                             <button type="button" class="btn btn-danger" onclick="go_to('/quote')">Cencel</button>
-                        </div>       
+                        </div>
                     </form>
                 </div>
             </div>
@@ -456,19 +457,19 @@
         </form>
     </div> --}}
 
-    
-    
+
+
     <script type="text/javascript" src="js/crm/crmAddRowQuote.js"></script>
     <script type="text/javascript">
-            
+
 
             $('.lead').click(function(e)
             {
                 var ld = $(this).attr("​value");
-                e.preventDefault();  
+                e.preventDefault();
                 // alert(ld);
-                    $.ajax({   
-                        type: 'GET',   
+                    $.ajax({
+                        type: 'GET',
                         url:ld,
                         success:function(data){
 

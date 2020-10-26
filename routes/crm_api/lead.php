@@ -16,11 +16,17 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['jwt.verify']], function() {
     // get lead
     Route::get('/getlead','api\crm\LeadController@getLead');
-    // get brand by lead id 
+    // get brand by lead id
     Route::get('/getbranchbylead/{id}','api\crm\LeadController@getbranch_lead');
-    // get branch by id 
+    // get branch by id
     Route::get('/getbranch/{id}','api\crm\LeadController@getbranchById');
 });
+
+// Route::get('/getlead','api\crm\LeadController@getLead');
+// Route::get('/getbranchbylead/{id}','api\crm\LeadController@getbranch_lead');
+
+
+
 // get all lead source
 Route::get('/leadsource','api\crm\LeadController@getLeadSource');
 //insert lead source
@@ -31,11 +37,11 @@ Route::get('/leadindustry','api\crm\LeadController@getLeadIndustry');
 Route::post('/insertindustry','api\crm\LeadController@insertLeadIndustry');
 // get all lead status
 Route::get('/leadstatus','api\crm\LeadController@getLeadStatus');
-//get lead assigend to 
+//get lead assigend to
 Route::get('/leadassig','api\crm\LeadController@getLeadAssig');
-//get lead Current Speed ISP 
+//get lead Current Speed ISP
 Route::get('/currentsppedisp','api\crm\LeadController@getcurrentspeedisp');
-// get lead address 
+// get lead address
     //province
 Route::get('/province','api\crm\LeadController@getProvince');
     //District
@@ -46,16 +52,16 @@ Route::get('/commune/{id}','api\crm\LeadController@getCommune');
 Route::get('/village/{id}','api\crm\LeadController@getVillage');
 // get company Branch
 Route::get('/branch','api\crm\LeadController@getLeadBranch');
-// insert lead 
+// insert lead
 Route::post('/insertlead','api\crm\LeadController@insertLead');
 //get all Honorifics
 Route::get('/honorifics','api\crm\LeadController@getHonorifics');
-// get brand by lead id 
+// get brand by lead id
 // Route::get('/getbranchbylead/{id}','api\crm\LeadController@getbranch_lead');
-// get  all branch 
+// get  all branch
 Route::get('/getbranch','api\crm\LeadController@getbranch');
 
-// edit lead 
+// edit lead
 // Route::post('/editlead','api\crm\LeadController@editLead');
 
 
