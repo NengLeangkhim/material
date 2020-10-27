@@ -41,7 +41,7 @@
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
                                         <input type="hidden" name="fromDate">
-                                        <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y')?>" id="LeadChartFrom" name='LeadChartFrom'  required>
+                                        <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y')?>" id="LeadChartFrom" name='LeadChartFrom' required>
                                         <span class="invalid-feedback" role="alert" id="LeadChartFromError"> {{--span for alert--}}
                                           <strong></strong>
                                         </span>
@@ -54,7 +54,7 @@
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
                                         <input type="hidden" name="toDate">
-                                        <input type="text" class="form-control" placeholder="Select Date" id="LeadChartTo" value="<?php echo date('Y')?>" name='LeadChartTo'  required>
+                                        <input type="text" class="form-control" placeholder="Select Date" id="LeadChartTo" value="<?php echo date('Y')?>" name='LeadChartTo' required>
                                         <span class="invalid-feedback" role="alert" id="LeadChartToError"> {{--span for alert--}}
                                           <strong></strong>
                                         </span>
@@ -239,20 +239,29 @@
         </div>
     </div><!-- /.container-fluid -->
 </section><!-- end section Main content -->
-<script src="js/crm/crm_report.js"></script>
 <script>
-    $(document).ready(function() {
+    reportQuoteByStatus();
+    reportContact();
+    reportOrganization();
+    reportLeadByStatus();
+  $(window).resize(function () {
+      reportQuoteByStatus();
+      reportContact();
+      reportOrganization();
+      reportLeadByStatus();
+  });
+    // $(document).ready(function() {
     //   ReportLeadChart();
-    //   ReportContactChart();
-    //   ReportOrganizationChart();
-    //   ReportQuoteChart();
-    });
-    $(window).resize(function(){
-    //   CrmLeadDrawChart();
-    //   CrmContactDrawChart();
-    //   CrmOrganizationDrawChart();
-    //   CrmQuoteDrawChart();
-    });
+    // //   ReportContactChart();
+    // //   ReportOrganizationChart();
+    // //   ReportQuoteChart();
+    // });
+    // $(window).resize(function(){
+    //    CrmLeadDrawChart();
+    // //   CrmContactDrawChart();
+    // //   CrmOrganizationDrawChart();
+    // //   CrmQuoteDrawChart();
+    // });
     $(function () {
       // Date Lead
       $('#LeadChartFrom').datetimepicker({
@@ -275,14 +284,14 @@
         sideBySide: true,
       });
       $("#ReportContactFrom").on("dp.change", function (e) {
-        ReportContactChart();
+        reportContact();
       })
       $('#ReportContactTo').datetimepicker({
         format: 'YYYY-MM',
         sideBySide: true,
       });
       $("#ReportContactTo").on("dp.change", function (e) {
-        ReportContactChart();
+        reportContact();
       })
       // Date Organization
       $('#ReportOrganizationFrom').datetimepicker({
@@ -290,14 +299,14 @@
         sideBySide: true,
       });
       $("#ReportOrganizationFrom").on("dp.change", function (e) {
-        ReportOrganizationChart();
+        reportOrganization();
       })
       $('#ReportOrganizationTo').datetimepicker({
         format: 'YYYY-MM',
         sideBySide: true,
       });
       $("#ReportOrganizationFrom").on("dp.change", function (e) {
-        ReportOrganizationChart();
+        reportOrganization();
       })
       // Date Quote
       $('#ReportQuoteFrom').datetimepicker({

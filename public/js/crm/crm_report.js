@@ -1,14 +1,3 @@
-$(document).ready(function () {
-    reportLeadByStatus()
-    reportQuoteByStatus()
-    reportContact()
-    reportOrganization()
-});
-
-$(window).resize(function () {
-    reportLeadByStatus();
-});
-
 var reportLeadByStatus = () => {
     $("#FrmChartReport input").removeClass("is-invalid");
     $.ajax({
@@ -25,7 +14,6 @@ var reportLeadByStatus = () => {
                     packages: ['corechart']
                 });
                 google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
-
                 function CrmLeadDrawChart(data) {
                     var result = [
                         ["Lead", "", {
@@ -76,30 +64,31 @@ var reportLeadByStatus = () => {
                     $.each(data, function (index, value) {
                         result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
                     })
-                    var data = google.visualization.arrayToDataTable(result);
-                    var view = new google.visualization.DataView(data);
-                    view.setColumns([0, 1,
-                        {
-                            calc: "stringify",
-                            sourceColumn: 1,
-                            type: "string",
-                            role: "annotation"
-                        },
-                        2
-                    ]);
+                    var data_chart =google.visualization.arrayToDataTable(result);
+                    // var view = new google.visualization.DataView(data);
+                    // view.setColumns([0, 1,
+                    //     {
+                    //         calc: "stringify",
+                    //         sourceColumn: 1,
+                    //         type: "string",
+                    //         role: "annotation"
+                    //     },
+                    //     2
+                    // ]);
                     var options = {
                         title: 'Lead Performance',
+                        pieSliceText:'value',
                     };
 
-                    var chart = new google.visualization.BarChart(document.getElementById('LeadChart'))
-                    chart.draw(view, options)
+                    var chart = new google.visualization.PieChart(document.getElementById('LeadChart'))
+                    chart.draw(data_chart, options)
                 }
             } else {
                 try {
-                    $.each(data.errors, function (key, value) { //foreach show error
+                    $.each(response.errors, function (key, value) { //foreach show error
                         $("#" + key).addClass("is-invalid") //give read border to input field
                         // $(".print-error-msg").find("ul").append('<li>'+value+'</li>')
-                        $("#" + key + "Error").children("strong").text("").text(data.errors[key][0])
+                        $("#" + key + "Error").children("strong").text("").text(response.errors[key][0])
                         // sweetalert('warning',value)
                     });
                 } catch (err) {
@@ -122,8 +111,8 @@ var reportContact = () => {
         data: $('#FrmChartContactReport').serialize(),
         success: function (response) {
 
-            console.log('reportContact');
-            console.log(response);
+            // console.log('reportContact');
+            // console.log(response);
             if (response.success == true) {
                 var data = response.data
                 google.charts.load('current', {
@@ -158,18 +147,18 @@ var reportContact = () => {
                         2
                     ]);
                     var options = {
-                        title: 'Lead Performance',
+                        title: 'Contact Chart',
                     };
 
-                    var chart = new google.visualization.BarChart(document.getElementById('ContactChart'))
+                    var chart = new google.visualization.ColumnChart(document.getElementById('ContactChart'))
                     chart.draw(view, options)
                 }
             } else {
                 try {
-                    $.each(data.errors, function (key, value) { //foreach show error
+                    $.each(response.errors, function (key, value) { //foreach show error
                         $("#" + key).addClass("is-invalid") //give read border to input field
                         // $(".print-error-msg").find("ul").append('<li>'+value+'</li>')
-                        $("#" + key + "Error").children("strong").text("").text(data.errors[key][0])
+                        $("#" + key + "Error").children("strong").text("").text(response.errors[key][0])
                         // sweetalert('warning',value)
                     });
                 } catch (err) {
@@ -227,18 +216,18 @@ var reportOrganization = () => {
                         2
                     ]);
                     var options = {
-                        title: 'Lead Performance',
+                        title: 'Organization Performance',
                     };
 
-                    var chart = new google.visualization.BarChart(document.getElementById('OrganizationChart'))
+                    var chart = new google.visualization.ColumnChart(document.getElementById('OrganizationChart'))
                     chart.draw(view, options)
                 }
             } else {
                 try {
-                    $.each(data.errors, function (key, value) { //foreach show error
+                    $.each(response.errors, function (key, value) { //foreach show error
                         $("#" + key).addClass("is-invalid") //give read border to input field
                         // $(".print-error-msg").find("ul").append('<li>'+value+'</li>')
-                        $("#" + key + "Error").children("strong").text("").text(data.errors[key][0])
+                        $("#" + key + "Error").children("strong").text("").text(response.errors[key][0])
                         // sweetalert('warning',value)
                     });
                 } catch (err) {
@@ -268,7 +257,7 @@ var reportQuoteByStatus = () => {
 
                 function CrmLeadDrawChart(data) {
                     var result = [
-                        ["Lead", "", {
+                        ["Quote", "", {
                             role: 'style'
                         }]
                     ]
@@ -328,7 +317,7 @@ var reportQuoteByStatus = () => {
                         2
                     ]);
                     var options = {
-                        title: 'Lead Performance',
+                        title: 'Quote Performance',
                     };
 
                     var chart = new google.visualization.BarChart(document.getElementById('QuoteChart'))
@@ -337,10 +326,10 @@ var reportQuoteByStatus = () => {
                 }
             } else {
                 try {
-                    $.each(data.errors, function (key, value) { //foreach show error
+                    $.each(response.errors, function (key, value) { //foreach show error
                         $("#" + key).addClass("is-invalid") //give read border to input field
                         // $(".print-error-msg").find("ul").append('<li>'+value+'</li>')
-                        $("#" + key + "Error").children("strong").text("").text(data.errors[key][0])
+                        $("#" + key + "Error").children("strong").text("").text(response.errors[key][0])
                         // sweetalert('warning',value)
                     });
                 } catch (err) {

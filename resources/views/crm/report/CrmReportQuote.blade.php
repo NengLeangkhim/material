@@ -30,7 +30,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Quote Stage <b style="color:red">*</b></label>
+                                    <label for="exampleInputEmail1">Quote Stage <b style="color:red"></b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-tty"></i></span>
@@ -41,7 +41,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Assign To <b style="color:red">*</b></label>
+                                    <label for="exampleInputEmail1">Assign To <b style="color:red"></b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-user-check"></i></span>
@@ -52,21 +52,21 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
+                                    <label for="exampleInputEmail1">Date From <b style="color:red"></b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailQuoteFrom"  name='DetailQuoteFrom'  required>
+                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailQuoteFrom"  name='DetailQuoteFrom' value="<?php echo date('Y-m')?>"  required>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
+                                    <label for="exampleInputEmail1">Date to <b style="color:red"></b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailQuoteTo" name='DetailQuoteTo'  required>
+                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailQuoteTo" name='DetailQuoteTo' value="<?php echo date('Y-m')?>"  required>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                             <button class="btn btn-primary" id="btn-generate-report">Generate Report</button>
                         </div>
                         <div class="table-responsive" style="padding-top: 10px;">
-                            <table id="OrganizationTbl" class="table table-bordered table-striped">
+                            <table id="QuoteDetailTbl" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>Quote Number</th>
@@ -137,14 +137,20 @@
         var url = '/api/crm/report/quoteReportDetail'
 
         $('#btn-generate-report').click(function(){
-            var assignTo = $('#select_assign_to').val()
-            var status = $('#select_status').val()
+            var assignTo = $('#select_assign_to').val();
+            var status = $('#select_status').val();
+            var from = $('#DetailQuoteFrom').val()+'-01';
+            var to = $('#DetailQuoteTo').val()+'-31';
+            $('#QuoteDetailTbl').dataTable().fnClearTable();
+            $('#QuoteDetailTbl').dataTable().fnDraw();
+            $('#QuoteDetailTbl').dataTable().fnDestroy();
+
             $.ajax({
                 url : url,
                 type : 'GET',
                 data : {
-                    'from_date' : null,
-                    'to_date' : null,
+                    'from_date' : from == '' ? null : from,
+                    'to_date' : to == '' ? null : to,
                     'assign_to' : assignTo == 0 ? null : assignTo,
                     'status_id' : status == 0 ? null : status
                 },
@@ -166,7 +172,7 @@
                             `)
                         })
                     }
-                    $('#OrganizationTbl').DataTable();
+                    $('#QuoteDetailTbl').DataTable();
 
                 },
                 fail : function(){
