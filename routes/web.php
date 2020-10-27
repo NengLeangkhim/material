@@ -1099,7 +1099,7 @@ Route::get('test_chart',function(){
         // Balance Sheet
 
         // Profit and Loss
-
+        Route::get('/bsc_report_is','api\BSC\IncomeStatementApiController@getIS');
     // Accounting Report
         // Account Transaction
 
