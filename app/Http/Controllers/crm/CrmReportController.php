@@ -46,6 +46,15 @@ class CrmReportController extends Controller
             ));
         }else{
             if(perms::check_perm_module('CRM_020101')){//module code list
+                $token = $_SESSION['token'];
+                // $request->fromDate = $request->LeadChartFrom.'-01-01';
+                // $request->toDate = $request->LeadChartTo.'-12-31';;
+                // $lead_chart = Request::create('/api/crm/report/leadByStatus','GET');
+                // $lead_chart->headers->set('Accept', 'application/json');
+                // $lead_chart->headers->set('Authorization', 'Bearer '.$token);
+                // $res = app()->handle($lead_chart);
+                // $response = json_decode($res->getContent());
+                // return response()->json(['success'=>$response]);
                 $request->from_date = $request->LeadChartFrom.'-01-01';
                 $request->to_date = $request->LeadChartTo.'-12-31';
                 $lead_chart = Request::create('/api/crm/report/leadByStatus','GET');
