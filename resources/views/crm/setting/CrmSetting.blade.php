@@ -53,4 +53,6 @@
       <!-- /.row -->
     </div><!-- /.container-fluid -->
   </section>
-  
+  <script>
+    CrmSettingView('/crm/setting/leadstatus','Lead_Status_Tbl');
+  </script>

@@ -34,11 +34,11 @@ class CrmSettingController extends Controller
         }
         if(perms::check_perm_module('CRM_020901')){//module codes
           
-            // $request_contact = Request::create('/api/contacts', 'GET');
-            // $contact_table = json_decode(Route::dispatch($request_contact)->getContent());
+               $LeadStatus = Request::create('/api/leadstatus', 'GET');
+               $LeadStatus = json_decode(Route::dispatch($LeadStatus)->getContent());
             // $request_pagination = Request::create('/api/contacts', 'GET');
             // $contact_pagination = json_decode(Route::dispatch($request_pagination)->getContent());
-            return view('crm.setting.CrmLeadStatus'); 
+            return view('crm.setting.CrmLeadStatus',['tbl'=>$LeadStatus]); 
         }else{
             return view('no_perms');
         }
@@ -98,11 +98,11 @@ class CrmSettingController extends Controller
         }
         if(perms::check_perm_module('CRM_020902')){//module codes
           
-            // $request_contact = Request::create('/api/contacts', 'GET');
-            // $contact_table = json_decode(Route::dispatch($request_contact)->getContent());
+            $industry = Request::create('/api/leadindustry', 'GET');
+            $tbl = json_decode(Route::dispatch($industry)->getContent());
             // $request_pagination = Request::create('/api/contacts', 'GET');
             // $contact_pagination = json_decode(Route::dispatch($request_pagination)->getContent());
-            return view('crm.setting.CrmLeadIndustry'); 
+            return view('crm.setting.CrmLeadIndustry',['tbl'=>$tbl]); 
         }else{
             return view('no_perms');
         }
