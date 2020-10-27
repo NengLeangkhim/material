@@ -33,6 +33,7 @@ class LeadController extends Controller
         if(perms::check_perm_module('CRM_0210')){//module codes
             $branch=ModelCrmLead::CrmGetBranch($id);
             $result =json_decode($branch,true);
+            // dd($result);
             return view('crm.Lead.branch',['branch'=>$result["data"]]); 
         }else{
             return view('no_perms');

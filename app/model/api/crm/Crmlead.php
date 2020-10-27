@@ -533,10 +533,10 @@ class Crmlead extends Model
         (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,4)) as district,
         (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,6)) as commune,
         (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village,
-		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id) as  survey_id,
-				(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id) as  survey_status,
-				(SELECT comment as survey_comment from crm_survey_result WHERE  id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id)),
-				(SELECT possible  from crm_survey_result WHERE  id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id))
+		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date LIMIT 1) as  survey_id,
+		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date LIMIT 1) as  survey_status,
+		(SELECT comment as survey_comment from crm_survey_result WHERE  id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date LIMIT 1)),
+		(SELECT possible  from crm_survey_result WHERE  id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date LIMIT 1))
         from  crm_lead_branch_crm_lead_contact_rel lbc
         left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
         JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
@@ -572,10 +572,10 @@ class Crmlead extends Model
         (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,4)) as district,
         (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,6)) as commune,
         (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village,
-		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id) as  survey_id,
-				(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id) as  survey_status,
-				(SELECT comment as survey_comment from crm_survey_result WHERE  id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id)),
-				(SELECT possible  from crm_survey_result WHERE  id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id))
+		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date LIMIT 1) as  survey_id,
+		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date LIMIT 1) as  survey_status,
+		(SELECT comment as survey_comment from crm_survey_result WHERE  id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date LIMIT 1)),
+		(SELECT possible  from crm_survey_result WHERE  id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date LIMIT 1))
         from  crm_lead_branch_crm_lead_contact_rel lbc
         left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
         JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
