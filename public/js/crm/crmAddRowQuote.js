@@ -9,10 +9,15 @@
         var j = 0; //use for count current row remainder
         var getSumTotal = 0;
 
-        $(document).on('click','#btnAddRowQuoteItem',function(){
-            // console.log('click add row  procut');
+        $(document).on('click','#btnAddRowQuoteItem', function(event, issetBranId){
+
             var branId = $(this).attr("data-id");
-            console.log('brd_id='+branId);
+            console.log('brd_id_get='+issetBranId);
+
+            // check to assign new value to branId
+            if(typeof(issetBranId) != 'undefined'){
+                branId = issetBranId;
+            }
             var tblRow =
                 '<tr id="'+i+'" class="tr-quote-row row-quote-item" data-id="row_'+i+'">'  +
                     '<td class="td-item-quote-name">' +
@@ -25,10 +30,10 @@
                                 '</div>' +
                                 '<div class="col-md-4 col-sm-4 col-4">' +
                                     '<div class="row-12">'+
-                                        '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemProduct_'+i+'"   name="addItemProduct"  id="'+i+'" > <span>+ Add Product </span></button>'+
+                                        '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemProduct_'+i+'"   name="addItemProduct"  id="'+i+'"  data-id="'+branId+'" > <span>+ Add Product </span></button>'+
                                     '</div>' +
                                     '<div class="row-12 pt-1">'+
-                                        '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemService_'+i+'"  name="addItemService"  id="'+i+'"  > <span>+ Add Service </span></button>'+
+                                        '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemService_'+i+'"  name="addItemService"  id="'+i+'" data-id="'+branId+'" > <span>+ Add Service </span></button>'+
                                     '</div>'+
                                 '</div>' +
                             '</div>' +
@@ -40,6 +45,7 @@
                     '</td>'+
                     '<td style="width: 120px;">' +
                         '<input type="text"  class="valid-numeric form-control itemQty_'+i+' qty'+i+' " name="qty'+branId+'[]" id="'+i+'" data-id="qty'+i+'" demo="itemQty"  value="1"  required placeholder="Qty">' +
+                        '<input type="hidden" id="numItemInStock_'+i+'" readonly> '+
                         '<p id="prdNotEnough_'+i+'" class="font-size-14" style="color:red;"></p>'+
                         '<span id="'+i+'Error" ><strong></strong></span>'+
 
@@ -146,7 +152,7 @@
 
 
 
-        //function keypress area (use to prvent use select string to numeric field)
+        //function keypress area (use to prevent use select string to numeric field)
         $(document).keypress(function(e){
 
                 //function to get input only numeric number
@@ -177,7 +183,7 @@
             var sumTotal = 0;
             var granTotal = 0;
             $(".row-quote-item").keyup(function(e){
-
+                // console.log('this select on row tr product');
                 var row_id = $(this).attr("id");
                 var subTotal = 0;
                 var get_val = 0;
@@ -186,19 +192,19 @@
 
                 var itemQty = $(".itemQty_"+row_id+"").val();
                 var itemPrice = $(".itemPrice_"+row_id+"").val();
-                subTotal = itemQty * itemPrice;
+                subTotal = parseInt(itemQty) * parseInt(itemPrice);
                 $("#quote-sub-total_"+row_id+"").text(subTotal);
 
                 //get discount percent for unit row
                 if( $(".itemDisPercent_"+row_id+"").val()){
                     var DisPercent =  $(".itemDisPercent_"+row_id+"").val();
-                    get_val = (subTotal * DisPercent) / 100;
+                    get_val = (subTotal * parseInt(DisPercent)) / 100;
                 }
 
                  //get discount price for unit row
                 if($(".itemDisPrice_"+row_id+"").val()){
                     var DisPrice =  $(".itemDisPrice_"+row_id+"").val();
-                    get_val =  DisPrice;
+                    get_val =  parseInt(DisPrice);
                 }
 
 
@@ -215,7 +221,7 @@
                 for(var x=0; x<=i; x++){
 
                     var value = $("#quote-netPrice_"+x+"").text();
-                    if(value != ""){
+                    if(value != ''){
                         var getNetPrice = parseInt(value);
                         sumTotal += getNetPrice;
                     }
@@ -226,8 +232,8 @@
                     // console.log(numPrdInStock);
 
                     var stockMessage = "Stock not enough, the available item is ";
-                    if(typeof(numPrdInQuote)  !== "undefined"){
-                        console.log(numPrdInQuote);
+                    if(typeof(numPrdInQuote)  != 'undefined'){
+                        console.log('number prd in stock check available='+numPrdInStock);
                         if( numPrdInQuote > numPrdInStock){
                             $("#prdNotEnough_"+x+"").text(stockMessage+" "+ numPrdInStock);
                             $("#prdNotEnough_"+x+"").show();
@@ -235,8 +241,6 @@
                             $("#prdNotEnough_"+x+"").hide();
                         }
                     }
-
-
 
                 }
 
@@ -270,6 +274,10 @@
                             return false;
                         }
 
+                        var branId_ = $(this).attr("data-id");
+                        var branId = "branId="+branId_;
+                        // console.log('add prd branId='+branId);
+
                         var row_id = $(this).attr("id");
                         var id = "id="+row_id;
 
@@ -293,7 +301,7 @@
                                 });
                             }
                         }
-                        x.open("GET", url + "?" + id , true);
+                        x.open("GET", url + "?" + id + "&" + branId, true);
                         x.send();
                         clicktime +=1;
         });
@@ -311,6 +319,9 @@
             if(clicktime == 1){
                 return false;
             }
+
+            var branId_ = $(this).attr("data-id");
+            var branId = "branId="+branId_;
 
             var row_id = $(this).attr("id");
             var id = "id="+row_id;
@@ -337,7 +348,7 @@
                     });
                 }
             }
-            x.open("GET", url + "?" + id , true);
+            x.open("GET", url + "?" + id + "&" + branId, true);
             x.send();
             clicktime +=1;
 
@@ -350,9 +361,11 @@
         //function click to get item to add quote
         $(document).on('click keyup','.getStockItem',function(){
 
+                    var branId = $(this).attr("data-id");
                     var btnId = $(this).attr("id");
                     var selectval = new Array;
                     var num = 0;
+
 
                     //function for check seletion of checkbox
                     $("input[name=seleteItem]:checked").each(function(i){
@@ -384,7 +397,8 @@
                                     $(".itemPrice_"+btnId+"").val(prdPrice);
                                     $("#itemType_"+btnId+"").text(itemType);
                                     $("#numItemInStock_"+btnId+"").val(numPrdInStock);
-                                    $(".itemPrice_"+btnId+"").keyup(); //call function key press to generate data
+                                    // $(".itemPrice_"+btnId+"").keyup(); //call function key press to generate data
+                                    // $(".row-quote-item").keyup();
                                     var numPrdInQuote = $(".itemQty_"+btnId+"").val();
                                     if(numPrdInQuote > numPrdInStock){
                                         $("#prdNotEnough_"+btnId+"").text(stockMessage+" "+prdInStock);
@@ -392,26 +406,30 @@
                                 }else{
 
                                     //show item in row quote item with multi select
-                                    $("#btnAddRowQuoteItem").click();
+                                    $( "#btnAddRowQuoteItem" ).trigger( "click", branId);
+
                                     $("#txtPrdId_"+(i-1)+"").val(prdVal);
                                     $("#product_name"+(i-1)+"").val(prdName);
                                     $("#txtDescription_"+(i-1)+"").val(prdDescription);
                                     $(".itemPrice_"+(i-1)+"").val(prdPrice);
                                     $("#itemType_"+(i-1)+"").text(itemType);
                                     $("#numItemInStock_"+(i-1)+"").val(numPrdInStock);
-                                    $(".itemPrice_"+(i-1)+"").keyup(); //call function key press to generate data
+                                    // $(".row-quote-item").keyup();
+                                    // $(".itemPrice_"+(i-1)+"").keyup(); //call function key press to generate data
                                     var numPrdInQuote = $(".itemQty_"+(i-1)+"").val();
                                     if(numPrdInQuote > numPrdInStock){
                                         $("#prdNotEnough_"+(i-1)+"").text(stockMessage+" "+prdInStock);
                                     }
                                 }
                                 num += 1;
+                                $(".row-quote-item").keyup();
+
                         });
 
                     }else{
                         console.log("No items chosen!");
                     }
-                    $(".row-quote-item").keyup();
+                    // $(".row-quote-item").keyup();
                     //hide modal when click button select item
                     $('#listQuoteItem').modal('hide');
 

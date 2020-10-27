@@ -114,6 +114,7 @@ class QuoteController extends Controller
             session_start();
         }
         if(isset($_GET['id'])){
+            $branId = $_GET['branId'];
             $row_id = $_GET['id'];
             $token = $_SESSION['token'];
             $request = Request::create('/api/stock/product/', 'GET');
@@ -124,7 +125,7 @@ class QuoteController extends Controller
 
             // $request = Request::create('/api/stock/product/', 'GET');
             // $listProduct = json_decode(Route::dispatch($request)->getContent());
-            return view('crm/quote/listProduct', compact('listProduct','row_id'));
+            return view('crm/quote/listProduct', compact('listProduct','row_id','branId'));
         }
 
     }
@@ -137,6 +138,7 @@ class QuoteController extends Controller
         }
         if(isset($_GET['id'])){
             $row_id = $_GET['id'];
+            $branId = $_GET['branId'];
             $token = $_SESSION['token'];
             $request = Request::create('/api/stock/service/', 'GET');
             $request->headers->set('Accept', 'application/json');
@@ -146,7 +148,7 @@ class QuoteController extends Controller
 
             // $request = Request::create('/api/stock/service/', 'GET');
             // $listService = json_decode(Route::dispatch($request)->getContent());
-            return view('crm/quote/listService', compact('listService','row_id'));
+            return view('crm/quote/listService', compact('listService','row_id','branId'));
         }
 
     }

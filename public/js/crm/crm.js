@@ -835,27 +835,29 @@ function Crm_delete(id,route,goto,alert) {
         // var i = 0;
         $row_content =
 
-        '<div id="row_content'+i+'" class="form-group border border-success rounded p-3  row_content">'+
+        '<div id="row_content'+i+'" class="form-group border border-secondary rounded p-3  row_content">'+
                 '<div class="col-12" align="right">' +
                     '<button type="button" id="'+i+'" class="close btnCloseRowContent" style="color:blue;" aria-label="Close">'+
                         '<span aria-hidden="true">&times;</span>'+
                     '</button>'+
                 ' </div>'+
-                '<div class="form-group col-8">'+
+                '<div class="form-group col-11">'+
                         '<div class="input-group">'+
                             '<div class="input-group-prepend">'+
                                 '<span class="font-weight-bold input-group-text">Branch:</span>'+
                             '</div>'+
-                            '<input type="text" class="form-control" id="branch"  name="branch"   placeholder="" required readonly>'+
+                            '<input type="text" class="form-control" id="branch'+branId+'"  name="branch"   placeholder="" required readonly>'+
+                            '<input type="hidden" id="lead_branch'+branId+'"  name="lead_branch[]"  required readonly>'+
                     ' </div>'+
                 '</div>'+
 
-                '<div class="form-group col-8">'+
+                '<div class="form-group col-11">'+
                     '<div class="input-group">'+
                         '<div class="input-group-prepend">'+
                             '<span class="font-weight-bold input-group-text">Address:</span>'+
                         '</div>'+
-                        '<input type="text" class="form-control" id="branchAddress"  name="branchAddress"   placeholder="" required readonly>'+
+                        '<input type="text" class="form-control" id="branchAddress'+branId+'"  name="branchAddress"   placeholder="" required readonly>'+
+                        '<input type="hidden" id="branchAddress_id'+branId+'"  name="branchAddress_id[]"  required readonly>'+
                     '</div>'+
                 '</div>'+
 
@@ -889,8 +891,8 @@ function Crm_delete(id,route,goto,alert) {
     //function for btn close row content
     $(document).on('click','.btnCloseRowContent',function(){
         var btnId = $(this).attr("id");
-        alert(btnId);
         $('#row_content'+btnId+'').remove();
+        console.log('this btn remove content row branch');
     });
 
 
@@ -925,19 +927,36 @@ function Crm_delete(id,route,goto,alert) {
                     $('#getSelectRow').click( function () {
                         if($('tbody tr').hasClass('selected') == true){
                             var branch_id = $('.selected').attr("id");
-                            if(branch_id != ''){
 
+                            //check if row content of branch already add
+                            if(typeof($('#lead_branch'+branch_id+'').val()) != 'undefined'){
+                                    $("#getSelectRow").notify(
+                                        "This record was seleted!",
+                                        "info",
+                                        {
+                                        position:"right",
+                                        }
+                                    );
+                                    return 0;
+                            }
+
+                            if(branch_id != ''){
                                     $('#crm_lead_branch_id').val(branch_id);
                                     //get value from textbox
                                     var branchNameEn = $.trim($('#brdcompanyEn_'+branch_id+'').val());
-                                    var address = $.trim($('#brdnameEn_'+branch_id+'').val());
-                                        //field to input prd content branch
+                                    var addressName = $.trim($('#brdAddressNameEn_'+branch_id+'').val());
+                                    var addressId = $.trim($('#branAddressId_'+branch_id+'').val());
 
+                                    //function to add row content for add product branch
                                     row_content(i,branch_id);
                                     i++;
-                                    //send value to textbox
-                                    $('#getLeadBranch').val(branchNameEn);
-                                    $("#homeEN").val(address);
+
+                                    //send value to textbox in branch product
+
+                                    $('#branch'+branch_id+'').val(branchNameEn);
+                                    $('#lead_branch'+branch_id+'').val(branch_id);
+                                    $('#branchAddress'+branch_id+'').val(addressName);
+                                    $('#branchAddress_id'+branch_id+'').val(addressId);
 
 
                                     //close modal
