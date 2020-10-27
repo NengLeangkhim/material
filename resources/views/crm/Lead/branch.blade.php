@@ -4,7 +4,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1><i class="fas fa-user"></i> Branch </h1>
+                            <h1><i class="fas fa-code-branch"></i> Branch </h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -33,36 +33,52 @@
                                 <div class="card-body">
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
-                                            <tr>
+                                            <tr style="background: #1fa8e0">
                                                 {{-- <th>Lead Number</th> --}}
-                                                <th>Comapny Name EN</th>
-                                                <th>Comapny Name KH</th>
-                                                <th>Email</th>
-                                                <th>Website </th>
-                                                <th>Facebook </th>
-                                                <th>Lead status</th>
-                                                <th>Assigned To</th>
-                                                <th>Detail</th>
+                                                <th style="color:#FFFFFF">Company Name EN</th>
+                                                <th  style="color:#FFFFFF">Company Name KH</th>
+                                                <th  style="color:#FFFFFF">Email</th>
+                                                <th  style="color:#FFFFFF">Website </th>
+                                                <th  style="color:#FFFFFF">Facebook </th>
+                                                <th  style="color:#FFFFFF">Lead status</th>
+                                                <th  style="color:#FFFFFF">Assigned To</th>
+                                                <th  style="color:#FFFFFF">Detail</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php 
                                             for($i =0;$i<sizeof($branch);$i++){
-                                                ?>
-                                                    <tr>
-                                                        <td>{{$branch[$i]["company_en"]}}</td>
-                                                        <td>{{$branch[$i]["company_kh"]}}</td>
-                                                        <td>{{$branch[$i]["primary_email"]}}</td>
-                                                        <td>{{$branch[$i]["primary_website"]}}</td>
-                                                        <td>{{$branch[$i]["facebook"]}}</td>
-                                                        <td>{{$branch[$i]["lead_status"]}}</td>
-                                                        <td>{{$branch[$i]['assig']}}</td>                                                
-                                                         
-                                                        <td>  
-                                                            <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}" ><i class="fas fa-info-circle"></i></a>                                                     
-                                                        </td>
-                                                    </tr> 
-                                                <?php
+                                                if($branch[$i]["survey_comment"]!=null){
+                                                    ?>
+                                                        <tr style="background: yellowgreen">
+                                                            <td style="color: #FFFFFF">{{$branch[$i]["company_en"]}}</td>
+                                                            <td style="color: #FFFFFF">{{$branch[$i]["company_kh"]}}</td>
+                                                            <td style="color: #FFFFFF">{{$branch[$i]["primary_email"]}}</td>
+                                                            <td style="color: #FFFFFF">{{$branch[$i]["primary_website"]}}</td>
+                                                            <td style="color: #FFFFFF">{{$branch[$i]["facebook"]}}</td>
+                                                            <td style="color: #FFFFFF">{{$branch[$i]["lead_status"]}}</td>
+                                                            <td style="color: #FFFFFF">{{$branch[$i]['assig']}}</td> 
+                                                            <td style="color: #FFFFFF">  
+                                                                <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')"><i class="fas fa-info-circle"></i></a>                                                     
+                                                            </td>
+                                                        </tr> 
+                                                    <?php
+                                                }else {
+                                                    ?>
+                                                        <tr>
+                                                            <td>{{$branch[$i]["company_en"]}}</td>
+                                                            <td>{{$branch[$i]["company_kh"]}}</td>
+                                                            <td>{{$branch[$i]["primary_email"]}}</td>
+                                                            <td>{{$branch[$i]["primary_website"]}}</td>
+                                                            <td>{{$branch[$i]["facebook"]}}</td>
+                                                            <td>{{$branch[$i]["lead_status"]}}</td>
+                                                            <td>{{$branch[$i]['assig']}}</td> 
+                                                            <td>  
+                                                                <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')"><i class="fas fa-info-circle"></i></a>                                                     
+                                                            </td>
+                                                        </tr> 
+                                                    <?php
+                                                }
                                             }
                                             ?>
                                         </tbody>  

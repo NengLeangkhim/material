@@ -33,15 +33,15 @@
                             <div class="card-body">
                                 <table id="OrganizationTbl" class="table table-bordered table-striped">
                                     <thead>
-                                        <tr>
-                                            <th>Organization Number</th>
-                                            <th>CID</th>
-                                            <th>Organization Name</th>
-                                            <th>Customer Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Assigned To </th>
-                                            <th>Detail</th>
+                                        <tr style="background: #1fa8e0">
+                                            <th style="color: #FFFFFF">Organization Number</th>
+                                            <th style="color: #FFFFFF">CID</th>
+                                            <th style="color: #FFFFFF">Organization Name</th>
+                                            <th style="color: #FFFFFF">Customer Name</th>
+                                            <th style="color: #FFFFFF">Email</th>
+                                            <th style="color: #FFFFFF">Phone</th>
+                                            <th style="color: #FFFFFF">Assigned To </th>
+                                            <th style="color: #FFFFFF">Detail</th>
                                         </tr>
                                     </thead>
                                     <tbody>

@@ -58,6 +58,7 @@ class LeadController extends Controller
             $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
             $assig_to=ModelCrmLead::CrmGetLeadAssigTo();
             $province=ModelCrmLead::CrmGetLeadProvice();
+            // dd($lead_source);
             return view('crm.Lead.addlead',['lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province]);
         }else{
             return view('no_perms');
