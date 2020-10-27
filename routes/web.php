@@ -31,6 +31,8 @@ Route::get('/village', 'addressController@getvillage'); //getvillage
 // =========================CRM SYSTEM==========================
 // start lead
 Route::get('/lead','crm\LeadController@getlead'); // get  all lead  show  in table
+Route::get('/branch/{id}','crm\LeadController@getbranch'); // get  all branch  show  in table by lead id
+Route::get('/detailbranch/{id}','crm\LeadController@getdetailbranch'); // get detail branch
 Route::get('/addlead','crm\LeadController@lead'); // go to lead
 Route::post('/lead/store','crm\LeadController@StoreLead'); // Store lead
 // Route::get('/district','crm\LeadController@getdistrict'); //getdistrict
@@ -49,6 +51,25 @@ Route::get('/test_map', function(){
 
 
 //end lead
+
+// start survey
+
+Route::get('/schedule','crm\CrmScheduleController@index');
+
+// end survey
+
+// start survey
+//get survey 
+Route::get('/survey','crm\CrmSurveyController@index');
+
+
+//get detail survey
+Route::get('/detailsurvey/{id}','crm\CrmSurveyController@detailsurvey'); 
+//insert survey
+Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
+
+// end survey
+
 
 
 

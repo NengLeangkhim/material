@@ -114,7 +114,7 @@ $(window).on('shown.bs.modal', function() {
     autoUpdateInterval   : 33,
     nativeScrollbarsOverlaid : {
         showNativeScrollbars   : false,
-        initialize             : true 
+        initialize             : true
     },
     scrollbars : {
         visibility       : "auto",
