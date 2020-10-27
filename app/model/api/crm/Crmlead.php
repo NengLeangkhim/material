@@ -3,6 +3,7 @@
 namespace App\model\api\crm;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -63,6 +64,45 @@ class Crmlead extends Model
         return DB::select('SELECT * from select_crm_lead_status()');
     }
 
+    public static function saveLeadStatus($id = null, $userId, $nameEn, $nameKh, $status = true, $sequence = null){
+
+        try {
+            if($id != null){
+                $leadStatus = Crmlead::getOneLeadStatus($id);
+                $nameEn = ($nameEn == null || $nameEn == '') ? $leadStatus->name_en : $nameEn;
+                $nameKh = ($nameKh == null || $nameKh == '') ? $leadStatus->name_kh : $nameKh;
+                $status = ($status == null || $status == '') ? $leadStatus->status : $status;
+                $sequence = ($sequence == null || $sequence == '') ? $leadStatus->sequence : $sequence;
+                $sql = 'select update_crm_lead_status as id from update_crm_lead_status('.$id.', '.$userId.', \''.$nameEn.'\', \''.$nameKh.'\', true, '.$sequence.')';
+            } else {
+                $sql = 'select insert_crm_lead_status(\''.$nameEn.'\', \''.$nameKh.'\', '.$userId.', '.$sequence.') as id';
+            }
+            $newId = DB::selectOne($sql)->id;
+            $result = Crmlead::getOneLeadStatus($newId);
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    public static function getOneLeadStatus($id){
+        try {
+            $result = DB::selectOne('SELECT * from crm_lead_status WHERE id = '.$id);
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    public static function getAllLeadStatus(){
+        try {
+            $result = DB::select('SELECT * from crm_lead_status WHERE status = true and is_deleted = false');
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
     //get lead assig
     public static function leadassig(){
         return DB::table('ma_user')
@@ -102,8 +142,8 @@ class Crmlead extends Model
              $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
              $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
              $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
-       
-            
+
+
         }
         else
         {
@@ -112,7 +152,7 @@ class Crmlead extends Model
             $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
             $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
             $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
-            
+
         }
     }
     // add lead
@@ -193,8 +233,8 @@ class Crmlead extends Model
                         }
 
                         // return json_encode(["result"=>$address_id,$lead_id,$branch_id,$contact_id]);
-                      
-                           
+
+
                 }
                 catch(Exception $e)
                 {
@@ -472,7 +512,7 @@ class Crmlead extends Model
 
     }
 
-    //get  all lead 
+    //get  all lead
     // public static function getbranch(){
     //     return DB::select("SELECT  crm_lead.lead_number,clitem.id as lead_item_id,lbc.id as lead_con_bran_id,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
     //     lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
@@ -508,10 +548,10 @@ class Crmlead extends Model
     //     JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
     //     join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
     //     join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
-    //     join stock_product sp on sp.id= clitem.stock_product_id 
+    //     join stock_product sp on sp.id= clitem.stock_product_id
     //     where ld.status=true and ld.is_deleted=false");
     // }
-    //get  all lead 
+    //get  all lead
     public static function getlead(){
         $lead= DB::select('SELECT * FROM  crm_lead  ORDER BY id ASC');
         return $lead;
@@ -634,8 +674,8 @@ class Crmlead extends Model
                 return  json_encode(["update"=>'success']);
             }
 
-            
-   
+
+
         }catch(Exception $e){
             return json_encode(["update"=>"fail update branch","result"=> $e->getMessage()]);
         }
@@ -865,7 +905,7 @@ class Crmlead extends Model
         else
         {
             return json_encode(['update'=>'not found data']);
-            
+
         }
 
     }
@@ -917,7 +957,7 @@ class Crmlead extends Model
                 }catch(Exception $e){
                     return json_encode(["insert"=>"fail update_crm_survey","result"=> $e->getMessage()]);
                 }
-               
+
             }catch(Exception $e){
                 return json_encode(["insert"=>"fail insert_crm_survey_result","result"=> $e->getMessage()]);
             }
@@ -925,7 +965,7 @@ class Crmlead extends Model
         else
         {
             return json_encode(['insert'=>'not found data']);
-            
+
         }
     }
     // Model get schdule type
@@ -952,7 +992,7 @@ class Crmlead extends Model
         else
         {
             return json_encode(['insert'=>'not found data']);
-            
+
         }
     }
     //update schedule type
@@ -967,7 +1007,7 @@ class Crmlead extends Model
                     $name_kh,
                     't',
                     $status
-                  
+
                 )
             );
                 return  $result;
@@ -978,7 +1018,7 @@ class Crmlead extends Model
         else
         {
             return json_encode(['insert'=>'not found data']);
-            
+
         }
     }
 }
