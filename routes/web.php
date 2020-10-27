@@ -64,7 +64,7 @@ Route::get('/survey','crm\CrmSurveyController@index');
 
 
 //get detail survey
-Route::get('/detailsurvey/{id}','crm\CrmSurveyController@detailsurvey'); 
+Route::get('/detailsurvey/{id}','crm\CrmSurveyController@detailsurvey');
 //insert survey
 Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
 
@@ -537,6 +537,13 @@ Route::get('hrm_question_answer_sugg/modal/result','hrms\suggestion\QuestionAnsw
 
 // Route Update Status Checkbox //
 Route::get('hrm_question_answer_sugg/checkbox','hrms\suggestion\QuestionAnswerController@update_status_question_sugg');
+
+// Get Staff User Suggestion by HR Department or Top Management
+Route::get('/hrm_user_suggested', 'hrms\suggestion\QuestionAnswerController@getUserSuggested');
+
+// Get Staff Submitted the Question Answer as Report
+Route::get('/hrm_employee_suggestion_report', 'hrms\suggestion\QuestionAnswerController@getSuggestionSurveyReport');
+
 //////========END QUESTION & Answer==========/////
 
 //////======== SUGGESTION BOX =============///////
@@ -937,7 +944,6 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_paroll_list_detail', 'hrms\Payroll\PayrollController@Payroll_List_Detail');
         Route::get('hrm_hrapprove_payroll', 'hrms\Payroll\PayrollController@HR_ApprovePayroll');
         Route::get('hrm_hrdelete_component', 'hrms\Payroll\PayrollController@DeleteComponent');
-        Route::get('hrm_showpayrollbymonth', 'hrms\Payroll\PayrollController@PayrollList');
         Route::get('hrm_payroll_list_report','hrms\Payroll\PayrollController@payroll_list_report');
         Route::get('hrm_payroll_list_report_search','hrms\Payroll\PayrollController@payroll_list_report_search');
     // End Payroll List
