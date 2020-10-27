@@ -1200,6 +1200,7 @@ Route::get('test_chart',function(){
 
     // View Purchase Payment
     Route::get('bsc_purchase_view_purchase_payment','bsc\PurchasePaymentControllre@view_purchase_payment');
+    Route::post('bsc_purchase_make_payment','bsc\PurchasePaymentControllre@make_payment');
 
 // Report
     // Purchase Report
