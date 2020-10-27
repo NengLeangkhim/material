@@ -76,7 +76,7 @@ class InvoiceController extends Controller
             $invoice_id = $q_invoice[0]->insert_bsc_invoice;
 
             $invoice_details = $request->invoice_details;
-            
+
             if($invoice_details != ""){
                 foreach ($invoice_details as $key => $i_detail) {
                     // var_dump($i_detail[stock_product_id]);
@@ -89,7 +89,7 @@ class InvoiceController extends Controller
 
             DB::commit();
             return $this->sendResponse($q_invoice, 'Invoice created successfully.');
-            
+
         } catch (\Throwable $th) {
             DB::rollBack();
             return $this->sendError("Try again!");
@@ -180,12 +180,12 @@ class InvoiceController extends Controller
             $sql_invoice ="update_bsc_invoice($id, $request->update_by, $request->ma_customer_id, null, '$request->billing_date', '$request->due_date', '$request->reference', '$request->address_en', '$request->address_kh', '$request->effective_date', '$request->end_period_date', 'invoice', $request->deposit_on_payment, $request->total, $request->vat_total, $request->grand_total, '$request->status', null, $request->bsc_account_charts_id, 1, $request->grand_total, 0, '$request->status')";
 
             // update_bsc_invoice(bsc_invoice_id, update_by, ma_customer_id, ma_supplier_id, billing_date, due_date, reference, address, address_kh, effective_date, end_period_date, invoice_type, deposit_on_payment, total, vat_total, grand_total, status, description, bsc_account_charts_id, bsc_journal_type_id, debit_amount, credit_amount, journal_status);
-            
+
             $q_invoice=DB::select("SELECT ".$sql_invoice);
             $invoice_id = $q_invoice[0]->update_bsc_invoice;
 
             $invoice_details = $request->invoice_details;
-            
+
             if($invoice_details != ""){
                 foreach ($invoice_details as $key => $i_detail) {
                     // var_dump($i_detail['stock_product_id']);
@@ -225,7 +225,7 @@ class InvoiceController extends Controller
         ])->get();
         return $this->sendResponse($chart_accounts, 'Account receivable retrieved successfully.');
     }
-    
+
     public function show_customer(Request $request)
     {
         $customers = DB::table('ma_customer')
@@ -249,9 +249,12 @@ class InvoiceController extends Controller
     public function show_quote(Request $request)
     {
         $quotes = DB::table('crm_quote')
+        ->select('crm_quote.id as quote_id','crm_quote.quote_number','crm_lead_address.gazetteer_code as billing_address','ma_customer.id as customer_id','ma_customer.name as customer_name')
+        ->leftJoin('crm_lead_address','crm_quote.crm_lead_address_id','=','crm_lead_address.id')
+        ->leftJoin('ma_customer','crm_quote.crm_lead_id','=','ma_customer.crm_lead_id')
         ->where([
-            ['status','=','t'],
-            ['is_deleted','=','f']
+            ['crm_quote.status','=','t'],
+            ['crm_quote.is_deleted','=','f']
         ])->get();
         return $this->sendResponse($quotes, 'Quote retrieved successfully.');
     }

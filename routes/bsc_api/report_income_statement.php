@@ -20,3 +20,4 @@ use Illuminate\Support\Facades\Route;
 
 // get income statement report
 Route::get('/bsc/report/income_statement', 'api\BSC\IncomeStatementApiController@getIncomeStatement');
+Route::get('/bsc/report/pl','api\BSC\IncomeStatementApiController@getCompareIncomeStatement');

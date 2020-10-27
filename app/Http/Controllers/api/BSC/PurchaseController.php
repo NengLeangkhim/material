@@ -253,4 +253,15 @@ class PurchaseController extends Controller
         ])->first();
         return $this->sendResponse($products, 'Product retrieved successfully.');
     }
+
+    public function show_chart_account_paid_from_to(Request $request)
+    {
+        $paid_from_to = DB::table('bsc_account_charts')
+        ->whereIn('bsc_account_type_id',[1,2])
+        ->where([
+            ['status','=','t'],
+            ['is_deleted','=','f']
+        ])->get();
+        return $this->sendResponse($paid_from_to, 'Chart account retrieved successfully.');
+    }
 }

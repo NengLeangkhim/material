@@ -208,7 +208,7 @@ class ModelHrmRecruitmentReport extends Model
             GROUP BY
                 hr_recruitment_candidate_id,hr_approval_status
         )appr on (c.id=appr.hr_recruitment_candidate_id)
-        where c.is_deleted='f' and  c.register_date BETWEEN '$from 00:00:00' and '$to 23:59:59'
+        where c.is_deleted='f' and  c.create_date BETWEEN '$from 00:00:00' and '$to 23:59:59'
         group by c.id,p.name,appr.hr_approval_status,ca.is_deleted");
     }
 

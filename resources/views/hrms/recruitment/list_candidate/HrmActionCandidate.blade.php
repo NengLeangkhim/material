@@ -1,4 +1,5 @@
 @php
+use App\Http\Controllers\en_de;
     if($action == 'create') // Set action for create
     {
                                 // Header Form
@@ -11,6 +12,7 @@
                                 $lname = '';
                                 $email= '';
                                 $pw = '';
+                                $require='*';
                                 $pos = '';
                                 $cv = '';
                                 $candidate = '';
@@ -29,6 +31,7 @@
                                 $lname = $row->lname;
                                 $email= $row->email;
                                 $pw = $row->password;
+                                $require='';
                                 $pos = $row->ma_position_id;
                                 $cv = $row->zip_file;
                                 $cover = $row->cover_letter;
@@ -103,8 +106,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="schedule_detail_task">Password<span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" name="pw" id="pw" value="<?=$pw?>">
+                                    <label for="schedule_detail_task">Password<span class="text-danger">{{$require}}</span></label>
+                                    <input type="password" class="form-control" name="pw" id="pw">
+                                    <input type="hidden" name="pw_update" value="{{$pw}}">
                                     <span class="invalid-feedback" role="alert" id="pwError"> {{--span for alert--}}
                                         <strong></strong>
                                     </span>
