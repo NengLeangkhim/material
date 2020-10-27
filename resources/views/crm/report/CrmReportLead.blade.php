@@ -186,8 +186,9 @@
                     'status_id' : status == 0 ? null : status
                 },
                 success : function(response){
+                    console.log(response);
                     $('#lead-detail-body').empty()
-                    if(response.status == 200) {
+                    if(response.success) {
                         $.each(response.data, function(index, data){
                             $('#lead-detail-body').append(`
                             <tr>

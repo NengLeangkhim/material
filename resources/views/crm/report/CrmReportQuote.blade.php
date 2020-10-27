@@ -150,7 +150,7 @@
                 },
                 success : function(response){
                     $('#quote-detail-body').empty()
-                    if(response.status == 200) {
+                    if(response.success) {
                         $.each(response.data, function(index, data){
                             $('#quote-detail-body').append(`
                             <tr>
