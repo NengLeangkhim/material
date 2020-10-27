@@ -54,6 +54,7 @@ class recruitment_userController extends Controller
                 $cv_ = pathinfo($cv, PATHINFO_EXTENSION);
                 $cover_ = pathinfo($cover, PATHINFO_EXTENSION);
 
+
                 $r = recruitment_userModel::tbl_hrUser($email);
                 if($r > 0){ // this true when user input the email that already taken
                     $em_error = 1;
@@ -68,14 +69,35 @@ class recruitment_userController extends Controller
                     }else{
 
                         if(in_array($cv_, $allowed) && in_array($cover_, $allowed)) {  // check file is PDF file
-                            mkdir($targetDir, 0777, true);
-                            if(move_uploaded_file($tmp, $targetDir.'/'.$cv)){
-                                if(move_uploaded_file($tmp2, $targetDir.'/'.$cover)){
-                                    $success = 'Create acccount successfully !';
-                                    recruitment_userModel::insert_user_info($f_name, $l_name, $kh_name, $cv, $email, $p, $pos, $cover);
-                                    return view('hrms/recruitment_user/index_recruitment_register', compact('success'));
+
+                                //check if folder have, remove old folder
+                                if(is_dir($targetDir)){
+                                    unlink($targetDir.'/cv.'.$cv_);
+                                    unlink($targetDir.'/cover.'.$cover_);
+                                    rmdir($targetDir);
                                 }
-                            }
+                                mkdir($targetDir, 0777, true);
+                                if(move_uploaded_file($tmp, $targetDir.'/cv.'.$cv_) == true){
+                                    if(move_uploaded_file($tmp2, $targetDir.'/cover.'.$cover_)){
+                                        $r = recruitment_userModel::insert_user_info($f_name, $l_name, $kh_name, $cv, $email, $p, $pos, $cover);
+                                        if($r == 1){
+                                                $success = 'Create acccount successfully !';
+                                                return view('hrms/recruitment_user/index_recruitment_register', compact('success'));
+
+                                        }else{
+                                                unlink($targetDir.'/cv.'.$cv_);
+                                                unlink($targetDir.'/cover.'.$cover_);
+                                                rmdir($targetDir);
+                                                $error = 'Create Failed !';
+                                                return view('hrms/recruitment_user/index_recruitment_register', compact('error'));
+                                        }
+                                    }else{
+                                        echo 'cover letter not move'; return 0;
+                                    }
+                                }else{
+
+                                    echo 'cv not move'; return 0;
+                                }
 
                         }else{
                             $error = 'Please select the PDF file only !';
