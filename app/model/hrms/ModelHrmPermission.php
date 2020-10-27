@@ -35,7 +35,7 @@ class ModelHrmPermission extends Model
                        ["ma_company_dept_id","=",$dept],
                        ["is_employee",'=','t']
                    ])
-                   ->orderBy('name','ASC')
+                   ->orderBy('first_name_en','ASC')
                    ->get();
      }
     //=== Function Get data from table Department for ceo===//
