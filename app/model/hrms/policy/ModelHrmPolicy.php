@@ -128,28 +128,18 @@ class ModelHrmPolicy extends Model
     // get read policy report
     public static function get_read_policy_report($from,$to,$user,$read_policy)
     {
-        if($user==null && $read_policy==null)
-        {
-            $sql=DB::select("SELECT hpu.*,concat(mu.first_name_en,' ',mu.last_name_en) as name,hp.name as policy_name,mp.name as position_name FROM hr_policy_user hpu
-                INNER JOIN ma_user mu on mu.id=hpu.ma_user_id
-                INNER JOIN hr_policy hp on hp.id=hpu.hr_policy_id
-                INNER JOIN ma_position mp ON mp.id=mu.ma_position_id
-                WHERE hpu.status='t' AND hpu.is_deleted='f' AND hpu.create_date BETWEEN '$from' and '$to'");
-            return $sql;
+        $sql_where = '';
+        if($user != 'null'){
+            $sql_where .= " AND hpu.ma_user_id=$user";
         }
-        if($user==null)
-        {
-            $sql=DB::select("SELECT hpu.*,concat(mu.first_name_en,' ',mu.last_name_en) as name,hp.name as policy_name,mp.name as position_name FROM hr_policy_user hpu
+        if($read_policy != 'null'){
+            $sql_where .= " AND hpu.id=$read_policy";
+        }
+        $sql=DB::select("SELECT hpu.*,concat(mu.first_name_en,' ',mu.last_name_en) as name,hp.name as policy_name,mp.name as position_name FROM hr_policy_user hpu
             INNER JOIN ma_user mu on mu.id=hpu.ma_user_id
             INNER JOIN hr_policy hp on hp.id=hpu.hr_policy_id
             INNER JOIN ma_position mp ON mp.id=mu.ma_position_id
-            WHERE hpu.status='t' AND hpu.is_deleted='f' AND mu.id=$user AND hpu.create_date BETWEEN '$from' and '$to'");
-            return $sql;
-        }
-        if($read_policy==null)
-        {
-            $sql=DB::select("");
-            return $sql;
-        }
+            WHERE hpu.status='t' AND hpu.is_deleted='f' {$sql_where} AND hpu.create_date BETWEEN '$from' and '$to'");
+        return $sql;
     }
 }

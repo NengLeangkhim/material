@@ -16,7 +16,6 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        
         $purchases = DB::table('bsc_invoice')
         ->select('bsc_invoice.*','ma_supplier.name as supplier_name','bsc_payment.amount_paid','bsc_payment.date_paid','bsc_payment.due_amount')
         ->leftJoin('ma_supplier','bsc_invoice.ma_supplier_id','=','ma_supplier.id')
@@ -57,7 +56,8 @@ class PurchaseController extends Controller
                 'billing_date'          => 'required',
                 'due_date'              => 'required',
                 'total'                 => 'required',
-                'grand_total'           => 'required'
+                'grand_total'           => 'required',
+                'create_by'             => 'required'
             ]);
 
             if($validator->fails()){
@@ -98,7 +98,7 @@ class PurchaseController extends Controller
     public function show($id)
     {
         $purchase = DB::table('bsc_invoice')
-        ->select('bsc_invoice.*','bsc_account_charts.name_en as chart_account_name','ma_supplier.name as supplier_name','bsc_payment.amount_paid','bsc_payment.date_paid','bsc_payment.due_amount')
+        ->select('bsc_invoice.*','bsc_account_charts.name_en as chart_account_name','bsc_account_charts.id as chart_account_id','ma_supplier.name as supplier_name','bsc_payment.amount_paid','bsc_payment.date_paid','bsc_payment.due_amount')
         ->leftJoin('bsc_invoice_bsc_journal_rel','bsc_invoice.id','=','bsc_invoice_bsc_journal_rel.bsc_invoice_id')
         ->leftJoin('bsc_journal','bsc_invoice_bsc_journal_rel.bsc_journal_id','=','bsc_journal.id')
         ->leftJoin('bsc_account_charts','bsc_journal.bsc_account_charts_id','=','bsc_account_charts.id')
@@ -110,7 +110,22 @@ class PurchaseController extends Controller
             ['bsc_invoice.status','=','t'],
             ['bsc_invoice.is_deleted','=','f']
         ])->first();
-        return $this->sendResponse($purchase, 'Purchase retrieved successfully.');
+        
+        $purchase_detail = DB::table('bsc_invoice_detail')
+        ->select('bsc_invoice_detail.*','bsc_account_charts.name_en as chart_account_name','stock_product.name as product_name')
+        ->leftJoin('bsc_invoice_detail_bsc_journal_rel','bsc_invoice_detail.id','=','bsc_invoice_detail_bsc_journal_rel.bsc_invoice_detail_id')
+        ->leftJoin('bsc_journal','bsc_invoice_detail_bsc_journal_rel.bsc_journal_id','=','bsc_journal.id')
+        ->leftJoin('bsc_account_charts','bsc_journal.bsc_account_charts_id','=','bsc_account_charts.id')
+        ->leftJoin('stock_product','bsc_invoice_detail.stock_product_id','=','stock_product.id')
+        ->where([
+            ['bsc_invoice_detail.bsc_invoice_id','=',$id],
+            ['bsc_invoice_detail.status','=','t'],
+            ['bsc_invoice_detail.is_deleted','=','f']
+        ])->get();
+
+        $arr_purchase = compact('purchase','purchase_detail');
+
+        return $this->sendResponse($arr_purchase, 'Purchase retrieved successfully.');
     }
 
     /**
@@ -143,7 +158,8 @@ class PurchaseController extends Controller
                 'billing_date'          => 'required',
                 'due_date'              => 'required',
                 'total'                 => 'required',
-                'grand_total'           => 'required'
+                'grand_total'           => 'required',
+                'update_by'             => 'required'
             ]);
 
             if($validator->fails()){
@@ -160,8 +176,16 @@ class PurchaseController extends Controller
             if($purchase_details != ""){
                 foreach ($purchase_details as $key => $p_detail) {
                     // var_dump($p_detail['stock_product_id']);
-                    $sql_purchase_detail = "update_bsc_invoice_detail($p_detail[bsc_invoice_detail_id], $request->update_by, $id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], '$request->status', '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0, '$request->status')";
-                    $q_purchase_detail=DB::select("SELECT ".$sql_purchase_detail);
+                    if($p_detail['is_old'] == 1 && $p_detail['is_delete'] == 0){
+                        $sql_purchase_detail = "update_bsc_invoice_detail($p_detail[bsc_invoice_detail_id], $request->update_by, $id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], '$request->status', '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0, '$request->status')";
+                        $q_purchase_detail=DB::select("SELECT ".$sql_purchase_detail);
+                    }else if($p_detail['is_new'] == 1){
+                        $sql_purchase_detail_new = "insert_bsc_invoice_detail($purchase_id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], $request->update_by, '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0)";
+                        $q_purchase_detail_new=DB::select("SELECT ".$sql_purchase_detail_new);
+                    }else if($p_detail['is_delete'] == 1){
+                        $sql_purchase_detail_delete = "delete_bsc_invoice_detail($p_detail[bsc_invoice_detail_id], $request->update_by)";
+                        $q_purchase_detail_delete=DB::select("SELECT ".$sql_purchase_detail_delete);
+                    }
                 }
             }
 
@@ -214,6 +238,19 @@ class PurchaseController extends Controller
             ['stock_product.status','=','t'],
             ['stock_product.is_deleted','=','f']
         ])->get();
+        return $this->sendResponse($products, 'Product retrieved successfully.');
+    }
+
+    public function show_product_single(Request $request, $id)
+    {
+        $products = DB::table('stock_product')
+        ->select('stock_product.*','bsc_account_charts.name_en as chart_account_name')
+        ->leftJoin('bsc_account_charts','stock_product.bsc_account_charts_id','=','bsc_account_charts.id')
+        ->where([
+            ['stock_product.id','=',$id],
+            ['stock_product.status','=','t'],
+            ['stock_product.is_deleted','=','f']
+        ])->first();
         return $this->sendResponse($products, 'Product retrieved successfully.');
     }
 }

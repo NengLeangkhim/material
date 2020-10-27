@@ -116,15 +116,16 @@ function showTotal(){
 function inSertTable(count){
     var tr = '';
     tr +='<tr id="row'+count+'">'+
+            '<td class="item_name" style="padding: 0;"><select style="width: 100%;height: 51px;" class="item_select customer_branch_id"><option value="">'+$('#customer_branch_item').val()+'</option></select></td>'+
             '<td class="item_name" style="padding: 0;"><select style="width: 100%;height: 51px;" class="item_select stock_product_id"><option value="1">item1</option><option value="2">item2</option></select></td>'+
             '<td contenteditable="true" class="item_des"></td>'+
             '<td contenteditable="true" class="item_qty"></td>'+
             '<td contenteditable="true" class="item_unit_price"></td>'+
             '<td contenteditable="true" class="item_discount"></td>'+
-            '<td contenteditable="true" class="item_account"></td>'+
-            '<td style="padding: 0;" class="item_tax"><select style="width: 100%;height: 51px;"><option value=""></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
+            '<td contenteditable="false" class="item_account"></td>'+
+            '<td style="padding: 0;" class="item_tax"><select style="width: 100%;height: 51px;border:none"><option value=""></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
             '<td class="item_amount" id="item_amount"></td>'+
-            '<td style="text-align: center;"><button type="button" name="remove" data-row="row'+count+'" class="btn btn-danger btn-xs remove">x</button></td>'+
+            // '<td style="text-align: center;"><button type="button" name="remove" data-row="row'+count+'" class="btn btn-danger btn-xs remove">x</button></td>'+
         '</tr>';
     $('#invoice_table tbody').append(tr);
 }

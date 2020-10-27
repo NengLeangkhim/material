@@ -23,103 +23,71 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-8"></div>
+                            <div class="col-md-4 text_right">
+                                <a href="#" class="btn btn-success purchase_form"  value="" id="">Print</a>
+                                <a href="#" class="btn btn-secondary purchase_form"  value="bsc_purchase_purchase_purchase_edit" id="purchase_edit" onclick="go_to('bsc_invoice_invoice_edit/{{ $invoices->id }}')">Edit</a>
+                                {{-- <a href="#" class="btn btn-danger purchase_form"  value="" id="">Delete</a> --}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-header">
                         <div class="form-group">
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="row">
-                                            <div class="col-sm-6">
-                                                <label for="">Account Name : </label>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="">Touch Rith</label>
+
+                                            <div class="col-sm-12">
+                                                <p for="">Account Name : &nbsp;{{ $invoices->chart_account_name }}</p>
                                             </div>
 
-                                            <div class="col-sm-6">
-                                                <label for="">Customer Name : </label>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="">Keo Seyha</label>
+                                            <div class="col-sm-12">
+                                                <p for="">Customer Name : &nbsp;{{ $invoices->customer_name }}</p>
                                             </div>
 
-                                            <div class="col-sm-6">
-                                                <label for="">Deposit : </label>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="">ABA</label>
+                                            <div class="col-sm-12">
+                                                <p for="">Deposit : &nbsp;{{ $invoices->deposit_on_payment }}</p>
                                             </div>
 
-                                            <div class="col-sm-6">
-                                                <label for="">Balance : </label>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="">200$</label>
+                                            <div class="col-sm-12">
+                                                <p for="">Balance : &nbsp;{{ $invoices->customer_balance }}</p>
                                             </div>
 
-                                            <div class="col-sm-6">
-                                                <label for="">Invoice Balance : </label>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="">2000$</label>
+                                            <div class="col-sm-12">
+                                                <p for="">Invoice Balance : &nbsp;{{ $invoices->customer_invoice_balance }}</p>
                                             </div>
 
-                                            <div class="col-sm-6">
-                                                <label for="">Customer Branch Name : </label>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="">Phnom Penh</label>
-                                            </div>
-
-                                            <div class="col-sm-6">
-                                                <label for="">Billing Date : </label>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="">03-10-2020</label>
+                                            <div class="col-sm-12">
+                                                <p for="">Billing Date : &nbsp;{{ date('d-m-Y', strtotime($invoices->billing_date)) }}</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="row">
-                                            <div class="col-sm-5">
-                                                <label for="">Invoice : </label>
+                                            <div class="col-sm-12">
+                                                <p for="">Invoice : &nbsp;{{ $invoices->invoice_number }}</p>
                                             </div>
-                                            <div class="col-sm-7">
-                                                <label for="">ISP</label>
+
+                                            <div class="col-sm-12">
+                                                <p for="">Reference : &nbsp;{{ $invoices->reference }}</p>
                                             </div>
 
                                             <div class="col-sm-5">
-                                                <label for="">Reference : </label>
-                                            </div>
-                                            <div class="col-sm-7">
-                                                <label for="">Long Chong</label>
+                                                <p for="">Due Date : &nbsp;{{ date('d-m-Y', strtotime($invoices->due_date)) }}</p>
                                             </div>
 
-                                            <div class="col-sm-5">
-                                                <label for="">Due Date : </label>
-                                            </div>
-                                            <div class="col-sm-7">
-                                                <label for="">03-10-2020</label>
+                                            <div class="col-sm-12">
+                                                <p for="">Effective Date : &nbsp;{{ date('d-m-Y', strtotime($invoices->effective_date)) }}</p>
                                             </div>
 
-                                            <div class="col-sm-5">
-                                                <label for="">Effective Date : </label>
-                                            </div>
-                                            <div class="col-sm-7">
-                                                <label for="">03-10-2020</label>
+                                            <div class="col-sm-12">
+                                                <p for="">End Period Date : &nbsp;{{ date('d-m-Y', strtotime($invoices->end_period_date)) }}</p>
                                             </div>
 
-                                            <div class="col-sm-5">
-                                                <label for="">End Period Date : </label>
-                                            </div>
-                                            <div class="col-sm-7">
-                                                <label for="">03-10-2020</label>
-                                            </div>
-
-                                            <div class="col-sm-5">
-                                                <label for="">Address : </label>
-                                            </div>
-                                            <div class="col-sm-7">
-                                                <label for="">Phnom Penh</label>
+                                            <div class="col-sm-12">
+                                                <p for="">Address : &nbsp;{{ $invoices->address }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -131,6 +99,7 @@
                         <table  class="table table-bordered table-striped">
                             <thead>
                                 <tr>
+                                    <th>Customer Branch Name</th>
                                     <th>Item</th>
                                     <th>Description</th>
                                     <th>Quantity</th>
@@ -140,14 +109,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>ISP</td>
-                                    <td>Buy</td>
-                                    <td>10</td>
-                                    <td>Touch Rith</td>
-                                    <td>20%</td>
-                                    <td>180$</td>
-                                </tr>
+                                @foreach ($invoice_details as $invoice_detail)
+                                    <tr>
+                                        <td>{{ $invoice_detail->customer_branch_name }}</td>
+                                        <td>{{ $invoice_detail->product_name }}</td>
+                                        <td>{{ $invoice_detail->description }}</td>
+                                        <td>{{ $invoice_detail->qty }}</td>
+                                        <td>{{ $invoice_detail->chart_account_name }}</td>
+                                        <td>{{ $invoice_detail->tax }}</td>
+                                        <td>{{ $invoice_detail->amount }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table><br/>
                         <div class="form-group">
@@ -161,7 +133,7 @@
                                                 <label for="">Total : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
-                                                <label for="">1000$</label>
+                                                <label for="">{{ $invoices->total }}</label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -169,7 +141,7 @@
                                                 <label for="">Vat Total : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
-                                                <label for="">10%</label>
+                                                <label for="">{{ $invoices->vat_total }}</label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -177,7 +149,7 @@
                                                 <label for="">Grand Total : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
-                                                <label for="">1000$</label>
+                                                <label for="">{{ $invoices->grand_total }}</label>
                                             </div>
                                         </div>
                                         <hr class="line_in_tag_hr">
@@ -215,10 +187,10 @@
                             <form action="">
                                 @csrf
                                 <div class="card-body">
-                                    <label for="">Receive a Payment</label><br/>
+                                    <strong><h4 for="" style="text-align: center">Receive a Payment</h4><strong><br/>
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Amount Paid <b class="color_label">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
@@ -227,7 +199,7 @@
                                                     <input required type="text" class="form-control"  name="amount_paid" id="exampleInputEmail1" placeholder="Amount Paid">
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Date paid<b class="color_label">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
@@ -236,7 +208,10 @@
                                                     <input required type="date" class="form-control"  name="date_paid" id="exampleInputEmail1" placeholder="Date Paid">
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Paid To<b class="color_label">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
@@ -251,7 +226,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Reference<b class="color_label">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
@@ -260,7 +235,7 @@
                                                     <input required type="text" class="form-control"  name="reference" id="exampleInputEmail1" placeholder="Reference">
                                                 </div>
                                             </div>
-                                        </div><br/>
+                                        </div>
 
                                     </div>
                                     <div class="col-md-12">

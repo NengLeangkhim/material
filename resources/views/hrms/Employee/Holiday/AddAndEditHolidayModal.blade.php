@@ -19,7 +19,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Title <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="title" value="@php if(isset($holiday)){echo $holiday[0]->title;} @endphp">
+                  <input type="text" class="form-control" name="title" value="@php if(isset($holiday)){echo $holiday[0]->title;} @endphp" required>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
@@ -31,13 +31,13 @@
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Start Date <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" name="startDate" value="@php if(isset($holiday)){echo $holiday[0]->from_date;} @endphp">
+                  <input type="date" class="form-control" name="startDate" value="@php if(isset($holiday)){echo $holiday[0]->from_date;} @endphp" required>
                 </div>
               </div>
               <div class="col-md-6">
                   <div class="form-group">
                   <label>End Date <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" name="endDate" value="@php if(isset($holiday)){echo $holiday[0]->to_date;} @endphp">
+                  <input type="date" class="form-control" name="endDate" value="@php if(isset($holiday)){echo $holiday[0]->to_date;} @endphp" required>
                 </div>
               </div>
               <div class="col-md-12">

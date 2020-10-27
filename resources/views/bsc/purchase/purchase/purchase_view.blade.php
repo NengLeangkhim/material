@@ -25,25 +25,23 @@
                             <div class="col-md-8"></div>
                             <div class="col-md-4 text_right">
                                 <a href="#" class="btn btn-success purchase_form"  value="" id="">Print</a>
-                                <a href="#" class="btn btn-secondary purchase_form"  value="" id="">Edit</a>
-                                <a href="#" class="btn btn-danger purchase_form"  value="" id="">Delete</a>
+                                <a href="#" class="btn btn-secondary purchase_form"  value="bsc_purchase_purchase_purchase_edit" id="purchase_edit" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')">Edit</a>
+                                {{-- <a href="#" class="btn btn-danger purchase_form"  value="" id="">Delete</a> --}}
                             </div>
                         </div>
                     </div>
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-4"> 
-                                <label for="" class="account_name">Account Name :</label><br/>
-                                <label for="">Date :</label><br/>
-                                <label for="">Address :</label><br/>
+                            <div class="col-md-6">
+                                <label for="" class="account_name">Account Name : {{$purchase->chart_account_name}}</label><br/>
+                                <label for="">Date : {{$purchase->billing_date}}</label><br/>
+                                <label for="">Reference : {{$purchase->reference}}</label><br/>
+                                <label for="">Address : {{$purchase->address}}</label><br/>
                             </div>
-                                <div class="col-md-4"> 
-                                <label for="">Supplier Name :</label><br/>
-                                <label for="">Due Date :</label><br/>
-                            </div>
-                                <div class="col-md-4"> 
-                                <label for="">Reference :</label><br/>
-                                <label for="">Purchase# :</label><br/>
+                            <div class="col-md-6">
+                                <label for="">Supplier Name : {{$purchase->supplier_name}}</label><br/>
+                                <label for="">Due Date : {{$purchase->due_date}}</label><br/>
+                                <label for="">Purchase# : {{$purchase->invoice_number}}</label><br/>
                             </div>
                         </div>                               
                     </div>
@@ -60,14 +58,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Iphone</td>
-                                    <td>Iphone 11 Pro</td>
-                                    <td>10</td>
-                                    <td>001215699</td>
-                                    <td>0.10</td>
-                                    <td>10000$</td>
-                                </tr>
+                                @foreach ($purchase_detail as $item)
+                                    <tr>
+                                        <td>{{$item->product_name}}</td>
+                                        <td>{{$item->description}}</td>
+                                        <td>{{$item->qty}}</td>
+                                        <td>{{$item->chart_account_name}}</td>
+                                        <td>{{$item->tax}}</td>
+                                        <td>{{$item->amount}}</td>
+                                    </tr>
+                                @endforeach
+                                
                             </tbody>
                         </table>
                     </div>
@@ -204,3 +205,6 @@
         </div>
     </div>
 </section><!-- end section Main content -->
+<script>
+   
+</script>
