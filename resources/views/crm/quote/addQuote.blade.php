@@ -325,7 +325,7 @@
 
                                                 <div class="row-12 form-group max-min-table" id="content-quote-product" style="margin-right:4px;">
 
-                                                        <div class="form-group border border-success rounded  p-3">
+                                                        {{-- <div class="form-group border border-success rounded  p-3">
                                                                 <div class="col-12" align="right">
                                                                     <button type="button" class="close" style="color:blue;" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
@@ -364,11 +364,11 @@
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody id="add_row_tablequoteItem">
-                                                                                {{-- field to add new row to table --}}
+                                                                                <!-- field to add new row to table -->
                                                                             </tbody>
                                                                         </table>
                                                                 </div>
-                                                        </div>
+                                                        </div> --}}
 
 
                                                 </div>

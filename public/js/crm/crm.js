@@ -634,7 +634,7 @@ function Crm_delete(id,route,goto,alert) {
 
 
 
-//========================>> Quote-CRM JS <<=========================================================
+//========================>> Start-Quote-CRM JS <<=========================================================
 
         // function template to get route & id to show data
         function goto_Action(route,id){
@@ -788,7 +788,7 @@ function Crm_delete(id,route,goto,alert) {
                         "No record seleted !",
                         "info",
                         {
-                        position:"right",
+                            position:"right",
                         }
                     );
               }
@@ -830,9 +830,72 @@ function Crm_delete(id,route,goto,alert) {
 
 
 
+    //function to get content of add product by branch lead
+    function row_content(i,branId){
+        // var i = 0;
+        $row_content =
+
+        '<div id="row_content'+i+'" class="form-group border border-success rounded p-3  row_content">'+
+                '<div class="col-12" align="right">' +
+                    '<button type="button" id="'+i+'" class="close btnCloseRowContent" style="color:blue;" aria-label="Close">'+
+                        '<span aria-hidden="true">&times;</span>'+
+                    '</button>'+
+                ' </div>'+
+                '<div class="form-group col-8">'+
+                        '<div class="input-group">'+
+                            '<div class="input-group-prepend">'+
+                                '<span class="font-weight-bold input-group-text">Branch:</span>'+
+                            '</div>'+
+                            '<input type="text" class="form-control" id="branch"  name="branch"   placeholder="" required readonly>'+
+                    ' </div>'+
+                '</div>'+
+
+                '<div class="form-group col-8">'+
+                    '<div class="input-group">'+
+                        '<div class="input-group-prepend">'+
+                            '<span class="font-weight-bold input-group-text">Address:</span>'+
+                        '</div>'+
+                        '<input type="text" class="form-control" id="branchAddress"  name="branchAddress"   placeholder="" required readonly>'+
+                    '</div>'+
+                '</div>'+
+
+                '<div class="col-12">'+
+                        '<table class="table table-bordered ">'+
+                            '<thead class="thead-item-list">'+
+                                '<tr>'+
+                                    '<th class="td-item-quote-name"><b style="color:red">*</b> Item Name</th>'+
+                                    '<th class="td-item-quote">Type</th>'+
+                                    '<th style="width: 120px">Quantity</th>'+
+                                    '<th class="td-item-quote">List Price($)</th>'+
+                                    '<th class="td-item-quote">Total($)</th>'+
+                                    '<th style="width: 50px;" >'+
+                                        '<button type="button" class="btn btn-info" id="btnAddRowQuoteItem" data-id="'+branId+'"><span><i class="fa fa-plus"></i></span></button>'+ //data-id tbody use for get branch id
+                                    '</th>'+
+                                '</tr>'+
+                            '</thead>'+
+                            '<tbody id="add_row_tablequoteItem'+branId+'" class="add_row_tablequoteItem" >'+
+                                //content of add table product
+                            '</tbody>'+
+                    ' </table>'+
+                '</div>'+
+        '</div>';
+        console.log('row content added');
+        $('#content-quote-product').append($row_content);
+
+    }
+
+
+
+    //function for btn close row content
+    $(document).on('click','.btnCloseRowContent',function(){
+        var btnId = $(this).attr("id");
+        alert(btnId);
+        $('#row_content'+btnId+'').remove();
+    });
 
 
     //function to get lead branch by lead id
+    var i = 0;
     $(document).on('click','#clickGetBranch', function(){
         var lead_id = $('#lead_id').val();
 
@@ -860,24 +923,26 @@ function Crm_delete(id,route,goto,alert) {
                     });
 
                     $('#getSelectRow').click( function () {
-
                         if($('tbody tr').hasClass('selected') == true){
-                            var lead_id = $('.selected').attr("id");
-                            $('#crm_lead_branch_id').val(lead_id);
+                            var branch_id = $('.selected').attr("id");
+                            if(branch_id != ''){
 
-                            //get value from textbox
+                                    $('#crm_lead_branch_id').val(branch_id);
+                                    //get value from textbox
+                                    var branchNameEn = $.trim($('#brdcompanyEn_'+branch_id+'').val());
+                                    var address = $.trim($('#brdnameEn_'+branch_id+'').val());
+                                        //field to input prd content branch
 
-                            var branchNameEn = $.trim($('#brdcompanyEn_'+lead_id+'').val());
-                            var address = $.trim($('#brdnameEn_'+lead_id+'').val());
+                                    row_content(i,branch_id);
+                                    i++;
+                                    //send value to textbox
+                                    $('#getLeadBranch').val(branchNameEn);
+                                    $("#homeEN").val(address);
 
 
-                            //send value to textbox
-                            $('#getLeadBranch').val(branchNameEn);
-                            $("#homeEN").val(address);
-
-
-                            //close modal
-                            $('#listQuoteBranch').modal('hide');
+                                    //close modal
+                                    $('#listQuoteBranch').modal('hide');
+                            }
                         }else{
                             $("#getSelectRow").notify(
                                 "No record seleted !",
