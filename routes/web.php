@@ -117,7 +117,7 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     Route::get('/crm/setting/leadstatus','crm\CrmSettingController@CrmLeadStatus'); // show Lead Status Setting CRM
     Route::post('/crm/setting/leadstatus/store','crm\CrmSettingController@StoreLeadStatus'); // show Lead Status Setting CRM
 Route::get('/crm/setting/leadindustry','crm\CrmSettingController@CrmLeadIndustry'); // show Lead Status Setting CRM
-// END Setting CRM 
+// END Setting CRM
 
 //===========================END CRM=================================
 
@@ -762,7 +762,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// Modal Show List Candidate
     Route::get('hrm_list_condidate/modal','hrms\recruitment\HrmListCandidateController@hrm_detail_candidate');
-    
+
     /// Go to add Candidate
     Route::get('hrm_list_condidate/add','hrms\recruitment\HrmListCandidateController@hrm_goto_add');
     /// add Candidate
@@ -1146,6 +1146,7 @@ Route::get('test_chart',function(){
         Route::post('bsc_invoice_update','bsc\InvoiceController@invoice_edit_data');
     // View Payment
         Route::get('bsc_invoice_view_payment','bsc\InvoiceController@view_payment');
+        Route::post('bsc_invoice_payment','bsc\InvoiceController@add_payment');
 
 // Report
     // Sale Report
