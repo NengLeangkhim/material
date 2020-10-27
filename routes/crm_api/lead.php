@@ -54,10 +54,27 @@ Route::get('/branch','api\crm\LeadController@getLeadBranch');
 // Route::post('/insertlead','api\crm\LeadController@insertLead');
 //get all Honorifics
 Route::get('/honorifics','api\crm\LeadController@getHonorifics');
-// get brand by lead id 
-// Route::get('/getbranchbylead/{id}','api\crm\LeadController@getbranch_lead');
+//  convert  branch
+// Route::post('/convertbranch/{id}','api\crm\LeadController@convertbranch');
+Route::post('/convertbranch','api\crm\LeadController@convertbranch');
 // get  all branch 
 Route::get('/getbranch','api\crm\LeadController@getbranch');
+
+//get survey
+Route::get('/survey','api\crm\LeadController@getsurvey');
+
+//get survey by branch id
+Route::get('/survey/{id}','api\crm\LeadController@getsurveybyid') ;
+//insert survey result
+Route::post('/insertsurvey','api\crm\LeadController@insertsurveyresult');
+
+// get schdule type
+Route::get('/getscheduletype','api\crm\LeadController@getschduletype');
+// inseart schedule  type
+Route::post('/insertschduletype','api\crm\LeadController@insertschduletype');
+// update  schedule  type
+Route::Post('/updateschduletype','api\crm\LeadController@updateschduletype');
+
 
 
 

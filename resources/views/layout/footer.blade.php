@@ -66,6 +66,8 @@
 <script src="plugins/DateStyle/bootstrap-datetimepicker.js"></script>
 {{--Full Calendar--}}
 <script src="fullcalendar-5.3.0/lib/main.min.js"></script>
+{{--Google Chart--}}
+<script type="text/javascript" src="js/google_chart.js"></script>
 <script>
   $(function () {
     $("#example1").DataTable({
@@ -114,7 +116,7 @@ $(window).on('shown.bs.modal', function() {
     autoUpdateInterval   : 33,
     nativeScrollbarsOverlaid : {
         showNativeScrollbars   : false,
-        initialize             : true 
+        initialize             : true
     },
     scrollbars : {
         visibility       : "auto",
@@ -147,11 +149,9 @@ $(window).on('shown.bs.modal', function() {
 <script src="js/notify.min.js"></script>
 
 
-{{--Google Chart--}}
-<script type="text/javascript" src="js/google_chart.js"></script>
-
 {{--------------------------CRM---------------------}}
 <script type="text/javascript" src="js/crm/crm.js"></script>
+<script src="js/crm/crm_report.js"></script>
 
 {{-- ---------------------bsc-------------- --}}
 <script src="js/bsc/bsc.js"></script>

@@ -22,7 +22,7 @@ class QuoteResource extends JsonResource
      */
     public function toArray($request)
     {
-        
+
         //get name assign to and createby
         $assign =User::find($this->assign_to,[
             'id',
@@ -40,7 +40,7 @@ class QuoteResource extends JsonResource
 
         //get stock
         $quoteBranch =  QuoteBranch::where('crm_quote_id',$this->id)->get('id');
-        
+
         $quoteBranchDetail=[];
         foreach($quoteBranch as $q){
             $array =  QuoteBranchDetail::where('crm_quote_branch_id',$q->id)->get();
@@ -57,10 +57,10 @@ class QuoteResource extends JsonResource
         $acknowlegde=[];
 
         foreach($quoteStatus as $q){
-            $array =  QuoteStatusType::where('id',$q->crm_quote_status_type_id)->get(['name_en','create_date']);
-            foreach($array as $a){
-                array_push($quoteStage,$a);   
-            }
+            $array =  QuoteStatusType::where('id',$q->crm_quote_status_type_id)->get(['name_en','create_date'])->first();
+            // foreach($array as $a){
+                array_push($quoteStage,$array);
+            // }
 
             $pre =User::find($q->create_by,[
                 'id',
@@ -69,10 +69,10 @@ class QuoteResource extends JsonResource
             array_push($acknowlegde,$pre);
         }
 
-        
-        //find lead by id 
+
+        //find lead by id
         $lead = DB::select("select * from crm_lead where id = $this->crm_lead_id");
-        
+
         // return parent::toArray($lead);
         return [
             "id"=>$this->id,

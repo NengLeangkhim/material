@@ -25,7 +25,7 @@
                 <div class="inner">
                   <div class="row">
                     <div class="col-8">
-                      <h3 class="text-info">150</h3>
+                      <h3 class="text-info">{{$new_lead}}</h3>
     
                       <p>New Leads</p>
                     </div>
@@ -43,7 +43,7 @@
                 <div class="inner">
                   <div class="row">
                     <div class="col-8">
-                      <h3 class="text-info">102</h3>
+                    <h3 class="text-info">{{$total_contact}}</h3>
     
                       <p>Total Contacts</p>
                     </div>
@@ -61,9 +61,9 @@
                 <div class="inner">
                   <div class="row">
                     <div class="col-8">
-                      <h3 class="text-info">50</h3>
+                      <h3 class="text-info">{{$total_quote}}</h3>
     
-                      <p>New Quotes</p>
+                      <p>Total Quotes</p>
                     </div>
                     <div class="col-4">
                       <img src="img/icons/iconfinder_Mind-Map-Paper_379340.png">
@@ -79,7 +79,7 @@
                 <div class="inner">
                   <div class="row">
                     <div class="col-8">
-                      <h3 class="text-info">75</h3>
+                      <h3 class="text-info">{{$total_survey}}</h3>
     
                       <p>Survey</p>
                     </div>
@@ -144,7 +144,7 @@
             <!-- AREA CHART -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Survey Chart</h3>
+                <h3 class="card-title">Contact Chart</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -153,7 +153,7 @@
               </div>
               <div class="card-body">
                 <div class="chart">
-                  <div id="SurveyChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;" ></div>
+                  <div id="ContactChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;" ></div>
                 </div>
               </div>
               <!-- /.card-body -->
@@ -190,107 +190,296 @@
 <script>
     $(function () {
     // Chart Lead Status
-    google.charts.load("current", {packages:['corechart']});
-    google.charts.setOnLoadCallback(LeadChart);
-    function LeadChart() {
-      var data = google.visualization.arrayToDataTable([
-        ["Lead", "Status", { role: "style" } ],
-        ["Cold", 8.94, "#b87333"],
-        ["Junk Lead", 10.49, "silver"],
-        ["Qualified", 19.30, "gold"],
-        ["Inquiry", 21.45, "color: #e5e4e2"],
-        ["Survey", 19.30, "#1fa8e0"]
-      ]);
+    var Lead_Chart = () => {
+      $.ajax({
+        url: '/api/crm/report/leadByStatus', //get link route
+        type: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        //data: $('#FrmChartReport').serialize(),
+        success: function (response) {
+            if (response.success == true) {
+                var data = response.data
+                google.charts.load('current', {
+                    packages: ['corechart']
+                });
+                google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
+                function CrmLeadDrawChart(data) {
+                    var result = [
+                        ["Lead", "", {
+                            role: 'style'
+                        }]
+                    ]
+                    var colors = [{
+                            id: 0,
+                            name_en: 'none',
+                            code: ''
+                        },
+                        {
+                            id: 1,
+                            name_en: 'new',
+                            code: 'color:#007bff'
+                        },
+                        {
+                            id: 2,
+                            name_en: 'qualified',
+                            code: 'color:#66c8cf'
+                        },
+                        {
+                            id: 3,
+                            name_en: 'surveying',
+                            code: 'color:#f06060'
+                        },
+                        {
+                            id: 4,
+                            name_en: 'surveyed',
+                            code: 'color:black'
+                        },
+                        {
+                            id: 5,
+                            name_en: 'proposition',
+                            code: 'color:#ffc107'
+                        },
+                        {
+                            id: 6,
+                            name_en: '..',
+                            code: 'color:#28a745'
+                        },
+                        {
+                            id: 7,
+                            name_en: 'junk',
+                            code: 'color:red'
+                        },
+                    ]
+                    $.each(data, function (index, value) {
+                        result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
+                    })
+                    var data_chart = google.visualization.arrayToDataTable(result);
+                    var view = new google.visualization.DataView(data_chart);
+                    view.setColumns([0, 1,
+                        {
+                            calc: "stringify",
+                            sourceColumn: 1,
+                            type: "string",
+                            role: "annotation"
+                        },
+                        2
+                    ]);
+                    var options = {
+                        title: 'Lead Performance',
+                        pieSliceText:'value',
+                    };
 
-      var view = new google.visualization.DataView(data);
-      view.setColumns([0, 1,
-                       { calc: "stringify",
-                         sourceColumn: 1,
-                         type: "string",
-                         role: "annotation" },
-                       2]);
-
-      var options = {
-        title: "Status Leads",
-        bar: {groupWidth: "95%"},
-        legend: { position: "none" },
-      };
-      var chart = new google.visualization.ColumnChart(document.getElementById("LeadChart"));
-      chart.draw(view, options);
-    }
-    // Quote CHart
-    google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(QuoteChart);
-      function QuoteChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
-        ]);
-
-        var options = {
-          title: 'My Daily Activities',
-          is3D: true,
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('QuoteChart'));
-        chart.draw(data, options);
-      }
-    // Survey Chart
-    google.charts.load('current', {packages: ['corechart', 'bar']});
-    google.charts.setOnLoadCallback(SurveyChart);
-
-    function SurveyChart() {
-
-          var data = google.visualization.arrayToDataTable([
-            ['Survey', 'Survey',{ role: "style" } ],
-            ['New York City, NY', 8175000,"#b87333"],
-            ['Los Angeles, CA', 3792000,'blue'],
-            ['Chicago, IL', 2695000,'gold'],
-            ['Houston, TX', 2099000,'red'],
-            ['Philadelphia, PA', 1526000,'cyan']
-          ]);
-
-          var options = {
-            title: 'Chart Survey',
-            chartArea: {width: '50%'},
-            hAxis: {
-              title: 'Total Survey',
-              minValue: 0
-            },
-            vAxis: {
-              title: 'Survey'
-            }
-          };
-
-          var chart = new google.visualization.BarChart(document.getElementById('SurveyChart'));
-
-          chart.draw(data, options);
+                    var chart = new google.visualization.ColumnChart(document.getElementById('LeadChart'))
+                    chart.draw(view, options)
+                }
+            } 
         }
+      });
+    }
+    
+    // Quote Chart
+    var Quote_Chart = () =>{
+      $.ajax({
+        url: '/api/crm/report/quoteByStatus',
+        type: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        //data: $('#FrmChartQuoteReport').serialize(),
+        success: function (response) {
+            if (response.success == true) {
+                var data = response.data
+                google.charts.load('current', {
+                    packages: ['corechart']
+                });
+                google.charts.setOnLoadCallback(CrmLeadDrawChart(data))
+
+                function CrmLeadDrawChart(data) {
+                    var result = [
+                        ["Quote", "", {
+                            role: 'style'
+                        }]
+                    ]
+                    var colors = [{
+                            id: 0,
+                            name_en: 'none',
+                            code: ''
+                        },
+                        {
+                            id: 1,
+                            name_en: 'new',
+                            code: 'color:#007bff'
+                        },
+                        {
+                            id: 2,
+                            name_en: 'qualified',
+                            code: 'color:#ffc107'
+                        },
+                        {
+                            id: 3,
+                            name_en: 'surveying',
+                            code: 'color:#ffc107'
+                        },
+                        {
+                            id: 4,
+                            name_en: 'surveyed',
+                            code: 'color:black'
+                        },
+                        {
+                            id: 5,
+                            name_en: 'proposition',
+                            code: 'color:#ffc107'
+                        },
+                        {
+                            id: 6,
+                            name_en: '..',
+                            code: 'color:#ffc107'
+                        },
+                        {
+                            id: 7,
+                            name_en: 'junk',
+                            code: 'color:#28a745'
+                        },
+                    ]
+                    $.each(data, function (index, value) {
+                        result.push([value.quote_status_name_en, value.total_quotes, colors[value.crm_quote_status_type_id].code])
+                    })
+                    var data = google.visualization.arrayToDataTable(result)
+                    var view = new google.visualization.DataView(data)
+                    view.setColumns([0, 1,
+                        {
+                            calc: "stringify",
+                            sourceColumn: 1,
+                            type: "string",
+                            role: "annotation"
+                        },
+                        2
+                    ]);
+                    var options = {
+                        title: 'Quote Performance',
+                    };
+
+                    var chart = new google.visualization.BarChart(document.getElementById('QuoteChart'))
+
+                    chart.draw(view, options)
+                }
+            } 
+        }
+      });
+    }
+    // Contact Chart
+    var Contact_Chart = () =>{
+      $.ajax({
+        url: '/api/crm/report/getContactChartReport', //get link route
+        type: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        //data: $('#FrmChartContactReport').serialize(),
+        success: function (response) {
+            if (response.success == true) {
+                var data = response.data
+                google.charts.load('current', {
+                    packages: ['corechart']
+                });
+                google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
+
+                function CrmLeadDrawChart(data) {
+                    var result = [
+                        ["Contact", "", {
+                            role: 'style'
+                        }]
+                    ]
+                    var colors = [{
+                            id: 0,
+                            name_en: 'none',
+                            code: 'color:#007bff'
+                        }
+                    ]
+                    $.each(data, function (index, value) {
+                        result.push([value.create_date, value.total, colors[0].code])
+                    })
+                    var data = google.visualization.arrayToDataTable(result);
+                    var view = new google.visualization.DataView(data);
+                    view.setColumns([0, 1,
+                        {
+                            calc: "stringify",
+                            sourceColumn: 1,
+                            type: "string",
+                            role: "annotation"
+                        },
+                        2
+                    ]);
+                    var options = {
+                        title: 'Contact Chart',
+                    };
+
+                    var chart = new google.visualization.ColumnChart(document.getElementById('ContactChart'))
+                    chart.draw(view, options)
+                }
+            }
+        }
+      });
+    }
     // Organization Chart
-    google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(OrgChart);
-      function OrgChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
-        ]);
+    var Organization_Chart = () => {
+      $.ajax({
+        url: 'api/crm/report/getOrganizationChartReport', //get link route
+        type: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        //data: $('#FrmChartOrganizationReport').serialize(),
+        success: function (response) {
+          if (response.success == true) {
+                var data = response.data
+                google.charts.load('current', {
+                    packages: ['corechart']
+                });
+                google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
 
-        var options = {
-          title: 'My Daily Activities',
-          pieHole: 0.4,
-        };
+                function CrmLeadDrawChart(data) {
+                    var result = [
+                        ["Lead", "", {
+                            role: 'style'
+                        }]
+                    ]
+                    var colors = [{
+                            id: 0,
+                            name_en: 'none',
+                            code: 'color:#007bff'
+                        }
+                    ]
+                    $.each(data, function (index, value) {
+                        result.push([value.create_date, value.total, colors[0].code])
+                    })
+                    var data = google.visualization.arrayToDataTable(result);
+                    var view = new google.visualization.DataView(data);
+                    view.setColumns([0, 1,
+                        {
+                            calc: "stringify",
+                            sourceColumn: 1,
+                            type: "string",
+                            role: "annotation"
+                        },
+                        2
+                    ]);
+                    var options = {
+                        title: 'Organization Performance',
+                    };
 
-        var chart = new google.visualization.PieChart(document.getElementById('OrgChart'));
-        chart.draw(data, options);
-      }
-
+                    var chart = new google.visualization.ColumnChart(document.getElementById('OrgChart'))
+                    chart.draw(view, options)
+                }
+            }
+        }
+      });
+    }
+    Organization_Chart();
+    Lead_Chart();
+    Quote_Chart();
+    Contact_Chart();
     })
   </script>

@@ -74,9 +74,9 @@
                           <td class="text-center text-primary">
                             @php
                                 if($em->approve==1){
-                                    $btn='<label class="btn btn-info btn-sm">Yes</label>';
+                                    $btn='<label class="">Yes</label>';
                                 }else {
-                                    $btn='<label class="btn btn-danger btn-sm">No</label>';
+                                    $btn='<label class="">No</label>';
                                 }
                                 echo $btn;
                             @endphp

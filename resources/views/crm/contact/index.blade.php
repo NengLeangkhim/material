@@ -47,14 +47,14 @@
                               <div class="col-12">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
-                                        <tr>
-                                            <th>Contact Number</th>
-                                            <th>Name eng</th>
-                                            <th>Name Kh</th>
-                                            <th>phone</th>
-                                            <th>facebook</th>
-                                            <th>Email </th>
-                                            <th>Detail</th>
+                                        <tr style="background: #1fa8e0">
+                                            <th style="color: #FFFFFF">Contact Number</th>
+                                            <th style="color: #FFFFFF">Name eng</th>
+                                            <th style="color: #FFFFFF">Name Kh</th>
+                                            <th style="color: #FFFFFF">phone</th>
+                                            <th style="color: #FFFFFF">facebook</th>
+                                            <th style="color: #FFFFFF">Email </th>
+                                            <th style="color: #FFFFFF">Detail</th>
                                         </tr>
                                     </thead>
                                     <tbody>

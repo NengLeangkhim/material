@@ -157,9 +157,9 @@ class CrmReportApiController extends Controller
         $status = 0;
         try {
             if ((count($request->all())>0)){
-                $fromDate = $request->fromDate;
-                $toDate = $request->toDate;
-                if($request->has(['fromDate', 'toDate'])&&$this->validateDate($fromDate)&&$this->validateDate($toDate)){
+                $fromDate = $request->from_date;
+                $toDate = $request->to_date;
+                if($this->validateDate($fromDate)&&$this->validateDate($toDate)){
                     $result = $this->crmReport->getQuoteByStatus($fromDate, $toDate);
                     $message = 'successfully';
                     $status = 200;
@@ -242,6 +242,31 @@ class CrmReportApiController extends Controller
                 ,'total_quote' => $totalQuote->total_quote
                 ,'total_contact' => $totalContact->total_contact
             ];
+        } catch(QueryException $e){
+            return $this->sendError($this->queryException);
+        }
+        return $this->sendResponse($result,'');
+    }
+
+    public function getContactChartReport(Request $request){
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+        $type = $request->input('type');
+        try {
+            $result = $this->crmReport->getContactChartReport($fromDate, $toDate, $type != null ? $type : 'month');
+        } catch(QueryException $e){
+            return $this->sendError($this->queryException);
+        }
+        return $this->sendResponse($result,'');
+    }
+
+    public function getOrganizationChartReport(Request $request){
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+        $type = $request->input('type');
+        $forStatusId = $request->input('status_id');
+        try {
+            $result = $this->crmReport->getOrganizationChartReport($fromDate, $toDate, $type != null ? $type : 'month', $forStatusId != null ? $forStatusId : 6);
         } catch(QueryException $e){
             return $this->sendError($this->queryException);
         }

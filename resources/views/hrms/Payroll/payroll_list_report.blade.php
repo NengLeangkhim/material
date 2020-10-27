@@ -44,6 +44,9 @@
               
               <!-- /.card-header -->
                 <div class="card-body" id="paroll_by_month">
+                  @php
+                     
+                  @endphp
                 <table class="table table-bordered" id="tbl_payroll_list_report" style="width: 100%">
                   <thead>                  
                     <tr>
@@ -61,23 +64,39 @@
                   <tbody>
                       @php
                           $i=0;
+                          $over
                       @endphp
-                    @foreach ($data[0] as $empayroll)
+                    @foreach ($data as $empayroll)
+                        @php
+                            if(!$empayroll->overtime==null){
+                              $overtime=$empayroll->overtime;
+                            }else {
+                              $overtime=0;
+                            }
+
+                            if(!$empayroll->commission==null){
+                              $commission=$empayroll->commission;
+                            }else {
+                              $commission=0;
+                            }
+                            $bonus=0;
+
+                        @endphp
                         <tr>
                         <th>{{++$i}}</th>
-                        <td>{{$empayroll[1]}}</td>
-                        <td>{{$empayroll[2]}}</td>
-                        <td>{{$empayroll[3]}}</td>
-                        <td>{{$empayroll[4]}}</td>
-                        <td>{{$empayroll[5]}}</td>
-                        <td>{{$empayroll[6]}}</td>
+                        <td>{{$empayroll->employee}}</td>
+                        <td>{{$empayroll->role}}</td>
+                        <td>{{$empayroll->base_salary}}</td>
+                        <td>{{$overtime}}</td>
+                        <td>{{$commission}}</td>
+                        <td>{{$bonus}}</td>
                         <td class="text-center">
                           
                           @php
-                              if($empayroll[11]==1){
-                               $btn='<label class="btn btn-danger btn-sm">Yes</label>';
+                              if($empayroll->approve==1){
+                               $btn='<label class="">Yes</label>';
                               }else {
-                                $btn='<label class="btn btn-info btn-sm">Yes</label>';
+                                $btn='<label class="">No</label>';
                               }
                               echo $btn;
                           @endphp
@@ -97,7 +116,7 @@
 </div>
 <script>
   $(document).ready(function() {
-    $('#tbl_payroll').DataTable({
+    $('#tbl_payroll_list_report').DataTable({
       responsive: true
     });
 } );
