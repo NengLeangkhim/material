@@ -97,7 +97,7 @@
 </div>
 <script>
   $(document).ready(function() {
-    $('#tbl_payroll').DataTable({
+    $('#tbl_payroll_list_report').DataTable({
       responsive: true
     });
 } );
