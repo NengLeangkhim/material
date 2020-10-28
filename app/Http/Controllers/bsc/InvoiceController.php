@@ -302,4 +302,31 @@ class InvoiceController extends Controller
             exit;
         }
     }
+
+    // get reference data by id
+    public function reference_get_data_single(Request $request)
+    {
+        // try{
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+
+            $id=$request->reference_id;
+            // get reference data
+            $request = Request::create('/api/bsc_show_quote_single/'.$id, 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $reference = json_decode($res->getContent()); // convert to json object
+            dd($reference);exit;
+            // $invoice_by_ids= $invoice_by_id->data;
+            // $invoices=$invoice_by_ids->invoice;
+            // $invoice_details=$invoice_by_ids->invoice_detail;
+            // $address=$invoices->address;
+        // }catch(Exception $e){
+        //     echo $e->getMessage();
+        //     exit();
+        // }
+    }
 }

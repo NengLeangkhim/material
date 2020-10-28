@@ -98,12 +98,11 @@ class PurchaseController extends Controller
     public function show($id)
     {
         $purchase = DB::table('bsc_invoice')
-        ->select('bsc_invoice.*','bsc_account_charts.name_en as chart_account_name','bsc_account_charts.id as chart_account_id','ma_supplier.name as supplier_name','bsc_payment.amount_paid','bsc_payment.date_paid','bsc_payment.due_amount')
+        ->select('bsc_invoice.*','bsc_account_charts.name_en as chart_account_name','bsc_account_charts.id as chart_account_id','ma_supplier.name as supplier_name')
         ->leftJoin('bsc_invoice_bsc_journal_rel','bsc_invoice.id','=','bsc_invoice_bsc_journal_rel.bsc_invoice_id')
         ->leftJoin('bsc_journal','bsc_invoice_bsc_journal_rel.bsc_journal_id','=','bsc_journal.id')
         ->leftJoin('bsc_account_charts','bsc_journal.bsc_account_charts_id','=','bsc_account_charts.id')
         ->leftJoin('ma_supplier','bsc_invoice.ma_supplier_id','=','ma_supplier.id')
-        ->leftJoin('bsc_payment','bsc_invoice.id','=','bsc_payment.bsc_invoice_id')
         ->where([
             ['bsc_invoice.id','=',$id],
             ['bsc_invoice.invoice_type','=','purchase'],
@@ -123,7 +122,16 @@ class PurchaseController extends Controller
             ['bsc_invoice_detail.is_deleted','=','f']
         ])->get();
 
-        $arr_purchase = compact('purchase','purchase_detail');
+        $purchase_payments = DB::table('bsc_payment')
+        ->where([
+            ['bsc_payment.bsc_invoice_id','=',$id],
+            ['bsc_payment.outbound','=','t'],
+            ['bsc_payment.status','=','t'],
+            ['bsc_payment.is_deleted','=','f']
+        ])
+        ->get();
+
+        $arr_purchase = compact('purchase','purchase_detail','purchase_payments');
 
         return $this->sendResponse($arr_purchase, 'Purchase retrieved successfully.');
     }
