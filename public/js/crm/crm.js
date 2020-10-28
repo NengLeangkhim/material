@@ -883,7 +883,7 @@ function Crm_delete(id,route,goto,alert) {
                     ' </table>'+
                 '</div>'+
         '</div>';
-        console.log('row content added');
+        // console.log('row content added');
         $('#content-quote-product').append($row_content);
 
     }

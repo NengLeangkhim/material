@@ -12,7 +12,7 @@
         $(document).on('click','#btnAddRowQuoteItem', function(event, issetBranId){
 
             var branId = $(this).attr("data-id");
-            console.log('brd_id_get='+issetBranId);
+            // console.log('brd_id_get='+issetBranId);
 
             // check to assign new value to branId
             if(typeof(issetBranId) != 'undefined'){
@@ -52,7 +52,7 @@
                     '</td>' +
                     '<td class="td-item-quote">' +
                         '<div class="">' +
-                            '<input type="text" class="valid-numeric-float form-control itemPrice_'+i+' price'+i+'" name="price'+branId+'[]" id="'+i+'" data-id="price'+i+'"  demo="itemPrice" value="0" required placeholder="0.0$">' +
+                            '<input type="text" class="valid-numeric-float form-control itemPrice_'+i+' price'+i+'" name="price'+branId+'[]" id="'+i+'" data-id="price'+i+'"  demo="itemPrice"  required placeholder="0.0$">' +
                             '<span id="'+i+'Error" ><strong></strong></span>'+
                         '</div>'+
                         '<div class="row pt-1 form-inline">' +
@@ -190,15 +190,17 @@
                 var val_after_dis = 0;
                 var netPrice = 0;
 
-                var itemQty = $(".itemQty_"+row_id+"").val();
-                var itemPrice = $(".itemPrice_"+row_id+"").val();
+                var itemQty = $.trim($(".itemQty_"+row_id+"").val());
+                                    // var itemPrice = $.trim($(".itemPrice_"+row_id+"").val());
+                var itemPrice = $.trim($(".itemPrice_"+row_id+"").val());
                 subTotal = parseInt(itemQty) * parseInt(itemPrice);
                 $("#quote-sub-total_"+row_id+"").text(subTotal);
 
+                console.log('rowId='+ row_id +'-itemQty='+itemQty+'-itemPrice='+itemPrice+'-subTotal='+subTotal);
                 //get discount percent for unit row
                 if( $(".itemDisPercent_"+row_id+"").val()){
                     var DisPercent =  $(".itemDisPercent_"+row_id+"").val();
-                    get_val = (subTotal * parseInt(DisPercent)) / 100;
+                    get_val = (parseInt(subTotal) * parseInt(DisPercent)) / 100;
                 }
 
                  //get discount price for unit row
@@ -233,7 +235,7 @@
 
                     var stockMessage = "Stock not enough, the available item is ";
                     if(typeof(numPrdInQuote)  != 'undefined'){
-                        console.log('number prd in stock check available='+numPrdInStock);
+                        // console.log('number prd in stock check available='+numPrdInStock);
                         if( numPrdInQuote > numPrdInStock){
                             $("#prdNotEnough_"+x+"").text(stockMessage+" "+ numPrdInStock);
                             $("#prdNotEnough_"+x+"").show();
@@ -394,7 +396,7 @@
                                     $("#txtPrdId_"+btnId+"").val(prdVal);
                                     $("#product_name"+btnId+"").val(prdName);
                                     $("#txtDescription_"+btnId+"").val(prdDescription);
-                                    $(".itemPrice_"+btnId+"").val(prdPrice);
+                                    $(".itemPrice_"+btnId+"").val(parseInt(prdPrice));
                                     $("#itemType_"+btnId+"").text(itemType);
                                     $("#numItemInStock_"+btnId+"").val(numPrdInStock);
                                     // $(".itemPrice_"+btnId+"").keyup(); //call function key press to generate data
@@ -411,7 +413,7 @@
                                     $("#txtPrdId_"+(i-1)+"").val(prdVal);
                                     $("#product_name"+(i-1)+"").val(prdName);
                                     $("#txtDescription_"+(i-1)+"").val(prdDescription);
-                                    $(".itemPrice_"+(i-1)+"").val(prdPrice);
+                                    $(".itemPrice_"+(i-1)+"").val(parseInt(prdPrice));
                                     $("#itemType_"+(i-1)+"").text(itemType);
                                     $("#numItemInStock_"+(i-1)+"").val(numPrdInStock);
                                     // $(".row-quote-item").keyup();
