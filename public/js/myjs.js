@@ -218,6 +218,6 @@ function newXHR() {
 window.XMLHttpRequest = newXHR;
 
 
-window.onbeforeunload = function(e) {
-  return 'Dialog text here.';
-};
+// window.onbeforeunload = function(e) {
+//   return 'Dialog text here.';
+// };
