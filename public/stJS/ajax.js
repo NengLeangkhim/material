@@ -1,7 +1,7 @@
 //get summary table for views
 
 function getTable(route,mode) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettable',
@@ -16,7 +16,7 @@ function getTable(route,mode) {
     });
  }
  function getTableReport(route) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettables',
@@ -30,7 +30,7 @@ function getTable(route,mode) {
     });
  }
  function getTable_pagi(route,mode,page) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettable',
@@ -46,7 +46,7 @@ function getTable(route,mode) {
     });
  }
  function getTableReport_pagi(route,page) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettables',
@@ -61,7 +61,7 @@ function getTable(route,mode) {
     });
  }
  function getTable_search(route,mode,search) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettable',
@@ -77,7 +77,7 @@ function getTable(route,mode) {
     });
  }
  function getTableReport_search(route,search) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettables',
@@ -92,7 +92,7 @@ function getTable(route,mode) {
     });
  }
  function getTableReport_ft(route,f,t) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettables',
@@ -108,7 +108,7 @@ function getTable(route,mode) {
     });
  }
  function getTable_limit(route,mode,limit) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettable',
@@ -124,7 +124,7 @@ function getTable(route,mode) {
     });
  }
  function getTable_sort(route,mode,sort,o,h) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettable',
@@ -141,7 +141,7 @@ function getTable(route,mode) {
     });
  }
  function getTableReport_sort(route,sort,o,h) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettables',
@@ -661,7 +661,6 @@ function refresh_sel(target,route) {
 
 
 function go_to(route){
-    $(".content-wrapper").html(spinner());
     if(check_session()){
         return;
     }
@@ -673,12 +672,15 @@ function go_to(route){
         $(".content-wrapper").html(jnot_found());
         return;
     }
+    showloading();
+    $(".content-wrapper").html('');
     $.ajax({
         type: 'GET',
         url:route,
         success:function(data){
             $(".content-wrapper").show();
             $(".content-wrapper").html(data);
+            hideloading();
         },
         error:function(){
           $(".content-wrapper").html(jerror());

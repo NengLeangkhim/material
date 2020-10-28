@@ -6,6 +6,7 @@ function check_session(){
 	$.ajax({
         type:'GET',
         url: "check_session",
+        async:false,
         success: function(data){
             if(parseInt(data)==0){
               Swal.fire({ //get from sweetalert function
@@ -112,7 +113,7 @@ function get_pushmenu(){
 // }
 function spinner(){
   // return '';
-  return'<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+  // return'<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
 }
 function jerror(){
   // return get_maintain_page();
@@ -198,8 +199,25 @@ function newXHR() {
         }
         if(realXHR.readyState==4){
           hideloading();
+          switch(realXHR.status){
+            case 500:
+              Swal.fire({ //get from sweetalert function
+                title: 'ERROR Occur',
+                text: "500 Internal Server Error",
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+              });
+              break;
+          }
         }
     }, false);
     return realXHR;
 }
 window.XMLHttpRequest = newXHR;
+
+
+window.onbeforeunload = function(e) {
+  return 'Dialog text here.';
+};
