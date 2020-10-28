@@ -33,6 +33,7 @@ class LeadController extends Controller
         if(perms::check_perm_module('CRM_0210')){//module codes
             $branch=ModelCrmLead::CrmGetBranch($id);
             $result =json_decode($branch,true);
+            // dd($result);
             return view('crm.Lead.branch',['branch'=>$result["data"]]); 
         }else{
             return view('no_perms');
@@ -58,6 +59,7 @@ class LeadController extends Controller
             $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
             $assig_to=ModelCrmLead::CrmGetLeadAssigTo();
             $province=ModelCrmLead::CrmGetLeadProvice();
+            // dd($lead_source);
             return view('crm.Lead.addlead',['lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province]);
         }else{
             return view('no_perms');

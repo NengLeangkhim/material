@@ -673,21 +673,39 @@
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <label for="address_type">Address Type <b style="color:red">*</b></label>
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <label for="address_type">Address Type <b style="color:red">*</b></label>
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
+                                                                                    </div>
+                                                                                    <select class="form-control " name="address_type" id="address_type" >
+                                                                                        <option value="{{$updatelead[$i]['address_type']}}" {{$updatelead[$i]['latlong']=='billing' ? 'selected="selected"':''}} >Billing</option>
+                                                                                        <option value="{{$updatelead[$i]['address_type']}}" {{$updatelead[$i]['latlong']=='install' ? 'selected="selected"':''}} >Install</option>
+                                                                                        <option value="{{$updatelead[$i]['address_type']}}" {{$updatelead[$i]['latlong']=='main' ? 'selected="selected"':''}} >Main</option>
+                                                                                    </select>
+                                                                                    <span class="invalid-feedback" role="alert" id="address_typeError"> {{--span for alert--}}
+                                                                                        <strong></strong>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <label for="address_type"></label>
+                                                                                <div class="input-group">
+                                                                                </div>
+                                                                                <div class="custom-control custom-checkbox">
+                                                                                    <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="checksurvey" {{$updatelead[$i]['survey_id']!=''? 'checked':''}} >
+                                                                                    <label for="customCheckbox2"  class="custom-control-label">Survey Or Not</label>
+                                                                                </div>                                                                
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-                                                                    <select class="form-control " name="address_type" id="address_type" >
-                                                                        <option value="{{$updatelead[$i]['address_type']}}" {{$updatelead[$i]['latlong']=='billing' ? 'selected="selected"':''}} >Billing</option>
-                                                                        <option value="{{$updatelead[$i]['address_type']}}" {{$updatelead[$i]['latlong']=='install' ? 'selected="selected"':''}} >Install</option>
-                                                                        <option value="{{$updatelead[$i]['address_type']}}" {{$updatelead[$i]['latlong']=='main' ? 'selected="selected"':''}} >Main</option>
-                                                                    </select>
-                                                                    <span class="invalid-feedback" role="alert" id="address_typeError"> {{--span for alert--}}
-                                                                        <strong></strong>
-                                                                    </span>
                                                                 </div>
-                                                            </div>
+                                                            </div>        
+                                                           
                                                             <div class="col-md-6">
                                                                 <label for="village">Village <b style="color:red">*</b></label>
                                                                 <div class="input-group">

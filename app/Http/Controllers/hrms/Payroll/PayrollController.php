@@ -181,8 +181,7 @@ class PayrollController extends Controller
     // report
     // Payroll List Report
     function payroll_list_report(){
-        $em=Employee::AllEmployee();
-        $data[0]=Payroll::payroll_list_report_all($em);
+        $data=Payroll::payroll_list_report_all();
         return view('hrms/Payroll/payroll_list_report')->with('data',$data);
     }
     function payroll_list_report_search(){

@@ -301,16 +301,18 @@ class Payroll extends Model
             return null;
         }
     }
-    public static function payroll_list_report_all($em){
-        $data=array();
-        $getdata=array();
-        foreach($em as $emp){
-            $get_full_en_name = $emp->firstName." ".$emp->lastName;
-            $getdata=self::payroll_list_report($emp->id,$get_full_en_name,$emp->position,1);
-            if($getdata!=null){
-                array_push($data,$getdata);
-            }
-        }
+    public static function payroll_list_report_all(){
+        $sql="select 
+            (select first_name_en||' '||last_name_en from ma_user WHERE id =hpc.ma_user_id) as employee,
+            (select name from ma_position where id = (select ma_position_id from ma_user where id=hpc.ma_user_id)) as role,
+            (select sum(value) from hr_payroll_component where ma_user_id=hpc.ma_user_id and for_month=hpc.for_month and for_year=hpc.for_year and hr_payroll_component_type_id=5) as base_salary,
+            (select sum(value) from hr_payroll_component where ma_user_id=hpc.ma_user_id and for_month=hpc.for_month and for_year=hpc.for_year and hr_payroll_component_type_id=4) as overtime,
+            (select sum(value) from hr_payroll_component where ma_user_id=hpc.ma_user_id and for_month=hpc.for_month and for_year=hpc.for_year and hr_payroll_component_type_id=1) as commission
+            ,hpc.for_month,hpc.for_year,approve
+            from hr_payroll_component hpc
+            GROUP BY hpc.for_month,hpc.for_year,hpc.ma_user_id,approve
+            ORDER BY hpc.ma_user_id";
+        $data=DB::select($sql);
         return $data;
     }
     public static function payroll_list_report_month_year($em,$month,$year){

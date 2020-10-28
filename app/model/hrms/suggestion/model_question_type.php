@@ -33,7 +33,7 @@ class model_question_type extends Model
    }
    // ===== function model update question type ===== //
    public static function hrm_update_question_type($id,$userid,$question_type){
-      return DB::select('SELECT public.update_hr_suggestion_question_type(?,?,?)',array($id,$userid,$question_type));
+      return DB::select('SELECT public.update_hr_suggestion_question_type(?,?,?,?)',array($id,$userid,$question_type,'t'));
    }
    // ===== function model check child of question type before delete === ///
    public static function hrm_check_delete_question_type_sugg($id){

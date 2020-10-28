@@ -24,12 +24,12 @@ body{
   @-webkit-keyframes CSSright {
     0% {text-indent: 10%;}
     100% {text-indent: -100%;}
-  } 
+  }
   .title-menu-main{
       font-size: 0.95rem;
       font-family: Century Gothic,khmer OS Content !important;
   }
-  
+
 #nav_main_app{
     /* border: 2px solid;
     border-image: linear-gradient(rgb(0,143,104), rgb(250,224,66)) 1; */
@@ -230,21 +230,25 @@ body{
 
     .back-color-red {
         background-color: #d42931;
+        color: white;
         position: relative;
     }
 
     .back-color-red:hover {
         background-color: #c52931;
+        color: white;
         position: relative;
     }
 
     .back-color-red:active {
         background-color: #c52931;
+        color: white;
         position: relative;
     }
 
     .back-color-red:link {
         background-color: #c52931;
+        color: white;
         position: relative;
     }
 

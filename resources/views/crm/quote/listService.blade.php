@@ -12,8 +12,8 @@
 
                     <div class="row pb-3">
                         <div class="col-md-2 col-sm-2 col-4">
-                            <input type="button" class="btn-success getStockItem" id="{{$row_id}}"  value="Select"> 
-                        </div> 
+                            <input type="button" class="btn-success getStockItem" id="{{$row_id}}" data-id="{{ $branId }}" value="Select">
+                        </div>
                         <div class="col-md-5 col-sm-5 col-4"></div>
                         <div class="col-md-5 col-sm-5 col-4">
                             <input type="search" id="mySearchQuote" class="form-control" placeholder="Search">
@@ -24,7 +24,7 @@
                             <thead>
                                 <tr >
                                     <th>
-                                        
+
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" id="checkAllItem" class="custom-control-input checkAllItem" name="checkAllItem" >
                                             <label class="custom-control-label" for="checkAllItem"></label>
@@ -45,7 +45,7 @@
                                     @foreach ($val as $key2=>$val2)
                                             <tr>
                                                 <td class="border">
-                                                    <input type="hidden" id="showItemType_{{$row_id}}" value="Service"> 
+                                                    <input type="hidden" id="showItemType_{{$row_id}}" value="Service">
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" id="checkbox_{{$key2}}"  class="custom-control-input "  value="{{$val2->id}}" name="seleteItem">
                                                         <label class="custom-control-label" for="checkbox_{{$key2}}"></label>
@@ -78,11 +78,11 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                   
+
                                     @endforeach
 
-                                @endforeach    
-                                   
+                                @endforeach
+
 
                             </tbody>
                         </table>

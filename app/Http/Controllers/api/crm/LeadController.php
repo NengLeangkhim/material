@@ -16,12 +16,12 @@ use App\Http\Resources\api\crm\lead\GetLead;
 use App\Http\Resources\api\crm\lead\GetLeadBranch;
 use App\Http\Resources\api\crm\lead\GetHonorifics;
 use App\Http\Resources\api\crm\lead\LeadCurrentSpeedIsp;
-
-
+use App\Http\Resources\api\crm\lead\GetSurvey;
+use Illuminate\Database\QueryException;
 
 class LeadController extends Controller
 {
-    // get lead source 
+    // get lead source
     public function getLeadSource(){
         $contact = Lead::leadSource();
         return SourceResource::Collection($contact);
@@ -33,12 +33,12 @@ class LeadController extends Controller
             $create_by=$request->input('create_by');
             return Lead::addleadsource($name_en,$name_kh,$create_by);
     }
-    // get lead industry 
+    // get lead industry
     public function getLeadIndustry(){
         $contact = Lead::leadIndustry();
         return IndustryResource::Collection($contact);
     }
-    // insert lead industry 
+    // insert lead industry
     public function insertLeadIndustry (Request $request){
         $name_en=$request->input('name_en');
         $name_kh=$request->input('name_kh');
@@ -50,7 +50,29 @@ class LeadController extends Controller
         $contact = Lead::leadStatus();
         return StatusResource::Collection($contact);
     }
-    // get lead assigeng to 
+    public function saveLeadStatus(Request $request){
+        $id = $request->input('id');
+        $userId = $request->input('user_id');
+        $nameEn = $request->input('name_en');
+        $nameKh = $request->input('name_kh');
+        $status = $request->input('status');
+        $sequence = $request->input('sequence');
+        try {
+            $result = Lead::saveLeadStatus($id, $userId, $nameEn, $nameKh, $status, $sequence);
+        } catch(QueryException $e){
+            return $this->sendError($e);
+        }
+        return $this->sendResponse([$result], '');
+    }
+    public function getAllLeadStatus(){
+        try{
+            $result = Lead::getAllLeadStatus();
+        } catch(QueryException $e){
+            return $this->sendError($e);
+        }
+        return $this->sendResponse($result, '');
+    }
+    // get lead assigeng to
     public function getLeadAssig(){
         $contact = Lead::leadassig();
         // return $contact;
@@ -58,7 +80,7 @@ class LeadController extends Controller
     }
     // get honorifics
     public function getHonorifics(){
-        $honorifics = Lead::gethonorifics(); 
+        $honorifics = Lead::gethonorifics();
         return GetHonorifics::Collection($honorifics);
     }
     // get lead currentsppedisp
@@ -76,22 +98,23 @@ class LeadController extends Controller
         public function getCommune($id){$commune=addressModel::GetLeadCommune($id);return Address::Collection($commune);}
         // get village
         public function getVillage($id){$village=addressModel::GetLeadVillage($id);return Address::Collection($village);}
-    // get service 
+    // get service
     public function getLeadBranch(){
         $companybranch=Lead::leadBranch();
         return LeadBranch::Collection($companybranch);
     }
-    //  insert lead 
+    //  insert lead
     public  static function  insertLead(Request $request){
-        //Lead 
+        //Lead
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         $userid = $_SESSION['userid'];
-        
+
         $lead_id=$request->input('lead_id')!=""? $request->input('lead_id'):"null";
         $con_id=$request->input('contact_id')!=""? $request->input('contact_id'):"null";
         $prioroty=$request->input('prioroty')!=""? $request->input('prioroty'):"urgent";
+        $checksurvey=$request->input('checksurvey')!=""? $request->input('checksurvey'):"null";;
         $company_en=$request->input('company_en');
         $company_kh=$request->input('company_kh');
         $primary_email=$request->input('primary_email');
@@ -131,23 +154,24 @@ class LeadController extends Controller
         $addresscode=$request->input('village');
 
         // return $lead_id;
-        // var_dump($lead_id);
+        // var_dump($checksurvey);
         return  Lead::insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
         $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
         $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-        $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty);
+        $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
     }
-    // update lead 
+    // update lead
     public static function updatebranch(Request $request){
 
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
             $userid = $_SESSION['userid'];
-            
+
             $lead_id=$request->input('lead_id');
             $con_id=$request->input('contact_id');
             $prioroty=$request->input('prioroty');
+            $checksurvey=$request->input('checksurvey')!=""? $request->input('checksurvey'):"null";;
             $lead_address_id=$request->input('address_id');
             $lead_con_bran_id=$request->input('lead_con_bran_id');
             $lead_detail_id=$request->input('lead_detail_id');
@@ -182,7 +206,7 @@ class LeadController extends Controller
             $phone=$request->input('phone');
             $position=$request->input('position');
             $national_id=$request->input('national_id');
-    
+
             //address detail
             $home_en=$request->input('home_en');
             $home_kh=$request->input('home_kh');
@@ -191,15 +215,15 @@ class LeadController extends Controller
             $latlong=$request->input('latlong');
             $address_type=$request->input('address_type');
             $addresscode=$request->input('village');
-    
-          
+
+
             // var_dump($lead_item_id);
             return  Lead::updatebranch($lead_address_id,$lead_detail_id,$lead_item_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
             $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,
             $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-            $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty);
+            $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
     }
-    
+
     // get all branch
     public function getbranch(){
         $branch = Lead::getbranch();
@@ -221,7 +245,7 @@ class LeadController extends Controller
         $branch_id = Lead::getbranch_lead($id);
         return GetLeadBranch::Collection($branch_id);
     }
-    //  edit lead 
+    //  edit lead
     public function editLead(){
         $lead_id=$request->input('lead_id');
         $con_id=$request->input('contact_id');
@@ -266,4 +290,84 @@ class LeadController extends Controller
         $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
         $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment);
     }
+
+    // convert branch
+    // public function convertbranch($id){
+    //     if (session_status() == PHP_SESSION_NONE) {
+    //         session_start();
+    //     }
+    //     $userid = $_SESSION['userid'];
+    //     $convert=Lead::convertbranch($id,$userid);
+    //     // var_dump($id,$userid);
+
+    // }
+    public function convertbranch(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userid = $_SESSION['userid'];
+        // $id=$request->input('id');
+        // $detail_id=$request->input('detailid');
+        // $comment=$request->input('com');
+        $id=$request->input('branch_id');
+        $detail_id=$request->input('lead_detail_id');
+        $comment=$request->input('comment');
+        $convert=Lead::convertbranch($id,$userid,$detail_id,$comment); //return to model
+
+
+    }
+    // get survey
+    public function getsurvey(){
+        $survey= Lead::getsurvey();
+        return GetSurvey::Collection($survey);
+    }
+    //get svrvey by branch id
+    public function getsurveybyid($id){
+        $survey_id=Lead::getsurveybyid($id);
+        return GetSurvey::Collection($survey_id);
+    }
+    // insert survey result
+    public function insertsurveyresult(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userid = $_SESSION['userid'];
+        $survey_id =$request->input('survey_id');
+        // $userid =$request->input('user_create');
+        $possible =$request->input('possible')!='1'? 'f':'t';
+        $comment =$request->input('commentsurvey');
+        $branch_id =$request->input('branch_id');
+        // var_dump($userid,$survey_id,$possible,$comment,$branch_id);
+        return Lead::insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id);
+    }
+    // get schdule type
+    public function getschduletype(){
+        $schedule_type= Lead::getschduletype();
+        return LeadCurrentSpeedIsp::Collection($schedule_type);
+    }
+    // insert schedule type
+    public function insertschduletype(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userid = $_SESSION['userid'];
+        // $userid =$request->input('user_create');
+        $name_kh=$request->input('name_kh');
+        $name_en=$request->input('name_en');
+        return Lead::insertschduletype($userid,$name_en,$name_kh); //return to model
+    }
+    // update schedule type
+    public function updateschduletype(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userid = $_SESSION['userid'];
+        // $userid =$request->input('user_create');
+        $schedule_id =$request->input('schedule_id');
+        $name_kh=$request->input('name_kh');
+        $name_en=$request->input('name_en');
+        $status=$request->input('status');
+        return Lead::updateschduletype($schedule_id,$userid,$name_en,$name_kh,$status); //return to model
+    }
+
 }
