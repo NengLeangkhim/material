@@ -27,7 +27,7 @@
                     <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="CrmSettingView('/crm/setting/leadindustry','Lead_industry_Tbl')" data-toggle="tab">Lead Industry</a></li>
                     <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="CrmSettingView('/crm/setting/leadsource','Lead_Source_Tbl')" data-toggle="tab">Lead Source</a></li>
                     <li class="nav-item"><a class="nav-link" href="#javascript:void(0);" onclick="CrmSettingView('/crm/setting/leadisp','Lead_ISP_Tbl')" data-toggle="tab">Current Lead Isp</a></li>
-                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-toggle="tab">Schedule Type</a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="CrmSettingView('/crm/setting/scheduletype','Schedule_Type_Tbl')" data-toggle="tab">Schedule Type</a></li>
                     <li class="nav-item"><a class="nav-link" href="javascript:void(0);" data-toggle="tab">Quote Status</a></li>
                   </ul>
                 </div>
