@@ -42,15 +42,16 @@ class QuoteController extends Controller
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $listQuoteDetail = json_decode($res->getContent());
+
             if($listQuoteDetail != ''){
-                $address = ModelCrmQuote::getAddress($listQuoteDetail->data->address->gazetteer_code); //get address detail by code
+                // $address = ModelCrmQuote::getAddress($listQuoteDetail->data->address->gazetteer_code); //get address detail by code
                 foreach($listQuoteDetail->data->crm_stock as $k=>$val){
                     $product[] = ModelCrmQuote::getProduct($val->stock_product_id);// get info product by id
                 }
             }else{
                 echo 'emtry';
             }
-            // dd($product);
+
             return view('crm/quote/qouteShowDetail', compact('listQuoteDetail','address','product'));
 
 
@@ -205,23 +206,25 @@ class QuoteController extends Controller
                 session_start();
             }
             $userid = $_SESSION['userid'];
-            // echo $userid; exit;
-            // $request->create_by = $userid;
+
+            $create_by = $userid;
+            // echo $create_by; exit;
+
+
             $validator = \Validator::make($request->all(),[
 
                     'subject' =>  ['required'],
-                    'organiz_name' =>  [ 'required'],
-                    'getLeadBranch' =>  ['required'],
+                    'lead_name' =>  [ 'required'],
                     'crm_quote_status_type_id' =>  ['required'],
                     'due_date' =>  ['required'],
                     'assign_toName' =>  ['required'],
                     'comment' =>  ['required'],
-                    'crm_lead_address_id' =>  ['required'],
                     'product_name.*' =>  ['required'],
                     'qty.*' =>  ['required'],
                     'price.*' =>  ['required'],
                     'discount.*' =>  ['required'],
                     'discount_type.*' =>  ['required'],
+
 
                 ],
                 [
@@ -236,20 +239,19 @@ class QuoteController extends Controller
                     'errors' => $validator->getMessageBag()->toArray()
                 ));
             }else{
-                $create_by = $userid;
-                $request->merge([
-                    'create_by' => $create_by,
-                ]);
 
-                $token = $_SESSION['token'];
+
+                $request->request->add(['create_by' => $create_by]);
+
+                // $token = $_SESSION['token'];
+                // $request = Request::create('/api/quote', 'POST');
+                // $request->headers->set('Accept', 'application/json');
+                // $request->headers->set('Authorization', 'Bearer '.$token);
+                // $res = app()->handle($request);
+                // $response = json_decode($res->getContent());
+
                 $request = Request::create('/api/quote', 'POST');
-                $request->headers->set('Accept', 'application/json');
-                $request->headers->set('Authorization', 'Bearer '.$token);
-                $res = app()->handle($request);
-                $response = json_decode($res->getContent());
-
-                // $request = Request::create('/api/quote', 'POST' );
-                // $response = json_decode(Route::dispatch($request)->getContent());
+                $response = json_decode(Route::dispatch($request)->getContent());
 
                 if($response->insert=='success'){
                     return response()->json(['success'=>$response]);
@@ -272,6 +274,18 @@ class QuoteController extends Controller
         }
     }
 
+
+    public function listLeadBranch(Request $request)
+    {
+        if(isset($_GET['id_'])){
+            echo $_GET['id_'];
+            $request = Request::create('/api/quotebranch/'.$_GET['id_'].'', 'Get');
+            $data = json_decode(Route::dispatch($request)->getContent());
+
+            // dd($data);
+            // return view('crm/quote/leadBranch', compact(''));
+        }
+    }
 
 
 

@@ -35,7 +35,7 @@
                                                 <tr style="background: #1fa8e0">
                                                     <th style="color: #FFFFFF">Quote Number</th>
                                                     <th style="color: #FFFFFF">Subject</th>
-                                                    <th style="color: #FFFFFF">Organization Name</th>
+                                                    <th style="color: #FFFFFF">Lead Name</th>
                                                     <th style="color: #FFFFFF">Contact Name</th>
                                                     <th style="color: #FFFFFF">Total</th>
                                                     <th style="color: #FFFFFF">Quote Stage</th>
@@ -91,7 +91,7 @@
                                                                             </a>
                                                                         </div>
                                                                         <div class="col-md-4">
-                                                                            <a href="#" class="btn btn-success btn-sm" onclick="goto_Action('/quote/editQuote', '{{ $val2->id }}')">
+                                                                            <a href="#" class="btn btn-success btn-sm" onclick="goto_Action('/quote/leadBranch', '{{ $val2->id }}')">
                                                                                 Edit
                                                                             </a>
                                                                         </div>

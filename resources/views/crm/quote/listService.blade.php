@@ -62,8 +62,9 @@
                                                     </div>
                                                 </td> --}}
                                                 <td class="border">
-                                                    <div class="itemPrice_{{$val2->id}}">
+                                                    <div >
                                                         {{$val2->product_price}}
+                                                        <input type="hidden" class="itemPrice_{{$val2->id}}" value="{{$val2->product_price}}" readonly>
                                                     </div>
                                                 </td>
 

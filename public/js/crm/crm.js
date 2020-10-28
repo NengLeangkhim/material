@@ -970,7 +970,7 @@ function Crm_delete(id,route,goto,alert) {
                     ' </table>'+
                 '</div>'+
         '</div>';
-        console.log('row content added');
+        // console.log('row content added');
         $('#content-quote-product').append($row_content);
 
     }
@@ -1107,9 +1107,10 @@ function Crm_delete(id,route,goto,alert) {
 
               success:function(data)
               {
+
                   if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-                    sweetalert('success','Data has been saved !');
-                    // go_to(goto);// refresh content
+                    // sweetalert('success','Data has been saved !');
+                    go_to('/quote/detail');// refresh content
 
                     // use go ot view quote detail
                   }else{
@@ -1122,7 +1123,7 @@ function Crm_delete(id,route,goto,alert) {
                         $("#" + key).addClass("is-invalid"); //give read border to input field
                         $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
                         $("#" + key + "Error").addClass("invalid-feedback");
-                        console.log(key);
+                        console.log('key='+key+'--value='+value);
 
 
                         // check if validate give empty product field
@@ -1139,31 +1140,31 @@ function Crm_delete(id,route,goto,alert) {
 
 
                         // check if validate give empty qty field
-                        if(key.slice(0, -2) == 'qty'){
-                            $.each($("input[name='qty[]'"),function(index,value){
-                                if($(this).val().length <= 0 ){
-                                    $(this).addClass("is-invalid");
-                                }
-                            });
-                        }
+                        // if(key.slice(0, -2) == 'qty'){
+                        //     $.each($("input[name='qty[]'"),function(index,value){
+                        //         if($(this).val().length <= 0 ){
+                        //             $(this).addClass("is-invalid");
+                        //         }
+                        //     });
+                        // }
 
-                        // check if validate give empty price field
-                        if(key.slice(0, -2) == 'price'){
-                          $.each($("input[name='price[]'"),function(index,value){
-                              if($(this).val().length <= 0 ){
-                                  $(this).addClass("is-invalid");
-                              }
-                          });
-                        }
+                        // // check if validate give empty price field
+                        // if(key.slice(0, -2) == 'price'){
+                        //   $.each($("input[name='price[]'"),function(index,value){
+                        //       if($(this).val().length <= 0 ){
+                        //           $(this).addClass("is-invalid");
+                        //       }
+                        //   });
+                        // }
 
-                        // check if validate give empty discount field
-                        if(key.slice(0, -2) == 'discount'){
-                          $.each($("input[name='discount[]'"),function(index,value){
-                              if($(this).val().length <= 0 ){
-                                  $(this).addClass("is-invalid");
-                              }
-                          });
-                        }
+                        // // check if validate give empty discount field
+                        // if(key.slice(0, -2) == 'discount'){
+                        //   $.each($("input[name='discount[]'"),function(index,value){
+                        //       if($(this).val().length <= 0 ){
+                        //           $(this).addClass("is-invalid");
+                        //       }
+                        //   });
+                        // }
 
 
 
