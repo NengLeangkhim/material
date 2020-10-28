@@ -1,30 +1,39 @@
- 
- 
- 
- 
+
+
+
+
     //function to add row table to add quote item
     $(document).ready(function(){
 
-        var i = 0; //use for count all row was created 
-        var j = 0; //use for count current row remainder 
+        var i = 0; //use for count all row was created
+        var j = 0; //use for count current row remainder
         var getSumTotal = 0;
-        $("#btnAddRowQuoteItem").click(function(){
+
+        $(document).on('click','#btnAddRowQuoteItem', function(event, issetBranId){
+
+            var branId = $(this).attr("data-id");
+            console.log('brd_id_get='+issetBranId);
+
+            // check to assign new value to branId
+            if(typeof(issetBranId) != 'undefined'){
+                branId = issetBranId;
+            }
             var tblRow =
                 '<tr id="'+i+'" class="tr-quote-row row-quote-item" data-id="row_'+i+'">'  +
                     '<td class="td-item-quote-name">' +
                         '<div class=" form-group">' +
                             '<div class="row form-inline2">' +
                                 '<div class="col-md-8 col-sm-8 col-8">' +
-                                    '<input type="text" class="form-control txtPrdName_'+i+'"   name="product_name[]" id="product_name'+i+'"  value="" required placeholder="Product Name" readonly>'+ 
-                                    '<input type="hidden" name="product[]" id="txtPrdId_'+i+'"  readonly>'+ 
+                                    '<input type="text" class="form-control txtPrdName_'+i+'"   name="product_name[]" id="product_name'+i+'"  value="" required placeholder="Product Name" readonly>'+
+                                    '<input type="hidden" name="product'+branId+'[]" id="txtPrdId_'+i+'"  readonly>'+
                                     '<span id="product_name'+i+'Error" ><strong></strong></span>'+
                                 '</div>' +
                                 '<div class="col-md-4 col-sm-4 col-4">' +
                                     '<div class="row-12">'+
-                                        '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemProduct_'+i+'"   name="addItemProduct"  id="'+i+'" > <span>+ Add Product </span></button>'+
+                                        '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemProduct_'+i+'"   name="addItemProduct"  id="'+i+'"  data-id="'+branId+'" > <span>+ Add Product </span></button>'+
                                     '</div>' +
                                     '<div class="row-12 pt-1">'+
-                                        '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemService_'+i+'"  name="addItemService"  id="'+i+'"  > <span>+ Add Service </span></button>'+
+                                        '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemService_'+i+'"  name="addItemService"  id="'+i+'" data-id="'+branId+'" > <span>+ Add Service </span></button>'+
                                     '</div>'+
                                 '</div>' +
                             '</div>' +
@@ -35,14 +44,15 @@
                         '<div id="itemType_'+i+'" class="btn-list-item text-center">----</div>'+
                     '</td>'+
                     '<td style="width: 120px;">' +
-                        '<input type="text"  class="valid-numeric form-control itemQty_'+i+' qty'+i+' " name="qty[]" id="'+i+'" data-id="qty'+i+'" demo="itemQty"  value="1"  required placeholder="Qty">' +
+                        '<input type="text"  class="valid-numeric form-control itemQty_'+i+' qty'+i+' " name="qty'+branId+'[]" id="'+i+'" data-id="qty'+i+'" demo="itemQty"  value="1"  required placeholder="Qty">' +
+                        '<input type="hidden" id="numItemInStock_'+i+'" readonly> '+
                         '<p id="prdNotEnough_'+i+'" class="font-size-14" style="color:red;"></p>'+
                         '<span id="'+i+'Error" ><strong></strong></span>'+
 
                     '</td>' +
                     '<td class="td-item-quote">' +
                         '<div class="">' +
-                            '<input type="text" class="valid-numeric-float form-control itemPrice_'+i+' price'+i+'" name="price[]" id="'+i+'" data-id="price'+i+'"  demo="itemPrice" value="0" required placeholder="0.0$">' +
+                            '<input type="text" class="valid-numeric-float form-control itemPrice_'+i+' price'+i+'" name="price'+branId+'[]" id="'+i+'" data-id="price'+i+'"  demo="itemPrice" value="0" required placeholder="0.0$">' +
                             '<span id="'+i+'Error" ><strong></strong></span>'+
                         '</div>'+
                         '<div class="row pt-1 form-inline">' +
@@ -54,8 +64,8 @@
                             '</div>'+
 
                             '<div class="col-md-6 col-sm-6 col-6 field-input-discount" data-id="'+i+'" id="fieldItemDiscount_'+i+'">' +
-                                '<input type="text"  class="itemDisPercent_'+i+' txtbox-quote valid-numeric-float" name="discount[]" id="discount'+i+'" demo="itemDisPercent" data-id="'+i+'" value="0" placeholder="0.0%">' +
-                                '<input type="hidden" id="discount_type'+i+'" value="percent" name="discount_type[]"> '+
+                                '<input type="text"  class="itemDisPercent_'+i+' txtbox-quote valid-numeric-float" name="discount'+branId+'[]" id="discount'+i+'" demo="itemDisPercent" data-id="'+i+'" value="0" placeholder="0.0%">' +
+                                '<input type="hidden" id="discount_type'+i+'" value="percent" name="discount_type'+branId+'[]"> '+
                                 '<span id="discountError" ><strong></strong></span>'+
                             '</div>'+
 
@@ -79,7 +89,7 @@
                 '</tr>';
                 i++;
                 j++;
-            $('#add_row_tablequoteItem').append(tblRow);
+            $('#add_row_tablequoteItem'+branId+'').append(tblRow);
         });
 
 
@@ -97,7 +107,7 @@
                     var getNetPrice = parseInt(value);
                     sumTotal += getNetPrice;
                     console.log(sumTotal);
-                }   
+                }
             }
             getSumTotal = sumTotal;
             $("#sumTotal").text(sumTotal);
@@ -108,7 +118,7 @@
 
         //function get textbox as percent or price for select item discount type
         $(document).on('change keyup','.select-itemDiscount', function() {
-            
+
             var row_id = $(this).attr("id");
             var textBoxType = "";
             var select_val = $( "select[name='select-itemDiscount_"+row_id+"']" ).val();
@@ -133,7 +143,6 @@
 
             }
         });
-        
 
 
 
@@ -142,13 +151,14 @@
 
 
 
-        //function keypress area (use to prvent use select string to numeric field) 
+
+        //function keypress area (use to prevent use select string to numeric field)
         $(document).keypress(function(e){
 
                 //function to get input only numeric number
                 $(".valid-numeric").keypress(function(e){
                     var keyCode = e.which;
-                    if ( (keyCode != 8 || keyCode ==32 ) && (keyCode < 48 || keyCode > 57)) { 
+                    if ( (keyCode != 8 || keyCode ==32 ) && (keyCode < 48 || keyCode > 57)) {
                         return false;
                     }
                 });
@@ -156,7 +166,7 @@
                 //function to get input numberic number & float
                 $(".valid-numeric-float").keypress(function(e){
                     var keyCode = e.which;
-                    if ((e.which != 46 || $(this).val().indexOf('.') != -1) && (keyCode < 48 || keyCode > 57)) { 
+                    if ((e.which != 46 || $(this).val().indexOf('.') != -1) && (keyCode < 48 || keyCode > 57)) {
                         return false;
                     }
                 });
@@ -173,32 +183,32 @@
             var sumTotal = 0;
             var granTotal = 0;
             $(".row-quote-item").keyup(function(e){
-
+                // console.log('this select on row tr product');
                 var row_id = $(this).attr("id");
                 var subTotal = 0;
                 var get_val = 0;
                 var val_after_dis = 0;
                 var netPrice = 0;
-                
+
                 var itemQty = $(".itemQty_"+row_id+"").val();
                 var itemPrice = $(".itemPrice_"+row_id+"").val();
-                subTotal = itemQty * itemPrice;
+                subTotal = parseInt(itemQty) * parseInt(itemPrice);
                 $("#quote-sub-total_"+row_id+"").text(subTotal);
-                
-                //get discount percent for unit row 
+
+                //get discount percent for unit row
                 if( $(".itemDisPercent_"+row_id+"").val()){
                     var DisPercent =  $(".itemDisPercent_"+row_id+"").val();
-                    get_val = (subTotal * DisPercent) / 100;
+                    get_val = (subTotal * parseInt(DisPercent)) / 100;
                 }
 
-                 //get discount price for unit row 
+                 //get discount price for unit row
                 if($(".itemDisPrice_"+row_id+"").val()){
                     var DisPrice =  $(".itemDisPrice_"+row_id+"").val();
-                    get_val =  DisPrice;
+                    get_val =  parseInt(DisPrice);
                 }
 
-    
-                
+
+
                 val_after_dis = subTotal - get_val;
                 netPrice = val_after_dis;
 
@@ -211,19 +221,19 @@
                 for(var x=0; x<=i; x++){
 
                     var value = $("#quote-netPrice_"+x+"").text();
-                    if(value != ""){
+                    if(value != ''){
                         var getNetPrice = parseInt(value);
                         sumTotal += getNetPrice;
-                    }   
+                    }
 
                     //Compare item in stock with item entry in quotes
                     var numPrdInQuote = parseInt($(".itemQty_"+x+"").val());
                     var numPrdInStock = parseInt($("#numItemInStock_"+x+"").val());
                     // console.log(numPrdInStock);
-                
+
                     var stockMessage = "Stock not enough, the available item is ";
-                    if(typeof(numPrdInQuote)  !== "undefined"){
-                        console.log(numPrdInQuote);
+                    if(typeof(numPrdInQuote)  != 'undefined'){
+                        console.log('number prd in stock check available='+numPrdInStock);
                         if( numPrdInQuote > numPrdInStock){
                             $("#prdNotEnough_"+x+"").text(stockMessage+" "+ numPrdInStock);
                             $("#prdNotEnough_"+x+"").show();
@@ -231,8 +241,6 @@
                             $("#prdNotEnough_"+x+"").hide();
                         }
                     }
-                        
-
 
                 }
 
@@ -240,7 +248,7 @@
                 getSumTotal = sumTotal;
                 granTotal = getSumTotal;
                 $("#grandTotal").text(granTotal);
-                
+
 
             });
 
@@ -254,11 +262,11 @@
 
 
 
-        //function onclick to show product item to add quote 
+        //function onclick to show product item to add quote
         var clicktime = 0;
         $(document).on('click','[name=addItemProduct]', function() {
 
-                        setTimeout(function(){ 
+                        setTimeout(function(){
                             clicktime = clicktime * 0;
                         }, 4000);
 
@@ -266,22 +274,26 @@
                             return false;
                         }
 
+                        var branId_ = $(this).attr("data-id");
+                        var branId = "branId="+branId_;
+                        // console.log('add prd branId='+branId);
+
                         var row_id = $(this).attr("id");
                         var id = "id="+row_id;
-                        
+
                         var url= '/quote/add/listProduct';
                         var x=new XMLHttpRequest();
                         x.onreadystatechange=function(){
-                            if(this.readyState==4 && this.status==200){    
+                            if(this.readyState==4 && this.status==200){
                                 document.getElementById('modal-list-quote').innerHTML=this.responseText;
                                 $('#listQuoteItem').modal('show');
-                    
+
                                 let table = $('#tblItemProduct').DataTable({
                                     sDom: 'lrtip',
                                     targets:'no-sort',
                                     bSort: false,
                                     select: true,
-                                });   
+                                });
                                 $(document).keyup(function(){
                                     $('#mySearchQuote').on( 'keyup', function () {
                                         table.search($(this).val()).draw();
@@ -289,18 +301,18 @@
                                 });
                             }
                         }
-                        x.open("GET", url + "?" + id , true);
+                        x.open("GET", url + "?" + id + "&" + branId, true);
                         x.send();
                         clicktime +=1;
         });
-    
 
 
 
-        //function for user click add item service 
+
+        //function for user click add item service
         $(document).on('click', '[name=addItemService]', function() {
 
-            setTimeout(function(){ 
+            setTimeout(function(){
                 clicktime = clicktime * 0;
             }, 4000);
 
@@ -308,23 +320,26 @@
                 return false;
             }
 
+            var branId_ = $(this).attr("data-id");
+            var branId = "branId="+branId_;
+
             var row_id = $(this).attr("id");
             var id = "id="+row_id;
-            
+
             var url= '/quote/add/listService';
             var x=new XMLHttpRequest();
             x.onreadystatechange=function(){
-                if(this.readyState==4 && this.status==200){    
+                if(this.readyState==4 && this.status==200){
 
                     document.getElementById('modal-list-quote').innerHTML=this.responseText;
                     $('#listQuoteItem').modal('show');
-        
+
                     let table = $('#tblItemService').DataTable({
                         sDom: 'lrtip',
                         targets:'no-sort',
                         bSort: false,
                         select: true,
-                    });   
+                    });
 
                     $(document).keyup(function(){
                         $('#mySearchQuote').on( 'keyup', function () {
@@ -333,7 +348,7 @@
                     });
                 }
             }
-            x.open("GET", url + "?" + id , true);
+            x.open("GET", url + "?" + id + "&" + branId, true);
             x.send();
             clicktime +=1;
 
@@ -345,11 +360,13 @@
 
         //function click to get item to add quote
         $(document).on('click keyup','.getStockItem',function(){
-                
+
+                    var branId = $(this).attr("data-id");
                     var btnId = $(this).attr("id");
                     var selectval = new Array;
                     var num = 0;
-                    
+
+
                     //function for check seletion of checkbox
                     $("input[name=seleteItem]:checked").each(function(i){
                             selectval[i]  = $(this).val();
@@ -368,7 +385,7 @@
 
                             prdInStock = parseInt(prdAviableStock);
                             var prdDescription = $.trim($(".itemDescription_"+prdVal+"").text());
-                            
+
                                 stockMessage = "Stock not enough, the available item is ";
                                 numPrdInStock = prdInStock;
 
@@ -380,7 +397,8 @@
                                     $(".itemPrice_"+btnId+"").val(prdPrice);
                                     $("#itemType_"+btnId+"").text(itemType);
                                     $("#numItemInStock_"+btnId+"").val(numPrdInStock);
-                                    $(".itemPrice_"+btnId+"").keyup(); //call function key press to generate data
+                                    // $(".itemPrice_"+btnId+"").keyup(); //call function key press to generate data
+                                    // $(".row-quote-item").keyup();
                                     var numPrdInQuote = $(".itemQty_"+btnId+"").val();
                                     if(numPrdInQuote > numPrdInStock){
                                         $("#prdNotEnough_"+btnId+"").text(stockMessage+" "+prdInStock);
@@ -388,29 +406,33 @@
                                 }else{
 
                                     //show item in row quote item with multi select
-                                    $("#btnAddRowQuoteItem").click();
+                                    $( "#btnAddRowQuoteItem" ).trigger( "click", branId);
+
                                     $("#txtPrdId_"+(i-1)+"").val(prdVal);
                                     $("#product_name"+(i-1)+"").val(prdName);
                                     $("#txtDescription_"+(i-1)+"").val(prdDescription);
                                     $(".itemPrice_"+(i-1)+"").val(prdPrice);
                                     $("#itemType_"+(i-1)+"").text(itemType);
                                     $("#numItemInStock_"+(i-1)+"").val(numPrdInStock);
-                                    $(".itemPrice_"+(i-1)+"").keyup(); //call function key press to generate data
+                                    // $(".row-quote-item").keyup();
+                                    // $(".itemPrice_"+(i-1)+"").keyup(); //call function key press to generate data
                                     var numPrdInQuote = $(".itemQty_"+(i-1)+"").val();
                                     if(numPrdInQuote > numPrdInStock){
                                         $("#prdNotEnough_"+(i-1)+"").text(stockMessage+" "+prdInStock);
                                     }
                                 }
                                 num += 1;
+                                $(".row-quote-item").keyup();
+
                         });
-                        
+
                     }else{
                         console.log("No items chosen!");
                     }
-                    $(".row-quote-item").keyup();
+                    // $(".row-quote-item").keyup();
                     //hide modal when click button select item
                     $('#listQuoteItem').modal('hide');
-        
+
         });
 
 
@@ -419,7 +441,6 @@
         $(document).on('click','.checkAllItem',function(){
                     $('input:checkbox').not(this).prop('checked', this.checked);
         });
-      
 
 
 
@@ -428,7 +449,8 @@
 
 
 
-        
+
+
 
 
 
@@ -448,7 +470,7 @@
                     $('#allDiscount').append(textBoxType);
                 }
                 generateGrandTotal();
-                
+
 
         });
 
@@ -462,7 +484,7 @@
             if($("#itemDiscountPercent").val()){
                 var allDisPercent2 = parseInt($("#itemDiscountPercent").val());
                 totalAfterDis2 =  (sumTotal2  * allDisPercent2) / 100;
-                
+
             }
             if($("#itemDiscountPrice").val() ){
                 var allDisPrice2 = parseInt($("#itemDiscountPrice").val());
@@ -471,15 +493,15 @@
 
             $("#totalDiscount").text(totalAfterDis2);
             grandTotal2 = sumTotal2 - totalAfterDis2;
-            
+
             $("#grandTotal").text(grandTotal2);
 
         }
 
 
-      
 
-        
+
+
 
 
 
@@ -492,7 +514,6 @@
 
     });
 
- 
 
 
-  
+

@@ -64,7 +64,7 @@ Route::get('/survey','crm\CrmSurveyController@index');
 
 
 //get detail survey
-Route::get('/detailsurvey/{id}','crm\CrmSurveyController@detailsurvey'); 
+Route::get('/detailsurvey/{id}','crm\CrmSurveyController@detailsurvey');
 //insert survey
 Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
 
@@ -537,6 +537,13 @@ Route::get('hrm_question_answer_sugg/modal/result','hrms\suggestion\QuestionAnsw
 
 // Route Update Status Checkbox //
 Route::get('hrm_question_answer_sugg/checkbox','hrms\suggestion\QuestionAnswerController@update_status_question_sugg');
+
+// Get Staff User Suggestion by HR Department or Top Management
+Route::get('/hrm_user_suggested', 'hrms\suggestion\QuestionAnswerController@getUserSuggested');
+
+// Get Staff Submitted the Question Answer as Report
+Route::get('/hrm_employee_suggestion_report', 'hrms\suggestion\QuestionAnswerController@getSuggestionSurveyReport');
+
 //////========END QUESTION & Answer==========/////
 
 //////======== SUGGESTION BOX =============///////
