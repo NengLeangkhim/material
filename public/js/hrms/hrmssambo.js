@@ -792,7 +792,14 @@ function sumbit_policy(){
         console.log(data);
         $('#hrm_view_policy_modal').modal('hide');
         sweetalert('success','Thanks for reading policy !!');
-        setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content
+        var s=$("#nav_bar_sub_r").find("a")[1];
+        s=$(s).attr("onclick");
+        s=s.split("'")[1];
+        setTimeout(function(){
+            if(s.length>0){
+            go_to(s);
+            }
+        }, 300);// Set timeout for refresh content
     }else{
       // $(".print-error-msg").find("ul").html('');
 
