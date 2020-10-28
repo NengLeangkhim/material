@@ -61,6 +61,30 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
+
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/bsc/purchase.php'));
+
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/bsc/invoice.php'));
+
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/bsc/chart_account.php'));
+
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/bsc/customer_management.php'));
+
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/bsc/report_balancesheet.php'));
+
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/bsc/report_income_statement.php'));
     }
 
     /**
@@ -75,7 +99,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('api')
             ->middleware('api')
             ->namespace($this->namespace)
-            ->group(base_path('routes/api.php'));
+            ->group(base_path('routes/api/api.php'));
 
 
         /**
@@ -86,46 +110,71 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('api')
         ->middleware('api')
         ->namespace($this->namespace)
-        ->group(base_path('routes/crm_api/organize.php'));
+        ->group(base_path('routes/api/crm_api/organize.php'));
 
         Route::prefix('api')
         ->middleware('api')
         ->namespace($this->namespace)
-        ->group(base_path('routes/crm_api/quote.php'));
+        ->group(base_path('routes/api/crm_api/quote.php'));
 
 
         Route::prefix('api')
         ->middleware('api')
         ->namespace($this->namespace)
-        ->group(base_path('routes/crm_api/contact.php'));
+        ->group(base_path('routes/api/crm_api/contact.php'));
 
         Route::prefix('api')
         ->middleware('api')
         ->namespace($this->namespace)
-        ->group(base_path('routes/crm_api/lead.php'));
+        ->group(base_path('routes/api/crm_api/lead.php'));
 
         Route::prefix('api')
         ->middleware('api')
         ->namespace($this->namespace)
-        ->group(base_path('routes/crm_api/report.php'));
+        ->group(base_path('routes/api/crm_api/report.php'));
+
+        Route::prefix('api')
+        ->middleware('api')
+        ->namespace($this->namespace)
+        ->group(base_path('routes/api/crm_api/crm_setting.php'));
 
         // 2. --- STOCK API ---
         Route::prefix('api')
         ->middleware('api')
         ->namespace($this->namespace)
-        ->group(base_path('routes/stock_api/stock.php'));
+        ->group(base_path('routes/api/stock_api/stock.php'));
 
 
          // 3. --- BSC API ---
          Route::prefix('api')
          ->middleware('api')
          ->namespace($this->namespace)
-         ->group(base_path('routes/bsc_api/report_balancesheet.php'));
+         ->group(base_path('routes/api/bsc_api/report_balancesheet.php'));
 
          Route::prefix('api')
          ->middleware('api')
          ->namespace($this->namespace)
-         ->group(base_path('routes/bsc_api/report_income_statement.php'));
+         ->group(base_path('routes/api/bsc_api/report_income_statement.php'));
+
+         Route::prefix('api')
+         ->middleware('api')
+         ->namespace($this->namespace)
+         ->group(base_path('routes/api/bsc_api/invoice.php'));
+
+         Route::prefix('api')
+         ->middleware('api')
+         ->namespace($this->namespace)
+         ->group(base_path('routes/api/bsc_api/purchase.php'));
+
+         Route::prefix('api')
+         ->middleware('api')
+         ->namespace($this->namespace)
+         ->group(base_path('routes/api/bsc_api/customer_management.php'));
+
+         Route::prefix('api')
+         ->middleware('api')
+         ->namespace($this->namespace)
+         ->group(base_path('routes/api/bsc_api/chart_account.php'));
     }
 
 

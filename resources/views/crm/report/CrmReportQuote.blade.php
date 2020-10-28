@@ -24,92 +24,77 @@
                       <div class="col-12 text-right">
                                 <button class="btn btn-success"><span><i class="far fa-file-excel"></i></span> Excel</button>
                                 <button class="btn btn-danger"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
-                      </div>                               
+                      </div>
                   </div>
                   <div class="card-body">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Quote Stage <b style="color:red">*</b></label>
+                                    <label for="exampleInputEmail1">Quote Stage <b style="color:red"></b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-tty"></i></span>
                                         </div>
-                                        <select class="form-control" name="select_source" id="select_source">
+                                        <select class="form-control" name="select_status" id="select_status">
                                             <option value="0">Please Select</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Assign To <b style="color:red">*</b></label>
+                                    <label for="exampleInputEmail1">Assign To <b style="color:red"></b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                         </div>
-                                        <select class="form-control" name="select_source" id="select_source">
+                                        <select class="form-control" name="select_assign_to" id="select_assign_to">
                                             <option value="0">Please Select</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
+                                    <label for="exampleInputEmail1">Date From <b style="color:red"></b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailQuoteFrom"  name='DetailQuoteFrom'  required>
+                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailQuoteFrom"  name='DetailQuoteFrom' value="<?php echo date('Y-m')?>"  required>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
+                                    <label for="exampleInputEmail1">Date to <b style="color:red"></b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailQuoteTo" name='DetailQuoteTo'  required>
+                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailQuoteTo" name='DetailQuoteTo' value="<?php echo date('Y-m')?>"  required>
                                     </div>
                                 </div>
                             </div>
                         </div><!--End Form Group-->
                         {{-- <div class="form-group">
                             <div class="row">
-                                
+
                             </div>
                         </div><!--End Form Group--> --}}
                         <div class="text-center">
-                            <button class="btn btn-primary ">Generate Report</button>
+                            <button class="btn btn-primary" id="btn-generate-report">Generate Report</button>
                         </div>
                         <div class="table-responsive" style="padding-top: 10px;">
-                            <table id="OrganizationTbl" class="table table-bordered table-striped">
+                            <table id="QuoteDetailTbl" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Organization Number</th>
-                                        <th>CID</th>
-                                        <th>Organization Name</th>
+                                        <th>Quote Number</th>
+                                        <th>Lead Number</th>
                                         <th>Customer Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Assigned To </th>
-                                        <th>Detail</th>
+                                        <th>Create Date</th>
+                                        <th>Due Date</th>
+                                        <th>email</th>
+                                        <th>Website</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                {{-- @foreach($lead as $row) --}}
-                                    <tr>
-                                        <td>{{'TT-ACC0001'}}</td>
-                                        <td>{{'N00004'}}</td>
-                                        <td>{{'Bo Entertainment'}}</td>
-                                        <td>{{'Leader Bo'}}</td>
-                                        <td>{{'Oppa@gmail.com'}}</td>
-                                        <td>{{'09999999'}}</td>
-                                        <td>{{'XD'}}</td>
-                                        <td>
-                                        {{-- <a href="#" class="btn btn-block btn-info btn-sm edit" ​value="editlead/{{$row->id}}" ><i class="fas fa-wrench"></i></a>detaillead --}}
-                                        <a href="#" class="btn btn-block btn-info btn-sm organization_detail" ​value="/organizations/detail" ><i class="fas fa-info-circle"></i></a>
-                                        </td>
-                                    </tr>                                       
-                                {{-- @endforeach --}}
-                                </tbody>  
+                                <tbody id="quote-detail-body">
+                                </tbody>
                             </table>
                         </div>
                   </div><!--End Card Body-->
@@ -127,4 +112,76 @@
         format: 'YYYY-MM',
         sideBySide: true,
       });
+    var setSelectOptionData = (url, elementId) => {
+        $.ajax({
+            url : url,
+            type : 'GET',
+            data : {
+            },
+            success : function(response){
+                $.each(response, function(i, r){
+                    $(elementId).append(`<option value="${r.id}">${r.name_en}</option>`);
+                })
+            },
+            fail : function(){
+                console.log("ERROR");
+            },
+            dataType : 'JSON'
+        })
+    }
+
+    $(document).ready(function(){
+        setSelectOptionData('/quote/add/listAssignTo','#select_assign_to')
+        setSelectOptionData('/api/quote/status','#select_status')
+
+        var url = '/api/crm/report/quoteReportDetail'
+
+        $('#btn-generate-report').click(function(){
+            var assignTo = $('#select_assign_to').val();
+            var status = $('#select_status').val();
+            var from = $('#DetailQuoteFrom').val()+'-01';
+            var to = $('#DetailQuoteTo').val()+'-31';
+            $('#QuoteDetailTbl').dataTable().fnClearTable();
+            $('#QuoteDetailTbl').dataTable().fnDraw();
+            $('#QuoteDetailTbl').dataTable().fnDestroy();
+
+            $.ajax({
+                url : url,
+                type : 'GET',
+                data : {
+                    'from_date' : from == '' ? null : from,
+                    'to_date' : to == '' ? null : to,
+                    'assign_to' : assignTo == 0 ? null : assignTo,
+                    'status_id' : status == 0 ? null : status
+                },
+                success : function(response){
+                    $('#quote-detail-body').empty()
+                    if(response.success) {
+                        $.each(response.data, function(index, data){
+                            $('#quote-detail-body').append(`
+                            <tr>
+                                <td>${data.quote_number}</td>
+                                <td>${data.lead_number}</td>
+                                <td>${data.customer_name_en}</td>
+                                <td>${data.crm_quote_status_create_date}</td>
+                                <td>${data.due_date}</td>
+                                <td>${data.email}</td>
+                                <td>${data.website}</td>
+                                <td>${data.quote_status_name_en}</td>
+                            </tr>
+                            `)
+                        })
+                    }
+                    $('#QuoteDetailTbl').DataTable();
+
+                },
+                fail : function(){
+                    console.log("ERROR");
+                },
+                dataType : 'JSON'
+            })
+
+        })
+
+    })
 </script>

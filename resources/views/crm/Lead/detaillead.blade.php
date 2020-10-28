@@ -42,14 +42,21 @@
                     <?php
                     for($i =0;$i<sizeof($detailbranch); $i++){
                         ?>
-                         <div class="col-md-6 " align="center">
+                         <div class="col-md-6 " align="right">
                             <button type="button" ​value="editlead/{{$detailbranch[$i]["branch_id"]}}" class="btn btn-primary btn-md CrmLeadEdit" >Edit</button>
                             <input type="text" hidden value="{{$detailbranch[$i]["lead_status"]}}"  id="lead_status" >
-                            <button type="button"  class="btn btn-success btn-md"  id="btn_convert"  value="{{$detailbranch[$i]["branch_id"]}}" >Convert</button>
+                            
                         </div>
                          
-                        <div class="col-md-6 " align="left"></div>
-                       
+                        <div class="col-md-6 " align="left" >
+                        <form id="frm_Crmlbranchsurvey" method="POST">
+                            @csrf                                
+                            <input type="text" class="form-control" hidden  value="{{$detailbranch[$i]['comment']}}"  name='comment' id="comment"  required>
+                            <input type="text" hidden value="{{$detailbranch[$i]['lead_detail_id']}}" name="lead_detail_id" id="lead_detail_id">
+                            <input type="text" hidden value="{{$detailbranch[$i]['branch_id']}}" name="branch_id" id="branch_id">
+                            <button type="button"  class="btn btn-success btn-md"  id="btn_convert"  value="{{$detailbranch[$i]["branch_id"]}}" onclick="submit_form('api/convertbranch','frm_Crmlbranchsurvey','/lead')" >Convert</button>
+                        </form>
+                    </div>
                         <?php
                     }
                     ?>
@@ -117,6 +124,28 @@
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["priority"]}} </dd>
                                         <dt class="col-sm-4 dt">Comment</dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["comment"]}} </dd>
+                                        <dt class="col-sm-4 dt">Survey</dt>
+                                        <dd class="col-sm-8 dd">
+                                            {{$detailbranch[$i]["survey_id"]!=''? 'Survey':'Not yet Survey'}}
+                                        </dd>
+                                       <?php 
+                                            if($detailbranch[$i]["survey_comment"]==null){
+                                                ?>
+                                                    <dt class="col-sm-4 dt" hidden>Active Survey</dt>
+                                                    <dd class="col-sm-8 dd" hidden>
+                                                        {{$detailbranch[$i]["possible"]==false ? "Suvery Not Access":"Suvery Access"}} => {{$detailbranch[$i]["survey_comment"]!=" "? $detailbranch[$i]["survey_comment"]:"NULL"}}
+                                                    </dd>
+                                                <?php
+                                            }
+                                            else {
+                                                ?>
+                                                    <dt class="col-sm-4 dt">Active Survey</dt>
+                                                    <dd class="col-sm-8 dd">
+                                                        {{$detailbranch[$i]["possible"]==false ? "Suvery Not Access":"Suvery Access"}} => {{$detailbranch[$i]["survey_comment"]!=" "? $detailbranch[$i]["survey_comment"]:"NULL"}}
+                                                    </dd>
+                                                <?php
+                                            }
+                                       ?>
                                     <?php
                                 }
                            ?>                           
@@ -171,6 +200,7 @@
                             {{-- <i class="fas fa-text-width"></i> --}}
                             Address Detail
                         </h3>
+                        
                     </div>
                     <!-- /.card-header -->
                      <div class="card-body">
@@ -178,6 +208,9 @@
                             <?php
                                 for($i =0;$i<sizeof($detailbranch); $i++){
                                     ?>
+                                    <input type=" " hidden value="{{$detailbranch[$i]['lead_detail_id']}}" name="lead_detail_id" id="lead_detail_id">
+                                    <input type="text" class="form-control" hidden  value="{{$detailbranch[$i]['branch_id']}}"  name='branch_id' id="branch_id"  required>
+                                    <input type="text" class="form-control" hidden  value="{{$detailbranch[$i]['comment']}}"  name='comment' id="comment"  required>
                                         <dt class="col-sm-4 dt" >Street EN</dt>
                                         <dd class="col-sm-8 dd" >St {{$detailbranch[$i]["street_en"]}}</dd>
                                         <dt class="col-sm-4 dt">Home number EN</dt>
@@ -361,18 +394,33 @@
             // alert(val);
             if(val!="qualified"){
                 // alert("yes");
-                document.getElementById("btn-md").hidden = false;
+                document.getElementById("btn_convert").hidden = false;
 
             }
             else
             {
-                 // alert("no");
-                document.getElementById("btn-md").hidden = true;
+                //  alert("no");
+                document.getElementById("btn_convert").hidden = true;
             }
         })
         //click to convert branch
-        $('#btn_convert').click(function(){
-            var val=document.getElementById("btn_convert").value;
-          alert(val);
-        });
+        // $('#btn_convert').click(function(){
+            
+            // var val=document.getElementById("btn_convert").value;
+            // var lead_detail_id=document.getElementById("lead_detail_id").value;
+            // var comment=document.getElementById("comment").value;            
+            // alert("Are you sure to convert branch");
+            // $.ajax({
+            //         // url:'api/convertbranch/'+val,
+            //         url:'api/convertbranch',
+            //         type:'POST',
+            //         data:{id:val,detailid:lead_detail_id,com:comment},
+            //         success:function(date){
+              
+            //             go_to("/lead");
+                  
+            //         }
+            //     })
+
+        // });
     </script>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\hrms\shift_promote;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\model\hrms\shift_promote\management_promoteModel; 
+use App\model\hrms\shift_promote\management_promoteModel;
 
 class staff_view_promoteController extends Controller
 {
@@ -16,12 +16,12 @@ class staff_view_promoteController extends Controller
             $userid = $_SESSION['userid'];
             $r = management_promoteModel::get_shift_promoteByID($userid);
             // dd($r);
-            if(count($r) > 2){
-                $data = $r;
-            }else{
-                $data = '';
-            }
-            return view('hrms/shift_promote/staff_view_promote/shift_promote_for_staff_view', ['shift_promoteByID' => $data]);
+            // if(count($r) > 2){
+            //     $data = $r;
+            // }else{
+            //     $data = '';
+            // }
+            return view('hrms/shift_promote/staff_view_promote/shift_promote_for_staff_view', ['shift_promoteByID' => $r]);
 
         }
 
@@ -43,10 +43,10 @@ class staff_view_promoteController extends Controller
                             $old_pos = '';
                         }
 
-                    } 
+                    }
                     // dd($old_pos);
                     return view('hrms/shift_promote/staff_view_promote/staff_view_promote_detail', ['promote_detail' => $r,'old_position'=>$old_pos]);
-            }   
+            }
         }
 
 

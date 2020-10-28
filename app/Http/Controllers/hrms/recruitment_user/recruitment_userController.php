@@ -5,13 +5,13 @@ namespace App\Http\Controllers\hrms\recruitment_user;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use App\model\hrms\recruitment_user\recruitment_userModel; 
+use App\model\hrms\recruitment_user\recruitment_userModel;
 
 
 class recruitment_userController extends Controller
 {
-    
-    
+
+
     // function candidate create account & submit info
 
 
@@ -34,7 +34,7 @@ class recruitment_userController extends Controller
     // function candidate register data
     public function register_candidate(){
         if(isset($_POST['btnSubmit']) && isset($_POST['emailaddress']) && isset($_POST['password']) ){
-                //declear variable 
+                //declear variable
                 $kh_name =  $_POST['khname'];
                 $f_name=    $_POST['firstname'];
                 $l_name=    $_POST['lastname'];
@@ -54,6 +54,7 @@ class recruitment_userController extends Controller
                 $cv_ = pathinfo($cv, PATHINFO_EXTENSION);
                 $cover_ = pathinfo($cover, PATHINFO_EXTENSION);
 
+
                 $r = recruitment_userModel::tbl_hrUser($email);
                 if($r > 0){ // this true when user input the email that already taken
                     $em_error = 1;
@@ -64,20 +65,41 @@ class recruitment_userController extends Controller
                     if($_FILES['uploadcv']['size'] > $file_size || $_FILES['uploadcover']['size'] > $file_size) { // check file size if biggest that 5 MB
                         $error = 'File size too big. Please select file smaller than 5MB';
                         return view('hrms/recruitment_user/index_recruitment_register', compact('error'));
-  
-                    }else{
-                        
-                        if(in_array($cv_, $allowed) && in_array($cover_, $allowed)) {  // check file is PDF file
-                            mkdir($targetDir, 0777, true);
-                            if(move_uploaded_file($tmp, $targetDir.'/'.$cv)){
-                                if(move_uploaded_file($tmp2, $targetDir.'/'.$cover)){
-                                    $success = 'Create acccount successfully !';
-                                    recruitment_userModel::insert_user_info($f_name, $l_name, $kh_name, $cv, $email, $p, $pos, $cover);
-                                    return view('hrms/recruitment_user/index_recruitment_register', compact('success'));                
-                                }
-                            }    
 
-                        }else{            
+                    }else{
+
+                        if(in_array($cv_, $allowed) && in_array($cover_, $allowed)) {  // check file is PDF file
+
+                                //check if folder have, remove old folder
+                                if(is_dir($targetDir)){
+                                    unlink($targetDir.'/cv.'.$cv_);
+                                    unlink($targetDir.'/cover.'.$cover_);
+                                    rmdir($targetDir);
+                                }
+                                mkdir($targetDir, 0777, true);
+                                if(move_uploaded_file($tmp, $targetDir.'/cv.'.$cv_) == true){
+                                    if(move_uploaded_file($tmp2, $targetDir.'/cover.'.$cover_)){
+                                        $r = recruitment_userModel::insert_user_info($f_name, $l_name, $kh_name, $cv, $email, $p, $pos, $cover);
+                                        if($r == 1){
+                                                $success = 'Create acccount successfully !';
+                                                return view('hrms/recruitment_user/index_recruitment_register', compact('success'));
+
+                                        }else{
+                                                unlink($targetDir.'/cv.'.$cv_);
+                                                unlink($targetDir.'/cover.'.$cover_);
+                                                rmdir($targetDir);
+                                                $error = 'Create Failed !';
+                                                return view('hrms/recruitment_user/index_recruitment_register', compact('error'));
+                                        }
+                                    }else{
+                                        echo 'cover letter not move'; return 0;
+                                    }
+                                }else{
+
+                                    echo 'cv not move'; return 0;
+                                }
+
+                        }else{
                             $error = 'Please select the PDF file only !';
                             return view('hrms/recruitment_user/index_recruitment_register', compact('error'));
                         }
@@ -109,13 +131,13 @@ class recruitment_userController extends Controller
             if(count($r) > 0){
                 $error = "user_expire";
                 return $error;
-             
+
             }else{
                 // get question for user
                 $user_question = recruitment_userModel::select_user_question($id);
                 return view('hrms/recruitment_user/frm_quiz', compact('user_question'));
             }
-            
+
     }
     // end
 
@@ -123,7 +145,7 @@ class recruitment_userController extends Controller
 
 
 
-    // function candiate submit answer quiz 
+    // function candiate submit answer quiz
     public function submit_user_answer(){
 
         if (session_status() == PHP_SESSION_NONE) {
@@ -150,7 +172,7 @@ class recruitment_userController extends Controller
                 if(is_array($radio_name)){
                         $i = 0;
                         foreach($radio_name as $key=> $val){
-                            
+
                             // $choice_id = $val;
                             // $question_id = $key;
                             $x = recruitment_userModel::check_true_faile($val, $key);
@@ -161,24 +183,24 @@ class recruitment_userController extends Controller
                             }
                             $r = recruitment_userModel::submit_answer($val,$key,null,$ans,$starttime,$endtime,$id);
                             $i++;
-                            
-                        }  
+
+                        }
+                }else{
+                    $r = 0;
                 }
-                
+
                 // foreach insert question writing
                 if(is_array($txtarea)){
                         foreach($txtarea as $key=> $val){
-                            // $answer_text = $val;
-                            // $question_id = $key;
-
                             $rr = recruitment_userModel::submit_answer('null',$key,$val,'f',$starttime,$endtime,$id);
                         }
 
                 }else{
-                        recruitment_userModel::submit_answer('null','null',null,null,$starttime,$endtime,$id);
+                        echo 'No question text';
+                        $rr = 1;
+                        // recruitment_userModel::submit_answer('null','null',null,null,$starttime,$endtime,$id);
                 }
-                
-                
+
                 //check if insert success
                 if($r == 1 && $rr == 1){
                     $data_success = 1;
@@ -187,7 +209,7 @@ class recruitment_userController extends Controller
                     $data_faile = 0;
                     // return redirect()->route('/hrm_recruitment_login');
                     return view('hrms/recruitment_user/main_app_user', compact('data_faile'));
-                    
+
                 }
 
         }else{
@@ -209,7 +231,7 @@ class recruitment_userController extends Controller
 
 
 
-    // function user login 
+    // function user login
     public function user_login(){
 
         if(isset($_POST['btn_userLogin']) && isset($_POST['user_email']) && isset($_POST['password']) ){
@@ -228,7 +250,7 @@ class recruitment_userController extends Controller
                 $login_faile = 1;
                 return view('hrms/recruitment_user/login_user', compact('login_faile'));
             }
-            
+
         }
     }
 
@@ -248,7 +270,7 @@ class recruitment_userController extends Controller
         if( count($userdata) > 0){
             return view('hrms/recruitment_user/user_profile', compact('userdata'));
         }
-        
+
     }
 
 
@@ -268,7 +290,7 @@ class recruitment_userController extends Controller
         }else{
             return view('hrms/recruitment_user/user_view_quiz_result', compact('quiz_result'));
         }
-       
+
     }
 
 
@@ -278,53 +300,53 @@ class recruitment_userController extends Controller
 
             $date1 = strtotime($start);
             $date2 = strtotime($end);
-            
-            // Formulate the Difference between two dates 
-            $diff = abs($date2 - $date1);  
 
-            // To get the year divide the resultant date into 
-            // total seconds in a year (365*60*60*24) 
-            $years = floor($diff / (365*60*60*24));  
-            
-            // To get the month, subtract it with years and 
-            // divide the resultant date into 
-            // total seconds in a month (30*60*60*24) 
-            $months = floor(($diff - $years * 365*60*60*24) 
-                                        / (30*60*60*24));  
-                
-            // To get the day, subtract it with years and  
-            // months and divide the resultant date into 
-            // total seconds in a days (60*60*24) 
-            $days = floor(($diff - $years * 365*60*60*24 -  
-                        $months*30*60*60*24)/ (60*60*24)); 
-            
-            
-            // To get the hour, subtract it with years,  
-            // months & seconds and divide the resultant 
-            // date into total seconds in a hours (60*60) 
-            $hours = floor(($diff - $years * 365*60*60*24  
-                - $months*30*60*60*24 - $days*60*60*24) 
-                                            / (60*60));  
-            
-            // To get the minutes, subtract it with years, 
-            // months, seconds and hours and divide the  
-            // resultant date into total seconds i.e. 60 
-            $minutes = floor(($diff - $years * 365*60*60*24  
-                    - $months*30*60*60*24 - $days*60*60*24  
-                                    - $hours*60*60)/ 60);  
-            
-            // To get the minutes, subtract it with years, 
-            // months, seconds, hours and minutes  
-            $seconds = floor(($diff - $years * 365*60*60*24  
-                    - $months*30*60*60*24 - $days*60*60*24 
-                            - $hours*60*60 - $minutes*60));  
-            // Print the result 
+            // Formulate the Difference between two dates
+            $diff = abs($date2 - $date1);
+
+            // To get the year divide the resultant date into
+            // total seconds in a year (365*60*60*24)
+            $years = floor($diff / (365*60*60*24));
+
+            // To get the month, subtract it with years and
+            // divide the resultant date into
+            // total seconds in a month (30*60*60*24)
+            $months = floor(($diff - $years * 365*60*60*24)
+                                        / (30*60*60*24));
+
+            // To get the day, subtract it with years and
+            // months and divide the resultant date into
+            // total seconds in a days (60*60*24)
+            $days = floor(($diff - $years * 365*60*60*24 -
+                        $months*30*60*60*24)/ (60*60*24));
+
+
+            // To get the hour, subtract it with years,
+            // months & seconds and divide the resultant
+            // date into total seconds in a hours (60*60)
+            $hours = floor(($diff - $years * 365*60*60*24
+                - $months*30*60*60*24 - $days*60*60*24)
+                                            / (60*60));
+
+            // To get the minutes, subtract it with years,
+            // months, seconds and hours and divide the
+            // resultant date into total seconds i.e. 60
+            $minutes = floor(($diff - $years * 365*60*60*24
+                    - $months*30*60*60*24 - $days*60*60*24
+                                    - $hours*60*60)/ 60);
+
+            // To get the minutes, subtract it with years,
+            // months, seconds, hours and minutes
+            $seconds = floor(($diff - $years * 365*60*60*24
+                    - $months*30*60*60*24 - $days*60*60*24
+                            - $hours*60*60 - $minutes*60));
+            // Print the result
             if($hours > 0){
-                // printf(" %d:%d:%ds", $hours, $minutes, $seconds); 
+                // printf(" %d:%d:%ds", $hours, $minutes, $seconds);
                 $duration = $hours."h:".$minutes."m:".$seconds."s";
                 return $duration;
             }else {
-                //  printf(" %d:%ds", $minutes, $seconds); 
+                //  printf(" %d:%ds", $minutes, $seconds);
                 $duration = $minutes."m:".$seconds."s";
                 return $duration;
             }
@@ -337,14 +359,14 @@ class recruitment_userController extends Controller
 
 
 
-    // function to check get result from hr to candidate do quiz 
+    // function to check get result from hr to candidate do quiz
     public function check_hr_resultContrl(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         $id = $_SESSION['user_id'][0]->id;
         $hr_result = recruitment_userModel::check_hr_resultModel($id);
-        
+
         if(count($hr_result) > 0){
             $approve = '';
             $pending = '';
@@ -399,8 +421,8 @@ class recruitment_userController extends Controller
         }else{
             return view('hrms/recruitment_user/user_view_quiz_result2');
         }
-        
-       
+
+
     }
 
 
@@ -423,7 +445,7 @@ class recruitment_userController extends Controller
         }else{
             return 0;
         }
-        
+
     }
 
 
@@ -432,7 +454,7 @@ class recruitment_userController extends Controller
     // function to destroy session  when candidate logout main page
     public static function candidate_logout(){
         session_start();
-        session_destroy(); 
+        session_destroy();
         session_unset();
         echo 'success';
     }
@@ -441,7 +463,7 @@ class recruitment_userController extends Controller
 
 
 
-    
+
 
 
 

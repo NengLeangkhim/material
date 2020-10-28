@@ -395,4 +395,51 @@ class CrmReport extends Model
         }
         return $result;
     }
+
+    public function getContactChartReport($fromDate, $toDate, $type = 'day'){
+        try {
+            $result = DB::select('
+                SELECT
+                    DATE_TRUNC(\''.$type.'\',create_date)::DATE AS  create_date,
+                    COUNT(id) AS total
+                FROM crm_lead_contact
+                WHERE
+                    is_deleted = false
+                    AND status = true
+                    --AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE
+                GROUP BY DATE_TRUNC(\''.$type.'\',create_date);
+            ');
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    public function getOrganizationChartReport($fromDate, $toDate, $type = 'day', $forStatusId = 6){
+        try {
+            $result = DB::select('
+                SELECT
+                    DATE_TRUNC(\''.$type.'\',create_date)::DATE AS  create_date,
+                    COUNT(id) AS total
+                FROM crm_lead
+                WHERE id IN (
+                    SELECT DISTINCT ON (crm_lead_id) crm_lead_id
+                    FROM crm_lead_branch
+                    WHERE id in (
+                        SELECT DISTINCT ON (crm_lead_branch_id) crm_lead_branch_id
+                        FROM crm_lead_detail
+                        WHERE crm_lead_status_id = '.$forStatusId.' and is_deleted = false and status = true
+                        ORDER BY crm_lead_branch_id, create_date DESC
+                    ) and is_deleted = false and status = true
+                )
+                AND is_deleted = false
+                AND status = true
+                --AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE
+                GROUP BY DATE_TRUNC(\''.$type.'\',create_date);
+            ');
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
 }
