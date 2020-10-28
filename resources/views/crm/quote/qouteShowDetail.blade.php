@@ -114,10 +114,10 @@
 
 
                 {{-- card use for Address Detail--}}
-                <div class="card">
+                {{-- <div class="card">
                     <div class="card-header">
                         <h1 class="card-title" style="font-weight: bold">
-                            {{-- <i class="fas fa-text-width"></i> --}}
+                            <!-- <i class="fas fa-text-width"></i> -->
                             Address Detail
                         </h1>
                     </div>
@@ -130,17 +130,12 @@
                                 <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->address->hom_en}}</dd>
                             <dt class="col-sm-4 dt">Address</dt>
                                 <dd class="col-sm-8 dd">{{$address[0]->get_gazetteers_address_en}}</dd>
-                            {{-- <dt class="col-sm-4 dt">District/Khan</dt>
-                                <dd class="col-sm-8 dd">{{$listQuoteDetail->data->address}}</dd>
-                            <dt class="col-sm-4 dt">Commune/Sangkat </dt>
-                                <dd class="col-sm-8 dd">{{$listQuoteDetail->data->address}}</dd>
-                            <dt class="col-sm-4 dt">Village</dt>
-                                <dd class="col-sm-8 dd">{{$listQuoteDetail->data->address}}</dd> --}}
+
 
                         </dl>
                     </div>
 
-                </div>
+                </div> --}}
 
 
                 {{-- card use for Item Details--}}
@@ -178,15 +173,12 @@
                                                                         {{$product[$k][0]->name}}
 
                                                                 @endif
+                                                                {{-- {{    $val->stock_product_id }} --}}
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                {{-- <td>
-                                                    <div class="font-size-14">
-                                                        <span>Product</span>
-                                                    </div>
-                                                </td> --}}
+
                                                 <td style="">
                                                     <div class="font-size-14">
                                                         <span>{{number_format($val->qty, 2, '.', '')}}</span>

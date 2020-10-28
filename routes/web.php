@@ -59,7 +59,7 @@ Route::get('/schedule','crm\CrmScheduleController@index');
 // end survey
 
 // start survey
-//get survey 
+//get survey
 Route::get('/survey','crm\CrmSurveyController@index');
 
 
@@ -99,6 +99,8 @@ Route::get('/organizations/detail','crm\OrganizationController@DetailOrganizatio
 // crm quote
 Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote
 Route::get('/quote/detail','crm\QuoteController@showQuoteListDetail'); // get show quote detail
+Route::get('/quote/leadBranch','crm\QuoteController@listLeadBranch'); // get list branch of lead by lead id
+
 Route::get('/quote/add','crm\QuoteController@addQuote'); // to add qoute
 
 Route::get('/quote/deleteLeadQuote','crm\QuoteController@deleteLeadQuote'); // get delete lead for quote list
@@ -1146,7 +1148,7 @@ Route::get('test_chart',function(){
         // Balance Sheet
 
         // Profit and Loss
-        Route::get('/bsc_report_is','api\BSC\IncomeStatementApiController@getIS');
+
     // Accounting Report
         // Account Transaction
 
@@ -1193,7 +1195,6 @@ Route::get('test_chart',function(){
         Route::post('bsc_invoice_update','bsc\InvoiceController@invoice_edit_data');
     // View Payment
         Route::get('bsc_invoice_view_payment','bsc\InvoiceController@view_payment');
-        Route::post('bsc_invoice_payment','bsc\InvoiceController@add_payment');
 
 // Report
     // Sale Report
@@ -1218,7 +1219,6 @@ Route::get('test_chart',function(){
 
     // View Purchase Payment
     Route::get('bsc_purchase_view_purchase_payment','bsc\PurchasePaymentControllre@view_purchase_payment');
-    Route::post('bsc_purchase_make_payment','bsc\PurchasePaymentControllre@make_payment');
 
 // Report
     // Purchase Report

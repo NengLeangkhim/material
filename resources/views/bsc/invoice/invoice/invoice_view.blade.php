@@ -170,7 +170,16 @@
                                                 <label for="">02-10-2020</label>
                                             </div>
                                         </div>
-                                        <hr class="line_in_tag_hr2">
+                                        {{-- <hr class="line_in_tag_hr2">
+                                        <div class="row">
+                                            <div class="col-sm-6 text_right">
+                                                <label for="">Payment : </label>
+                                            </div>
+                                            <div class="col-sm-6 text_right">
+                                                <label for="">1000$</label>
+                                            </div>
+                                        </div>
+
                                         <div class="row">
                                             <div class="col-sm-6 text_right">
                                                 <label for="">Date : </label>
@@ -178,7 +187,8 @@
                                             <div class="col-sm-6 text_right">
                                                 <label for="">02-10-2020</label>
                                             </div>
-                                        </div>
+                                        </div> --}}
+
                                         <hr class="line_in_tag_hr2">
 
                                         <div class="row">
