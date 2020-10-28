@@ -138,6 +138,7 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     //-- Lead Status
     Route::get('/crm/setting/leadstatus','crm\CrmSettingController@CrmLeadStatus'); // show Lead Status Setting CRM
     Route::post('/crm/setting/leadstatus/store','crm\CrmSettingController@StoreLeadStatus'); // show Lead Status Setting CRM
+    Route::get('/crm/setting/leadstatus/get','crm\CrmSettingController@CrmGetLeadStatusByID'); // show Lead Status Setting CRM
     //-- Lead industry
     Route::get('/crm/setting/leadindustry','crm\CrmSettingController@CrmLeadIndustry'); // show Lead Industry Setting CRM
     Route::post('/crm/setting/leadindustry/store','crm\CrmSettingController@StoreLeadIndustry'); // INsert and update lead industry Setting CRM
@@ -150,6 +151,10 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     Route::get('/crm/setting/leadisp','crm\CrmSettingController@CrmLeadISP'); // show Lead ISP Setting CRM
     Route::post('/crm/setting/leadisp/store','crm\CrmSettingController@StoreLeadISP'); // INsert and update lead ISP Setting CRM
     Route::get('/crm/setting/leadisp/get','crm\CrmSettingController@CrmGetLeadISPByID'); // show Lead ISP Setting CRM
+    //-- schedule type 
+    Route::get('/crm/setting/scheduletype','crm\CrmSettingController@CrmScheduleType'); // show Schedule Type Setting CRM
+    Route::post('/crm/setting/scheduletype/store','crm\CrmSettingController@StoreScheduleType'); // INsert and update Schedule Type Setting CRM
+    Route::get('/crm/setting/scheduletype/get','crm\CrmSettingController@CrmGetScheduleTypeByID'); // show Schedule Type Setting CRM
 // END Setting CRM 
 
 //===========================END CRM=================================
