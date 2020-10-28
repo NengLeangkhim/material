@@ -15,7 +15,7 @@
                   <thead>                  
                     <tr>
                       <th style="">#</th>
-                      <th style="">Training Type</th>
+                      <th style="">Training Course</th>
                       <th>Description</th>
                       <th>Action</>
                     </tr>
