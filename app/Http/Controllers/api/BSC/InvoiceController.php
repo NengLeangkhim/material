@@ -249,13 +249,53 @@ class InvoiceController extends Controller
     public function show_quote(Request $request)
     {
         $quotes = DB::table('crm_quote')
-        ->select('crm_quote.id as quote_id','crm_quote.quote_number','crm_lead_address.gazetteer_code as billing_address','ma_customer.id as customer_id','ma_customer.name as customer_name')
+        ->where([
+            ['status','=','t'],
+            ['is_deleted','=','f']
+        ])->get();
+
+        return $this->sendResponse($quotes, 'Quote retrieved successfully.');
+    }
+    
+    public function show_quote_single(Request $request, $id)
+    {
+        $quotes = DB::table('crm_quote')
+        ->select('crm_quote.id','crm_quote.quote_number','crm_lead_address.gazetteer_code as billing_address','crm_quote_branch.id as crm_quote_branch_id','ma_customer.id as customer_id','ma_customer.name as customer_name')
         ->leftJoin('crm_lead_address','crm_quote.crm_lead_address_id','=','crm_lead_address.id')
+        ->leftJoin('crm_quote_branch','crm_quote.id','=','crm_quote_branch.crm_quote_id')
         ->leftJoin('ma_customer','crm_quote.crm_lead_id','=','ma_customer.crm_lead_id')
         ->where([
+            ['crm_quote.id','=',$id],
             ['crm_quote.status','=','t'],
             ['crm_quote.is_deleted','=','f']
         ])->get();
-        return $this->sendResponse($quotes, 'Quote retrieved successfully.');
+        
+        if(count($quotes) > 0){
+            $arr_quote_branch_id = [];
+            $customer_id = "";
+            foreach ($quotes as $key => $quote) {
+                $arr_quote_branch_id[$key] = $quote->crm_quote_branch_id;
+                $customer_id = $quote->customer_id;
+            }
+        }
+
+        $quote_products = DB::table('crm_quote_branch_detail')
+        ->select('crm_quote_branch_detail.*','ma_customer_branch.id as customer_branch_id','ma_customer_branch.branch as customer_branch_name')
+        ->leftJoin('crm_quote_branch','crm_quote_branch_detail.crm_quote_branch_id','=','crm_quote_branch.id')
+        ->leftJoin('crm_quote','crm_quote_branch.crm_quote_id','=','crm_quote.id')
+        ->leftJoin('ma_customer','crm_quote.crm_lead_id','=','ma_customer.crm_lead_id')
+        ->leftJoin('ma_customer_branch','ma_customer.id','=','ma_customer_branch.ma_customer_id')
+        ->whereIn('crm_quote_branch_detail.crm_quote_branch_id',$arr_quote_branch_id)
+        ->where([
+            ['crm_quote_branch_detail.status','=','t'],
+            ['crm_quote_branch_detail.is_deleted','=','f']
+        ])
+        ->get();
+
+        $arr_quote = [
+                        'quotes'=>$quote,
+                        'quote_products'=>$quote_products
+                    ];
+        return $this->sendResponse($arr_quote, 'Quote retrieved successfully.');
     }
 }
