@@ -117,7 +117,7 @@ function Crm_delete(id,route,goto,alert) {
 //             //           // ["Qualified", 66,'color:#ffc107'],
 //             //           // ["Inquiry", 30,'color:#dc3545'],
 //             //           // ["Surveyed", 20,'color:black']
-                   
+
 //             //         ]);
 //             //         var view = new google.visualization.DataView(data_chart);
 //             //         view.setColumns([0, 1,
@@ -129,9 +129,9 @@ function Crm_delete(id,route,goto,alert) {
 //             //         var options = {
 //             //             title: 'Lead Performance',
 //             //         };
-  
+
 //             //         var chart = new google.visualization.BarChart(document.getElementById('LeadChart'));
-  
+
 //             //         chart.draw(view, options);
 //             //       })
 //             //     }
@@ -442,14 +442,6 @@ function Crm_delete(id,route,goto,alert) {
                 type:'get',
                 dataType:'json',
                 success:function(response){
-
-                //     var len=0;
-                //     if(response['data']!= null){
-                //         len=response['data'].length;
-                //         alert(len);
-                //     }
-                //     if(len>0){
-                //         //read data and create <option>
                         for(var i=0; i<response['data'].length ;i++){
                             var id = response['data'][i].ma_company_branch_id;
                             var name = response['data'][i].name;
@@ -510,7 +502,7 @@ function Crm_delete(id,route,goto,alert) {
 
           })
         // get  lead in  selection
-        $('#lead_id').ready(function(){
+        $('#lead_id #getlead').ready(function(){
           // $('#lead_id').find('option').not(':first').remove();
           // $token = $_SESSION['token'];
           var myvar= $( "#getlead" ).val();
@@ -536,8 +528,8 @@ function Crm_delete(id,route,goto,alert) {
                   }
               })
           })
-
-          $('#contact_id').ready(function(){
+          // get contact in add lead
+          $('#contact_id  #getcontact').ready(function(){
             // $('#lead_id').find('option').not(':first').remove();
             var myvar= $( "#getcontact" ).val();
                 $.ajax({
@@ -564,8 +556,6 @@ function Crm_delete(id,route,goto,alert) {
 
             //click back to home
         $('.lead').click(function(e){
-            e.preventDefault();
-            var ld = $(this).attr("​value");
             e.preventDefault();
             alert(ld);
                 $.ajax({
@@ -646,7 +636,7 @@ function Crm_delete(id,route,goto,alert) {
 
 
 
-//========================>> Quote-CRM JS <<=========================================================
+//========================>> Start-Quote-CRM JS <<=========================================================
 
         // function template to get route & id to show data
         function goto_Action(route,id){
@@ -800,7 +790,7 @@ function Crm_delete(id,route,goto,alert) {
                         "No record seleted !",
                         "info",
                         {
-                        position:"right",
+                            position:"right",
                         }
                     );
               }
@@ -842,9 +832,77 @@ function Crm_delete(id,route,goto,alert) {
 
 
 
+    //function to get content of add product by branch lead
+    function row_content(i,branId){
+        // var i = 0;
+        $row_content =
+
+        '<div id="row_content'+i+'" class="form-group border border-secondary rounded p-3  row_content">'+
+                '<div class="col-12" align="right">' +
+                    '<button type="button" id="'+i+'" class="close btnCloseRowContent" style="color:blue;" aria-label="Close">'+
+                        '<span aria-hidden="true">&times;</span>'+
+                    '</button>'+
+                ' </div>'+
+                '<div class="form-group col-11">'+
+                        '<div class="input-group">'+
+                            '<div class="input-group-prepend">'+
+                                '<span class="font-weight-bold input-group-text">Branch:</span>'+
+                            '</div>'+
+                            '<input type="text" class="form-control" id="branch'+branId+'"  name="branch"   placeholder="" required readonly>'+
+                            '<input type="hidden" id="lead_branch'+branId+'"  name="lead_branch[]"  required readonly>'+
+                    ' </div>'+
+                '</div>'+
+
+                '<div class="form-group col-11">'+
+                    '<div class="input-group">'+
+                        '<div class="input-group-prepend">'+
+                            '<span class="font-weight-bold input-group-text">Address:</span>'+
+                        '</div>'+
+                        '<input type="text" class="form-control" id="branchAddress'+branId+'"  name="branchAddress"   placeholder="" required readonly>'+
+                        '<input type="hidden" id="branchAddress_id'+branId+'"  name="branchAddress_id[]"  required readonly>'+
+                    '</div>'+
+                '</div>'+
+
+                '<div class="col-12">'+
+                        '<table class="table table-bordered ">'+
+                            '<thead class="thead-item-list">'+
+                                '<tr>'+
+                                    '<th class="td-item-quote-name"><b style="color:red">*</b> Item Name</th>'+
+                                    '<th class="td-item-quote">Type</th>'+
+                                    '<th style="width: 120px">Quantity</th>'+
+                                    '<th class="td-item-quote">List Price($)</th>'+
+                                    '<th class="td-item-quote">Total($)</th>'+
+                                    '<th style="width: 50px;" >'+
+                                        '<button type="button" class="btn btn-info" id="btnAddRowQuoteItem" data-id="'+branId+'"><span><i class="fa fa-plus"></i></span></button>'+ //data-id tbody use for get branch id
+                                    '</th>'+
+                                '</tr>'+
+                            '</thead>'+
+                            '<tbody id="add_row_tablequoteItem'+branId+'" class="add_row_tablequoteItem" >'+
+                                //content of add table product
+                            '</tbody>'+
+                    ' </table>'+
+                '</div>'+
+        '</div>';
+        console.log('row content added');
+        $('#content-quote-product').append($row_content);
+
+    }
+
+
+
+    //function for btn close row content
+    $(document).on('click','.btnCloseRowContent',function(){
+        var btnId = $(this).attr("id");
+        $('#row_content'+btnId+'').remove();
+        console.log('this btn remove content row branch');
+    });
+
+
     //function to get lead branch by lead id
+    var i = 0;
     $(document).on('click','#clickGetBranch', function(){
         var lead_id = $('#lead_id').val();
+
         if(lead_id != ""){
             // getShowPopup('/quote/add/listQuoteBranch',lead_id,'modal-list-quote','listQuoteBranch','tblQuuteBranch','getSelectRow','branchKhName','getLeadBranchId','getLeadBranch');
             var id_ = "id="+lead_id;
@@ -869,39 +927,43 @@ function Crm_delete(id,route,goto,alert) {
                     });
 
                     $('#getSelectRow').click( function () {
-
-
-
                         if($('tbody tr').hasClass('selected') == true){
-                            var lead_id = $('.selected').attr("id");
-                            $('#crm_lead_branch_id').val(lead_id);
+                            var branch_id = $('.selected').attr("id");
+
+                            //check if row content of branch already add
+                            if(typeof($('#lead_branch'+branch_id+'').val()) != 'undefined'){
+                                    $("#getSelectRow").notify(
+                                        "This record was seleted!",
+                                        "info",
+                                        {
+                                        position:"right",
+                                        }
+                                    );
+                                    return 0;
+                            }
+
+                            if(branch_id != ''){
+                                    $('#crm_lead_branch_id').val(branch_id);
+                                    //get value from textbox
+                                    var branchNameEn = $.trim($('#brdcompanyEn_'+branch_id+'').val());
+                                    var addressName = $.trim($('#brdAddressNameEn_'+branch_id+'').val());
+                                    var addressId = $.trim($('#branAddressId_'+branch_id+'').val());
+
+                                    //function to add row content for add product branch
+                                    row_content(i,branch_id);
+                                    i++;
+
+                                    //send value to textbox in branch product
+
+                                    $('#branch'+branch_id+'').val(branchNameEn);
+                                    $('#lead_branch'+branch_id+'').val(branch_id);
+                                    $('#branchAddress'+branch_id+'').val(addressName);
+                                    $('#branchAddress_id'+branch_id+'').val(addressId);
 
 
-                            //get value from textbox
-
-                            var branchNameEn = $.trim($('#brdcompanyEn_'+lead_id+'').val());
-                            var home_en = $.trim($('#brdnameEn_'+lead_id+'').val());
-                            var home_kh = $.trim($('#brdnameKh_'+lead_id+'').val());
-                            var street_en = $.trim($('#brdstreetEn_'+lead_id+'').val());
-                            var street_kh = $.trim($('#brdstreetKh_'+lead_id+'').val());
-                            var province = $.trim($('#brdprvince_'+lead_id+'').val());
-                            var district = $.trim($('#brddistrict_'+lead_id+'').val());
-                            var commune = $.trim($('#brdcommue_'+lead_id+'').val());
-                            var village = $.trim($('#brdvillage_'+lead_id+'').val());
-
-                            //send value to textbox
-                            $('#getLeadBranch').val(branchNameEn);
-                            $("#homeEN").val(home_en);
-                            $("#homeKH").val(home_kh);
-                            $("#streetEN").val(street_en);
-                            $("#streetKH").val(street_kh);
-                            $("#address_city").val(province);
-                            $("#district").val(district);
-                            $("#commune").val(commune);
-                            $("#village").val(village);
-
-                            //close modal
-                            $('#listQuoteBranch').modal('hide');
+                                    //close modal
+                                    $('#listQuoteBranch').modal('hide');
+                            }
                         }else{
                             $("#getSelectRow").notify(
                                 "No record seleted !",
