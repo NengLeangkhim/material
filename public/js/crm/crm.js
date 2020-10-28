@@ -493,24 +493,20 @@ function Crm_delete(id,route,goto,alert) {
                   type:'get',
                   dataType:'json',
                   success:function(response){
-
-                          for(var i=0; i<response['data'].length ;i++){
-                              var id = response['data'][i].id;
+                          $.each(response['data'], function(i,item){
+                            var id = response['data'][i].id;
                               var name = response['data'][i].name;
                               // alert(name);
                               var option = "<option value='"+id+"'>"+name+"</option>";
 
                               $("#service").append(option);
-                          }
-                  //     }
+                          })
                   }
               })
 
           })
         // get  lead in  selection
         $('#lead_id').ready(function(){
-          // $('#lead_id').find('option').not(':first').remove();
-          // $token = $_SESSION['token'];
           var myvar= $( "#getlead" ).val();
           // alert(myvar);
 
@@ -522,14 +518,22 @@ function Crm_delete(id,route,goto,alert) {
                     'Authorization': `Bearer ${myvar}`,
                 },
                   success:function(response){
-                          for(var i=0; i<response['data'].length ;i++){
-                              var id = response['data'][i].lead_id;
-                              var name = response['data'][i].customer_name_en;
-                              // alert(name);
-                              var option = "<option value='"+id+"'>"+name+"</option>";
+                          // for(var i=0; i<response['data'].length; i++){
+                          //     var id = response['data'][i].lead_id;
+                          //     var name = response['data'][i].customer_name_en;
+                          //     // alert(name);
+                          //     var option = "<option value='"+id+"'>"+name+"</option>";
 
-                              $("#lead_id").append(option);
-                          }
+                          //     $("#lead_id").append(option);
+                          // }
+                      $.each(response['data'], function(i,item){
+                        var id = response['data'][i].lead_id;
+                            var name = response['data'][i].customer_name_en;
+                            // alert(name);
+                            var option = "<option value='"+id+"'>"+name+"</option>";
+
+                            $("#lead_id").append(option)
+                      })
 
                   }
               })
@@ -546,15 +550,14 @@ function Crm_delete(id,route,goto,alert) {
                       'Authorization': `Bearer ${myvar}`,
                   },
                     success:function(response){
+                            $.each(response['data'], function(i,item){
+                              var id = response['data'][i].id;
+                              var name = response['data'][i].name_en;
+                              // alert(name);
+                              var option = "<option value='"+id+"'>"+name+"</option>";
 
-                            for(var i=0; i<response['data'].length ;i++){
-                                var id = response['data'][i].id;
-                                var name = response['data'][i].name_en;
-                                // alert(name);
-                                var option = "<option value='"+id+"'>"+name+"</option>";
-
-                                $("#contact_id").append(option);
-                            }
+                              $("#contact_id").append(option);
+                            })
 
                     }
                 })

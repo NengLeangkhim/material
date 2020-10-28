@@ -40,6 +40,16 @@ class ModelCrmLead extends Model
         // dd($res);
         return $res->getContent();
     }
+    // Model get detail lead
+    public static function CrmGetDetaillead($id){
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/getleadbyid/'.$id, 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        // dd($res);
+        return $res->getContent();
+    }
     // Model get  lead by id
     public  static function  CrmGetLeadID($id){
         $token = $_SESSION['token'];
