@@ -140,7 +140,6 @@ class QuoteController extends Controller
             try {
 
                 $createby = $request->input('create_by');
-
                 // insert to crm_quote
                 $insert_quote = DB::select(
                     'SELECT public."insert_crm_quote"(?, ?, ?, ?, ?, ?)',
@@ -164,7 +163,6 @@ class QuoteController extends Controller
                         $createby,
                         $request->input('crm_quote_status_type_id')
                     ));
-
 
 
                 // get all crm_quote_branch
