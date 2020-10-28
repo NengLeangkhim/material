@@ -114,6 +114,56 @@ function ShowPassword(){
             });
         }
 
+
+// function form_submit(form,route,goto){
+//     var formElement = document.getElementById(form);
+//     var formData = new FormData(formElement);
+//     var request = new XMLHttpRequest();
+//     request.open("POST", route);
+//     request.onreadystatechange = function () {
+//         if (this.readyState == 4 && this.status == 200) {
+//             data=this.responseText;
+//             if(data=='error'){
+//                 sweetalert('error', 'Data has Problem');
+//             }else{
+//                 Swal.fire(
+//                     'Success',
+//                       alert,
+//                     'success'
+//                   )
+//                 // sweetalert('success',this.responseText);
+//                 // alert(this.responseText);
+//                 go_to(goto);
+//             }
+//         }
+//     };
+//     request.send(formData);
+// }
+
+
+        // insert or Update employee
+        function hrms_insert_update_employee(){
+            var form_element=document.getElementById('fm-employee');
+            var form_data = new FormData(form_element);
+            var request = new XMLHttpRequest();
+            request.open("POST","hrms_test_insert_update_employee");
+            request.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200){
+                    console.log(this.responseText);
+                    data=JSON.parse(this.responseText);
+                    if($.isEmptyObject(data.error)){
+                        alert(data.success);
+                    }else{
+                        $.each(data.error, function(key,value){
+                            alert(key);
+                        })
+                    }
+
+                }
+            }
+            request.send(form_data);
+        }
+
     // End Employee
 
     // Start Holiday

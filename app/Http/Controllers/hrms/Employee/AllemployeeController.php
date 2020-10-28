@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\model\hrms\employee\Employee;
 use App\model\hrms\employee\DepartmentAndPosition;
 use PhpParser\Node\Expr\Print_;
+use Illuminate\Validation\Rule;
 
 class AllemployeeController extends Controller
 {
@@ -182,5 +183,24 @@ class AllemployeeController extends Controller
         }else{
             return view('no_perms');
         }
+    }
+
+
+    // test insert employee with validation
+    function hrms_test_insert_update_employee(Request $request){
+        $validation=\Validator::make($request->all(),[
+            'emFirstName'=>'required',
+            'emLastName'=>'required'
+        ],
+        [
+            'em_first_name'=>'Please input first name',
+            'em_last_name'=>'Please input last name'
+        ]
+    );
+        if($validation->passes()){
+            return response()->json(['success'=>'Successfully !']);
+        }
+
+        return response()->json(['error' => $validation->getMessageBag()->toArray()]);
     }
 }
