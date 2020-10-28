@@ -81,6 +81,7 @@ Route::post('/contact/store','crm\ContactController@StoreContact'); //store cont
 Route::get('/contact/edit/{id}','crm\ContactController@EditContact');//go to Edit contact
 Route::put('/contact/update','crm\ContactController@UpdateContact'); //Update contact
 Route::get('/contact/detail','crm\ContactController@DetailContact');//go to Detail contact
+Route::get('/contact/delete','crm\ContactController@DeleteContact');//Delete contact
 Route::get('/product','crm\ProductsController@getProducts'); //get all Products show in table
 // end contact
 
@@ -137,7 +138,18 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     //-- Lead Status
     Route::get('/crm/setting/leadstatus','crm\CrmSettingController@CrmLeadStatus'); // show Lead Status Setting CRM
     Route::post('/crm/setting/leadstatus/store','crm\CrmSettingController@StoreLeadStatus'); // show Lead Status Setting CRM
-Route::get('/crm/setting/leadindustry','crm\CrmSettingController@CrmLeadIndustry'); // show Lead Status Setting CRM
+    //-- Lead industry
+    Route::get('/crm/setting/leadindustry','crm\CrmSettingController@CrmLeadIndustry'); // show Lead Industry Setting CRM
+    Route::post('/crm/setting/leadindustry/store','crm\CrmSettingController@StoreLeadIndustry'); // INsert and update lead industry Setting CRM
+    Route::get('/crm/setting/leadindustry/get','crm\CrmSettingController@CrmGetLeadIndustryByID'); // show Lead Industry Setting CRM
+    //-- Lead Source
+    Route::get('/crm/setting/leadsource','crm\CrmSettingController@CrmLeadSource'); // show Lead Source Setting CRM
+    Route::post('/crm/setting/leadsource/store','crm\CrmSettingController@StoreLeadSource'); // INsert and update lead Source Setting CRM
+    Route::get('/crm/setting/leadsource/get','crm\CrmSettingController@CrmGetLeadSourceByID'); // show Lead Source Setting CRM
+    //-- Lead Current ISP
+    Route::get('/crm/setting/leadisp','crm\CrmSettingController@CrmLeadISP'); // show Lead ISP Setting CRM
+    Route::post('/crm/setting/leadisp/store','crm\CrmSettingController@StoreLeadISP'); // INsert and update lead ISP Setting CRM
+    Route::get('/crm/setting/leadisp/get','crm\CrmSettingController@CrmGetLeadISPByID'); // show Lead ISP Setting CRM
 // END Setting CRM 
 
 //===========================END CRM=================================
@@ -790,7 +802,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// Modal Show List Candidate
     Route::get('hrm_list_condidate/modal','hrms\recruitment\HrmListCandidateController@hrm_detail_candidate');
-    
+
     /// Go to add Candidate
     Route::get('hrm_list_condidate/add','hrms\recruitment\HrmListCandidateController@hrm_goto_add');
     /// add Candidate
@@ -889,6 +901,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_modal_add_edit', 'hrms\Employee\OverTimeController@ShowModalAddAndEdit');
         Route::post('hrm_insert_update_overtime','hrms\Employee\OverTimeController@InsertUpdateOvertime');
         Route::get('hrm_delete_overtime', 'hrms\Employee\OverTimeController@DeleteOvertime');
+        Route::get('hrm_my_overtime','hrms\Employee\OverTimeController@my_overtime');
     // End Overtime
 
 // End Employee
@@ -1119,98 +1132,3 @@ Route::get('test_chart',function(){
 
 
 //==========================================================> End HRMS <===============================================================///
-
-//============================================================> START BSC <===============================================================///
-// ========================================================> THIN VYTOU <======================================================== //
-
-// Report
-    // Financial Report
-        // Balance Sheet
-
-        // Profit and Loss
-        Route::get('/bsc_report_is','api\BSC\IncomeStatementApiController@getIS');
-    // Accounting Report
-        // Account Transaction
-
-        // Trial Balance
-
-// ========================================================> END THIN VYTOU <======================================================== //
-// ========================================================> SOV SOTHEA <======================================================== //
-
-// Customer Management
-    // Customer
-        Route::get('bsc_customer','bsc\CustomerController@customer');
-    // Customer Branch
-        Route::get('bsc_customer_branch','bsc\CustomerController@customer_branch');
-        Route::get('customer_branch_detail/{id}','bsc\CustomerController@customer_branch_detail');
-    // Customer Service
-        Route::get('bsc_customer_service','bsc\CustomerController@customer_service');
-    // Customer Service Detail
-        Route::get('bsc_customer_service_detail','bsc\CustomerController@customer_service_detail');
-        Route::get('customer_service_detail_add','bsc\CustomerController@customer_service_detail_add');
-        Route::get('customer_service_detail_edit/{id}','bsc\CustomerController@customer_service_detail_edit');
-        Route::get('bsc_customer_service_detail_delete','bsc\CustomerController@customer_service_detail_delete');
-        Route::post('bsc_customer_service_detail_insert','bsc\CustomerController@customer_service_detail_insert');
-        Route::post('bsc_customer_service_detail_update','bsc\CustomerController@customer_service_detail_update');
-// Report
-    // Dashboard
-
-// ========================================================> END SOV SOTHEA <======================================================== //
-// ========================================================> SOK SENG <======================================================== //
-
-// Chart account
-    Route::get('bsc_chart_account_list','bsc\ChartAccountController@list');
-    Route::get('bsc_chart_account_list_edit/{id}','bsc\ChartAccountController@edit');
-    Route::get('bsc_chart_account_form','bsc\ChartAccountController@form');
-    Route::post('bsc_chart_account_form_add','bsc\ChartAccountController@add');
-    Route::post('bsc_chart_account_form_edit','bsc\ChartAccountController@ch_account_edit');
-    Route::get('bsc_chart_account_list_delete','bsc\ChartAccountController@ch_account_delete');
-// Invoice
-    // Invoice
-        Route::get('bsc_invoice_invoice_list','bsc\InvoiceController@list');
-        Route::get('bsc_invoice_invoice_view/{id}','bsc\InvoiceController@view');
-        Route::get('bsc_invoice_invoice_form','bsc\InvoiceController@form');
-        Route::post('bsc_invoice_save','bsc\InvoiceController@invoice_save');
-        Route::get('bsc_invoice_invoice_edit/{id}','bsc\InvoiceController@invoice_edit');
-        Route::post('bsc_invoice_update','bsc\InvoiceController@invoice_edit_data');
-    // View Payment
-        Route::get('bsc_invoice_view_payment','bsc\InvoiceController@view_payment');
-
-// Report
-    // Sale Report
-        // Aged Receivables Detail
-
-        // Aged Receivables Summary
-
-        // Customer Invoice Report
-
-// ========================================================> END SOK SENG <======================================================== //
-// ========================================================> TOUCH RITH <======================================================== //
-
-// Purchase
-    // Purchase
-    Route::get('bsc_purchase_purchase_list','bsc\PurchaseController@list');
-    Route::post('bsc_purchase_save','bsc\PurchaseController@save');
-    Route::post('bsc_purchase_get_by_id','bsc\PurchaseController@get_product_by_id');
-    Route::get('bsc_purchase_purchase_view/{id}','bsc\PurchaseController@view');
-    Route::get('bsc_purchase_purchase_edit_data/{id}','bsc\PurchaseController@purchase_edit');
-    Route::get('bsc_purchase_purchase_form','bsc\PurchaseController@form');
-    Route::post('bsc_purchase_update_data','bsc\PurchaseController@update_data');
-
-    // View Purchase Payment
-    Route::get('bsc_purchase_view_purchase_payment','bsc\PurchasePaymentControllre@view_purchase_payment');
-    Route::post('bsc_purchase_make_payment','bsc\PurchasePaymentControllre@make_payment');
-
-// Report
-    // Purchase Report
-        // Aged Payables Detail
-
-        // Aged Payables Summary
-
-        // Supplier Invoice Report
-
-// ========================================================> END TOUCH RITH <======================================================== //
-//============================================================> END BSC <===============================================================///
-
-
-// Route::get('testing','');
