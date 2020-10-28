@@ -96,13 +96,11 @@ function check_session(){
 function set_selected_nav(tar){
   var s=$("#"+tar).find("a")[1];
   var z=$("#"+tar).find("a")[1];
-  if(s){
-    s=$(s).attr("onclick");
-    s=s.split("'")[1];
-    if(s.length>0){
-      go_to(s);
-      $(z).addClass('active');// add class active
-    }
+  s=$(s).attr("onclick");
+  s=s.split("'")[1];
+  if(s.length>0){
+    go_to(s);
+    $(z).addClass('active');// add class active
   }
 }
 function get_pushmenu(){
@@ -125,17 +123,17 @@ function jnot_found(){
 }
 
 jQuery("a[data-id]").click(function(e){ // Function Click focus on link menu
-  e.preventDefault(); 
+  e.preventDefault();
   var href = $(this).attr("href");// get value href
-  if (typeof href !== typeof undefined && href !== false) {// check condition 
+  if (typeof href !== typeof undefined && href !== false) {// check condition
       $('a[data-id]').removeClass('active'); //remove class active
       var id = $(this).attr("data-id");// get value data-id from link click
       $('a[data-id='+id+']').addClass('active'); // set link active
-  }  
+  }
 })
 function navbar_active(id){ // Function Click focus on link menu
       $('a[data-navbar]').removeClass('active'); //remove class active
-      $('a[data-navbar='+id+']').addClass('active'); // set link active 
+      $('a[data-navbar='+id+']').addClass('active'); // set link active
 }
 $(function() {
   //var content_menu_width = $('.os-content').width();
