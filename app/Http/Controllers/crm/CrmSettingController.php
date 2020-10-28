@@ -108,6 +108,48 @@ class CrmSettingController extends Controller
         }
         
     }
+    // Insert Lead Industry
+    public function StoreLeadIndustry(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+            }
+            $validator = \Validator::make($request->all(), [
+                'name_en' => [ 'required',
+                            Rule::unique('crm_lead_industry','name_en')
+                            ->where(function ($query) use ($request) {
+                            return $query->where('is_deleted', 'f');})
+                                    ],
+                'name_kh' => [ 'required',
+                            Rule::unique('crm_lead_industry','name_kh')
+                            ->where(function ($query) use ($request) {
+                            return $query->where('is_deleted', 'f');})
+                                        ],  
+            ],
+            [
+                'name_en.required' => 'This Field is require !!',   //massage validator
+                'name_kh.required' => 'This Field is require !!',   //massage validator
+                'name_en.unique' => 'The Name English is Already Exist !!',   //massage validator
+                'name_kh.unique' => 'The Name Khmer is Already Exist !!',   //massage validator
+                ]
+            );
+        if ($validator->fails()) //check validator for fail
+        {
+            return response()->json(array(
+                'errors' => $validator->getMessageBag()->toArray() 
+            ));
+        }else{
+            if(perms::check_perm_module('CRM_02090201')){//module code list 
+                $request->create_by = $_SESSION['userid'];
+                $create_industry = Request::create('/api/insertindustry','POST');
+                $response = json_decode(Route::dispatch($create_industry)->getContent());
+                if($response->insert=='success'){
+                    return response()->json(['success'=>'Record is successfully added']);
+                }
+            }else{
+                return view('no_perms');
+            }
+        }
+    }
     public function CrmLeadSource(){ //index setting crm
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
