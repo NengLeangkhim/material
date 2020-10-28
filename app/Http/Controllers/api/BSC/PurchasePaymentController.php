@@ -70,7 +70,7 @@ class PurchasePaymentController extends Controller
             // INSERT INTO public."bsc_payment_bsc_journal_rel"(bsc_journal_id, bsc_payment_id) VALUES (last_journal_id, last_id);
             
             DB::commit();
-            return $this->sendResponse($q_purchase, 'Purchase created successfully.');
+            return $this->sendResponse($q_purchase_payment, 'Purchase payment created successfully.');
             
         } catch (\Throwable $th) {
             DB::rollBack();
