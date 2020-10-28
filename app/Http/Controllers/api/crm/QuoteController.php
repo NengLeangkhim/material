@@ -5,7 +5,10 @@ namespace App\Http\Controllers\api\crm;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\model\api\crm\ModelCrmQuote as Quote;
+use App\model\api\crm\ModelCrmQuoteBranch as QuoteBranch;
+use App\model\api\crm\ModelCrmQuoteBranchDetail as QuoteBranchDetail;
 use App\Http\Resources\QuoteResource;
+use App\Http\Resources\QuoteBranchResource;
 use App\model\api\crm\ModelCrmQuoteStatusType as QuoteStatusType;
 use App\Http\Resources\StockResource;
 
@@ -23,6 +26,13 @@ class QuoteController extends Controller
     {
         $quote = Quote::orderBy('id','asc')->get();
         return QuoteResource::Collection($quote);
+    }
+
+    public function getquotebranch($qid){
+        // return QuoteBranch::get();
+        $quote = QuoteBranch::where('crm_quote_id',$qid)->orderBy('id','asc')->get();
+        // return $quote;
+        return QuoteBranchResource::Collection($quote);
     }
 
     /**
@@ -48,177 +58,90 @@ class QuoteController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->isMethod('put')){
-            DB::beginTransaction();
-            try {
 
-                $update_by = $request->input('update_by');
-                $quote_id =$request->input('quote_id');
-                // update quote
-                $results = DB::select(
-                    'SELECT public."update_crm_quote"(?, ?, ?, ?, ?, ?, ?, ?)',
+        DB::beginTransaction();
+        try {
+
+            $createby = $request->input('create_by');
+
+            // insert to crm_quote
+            $insert_quote = DB::select(
+                'SELECT public."insert_crm_quote"(?, ?, ?, ?, ?, ?)',
+                array(
+                    $request->input('lead_id'),
+                    $request->input('due_date'),
+                    $request->input('assign_to'),
+                    null,
+                    $request->input('subject'),
+                    $createby
+                ));
+
+            $quote_id =$insert_quote[0]->insert_crm_quote;
+
+            // insert to crm_quote_status
+            DB::select(
+                'SELECT public."insert_crm_quote_status"(?, ?, ?,?)',
+                array(
+                    $quote_id,
+                    $request->input('comment'),
+                    $createby,
+                    $request->input('crm_quote_status_type_id')
+                ));
+
+
+
+            // get all crm_quote_branch
+            $allbranch = count(collect($request)->get('lead_branch'));
+
+
+            for ($q = 0; $q < $allbranch; $q++)
+            {
+                // insert to crm_quote_branch
+                $insert_quote_branch = DB::select(
+                    'SELECT public."insert_crm_quote_branch"(?, ?, ?)',
                     array(
                         $quote_id,
-                        $update_by,
-                        $request->get('crm_lead_id'),
-                        $request->get('due_date'),
-                        $request->get('assign_to'),
-                        $request->get('crm_lead_address_id'),
-                        $request->get('subject'),
-                        't'
-                    ));
-
-
-
-
-
-                // update to crm_quote_status
-                DB::select(
-                    'SELECT public."insert_crm_quote_status"(?, ?, ?,?)',
-                    array(
-                        $quote_id,
-                        $request->input('comment'),
-                        $update_by,
-                        $request->input('crm_quote_status_type_id')
-                    ));
-
-
-                //right here not yet
-
-                // get all crm_quote_branch
-                // $allbranch = count(collect($request)->get('lead_branch'));
-
-
-                // for ($q = 0; $q < $allbranch; $q++)
-                // {
-                //     // insert to crm_quote_branch
-                //     $insert_quote_branch = DB::select(
-                //         'SELECT public."insert_crm_quote_branch"(?, ?, ?)',
-                //         array(
-                //             $quote_id,
-                //             $request->get('lead_branch')[$q],
-                //             $update_by
-                //         ));
-
-                //     $quote_branch_id =$insert_quote_branch[0]->insert_crm_quote_branch;
-
-
-                //     //product count
-
-                //     $product = $request->get("product".($q+1));
-                //     $price = $request->get("price".($q+1));
-                //     $qty = $request->get("qty".($q+1));
-                //     $discount = $request->get("discount".($q+1));
-                //     $discount_type = $request->get("discount_type".($q+1));
-
-                //     $all_product = count(collect($request)->get("product".($q+1)));
-
-                //     //insert product
-                //     for ($i = 0; $i < $all_product; $i++)
-                //     {
-                //         DB::select(
-                //             'SELECT public."insert_crm_quote_branch_detail"(?, ?, ?, ?, ?, ?, ?)',
-                //             array(
-                //                 $quote_branch_id,
-                //                 $product[$i],
-                //                 $price[$i],
-                //                 $qty[$i],
-                //                 $createby,
-                //                 $discount[$i],
-                //                 $discount_type[$i]
-                //             ));
-                //     }
-                // }
-                DB::commit();
-                //return here
-            }catch(Exception $e){
-                DB::rollback();
-                return json_encode(["insert"=>"fail","result"=> $e->getMessage()]);
-            }
-        }else{
-            DB::beginTransaction();
-            try {
-
-                $createby = $request->input('create_by');
-
-                // insert to crm_quote
-                $insert_quote = DB::select(
-                    'SELECT public."insert_crm_quote"(?, ?, ?, ?, ?, ?)',
-                    array(
-                        $request->input('lead_id'),
-                        $request->input('due_date'),
-                        $request->input('assign_to'),
-                        $request->input('crm_lead_address_id'),
-                        $request->input('subject'),
+                        $request->get('lead_branch')[$q],
                         $createby
                     ));
 
-                $quote_id =$insert_quote[0]->insert_crm_quote;
-
-                // insert to crm_quote_status
-                DB::select(
-                    'SELECT public."insert_crm_quote_status"(?, ?, ?,?)',
-                    array(
-                        $quote_id,
-                        $request->input('comment'),
-                        $createby,
-                        $request->input('crm_quote_status_type_id')
-                    ));
+                $quote_branch_id =$insert_quote_branch[0]->insert_crm_quote_branch;
 
 
+                //product count
 
-                // get all crm_quote_branch
-                $allbranch = count(collect($request)->get('lead_branch'));
+                $product = $request->get("product".$request->get('lead_branch')[$q]);
+                $price = $request->get("price".$request->get('lead_branch')[$q]);
+                $qty = $request->get("qty".$request->get('lead_branch')[$q]);
+                $discount = $request->get("discount".$request->get('lead_branch')[$q]);
+                $discount_type = $request->get("discount_type".$request->get('lead_branch')[$q]);
 
+                $all_product = count(collect($request)->get("product".$request->get('lead_branch')[$q]));
 
-                for ($q = 0; $q < $allbranch; $q++)
+                //insert product
+                for ($i = 0; $i < $all_product; $i++)
                 {
-                    // insert to crm_quote_branch
-                    $insert_quote_branch = DB::select(
-                        'SELECT public."insert_crm_quote_branch"(?, ?, ?)',
+                    DB::select(
+                        'SELECT public."insert_crm_quote_branch_detail"(?, ?, ?, ?, ?, ?, ?)',
                         array(
-                            $quote_id,
-                            $request->get('lead_branch')[$q],
-                            $createby
+                            $quote_branch_id,
+                            $product[$i],
+                            $price[$i],
+                            $qty[$i],
+                            $createby,
+                            $discount[$i],
+                            $discount_type[$i]
                         ));
-
-                    $quote_branch_id =$insert_quote_branch[0]->insert_crm_quote_branch;
-
-
-                    //product count
-
-                    $product = $request->get("product".$request->get('lead_branch')[$q]);
-                    $price = $request->get("price".$request->get('lead_branch')[$q]);
-                    $qty = $request->get("qty".$request->get('lead_branch')[$q]);
-                    $discount = $request->get("discount".$request->get('lead_branch')[$q]);
-                    $discount_type = $request->get("discount_type".$request->get('lead_branch')[$q]);
-
-                    $all_product = count(collect($request)->get("product".$request->get('lead_branch')[$q]));
-
-                    //insert product
-                    for ($i = 0; $i < $all_product; $i++)
-                    {
-                        DB::select(
-                            'SELECT public."insert_crm_quote_branch_detail"(?, ?, ?, ?, ?, ?, ?)',
-                            array(
-                                $quote_branch_id,
-                                $product[$i],
-                                $price[$i],
-                                $qty[$i],
-                                $createby,
-                                $discount[$i],
-                                $discount_type[$i]
-                            ));
-                    }
                 }
-
-                DB::commit();
-                return json_encode(["insert"=>"success","result"=>[]]);
-            } catch(Exception $e){
-                DB::rollback();
-                return json_encode(["insert"=>"fail","result"=> $e->getMessage()]);
             }
+
+            DB::commit();
+            return json_encode(["insert"=>"success","result"=>[]]);
+        } catch(Exception $e){
+            DB::rollback();
+            return json_encode(["insert"=>"fail","result"=> $e->getMessage()]);
         }
+
     }
 
     /**
@@ -246,5 +169,109 @@ class QuoteController extends Controller
         $status = QuoteStatusType::get();
 
         return json_encode($status);
+    }
+
+    public function getStockByBranchId($id){
+        $product= QuoteBranchDetail::where('crm_quote_branch_id',$id)->orderBy('id','asc')->get();
+        return QuoteBranchResource::collection($product);
+    }
+
+    public function editQuote(Request $request){
+        DB::beginTransaction();
+        try {
+            $update_by = $request->input('update_by');
+            $quote_id = $request->input('quote_id');
+            // update quote
+            DB::select(
+                'SELECT public."update_crm_quote"(?, ?, ?, ?, ?, ?, ?, ?)',
+                array(
+                    $quote_id,
+                    $update_by,
+                    $request->input('crm_lead_id'),
+                    $request->input('due_date'),
+                    $request->input('assign_to'),
+                    null,
+                    $request->input('subject'),
+                    't'
+                ));
+            // update to crm_quote_status
+            if($request->input('crm_quote_status_type_id')){
+                DB::select(
+                    'SELECT public."insert_crm_quote_status"(?, ?, ?,?)',
+                    array(
+                        $quote_id,
+                        $request->input('comment'),
+                        $update_by,
+                        $request->input('crm_quote_status_type_id')
+                    ));
+            }
+            DB::commit();
+            return json_encode(["udpate"=>"success","result"=>[]]);
+        }catch(Exception $e){
+            DB::rollback();
+            return json_encode(["update"=>"fail","result"=> $e->getMessage()]);
+        }
+    }
+
+    public function editQuoteBranch(Request $request){
+        DB::beginTransaction();
+        try {
+            $update_by = $request->input('update_by');
+            $quote_id =$request->input('quote_id');
+            $quote_branch_id = $request->input('quote_branch_id');
+
+            // update crm_quote_branch
+            $update_quote_branch = DB::select(
+                'SELECT public."update_crm_quote_branch"(?, ?, ?,?, ?)',
+                array(
+                    $quote_branch_id,
+                    $update_by,
+                    $quote_id,
+                    $request->input('lead_branch_id'),
+                    't'
+                ));
+
+            //product count
+
+            $price = $request->input("price");
+            $qty = $request->input("qty");
+            $discount = $request->input("discount");
+            $discount_type = $request->input("discount_type");
+
+
+            $quotebranchdetailid = $request->input("quote_detail_id");
+            $stockproductid = $request->input("product");
+
+
+            $all_product = count(collect($stockproductid));
+
+
+
+
+            //update product
+            for ($i = 0; $i < $all_product; $i++)
+            {
+                DB::select(
+                    'SELECT public."update_crm_quote_branch_detail"(?, ?, ?, ?, ?, ?, ?,?,?)',
+                    array(
+                        $quotebranchdetailid[$i],
+                        $update_by,
+                        $quote_branch_id,
+                        $stockproductid[$i],
+                        $price[$i],
+                        $qty[$i],
+                        't',
+                        $discount[$i],
+                        $discount_type[$i]
+                    ));
+            }
+
+
+            DB::commit();
+            return json_encode(["udpate"=>"success","result"=>[]]);
+        }catch(Exception $e){
+            DB::rollback();
+            return json_encode(["update"=>"fail","result"=> $e->getMessage()]);
+        }
     }
 }
