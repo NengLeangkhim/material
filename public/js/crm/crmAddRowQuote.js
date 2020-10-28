@@ -184,7 +184,6 @@
             var sumTotal = 0;
             var granTotal = 0;
             $(".row-quote-item").keyup(function(e){
-                // console.log('this select on row tr product');
                 var row_id = $(this).attr("id");
                 var subTotal = 0;
                 var get_val = 0;
@@ -192,12 +191,11 @@
                 var netPrice = 0;
 
                 var itemQty = $.trim($(".itemQty_"+row_id+"").val());
-                                    // var itemPrice = $.trim($(".itemPrice_"+row_id+"").val());
                 var itemPrice = $.trim($(".itemPrice_"+row_id+"").val());
                 subTotal = parseInt(itemQty) * parseInt(itemPrice);
                 $("#quote-sub-total_"+row_id+"").text(subTotal);
 
-                console.log('rowId='+ row_id +'-itemQty='+itemQty+'-itemPrice='+itemPrice+'-subTotal='+subTotal);
+                    // console.log('rowId='+ row_id +'-itemQty='+itemQty+'-itemPrice='+itemPrice+'-subTotal='+subTotal);
                 //get discount percent for unit row
                 if( $(".itemDisPercent_"+row_id+"").val()){
                     var DisPercent =  $(".itemDisPercent_"+row_id+"").val();
@@ -383,7 +381,7 @@
                             // var prdId = prdVal; // get id of product
                             var itemType = $.trim($("#showItemType_"+btnId+"").val());
                             var prdName = $.trim($(".itemName_"+prdVal+"").text());
-                            var prdPrice = $.trim($(".itemPrice_"+prdVal+"").text());
+                            var prdPrice = $.trim($(".itemPrice_"+prdVal+"").val());
                             var prdAviableStock = $.trim($(".stockItem_"+prdVal+"").text());
 
                             prdInStock = parseInt(prdAviableStock);

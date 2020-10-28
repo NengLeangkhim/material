@@ -42,7 +42,7 @@
                     <form id="frm_addQuote" action="POST">
                         @csrf
                         <!-- general form elements -->
-                        <input type="hidden" name="create_by" value="247">
+                        {{-- <input type="hidden" name="create_by" value="247"> --}}
                         <?php
                                 if (session_status() == PHP_SESSION_NONE) {
                                     session_start();

@@ -1022,8 +1022,8 @@ function Crm_delete(id,route,goto,alert) {
               {
 
                   if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-                    sweetalert('success','Data has been saved !');
-                    // go_to(goto);// refresh content
+                    // sweetalert('success','Data has been saved !');
+                    go_to('/quote/detail');// refresh content
 
                     // use go ot view quote detail
                   }else{

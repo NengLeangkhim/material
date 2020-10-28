@@ -140,8 +140,6 @@ class QuoteController extends Controller
             try {
 
                 $createby = $request->input('create_by');
-
-
                 // insert to crm_quote
                 $insert_quote = DB::select(
                     'SELECT public."insert_crm_quote"(?, ?, ?, ?, ?, ?)',

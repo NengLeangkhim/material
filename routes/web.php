@@ -59,7 +59,7 @@ Route::get('/schedule','crm\CrmScheduleController@index');
 // end survey
 
 // start survey
-//get survey 
+//get survey
 Route::get('/survey','crm\CrmSurveyController@index');
 
 
@@ -98,6 +98,8 @@ Route::get('/organizations/detail','crm\OrganizationController@DetailOrganizatio
 // crm quote
 Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote
 Route::get('/quote/detail','crm\QuoteController@showQuoteListDetail'); // get show quote detail
+Route::get('/quote/leadBranch','crm\QuoteController@listLeadBranch'); // get list branch of lead by lead id
+
 Route::get('/quote/add','crm\QuoteController@addQuote'); // to add qoute
 
 Route::get('/quote/deleteLeadQuote','crm\QuoteController@deleteLeadQuote'); // get delete lead for quote list
@@ -138,7 +140,7 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     Route::get('/crm/setting/leadstatus','crm\CrmSettingController@CrmLeadStatus'); // show Lead Status Setting CRM
     Route::post('/crm/setting/leadstatus/store','crm\CrmSettingController@StoreLeadStatus'); // show Lead Status Setting CRM
 Route::get('/crm/setting/leadindustry','crm\CrmSettingController@CrmLeadIndustry'); // show Lead Status Setting CRM
-// END Setting CRM 
+// END Setting CRM
 
 //===========================END CRM=================================
 
@@ -790,7 +792,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// Modal Show List Candidate
     Route::get('hrm_list_condidate/modal','hrms\recruitment\HrmListCandidateController@hrm_detail_candidate');
-    
+
     /// Go to add Candidate
     Route::get('hrm_list_condidate/add','hrms\recruitment\HrmListCandidateController@hrm_goto_add');
     /// add Candidate
