@@ -768,11 +768,23 @@ function custom_payroll_list_report(){
                 $.each(ab, function(i, value) {
                     i++;
                     if(value[11]==true){
-                        var btn='<label class="btn btn-danger btn-sm">Yes</label>';
+                        var btn='<label class="">Yes</label>';
                     }else{
-                        var btn='<label class="btn btn-info btn-sm">No</label>';
+                        var btn='<label class="">No</label>';
                     }
-                    var tr="<tr><th>"+i+"</th><td>"+value[1]+"</td><td>"+value[2]+"</td><td>"+value[3]+"</td><td>"+value[4]+"</td><td>"+value[5]+"</td><td>"+value[6]+"</td><td class='text-center'>"+btn+"</td></tr>";
+                    if(!value.overtime==null){
+                        ot=value.overtime;
+                    }else{
+                        ot=0;
+                    }
+
+                    if(!value.commission==null){
+                        commis=value.commission;
+                    }else{
+                        commis=0;
+                    }
+                    bonus=0;
+                    var tr="<tr><th>"+i+"</th><td>"+value.employee+"</td><td>"+value.role+"</td><td>"+value.base_salary+"</td><td>"+ot+"</td><td>"+commis+"</td><td>"+bonus+"</td><td class='text-center'>"+btn+"</td></tr>";
                     $("#tbl_payroll_list_report").append(tr);
                 });
                 $('#tbl_payroll_list_report').DataTable();
@@ -801,9 +813,9 @@ function custom_payroll_list_report(){
                 $.each(ab, function(i, value) {
                     i++;
                     if(value[11]==true){
-                        var btn='<label class="btn btn-danger btn-sm">Yes</label>';
+                        var btn='<label class="">Yes</label>';
                     }else{
-                        var btn='<label class="btn btn-info btn-sm">No</label>';
+                        var btn='<label class="">No</label>';
                     }
                     var tr="<tr><th>"+i+"</th><td>"+value[1]+"</td><td>"+value[2]+"</td><td>"+value[3]+"</td><td>"+value[4]+"</td><td>"+value[5]+"</td><td>"+value[6]+"</td><td class='text-center'>"+btn+"</td></tr>";
                     $("#tbl_payroll_list_report").append(tr);
@@ -841,9 +853,9 @@ function custom_payroll_report(){
                 $.each(ab, function(i, value) {
                     i++;
                     if(value.approve==true){
-                        var btn='<label class="btn btn-danger btn-sm">Yes</label>';
+                        var btn='<label class="">Yes</label>';
                     }else{
-                        var btn='<label class="btn btn-info btn-sm">No</label>';
+                        var btn='<label class="">No</label>';
                     }
                     var tr="<tr><th>"+i+"</th><td>"+value.first_name_en+" "+value.last_name_en+"</td><td>"+value.id_number+"</td><td>"+value.position+"</td><td>"+value.bonus_value+"</td><td>"+value.tax+"</td><td>"+(value.bonus_value-value.tax)+"</td><td class='text-center'>"+btn+"</td></tr>";
                     $("#tbl_payroll_report").append(tr);
@@ -874,9 +886,9 @@ function custom_payroll_report(){
                 $.each(ab, function(i, value) {
                     i++;
                     if(value.approve==true){
-                        var btn='<label class="btn btn-danger btn-sm">Yes</label>';
+                        var btn='<label class="">Yes</label>';
                     }else{
-                        var btn='<label class="btn btn-info btn-sm">No</label>';
+                        var btn='<label class="">No</label>';
                     }
                     var tr="<tr><th>"+i+"</th><td>"+value.first_name_en+" "+value.last_name_en+"</td><td>"+value.id_number+"</td><td>"+value.position+"</td><td>"+value.bonus_value+"</td><td>"+value.tax+"</td><td>"+(value.bonus_value-value.tax)+"</td><td class='text-center'>"+btn+"</td></tr>";
                     $("#tbl_payroll_report").append(tr);

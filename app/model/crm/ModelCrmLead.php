@@ -37,6 +37,7 @@ class ModelCrmLead extends Model
         $request->headers->set('Accept', 'application/json');
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
+        // dd($res);
         return $res->getContent();
     }
     // Model get  lead by id
@@ -87,5 +88,17 @@ class ModelCrmLead extends Model
     // Model imset lead industry
     public static function CrmInsertLeadIndustry($name,$staff){
         return DB::select("SELECT public.insert_crm_lead_industry('$name',null,$staff)");
+    }
+    // Model Get survey
+    public static function Getsurvey(){
+
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/survey', 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        // dd($res);
+        return $res->getContent();
+       
     }
 }

@@ -1,6 +1,6 @@
-<div class="col-12 text-right">
+{{-- <div class="col-12 text-right">
     <a  href="javascript:void(0);" class="btn btn-success crm_contact" onclick="CrmModalAction('crm_lead_status_form','crm_lead_status','ActionLeadStatus','Add Lead Status')" ​><i class="fas fa-plus"></i> Add Lead Status</a> 
-</div>
+</div> --}}
 <div class="col-12" style="margin-top: 10px">
     <div>
         <table class="table table-bordered display nowrap" style="width: 100%" id="Lead_Status_Tbl">
@@ -8,29 +8,30 @@
                 <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Create Date</th>
+                    {{-- <th>Create Date</th>
                     <th>Create By</th>
                     <th>Status</th>
-                    <th>Sequence</th>
-                    <th>Action</th>
+                    <th>Sequence</th>--}}
+                    <th>Action</th> 
                 </tr>
             </thead>
             <tbody>
-            {{-- @foreach($contact_table->data as $row) --}}
+            @php
+                $i=1;
+            @endphp
+             @foreach($tbl->data as $row) 
                 <tr>
-                    <td>TT-CON0000002</td>
-                    <td>{{'$row->name_en'}}</td>
-                    <td>{{'$row->name_kh'}}</td>
+                    <td>{{$i++}}</td>
+                    <td>{{$row->name}}</td>
+                    {{-- <td>{{'$row->name_kh'}}</td>
                     <td>{{'$row->phone'}}</td>
                     <td>{{'$row->facebook'}}</td>
-                    <td>{{'$row->email'}}</td>
+                    <td>{{'$row->email'}}</td> --}}
                     <td class="text-center">
-                        <a href="#" class="btn"><i class="fas fa-wrench"></i></a>
-                        <a href="#" class="btn"><i class="far fa-edit"></i></a>
-                        <a href="#" class="btn"><i class="fas fa-trash"></i></a>
+                        <a href="#" class="btn btn-info btn-block"><i class="fas fa-wrench"></i></a>
                     </td>
                 </tr>                                           
-            {{-- @endforeach --}}
+             @endforeach 
             </tbody>  
         </table>
     </div>
