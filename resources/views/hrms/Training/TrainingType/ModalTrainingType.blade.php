@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="card card-default">
           <div class="card-header">
-            <h3 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Add Training Type</strong></h3>
+            <h3 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Add Training Course</strong></h3>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
@@ -18,7 +18,7 @@
               <input type="hidden" name="id" id="" value="@php if(isset($data[0])){echo $data[0][0]->id;} @endphp">
               <div class="col-md-12">
                 <div class="form-group">
-                  <label>Training Type <span class="text-danger">*</span></label>
+                  <label>Training Course <span class="text-danger">*</span></label>
                   <input type="text" class="form-control" name="trainingType" value="@php if(isset($data[0])){echo $data[0][0]->name;} @endphp" required>
                 </div>
                 <!-- /.form-group -->

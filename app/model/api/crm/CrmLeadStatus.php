@@ -6,22 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 
-class CrmLeadIndustry extends Model
+class CrmLeadStatus extends Model
 {
     //
-    function saveData($id, $userId, $nameEn, $nameKh, $status){
+    function saveData($id, $userId, $nameEn, $nameKh, $status, $sequence){
         try {
             if($id != null){
                 $data = $this->getOneData($id);
                 $nameEn = ($nameEn == null || $nameEn == '') ? $data->name_en : $nameEn;
                 $nameKh = ($nameKh == null || $nameKh == '') ? $data->name_kh : $nameKh;
                 $status = ($status == null || $status == '') ? $data->status : $status;
-                $sql = 'select update_crm_lead_industry('.$id.', '.$userId.', \''.$nameEn.'\', \''.$nameKh.'\', true) as id';
+                $sequence = ($sequence == null || $sequence == '') ? $data->sequence : $sequence;
+                $sql = 'select update_crm_lead_status('.$id.', '.$userId.', \''.$nameEn.'\', \''.$nameKh.'\', \''.$status.'\', \''.$sequence.'\') as id';
             } else {
-                $sql = 'select insert_crm_lead_industry(\''.$nameEn.'\', \''.$nameKh.'\', '.$userId.') as id';
+                $sql = 'select insert_crm_lead_status(\''.$nameEn.'\', \''.$nameKh.'\', '.$userId.', '.($sequence == null ? 'null' : $sequence).') as id';
             }
             $newId = DB::selectOne($sql)->id;
             $result = $this->getOneData($newId);
+            dd($result);
         } catch(QueryException $e){
             throw $e;
         }
@@ -31,7 +33,7 @@ class CrmLeadIndustry extends Model
 
     function getOneData($id){
         try {
-            $result = DB::selectOne('select * from crm_lead_industry where status = true and is_deleted = false and id = '.$id);
+            $result = DB::selectOne('select * from crm_lead_status where status = true and is_deleted = false and id = '.$id);
         } catch(QueryException $e){
             throw $e;
         }
@@ -40,7 +42,7 @@ class CrmLeadIndustry extends Model
 
     function getAllData(){
         try {
-            $result = DB::select('select * from crm_lead_industry where status = true and is_deleted = false');
+            $result = DB::select('select * from crm_lead_status where status = true and is_deleted = false');
         } catch(QueryException $e){
             throw $e;
         }
@@ -50,7 +52,7 @@ class CrmLeadIndustry extends Model
 
     function deleteData($id, $userId){
         try {
-            $result = DB::selectOne('select delete_crm_lead_industry('.$id.', '.$userId.') as id')->id;
+            $result = DB::selectOne('select delete_crm_lead_status('.$id.', '.$userId.') as id')->id;
         } catch(QueryException $e){
             throw $e;
         }

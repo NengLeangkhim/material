@@ -80,7 +80,6 @@
                                 <th>Traning Course</th>
                                 <th>Trainer</th>
                                 <th>Duration</th>
-                                <th>Document</th>
                                 <th>Description</th>
                             </tr>
                         </thead>
@@ -93,7 +92,7 @@
                                     <th>{{++$i}}</th>
                                     <td>{{$item['training_course']}}</td>
                                     <td>{{$item['trainer']}}</td>
-                                    <td>
+                                    {{-- <td>
                                         <ul class="team-members">
                                             @if (count($item['employee'])>0)
                                                 @php
@@ -117,7 +116,7 @@
                                             @endif
 						
                                         </ul>
-                                    </td>
+                                    </td> --}}
                                     @if (Str::length($item['actual_f_date'])>0)
                                         <td>{{date('d-m-Y', strtotime($item['actual_f_date']))}}/{{date('d-m-Y', strtotime($item['actual_t_date']))}}</td>
                                     @else
@@ -141,7 +140,6 @@
                                 <th>Traning Course</th>
                                 <th>Trainer</th>
                                 <th>Duration</th>
-                                <th>Document</th>
                                 <th>Description</th>
                             </tr>
                         </thead>
@@ -150,12 +148,12 @@
                                 $i=0;
                             @endphp
                             @foreach ($report_training_schedule as $item)
-                            @if(count($item['employee'])>0)
+                            @if(Str::length($item['actual_f_date'])>0)
                                 <tr>
                                     <th>{{++$i}}</th>
                                     <td>{{$item['training_course']}}</td>
                                     <td>{{$item['trainer']}}</td>
-                                    <td>
+                                    {{-- <td>
                                         <ul class="team-members">
                                             @if (count($item['employee'])>0)
                                                 @php
@@ -178,7 +176,7 @@
                                                 </li>
                                             @endif            
                                         </ul>
-                                    </td>
+                                    </td> --}}
                                     @if (Str::length($item['actual_f_date'])>0)
                                         <td>{{date('d-m-Y', strtotime($item['actual_f_date']))}}/{{date('d-m-Y', strtotime($item['actual_t_date']))}}</td>
                                     @else
@@ -204,7 +202,6 @@
                                 <th>Traning Course</th>
                                 <th>Trainer</th>
                                 <th>Duration</th>
-                                <th>Document</th>
                                 <th>Description</th>
                             </tr>
                         </thead>
@@ -213,14 +210,12 @@
                             $i=0;
                         @endphp
                         @foreach ($report_training_schedule as $item)
-                        @if (count($item['employee'])<=0)
-                            
-                       
+                        @if (Str::length($item['actual_f_date'])<=0)
                             <tr>
                                 <th>{{++$i}}</th>
                                 <td>{{$item['training_course']}}</td>
                                 <td>{{$item['trainer']}}</td>
-                                <td>
+                                {{-- <td>
                                     <ul class="team-members">
                                         @if (count($item['employee'])>0)
                                             @php
@@ -245,7 +240,7 @@
                                         @endif
                                             
                                     </ul>
-                                </td>
+                                </td> --}}
                                 @if (Str::length($item['actual_f_date'])>0)
                                     <td>{{date('d-m-Y', strtotime($item['actual_f_date']))}}/{{date('d-m-Y', strtotime($item['actual_t_date']))}}</td>
                                 @else

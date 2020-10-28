@@ -76,6 +76,10 @@
                     <div class="form-group">
                     <label>Start Date <span class="text-danger">*</span></label>
                     <input type="date" class="form-control" name="startdate" value="@php if(isset($data[2])){echo date('Y-m-d',strtotime($data[2][0]->schet_f_date));} @endphp" required>
+                    
+                    
+                    
+                  
                   </div>
                 </div>
                 <div class="col-md-6">
