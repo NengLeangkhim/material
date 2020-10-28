@@ -751,8 +751,3 @@ function form_submit(form,route,goto){
 
 }
 
-
-
-function submit_form222(){
-    alert("helokkk");
-}
