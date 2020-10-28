@@ -57,17 +57,18 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Customer<b class="color_label">*</b></label>
+                                        <label for="exampleInputEmail1">Reference<b class="color_label">*</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <select class="form-control select2 input_required" name="customer" id="customer">
-                                                <option selected hidden disabled>select item</option>
-                                                @foreach ($customers as $customers)
-                                                    <option value="{{ $customers->id }}">{{ $customers->name }}</option>
-                                                @endforeach>
+                                            <select class="form-control select2 input_required" name="reference" id="reference" onchange="myFunction(this)">
+                                                <option value="" selected hidden disabled>select item</option>
+                                                @foreach ($qoutes as $qoute)
+                                                    <option value="{{ $qoute->id }}">{{ $qoute->quote_number }}</option>
+                                                @endforeach
                                             </select>
+
                                         </div>
                                     </div>
 
@@ -94,19 +95,19 @@
                                             <input type="date" class="form-control input_required"  name="billing_date" id="billing_date">
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Reference<b class="color_label">*</b></label>
+                                        <label for="exampleInputEmail1">Customer<b class="color_label">*</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <select class="form-control select2 input_required" name="reference" id="reference">
-                                                <option value="" selected hidden disabled>select item</option>
-                                                @foreach ($qoutes as $qoute)
-                                                    <option value="{{ $qoute->quote_id }}">{{ $qoute->quote_number }}</option>
-                                                @endforeach
+                                            <select class="form-control select2 input_required" name="customer" id="customer">
+                                                <option selected hidden disabled>select item</option>
+                                                @foreach ($customers as $customers)
+                                                    <option value="{{ $customers->id }}">{{ $customers->name }}</option>
+                                                @endforeach>
                                             </select>
-
                                         </div>
                                     </div>
                                 </div>
@@ -250,6 +251,25 @@
 </form>
 <script src="js/bsc/invoice.js"></script>
 {{-- ========== submit chart account =========== --}}
+<script>
+    function myFunction(id)
+    {
+        let reference_id = id.selectedIndex;
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type:"POST",
+                url:'/bsc_reference_onchange',
+                data:{
+                    _token: CSRF_TOKEN,
+                    reference_id     : reference_id
+                },
+                dataType: "JSON",
+                success:function(data){
+
+                }
+            });
+    }
+</script>
 <script type="text/javascript">
     var itemDetail = [];
     function saveData(){
