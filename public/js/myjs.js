@@ -111,6 +111,7 @@ function get_pushmenu(){
 //   alert(link);
 // }
 function spinner(){
+  // return '';
   return'<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
 }
 function jerror(){
@@ -147,3 +148,58 @@ $(function() {
     //alert(a_width);
   })
 });
+
+
+jQuery.fn.center = function () {
+  this.css("position","absolute");
+  this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + 
+                                              $(window).scrollTop()) + "px");
+  this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + 
+                                              $(window).scrollLeft()) + "px");
+  return this;
+}
+
+function showloading(){
+  backdrop=document.getElementById('moLoading');
+  if(backdrop){
+    // $('<div class="modal-backdrop"><div id="moLoading"><center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center></div></div>').appendTo(document.body);
+    // $("#moLoading").center();
+    // $("#moLoading").show();
+  }else{
+    $('<div id="moLoadingdiv"><div id="moLoading"><center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Loading Please wait...</label></center></div></div>').appendTo(document.body);
+    $("#moLoadingdiv").css({"position": "fixed",
+     "top": "0",
+     "left": "0",
+     "z-index": "1040",
+     "width": "100vw",
+     "height": "100vh",
+     "background-color": "rgba(255, 255, 255, 0.5)",
+    });
+    $("#moLoading").center();
+    $("#moLoadingdiv").show();
+  }
+}
+function hideloading(){
+  $("#moLoadingdiv").remove();
+}
+var oldXHR = window.XMLHttpRequest;
+
+function newXHR() {
+    var realXHR = new oldXHR();
+    realXHR.addEventListener("readystatechange", function() {
+        if(realXHR.readyState==1){
+          showloading();
+        }
+        if(realXHR.readyState==2){
+          showloading();
+        }
+        if(realXHR.readyState==3){
+          showloading();
+        }
+        if(realXHR.readyState==4){
+          hideloading();
+        }
+    }, false);
+    return realXHR;
+}
+window.XMLHttpRequest = newXHR;
