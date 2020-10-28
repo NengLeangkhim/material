@@ -33,15 +33,15 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="" class="account_name">Account Name : {{$purchase->chart_account_name}}</label><br/>
-                                <label for="">Date : {{$purchase->billing_date}}</label><br/>
-                                <label for="">Reference : {{$purchase->reference}}</label><br/>
-                                <label for="">Address : {{$purchase->address}}</label><br/>
+                                <p for="" class="account_name">Account Name : {{$purchase->chart_account_name}}</p><br/>
+                                <p for="">Date : {{$purchase->billing_date}}</p><br/>
+                                <p for="">Reference : {{$purchase->reference}}</p><br/>
+                                <p for="">Address : {{$purchase->address}}</p><br/>
                             </div>
                             <div class="col-md-6">
-                                <label for="">Supplier Name : {{$purchase->supplier_name}}</label><br/>
-                                <label for="">Due Date : {{$purchase->due_date}}</label><br/>
-                                <label for="">Purchase# : {{$purchase->invoice_number}}</label><br/>
+                                <p for="">Supplier Name : {{$purchase->supplier_name}}</p><br/>
+                                <p for="">Due Date : {{$purchase->due_date}}</p><br/>
+                                <p for="">Purchase# : {{$purchase->invoice_number}}</p><br/>
                             </div>
                         </div>                               
                     </div>
@@ -65,7 +65,7 @@
                                         <td>{{$item->qty}}</td>
                                         <td>{{$item->chart_account_name}}</td>
                                         <td>{{$item->tax}}</td>
-                                        <td>{{$item->amount}}</td>
+                                        <td id="txtAmount" class="txtAmount">{{$item->amount}}</td>
                                     </tr>
                                 @endforeach
                                 
@@ -80,55 +80,64 @@
                                 <div class="col-md-4">
                                     <div class="row">
                                         <div class="col-sm-6 text_right">
-                                            <label for="">Total</label>
+                                            <label for="">Total :</label>
                                         </div>
                                         <div class="col-sm-6 text_right">
-                                            <label for="">1000</label>
+                                            <label for="" id="txtTotal" value="">{{$purchase->total}}</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6 text_right">
-                                            <label for="">VAT Total</label>
+                                            <label for="">VAT Total :</label>
                                         </div>
                                         <div class="col-sm-6 text_right">
-                                            <label for="">1000</label>
+                                            <label for="" id="txtVatTotal" value="">{{$purchase->vat_total}}</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6 text_right">
-                                            <label for="">Grand Total</label>
+                                            <label for="">Grand Total :</label>
                                         </div>
                                         <div class="col-sm-6 text_right">
-                                            <label for="">1000</label>
+                                            <label for="" id="txtGrandTotal" value="">{{$purchase->grand_total}}</label>
                                         </div>
                                     </div>
-                                    <hr class="line_in_tag_hr">
-                                    <div class="row">
-                                        <div class="col-sm-6 text_right">
-                                            <label for="">Payment</label>
+                                    <hr class="" style="margin: 0px;">
+                                    
+                                    @php
+                                        $due_amount = "";
+                                    @endphp
+                                    @foreach ($purchase_payments as $purchase_payment)
+                                        @php
+                                            $due_amount = $purchase_payment->due_amount;
+                                        @endphp
+                                        <div class="row">
+                                            <div class="col-sm-6 text_right">
+                                                <p for="">Payment :</p>
+                                            </div>
+                                            <div class="col-sm-6 text_right">
+                                                <p for="" id="payment_amount">{{$purchase_payment->amount_paid}}</p>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-6 text_right">
-                                            <label for="">1000</label>
+                                        <div class="row">
+                                            <div class="col-sm-6 text_right">
+                                                <p for="">Date :</p>
+                                            </div>
+                                            <div class="col-sm-6 text_right">
+                                                <p for="">{{$purchase_payment->date_paid}}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6 text_right">
-                                            <label for="">Date</label>
-                                        </div>
-                                        <div class="col-sm-6 text_right">
-                                            <label for="">1000</label>
-                                        </div>
-                                    </div>
-                                    <hr class="line_in_tag_hr2">
+                                        <hr class="" style="margin: 0px;">
+                                    @endforeach
                                     <div class="row">
                                         <div class="col-sm-6 text_right">
                                             <h4>
-                                                <label for="">Amount Due</label>
+                                                <label for="">Amount Due :</label>
                                             </h4>
                                         </div>
                                         <div class="col-sm-6 text_right">
                                             <h4>
-                                                <label for="">1000</label>
+                                                <label for="" id="due_amount_payment">{{$due_amount == null ? $purchase->grand_total : $due_amount}}</label>
                                             </h4>
                                         </div>
                                     </div>
@@ -152,7 +161,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                         </div>
-                                        <input type="number" class="form-control" name="code" id="exampleInputEmail1" placeholder="Amount Paid" >
+                                        <input type="number" class="form-control input_required" name="amount_paid" id="amount_paid" placeholder="Amount Paid" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -161,7 +170,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                         </div>
-                                        <input type="date" class="form-control" name="code" id="exampleInputEmail1" placeholder="Date Paid" >
+                                        <input type="date" class="form-control input_required" name="date_paid" id="date_paid" placeholder="Date Paid" >
                                     </div>
                                 </div>
                             </div>
@@ -169,17 +178,16 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="exampleInputEmail1">Paid From</label>
+                                    <label for="exampleInputEmail1">Paid From<b style="color:red">*</b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                         </div>
-                                        <select class="form-control select2" name="account_type" >
+                                        <select class="form-control select2" name="account_type" id="account_type">
                                             <option selected hidden disabled>select item</option>
-                                            <option>Exclusive</option>
-                                            <option>Inclusive</option>
-                                            <option>Oppa</option>
-                                            <option>Other</option>
+                                            @foreach ($show_chart_accounts as $chart_account_show)
+                                                <option value="{{$chart_account_show->id}}">{{$chart_account_show->name_en}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -189,14 +197,25 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" name="code" id="exampleInputEmail1" placeholder="Reference" >
+                                        <input type="text" class="form-control" name="reference" id="reference" placeholder="Reference" >
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <a href="#" class="btn btn-success purchase_form"  value="bsc_purchase_purchase_form" id="purchase_form"><i class="fas fa-plus"></i> Add Payment</a>&nbsp;
+                                <a href="#" onclick="makePayment()" class="btn btn-success purchase_form"  value="bsc_purchase_purchase_form" id="purchase_form"><i class="fas fa-plus"></i> Add Payment</a>&nbsp;
+                                <input type="hidden" name="" id="show_hidden_grand_total" value="{{$purchase->grand_total}}">
+                                {{--  --}}
+                                <input type="hidden" id="bsc_invoice_id" value="{{$purchase->id}}">
+                                {{--  --}}
+                                <input type="hidden" id="bsc_account_charts_id" value="{{$purchase->chart_account_id}}">
+
+                                {{-- @foreach ($purchase_payment as $pur_payment)
+                                   
+                                    <input type="hidden" id="due_amount_payment" value="{{$pur_payment->due_amount == null ? $purchase->grand_total : $pur_payment->due_amount}}"> 
+                                @endforeach --}}
+                        
                             </div>
                         </div>
                     </div>
@@ -204,7 +223,71 @@
             </div>
         </div>
     </div>
-</section><!-- end section Main content -->
+</section>
 <script>
    
+   $(document).ready(function(){
+        $('.select2').select2();
+
+        $("#amount_paid").on("keyup", function(){
+           let paid_amount =  parseFloat($(this).val());
+           let due_amount_payment=parseFloat($('#due_amount_payment').text());
+           if(paid_amount > due_amount_payment){
+                sweetalert('error', 'Your Paid Amount is bigger than Grand Total');
+                return false;
+            }
+        });
+    });
+
+    function makePayment(){
+        
+        let amount_paid = parseFloat($('#amount_paid').val());
+        let grand_total = parseFloat($('#show_hidden_grand_total').val());
+        let due_amount_payment=parseFloat($('#due_amount_payment').text());
+       
+        let due_amount = due_amount_payment - amount_paid;
+        if(amount_paid > due_amount){
+            sweetalert('error', 'Paid Amount input is bigger than Grand Total');
+        }else if(amount_paid == 0){
+            sweetalert('error', 'Paid Amount can not input Zero');
+        }else{
+            let num_miss = 0;
+            $(".input_required").each(function(){
+                if($(this).val()=="" || $(this).val()==null){ num_miss++;}
+            });
+            if(num_miss>0){
+                $(".input_required").each(function(){
+                    if($(this).val()=="" || $(this).val()==null){ 
+                        $(this).css("border-color","red"); 
+                    }
+                });
+                sweetalert('error', 'Please input or select field * required');
+            }else{
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                $.ajax({
+                    type:"POST",
+                    url:'/bsc_purchase_make_payment',                    
+                    data:{
+                        _token: CSRF_TOKEN,
+                        amount_paid  : amount_paid,
+                        due_amount   : due_amount,
+                        date_paid    : $('#date_paid').val(),
+                        account_type : $('#account_type').val(),
+                        reference    : $('#reference').val(),
+                        bsc_invoice_id :$('#bsc_invoice_id').val(),
+                        grand_total : grand_total,
+                        bsc_account_charts_id : $('#bsc_account_charts_id').val()
+                    },
+                    dataType: "JSON",
+                    success:function(data){
+                        if(data.payment.success == false){
+                            alert("fail to payment");
+                        }else{    
+                            go_to('bsc_purchase_purchase_list');
+                        }
+                    }
+                });
+            }
+        }
+    }
 </script>

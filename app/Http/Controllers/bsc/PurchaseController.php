@@ -28,6 +28,8 @@ class PurchaseController extends Controller
             session_start();
         }
         $token = $_SESSION['token'];
+
+        //get purchase data
         $request = Request::create('/api/bsc_purchases/'.$id, 'GET');
         $request->headers->set('Accept', 'application/json');
         $request->headers->set('Authorization', 'Bearer '.$token);
@@ -35,8 +37,19 @@ class PurchaseController extends Controller
         $response = json_decode($res->getContent()); // convert to json object
         $purchase= $response->data->purchase;
         $purchase_detail = $response->data->purchase_detail;
-        //dd($ch_account_by_ids);exit;
-        return view('bsc.purchase.purchase.purchase_view',compact('purchase','purchase_detail'));
+        $purchase_payments = $response->data->purchase_payments;
+        // dd($purchase_payment);exit;
+
+        // get show chart account data
+        $request = Request::create('/api/bsc_show_chart_account_paid_from_to', 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        $show_chart_account = json_decode($res->getContent()); // convert to json object
+        $show_chart_accounts = $show_chart_account->data;
+        // dd($show_chart_accounts);exit;
+
+        return view('bsc.purchase.purchase.purchase_view',compact('purchase','purchase_detail','show_chart_accounts','purchase_payments'));
     }
 
     public function form()
