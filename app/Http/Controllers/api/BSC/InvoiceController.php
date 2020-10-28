@@ -293,7 +293,7 @@ class InvoiceController extends Controller
 
 
         $arr_quote = [
-                        'quotes'=>$quote,
+                        'quotes'=>$quotes,
                         'quote_products'=>$quote_products
                     ];
         return $this->sendResponse($arr_quote, 'Quote retrieved successfully.');
