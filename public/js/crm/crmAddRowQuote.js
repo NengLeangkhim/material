@@ -52,12 +52,12 @@
                     '</td>' +
                     '<td class="td-item-quote">' +
                         '<div class="">' +
-                            '<input type="text" class="valid-numeric-float form-control itemPrice_'+i+' price'+i+'" name="price'+branId+'[]" id="'+i+'" data-id="price'+i+'"  demo="itemPrice"  required placeholder="0.0$">' +
+                            '<input type="text" class="valid-numeric-float form-control itemPrice_'+i+' price'+i+'" name="price'+branId+'[]" id="'+i+'" data-id="price'+i+'"  demo="itemPrice" value="0" required placeholder="0.0$">' +
                             '<span id="'+i+'Error" ><strong></strong></span>'+
                         '</div>'+
                         '<div class="row pt-1 form-inline">' +
                             '<div class="col-md-6 col-sm-6 col-6">' +
-                                '<select  class="select-itemDiscount btn-list-item mdb-select md-form" name="select-itemDiscount_'+i+'" id="'+i+'" required > ' +
+                                '<select  class="select-itemDiscount btn-list-item mdb-select md-form" name="select-itemDiscount_'+i+'" id="'+i+'"  data-id="'+branId+'" required > ' +
                                     '<option value="1"><span>+Discount (%)</span> </option>'+
                                     '<option value="2"><span>+Discount ($)</span> </option>'+
                                 '</select>'+
@@ -120,11 +120,12 @@
         $(document).on('change keyup','.select-itemDiscount', function() {
 
             var row_id = $(this).attr("id");
+            var branId = $(this).attr("data-id");
             var textBoxType = "";
             var select_val = $( "select[name='select-itemDiscount_"+row_id+"']" ).val();
             if(select_val == 1){
                 $('#discount' + row_id + '').remove();
-                textBoxType = '<input type="text"  class="itemDisPercent_'+row_id+' txtbox-quote valid-numeric-float" name="discount[]" id="discount'+row_id+'" demo="itemDisPercent" data-id="'+i+'" value="0" required placeholder="0.0%">' ;
+                textBoxType = '<input type="text"  class="itemDisPercent_'+row_id+' txtbox-quote valid-numeric-float" name="discount'+branId+'[]" id="discount'+row_id+'" demo="itemDisPercent" data-id="'+i+'" value="0" required placeholder="0.0%">' ;
                 $('#fieldItemDiscount_'+row_id+'').append(textBoxType);
                 // $('#fieldItemDiscount_'+row_id+'').append('<input type="hidden" value="percent" name="discount_type[]">');
                 $('#discount_type'+row_id+'').val('percent'); //discount as price
@@ -134,7 +135,7 @@
             }
             if(select_val == 2){
                 $('#discount' + row_id + '').remove();
-                textBoxType = '<input type="text"  class="itemDisPrice_'+row_id+' txtbox-quote valid-numeric-float" name="discount[]" id="discount'+row_id+'" demo="itemDisPrice" data-id="'+i+'" value="0" required placeholder="0.0$">' ;
+                textBoxType = '<input type="text"  class="itemDisPrice_'+row_id+' txtbox-quote valid-numeric-float" name="discount'+branId+'[]" id="discount'+row_id+'" demo="itemDisPrice" data-id="'+i+'" value="0" required placeholder="0.0$">' ;
                 $('#fieldItemDiscount_'+ row_id +'').append(textBoxType);
                 // $('#fieldItemDiscount_'+row_id+'').append('<input type="hidden" value="number" name="discount_type[]">');
                 $('#discount_type'+row_id+'').val('number'); //discount as percent

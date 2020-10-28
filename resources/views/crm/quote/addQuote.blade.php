@@ -42,6 +42,7 @@
                     <form id="frm_addQuote" action="POST">
                         @csrf
                         <!-- general form elements -->
+                        <input type="hidden" name="create_by" value="247">
                         <?php
                                 if (session_status() == PHP_SESSION_NONE) {
                                     session_start();
@@ -75,17 +76,15 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" id="organiz_name"  name="organiz_name"   placeholder="Select Lead" required  readonly>
+                                                    <input type="text" class="form-control" id="lead_name"  name="lead_name"   placeholder="Select Lead" required  readonly>
                                                     <div class="input-group-prepend" align="right">
-                                                        <a href="javascript:void(0);" class="btn btn-info" id="btnOrganization" onclick="getShowPopup('/quote/add/listQuoteLead',1,'modal-list-quote','listQuoteLead','tblQuuteLead','getSelectRow','leadEnName','lead_id','organiz_name');" ><i class="glyphicon glyphicon-plus"></i></a>
+                                                        <a href="javascript:void(0);" class="btn btn-info" id="btnOrganization" onclick="getShowPopup('/quote/add/listQuoteLead',1,'modal-list-quote','listQuoteLead','tblQuuteLead','getSelectRow','leadEnName','lead_id','lead_name');" ><i class="glyphicon glyphicon-plus"></i></a>
                                                     </div>
                                                     <input type="hidden" id="lead_id" name="lead_id" >
-                                                    <span id="organiz_nameError" ><strong></strong></span>
+                                                    <span id="lead_nameError" ><strong></strong></span>
                                                 </div>
 
                                             </div>
-
-
 
 
 
@@ -94,7 +93,6 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
-
 
                                             <div class="col-md-6">
                                                 <label for="exampleInputEmail1">Status  <b style="color:red">*</b></label>

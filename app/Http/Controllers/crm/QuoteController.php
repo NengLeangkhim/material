@@ -205,18 +205,22 @@ class QuoteController extends Controller
                 session_start();
             }
             $userid = $_SESSION['userid'];
-            // echo $userid; exit;
-            // $request->create_by = $userid;
+
+            $create_by = $userid;
+            // echo $create_by; exit;
+            $request->merge([
+                'create_by' => $create_by
+            ]);
+
             $validator = \Validator::make($request->all(),[
 
                     'subject' =>  ['required'],
-                    'organiz_name' =>  [ 'required'],
-                    'getLeadBranch' =>  ['required'],
+                    'lead_name' =>  [ 'required'],
                     'crm_quote_status_type_id' =>  ['required'],
                     'due_date' =>  ['required'],
                     'assign_toName' =>  ['required'],
                     'comment' =>  ['required'],
-                    'crm_lead_address_id' =>  ['required'],
+                    // 'create_by' =>  ['required'],
                     'product_name.*' =>  ['required'],
                     'qty.*' =>  ['required'],
                     'price.*' =>  ['required'],
@@ -236,10 +240,8 @@ class QuoteController extends Controller
                     'errors' => $validator->getMessageBag()->toArray()
                 ));
             }else{
-                $create_by = $userid;
-                $request->merge([
-                    'create_by' => $create_by,
-                ]);
+
+
 
                 $token = $_SESSION['token'];
                 $request = Request::create('/api/quote', 'POST');
@@ -248,8 +250,7 @@ class QuoteController extends Controller
                 $res = app()->handle($request);
                 $response = json_decode($res->getContent());
 
-                // $request = Request::create('/api/quote', 'POST' );
-                // $response = json_decode(Route::dispatch($request)->getContent());
+                // dd($response); exit;
 
                 if($response->insert=='success'){
                     return response()->json(['success'=>$response]);
