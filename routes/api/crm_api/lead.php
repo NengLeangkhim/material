@@ -25,6 +25,12 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     // Update lead
     Route::post('/updatebranch','api\crm\LeadController@updatebranch');
 });
+
+// Route::get('/getlead','api\crm\LeadController@getLead');
+// Route::get('/getbranchbylead/{id}','api\crm\LeadController@getbranch_lead');
+
+
+
 // get all lead source
 Route::get('/leadsource','api\crm\LeadController@getLeadSource');
 //insert lead source
@@ -35,8 +41,6 @@ Route::get('/leadindustry','api\crm\LeadController@getLeadIndustry');
 Route::post('/insertindustry','api\crm\LeadController@insertLeadIndustry');
 // get all lead status
 Route::get('/leadstatus','api\crm\LeadController@getLeadStatus');
-Route::get('/leadStatus','api\crm\LeadController@getAllLeadStatus');
-Route::post('/leadStatus/save','api\crm\LeadController@saveLeadStatus');
 //get lead assigend to
 Route::get('/leadassig','api\crm\LeadController@getLeadAssig');
 //get lead Current Speed ISP
@@ -56,9 +60,8 @@ Route::get('/branch','api\crm\LeadController@getLeadBranch');
 // Route::post('/insertlead','api\crm\LeadController@insertLead');
 //get all Honorifics
 Route::get('/honorifics','api\crm\LeadController@getHonorifics');
-//  convert  branch
-// Route::post('/convertbranch/{id}','api\crm\LeadController@convertbranch');
-Route::post('/convertbranch','api\crm\LeadController@convertbranch');
+// get brand by lead id
+// Route::get('/getbranchbylead/{id}','api\crm\LeadController@getbranch_lead');
 // get  all branch
 Route::get('/getbranch','api\crm\LeadController@getbranch');
 
@@ -76,7 +79,6 @@ Route::get('/getscheduletype','api\crm\LeadController@getschduletype');
 Route::post('/insertschduletype','api\crm\LeadController@insertschduletype');
 // update  schedule  type
 Route::Post('/updateschduletype','api\crm\LeadController@updateschduletype');
-
 
 
 

@@ -201,10 +201,10 @@
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
-                google.charts.load('current', {
+                google.charts.load('current',{
                     packages: ['corechart']
-                });
-                google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
+                }).then(CrmLeadDrawChart(data));
+                //google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
                 function CrmLeadDrawChart(data) {
                     var result = [
                         ["Lead", "", {
@@ -293,8 +293,8 @@
                 var data = response.data
                 google.charts.load('current', {
                     packages: ['corechart']
-                });
-                google.charts.setOnLoadCallback(CrmLeadDrawChart(data))
+                }).then(CrmLeadDrawChart(data));
+              //  google.charts.setOnLoadCallback(CrmLeadDrawChart(data))
 
                 function CrmLeadDrawChart(data) {
                     var result = [
@@ -383,8 +383,8 @@
                 var data = response.data
                 google.charts.load('current', {
                     packages: ['corechart']
-                });
-                google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
+                }).then(CrmLeadDrawChart(data));
+                //google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
 
                 function CrmLeadDrawChart(data) {
                     var result = [
@@ -437,10 +437,9 @@
                 var data = response.data
                 google.charts.load('current', {
                     packages: ['corechart']
-                });
-                google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
-
-                function CrmLeadDrawChart(data) {
+                }).then(CrmOrganizationDrawChart(data));
+                //google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
+                function CrmOrganizationDrawChart(data) {
                     var result = [
                         ["Lead", "", {
                             role: 'style'
