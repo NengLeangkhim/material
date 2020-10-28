@@ -16,12 +16,12 @@ class staff_view_promoteController extends Controller
             $userid = $_SESSION['userid'];
             $r = management_promoteModel::get_shift_promoteByID($userid);
             // dd($r);
-            if(count($r) > 2){
-                $data = $r;
-            }else{
-                $data = '';
-            }
-            return view('hrms/shift_promote/staff_view_promote/shift_promote_for_staff_view', ['shift_promoteByID' => $data]);
+            // if(count($r) > 2){
+            //     $data = $r;
+            // }else{
+            //     $data = '';
+            // }
+            return view('hrms/shift_promote/staff_view_promote/shift_promote_for_staff_view', ['shift_promoteByID' => $r]);
 
         }
 
