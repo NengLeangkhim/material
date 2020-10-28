@@ -157,6 +157,10 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     Route::get('/crm/setting/scheduletype','crm\CrmSettingController@CrmScheduleType'); // show Schedule Type Setting CRM
     Route::post('/crm/setting/scheduletype/store','crm\CrmSettingController@StoreScheduleType'); // INsert and update Schedule Type Setting CRM
     Route::get('/crm/setting/scheduletype/get','crm\CrmSettingController@CrmGetScheduleTypeByID'); // show Schedule Type Setting CRM
+    //-- Quote Status 
+    Route::get('/crm/setting/quotestatus','crm\CrmSettingController@CrmQuoteStatus'); // show Quote Status  Setting CRM
+    Route::post('/crm/setting/quotestatus/store','crm\CrmSettingController@StoreQuoteStatus'); // INsert and update Quote Status Setting CRM
+    Route::get('/crm/setting/quotestatus/get','crm\CrmSettingController@CrmGetQuoteStatusByID'); // show Quote Status  Setting CRM
 // END Setting CRM 
 
 //===========================END CRM=================================
