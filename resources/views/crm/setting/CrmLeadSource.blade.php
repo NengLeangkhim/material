@@ -4,11 +4,11 @@
     }
 @endphp
 <div class="col-12 text-right">
-    <a  href="javascript:void(0);" class="btn btn-success crm_contact" onclick="CrmModalAction('crm_lead_industry_form','crm_lead_industry_insert','ActionLeadIndustry','Add Lead Industry')" ​><i class="fas fa-plus"></i> Add Lead Industry</a> 
+    <a  href="javascript:void(0);" class="btn btn-success crm_contact" onclick="CrmModalAction('crm_lead_source_form','crm_lead_source_modal','ActionLeadSource','Add Lead Source')" ​><i class="fas fa-plus"></i> Add Lead Source</a> 
 </div>
 <div class="col-12" style="margin-top: 10px">
     <div>
-        <table class="table table-bordered display nowrap" style="width: 100%" id="Lead_industry_Tbl">
+        <table class="table table-bordered display nowrap" style="width: 100%" id="Lead_Source_Tbl">
             <thead>
                 <tr>
                     <th>#</th>
@@ -29,7 +29,7 @@
                     <td>{{$row->name_kh}}</td>
                     <td>{{date('Y-m-d H:i:s',strtotime($row->create_date))}}</td>
                     <td>
-                        <a href="#" id="{{$row->id}}" class="btn btn-block btn-info btn-sm CrmEditLeadIndustry"><i class="fas fa-wrench"></i></a>
+                        <a href="#" id="{{$row->id}}" class="btn btn-block btn-info btn-sm CrmEditLeadSource"><i class="fas fa-wrench"></i></a>
                     </td>
                 </tr>                                        
             @endforeach
@@ -38,14 +38,14 @@
     </div>
 </div>
 <!-- modal Insert-->
-<form id="crm_lead_industry_form">
-    <div class="modal fade show" id="crm_lead_industry_insert" tabindex="-1" role="dialog" aria-labelledby="crm_lead_status" aria-hidden="true">
+<form id="crm_lead_source_form">
+    <div class="modal fade show" id="crm_lead_source_modal" tabindex="-1" role="dialog" aria-labelledby="crm_lead_source" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="card card-default">
                 <div class="card-header">
                     <h3 class="card-title hrm-title"><strong><i class="fas fa-plus"></i></strong></h3>
-                    <h2 class="card-title hrm-title" style="font-weight: bold;font-size:25px" id="card_title">Add Lead Industry</h2>
+                    <h2 class="card-title hrm-title" style="font-weight: bold;font-size:25px" id="card_title">Add Lead Source</h2>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                       <button type="button" class="btn btn-tool" data-dismiss="modal" aria-label="Close">
@@ -92,8 +92,8 @@
                      </div>  {{-- END ROW--}}
                      <div class="row text-right">
                         <div class="col-md-12 text-right">
-                          <input type="hidden" name="id" id="lead_industry_id"/>
-                          <button type="button" onclick='CrmSubmitModalAction("crm_lead_industry_form","ActionLeadIndustry","/crm/setting/leadindustry/store","POST","crm_lead_industry_insert","Successfully","/crm/setting")' name="ActionLeadIndustry" id="ActionLeadIndustry"  class="btn btn-primary">Create</button>
+                          <input type="hidden" name="id" id="lead_source_id"/>
+                          <button type="button" onclick='CrmSubmitModalAction("crm_lead_source_form","ActionLeadSource","/crm/setting/leadsource/store","POST","crm_lead_source_modal","Successfully","/crm/setting")' name="ActionLeadSource" id="ActionLeadSource"  class="btn btn-primary">Create</button>
                         </div>
                      </div>
                 </div><!-- /.END card-body -->
