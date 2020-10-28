@@ -105,7 +105,7 @@
                                                     }
                                                 }
                                         ?>
-                                        <h5 style="font-family:khmer Muol;font-size:15px">I. ផ្នែកសំណួរជ្រើសរើស (<?=$c?>​ ពិន្ទុ)</h5> 
+                                        <h5 style="font-family:khmer Muol;font-size:15px">I. ផ្នែកសំណួរជ្រើសរើស (<?=$c??''?>​ ពិន្ទុ)</h5>
                                      </div>
                                      <div class="col-12" style="width:100%;">
                                         <table style="width:100%;border-bottom: 1px solid">

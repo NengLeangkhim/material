@@ -11,10 +11,10 @@ class CrmLeadSource extends Model
     function saveData($id, $userId, $nameEn, $nameKh, $status){
         try {
             if($id != null){
-                $leadStatus = $this->getOneData($id);
-                $nameEn = ($nameEn == null || $nameEn == '') ? $leadStatus->name_en : $nameEn;
-                $nameKh = ($nameKh == null || $nameKh == '') ? $leadStatus->name_kh : $nameKh;
-                $status = ($status == null || $status == '') ? $leadStatus->status : $status;
+                $data = $this->getOneData($id);
+                $nameEn = ($nameEn == null || $nameEn == '') ? $data->name_en : $nameEn;
+                $nameKh = ($nameKh == null || $nameKh == '') ? $data->name_kh : $nameKh;
+                $status = ($status == null || $status == '') ? $data->status : $status;
                 $sql = 'select update_crm_lead_source('.$id.', '.$userId.', \''.$nameEn.'\', \''.$nameKh.'\', true) as id';
             } else {
                 $sql = 'select insert_crm_lead_source(\''.$nameEn.'\', \''.$nameKh.'\', '.$userId.') as id';

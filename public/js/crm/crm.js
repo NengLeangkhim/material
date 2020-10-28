@@ -309,7 +309,7 @@ function Crm_delete(id,route,goto,alert) {
 //       }
 
 // -----------END Report ---------- //
-// -----------Setting Report ---------- //
+// -----------Setting CRM ---------- //
  ////view Manage Setting///////
  function CrmSettingView(url,table){
   $.ajax({
@@ -327,7 +327,7 @@ function Crm_delete(id,route,goto,alert) {
   }
   ////Funtion Modal Action Add///////
   function CrmModalAction(form,modal,button,title){
-    $("#"+form+"").find('input:text, input:password, input:file, select, textarea').val(''); //remove text when show
+    $("#"+form+"").find('input:text, input:password, input:file,textarea').val(''); //remove text when show
     $("#"+form+"").find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');//remove text when show
     $("#"+form+"").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid");//remove valid all input field
     $("#"+form+"").attr("method","post");//Set Form method
@@ -404,7 +404,94 @@ function Crm_delete(id,route,goto,alert) {
     });
     }
   }
-// -----------End Report ---------- //
+  // ----- Lead Industry
+    //Update lead industry
+    $(document).on('click', '.CrmEditLeadIndustry', function(){
+      var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+      $.ajax({
+      url:"/crm/setting/leadindustry/get",   //Request send to "action.php page"
+      type:"GET",    //Using of Post method for send data
+      data:{id:id},//Send data to server
+      dataType:"json",   //Here we have define json data type, so server will send data in json format.
+      success:function(response){
+              $('#crm_lead_industry_insert').modal('show'); //It will display modal on webpage
+              $('#ActionLeadIndustry').text('Update'); //This code will change Button value to Update
+              $('#card_title').text("Update Lead Industry");
+              $('.print-error-msg').hide();
+              $("#crm_lead_industry_form").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid");//remove valid all input field
+              $(".invalid-feedback").children("strong").text("");/// remove errror massage
+              $('#lead_industry_id').val(id);     //It will define value of id variable for update
+              $.each(response.data, function(i, e){ //read array json for show to textbox
+                $('#name_kh').val(response.data.name_en);
+                $('#name_en').val(response.data.name_kh);
+                if(response.data.status==true){
+                  $('#status').val(1);
+                }else{
+                  $('#status').val(0);
+                }
+              });
+      }
+      });
+    });  
+   // ----- Lead Source
+    //Update lead Source
+    $(document).on('click', '.CrmEditLeadSource', function(){
+      var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+      $.ajax({
+      url:"/crm/setting/leadsource/get",   //Request send to "action.php page"
+      type:"GET",    //Using of Post method for send data
+      data:{id:id},//Send data to server
+      dataType:"json",   //Here we have define json data type, so server will send data in json format.
+      success:function(response){
+              $('#crm_lead_source_modal').modal('show'); //It will display modal on webpage
+              $('#ActionLeadSource').text('Update'); //This code will change Button value to Update
+              $('#card_title').text("Update Lead Source");
+              $('.print-error-msg').hide();
+              $("#crm_lead_source_form").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid");//remove valid all input field
+              $(".invalid-feedback").children("strong").text("");/// remove errror massage
+              $('#lead_source_id').val(id);     //It will define value of id variable for update
+              $.each(response.data, function(i, e){ //read array json for show to textbox
+                $('#name_kh').val(response.data.name_en);
+                $('#name_en').val(response.data.name_kh);
+                if(response.data.status==true){
+                  $('#status').val(1);
+                }else{
+                  $('#status').val(0);
+                }
+              });
+      }
+      });
+    });  
+    // ----- Lead ISP
+    //Update lead ISP
+    $(document).on('click', '.CrmEditLeadISP', function(){
+      var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+      $.ajax({
+      url:"/crm/setting/leadisp/get",   //Request send to "action.php page"
+      type:"GET",    //Using of Post method for send data
+      data:{id:id},//Send data to server
+      dataType:"json",   //Here we have define json data type, so server will send data in json format.
+      success:function(response){
+              $('#crm_lead_isp_modal').modal('show'); //It will display modal on webpage
+              $('#ActionLeadISP').text('Update'); //This code will change Button value to Update
+              $('#card_title').text("Update Lead Current ISP");
+              $('.print-error-msg').hide();
+              $("#crm_lead_isp_form").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid");//remove valid all input field
+              $(".invalid-feedback").children("strong").text("");/// remove errror massage
+              $('#lead_isp_id').val(id);     //It will define value of id variable for update
+              $.each(response.data, function(i, e){ //read array json for show to textbox
+                $('#name_kh').val(response.data.name_en);
+                $('#name_en').val(response.data.name_kh);
+                if(response.data.status==true){
+                  $('#status').val(1);
+                }else{
+                  $('#status').val(0);
+                }
+              });
+      }
+      });
+    });   
+// -----------Setting CRM ---------- //
 //////////////////////////==========================END MET KEOSAMBO ====================///////////////////////////////
     // $(document).ready(function(){
     //     var a = 0;

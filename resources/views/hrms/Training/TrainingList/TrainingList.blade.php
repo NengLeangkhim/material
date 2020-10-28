@@ -194,5 +194,22 @@
        $(this).DataTable();
     });
   
+
+    $(document).ajaxStop(function(){
+      $(function () {// set select date time
+          $('#staff_from_schedule').datetimepicker({
+              format: 'YYYY-MM-D HH:mm',
+              sideBySide: true,
+          });
+          $('#staff_to_schedule').datetimepicker({
+              format: 'YYYY-MM-D HH:mm',
+              sideBySide: true,
+          });
+      });
+  });
 } );
+
+
+
+
 </script>

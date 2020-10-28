@@ -161,6 +161,7 @@
                                                 <label for="">1000$</label>
                                             </div>
                                         </div>
+
                                         <div class="row">
                                             <div class="col-sm-6 text_right">
                                                 <label for="">Date : </label>
@@ -172,13 +173,23 @@
                                         <hr class="line_in_tag_hr2">
                                         <div class="row">
                                             <div class="col-sm-6 text_right">
+                                                <label for="">Date : </label>
+                                            </div>
+                                            <div class="col-sm-6 text_right">
+                                                <label for="">02-10-2020</label>
+                                            </div>
+                                        </div>
+                                        <hr class="line_in_tag_hr2">
+
+                                        <div class="row">
+                                            <div class="col-sm-6 text_right">
                                                 <label for="">Amount Due : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
                                                 <label for="">1000$</label>
                                             </div>
                                         </div>
-                                        <hr class="line_in_tag_hr2">
+                                        <hr class="line_in_tag_hr">
                                     </div>
                                 </div>
                             </div>
@@ -196,7 +207,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                                     </div>
-                                                    <input required type="text" class="form-control"  name="amount_paid" id="exampleInputEmail1" placeholder="Amount Paid">
+                                                    <input type="text" class="form-control input_required"  name="amount_paid" id="amount_paid" placeholder="Amount Paid">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -205,7 +216,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                                     </div>
-                                                    <input required type="date" class="form-control"  name="date_paid" id="exampleInputEmail1" placeholder="Date Paid">
+                                                    <input type="date" class="form-control input_required"  name="date_paid" id="date_paid" placeholder="Date Paid">
                                                 </div>
                                             </div>
                                         </div>
@@ -217,29 +228,29 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                     </div>
-                                                    <select required class="form-control select2" name="paid_to">
+                                                    <select class="form-control select2 input_required" name="paid_to" id="paid_to">
                                                         <option value="" selected hidden disabled>select item</option>
-                                                        <option>Exclusive</option>
-                                                        <option>Inclusive</option>
-                                                        <option>Oppa</option>
-                                                        <option>Other</option>
+                                                        @foreach ($ch_accounts as $ch_account)
+                                                            <option value="{{ $ch_account->id }}">{{ $ch_account->name_en }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Reference<b class="color_label">*</b></label>
+                                                <label for="exampleInputEmail1">Reference</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                     </div>
-                                                    <input required type="text" class="form-control"  name="reference" id="exampleInputEmail1" placeholder="Reference">
+                                                    <input type="text" class="form-control"  name="reference" id="reference" placeholder="Reference">
                                                 </div>
                                             </div>
                                         </div>
 
                                     </div>
+                                    <input type="hidden" value="{{ $invoices->grand_total }}" id="grand_total">
                                     <div class="col-md-12">
-                                        <button id="add_payment" type="button" class="btn btn-success save" id="frm_btn_sub_add_chart_account">Add Payment</button>&nbsp;&nbsp;&nbsp;
+                                        <button id="add_payment" type="button" onclick="invoice_payment()" class="btn btn-success save" id="frm_btn_sub_add_chart_account">Add Payment</button>&nbsp;&nbsp;&nbsp;
                                         <button id="add_payment" onclick="go_to('bsc_invoice_invoice_list')" type="button" class="btn btn-danger save" id="frm_btn_sub_add_chart_account">Cancel</button>
                                     </div>
                                 </div>
@@ -288,9 +299,62 @@ $('.detail').click(function(e)
 </script>
 <script>
     $('.select2').select2();
-</script>
-<script>
-    $(document).ready(function(){
 
+    $(document).ready(function(){
+        $("#amount_paid").on("keyup", function()
+        {
+            let amount_paid=parseFloat($('#amount_paid').val());
+            let grand_total=parseFloat($('#grand_total').val());
+            if(amount_paid > grand_total){
+                sweetalert('error','Amount Paid is bigger than Grand Total');
+                return false;
+            }
+        });
     });
+
+    // add payment
+    function invoice_payment()
+    {
+        let num_miss = 0;
+        $(".input_required").each(function(){
+            if($(this).val()=="" || $(this).val()==null){ num_miss++;}
+        });
+        if(num_miss>0){
+            $(".input_required").each(function(){
+                if($(this).val()=="" || $(this).val()==null){ $(this).css("border-color","red"); }
+            });
+            sweetalert('error', 'Please input or select field * required');
+        }else{
+            let amount_paid=parseFloat($('#amount_paid').val());
+            let grand_total=parseFloat($('#grand_total').val());
+            let due_amount=grand_total - amount_paid;
+        if(amount_paid > grand_total){
+            $('#amount_paid').css('border-color', 'red');
+            sweetalert('error','Amount Paid input is bigger than Grand Total');
+        }else if(amount_paid == 0){
+            $('#amount_paid').css('border-color', 'red');
+            sweetalert('error','Amount Paid can not input Zero');
+        }else{
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                $.ajax({
+                    type:"POST",
+                    url:'/bsc_invoice_payment',
+                    data:{
+                        _token: CSRF_TOKEN,
+                        due_amount      : due_amount,
+                        amount_paid     : amount_paid,
+                        grand_total     : grand_total,
+                        date_paid       : $('#date_paid').val(),
+                        paid_to         : $('#paid_to').val(),
+                        reference       : $('#reference').val()
+                    },
+                    dataType: "JSON",
+                    success:function(data){
+
+
+                    }
+                });
+            }
+        }
+    }
 </script>
