@@ -26,7 +26,7 @@ class Crmlead extends Model
                     $create_by
                     )
                 );
-                return json_encode(["insert"=>'success',"result"=>$result]);
+                return json_encode(["insert"=>'success']);
             }catch(Exception $e){
                 return json_encode(["insert"=>"fail","result"=> $e->getMessage()]);
             }
@@ -50,7 +50,7 @@ class Crmlead extends Model
                     $create_by
                     )
                 );
-                return json_encode(["insert"=>'success',"result"=>$result]);
+                return json_encode(["insert"=>'success']);
             }catch(Exception $e){
                 return json_encode(["insert"=>"fail","result"=> $e->getMessage()]);
             }
@@ -553,7 +553,28 @@ class Crmlead extends Model
     // }
     //get  all lead
     public static function getlead(){
-        $lead= DB::select('SELECT * FROM  crm_lead  ORDER BY id ASC');
+        $lead= DB::select('SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.website,cl.facebook,cl.create_date,
+        cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
+        cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name
+        from crm_lead cl
+         JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
+        join crm_lead_source cls on cls.id = cl.crm_lead_source_id
+        join crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
+        join crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
+        WHERE  cl.is_deleted=FALSE and cl.status=TRUE ORDER BY cl.lead_number DESC');
+        return $lead;
+    }
+    //get   lead  by id
+    public static function getleadbyid($id){
+        $lead= DB::select("SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.website,cl.facebook,cl.create_date,
+        cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
+        cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name
+        from crm_lead cl
+         JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
+        join crm_lead_source cls on cls.id = cl.crm_lead_source_id
+        join crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
+        join crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
+        WHERE cl.id=$id and  cl.is_deleted=FALSE and cl.status=TRUE ORDER BY cl.lead_number DESC");
         return $lead;
     }
     // get branch by Lead id
@@ -573,10 +594,10 @@ class Crmlead extends Model
         (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,4)) as district,
         (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,6)) as commune,
         (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village,
-		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date LIMIT 1) as  survey_id,
-		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date LIMIT 1) as  survey_status,
-		(SELECT comment as survey_comment from crm_survey_result WHERE  id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date LIMIT 1)),
-		(SELECT possible  from crm_survey_result WHERE  id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date LIMIT 1))
+		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC  LIMIT 1) as  survey_id,
+		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_status,
+		(SELECT comment as survey_comment from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
+		(SELECT possible  from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date  DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1)
         from  crm_lead_branch_crm_lead_contact_rel lbc
         left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
         JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
@@ -612,10 +633,10 @@ class Crmlead extends Model
         (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,4)) as district,
         (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,6)) as commune,
         (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village,
-		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date LIMIT 1) as  survey_id,
-		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date LIMIT 1) as  survey_status,
-		(SELECT comment as survey_comment from crm_survey_result WHERE  id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date LIMIT 1)),
-		(SELECT possible  from crm_survey_result WHERE  id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date LIMIT 1))
+		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_id,
+		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_status,
+		(SELECT comment as survey_comment from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
+		(SELECT possible  from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date  DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1)
         from  crm_lead_branch_crm_lead_contact_rel lbc
         left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
         JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
@@ -638,7 +659,7 @@ class Crmlead extends Model
     public static function updatebranch($lead_address_id,$lead_detail_id,$lead_item_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
     $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,
     $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-    $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey){
+    $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$survey_id){
 
         try{
             // update address
@@ -671,7 +692,9 @@ class Crmlead extends Model
             }
             else
             {
+                crmLead::updatesurey($survey_id,$branch_id,$user_create);
                 return  json_encode(["update"=>'success']);
+                // var_dump("yes");
             }
 
 
@@ -680,6 +703,30 @@ class Crmlead extends Model
             return json_encode(["update"=>"fail update branch","result"=> $e->getMessage()]);
         }
     }
+     //update into table crm_survey
+     public  static function updatesurey($survey_id,$branch_id,$user_create){
+        if(isset($survey_id)){
+            try{
+                $result=DB::select('SELECT update_crm_survey(?,?,?,?)',
+                array(
+                    $survey_id,
+                    $user_create,
+                    $branch_id,
+                    'f',
+                )
+            );
+                return  $result;
+            }catch(Exception $e){
+                return json_encode(["insert"=>"fail update_crm_survey","result"=> $e->getMessage()]);
+            }
+        }
+        else
+        {
+            return json_encode(['inser'=>'not found data']);
+        }
+
+    }
+
     //update in table branch
     public static function updateleadaddress($lead_address_id,$user_create,$lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode){
         // var_dump($lead_id);
@@ -973,7 +1020,7 @@ class Crmlead extends Model
          return DB::select('SELECT id,name_en,name_kh from crm_lead_schedule_type where is_deleted=FALSE and status=TRUE');
     }
     //Model insert​ schdule type
-    public static function insertschduletype($userid,$name_en,$name_kh){
+    public static function insertscheduletype($userid,$name_en,$name_kh){
         if(isset($userid)){
             try{
                 $result=DB::select('SELECT insert_crm_lead_schedule_type(?,?,?,?)',
@@ -996,7 +1043,7 @@ class Crmlead extends Model
         }
     }
     //update schedule type
-    public static function updateschduletype($schedule_id,$userid,$name_en,$name_kh,$status){
+    public static function updatescheduletype($schedule_id,$userid,$name_en,$name_kh,$status){
         if(isset($schedule_id)){
             try{
                 $result=DB::select('SELECT update_crm_lead_schedule_type(?,?,?,?,?,?)',
@@ -1019,6 +1066,110 @@ class Crmlead extends Model
         {
             return json_encode(['insert'=>'not found data']);
 
+        }
+    }
+    //insert schedule 
+    public static function insertschedule($branch_id,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id,$userid){
+        if(isset($branch_id)){
+            try{
+                $result=DB::select('SELECT insert_crm_lead_schedule(?,?,?,?,?,?,?,?)',
+                array(
+                    $branch_id,
+                    $name_en,
+                    $name_kh,
+                    $to_do_date,
+                    $comment,
+                    $priority,
+                    $schedule_type_id,
+                    $userid,
+                  
+                )
+            );
+                return json_encode(['insert'=>'success']);;
+            }catch(Exception $e){
+                return json_encode(["insert"=>"fail insert_crm_lead_schedule","result"=> $e->getMessage()]);
+            }
+        }
+        else
+        {
+                return json_encode(['insert'=>'not found date']);
+        }
+    }
+    // update schedule 
+    public static function updateschedule($schedule_id,$branch_id,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id,$userid,$status){
+        if(isset($schedule_id)){
+            try{
+                $result=DB::select('SELECT update_crm_lead_schedule(?,?,?,?,?,?,?,?,?,?)',
+                array(
+                    $schedule_id,
+                    $userid,
+                    $branch_id,
+                    $name_en,
+                    $name_kh,
+                    $to_do_date,
+                    $comment,
+                    $priority,
+                    $schedule_type_id,
+                    $status,
+                  
+                )
+            );
+                return json_encode(['update'=>'success']);;
+            }catch(Exception $e){
+                return json_encode(["update"=>"fail update_crm_lead_schedule","result"=> $e->getMessage()]);
+            }
+        }
+        else
+        {
+                return json_encode(['update'=>'not found date']);
+        }
+    }
+    //insert schedule result
+    public static function insertscheduleresult($schedule_id,$schedule_type_id,$comment,$userid){
+        if(isset($schedule_id)){
+            try{
+                $result=DB::select('SELECT insert_crm_lead_schedule_result(?,?,?,?)',
+                array(
+                    $schedule_id,
+                    $schedule_type_id,
+                    $comment,
+                    $userid,
+                  
+                )
+            );
+                return json_encode(['insert'=>'success']);;
+            }catch(Exception $e){
+                return json_encode(["insert"=>"fail insert_crm_lead_schedule_result","result"=> $e->getMessage()]);
+            }
+        }
+        else
+        {
+                return json_encode(['insert'=>'not found date']);
+        }
+    }
+    //update schedule resutl
+    public static function updatescheduleredult($schedule_result_id,$userid,$schedule_id,$schedule_type_id,$comment,$status){
+        if(isset($schedule_result_id)){
+            try{
+                $result=DB::select('SELECT update_crm_lead_schedule_result(?,?,?,?,?,?)',
+                array(
+                    $schedule_result_id,
+                    $userid,
+                    $schedule_id,
+                    $schedule_type_id,
+                    $comment,
+                    $status
+                  
+                )
+            );
+                return json_encode(['update'=>'success']);;
+            }catch(Exception $e){
+                return json_encode(["update"=>"fail update_crm_lead_schedule_result","result"=> $e->getMessage()]);
+            }
+        }
+        else
+        {
+                return json_encode(['update'=>'not found date']);
         }
     }
 }

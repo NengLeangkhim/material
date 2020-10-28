@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['jwt.verify']], function() {
     // get lead
     Route::get('/getlead','api\crm\LeadController@getLead');
+    //get lead detail
+    Route::get('/getleadbyid/{id}','api\crm\LeadController@getleadbyid');
+    // edit lead
+    Route::post('/editlead/{id}','api\crm\LeadController@editlead');
     // get brand by lead id
     Route::get('/getbranchbylead/{id}','api\crm\LeadController@getbranch_lead');
     // get branch by id
@@ -25,11 +29,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     // Update lead
     Route::post('/updatebranch','api\crm\LeadController@updatebranch');
 });
-
-// Route::get('/getlead','api\crm\LeadController@getLead');
-// Route::get('/getbranchbylead/{id}','api\crm\LeadController@getbranch_lead');
-
-
 
 // get all lead source
 Route::get('/leadsource','api\crm\LeadController@getLeadSource');
@@ -76,10 +75,19 @@ Route::post('/insertsurvey','api\crm\LeadController@insertsurveyresult');
 // get schdule type
 Route::get('/getscheduletype','api\crm\LeadController@getschduletype');
 // inseart schedule  type
-Route::post('/insertschduletype','api\crm\LeadController@insertschduletype');
+Route::post('/insertscheduletype','api\crm\LeadController@insertscheduletype');
 // update  schedule  type
-Route::Post('/updateschduletype','api\crm\LeadController@updateschduletype');
+Route::Post('/updatescheduletype','api\crm\LeadController@updatescheduletype');
+//get all schedule
 
+//insert schedule
+Route::post('/insertschedule','api\crm\LeadController@insertschedule');
+//update schedule
+Route::post('/updateschedule','api\crm\LeadController@updateschedule');
+// insert schedule result
+Route::post('/insertscheduleresult','api\crm\LeadController@insertscheduleresult');
+// update schedule reslut
+Route::post('/updatescheduleredult','api\crm\LeadController@updatescheduleredult');
 
 
 
