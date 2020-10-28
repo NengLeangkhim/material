@@ -57,7 +57,16 @@ class InvoiceController extends Controller
                 $addr=DB::select("SELECT * FROM public.get_gazetteers_address('".$address."') as address");
                 $addrs=$addr[0]->address;
                 $invoices->address=$addrs;
-                return view('bsc.invoice.invoice.invoice_view',compact('invoices','invoice_details'));
+
+                //get chart account payment paid from to
+                $request = Request::create('/api/bsc_show_chart_account_paid_from_to', 'GET');
+                $request->headers->set('Accept', 'application/json');
+                $request->headers->set('Authorization', 'Bearer '.$token);
+                $res = app()->handle($request);
+                $ch_account = json_decode($res->getContent()); // convert to json object
+                $ch_accounts=$ch_account->data;
+
+                return view('bsc.invoice.invoice.invoice_view',compact('invoices','invoice_details','ch_accounts'));
             }else{
                 return view('no_perms');
             }
@@ -67,10 +76,38 @@ class InvoiceController extends Controller
         }
     }
 
+    // view payment
     public function view_payment()
     {
-        return view('bsc.invoice.invoice_payment.view_payment');
+        try{
+            return view('bsc.invoice.invoice_payment.view_payment');
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit;
+        }
     }
+
+    // add payment
+    public function add_payment(Request $request)
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        try{
+            $create_by = $_SESSION['userid'];
+            $due_amount=$request->due_amount;
+            $amount_paid=$request->amount_paid;
+            $grand_total=$request->grand_total;
+            $date_paid=$request->date_paid;
+            $paid_to=$request->paid_to;
+            $reference=$request->reference;
+
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit;
+        }
+    }
+
     // show form create invoice
     public function form()
     {
@@ -110,7 +147,7 @@ class InvoiceController extends Controller
             $res = app()->handle($request);
             $bsc_show_customer_branch = json_decode($res->getContent()); // convert to json object
             $bsc_show_customer_branchs=$bsc_show_customer_branch->data;
-
+            // dd($qoutes);exit;
             return view('bsc.invoice.invoice.invoice_form',compact('ch_accounts','customers','qoutes','bsc_show_customer_branchs'));
         }catch(Exception $e){
             echo $e->getMessage();
