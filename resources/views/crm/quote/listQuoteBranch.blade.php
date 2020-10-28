@@ -12,8 +12,8 @@
 
                     <div class="row pb-3">
                         <div class="col-md-2 col-sm-2 col-4">
-                            <input type="button" class="btn btn-success " id="getSelectRow"  value="Select"> 
-                        </div> 
+                            <input type="button" class="btn btn-success " id="getSelectRow"  value="Select">
+                        </div>
                         <div class="col-md-5 col-sm-5 col-4"></div>
                         <div class="col-md-5 col-sm-5 col-4">
                             <input type="search" id="mySearchQuote" class="form-control" placeholder="Search">
@@ -46,15 +46,9 @@
                                                     {{-- hidden use for call get value --}}
                                                     <input type="hidden" name="branchId" id="branchId" value="{{$val2->branch_id}}">
                                                     <input type="hidden"  id="brdcompanyEn_{{$val2->branch_id}}" value="{{$val2->company_en}}">
-                                                    
-                                                    <input type="hidden"  id="brdnameEn_{{$val2->branch_id}}" value="{{$val2->home_en}}">
-                                                    <input type="hidden"  id="brdnameKh_{{$val2->branch_id}}" value="{{$val2->home_kh}}">
-                                                    <input type="hidden"  id="brdstreetEn_{{$val2->branch_id}}" value="{{$val2->street_en}}">
-                                                    <input type="hidden"  id="brdstreetKh_{{$val2->branch_id}}" value="{{$val2->street_kh}}">
-                                                    <input type="hidden"  id="brdprvince_{{$val2->branch_id}}" value="{{$val2->province}}">
-                                                    <input type="hidden"  id="brddistrict_{{$val2->branch_id}}" value="{{$val2->district}}">
-                                                    <input type="hidden"  id="brdcommue_{{$val2->branch_id}}" value="{{$val2->commune}}">
-                                                    <input type="hidden"  id="brdvillage_{{$val2->branch_id}}" value="{{$val2->village}}">
+                                                    <input type="hidden"  id="brdAddressNameEn_{{$val2->branch_id}}" value="{{$val2->address_en}}">
+                                                    <input type="hidden"  id="branAddressId_{{$val2->lead_address_id}}" value="{{$val2->lead_address_id}}">
+
 
                                                 </td>
                                                 <td class="border">
@@ -81,9 +75,9 @@
                                                 </td>
 
                                             </tr>
-                                   
+
                                     @endforeach
-                                @endforeach    
+                                @endforeach
 
                             </tbody>
                         </table>

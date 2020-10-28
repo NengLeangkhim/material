@@ -294,37 +294,53 @@ class HrmPolicyController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $id = $_SESSION['userid'];
-        $history=ModelHrmPolicy::get_history_by_user($id);
-        return view('hrms/policy/policy_reader/HrmHistoryPolicy',compact('history'));
+        if(perms::check_perm_module('HRM_090604')){
+            $id = $_SESSION['userid'];
+            $history=ModelHrmPolicy::get_history_by_user($id);
+            return view('hrms/policy/policy_reader/HrmHistoryPolicy',compact('history'));
+        }else{
+            return view('no_perms');
+        }
     }
 
     public function policy_report()
     {
-        $users=ModelHrmPolicy::get_user_data();
-        $read_policys=ModelHrmPolicy::get_read_policy();
-        return view('hrms/policy/policy_reader/HrmHistoryPolicyReport',compact('users','read_policys'));
+        if(perms::check_perm_module('HRM_090605')){
+            $users=ModelHrmPolicy::get_user_data();
+            $read_policys=ModelHrmPolicy::get_read_policy();
+            return view('hrms/policy/policy_reader/HrmHistoryPolicyReport',compact('users','read_policys'));
+        }else{
+            return view('no_perms');
+        }
     }
 
     public function get_policy_report_data(Request $request)
     {
-        $f=$request->from;
-        $t=$request->to;
-        $from=$f.' '.'00:00:00';
-        $to=$t.' '.'24:00:00';
-        $policy=ModelHrmPolicy::policy_history_report($from,$to);
-        return json_encode($policy);
+        if(perms::check_perm_module('HRM_090603')){
+            $f=$request->from;
+            $t=$request->to;
+            $from=$f.' '.'00:00:00';
+            $to=$t.' '.'24:00:00';
+            $policy=ModelHrmPolicy::policy_history_report($from,$to);
+            return json_encode($policy);
+        }else{
+            return view('no_perms');
+        }
     }
 
     public function get_read_policy_report_data(Request $request)
     {
-        $f=$request->from;
-        $t=$request->to;
-        $from=$f.' '.'00:00:00';
-        $to=$t.' '.'24:00:00';
-        $user=$request->user;
-        $read_policy=$request->read_policy;
-        $results=ModelHrmPolicy::get_read_policy_report($from,$to,$user,$read_policy);
-        return json_encode($results);
+        if(perms::check_perm_module('HRM_090604')){
+            $f=$request->from;
+            $t=$request->to;
+            $from=$f.' '.'00:00:00';
+            $to=$t.' '.'24:00:00';
+            $user=$request->user;
+            $read_policy=$request->read_policy;
+            $results=ModelHrmPolicy::get_read_policy_report($from,$to,$user,$read_policy);
+            return json_encode($results);
+        }else{
+            return view('no_perms');
+        }
     }
 }

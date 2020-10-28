@@ -67,21 +67,21 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
+                                    <label for="exampleInputEmail1">Date From <b style="color:red"></b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailLeadFrom"  name='DetailLeadFrom'  required>
+                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailLeadFrom" value="<?php echo date('Y-m')?>" name='DetailLeadFrom'  required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
+                                    <label for="exampleInputEmail1">Date to <b style="color:red"></b></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailLeadTo" name='DetailLeadTo'  required>
+                                        <input type="text" class="form-control" placeholder="Select Date" id="DetailLeadTo" name='DetailLeadTo' value="<?php echo date('Y-m')?>"  required>
                                     </div>
                                 </div>
                                 <div class="col-md-4 text-center">
@@ -172,22 +172,27 @@
         var url = '/api/crm/report/leadReportDetail'
 
         $('#btn-generate-report').click(function(){
-            var sourceId = $('#select_source').val()
-            var assignTo = $('#select_assign_to').val()
-            var status = $('#select_status').val()
+            var sourceId = $('#select_source').val();
+            var assignTo = $('#select_assign_to').val();
+            var status = $('#select_status').val();
+            var from = $('#DetailLeadFrom').val()+'-01';
+            var to = $('#DetailLeadTo').val()+'-31';
+            $('#OrganizationTbl').dataTable().fnClearTable();
+            $('#OrganizationTbl').dataTable().fnDraw();
+            $('#OrganizationTbl').dataTable().fnDestroy();
             $.ajax({
                 url : url,
                 type : 'GET',
                 data : {
-                    'from_date' : null,
-                    'to_date' : null,
+                    'from_date' : from == '' ? null : from,
+                    'to_date' : to == '' ? null : to,
                     'source_id' : sourceId == 0 ? null : sourceId,
                     'assign_to' : assignTo == 0 ? null : assignTo,
                     'status_id' : status == 0 ? null : status
                 },
                 success : function(response){
-                    $('#lead-detail-body').empty()
-                    if(response.status == 200) {
+                   // console.log(response);
+                    if(response.success) {
                         $.each(response.data, function(index, data){
                             $('#lead-detail-body').append(`
                             <tr>

@@ -18,4 +18,6 @@ use Illuminate\Support\Facades\Route;
     Route::get('/crm/report/quoteReportDetail', 'api\crm\CrmReportApiController@getAllQuoteDetail');
     //from_date : null, to_date : null
     Route::get('/crm/report/getTotalReport','api\crm\CrmReportApiController@getTotalReport');
+    Route::get('/crm/report/getContactChartReport', 'api\crm\CrmReportApiController@getContactChartReport');
+    Route::get('/crm/report/getOrganizationChartReport', 'api\crm\CrmReportApiController@getOrganizationChartReport');
 // });

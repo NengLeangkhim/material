@@ -43,7 +43,7 @@
                                     {{-- ============================ Start Tab all ======================= --}}
                                     <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="card-body">
-                                            <table id="example1" class="table table-bordered table-striped">
+                                            <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
                                                 <thead>
                                                     <tr>
                                                         <th>Number</th>
@@ -58,20 +58,37 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>TT-001</td>
-                                                        <td>Touch Rith</td>
-                                                        <td>Keo Raksmey</td>
-                                                        <td>2020-10-01</td>
-                                                        <td>2020-10-01</td>
-                                                        <td>200$</td>
-                                                        <td>2020-10-01</td>
-                                                        <td>Aprove</td>
-                                                        <td style="text-align-last: center">
-                                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                            <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data(0,'bsc_invoice_delete','bsc_invoice_invoice_view','Invoice Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                                        </td>
-                                                    </tr>
+                                                    @foreach ($invoices as $invoice)
+                                                        @php
+                                                            $amount_paid = 0;
+                                                            $due_amount = 0;
+                                                            $status = '';
+
+                                                            if($invoice->amount_paid == null && $invoice->due_amount == null){
+                                                                $amount_paid = 0;
+                                                                $due_amount = $invoice->grand_total;
+                                                                $status = 'Awaiting Payment';
+                                                            }else{
+                                                                $amount_paid = $invoice->amount_paid;
+                                                                $due_amount = $invoice->due_amount;
+                                                                $status = 'Paid';
+                                                            }
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $invoice->invoice_number }}</td>
+                                                            <td>{{ $invoice->reference }}</td>
+                                                            <td>{{ $invoice->customer_name }}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
+                                                            <td>{{ $amount_paid }}</td>
+                                                            <td>{{ $due_amount }}</td>
+                                                            <td>{{ $status }}</td>
+                                                            <td style="text-align-last: center">
+                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
@@ -84,7 +101,7 @@
                                             <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
                                                 <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
                                                     <div class="card-body">
-                                                        <table id="example2" class="table table-bordered table-striped">
+                                                        <table id="example2" class="table table-bordered table-striped" style="white-space: nowrap">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Number</th>
@@ -98,19 +115,33 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>TT-001</td>
-                                                                    <td>Touch Rith</td>
-                                                                    <td>Keo Raksmey</td>
-                                                                    <td>2020-10-01</td>
-                                                                    <td>2020-10-01</td>
-                                                                    <td>200$</td>
-                                                                    <td>2020-10-01</td>
-                                                                    <td style="text-align-last: center">
-                                                                        <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                        <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data(0,'bsc_invoice_delete','bsc_invoice_invoice_view','Invoice Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                    </td>
-                                                                </tr>
+                                                                @foreach ($invoices as $invoice)
+                                                                    @php
+                                                                        $amount_paid = 0;
+                                                                        $due_amount = 0;
+
+                                                                        if($invoice->due_amount == null){
+                                                                            $amount_paid = 0;
+                                                                            $due_amount = $invoice->grand_total;
+                                                                        }else{
+                                                                            $amount_paid = $invoice->amount_paid;
+                                                                            $due_amount = $invoice->due_amount;
+                                                                        }
+                                                                    @endphp
+                                                                    <tr>
+                                                                        <td>{{ $invoice->invoice_number }}</td>
+                                                                        <td>{{ $invoice->reference }}</td>
+                                                                        <td>{{ $invoice->customer_name }}</td>
+                                                                        <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
+                                                                        <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
+                                                                        <td>{{ $amount_paid }}</td>
+                                                                        <td>{{ $due_amount }}</td>
+                                                                        <td style="text-align-last: center">
+                                                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -140,19 +171,23 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>TT-001</td>
-                                                                    <td>Touch Rith</td>
-                                                                    <td>Keo Raksmey</td>
-                                                                    <td>2020-10-01</td>
-                                                                    <td>2020-10-01</td>
-                                                                    <td>200$</td>
-                                                                    <td>2020-10-01</td>
-                                                                    <td style="text-align-last: center">
-                                                                        <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                        <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data(0,'bsc_invoice_delete','bsc_invoice_invoice_view','Invoice Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                    </td>
-                                                                </tr>
+                                                                @foreach ($invoices as $invoice)
+                                                                     @if($invoice->due_amount == 0 && $invoice->due_amount != null)
+                                                                        <tr>
+                                                                            <td>{{ $invoice->invoice_number }}</td>
+                                                                            <td>{{ $invoice->reference }}</td>
+                                                                            <td>{{ $invoice->customer_name }}</td>
+                                                                            <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
+                                                                            <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
+                                                                            <td>{{ $invoice->amount_paid }}</td>
+                                                                            <td>{{ $invoice->due_amount }}</td>
+                                                                            <td style="text-align-last: center">
+                                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endif
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>

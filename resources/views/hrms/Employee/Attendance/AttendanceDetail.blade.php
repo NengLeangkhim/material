@@ -87,26 +87,26 @@
                                 </div>
                         <div class="">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <input type="date" name="" id="attendance_date1" class="form-control">
                                     </div>
                                 </div>
-                                 <div class="col-md-3">
+                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <input type="date" name="" id="attendance_date2" class="form-control">
                                     </div>
                                 </div>
-                                 <div class="col-md-3">
+                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <button class="btn bg-turbo-color form-control" onclick="HRM_CalculateAttendanceDetail({{$data['id']}})">Search</button>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                {{-- <div class="col-md-3">
                                     <div class="form-group">
                                         <button class="btn bg-turbo-color form-control" onclick="HRM_CalculateAttendanceDetail({{$data['id']}})">Excel</button>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div id="hrm_calculate_detail" class="col-md-12">
                                     <div class="col-md-12" style="margin-bottom: 15px">
                                         <div class="row">

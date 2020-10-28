@@ -8,9 +8,19 @@ function check_session(){
         url: "check_session",
         success: function(data){
             if(parseInt(data)==0){
-                alert("session expired!");
-                location.replace('/');
-                return true;
+              Swal.fire({ //get from sweetalert function
+                title: 'SESSOIN EXPIRED',
+                text: "The session has ben expired please login again",
+                icon: 'alert',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+              }).then((result) => {
+                if (result.value) {
+                  location.replace('/');
+                  return true;
+                }
+              });
             }else{
                 return false;
             }

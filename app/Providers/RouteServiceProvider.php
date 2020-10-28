@@ -109,6 +109,11 @@ class RouteServiceProvider extends ServiceProvider
         ->namespace($this->namespace)
         ->group(base_path('routes/crm_api/report.php'));
 
+        Route::prefix('api')
+        ->middleware('api')
+        ->namespace($this->namespace)
+        ->group(base_path('routes/crm_api/crm_setting.php'));
+
         // 2. --- STOCK API ---
         Route::prefix('api')
         ->middleware('api')

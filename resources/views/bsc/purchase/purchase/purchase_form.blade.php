@@ -1,10 +1,10 @@
 @php
     $item = "";
+    $id="";
     foreach($products as $product){
         $item.="<option value='{$product->id}'>{$product->name}</option>";
     }
 @endphp
-
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -21,14 +21,15 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                             </div>
-                            <select class="form-control select2" name="account_type" id="account_type">
+                            <select class="form-control select2 input_required" name="account_type" id="purchase_account_chart_id">
                                 <option value="" selected hidden disabled>select item</option>
 
                                 @foreach ($account_payables as $account_payable)
-                                    <option value="{{$account_payable->bsc_account_type_id}}">{{$account_payable->name_en}}</option>
+                                    <option value="{{$account_payable->id}}">{{$account_payable->name_en}}</option>
                                 @endforeach
                                
                             </select>
+                            
                         </div>
                     </div>
                 </div>
@@ -36,7 +37,7 @@
             <div class="col-sm-3">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="" class="lead" value="lead">Home</a></li>
-                    <li class="breadcrumb-item active">View Puechase</li>
+                    <li class="breadcrumb-item active" onclick="go_to('bsc_purchase_purchase_list')">View Puechase</li>
                 </ol>
             </div>
         </div>
@@ -60,7 +61,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                                             </div>
-                                            <select class="form-control select2" name="account_type" id="purchase_supplier">
+                                            <select class="form-control select2 input_required" name="account_type" id="purchase_supplier">
                                                 <option selected hidden disabled>select item</option>
 
                                                 @foreach ($suppliers as $supplier)
@@ -76,7 +77,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input required type="date" class="form-control" name="end_period_date" id="purchase_date" placeholder="Description">
+                                            <input required type="date" class="form-control input_required" name="end_period_date" id="purchase_date">
                                         </div>
                                      </div>
                                 </div>
@@ -89,7 +90,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input required type="date" class="form-control" name="end_period_date" id="purchase_due_date" placeholder="Description">
+                                            <input required type="date" class="form-control input_required" name="end_period_date" id="purchase_due_date" placeholder="Description">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -198,7 +199,7 @@
                             <input type="hidden" id='items' value="{{$item}}">
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-primary save" id="frm_btn_sub_add_chart_account" onclick="saveData()">Save</button>
-                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_chart_account_list')">Cencel</button>
+                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_purchase_purchase_list')">Cencel</button>
                             </div>
                         </div>
                     </div>
@@ -210,7 +211,6 @@
 <script>
     $(document).ready(function(){
         $('.select2').select2();
-
         var count = 1;
         // Loop to Display 4 Table
         for(count=0;count<4;count++){
@@ -219,12 +219,12 @@
 
         // Insert Table
         $('#purchase_form').click(function(){
-                inSertTable(count);
-                count = count + 1;
-                $('.item_select').select2({
-                    containerCssClass: "add_class_select2"
-                });
-                $(".select2 .selection .add_class_select2").css('border','0px');
+            inSertTable(count);
+            count = count + 1;
+            $('.item_select').select2({
+                containerCssClass: "add_class_select2"
+            });
+            $(".select2 .selection .add_class_select2").css('border','0px');
         });
 
         // Remove Table
@@ -249,17 +249,19 @@
         $("#purchase_table tbody").delegate('.item_qty','keyup',function(){
             tr=$(this).closest('tr');
             var qty=$(this).text();
-            var amount = qty * tr.find('.item_unit_price').text();
+            let price = tr.find('.item_unit_price').text();
+            let amount = show_amount(qty, price);
             tr.find('.item_amount').text(amount.toFixed(2));
             showTotal();
-            
+            showGrandTotal();
         });
         
         // Delegate Field Unit Price
         $("#purchase_table tbody").delegate('.item_unit_price','keyup',function(){
             tr=$(this).closest('tr');
             var price=$(this).text();
-            var amount = price * tr.find('.item_qty').text();
+            let qty =  tr.find('.item_qty').text();
+            let amount =show_amount(qty,price);
             tr.find('.item_amount').text(amount.toFixed(2));
             showTotal();
             showGrandTotal();
@@ -272,10 +274,42 @@
         });
         $(".select2 .selection .add_class_select2").css('border','0px');
 
-        
+        //
+        $("#purchase_table tbody").delegate('.stock_product_id','change',function(){
+            let tr=$(this).closest('tr');
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type:"POST",
+                url:'/bsc_purchase_get_by_id',                    
+                data:{
+                    _token: CSRF_TOKEN,
+                    product_id : $(this).val()
+                },
+                dataType: "JSON",
+                success:function(data){
+                    tr.find('.item_des').text(data['description']);
+                    tr.find('.item_qty').text(1);
+                    tr.find('.item_unit_price').text(data['product_price']);
+                    tr.find('.item_account').text(data['chart_account_name']);
+                    tr.find('.item_account').attr('data-id',data['bsc_account_charts_id']==null ? "null" : data['bsc_account_charts_id']);
+                    tr.find('.item_tax [value=1]').attr('selected', 'true');
+                    let amount = show_amount(1, data['product_price']);
+                    tr.find('.item_amount').text(amount.toFixed(2));
+                    showTotal();
+                    showGrandTotal();
+                    
+                }
+            });
+        });      
 
     });
-    // Function Calculate Grand Total Amount
+
+    // function show Amount
+    function show_amount(qty,price){
+        let amount = (qty * price);
+        return amount;
+    }
+    // function Calculate Grand Total Amount
     function showGrandTotal(){
         let total = parseFloat($('#txtTotal').text());
         let totalvat = parseFloat($('#txtVatTotal').text());
@@ -283,7 +317,7 @@
         document.getElementById('txtGrandTotal').innerHTML=grandTotal.toFixed(2);
     }
 
-    // Function Calculate Total Amount
+    // function Calculate Total Amount
     function showTotal(){
         let total_amount = 0;
         $('.item_amount').each(function(e){
@@ -297,56 +331,74 @@
     function inSertTable(count){ 
         var tr = '';
         tr +='<tr id="row'+count+'">'+
-                '<td class="item_name" style="padding: 0;"><select class="item_select stock_product_id" style="width: 100%;height: 51px;"><option value=""></option>'+$("#items").val()+'</select></td>'+
+                '<td class="item_name" style="padding: 0;max-width: 165px;overflow: auto;"><select class="item_select stock_product_id" style="width: 100%;height: 51px;"><option value=""></option>'+$("#items").val()+'</select></td>'+
                 '<td contenteditable="true" class="item_des" id="item_des"></td>'+
                 '<td contenteditable="true" class="item_qty" id="item_qty"></td>'+
                 '<td contenteditable="true" class="item_unit_price" id="item_unit_price"></td>'+
-                '<td class="item_account" id="item_account"></td>'+
+                '<td class="item_account" id="item_account" data-id=""></td>'+
                 '<td class="item_tax" style="padding: 0;"><select style="border: 0px; height: 51px;" class="tax form-control"><option value=""></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
                 '<td class="item_amount" id="item_amount"></td>'+
                 '<td style="text-align: center;"><button type="button" name="remove" data-row="row'+count+'" class="btn btn-danger btn-xs remove">x</button></td>'+
             '</tr>';
         $('#purchase_table tbody').append(tr);
     }
+
+    // function save all data
     function saveData(){
-     
-        var itemDetail = [];
-        $(".stock_product_id").each(function(e){
-            var tr = $(this).closest('tr');
-            var thisInput = $(this).val();
-            if(thisInput != ""){
-                itemDetail[e] = {
-                    stock_product_id : thisInput,
-                    description      : tr.find(".item_des").text(),
-                    qty              : tr.find(".item_qty").text(),
-                    unit_price       : tr.find(".item_unit_price").text(),
-                    bsc_account_id   : tr.find(".item_account").text(),
-                    tax              : tr.find(".tax").val(),
-                    amount           : tr.find(".item_amount").text()
-                };
-            }
+
+        let num_miss = 0;
+        $(".input_required").each(function(){
+            if($(this).val()=="" || $(this).val()==null){ num_miss++;}
         });
-        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        $.ajax({
-            type:"POST",
-            url:'/bsc_purchase_save',                    
-            data:{
-                _token: CSRF_TOKEN,
-                bsc_account_charts_id : $("#account_type").val(),
-                suppier_id            : $("#purchase_supplier").val(),
-                billing_date          : $("#purchase_date").val(),
-                due_date              : $("#purchase_due_date").val(),  
-                reference             : $("#purchase_reference").val(),    
-                total                 : $("#txtTotal").text(),
-                vat_total             : $("#txtVatTotal").text(), 
-                grand_total           : $("#txtGrandTotal").text(), 
-                itemDetail            : itemDetail
-            },
-            dataType: "JSON",
-            success:function(data){
-                
-            }
-        });
+        if(num_miss>0){
+            $(".input_required").each(function(){
+                if($(this).val()=="" || $(this).val()==null){ $(this).css("border-color","red"); }
+            });
+            sweetalert('error', 'Please input or select field *');
+        }else{
+            var itemDetail = [];
+            $(".stock_product_id").each(function(e){
+                var tr = $(this).closest('tr');
+                var thisInput = $(this).val();
+                if(thisInput != ""){
+                    itemDetail[e] = {
+                        stock_product_id        : thisInput,
+                        description             : tr.find(".item_des").text(),
+                        qty                     : tr.find(".item_qty").text(),
+                        unit_price              : tr.find(".item_unit_price").text(),
+                        bsc_account_charts_id   : tr.find(".item_account").attr('data-id'),
+                        tax                     : tr.find(".tax").val(),
+                        amount                  : tr.find(".item_amount").text()
+                    };
+                }
+            });
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type:"POST",
+                url:'/bsc_purchase_save',                    
+                data:{
+                    _token: CSRF_TOKEN,
+                    bsc_account_charts_id : $("#purchase_account_chart_id").val(),
+                    suppier_id            : $("#purchase_supplier").val(),
+                    billing_date          : $("#purchase_date").val(),
+                    due_date              : $("#purchase_due_date").val(),  
+                    reference             : $("#purchase_reference").val(),    
+                    total                 : $("#txtTotal").text(),
+                    vat_total             : $("#txtVatTotal").text(), 
+                    grand_total           : $("#txtGrandTotal").text(), 
+                    itemDetail            : itemDetail
+                },
+                dataType: "JSON",
+                success:function(data){
+
+                    if(data.saved.success == false){
+                        alert("fail to insert");
+                    }else{
+                        //alert("insert success");    
+                        go_to('bsc_purchase_purchase_list');
+                    }
+                }
+            });   
+        }
     }
-    
 </script>
