@@ -249,9 +249,12 @@ class InvoiceController extends Controller
     public function show_quote(Request $request)
     {
         $quotes = DB::table('crm_quote')
+        ->select('crm_quote.id as quote_id','crm_quote.quote_number','crm_lead_address.gazetteer_code as billing_address','ma_customer.id as customer_id','ma_customer.name as customer_name')
+        ->leftJoin('crm_lead_address','crm_quote.crm_lead_address_id','=','crm_lead_address.id')
+        ->leftJoin('ma_customer','crm_quote.crm_lead_id','=','ma_customer.crm_lead_id')
         ->where([
-            ['status','=','t'],
-            ['is_deleted','=','f']
+            ['crm_quote.status','=','t'],
+            ['crm_quote.is_deleted','=','f']
         ])->get();
         return $this->sendResponse($quotes, 'Quote retrieved successfully.');
     }
