@@ -28,7 +28,7 @@
                     $dateofbirth="";
                   }
               @endphp
-              <input type="hidden" class="d-none" value="@php echo $_GET['id']; @endphp" name="id">
+              <input type="hidden" class="d-none" value="@php echo $_GET['id']; @endphp" name="emid">
               <div class="col-md-8">
                   <div class="row">
                     <div class="col-md-6">
@@ -82,7 +82,7 @@
                       <label>Department <span class="text-danger">*</span></label>
                       
                       <select name="emDepartment" id="emDepartment" class="form-control" required>
-                        {{-- <option value="" selected hidden disabled></option> --}}
+                        <option value="" hidden></option>
                         @php
                           foreach ($data[3] as $department) {
                            if(isset($data[1])){
@@ -102,7 +102,7 @@
                     <div class="col-md-6">
                   <label>Position <span class="text-danger">*</span></label>
                   <select name="emPosition" id="emPosition" class="form-control" required>
-                    {{-- <option value="" selected hidden disabled></option> --}}
+                    <option value="" selected hidden></option>
                   @php
                     foreach ($data[0] as $position) {
                       if(isset($data[1])){
@@ -140,7 +140,7 @@
               </div>
               <div class="col-md-4">
                   <label>Salary <span class="text-danger">*</span><span style="margin-left: 100px"><input type="checkbox" onclick="ShowPassword()">show</span></label>
-                  <input type="@php if(isset($data[1])){ echo "password"; }else { echo "number"; } @endphp" id="inputsalary" class="form-control" id="emSalary" name="emSalary" @php if(!isset($data[0])){ echo 'required'; } @endphp value="@php if(isset($data[1])){ echo $data[1]['salary']; } @endphp" required>
+                  <input type="@php if(isset($data[1])){ echo "password"; }else { echo "number"; } @endphp" id="inputsalary" class="form-control" name="inputsalary" @php if(!isset($data[0])){ echo 'required'; } @endphp value="@php if(isset($data[1])){ echo $data[1]['salary']; } @endphp" required>
                 </div>
                 <div class="col-md-6">
                   <label>Bank Account</label>
@@ -149,6 +149,7 @@
               <div class="col-md-6">
                   <label>Email <span class="text-danger">*</span></label>
                   <input type="email" class="form-control" id="emEmail" name="emEmail" value="@php if(isset($data[1])){ echo $data[1]['email']; } @endphp" required>
+                  <label class="d-none text-danger" id='email_unique'>email is required or unique</label>
               </div>
               <div class="col-md-6">
                   <label>Spouse <span class="text-danger">*</span></label>

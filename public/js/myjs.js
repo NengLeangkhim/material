@@ -171,7 +171,7 @@ function showloading(){
     $("#moLoadingdiv").css({"position": "fixed",
      "top": "0",
      "left": "0",
-     "z-index": "1040",
+     "z-index": "99999",
      "width": "100vw",
      "height": "100vh",
      "background-color": "rgba(255, 255, 255, 0.5)",

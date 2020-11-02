@@ -136,13 +136,19 @@ class Employee extends Model
 
     // Insert Employee
     public static function InsertEmployee($firstName_en,$lasttName_kh,$email,$contact,$position,$companyid,$branch_id,$company_dept_id,$create_by,$idNumber,$sex,$firstName_kh,$lastName_kh,$image,$OfficePhone,$jointDate,$dateOfBirth,$home_en,$home_kh,$street_en,$street_kh,$latlg,$gazetteer,$martital_status,$spous,$has_children,$children,$salary,$currency,$description,$payrollAccount){
-        $sql= "SELECT public.insert_ma_user_employee('$firstName_en','$lasttName_kh','$email','$contact',$position,$companyid,$branch_id,$company_dept_id,$create_by,'$idNumber','$sex','$firstName_kh','$lastName_kh','$image','$OfficePhone','$jointDate','$dateOfBirth','$home_en','$home_kh','$street_en','$street_kh',null,'$gazetteer',null,'$spous','$has_children',$children,$salary,$currency,'$description','$payrollAccount')";
-        $stm=DB::select($sql);
-        if($stm[0]->insert_ma_user_employee>0){
-            return "Insert Successfully";
-        }else{
-            return "error";
+        try {
+            $sql= "SELECT public.insert_ma_user_employee('$firstName_en','$lasttName_kh','$email','$contact',$position,$companyid,$branch_id,$company_dept_id,$create_by,'$idNumber','$sex','$firstName_kh','$lastName_kh','$image','$OfficePhone','$jointDate','$dateOfBirth','$home_en','$home_kh','$street_en','$street_kh',null,'$gazetteer',null,'$spous','$has_children',$children,$salary,$currency,'$description','$payrollAccount')";
+            $stm=DB::select($sql);
+            if($stm[0]->insert_ma_user_employee>0){
+                return 1;
+            }else{
+                return 0;
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return 0;
         }
+        
     }
 
     // Inert base salary for employee
@@ -161,14 +167,22 @@ class Employee extends Model
 
     // Update Employee
     public static function UpdateEmployee($id,$firstName_en, $lastName_en, $email, $contact, $position, $companyid, $branch_id, $company_dept_id, $create_by, $idNumber, $sex, $firstName_kh, $lastName_kh, $image, $OfficePhone, $jointDate, $dateOfBirth, $home_en, $home_kh, $street_en, $street_kh, $latlg, $gazetteer, $martital_status, $spous, $has_children, $children, $salary, $currency, $description, $payrollAccount){
-       $sql= "SELECT public.update_ma_user_employee($id,'$firstName_en','$lastName_en','$email','$contact',$position,$companyid,$branch_id,$company_dept_id,$create_by,'$idNumber','$sex','$firstName_kh','$lastName_kh','$image','$OfficePhone','$jointDate','$dateOfBirth','$home_en','$home_kh','$street_en','$street_kh',null,'$gazetteer',null,'$spous','$has_children',$children,$salary,$currency,'$description','$payrollAccount','t')";
-       $stm=DB::select($sql);
-       if($stm[0]->update_ma_user_employee>0){
-           return "Update Successfully";
-       }else{
-           return "error";
+       try {
+            $sql= "SELECT public.update_ma_user_employee($id,'$firstName_en','$lastName_en','$email','$contact',$position,$companyid,$branch_id,$company_dept_id,$create_by,'$idNumber','$sex','$firstName_kh','$lastName_kh','$image','$OfficePhone','$jointDate','$dateOfBirth','$home_en','$home_kh','$street_en','$street_kh',null,'$gazetteer',null,'$spous','$has_children',$children,$salary,$currency,'$description','$payrollAccount','t')";
+            $stm=DB::select($sql);
+            if($stm[0]->update_ma_user_employee>0){
+                return 1;
+            }else{
+                return 0;
+            }
+       } catch (\Throwable $th) {
+           DB::rollBack();
+           return 0;
        }
+        
     }
+
+    
 
 
     

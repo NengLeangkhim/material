@@ -96,7 +96,7 @@ function ShowPassword(){
 }
 // All Employee
     // Add modal Employee in View
-        function HRM_AddEditEmployee(id=-1){
+        function hrms_modal_add_edit_employee(id=-1){
             if(check_session()){
                 return;
             }
@@ -110,53 +110,47 @@ function ShowPassword(){
                 success: function (data) {
                     document.getElementById('modal').innerHTML=data;
                     $('#modal_employee').modal('show');
+                    $("#department").select2();
+                    $("#position").select2();
                 }
             });
         }
-
-
-// function form_submit(form,route,goto){
-//     var formElement = document.getElementById(form);
-//     var formData = new FormData(formElement);
-//     var request = new XMLHttpRequest();
-//     request.open("POST", route);
-//     request.onreadystatechange = function () {
-//         if (this.readyState == 4 && this.status == 200) {
-//             data=this.responseText;
-//             if(data=='error'){
-//                 sweetalert('error', 'Data has Problem');
-//             }else{
-//                 Swal.fire(
-//                     'Success',
-//                       alert,
-//                     'success'
-//                   )
-//                 // sweetalert('success',this.responseText);
-//                 // alert(this.responseText);
-//                 go_to(goto);
-//             }
-//         }
-//     };
-//     request.send(formData);
-// }
-
-
         // insert or Update employee
         function hrms_insert_update_employee(){
+            if(check_session()){return;}
             var form_element=document.getElementById('fm-employee');
             var form_data = new FormData(form_element);
             var request = new XMLHttpRequest();
-            request.open("POST","hrms_test_insert_update_employee");
+            request.open("POST","hrms_insert_update_employee");
             request.onreadystatechange=function(){
                 if(this.readyState==4 && this.status==200){
                     console.log(this.responseText);
                     data=JSON.parse(this.responseText);
                     if($.isEmptyObject(data.error)){
                         alert(data.success);
+                        $('#modal_employee').modal('hide');
                     }else{
-                        $.each(data.error, function(key,value){
-                            alert(key);
-                        })
+                        var $inputs = $('#fm-employee :input,select,number');
+                        $inputs.each(function (index){
+                            i=0;
+                            idname=$(this).attr('id');
+                            $.each(data.error, function(key,value){
+                                if(idname==key){
+                                    i++;
+                                }
+                                if(i==0){
+                                    if(idname=='emEmail'){
+                                        $('#email_unique').addClass('d-none');
+                                    }
+                                    $('#'+idname).removeClass('is-invalid','d-none');
+                                }else{
+                                    if(idname=='emEmail'){
+                                        $('#email_unique').removeClass('d-none');
+                                    }
+                                    $('#'+idname).addClass('is-invalid');
+                                }
+                            })
+                        });
                     }
 
                 }
@@ -165,6 +159,8 @@ function ShowPassword(){
         }
 
     // End Employee
+
+
 
     // Start Holiday
         // Add Modal Holiday to view
