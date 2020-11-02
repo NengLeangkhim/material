@@ -30,7 +30,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 //======================END CRM=========================
-//======================BSC=========================
 
 Route::post('register', 'api\UserController@register');
 Route::post('login', 'api\UserController@authenticate');
@@ -38,45 +37,4 @@ Route::post('login', 'api\UserController@authenticate');
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('user', 'api\UserController@getAuthenticatedUser');
     Route::get('logout', 'api\UserController@logout');
-    // Chart account
-    Route::resource('bsc_chart_accounts', 'api\BSC\ChartAccountController');
-    Route::get('bsc_show_account_type', 'api\BSC\ChartAccountController@show_account_type');
-    Route::get('bsc_show_company', 'api\BSC\ChartAccountController@show_company');
-    Route::resource('bsc_purchases', 'api\BSC\PurchaseController');
-    Route::get('bsc_show_account_payable', 'api\BSC\PurchaseController@show_account_payable');
-    Route::get('bsc_show_supplier', 'api\BSC\PurchaseController@show_supplier');
-    Route::get('bsc_show_product', 'api\BSC\PurchaseController@show_product');
-    Route::get('bsc_show_product_single/{id}', 'api\BSC\PurchaseController@show_product_single');
-    Route::get('bsc_show_chart_account_paid_from_to', 'api\BSC\PurchaseController@show_chart_account_paid_from_to');
-    Route::resource('bsc_purchase_payments', 'api\BSC\PurchasePaymentController');
-    Route::resource('bsc_invoices', 'api\BSC\InvoiceController');
-    Route::resource('bsc_invoice_payments', 'api\BSC\InvoicePaymentController');
-    Route::get('bsc_show_account_receivable', 'api\BSC\InvoiceController@show_account_receivable');
-    Route::get('bsc_show_customer', 'api\BSC\InvoiceController@show_customer');
-    Route::get('bsc_show_customer_branch', 'api\BSC\InvoiceController@show_customer_branch');
-    Route::get('bsc_show_quote', 'api\BSC\InvoiceController@show_quote');
-    Route::get('bsc_show_quote_single/{id}', 'api\BSC\InvoiceController@show_quote_single');
-
-    // Customers
-    Route::resource('bsc_customers', 'api\BSC\CustomerController');
-    // Customer Branch
-    Route::resource('bsc_customer_branch', 'api\BSC\CustomerBranchController');
-    // Customer service
-    Route::resource('bsc_customer_service','api\BSC\CustomerServiceController');
-    // Customer service detail
-    Route::resource('bsc_customer_service_detail','api\BSC\CustomerServiceDetailController');
 });
-
-// Chart account
-Route::resource('bsc_chart_accounts', 'api\BSC\ChartAccountController');
-Route::get('bsc_show_account_type', 'api\BSC\ChartAccountController@show_account_type');
-Route::get('bsc_show_company', 'api\BSC\ChartAccountController@show_company');
-Route::resource('bsc_purchases', 'api\BSC\PurchaseController');
-
-
-// Report
-Route::get('/bsc/report/income_statement', 'api\BSC\IncomeStatementApiController@getIncomeStatement');
-//======================END BSC=========================
-
-
-

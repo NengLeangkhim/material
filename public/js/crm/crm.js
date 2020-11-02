@@ -404,6 +404,36 @@ function Crm_delete(id,route,goto,alert) {
     });
     }
   }
+  // ----- Lead Status
+    //Update lead Status
+    $(document).on('click', '.CrmEditLeadStatus', function(){
+      var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+      $.ajax({
+      url:"/crm/setting/leadstatus/get",   //Request send to "action.php page"
+      type:"GET",    //Using of Post method for send data
+      data:{id:id},//Send data to server
+      dataType:"json",   //Here we have define json data type, so server will send data in json format.
+      success:function(response){
+              $('#crm_lead_status').modal('show'); //It will display modal on webpage
+              $('#ActionLeadStatus').text('Update'); //This code will change Button value to Update
+              $('#card_title').text("Update Lead Status");
+              $('.print-error-msg').hide();
+              $("#crm_lead_status_form").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid");//remove valid all input field
+              $(".invalid-feedback").children("strong").text("");/// remove errror massage
+              $('#lead_status_id').val(id);     //It will define value of id variable for update
+              $.each(response.data, function(i, e){ //read array json for show to textbox
+                $('#name_kh').val(response.data.name_en);
+                $('#name_en').val(response.data.name_kh);
+                $('#sequence').val(response.data.sequence);
+                if(response.data.status==true){
+                  $('#status').val(1);
+                }else{
+                  $('#status').val(0);
+                }
+              });
+      }
+      });
+    });  
   // ----- Lead Industry
     //Update lead industry
     $(document).on('click', '.CrmEditLeadIndustry', function(){
@@ -491,6 +521,69 @@ function Crm_delete(id,route,goto,alert) {
       }
       });
     });   
+    // ----- Lead Status
+    //Update lead Status
+    $(document).on('click', '.CrmEditScheduleType', function(){
+      var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+      $.ajax({
+      url:"/crm/setting/scheduletype/get",   //Request send to "action.php page"
+      type:"GET",    //Using of Post method for send data
+      data:{id:id},//Send data to server
+      dataType:"json",   //Here we have define json data type, so server will send data in json format.
+      success:function(response){
+              $('#crm_schedule_type').modal('show'); //It will display modal on webpage
+              $('#ActionScheduleType').text('Update'); //This code will change Button value to Update
+              $('#card_title').text("Update Schedule Type");
+              $('.print-error-msg').hide();
+              $("#crm_schedule_type_form").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid");//remove valid all input field
+              $(".invalid-feedback").children("strong").text("");/// remove errror massage
+              $('#schedule_type_id').val(id);     //It will define value of id variable for update
+              $.each(response.data, function(i, e){ //read array json for show to textbox
+                $('#name_kh').val(response.data.name_en);
+                $('#name_en').val(response.data.name_kh);
+                if(response.data.status==true){
+                  $('#is_result_type').val(1);
+                }else{
+                  $('#is_result_type').val(0);
+                }
+                if(response.data.status==true){
+                  $('#status').val(1);
+                }else{
+                  $('#status').val(0);
+                }
+              });
+      }
+      });
+    });  
+    // ----- Quote Status
+    //Update Quote Status
+    $(document).on('click', '.CrmEditQuoteStatus', function(){
+      var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+      $.ajax({
+      url:"/crm/setting/quotestatus/get",   //Request send to "action.php page"
+      type:"GET",    //Using of Post method for send data
+      data:{id:id},//Send data to server
+      dataType:"json",   //Here we have define json data type, so server will send data in json format.
+      success:function(response){
+              $('#crm_quote_status_modal').modal('show'); //It will display modal on webpage
+              $('#ActionQuoteStatus').text('Update'); //This code will change Button value to Update
+              $('#card_title').text("Update Quote Status");
+              $('.print-error-msg').hide();
+              $("#crm_quote_status_form").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid");//remove valid all input field
+              $(".invalid-feedback").children("strong").text("");/// remove errror massage
+              $('#quote_status_id').val(id);     //It will define value of id variable for update
+              $.each(response.data, function(i, e){ //read array json for show to textbox
+                $('#name_kh').val(response.data.name_en);
+                $('#name_en').val(response.data.name_kh);
+                if(response.data.status==true){
+                  $('#status').val(1);
+                }else{
+                  $('#status').val(0);
+                }
+              });
+      }
+      });
+    });  
 // -----------Setting CRM ---------- //
 //////////////////////////==========================END MET KEOSAMBO ====================///////////////////////////////
     // $(document).ready(function(){
@@ -970,7 +1063,7 @@ function Crm_delete(id,route,goto,alert) {
                     ' </table>'+
                 '</div>'+
         '</div>';
-        console.log('row content added');
+        // console.log('row content added');
         $('#content-quote-product').append($row_content);
 
     }
@@ -1107,9 +1200,10 @@ function Crm_delete(id,route,goto,alert) {
 
               success:function(data)
               {
+
                   if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-                    sweetalert('success','Data has been saved !');
-                    // go_to(goto);// refresh content
+                    // sweetalert('success','Data has been saved !');
+                    go_to('/quote/detail');// refresh content
 
                     // use go ot view quote detail
                   }else{
@@ -1122,7 +1216,7 @@ function Crm_delete(id,route,goto,alert) {
                         $("#" + key).addClass("is-invalid"); //give read border to input field
                         $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
                         $("#" + key + "Error").addClass("invalid-feedback");
-                        console.log(key);
+                        console.log('key='+key+'--value='+value);
 
 
                         // check if validate give empty product field
@@ -1139,31 +1233,31 @@ function Crm_delete(id,route,goto,alert) {
 
 
                         // check if validate give empty qty field
-                        if(key.slice(0, -2) == 'qty'){
-                            $.each($("input[name='qty[]'"),function(index,value){
-                                if($(this).val().length <= 0 ){
-                                    $(this).addClass("is-invalid");
-                                }
-                            });
-                        }
+                        // if(key.slice(0, -2) == 'qty'){
+                        //     $.each($("input[name='qty[]'"),function(index,value){
+                        //         if($(this).val().length <= 0 ){
+                        //             $(this).addClass("is-invalid");
+                        //         }
+                        //     });
+                        // }
 
-                        // check if validate give empty price field
-                        if(key.slice(0, -2) == 'price'){
-                          $.each($("input[name='price[]'"),function(index,value){
-                              if($(this).val().length <= 0 ){
-                                  $(this).addClass("is-invalid");
-                              }
-                          });
-                        }
+                        // // check if validate give empty price field
+                        // if(key.slice(0, -2) == 'price'){
+                        //   $.each($("input[name='price[]'"),function(index,value){
+                        //       if($(this).val().length <= 0 ){
+                        //           $(this).addClass("is-invalid");
+                        //       }
+                        //   });
+                        // }
 
-                        // check if validate give empty discount field
-                        if(key.slice(0, -2) == 'discount'){
-                          $.each($("input[name='discount[]'"),function(index,value){
-                              if($(this).val().length <= 0 ){
-                                  $(this).addClass("is-invalid");
-                              }
-                          });
-                        }
+                        // // check if validate give empty discount field
+                        // if(key.slice(0, -2) == 'discount'){
+                        //   $.each($("input[name='discount[]'"),function(index,value){
+                        //       if($(this).val().length <= 0 ){
+                        //           $(this).addClass("is-invalid");
+                        //       }
+                        //   });
+                        // }
 
 
 

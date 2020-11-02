@@ -23,7 +23,6 @@ class CrmLeadStatus extends Model
             }
             $newId = DB::selectOne($sql)->id;
             $result = $this->getOneData($newId);
-            dd($result);
         } catch(QueryException $e){
             throw $e;
         }

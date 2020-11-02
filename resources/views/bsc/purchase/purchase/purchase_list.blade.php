@@ -74,7 +74,7 @@
                                                             <td>{{ $purchase->billing_date }}</td>
                                                             <td>{{ $purchase->due_date }}</td>
                                                             <td>{{ $amount_paid }}</td>
-                                                            <td>{{ $due_amount}}</td>
+                                                            <td>{{ $due_amount }}</td>
                                                             <td>{{ $status }}</td>
                                                             <td style="text-align: center;">
                                                                 <div class="row">
