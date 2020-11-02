@@ -173,6 +173,7 @@ jQuery.fn.center = function () {
 }
 
 function showloading(){
+  $("#moLoading").center();
   $("#moLoadingdiv").show();
 }
 function hideloading(){
