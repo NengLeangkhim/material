@@ -25,6 +25,10 @@ function check_session(){
             }else{
                 return false;
             }
+      },
+      error:function(){
+        hideloading();
+        $(".content-wrapper").html(jerror());
       }
     });
 }
@@ -37,13 +41,15 @@ function check_session(){
     var code = $(this).attr("data-code");
     var href = $(this).attr("href");
     if (typeof link !== typeof undefined && link !== false) {
-      $(".content-wrapper").html(spinner());
+      // $(".content-wrapper").html(spinner());
+      showloading();
       $("#nav_bar_sub_r").html(get_pushmenu());
       $.ajax({
         type: 'GET',
         url:link,
         async:false,
         success:function(data){
+          hideloading();
             $(".content-wrapper").show();
             if(data.length>0){
               $(".content-wrapper").html(data);
@@ -56,11 +62,14 @@ function check_session(){
             });
         },
         error:function(){
+          hideloading();
+          errorMessage();
           $(".content-wrapper").html(jerror());
         }
      });
     }else if (typeof code !== typeof undefined && code !== false) {
-        $(".content-wrapper").html(spinner());
+        // $(".content-wrapper").html(spinner());
+        showloading();
         $("#nav_bar_sub_r").html(get_pushmenu());
         $.ajax({
           type: 'POST',
@@ -71,6 +80,7 @@ function check_session(){
             _token : $('meta[name="csrf-token"]').attr('content'),
           },
           success:function(data){
+            hideloading();
               // $(".content-wrapper").show();
               $("#nav_bar_sub_r").html(data);
               set_selected_nav('nav_bar_sub_r');
@@ -79,6 +89,8 @@ function check_session(){
               // $(".select2").select2();
           },
           error:function(){
+            hideloading();
+            errorMessage();
             $(".content-wrapper").html(jerror());
           }
        });
@@ -166,6 +178,19 @@ function showloading(){
 function hideloading(){
   $("#moLoadingdiv").hide();
 }
+function errorMessage(){
+  Swal.fire({ //get from sweetalert function
+    title: 'ERROR Occur',
+    text: "Please reload page and try again",
+    icon: 'warning',
+    showCancelButton: false,
+    confirmButtonColor: '#3085d6',
+    confirmButtonText: 'OK'
+  });
+}
+
+
+
 var oldXHR = window.XMLHttpRequest;
 
 function newXHR() {
