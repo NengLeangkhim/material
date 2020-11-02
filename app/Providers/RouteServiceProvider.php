@@ -61,6 +61,30 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
+
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/bsc/purchase.php'));
+
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/bsc/invoice.php'));
+
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/bsc/chart_account.php'));
+
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/bsc/customer_management.php'));
+
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/bsc/report_balancesheet.php'));
+
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/bsc/report_income_statement.php'));
     }
 
     /**
@@ -131,6 +155,26 @@ class RouteServiceProvider extends ServiceProvider
          ->middleware('api')
          ->namespace($this->namespace)
          ->group(base_path('routes/api/bsc_api/report_income_statement.php'));
+
+         Route::prefix('api')
+         ->middleware('api')
+         ->namespace($this->namespace)
+         ->group(base_path('routes/api/bsc_api/invoice.php'));
+
+         Route::prefix('api')
+         ->middleware('api')
+         ->namespace($this->namespace)
+         ->group(base_path('routes/api/bsc_api/purchase.php'));
+
+         Route::prefix('api')
+         ->middleware('api')
+         ->namespace($this->namespace)
+         ->group(base_path('routes/api/bsc_api/customer_management.php'));
+
+         Route::prefix('api')
+         ->middleware('api')
+         ->namespace($this->namespace)
+         ->group(base_path('routes/api/bsc_api/chart_account.php'));
     }
 
 

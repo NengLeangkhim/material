@@ -12,7 +12,7 @@
         $(document).on('click','#btnAddRowQuoteItem', function(event, issetBranId){
 
             var branId = $(this).attr("data-id");
-            console.log('brd_id_get='+issetBranId);
+            // console.log('brd_id_get='+issetBranId);
 
             // check to assign new value to branId
             if(typeof(issetBranId) != 'undefined'){
@@ -57,7 +57,7 @@
                         '</div>'+
                         '<div class="row pt-1 form-inline">' +
                             '<div class="col-md-6 col-sm-6 col-6">' +
-                                '<select  class="select-itemDiscount btn-list-item mdb-select md-form" name="select-itemDiscount_'+i+'" id="'+i+'" required > ' +
+                                '<select  class="select-itemDiscount btn-list-item mdb-select md-form" name="select-itemDiscount_'+i+'" id="'+i+'"  data-id="'+branId+'" required > ' +
                                     '<option value="1"><span>+Discount (%)</span> </option>'+
                                     '<option value="2"><span>+Discount ($)</span> </option>'+
                                 '</select>'+
@@ -120,11 +120,12 @@
         $(document).on('change keyup','.select-itemDiscount', function() {
 
             var row_id = $(this).attr("id");
+            var branId = $(this).attr("data-id");
             var textBoxType = "";
             var select_val = $( "select[name='select-itemDiscount_"+row_id+"']" ).val();
             if(select_val == 1){
                 $('#discount' + row_id + '').remove();
-                textBoxType = '<input type="text"  class="itemDisPercent_'+row_id+' txtbox-quote valid-numeric-float" name="discount[]" id="discount'+row_id+'" demo="itemDisPercent" data-id="'+i+'" value="0" required placeholder="0.0%">' ;
+                textBoxType = '<input type="text"  class="itemDisPercent_'+row_id+' txtbox-quote valid-numeric-float" name="discount'+branId+'[]" id="discount'+row_id+'" demo="itemDisPercent" data-id="'+i+'" value="0" required placeholder="0.0%">' ;
                 $('#fieldItemDiscount_'+row_id+'').append(textBoxType);
                 // $('#fieldItemDiscount_'+row_id+'').append('<input type="hidden" value="percent" name="discount_type[]">');
                 $('#discount_type'+row_id+'').val('percent'); //discount as price
@@ -134,7 +135,7 @@
             }
             if(select_val == 2){
                 $('#discount' + row_id + '').remove();
-                textBoxType = '<input type="text"  class="itemDisPrice_'+row_id+' txtbox-quote valid-numeric-float" name="discount[]" id="discount'+row_id+'" demo="itemDisPrice" data-id="'+i+'" value="0" required placeholder="0.0$">' ;
+                textBoxType = '<input type="text"  class="itemDisPrice_'+row_id+' txtbox-quote valid-numeric-float" name="discount'+branId+'[]" id="discount'+row_id+'" demo="itemDisPrice" data-id="'+i+'" value="0" required placeholder="0.0$">' ;
                 $('#fieldItemDiscount_'+ row_id +'').append(textBoxType);
                 // $('#fieldItemDiscount_'+row_id+'').append('<input type="hidden" value="number" name="discount_type[]">');
                 $('#discount_type'+row_id+'').val('number'); //discount as percent
@@ -183,22 +184,22 @@
             var sumTotal = 0;
             var granTotal = 0;
             $(".row-quote-item").keyup(function(e){
-                // console.log('this select on row tr product');
                 var row_id = $(this).attr("id");
                 var subTotal = 0;
                 var get_val = 0;
                 var val_after_dis = 0;
                 var netPrice = 0;
 
-                var itemQty = $(".itemQty_"+row_id+"").val();
-                var itemPrice = $(".itemPrice_"+row_id+"").val();
+                var itemQty = $.trim($(".itemQty_"+row_id+"").val());
+                var itemPrice = $.trim($(".itemPrice_"+row_id+"").val());
                 subTotal = parseInt(itemQty) * parseInt(itemPrice);
                 $("#quote-sub-total_"+row_id+"").text(subTotal);
 
+                    // console.log('rowId='+ row_id +'-itemQty='+itemQty+'-itemPrice='+itemPrice+'-subTotal='+subTotal);
                 //get discount percent for unit row
                 if( $(".itemDisPercent_"+row_id+"").val()){
                     var DisPercent =  $(".itemDisPercent_"+row_id+"").val();
-                    get_val = (subTotal * parseInt(DisPercent)) / 100;
+                    get_val = (parseInt(subTotal) * parseInt(DisPercent)) / 100;
                 }
 
                  //get discount price for unit row
@@ -233,7 +234,7 @@
 
                     var stockMessage = "Stock not enough, the available item is ";
                     if(typeof(numPrdInQuote)  != 'undefined'){
-                        console.log('number prd in stock check available='+numPrdInStock);
+                        // console.log('number prd in stock check available='+numPrdInStock);
                         if( numPrdInQuote > numPrdInStock){
                             $("#prdNotEnough_"+x+"").text(stockMessage+" "+ numPrdInStock);
                             $("#prdNotEnough_"+x+"").show();
@@ -380,7 +381,7 @@
                             // var prdId = prdVal; // get id of product
                             var itemType = $.trim($("#showItemType_"+btnId+"").val());
                             var prdName = $.trim($(".itemName_"+prdVal+"").text());
-                            var prdPrice = $.trim($(".itemPrice_"+prdVal+"").text());
+                            var prdPrice = $.trim($(".itemPrice_"+prdVal+"").val());
                             var prdAviableStock = $.trim($(".stockItem_"+prdVal+"").text());
 
                             prdInStock = parseInt(prdAviableStock);
@@ -394,7 +395,7 @@
                                     $("#txtPrdId_"+btnId+"").val(prdVal);
                                     $("#product_name"+btnId+"").val(prdName);
                                     $("#txtDescription_"+btnId+"").val(prdDescription);
-                                    $(".itemPrice_"+btnId+"").val(prdPrice);
+                                    $(".itemPrice_"+btnId+"").val(parseInt(prdPrice));
                                     $("#itemType_"+btnId+"").text(itemType);
                                     $("#numItemInStock_"+btnId+"").val(numPrdInStock);
                                     // $(".itemPrice_"+btnId+"").keyup(); //call function key press to generate data
@@ -411,7 +412,7 @@
                                     $("#txtPrdId_"+(i-1)+"").val(prdVal);
                                     $("#product_name"+(i-1)+"").val(prdName);
                                     $("#txtDescription_"+(i-1)+"").val(prdDescription);
-                                    $(".itemPrice_"+(i-1)+"").val(prdPrice);
+                                    $(".itemPrice_"+(i-1)+"").val(parseInt(prdPrice));
                                     $("#itemType_"+(i-1)+"").text(itemType);
                                     $("#numItemInStock_"+(i-1)+"").val(numPrdInStock);
                                     // $(".row-quote-item").keyup();
