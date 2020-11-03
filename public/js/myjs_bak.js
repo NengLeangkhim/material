@@ -6,7 +6,7 @@ function check_session(){
 	$.ajax({
         type:'GET',
         url: "check_session",
-        // async:false,
+        async:false,
         success: function(data){
             if(parseInt(data)==0){
               Swal.fire({ //get from sweetalert function
@@ -26,16 +26,24 @@ function check_session(){
                 return false;
             }
       },
+      error:function(){
+        hideloading();
+        $(".content-wrapper").html(jerror());
+      }
     });
 }
-jQuery("a[value]").click(function(e){
-  if(check_session()){
-    return;
-  }
-  showloading();
-  var link = $(this).attr("value");
-  $(".content-wrapper").html('');
-  $("#nav_bar_sub_r").html(get_pushmenu());
+  jQuery("a").click(function(e){
+    if(check_session()){
+      return;
+    }
+    e.preventDefault();
+    var link = $(this).attr("value");
+    var code = $(this).attr("data-code");
+    var href = $(this).attr("href");
+    if (typeof link !== typeof undefined && link !== false) {
+      // $(".content-wrapper").html(spinner());
+      showloading();
+      $("#nav_bar_sub_r").html(get_pushmenu());
       $.ajax({
         type: 'GET',
         url:link,
@@ -48,21 +56,20 @@ jQuery("a[value]").click(function(e){
             }else{
               $(".content-wrapper").html(jnot_found());
             }
+            // $(".select2").select2();
+            $('.display').DataTable({
+              responsive: true
+            });
         },
         error:function(){
           hideloading();
           $(".content-wrapper").html(jerror());
         }
      });
-});
-jQuery("a[data-code]").click(function(e){
-      if(check_session()){
-        return;
-      }
-      showloading();
-      var code = $(this).attr("data-code");
-      $(".content-wrapper").html('');
-      $("#nav_bar_sub_r").html(get_pushmenu());
+    }else if (typeof code !== typeof undefined && code !== false) {
+        // $(".content-wrapper").html(spinner());
+        showloading();
+        $("#nav_bar_sub_r").html(get_pushmenu());
         $.ajax({
           type: 'POST',
           url:'sub_r_nav',
@@ -73,28 +80,28 @@ jQuery("a[data-code]").click(function(e){
           },
           success:function(data){
             hideloading();
+              // $(".content-wrapper").show();
               $("#nav_bar_sub_r").html(data);
               set_selected_nav('nav_bar_sub_r');
               $(".content-wrapper").show();
+              $(".content-wrapper").html('');
+              // $(".select2").select2();
           },
           error:function(){
             hideloading();
             $(".content-wrapper").html(jerror());
           }
        });
-});
-jQuery("a[href]").click(function(e){
-      if(check_session()){
-        return;
       }
-      var href = $(this).attr("href");
-      var target = $(this).attr("target");
+      else if (typeof href !== typeof undefined && href !== false) {
+        var target = $(this).attr("target");
         $("#nav_bar_sub_r").html(get_pushmenu());
         if (typeof target !== typeof undefined && target !== false) {
           window.open(href, target);
         }else{
           window.location.href = href;
         }
+      }
 });
 //only work on tag a with onclick and go_to
 function set_selected_nav(tar){
@@ -115,8 +122,8 @@ function get_pushmenu(){
 //   alert(link);
 // }
 function spinner(){
-  // return '';
-  return'<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+  return '';
+  // return'<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
 }
 function jerror(){
   // return get_maintain_page();
@@ -182,6 +189,7 @@ function errorMessage(){
 }
 
 
+
 var oldXHR = window.XMLHttpRequest;
 
 function newXHR() {
@@ -199,7 +207,6 @@ function newXHR() {
         if(realXHR.readyState==4){
           switch(realXHR.status){
             case 500:
-              hideloading();
               Swal.fire({ //get from sweetalert function
                 title: 'ERROR Occur',
                 text: "500 Internal Server Error",
@@ -213,9 +220,8 @@ function newXHR() {
               hideloading();
               break;
             case 0:
-              hideloading();
-              errorMessage();
-            break;
+                errorMessage();
+              break;
           }
         }
     }, false);
@@ -223,37 +229,5 @@ function newXHR() {
 }
 window.XMLHttpRequest = newXHR;
 
-
-// $( document ).ajaxStart(function(jqxhr) {
-//   showloading();
-//   console.log(jqxhr);
-// });
-// $( document ).ajaxStop(function() {
-//   hideloading();
-// });
-// $( document ).ajaxSend(function() {
-//   showloading();
-// });
-// $( document ).ajaxComplete(function() {
-//   hideloading();
-// });
-// $( document ).ajaxError(function(jqXHR) {
-//   if(jqXHR==500){
-//     hideloading();
-//     Swal.fire({ //get from sweetalert function
-//       title: 'ERROR Occur',
-//       text: "500 Internal Server Error",
-//       icon: 'warning',
-//       showCancelButton: false,
-//       confirmButtonColor: '#3085d6',
-//       confirmButtonText: 'OK'
-//     });
-//   }
-//   if(jqXHR==0){
-//     hideloading();
-//     errorMessage();
-//   }
-// });
 $('body').append('<div class="moLoadingClass" id="moLoadingdiv"><div id="moLoading"><center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Loading Please wait...</label></center></div></div>');
 $("#moLoading").center();
-
