@@ -26,7 +26,7 @@
         <div class="card card-default color-palette-box card-header">
             <div class="col-12" >
               <div class="row">
-                <div class="col-6">
+                <div class="col-9">
                     <div class="row">
                         {{-- <div class="> --}}
                             <h3 class="card-title"​>
@@ -37,7 +37,7 @@
                         {{-- </div> --}}
                     </div>
                 </div>
-                <div class="col-md-6 ">
+                <div class="col-md-3 ">
                    <div class="row">
                     <?php
                     for($i =0;$i<sizeof($detailbranch); $i++){

@@ -41,6 +41,7 @@ class GetLead extends JsonResource
             "vat_number"=>$this->vat_number,
             "ma_company_detail_id"=>$this->ma_company_detail_id,            
             "company"=>$this->company,
+            "status"=>$this->status,
             "create_by"=>$user
            
         ];

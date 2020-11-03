@@ -50,16 +50,28 @@
                                             for($i =0;$i<sizeof($branch);$i++){
                                                 if($branch[$i]["survey_comment"]!=null){
                                                     ?>
-                                                        <tr style="background: yellowgreen">
-                                                            <td style="color: #FFFFFF">{{$branch[$i]["company_en"]}}</td>
-                                                            <td style="color: #FFFFFF">{{$branch[$i]["company_kh"]}}</td>
-                                                            <td style="color: #FFFFFF">{{$branch[$i]["primary_email"]}}</td>
-                                                            <td style="color: #FFFFFF">{{$branch[$i]["primary_website"]}}</td>
-                                                            <td style="color: #FFFFFF">{{$branch[$i]["facebook"]}}</td>
-                                                            <td style="color: #FFFFFF">{{$branch[$i]["lead_status"]}}</td>
-                                                            <td style="color: #FFFFFF">{{$branch[$i]['assig']}}</td> 
-                                                            <td style="color: #FFFFFF">  
-                                                                <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')"><i class="fas fa-info-circle"></i></a>                                                     
+                                                        <tr style="">
+                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["company_en"]}}</td>
+                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["company_kh"]}}</td>
+                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["primary_email"]}}</td>
+                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["primary_website"]}}</td>
+                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["facebook"]}}</td>
+                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["lead_status"]}}</td>
+                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]['assig']}}</td> 
+                                                            <td style="color: #d42931 ; font-weight:bold">  
+                                                                <div class="row-12 form-inline">
+                                                                    <div class="col-md-6">
+                                                                        <a href="#" class="btn btn-block btn-info btn-sm branchdetail"  data-toggle="modal" data-target="#modal-default" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')" title="Detail Branch">
+                                                                            <i class="fas fa-info-circle"></i>
+                                                                        </a>      
+                                                                    </div>
+                                                                    <div class="col-md-6 ">
+                                                                        <a href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule"  id="schedule"  data-toggle="modal" data-target="#modal-default" value="{{$branch[$i]["branch_id"]}}" onclick="" title="Set Schedule Of Branch">
+                                                                            <i class="fas fa-calendar-day"> </i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                                                                               
                                                             </td>
                                                         </tr> 
                                                     <?php
@@ -73,8 +85,19 @@
                                                             <td>{{$branch[$i]["facebook"]}}</td>
                                                             <td>{{$branch[$i]["lead_status"]}}</td>
                                                             <td>{{$branch[$i]['assig']}}</td> 
-                                                            <td>  
-                                                                <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')"><i class="fas fa-info-circle"></i></a>                                                     
+                                                            <td> 
+                                                                <div class="row-12 form-inline">
+                                                                    <div class="col-md-6">
+                                                                        <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')" title="Detail Branch">
+                                                                            <i class="fas fa-info-circle"></i>
+                                                                        </a>       
+                                                                    </div>
+                                                                    <div class="col-md-6 ">
+                                                                        <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule" id="schedule"   data-toggle="modal" data-target="#modal-default" value="{{$branch[$i]["branch_id"]}}" onclick="" title="Set Schedule Of Branch">
+                                                                            <i class="fas fa-calendar-day"> </i> 
+                                                                        </button>                     
+                                                                    </div>
+                                                                </div> 
                                                             </td>
                                                         </tr> 
                                                     <?php
@@ -88,6 +111,38 @@
                         </div>
                     </div>
                 </div>
+                {{-- Model alert --}}
+                <div class="modal fade" id="modal-default">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Default Modal</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                    <p>One fine body&hellip;</p>
+                                    <?php 
+                                        for($i =0;$i<sizeof($branch);$i++){
+                                            ?>
+                                                    <input type="text" value="{{$branch[$i]["branch_id"]}}">
+                                            <?php
+                                            
+                                        }
+                                    ?>
+                                    
+                            </div>
+                                <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
             </section><!-- end section Main content -->
 
 
@@ -113,16 +168,21 @@
             //     var ld = $(this).attr("​value");
             //     go_to(ld);
             // })
-            $('.edit').click(function(e)
-            {
+            // $('.edit').click(function(e)
+            // {
+            //     var id = $(this).attr("​value");
+            //     go_to(id);
+            // });
+            // $('.branchdetail').click(function(e)
+            // {
+            //     var id = $(this).attr("​value");
+            //     go_to(id);
+            //     // alert(id);
+            // });
+            $('#schedule').click(function(){
+                // e.preventDefault();
                 var id = $(this).attr("​value");
-                go_to(id);
-            });
-            $('.branchdetail').click(function(e)
-            {
-                var id = $(this).attr("​value");
-                go_to(id);
-                // alert(id);
-            });
+                alert(id);
+            })
             </script>
             

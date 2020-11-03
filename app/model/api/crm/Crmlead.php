@@ -555,7 +555,7 @@ class Crmlead extends Model
     public static function getlead(){
         $lead= DB::select('SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.website,cl.facebook,cl.create_date,
         cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
-        cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name
+        cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status
         from crm_lead cl
          JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
         join crm_lead_source cls on cls.id = cl.crm_lead_source_id
@@ -568,7 +568,7 @@ class Crmlead extends Model
     public static function getleadbyid($id){
         $lead= DB::select("SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.website,cl.facebook,cl.create_date,
         cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
-        cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name
+        cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status
         from crm_lead cl
          JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
         join crm_lead_source cls on cls.id = cl.crm_lead_source_id
@@ -1165,6 +1165,45 @@ class Crmlead extends Model
                 return json_encode(['update'=>'success']);;
             }catch(Exception $e){
                 return json_encode(["update"=>"fail update_crm_lead_schedule_result","result"=> $e->getMessage()]);
+            }
+        }
+        else
+        {
+                return json_encode(['update'=>'not found date']);
+        }
+    }
+    //  edit lead
+    public static function editLead($lead_id,$lead_number,$company_en,$company_kh,$primary_email,$user_create,
+    $website,$facebook,
+    $vat_number,$company_branch,$lead_source,$status,$lead_industry,$current_speed_isp,
+    $current_speed,$current_price,$employee_count){
+        if(isset($lead_id)){
+            try{
+                $result=DB::select('SELECT update_crm_lead(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                array(
+                    $lead_id,
+                    $user_create,
+                    $company_en,
+                    $company_kh,
+                    $primary_email,
+                    $website,
+                    $facebook,
+                    $lead_source,
+                    $status,
+                    $lead_number,
+                    $company_branch,
+                    $lead_industry,
+                    $current_speed_isp,
+                    $employee_count,
+                    $current_speed,
+                    $current_price,
+                    $vat_number,
+                  
+                )
+            );
+                return json_encode(['update'=>'success']);;
+            }catch(Exception $e){
+                return json_encode(["update"=>"fail update_crm_lead","result"=> $e->getMessage()]);
             }
         }
         else
