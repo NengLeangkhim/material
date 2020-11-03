@@ -279,11 +279,11 @@ class QuoteController extends Controller
     {
         if(isset($_GET['id_'])){
             echo $_GET['id_'];
-            $request = Request::create('/api/quotebranch/'.$_GET['id_'].'', 'Get');
-            $data = json_decode(Route::dispatch($request)->getContent());
+            // $request = Request::create('/api/quotebranch/'.$_GET['id_'].'', 'Get');
+            // $data = json_decode(Route::dispatch($request)->getContent());
 
             // dd($data);
-            // return view('crm/quote/leadBranch', compact(''));
+            return view('crm/quote/leadBranch', compact(''));
         }
     }
 
