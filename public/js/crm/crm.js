@@ -432,7 +432,7 @@ function Crm_delete(id,route,goto,alert) {
               });
       }
       });
-    });  
+    });
    // ----- Lead Source
     //Update lead Source
     $(document).on('click', '.CrmEditLeadSource', function(){
@@ -461,7 +461,7 @@ function Crm_delete(id,route,goto,alert) {
               });
       }
       });
-    });  
+    });
     // ----- Lead ISP
     //Update lead ISP
     $(document).on('click', '.CrmEditLeadISP', function(){
@@ -490,7 +490,7 @@ function Crm_delete(id,route,goto,alert) {
               });
       }
       });
-    });   
+    });
 // -----------Setting CRM ---------- //
 //////////////////////////==========================END MET KEOSAMBO ====================///////////////////////////////
     // $(document).ready(function(){
@@ -988,9 +988,8 @@ function Crm_delete(id,route,goto,alert) {
     //function to get lead branch by lead id
     var i = 0;
     $(document).on('click','#clickGetBranch', function(){
-        var lead_id = $('#lead_id').val();
-
-        if(lead_id != ""){
+            var lead_id = $('#lead_id').val();
+            if(lead_id != ""){
             // getShowPopup('/quote/add/listQuoteBranch',lead_id,'modal-list-quote','listQuoteBranch','tblQuuteBranch','getSelectRow','branchKhName','getLeadBranchId','getLeadBranch');
             var id_ = "id="+lead_id;
             var url= '/quote/add/listQuoteBranch';
@@ -1068,7 +1067,7 @@ function Crm_delete(id,route,goto,alert) {
             x.open("GET", url + "?" + id_ , true);
             x.send();
         }else{
-          notify_alert("#organiz_name","error","bottom","Requirement this field !");
+          notify_alert("#lead_name","error","bottom","Requirement this field !");
         }
     });
 
@@ -1110,12 +1109,14 @@ function Crm_delete(id,route,goto,alert) {
 
                   if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
                     // sweetalert('success','Data has been saved !');
-                    go_to('/quote/detail');// refresh content
+                        setTimeout(function(){
+                            go_to('/quote/detail');// refresh content
+                        },2000);
 
                     // use go ot view quote detail
                   }else{
                     var num1 = 0;
-                    $.each(data.errors, function( key, value ) {//foreach show error
+                    $.each(data.errors, function(key, value ) {//foreach show error
                         if(num1 == 0){
                           sweetalert('warning', value);
                         }
