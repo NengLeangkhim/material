@@ -1,4 +1,4 @@
-<div class="modal fade show" id="modal_traininglist" style="display: block; padding-right: 17px;" aria-modal="true" data-backdrop="static">
+<div class="modal fade show" id="modal_training_list" style="display: block; padding-right: 17px;" aria-modal="true" data-backdrop="static">
     <div class="modal-dialog modal-ls">
         <div class="modal-content">
             <div class="card card-default">
@@ -23,71 +23,74 @@
                @csrf
               <div class="row">
                 {{-- training schetual ID --}}
-                <input type="hidden" name="id" id="" value="@php if(isset($data[2])){echo $data[2][0]->id;} @endphp">
+                <input type="hidden" name="id" value="@php if(isset($data[2])){echo $data[2][0]->id;} @endphp">
                 <input type="hidden" name="hrid" value="@php if(isset($data[2])){echo $data[2][0]->hrid;} @endphp">
                 <input type="hidden" name="namefile" value="@php if(isset($data[2])){echo substr($data[2][0]->file,21);} @endphp">
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Training Type <span class="text-danger">*</span></label>
-                    <select name="trainingtype" id="" class="form-control">
+                    <select name="trainingtype" id="trainingtype" class="form-control">
+                     <option value="" hidden></option>
                      @php 
-                        $f1='';
-                        $f2='';
                         foreach ($data[0] as $type) {
                           if(isset($data[2])){
                             if($type->id==$data[2][0]->typeid){
-                              $f1=$f1.'<option value="'.$type->id.'">'.$type->name.'</option>';
+                              echo '<option selected value="'.$type->id.'">'.$type->name.'</option>';
                             }else {
-                              $f2=$f2.'<option value="'.$type->id.'">'.$type->name.'</option>';
+                              echo '<option value="'.$type->id.'">'.$type->name.'</option>';
                             }
                           }else {
-                            $f1=$f1.'<option value="'.$type->id.'">'.$type->name.'</option>';
+                            echo '<option value="'.$type->id.'">'.$type->name.'</option>';
                           }
                         }
-                        echo $f1.$f2;
                      @endphp
                     </select>
                   </div>
                   <!-- /.form-group -->
                   <div class="form-group">
                     <label>Trainer <span class="text-danger">*</span></label>
-                    <select name="trainer" id="" class="form-control">
+                    <select name="trainer" id="trainer" class="form-control">
+                      <option hidden value=""></option>
                       @php 
-                          $f1='';
-                          $f2='';
                           foreach ($data[1] as $trainer) {
                             if(isset($data[2])){
                               if($trainer->id==$data[2][0]->trainerid){
-                                $f1=$f1.'<option value="'.$trainer->id.'">'.$trainer->name.'</option>';
+                                echo '<option selected value="'.$trainer->id.'">'.$trainer->name.'</option>';
                               }else {
-                                $f2=$f2.'<option value="'.$trainer->id.'">'.$trainer->name.'</option>';
+                                echo '<option value="'.$trainer->id.'">'.$trainer->name.'</option>';
                               }
                             }else {
-                              $f1=$f1.'<option value="'.$trainer->id.'">'.$trainer->name.'</option>';
+                              echo '<option value="'.$trainer->id.'">'.$trainer->name.'</option>';
                             }
                           }
-                          echo $f1.$f2;
                       @endphp
                     </select>
                   </div>
                   <!-- /.form-group -->
                 </div>
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <div class="form-group">
                     <label>Start Date <span class="text-danger">*</span></label>
-                    <input type="date" class="form-control" name="startdate" value="@php if(isset($data[2])){echo date('Y-m-d',strtotime($data[2][0]->schet_f_date));} @endphp" required>
+                    <input type="date" class="form-control" id="startdate" name="startdate" value="@php if(isset($data[2])){echo date('Y-m-d',strtotime($data[2][0]->schet_f_date));} @endphp" required>
                     
-                    
-                    
-                  
                   </div>
+                </div> --}}
+                <div class="col-md-6">
+                  <label for="staff_to_schedule">Start Date<span class="text-danger">*</span></label>
+                  <input type="text" name="startdate" required id="startdate" class="form-control" value="@php if(isset($data[2])){echo $data[2][0]->schet_f_date;} @endphp">
+                                      
                 </div>
                 <div class="col-md-6">
+                  <label for="staff_to_schedule">Start Date<span class="text-danger">*</span></label>
+                  <input type="text" name="enddate" required id="enddate" class="form-control" value="@php if(isset($data[2])){echo $data[2][0]->schet_t_date;} @endphp">
+                                      
+                </div>
+                {{-- <div class="col-md-6">
                     <div class="form-group">
                     <label>End Date <span class="text-danger">*</span></label>
-                    <input type="date" class="form-control" name="enddate" value="@php if(isset($data[2])){echo date('Y-m-d',strtotime($data[2][0]->schet_t_date));} @endphp" required>
+                    <input type="date" class="form-control" id="enddate" name="enddate" value="@php if(isset($data[2])){echo date('Y-m-d',strtotime($data[2][0]->schet_t_date));} @endphp" required>
                   </div>
-                </div>
+                </div> --}}
                 <div class="col-md-12">
                     <div class="form-group">
                     <label>Is Trained <span class="text-danger">*</span></label>
@@ -163,18 +166,19 @@
                           </tbody>
                       </table>
                       </div>
+                      <label id="employee_checked" class="text-sm text-danger d-none">Please Check employee</label>
                   </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                     <label>Description <span class="text-danger">*</span></label>
-                    <textarea name="description" id="" rows="5" class="form-control">@php if(isset($data[2])){echo $data[2][0]->schet_description;} @endphp</textarea>
+                    <textarea name="description" rows="5" class="form-control">@php if(isset($data[2])){echo $data[2][0]->schet_description;} @endphp</textarea>
                   </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-md-12 text-right">
                   <a href="javascrip;:" class="btn btn-danger" data-dismiss="modal">Cancel</a>
-                  <button class="btn bg-turbo-color" onclick="hrm_chechEmployee_training()">Save</button>
+                  <button class="btn bg-turbo-color" onclick="hrms_insert_update_training_list()">Save</button>
                 </div>
               </div>
             </form>

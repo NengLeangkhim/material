@@ -194,81 +194,70 @@
               <div class="col-md-6">
                   <label>City / Province <span class="text-danger">*</span></label>
                    <select class="form-control select2 city"  id="icity" name="icity" onchange="getbranch(this,'idistrict','s','/district')" required>
+                     <option value="" hidden></option>
                      @php
-                         $f1="";
-                         $f2="";
                          foreach ($data[2] as $province) {
                            if(isset($data[1])){
                               if($province->code==$data[1]['province']){
-                                $f1=$f1.'<option value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
+                                echo '<option selected value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
                               }else {
-                                $f2=$f2.'<option value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
+                                echo '<option value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
                               }
                            }else {
-                             $f1=$f1.'<option value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
+                             echo '<option value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
                            }
                          }
-                         if(!isset($data[1])){
-                           echo '<option disabled=true selected=true hidden=true></option>';
-                         }
-                         echo $f1.$f2;
                      @endphp
                   </select>  
               </div>
               <div class="col-md-6">
                 <label>Khan/District<span class="text-danger">*</span></label>
                 <select class="form-control dynamic" name="idistrict" id="idistrict" onchange="getbranch(this,'icommune','s','/commune')" required >
+                  <option value="" hidden></option>
                   @php
-                  $f1="";
-                  $f2="";
                       if(isset($data[1])){
                         foreach ($data[1]['all_district'] as $district) {
                           if($data[1]['district']==$district->id){
-                            $f1='<option value="'.$district->id.'">'.$district->name.'</option>';
+                            echo '<option selected value="'.$district->id.'">'.$district->name.'</option>';
                           }else {
-                            $f2=$f2.'<option value="'.$district->id.'">'.$district->name.'</option>';
+                            echo '<option value="'.$district->id.'">'.$district->name.'</option>';
                           }
                         }
                       }
-                      echo $f1.$f2;
                   @endphp
                 </select>
               </div>
               <div class="col-md-6">
                 <label>Sengkat/Commune<span class="text-danger">*</span></label>
                 <select class="form-control dynamic" name="icommune" id="icommune" onchange="getbranch(this,'ivillage','s','/village')" required>
+                  <option value="" hidden></option>
                   @php
-                      $f1="";
-                      $f2="";
                       if(isset($data[1])){
                         foreach ($data[1]['all_commune'] as $commune) {
                           if($commune->id==$data[1]['commune']){
-                            $f1=$f1.'<option value="'.$commune->id.'">'.$commune->name.'</option>';
+                            echo '<option selected value="'.$commune->id.'">'.$commune->name.'</option>';
                           }else {
-                            $f2=$f2.'<option value="'.$commune->id.'">'.$commune->name.'</option>';
+                            echo '<option value="'.$commune->id.'">'.$commune->name.'</option>';
                           }
                         }
                       }
-                      echo $f1.$f2;
                   @endphp
                 </select> 
               </div>
               <div class="col-md-6">
                 <label>Village<span class="text-danger">*</span></label>
                 <select class="form-control " name="ivillage" id="ivillage" dats-dependent="village" required>
+                  <option value="" hidden></option>
                   @php
-                      $f1="";
-                      $f2="";
                       if(isset($data[1])){
                         foreach ($data[1]['all_village'] as $village) {
                           if($village->id==$data[1]['village']){
-                            $f1=$f1.'<option value="'.$village->id.'">'.$village->name.'</option>';
+                            echo '<option selected value="'.$village->id.'">'.$village->name.'</option>';
                           }else {
-                            $f2=$f2.'<option value="'.$village->id.'">'.$village->name.'</option>';
+                            echo '<option value="'.$village->id.'">'.$village->name.'</option>';
                           }
                         }
                       }
-                      echo $f1.$f2;
                   @endphp                                                       
                 </select> 
               </div>

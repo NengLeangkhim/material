@@ -243,7 +243,7 @@ class AllemployeeController extends Controller
         $homeNumber_kh=$request->emhome_kh;
         $street_en=$request->emstreet_en;
         $street_kh=$request->emstreet_kh;
-        $vilage=$request->emVillage;
+        $vilage=$request->ivillage;
         $description=$request->emDescription;
         $profile=$_FILES['emProfile'];
         $departement_id=$request->emDepartment;

@@ -26,26 +26,38 @@ class Holiday extends Model
 
     // insert holiday
     public static function InsertHoliday($title,$khmertitle,$date,$description,$start_date,$end_date,$up_by){
-        $holiday=str_replace("'","''",$title);
-        $sql= "SELECT public.insert_hr_attendance_holiday('$holiday','$khmertitle','$description','$start_date','$end_date',$up_by)";
-        $stm=DB::select($sql);
-        if($stm[0]->insert_hr_attendance_holiday>0){
-            return "Holiday Insert Successfully !";
-        }else{
-            return "error";
+        try {
+            $holiday=str_replace("'","''",$title);
+            $sql= "SELECT public.insert_hr_attendance_holiday('$holiday','$khmertitle','$description','$start_date','$end_date',$up_by)";
+            $stm=DB::select($sql);
+            if($stm[0]->insert_hr_attendance_holiday>0){
+                return 1;
+            }else{
+                return 0;
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return 0;
         }
+        
     }
 
     // Function for Update Holiday
     public static function UpdateHoliday($id,$up_by,$title,$kh_title,$date,$description,$s_date,$e_date){
-        $holiday=str_replace("'","''",$title);
-        $sql= "SELECT public.update_hr_attendance_holiday($id,$up_by,'$holiday','$kh_title','$description','$s_date','$e_date')";
-        $stm=DB::select($sql);
-        if($stm[0]->update_hr_attendance_holiday>0){
-            return "Holiday Update Successfully";
-        }else{
-            return "error";
+        try {
+            $holiday=str_replace("'","''",$title);
+            $sql= "SELECT public.update_hr_attendance_holiday($id,$up_by,'$holiday','$kh_title','$description','$s_date','$e_date')";
+            $stm=DB::select($sql);
+            if($stm[0]->update_hr_attendance_holiday>0){
+                return 1;
+            }else{
+                return 0;
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return 0;
         }
+        
     }
 
 

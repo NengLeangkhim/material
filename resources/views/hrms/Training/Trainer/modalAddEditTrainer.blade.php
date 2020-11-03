@@ -15,19 +15,19 @@
             @php
                 // print_r($data);
             @endphp
-            <form id="fm_trainer">
+            <form id="fm_trainer" onsubmit="return false;">
               @csrf
             <div class="row">
               <input type="hidden" name="id" id="" value="@php if(isset($data[0])){echo $data[0][0]->id;} @endphp">
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Trainer <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="trainer" value="@php if(isset($data[0])){echo $data[0][0]->name;} @endphp" required>
+                  <input type="text" class="form-control" id="trainer" name="trainer" value="@php if(isset($data[0])){echo $data[0][0]->name;} @endphp" required>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Telephone <span class="text-danger">*</span></label>
-                  <input type="tel" class="form-control" name="telephone" value="@php if(isset($data[0])){echo $data[0][0]->telephone;} @endphp" required>
+                  <input type="tel" class="form-control" id="telephone" name="telephone" value="@php if(isset($data[0])){echo $data[0][0]->telephone;} @endphp" required>
                 </div>
                 <!-- /.form-group -->
               </div>
@@ -63,7 +63,7 @@
             <!-- /.row -->
             <div class="col-md-12 text-right">
                 <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                <button class="btn bg-turbo-color" data-dismiss="modal" onclick="submit_form ('hrm_add_edit_trainer','fm_trainer','hrm_trainer')">Save</button>
+                <button class="btn bg-turbo-color" onclick="hrms_insert_update_trainer()">Save</button>
             </div>
             </form>
           </div>

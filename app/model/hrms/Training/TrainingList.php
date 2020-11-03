@@ -92,15 +92,39 @@ class TrainingList extends Model
         
     }
     function UpdateTrainingList($file, $filename, $trainType, $date_from, $date_to, $description, $schetule_status, $by, $trainer,$id,$namefile,$staff){
-        if(strlen($file)>0){
-            $uploaddir = public_path('/media/hrms/Training/');
-            $uploadfile = $uploaddir . basename($file);
-            $filedirectory = '/media/hrms/Training/' . $file;
-            if (move_uploaded_file($filename, $uploadfile)) {
+        try {
+            if(strlen($file)>0){
+                $uploaddir = public_path('/media/hrms/Training/');
+                $uploadfile = $uploaddir . basename($file);
+                $filedirectory = '/media/hrms/Training/' . $file;
+                if (move_uploaded_file($filename, $uploadfile)) {
+                    $sql = "SELECT public.update_hr_training_schedule($id,$by,$trainType,'$date_from','$date_to','$description','$schetule_status',$trainer,'$filedirectory')";
+                    $stm = DB::select($sql);
+                    if ($stm[0]->update_hr_training_schedule > 0) {
+                        if ($schetule_status == 't') {
+                            $training_hr = self::InsertTrainingHr($stm[0]->update_hr_training_schedule, $date_from, $date_to, $description, $by, $staff);
+                            if ($training_hr == 'error') {
+                                return 'error';
+                            } else {
+                                return "Training List Update Successfully";
+                            }
+                        } else {
+                            self::staff_training_change_status_schedule_id($stm[0]->update_hr_training_schedule);
+                            return self::Insert_hr_traininng_schedule_staff($stm[0]->update_hr_training_schedule,$staff,$by);
+                        }
+                    } else {
+                        return "error";
+                    }
+                } else {
+                    return "error";
+                }
+            }else{
+                $filedirectory = '/media/hrms/Training/' . $namefile;
                 $sql = "SELECT public.update_hr_training_schedule($id,$by,$trainType,'$date_from','$date_to','$description','$schetule_status',$trainer,'$filedirectory')";
                 $stm = DB::select($sql);
                 if ($stm[0]->update_hr_training_schedule > 0) {
                     if ($schetule_status == 't') {
+                        self::staff_training_change_status_training_id($stm[0]->update_hr_training_schedule);
                         $training_hr = self::InsertTrainingHr($stm[0]->update_hr_training_schedule, $date_from, $date_to, $description, $by, $staff);
                         if ($training_hr == 'error') {
                             return 'error';
@@ -114,31 +138,11 @@ class TrainingList extends Model
                 } else {
                     return "error";
                 }
-            } else {
-                return "error";
             }
-        }else{
-            $filedirectory = '/media/hrms/Training/' . $namefile;
-            $sql = "SELECT public.update_hr_training_schedule($id,$by,$trainType,'$date_from','$date_to','$description','$schetule_status',$trainer,'$filedirectory')";
-            $stm = DB::select($sql);
-            if ($stm[0]->update_hr_training_schedule > 0) {
-                if ($schetule_status == 't') {
-                    self::staff_training_change_status_training_id($stm[0]->update_hr_training_schedule);
-                    $training_hr = self::InsertTrainingHr($stm[0]->update_hr_training_schedule, $date_from, $date_to, $description, $by, $staff);
-                    if ($training_hr == 'error') {
-                        return 'error';
-                    } else {
-                        return "Training List Update Successfully";
-                    }
-                } else {
-                    self::staff_training_change_status_schedule_id($stm[0]->update_hr_training_schedule);
-                    return self::Insert_hr_traininng_schedule_staff($stm[0]->update_hr_training_schedule,$staff,$by);
-                }
-            } else {
-                return "error";
-            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return 0;
         }
-        
     }
 
 
@@ -154,7 +158,8 @@ class TrainingList extends Model
                 return "error";
             }
         }catch(Throwable $e){
-            report($e);
+            DB::rollBack();
+            throw($e);
         }
     }
 
