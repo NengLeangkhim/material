@@ -199,15 +199,7 @@ class AllemployeeController extends Controller
             'inputsalary'=>['required'],
             'emDepartment'=>'required',
             'emPosition'=>'required',
-            'emEmail'=>['required','email',Rule::unique('ma_user','email')->ignore($request->emid)
-                                            ->where(function ($query) use ($request) {
-                                                return $query->where([
-                                                        ['is_deleted','=','f'],
-                                                        ['status','=','t'],
-                                                        ['is_employee','=','t']
-                                                    ]);
-                                                })
-                                                ],
+            'emEmail'=>['required','email',Rule::unique('ma_user','email')->ignore($request->emid)],
             'emChildren'=>['required'],
             'ivillage'=>'required',
             'icommune'=>'required',
@@ -262,7 +254,7 @@ class AllemployeeController extends Controller
                     $em=Employee::UpdateEmployee($id,$firstName_en,$lastName_en,$email,$telephone,$position,8,16,$departement_id,$userid,$idNumber,$sex,$firstName_kh,$lastName_kh,$imageDirectory,$officePhone,$jointDate,$dateOfBirth,$homeNumber_en,$homeNumber_kh,$street_en,$street_kh,'null',$vilage,'null',$spous,$has_children,$chidren,$salary,4,$description,$bankaccount);
                     return response()->json(['success'=>'Employee is updated !']);
                 }else{
-                    echo 'error';
+                    return response()->json(['error'=>'can not moved file !']);
                 }
            }else{
                 $em=Employee::UpdateEmployee($id,$firstName_en,$lastName_en,$email,$telephone,$position,8,16,$departement_id,$userid,$idNumber,$sex,$firstName_kh,$lastName_kh,$imageDirectory,$officePhone,$jointDate,$dateOfBirth,$homeNumber_en,$homeNumber_kh,$street_en,$street_kh,'null',$vilage,'null',$spous,$has_children,$chidren,$salary,4,$description,$bankaccount);

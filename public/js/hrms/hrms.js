@@ -119,8 +119,9 @@ function ShowPassword(){
                 success: function (data) {
                     document.getElementById('modal').innerHTML=data;
                     $('#modal_employee').modal('show');
-                    $("#department").select2();
-                    $("#position").select2();
+                    $("#emDepartment").select2();
+                    $("#emPosition").select2();
+                    date();
                 }
             });
         }
@@ -288,6 +289,50 @@ function ShowPassword(){
         }
     // End Attendance
    // Overtime
+        function hrms_modal_overtime(id=-1){
+            if(check_session()){return;}
+            $.ajax({
+                type: 'GET',
+                url: 'hrm_modal_add_edit',
+                data: {
+                    _token: '<?php echo csrf_token() ?>',
+                    id: id
+                },
+                success: function (data) {
+                    document.getElementById('modal').innerHTML = data;
+                    $('#modal_overtime').modal('show');
+                    time();
+                    date();
+                    $('#emName').select2();
+                }
+            });
+        }
+
+        function hrms_insert_update_overtime(){
+            if(check_session()){return;}
+            var form_element=document.getElementById('fm_holiday');
+            var form_data = new FormData(form_element);
+            var request = new XMLHttpRequest();
+            request.open("POST","hrm_insert_update_overtime");
+            request.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200){
+                    console.log(this.responseText);
+                    data=JSON.parse(this.responseText);
+                    if($.isEmptyObject(data.error)){
+                        setTimeout(function () { go_to('hrm_overtime'); }, 300);
+                        hrms_notification(data.success);
+                        // alert(data.success);
+                        $('#modal_overtime').modal('hide');
+                    }else{
+                            $.each(data.error, function(key,value){
+                                $('#'+key).addClass('is-invalid');
+                            });
+                    }
+
+                }
+            }
+            request.send(form_data);
+        }
         function OvertimeDetail(){
             if(check_session()){
                 return;
@@ -440,6 +485,58 @@ function hrm_training_checkAll(ele) {
     }
 }
 // End Training
+
+// Department and Position
+    function hrms_insert_update_department(){
+        if(check_session()){return;}
+        var form_element=document.getElementById('fm_department');
+        var form_data = new FormData(form_element);
+        var request = new XMLHttpRequest();
+        request.open("POST","hrm_add_edit_department");
+        request.onreadystatechange=function(){
+            if(this.readyState==4 && this.status==200){
+                console.log(this.responseText);
+                data=JSON.parse(this.responseText);
+                if($.isEmptyObject(data.error)){
+                    setTimeout(function () { go_to('hrm_department'); }, 300);
+                    hrms_notification(data.success);
+                    // alert(data.success);
+                    $('#modal_department').modal('hide');
+                }else{
+                    $.each(data.error, function(key,value){
+                        $('#'+key).addClass('is-invalid');
+                    });
+                }
+            }
+        }
+        request.send(form_data);
+    }
+
+    function hrms_insert_update_position(){
+        if(check_session()){return;}
+        var form_element=document.getElementById('fm_position');
+        var form_data = new FormData(form_element);
+        var request = new XMLHttpRequest();
+        request.open("POST","hrm_add_edit_position");
+        request.onreadystatechange=function(){
+            if(this.readyState==4 && this.status==200){
+                console.log(this.responseText);
+                data=JSON.parse(this.responseText);
+                if($.isEmptyObject(data.error)){
+                    setTimeout(function () { go_to('hrm_department'); }, 300);
+                    hrms_notification(data.success);
+                    // alert(data.success);
+                    $('#"modal_position').modal('hide');
+                }else{
+                    $.each(data.error, function(key,value){
+                        $('#'+key).addClass('is-invalid');
+                    });
+                }
+            }
+        }
+        request.send(form_data);
+    }
+// End Department and Position
 // Payroll
     function PrintDiv(id){
         var divToPrint = document.getElementById(id);

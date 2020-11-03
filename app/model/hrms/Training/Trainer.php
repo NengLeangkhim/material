@@ -10,12 +10,17 @@ use function Complex\theta;
 class Trainer extends Model
 {
     function Trainer($id=0){
-        if($id>0){
-            $sql= "SELECT id,name,telephone,type,description FROM hr_training_trainer where status='t' and is_deleted='f' and id=$id ORDER BY name";
-        }else{
-            $sql= "SELECT id,name,telephone,type,description FROM hr_training_trainer where status='t' and is_deleted='f' ORDER BY name";
+        try {
+            if($id>0){
+                $sql= "SELECT id,name,telephone,type,description FROM hr_training_trainer where status='t' and is_deleted='f' and id=$id ORDER BY name";
+            }else{
+                $sql= "SELECT id,name,telephone,type,description FROM hr_training_trainer where status='t' and is_deleted='f' ORDER BY name";
+            }
+            return DB::select($sql);
+        } catch (\Throwable $th) {
+            throw $th;
         }
-        return DB::select($sql);
+        
     }
 
     function InsertTrainer($trainer,$telephone,$type,$description,$by){

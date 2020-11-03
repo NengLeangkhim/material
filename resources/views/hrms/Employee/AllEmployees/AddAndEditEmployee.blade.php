@@ -21,8 +21,8 @@
                   if(isset($data[1])){
                     $date=new DateTime($data[1]['joint_date']);
                     $dateBirth=new DateTime($data[1]['dateOfBirth']);
-                    $dateofbirth=$dateBirth->format('Y-m-d');
-                    $join_date=$date->format('Y-m-d');
+                    $dateofbirth=$dateBirth->format('m-d-Y');
+                    $join_date=$date->format('m-d_Y');
                   }else {
                     $join_date="";
                     $dateofbirth="";
