@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
     Route::get('/crm/report/leadReportDetail', 'api\crm\CrmReportApiController@getAllLeadDetail');
     //from_date : null, to_date : null, assign_to : null, status_id : null
     Route::get('/crm/report/quoteReportDetail', 'api\crm\CrmReportApiController@getAllQuoteDetail');
+    Route::get('/crm/report/contactReportDetail', 'api\crm\CrmReportApiController@getAllContactDetail');
+    Route::get('/crm/report/organizationReportDetail', 'api\crm\CrmReportApiController@getAllOrganizationDetail');
     //from_date : null, to_date : null
     Route::get('/crm/report/getTotalReport','api\crm\CrmReportApiController@getTotalReport');
     Route::get('/crm/report/getContactChartReport', 'api\crm\CrmReportApiController@getContactChartReport');

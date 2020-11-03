@@ -341,6 +341,56 @@ class CrmReport extends Model
         return $result;
     }
 
+    public function getContactDetail($fromDate = null, $toDate = null){
+        try{
+            $condition = 'WHERE create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $result = DB::select('SELECT * FROM crm_lead_contact '.$condition.' ORDER BY create_date DESC');
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    public function getOrganizationDetail($leadSource = null, $assignTo = null, $fromDate = null, $toDate = null, $status = 6){
+        try{
+            $select = '
+                SELECT
+                    cl.customer_name_en, cl.customer_name_kh, cl.email, cl.website, cl.facebook, cl.crm_lead_source_id, cl.crm_lead_current_isp_id, cl.crm_lead_industry_id,
+                    cl.lead_number, cl.ma_company_detail_id, cl.employee_count, cl.current_isp_price, cl.current_isp_speed, cl.vat_number,
+                    clb.name_en, clb.name_kh, clb.email AS clb_email, clb.crm_lead_address_id, clb.priority, clb.create_date, clb.create_by,
+                    cld.comment,
+                    cla.ma_user_id
+            ';
+            $from = '
+                FROM
+                    crm_lead cl
+                    INNER JOIN crm_lead_branch clb ON cl.id = clb.crm_lead_id
+                    INNER JOIN crm_lead_detail cld ON clb.id = cld.crm_lead_branch_id
+                    INNER JOIN crm_lead_assign cla ON cld.id = cla.crm_lead_branch_id
+                    INNER JOIN crm_lead_status cls ON cld.crm_lead_status_id = cls.id
+            ';
+            $condition = ''.
+                'AND cld.crm_lead_status_id = '.$status.
+                (($assignTo == null) ? '':'AND cla.ma_user_id = '.$assignTo).
+                (($leadSource == null) ? '' : 'AND cl.crm_lead_source_id = '.$leadSource).
+                (($fromDate == null || $toDate) ? '':'AND cld.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').
+            '';
+            $result = DB::select(' '.
+                $select.$from.'
+                WHERE
+                    cl.is_deleted = FALSE
+                    AND clb.is_deleted = FALSE
+                    AND cld.is_deleted = FALSE
+                    AND cla.is_deleted = FALSE '.
+                    $condition
+                .' ORDER BY cla.create_date DESC, cld.create_date DESC, cl.create_date DESC
+            ');
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
     public function getTotalLead($fromDate = null, $toDate = null){
         try {
             $dateCondition = ($fromDate == null && $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
