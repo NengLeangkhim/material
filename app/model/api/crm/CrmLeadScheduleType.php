@@ -32,7 +32,7 @@ class CrmLeadScheduleType extends Model
 
     function getOneData($id){
         try {
-            $result = DB::selectOne('select * from crm_lead_schedule_type where status = true and is_deleted = false and id = '.$id);
+            $result = DB::selectOne('select * from crm_lead_schedule_type where is_deleted = false and id = '.$id);
         } catch(QueryException $e){
             throw $e;
         }
@@ -41,7 +41,7 @@ class CrmLeadScheduleType extends Model
 
     function getAllData(){
         try {
-            $result = DB::select('select * from crm_lead_schedule_type where status = true and is_deleted = false');
+            $result = DB::select('select * from crm_lead_schedule_type where is_deleted = false order by name_en');
         } catch(QueryException $e){
             throw $e;
         }

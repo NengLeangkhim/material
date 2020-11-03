@@ -139,8 +139,9 @@
         $('#btn-generate-report').click(function(){
             var assignTo = $('#select_assign_to').val();
             var status = $('#select_status').val();
-            var from = $('#DetailQuoteFrom').val()+'-01';
-            var to = $('#DetailQuoteTo').val()+'-31';
+            var from = (new Date($('#DetailQuoteFrom').val())).toISOString().substring(0, 10)
+            var to = new Date($('#DetailQuoteTo').val());
+            to = (new Date(to.getUTCFullYear(), to.getMonth() + 1, 1)).toISOString().substring(0,10)
             $('#QuoteDetailTbl').dataTable().fnClearTable();
             $('#QuoteDetailTbl').dataTable().fnDraw();
             $('#QuoteDetailTbl').dataTable().fnDestroy();
