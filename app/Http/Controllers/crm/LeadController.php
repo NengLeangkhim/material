@@ -45,7 +45,33 @@ class LeadController extends Controller
             $detail_branch=ModelCrmLead::CrmGetDetailBranch($id);
             $result =json_decode($detail_branch,true);
             // dd($result);
-            return view('crm.Lead.detaillead',['detailbranch'=>$result["data"]]); 
+            return view('crm.Lead.detailbranch',['detailbranch'=>$result["data"]]); 
+        }else{
+            return view('no_perms');
+        }
+    }
+    // get lead show by API
+    public function  getdetailtlead($id){
+        if(perms::check_perm_module('CRM_020506')){//module codes
+            $detail_lead=ModelCrmLead::CrmGetDetaillead($id);
+            $result =json_decode($detail_lead,true);
+            // dd($result);
+            return view('crm.Lead.detaillead',['detaillead'=>$result["data"]]); 
+        }else{
+            return view('no_perms');
+        }
+    }
+    //edit lead 
+    public function editlead($id){       
+        if(perms::check_perm_module('CRM_020506')){//module codes
+            $edit_lead=ModelCrmLead::CrmGetDetaillead($id);
+            $result =json_decode($edit_lead,true);
+            $lead_source=ModelCrmLead::CrmGetLeadSource();
+            $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
+            $isp = Lead::leadcurrentspeedisp();
+            $companybranch=Lead::leadBranch(); 
+            // dd($result);
+            return view('crm.Lead.editlead',['editlead'=>$result["data"],'companybranch'=>$companybranch,'lead_source'=>$lead_source,'lead_industry'=>$lead_industry,'currentisp'=>$isp]); 
         }else{
             return view('no_perms');
         }
@@ -66,7 +92,7 @@ class LeadController extends Controller
         }
     }
     // edit branch or lead
-    public function editlead($id) {   
+    public function editbranch($id) {   
         // $param = $id;
         if(perms::check_perm_module('CRM_020505')){//module codes
             $sql=ModelCrmLead::CrmGetLeadID($id);
@@ -89,7 +115,7 @@ class LeadController extends Controller
             $contact_n=json_encode($contact,true);
             $contact=json_decode($contact_n,true);
             // dd($contact);
-            return view('crm.Lead.editlead',['updatelead'=>$result["data"],'lead'=>$lead,'contact'=>$contact,'honorifics'=>$honorifics,'service'=>$service1["original"]["data"],'companybranch'=>$companybranch,'lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province,'currentisp'=>$isp]);
+            return view('crm.Lead.editbranch',['updatelead'=>$result["data"],'lead'=>$lead,'contact'=>$contact,'honorifics'=>$honorifics,'service'=>$service1["original"]["data"],'companybranch'=>$companybranch,'lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province,'currentisp'=>$isp]);
         
         }else{
             return view('no_perms');
@@ -252,7 +278,7 @@ class LeadController extends Controller
     }
 
     
-    public function UpdateLead(Request $request){
+    public function updatebranch(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
             }

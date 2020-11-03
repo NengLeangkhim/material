@@ -28,8 +28,13 @@ class LeadController extends Controller
     }
     // insert lead source
     public function insertLeadSource(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+            // $userid = $_SESSION['userid'];
             $name_en=$request->input('name_en');
             $name_kh=$request->input('name_kh');
+            // $create_by=$userid;
             $create_by=$request->input('create_by');
             return Lead::addleadsource($name_en,$name_kh,$create_by);
     }
@@ -171,7 +176,8 @@ class LeadController extends Controller
             $lead_id=$request->input('lead_id');
             $con_id=$request->input('contact_id');
             $prioroty=$request->input('prioroty');
-            $checksurvey=$request->input('checksurvey')!=""? $request->input('checksurvey'):"null";;
+            $checksurvey=$request->input('checksurvey')!=""? $request->input('checksurvey'):"null";
+            $survey_id=$request->input('survey_id');
             $lead_address_id=$request->input('address_id');
             $lead_con_bran_id=$request->input('lead_con_bran_id');
             $lead_detail_id=$request->input('lead_detail_id');
@@ -217,11 +223,11 @@ class LeadController extends Controller
             $addresscode=$request->input('village');
 
 
-            // var_dump($lead_item_id);
+            // var_dump($survey_id);
             return  Lead::updatebranch($lead_address_id,$lead_detail_id,$lead_item_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
             $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,
             $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-            $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
+            $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$survey_id);
     }
 
     // get all branch
@@ -235,6 +241,15 @@ class LeadController extends Controller
         // return Lead::getLead();
         return GetLead::Collection($lead);
     }
+    // get  lead by id
+    public function getleadbyid($id){
+        $lead = Lead::getleadbyid($id);
+        return GetLead::Collection($lead);
+    }
+    // edit lead
+    public function editlead($id){
+        var_dump($id);
+    }
     // get branch by id
     public function getbranchById($id){
         $branch_id = Lead::getbranchById($id);
@@ -245,8 +260,8 @@ class LeadController extends Controller
         $branch_id = Lead::getbranch_lead($id);
         return GetLeadBranch::Collection($branch_id);
     }
-    //  edit lead
-    public function editLead(){
+    // //  edit lead
+    public function editbranch(){
         $lead_id=$request->input('lead_id');
         $con_id=$request->input('contact_id');
         $company_en=$request->input('company_en');
@@ -346,7 +361,7 @@ class LeadController extends Controller
         return LeadCurrentSpeedIsp::Collection($schedule_type);
     }
     // insert schedule type
-    public function insertschduletype(Request $request){
+    public function insertscheduletype(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -354,10 +369,10 @@ class LeadController extends Controller
         // $userid =$request->input('user_create');
         $name_kh=$request->input('name_kh');
         $name_en=$request->input('name_en');
-        return Lead::insertschduletype($userid,$name_en,$name_kh); //return to model
+        return Lead::insertscheduletype($userid,$name_en,$name_kh); //return to model
     }
     // update schedule type
-    public function updateschduletype(Request $request){
+    public function updatescheduletype(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -367,7 +382,70 @@ class LeadController extends Controller
         $name_kh=$request->input('name_kh');
         $name_en=$request->input('name_en');
         $status=$request->input('status');
-        return Lead::updateschduletype($schedule_id,$userid,$name_en,$name_kh,$status); //return to model
+        return Lead::updatescheduletype($schedule_id,$userid,$name_en,$name_kh,$status); //return to model
     }
+    //insert schedule
+    public function insertschedule(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        // $userid = $_SESSION['userid'];
+        $branch_id=$request->input('branch_id');
+        $name_kh=$request->input('name_kh');
+        $name_en=$request->input('name_en');
+        $to_do_date=$request->input('to_do_date');
+        $comment=$request->input('comment');
+        $priority=$request->input('priority');
+        $schedule_type_id=$request->input('schedule_type_id');
+        // $userid =$userid;
+        $userid =$request->input('user_create');
+        return Lead::insertschedule($branch_id,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id,$userid); //return to model
+    }
+    //update schedule
+    public function updateschedule(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        // $userid = $_SESSION['userid'];
+        $schedule_id=$request->input('schedule_id');
+        $branch_id=$request->input('branch_id');
+        $name_kh=$request->input('name_kh');
+        $name_en=$request->input('name_en');
+        $to_do_date=$request->input('to_do_date');
+        $comment=$request->input('comment');
+        $priority=$request->input('priority');
+        $schedule_type_id=$request->input('schedule_type_id');
+        $userid =$request->input('user_create');
+        $status =$request->input('status');
+        return Lead::updateschedule($schedule_id,$branch_id,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id,$userid,$status); // return to model
+    }
+    //insert schedule result
+    public function insertscheduleresult(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        // $userid = $_SESSION['userid'];
+        $schedule_id=$request->input('schedule_id');
+        $schedule_type_id=$request->input('schedule_type_id');
+        $comment=$request->input('comment');
+        // $userid =$userid;
+        $userid =$request->input('user_create');
+        return Lead::insertscheduleresult($schedule_id,$schedule_type_id,$comment,$userid); // return to Model
+    }
+    //update schedule result
+    public function updatescheduleredult(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        // $userid = $_SESSION['userid'];
+        $schedule_result_id=$request->input('schedule_result_id');
+        // $userid =$userid;
+        $userid =$request->input('user_create');
+        $schedule_id=$request->input('schedule_id');
+        $schedule_type_id=$request->input('schedule_type_id');
+        $comment=$request->input('comment');
+        $status =$request->input('status');
+        return Lead::updatescheduleredult($schedule_result_id,$userid,$schedule_id,$schedule_type_id,$comment,$status);
 
+    }
 }
