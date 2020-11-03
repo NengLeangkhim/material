@@ -24,7 +24,7 @@
                       <div class="col-12 text-right">
                                 <button class="btn btn-success"><span><i class="far fa-file-excel"></i></span> Excel</button>
                                 <button class="btn btn-danger"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
-                      </div>                               
+                      </div>
                   </div>
                   <div class="card-body">
                         <div class="form-group">
@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="col-md-4 text-center">
                                     <div class="col-md-12" style="height: 45%">
-        
+
                                     </div>
                                     <div class="col-md-12">
                                         <button class="btn btn-primary align-middle" style="width:70%;">Generate Report</button>
@@ -85,9 +85,9 @@
                                         {{-- <a href="#" class="btn btn-block btn-info btn-sm edit" ​value="editlead/{{$row->id}}" ><i class="fas fa-wrench"></i></a>detaillead --}}
                                         <a href="#" class="btn btn-block btn-info btn-sm organization_detail" ​value="/organizations/detail" ><i class="fas fa-info-circle"></i></a>
                                         </td>
-                                    </tr>                                       
+                                    </tr>
                                 {{-- @endforeach --}}
-                                </tbody>  
+                                </tbody>
                             </table>
                         </div>
                   </div><!--End Card Body-->
