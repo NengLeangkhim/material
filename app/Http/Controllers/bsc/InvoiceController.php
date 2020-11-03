@@ -306,7 +306,7 @@ class InvoiceController extends Controller
     // get reference data by id
     public function reference_get_data_single(Request $request)
     {
-        // try{
+        try{
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
@@ -319,14 +319,13 @@ class InvoiceController extends Controller
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $reference = json_decode($res->getContent()); // convert to json object
-            dd($reference);exit;
-            // $invoice_by_ids= $invoice_by_id->data;
-            // $invoices=$invoice_by_ids->invoice;
-            // $invoice_details=$invoice_by_ids->invoice_detail;
-            // $address=$invoices->address;
-        // }catch(Exception $e){
-        //     echo $e->getMessage();
-        //     exit();
-        // }
+            $references= $reference->data;
+            return json_encode($references);
+            // $quotes=$references->quotes;
+            // $quote_products=$references->quote_products;
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
+        }
     }
 }

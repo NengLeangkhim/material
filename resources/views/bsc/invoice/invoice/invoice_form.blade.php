@@ -102,12 +102,13 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <select class="form-control select2 input_required" name="customer" id="customer">
+                                            <input type="text" class="form-control" name="customer" id="customer" placeholder="Customer" disabled>
+                                            {{-- <select class="form-control select2 input_required" name="customer" id="customer">
                                                 <option selected hidden disabled>select item</option>
                                                 @foreach ($customers as $customers)
                                                     <option value="{{ $customers->id }}">{{ $customers->name }}</option>
                                                 @endforeach>
-                                            </select>
+                                            </select> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -254,7 +255,7 @@
 <script>
     function myFunction(id)
     {
-        let reference_id = id.selectedIndex;
+        let reference_id=id.value;
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 type:"POST",
@@ -265,6 +266,10 @@
                 },
                 dataType: "JSON",
                 success:function(data){
+                    // console.log(data.quote_products);
+                    // $.each(data.quote_products, function(i, value) {
+                    //     alert(value);
+                    // });
 
                 }
             });
