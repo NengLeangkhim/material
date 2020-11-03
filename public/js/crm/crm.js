@@ -555,6 +555,35 @@ function Crm_delete(id,route,goto,alert) {
       }
       });
     });  
+    // ----- Quote Status
+    //Update Quote Status
+    $(document).on('click', '.CrmEditQuoteStatus', function(){
+      var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+      $.ajax({
+      url:"/crm/setting/quotestatus/get",   //Request send to "action.php page"
+      type:"GET",    //Using of Post method for send data
+      data:{id:id},//Send data to server
+      dataType:"json",   //Here we have define json data type, so server will send data in json format.
+      success:function(response){
+              $('#crm_quote_status_modal').modal('show'); //It will display modal on webpage
+              $('#ActionQuoteStatus').text('Update'); //This code will change Button value to Update
+              $('#card_title').text("Update Quote Status");
+              $('.print-error-msg').hide();
+              $("#crm_quote_status_form").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid");//remove valid all input field
+              $(".invalid-feedback").children("strong").text("");/// remove errror massage
+              $('#quote_status_id').val(id);     //It will define value of id variable for update
+              $.each(response.data, function(i, e){ //read array json for show to textbox
+                $('#name_kh').val(response.data.name_en);
+                $('#name_en').val(response.data.name_kh);
+                if(response.data.status==true){
+                  $('#status').val(1);
+                }else{
+                  $('#status').val(0);
+                }
+              });
+      }
+      });
+    });  
 // -----------Setting CRM ---------- //
 //////////////////////////==========================END MET KEOSAMBO ====================///////////////////////////////
     // $(document).ready(function(){

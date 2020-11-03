@@ -155,6 +155,10 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     Route::get('/crm/setting/scheduletype','crm\CrmSettingController@CrmScheduleType'); // show Schedule Type Setting CRM
     Route::post('/crm/setting/scheduletype/store','crm\CrmSettingController@StoreScheduleType'); // INsert and update Schedule Type Setting CRM
     Route::get('/crm/setting/scheduletype/get','crm\CrmSettingController@CrmGetScheduleTypeByID'); // show Schedule Type Setting CRM
+    //-- Quote Status 
+    Route::get('/crm/setting/quotestatus','crm\CrmSettingController@CrmQuoteStatus'); // show Quote Status  Setting CRM
+    Route::post('/crm/setting/quotestatus/store','crm\CrmSettingController@StoreQuoteStatus'); // INsert and update Quote Status Setting CRM
+    Route::get('/crm/setting/quotestatus/get','crm\CrmSettingController@CrmGetQuoteStatusByID'); // show Quote Status  Setting CRM
 // END Setting CRM 
 
 //===========================END CRM=================================
@@ -1137,97 +1141,3 @@ Route::get('test_chart',function(){
 
 
 //==========================================================> End HRMS <===============================================================///
-
-//============================================================> START BSC <===============================================================///
-// ========================================================> THIN VYTOU <======================================================== //
-
-// Report
-    // Financial Report
-        // Balance Sheet
-
-        // Profit and Loss
-
-    // Accounting Report
-        // Account Transaction
-
-        // Trial Balance
-
-// ========================================================> END THIN VYTOU <======================================================== //
-// ========================================================> SOV SOTHEA <======================================================== //
-
-// Customer Management
-    // Customer
-        Route::get('bsc_customer','bsc\CustomerController@customer');
-    // Customer Branch
-        Route::get('bsc_customer_branch','bsc\CustomerController@customer_branch');
-        Route::get('customer_branch_detail/{id}','bsc\CustomerController@customer_branch_detail');
-    // Customer Service
-        Route::get('bsc_customer_service','bsc\CustomerController@customer_service');
-    // Customer Service Detail
-        Route::get('bsc_customer_service_detail','bsc\CustomerController@customer_service_detail');
-        Route::get('customer_service_detail_add','bsc\CustomerController@customer_service_detail_add');
-        Route::get('customer_service_detail_edit/{id}','bsc\CustomerController@customer_service_detail_edit');
-        Route::get('bsc_customer_service_detail_delete','bsc\CustomerController@customer_service_detail_delete');
-        Route::post('bsc_customer_service_detail_insert','bsc\CustomerController@customer_service_detail_insert');
-        Route::post('bsc_customer_service_detail_update','bsc\CustomerController@customer_service_detail_update');
-// Report
-    // Dashboard
-
-// ========================================================> END SOV SOTHEA <======================================================== //
-// ========================================================> SOK SENG <======================================================== //
-
-// Chart account
-    Route::get('bsc_chart_account_list','bsc\ChartAccountController@list');
-    Route::get('bsc_chart_account_list_edit/{id}','bsc\ChartAccountController@edit');
-    Route::get('bsc_chart_account_form','bsc\ChartAccountController@form');
-    Route::post('bsc_chart_account_form_add','bsc\ChartAccountController@add');
-    Route::post('bsc_chart_account_form_edit','bsc\ChartAccountController@ch_account_edit');
-    Route::get('bsc_chart_account_list_delete','bsc\ChartAccountController@ch_account_delete');
-// Invoice
-    // Invoice
-        Route::get('bsc_invoice_invoice_list','bsc\InvoiceController@list');
-        Route::get('bsc_invoice_invoice_view/{id}','bsc\InvoiceController@view');
-        Route::get('bsc_invoice_invoice_form','bsc\InvoiceController@form');
-        Route::post('bsc_invoice_save','bsc\InvoiceController@invoice_save');
-        Route::get('bsc_invoice_invoice_edit/{id}','bsc\InvoiceController@invoice_edit');
-        Route::post('bsc_invoice_update','bsc\InvoiceController@invoice_edit_data');
-    // View Payment
-        Route::get('bsc_invoice_view_payment','bsc\InvoiceController@view_payment');
-
-// Report
-    // Sale Report
-        // Aged Receivables Detail
-
-        // Aged Receivables Summary
-
-        // Customer Invoice Report
-
-// ========================================================> END SOK SENG <======================================================== //
-// ========================================================> TOUCH RITH <======================================================== //
-
-// Purchase
-    // Purchase
-    Route::get('bsc_purchase_purchase_list','bsc\PurchaseController@list');
-    Route::post('bsc_purchase_save','bsc\PurchaseController@save');
-    Route::post('bsc_purchase_get_by_id','bsc\PurchaseController@get_product_by_id');
-    Route::get('bsc_purchase_purchase_view/{id}','bsc\PurchaseController@view');
-    Route::get('bsc_purchase_purchase_edit_data/{id}','bsc\PurchaseController@purchase_edit');
-    Route::get('bsc_purchase_purchase_form','bsc\PurchaseController@form');
-    Route::post('bsc_purchase_update_data','bsc\PurchaseController@update_data');
-
-    // View Purchase Payment
-    Route::get('bsc_purchase_view_purchase_payment','bsc\PurchasePaymentControllre@view_purchase_payment');
-
-// Report
-    // Purchase Report
-        // Aged Payables Detail
-
-        // Aged Payables Summary
-
-        // Supplier Invoice Report
-
-// ========================================================> END TOUCH RITH <======================================================== //
-//============================================================> END BSC <===============================================================///
-
-
-// Route::get('testing','');

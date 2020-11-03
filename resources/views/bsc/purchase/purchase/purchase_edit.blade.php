@@ -174,8 +174,16 @@
                                                     <td class="item_tax" style="padding: 0;">
                                                         <select style="border: 0px; height: 51px;" class="tax form-control">
                                                             <option value=""></option>
-                                                            <option  value="1" selected>Tax</option>
-                                                            <option value="0">No Tax</option>
+                                                            <option 
+                                                                @if ($p_detail->tax == 1)
+                                                                    selected
+                                                                @endif value="1">Tax
+                                                            </option>
+                                                            <option 
+                                                                @if ($p_detail->tax == 0)
+                                                                    selected
+                                                                @endif value="0">No Tax
+                                                            </option>
                                                         </select>
                                                     </td>
                                                     <td class="item_amount" id="item_amount">{{$p_detail->amount}}</td>

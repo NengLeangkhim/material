@@ -554,7 +554,7 @@ class CrmSettingController extends Controller
                     'errors' => $validator->getMessageBag()->toArray() 
                 ));
             }else{
-                if(perms::check_perm_module('CRM_02090501')){//module code list 
+                if(perms::check_perm_module('CRM_02090502')){//module code list 
                      $get = Request::create('/api/crm/scheduleType/save','POST',$request->all());
                      $response = json_decode(Route::dispatch($get)->getContent());
                     if($response->success=='true'){
@@ -576,6 +576,104 @@ class CrmSettingController extends Controller
         if(perms::check_perm_module('CRM_02090502')){//module codes
             $id = $_GET['id'];
             $get = Request::create('/api/crm/scheduleType/'.$id, 'GET');
+            $response = json_decode(Route::dispatch($get)->getContent());
+            return response()->json($response);
+        }else{
+            return view('no_perms');
+        }
+    }
+    //--------------------- END Schedule Type --------------------------//
+    //--------------------- Quote Status --------------------------//
+    public function CrmQuoteStatus(){ //Get View Lead Status
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if(perms::check_perm_module('CRM_020906')){//module codes
+          
+               $get = Request::create('/api/crm/quoteStatusType', 'GET');
+               $tbl = json_decode(Route::dispatch($get)->getContent());
+            return view('crm.setting.CrmQuoteStatus',['tbl'=>$tbl]); 
+        }else{
+            return view('no_perms');
+        }
+        
+    }
+    public function StoreQuoteStatus(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+            }
+        if(!isset($request->id)){
+            $validator = \Validator::make($request->all(), [
+                'name_en' => [ 'required'
+                                    ],
+                'name_kh' => [ 'required'
+                                        ],
+            [
+                'name_en.required' => 'This Field is require !!',   //massage validator
+                'name_kh.required' => 'This Field is require !!',   //massage validator
+                // 'name_en.unique' => 'The Name English is Already Exist !!',   //massage validator
+                // 'name_kh.unique' => 'The Name Khmer is Already Exist !!',   //massage validator
+                ]
+            ]);
+            if ($validator->fails()) //check validator for fail
+            {
+                return response()->json(array(
+                    'errors' => $validator->getMessageBag()->toArray() 
+                ));
+            }else{
+                if(perms::check_perm_module('CRM_02090601')){//module code list 
+                     $get = Request::create('/api/crm/quoteStatusType/save','POST',$request->all());
+                     $response = json_decode(Route::dispatch($get)->getContent());
+                    if($response->success=='true'){
+                        return response()->json(['success'=>'Record is successfully added']);
+                    }else{
+                        return response()->json(['Error'=>'Record is Error']);
+                    }
+                }else{
+                    return view('no_perms');
+                }
+            }
+        }else{
+            $validator = \Validator::make($request->all(), [
+                'name_en' => [ 'required'
+                                    ],
+                'name_kh' => [ 'required'
+                                        ],
+            [
+                'name_en.required' => 'This Field is require !!',   //massage validator
+                'name_kh.required' => 'This Field is require !!',   //massage validator
+                // 'name_en.unique' => 'The Name English is Already Exist !!',   //massage validator
+                // 'name_kh.unique' => 'The Name Khmer is Already Exist !!',   //massage validator
+                ]
+            ]);
+            if ($validator->fails()) //check validator for fail
+            {
+                return response()->json(array(
+                    'errors' => $validator->getMessageBag()->toArray() 
+                ));
+            }else{
+                if(perms::check_perm_module('CRM_02090602')){//module code list 
+                     $get = Request::create('/api/crm/quoteStatusType/save','POST',$request->all());
+                     $response = json_decode(Route::dispatch($get)->getContent());
+                    if($response->success=='true'){
+                        return response()->json(['success'=>'Record is successfully added']);
+                    }else{
+                        return response()->json(['Error'=>'Record is Error']);
+                    }
+                }else{
+                    return view('no_perms');
+                }
+            }
+        }
+    }
+    // Get Schedule Type by ID for update
+    public function CrmGetQuoteStatusByID(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if(perms::check_perm_module('CRM_02090602')){//module codes
+            $id = $_GET['id'];
+            $get = Request::create('/api/crm/quoteStatusType/'.$id, 'GET');
             $response = json_decode(Route::dispatch($get)->getContent());
             return response()->json($response);
         }else{

@@ -25,6 +25,10 @@ function check_session(){
             }else{
                 return false;
             }
+      },
+      error:function(){
+        hideloading();
+        $(".content-wrapper").html(jerror());
       }
     });
 }
@@ -37,13 +41,15 @@ function check_session(){
     var code = $(this).attr("data-code");
     var href = $(this).attr("href");
     if (typeof link !== typeof undefined && link !== false) {
-      $(".content-wrapper").html(spinner());
+      // $(".content-wrapper").html(spinner());
+      showloading();
       $("#nav_bar_sub_r").html(get_pushmenu());
       $.ajax({
         type: 'GET',
         url:link,
         async:false,
         success:function(data){
+          hideloading();
             $(".content-wrapper").show();
             if(data.length>0){
               $(".content-wrapper").html(data);
@@ -56,11 +62,14 @@ function check_session(){
             });
         },
         error:function(){
+          hideloading();
+          errorMessage();
           $(".content-wrapper").html(jerror());
         }
      });
     }else if (typeof code !== typeof undefined && code !== false) {
-        $(".content-wrapper").html(spinner());
+        // $(".content-wrapper").html(spinner());
+        showloading();
         $("#nav_bar_sub_r").html(get_pushmenu());
         $.ajax({
           type: 'POST',
@@ -71,6 +80,7 @@ function check_session(){
             _token : $('meta[name="csrf-token"]').attr('content'),
           },
           success:function(data){
+            hideloading();
               // $(".content-wrapper").show();
               $("#nav_bar_sub_r").html(data);
               set_selected_nav('nav_bar_sub_r');
@@ -79,6 +89,8 @@ function check_session(){
               // $(".select2").select2();
           },
           error:function(){
+            hideloading();
+            errorMessage();
             $(".content-wrapper").html(jerror());
           }
        });
@@ -153,36 +165,33 @@ $(function() {
 
 jQuery.fn.center = function () {
   this.css("position","absolute");
-  this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + 
+  this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) +
                                               $(window).scrollTop()) + "px");
-  this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + 
+  this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) +
                                               $(window).scrollLeft()) + "px");
   return this;
 }
 
 function showloading(){
-  backdrop=document.getElementById('moLoading');
-  if(backdrop){
-    // $('<div class="modal-backdrop"><div id="moLoading"><center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center></div></div>').appendTo(document.body);
-    // $("#moLoading").center();
-    // $("#moLoading").show();
-  }else{
-    $('<div id="moLoadingdiv"><div id="moLoading"><center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Loading Please wait...</label></center></div></div>').appendTo(document.body);
-    $("#moLoadingdiv").css({"position": "fixed",
-     "top": "0",
-     "left": "0",
-     "z-index": "1040",
-     "width": "100vw",
-     "height": "100vh",
-     "background-color": "rgba(255, 255, 255, 0.5)",
-    });
-    $("#moLoading").center();
-    $("#moLoadingdiv").show();
-  }
+  $("#moLoading").center();
+  $("#moLoadingdiv").show();
 }
 function hideloading(){
-  $("#moLoadingdiv").remove();
+  $("#moLoadingdiv").hide();
 }
+function errorMessage(){
+  Swal.fire({ //get from sweetalert function
+    title: 'ERROR Occur',
+    text: "Please reload page and try again",
+    icon: 'warning',
+    showCancelButton: false,
+    confirmButtonColor: '#3085d6',
+    confirmButtonText: 'OK'
+  });
+}
+
+
+
 var oldXHR = window.XMLHttpRequest;
 
 function newXHR() {
@@ -191,14 +200,13 @@ function newXHR() {
         if(realXHR.readyState==1){
           showloading();
         }
-        if(realXHR.readyState==2){
-          showloading();
-        }
-        if(realXHR.readyState==3){
-          showloading();
-        }
+        // if(realXHR.readyState==2){
+        //   showloading();
+        // }
+        // if(realXHR.readyState==3){
+        //   showloading();
+        // }
         if(realXHR.readyState==4){
-          hideloading();
           switch(realXHR.status){
             case 500:
               Swal.fire({ //get from sweetalert function
@@ -210,6 +218,9 @@ function newXHR() {
                 confirmButtonText: 'OK'
               });
               break;
+            case 200:
+              hideloading();
+              break;
           }
         }
     }, false);
@@ -217,7 +228,6 @@ function newXHR() {
 }
 window.XMLHttpRequest = newXHR;
 
+$('body').append('<div class="moLoadingClass" id="moLoadingdiv"><div id="moLoading"><center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Loading Please wait...</label></center></div></div>');
+$("#moLoading").center();
 
-// window.onbeforeunload = function(e) {
-//   return 'Dialog text here.';
-// };
