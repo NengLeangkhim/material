@@ -28,6 +28,10 @@ Route::get('/quotes','api\crm\QuoteController@index');
 
 Route::get('/quote/status','api\crm\QuoteController@getStatus');
 
+Route::get('/quotebranch/{qid}','api\crm\QuoteController@getquotebranch');
+
+Route::get('/quotebranch/detail/{qbid}','api\crm\QuoteController@getStockByBranchId');
+
 // get contact by id
 Route::get('/quote/{id}','api\crm\QuoteController@show');
 

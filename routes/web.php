@@ -29,21 +29,22 @@ Route::get('/commune', 'addressController@getcommune'); //getcommune
 Route::get('/village', 'addressController@getvillage'); //getvillage
 // End Get Address
 // =========================CRM SYSTEM==========================
-// start lead
+// start lead and branch
 Route::get('/lead','crm\LeadController@getlead'); // get  all lead  show  in table
+Route::get('/addlead','crm\LeadController@lead'); // insert lead or branch (button)
+Route::get('/detaillead/{id}','crm\LeadController@getdetailtlead'); // get  show detail  lead
+Route::get('/editlead/{id}','crm\LeadController@editlead');// edit lead
+Route::post('/lead/update','crm\LeadController@updatelead');// Update lead
+
+
 Route::get('/branch/{id}','crm\LeadController@getbranch'); // get  all branch  show  in table by lead id
 Route::get('/detailbranch/{id}','crm\LeadController@getdetailbranch'); // get detail branch
-Route::get('/addlead','crm\LeadController@lead'); // go to lead
-Route::post('/lead/store','crm\LeadController@StoreLead'); // Store lead
-// Route::get('/district','crm\LeadController@getdistrict'); //getdistrict
-// Route::get('/commune','crm\LeadController@getcommune'); //getcommune
-// Route::get('/village','crm\LeadController@getvillage'); //getvillage
+Route::get('/editbranch/{id}','crm\LeadController@editbranch');//  edit branch 
+
+Route::post('/lead/store','crm\LeadController@StoreLead'); // add  lead or branch
 Route::POST('/addleadsource','crm\LeadController@addleadsource'); //addlead source
 Route::POST('/addleadindustry','crm\LeadController@addleadindustry'); //add leadindustry
-Route::POST('/addlead','crm\LeadController@addlead'); //add leadindustry
-Route::get('/detaillead','crm\LeadController@detaillead'); //add leadindustry
-Route::Get('/editlead/{id}','crm\LeadController@editlead');// Go to lead
-Route::post('/lead/update','crm\LeadController@UpdateLead');// Update lead
+Route::post('/branch/update','crm\LeadController@updatebranch');// Update lead
 Route::post('/crm_leasdsource','crm\LeadController@savelead'); // save
 Route::get('/test_map', function(){
     return view('crm.lead.mapShowLatLong');
@@ -99,6 +100,8 @@ Route::get('/organizations/detail','crm\OrganizationController@DetailOrganizatio
 // crm quote
 Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote
 Route::get('/quote/detail','crm\QuoteController@showQuoteListDetail'); // get show quote detail
+Route::get('/quote/leadBranch','crm\QuoteController@listLeadBranch'); // get list branch of lead by lead id
+
 Route::get('/quote/add','crm\QuoteController@addQuote'); // to add qoute
 
 Route::get('/quote/deleteLeadQuote','crm\QuoteController@deleteLeadQuote'); // get delete lead for quote list
@@ -138,6 +141,7 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     //-- Lead Status
     Route::get('/crm/setting/leadstatus','crm\CrmSettingController@CrmLeadStatus'); // show Lead Status Setting CRM
     Route::post('/crm/setting/leadstatus/store','crm\CrmSettingController@StoreLeadStatus'); // show Lead Status Setting CRM
+    Route::get('/crm/setting/leadstatus/get','crm\CrmSettingController@CrmGetLeadStatusByID'); // show Lead Status Setting CRM
     //-- Lead industry
     Route::get('/crm/setting/leadindustry','crm\CrmSettingController@CrmLeadIndustry'); // show Lead Industry Setting CRM
     Route::post('/crm/setting/leadindustry/store','crm\CrmSettingController@StoreLeadIndustry'); // INsert and update lead industry Setting CRM
@@ -150,7 +154,15 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     Route::get('/crm/setting/leadisp','crm\CrmSettingController@CrmLeadISP'); // show Lead ISP Setting CRM
     Route::post('/crm/setting/leadisp/store','crm\CrmSettingController@StoreLeadISP'); // INsert and update lead ISP Setting CRM
     Route::get('/crm/setting/leadisp/get','crm\CrmSettingController@CrmGetLeadISPByID'); // show Lead ISP Setting CRM
-// END Setting CRM
+    //-- schedule type 
+    Route::get('/crm/setting/scheduletype','crm\CrmSettingController@CrmScheduleType'); // show Schedule Type Setting CRM
+    Route::post('/crm/setting/scheduletype/store','crm\CrmSettingController@StoreScheduleType'); // INsert and update Schedule Type Setting CRM
+    Route::get('/crm/setting/scheduletype/get','crm\CrmSettingController@CrmGetScheduleTypeByID'); // show Schedule Type Setting CRM
+    //-- Quote Status 
+    Route::get('/crm/setting/quotestatus','crm\CrmSettingController@CrmQuoteStatus'); // show Quote Status  Setting CRM
+    Route::post('/crm/setting/quotestatus/store','crm\CrmSettingController@StoreQuoteStatus'); // INsert and update Quote Status Setting CRM
+    Route::get('/crm/setting/quotestatus/get','crm\CrmSettingController@CrmGetQuoteStatusByID'); // show Quote Status  Setting CRM
+// END Setting CRM 
 
 //===========================END CRM=================================
 

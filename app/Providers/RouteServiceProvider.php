@@ -62,29 +62,18 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
 
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/web/bsc/purchase.php'));
+        //CRM
+        $crm = 'routes/web/crm/';
+        $this->registerRoute('','web',$crm.'report.php');
 
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/web/bsc/invoice.php'));
-
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/web/bsc/chart_account.php'));
-
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/web/bsc/customer_management.php'));
-
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/web/bsc/report_balancesheet.php'));
-
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/web/bsc/report_income_statement.php'));
+        // BSC
+        $bsc = 'routes/web/bsc/';
+        $this->registerRoute('','web',$bsc.'purchase.php');
+        $this->registerRoute('','web',$bsc.'invoice.php');
+        $this->registerRoute('','web',$bsc.'chart_account.php');
+        $this->registerRoute('','web',$bsc.'customer_management.php');
+        $this->registerRoute('','web',$bsc.'report_balancesheet.php');
+        $this->registerRoute('','web',$bsc.'report_income_statement.php');
     }
 
     /**
@@ -107,75 +96,29 @@ class RouteServiceProvider extends ServiceProvider
          */
 
         // 1. --- CRM API ---
-        Route::prefix('api')
-        ->middleware('api')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/api/crm_api/organize.php'));
-
-        Route::prefix('api')
-        ->middleware('api')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/api/crm_api/quote.php'));
-
-
-        Route::prefix('api')
-        ->middleware('api')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/api/crm_api/contact.php'));
-
-        Route::prefix('api')
-        ->middleware('api')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/api/crm_api/lead.php'));
-
-        Route::prefix('api')
-        ->middleware('api')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/api/crm_api/report.php'));
-
-        Route::prefix('api')
-        ->middleware('api')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/api/crm_api/crm_setting.php'));
+        $crm = 'routes/api/crm_api/';
+        $this->registerRoute('api','api',$crm.'organize.php');
+        $this->registerRoute('api','api',$crm.'quote.php');
+        $this->registerRoute('api','api',$crm.'contact.php');
+        $this->registerRoute('api','api',$crm.'lead.php');
+        $this->registerRoute('api','api',$crm.'report.php');
+        $this->registerRoute('api','api',$crm.'crm_setting.php');
 
         // 2. --- STOCK API ---
-        Route::prefix('api')
-        ->middleware('api')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/api/stock_api/stock.php'));
+        $stock = 'routes/api/stock_api/';
+        $this->registerRoute('api','api',$stock.'stock.php');
 
-
-         // 3. --- BSC API ---
-         Route::prefix('api')
-         ->middleware('api')
-         ->namespace($this->namespace)
-         ->group(base_path('routes/api/bsc_api/report_balancesheet.php'));
-
-         Route::prefix('api')
-         ->middleware('api')
-         ->namespace($this->namespace)
-         ->group(base_path('routes/api/bsc_api/report_income_statement.php'));
-
-         Route::prefix('api')
-         ->middleware('api')
-         ->namespace($this->namespace)
-         ->group(base_path('routes/api/bsc_api/invoice.php'));
-
-         Route::prefix('api')
-         ->middleware('api')
-         ->namespace($this->namespace)
-         ->group(base_path('routes/api/bsc_api/purchase.php'));
-
-         Route::prefix('api')
-         ->middleware('api')
-         ->namespace($this->namespace)
-         ->group(base_path('routes/api/bsc_api/customer_management.php'));
-
-         Route::prefix('api')
-         ->middleware('api')
-         ->namespace($this->namespace)
-         ->group(base_path('routes/api/bsc_api/chart_account.php'));
+        // 3. --- BSC API ---
+        $bsc = 'routes/api/bsc_api/';
+        $this->registerRoute('api','api',$bsc.'report_balancesheet.php');
+        $this->registerRoute('api','api',$bsc.'report_income_statement.php');
+        $this->registerRoute('api','api',$bsc.'invoice.php');
+        $this->registerRoute('api','api',$bsc.'purchase.php');
+        $this->registerRoute('api','api',$bsc.'customer_management.php');
+        $this->registerRoute('api','api',$bsc.'chart_account.php');
     }
 
-
+    protected function registerRoute($prefix, $middleware, $path){
+        Route::prefix($prefix)->middleware($middleware)->namespace($this->namespace)->group(base_path($path));
+    }
 }

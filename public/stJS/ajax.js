@@ -683,6 +683,8 @@ function go_to(route){
             hideloading();
         },
         error:function(){
+          hideloading();
+          errorMessage();
           $(".content-wrapper").html(jerror());
         }
      });

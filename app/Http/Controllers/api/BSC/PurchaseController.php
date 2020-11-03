@@ -17,15 +17,66 @@ class PurchaseController extends Controller
     public function index()
     {
         $purchases = DB::table('bsc_invoice')
-        ->select('bsc_invoice.*','ma_supplier.name as supplier_name','bsc_payment.amount_paid','bsc_payment.date_paid','bsc_payment.due_amount')
+        ->select('bsc_invoice.*','ma_supplier.name as supplier_name')
         ->leftJoin('ma_supplier','bsc_invoice.ma_supplier_id','=','ma_supplier.id')
-        ->leftJoin('bsc_payment','bsc_invoice.id','=','bsc_payment.bsc_invoice_id')
         ->where([
             ['bsc_invoice.invoice_type','=','purchase'],
             ['bsc_invoice.status','=','t'],
             ['bsc_invoice.is_deleted','=','f']
         ])->get();
-        return $this->sendResponse($purchases, 'Purchase retrieved successfully.');
+        
+        $arr_purchase = [];
+        if(count($purchases) > 0){
+            foreach ($purchases as $key => $purchase) {
+                $purchase_payments = DB::select("SELECT 
+                                                    SUM(amount_paid) AS amount_paid
+                                                FROM
+                                                    bsc_payment
+                                                WHERE
+                                                    bsc_invoice_id = $purchase->id
+                                                    AND status = 't'
+                                                    AND is_deleted = 'f'
+                                            ");
+                $data_due_amount = DB::table('bsc_payment')
+                ->select('due_amount')
+                ->where([
+                    ['bsc_invoice_id','=',$purchase->id],
+                    ['status','=','t'],
+                    ['is_deleted','=','f']
+                ])
+                ->orderBy('id','desc')
+                ->first();
+                
+                $amount_paid = "";
+                if(count($purchase_payments)>0){
+                    foreach ($purchase_payments as $kkey => $purchase_payment) {
+                        $amount_paid = $purchase_payment->amount_paid;
+                    }
+                }
+                $due_amount = null;
+                if($data_due_amount != ""){
+                    $due_amount = $data_due_amount->due_amount;
+                }
+
+                $arr_purchase[$key] = [
+                    'id' => $purchase->id,
+                    'ma_supplier_id' => $purchase->ma_supplier_id,
+                    'billing_date' => $purchase->billing_date,
+                    'due_date' => $purchase->due_date,
+                    'invoice_number' => $purchase->invoice_number,
+                    'reference' => $purchase->reference,
+                    'total' => $purchase->total,
+                    'vat_total' => $purchase->vat_total,
+                    'grand_total' => $purchase->grand_total,
+                    'create_date' => $purchase->create_date,
+                    'supplier_name' => $purchase->supplier_name,
+                    'amount_paid' => $amount_paid,
+                    'due_amount' => $due_amount
+                ];
+            }
+        }
+        
+        return $this->sendResponse($arr_purchase, 'Purchase retrieved successfully.');
     }
 
     /**

@@ -23,7 +23,6 @@ class CrmLeadStatus extends Model
             }
             $newId = DB::selectOne($sql)->id;
             $result = $this->getOneData($newId);
-            dd($result);
         } catch(QueryException $e){
             throw $e;
         }
@@ -33,7 +32,7 @@ class CrmLeadStatus extends Model
 
     function getOneData($id){
         try {
-            $result = DB::selectOne('select * from crm_lead_status where status = true and is_deleted = false and id = '.$id);
+            $result = DB::selectOne('select * from crm_lead_status where is_deleted = false and id = '.$id);
         } catch(QueryException $e){
             throw $e;
         }
@@ -42,7 +41,7 @@ class CrmLeadStatus extends Model
 
     function getAllData(){
         try {
-            $result = DB::select('select * from crm_lead_status where status = true and is_deleted = false');
+            $result = DB::select('select * from crm_lead_status where is_deleted = false order by sequence');
         } catch(QueryException $e){
             throw $e;
         }
