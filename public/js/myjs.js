@@ -211,10 +211,31 @@ function newXHR() {
               break;
             case 200:
               hideloading();
-              break;
+            break;
+            case 419:
+              hideloading();
+              errorMessage();
+            break;
             case 0:
               hideloading();
               errorMessage();
+            break;
+            case 404:
+              hideloading();
+            break;
+            case 413:
+              hideloading();
+              Swal.fire({ //get from sweetalert function
+                title: '413 ERROR Occur',
+                text: "413 Payload(file) too large",
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+              });
+            break;
+            default:
+              hideloading();
             break;
           }
         }
