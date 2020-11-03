@@ -44,7 +44,8 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                         </div>
-                                                        <input type="text" class="form-control" hidden placeholder="Customer Name English" value="{{$editlead[$i]['lead_id']}}"  name='lead_id' id="lead_id"  required>
+                                                        <input type="text" class="form-control" hidden  value="{{$editlead[$i]['lead_id']}}"  name='lead_id' id="lead_id"  required>
+                                                        <input type="text" class="form-control" hidden  value="{{$editlead[$i]['lead_number']}}"  name='lead_number' id="lead_number"  required>
                                                         <input type="text" class="form-control" placeholder="Customer Name English" value="{{$editlead[$i]['customer_name_en']}}"  name='company_en' id="company_en"  required>
                                                         <span class="invalid-feedback" role="alert" id="company_enError"> {{--span for alert--}}
                                                             <strong></strong>
@@ -85,7 +86,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                         </div>
-                                                        <input type="text" class="form-control" name="primary_phone"id="primary_phone" value="010453535" placeholder="Primary Phone" >
+                                                        <input type="text" class="form-control" name="primary_phone"id="primary_phone" value="01000000" placeholder="Primary Phone" >
                                                         <span class="invalid-feedback" role="alert" id="primary_phoneError"> {{--span for alert--}}
                                                             <strong></strong>
                                                         </span>
@@ -233,9 +234,30 @@
                                                 </div>
                                             </div>
                                         </div>  
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="current_speed">Status</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
+                                                        </div>
+                                                        <select class="form-control " name="status" id="status" >                                                  
+                                                            
+                                                            <option value="{{$editlead[$i]['status']}}"  {{$editlead[$i]['status']==true ? 'selected="selected"':''}}>Active</option>
+                                                            <option value="{{$editlead[$i]['status']}}"  {{$editlead[$i]['status']==false ? 'selected="selected"':''}}>Disable</option>                                                   
+                                                          
+                                                        </select>
+                                                        <span class="invalid-feedback" role="alert" id="statusError"> {{--span for alert--}}
+                                                            <strong></strong>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="col-md-12">
                                             <button type="button" class="btn btn-primary" id="frm_btn_sub_addlead" onclick="CrmSubmitFormFull('frm_CrmleadEdit','/lead/update','/lead','Update Successfully')">Update</button>
-                                            <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
+                                            <button type="button" class="btn btn-danger" onclick="go_to('/lead')">Cencel</button>
                                         </div>                                      
                             </div>  
                             

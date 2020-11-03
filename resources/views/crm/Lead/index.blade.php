@@ -58,13 +58,13 @@
                                                         <td>
                                                             <div class="row-12 form-inline">
                                                                 <div class="col-md-6">
-                                                                    <a href="javascript:void(0);" class="btn btn-block btn-danger  btn-sm branch" value="detaillead/{{$lead[$i]["lead_id"]}}" onclick="go_to('detaillead/{{$lead[$i]['lead_id']}}')">
-                                                                        <i class="fas fa-edit">  Lead</i>
+                                                                    <a href="javascript:void(0);" class="btn btn-block btn-danger  btn-sm branch" value="detaillead/{{$lead[$i]["lead_id"]}}" onclick="go_to('detaillead/{{$lead[$i]['lead_id']}}')" title="Edit Lead">
+                                                                        <i class="fas fa-edit">  </i>
                                                                     </a>  
                                                                 </div>
                                                                 <div class="col-md-6 ">
-                                                                    <a href="javascript:void(0);" class="btn btn-block btn-info btn-sm branch" value="branch/{{$lead[$i]["lead_id"]}}" onclick="go_to('branch/{{$lead[$i]['lead_id']}}')">
-                                                                        <i class="fas fa-code-branch">  Branch</i>
+                                                                    <a href="javascript:void(0);" class="btn btn-block btn-info btn-sm branch" value="branch/{{$lead[$i]["lead_id"]}}" onclick="go_to('branch/{{$lead[$i]['lead_id']}}')" title="Show Branch Of Lead">
+                                                                        <i class="fas fa-code-branch">  </i>
                                                                     </a>                      
                                                                 </div>
                                                             </div>

@@ -19,7 +19,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     //get lead detail
     Route::get('/getleadbyid/{id}','api\crm\LeadController@getleadbyid');
     // edit lead
-    Route::post('/editlead/{id}','api\crm\LeadController@editlead');
+    Route::post('/editlead','api\crm\LeadController@editlead');
     // get brand by lead id 
     Route::get('/getbranchbylead/{id}','api\crm\LeadController@getbranch_lead');
     // get branch by id 

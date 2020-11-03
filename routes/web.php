@@ -31,16 +31,19 @@ Route::get('/village', 'addressController@getvillage'); //getvillage
 // =========================CRM SYSTEM==========================
 // start lead and branch
 Route::get('/lead','crm\LeadController@getlead'); // get  all lead  show  in table
+Route::get('/addlead','crm\LeadController@lead'); // insert lead or branch (button)
 Route::get('/detaillead/{id}','crm\LeadController@getdetailtlead'); // get  show detail  lead
 Route::get('/editlead/{id}','crm\LeadController@editlead');// edit lead
+Route::post('/lead/update','crm\LeadController@updatelead');// Update lead
+
+
 Route::get('/branch/{id}','crm\LeadController@getbranch'); // get  all branch  show  in table by lead id
 Route::get('/detailbranch/{id}','crm\LeadController@getdetailbranch'); // get detail branch
 Route::get('/editbranch/{id}','crm\LeadController@editbranch');//  edit branch 
-Route::get('/addlead','crm\LeadController@lead'); // go to lead
-Route::post('/lead/store','crm\LeadController@StoreLead'); // Store lead
+
+Route::post('/lead/store','crm\LeadController@StoreLead'); // add  lead or branch
 Route::POST('/addleadsource','crm\LeadController@addleadsource'); //addlead source
 Route::POST('/addleadindustry','crm\LeadController@addleadindustry'); //add leadindustry
-Route::POST('/addlead','crm\LeadController@addlead'); //add leadindustry
 Route::post('/branch/update','crm\LeadController@updatebranch');// Update lead
 Route::post('/crm_leasdsource','crm\LeadController@savelead'); // save
 Route::get('/test_map', function(){

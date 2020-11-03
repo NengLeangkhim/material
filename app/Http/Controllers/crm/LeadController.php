@@ -19,9 +19,10 @@ class LeadController extends Controller
 
     // get lead by APi
     public function getlead(){
-        if(perms::check_perm_module('CRM_0205')){//module codes
+        if(perms::check_perm_module('CRM_020501')){//module codes
             $lead=ModelCrmLead::CrmGetLead();
             $result =json_decode($lead,true);
+            // dd($result);
             return view('crm.Lead.index',['lead'=>$result["data"]]);
             
         }else{
@@ -41,7 +42,7 @@ class LeadController extends Controller
     }
     // get branch show by API
     public function  getdetailbranch($id){
-        if(perms::check_perm_module('CRM_020506')){//module codes
+        if(perms::check_perm_module('CRM_021001')){//module codes
             $detail_branch=ModelCrmLead::CrmGetDetailBranch($id);
             $result =json_decode($detail_branch,true);
             // dd($result);
@@ -52,7 +53,7 @@ class LeadController extends Controller
     }
     // get lead show by API
     public function  getdetailtlead($id){
-        if(perms::check_perm_module('CRM_020506')){//module codes
+        if(perms::check_perm_module('CRM_020507')){//module codes
             $detail_lead=ModelCrmLead::CrmGetDetaillead($id);
             $result =json_decode($detail_lead,true);
             // dd($result);
@@ -63,7 +64,7 @@ class LeadController extends Controller
     }
     //edit lead 
     public function editlead($id){       
-        if(perms::check_perm_module('CRM_020506')){//module codes
+        if(perms::check_perm_module('CRM_020508')){//module codes
             $edit_lead=ModelCrmLead::CrmGetDetaillead($id);
             $result =json_decode($edit_lead,true);
             $lead_source=ModelCrmLead::CrmGetLeadSource();
@@ -74,6 +75,67 @@ class LeadController extends Controller
             return view('crm.Lead.editlead',['editlead'=>$result["data"],'companybranch'=>$companybranch,'lead_source'=>$lead_source,'lead_industry'=>$lead_industry,'currentisp'=>$isp]); 
         }else{
             return view('no_perms');
+        }
+    }
+    // update lead 
+    public function updatelead( Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+            }
+            $validator = \Validator::make($request->all(), [
+                'company_en' =>  [  'required'
+                                        ],
+                'company_kh' =>  [  'required'
+                                    ],
+                'primary_email' =>  [  'required',
+                                    Rule::unique('crm_lead','email')->ignore($request->lead_id)
+                                    ->where(function ($query) use ($request) {
+                                    return $query->where('is_deleted', 'f');})
+                                        ],
+                'primary_phone' =>  [  'required'
+                                        ],
+                'branch' =>  [  'required'
+                                        ],
+                'lead_source' =>  [  'required'
+                                        ],
+                'lead_industry' =>  [  'required'
+                                        ],
+                'status'       =>   [
+                                      'required'
+                                ],
+            ],
+            [
+                'company_en.required' => 'This Field is require !!',   //massage validator
+                'company_kh.required' => 'This Field is require !!',   //massage validator
+                'primary_email.required' => 'This Field is require !!',   //massage validator
+                'primary_phone.required' => 'This Field is require !!',   //massage validator
+                'branch.required' => 'This Field is require !!',   //massage validator
+                'lead_source.required' => 'This Field is require !!',   //massage validator
+                'lead_industry.required' => 'This Field is require !!',   //massage validator               
+                'status.required' => 'This Field is require !!',   //massage validator               
+                
+                ]
+            );
+        if ($validator->fails()) //check validator for fail
+        {
+            return response()->json(array(
+                'errors' => $validator->getMessageBag()->toArray() 
+            ));
+        }else{
+            if(perms::check_perm_module('CRM_020508')){//module code list 
+                $token = $_SESSION['token'];
+                $create_contact = Request::create('/api/editlead','POST',$request->all());
+                $create_contact->headers->set('Accept', 'application/json');
+                $create_contact->headers->set('Authorization', 'Bearer '.$token);
+                $res = app()->handle($create_contact);
+                $response = json_decode($res->getContent());
+                // return $res;
+                if($response->update=='success'){
+                    return response()->json(['success'=>'Record is successfully added']);
+                }
+            }else{
+                return view('no_perms');
+            }
         }
     }
     // add lead or branch
