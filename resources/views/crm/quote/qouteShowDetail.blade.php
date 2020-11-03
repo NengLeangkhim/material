@@ -33,9 +33,18 @@
                 </div>
                 <div class="col-6" >
                    <div class="row">
-                        <div class="col-8"></div>
-                        <div class="col-4" >
-                            <button type="button" ​value="/" class="btn btn-primary btn-block btn-md ">Convert To BSC</button>
+
+                        <div class="col-md-6 col-sm-6 " align="right">
+
+                            <div class="pr-2">
+                                <button type="button" class="btn btn-md btn-info" >Preview</button>
+                            </div>
+                            <div class="pr-2">
+                                <button type="button" class="btn btn-md btn-success" >PDF</button>
+                            </div>
+                        </div>
+                        <div class="col-4" align="right">
+                            <button type="button" ​value="" class="btn btn-primary btn-block btn-md ">Convert To BSC</button>
                         </div>
                    </div>
                 </div>

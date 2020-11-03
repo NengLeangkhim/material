@@ -175,8 +175,9 @@
             var sourceId = $('#select_source').val();
             var assignTo = $('#select_assign_to').val();
             var status = $('#select_status').val();
-            var from = $('#DetailLeadFrom').val()+'-01';
-            var to = $('#DetailLeadTo').val()+'-31';
+            var from = (new Date($('#DetailLeadFrom').val())).toISOString().substring(0, 10)
+            var to = new Date($('#DetailLeadTo').val());
+            to = (new Date(to.getUTCFullYear(), to.getMonth() + 1, 1)).toISOString().substring(0,10)
             $('#OrganizationTbl').dataTable().fnClearTable();
             $('#OrganizationTbl').dataTable().fnDraw();
             $('#OrganizationTbl').dataTable().fnDestroy();
