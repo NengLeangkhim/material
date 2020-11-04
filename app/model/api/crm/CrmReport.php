@@ -138,14 +138,12 @@ class CrmReport extends Model
      * @return mixed
      * @throws QueryException $e
      */
-    public function getLeadReportByStatus($fromDate = null, $toDate = null){
+    public function getLeadReportByStatus($fromDate = null, $toDate = null, $statusId = null){
         try {
-            $result = DB::select('
-                SELECT crm_lead_status_id, status_en, status_kh, count(*) AS total_lead
-                FROM view_crm_lead_report
-                '.(($fromDate == null && $toDate == null) ? ' ' : ' WHERE lead_detail_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ').'
-                GROUP BY crm_lead_status_id, status_en, status_kh
-            ');
+            $condition =
+                (($fromDate == null || $toDate == null) ? ' ' : ' WHERE lead_detail_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ')
+                .(($statusId == null || $statusId == '') ? ' ' : ''.(($fromDate == null || $toDate == null) ? ' WHERE ' : ' AND ').' crm_lead_status_id = '.$statusId);
+            $result = DB::select('SELECT crm_lead_status_id, status_en, status_kh, count(*) AS total_lead FROM view_crm_lead_report '.$condition.' GROUP BY crm_lead_status_id, status_en, status_kh');
         } catch(QueryException $e){
             throw $e;
         }
