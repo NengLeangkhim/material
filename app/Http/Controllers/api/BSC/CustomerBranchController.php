@@ -97,4 +97,22 @@ class CustomerBranchController extends Controller
     {
         //
     }
+    public function show_customer(Request $request)
+    {
+        $customers = DB::table('ma_customer')->get();
+        return $this->sendResponse($customers, 'Customer retrieved successfully.');
+    }
+    public function show_lead_branch_by_lead(Request $request, $id)
+    {
+        $lead_branchs = DB::table('crm_lead_branch')->where('crm_lead_id',$id)->get();
+        return $this->sendResponse($lead_branchs, 'Lead branch retrieved successfully.');
+    }
+    public function show_lead_branch_single(Request $request, $id)
+    {
+        $lead_branch = DB::table('crm_lead_branch')
+        ->select('crm_lead_branch.*','crm_lead_address.hom_en','crm_lead_address.home_kh','crm_lead_address.street_en','crm_lead_address.street_kh','crm_lead_address.latlg','crm_lead_address.gazetteer_code')
+        ->leftJoin('crm_lead_address','crm_lead_branch.crm_lead_address_id','=','crm_lead_address.id')
+        ->where('crm_lead_branch.id',$id)->get();
+        return $this->sendResponse($lead_branch, 'Lead branch retrieved successfully.');
+    }
 }
