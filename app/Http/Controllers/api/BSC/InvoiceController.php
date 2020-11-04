@@ -341,8 +341,7 @@ class InvoiceController extends Controller
                 ->select('crm_quote_branch_detail.*','ma_customer_branch.id as customer_branch_id','ma_customer_branch.branch as customer_branch_name')
                 ->leftJoin('crm_quote_branch','crm_quote_branch_detail.crm_quote_branch_id','=','crm_quote_branch.id')
                 ->leftJoin('crm_lead_branch','crm_quote_branch.crm_lead_branch_id','=','crm_lead_branch.id')
-                ->leftJoin('ma_customer','crm_lead_branch.crm_lead_id','=','ma_customer.crm_lead_id')
-                ->leftJoin('ma_customer_branch','ma_customer.id','=','ma_customer_branch.ma_customer_id')
+                ->leftJoin('ma_customer_branch','crm_lead_branch.id','=','ma_customer_branch.crm_lead_branch_id')
                 ->where([
                     ['crm_quote_branch_detail.crm_quote_branch_id','=',$quote_branch->id],
                     ['crm_quote_branch_detail.status','=','t'],
