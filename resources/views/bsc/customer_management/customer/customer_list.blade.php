@@ -32,7 +32,6 @@
                                     <th>Lead Number</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Phone</th>
                                     <th>Deposit</th>
                                     <th>Balance</th>
                                     <th>Invoice Balance</th>
@@ -47,14 +46,13 @@
                                         <td>{{ $item->lead_number }}</td>
                                         <td>{{ $item->customer_name }}</td>
                                         <td>{{ $item->lead_email }}</td>
-                                        <td>{{ $item->phone }}</td>
                                         <td>{{ $item->deposit }}</td>
                                         <td>{{ $item->balance }}</td>
                                         <td>{{ $item->invoice_balance }}</td>
                                         <td>{{ $item->vat_type }}</td>
                                         <td>{{ $item->vat_number }}</td>
                                         <td style="text-align-last: center">
-                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                            {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp; --}}
                                             <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
                                             {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
                                         </td>

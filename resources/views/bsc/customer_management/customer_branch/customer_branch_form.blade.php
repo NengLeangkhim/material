@@ -36,22 +36,22 @@
                                             </div>
                                             <select class="form-control select2" name="lead_name" id="lead_name" required onchange="myCustomer(this)">
                                                 <option selected hidden disabled>select item</option>
-                                                <option value="1">Ly Hong</option>
-                                                <option value="2">Chantha</option>
+                                                @foreach ($customers as $customer)
+                                                    <option value="{{ $customer->id }}" data-lead_id="{{ $customer->crm_lead_id }}">{{ $customer->name }}</option>
+                                                @endforeach
+
                                             </select>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Lead Branch</label>
+                                        <label for="exampleInputEmail1">Lead Branch<b class="color_label"> *</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-tumblr"></i></span>
                                             </div>
-                                            <select class="form-control select2" name="lead_branch" disabled id="lead_branch" onchange="myBranch(this)">
-                                                <option selected hidden disabled>select item</option>
-                                                <option>Phnom Penh</option>
-                                                <option>Takeo</option>
+                                            <select class="form-control select2" name="lead_branch"  id="lead_branch" onchange="myBranch(this)" required>
+
                                             </select>
                                         </div>
                                     </div>
@@ -102,32 +102,47 @@
         submit_form ('/bsc_customer_branch_insert','frm_customer_branch','bsc_customer_branch');
     });
 
-    // onclick on lead name
+    // onchange get lead branch by id
     function myCustomer(id)
     {
-        let customer_id=id.value;
-        if(customer_id){
-            $('#lead_branch').prop('disabled', false);
-        }
-        // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        //     $.ajax({
-        //         type:"POST",
-        //         url:'/bsc_customer_onchange',
-        //         data:{
-        //             _token: CSRF_TOKEN,
-        //             lead_id     : lead_id
-        //         },
-        //         dataType: "JSON",
-        //         success:function(data){
-        //             console.log(data);
-        //             $('#customer_name').val(data.customer_name_en);
-        //             $('#deposit').val(data.deposit);
-        //             $('#balance').val(data.balance);
-        //             $('#invoice_balance').val(data.invoice_balance);
-        //             $('#vat_type').val(data.vat_type);
-        //             $('#vat_number').val(data.vat_number);
-        //         }
-        //     });
+        let lead_id = $('select option:selected').attr('data-lead_id');
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type:"POST",
+                url:'/bsc_customer_branch_onchange',
+                data:{
+                    _token: CSRF_TOKEN,
+                    lead_id     : lead_id
+                },
+                dataType: "JSON",
+                success:function(data){
+                    let item='';
+                    $.each(data, function(i, value) {
+                        item+='<option value="'+value.id+'">'+value.name_en+'</option>';
+                    });
+                    let items='<option selected hidden disabled>select item</option>'+item;
+                    document.getElementById('lead_branch').innerHTML=items;
+                }
+            });
+    }
+
+    // onchange on lead branch
+    function myBranch(id)
+    {
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type:"POST",
+                url:'/bsc_customer_lead_branch_onchange',
+                data:{
+                    _token: CSRF_TOKEN,
+                    lead_branch_id     : id.value
+                },
+                dataType: "JSON",
+                success:function(data){
+                    $('#address').val(data.gazetteer_code);
+                    $('#branch_name').val(data.name_en);
+                }
+            });
     }
 </script>
 
