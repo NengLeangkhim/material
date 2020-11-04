@@ -860,13 +860,14 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::post('hrm_insert_update_employee', 'hrms\Employee\AllemployeeController@InsertUpdateEmployee');
         Route::get('hrm_delete_employee', 'hrms\Employee\AllemployeeController@DeleteEmployee');
         Route::get('hrm_detail_employee', 'hrms\Employee\AllemployeeController@EmployeeDetail');
-         Route::get('hrm_employee_leave', 'hrms\Employee\AllemployeeController@Employee_Leave');
+        Route::get('hrm_employee_leave', 'hrms\Employee\AllemployeeController@Employee_Leave');
+        Route::post('hrms_insert_update_employee','hrms\Employee\AllemployeeController@hrms_insert_update_employee');
     //End All Employee
 
     // Start Holiday
         Route::get('hrm_holiday', 'hrms\Employee\HolidayController@Holiday');
         Route::get('hrm_add_edit_holiday', 'hrms\Employee\HolidayController@AddAndEditHoliday');
-        Route::post('hrm_insert_update_holiday', 'hrms\Employee\HolidayController@InsertUpdateHoliday');
+        Route::post('hrm_insert_update_holiday', 'hrms\Employee\HolidayController@insert_update_holiday');
         Route::get('hrm_delete_holiday', 'hrms\Employee\HolidayController@DeleteHoliday');
         Route::get('hrm_export_holiday', 'ExportExcelController@ExortHoliday')->name('export_excel.excel');
         Route::get('hrm_holiday_calendar',function(){

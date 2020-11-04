@@ -673,19 +673,26 @@ function go_to(route){
         return;
     }
     showloading();
-    $(".content-wrapper").html('');
     $.ajax({
         type: 'GET',
         url:route,
         success:function(data){
-            $(".content-wrapper").show();
             $(".content-wrapper").html(data);
             hideloading();
         },
-        error:function(){
+        error:function(jqXHR){
           hideloading();
-          errorMessage();
           $(".content-wrapper").html(jerror());
+          if(jqXHR.status==404){
+            Swal.fire({ //get from sweetalert function
+                title: 'ERROR Occur',
+                text: "404 Link reuqested not found",
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            });
+          }
         }
      });
 }
@@ -728,14 +735,14 @@ function form_submit(form,route,goto){
             if(data=='error'){
                 sweetalert('error', 'Data has Problem');
             }else{
+                // sweetalert('success',this.responseText);
+                // alert(this.responseText);
+                go_to(goto);
                 Swal.fire(
                     'Success',
                       alert,
                     'success'
                   )
-                // sweetalert('success',this.responseText);
-                // alert(this.responseText);
-                go_to(goto);
             }
         }
     };

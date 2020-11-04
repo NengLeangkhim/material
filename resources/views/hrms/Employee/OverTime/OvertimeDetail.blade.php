@@ -67,7 +67,7 @@
                         <td>{{$item->approve}}</td>
                         <td>
                           <div class="row">
-                            <div class="col-md-4"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_modal_add_edit','modal_overtime',{{$item->id}})"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-4"><a href="javascript:;" onclick="hrms_modal_overtime({{$item->id}})"><i class="far fa-edit"></i></a></div>
                             {{-- <div class="col-md-4"><a href="javascrip:;"><i class="fas fa-info"></i></a></div> --}}
                             <div class="col-md-4"><a href="javascript:;" onclick="hrm_delete({{$item->id}},'hrm_delete_overtime','hrm_overtime','Overtime Delete Successfully')"><i class="far fa-trash-alt"></i></a></div>
                           </div>

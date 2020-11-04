@@ -36,11 +36,18 @@ class DepartmentAndPositionController extends Controller
     }
 
     // for add or update department
-    function AddEditDepartment(){
+    function AddEditDepartment(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if (perms::check_perm_module('HRM_090106')) {
+            $validation=\Validator::make($request->all(),[
+                'company_id'=>'required',
+                'department'=>'required'
+            ]);
+            if($validation->fails()){
+                return response()->json(['error'=>$validation->getMessageBag()->toArray()]);
+            }
             $userid = $_SESSION['userid'];
             $id=$_POST['id'];
             $company_id=$_POST['company_id'];
@@ -51,7 +58,7 @@ class DepartmentAndPositionController extends Controller
             }else{
                 $stm= DepartmentAndPosition::InsertDepartment($company_id,$department,$userid,$khName);  
             }
-            echo $stm;
+            return response()->json(['success'=>$stm]);
         } else {
             return view('noperms');
         }
@@ -93,11 +100,19 @@ class DepartmentAndPositionController extends Controller
     }
 
     // for add or update position
-    function AddAndEditPosition(){
+    function AddAndEditPosition(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if (perms::check_perm_module('HRM_090106')) {
+            $validation=\Validator::make($request->all(),[
+                'g'=>'required',
+                'position'=>'required'
+            ]);
+            if($validation->fails()){
+                return response()->json(['error'=>$validation->getMessageBag()->toArray()]);
+            }
+            return;
             $dp = new DepartmentAndPosition();
             $userid = $_SESSION['userid'];
             $id=$_POST['id'];
