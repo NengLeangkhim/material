@@ -111,6 +111,43 @@
                                            <input type="text" class="form-control" name="vat_number" id="vat_number" placeholder="Vat Number" readonly>
                                        </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Lead Branch<b class="color_label"> *</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fab fa-tumblr"></i></span>
+                                            </div>
+                                            <select class="form-control select2" name="lead_branch" id="lead_branch" required onchange="myCustomer(this)">
+                                                <option selected hidden disabled>select item</option>
+                                                {{-- @foreach ($customers as $customer)
+                                                    <option value="{{ $customer->id }}">{{ $customer->customer_name_en }}</option>
+                                                @endforeach --}}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Branch Name</label>
+                                        <div class="input-group">
+                                           <div class="input-group-prepend">
+                                               <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                           </div>
+                                           <input type="text" class="form-control" name="branch_name" id="branch_name" placeholder="Branch Name" readonly>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Address</label>
+                                        <div class="input-group">
+                                           <div class="input-group-prepend">
+                                               <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                           </div>
+                                           <input type="text" class="form-control" name="address" id="address" placeholder="Address" readonly>
+                                       </div>
+                                    </div>
                                 </div>
                             </div>
 

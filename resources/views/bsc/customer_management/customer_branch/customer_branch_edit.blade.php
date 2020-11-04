@@ -2,12 +2,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><span><i class="fas fa-user-plus"></i></span> Create Customer Branch</h1>
+                <h1><span><i class="fas fa-user-plus"></i></span>Update Customer Branch</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="" class="lead" ​value="lead">Customer Branch</a></li>
-                    <li class="breadcrumb-item active">New Customer Branch</li>
+                    <li class="breadcrumb-item active">Update Customer Branch</li>
                 </ol>
             </div>
         </div>
@@ -82,7 +82,7 @@
 
                             <br>
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary save" id="frm_btn_sub_add_customer_branch">Save</button>
+                                <button type="button" class="btn btn-primary save" id="frm_btn_sub_add_customer_branch">Update</button>
                                 <button type="button" class="btn btn-danger" onclick="go_to('bsc_customer_branch')">Cencel</button>
                             </div>
                         </div>

@@ -134,7 +134,23 @@ class CustomerController extends Controller
     //customer branch form
     public function customer_branch_form()
     {
-        return view('bsc.customer_management.customer_branch.customer_branch_form');
+        try{
+            return view('bsc.customer_management.customer_branch.customer_branch_form');
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
+        }
+    }
+
+    // customer edit form
+    public function customer_branch_edit()
+    {
+        try{
+            return view('bsc.customer_management.customer_branch.customer_branch_edit');
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
+        }
     }
 
     // view customer branch

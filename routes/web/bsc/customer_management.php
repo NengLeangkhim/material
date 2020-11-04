@@ -13,6 +13,7 @@ use PhpParser\Node\Stmt\TryCatch;
     // Customer Branch
         Route::get('bsc_customer_branch','bsc\CustomerController@customer_branch');
         Route::get('bsc_customer_branch_form','bsc\CustomerController@customer_branch_form');
+        Route::get('bsc_customer_branch_edit/{id}','bsc\CustomerController@customer_branch_edit');
         Route::get('customer_branch_detail/{id}','bsc\CustomerController@customer_branch_detail');
     // Customer Service
         Route::get('bsc_customer_service','bsc\CustomerController@customer_service');

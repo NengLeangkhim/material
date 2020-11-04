@@ -44,12 +44,12 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Customer Name<b class="color_label"> *</b></label>
+                                        <label for="exampleInputEmail1">Customer Name</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-tumblr"></i></span>
                                             </div>
-                                            <input class="form-control" type="text" id="customer_name" name="customer_name" placeholder="Customer Name" required>
+                                            <input class="form-control" type="text" id="customer_name" name="customer_name" placeholder="Customer Name" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -57,21 +57,21 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Deposit<b class="color_label"> *</b></label>
+                                        <label for="exampleInputEmail1">Deposit</label>
                                         <div class="input-group">
                                            <div class="input-group-prepend">
                                                <span class="input-group-text"><i class="fas fa-building"></i></span>
                                            </div>
-                                           <input type="text" class="form-control" name="deposit" id="deposit" placeholder="Deposit" required>
+                                           <input type="text" class="form-control" name="deposit" id="deposit" placeholder="Deposit" readonly>
                                        </div>
                                     </div>
                                     <div class="col-md-6">
-                                       <label for="exampleInputEmail1">Balance<b class="color_label"> *</b></label>
+                                       <label for="exampleInputEmail1">Balance</label>
                                        <div class="input-group">
                                           <div class="input-group-prepend">
                                               <span class="input-group-text"><i class="fas fa-building"></i></span>
                                           </div>
-                                          <input type="text" class="form-control" name="balance" id="balance" placeholder="Balance" required>
+                                          <input type="text" class="form-control" name="balance" id="balance" placeholder="Balance" readonly>
                                       </div>
                                    </div>
                                 </div>
@@ -80,21 +80,21 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Invoice Balance<b class="color_label"> *</b></label>
+                                        <label for="exampleInputEmail1">Invoice Balance</label>
                                         <div class="input-group">
                                            <div class="input-group-prepend">
                                                <span class="input-group-text"><i class="fas fa-building"></i></span>
                                            </div>
-                                           <input type="text" class="form-control" name="invoice_balance" id="invoice_balance" placeholder="Invoice Balance" required>
+                                           <input type="text" class="form-control" name="invoice_balance" id="invoice_balance" placeholder="Invoice Balance" readonly>
                                        </div>
                                     </div>
                                     <div class="col-md-6">
-                                       <label for="exampleInputEmail1">Vat Type<b class="color_label"> *</b></label>
+                                       <label for="exampleInputEmail1">Vat Type</label>
                                        <div class="input-group">
                                           <div class="input-group-prepend">
                                               <span class="input-group-text"><i class="fas fa-building"></i></span>
                                           </div>
-                                          <input type="text" class="form-control" name="vat_type" id="vat_type" placeholder="Vat Type" required>
+                                          <input type="text" class="form-control" name="vat_type" id="vat_type" placeholder="Vat Type" readonly>
                                       </div>
                                    </div>
                                 </div>
@@ -103,26 +103,61 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Vat Number<b class="color_label"> *</b></label>
+                                        <label for="exampleInputEmail1">Vat Number</label>
                                         <div class="input-group">
                                            <div class="input-group-prepend">
                                                <span class="input-group-text"><i class="fas fa-building"></i></span>
                                            </div>
-                                           <input type="text" class="form-control" name="vat_number" id="vat_number" placeholder="Vat Number" required>
+                                           <input type="text" class="form-control" name="vat_number" id="vat_number" placeholder="Vat Number" readonly>
                                        </div>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="status">Status</label>
+                                        <label for="exampleInputEmail1">Lead Branch<b class="color_label"> *</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fab fa-tumblr"></i></span>
+                                            </div>
+                                            <select class="form-control select2" name="lead_branch" id="lead_branch" required onchange="myCustomer(this)">
+                                                <option selected hidden disabled>select item</option>
+                                                {{-- @foreach ($customers as $customer)
+                                                    <option value="{{ $customer->id }}">{{ $customer->customer_name_en }}</option>
+                                                @endforeach --}}
+                                            </select>
+                                        </div>
+                                        {{-- <label for="status">Status</label>
                                         <div class="custom-control custom-switch">
                                             <input
-                                            {{-- @if ($ch_account_by_ids->status==true)
+                                            @if ($ch_account_by_ids->status==true)
                                                 checked
-                                            @endif --}}
+                                            @endif
                                                 type="checkbox" class="custom-control-input" id="status" name="status" value="1">
                                             <label class="custom-control-label" for="status"></label>
-                                        </div>
+                                        </div> --}}
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Branch Name</label>
+                                        <div class="input-group">
+                                           <div class="input-group-prepend">
+                                               <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                           </div>
+                                           <input type="text" class="form-control" name="branch_name" id="branch_name" placeholder="Branch Name" readonly>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <label for="exampleInputEmail1">Address</label>
+                                       <div class="input-group">
+                                          <div class="input-group-prepend">
+                                              <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                          </div>
+                                          <input type="text" class="form-control" name="address" id="address" placeholder="Address" readonly>
+                                      </div>
+                                   </div>
                                 </div>
                             </div>
 

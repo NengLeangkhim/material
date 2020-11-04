@@ -41,8 +41,11 @@
                                         <td>{{ $item->customer_name }}</td>
                                         <td>{{ $item->branch }}</td>
                                         <td>{{ $item->lead_address }}</td>
-                                        <td>
-                                            <a id="icon_margin_auto" href="#" class="btn btn-block btn-info btn-sm detail" onclick="go_to('customer_branch_detail/{{ $item->id }}')"><i class="fas fa-info-circle"></i></a>
+                                        <td style="text-align-last: center">
+                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_customer_branch_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                            <a title="View Detail" id="icon_margin_auto" href="#" class="detail" onclick="go_to('customer_branch_detail/{{ $item->id }}')"><i class="fas fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
+                                            <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                            {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
                                         </td>
                                     </tr>
                                 @endforeach
