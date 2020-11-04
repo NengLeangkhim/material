@@ -19,7 +19,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Employee Name <span class="text-danger">*</span></label>
-                    <select name="emName" id="emName" class="form-control" required>
+                    <select name="emName" id="emName" class="form-control" required >
                       <option value="" hidden></option>
                       @php
                           if(isset($data[1])){
@@ -44,7 +44,7 @@
                   <!-- /.form-group -->
                   <div class="form-group">
                     <label>Overtime Date <span class="text-danger">*</span></label>
-                    <input type="date" class="form-control" id="otDate" name="otDate" value="@php if(isset($data[1])){echo $data[1][0]->overtime_date;} @endphp" required>
+                    <input type="date" class="form-control" id="otDate" name="otDate" value="@php if(isset($data[1])){echo date('m-d-Y', strtotime($data[1][0]->overtime_date));} @endphp" required>
                   </div>
                   <!-- /.form-group -->
                 </div>
