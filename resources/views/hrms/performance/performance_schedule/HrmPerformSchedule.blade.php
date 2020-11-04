@@ -29,15 +29,21 @@
                </div>
                <!-- /.card-header -->
                <div class="card-body">
-                    <div id='hrm_calendar_schedule'>
+                    {{-- <div id='hrm_calendar_schedule'>
 
-                    </div>
-                    <div class="table-responsive" style="margin-top: 15px">
+                    </div> --}}
+                    <div class="table-responsive" style="/* margin-top: 15px */">
                         <table class="table table-bordered display nowrap" style="width: 100%" id="tbl_schedule_staff">
                             <thead>                  
                               <tr>
-                                <th scope="col">#</th>
+                                {{-- <th scope="col">#</th>
                                 <th scope="col">Staff Name</th>
+                                <th scope="col">Plan Name</th>
+                                <th scope="col">Date From-To</th>
+                                <th scope="col">Create Date</th>
+                                <th scope="col">Create By</th>
+                                <th scope="col">Action</th> --}}
+                                <th scope="col">#</th>
                                 <th scope="col">Plan Name</th>
                                 <th scope="col">Date From-To</th>
                                 <th scope="col">Create Date</th>

@@ -50,7 +50,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="plan_name">Parent Plan Detail<span class="text-danger"></span></label>
-                                <select class="form-control" id="plan_detail_parent" name="plan_detail_parent">
+                                <select class="form-control select2" id="plan_detail_parent" name="plan_detail_parent">
                                     <option value="">Select Parent</option>
                                     <?php 
                                     function buildTree(Array $data, $parent = 0) {
@@ -153,5 +153,6 @@
           format: 'YYYY-MM-DD HH:mm',
           sideBySide: true,
         });
+        $('.select2').select2();
       });
     </script>

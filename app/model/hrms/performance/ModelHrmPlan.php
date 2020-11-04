@@ -44,6 +44,18 @@ class ModelHrmPlan extends Model
        ->where('id','=',$id)
        ->get(); 
       }
+       // ===== Function get data for plan ======//
+       public static function hrm_get_plan_staff($id,$userid){
+        return  DB::table('hr_performance_schedule as ps')
+      ->select('p.*')
+      ->join('hr_performance_plan_detail as pd','ps.hr_performance_plan_detail_id','=','pd.id')
+      ->join('hr_performance_plan as p','pd.hr_performance_plan_id','=','p.id')
+      ->where([
+              ['p.id','=',$id],
+              ['ps.ma_user_id','=',$userid]
+              ])
+      ->get(); 
+     }
       // ===== Function get data for plan for each user ======//
       public static function hrm_get_plan_detial_user($userid){
          return  DB::table('hr_performance_plan')

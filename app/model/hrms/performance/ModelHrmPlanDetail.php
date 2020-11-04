@@ -47,6 +47,17 @@ class ModelHrmPlanDetail extends Model
       ])
       ->get(); 
     }
+    // ===== Function get data for plan detail parent Staff ======//
+    public static function hrm_get_plan_detail_staff($id,$userid){
+        return  DB::table('hr_performance_schedule as ps')
+        ->select('pd.*')
+        ->join('hr_performance_plan_detail as pd','ps.hr_performance_plan_detail_id','=','pd.id')
+        ->where([
+                ['pd.hr_performance_plan_id','=',$id],
+                ['ps.ma_user_id','=',$userid]
+                ])
+        ->get();  
+    }
     // ===== Function get data for plan detail update ======//
     public static function hrm_get_plan_detail_update($id){
         return  DB::table('hr_performance_plan_detail')

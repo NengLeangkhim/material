@@ -682,6 +682,9 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// calendar show schedule
     Route::get('hrm_performance_staff_schedule/calendar','hrms\performance\HrmPerformScheduleController@HrmCalendarPerformSchedule');
+    
+    /// List Schedule
+    Route::get('hrm_performance_staff_schedule/list','hrms\performance\HrmPerformScheduleController@HrmListPerformSchedule');
 ///////Performance Staff Follow Up
 
     /// index performance Staff Follow Up

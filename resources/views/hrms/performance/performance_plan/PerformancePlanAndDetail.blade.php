@@ -19,9 +19,9 @@
                                 <li class="nav-item">
                                 <a class="nav-link active" id="active_plan" data-toggle="tab" onclick="view_table_plan()" href="javascript:void(0);">Plan</a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" onclick="view_table_plan_detail()" href="javascript:void(0);">Plan Detail</a>
-                                </li>
+                                </li> --}}
                             </ul>
                     </div>
                     <div class="table-responsive" id="table_show_plan" style="padding-top:10px;">
