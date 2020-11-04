@@ -132,7 +132,7 @@ class HrmPerformReportController extends Controller
 
 
 
-
+    // function to get plan & plan detail to search plan report
     public static function hrm_perform_report_plan_planDetail()
     {
         if(isset($_GET['date_from']) && isset($_GET['date_to'])){
@@ -147,7 +147,11 @@ class HrmPerformReportController extends Controller
             if($_GET['date_to'] == ''){
                 $date_to = date('Y-m-d H:i:s');
             }
-            echo $date_from.'---'.$date_to;
+            $planReport = ModelHrmPerformReport::getPlanCreated($date_from,$date_to);
+            // dd($data);
+            return view('hrms/performance/performance_report/showReportPlan',compact('planReport'));
+
+
         }
 
     }

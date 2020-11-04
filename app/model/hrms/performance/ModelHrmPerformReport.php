@@ -29,6 +29,9 @@ class ModelHrmPerformReport extends Model
      }
 
 
+
+
+    // function to get all plan was created by date
     public static function getPlanCreated($dateFrom,$dateTo){
             try {
                 $r = DB::table('hr_performance_plan as perPlan')

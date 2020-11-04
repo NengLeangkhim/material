@@ -1793,11 +1793,11 @@ function ReportPerformance(){
             success:function(data)
             {
                 console.log(data);
-                // $('#tblShowTableSearch').html(data);
+                $('#tblShowTableSearch').html(data);
 
-                // $('#tbl_reportPlanPerformance').DataTable({
-                //     'responsive': true,
-                // });
+                $('#tbl_reportPlanPerformance').DataTable({
+                    'responsive': true,
+                });
 
             }
         });
