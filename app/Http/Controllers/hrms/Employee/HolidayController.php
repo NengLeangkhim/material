@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\perms;
 use App\model\hrms\employee\Employee;
+use Illuminate\Validation\Rule;
 
 class HolidayController extends Controller
 {
@@ -47,32 +48,45 @@ class HolidayController extends Controller
     }
 
     // Insert or Update Holiday
-    function InsertUpdateHoliday(){
+    function insert_update_holiday(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if (perms::check_perm_module('HRM_090102')) {
-            $em=new Holiday();
-            $userid = $_SESSION['userid'];
-            $title=$_POST['title'];
-            $kh_title=$_POST['khmerTitle'];
-            $start_date=$_POST['startDate'];
-            $end_date=$_POST['endDate'];
-            $description=$_POST['description'];
-            $date=date('Y-m-d');
-            $id=$_POST['id'];
-            if($id>0){
-                $stm=$em->UpdateHoliday($id,$userid,$title,$kh_title,$date,$description,$start_date,$end_date);
-            }else{
-                $stm = $em->InsertHoliday($title, $kh_title, $date, $description, $start_date, $end_date, $userid);
+            $validation=\Validator::make($request->all(),[
+                'title'=>'required',
+                'startDate'=>'required','date',
+                'endDate'=>'required','date'
+            ]);
+            if($validation->fails()){
+                return response()->json(['error' => $validation->getMessageBag()->toArray()]);
             }
-            echo $stm;
+            $userid = $_SESSION['userid'];
+            $title=$request->title;
+            $kh_title=$request->khmerTitle;
+            $start_date=$request->startDate;
+            $end_date=$request->endDate;
+            $description=$request->description;
+            $date=date('Y-m-d');
+            $id=$request->id;
+            if($id>0){
+
+                $stm=Holiday::UpdateHoliday($id,$userid,$title,$kh_title,$date,$description,$start_date,$end_date);
+                if($stm==1){
+                    return response()->json(['success'=>'Holiday is updated !']);
+                }
+            }else{
+                $stm = Holiday::InsertHoliday($title, $kh_title, $date, $description, $start_date, $end_date, $userid);
+                if($stm==1){
+                    return response()->json(['success'=>'Holiday is inserted !']);
+                }
+            }
+            return response()->json(['error'=>'Data error']);
         } else {
             return view('noperms');
         }
     }
-
-
+    
 
     // fouction for delete holiday
     function DeleteHoliday(){

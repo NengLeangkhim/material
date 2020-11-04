@@ -1,3 +1,12 @@
+// Notification
+function hrms_notification(notification){
+    Swal.fire(
+        notification,
+        '',
+        'success'
+    )
+}
+
 // Export Data from database to Excel
     function HRMS_ExportHoliday(){
         if(check_session()){
@@ -96,7 +105,7 @@ function ShowPassword(){
 }
 // All Employee
     // Add modal Employee in View
-        function HRM_AddEditEmployee(id=-1){
+        function hrms_modal_add_edit_employee(id=-1){
             if(check_session()){
                 return;
             }
@@ -110,11 +119,59 @@ function ShowPassword(){
                 success: function (data) {
                     document.getElementById('modal').innerHTML=data;
                     $('#modal_employee').modal('show');
+                    $("#emDepartment").select2();
+                    $("#emPosition").select2();
+                    date();
                 }
             });
         }
+        // insert or Update employee
+        function hrms_insert_update_employee(){
+            if(check_session()){return;}
+            var form_element=document.getElementById('fm-employee');
+            var form_data = new FormData(form_element);
+            var request = new XMLHttpRequest();
+            request.open("POST","hrms_insert_update_employee");
+            request.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200){
+                    console.log(this.responseText);
+                    data=JSON.parse(this.responseText);
+                    if($.isEmptyObject(data.error)){
+                        setTimeout(function () { go_to('hrm_allemployee'); }, 300);
+                        hrms_notification(data.success);
+                        $('#modal_employee').modal('hide');
+                    }else{
+                        var $inputs = $('#fm-employee :input,select,number');
+                        $inputs.each(function (index){
+                            i=0;
+                            idname=$(this).attr('id');
+                            $.each(data.error, function(key,value){
+                                if(idname==key){
+                                    i++;
+                                }
+                                if(i==0){
+                                    if(idname=='emEmail'){
+                                        $('#email_unique').addClass('d-none');
+                                    }
+                                    $('#'+idname).removeClass('is-invalid','d-none');
+                                }else{
+                                    if(idname=='emEmail'){
+                                        $('#email_unique').removeClass('d-none');
+                                    }
+                                    $('#'+idname).addClass('is-invalid');
+                                }
+                            })
+                        });
+                    }
+
+                }
+            }
+            request.send(form_data);
+        }
 
     // End Employee
+
+
 
     // Start Holiday
         // Add Modal Holiday to view
@@ -134,6 +191,33 @@ function ShowPassword(){
                     $('#modal_holiday').modal('show');
                 }
             });
+        }
+
+
+        function hrms_insert_update_holiday(){
+            if(check_session()){return;}
+            var form_element=document.getElementById('fm_holiday');
+            var form_data = new FormData(form_element);
+            var request = new XMLHttpRequest();
+            request.open("POST","hrm_insert_update_holiday");
+            request.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200){
+                    console.log(this.responseText);
+                    data=JSON.parse(this.responseText);
+                    if($.isEmptyObject(data.error)){
+                        setTimeout(function () { go_to('hrm_holiday'); }, 300);
+                        hrms_notification(data.success);
+                        // alert(data.success);
+                        $('#modal_holiday').modal('hide');
+                    }else{
+                            $.each(data.error, function(key,value){
+                                $('#'+key).addClass('is-invalid');
+                            });
+                    }
+
+                }
+            }
+            request.send(form_data);
         }
     // End Holiday
     //  Attendance
@@ -205,6 +289,50 @@ function ShowPassword(){
         }
     // End Attendance
    // Overtime
+        function hrms_modal_overtime(id=-1){
+            if(check_session()){return;}
+            $.ajax({
+                type: 'GET',
+                url: 'hrm_modal_add_edit',
+                data: {
+                    _token: '<?php echo csrf_token() ?>',
+                    id: id
+                },
+                success: function (data) {
+                    document.getElementById('modal').innerHTML = data;
+                    $('#modal_overtime').modal('show');
+                    time();
+                    date();
+                    $('#emName').select2();
+                }
+            });
+        }
+
+        function hrms_insert_update_overtime(){
+            if(check_session()){return;}
+            var form_element=document.getElementById('fm_holiday');
+            var form_data = new FormData(form_element);
+            var request = new XMLHttpRequest();
+            request.open("POST","hrm_insert_update_overtime");
+            request.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200){
+                    console.log(this.responseText);
+                    data=JSON.parse(this.responseText);
+                    if($.isEmptyObject(data.error)){
+                        setTimeout(function () { go_to('hrm_overtime'); }, 300);
+                        hrms_notification(data.success);
+                        // alert(data.success);
+                        $('#modal_overtime').modal('hide');
+                    }else{
+                            $.each(data.error, function(key,value){
+                                $('#'+key).addClass('is-invalid');
+                            });
+                    }
+
+                }
+            }
+            request.send(form_data);
+        }
         function OvertimeDetail(){
             if(check_session()){
                 return;
@@ -228,20 +356,117 @@ function ShowPassword(){
    // End Overtime
 // End Employee
 // Training
-    
-    function hrm_chechEmployee_training(){
-        var countchecked = $("table input[type=checkbox]:checked").length;
-        if(countchecked>0){
-            submit_form ('hrm_insert_update_traininglist','fm_training_list','hrm_traininglist','modal_traininglist');
-        }else{
-            alert('Please check employee');
+    function hrms_modal_training(ids=-1){
+        if(check_session()){
+            return;
         }
-        
+        $.ajax({
+            type: 'GET',
+            url: 'hrm_modal_traininglist',
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                id: ids
+            },
+            async:false,
+            success: function (data) {
+                document.getElementById('modal').innerHTML = data;
+                $('#modal_training_list').modal('show');
+                $('#enddate').datetimepicker({
+                    format: 'YYYY-MM-D HH:mm',
+                    sideBySide: true,
+                });
+                $('#startdate').datetimepicker({
+                    format: 'YYYY-MM-D HH:mm',
+                    sideBySide: true,
+                });
+            }
+        });
     }
 
-function hrm_show_em_table(){
+    function hrms_insert_update_training_list(){
+            if(check_session()){return;}
+            var form_element=document.getElementById('fm_training_list');
+            var form_data = new FormData(form_element);
+            var request = new XMLHttpRequest();
+            request.open("POST","hrm_insert_update_traininglist");
+            request.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200){
+                    console.log(this.responseText);
+                    if(this.responseText=='em'){
+                        $('#employee_checked').removeClass('d-none');
+                        return;
+                    }
+                    data=JSON.parse(this.responseText);
+                    if($.isEmptyObject(data.error)){
+                        setTimeout(function () { go_to('hrm_traininglist'); }, 300);
+                        hrms_notification(data.success);
+                        // alert(data.success);
+                        $('#modal_training_list').modal('hide');
+                    }else{
+                            $.each(data.error, function(key,value){
+                                $('#'+key).addClass('is-invalid');
+                            });
+                    }
 
-}
+                }
+            }
+            request.send(form_data);
+    }
+
+
+    function hrms_insert_update_trainer(){
+        if(check_session()){return;}
+        var form_element=document.getElementById('fm_trainer');
+        var form_data = new FormData(form_element);
+        var request = new XMLHttpRequest();
+        request.open("POST","hrm_add_edit_trainer");
+        request.onreadystatechange=function(){
+            if(this.readyState==4 && this.status==200){
+                console.log(this.responseText);
+                data=JSON.parse(this.responseText);
+                if($.isEmptyObject(data.error)){
+                    setTimeout(function () { go_to('hrm_trainer'); }, 300);
+                    hrms_notification(data.success);
+                    // alert(data.success);
+                    $('#modal_trainer').modal('hide');
+                }else{
+                    $.each(data.error, function(key,value){
+                        $('#'+key).addClass('is-invalid');
+                    });
+                }
+            }
+        }
+        request.send(form_data);
+    }
+
+
+    function hrms_insert_update_training_course(){
+        if(check_session()){return;}
+        var form_element=document.getElementById('fm_trainingType');
+        var form_data = new FormData(form_element);
+        var request = new XMLHttpRequest();
+        request.open("POST","hrm_add_edit_trainingtype");
+        request.onreadystatechange=function(){
+            if(this.readyState==4 && this.status==200){
+                console.log(this.responseText);
+                data=JSON.parse(this.responseText);
+                if($.isEmptyObject(data.error)){
+                    setTimeout(function () { go_to('hrm_trainingtype'); }, 300);
+                    hrms_notification(data.success);
+                    // alert(data.success);
+                    $('#modal_trainingType').modal('hide');
+                }else{
+                    $.each(data.error, function(key,value){
+                        $('#'+key).addClass('is-invalid');
+                    });
+                }
+            }
+        }
+        request.send(form_data);
+    }
+
+
+
 function hrm_training_checkAll(ele) {
     var checkboxes = document.getElementsByTagName('input');
     if (ele.checked) {
@@ -259,26 +484,59 @@ function hrm_training_checkAll(ele) {
         }
     }
 }
-
-
-// function HRM_CheckStaffTrain(e,trainid){
-//     if(e.checked==false){
-//         // alert(e.value);
-//         $.ajax({
-//             type: 'GET',
-//             url: '/hrm_delete_trainingstaff',
-//             data: {
-//                 _token: '<?php echo csrf_token() ?>',
-//                 staffid: e.value,
-//                 trainid: trainid
-//             },
-//             success: function (data) {
-//                 document.getElementById('otDetail').innerHTML = data;
-//             }
-//         });
-//     }
-// }
 // End Training
+
+// Department and Position
+    function hrms_insert_update_department(){
+        if(check_session()){return;}
+        var form_element=document.getElementById('fm_department');
+        var form_data = new FormData(form_element);
+        var request = new XMLHttpRequest();
+        request.open("POST","hrm_add_edit_department");
+        request.onreadystatechange=function(){
+            if(this.readyState==4 && this.status==200){
+                console.log(this.responseText);
+                data=JSON.parse(this.responseText);
+                if($.isEmptyObject(data.error)){
+                    setTimeout(function () { go_to('hrm_department'); }, 300);
+                    hrms_notification(data.success);
+                    // alert(data.success);
+                    $('#modal_department').modal('hide');
+                }else{
+                    $.each(data.error, function(key,value){
+                        $('#'+key).addClass('is-invalid');
+                    });
+                }
+            }
+        }
+        request.send(form_data);
+    }
+
+    function hrms_insert_update_position(){
+        if(check_session()){return;}
+        var form_element=document.getElementById('fm_position');
+        var form_data = new FormData(form_element);
+        var request = new XMLHttpRequest();
+        request.open("POST","hrm_add_edit_position");
+        request.onreadystatechange=function(){
+            if(this.readyState==4 && this.status==200){
+                console.log(this.responseText);
+                data=JSON.parse(this.responseText);
+                if($.isEmptyObject(data.error)){
+                    setTimeout(function () { go_to('hrm_department'); }, 300);
+                    hrms_notification(data.success);
+                    // alert(data.success);
+                    $('#"modal_position').modal('hide');
+                }else{
+                    $.each(data.error, function(key,value){
+                        $('#'+key).addClass('is-invalid');
+                    });
+                }
+            }
+        }
+        request.send(form_data);
+    }
+// End Department and Position
 // Payroll
     function PrintDiv(id){
         var divToPrint = document.getElementById(id);

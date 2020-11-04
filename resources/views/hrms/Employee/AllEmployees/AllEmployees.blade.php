@@ -7,7 +7,7 @@
               <div class="card-header">
                 <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Employees</strong></h1>
                 <div class="col-md-12 text-right">
-                    <a href="javascript:;" id="btn_add_employee" class="btn bg-turbo-color" onclick="HRM_AddEditEmployee()"><i class="fas fa-plus"></i> Add Employee</a>
+                    <a href="javascript:;" id="btn_add_employee" class="btn bg-turbo-color" onclick="hrms_modal_add_edit_employee()"><i class="fas fa-plus"></i> Add Employee</a>
                     {{-- <a href="javascript:;" id="btn_add_employee" class="btn bg-turbo-color"><i class="fas fa-plus"></i> Add Employee</a> --}}
                 </div>
               </div>
@@ -47,7 +47,7 @@
                       <td style="padding-top:37px ">{{ $e->position }}</td>
                         <td style="padding-top:37px ">
                           <div class="row">
-                            <div class="col-md-4"><a href="javascript:;" onclick="HRM_AddEditEmployee({{$e->id}})"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-4"><a href="javascript:;" onclick="hrms_modal_add_edit_employee({{$e->id}})"><i class="far fa-edit"></i></a></div>
                             <div class="col-md-4"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_detail_employee','modal_employee_detail',{{$e->id}})"><i class="fas fa-info"></i></a></div>
                             <div class="col-md-4"><a href="javascript:;"><i class="far fa-trash-alt" onclick="hrm_delete_data({{$e->id}},'hrm_delete_employee','hrm_allemployee','Employee Deleted Succseefully !','HRM_09010103')"></i></a></div>
                           </div>

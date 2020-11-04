@@ -164,8 +164,24 @@ jQuery.fn.center = function () {
 }
 
 function showloading(){
-  $("#moLoading").center();
-  $("#moLoadingdiv").show();
+  backdrop=document.getElementById('moLoading');
+  if(backdrop){
+    // $('<div class="modal-backdrop"><div id="moLoading"><center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center></div></div>').appendTo(document.body);
+    // $("#moLoading").center();
+    // $("#moLoading").show();
+  }else{
+    $('<div id="moLoadingdiv"><div id="moLoading"><center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Loading Please wait...</label></center></div></div>').appendTo(document.body);
+    $("#moLoadingdiv").css({"position": "fixed",
+     "top": "0",
+     "left": "0",
+     "z-index": "99999",
+     "width": "100vw",
+     "height": "100vh",
+     "background-color": "rgba(255, 255, 255, 0.5)",
+    });
+    $("#moLoading").center();
+    $("#moLoadingdiv").show();
+  }
 }
 function hideloading(){
   $("#moLoadingdiv").hide();

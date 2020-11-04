@@ -28,11 +28,12 @@ class AttendanceController extends Controller
             // echo $date;
             // $date= '2020-07-28';
             if($att->CheckHoliday($date)==1 || $att->CheckHoliday($date)==2){
-                $a="Holiday";
+                return '<center><h1>Holiday !!</h1></center>';
             }else{
                 $a = $att->AttendanceToday($allem,$date);
+                return view('hrms/Employee/Attendance/Attendance')->with('attendance',$a);
             }
-            return view('hrms/Employee/Attendance/Attendance')->with('attendance',$a);
+            
         } else {
             return view('noperms');
         }
