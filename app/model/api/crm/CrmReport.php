@@ -343,7 +343,7 @@ class CrmReport extends Model
 
     public function getContactDetail($fromDate = null, $toDate = null){
         try{
-            $condition = 'WHERE create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $condition = ($fromDate == null || $toDate == null ) ? '' : 'WHERE create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
             $result = DB::select('SELECT * FROM crm_lead_contact '.$condition.' ORDER BY create_date DESC');
         } catch(QueryException $e){
             throw $e;
