@@ -22,40 +22,33 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Company Name <span class="text-danger">*</span></label>
-                    <select id="" class="form-control" name="company_id">
-                      @php
-                          $f1='';
-                            $f2='';
-                      @endphp
+                    <select id="company_id" class="form-control" name="company_id" required>
+                      <option value="" hidden></option>
                       @foreach ($data[0] as $c)
                         @php
-                            
                             if(isset($data[1])){
                                 if($data[1][0]->ma_company_id==$c->id){
-                                $f1=$f1.'<option value="'.$c->id.'">'.$c->name.'</option>';
+                                echo '<option selected value="'.$c->id.'">'.$c->name.'</option>';
                               }else {
-                                $f2=$f2.'<option value="'.$c->id.'">'.$c->name.'</option>';
+                                echo '<option value="'.$c->id.'">'.$c->name.'</option>';
                               }
                             }else {
-                              $f1=$f1.'<option value="'.$c->id.'">'.$c->name.'</option>';
+                              echo '<option value="'.$c->id.'">'.$c->name.'</option>';
                             }
                             
                         @endphp
                         
                       @endforeach
-                      @php
-                          echo $f1.$f2;
-                      @endphp
                       
                     </select>
                   </div>
                   <!-- /.form-group -->
                   <div class="form-group">
                     <label>Department Name<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="department" value="@php if(isset($data[1])){echo $data[1][0]->name;} @endphp">
+                    <input type="text" class="form-control" id="department" name="department" value="@php if(isset($data[1])){echo $data[1][0]->name;} @endphp">
                   </div>
                   <div class="form-group">
-                    <label>Khmer Name<span class="text-danger">*</span></label>
+                    <label>Khmer Name</label>
                     <input type="text" class="form-control" name="khName" value="@php if(isset($data[1])){echo $data[1][0]->name_kh;} @endphp">
                   </div>
                   <!-- /.form-group -->
@@ -63,7 +56,7 @@
                 <!-- /.col -->
                 <div class="col-md-12 text-right">
                   <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                  <button class="btn bg-turbo-color" data-dismiss="modal" onclick="submit_form ('hrm_add_edit_department','fm_department','hrm_department')">Save</button>
+                  <button class="btn bg-turbo-color" onclick="hrms_insert_update_department()">Save</button>
                 </div>
               </div>
             </form>

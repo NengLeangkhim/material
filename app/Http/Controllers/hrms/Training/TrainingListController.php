@@ -53,38 +53,50 @@ class TrainingListController extends Controller
         
     }
 
-    function InsertUpdateTrainingList(){
+    function InsertUpdateTrainingList(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if (perms::check_perm_module('HRM_090501')) {
+            $validation=\Validator::make($request->all(),[
+                'trainingtype'=>'required',
+                'trainer'=>'required',
+                'startdate'=>'required','date',
+                'enddate'=>'required','date'
+            ]);
+            if($validation->fails()){
+                return response()->json(['error' => $validation->getMessageBag()->toArray()]);
+            }
+            $staff=array();
+            if(isset($request->check)) {
+                $staff = $request->check;
+            }else{
+                return 'em';
+            }
             $id=$_POST['id'];
             $userid = $_SESSION['userid'];
-            $trainingType=$_POST['trainingtype'];
-            $trainer=$_POST['trainer'];
-            $startdate=$_POST['startdate'];
-            $enddate=$_POST['enddate'];
+            $trainingType=$request->trainingtype;
+            $trainer=$request->trainer;
+            $startdate=$request->startdate;
+            $enddate=$request->enddate;
             $filename = $_FILES['document']['name'];
             $file= $_FILES['document']['tmp_name'];
-            $description=$_POST['description'];
-            $namefile=$_POST['namefile'];
-            if(isset($_POST['schet_status'])){
-                $chech_status=$_POST['schet_status'];
+            $description=$request->description;
+            $namefile=$request->namefile;
+            if(isset($request->schet_status)){
+                $chech_status=$request->schet_status;
             }else{
                 $chech_status='t';
-            }
-            
-            $staff=array();
-            if(isset($_POST['check'])) {
-                $staff = $_POST['check'];
             }
             $trainList = new TrainingList();
             if($id>0){
                 $stm=$trainList->UpdateTrainingList($filename,$file,$trainingType,$startdate,$enddate,$description,$chech_status,$userid,$trainer,$id,$namefile,$staff);
+                return response()->json(['success'=>'Training Schedule is updated !']);
             }else{
                 $stm=$trainList->InsertTrainingList($filename, $file, $trainingType, $startdate, $enddate, $description,$chech_status, $userid, $trainer,$staff);
+                return response()->json(['success'=>'Training Schedule is inserted !']);
             }
-            echo $stm;
+            
         } else {
             return view('noperms');
         }

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\model\hrms\employee\Employee;
 use App\model\hrms\employee\DepartmentAndPosition;
 use PhpParser\Node\Expr\Print_;
+use Illuminate\Validation\Rule;
 
 class AllemployeeController extends Controller
 {
@@ -46,8 +47,6 @@ class AllemployeeController extends Controller
                     $data[1]=Employee::EmployeeOnRow($id);
                     return view('hrms/Employee/AllEmployees/AddAndEditEmployee')->with('data', $data);
                 } else {
-                    $data[4]=Employee::Max_Id_Number();
-                    print_r($data[4]);
                     return view('hrms/Employee/AllEmployees/AddAndEditEmployee')->with('data', $data);
                 }
             }
@@ -182,5 +181,105 @@ class AllemployeeController extends Controller
         }else{
             return view('no_perms');
         }
+    }
+
+
+    // test insert employee with validation
+    function hrms_insert_update_employee(Request $request){
+         
+        $validation=\Validator::make($request->all(),[
+            'emFirstName'=>'required',
+            'emLastName'=>'required',
+            'emFirstNameKh'=>'required',
+            'emLastNameKh'=>'required',
+            'emIdNumber'=>'required',
+            'emDateOfBirth'=>['required','date'],
+            'emJoinDate'=>['required','date'],
+            'emTelephone'=>['required'],
+            'inputsalary'=>['required'],
+            'emDepartment'=>'required',
+            'emPosition'=>'required',
+            'emEmail'=>['required','email',Rule::unique('ma_user','email')->ignore($request->emid)],
+            'emChildren'=>['required'],
+            'ivillage'=>'required',
+            'icommune'=>'required',
+            'idistrict'=>'required',
+            'icity'=>'required'
+            ]
+        );
+        if($validation->fails()){
+            return response()->json(['error' => $validation->getMessageBag()->toArray()]);
+        }
+        
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userid = $_SESSION['userid'];
+        $id=$request->emid;
+        $firstName_en = $request->emFirstName;
+        $lastName_en=$request->emLastName;
+        $firstName_kh=$request->emFirstNameKh;
+        $lastName_kh=$request->emLastNameKh;
+        $idNumber=$request->emIdNumber;
+        $sex=$request->emGender;
+        $dateOfBirth=$request->emDateOfBirth;
+        $jointDate=$request->emJoinDate;
+        $telephone=$request->emTelephone;
+        $position=$request->emPosition;
+        $officePhone=$request->emOfficePhone;
+        $salary=$request->inputsalary;
+        $email=$request->emEmail;
+        $spous=$request->emSpous;
+        $chidren=$request->emChildren;
+        $homeNumber_en=$request->emhome_en;
+        $homeNumber_kh=$request->emhome_kh;
+        $street_en=$request->emstreet_en;
+        $street_kh=$request->emstreet_kh;
+        $vilage=$request->ivillage;
+        $description=$request->emDescription;
+        $profile=$_FILES['emProfile'];
+        $departement_id=$request->emDepartment;
+        if($chidren>0){
+            $has_children='t';
+        }else{
+            $has_children = 'f';
+        }
+        $bankaccount=$request->emBankAccount;
+        $imageDirectory=$request->imgdirectory;
+        if($id>0){
+           if(strlen($profile['name'])>0){
+                $upload=path_config::Move_Upload($profile, "/media/file/main_app/profile/img/");
+                if($upload==0){
+                    $imageDirectory=$upload;
+                    $em=Employee::UpdateEmployee($id,$firstName_en,$lastName_en,$email,$telephone,$position,8,16,$departement_id,$userid,$idNumber,$sex,$firstName_kh,$lastName_kh,$imageDirectory,$officePhone,$jointDate,$dateOfBirth,$homeNumber_en,$homeNumber_kh,$street_en,$street_kh,'null',$vilage,'null',$spous,$has_children,$chidren,$salary,4,$description,$bankaccount);
+                    return response()->json(['success'=>'Employee is updated !']);
+                }else{
+                    return response()->json(['error'=>'can not moved file !']);
+                }
+           }else{
+                $em=Employee::UpdateEmployee($id,$firstName_en,$lastName_en,$email,$telephone,$position,8,16,$departement_id,$userid,$idNumber,$sex,$firstName_kh,$lastName_kh,$imageDirectory,$officePhone,$jointDate,$dateOfBirth,$homeNumber_en,$homeNumber_kh,$street_en,$street_kh,'null',$vilage,'null',$spous,$has_children,$chidren,$salary,4,$description,$bankaccount);
+                return response()->json(['success'=>'Employee is updated !']);
+           }
+        }else{
+            if(strlen($profile['name'])>0){
+                $upload = path_config::Move_Upload($profile, "/media/file/main_app/profile/img/");
+                if (!$upload == 0) {
+                    $imageDirectory = $upload;
+                    $em = Employee::InsertEmployee($firstName_en, $lastName_en, $email, $telephone, $position, 8, 16, $departement_id, $userid, $idNumber, $sex, $firstName_kh, $lastName_kh, $imageDirectory, $officePhone, $jointDate, $dateOfBirth, $homeNumber_en, $homeNumber_kh, $street_en, $street_kh, 'null', $vilage, 'null', $spous, $has_children, $chidren, $salary, 4, $description, $bankaccount);
+                    if($em==1){
+                        return response()->json(['success'=>'Employee is inserted !']);
+                    }
+                } else {
+                    echo "error";
+                }
+            }else{
+                $em = Employee::InsertEmployee($firstName_en, $lastName_en, $email, $telephone, $position, 8, 16, $departement_id, $userid, $idNumber, $sex, $firstName_kh, $lastName_kh, $imageDirectory, $officePhone, $jointDate, $dateOfBirth, $homeNumber_en, $homeNumber_kh, $street_en, $street_kh, 'null', $vilage, 'null', $spous, $has_children, $chidren, $salary, 4, $description, $bankaccount);
+                if($em==1){
+                    return response()->json(['success'=>'Employee is inserted !']);
+                }
+            }
+            
+        }
+        
     }
 }

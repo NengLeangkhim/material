@@ -41,11 +41,17 @@ class TrainingTypeController extends Controller
     }
 
     
-    function AddEditTrainingType(){
+    function AddEditTrainingType(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if (perms::check_perm_module('HRM_09050201')) {
+            $validation=\Validator::make($request->all(),[
+                'trainingType'=>'required'
+            ]);
+            if($validation->fails()){
+                return response()->json(['error'=>$validation->getMessageBag()->toArray()]);
+            }
             $t = new TrainingType();
             $userid = $_SESSION['userid'];
             $id=$_POST['id'];
@@ -56,7 +62,7 @@ class TrainingTypeController extends Controller
             }else{
                 $stm=$t->InsertTrainingType($trainingType,$description,$userid);
             }
-            echo $stm;
+            return response()->json(['success'=>$stm]);
         } else {
             return view('noperms');
         }

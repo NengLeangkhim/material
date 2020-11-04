@@ -226,6 +226,31 @@ class CrmReportApiController extends Controller
         return $this->sendResponse($result, '');
     }
 
+    function getAllContactDetail(Request $request){
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+        try {
+            $result = $this->crmReport->getQuoteDetail($fromDate, $toDate);
+        } catch(QueryException $e){
+            return $this->sendError($this->queryException);
+        }
+        return $this->sendResponse($result, '');
+    }
+
+    function getAllOrganizationDetail(Request $request){
+        $leadSource = $request->input('source_id');
+        $assignTo = $request->input('assign_to');
+        $status = $request->input('status_id');
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');;
+        try {
+            $result = $this->crmReport->getOrganizationDetail($leadSource, $assignTo, $fromDate, $toDate);
+        } catch(QueryException $e){
+            return $this->sendError($this->queryException);
+        }
+        return $this->sendResponse($result, '');
+    }
+
     function getTotalReport(Request $request){
         $fromDate = $request->input('from_date');
         $toDate = $request->input('to_date');

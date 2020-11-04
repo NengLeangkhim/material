@@ -17,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/organizies','api\crm\OrganizeController@index');
 
 Route::get('/organize/{id}','api\crm\OrganizeController@show');
+
+Route::put('/organize','api\crm\OrganizeController@update');

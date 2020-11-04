@@ -38,11 +38,18 @@ class TrainerController extends Controller
         }
     }
 
-    function AddAndEditTrainer(){
+    function AddAndEditTrainer(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if (perms::check_perm_module('HRM_09050301')) {
+            $validation=\Validator::make($request->all(),[
+                'trainer'=>'required',
+                'telephone'=>'required'
+            ]);
+            if($validation->fails()){
+                return response()->json(['error' => $validation->getMessageBag()->toArray()]);
+            }
             $t = new Trainer();
             $id = $_POST['id'];
             $trainer=$_POST['trainer'];
@@ -55,7 +62,7 @@ class TrainerController extends Controller
             }else{
                 $stm=$t->InsertTrainer($trainer,$telephone,$type,$description,$userid);
             }
-            echo $stm;
+            return response()->json(['success'=>$stm]);
         } else {
             return view('noperms');
         }
