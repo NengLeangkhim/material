@@ -7,9 +7,19 @@ use Illuminate\Http\Request;
 
 class PurchasePaymentControllre extends Controller
 {
-    public function view_purchase_payment()
+    public function list()
     {
-        return view('bsc.purchase.purchase_payment.purchase_payment_list');
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/bsc_purchases', 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        $purchase = json_decode($res->getContent()); // convert to json object
+        $purchases = $purchase->data;
+        return view('bsc.purchase.purchase_payment.purchase_payment_list',compact('purchases'));
     }
 
     public function make_payment(Request $request)
@@ -40,7 +50,7 @@ class PurchasePaymentControllre extends Controller
         'due_amount'=>$due_amount,
         'bsc_account_charts_id'=>$bsc_account_charts_id
         );
-        // dd($data);exit;
+        
         $request = Request::create('api/bsc_purchase_payments', 'POST',$data);
         $request->headers->set('Accept', 'application/json');
         $request->headers->set('Authorization', 'Bearer '.$token);
@@ -49,5 +59,22 @@ class PurchasePaymentControllre extends Controller
         $response = json_decode($res->getContent()); // convert to json object
         return response()->json(['payment'=>$response]);
 
+    }
+
+    public function view_purchase_payment($id)
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $token = $_SESSION['token'];
+
+        $request = Request::create('/api/bsc_purchase_payments/'.$id, 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        $response = json_decode($res->getContent()); // convert to json object
+        $purchases= $response->data;
+        // dd($purchase);exit;
+        return view('bsc.purchase.purchase_payment.purchase_payment_view',compact('purchases'));
     }
 }

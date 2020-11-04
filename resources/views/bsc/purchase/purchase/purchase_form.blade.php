@@ -309,6 +309,7 @@
         let amount = (qty * price);
         return amount;
     }
+    
     // function Calculate Grand Total Amount
     function showGrandTotal(){
         let total = parseFloat($('#txtTotal').text());
@@ -394,7 +395,6 @@
                     if(data.saved.success == false){
                         alert("fail to insert");
                     }else{
-                        //alert("insert success");    
                         go_to('bsc_purchase_purchase_list');
                     }
                 }

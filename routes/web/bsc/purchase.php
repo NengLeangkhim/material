@@ -15,5 +15,6 @@ use PhpParser\Node\Stmt\TryCatch;
     Route::post('bsc_purchase_update_data','bsc\PurchaseController@update_data');
 
     // View Purchase Payment
-    Route::get('bsc_purchase_view_purchase_payment','bsc\PurchasePaymentControllre@view_purchase_payment');
+    Route::get('bsc_purchase_view_purchase_payment','bsc\PurchasePaymentControllre@list');
     Route::post('bsc_purchase_make_payment','bsc\PurchasePaymentControllre@make_payment');
+    Route::get('bsc_purchase_payment_view/{id}','bsc\PurchasePaymentControllre@view_purchase_payment');
