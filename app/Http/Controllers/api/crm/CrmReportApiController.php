@@ -230,7 +230,7 @@ class CrmReportApiController extends Controller
         $fromDate = $request->input('from_date');
         $toDate = $request->input('to_date');
         try {
-            $result = $this->crmReport->getQuoteDetail($fromDate, $toDate);
+            $result = $this->crmReport->getContactDetail($fromDate, $toDate);
         } catch(QueryException $e){
             return $this->sendError($this->queryException);
         }

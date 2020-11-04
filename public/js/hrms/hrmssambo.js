@@ -1796,6 +1796,77 @@ function ReportPerformance(){
   });
 
  }
+
+    // Performance Search Plan Status Report
+
+    function searchPlanStatus(){
+
+        var date_from = $('#date_fromPlan').val();
+        var date_to = $('#date_toPlan').val();
+        var opPlan = $('#optionPlan').val();
+        // console.log(opPlan+'--');
+        if(opPlan != ''){
+            $("#optionPlan").removeClass("is-invalid"); //give read border to input field
+            $("#optionPlanError").children("strong").text("");
+
+            $.ajax({
+                data:{
+                    date_from:date_from,
+                    date_to:date_to,
+                    opPlan:opPlan,
+                },
+                type:'GET',
+                url:"hrm_report_performance_report_plan",
+                success:function(data)
+                {
+                    console.log(data);
+                    $('#tblShowTableSearch').html(data);
+
+                    $('#tbl_reportPlanPerformance').DataTable({
+                        'responsive': true,
+                    });
+
+                }
+            });
+
+
+        }else{
+            $("#optionPlan").addClass("is-invalid"); //give read border to input field
+            sweetalert('warning',"Field Required !!");
+            $("#optionPlanError").children("strong").text("").text("This field required !!");
+        }
+
+    }
+
+
+    //search plan & plan detail report
+
+    function searchPlanReport() {
+        var date_from = $('#getDateFrom').val();
+        var date_to = $('#getDateTo').val();
+        $.ajax({
+            data:{
+                date_from:date_from,
+                date_to:date_to,
+            },
+            type:'GET',
+            url:"hrm_report_performance_report_plan_planDetail",
+            success:function(data)
+            {
+                console.log(data);
+                // $('#tblShowTableSearch').html(data);
+
+                // $('#tbl_reportPlanPerformance').DataTable({
+                //     'responsive': true,
+                // });
+
+            }
+        });
+    }
+
+
+
+
 ////================ END Performance Report ============//////
 /////////////================================= END Performance =============================///////////////
 /////////////================================= Recruitment =============================///////////////
