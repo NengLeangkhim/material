@@ -13,6 +13,11 @@
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^7.1",
         "laravel/framework": "^7.0",
+<<<<<<< HEAD
+=======
+        "laravel/passport": "^9.3",
+        "laravel/sanctum": "^2.7",
+>>>>>>> cf55995791019cb00e6d3ad3fd0a39b29737a0ba
         "laravel/tinker": "^2.0",
         "maatwebsite/excel": "^3.1",
         "tymon/jwt-auth": "dev-develop"
