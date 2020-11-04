@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\BSC;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerBranchController extends Controller
 {
@@ -41,7 +42,34 @@ class CustomerBranchController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $input = $request->all();
+
+            $validator = Validator::make($input, [
+                'ma_customer_id'         => 'required',
+                'branch_name'           => 'required',
+                'crm_lead_branch_id'    => 'required',
+                'crm_lead_address_id'   => 'required'
+            ]);
+
+            if($validator->fails()){
+                return $this->sendError('Validation Error.', $validator->errors());
+            }
+
+            $sql_customer_branch="insert_ma_customer_branch($request->ma_customer_id, '$request->branch_name', $request->create_by, null, $request->crm_lead_branch_id, $request->crm_lead_address_id)";
+
+            // insert_ma_customer_branch("nma_customer_id" int4, "nbranch" varchar, "ncreate_by" int4, "nconnection_id" varchar, "ncrm_lead_branch_id" int4, "ncrm_lead_address_id" int4)
+
+            $q_customer_branch=DB::select("SELECT ".$sql_customer_branch);
+            
+            DB::commit();
+            return $this->sendResponse($q_customer_branch, 'Customer branch created successfully.');
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->sendError("Try again!");
+        }
     }
 
     /**
