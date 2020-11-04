@@ -13,7 +13,7 @@ class OverTime extends Model
             $d = cal_days_in_month(CAL_GREGORIAN, $month, $year);
             $start_date = $year . "-" . $month . "-01";
             $end_date = $year . "-" . $month . "-" . $d;
-            $ot_time=DB::select("SELECT ho.id, s.first_name_en, s.last_name_en, concat(s.first_name_en, ' ', s.last_name_en) as full_en_name, ho.overtime_date,ho.description,st.first_name_en as approve,ho.ma_user_id,DATE_PART('hour', ho.end_time::time ) - DATE_PART('hour', ho.start_time::time) as hour from hr_overtime ho 
+            $ot_time=DB::select("SELECT ho.id, s.first_name_en, s.last_name_en, concat(s.first_name_en, ' ', s.last_name_en) as full_en_name, ho.overtime_date,ho.description,st.first_name_en as approve,ho.ma_user_id,DATE_PART('hour', ho.end_time::time ) - DATE_PART('hour', ho.start_time::time) as hour,ho.start_time::time,ho.end_time::time from hr_overtime ho 
                                     INNER JOIN ma_user s on ho.ma_user_id=s.id 
                                     INNER JOIN ma_user st ON ho.create_by=st.id and ho.is_deleted='f' and ho.overtime_date BETWEEN '$start_date' and '$end_date'
                                     order by full_en_name");
