@@ -429,6 +429,33 @@ function ShowPassword(){
 
     }
 
+    function hrms_modal_training(ids=-1){
+        if(check_session()){
+            return;
+        }
+        
+        $.ajax({
+            type: 'GET',
+            url: 'hrm_modal_traininglist',
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                id: ids
+            },
+            async:false,
+            success: function (data) {
+                document.getElementById('modal').innerHTML = data;
+                $('#modal_training_list').modal('show');
+                $('#enddate').datetimepicker({
+                    format: 'YYYY-MM-D HH:mm',
+                    sideBySide: true,
+                });
+                $('#startdate').datetimepicker({
+                    format: 'YYYY-MM-D HH:mm',
+                    sideBySide: true,
+                });
+            }
+        });
+    }
     function hrms_validation_employee_training(table_id){
         i=$('#'+table_id).find('input:checked').length;
         if(i>0){
