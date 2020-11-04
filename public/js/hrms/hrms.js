@@ -295,11 +295,11 @@ function ShowPassword(){
                         }
                     });
                 }
-                
+
             }else{
                 alert('Please select date ');
             }
-            
+
         }
 
         function HRM_CalculateAttendanceDetail($id){
@@ -327,7 +327,7 @@ function ShowPassword(){
                         success: function (data) {
                             document.getElementById('hrm_calculate_detail').innerHTML = data;
                             $('#tbl_hrm_attendance_detail').DataTable({
-                               
+
                             });
                         }
                     });
@@ -418,31 +418,15 @@ function ShowPassword(){
    // End Overtime
 // End Employee
 // Training
-    function hrms_modal_training(ids=-1){
-        if(check_session()){
-            return;
+
+    function hrm_chechEmployee_training(){
+        var countchecked = $("table input[type=checkbox]:checked").length;
+        if(countchecked>0){
+            submit_form ('hrm_insert_update_traininglist','fm_training_list','hrm_traininglist','modal_traininglist');
+        }else{
+            alert('Please check employee');
         }
-        $.ajax({
-            type: 'GET',
-            url: 'hrm_modal_traininglist',
-            data: {
-                _token: '<?php echo csrf_token() ?>',
-                id: ids
-            },
-            async:false,
-            success: function (data) {
-                document.getElementById('modal').innerHTML = data;
-                $('#modal_training_list').modal('show');
-                $('#enddate').datetimepicker({
-                    format: 'YYYY-MM-D HH:mm',
-                    sideBySide: true,
-                });
-                $('#startdate').datetimepicker({
-                    format: 'YYYY-MM-D HH:mm',
-                    sideBySide: true,
-                });
-            }
-        });
+
     }
 
     function hrms_validation_employee_training(table_id){
@@ -818,12 +802,12 @@ function hrm_training_checkAll(ele) {
                         if (result.value) {
                             $.ajax({
                                 url: '/hrm_hrapprove_payroll',   //Request send to "action.php page"
-                                data: { 
+                                data: {
                                     _token: '<?php echo csrf_token() ?>',
                                     eid: id,
                                     edat_from: d_from,
                                     ed_to: d_to,
-                                    emonth: month 
+                                    emonth: month
                                 },
                                 type: "GET",    //Using of Post method for send data
                                 success: function (data) {
@@ -859,7 +843,29 @@ function hrm_training_checkAll(ele) {
 
 
         return null;
-        
+        if(confirm("Do you want to approved ?")){
+            $.ajax({
+                type: 'GET',
+                url: '/hrm_hrapprove_payroll',
+                data: {
+                    _token: '<?php echo csrf_token() ?>',
+                    eid:id ,
+                    edat_from: d_from,
+                    ed_to:d_to,
+                    emonth:month
+                },
+                success: function (data) {
+                    var sbtn=document.getElementById(e);
+                    sbtn.disabled=true;
+                    sbtn.classList.remove("bg-info");
+                    sbtn.classList.add("btn-danger");
+                    // document.getElementById(e).disabled= true;
+                    document.getElementById(btn).disabled= true;
+                    alert(data);
+                }
+            });
+        }
+
     }
 
 
@@ -946,7 +952,7 @@ function hrm_training_checkAll(ele) {
                         if (result.value) {
                             $.ajax({
                                 url: 'hrm_hrdelete_component',   //Request send to "action.php page"
-                                data: { 
+                                data: {
                                     _token: '<?php echo csrf_token() ?>',
                                     eid: id,
                                     edat_from: date_from,
@@ -962,9 +968,9 @@ function hrm_training_checkAll(ele) {
                                             'Data Delete Successfully',
                                             'success'
                                         )
-                                        
+
                                     }
-                                    
+
                                 }
 
                             });
@@ -1034,7 +1040,7 @@ function hrm_training_checkAll(ele) {
 
 
     function HRM_PayrollDetail(){
-        
+
     }
 
 // End Payroll
@@ -1179,7 +1185,7 @@ function custom_payroll_list_report(){
                     $("#tbl_payroll_list_report").append(tr);
                 });
                 $('#tbl_payroll_list_report').DataTable();
-                }       
+                }
         });
     }else{
         $('#select_year_payroll').prop('disabled', false);
@@ -1211,8 +1217,8 @@ function custom_payroll_list_report(){
                     var tr="<tr><th>"+i+"</th><td>"+value[1]+"</td><td>"+value[2]+"</td><td>"+value[3]+"</td><td>"+value[4]+"</td><td>"+value[5]+"</td><td>"+value[6]+"</td><td class='text-center'>"+btn+"</td></tr>";
                     $("#tbl_payroll_list_report").append(tr);
                 });
-                $('#tbl_payroll_list_report').DataTable();     
-            }       
+                $('#tbl_payroll_list_report').DataTable();
+            }
         });
     }
 }
@@ -1252,7 +1258,7 @@ function custom_payroll_report(){
                     $("#tbl_payroll_report").append(tr);
                 });
                 $('#tbl_payroll_report').DataTable();
-                }       
+                }
         });
     }else{
         $('#select_year_payroll').prop('disabled', false);
@@ -1284,8 +1290,8 @@ function custom_payroll_report(){
                     var tr="<tr><th>"+i+"</th><td>"+value.first_name_en+" "+value.last_name_en+"</td><td>"+value.id_number+"</td><td>"+value.position+"</td><td>"+value.bonus_value+"</td><td>"+value.tax+"</td><td>"+(value.bonus_value-value.tax)+"</td><td class='text-center'>"+btn+"</td></tr>";
                     $("#tbl_payroll_report").append(tr);
                 });
-                $('#tbl_payroll_report').DataTable();     
-            }       
+                $('#tbl_payroll_report').DataTable();
+            }
         });
     }
 }
