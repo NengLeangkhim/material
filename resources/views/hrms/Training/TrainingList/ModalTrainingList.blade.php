@@ -171,7 +171,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                    <label>Description <span class="text-danger">*</span></label>
+                    <label>Description</label>
                     <textarea name="description" rows="5" class="form-control">@php if(isset($data[2])){echo $data[2][0]->schet_description;} @endphp</textarea>
                   </div>
                 </div>
