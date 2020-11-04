@@ -21,6 +21,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
+                <div class="row​ margin_left">
+                    <a  href="#" class="btn btn-success btn-sm customer" ​value="bsc_customer_form" id="customer"><i class="fas fa-plus"></i> Add Customer</a>&nbsp;
+                </div><br/>
                 <div class="card">
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
@@ -35,6 +38,7 @@
                                     <th>Invoice Balance</th>
                                     <th>VAT Type</th>
                                     <th>VAT Number</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,6 +53,11 @@
                                         <td>{{ $item->invoice_balance }}</td>
                                         <td>{{ $item->vat_type }}</td>
                                         <td>{{ $item->vat_number }}</td>
+                                        <td style="text-align-last: center">
+                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                            <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                            {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
+                                        </td>
                                     </tr>
                                 @endforeach
 
@@ -79,7 +88,7 @@ $(function () {
     "responsive": true,
     });
 });
-$('.lead').click(function(e)
+$('.customer').click(function(e)
 {
     var ld = $(this).attr("​value");
     go_to(ld);

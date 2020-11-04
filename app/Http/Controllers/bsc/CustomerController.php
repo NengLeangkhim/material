@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+    // customer get data
     public function customer()
     {
         try{
@@ -30,6 +31,113 @@ class CustomerController extends Controller
         }
     }
 
+    // customer form
+    public function customer_form()
+    {
+        try{
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/bsc_leads', 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $customer = json_decode($res->getContent()); // convert to json object
+            $customers=$customer->data;
+
+            return view('bsc.customer_management.customer.customer_form',compact('customers'));
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
+        }
+    }
+
+    //get customer by id
+    public function get_customer_single(Request $request)
+    {
+        try{
+            $lead_id=$request->lead_id;
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/bsc_lead_single/'.$lead_id, 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $customer = json_decode($res->getContent()); // convert to json object
+            $customers=$customer->data;
+            return json_encode($customers);
+            // dd($customers);exit;
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
+        }
+    }
+
+    // get data edit customer
+    public function customer_edit()
+    {
+        try{
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/bsc_leads', 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $customer = json_decode($res->getContent()); // convert to json object
+            $customers=$customer->data;
+
+            return view('bsc.customer_management.customer.customer_edit',compact('customers'));
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
+        }
+    }
+
+    // submit form customer
+    public function customer_insert(Request $request)
+    {
+        try{
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+            $userId=$_SESSION['userid'];
+            $lead_id=$request->lead_name;
+            $customer_name=$request->customer_name;
+            $deposit=$request->deposit;
+            $balance=$request->balance;
+            $invoice_balance=$request->invoice_balance;
+            $vat_type=$request->vat_type;
+            $vat_number=$request->vat_number;
+
+            $data=array(
+                'create_by'=>$userId,
+                'lead_id'=>$lead_id,
+                'customer_name'=>$customer_name,
+                'deposit'=>$deposit,
+                'balance'=>$balance,
+                'invoice_balance'=>$invoice_balance,
+                'vat_type'=>$vat_type,
+                'vat_number'=>$vat_number
+            );
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
+        }
+    }
+
+    //customer branch form
+    public function customer_branch_form()
+    {
+        return view('bsc.customer_management.customer_branch.customer_branch_form');
+    }
+
+    // view customer branch
     public function customer_branch()
     {
         try{

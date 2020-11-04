@@ -21,6 +21,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
+                <div class="row​ margin_left">
+                    <a  href="#" class="btn btn-success btn-sm customer_branch" ​value="bsc_customer_branch_form" id="customer_branch"><i class="fas fa-plus"></i> Add Customer Branch</a>&nbsp;
+                </div><br/>
                 <div class="card">
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
@@ -70,7 +73,7 @@ $(function () {
     "responsive": true,
     });
 });
-$('.lead').click(function(e)
+$('.customer_branch').click(function(e)
 {
     var ld = $(this).attr("​value");
     go_to(ld);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\BSC;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
@@ -46,7 +47,29 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $input = $request->all();
+
+            $validator = Validator::make($input, [
+                'create_by'  => 'required'
+            ]);
+
+            if($validator->fails()){
+                return $this->sendError('Validation Error.', $validator->errors());
+            }
+
+
+            $sql="insert_ma_customer('$request->customer_name',$request->create_by,)";
+            $q=DB::select("SELECT ".$sql);
+
+            DB::commit();
+            return $this->sendResponse($q, 'Customer created successfully.');
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->sendError("Try again!");
+        }
     }
 
     /**
@@ -92,5 +115,31 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // get lead from crm
+    public function get_all_leads()
+    {
+        $leads=DB::table('crm_lead')
+        ->where([
+            ['status','=','t'],
+            ['is_deleted','=','f']
+        ])->get();
+
+        return $this->sendResponse($leads, 'Leads retrieved successfully.');
+    }
+
+    // get lead by id
+    public function show_lead_single(Request $request, $id)
+    {
+        $leads = DB::table('crm_lead')
+        ->select('crm_lead.*','ma_customer.deposit','ma_customer.balance','ma_customer.invoice_balance','ma_customer.vat_type','ma_customer.vat_number')
+        ->leftJoin('ma_customer','crm_lead.id','=','ma_customer.crm_lead_id')
+        ->where([
+            ['crm_lead.id','=',$id],
+            ['crm_lead.status','=','t'],
+            ['crm_lead.is_deleted','=','f']
+        ])->first();
+        return $this->sendResponse($leads, 'Lead retrieved successfully.');
     }
 }
