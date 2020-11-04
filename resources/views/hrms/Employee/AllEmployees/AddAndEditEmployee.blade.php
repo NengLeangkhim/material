@@ -81,7 +81,7 @@
                     <div class="col-md-6">
                       <label>Department <span class="text-danger">*</span></label>
                       
-                      <select name="emDepartment" id="emDepartment" class="form-control" required>
+                      <select name="emDepartment" id="emDepartment" class="form-control" required >
                         <option value="" hidden></option>
                         @php
                           foreach ($data[3] as $department) {
@@ -101,7 +101,7 @@
                     </div>
                     <div class="col-md-6">
                   <label>Position <span class="text-danger">*</span></label>
-                  <select name="emPosition" id="emPosition" class="form-control" required>
+                  <select name="emPosition" id="emPosition" class="form-control" required >
                     <option value="" selected hidden></option>
                   @php
                     foreach ($data[0] as $position) {
