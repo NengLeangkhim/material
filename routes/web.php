@@ -39,15 +39,9 @@ Route::post('/lead/update','crm\LeadController@updatelead');// Update lead
 
 Route::get('/branch/{id}','crm\LeadController@getbranch'); // get  all branch  show  in table by lead id
 Route::get('/detailbranch/{id}','crm\LeadController@getdetailbranch'); // get detail branch
-<<<<<<< HEAD
-Route::get('/editbranch/{id}','crm\LeadController@editbranch');//  edit branch 
-
-Route::post('/lead/store','crm\LeadController@StoreLead'); // add  lead or branch
-=======
 Route::get('/editbranch/{id}','crm\LeadController@editbranch');//  edit branch
 Route::get('/addlead','crm\LeadController@lead'); // go to lead
 Route::post('/lead/store','crm\LeadController@StoreLead'); // Store lead
->>>>>>> cf55995791019cb00e6d3ad3fd0a39b29737a0ba
 Route::POST('/addleadsource','crm\LeadController@addleadsource'); //addlead source
 Route::POST('/addleadindustry','crm\LeadController@addleadindustry'); //add leadindustry
 Route::post('/branch/update','crm\LeadController@updatebranch');// Update lead
@@ -689,7 +683,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// calendar show schedule
     Route::get('hrm_performance_staff_schedule/calendar','hrms\performance\HrmPerformScheduleController@HrmCalendarPerformSchedule');
-    
+
     /// List Schedule
     Route::get('hrm_performance_staff_schedule/list','hrms\performance\HrmPerformScheduleController@HrmListPerformSchedule');
 ///////Performance Staff Follow Up
