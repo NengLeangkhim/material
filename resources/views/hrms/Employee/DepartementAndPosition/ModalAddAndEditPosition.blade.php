@@ -39,7 +39,7 @@
                   <!-- /.form-group -->
                   <div class="form-group">
                     <label>Position Name <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="position" name="position" value="@php if(isset($data[1])){echo $data[1][0]->name;} @endphp" required>
+                    <input type="text" class="form-control" id="position_position" name="position_position" value="@php if(isset($data[1])){echo $data[1][0]->name;} @endphp" required>
                   </div>
                   <!-- /.form-group -->
                 </div>
