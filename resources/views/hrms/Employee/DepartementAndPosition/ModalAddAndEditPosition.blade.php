@@ -18,7 +18,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Group <span class="text-danger">*</span></label>
-                    <select id="g" class="form-control" name="g">
+                    <select id="g" class="form-control" name="g" required>
                       <option value="" hidden></option>
                       @php
                         foreach ($data[0] as $g) {

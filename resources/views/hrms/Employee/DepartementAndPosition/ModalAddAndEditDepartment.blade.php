@@ -44,7 +44,7 @@
                   </div>
                   <!-- /.form-group -->
                   <div class="form-group">
-                    <label>Department Name test<span class="text-danger">*</span></label>
+                    <label>Department Name<span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="department_department" name="department_department" value="@php if(isset($data[1])){echo $data[1][0]->name;} @endphp" required>
                   </div>
                   <div class="form-group">
