@@ -745,9 +745,14 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     // Performance report search for plan
     Route::get('hrm_report_performance_report_plan','hrms\performance\HrmPerformReportController@hrm_perform_report_plan');
 
-    // Performance report search for plan & plan detail
+    // Performance report search for plan
     Route::get('hrm_report_performance_report_plan_planDetail','hrms\performance\HrmPerformReportController@hrm_perform_report_plan_planDetail');
 
+    // Performance report search for plan view detail report
+    Route::get('hrm_report_performance_report_plan_viewDetail','hrms\performance\HrmPerformReportController@hrm_perform_report_planViewDetail');
+
+    // Performance report search for sub plan view detail report
+    Route::get('hrm_report_performance_report_subplan_viewDetail','hrms\performance\HrmPerformReportController@hrm_perform_report_subplanViewDetail');
 
 /////////////////============== END Performance =============///////////////
 

@@ -35,7 +35,7 @@ class ModelHrmPerformReport extends Model
     public static function getPlanCreated($dateFrom,$dateTo){
             try {
                 $r = DB::table('hr_performance_plan as perPlan')
-                    ->select('perPlan.*','ma_user.first_name_en')
+                    ->select('perPlan.*','ma_user.first_name_en','ma_user.last_name_en')
                     ->Join('ma_user', 'ma_user.id', '=', 'perPlan.create_by')
                     ->where([
                         ['perPlan.create_date','>=',$dateFrom],
@@ -52,6 +52,33 @@ class ModelHrmPerformReport extends Model
                     echo 'exited';
                     exit;
             }
+    }
+
+
+
+    // function to get detail for plan first parent
+    public static function getSubParentPlan($parentId){
+        try {
+            $r = DB::table('hr_performance_plan_detail as plD')
+                    ->select('plD.*','us.first_name_en','us.last_name_en','pl.name as parentPlanName')
+                    ->join('ma_user as us','plD.create_by','=','us.id')
+                    ->join('hr_performance_plan as pl','plD.hr_performance_plan_id','=','pl.id')
+                    ->where([
+                        ['plD.hr_performance_plan_id','=',$parentId],
+                        ['plD.parent_id','=',null],
+                        ['plD.status','=','t'],
+                        ['plD.is_deleted','=','f'],
+                    ])
+                    ->get();
+            return $r;
+
+
+        }catch(\Illuminate\Database\QueryException $ex){
+            dump($ex->getMessage());
+            echo '<br><a href="/">go back</a><br>';
+            echo 'exited';
+            exit;
+        }
     }
 
 

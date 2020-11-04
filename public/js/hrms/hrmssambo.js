@@ -1779,7 +1779,6 @@ function ReportPerformance(){
 
 
     //search plan & plan detail report
-
     function searchPlanReport() {
         var date_from = $('#getDateFrom').val();
         var date_to = $('#getDateTo').val();
@@ -1801,6 +1800,61 @@ function ReportPerformance(){
 
             }
         });
+    }
+
+
+    //function to acction search parent plan report detail
+    function planReportDetail(planId){
+
+        $.ajax({
+            data:{
+                planId:planId,
+            },
+            type:'GET',
+            url:"hrm_report_performance_report_plan_viewDetail",
+            success:function(data)
+            {
+
+                console.log(data);
+                $('#modal_report_performance').html(data);
+                $('#viewPlanReportDetail').modal('show');
+
+
+                let table = $('#tblShowPlanDetailReport').DataTable();
+
+                // $('#tbl_reportPlanPerformance').DataTable({
+                //     'responsive': true,
+                // });
+
+            }
+        });
+    }
+
+
+    //function to view detail for sub plan detail
+    function viewDetailSubPlanReport(subPlanId) {
+
+        $.ajax({
+            data:{
+                subPlanId:subPlanId,
+            },
+            type:'GET',
+            url:"hrm_report_performance_report_subplan_viewDetail",
+            success:function(data)
+            {
+
+                console.log(data);
+                $('#showModalSubPlanDetail').html(data);
+                $('#viewSubPlanDetail').modal('show');
+
+                // let table = $('#tblShowPlanDetailReport').DataTable();
+
+
+            }
+        });
+
+
+
     }
 
 

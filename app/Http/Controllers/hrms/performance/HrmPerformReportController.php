@@ -148,7 +148,6 @@ class HrmPerformReportController extends Controller
                 $date_to = date('Y-m-d H:i:s');
             }
             $planReport = ModelHrmPerformReport::getPlanCreated($date_from,$date_to);
-            // dd($data);
             return view('hrms/performance/performance_report/showReportPlan',compact('planReport'));
 
 
@@ -157,6 +156,29 @@ class HrmPerformReportController extends Controller
     }
 
 
+    // function to get view plan detail in report
+    public static function hrm_perform_report_planViewDetail(){
+        if(isset($_GET['planId'])){
+            $parentPlan =  $_GET['planId'];
+            $dataController = ModelHrmPerformReport::getSubParentPlan($parentPlan);
+            // dump($dataController[0]->parentPlanName);
+            return view('hrms/performance/performance_report/showReportPlanDetail',compact('dataController'));
+
+        }else{
+            return redirect()->action('hrms\performance\HrmPerformReportController@HrmIndexPerformReport');
+        }
+    }
+
+
+
+
+
+    public static function hrm_perform_report_subplanViewDetail(){
+        if(isset($_GET['subPlanId'])){
+
+            return view('hrms/performance/performance_report/showReportPlanSubDetail');
+        }
+    }
 
 
 
