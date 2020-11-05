@@ -60,9 +60,9 @@ class ModelHrmPerformReport extends Model
     public static function getSubParentPlan($parentId){
         try {
             $r = DB::table('hr_performance_plan_detail as plD')
-                    ->select('plD.*','us.first_name_en','us.last_name_en','pl.name as parentPlanName')
+                    ->select('plD.*',DB::raw("CONCAT(us.first_name_en,' ',us.last_name_en) as subcreatebyname"))
                     ->join('ma_user as us','plD.create_by','=','us.id')
-                    ->join('hr_performance_plan as pl','plD.hr_performance_plan_id','=','pl.id')
+                    // ->join('hr_performance_plan as pl','plD.hr_performance_plan_id','=','pl.id')
                     ->where([
                         ['plD.hr_performance_plan_id','=',$parentId],
                         ['plD.parent_id','=',null],
@@ -70,6 +70,9 @@ class ModelHrmPerformReport extends Model
                         ['plD.is_deleted','=','f'],
                     ])
                     ->get();
+
+            // dump($r);
+            // exit;
             return $r;
 
 
@@ -82,6 +85,61 @@ class ModelHrmPerformReport extends Model
     }
 
 
+    // function to get sub of sub plan
+    public static function getSubofSubPlan($parentId){
+        try {
+            $r = DB::table('hr_performance_plan_detail as plD')
+                    ->select('plD.*','us.first_name_en','us.last_name_en')
+                    ->join('ma_user as us','plD.create_by','=','us.id')
+                    ->where([
+                        ['plD.parent_id','=',$parentId],
+                        ['plD.status','=','t'],
+                        ['plD.is_deleted','=','f'],
+                    ])
+                    ->get();
+            return $r;
+
+        }catch(\Illuminate\Database\QueryException $ex){
+            dump($ex->getMessage());
+            echo '<br><a href="/">go back</a><br>';
+            echo 'exited';
+            exit;
+        }
+
+    }
+
+
+
+    //function to get parent plan detail
+    public static function getParentPlan($parentId){
+
+            $r = DB::table('hr_performance_plan as pl')
+                ->select('pl.id', DB::raw("CONCAT(us2.first_name_en,' ',us2.last_name_en) as parentcreatebyname"),'pl.name as parentPlanName','pl.date_from as parentdatefrom','pl.date_to as parentdateto', 'pl.create_date as parentcreatedate')
+                ->join('ma_user as us2','pl.create_by','=','us2.id')
+                ->where([
+                    ['pl.id','=',$parentId],
+                    ['pl.status','=','t'],
+                    ['pl.is_deleted','=','f'],
+                ])
+                ->get();
+            return $r;
+    }
+
+
+
+      //function to get parent plan detail
+      public static function getSubPlanDetail($parentId){
+            $r = DB::table('hr_performance_plan_detail as plD')
+                        ->select('plD.*',DB::raw("CONCAT(us.first_name_en,' ',us.last_name_en) as subcreatebyname"))
+                        ->join('ma_user as us','plD.create_by','=','us.id')
+                        ->where([
+                            ['plD.id','=', $parentId],
+                            ['plD.status','=','t'],
+                            ['plD.is_deleted','=','f'],
+                        ])
+                        ->get();
+                return $r;
+      }
 
 
 

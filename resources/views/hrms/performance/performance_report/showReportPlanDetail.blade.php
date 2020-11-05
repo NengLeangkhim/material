@@ -12,23 +12,50 @@
         <div class="modal-content">
                 <div class=" modal-header text-center">
                     <h4 class="modal-title" id="exampleModalLabel">
-                        <label style="color:#1fa8e0">Parent Name:</label> <span><label>{{ $dataController[0]->parentPlanName }}</label></span>
+                        <label style="color:#1fa8e0">Plan:</label> <span><label>{{ $parentPlan[0]->parentPlanName }}</label></span>
                     </h4>
                     <button type="button" class="close" data-dismiss="modal">x</button>
 
                 </div>
                 <div class=" modal-body ">
 
-                    {{-- <div class="row pb-3">
-                        <div class="col-md-5 col-sm-5 col-4"></div>
-                        <div class="col-md-5 col-sm-5 col-4">
-                            <input type="search" id="mySearchQuote" class="form-control" placeholder="Search">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Plan Name</label>
+                                <div class="form-control pt-2">{{ $parentPlan[0]->parentPlanName }}</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Start Date</label>
+                                <div class="form-control pt-2">{{ $parentPlan[0]->parentdatefrom }}</div>
+                            </div>
                         </div>
-                    </div> --}}
+                        <div class="col-md-6 col-sm-6 col-12 ">
+                            <div class="form-group ">
+                                <label>Create By</label>
+                                <div class="form-control pt-2">{{ $parentPlan[0]->parentcreatebyname }}</div>
+                            </div>
+                            <div class="form-group ">
+                                <label>Dateline</label>
+                                <div class="form-control pt-2">{{ $parentPlan[0]->parentdateto }}</div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <?php
+                                    $date = date_create($parentPlan[0]->parentcreatedate);
+                                    $create_byParentName = date_format($date, 'Y-F-d H:i:s A');
+                                ?>
+                                <label>Create Date</label>
+                                <div class="form-control pt-2">{{ $create_byParentName }}</div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row-12 pt-2 table-responsive">
-                        <table id="tblShowPlanDetailReport" class="table table-bordered table-hover" style="width: 100%; white-space:nowrap;">
+                        <table id="tblShowPlanDetailReport" class="table table-bordered table-hover" style="width:100%; min-width: 50px; white-space:nowrap;">
                             <thead>
                                 <tr >
+                                    <th style="display: none"></th>
                                     <th>#</th>
                                     <th>Task Name</th>
                                     <th>Start Date</th>
@@ -41,18 +68,19 @@
 
                             <tbody>
 
-                                @foreach ($dataController as $key=>$val)
+                                @foreach ($getSubPlan as $key=>$val)
                                     <?php
                                         $date = date_create($val->create_date);
                                         $create_date = date_format($date, 'Y-M-d H:i:s A');
-                                    ?>
 
-                                    <tr>
+                                    ?>
+                                    <tr id="{{$key+1}}">
+                                        <td style="display: none"></td>
                                         <td>
                                             <div style="text-align: center;">
                                                 <div class="col-12">
-                                                    <a  href="javascript:void(0);" onclick="listSubofSubPlan(''{{ $val->id }}'')">
-                                                        <span ><img src="/img/icons/plus_icon1.png" style="width: 20px; hight: 20px;"></span>
+                                                    <a  href="javascript:void(0);" id="listSubofSubPlan{{ $key+1 }}"  data-id="{{ $val->id }}">
+                                                        <span id="btnAddListSubPlan{{ $key+1 }}" class="btnAddListSubPlan" data-id="{{ $key+1 }}" ><i class="fa fa-plus-circle" style="font-size:18px" aria-hidden="true"></i></span>
                                                     </a>
                                                 </div>
                                             </div>
@@ -61,30 +89,26 @@
                                         <td>{{ $val->date_from }}</td>
                                         <td>{{ $val->date_to }}</td>
                                         <td>{{ $create_date }}</td>
-                                        <td>{{ $val->first_name_en.' '.$val->last_name_en }}</td>
+                                        <td>{{ $val->subcreatebyname }}</td>
                                         <td>
                                             <button type="button" class="btn btn-sm btn-primary" onclick="viewDetailSubPlanReport('{{ $val->id }}');" >Detail</button>
                                         </td>
                                     </tr>
 
                                     <tr id="{{$key+1}}">
-                                        <td colspan="7" style="background-color: #F5F5F5" >
-                                            <div style="color: black ;font-size: 10px;">{{$val->id}}</div>
-                                            {{-- <div style="display: none;">{{$val->name}}</div>
-                                            <div style="display: none;">{{$val->date_from}}</div>
-                                            <div style="display: none;">{{$val->date_to}}</div>
-                                            <div style="display: none;">{{$create_date}}</div>
-                                            <div style="display: none;">{{$val->first_name_en." ".$val->last_name_en}}</div>
-                                            <div id="list_promote_view_{{$key+1}}"> </div> --}}
+                                        <td style="display: none"></td>
+                                        <td colspan="7" id="{{$key+1}}" style="background-color: #F5F5F5">
+                                            <div id="contentTblSubPlan{{ $key+1 }}" style="background-color: white;">
+
+                                            </div>
                                         </td>
                                         <td style="display: none">{{ $val->name }}</td>
                                         <td style="display: none">{{ $val->date_from }}</td>
                                         <td style="display: none">{{ $val->date_to }}</td>
                                         <td style="display: none">{{ $create_date }}</td>
-                                        <td style="display: none">{{ $val->date_from }}</td>
-                                        <td style="display: none">{{ $val->first_name_en.' '.$val->last_name_en  }}</td>
+                                        <td style="display: none">{{ $val->subcreatebyname }}</td>
+                                        <td style="display: none"></td>
                                     </tr>
-
 
 
                                 @endforeach
@@ -109,3 +133,11 @@
 
 </script>
 
+
+{{-- <div style="text-align: center;">
+    <div class="col-12">
+        <a  href="javascript:void(0);" onclick="listSubofSubPlan(''{{ $val->id }}'')">
+        <span ><img src="/img/icons/plus_icon1.png" style="width: 20px; hight: 20px;"></span>
+        </a>
+    </div>
+</div> --}}

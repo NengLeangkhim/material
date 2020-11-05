@@ -1378,7 +1378,7 @@ function hrm_update_perform_schedule(id,id_plan){
                 });
               // },1000);
             }
-          }) 
+          })
         },1000);
 };
 //// View modal Plan Detail///
@@ -1880,12 +1880,11 @@ function ReportPerformance(){
                 $('#modal_report_performance').html(data);
                 $('#viewPlanReportDetail').modal('show');
 
-
-                let table = $('#tblShowPlanDetailReport').DataTable();
-
-                // $('#tbl_reportPlanPerformance').DataTable({
-                //     'responsive': true,
-                // });
+                $('#tblShowPlanDetailReport').DataTable({
+                    // sDom: 'lrtip',
+                    targets:'no-sort',
+                    bSort: false,
+                });
 
             }
         });
@@ -1904,10 +1903,15 @@ function ReportPerformance(){
             success:function(data)
             {
 
-                console.log(data);
+                // console.log(data);
                 $('#showModalSubPlanDetail').html(data);
                 $('#viewSubPlanDetail').modal('show');
 
+                $('#tblPlanSubDetail').DataTable({
+                    // sDom: 'lrtip',
+                    // targets:'no-sort',
+                    // bSort: false,
+                });
                 // let table = $('#tblShowPlanDetailReport').DataTable();
 
 
@@ -1917,6 +1921,42 @@ function ReportPerformance(){
 
 
     }
+
+
+
+    //function to list all sub of sub plan
+    $(document).on('click', '.btnAddListSubPlan', function() {
+            var rowId = $(this).attr('data-id');
+            var parentId = $('#listSubofSubPlan'+rowId+'').attr('data-id');
+            $.ajax({
+                data:{
+                    parentId:parentId,
+                },
+                type:'GET',
+                url:"hrm_report_performance_report_listSubofSubPlan",
+                success:function(data)
+                {
+                    $('#contentTblSubPlan'+rowId+'').html(data);
+                }
+            });
+
+            $('#btnAddListSubPlan'+rowId+'').remove();
+            $('#listSubofSubPlan'+rowId+'').append('<span id="btnMinusListSubPlan'+rowId+'" class="btnMinusSubPlan" data-id="'+rowId+'"  ><i class="fa fa-minus-circle" style="font-size:18px; color: #d42931;" aria-hidden="true"></i></span>');
+    });
+
+
+    $(document).on('click', '.btnMinusSubPlan', function() {
+        var rowId = $(this).attr('data-id');
+        $('#contentTblSubPlan'+rowId+'').html('');
+        $('#btnMinusListSubPlan'+rowId+'').remove();
+        $('#listSubofSubPlan'+rowId+'').append('<span id="btnAddListSubPlan'+rowId+'" class="btnAddListSubPlan" data-id="'+rowId+'"  ><i class="fa fa-plus-circle" style="font-size:18px;" aria-hidden="true"></i></span>');
+    });
+
+
+
+
+
+
 
 
 
