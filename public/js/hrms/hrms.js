@@ -103,6 +103,19 @@ function ShowPassword(){
         e.type="password";
     }
 }
+function hrms_date(){
+    $( "input[type='date']" ).each(function( index,item ) {
+        console.log(item);
+        $(item).attr("type","text");
+        // $(item).attr("autocomplete","off");
+        value=$(item).attr('value');
+        $(item).css("cursor","pointer");
+        $(item).datetimepicker({
+            format: 'L'
+        });
+        $(item).attr('value',value);
+      });
+}
 // All Employee
     // Add modal Employee in View
         function hrms_modal_add_edit_employee(id=-1){
@@ -121,7 +134,7 @@ function ShowPassword(){
                     $('#modal_employee').modal('show');
                     $("#emDepartment").select2();
                     $("#emPosition").select2();
-                    date();
+                    hrms_date();
                 }
             });
         }
@@ -220,7 +233,7 @@ function ShowPassword(){
                 success: function (data) {
                     document.getElementById('modal').innerHTML = data;
                     $('#modal_holiday').modal('show');
-                    date();
+                    hrms_date();
                 }
             });
         }
@@ -349,7 +362,7 @@ function ShowPassword(){
                     document.getElementById('modal').innerHTML = data;
                     $('#modal_overtime').modal('show');
                     time();
-                    date();
+                    hrms_date();
                     $('#emName').select2();
                 }
             });
