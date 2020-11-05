@@ -122,9 +122,10 @@ class HrmStaffFollowUpController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
             }
-            if(perms::check_perm_module('HRM_09070203')){//module code list data tables id=150
+            if(perms::check_perm_module('HRM_090702')){//module code list data tables id=150
             $id = $_GET['id'];
             $userid = $_SESSION['userid'];
+            $button_perm='';
             $schedule= ModelHrmPerformSchedule::hrm_get_date_schedule_update($id); // get value from table follow up
             $follow_up = ModelHrmStaffFollowUp::hrm_list_tbl_follow_up($id); //query database
             $i=1;// variable increase number for table
@@ -150,18 +151,18 @@ class HrmStaffFollowUpController extends Controller
                 if(perms::check_perm_module('HRM_09070202')&& $row->ma_user_id==$userid){// Permission Update
                     $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'go_to("/hrm_performance_follow_up/modal/action?edit='.$row->id.'")\' class="dropdown-item hrm_item hrm_update_perform_staff_follow_up">Update</button>';
                 }
-                if(perms::check_perm_module('HRM_09070301')){// Permission Add Staff Follow Up
-                        if(is_null($row->delete) || $row->delete=='t'){// check can follow up one time only
-                            $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'go_to("/hrm_performance_follow_up_manager/action?add='.$row->id.'")\' class="dropdown-item hrm_item hrm_add_manager_follow_up">Follow Up Staff</button> ';
-                        }
-                } 
                 $table_perm.= '</div> 
                               </div>
                             </td>
                         </tr>';
+                if(perms::check_perm_module('HRM_09070301')){// Permission Add Staff Follow Up
+                    if(is_null($row->delete) || $row->delete=='t'){// check can follow up one time only
+                        $button_perm= '<label for="manager_follow_up">Please Evaluate This'."'".'s Schedule :</label><button type="button" id="'.$row->id.'" onclick=\'go_to("/hrm_performance_follow_up_manager/action?add='.$row->id.'")\' class="btn btn-primary hrm_add_manager_follow_up">Submit</button> ';
+                    }
+                } 
             }
             $table_perm.='</tbody>';
-            return view('hrms/performance/performance_staff_follow_up/HrmListFollowUp', ['schedule' => $schedule,'table_perm'=>$table_perm]);
+            return view('hrms/performance/performance_staff_follow_up/HrmListFollowUp', ['schedule' => $schedule,'table_perm'=>$table_perm,'button_perm'=>$button_perm]);
             }else{
                 return view('no_perms');
             }
