@@ -34,7 +34,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-tumblr"></i></span>
                                             </div>
-                                            <select class="form-control select2" name="lead_name" id="lead_name" required onchange="myCustomer(this)">
+                                            <select class="form-control select2" name="customer_name" id="customer_name" required onchange="myCustomer(this)">
                                                 <option selected hidden disabled>select item</option>
                                                 @foreach ($customers as $customer)
                                                     <option value="{{ $customer->id }}" data-lead_id="{{ $customer->crm_lead_id }}">{{ $customer->name }}</option>
@@ -75,7 +75,8 @@
                                               <span class="input-group-text"><i class="fas fa-building"></i></span>
                                           </div>
                                           <input type="text" class="form-control" name="address" id="address" placeholder="Address" readonly>
-                                      </div>
+                                          <input type="hidden" id="crm_lead_address_id" name="crm_lead_address_id">
+                                        </div>
                                    </div>
                                 </div>
                             </div>
@@ -141,6 +142,7 @@
                 success:function(data){
                     $('#address').val(data.gazetteer_code);
                     $('#branch_name').val(data.name_en);
+                    $('#crm_lead_address_id').val(data.crm_lead_address_id);
                 }
             });
     }

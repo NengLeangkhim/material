@@ -198,14 +198,24 @@ class CustomerController extends Controller
             $token = $_SESSION['token'];
             $create_by=$_SESSION['userid'];
 
-            $lead_name=$request->lead_name;
+            $customer_id=$request->customer_name;
             $lead_branch=$request->lead_branch;
             $branch_name=$request->branch_name;
-            $address=$request->address;
-
+            $address=$request->crm_lead_address_id;
             $data=array(
-
+                'create_by'=>$create_by,
+                'ma_customer_id'=>$customer_id,
+                'branch_name'=>$branch_name,
+                'crm_lead_branch_id'=>$lead_branch,
+                'crm_lead_address_id'=>$address
             );
+
+            $request = Request::create('api/bsc_customer_branch', 'POST',$data);
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $response = json_decode($res->getContent()); // convert to json object
+            echo "Insert Success";
 
         }catch(Exception $e){
             echo $e->getMessage();
