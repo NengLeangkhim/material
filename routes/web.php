@@ -92,7 +92,7 @@ Route::get('/organizations/add','crm\OrganizationController@AddOrganization'); /
 Route::post('/organizations/store','crm\OrganizationController@StoreOrganization'); // add Organization
 Route::get('/organizations/edit/{id}','crm\OrganizationController@EditOrganization'); //go to Edit Organization
 Route::post('/organizations/update','crm\OrganizationController@UpdateOrganization'); //Update organization
-Route::get('/organizations/detail','crm\OrganizationController@DetailOrganization'); //get detail organization
+Route::get('/organizations/detail/{id}','crm\OrganizationController@DetailOrganization'); //get detail organization
 // End Organization
 
 
