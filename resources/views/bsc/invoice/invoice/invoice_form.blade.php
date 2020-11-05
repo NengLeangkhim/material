@@ -73,12 +73,12 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Deposit on Payment<b class="color_label">*</b></label>
+                                        <label for="exampleInputEmail1">Customer<b class="color_label">*</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fab fa-chrome"></i></span>
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <input type="number" class="form-control input_required" name="deposit_on_payment" id="deposit_on_payment" placeholder="Deposit on payment">
+                                            <input type="text" class="form-control" name="customer" id="customer" placeholder="Customer" readonly>
                                         </div>
                                     </div>
 
@@ -97,18 +97,12 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Customer<b class="color_label">*</b></label>
+                                        <label for="exampleInputEmail1">Deposit on Payment<b class="color_label">*</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="customer" id="customer" placeholder="Customer" disabled>
-                                            {{-- <select class="form-control select2 input_required" name="customer" id="customer">
-                                                <option selected hidden disabled>select item</option>
-                                                @foreach ($customers as $customers)
-                                                    <option value="{{ $customers->id }}">{{ $customers->name }}</option>
-                                                @endforeach>
-                                            </select> --}}
+                                            <input type="number" class="form-control input_required" name="deposit_on_payment" id="deposit_on_payment" placeholder="Deposit on payment">
                                         </div>
                                     </div>
                                 </div>
@@ -266,30 +260,19 @@
                 },
                 dataType: "JSON",
                 success:function(data){
-                    // console.log(data.quote_products);
-                    // $.each(data.quote_products, function(i, value) {
-                    //     alert(value);
-                    // });
+                    $.each(data[0], function(i, value){
+                        $('#customer').val(value.customer_name);
+                    });
+                    // $.each(data[1], function(i, value){
 
-                }
-            });
-    }
-</script>
-<script type="text/javascript">
-    var itemDetail = [];
-    function saveData(){
-        let num_miss = 0;
-        $(".input_required").each(function(){
-            if($(this).val()=="" || $(this).val()==null){ num_miss++;}
-        });
-        if(num_miss>0){
-            $(".input_required").each(function(){
-                if($(this).val()=="" || $(this).val()==null){ $(this).css("border-color","red"); }
-            });
-            sweetalert('error', 'Please input or select field * required');
-        }else{
-            $(".stock_product_id").each(function(e){
-                var tr = $(this).closest('tr');
+                    // });
+                    // let tr='';
+                    // $.each(data[1],function(i,value){
+                    //     tr="<tr><td>"+value.customer_branch_name+"</td><td>"+value.customer_branch_name+"</td><td>"+value.customer_branch_name+"</td><td>"+value.qty+"</td><td>"+value.price+"</td><td>"+value.discount+"</td><td>"+value.discount+"</td><td>"+value.discount+"</td><td>"+value.discount+"</td></tr>";
+                    //     $("#invoice_table").append(tr);
+_products, function(// value) {
+                    //     alert(value);
+var tr = $(this).closest('tr');
                 var thisInput = $(this).val();
                 if(thisInput != ""){
                     itemDetail[e] = {
