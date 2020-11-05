@@ -133,8 +133,8 @@ class HrmListCandidateController extends Controller
                     'email.unique' => 'The Email is Already Exist !!',   //massage validator
                     'cv.mimes' => 'Please Select Pdf File Only !!',
                     'cover_letter.mimes' => 'Please Select Pdf File Only !!',
-                    'cv.max' => 'The file is too large !!',
-                    'cover_letter.max' => 'The file is too large !!',
+                    'cv.max' => 'File too Big, please select a file less than 10mb !!',
+                    'cover_letter.max' => 'File too Big, please select a file less than 10mb !!',
                     ]
                 );
             if ($validator->fails()) //check validator for fail

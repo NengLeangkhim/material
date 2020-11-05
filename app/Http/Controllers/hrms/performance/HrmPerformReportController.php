@@ -82,52 +82,52 @@ class HrmPerformReportController extends Controller
 
 
     //function for search plan with option
-    public function hrm_perform_report_plan()
-    {
-        if(isset($_GET['date_from']) && isset($_GET['date_to']) && isset($_GET['opPlan'])){
-            date_default_timezone_set('Asia/Phnom_Penh');
-            $option = $_GET['opPlan']; // this variable can not pass null
-            $date_from = date(''.$_GET['date_from'].' 00:00:00');
-            $date_to = date(''.$_GET['date_to'].' 23:59:59');
+    // public function hrm_perform_report_plan()
+    // {
+    //     if(isset($_GET['date_from']) && isset($_GET['date_to']) && isset($_GET['opPlan'])){
+    //         date_default_timezone_set('Asia/Phnom_Penh');
+    //         $option = $_GET['opPlan']; // this variable can not pass null
+    //         $date_from = date(''.$_GET['date_from'].' 00:00:00');
+    //         $date_to = date(''.$_GET['date_to'].' 23:59:59');
 
-            if($_GET['date_from'] == ''){
-                $date_from = date('2010-10-10');
-            }
-            if($_GET['date_to'] == ''){
-                $date_to = date('Y-m-d H:i:s');
-            }
-
-
-            switch ($option) {
-                case 'op1':         //get show performance plan was created
-                            $data = ModelHrmPerformReport::getPlanCreated($date_from,$date_to);
-                            return view('hrms/performance/performance_report/showReportPlanCreate');
-                            // dump($r);
-                    break;
-                case 'op2':         //get show performance plan in processing
-                        echo 'hello op2';
-                    break;
-                case 'op3':         //get show performance plan completed
-                        echo 'hello op3';
-                    break;
-
-                default:
-                        echo 'defaulte break';
-                    break;
-            }
+    //         if($_GET['date_from'] == ''){
+    //             $date_from = date('2010-10-10');
+    //         }
+    //         if($_GET['date_to'] == ''){
+    //             $date_to = date('Y-m-d H:i:s');
+    //         }
 
 
-            // echo $date_from.'---'.$date_to;
+    //         switch ($option) {
+    //             case 'op1':         //get show performance plan was created
+    //                         $data = ModelHrmPerformReport::getPlanCreated($date_from,$date_to);
+    //                         return view('hrms/performance/performance_report/showReportPlanCreate');
+    //                         // dump($r);
+    //                 break;
+    //             case 'op2':         //get show performance plan in processing
+    //                     echo 'hello op2';
+    //                 break;
+    //             case 'op3':         //get show performance plan completed
+    //                     echo 'hello op3';
+    //                 break;
+
+    //             default:
+    //                     echo 'defaulte break';
+    //                 break;
+    //         }
 
 
+    //         // echo $date_from.'---'.$date_to;
 
 
 
 
-        }else{
-            return redirect()->action('hrms\performance\HrmPerformReportController@HrmIndexPerformReport');
-        }
-    }
+
+
+    //     }else{
+    //         return redirect()->action('hrms\performance\HrmPerformReportController@HrmIndexPerformReport');
+    //     }
+    // }
 
 
 
@@ -148,7 +148,6 @@ class HrmPerformReportController extends Controller
                 $date_to = date('Y-m-d H:i:s');
             }
             $planReport = ModelHrmPerformReport::getPlanCreated($date_from,$date_to);
-            // dd($data);
             return view('hrms/performance/performance_report/showReportPlan',compact('planReport'));
 
 
@@ -157,7 +156,50 @@ class HrmPerformReportController extends Controller
     }
 
 
+    // function to get view plan detail in report
+    public static function hrm_perform_report_planViewDetail(){
+        if(isset($_GET['planId'])){
+            $parentId =  $_GET['planId'];
 
+            $parentPlan = ModelHrmPerformReport::getParentPlan($parentId);  //get detail parent plan
+                $getSubPlan = ModelHrmPerformReport::getSubParentPlan($parentId); //get detail sub plan
+            // dump($parentPlan);
+            return view('hrms/performance/performance_report/showReportPlanDetail',compact('parentPlan','getSubPlan'));
+
+        }else{
+            return redirect()->action('hrms\performance\HrmPerformReportController@HrmIndexPerformReport');
+        }
+    }
+
+
+
+
+
+    public static function hrm_perform_report_subplanViewDetail(){
+        if(isset($_GET['subPlanId'])){
+            $subPlanId = $_GET['subPlanId'];
+            $subPlanDetail = ModelHrmPerformReport::getSubPlanDetail($subPlanId);
+            // dump($parentPlan);
+            return view('hrms/performance/performance_report/showReportPlanSubDetail',compact('subPlanDetail'));
+        }
+    }
+
+
+
+    //function to list sub of sub plan in perform report
+    public static function hrm_perform_report_listSubofSubPlan(){
+
+        if(isset($_GET['parentId'])){
+            $parentId = $_GET['parentId'];
+            $dataController = ModelHrmPerformReport::getSubofSubPlan($parentId);
+            // dd($dataController);
+            return view('hrms/performance/performance_report/showReportPlanSubofSub',compact('dataController'));
+
+        }else{
+            return redirect()->action('hrms\performance\HrmPerformReportController@HrmIndexPerformReport');
+        }
+
+    }
 
 
 

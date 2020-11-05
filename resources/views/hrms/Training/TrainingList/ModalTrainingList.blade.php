@@ -29,7 +29,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Training Type <span class="text-danger">*</span></label>
-                    <select name="trainingtype" id="trainingtype" class="form-control">
+                    <select name="trainingtype" id="trainingtype" class="form-control" required>
                      <option value="" hidden></option>
                      @php 
                         foreach ($data[0] as $type) {
@@ -49,7 +49,7 @@
                   <!-- /.form-group -->
                   <div class="form-group">
                     <label>Trainer <span class="text-danger">*</span></label>
-                    <select name="trainer" id="trainer" class="form-control">
+                    <select name="trainer" id="trainer" class="form-control" required>
                       <option hidden value=""></option>
                       @php 
                           foreach ($data[1] as $trainer) {
@@ -171,7 +171,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                    <label>Description <span class="text-danger">*</span></label>
+                    <label>Description</label>
                     <textarea name="description" rows="5" class="form-control">@php if(isset($data[2])){echo $data[2][0]->schet_description;} @endphp</textarea>
                   </div>
                 </div>

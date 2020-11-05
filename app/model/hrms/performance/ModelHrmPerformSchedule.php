@@ -84,11 +84,28 @@ class ModelHrmPerformSchedule extends Model
         //                    ->where('ps.is_deleted','=','f')
         //                    ->orderBy('ps.id','ASC')
         //                    ->get(); 
-        $schedule_ceo = DB::select("SELECT ps.*,CONCAT(s.first_name_en, ' ', s.last_name_en) AS staff_name,CONCAT(ss.first_name_en, ' ', ss.last_name_en) AS create_name,pd.name as plan_detail,pd.hr_performance_plan_id,pfm.is_deleted as deleted from hr_performance_schedule ps
+        $schedule_ceo = DB::select("SELECT ps.*,CONCAT(s.first_name_en, ' ', s.last_name_en) AS staff_name,CONCAT(ss.first_name_en, ' ', ss.last_name_en) AS create_name,pd.name as plan_detail,pd.hr_performance_plan_id,pfm.is_deleted as deleted,pf.percentage from hr_performance_schedule ps
                                     JOIN ma_user s on ps.ma_user_id=s.id
                                     JOIN ma_user ss on ps.create_by=ss.id
                                     JOIN hr_performance_plan_detail pd on ps.hr_performance_plan_detail_id = pd.id
                                     LEFT JOIN hr_performance_manager_follow_up pfm on ps.id = pfm.hr_performance_schedule_id
+                                    left join (
+                                                SELECT
+                                                        id,
+                                                        percentage,
+                                                        hr_performance_schedule_id
+                                                    FROM
+                                                        hr_performance_follow_up
+                                                    where  (hr_performance_schedule_id,id) IN
+                                                (
+                                                    SELECT
+                                                        hr_performance_schedule_id,
+                                                        MAX(id)
+                                                    FROM
+                                                        hr_performance_follow_up
+                                                    group by hr_performance_schedule_id
+                                                ) Group by hr_performance_schedule_id,id,percentage
+                                                )pf on (ps.id=pf.hr_performance_schedule_id)
                                     WHERE pd.hr_performance_plan_id =$id and ps.is_deleted='f' 
                                     ORDER BY pd.hr_performance_plan_id,pd.id ASC");
         return $schedule_ceo;
@@ -105,11 +122,28 @@ class ModelHrmPerformSchedule extends Model
         //                    ->where('ps.is_deleted','=','f')
         //                    ->orderBy('ps.id','ASC')
         //                    ->get(); 
-        $schedule_ceo = DB::select("SELECT ps.*,CONCAT(s.first_name_en, ' ', s.last_name_en) AS staff_name,CONCAT(ss.first_name_en, ' ', ss.last_name_en) AS create_name,pd.name as plan_detail,pd.hr_performance_plan_id,pfm.is_deleted as deleted from hr_performance_schedule ps
+        $schedule_ceo = DB::select("SELECT ps.*,CONCAT(s.first_name_en, ' ', s.last_name_en) AS staff_name,CONCAT(ss.first_name_en, ' ', ss.last_name_en) AS create_name,pd.name as plan_detail,pd.hr_performance_plan_id,pfm.is_deleted as deleted,pf.percentage from hr_performance_schedule ps
                                     JOIN ma_user s on ps.ma_user_id=s.id
                                     JOIN ma_user ss on ps.create_by=ss.id
                                     JOIN hr_performance_plan_detail pd on ps.hr_performance_plan_detail_id = pd.id
                                     LEFT JOIN hr_performance_manager_follow_up pfm on ps.id = pfm.hr_performance_schedule_id
+                                    left join (
+                                                SELECT
+                                                        id,
+                                                        percentage,
+                                                        hr_performance_schedule_id
+                                                    FROM
+                                                        hr_performance_follow_up
+                                                    where  (hr_performance_schedule_id,id) IN
+                                                (
+                                                    SELECT
+                                                        hr_performance_schedule_id,
+                                                        MAX(id)
+                                                    FROM
+                                                        hr_performance_follow_up
+                                                    group by hr_performance_schedule_id
+                                                ) Group by hr_performance_schedule_id,id,percentage
+                                                )pf on (ps.id=pf.hr_performance_schedule_id)
                                     WHERE pd.hr_performance_plan_id =$id and ps.ma_user_id=$userid and ps.is_deleted='f' 
                                     ORDER BY pd.hr_performance_plan_id,pd.id ASC");
         return $schedule_ceo;
