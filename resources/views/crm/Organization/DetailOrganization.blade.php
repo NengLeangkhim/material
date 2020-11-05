@@ -19,7 +19,7 @@
             </div>
         </div>
      </div><!-- /.container-fluid -->
-</section> 
+</section>
 <section class="content">
     <div class="container-fluid">
       <!-- COLOR PALETTE -->
@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-3" >
                    <div class="row">
-                        <div class="col-12 " align="right"><button type="button" ​value="/organizations/edit/1" class="btn btn-primary btn-block btn-md CrmOrganizationEdit">Edit</button></div>
+                        <div class="col-12 " align="right"><button type="button" ​value="/organizations/edit/{{$organize["branch_id"]}}" class="btn btn-primary btn-block btn-md CrmOrganizationEdit">Edit</button></div>
                         {{-- <div class="col-6 " align="left"><button type="button"  class="btn btn-success btn-md">Convert</button></div> --}}
                    </div>
                 </div>
@@ -47,7 +47,7 @@
             </div>
         </div>
     </div>
-      <!-- /.card -->      
+      <!-- /.card -->
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-8">
@@ -62,28 +62,27 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <dl class="row">
-                            <dt class="col-sm-4 dt" >CID</dt>
-                            <dd class="col-sm-8 dd" >N00004</dd>
+
                             <dt class="col-sm-4 dt">Organization Name</dt>
-                            <dd class="col-sm-8 dd" >Bo Entertainment</dd>
+                            <dd class="col-sm-8 dd" >{{$organize["name_en_branch"]}}</dd>
                             <dt class="col-sm-4 dt">Customer Name</dt>
-                            <dd class="col-sm-8 dd">Oppa Bo </dd>
+                            <dd class="col-sm-8 dd">{{$organize["name_en_contact"]}}</dd>
                             {{-- <dd class="col-sm-8 offset-sm-4">Primary Email</dd> --}}
                             <dt class="col-sm-4 dt">Primary Email</dt>
-                            <dd class="col-sm-8 dd">OppaBO@gmail.com</dd>
+                            <dd class="col-sm-8 dd">{{$organize["email_branch"]}}</dd>
                             <dt class="col-sm-4 dt">Primary Phone </dt>
-                            <dd class="col-sm-8 dd">0999999999
+                            <dd class="col-sm-8 dd">{{$organize["contact_phone"]}}
                             </dd>
                             <dt class="col-sm-4 dt">Customer Type </dt>
                             <dd class="col-sm-8 dd">Public
                             </dd>
                             <dt class="col-sm-4 dt">Vat Type </dt>
-                            <dd class="col-sm-8 dd">Include
+                            <dd class="col-sm-8 dd">{{$organize["name_en_branch"]}}
                             </dd>
                             <dt class="col-sm-4 dt">Is Convert From Lead </dt>
-                            <dd class="col-sm-8 dd">Yes 
+                            <dd class="col-sm-8 dd">Yes
                             <dt class="col-sm-4 dt">Assigened To </dt>
-                            <dd class="col-sm-8 dd">XD
+                            <dd class="col-sm-8 dd">{{$organize["user_assig_to"]}}
                             </dd>
                         </dl>
                     </div>
@@ -102,24 +101,24 @@
                      <div class="card-body">
                         <dl class="row">
                             <dt class="col-sm-4 dt" >Street</dt>
-                            <dd class="col-sm-8 dd" >St 1234</dd>
+                            <dd class="col-sm-8 dd" >{{$organize["street_en"]}}</dd>
                             <dt class="col-sm-4 dt">Home number</dt>
-                            <dd class="col-sm-8 dd" ># 12A</dd>
+                            <dd class="col-sm-8 dd" >{{$organize["hom_en"]}}</dd>
                             <dt class="col-sm-4 dt">City/Province</dt>
-                            <dd class="col-sm-8 dd">Phnom penh</dd>
+                            <dd class="col-sm-8 dd">{{$organize["province"]}}</dd>
                             {{-- <dd class="col-sm-8 offset-sm-4">Primary Email</dd> --}}
                             <dt class="col-sm-4 dt">District/Khan</dt>
-                            <dd class="col-sm-8 dd">Chamkar Mon</dd>
+                            <dd class="col-sm-8 dd">{{$organize["district"]}}</dd>
                             <dt class="col-sm-4 dt">Commune/Sangkat </dt>
-                            <dd class="col-sm-8 dd">Tonle Basak </dd>
+                            <dd class="col-sm-8 dd">{{$organize["commune"]}}</dd>
                             <dt class="col-sm-4 dt">Village</dt>
-                            <dd class="col-sm-8 dd">Phum 12 </dd>
+                            <dd class="col-sm-8 dd">{{$organize["village"]}}</dd>
                             <dt class="col-sm-4">LatLg</dt>
                             <dd class="col-sm-8">
                                 <input type="text" class="form-control"  name='latlng' id="latlong" placeholder="11.123456, 104.123456 Example" >
                             </dd>
                         </dl>
-                    </div>  
+                    </div>
                     <div class="card-body">
                         <div id="map"></div>
                     </div>
@@ -129,54 +128,54 @@
             <div class="col-md-4">
                 <div class="card card-secondary">
                     <div class="card-header">
-                      <h3 class="card-title">Update</h3>        
+                      <h3 class="card-title">Update</h3>
                       <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                           <i class="fas fa-minus"></i></button>
                       </div>
                     </div>
                         <div class="card-body">
-                            <strong><i class="fas fa-book mr-1"></i> Education</strong>            
+                            <strong><i class="fas fa-book mr-1"></i> Education</strong>
                             <p class="text-muted">
                               B.S. in Computer Science from the University of Tennessee at Knoxville
-                            </p>            
-                            <hr>            
+                            </p>
+                            <hr>
                             <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-            
+
                             <p class="text-muted">Malibu, California</p>
-            
-                            <hr>            
-                            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>            
+
+                            <hr>
+                            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
                             <p class="text-muted">
                               <span class="tag tag-danger">UI Design</span>
                               <span class="tag tag-success">Coding</span>
                               <span class="tag tag-info">Javascript</span>
                               <span class="tag tag-warning">PHP</span>
                               <span class="tag tag-primary">Node.js</span>
-                            </p>            
+                            </p>
                             <hr>
-                            <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>            
+                            <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
                             <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-                            <strong><i class="fas fa-book mr-1"></i> Education</strong>            
+                            <strong><i class="fas fa-book mr-1"></i> Education</strong>
                             <p class="text-muted">
                               B.S. in Computer Science from the University of Tennessee at Knoxville
-                            </p>            
-                            <hr>            
+                            </p>
+                            <hr>
                             <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-            
+
                             <p class="text-muted">Malibu, California</p>
-            
-                            <hr>            
-                            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>            
+
+                            <hr>
+                            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
                             <p class="text-muted">
                               <span class="tag tag-danger">UI Design</span>
                               <span class="tag tag-success">Coding</span>
                               <span class="tag tag-info">Javascript</span>
                               <span class="tag tag-warning">PHP</span>
                               <span class="tag tag-primary">Node.js</span>
-                            </p>            
+                            </p>
                             <hr>
-                            <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>            
+                            <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
                             <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
                           </div>
                           <!-- /.card-body -->
@@ -189,10 +188,9 @@
 </section>
 
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing&key=AIzaSyA4QECK3Tl4Sdl1zPIHiyZaME5mUaSk4WU&callback=initMap" async defer></script>
-    
-    
+
+
     <script>
-        // alert();
         var map;
         var markers = [];
 
@@ -210,11 +208,13 @@
                 center: haightAshbury,
                 mapTypeId: 'roadmap'
             });
+            var latln = {!! json_encode($organize["latlg"]) !!};
 
             //declear default value for latlong on map
             addMarker(haightAshbury);
-            document.getElementById('latlong').value = '11.620803, 104.892215';
-           
+
+            document.getElementById('latlong').value = latln;
+
             // This event listener will call addMarker() when the map is clicked.
             map.addListener('click', function(event) {
                 if (markers.length >= 1) {
@@ -258,4 +258,6 @@
                 var id = $(this).attr("​value");
                 go_to(id);
             });
+
+
     </script>

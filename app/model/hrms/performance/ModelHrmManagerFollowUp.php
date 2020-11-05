@@ -69,7 +69,7 @@ class ModelHrmManagerFollowUp extends Model
                             'pf.percentage as pf_percent','pf.reason','pf.action_date_from','pf.action_date_to','pf.challenge','pf.comment as pf_cmt',
                             'ps.hr_performance_plan_detail_id','ps.ma_user_id','ps.create_by as ps_create_by','ps.id as ps_id','ps.date_from as ps_from','ps.date_to as ps_to','ps.create_date as ps_create_date','ps.comment as ps_cmt',
                             'pd.name as pd_name','pd.hr_performance_plan_id','pd.id as pd_id','pd.task as pd_task','pd.date_from as pd_from','pd.date_to as pd_to',
-                            'p.name as plan_name'
+                            'p.name as plan_name','p.id as plan_id'
                             )
                             ->join('hr_performance_score as pscore','pfm.hr_performance_score_id','=','pscore.id')
                             ->join('hr_performance_follow_up as pf','pfm.hr_performance_schedule_id','=','pf.hr_performance_schedule_id')
@@ -85,6 +85,20 @@ class ModelHrmManagerFollowUp extends Model
                             ])
                             ->orderBy('pf.id','DESC')
                             ->take(1)
+                            ->get(); 
+        return $follow_up_user;
+    }
+    // ===== Function get data Manager Follow up By Schedule=====////
+    public static function hrm_get_manager_follow_up_by_schedule(){
+        $follow_up_user = DB::table('hr_performance_manager_follow_up as pfm')
+                            ->select('pfm.*',DB::raw("sdd.first_name_en||' '||sdd.last_name_en as user_pfm"),'pscore.name as score')
+                            ->join('hr_performance_score as pscore','pfm.hr_performance_score_id','=','pscore.id')
+                            ->join('hr_performance_schedule as ps','pfm.hr_performance_schedule_id','=','ps.id')
+                            ->join('ma_user as sdd','pfm.create_by','=','sdd.id')
+                            ->where([
+                                ['pfm.is_deleted', '=', 'f']
+                            ])
+                            ->orderBy('pfm.id','ASC')
                             ->get(); 
         return $follow_up_user;
     }

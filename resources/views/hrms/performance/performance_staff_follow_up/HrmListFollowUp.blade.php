@@ -137,6 +137,14 @@
                                 {!!$table_perm!!}
                             </table>
                         </div>
+                        <div class="col-md-12">
+                            @if (is_null($button_perm))
+                               {{''}} 
+                            @else
+                                {!!$button_perm!!}
+                            @endif
+                            
+                        </div>
                     </div><!-- End Row -->
                 </div><!-- End container-fluid -->
               </div><!-- /.END card-body -->

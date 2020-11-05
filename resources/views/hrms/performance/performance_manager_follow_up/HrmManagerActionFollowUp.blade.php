@@ -42,7 +42,7 @@
                                 // Header Form
                                 $header = "Update Manager Follow Up";
                                 //Action go to
-                                $go_to = "hrm_performance_follow_up_manager";
+                                $go_to = "/hrm_performance_follow_up_manager/list?plan_id=".$row->plan_id."";
                                 //// plan detail
                                 $pd_name = $row->pd_name;
                                 $plan_name = $row->plan_name;
