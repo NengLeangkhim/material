@@ -24,7 +24,7 @@ class HrmPlanDetailController extends Controller
                 $plan_detail = ModelHrmPlanDetail::hrm_get_tbl_perform_plan_detail_dept($userid);
             //permission check for CEO and Admin
             if(perms::check_perm_module('HRM_09070408')){//code for view all plan
-                $plan_detail = ModelHrmPlanDetail::hrm_get_tbl_perform_plan_detail();  //query policy user
+                $plan_detail = ModelHrmPlanDetail::hrm_get_tbl_perform_plan_detail();  //query
             }
             $i=1;// variable increase number for table
             $table_perm= '<tbody>';

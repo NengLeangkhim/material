@@ -713,6 +713,9 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 ////// Performane Manager Follow Up
     /// Index manager Follow up
     Route::get('/hrm_performance_follow_up_manager','hrms\performance\HrmManagerFollowUpController@HrmIndexManagerFollowUp');
+    
+    /// List manager Follow up
+    Route::get('/hrm_performance_follow_up_manager/list','hrms\performance\HrmManagerFollowUpController@HrmListManagerFollowUp');
 
     /// go to manager Follow up
     Route::get('/hrm_performance_follow_up_manager/action','hrms\performance\HrmManagerFollowUpController@HrmActionManagerFollowUp');

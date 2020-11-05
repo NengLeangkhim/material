@@ -16,11 +16,17 @@
                         <table class="table table-bordered display nowrap" style="width: 100%" id="tbl_manager_follow_up">
                             <thead>                  
                               <tr>
-                                <th scope="col">#</th>
+                                {{-- <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Plan Name</th>
                                 <th scope="col">Percentage</th>
                                 <th scope="col">Score</th>
+                                <th scope="col">Create Date</th>
+                                <th scope="col">Create By</th>
+                                <th scope="col">Action</th> --}}
+                                <th scope="col">#</th>
+                                <th scope="col">Plan Name</th>
+                                <th scope="col">Date From-To</th>
                                 <th scope="col">Create Date</th>
                                 <th scope="col">Create By</th>
                                 <th scope="col">Action</th>
