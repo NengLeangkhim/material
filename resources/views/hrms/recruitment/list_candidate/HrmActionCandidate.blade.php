@@ -133,7 +133,7 @@ use App\Http\Controllers\en_de;
                                     <label for="cv">Upload CV<span class="text-danger"></span></label>
                                     <div class="custom-file">
                                         {{-- <label for="policy_file">File PDF only<span class="text-danger">*</span></label> --}}
-                                        <input type="file" class="custom-file-input" onchange="hrm_get_name_file('cv','cv_file_name')" name="cv" id="cv" accept="application/pdf">
+                                        <input type="file" class="custom-file-input" onchange="hrm_get_name_file('cv','cv_file_name'),HrmFileValidationSize('cv',10240)" name="cv" id="cv" accept="application/pdf">
                                         <label class="custom-file-label" id="cv_file_name" for="cv">Choose file</label>
                                         <input type="hidden" name="cv_hidden" value="{{$cv}}">  {{--for update--}}
                                         <span class="invalid-feedback" role="alert" id="cvError"> {{--span for alert--}}
@@ -146,7 +146,7 @@ use App\Http\Controllers\en_de;
                                 <div class="form-group">
                                     <label for="cover_letter">Upload Cover Letter<span class="text-danger"></span></label>
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" onchange="hrm_get_name_file('cover_letter','cover_file_name')" name="cover_letter" id="cover_letter" accept="application/pdf">
+                                        <input type="file" class="custom-file-input" onchange="hrm_get_name_file('cover_letter','cover_file_name'),HrmFileValidationSize('cover_letter',10240)" name="cover_letter" id="cover_letter" accept="application/pdf">
                                         <label class="custom-file-label" id="cover_file_name" for="cover_letter">Choose file</label>
                                         <input type="hidden" name="cover_hidden" value="{{$cover}}">
                                         <span class="invalid-feedback" role="alert" id="cover_letterError"> {{--span for alert--}}
