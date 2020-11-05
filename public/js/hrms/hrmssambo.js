@@ -67,6 +67,26 @@ function hrm_get_name_file(name_input,id_label){
     }
 
 }
+//// File Validation 
+  function HrmFileValidationSize(id_input,size){
+    const fi = document.getElementById(id_input); 
+    // Check if any file is selected. 
+    if (fi.files.length > 0) { 
+        for (const i = 0; i <= fi.files.length - 1; i++) { 
+            const fsize = fi.files.item(i).size; 
+            const file = Math.round((fsize / 1024)); 
+            // The size of the file. 
+            if (file >= size) {  
+                $('#'+id_input+'').addClass('is-invalid');
+                $("#" + id_input + "Error").children("strong").text("").text("File too Big, please select a file less than 10mb !!");
+            }else { 
+                //alert(file);
+                $('#'+id_input+'').removeClass('is-invalid');
+                $("#" + id_input + "Error").children("strong").text("").text("");
+            } 
+        } 
+    } 
+  }
 /////////////=================================EMPLOYEE SUGGESTION =============================///////////////
 
 ////==========Question Type Suggestion============////
