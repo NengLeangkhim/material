@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\crm;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\perms;
 use App\model\api\crm\Crmlead as Lead;
 use App\addressModel;
 use App\Http\Resources\api\crm\lead\LeadSource as SourceResource;
@@ -237,9 +238,26 @@ class LeadController extends Controller
     }
     // get all lead
     public function getLead(){
-        $lead = Lead::getLead();
-        // return Lead::getLead();
-        return GetLead::Collection($lead);
+            $return=response()->json(auth()->user());
+            $return=json_encode($return,true);
+            $return=json_decode($return,true);
+            $userid=$return["original"]['id'];
+
+        if(perms::check_perm_module('CRM_020501')){ // top managment
+            $lead = Lead::getLead(); // all lead 
+            return GetLead::Collection($lead);          
+        }
+        else if (perms::check_perm_module('CRM_020509')) { // fro staff (Model and Leadlist by user)
+            $lead = Lead::getLeadbyassginto($userid); //  lead by assigned to
+            return GetLead::Collection($lead);
+        
+        }
+        else
+        {
+            return view('no_perms');
+        }
+        
+        // return GetLead::Collection($lead);
     }
     // get  lead by id
     public function getleadbyid($id){
@@ -254,8 +272,25 @@ class LeadController extends Controller
     }
     // get  show branch by lead id
     public function getbranch_lead($id){
+
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+        
+    if(perms::check_perm_module('CRM_0210')){ // for top managment
         $branch_id = Lead::getbranch_lead($id);
         return GetLeadBranch::Collection($branch_id);
+    }
+    else if (perms::check_perm_module('CRM_0213')) { // for staff (Model  name Get Branch by user)
+        $branch_id = Lead::getbranch_leadbyassigto($id,$userid);
+        return GetLeadBranch::Collection($branch_id);
+    }
+    else
+    {
+        return view('no_perms');
+    }
+       
     }
     // //  edit lead 
     public function editlead( Request $request){
