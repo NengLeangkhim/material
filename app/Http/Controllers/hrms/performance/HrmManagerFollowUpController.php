@@ -52,18 +52,6 @@ class HrmManagerFollowUpController extends Controller
                         <td>'.$row->staff_name.'</td>
                         <td class="text-center">';
                 $table_perm.='<a href="javascript:void(0);" id="'.$row->id.'" title="List Schedule" onclick=\'go_to("/hrm_performance_follow_up_manager/list?plan_id='.$row->id.'")\' class="ListSchedulePeroformance"><i class="fas fa-list"></i></a>';
-                // $table_perm.= '
-                //     <div class="dropdown">
-                //         <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                //             Action
-                //         </button>
-                //         <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">';
-                // if(perms::check_perm_module('HRM_09070303')){// Permission View
-                //     $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item hrm_view_manager_follow_up">View</button>';
-                // }
-                // if(perms::check_perm_module('HRM_09070302')){// Permission Update
-                //     $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'go_to("/hrm_performance_follow_up_manager/action?edit='.$row->id.'")\' class="dropdown-item hrm_item hrm_update_manager_follow_up">Update</button>';
-                // }</div></div>
                 $table_perm.= ' 
                             </td>
                         </tr>';
@@ -88,10 +76,6 @@ class HrmManagerFollowUpController extends Controller
                 $dept = $row->ma_company_dept_id;
                 $id_user = $row->id;
             }
-            // $plan = ModelHrmPlan::hrm_get_plan($id);
-            // foreach($plan as $row){
-            //     $id_plan = $row->id;
-            // }
             if(perms::check_perm_module('HRM_09070304')){ //permission check for CEO and Admin
                 $schedule = ModelHrmPerformSchedule::hrm_list_schedule_top($id); //query 
                 $plan=ModelHrmPlan::hrm_get_plan($id);// get query from performance plan
@@ -99,7 +83,7 @@ class HrmManagerFollowUpController extends Controller
                 $get_manager_follow_up = ModelHrmManagerFollowUp::hrm_get_manager_follow_up_by_schedule();
                 
             }else if(perms::check_perm_module('HRM_09070305')){//permission each departement
-                $schedule = ModelHrmPerformSchedule::hrm_list_schedule_top($id); //query policy user
+                $schedule = ModelHrmPerformSchedule::hrm_list_schedule_top($id); //query
                 $plan=ModelHrmPlan::hrm_get_plan($id);// get query from performance plan
                 $plan_detail_get = ModelHrmPlanDetail::hrm_get_plan_detail($id);
                 $get_manager_follow_up = ModelHrmManagerFollowUp::hrm_get_manager_follow_up_by_schedule();

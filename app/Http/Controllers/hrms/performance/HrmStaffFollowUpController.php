@@ -52,23 +52,6 @@ class HrmStaffFollowUpController extends Controller
                         <td>'.$row->staff_name.'</td>
                         <td class="text-center">';
                 $table_perm.='<a href="#" id="'.$row->id.'" title="List Schedule" onclick=\'go_to("/hrm_performance_follow_up/assign?plan_id='.$row->id.'")\' class="ListSchedulePeroformance"><i class="fas fa-list"></i></a>';
-                // $table_perm.= '
-                //     <div class="dropdown">
-                //         <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                //             Action
-                //         </button>
-                //         <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">';
-                // if(perms::check_perm_module('HRM_09070203')){// Permission View
-                //     $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item hrm_view_perform_staff_follow_up">View</button>';
-                // }
-                // if(perms::check_perm_module('HRM_09070202')&& $row->ma_user_id==$userid){// Permission Update
-                //     $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'go_to("/hrm_performance_follow_up/modal/action?edit='.$row->id.'")\' class="dropdown-item hrm_item hrm_update_perform_staff_follow_up">Update</button>';
-                // }
-                // if(perms::check_perm_module('HRM_09070301')){// Permission Add Staff Follow Up
-                //         if(is_null($row->delete) || $row->delete=='t'){// check can follow up one time only
-                //             $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'go_to("/hrm_performance_follow_up_manager/action?add='.$row->id.'")\' class="dropdown-item hrm_item hrm_add_manager_follow_up">Follow Up Staff</button> ';
-                //         }
-                // } </div> </div>
                 $table_perm.= '
                             </td>
                         </tr>';
@@ -93,10 +76,6 @@ class HrmStaffFollowUpController extends Controller
                 $dept = $row->ma_company_dept_id;
                 $id_user = $row->id;
             }
-            // $plan = ModelHrmPlan::hrm_get_plan($id);
-            // foreach($plan as $row){
-            //     $id_plan = $row->id;
-            // }
             if(perms::check_perm_module('HRM_09070204')){ //permission check for CEO and Admin
                 $schedule = ModelHrmPerformSchedule::hrm_list_schedule_top($id); //query 
                 $plan=ModelHrmPlan::hrm_get_plan($id);// get query from performance plan

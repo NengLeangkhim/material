@@ -49,7 +49,7 @@
             <div class="card card-default">
               <div class="card-header">
                   <h3 class="card-title hrm-title"><strong><i class="fas fa-book-open"></i></strong></h3>
-                  <h2 class="card-title hrm-title" style="font-weight: bold;font-size:25px" id="card_title">List Schedule</h2>
+                  <h2 class="card-title hrm-title" style="font-weight: bold;font-size:25px" id="card_title">List Follow Up</h2>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                     <a  href="javascript:void(0);" onclick="go_to('hrm_performance_follow_up')" class="text-info"><i class="fa fa-arrow-left"></i> Back</a> 
