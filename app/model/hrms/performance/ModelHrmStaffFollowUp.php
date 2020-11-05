@@ -59,6 +59,25 @@ class ModelHrmStaffFollowUp extends Model
                             ->get(); 
         return $follow_up_user;
     }
+    // ===== Function get data for table List =====////
+    public static function hrm_list_tbl_follow_up($id){
+        $follow_up_ceo= DB::table('hr_performance_follow_up as pf')
+                           ->select('pf.*','ps.hr_performance_plan_detail_id','ps.ma_user_id',DB::raw("CONCAT(s.first_name_en,' ',s.last_name_en) AS name_staff"),'pd.name as name_plan','pd.id as id_pd','pfm.is_deleted as delete')
+                           ->join('hr_performance_schedule as ps','pf.hr_performance_schedule_id','=','ps.id')
+                           ->join('ma_user as s','ps.ma_user_id','=','s.id')
+                           ->join('hr_performance_plan_detail as pd','ps.hr_performance_plan_detail_id','=','pd.id')
+                           ->leftjoin('hr_performance_manager_follow_up as pfm','pf.hr_performance_schedule_id','=','pfm.hr_performance_schedule_id')
+                           ->where([
+                               ['pf.is_deleted','=','f'],
+                               ['ps.id','=',$id]
+                           ])
+                           ->groupBy(['pf.id','ps.hr_performance_plan_detail_id','ps.ma_user_id','name_staff','pd.name','pd.id','pfm.is_deleted'])
+                           ->orderBy('ps.ma_user_id','ASC')
+                           ->orderBy('ps.hr_performance_plan_detail_id','ASC')
+                           ->orderBy('pf.id','ASC')
+                           ->get(); 
+        return $follow_up_ceo;
+     }
     // ===== Function Insert Staff Follow Up  ======//
     public static function hrm_insert_staff_follow_up($schedule_id,$percent,$reason,$challenge,$userid,$cmt,$from,$to){
         return DB::select('SELECT public.insert_hr_performance_follow_up(?,?,?,?,?,?,?,?)',array($schedule_id,$percent,$reason,$challenge,$userid,$cmt,$from,$to));

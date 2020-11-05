@@ -9,6 +9,8 @@ use App\model\hrms\ModelHrmPermission;
 use Illuminate\Validation\Rule;
 use App\model\hrms\performance\ModelHrmStaffFollowUp;
 use App\model\hrms\performance\ModelHrmPerformSchedule;
+use App\model\hrms\performance\ModelHrmPlan;
+use App\model\hrms\performance\ModelHrmPlanDetail;
 class HrmStaffFollowUpController extends Controller
 {
     //
@@ -25,15 +27,106 @@ class HrmStaffFollowUpController extends Controller
                 $dept = $row->ma_company_dept_id;
             }
             if(perms::check_perm_module('HRM_09070204')){ //permission check for CEO and Admin
+                $get_plan = ModelHrmPerformSchedule::hrm_get_tbl_schedule_top(); //query 
                 $follow_up = ModelHrmStaffFollowUp::hrm_get_tbl_follow_up_top(); //query database
 
             }else if(perms::check_perm_module('HRM_09070205')){//permission each departement
+                $get_plan = ModelHrmPerformSchedule::hrm_get_tbl_schedule_top(); //query 
                 $follow_up = ModelHrmStaffFollowUp::hrm_get_tbl_follow_up_dept($dept); //query database
 
             }else{//permission check user
+                $get_plan = ModelHrmPerformSchedule::hrm_get_tbl_schedule_staff($userid);
                 $follow_up = ModelHrmStaffFollowUp::hrm_get_tbl_follow_up_staff($userid); //query database
-
+                
             }
+            $i=1;// variable increase number for table
+            $table_perm= '<tbody>';
+            foreach($get_plan as $row){
+                $create = $row->create_date;
+                $table_perm.= '
+                    <tr>
+                        <th>'.$i++.'</th>
+                        <td>'.$row->name.'</td>
+                        <td>'.$row->date_from.' '.'to'.' '.$row->date_to.'</td>
+                        <td>'.date('Y-m-d H:i:s',strtotime($create)).'</td>
+                        <td>'.$row->staff_name.'</td>
+                        <td class="text-center">';
+                $table_perm.='<a href="#" id="'.$row->id.'" title="List Schedule" onclick=\'go_to("/hrm_performance_follow_up/assign?plan_id='.$row->id.'")\' class="ListSchedulePeroformance"><i class="fas fa-list"></i></a>';
+                // $table_perm.= '
+                //     <div class="dropdown">
+                //         <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                //             Action
+                //         </button>
+                //         <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">';
+                // if(perms::check_perm_module('HRM_09070203')){// Permission View
+                //     $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item hrm_view_perform_staff_follow_up">View</button>';
+                // }
+                // if(perms::check_perm_module('HRM_09070202')&& $row->ma_user_id==$userid){// Permission Update
+                //     $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'go_to("/hrm_performance_follow_up/modal/action?edit='.$row->id.'")\' class="dropdown-item hrm_item hrm_update_perform_staff_follow_up">Update</button>';
+                // }
+                // if(perms::check_perm_module('HRM_09070301')){// Permission Add Staff Follow Up
+                //         if(is_null($row->delete) || $row->delete=='t'){// check can follow up one time only
+                //             $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'go_to("/hrm_performance_follow_up_manager/action?add='.$row->id.'")\' class="dropdown-item hrm_item hrm_add_manager_follow_up">Follow Up Staff</button> ';
+                //         }
+                // } </div> </div>
+                $table_perm.= '
+                            </td>
+                        </tr>';
+            }
+            $table_perm.='</tbody>';
+            return view('hrms/performance/performance_staff_follow_up/HrmPerformStaffFollowUp',['table_perm'=>$table_perm,'permission'=>$permission]);
+        }else{
+            return view('no_perms');
+        }
+    }
+    /// function get List Schedule 
+    public function HrmViewAssign(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }  
+        if(perms::check_perm_module('HRM_090702')){//module code list data tables id=96
+            $id = $_GET['plan_id'];
+            $userid = $_SESSION['userid'];
+            $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
+            foreach($permission as $row){
+                $group = $row->ma_group_id;
+                $dept = $row->ma_company_dept_id;
+                $id_user = $row->id;
+            }
+            // $plan = ModelHrmPlan::hrm_get_plan($id);
+            // foreach($plan as $row){
+            //     $id_plan = $row->id;
+            // }
+            if(perms::check_perm_module('HRM_09070204')){ //permission check for CEO and Admin
+                $schedule = ModelHrmPerformSchedule::hrm_list_schedule_top($id); //query 
+                $plan=ModelHrmPlan::hrm_get_plan($id);// get query from performance plan
+                $plan_detail_get = ModelHrmPlanDetail::hrm_get_plan_detail($id);
+                
+            }else if(perms::check_perm_module('HRM_09070205')){//permission each departement
+                $schedule = ModelHrmPerformSchedule::hrm_list_schedule_top($id); //query policy user
+                $plan=ModelHrmPlan::hrm_get_plan($id);// get query from performance plan
+                $plan_detail_get = ModelHrmPlanDetail::hrm_get_plan_detail($id);
+            }else{//permission check user
+                $schedule = ModelHrmPerformSchedule::hrm_list_schedule_staff($id,$userid);
+                $plan=ModelHrmPlan::hrm_get_plan_staff($id,$userid);// get query from performance plan
+                $plan_detail_get = ModelHrmPlanDetail::hrm_get_plan_detail_staff($id,$userid);
+               
+            }
+            return view('hrms/performance/performance_staff_follow_up/HrmListAssign',['perform_plan'=>$plan,'perform_plan_detail'=>$plan_detail_get,'schedule'=>$schedule]); 
+        }else{
+            return view('no_perms');
+        }
+    }
+    // function View Staff Follow Up List//
+    public function HrmListStaffFollowUp(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+            }
+            if(perms::check_perm_module('HRM_09070203')){//module code list data tables id=150
+            $id = $_GET['id'];
+            $userid = $_SESSION['userid'];
+            $schedule= ModelHrmPerformSchedule::hrm_get_date_schedule_update($id); // get value from table follow up
+            $follow_up = ModelHrmStaffFollowUp::hrm_list_tbl_follow_up($id); //query database
             $i=1;// variable increase number for table
             $table_perm= '<tbody>';
             foreach($follow_up as $row){
@@ -41,8 +134,6 @@ class HrmStaffFollowUpController extends Controller
                 $table_perm.= '
                     <tr>
                         <th>'.$i++.'</th>
-                        <td>'.$row->name_staff.'</td>
-                        <td>'.$row->name_plan.'</td>
                         <td>'.intval($row->percentage).'%'.'</td>
                         <td>'.$row->action_date_from.' '.'to'.' '.$row->action_date_to.'</td>
                         <td>'.date('Y-m-d H:i:s',strtotime($create)).'</td>
@@ -63,17 +154,17 @@ class HrmStaffFollowUpController extends Controller
                         if(is_null($row->delete) || $row->delete=='t'){// check can follow up one time only
                             $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'go_to("/hrm_performance_follow_up_manager/action?add='.$row->id.'")\' class="dropdown-item hrm_item hrm_add_manager_follow_up">Follow Up Staff</button> ';
                         }
-                }
-                $table_perm.= ' </div>
-                               </div>
+                } 
+                $table_perm.= '</div> 
+                              </div>
                             </td>
                         </tr>';
             }
             $table_perm.='</tbody>';
-            return view('hrms/performance/performance_staff_follow_up/HrmPerformStaffFollowUp',['table_perm'=>$table_perm,'permission'=>$permission]);
-        }else{
-            return view('no_perms');
-        }
+            return view('hrms/performance/performance_staff_follow_up/HrmListFollowUp', ['schedule' => $schedule,'table_perm'=>$table_perm]);
+            }else{
+                return view('no_perms');
+            }
     }
     // function Modal for Action on Staff Follow Up//
     public function HrmActionStaffFollowUp(){
