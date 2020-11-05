@@ -13,7 +13,7 @@
                 </div>
             </div>
          </div><!-- /.container-fluid -->
-    </section>  
+    </section>
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -21,11 +21,18 @@
                 <div class="col-md-12">
                     <form id="frm_CrmOrganizationEdit">
                         @csrf
+                        <input name="address_id" value="{{$organize["crm_lead_address_id"]}}" type="hidden"/>
+                        <input name="branch_id" value="{{$organize["branch_id"]}}" type="hidden"/>
+                        <input name="lead_id" value="{{$organize["lead_id"]}}" type="hidden"/>
+                        <input name="lead_con_bran_id" value="{{$organize["lead_con_bran_id"]}}" type="hidden"/>
+                        <input name="assig_to" value="{{$organize["ma_user_id"]}}" type="hidden"/>
+                        <input name="prioroty" value="{{$organize["priority"]}}" type="hidden"/>
+                        <input name="address_type" value="{{$organize["address_type"]}}" type="hidden"/>
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header" style="background:#1fa8e0">
                                 <h3 class="card-title">Organization Detail</h3>
-                            </div>                            
+                            </div>
                             <div class="card-body">
                                 <div class="form-group">
                                     <div class="row">
@@ -35,10 +42,14 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                 </div>
-                                                <select class="form-control" name="contact" id="contact" >
+                                                <select class="form-control" name="contact_id" id="contact" >
                                                     <option></option>
                                                     @foreach($contact as $row)
-                                                        <option value="{{$row->id}}">{{$row->name_en}}</option>                                                  
+                                                        @if($row->id === $organize["contact_id"])
+                                                            <option selected value="{{$row->id}}">{{$row->name_en}}</option>
+                                                        @else
+                                                            <option value="{{$row->id}}">{{$row->name_en}}</option>
+                                                        @endif
                                                     @endforeach
                                                 </select>
                                                 <span class="invalid-feedback" role="alert" id="contactError"> {{--span for alert--}}
@@ -52,7 +63,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="Customer Name English"  name='company_en' id="company_en"  required>
+                                                <input type="text" value="{{$organize["name_en_branch"]}}" class="form-control" placeholder="Customer Name English"  name='company_en' id="company_en"  required>
                                                 <span class="invalid-feedback" role="alert" id="company_enError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
@@ -68,11 +79,11 @@
                                                    <div class="input-group-prepend">
                                                        <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                    </div>
-                                                   <input type="text" class="form-control" name="company_kh" id="company_kh" placeholder="Customer Name khmer" >
+                                                   <input value="{{$organize["name_kh_branch"]}}" type="text" class="form-control" name="company_kh" id="company_kh" placeholder="Customer Name khmer" >
                                                    <span class="invalid-feedback" role="alert" id="company_khError"> {{--span for alert--}}
                                                        <strong></strong>
                                                    </span>
-                                               </div> 
+                                               </div>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="primary_email">Primary Email<b style="color:red">*</b></label>
@@ -80,7 +91,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-at"></i></span>
                                                 </div>
-                                                <input type="email" class="form-control"  name="primary_email" id="primary_email" placeholder="Primary Email">
+                                                <input value="{{$organize["email_branch"]}}" type="email" class="form-control"  name="primary_email" id="primary_email" placeholder="Primary Email">
                                                 <span class="invalid-feedback" role="alert" id="primary_emailError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
@@ -96,7 +107,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="primary_phone"id="primary_phone" placeholder="Primary Phone" >
+                                                <input value="{{$organize["contact_phone"]}}" type="text" class="form-control" name="primary_phone"id="primary_phone" placeholder="Primary Phone" >
                                                 <span class="invalid-feedback" role="alert" id="primary_phoneError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
@@ -108,7 +119,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="website" id="website" placeholder="Website">
+                                                <input value="{{$organize["website"]}}" type="text" class="form-control" name="website" id="website" placeholder="Website">
                                             </div>
                                         </div>
                                     </div>
@@ -121,15 +132,15 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fab fa-facebook"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="company_facebook" id="company_facebook" placeholder="Facebook">
-                                            </div>   
+                                                <input value="{{$organize["facebook"]}}" type="text" class="form-control" name="company_facebook" id="company_facebook" placeholder="Facebook">
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="customer_type">Customer Type <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                                </div>
+                                                    </div>
                                                 <select class="form-control" name="customer_type" id="customer_type">
                                                     <option></option>
                                                     <option>Publi</option>
@@ -140,11 +151,11 @@
                                                     <option>City Glod Staff</option>
                                                     <option>Amory Staff</option>
                                                     <option>Other</option>
-                                                </select>   
+                                                </select>
                                                 <span class="invalid-feedback" role="alert" id="customer_typeError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
-                                            </div>                             
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -159,7 +170,11 @@
                                                 <select class="form-control" name="lead_source" id="lead_source" >
                                                     <option></option>
                                                     @foreach($lead_source as $row)
-                                                        <option value="{{$row->id}}">{{$row->lead_source}}</option>                                                  
+                                                        @if($row->lead_source === $organize["lead_source"])
+                                                            <option selected value="{{$row->id}}">{{$row->lead_source}}</option>
+                                                        @else
+                                                            <option value="{{$row->id}}">{{$row->lead_source}}</option>
+                                                        @endif
                                                     @endforeach
                                                 </select>
                                                 <div class="input-group-append">
@@ -168,21 +183,27 @@
                                                 <span class="invalid-feedback" role="alert" id="lead_sourceError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
-                                            </div>    
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="leadstatus">Lead Status</label>
+                                            <label for="lead_status">Lead Status</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-unlock"></i></span>
                                                 </div>
-                                                <select class="form-control" name="leadstatus" id="leadstatus">
-                                                    <option ></option> 
-                                                    @foreach($lead_status as $row)  
-                                                        <option value="{{$row->id}}">{{$row->name_en}}</option>   
+                                                <select class="form-control" name="lead_status" id="leadstatus">
+                                                    <option ></option>
+                                                    @foreach($lead_status as $row)
+                                                        @if($row->name_en === $organize["status_name"])
+                                                            <option selected value="{{$row->id}}">{{$row->name_en}}</option>
+                                                        @else
+                                                            <option value="{{$row->id}}">{{$row->name_en}}</option>
+                                                        @endif
+
+
                                                     @endforeach
                                                 </select>
-                                            </div>                                      
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -197,7 +218,11 @@
                                                 <select class="form-control " name="lead_industry" id="lead_industry" >
                                                     <option> </option>
                                                     @foreach($lead_industry as $row )
-                                                        <option value="{{$row->id}}">{{$row->name_en}}</option> 
+                                                        @if($row->id === $organize["lead_industry_id"])
+                                                            <option selected value="{{$row->id}}">{{$row->name_en}}</option>
+                                                        @else
+                                                            <option value="{{$row->id}}">{{$row->name_en}}</option>
+                                                        @endif
                                                     @endforeach
                                                 </select>
                                                 <div class="input-group-append">
@@ -206,18 +231,23 @@
                                                 <span class="invalid-feedback" role="alert" id="lead_industryError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
-                                            </div>       
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="assigendTo">Assigened To<b style="color:red">*</b></label>
+                                            <label for="assig_to_id">Assigened To<b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                                 </div>
-                                                <select class="form-control" name="assigendTo" id="assigendTo">
+                                                <select class="form-control" name="assig_to_id" id="assigendTo">
                                                     <option></option>
                                                     @foreach($assig_to as $row )
-                                                        <option value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option> 
+                                                        @if($row->id === $organize["ma_user_id"])
+                                                            <option selected value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option>
+                                                        @else
+                                                            <option value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option>
+                                                        @endif
+
                                                     @endforeach
                                                 </select>
                                                 <span class="invalid-feedback" role="alert" id="assigendToError"> {{--span for alert--}}
@@ -227,12 +257,12 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>  
+                            </div>
                         </div>
                             <div class="card card-primary">
                                 <div class="card-header" style="background:#1fa8e0">
                                     <h3 class="card-title">Address Detail</h3>
-                                </div>                           
+                                </div>
                                 <div class="card-body">
                                     <div class="form-group">
                                         <div class="row">
@@ -246,7 +276,7 @@
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                                     </div>
-                                                                    <input type="text" class="form-control"  name='home_en' id="home_en" placeholder="Number of home"  >
+                                                                    <input value="{{$organize["hom_en"]}}" type="text" class="form-control"  name='home_en' id="home_en" placeholder="Number of home"  >
                                                                     <span class="invalid-feedback" role="alert" id="home_enError"> {{--span for alert--}}
                                                                         <strong></strong>
                                                                     </span>
@@ -258,7 +288,7 @@
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                                     </div>
-                                                                    <input type="text" class="form-control"  name='street_en' id="street_en" placeholder="Number of street"  >
+                                                                    <input value="{{$organize["street_en"]}}" type="text" class="form-control"  name='street_en' id="street_en" placeholder="Number of street"  >
                                                                     <span class="invalid-feedback" role="alert" id="street_enError"> {{--span for alert--}}
                                                                         <strong></strong>
                                                                     </span>
@@ -276,17 +306,21 @@
                                                     </div>
                                                     <select class="form-control select2 city"  id="city" name="city" onchange="getbranch(this,'district','s','/district')" >
                                                         <option></option>
-                                                     @foreach($province as $row )
-                                                        <option value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option> 
+                                                        @foreach($province as $row )
+                                                            @if($row->name_latin === $organize["province"])
+                                                                <option selected value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option>
+                                                            @else
+                                                                <option value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option>
+                                                            @endif
                                                         @endforeach
-                                                    </select>     
+                                                    </select>
                                                     <span class="invalid-feedback" role="alert" id="cityError"> {{--span for alert--}}
                                                         <strong></strong>
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -299,7 +333,7 @@
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                                     </div>
-                                                                    <input type="text" class="form-control"  name='home_kh' id="home_kh" placeholder="Number of home" >
+                                                                    <input  value="{{$organize["home_kh"]}}" type="text" class="form-control"  name='home_kh' id="home_kh" placeholder="Number of home" >
                                                                     <span class="invalid-feedback" role="alert" id="home_khError"> {{--span for alert--}}
                                                                         <strong></strong>
                                                                     </span>
@@ -311,7 +345,7 @@
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"><i class="fas fa-road"></i></span>
                                                                     </div>
-                                                                    <input type="text" class="form-control"  name='street_kh' id="street_kh" placeholder="Number of street"  >
+                                                                    <input value="{{$organize["street_kh"]}}"  type="text" class="form-control"  name='street_kh' id="street_kh" placeholder="Number of street"  >
                                                                     <span class="invalid-feedback" role="alert" id="street_khError"> {{--span for alert--}}
                                                                         <strong></strong>
                                                                     </span>
@@ -328,15 +362,15 @@
                                                         <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
                                                     </div>
                                                     <select class="form-control dynamic" name="district" id="district" onchange="getbranch(this,'commune','s','/commune')" >
-                                                        <option> </option> 
+                                                        <option> </option>
                                                     </select>
                                                     <span class="invalid-feedback" role="alert" id="districtError"> {{--span for alert--}}
                                                         <strong></strong>
                                                     </span>
-                                                </div>                                                
+                                                </div>
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -349,7 +383,7 @@
                                                     <span class="invalid-feedback" role="alert" id="latlongError"> {{--span for alert--}}
                                                         <strong></strong>
                                                     </span>
-                                                </div> 
+                                                </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="commune">Sengkat/Commune <b style="color:red">*</b></label>
@@ -359,18 +393,18 @@
                                                     </div>
                                                     <select class="form-control dynamic" name="commune" id="commune" onchange="getbranch(this,'village','s','/village')" >
                                                         <option> </option>
-                                                    </select>        
+                                                    </select>
                                                     <span class="invalid-feedback" role="alert" id="communeError"> {{--span for alert--}}
                                                         <strong></strong>
                                                     </span>
-                                                </div> 
+                                                </div>
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                
+
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="village">Village <b style="color:red">*</b></label>
@@ -379,15 +413,15 @@
                                                         <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
                                                     </div>
                                                     <select class="form-control " name="village" id="village" dats-dependent="village" >
-                                                        <option value="">select Village</option>                                                        
-                                                    </select>     
+                                                        <option value="">select Village</option>
+                                                    </select>
                                                     <span class="invalid-feedback" role="alert" id="villageError"> {{--span for alert--}}
                                                         <strong></strong>
                                                     </span>
-                                                </div>  
+                                                </div>
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-12">
@@ -395,13 +429,13 @@
 
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-primary" onclick="CrmSubmitFormFull('frm_CrmOrganizationEdit','/organizations/update','/organization','Insert Successfully')" id="frm_btn_sub_addlead">Save</button>
+                                        <button type="button" class="btn btn-primary" onclick="CrmSubmitFormEditFull('frm_CrmOrganizationEdit','/api/organize','/organization','Update Successfully')" id="frm_btn_sub_addlead">Save</button>
                                         <button type="button" class="btn btn-danger" onclick="go_to('organization')">Cencel</button>
                                     </div>
-                                </div>              
-                        </div>       
+                                </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -469,10 +503,10 @@
             $('.lead').click(function(e)
             {
                 var ld = $(this).attr("​value");
-                e.preventDefault();  
+                e.preventDefault();
                 // alert(ld);
-                    $.ajax({   
-                        type: 'GET',   
+                    $.ajax({
+                        type: 'GET',
                         url:ld,
                         success:function(data){
 
@@ -495,7 +529,7 @@
             // })
     </script>
     {{--Google Map--}}
-    <script src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing&key=AIzaSyA4QECK3Tl4Sdl1zPIHiyZaME5mUaSk4WU&callback=initMap" async defer></script>    
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing&key=AIzaSyA4QECK3Tl4Sdl1zPIHiyZaME5mUaSk4WU&callback=initMap" async defer></script>
     <script>
         var map;
         var markers = [];
@@ -514,12 +548,12 @@
                 center: haightAshbury,
                 mapTypeId: 'roadmap'
             });
-            
-            
+
+
             //declear default value for latlong on map
             addMarker(haightAshbury);
             document.getElementById('latlong').value = '11.620803, 104.892215';
-           
+
             // This event listener will call addMarker() when the map is clicked.
             map.addListener('click', function(event) {
                 if (markers.length >= 1) {
@@ -558,4 +592,83 @@
             clearMarkers();
             markers = [];
         }
+
+
+        // Get old gazetteer to input
+        var code = {!! json_encode($organize["gazetteer_code"]) !!};
+        code = code.length < 8 ? '0'+code : code
+        var p = code.substring(0,2)
+        var d = code.substring(0,4)
+        var c = code.substring(0,6)
+        var v = code.substring(0,8)
+        function customGetBranch(id,target,selectId,route) {
+            $.ajax({
+                type:'GET',
+                url:route,
+                async:false,
+                data:{
+                    _token : '<?php echo csrf_token() ?>',
+                    _id : Number(id)
+                },
+                success:function(data) {
+                    var tar=document.getElementById(target);
+                    tar.options.length=0;
+                    var re =data.response;
+                    var option = document.createElement("option");
+                    option.text = "";
+                    option.value = "";
+                    option.setAttribute("selected", "true");
+                    option.setAttribute("disabled", "true");
+                    option.setAttribute("hidden", "true");
+                    tar.add(option);
+                        for (var i = 0; i < re.length; i++) {
+                            option = document.createElement("option");
+                            option.text=""+re[i]['name'];
+                            option.value=re[i]['id'];
+                            if(re[i]['id']==Number(selectId)){
+                                option.setAttribute("selected","true");
+                            }
+                            tar.add(option);
+                    }
+                }
+            });
+        }
+
+        //edit Form
+        function CrmSubmitFormEditFull(form,url,goto,alert){
+            $("#"+form+" input").removeClass("is-invalid");//remove all error message
+            $("#"+form+" select").removeClass("is-invalid");//remove all error message
+            $("#"+form+" textarea").removeClass("is-invalid");//remove all error message
+            $("#"+form+" radio").removeClass("is-invalid");//remove all error message
+            $.ajax({
+            url: url,//get link route
+            type:'PUT',//type post or put
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: //_token: $('#token').val(),
+            $('#'+form+'').serialize(),
+
+            success:function(data)
+            {
+                if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+                // console.log(data);
+                sweetalert('success',alert);
+                go_to(goto);// refresh content
+            }else{
+                $.each( data.errors, function( key, value ) {//foreach show error
+                    $("#" + key).addClass("is-invalid"); //give read border to input field
+                    // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+                    $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+                    // sweetalert('warning',value);
+                });
+            }
+            }
+            });
+            }
+        $(document).ready(function(){
+            customGetBranch(p, 'district', d, '/district')
+            customGetBranch(d,'commune',c,'/commune')
+            customGetBranch(c,'village',v,'/village')
+        })
     </script>

@@ -31,18 +31,18 @@
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Start Date <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" id="startDate" name="startDate" value="@php if(isset($holiday)){echo $holiday[0]->from_date;} @endphp" required>
+                  <input type="date" class="form-control" id="startDate" name="startDate" value="@php if(isset($holiday)){echo date('m-d-Y', strtotime($holiday[0]->from_date));} @endphp" required>
                 </div>
               </div>
               <div class="col-md-6">
                   <div class="form-group">
                   <label>End Date <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" id="endDate" name="endDate" value="@php if(isset($holiday)){echo $holiday[0]->to_date;} @endphp" required>
+                  <input type="date" class="form-control" id="endDate" name="endDate" value="@php if(isset($holiday)){echo date('m-d-Y', strtotime($holiday[0]->to_date));} @endphp" required>
                 </div>
               </div>
               <div class="col-md-12">
                   <div class="form-group">
-                  <label>Description <span class="text-danger">*</span></label>
+                  <label>Description</label>
                   <textarea name="description" id="" rows="5" class="form-control">@php if(isset($holiday)){echo $holiday[0]->description;} @endphp</textarea>
                 </div>
               </div>

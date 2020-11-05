@@ -407,7 +407,7 @@ class LeadController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        // $userid = $_SESSION['userid'];
+        $userid = $_SESSION['userid'];
         $branch_id=$request->input('branch_id');
         $name_kh=$request->input('name_kh');
         $name_en=$request->input('name_en');
@@ -416,7 +416,7 @@ class LeadController extends Controller
         $priority=$request->input('priority');
         $schedule_type_id=$request->input('schedule_type_id');
         // $userid =$userid;
-        $userid =$request->input('user_create');
+        // $userid =$request->input('user_create');
         return Lead::insertschedule($branch_id,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id,$userid); //return to model
     }
     //update schedule

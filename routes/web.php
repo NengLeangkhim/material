@@ -55,7 +55,7 @@ Route::get('/test_map', function(){
 
 // start survey
 
-Route::get('/schedule','crm\CrmScheduleController@index');
+Route::POST('/insertschedule','crm\CrmScheduleController@insertschedule');
 
 // end survey
 
@@ -92,7 +92,7 @@ Route::get('/organizations/add','crm\OrganizationController@AddOrganization'); /
 Route::post('/organizations/store','crm\OrganizationController@StoreOrganization'); // add Organization
 Route::get('/organizations/edit/{id}','crm\OrganizationController@EditOrganization'); //go to Edit Organization
 Route::post('/organizations/update','crm\OrganizationController@UpdateOrganization'); //Update organization
-Route::get('/organizations/detail','crm\OrganizationController@DetailOrganization'); //get detail organization
+Route::get('/organizations/detail/{id}','crm\OrganizationController@DetailOrganization'); //get detail organization
 // End Organization
 
 
@@ -665,6 +665,8 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// get show detail plan performance
     Route::get('hrm_performance_staff_schedule/plan','hrms\performance\HrmPerformScheduleController@hrm_get_data_perform_plan');
+    /// Add and update performance schedule
+    Route::get('hrm_performance_staff_schedule/action','hrms\performance\HrmPerformScheduleController@hrm_modal_action_schedule');
 
     /// get combobox plan detail
     Route::get('hrm_performance_staff_schedule/plandetail','hrms\performance\HrmPerformScheduleController@hrm_get_data_perform_plan_detail');
@@ -702,10 +704,18 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// view detail staff follow up
     Route::get('hrm_performance_follow_up/modal/view','hrms\performance\HrmStaffFollowUpController@HrmViewStaffFollowUp');
+    
+    /// view Assign To
+    Route::get('hrm_performance_follow_up/assign','hrms\performance\HrmStaffFollowUpController@HrmViewAssign');
+    /// view List Follow Up
+    Route::get('hrm_performance_follow_up/list','hrms\performance\HrmStaffFollowUpController@HrmListStaffFollowUp');
 
 ////// Performane Manager Follow Up
     /// Index manager Follow up
     Route::get('/hrm_performance_follow_up_manager','hrms\performance\HrmManagerFollowUpController@HrmIndexManagerFollowUp');
+    
+    /// List manager Follow up
+    Route::get('/hrm_performance_follow_up_manager/list','hrms\performance\HrmManagerFollowUpController@HrmListManagerFollowUp');
 
     /// go to manager Follow up
     Route::get('/hrm_performance_follow_up_manager/action','hrms\performance\HrmManagerFollowUpController@HrmActionManagerFollowUp');

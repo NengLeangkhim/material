@@ -77,6 +77,16 @@ class ModelHrmPlan extends Model
        ])
        ->get(); 
       }
+      // ===== Function get data for plan for Staff ======//
+      public static function hrm_get_plan_detial_staff($userid){
+        return  DB::select("Select p.*,CONCAT(s.first_name_en, ' ', s.last_name_en) AS staff_name from hr_performance_plan p 
+        join ma_user s on p.create_by = s.id
+        join hr_performance_plan_detail pd on p.id = pd.hr_performance_plan_id
+        join hr_performance_schedule ps on pd.id=ps.hr_performance_plan_detail_id
+        where p.status='t' and p.is_deleted = 'f' and ps.ma_user_id=".$userid."
+        group by p.id,s.first_name_en,s.last_name_en
+        order by p.id ");
+     }
       // ===== Function get data for plan for ceo ======//
       public static function hrm_get_plan_detial_ceo(){
          return  DB::table('hr_performance_plan')

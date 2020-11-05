@@ -5,7 +5,7 @@
               <div class="card-header">
                 <h1 class="card-title hrm-title"><strong><i class="far fa-building"></i> Department</strong></h1>
                 <div class="col-md-12 text-right">
-                    <button type="button" class="btn bg-gradient-primary" onclick="HRM_ShowDetail('hrm_modal_add_edit_department','modal_department')"><i class="fas fa-plus"></i> Add Department</button>
+                    <button type="button" class="btn bg-gradient-primary" onclick="hrms_modal_department()"><i class="fas fa-plus"></i> Add Department</button>
                 </div>
               </div>
               <!-- /.card-header -->

@@ -11,9 +11,6 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                @php
-                    // print_r($data);
-                @endphp
                 <div class="col-md-12">
                   <ul class="nav nav-tabs border_transparent" id="myTab" role="tablist">
                       <li class="nav-item">
@@ -53,9 +50,9 @@
                                       <td>{{$tl->type}}</td>
                                       <td>{{$tl->trainer}}</td>
                                       @if (Str::length($tl->actual_f_date)>0)
-                                          <td>{{date('d-m-Y', strtotime($tl->actual_f_date))}}/{{date('d-m-Y', strtotime($tl->actual_t_date))}}</td>
+                                          <td>{{$tl->actual_f_date}}/{{$tl->actual_t_date}}</td>
                                       @else
-                                          <td>{{date('d-m-Y', strtotime($tl->schet_f_date))}}/{{date('d-m-Y', strtotime($tl->schet_t_date))}}</td>
+                                          <td>{{$tl->schet_f_date}}/{{$tl->schet_t_date}}</td>
                                       @endif
                                       
                                         <td><a href="{{$tl->file}}" target="blank">document</a></td>
@@ -107,7 +104,7 @@
                                           <th>{{++$i}}</th>
                                           <td>{{$tl->type}}</td>
                                           <td>{{$tl->trainer}}</td>
-                                          <td>{{date('d-m-Y', strtotime($tl->actual_f_date))}}/{{date('d-m-Y', strtotime($tl->actual_t_date))}}</td>
+                                          <td>{{$tl->actual_f_date}}/{{$tl->actual_t_date}}</td>
                                             <td><a href="{{$tl->file}}" target="blank">document</a></td>
                                             <td>{{$tl->schet_description}}</td>
                                             <td>
@@ -156,7 +153,7 @@
                                           <th>{{++$i}}</th>
                                           <td>{{$tl->type}}</td>
                                           <td>{{$tl->trainer}}</td>
-                                          <td>{{date('d-m-Y', strtotime($tl->schet_f_date))}}/{{date('d-m-Y', strtotime($tl->schet_t_date))}}</td>
+                                          <td>{{$tl->schet_f_date}}/{{$tl->schet_t_date}}</td>
                                             <td><a href="{{$tl->file}}" target="blank">document</a></td>
                                             <td>{{$tl->schet_description}}</td>
                                             <td>
