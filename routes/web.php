@@ -39,9 +39,9 @@ Route::post('/lead/update','crm\LeadController@updatelead');// Update lead
 
 Route::get('/branch/{id}','crm\LeadController@getbranch'); // get  all branch  show  in table by lead id
 Route::get('/detailbranch/{id}','crm\LeadController@getdetailbranch'); // get detail branch
-Route::get('/editbranch/{id}','crm\LeadController@editbranch');//  edit branch 
-
-Route::post('/lead/store','crm\LeadController@StoreLead'); // add  lead or branch
+Route::get('/editbranch/{id}','crm\LeadController@editbranch');//  edit branch
+Route::get('/addlead','crm\LeadController@lead'); // go to lead
+Route::post('/lead/store','crm\LeadController@StoreLead'); // Store lead
 Route::POST('/addleadsource','crm\LeadController@addleadsource'); //addlead source
 Route::POST('/addleadindustry','crm\LeadController@addleadindustry'); //add leadindustry
 Route::post('/branch/update','crm\LeadController@updatebranch');// Update lead
@@ -92,7 +92,7 @@ Route::get('/organizations/add','crm\OrganizationController@AddOrganization'); /
 Route::post('/organizations/store','crm\OrganizationController@StoreOrganization'); // add Organization
 Route::get('/organizations/edit/{id}','crm\OrganizationController@EditOrganization'); //go to Edit Organization
 Route::post('/organizations/update','crm\OrganizationController@UpdateOrganization'); //Update organization
-Route::get('/organizations/detail','crm\OrganizationController@DetailOrganization'); //get detail organization
+Route::get('/organizations/detail/{id}','crm\OrganizationController@DetailOrganization'); //get detail organization
 // End Organization
 
 
@@ -154,15 +154,15 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     Route::get('/crm/setting/leadisp','crm\CrmSettingController@CrmLeadISP'); // show Lead ISP Setting CRM
     Route::post('/crm/setting/leadisp/store','crm\CrmSettingController@StoreLeadISP'); // INsert and update lead ISP Setting CRM
     Route::get('/crm/setting/leadisp/get','crm\CrmSettingController@CrmGetLeadISPByID'); // show Lead ISP Setting CRM
-    //-- schedule type 
+    //-- schedule type
     Route::get('/crm/setting/scheduletype','crm\CrmSettingController@CrmScheduleType'); // show Schedule Type Setting CRM
     Route::post('/crm/setting/scheduletype/store','crm\CrmSettingController@StoreScheduleType'); // INsert and update Schedule Type Setting CRM
     Route::get('/crm/setting/scheduletype/get','crm\CrmSettingController@CrmGetScheduleTypeByID'); // show Schedule Type Setting CRM
-    //-- Quote Status 
+    //-- Quote Status
     Route::get('/crm/setting/quotestatus','crm\CrmSettingController@CrmQuoteStatus'); // show Quote Status  Setting CRM
     Route::post('/crm/setting/quotestatus/store','crm\CrmSettingController@StoreQuoteStatus'); // INsert and update Quote Status Setting CRM
     Route::get('/crm/setting/quotestatus/get','crm\CrmSettingController@CrmGetQuoteStatusByID'); // show Quote Status  Setting CRM
-// END Setting CRM 
+// END Setting CRM
 
 //===========================END CRM=================================
 
@@ -665,6 +665,8 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// get show detail plan performance
     Route::get('hrm_performance_staff_schedule/plan','hrms\performance\HrmPerformScheduleController@hrm_get_data_perform_plan');
+    /// Add and update performance schedule
+    Route::get('hrm_performance_staff_schedule/action','hrms\performance\HrmPerformScheduleController@hrm_modal_action_schedule');
 
     /// get combobox plan detail
     Route::get('hrm_performance_staff_schedule/plandetail','hrms\performance\HrmPerformScheduleController@hrm_get_data_perform_plan_detail');
@@ -683,6 +685,9 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// calendar show schedule
     Route::get('hrm_performance_staff_schedule/calendar','hrms\performance\HrmPerformScheduleController@HrmCalendarPerformSchedule');
+
+    /// List Schedule
+    Route::get('hrm_performance_staff_schedule/list','hrms\performance\HrmPerformScheduleController@HrmListPerformSchedule');
 ///////Performance Staff Follow Up
 
     /// index performance Staff Follow Up
@@ -699,10 +704,18 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// view detail staff follow up
     Route::get('hrm_performance_follow_up/modal/view','hrms\performance\HrmStaffFollowUpController@HrmViewStaffFollowUp');
+    
+    /// view Assign To
+    Route::get('hrm_performance_follow_up/assign','hrms\performance\HrmStaffFollowUpController@HrmViewAssign');
+    /// view List Follow Up
+    Route::get('hrm_performance_follow_up/list','hrms\performance\HrmStaffFollowUpController@HrmListStaffFollowUp');
 
 ////// Performane Manager Follow Up
     /// Index manager Follow up
     Route::get('/hrm_performance_follow_up_manager','hrms\performance\HrmManagerFollowUpController@HrmIndexManagerFollowUp');
+    
+    /// List manager Follow up
+    Route::get('/hrm_performance_follow_up_manager/list','hrms\performance\HrmManagerFollowUpController@HrmListManagerFollowUp');
 
     /// go to manager Follow up
     Route::get('/hrm_performance_follow_up_manager/action','hrms\performance\HrmManagerFollowUpController@HrmActionManagerFollowUp');
@@ -738,6 +751,14 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
      /// Action performance report
      Route::post('hrm_report_performance_manage/action','hrms\performance\HrmPerformReportController@hrm_action_perform_report');
+
+    // Performance report search for plan
+    Route::get('hrm_report_performance_report_plan','hrms\performance\HrmPerformReportController@hrm_perform_report_plan');
+
+    // Performance report search for plan & plan detail
+    Route::get('hrm_report_performance_report_plan_planDetail','hrms\performance\HrmPerformReportController@hrm_perform_report_plan_planDetail');
+
+
 /////////////////============== END Performance =============///////////////
 
 /////////////////============== Recruitment =============///////////////

@@ -33,16 +33,17 @@ class HrmPerformScheduleController extends Controller
                 $id_user = $row->id;
             }
             if(perms::check_perm_module('HRM_09070104')){ //permission check for CEO and Admin
-                $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_top(); //query policy user
+                $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_top(); //query 
                 $get_plan = ModelHrmPlan::hrm_get_plan_detial_ceo();// get query from performance plan
                 $staff = ModelHrmPermission::hrm_get_staff_ceo();// get query from staff table
             }else if(perms::check_perm_module('HRM_09070105')){//permission each departement
-                $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_dept($dept);
-                $get_plan = ModelHrmPlan::hrm_get_plan_detial_dept($dept);// get query from performance plan
+                $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_top(); //query 
+              //  $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_dept($dept);
+                $get_plan = ModelHrmPlan::hrm_get_plan_detial_ceo();// get query from performance plan
                 $staff = ModelHrmPermission::hrm_get_staff_dept($dept);// get query from staff table
             }else{//permission check user
                 $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_staff($userid);
-                $get_plan = ModelHrmPlan::hrm_get_plan_detial_dept($dept);// get query from performance plan
+                $get_plan = ModelHrmPlan::hrm_get_plan_detial_staff($userid);// get query from performance plan
                 $staff = ModelHrmPermission::hrm_get_staff_dept($dept);// get query from staff table
             }
             $i=1;// variable increase number for table
@@ -52,33 +53,13 @@ class HrmPerformScheduleController extends Controller
                 $table_perm.= ' 
                     <tr>
                         <th>'.$i++.'</th>
-                        <td>'.$row->name_staff.'</td>
-                        <td>'.$row->name_plan.'</td>
+                        <td>'.$row->name.'</td>
                         <td>'.$row->date_from.' '.'to'.' '.$row->date_to.'</td>
                         <td>'.date('Y-m-d H:i:s',strtotime($create)).'</td>
-                        <td>'.$row->username.'</td>
+                        <td>'.$row->staff_name.'</td>
                         <td class="text-center">';
-                $table_perm.= '
-                    <div class="dropdown">
-                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Action
-                        </button>
-                        <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">';
-                if(perms::check_perm_module('HRM_09070103')){// Permission View
-                    $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item hrm_view_perform_schedule">View</button>';
-                }
-                if(perms::check_perm_module('HRM_09070102')){// Permission Update
-                    $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'hrm_update_perform_schedule('.$row->id.','.$row->hr_performance_plan_id.')\' class="dropdown-item hrm_item hrm_update_perform_schedule">Update</button>';
-                }
-                if(perms::check_perm_module('HRM_09070201')){// Permission Add Staff Follow Up
-                    if($row->ma_user_id == $id_user){ //can add follow up only by ur schedule
-                        if(is_null($row->deleted) || $row->deleted=='t'){// check condition if the schedule already manager follow up so the users can't follow up anymore
-                            $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'go_to("/hrm_performance_follow_up/modal/action?add='.$row->id.'")\' class="dropdown-item hrm_item hrm_add_perform_follow_up">Add Follow Up</button>';
-                        }
-                    }
-                }
-                $table_perm.= ' </div>
-                               </div>
+                $table_perm.='<a href="#" id="'.$row->id.'" title="List Schedule" onclick=\'go_to("/hrm_performance_staff_schedule/list?plan_id='.$row->id.'")\' class="ListSchedulePeroformance"><i class="fas fa-list"></i></a>';
+                $table_perm.= ' 
                             </td>
                         </tr>';
             }
@@ -88,6 +69,59 @@ class HrmPerformScheduleController extends Controller
             return view('no_perms');
         }
     } 
+    //function get modal and data for add and Update Schedule
+    public function hrm_modal_action_schedule()
+    {
+         if (session_status() == PHP_SESSION_NONE) {
+             session_start();
+             }
+            if(perms::check_perm_module('HRM_09070101')){//module code 
+            $get_plan = ModelHrmPlan::hrm_get_plan_detial_ceo();// get query from performance plan
+            $staff = ModelHrmPermission::hrm_get_staff_ceo();// get query from staff table
+             return view('hrms/performance/performance_schedule/HrmModalActionSchedule', ['plan'=>$get_plan,'staff'=>$staff]); 
+            }else{
+                return view('no_perms');
+            }
+    }
+    /// function get List Schedule 
+    public function HrmListPerformSchedule(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }  
+        if(perms::check_perm_module('HRM_090701')){//module code list data tables id=96
+            $id = $_GET['plan_id'];
+            $userid = $_SESSION['userid'];
+            $permission = ModelHrmPermission::hrm_get_permission($userid); // get query permission
+            foreach($permission as $row){
+                $group = $row->ma_group_id;
+                $dept = $row->ma_company_dept_id;
+                $id_user = $row->id;
+            }
+            if(perms::check_perm_module('HRM_09070104')){ //permission check for CEO and Admin
+                $schedule = ModelHrmPerformSchedule::hrm_list_schedule_top($id); //query 
+                $plan=ModelHrmPlan::hrm_get_plan($id);// get query from performance plan
+                $plan_detail_get = ModelHrmPlanDetail::hrm_get_plan_detail($id);
+                $get_plan = ModelHrmPlan::hrm_get_plan_detial_ceo();// get query from performance plan
+                $staff = ModelHrmPermission::hrm_get_staff_ceo();// get query from staff table
+                
+            }else if(perms::check_perm_module('HRM_09070105')){//permission each departement
+                $schedule = ModelHrmPerformSchedule::hrm_list_schedule_top($id); //query 
+                $plan=ModelHrmPlan::hrm_get_plan($id);// get query from performance plan
+                $plan_detail_get = ModelHrmPlanDetail::hrm_get_plan_detail($id);
+                $get_plan = ModelHrmPlan::hrm_get_plan_detial_ceo();// get query from performance plan
+                $staff = ModelHrmPermission::hrm_get_staff_ceo();// get query from staff table
+            }else{//permission check user
+                $schedule = ModelHrmPerformSchedule::hrm_list_schedule_staff($id,$userid);
+                $plan=ModelHrmPlan::hrm_get_plan_staff($id,$userid);// get query from performance plan
+                $plan_detail_get = ModelHrmPlanDetail::hrm_get_plan_detail_staff($id,$userid);
+                $get_plan = ModelHrmPlan::hrm_get_plan_detial_staff($userid);// get query from performance plan
+                $staff = ModelHrmPermission::hrm_get_staff_ceo();// get query from staff table     
+            }
+            return view('hrms/performance/performance_schedule/HrmListSchedule',['perform_plan'=>$plan,'perform_plan_detail'=>$plan_detail_get,'schedule'=>$schedule,'plan'=>$get_plan,'staff'=>$staff]); 
+        }else{
+            return view('no_perms');
+        }
+    }
     /// Function get combobox plan detail
     public function hrm_get_plan_detail(){
         if (session_status() == PHP_SESSION_NONE) {

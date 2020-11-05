@@ -125,48 +125,79 @@ function ShowPassword(){
                 }
             });
         }
+        function hrms_validation(id){
+            i=0;
+            $('#'+id).find('select,input').each(function(){
+                if($(this).prop('required')){
+                    if($(this).val().length<=0){
+                        i++;
+                        $('#'+$(this).attr('id')).addClass('is-invalid');
+                    }else{
+                        $('#'+$(this).attr('id')).removeClass('is-invalid');
+                    }
+                }
+            })
+            if(i==0){
+                return true;
+            }else{
+                return false;
+            }
+        }
         // insert or Update employee
         function hrms_insert_update_employee(){
+            if(!hrms_validation('fm-employee')){return;}
             if(check_session()){return;}
-            var form_element=document.getElementById('fm-employee');
-            var form_data = new FormData(form_element);
-            var request = new XMLHttpRequest();
-            request.open("POST","hrms_insert_update_employee");
-            request.onreadystatechange=function(){
-                if(this.readyState==4 && this.status==200){
-                    console.log(this.responseText);
-                    data=JSON.parse(this.responseText);
-                    if($.isEmptyObject(data.error)){
-                        setTimeout(function () { go_to('hrm_allemployee'); }, 300);
-                        hrms_notification(data.success);
-                        $('#modal_employee').modal('hide');
-                    }else{
-                        var $inputs = $('#fm-employee :input,select,number');
-                        $inputs.each(function (index){
-                            i=0;
-                            idname=$(this).attr('id');
-                            $.each(data.error, function(key,value){
-                                if(idname==key){
-                                    i++;
-                                }
-                                if(i==0){
-                                    if(idname=='emEmail'){
-                                        $('#email_unique').addClass('d-none');
-                                    }
-                                    $('#'+idname).removeClass('is-invalid','d-none');
+            Swal.fire({ //get from sweetalert function
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Save it!'
+                }).then((result) => {
+                    if (result.value) {
+                        var form_element=document.getElementById('fm-employee');
+                        var form_data = new FormData(form_element);
+                        var request = new XMLHttpRequest();
+                        request.open("POST","hrms_insert_update_employee");
+                        request.onreadystatechange=function(){
+                            if(this.readyState==4 && this.status==200){
+                                console.log(this.responseText);
+                                data=JSON.parse(this.responseText);
+                                if($.isEmptyObject(data.error)){
+                                    setTimeout(function () { go_to('hrm_allemployee'); }, 300);
+                                    hrms_notification(data.success);
+                                    $('#modal_employee').modal('hide');
                                 }else{
-                                    if(idname=='emEmail'){
-                                        $('#email_unique').removeClass('d-none');
-                                    }
-                                    $('#'+idname).addClass('is-invalid');
+                                    var $inputs = $('#fm-employee :input,select,number');
+                                    $inputs.each(function (index){
+                                        i=0;
+                                        idname=$(this).attr('id');
+                                        $.each(data.error, function(key,value){
+                                            if(idname==key){
+                                                i++;
+                                            }
+                                            if(i==0){
+                                                if(idname=='emEmail'){
+                                                    $('#email_unique').addClass('d-none');
+                                                }
+                                                $('#'+idname).removeClass('is-invalid','d-none');
+                                            }else{
+                                                if(idname=='emEmail'){
+                                                    $('#email_unique').removeClass('d-none');
+                                                }
+                                                $('#'+idname).addClass('is-invalid');
+                                            }
+                                        })
+                                    });
                                 }
-                            })
-                        });
-                    }
 
-                }
-            }
-            request.send(form_data);
+                            }
+                        }
+                        request.send(form_data);
+                    }
+                })
         }
 
     // End Employee
@@ -189,35 +220,51 @@ function ShowPassword(){
                 success: function (data) {
                     document.getElementById('modal').innerHTML = data;
                     $('#modal_holiday').modal('show');
+                    date();
                 }
             });
         }
 
 
         function hrms_insert_update_holiday(){
+            if(!hrms_validation('fm_holiday')){return;}
             if(check_session()){return;}
-            var form_element=document.getElementById('fm_holiday');
-            var form_data = new FormData(form_element);
-            var request = new XMLHttpRequest();
-            request.open("POST","hrm_insert_update_holiday");
-            request.onreadystatechange=function(){
-                if(this.readyState==4 && this.status==200){
-                    console.log(this.responseText);
-                    data=JSON.parse(this.responseText);
-                    if($.isEmptyObject(data.error)){
-                        setTimeout(function () { go_to('hrm_holiday'); }, 300);
-                        hrms_notification(data.success);
-                        // alert(data.success);
-                        $('#modal_holiday').modal('hide');
-                    }else{
-                            $.each(data.error, function(key,value){
-                                $('#'+key).addClass('is-invalid');
-                            });
-                    }
+            Swal.fire({ //get from sweetalert function
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Save it!'
+                }).then((result) => {
+                    if (result.value) {
+                        var form_element=document.getElementById('fm_holiday');
+                        var form_data = new FormData(form_element);
+                        var request = new XMLHttpRequest();
+                        request.open("POST","hrm_insert_update_holiday");
+                        request.onreadystatechange=function(){
+                            if(this.readyState==4 && this.status==200){
+                                console.log(this.responseText);
+                                data=JSON.parse(this.responseText);
+                                if($.isEmptyObject(data.error)){
+                                    setTimeout(function () { go_to('hrm_holiday'); }, 300);
+                                    hrms_notification(data.success);
+                                    // alert(data.success);
+                                    $('#modal_holiday').modal('hide');
+                                }else{
+                                        $.each(data.error, function(key,value){
+                                            $('#'+key).addClass('is-invalid');
+                                        });
+                                }
 
-                }
-            }
-            request.send(form_data);
+                            }
+                        }
+                        request.send(form_data);
+                    }
+                })
+            
+            
         }
     // End Holiday
     //  Attendance
@@ -248,11 +295,11 @@ function ShowPassword(){
                         }
                     });
                 }
-                
+
             }else{
                 alert('Please select date ');
             }
-            
+
         }
 
         function HRM_CalculateAttendanceDetail($id){
@@ -280,7 +327,7 @@ function ShowPassword(){
                         success: function (data) {
                             document.getElementById('hrm_calculate_detail').innerHTML = data;
                             $('#tbl_hrm_attendance_detail').DataTable({
-                               
+
                             });
                         }
                     });
@@ -309,29 +356,44 @@ function ShowPassword(){
         }
 
         function hrms_insert_update_overtime(){
+            if(!hrms_validation('fm_holiday')){return;}
             if(check_session()){return;}
-            var form_element=document.getElementById('fm_holiday');
-            var form_data = new FormData(form_element);
-            var request = new XMLHttpRequest();
-            request.open("POST","hrm_insert_update_overtime");
-            request.onreadystatechange=function(){
-                if(this.readyState==4 && this.status==200){
-                    console.log(this.responseText);
-                    data=JSON.parse(this.responseText);
-                    if($.isEmptyObject(data.error)){
-                        setTimeout(function () { go_to('hrm_overtime'); }, 300);
-                        hrms_notification(data.success);
-                        // alert(data.success);
-                        $('#modal_overtime').modal('hide');
-                    }else{
-                            $.each(data.error, function(key,value){
-                                $('#'+key).addClass('is-invalid');
-                            });
-                    }
+            Swal.fire({ //get from sweetalert function
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Save it!'
+                }).then((result) => {
+                    if (result.value) {
+                        var form_element=document.getElementById('fm_holiday');
+                        var form_data = new FormData(form_element);
+                        var request = new XMLHttpRequest();
+                        request.open("POST","hrm_insert_update_overtime");
+                        request.onreadystatechange=function(){
+                            if(this.readyState==4 && this.status==200){
+                                console.log(this.responseText);
+                                data=JSON.parse(this.responseText);
+                                if($.isEmptyObject(data.error)){
+                                    setTimeout(function () { go_to('hrm_overtime'); }, 300);
+                                    hrms_notification(data.success);
+                                    // alert(data.success);
+                                    $('#modal_overtime').modal('hide');
+                                }else{
+                                        $.each(data.error, function(key,value){
+                                            $('#'+key).addClass('is-invalid');
+                                        });
+                                }
 
-                }
-            }
-            request.send(form_data);
+                            }
+                        }
+                        request.send(form_data);
+                    }
+                })
+            
+            
         }
         function OvertimeDetail(){
             if(check_session()){
@@ -356,10 +418,22 @@ function ShowPassword(){
    // End Overtime
 // End Employee
 // Training
+
+    function hrm_chechEmployee_training(){
+        var countchecked = $("table input[type=checkbox]:checked").length;
+        if(countchecked>0){
+            submit_form ('hrm_insert_update_traininglist','fm_training_list','hrm_traininglist','modal_traininglist');
+        }else{
+            alert('Please check employee');
+        }
+
+    }
+
     function hrms_modal_training(ids=-1){
         if(check_session()){
             return;
         }
+        
         $.ajax({
             type: 'GET',
             url: 'hrm_modal_traininglist',
@@ -382,87 +456,138 @@ function ShowPassword(){
             }
         });
     }
-
+    function hrms_validation_employee_training(table_id){
+        i=$('#'+table_id).find('input:checked').length;
+        if(i>0){
+            $('#employee_checked').addClass('d-none');
+            return true;
+        }else{
+            $('#employee_checked').removeClass('d-none');
+            return false;
+        }
+    }
     function hrms_insert_update_training_list(){
-            if(check_session()){return;}
-            var form_element=document.getElementById('fm_training_list');
-            var form_data = new FormData(form_element);
-            var request = new XMLHttpRequest();
-            request.open("POST","hrm_insert_update_traininglist");
-            request.onreadystatechange=function(){
-                if(this.readyState==4 && this.status==200){
-                    console.log(this.responseText);
-                    if(this.responseText=='em'){
-                        $('#employee_checked').removeClass('d-none');
-                        return;
-                    }
-                    data=JSON.parse(this.responseText);
-                    if($.isEmptyObject(data.error)){
-                        setTimeout(function () { go_to('hrm_traininglist'); }, 300);
-                        hrms_notification(data.success);
-                        // alert(data.success);
-                        $('#modal_training_list').modal('hide');
-                    }else{
-                            $.each(data.error, function(key,value){
-                                $('#'+key).addClass('is-invalid');
-                            });
-                    }
+        if(!hrms_validation('fm_training_list')){return;}
+        if(!hrms_validation_employee_training('tbl_training_list_add')){return;}
+        if(check_session()){return;}
+        Swal.fire({ //get from sweetalert function
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Save it!'
+                }).then((result) => {
+                    if (result.value) {  
+                        var form_element=document.getElementById('fm_training_list');
+                        var form_data = new FormData(form_element);
+                        var request = new XMLHttpRequest();
+                        request.open("POST","hrm_insert_update_traininglist");
+                        request.onreadystatechange=function(){
+                            if(this.readyState==4 && this.status==200){
+                                console.log(this.responseText);
+                                if(this.responseText=='em'){
+                                    $('#employee_checked').removeClass('d-none');
+                                    return;
+                                }
+                                data=JSON.parse(this.responseText);
+                                if($.isEmptyObject(data.error)){
+                                    setTimeout(function () { go_to('hrm_traininglist'); }, 300);
+                                    hrms_notification(data.success);
+                                    // alert(data.success);
+                                    $('#modal_training_list').modal('hide');
+                                }else{
+                                        $.each(data.error, function(key,value){
+                                            $('#'+key).addClass('is-invalid');
+                                        });
+                                }
 
-                }
-            }
-            request.send(form_data);
+                            }
+                        }
+                        request.send(form_data);
+                    }
+                })
+            
     }
 
 
     function hrms_insert_update_trainer(){
+        if(!hrms_validation('fm_trainer')){return;}
         if(check_session()){return;}
-        var form_element=document.getElementById('fm_trainer');
-        var form_data = new FormData(form_element);
-        var request = new XMLHttpRequest();
-        request.open("POST","hrm_add_edit_trainer");
-        request.onreadystatechange=function(){
-            if(this.readyState==4 && this.status==200){
-                console.log(this.responseText);
-                data=JSON.parse(this.responseText);
-                if($.isEmptyObject(data.error)){
-                    setTimeout(function () { go_to('hrm_trainer'); }, 300);
-                    hrms_notification(data.success);
-                    // alert(data.success);
-                    $('#modal_trainer').modal('hide');
-                }else{
-                    $.each(data.error, function(key,value){
-                        $('#'+key).addClass('is-invalid');
-                    });
-                }
-            }
-        }
-        request.send(form_data);
+        Swal.fire({ //get from sweetalert function
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Save it!'
+                }).then((result) => {
+                    if (result.value) {
+                        var form_element=document.getElementById('fm_trainer');
+                        var form_data = new FormData(form_element);
+                        var request = new XMLHttpRequest();
+                        request.open("POST","hrm_add_edit_trainer");
+                        request.onreadystatechange=function(){
+                            if(this.readyState==4 && this.status==200){
+                                console.log(this.responseText);
+                                data=JSON.parse(this.responseText);
+                                if($.isEmptyObject(data.error)){
+                                    setTimeout(function () { go_to('hrm_trainer'); }, 300);
+                                    hrms_notification(data.success);
+                                    // alert(data.success);
+                                    $('#modal_trainer').modal('hide');
+                                }else{
+                                    $.each(data.error, function(key,value){
+                                        $('#'+key).addClass('is-invalid');
+                                    });
+                                }
+                            }
+                        }
+                        request.send(form_data);
+                    }
+                })
     }
 
 
     function hrms_insert_update_training_course(){
+        if(!hrms_validation('fm_trainingType')){return;}
         if(check_session()){return;}
-        var form_element=document.getElementById('fm_trainingType');
-        var form_data = new FormData(form_element);
-        var request = new XMLHttpRequest();
-        request.open("POST","hrm_add_edit_trainingtype");
-        request.onreadystatechange=function(){
-            if(this.readyState==4 && this.status==200){
-                console.log(this.responseText);
-                data=JSON.parse(this.responseText);
-                if($.isEmptyObject(data.error)){
-                    setTimeout(function () { go_to('hrm_trainingtype'); }, 300);
-                    hrms_notification(data.success);
-                    // alert(data.success);
-                    $('#modal_trainingType').modal('hide');
-                }else{
-                    $.each(data.error, function(key,value){
-                        $('#'+key).addClass('is-invalid');
-                    });
-                }
-            }
-        }
-        request.send(form_data);
+        Swal.fire({ //get from sweetalert function
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Save it!'
+                }).then((result) => {
+                    if (result.value) {
+                        var form_element=document.getElementById('fm_trainingType');
+                        var form_data = new FormData(form_element);
+                        var request = new XMLHttpRequest();
+                        request.open("POST","hrm_add_edit_trainingtype");
+                        request.onreadystatechange=function(){
+                            if(this.readyState==4 && this.status==200){
+                                console.log(this.responseText);
+                                data=JSON.parse(this.responseText);
+                                if($.isEmptyObject(data.error)){
+                                    setTimeout(function () { go_to('hrm_trainingtype'); }, 300);
+                                    hrms_notification(data.success);
+                                    // alert(data.success);
+                                    $('#modal_trainingType').modal('hide');
+                                }else{
+                                    $.each(data.error, function(key,value){
+                                        $('#'+key).addClass('is-invalid');
+                                    });
+                                }
+                            }
+                        }
+                        request.send(form_data);
+                    }
+                })
+        
     }
 
 
@@ -487,54 +612,95 @@ function hrm_training_checkAll(ele) {
 // End Training
 
 // Department and Position
-    function hrms_insert_update_department(){
+    function hrms_modal_department(id=-1){
         if(check_session()){return;}
-        var form_element=document.getElementById('fm_department');
-        var form_data = new FormData(form_element);
-        var request = new XMLHttpRequest();
-        request.open("POST","hrm_add_edit_department");
-        request.onreadystatechange=function(){
-            if(this.readyState==4 && this.status==200){
-                console.log(this.responseText);
-                data=JSON.parse(this.responseText);
-                if($.isEmptyObject(data.error)){
-                    setTimeout(function () { go_to('hrm_department'); }, 300);
-                    hrms_notification(data.success);
-                    // alert(data.success);
-                    $('#modal_department').modal('hide');
-                }else{
-                    $.each(data.error, function(key,value){
-                        $('#'+key).addClass('is-invalid');
-                    });
-                }
+        $.ajax({
+            type: 'GET',
+            url: 'hrm_modal_add_edit_department',
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                id: id
+            },
+            success: function (data) {
+                document.getElementById('modal').innerHTML = data;
+                $('#modal_department').modal('show');
             }
-        }
-        request.send(form_data);
+        });
+    }
+    function hrms_insert_update_department(){
+        if(!hrms_validation('fm_department')){return;}
+        if(check_session()){return;}
+        Swal.fire({ //get from sweetalert function
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Save it!'
+                }).then((result) => {
+                    if (result.value) {
+                        var form_element=document.getElementById('fm_department');
+                        var form_data = new FormData(form_element);
+                        var request = new XMLHttpRequest();
+                        request.open("POST","hrm_add_edit_department");
+                        request.onreadystatechange=function(){
+                            if(this.readyState==4 && this.status==200){
+                                console.log(this.responseText);
+                                data=JSON.parse(this.responseText);
+                                if($.isEmptyObject(data.error)){
+                                    setTimeout(function () { go_to('hrm_department'); }, 300);
+                                    hrms_notification(data.success);
+                                    // alert(data.success);
+                                    $('#modal_department').modal('hide');
+                                }else{
+                                    $.each(data.error, function(key,value){
+                                        $('#'+key).addClass('is-invalid');
+                                    });
+                                }
+                            }
+                        }
+                        request.send(form_data);
+                    }
+                })
     }
 
     function hrms_insert_update_position(){
+        if(!hrms_validation('fm_position')){return;}
         if(check_session()){return;}
-        var form_element=document.getElementById('fm_position');
-        var form_data = new FormData(form_element);
-        var request = new XMLHttpRequest();
-        request.open("POST","hrm_add_edit_position");
-        request.onreadystatechange=function(){
-            if(this.readyState==4 && this.status==200){
-                console.log(this.responseText);
-                data=JSON.parse(this.responseText);
-                if($.isEmptyObject(data.error)){
-                    setTimeout(function () { go_to('hrm_department'); }, 300);
-                    hrms_notification(data.success);
-                    // alert(data.success);
-                    $('#"modal_position').modal('hide');
-                }else{
-                    $.each(data.error, function(key,value){
-                        $('#'+key).addClass('is-invalid');
-                    });
-                }
-            }
-        }
-        request.send(form_data);
+        Swal.fire({ //get from sweetalert function
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Save it!'
+                }).then((result) => {
+                    if (result.value) {
+                        var form_element=document.getElementById('fm_position');
+                        var form_data = new FormData(form_element);
+                        var request = new XMLHttpRequest();
+                        request.open("POST","hrm_add_edit_position");
+                        request.onreadystatechange=function(){
+                            if(this.readyState==4 && this.status==200){
+                                console.log(this.responseText);
+                                data=JSON.parse(this.responseText);
+                                if($.isEmptyObject(data.error)){
+                                    setTimeout(function () { go_to('hrm_department'); }, 300);
+                                    hrms_notification(data.success);
+                                    // alert(data.success);
+                                    $('#modal_position').modal('hide');
+                                }else{
+                                    $.each(data.error, function(key,value){
+                                        $('#'+key).addClass('is-invalid');
+                                    });
+                                }
+                            }
+                        }
+                        request.send(form_data);
+                    }
+                })
     }
 // End Department and Position
 // Payroll
@@ -663,12 +829,12 @@ function hrm_training_checkAll(ele) {
                         if (result.value) {
                             $.ajax({
                                 url: '/hrm_hrapprove_payroll',   //Request send to "action.php page"
-                                data: { 
+                                data: {
                                     _token: '<?php echo csrf_token() ?>',
                                     eid: id,
                                     edat_from: d_from,
                                     ed_to: d_to,
-                                    emonth: month 
+                                    emonth: month
                                 },
                                 type: "GET",    //Using of Post method for send data
                                 success: function (data) {
@@ -726,7 +892,7 @@ function hrm_training_checkAll(ele) {
                 }
             });
         }
-        
+
     }
 
 
@@ -813,7 +979,7 @@ function hrm_training_checkAll(ele) {
                         if (result.value) {
                             $.ajax({
                                 url: 'hrm_hrdelete_component',   //Request send to "action.php page"
-                                data: { 
+                                data: {
                                     _token: '<?php echo csrf_token() ?>',
                                     eid: id,
                                     edat_from: date_from,
@@ -829,9 +995,9 @@ function hrm_training_checkAll(ele) {
                                             'Data Delete Successfully',
                                             'success'
                                         )
-                                        
+
                                     }
-                                    
+
                                 }
 
                             });
@@ -901,7 +1067,7 @@ function hrm_training_checkAll(ele) {
 
 
     function HRM_PayrollDetail(){
-        
+
     }
 
 // End Payroll
@@ -1046,7 +1212,7 @@ function custom_payroll_list_report(){
                     $("#tbl_payroll_list_report").append(tr);
                 });
                 $('#tbl_payroll_list_report').DataTable();
-                }       
+                }
         });
     }else{
         $('#select_year_payroll').prop('disabled', false);
@@ -1078,8 +1244,8 @@ function custom_payroll_list_report(){
                     var tr="<tr><th>"+i+"</th><td>"+value[1]+"</td><td>"+value[2]+"</td><td>"+value[3]+"</td><td>"+value[4]+"</td><td>"+value[5]+"</td><td>"+value[6]+"</td><td class='text-center'>"+btn+"</td></tr>";
                     $("#tbl_payroll_list_report").append(tr);
                 });
-                $('#tbl_payroll_list_report').DataTable();     
-            }       
+                $('#tbl_payroll_list_report').DataTable();
+            }
         });
     }
 }
@@ -1119,7 +1285,7 @@ function custom_payroll_report(){
                     $("#tbl_payroll_report").append(tr);
                 });
                 $('#tbl_payroll_report').DataTable();
-                }       
+                }
         });
     }else{
         $('#select_year_payroll').prop('disabled', false);
@@ -1151,8 +1317,8 @@ function custom_payroll_report(){
                     var tr="<tr><th>"+i+"</th><td>"+value.first_name_en+" "+value.last_name_en+"</td><td>"+value.id_number+"</td><td>"+value.position+"</td><td>"+value.bonus_value+"</td><td>"+value.tax+"</td><td>"+(value.bonus_value-value.tax)+"</td><td class='text-center'>"+btn+"</td></tr>";
                     $("#tbl_payroll_report").append(tr);
                 });
-                $('#tbl_payroll_report').DataTable();     
-            }       
+                $('#tbl_payroll_report').DataTable();
+            }
         });
     }
 }

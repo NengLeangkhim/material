@@ -1,4 +1,8 @@
 @php
+ use App\Http\Controllers\perms;  
+ if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+}  
 foreach($permission as $row){
   $level = $row->ma_group_id;
   $id_user = $row->id;  
@@ -24,12 +28,11 @@ foreach($permission as $row){
                         <table class="table table-bordered display nowrap" style="width: 100%" id="tbl_staff_follow_up">
                             <thead>                  
                               <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Staff Name</th>
-                                <th scope="col">Plan Detail</th>
-                                <th scope="col">Percentage</th>
+                                <th scope="col">#</th>
+                                <th scope="col">Plan Name</th>
                                 <th scope="col">Date From-To</th>
                                 <th scope="col">Create Date</th>
+                                <th scope="col">Create By</th>
                                 <th scope="col">Action</th>
                               </tr>
                             </thead>

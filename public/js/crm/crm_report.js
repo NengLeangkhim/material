@@ -110,9 +110,6 @@ var reportContact = () => {
         },
         data: $('#FrmChartContactReport').serialize(),
         success: function (response) {
-
-            // console.log('reportContact');
-            // console.log(response);
             if (response.success == true) {
                 var data = response.data
                 google.charts.load('current', {
@@ -179,9 +176,6 @@ var reportOrganization = () => {
         },
         data: $('#FrmChartOrganizationReport').serialize(),
         success: function (response) {
-
-            console.log('reportOrganization');
-            console.log(response);
             if (response.success == true) {
                 var data = response.data
                 google.charts.load('current', {

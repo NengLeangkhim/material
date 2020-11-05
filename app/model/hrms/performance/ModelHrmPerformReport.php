@@ -24,7 +24,41 @@ class ModelHrmPerformReport extends Model
                     ])
                     ->whereRaw('pfm.create_date::date between ? and ?',[$from, $to])
                     ->orderBy('pfm.id','ASC')
-                    ->get(); 
+                    ->get();
         return $report;
      }
+
+
+    public static function getPlanCreated($dateFrom,$dateTo){
+            try {
+                $r = DB::table('hr_performance_plan as perPlan')
+                    ->select('perPlan.*','ma_user.first_name_en')
+                    ->Join('ma_user', 'ma_user.id', '=', 'perPlan.create_by')
+                    ->where([
+                        ['perPlan.create_date','>=',$dateFrom],
+                        ['perPlan.create_date','<=',$dateTo],
+                        ['perPlan.status','=','t'],
+                        ['perPlan.is_deleted','=','f'],
+                    ])
+                    ->orderByDesc('perPlan.create_date')
+                    ->get();
+                    return $r;
+            }catch(\Illuminate\Database\QueryException $ex){
+                    dump($ex->getMessage());
+                    echo '<br><a href="/">go back</a><br>';
+                    echo 'exited';
+                    exit;
+            }
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
