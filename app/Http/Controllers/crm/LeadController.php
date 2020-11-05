@@ -23,17 +23,17 @@ class LeadController extends Controller
             $lead=ModelCrmLead::CrmGetLead();
             $result =json_decode($lead,true);
             return view('crm.Lead.index',['lead'=>$result["data"]]);
-            
+
         }else{
             return view('no_perms');
         }
-    } 
+    }
     // get branch by API
     public function  getbranch($id){
         if(perms::check_perm_module('CRM_0210')){//module codes
             $branch=ModelCrmLead::CrmGetBranch($id);
             $result =json_decode($branch,true);
-            return view('crm.Lead.branch',['branch'=>$result["data"]]); 
+            return view('crm.Lead.branch',['branch'=>$result["data"]]);
         }else{
             return view('no_perms');
         }
@@ -44,14 +44,14 @@ class LeadController extends Controller
             $detail_branch=ModelCrmLead::CrmGetDetailBranch($id);
             $result =json_decode($detail_branch,true);
             // dd($result);
-            return view('crm.Lead.detaillead',['detailbranch'=>$result["data"]]); 
+            return view('crm.Lead.detaillead',['detailbranch'=>$result["data"]]);
         }else{
             return view('no_perms');
         }
     }
     // add lead or branch
     public function lead(){
-       
+
         if(perms::check_perm_module('CRM_020504')){//module codes
             $lead_source=ModelCrmLead::CrmGetLeadSource();
             $lead_status=ModelCrmLead::CrmGetLeadStatus();
@@ -64,7 +64,7 @@ class LeadController extends Controller
         }
     }
     // edit branch or lead
-    public function editlead($id) {   
+    public function editlead($id) {
         // $param = $id;
         if(perms::check_perm_module('CRM_020505')){//module codes
             $sql=ModelCrmLead::CrmGetLeadID($id);
@@ -80,15 +80,15 @@ class LeadController extends Controller
             $serv=$ser->getStockPopup('service');
             $service=json_encode($serv,true);
             $service1=json_decode($service,true);
-            $companybranch=Lead::leadBranch(); 
-            $lead=Lead::getlead(); 
+            $companybranch=Lead::leadBranch();
+            $lead=Lead::getlead();
             $con= new ContactController();
             $contact=$con->index();
             $contact_n=json_encode($contact,true);
             $contact=json_decode($contact_n,true);
             // dd($contact);
             return view('crm.Lead.editlead',['updatelead'=>$result["data"],'lead'=>$lead,'contact'=>$contact,'honorifics'=>$honorifics,'service'=>$service1["original"]["data"],'companybranch'=>$companybranch,'lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province,'currentisp'=>$isp]);
-        
+
         }else{
             return view('no_perms');
         }
@@ -145,7 +145,7 @@ class LeadController extends Controller
                 'street_kh' => [ 'required'
                                     ],
                 // 'addresscode' => [ 'required'
-                //                     ],   
+                //                     ],
                 'district' => [ 'required'
                                     ],
                 'commune' => [ 'required'
@@ -192,7 +192,7 @@ class LeadController extends Controller
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
             if(perms::check_perm_module('CRM_020504')){//module code list
@@ -227,7 +227,7 @@ class LeadController extends Controller
         $get_district=MOdelCrmLead::CrmGetLeadVillage($id);
            return response()->json(array('response'=> $get_district), 200);//set up same for ajax
     }
-    
+
     public function addleadsource(){
         if(perms::check_perm_module('CRM_02')){
             $staff=$_SESSION['userid'];
@@ -243,13 +243,13 @@ class LeadController extends Controller
             $staff=$_SESSION['userid'];
             $name=$_POST['industry'];
             $sql=ModelCrmLead::CrmInsertLeadIndustry($name,$staff);
-            $q=ModelCrmLead::CrmGetLeadIndustry();            
+            $q=ModelCrmLead::CrmGetLeadIndustry();
         }else{
             return view('no_perm');
         }
     }
 
-    
+
     public function UpdateLead(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -301,7 +301,7 @@ class LeadController extends Controller
                 'street_kh' => [ 'required'
                                     ],
                 'addresscode' => [ 'required'
-                                    ],   
+                                    ],
                 'district' => [ 'required'
                                     ],
                 'commune' => [ 'required'
@@ -348,10 +348,10 @@ class LeadController extends Controller
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
-            if(perms::check_perm_module('CRM_020505')){//module code list 
+            if(perms::check_perm_module('CRM_020505')){//module code list
                 $token = $_SESSION['token'];
                 $create_contact = Request::create('/api/updatebranch','POST',$request->all());
                 $create_contact->headers->set('Accept', 'application/json');
@@ -367,5 +367,5 @@ class LeadController extends Controller
             }
         }
     }
-    
+
 }

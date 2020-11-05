@@ -26,16 +26,14 @@
                                 <div class="col-6">
                                     <div class="row">
                                         <!-- <a  href="#" class="btn btn-block btn-success lead" value="addlead" onclick="addlead()"><i class="fas fa-wrench"></i> Add Lead</a>  -->
-                                        <a href="javascript:void(0);" class="btn btn-success CrmAddOrganization" onclick="go_to('/organizations/add')" id="CrmAddOrganization"><i class="fas fa-plus"></i> Add Organization</a> 
+                                        <a href="javascript:void(0);" class="btn btn-success CrmAddOrganization" onclick="go_to('/organizations/add')" id="CrmAddOrganization"><i class="fas fa-plus"></i> Add Organization</a>
                                     </div>
-                                </div>                               
+                                </div>
                             </div>
                             <div class="card-body">
                                 <table id="OrganizationTbl" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Organization Number</th>
-                                            <th>CID</th>
                                             <th>Organization Name</th>
                                             <th>Customer Name</th>
                                             <th>Email</th>
@@ -45,22 +43,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {{-- @foreach($lead as $row) --}}
-                                        <tr>
-                                            <td>{{'TT-ACC0001'}}</td>
-                                            <td>{{'N00004'}}</td>
-                                            <td>{{'Bo Entertainment'}}</td>
-                                            <td>{{'Leader Bo'}}</td>
-                                            <td>{{'Oppa@gmail.com'}}</td>
-                                            <td>{{'09999999'}}</td>
-                                            <td>{{'XD'}}</td>
-                                            <td>
-                                            {{-- <a href="#" class="btn btn-block btn-info btn-sm edit" ​value="editlead/{{$row->id}}" ><i class="fas fa-wrench"></i></a>detaillead --}}
-                                            <a href="#" class="btn btn-block btn-info btn-sm organization_detail" ​value="/organizations/detail" ><i class="fas fa-info-circle"></i></a>
-                                            </td>
-                                        </tr>                                       
-                                    {{-- @endforeach --}}
-                                    </tbody>  
+                                        <?php
+                                            for($i =0;$i<sizeof($organize);$i++){
+                                                ?>
+                                                    <tr>
+                                                        <td>{{$organize[$i]["name_en_branch"]}}</td>
+                                                        <td>{{$organize[$i]["name_en_contact"]}}</td>
+                                                        <td>{{$organize[$i]["email_branch"]}}</td>
+                                                        <td>{{$organize[$i]["contact_phone"]}}</td>
+                                                        <td>{{$organize[$i]["user_assig_to"]}}</td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-block btn-info btn-sm organization_detail" ​value='/organizations/detail/{{$organize[$i]["lead_id"]}}' ><i class="fas fa-info-circle"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                <?php
+                                            }
+                                        ?>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
