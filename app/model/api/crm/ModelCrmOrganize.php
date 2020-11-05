@@ -55,7 +55,7 @@ class ModelCrmOrganize extends Model
         join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         join stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=true and ld.is_deleted=false");
+        where ld.status=true and ld.is_deleted=false and ls.id=2");
     }
 
     //get organize by id
@@ -111,6 +111,6 @@ class ModelCrmOrganize extends Model
         join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         join stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=true and ld.is_deleted=false and lb.id=$id");
+        where ld.status=true and ld.is_deleted=false and lb.id=$id and ls.id=2");
     }
 }
