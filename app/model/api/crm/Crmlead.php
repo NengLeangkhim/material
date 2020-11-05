@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Exception;
 
 class Crmlead extends Model
 {
@@ -557,10 +558,10 @@ class Crmlead extends Model
         cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
         cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status
         from crm_lead cl
-         JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
-        join crm_lead_source cls on cls.id = cl.crm_lead_source_id
-        join crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
-        join crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
+        LEFT JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
+        LEFT JOIN crm_lead_source cls on cls.id = cl.crm_lead_source_id
+        LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
+        LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
         WHERE  cl.is_deleted=FALSE and cl.status=TRUE ORDER BY cl.lead_number DESC');
         return $lead;
     }
@@ -570,10 +571,10 @@ class Crmlead extends Model
         cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
         cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status
         from crm_lead cl
-         JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
-        join crm_lead_source cls on cls.id = cl.crm_lead_source_id
-        join crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
-        join crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
+        LEFT JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
+        LEFT JOIN crm_lead_source cls on cls.id = cl.crm_lead_source_id
+        LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
+        LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
         WHERE cl.id=$id and  cl.is_deleted=FALSE and cl.status=TRUE ORDER BY cl.lead_number DESC");
         return $lead;
     }
@@ -608,10 +609,10 @@ class Crmlead extends Model
         JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
         join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
         join crm_lead on crm_lead.id= lb.crm_lead_id
-        join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
-        join crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
-        JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
-        join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
+        left join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
+        left join crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
+        left JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
+        left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         join stock_product sp on sp.id= clitem.stock_product_id
         where ld.status=true and ld.is_deleted=false  and  lb.crm_lead_id=$id");
@@ -647,10 +648,10 @@ class Crmlead extends Model
         JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
         join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
         join crm_lead on crm_lead.id= lb.crm_lead_id
-        join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
-        join crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
-        JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
-        join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
+        left join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
+        left join crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
+        left JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
+        left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         join stock_product sp on sp.id= clitem.stock_product_id
         where ld.status=true and ld.is_deleted=false and lb.id=$id");
@@ -1068,7 +1069,7 @@ class Crmlead extends Model
 
         }
     }
-    //insert schedule 
+    //insert schedule
     public static function insertschedule($branch_id,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id,$userid){
         if(isset($branch_id)){
             try{
@@ -1082,7 +1083,7 @@ class Crmlead extends Model
                     $priority,
                     $schedule_type_id,
                     $userid,
-                  
+
                 )
             );
                 return json_encode(['insert'=>'success']);;
@@ -1095,7 +1096,7 @@ class Crmlead extends Model
                 return json_encode(['insert'=>'not found date']);
         }
     }
-    // update schedule 
+    // update schedule
     public static function updateschedule($schedule_id,$branch_id,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id,$userid,$status){
         if(isset($schedule_id)){
             try{
@@ -1111,7 +1112,7 @@ class Crmlead extends Model
                     $priority,
                     $schedule_type_id,
                     $status,
-                  
+
                 )
             );
                 return json_encode(['update'=>'success']);;
@@ -1134,7 +1135,7 @@ class Crmlead extends Model
                     $schedule_type_id,
                     $comment,
                     $userid,
-                  
+
                 )
             );
                 return json_encode(['insert'=>'success']);;
@@ -1159,7 +1160,7 @@ class Crmlead extends Model
                     $schedule_type_id,
                     $comment,
                     $status
-                  
+
                 )
             );
                 return json_encode(['update'=>'success']);;
@@ -1198,7 +1199,7 @@ class Crmlead extends Model
                     $current_speed,
                     $current_price,
                     $vat_number,
-                  
+
                 )
             );
                 return json_encode(['update'=>'success']);;
