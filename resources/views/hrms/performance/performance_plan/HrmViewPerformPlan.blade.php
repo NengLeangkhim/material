@@ -38,6 +38,8 @@
 @endphp
 <!-- page content -->
 <section class="content">
+    <div style="padding:10px 10px 10px 10px">
+        <div class="row">
             <div class="card card-default">
               <div class="card-header">
                   <h3 class="card-title hrm-title"><strong><i class="fas fa-book-open"></i></strong></h3>

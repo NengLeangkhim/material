@@ -1,7 +1,7 @@
 //get summary table for views
 
 function getTable(route,mode) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettable',
@@ -16,7 +16,7 @@ function getTable(route,mode) {
     });
  }
  function getTableReport(route) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettables',
@@ -30,7 +30,7 @@ function getTable(route,mode) {
     });
  }
  function getTable_pagi(route,mode,page) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettable',
@@ -46,7 +46,7 @@ function getTable(route,mode) {
     });
  }
  function getTableReport_pagi(route,page) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettables',
@@ -61,7 +61,7 @@ function getTable(route,mode) {
     });
  }
  function getTable_search(route,mode,search) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettable',
@@ -77,7 +77,7 @@ function getTable(route,mode) {
     });
  }
  function getTableReport_search(route,search) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettables',
@@ -92,7 +92,7 @@ function getTable(route,mode) {
     });
  }
  function getTableReport_ft(route,f,t) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettables',
@@ -108,7 +108,7 @@ function getTable(route,mode) {
     });
  }
  function getTable_limit(route,mode,limit) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettable',
@@ -124,7 +124,7 @@ function getTable(route,mode) {
     });
  }
  function getTable_sort(route,mode,sort,o,h) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettable',
@@ -141,7 +141,7 @@ function getTable(route,mode) {
     });
  }
  function getTableReport_sort(route,sort,o,h) {
-    document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
+    // document.getElementById("tablediv").innerHTML='<center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Please wait...</label></center>';
     $.ajax({
         type:'GET',
         url:'/gettables',
@@ -661,7 +661,6 @@ function refresh_sel(target,route) {
 
 
 function go_to(route){
-    $(".content-wrapper").html(spinner());
     if(check_session()){
         return;
     }
@@ -673,15 +672,27 @@ function go_to(route){
         $(".content-wrapper").html(jnot_found());
         return;
     }
+    showloading();
     $.ajax({
         type: 'GET',
         url:route,
         success:function(data){
-            $(".content-wrapper").show();
             $(".content-wrapper").html(data);
+            hideloading();
         },
-        error:function(){
+        error:function(jqXHR){
+          hideloading();
           $(".content-wrapper").html(jerror());
+          if(jqXHR.status==404){
+            Swal.fire({ //get from sweetalert function
+                title: 'ERROR Occur',
+                text: "404 Link reuqested not found",
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            });
+          }
         }
      });
 }
@@ -695,32 +706,56 @@ function submit_form (route,form,goto,idmodal=''){
       }
     if(SubformValid(form))
     {
-        if(OnSubmitCofirm('Are You sure ?')){
-            if(idmodal.length>0){
-                $("#"+idmodal).modal("hide");
+        Swal.fire({ //get from sweetalert function
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK'
+          }).then((result) => {
+            if (result.value) {
+                if(idmodal.length>0){
+                    $("#"+idmodal).modal("hide");
+                }
+                form_submit(form,route,goto);
             }
-            var formElement = document.getElementById(form);
-            var formData = new FormData(formElement);
-            var request = new XMLHttpRequest();
-            request.open("POST", route);
-            request.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
+          });
+    }
+ }
+function form_submit(form,route,goto){
+    var formElement = document.getElementById(form);
+    var formData = new FormData(formElement);
+    var request = new XMLHttpRequest();
+    request.open("POST", route);
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 ) {
+            switch (this.status){
+                case 200:
                     data=this.responseText;
                     if(data=='error'){
                         sweetalert('error', 'Data has Problem');
                     }else{
                         // sweetalert('success',this.responseText);
-                        alert(this.responseText);
+                        // alert(this.responseText);
                         go_to(goto);
+                        Swal.fire(
+                            'Success',
+                            alert,
+                            'success'
+                        )
                     }
-                }
-            };
-            request.send(formData);
+                break;
+                case 404:
+                    hideloading();
+                    errorMessage("404 link requested not found");
+                break;
+            }
         }
-    }
- }
-
-
+    };
+    request.send(formData);
+}
 
  function img_exist(){
     $( "img" ).each(function( index,item ) {
@@ -735,8 +770,3 @@ function submit_form (route,form,goto,idmodal=''){
 
 }
 
-
-
-function submit_form222(){
-    alert("helokkk");
-}

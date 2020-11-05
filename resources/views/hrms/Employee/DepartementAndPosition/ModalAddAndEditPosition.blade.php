@@ -12,46 +12,40 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
-            @php
-                // print_r($data[1]);
-            @endphp
             <form id="fm_position" onsubmit="return false">
               @csrf
               <div class="row">
-                
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label>Groupe <span class="text-danger">*</span></label>
-                    <select id="" class="form-control" name="g">
+                    <label>Group <span class="text-danger">*</span></label>
+                    <select id="g" class="form-control" name="g" required>
+                      <option value="" hidden></option>
                       @php
-                        $f1='';
-                        $f2='';
                         foreach ($data[0] as $g) {
                           if(isset($data[1])){
                             if($g->id==$data[1][0]->ma_group_id){
-                              $f1=$f1.'<option value="'.$g->id.'">'.$g->name.'</option>';
+                              echo '<option selected value="'.$g->id.'">'.$g->name.'</option>';
                             }else {
-                              $f2=$f2.'<option value="'.$g->id.'">'.$g->name.'</option>';
+                              echo '<option value="'.$g->id.'">'.$g->name.'</option>';
                             }
 
                           }else {
-                            $f1=$f1.'<option value="'.$g->id.'">'.$g->name.'</option>';
+                            echo '<option value="'.$g->id.'">'.$g->name.'</option>';
                           }
                         }
-                        echo $f1.$f2;
                       @endphp
                     </select>
                   </div>
                   <!-- /.form-group -->
                   <div class="form-group">
                     <label>Position Name <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="position" value="@php if(isset($data[1])){echo $data[1][0]->name;} @endphp">
+                    <input type="text" class="form-control" id="position_position" name="position_position" value="@php if(isset($data[1])){echo $data[1][0]->name;} @endphp" required>
                   </div>
                   <!-- /.form-group -->
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                    <label>Khmer Name <span class="text-danger">*</span></label>
+                    <label>Khmer Name</label>
                     <input type="text" class="form-control" name="khPosition" value="@php if(isset($data[1])){echo $data[1][0]->name_kh;} @endphp">
                   </div>
                 </div>
@@ -59,7 +53,7 @@
                 <input type="hidden" name="id" value="@php if(isset($data[1])){echo $data[1][0]->id;} @endphp ">
                 <div class="col-md-12 text-right">
                   <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                  <button class="btn bg-turbo-color" data-dismiss="modal" onClick="submit_form ('hrm_add_edit_position','fm_position','hrm_department')">Save</button>
+                  <button class="btn bg-turbo-color" onClick="hrms_insert_update_position()">Save</button>
                 </div>
               </div>
             </form>

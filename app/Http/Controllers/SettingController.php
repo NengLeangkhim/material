@@ -33,7 +33,7 @@ class SettingController extends Controller
             $dep="SELECT id,name from ma_company_dept order by name";
             $department=DB::select($dep);
 
-            $staff="SELECT id,first_name_en||' '||last_name_en as name from ma_user order by name";
+            $staff="SELECT id,first_name_en||' '||last_name_en as name from ma_user where is_deleted=false and status=true order by name";
             $staff=DB::select($staff);
 
             $module="SELECT id,name||' '||code as name ,code from ma_module order by name";

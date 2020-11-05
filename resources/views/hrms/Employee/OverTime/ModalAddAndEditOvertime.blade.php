@@ -12,9 +12,6 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
-            @php
-                // print_r($data[1]);
-            @endphp
             <form id="fm_holiday" onsubmit="return false">
                @csrf
               <div class="row">
@@ -22,10 +19,9 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Employee Name <span class="text-danger">*</span></label>
-                    <select name="emName" id="" class="form-control" required>
+                    <select name="emName" id="emName" class="form-control" required >
+                      <option value="" hidden></option>
                       @php
-                          $f1="";
-                          $f2="";
                           if(isset($data[1])){
                             $sid=$data[1][0]->stid;
                           }else{
@@ -35,48 +31,45 @@
                       @foreach ($data[0] as $e)
                           @php
                               if($e->id==$sid){
-                                $f1=$f1.'<option value="'.$e->id.'">'.$e->firstName.' '.$e->lastName.'</option>';
+                                echo '<option selected value="'.$e->id.'">'.$e->firstName.' '.$e->lastName.'</option>';
                               }else {
-                                $f2=$f2.'<option value="'.$e->id.'">'.$e->firstName.' '.$e->lastName.'</option>';
+                                echo '<option value="'.$e->id.'">'.$e->firstName.' '.$e->lastName.'</option>';
                               }
                           @endphp
                         
                       @endforeach
-                      @php
-                          echo $f1.$f2;
-                      @endphp
                       
                     </select>
                   </div>
                   <!-- /.form-group -->
                   <div class="form-group">
                     <label>Overtime Date <span class="text-danger">*</span></label>
-                    <input type="date" class="form-control" name="otDate" value="@php if(isset($data[1])){echo $data[1][0]->overtime_date;} @endphp" required>
+                    <input type="date" class="form-control" id="otDate" name="otDate" value="@php if(isset($data[1])){echo date('m-d-Y', strtotime($data[1][0]->overtime_date));} @endphp" required>
                   </div>
                   <!-- /.form-group -->
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                     <label>Start Hour <span class="text-danger">*</span></label>
-                    <input type="time" class="form-control" name="start_h" value="@php if(isset($data[1])){echo $data[1][0]->start_time;} @endphp" required>
+                    <input type="time" class="form-control" id="start_h" name="start_h" value="@php if(isset($data[1])){echo $data[1][0]->start_time;} @endphp" required>
                   </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                     <label>End Hour <span class="text-danger">*</span></label>
-                    <input type="time" class="form-control" name="end_h" value="@php if(isset($data[1])){echo $data[1][0]->end_time;} @endphp" required>
+                    <input type="time" class="form-control" id="end_h" name="end_h" value="@php if(isset($data[1])){echo $data[1][0]->end_time;} @endphp" required>
                   </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                    <label>Description <span class="text-danger">*</span></label>
+                    <label>Description</label>
                     <textarea name="description" id="" rows="5" class="form-control">@php if(isset($data[1])){echo $data[1][0]->description;} @endphp</textarea>
                   </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-md-12 text-right">
                   <a href="javascrip;:" class="btn btn-danger" data-dismiss="modal">Cancel</a>
-                  <button class="btn bg-turbo-color" onclick="submit_form ('hrm_insert_update_overtime','fm_holiday','hrm_overtime','modal_overtime')">Save</button>
+                  <button class="btn bg-turbo-color" onclick="hrms_insert_update_overtime()">Save</button>
                 </div>
               </div>
             </form>

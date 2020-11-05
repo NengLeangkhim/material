@@ -33,13 +33,13 @@
                                 <div class="card-body">
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
-                                            <tr>
-                                                <th>Lead Number</th>
-                                                <th>Customer/Comapny Name</th>
-                                                <th>Email</th>
-                                                <th>Website </th>
-                                                <th>Facebook </th>
-                                                <th>Branch</th>
+                                            <tr style="background: #1fa8e0">
+                                                <th style="color: #FFFFFF">Lead Number</th>
+                                                <th style="color: #FFFFFF">Customer/Comapny Name</th>
+                                                <th style="color: #FFFFFF">Email</th>
+                                                <th style="color: #FFFFFF">Website </th>
+                                                <th style="color: #FFFFFF">Facebook </th>
+                                                <th style="color: #FFFFFF">Action</th>
                                                 {{-- <th>Detail</th> --}}
                                             </tr>
                                         </thead>
@@ -56,7 +56,19 @@
                                                         {{-- <td>{{$lead[$i]["create_by"]['last_name_en']." ".$lead[$i]["create_by"]['first_name_en']}}</td>                                                 --}}
                                                         <td>{{$lead[$i]["facebook"]}}</td>                                                
                                                         <td>
-                                                            <a href="#" class="btn btn-block btn-info btn-sm branch" ​value="branch/{{$lead[$i]["lead_id"]}}" ><i class="fas fa-code-branch"></i></a>                                                             
+                                                            <div class="row-12 form-inline">
+                                                                <div class="col-md-6">
+                                                                    <a href="javascript:void(0);" class="btn btn-block btn-danger  btn-sm branch" value="detaillead/{{$lead[$i]["lead_id"]}}" onclick="go_to('detaillead/{{$lead[$i]['lead_id']}}')" title="Edit Lead">
+                                                                        <i class="fas fa-edit">  </i>
+                                                                    </a>  
+                                                                </div>
+                                                                <div class="col-md-6 ">
+                                                                    <a href="javascript:void(0);" class="btn btn-block btn-info btn-sm branch" value="branch/{{$lead[$i]["lead_id"]}}" onclick="go_to('branch/{{$lead[$i]['lead_id']}}')" title="Show Branch Of Lead">
+                                                                        <i class="fas fa-code-branch">  </i>
+                                                                    </a>                      
+                                                                </div>
+                                                            </div>
+                                                                                                  
                                                         </td>
                                                         {{-- <td>  
                                                             <a href="#" class="btn btn-block btn-info btn-sm detail" ​value="detaillead" ><i class="fas fa-info-circle"></i></a>                                                     
@@ -107,10 +119,11 @@
                 var id = $(this).attr("​value");
                 go_to(id);
             });
-            $('.branch').click(function(e)
-            {
-                var id = $(this).attr("​value");
-                go_to(id);
-            });
+            // $('.branch').click(function(e)
+            // {
+            //     var id = $(this).attr("​value");
+            //     go_to(id);
+            // });
+            
             </script>
             

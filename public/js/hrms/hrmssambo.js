@@ -792,7 +792,14 @@ function sumbit_policy(){
         console.log(data);
         $('#hrm_view_policy_modal').modal('hide');
         sweetalert('success','Thanks for reading policy !!');
-        setTimeout(function(){ go_to('hrm_list_policy'); }, 300);// Set timeout for refresh content
+        var s=$("#nav_bar_sub_r").find("a")[1];
+        s=$(s).attr("onclick");
+        s=s.split("'")[1];
+        setTimeout(function(){
+            if(s.length>0){
+            go_to(s);
+            }
+        }, 300);// Set timeout for refresh content
     }else{
       // $(".print-error-msg").find("ul").html('');
 
@@ -1136,28 +1143,37 @@ $(document).on('click', '.hrm_view_perform_plan_detail', function(){
 ////===== Performance Schedule =====////////
  //function show modal add
  function HrmAddSchedule(){
-   $('.select2').select2();
-  $('#hrm_perform_schedule_modal').modal('show');
-  //performance plan
-  $('#plan_schedule').val('');
-  $('#plan_from_schedule').val('');
-  $('#plan_to_schedule').val('');
-  //performance plan detail
-  $('#plan_detail_schedule').val('');
-  $('#schedule_detail_task').val('');
-  $('#schedule_detail_from').val('');
-  $('#schedule_detail_to').val('');
-  // schedule plan
-  $('#staff_schedule').val('');
-  $('#staff_from_schedule').val('');
-  $('#staff_to_schedule').val('');
-  $('#staff_comment_schedule').val('');
-  $('#hrm_perform_schedule_form input').removeClass("is-invalid");//remove valid all input field
-  $('#hrm_perform_schedule_form textarea').removeClass("is-invalid");//remove valid all input field
-  $('#hrm_perform_schedule_form select').removeClass("is-invalid");//remove valid all input field
-  $(".invalid-feedback").children("strong").text("");
-  $('#card_title').text('Add Schedule');
-  $('#action_schedule_staff').text('Create');
+  var id = $(this).attr("id");
+  $.ajax({
+    url:"hrm_performance_staff_schedule/action",
+    type:"GET",
+    data:{id:id},
+    success:function(data){
+      $('#modal_for_view_schedule').html(data);
+      $('.select2').select2();
+      $('#hrm_perform_schedule_modal').modal('show');
+      //performance plan
+      $('#plan_schedule').val('');
+      $('#plan_from_schedule').val('');
+      $('#plan_to_schedule').val('');
+      //performance plan detail
+      $('#plan_detail_schedule').val('');
+      $('#schedule_detail_task').val('');
+      $('#schedule_detail_from').val('');
+      $('#schedule_detail_to').val('');
+      // schedule plan
+      $('#staff_schedule').val('');
+      $('#staff_from_schedule').val('');
+      $('#staff_to_schedule').val('');
+      $('#staff_comment_schedule').val('');
+      $('#hrm_perform_schedule_form input').removeClass("is-invalid");//remove valid all input field
+      $('#hrm_perform_schedule_form textarea').removeClass("is-invalid");//remove valid all input field
+      $('#hrm_perform_schedule_form select').removeClass("is-invalid");//remove valid all input field
+      $(".invalid-feedback").children("strong").text("");
+      $('#card_title_schedule').text(' Add Schedule');
+      $('#action_schedule_staff').text('Create');
+    }
+  })
 }
 ///// Function query combobox plan detail
 ////// Fuction get_plan_schedule//////
@@ -1278,40 +1294,92 @@ if($('#action_schedule_staff').text()=='Update') // Check Condition for update q
 }
 ////Function get value for update
 //// Get Data Performance Schedule for modal update///
+// function hrm_update_perform_schedule(id,id_plan){
+//   //get_plan_schedule(id_plan);
+//     $.ajax({
+//     url:"hrm_performance_staff_schedule/getdata",   //Request send to "action.php page"
+//     type:"GET",    //Using of Post method for send data
+//     data:{id:id},//Send data to server
+//     dataType:"json",   //Here we have define json data type, so server will send data in json format.
+//     success:function(data){
+//       data1= data;
+//           $.ajax({
+//             url:"hrm_performance_staff_schedule/action",
+//             type:"GET",
+//             data:{id:id_plan},
+//             success:function(data){
+//             $('#modal_for_view_schedule').html(data);
+//               get_plan_schedule(id_plan);
+//             // setTimeout(function(){ //set time out for show run functino get_plan_schedule first
+//               setTimeout(function(){$('#hrm_perform_schedule_modal').modal("show");},200);
+//               //$('').modal('show');   //It will display modal on webpage
+//               $('#action_schedule_staff').text("Update"); //This code will change Button value to Update
+//               $('#card_title_schedule').text('Update Schedule');
+//               $('.print-error-msg').hide();
+//               $('#hrm_perform_schedule_form input').removeClass("is-invalid");//remove valid all input field
+//               $('#hrm_perform_schedule_form textarea').removeClass("is-invalid");//remove valid all input field
+//               $('#hrm_perform_schedule_form select').removeClass("is-invalid");//remove valid all input field
+//               $('#schedule_plan_id').val(id);     //It will define value of id variable for update
+//               var show = data1;
+//               $.each(show, function(i, e){ //read array json for show to textbox
+//                 $('#plan_schedule').val(show[i].plan_id);
+//                 $('#plan_from_schedule').val(show[i].plan_from);
+//                 $('#plan_to_schedule').val(show[i].plan_to);
+//                 $('#plan_detail_schedule').val(show[i].pd_id);
+//                 console.log(show[i].pd_id);
+//                 // $('#plan_detail_schedule option').text(data.pd_name);
+//                 $('#schedule_detail_task').text(show[i].pd_task);
+//                 $('#schedule_detail_from').val(show[i].pd_from);
+//                 $('#schedule_detail_to').val(show[i].pd_to);
+//                 $('#staff_schedule').val(show[i].ma_user_id);
+//                 $('#staff_from_schedule').val(show[i].date_from);
+//                 $('#staff_to_schedule').val(show[i].date_to);
+//                 $('#staff_comment_schedule').text(show[i].comment);
+//                 });
+//               // },1000);
+//             }
+//           })
+//     }
+//     });
+// };
 function hrm_update_perform_schedule(id,id_plan){
-  get_plan_schedule(id_plan);
-  setTimeout(function(){ //set time out for show run functino get_plan_schedule first
-  $.ajax({
-  url:"hrm_performance_staff_schedule/getdata",   //Request send to "action.php page"
-  type:"GET",    //Using of Post method for send data
-  data:{id:id},//Send data to server
-  dataType:"json",   //Here we have define json data type, so server will send data in json format.
-  success:function(data){
-      $('#hrm_perform_schedule_modal').modal('show');   //It will display modal on webpage
-      $('#action_schedule_staff').text("Update"); //This code will change Button value to Update
-      $('#card_title').text('Update Schedule');
-      $('.print-error-msg').hide();
-      $('#hrm_perform_schedule_form input').removeClass("is-invalid");//remove valid all input field
-      $('#hrm_perform_schedule_form textarea').removeClass("is-invalid");//remove valid all input field
-      $('#hrm_perform_schedule_form select').removeClass("is-invalid");//remove valid all input field
-      $('#schedule_plan_id').val(id);     //It will define value of id variable for update
-      $.each(data, function(i, e){ //read array json for show to textbox
-        $('#plan_schedule').val(data[i].plan_id);
-        $('#plan_from_schedule').val(data[i].plan_from);
-        $('#plan_to_schedule').val(data[i].plan_to);
-        $('#plan_detail_schedule').val(data[i].pd_id);
-        // $('#plan_detail_schedule option').text(data.pd_name);
-        $('#schedule_detail_task').text(data[i].pd_task);
-        $('#schedule_detail_from').val(data[i].pd_from);
-        $('#schedule_detail_to').val(data[i].pd_to);
-        $('#staff_schedule').val(data[i].ma_user_id);
-        $('#staff_from_schedule').val(data[i].date_from);
-        $('#staff_to_schedule').val(data[i].date_to);
-        $('#staff_comment_schedule').text(data[i].comment);
-        });
-  }
-  });
-},300);
+    get_plan_schedule(id_plan);
+    setTimeout(function(){ //set time out for show run functino get_plan_schedule first
+    $.ajax({
+    url:"hrm_performance_staff_schedule/getdata",   //Request send to "action.php page"
+    type:"GET",    //Using of Post method for send data
+    data:{id:id},//Send data to server
+    dataType:"json",   //Here we have define json data type, so server will send data in json format.
+    success:function(data){
+              setTimeout(function(){$('#hrm_perform_schedule_modal').modal("show");},200);
+              //$('').modal('show');   //It will display modal on webpage
+              $('#action_schedule_staff').text("Update"); //This code will change Button value to Update
+              $('#card_title_schedule').text('Update Schedule');
+              $('.print-error-msg').hide();
+              $('#hrm_perform_schedule_form input').removeClass("is-invalid");//remove valid all input field
+              $('#hrm_perform_schedule_form textarea').removeClass("is-invalid");//remove valid all input field
+              $('#hrm_perform_schedule_form select').removeClass("is-invalid");//remove valid all input field
+              $('#schedule_plan_id').val(id);     //It will define value of id variable for update
+              var show = data;
+              $.each(show, function(i, e){ //read array json for show to textbox
+                $('#plan_schedule').val(show[i].plan_id);
+                $('#plan_from_schedule').val(show[i].plan_from);
+                $('#plan_to_schedule').val(show[i].plan_to);
+                $('#plan_detail_schedule').val(show[i].pd_id);
+                console.log(show[i].pd_id);
+                // $('#plan_detail_schedule option').text(data.pd_name);
+                $('#schedule_detail_task').text(show[i].pd_task);
+                $('#schedule_detail_from').val(show[i].pd_from);
+                $('#schedule_detail_to').val(show[i].pd_to);
+                $('#staff_schedule').val(show[i].ma_user_id);
+                $('#staff_from_schedule').val(show[i].date_from);
+                $('#staff_to_schedule').val(show[i].date_to);
+                $('#staff_comment_schedule').text(show[i].comment);
+                });
+              // },1000);
+            }
+          }) 
+        },1000);
 };
 //// View modal Plan Detail///
 $(document).on('click', '.hrm_view_perform_schedule', function(){
@@ -1728,6 +1796,77 @@ function ReportPerformance(){
   });
 
  }
+
+    // Performance Search Plan Status Report
+
+    function searchPlanStatus(){
+
+        var date_from = $('#date_fromPlan').val();
+        var date_to = $('#date_toPlan').val();
+        var opPlan = $('#optionPlan').val();
+        // console.log(opPlan+'--');
+        if(opPlan != ''){
+            $("#optionPlan").removeClass("is-invalid"); //give read border to input field
+            $("#optionPlanError").children("strong").text("");
+
+            $.ajax({
+                data:{
+                    date_from:date_from,
+                    date_to:date_to,
+                    opPlan:opPlan,
+                },
+                type:'GET',
+                url:"hrm_report_performance_report_plan",
+                success:function(data)
+                {
+                    console.log(data);
+                    $('#tblShowTableSearch').html(data);
+
+                    $('#tbl_reportPlanPerformance').DataTable({
+                        'responsive': true,
+                    });
+
+                }
+            });
+
+
+        }else{
+            $("#optionPlan").addClass("is-invalid"); //give read border to input field
+            sweetalert('warning',"Field Required !!");
+            $("#optionPlanError").children("strong").text("").text("This field required !!");
+        }
+
+    }
+
+
+    //search plan & plan detail report
+
+    function searchPlanReport() {
+        var date_from = $('#getDateFrom').val();
+        var date_to = $('#getDateTo').val();
+        $.ajax({
+            data:{
+                date_from:date_from,
+                date_to:date_to,
+            },
+            type:'GET',
+            url:"hrm_report_performance_report_plan_planDetail",
+            success:function(data)
+            {
+                console.log(data);
+                // $('#tblShowTableSearch').html(data);
+
+                // $('#tbl_reportPlanPerformance').DataTable({
+                //     'responsive': true,
+                // });
+
+            }
+        });
+    }
+
+
+
+
 ////================ END Performance Report ============//////
 /////////////================================= END Performance =============================///////////////
 /////////////================================= Recruitment =============================///////////////

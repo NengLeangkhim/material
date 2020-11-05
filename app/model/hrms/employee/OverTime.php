@@ -9,20 +9,30 @@ class OverTime extends Model
 {
     // Get All Overtime And Calculate Hour
     public static function AllOvertime($month,$year){
-        $d = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-        $start_date = $year . "-" . $month . "-01";
-        $end_date = $year . "-" . $month . "-" . $d;
-        $ot_time=DB::select("SELECT ho.id, s.first_name_en, s.last_name_en, concat(s.first_name_en, ' ', s.last_name_en) as full_en_name, ho.overtime_date,ho.description,st.first_name_en as approve,ho.ma_user_id,DATE_PART('hour', ho.end_time::time ) - DATE_PART('hour', ho.start_time::time) as hour from hr_overtime ho 
-                                INNER JOIN ma_user s on ho.ma_user_id=s.id 
-                                INNER JOIN ma_user st ON ho.create_by=st.id and ho.is_deleted='f' and ho.overtime_date BETWEEN '$start_date' and '$end_date'
-                                order by full_en_name");
-        return $ot_time;
+        try {
+            $d = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+            $start_date = $year . "-" . $month . "-01";
+            $end_date = $year . "-" . $month . "-" . $d;
+            $ot_time=DB::select("SELECT ho.id, s.first_name_en, s.last_name_en, concat(s.first_name_en, ' ', s.last_name_en) as full_en_name, ho.overtime_date,ho.description,st.first_name_en as approve,ho.ma_user_id,DATE_PART('hour', ho.end_time::time ) - DATE_PART('hour', ho.start_time::time) as hour,ho.start_time::time,ho.end_time::time from hr_overtime ho 
+                                    INNER JOIN ma_user s on ho.ma_user_id=s.id 
+                                    INNER JOIN ma_user st ON ho.create_by=st.id and ho.is_deleted='f' and ho.overtime_date BETWEEN '$start_date' and '$end_date'
+                                    order by full_en_name");
+            return $ot_time;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+        
     }
 
     // Get one row of Overtime
     public static function OvertimeOneRow($id){
-        $data=DB::select("SELECT ho.id,mu.first_name_en, mu.last_name_en,mu.id as stid,ho.overtime_date,ho.start_time,ho.end_time,ho.description from hr_overtime ho INNER JOIN ma_user mu on ho.ma_user_id=mu.id where ho.id=$id");
-        return $data;
+        try {
+            $data=DB::select("SELECT ho.id,mu.first_name_en, mu.last_name_en,mu.id as stid,ho.overtime_date,ho.start_time,ho.end_time,ho.description from hr_overtime ho INNER JOIN ma_user mu on ho.ma_user_id=mu.id where ho.id=$id");
+            return $data;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+        
     }
 
 
@@ -54,7 +64,7 @@ class OverTime extends Model
                 return "error";
             }
         }catch(Throwable $e){
-            return $e;
+            report($e);
         }
         
 
@@ -107,14 +117,19 @@ class OverTime extends Model
     }
 
     public static function my_overtime($id,$month,$year){
-        $d = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-        $start_date = $year . "-" . $month . "-01";
-        $end_date = $year . "-" . $month . "-" . $d;
-        $ot_time=DB::select("SELECT ho.id, s.first_name_en, s.last_name_en, concat(s.first_name_en, ' ', s.last_name_en) as full_en_name, ho.overtime_date,ho.description,st.first_name_en as approve,ho.ma_user_id,DATE_PART('hour', ho.end_time::time ) - DATE_PART('hour', ho.start_time::time) as hour,ho.start_time::time,ho.end_time::time from hr_overtime ho 
-                                INNER JOIN ma_user s on ho.ma_user_id=s.id 
-                                INNER JOIN ma_user st ON ho.create_by=st.id and ho.is_deleted='f' and ho.overtime_date BETWEEN '$start_date' and '$end_date' and ho.ma_user_id=$id
-                                order by full_en_name");
-        return $ot_time;
+        try {
+            $d = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+            $start_date = $year . "-" . $month . "-01";
+            $end_date = $year . "-" . $month . "-" . $d;
+            $ot_time=DB::select("SELECT ho.id, s.first_name_en, s.last_name_en, concat(s.first_name_en, ' ', s.last_name_en) as full_en_name, ho.overtime_date,ho.description,st.first_name_en as approve,ho.ma_user_id,DATE_PART('hour', ho.end_time::time ) - DATE_PART('hour', ho.start_time::time) as hour,ho.start_time::time,ho.end_time::time from hr_overtime ho 
+                                    INNER JOIN ma_user s on ho.ma_user_id=s.id 
+                                    INNER JOIN ma_user st ON ho.create_by=st.id and ho.is_deleted='f' and ho.overtime_date BETWEEN '$start_date' and '$end_date' and ho.ma_user_id=$id
+                                    order by full_en_name");
+            return $ot_time;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+        
     }
 
 

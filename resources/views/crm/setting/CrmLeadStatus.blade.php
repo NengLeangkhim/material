@@ -1,3 +1,8 @@
+@php
+    if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+    }
+@endphp
 <div class="col-12 text-right">
     <a  href="javascript:void(0);" class="btn btn-success crm_contact" onclick="CrmModalAction('crm_lead_status_form','crm_lead_status','ActionLeadStatus','Add Lead Status')" ​><i class="fas fa-plus"></i> Add Lead Status</a> 
 </div>
@@ -7,30 +12,29 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Create Date</th>
-                    <th>Create By</th>
-                    <th>Status</th>
+                    <th>Name English</th>
+                    <th>Name Khmer</th>
                     <th>Sequence</th>
-                    <th>Action</th>
+                    <th>Create Date</th>
+                    <th>Action</th> 
                 </tr>
             </thead>
             <tbody>
-            {{-- @foreach($contact_table->data as $row) --}}
+            @php
+                $i=1;
+            @endphp
+             @foreach($tbl->data as $row) 
                 <tr>
-                    <td>TT-CON0000002</td>
-                    <td>{{'$row->name_en'}}</td>
-                    <td>{{'$row->name_kh'}}</td>
-                    <td>{{'$row->phone'}}</td>
-                    <td>{{'$row->facebook'}}</td>
-                    <td>{{'$row->email'}}</td>
+                    <td>{{$i++}}</td>
+                    <td>{{$row->name_en}}</td>
+                    <td>{{$row->name_kh}}</td>
+                    <td>{{$row->sequence}}</td>
+                    <td>{{date('Y-m-d H:i:s',strtotime($row->create_date))}}</td>
                     <td class="text-center">
-                        <a href="#" class="btn"><i class="fas fa-wrench"></i></a>
-                        <a href="#" class="btn"><i class="far fa-edit"></i></a>
-                        <a href="#" class="btn"><i class="fas fa-trash"></i></a>
+                        <a href="#" id="{{$row->id}}" class="btn btn-info btn-block CrmEditLeadStatus"><i class="fas fa-wrench"></i></a>
                     </td>
                 </tr>                                           
-            {{-- @endforeach --}}
+             @endforeach 
             </tbody>  
         </table>
     </div>
@@ -56,6 +60,7 @@
                       <ul></ul>
                    </div>
                    <div class="row">
+                        <input type="hidden" name="user_id" value="{{$_SESSION['userid']}}">
                        <div class="col-md-12">
                            <div class="form-group">
                                <label for="name_en">Name English<span class="text-danger">*</span></label>
@@ -74,7 +79,7 @@
                                 </span>
                             </div>
                         </div>
-                       <div class="col-md-12">
+                       <div class="col-md-6">
                        <div class="form-group">
                            <label for="plan_from">Sequence<span class="text-danger"></span></label>
                            <input type="number" name="sequence" id="sequence" placeholder="Sequence" class="form-control">
@@ -83,10 +88,22 @@
                            </span>
                        </div>
                        </div>
+                       <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name_kh">Status<span class="text-danger"></span></label>
+                            <select name="status" class="form-control" id="status">
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                            <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
+                            <strong></strong>
+                            </span>
+                        </div>
+                       </div>
                    </div>  {{-- END ROW--}}
                    <div class="row text-right">
                       <div class="col-md-12 text-right">
-                        <input type="hidden" name="plan_id" id="plan_id"/>
+                        <input type="hidden" name="id" id="lead_status_id"/>
                         <button type="button" onclick='CrmSubmitModalAction("crm_lead_status_form","ActionLeadStatus","/crm/setting/leadstatus/store","POST","crm_lead_status","Successfully","/crm/setting")' name="ActionLeadStatus" id="ActionLeadStatus"  class="btn btn-primary">Create</button>
                       </div>
                    </div>

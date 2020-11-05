@@ -254,6 +254,6 @@ function ExporttoPDFFile(tableid) {
 //   alert(a);
 // }
 
-function OnSubmitCofirm(st){
-  return confirm(st);
-}
+// function OnSubmitCofirm(st){
+//   return confirm(st);
+// }

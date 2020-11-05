@@ -36,22 +36,29 @@ class DepartmentAndPositionController extends Controller
     }
 
     // for add or update department
-    function AddEditDepartment(){
+    function AddEditDepartment(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if (perms::check_perm_module('HRM_090106')) {
+            $validation=\Validator::make($request->all(),[
+                'company_id'=>'required',
+                'department_department'=>'required'
+            ]);
+            if($validation->fails()){
+                return response()->json(['error'=>$validation->getMessageBag()->toArray()]);
+            }
             $userid = $_SESSION['userid'];
             $id=$_POST['id'];
             $company_id=$_POST['company_id'];
-            $department=$_POST['department'];
+            $department=$_POST['department_department'];
             $khName=$_POST['khName'];
             if($id>0){
                 $stm= DepartmentAndPosition::UpdateDapartment($company_id,$department,$userid,$khName,$id);
             }else{
                 $stm= DepartmentAndPosition::InsertDepartment($company_id,$department,$userid,$khName);  
             }
-            echo $stm;
+            return response()->json(['success'=>$stm]);
         } else {
             return view('noperms');
         }
@@ -93,23 +100,30 @@ class DepartmentAndPositionController extends Controller
     }
 
     // for add or update position
-    function AddAndEditPosition(){
+    function AddAndEditPosition(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if (perms::check_perm_module('HRM_090106')) {
+            $validation=\Validator::make($request->all(),[
+                'g'=>'required',
+                'position_position'=>'required'
+            ]);
+            if($validation->fails()){
+                return response()->json(['error'=>$validation->getMessageBag()->toArray()]);
+            }
             $dp = new DepartmentAndPosition();
             $userid = $_SESSION['userid'];
             $id=$_POST['id'];
             $group=$_POST['g'];
-            $position=$_POST['position'];
+            $position=$_POST['position_position'];
             $khPosition=$_POST['khPosition'];
             if($id>0){
                 $stm=$dp->UpdatePosition($position,$group,$khPosition,$userid,$id);
             }else{
                 $stm=$dp->InsertPosition($position,$group,$khPosition,$userid);
             }
-            echo $stm;
+            return response()->json(['success'=>$stm]);
         } else {
             return view('noperms');
         }

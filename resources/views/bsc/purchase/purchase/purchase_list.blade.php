@@ -74,15 +74,15 @@
                                                             <td>{{ $purchase->billing_date }}</td>
                                                             <td>{{ $purchase->due_date }}</td>
                                                             <td>{{ $amount_paid }}</td>
-                                                            <td>{{ $due_amount}}</td>
+                                                            <td>{{ $due_amount }}</td>
                                                             <td>{{ $status }}</td>
                                                             <td style="text-align: center;">
                                                                 <div class="row">
                                                                     <div class="col-md-6">
-                                                                        <a href="javascript:;" onclick="go_to('bsc_purchase_purchase_view')"><i class="far fa-edit"></i></a>
+                                                                        <a href="javascript:;" onclick="go_to('bsc_purchase_purchase_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
                                                                     </div>
                                                                     <div class="col-md-6">
-                                                                        <a href="javascript:"><i class="far fa-trash-alt" onclick="purchase_delete_data()"></i></a>
+                                                                        <a href="javascript:" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')"><i class="far fa-edit"></i></a>
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -138,10 +138,10 @@
                                                                             <td style="text-align: center;">
                                                                                 <div class="row">
                                                                                     <div class="col-md-6">
-                                                                                        <a href="javascript:;" onclick="go_to('bsc_purchase_purchase_view')"><i class="far fa-edit"></i></a>
+                                                                                        <a href="javascript:;" onclick="go_to('bsc_purchase_purchase_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
                                                                                     </div>
                                                                                     <div class="col-md-6">
-                                                                                        <a href="javascript:"><i class="far fa-trash-alt" onclick="purchase_delete_data()"></i></a>
+                                                                                        <a href="javascript:" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')"><i class="far fa-edit"></i></a>
                                                                                     </div>
                                                                                 </div>
                                                                             </td>
@@ -188,10 +188,10 @@
                                                                             <td style="text-align: center;">
                                                                                 <div class="row">
                                                                                     <div class="col-md-6">
-                                                                                        <a href="javascript:;" onclick="go_to('bsc_purchase_purchase_view')"><i class="far fa-edit"></i></a>
+                                                                                        <a href="javascript:void(0);" onclick="go_to('bsc_purchase_purchase_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
                                                                                     </div>
                                                                                     <div class="col-md-6">
-                                                                                        <a href="javascript:"><i class="far fa-trash-alt" onclick="purchase_delete_data()"></i></a>
+                                                                                        <a href="javascript:" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')"><i class="far fa-edit"></i></a>
                                                                                     </div>
                                                                                 </div>
                                                                             </td>
@@ -248,25 +248,4 @@
         go_to(id);
     });
 
-    // function alert delete dailog
-    function purchase_delete_data(){
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You want to delete this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-            Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-                
-            )
-            }
-        })
-    }
 </script>

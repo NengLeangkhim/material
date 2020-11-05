@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Training Type</strong></h1>
+                <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Training Course</strong></h1>
                 <div class="col-md-12 text-right">
                     <a href="javascript:;" class="btn bg-turbo-color" onclick="HRM_ShowDetail('hrm_modal_trainingtype','modal_trainingType')"><i class="fas fa-plus"></i> Add</a>
                 </div>
@@ -15,7 +15,7 @@
                   <thead>                  
                     <tr>
                       <th style="">#</th>
-                      <th style="">Training Type</th>
+                      <th style="">Training Course</th>
                       <th>Description</th>
                       <th>Action</>
                     </tr>

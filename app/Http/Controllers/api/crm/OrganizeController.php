@@ -28,8 +28,8 @@ class OrganizeController extends Controller
                 session_start();
             }
 
-            // $userid = $_SESSION['userid'];//when testing is done open this line
-            $userid = 1;
+            $userid = $_SESSION['userid'];//when testing is done open this line
+            // $userid = 1;
 
             $lead_id=$request->input('lead_id');
             $con_id=$request->input('contact_id');

@@ -5,7 +5,7 @@
               <div class="card-header">
                 <h1 class="card-title hrm-title"><strong><i class="fas fa-users"></i>Staff Overtime</strong></h1>
                 <div class="col-md-12 text-right">
-                    <button type="button" class="btn bg-gradient-primary" onclick="HRM_ShowDetail('hrm_modal_add_edit','modal_overtime')"><i class="fas fa-plus"></i> Add</button>
+                    <button type="button" class="btn bg-gradient-primary" onclick="hrms_modal_overtime()"><i class="fas fa-plus"></i> Add</button>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -97,9 +97,9 @@
                       <th style="width: 10px">#</th>
                       <th>Name</th>
                       <th>OT Date</th>
-                      <th>OT Hours</th>
+                      <th>Start Time</th>
+                      <th>End Time</th>
                       <th>Description</th>
-                      <th>Approve By</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -112,12 +112,12 @@
                       <th>{{++$i}}</th>
                         <td>{{$item->full_en_name}}</td>
                         <td>{{$item->overtime_date}}</td>
-                        <td>{{$item->hour}}</td>
+                        <td>{{$item->start_time}}</td>
+                        <td>{{$item->end_time}}</td>
                         <td>{{$item->description}}</td>
-                        <td>{{$item->approve}}</td>
                         <td>
                           <div class="row">
-                            <div class="col-md-4"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_modal_add_edit','modal_overtime',{{$item->id}})"><i class="far fa-edit"></i></a></div>
+                            <div class="col-md-4"><a href="javascript:;" onclick="hrms_modal_overtime({{$item->id}})"><i class="far fa-edit"></i></a></div>
                             {{-- <div class="col-md-4"><a href="javascrip:;"><i class="fas fa-info"></i></a></div> --}}
                             <div class="col-md-4"><a href="javascript:;" onclick="hrm_delete_data({{$item->id}},'hrm_delete_overtime','hrm_overtime','Overtime Delete Successfully','HRM_09010702')"><i class="far fa-trash-alt"></i></a></div>
                           </div>

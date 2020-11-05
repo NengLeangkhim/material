@@ -4,9 +4,9 @@
     <?php
         $i=1;
         foreach($report as $row_tbl){
-            $value = intval($row_tbl->percentage);   
+            $value = intval($row_tbl->percentage);
             $ts1 = new DateTime($row_tbl->create_date);
-           
+
         ?>
             <tr title="Comment: <?=$row_tbl->comment?>" data-toggle="tooltip" data-placement="top">
             <td><?=$i++?></td>
@@ -18,7 +18,7 @@
             <td><?=$row_tbl->username?></td>
             <td><a href="javascript:void(0);" class="btn btn-info" onclick="view_detail_report(<?=$row_tbl->id?>)">Action</a></td>
             </tr>
-      <?php 
+      <?php
       }
         ?>
 

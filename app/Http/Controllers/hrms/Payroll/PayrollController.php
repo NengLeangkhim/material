@@ -86,10 +86,17 @@ class PayrollController extends Controller
     function Payroll_List_Detail(){
         if(perms::check_perm_module('HRM_09040402')){
             $id = $_GET['id'];
+            $date_from=$_GET['first_date'];
+            $date_to=$_GET['end_date'];
+            $m=$_GET['month'];
+            $y=$_GET['year'];
             $data = array();
             $em = new Employee();
             $data[0] = $em->EmployeeOnRow($id);
-            
+            $data[1]=Payroll::GetValueFromComponent($id,'','','',$m,$y);
+            $data[2]=Payroll::payroll_list_overtime_detail($id,$date_from,$date_to,$m,$y);
+            $data[3]=Payroll::payroll_list_mission_detail($id,$date_from,$date_to,$m,$y);
+            print_r($data[1]);
             return view('hrms/Payroll/PayrollListDetail')->with('data', $data);
         }else{
             return view('modal_no_perms')->with('modal', 'modal_payrolldetails');
@@ -151,11 +158,52 @@ class PayrollController extends Controller
     }
 
     function PayrollDetails(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userid = $_SESSION['userid'];
+        $id=$_GET['id'];
+        $payroll_list_id=$_GET['payroll_list_id'];
+        $data=array();
+        $data[0]=Payroll::payroll_detail_employee($payroll_list_id);
+        $data[1]=Payroll::payrol_detail($payroll_list_id);
+        return view('hrms/Payroll/PayrollDetails')->with('data',$data);
         // if(perms::check_perm_module('HRM_09040402')){
-            return view('hrms/Payroll/PayrollDetails');
+            
         // }else{
         //     return view('modal_no_perms')->with('modal', 'modal_payrolldetails');
         // }
         
+    }
+
+
+
+    // report
+    // Payroll List Report
+    function payroll_list_report(){
+        $data=Payroll::payroll_list_report_all();
+        return view('hrms/Payroll/payroll_list_report')->with('data',$data);
+    }
+    function payroll_list_report_search(){
+        $em=Employee::AllEmployee();
+        if (isset($_GET['month']) && isset($_GET['year'])) {
+            return json_encode(Payroll::payroll_list_report_month_year($em,$_GET['month'],$_GET['year']));
+        }else{
+            return json_encode(Payroll::payroll_list_report_all($em));
+        }
+    }
+
+
+    // payroll report
+    function payroll_report(){
+        $data[0]=Payroll::payroll_report_all();
+        return view('hrms/Payroll/payroll_report')->with('data',$data);
+    }
+    function payroll_report_search(){
+        if (isset($_GET['month']) && isset($_GET['year'])) {
+            return json_encode(Payroll::Payroll($_GET['month'],$_GET['year']));
+        }else{
+            return json_encode(Payroll::payroll_report_all());
+        }
     }
 }

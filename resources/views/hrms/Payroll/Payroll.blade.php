@@ -40,9 +40,6 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body" id="search_payroll_moth_year">
-                  @php
-                      // print_r($data[0]);
-                  @endphp
                 <table class="table table-bordered" id="tbl_payroll" style="width: 100%">
                   <thead>                  
                     <tr>
@@ -79,7 +76,7 @@
                           <td class="text-center">{{$em->tax}}</td>
                           <td class="text-center">{{$em->bonus_value-$em->tax}}</td>
                           <td class="text-center text-primary">
-                            <button class="btn bg-info btn-sm" onclick="HRM_ShowDetail('hrm_payroll_detail','modal_payrolldetails')">Detail</button>
+                            <button class="btn bg-info btn-sm" onclick="hrms_payroll_detail({{$em->userid}},{{$em->id}})">Detail</button>
                             <button {{$disable}} class="btn {{$btn}} btn-sm" onclick="HRM_Finance_Approve_Payroll(this,{{$em->id}})">Approve</button>
                           </td>
                       </tr>

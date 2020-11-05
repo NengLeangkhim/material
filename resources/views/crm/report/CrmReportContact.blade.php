@@ -24,7 +24,7 @@
                       <div class="col-12 text-right">
                                 <button class="btn btn-success"><span><i class="far fa-file-excel"></i></span> Excel</button>
                                 <button class="btn btn-danger"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
-                      </div>                               
+                      </div>
                   </div>
                   <div class="card-body">
                         <div class="form-group">
@@ -49,10 +49,10 @@
                                 </div>
                                 <div class="col-md-4 text-center">
                                     <div class="col-md-12" style="height: 45%">
-        
+
                                     </div>
                                     <div class="col-md-12">
-                                        <button class="btn btn-primary align-middle" style="width:70%;">Generate Report</button>
+                                        <button class="btn btn-primary align-middle" style="width:70%;" id="btn-generate-report">Generate Report</button>
                                     </div>
                                 </div>
                             </div>
@@ -61,33 +61,17 @@
                             <table id="OrganizationTbl" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Organization Number</th>
-                                        <th>CID</th>
-                                        <th>Organization Name</th>
-                                        <th>Customer Name</th>
+                                        <th>National ID</th>
+                                        <th>Name In English</th>
+                                        <th>Name In Khmer</th>
+                                        <th>Position</th>
                                         <th>Email</th>
+                                        <th>Facebook</th>
                                         <th>Phone</th>
-                                        <th>Assigned To </th>
-                                        <th>Detail</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                {{-- @foreach($lead as $row) --}}
-                                    <tr>
-                                        <td>{{'TT-ACC0001'}}</td>
-                                        <td>{{'N00004'}}</td>
-                                        <td>{{'Bo Entertainment'}}</td>
-                                        <td>{{'Leader Bo'}}</td>
-                                        <td>{{'Oppa@gmail.com'}}</td>
-                                        <td>{{'09999999'}}</td>
-                                        <td>{{'XD'}}</td>
-                                        <td>
-                                        {{-- <a href="#" class="btn btn-block btn-info btn-sm edit" ​value="editlead/{{$row->id}}" ><i class="fas fa-wrench"></i></a>detaillead --}}
-                                        <a href="#" class="btn btn-block btn-info btn-sm organization_detail" ​value="/organizations/detail" ><i class="fas fa-info-circle"></i></a>
-                                        </td>
-                                    </tr>                                       
-                                {{-- @endforeach --}}
-                                </tbody>  
+                                <tbody id="lead-detail-body">
+                                </tbody>
                             </table>
                         </div>
                   </div><!--End Card Body-->
@@ -105,4 +89,49 @@
         format: 'YYYY-MM',
         sideBySide: true,
       });
+
+    $(document).ready(function(){
+        var url = '/api/crm/report/contactReportDetail'
+
+        $('#btn-generate-report').click(function(){
+            var from = $('#DetailContactFrom').val() == '' ? '' : (new Date($('#DetailContactFrom').val())).toISOString().substring(0, 10)
+            var to = new Date($('#DetailContactTo').val());
+            to = $('#DetailContactTo').val() == '' ? '' : (new Date(to.getUTCFullYear(), to.getMonth() + 1, 1)).toISOString().substring(0,10)
+            $('#OrganizationTbl').dataTable().fnClearTable();
+            $('#OrganizationTbl').dataTable().fnDraw();
+            $('#OrganizationTbl').dataTable().fnDestroy();
+            $.ajax({
+                url : url,
+                type : 'GET',
+                data : {
+                    'from_date' : from == '' ? null : from,
+                    'to_date' : to == '' ? null : to
+                },
+                success : function(response){
+                    if(response.success) {
+                        $.each(response.data, function(index, data){
+                            $('#lead-detail-body').append(`
+                            <tr>
+                                <td>${data.national_id}</td>
+                                <td>${data.name_en}</td>
+                                <td>${data.name_kh}</td>
+                                <td>${data.position}</td>
+                                <td>${data.email}</td>
+                                <td>${data.facebook}</td>
+                                <td>${data.phone}</td>
+                            </tr>
+                            `)
+                        })
+                        $('#OrganizationTbl').DataTable();
+                    }
+                },
+                fail : function(){
+                    console.log("ERROR");
+                },
+                dataType : 'JSON'
+            })
+
+        })
+
+    })
 </script>

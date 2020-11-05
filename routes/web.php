@@ -29,18 +29,22 @@ Route::get('/commune', 'addressController@getcommune'); //getcommune
 Route::get('/village', 'addressController@getvillage'); //getvillage
 // End Get Address
 // =========================CRM SYSTEM==========================
-// start leads
+// start lead and branch
 Route::get('/lead','crm\LeadController@getlead'); // get  all lead  show  in table
+Route::get('/addlead','crm\LeadController@lead'); // insert lead or branch (button)
+Route::get('/detaillead/{id}','crm\LeadController@getdetailtlead'); // get  show detail  lead
+Route::get('/editlead/{id}','crm\LeadController@editlead');// edit lead
+Route::post('/lead/update','crm\LeadController@updatelead');// Update lead
+
+
 Route::get('/branch/{id}','crm\LeadController@getbranch'); // get  all branch  show  in table by lead id
 Route::get('/detailbranch/{id}','crm\LeadController@getdetailbranch'); // get detail branch
+Route::get('/editbranch/{id}','crm\LeadController@editbranch');//  edit branch
 Route::get('/addlead','crm\LeadController@lead'); // go to lead
 Route::post('/lead/store','crm\LeadController@StoreLead'); // Store lead
 Route::POST('/addleadsource','crm\LeadController@addleadsource'); //addlead source
 Route::POST('/addleadindustry','crm\LeadController@addleadindustry'); //add leadindustry
-Route::POST('/addlead','crm\LeadController@addlead'); //add leadindustry
-Route::get('/detaillead/{id}','crm\LeadController@detaillead'); //add leadindustry
-Route::Get('/editlead/{id}','crm\LeadController@editlead');// Go to lead
-Route::post('/lead/update','crm\LeadController@UpdateLead');// Update lead
+Route::post('/branch/update','crm\LeadController@updatebranch');// Update lead
 Route::post('/crm_leasdsource','crm\LeadController@savelead'); // save
 Route::get('/test_map', function(){
     return view('crm.lead.mapShowLatLong');
@@ -48,6 +52,25 @@ Route::get('/test_map', function(){
 
 
 //end lead
+
+// start survey
+
+Route::get('/schedule','crm\CrmScheduleController@index');
+
+// end survey
+
+// start survey
+//get survey
+Route::get('/survey','crm\CrmSurveyController@index');
+
+
+//get detail survey
+Route::get('/detailsurvey/{id}','crm\CrmSurveyController@detailsurvey');
+//insert survey
+Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
+
+// end survey
+
 
 
 
@@ -77,6 +100,8 @@ Route::get('/organizations/detail/{id}','crm\OrganizationController@DetailOrgani
 // crm quote
 Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote
 Route::get('/quote/detail','crm\QuoteController@showQuoteListDetail'); // get show quote detail
+Route::get('/quote/leadBranch','crm\QuoteController@listLeadBranch'); // get list branch of lead by lead id
+
 Route::get('/quote/add','crm\QuoteController@addQuote'); // to add qoute
 
 Route::get('/quote/deleteLeadQuote','crm\QuoteController@deleteLeadQuote'); // get delete lead for quote list
@@ -116,7 +141,27 @@ Route::get('/crm/setting','crm\CrmSettingController@IndexSetting'); // show inde
     //-- Lead Status
     Route::get('/crm/setting/leadstatus','crm\CrmSettingController@CrmLeadStatus'); // show Lead Status Setting CRM
     Route::post('/crm/setting/leadstatus/store','crm\CrmSettingController@StoreLeadStatus'); // show Lead Status Setting CRM
-Route::get('/crm/setting/leadindustry','crm\CrmSettingController@CrmLeadIndustry'); // show Lead Status Setting CRM
+    Route::get('/crm/setting/leadstatus/get','crm\CrmSettingController@CrmGetLeadStatusByID'); // show Lead Status Setting CRM
+    //-- Lead industry
+    Route::get('/crm/setting/leadindustry','crm\CrmSettingController@CrmLeadIndustry'); // show Lead Industry Setting CRM
+    Route::post('/crm/setting/leadindustry/store','crm\CrmSettingController@StoreLeadIndustry'); // INsert and update lead industry Setting CRM
+    Route::get('/crm/setting/leadindustry/get','crm\CrmSettingController@CrmGetLeadIndustryByID'); // show Lead Industry Setting CRM
+    //-- Lead Source
+    Route::get('/crm/setting/leadsource','crm\CrmSettingController@CrmLeadSource'); // show Lead Source Setting CRM
+    Route::post('/crm/setting/leadsource/store','crm\CrmSettingController@StoreLeadSource'); // INsert and update lead Source Setting CRM
+    Route::get('/crm/setting/leadsource/get','crm\CrmSettingController@CrmGetLeadSourceByID'); // show Lead Source Setting CRM
+    //-- Lead Current ISP
+    Route::get('/crm/setting/leadisp','crm\CrmSettingController@CrmLeadISP'); // show Lead ISP Setting CRM
+    Route::post('/crm/setting/leadisp/store','crm\CrmSettingController@StoreLeadISP'); // INsert and update lead ISP Setting CRM
+    Route::get('/crm/setting/leadisp/get','crm\CrmSettingController@CrmGetLeadISPByID'); // show Lead ISP Setting CRM
+    //-- schedule type
+    Route::get('/crm/setting/scheduletype','crm\CrmSettingController@CrmScheduleType'); // show Schedule Type Setting CRM
+    Route::post('/crm/setting/scheduletype/store','crm\CrmSettingController@StoreScheduleType'); // INsert and update Schedule Type Setting CRM
+    Route::get('/crm/setting/scheduletype/get','crm\CrmSettingController@CrmGetScheduleTypeByID'); // show Schedule Type Setting CRM
+    //-- Quote Status
+    Route::get('/crm/setting/quotestatus','crm\CrmSettingController@CrmQuoteStatus'); // show Quote Status  Setting CRM
+    Route::post('/crm/setting/quotestatus/store','crm\CrmSettingController@StoreQuoteStatus'); // INsert and update Quote Status Setting CRM
+    Route::get('/crm/setting/quotestatus/get','crm\CrmSettingController@CrmGetQuoteStatusByID'); // show Quote Status  Setting CRM
 // END Setting CRM
 
 //===========================END CRM=================================
@@ -522,6 +567,7 @@ Route::get('/hrm_user_suggested', 'hrms\suggestion\QuestionAnswerController@getU
 
 // Get Staff Submitted the Question Answer as Report
 Route::get('/hrm_employee_suggestion_report', 'hrms\suggestion\QuestionAnswerController@getSuggestionSurveyReport');
+
 //////========END QUESTION & Answer==========/////
 
 //////======== SUGGESTION BOX =============///////
@@ -619,6 +665,8 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// get show detail plan performance
     Route::get('hrm_performance_staff_schedule/plan','hrms\performance\HrmPerformScheduleController@hrm_get_data_perform_plan');
+    /// Add and update performance schedule
+    Route::get('hrm_performance_staff_schedule/action','hrms\performance\HrmPerformScheduleController@hrm_modal_action_schedule');
 
     /// get combobox plan detail
     Route::get('hrm_performance_staff_schedule/plandetail','hrms\performance\HrmPerformScheduleController@hrm_get_data_perform_plan_detail');
@@ -637,6 +685,9 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// calendar show schedule
     Route::get('hrm_performance_staff_schedule/calendar','hrms\performance\HrmPerformScheduleController@HrmCalendarPerformSchedule');
+
+    /// List Schedule
+    Route::get('hrm_performance_staff_schedule/list','hrms\performance\HrmPerformScheduleController@HrmListPerformSchedule');
 ///////Performance Staff Follow Up
 
     /// index performance Staff Follow Up
@@ -653,10 +704,18 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
     /// view detail staff follow up
     Route::get('hrm_performance_follow_up/modal/view','hrms\performance\HrmStaffFollowUpController@HrmViewStaffFollowUp');
+    
+    /// view Assign To
+    Route::get('hrm_performance_follow_up/assign','hrms\performance\HrmStaffFollowUpController@HrmViewAssign');
+    /// view List Follow Up
+    Route::get('hrm_performance_follow_up/list','hrms\performance\HrmStaffFollowUpController@HrmListStaffFollowUp');
 
 ////// Performane Manager Follow Up
     /// Index manager Follow up
     Route::get('/hrm_performance_follow_up_manager','hrms\performance\HrmManagerFollowUpController@HrmIndexManagerFollowUp');
+    
+    /// List manager Follow up
+    Route::get('/hrm_performance_follow_up_manager/list','hrms\performance\HrmManagerFollowUpController@HrmListManagerFollowUp');
 
     /// go to manager Follow up
     Route::get('/hrm_performance_follow_up_manager/action','hrms\performance\HrmManagerFollowUpController@HrmActionManagerFollowUp');
@@ -692,6 +751,14 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 
      /// Action performance report
      Route::post('hrm_report_performance_manage/action','hrms\performance\HrmPerformReportController@hrm_action_perform_report');
+
+    // Performance report search for plan
+    Route::get('hrm_report_performance_report_plan','hrms\performance\HrmPerformReportController@hrm_perform_report_plan');
+
+    // Performance report search for plan & plan detail
+    Route::get('hrm_report_performance_report_plan_planDetail','hrms\performance\HrmPerformReportController@hrm_perform_report_plan_planDetail');
+
+
 /////////////////============== END Performance =============///////////////
 
 /////////////////============== Recruitment =============///////////////
@@ -814,13 +881,14 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::post('hrm_insert_update_employee', 'hrms\Employee\AllemployeeController@InsertUpdateEmployee');
         Route::get('hrm_delete_employee', 'hrms\Employee\AllemployeeController@DeleteEmployee');
         Route::get('hrm_detail_employee', 'hrms\Employee\AllemployeeController@EmployeeDetail');
-         Route::get('hrm_employee_leave', 'hrms\Employee\AllemployeeController@Employee_Leave');
+        Route::get('hrm_employee_leave', 'hrms\Employee\AllemployeeController@Employee_Leave');
+        Route::post('hrms_insert_update_employee','hrms\Employee\AllemployeeController@hrms_insert_update_employee');
     //End All Employee
 
     // Start Holiday
         Route::get('hrm_holiday', 'hrms\Employee\HolidayController@Holiday');
         Route::get('hrm_add_edit_holiday', 'hrms\Employee\HolidayController@AddAndEditHoliday');
-        Route::post('hrm_insert_update_holiday', 'hrms\Employee\HolidayController@InsertUpdateHoliday');
+        Route::post('hrm_insert_update_holiday', 'hrms\Employee\HolidayController@insert_update_holiday');
         Route::get('hrm_delete_holiday', 'hrms\Employee\HolidayController@DeleteHoliday');
         Route::get('hrm_export_holiday', 'ExportExcelController@ExortHoliday')->name('export_excel.excel');
         Route::get('hrm_holiday_calendar',function(){
@@ -873,6 +941,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 // End Employee
 
 // Start Training
+
     // Training Report
         Route::get('hrm_report_training',function(){
             return view('hrms/Training/report_training_schedule');
@@ -923,12 +992,16 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_hrapprove_payroll', 'hrms\Payroll\PayrollController@HR_ApprovePayroll');
         Route::get('hrm_hrdelete_component', 'hrms\Payroll\PayrollController@DeleteComponent');
         Route::get('hrm_showpayrollbymonth', 'hrms\Payroll\PayrollController@PayrollList');
+        Route::get('hrm_payroll_list_report','hrms\Payroll\PayrollController@payroll_list_report');
+        Route::get('hrm_payroll_list_report_search','hrms\Payroll\PayrollController@payroll_list_report_search');
     // End Payroll List
 
     // Payroll
         Route::get('hrm_payroll', 'hrms\Payroll\PayrollController@Payroll');
         Route::get('hrm_finance_approve_payroll', 'hrms\Payroll\PayrollController@FinanceApprovePayroll');
         Route::get('hrm_payroll_detail', 'hrms\Payroll\PayrollController@PayrollDetails');
+        Route::get('hrm_payroll_report','hrms\Payroll\PayrollController@payroll_report');
+        Route::get('hrm_payroll_report_search','hrms\Payroll\PayrollController@payroll_report_search');
     // End Payroll
 
         Route::get('taxation', 'hrms\Payroll\PayrollController@Taxation');
@@ -1093,91 +1166,3 @@ Route::get('test_chart',function(){
 
 
 //==========================================================> End HRMS <===============================================================///
-
-//============================================================> START BSC <===============================================================///
-// ========================================================> THIN VYTOU <======================================================== //
-
-// Report
-    // Financial Report
-        // Balance Sheet
-
-        // Profit and Loss
-        Route::get('/bsc_report_is','api\BSC\IncomeStatementApiController@getIS');
-    // Accounting Report
-        // Account Transaction
-
-        // Trial Balance
-
-// ========================================================> END THIN VYTOU <======================================================== //
-// ========================================================> SOV SOTHEA <======================================================== //
-
-// Customer Management
-    // Customer
-        Route::get('bsc_customer','bsc\CustomerController@customer');
-    // Customer Branch
-        Route::get('bsc_customer_branch','bsc\CustomerController@customer_branch');
-        Route::get('customer_branch_detail/{id}','bsc\CustomerController@customer_branch_detail');
-    // Customer Service
-        Route::get('bsc_customer_service','bsc\CustomerController@customer_service');
-    // Customer Service Detail
-        Route::get('bsc_customer_service_detail','bsc\CustomerController@customer_service_detail');
-        Route::get('customer_service_detail_add','bsc\CustomerController@customer_service_detail_add');
-        Route::get('customer_service_detail_edit/{id}','bsc\CustomerController@customer_service_detail_edit');
-        Route::get('bsc_customer_service_detail_delete','bsc\CustomerController@customer_service_detail_delete');
-        Route::post('bsc_customer_service_detail_insert','bsc\CustomerController@customer_service_detail_insert');
-        Route::post('bsc_customer_service_detail_update','bsc\CustomerController@customer_service_detail_update');
-// Report
-    // Dashboard
-
-// ========================================================> END SOV SOTHEA <======================================================== //
-// ========================================================> SOK SENG <======================================================== //
-
-// Chart account
-    Route::get('bsc_chart_account_list','bsc\ChartAccountController@list');
-    Route::get('bsc_chart_account_list_edit/{id}','bsc\ChartAccountController@edit');
-    Route::get('bsc_chart_account_form','bsc\ChartAccountController@form');
-    Route::post('bsc_chart_account_form_add','bsc\ChartAccountController@add');
-    Route::post('bsc_chart_account_form_edit','bsc\ChartAccountController@ch_account_edit');
-    Route::get('bsc_chart_account_list_delete','bsc\ChartAccountController@ch_account_delete');
-// Invoice
-    // Invoice
-        Route::get('bsc_invoice_invoice_list','bsc\InvoiceController@list');
-        Route::get('bsc_invoice_invoice_view','bsc\InvoiceController@view');
-        Route::get('bsc_invoice_invoice_form','bsc\InvoiceController@form');
-        Route::post('bsc_invoice_save','bsc\InvoiceController@invoice_save');
-    // View Payment
-        Route::get('bsc_invoice_view_payment','bsc\InvoiceController@view_payment');
-
-// Report
-    // Sale Report
-        // Aged Receivables Detail
-
-        // Aged Receivables Summary
-
-        // Customer Invoice Report
-
-// ========================================================> END SOK SENG <======================================================== //
-// ========================================================> TOUCH RITH <======================================================== //
-
-// Purchase
-    // Purchase
-    Route::get('bsc_purchase_purchase_list','bsc\PurchaseController@list');
-    Route::post('bsc_purchase_save','bsc\PurchaseController@save');
-
-    Route::get('bsc_purchase_purchase_view','bsc\PurchaseController@view');
-
-    Route::get('bsc_purchase_purchase_form','bsc\PurchaseController@form');
-
-    // View Purchase Payment
-    Route::get('bsc_purchase_view_purchase_payment','bsc\PurchasePaymentControllre@view_purchase_payment');
-
-// Report
-    // Purchase Report
-        // Aged Payables Detail
-
-        // Aged Payables Summary
-
-        // Supplier Invoice Report
-
-// ========================================================> END TOUCH RITH <======================================================== //
-//============================================================> END BSC <===============================================================///
