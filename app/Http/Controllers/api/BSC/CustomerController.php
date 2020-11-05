@@ -124,9 +124,20 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $sql="delete_ma_customer($id, $request->update_by)";
+            $q=DB::select("SELECT ".$sql);
+
+            DB::commit();
+            return $this->sendResponse($q, 'Customer deleted successfully.');
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->sendError("Try again!");
+        }
     }
 
     // get lead from crm

@@ -26,7 +26,7 @@
                   <div class="row">
                     <div class="col-8">
                       <h3 class="text-info">{{$new_lead}}</h3>
-    
+
                       <p>New Leads</p>
                     </div>
                     <div class="col-4">
@@ -44,7 +44,7 @@
                   <div class="row">
                     <div class="col-8">
                     <h3 class="text-info">{{$total_contact}}</h3>
-    
+
                       <p>Total Contacts</p>
                     </div>
                     <div class="col-4">
@@ -62,7 +62,7 @@
                   <div class="row">
                     <div class="col-8">
                       <h3 class="text-info">{{$total_quote}}</h3>
-    
+
                       <p>Total Quotes</p>
                     </div>
                     <div class="col-4">
@@ -80,7 +80,7 @@
                   <div class="row">
                     <div class="col-8">
                       <h3 class="text-info">{{$total_survey}}</h3>
-    
+
                       <p>Survey</p>
                     </div>
                     <div class="col-4">
@@ -99,7 +99,7 @@
               <div class="card card-primary">
                 <div class="card-header">
                   <h3 class="card-title">Lead Status Chart</h3>
-  
+
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                     </button>
@@ -120,7 +120,7 @@
               <div class="card card-info">
                 <div class="card-header">
                   <h3 class="card-title">Quote Status Chart</h3>
-  
+
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                     </button>
@@ -274,11 +274,11 @@
                     var chart = new google.visualization.ColumnChart(document.getElementById('LeadChart'))
                     chart.draw(view, options)
                 }
-            } 
+            }
         }
       });
     }
-    
+
     // Quote Chart
     var Quote_Chart = () =>{
       $.ajax({
@@ -365,7 +365,7 @@
 
                     chart.draw(view, options)
                 }
-            } 
+            }
         }
       });
     }

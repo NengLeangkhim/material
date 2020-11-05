@@ -121,18 +121,40 @@ class CustomerBranchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $sql="delete_ma_customer_branch($id, $request->update_by)";
+            $q=DB::select("SELECT ".$sql);
+
+            DB::commit();
+            return $this->sendResponse($q, 'Customer branch deleted successfully.');
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->sendError("Try again!");
+        }
     }
     public function show_customer(Request $request)
     {
-        $customers = DB::table('ma_customer')->get();
+        $customers = DB::table('ma_customer')
+        ->where([
+            ['is_deleted','=','f'],
+            ['status','=','t']
+        ])
+        ->get();
         return $this->sendResponse($customers, 'Customer retrieved successfully.');
     }
     public function show_lead_branch_by_lead(Request $request, $id)
     {
-        $lead_branchs = DB::table('crm_lead_branch')->where('crm_lead_id',$id)->get();
+        $lead_branchs = DB::table('crm_lead_branch')
+        ->where([
+            ['crm_lead_id','=',$id],
+            ['is_deleted','=','f'],
+            ['status','=','t']
+        ])
+        ->get();
         return $this->sendResponse($lead_branchs, 'Lead branch retrieved successfully.');
     }
     public function show_lead_branch_single(Request $request, $id)
@@ -140,7 +162,12 @@ class CustomerBranchController extends Controller
         $lead_branch = DB::table('crm_lead_branch')
         ->select('crm_lead_branch.*','crm_lead_address.hom_en','crm_lead_address.home_kh','crm_lead_address.street_en','crm_lead_address.street_kh','crm_lead_address.latlg','crm_lead_address.gazetteer_code')
         ->leftJoin('crm_lead_address','crm_lead_branch.crm_lead_address_id','=','crm_lead_address.id')
-        ->where('crm_lead_branch.id',$id)->get();
+        ->where([
+            ['crm_lead_branch.id','=',$id],
+            ['crm_lead_branch.is_deleted','=','f'],
+            ['crm_lead_branch.status','=','t']
+        ])
+        ->get();
         return $this->sendResponse($lead_branch, 'Lead branch retrieved successfully.');
     }
 }
