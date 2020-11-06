@@ -32,8 +32,8 @@ class ContactController extends Controller
     public function show($id)
     {
         $contact = Contact::where('is_deleted','f')->find($id);
-        
-        return $contact==NULL?  json_encode(["data"=>null]) : new ContactResource($contact);   
+
+        return $contact==NULL?  json_encode(["data"=>null]) : new ContactResource($contact);
     }
 
 
@@ -53,7 +53,7 @@ class ContactController extends Controller
 
         $create_by = $request->input('create_by');
         if($request->isMethod('put')){
-            try { 
+            try {
                 $results = DB::select(
                     'SELECT public."update_crm_lead_contact"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                     array(
@@ -74,7 +74,7 @@ class ContactController extends Controller
                 return json_encode(["update"=>"fail","result"=> $e->getMessage()]);
             }
         }else{
-            try { 
+            try {
                 $results = DB::select(
                     'SELECT public."insert_crm_lead_contact"(?, ?, ?, ?, ?, ?, ?, ?, ?)',
                     array(
@@ -103,7 +103,7 @@ class ContactController extends Controller
      */
     public function destroy($id,$user_id)
     {
-        try { 
+        try {
             $results = DB::select(
                 'SELECT public."delete_crm_lead_contact"(?, ?)',
                 array(
