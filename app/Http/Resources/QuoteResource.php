@@ -27,12 +27,18 @@ class QuoteResource extends JsonResource
         //get name assign to and createby
         $assign =User::find($this->assign_to,[
             'id',
-            'first_name_en'
+            'first_name_en',
+            'last_name_en',
+            'first_name_kh',
+            'last_name_kh'
         ]);
 
         $createby =User::find($this->create_by,[
             'id',
-            'first_name_en'
+            'first_name_en',
+            'last_name_en',
+            'first_name_kh',
+            'last_name_kh'
         ]);
 
         //get address name
@@ -65,7 +71,10 @@ class QuoteResource extends JsonResource
 
             $pre =User::find($q->create_by,[
                 'id',
-                'first_name_en'
+                'first_name_en',
+                'last_name_en',
+                'first_name_kh',
+                'last_name_kh'
             ]);
             array_push($acknowlegde,$pre);
         }

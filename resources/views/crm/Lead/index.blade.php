@@ -35,7 +35,7 @@
                                         <thead>
                                             <tr style="background: #1fa8e0">
                                                 <th style="color: #FFFFFF">Lead Number</th>
-                                                <th style="color: #FFFFFF">Customer/Comapny Name</th>
+                                                <th style="color: #FFFFFF">Customer Name</th>
                                                 <th style="color: #FFFFFF">Email</th>
                                                 <th style="color: #FFFFFF">Website </th>
                                                 <th style="color: #FFFFFF">Facebook </th>
