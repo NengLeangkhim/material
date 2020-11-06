@@ -303,8 +303,16 @@ class QuoteController extends Controller
                         //use this api to get quote detail by quote id
                         $request3 = Request::create('/api/quote/'.$val2->crm_quote_id.'', 'GET');   // this use branch id to get branch deetail
                         $response3 = json_decode(Route::dispatch($request3)->getContent());
-                        dump($response3->data);
-                        exit;
+
+
+                        $data['quote_create_by'] = $response3->data->create_by->first_name_en.' '.$response3->data->create_by->last_name_en;
+                        $data['quote_create_date'] = $response3->data->create_date;
+                        // $data['quote_stage'] = $response3->data->quote_stage[0]->;
+                        if(count($response3->data->quote_stage) > 0){
+                            $num = count($response3->data->quote_stage);
+                            $data['quote_stage'] = $response3->data->quote_stage[($num-1)];
+                        }
+                        $data['quote_id'] = $response3->data->id;
                         $data['quote_due_date'] = $response3->data->due_date;
                         $data['quote_number'] = $response3->data->quote_number;
                         $data['quote_subject'] = $response3->data->subject;
@@ -314,29 +322,27 @@ class QuoteController extends Controller
                         $response4 = json_decode(Route::dispatch($request4)->getContent());
                         $data['lead_number'] = $response4->data[0]->lead_number;
                         $data['lead_name'] = $response4->data[0]->customer_name_en;
-
                         $dataQuoteLead[] = $data;
-
                     }
                 }
 
 
-
-
-
-
-            dump($dataQuoteLead);
-            // return view('crm/quote/leadBranch', compact('getQuoteDetail','getBranchDetail'));
+            // dump($dataQuoteLead[0]['branch_id']);
+            return view('crm/quote/leadBranch', compact('dataQuoteLead'));
         }
     }
 
 
 
     //function go to edit qoute lead
-    public static function quoteEditLead(){
+    public static function quoteEditLead(Request $request){
         if(isset($_GET['qouteId'])){
 
-            return view('crm/quote/quoteLeadEdit');
+            $request = Request::create('/api/quote/'.$_GET['qouteId'].'', 'GET');   // this use branch id to get branch deetail
+            $quoteDetail = json_decode(Route::dispatch($request)->getContent());
+            $employee  = ModelCrmQuote::getEmployee();
+            $quoteStatus  = ModelCrmQuote::getQuoteStatus();
+            return view('crm/quote/quoteLeadEdit', compact('quoteDetail','employee','quoteStatus'));
         }
     }
 
