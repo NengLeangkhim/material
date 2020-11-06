@@ -13,8 +13,10 @@ class ModelCrmOrganize extends Model
         crm_lead.lead_number,lb.crm_lead_id as lead_id,
         lb.id as branch_id,
         lc.id as contact_id,
+        lc.phone as contact_phone,
         lb.name_en as name_en_branch,
         lb.email as email_branch,
+        lbc.id as lead_con_bran_id,
         lb.priority,
         crm_lead.vat_number,
         cls.name_en as lead_source,
@@ -53,7 +55,7 @@ class ModelCrmOrganize extends Model
         join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         join stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=true and ld.is_deleted=false");
+        where ld.status=true and ld.is_deleted=false and ls.id=2");
     }
 
     //get organize by id
@@ -62,8 +64,15 @@ class ModelCrmOrganize extends Model
         crm_lead.lead_number,lb.crm_lead_id as lead_id,
         lb.id as branch_id,
         lc.id as contact_id,
+        crm_lead.website,
+        crm_lead.facebook,
+        lbc.id as lead_con_bran_id,
+        lc.phone as contact_phone,
         lb.name_en as name_en_branch,
+        lb.name_kh as name_kh_branch,
         lb.email as email_branch,
+        cli.id as lead_industry_id,
+        cli.name_en as lead_industry,
         lb.priority,
         crm_lead.vat_number,
         cls.name_en as lead_source,
@@ -102,6 +111,6 @@ class ModelCrmOrganize extends Model
         join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         join stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=true and ld.is_deleted=false and lb.id=$id");
+        where ld.status=true and ld.is_deleted=false and lb.id=$id and ls.id=2");
     }
 }

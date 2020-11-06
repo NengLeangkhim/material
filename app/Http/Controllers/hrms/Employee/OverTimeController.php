@@ -5,6 +5,7 @@ use App\model\hrms\employee\OverTime;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\perms;
+use App\Http\Controllers\util;
 use App\model\hrms\employee\Employee;
 
 class OverTimeController extends Controller
@@ -62,24 +63,33 @@ class OverTimeController extends Controller
 
 
     // Insert Overtime or update overtime
-    function InsertUpdateOvertime(){
+    function InsertUpdateOvertime(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if (perms::check_perm_module('HRM_090107')) {
+            $validation=\Validator::make($request->all(),[
+                'emName'=>'required',
+                'otDate'=>'required','date',
+                'start_h'=>'required','time',
+                'end_h'=>'required','time'
+            ]);
+            if($validation->fails()){
+                return response()->json(['error'=>$validation->getMessageBag()->toArray()]);
+            }
             $id=$_POST['id'];
             $userid = $_SESSION['userid'];
             $staffid=$_POST['emName'];
             $otDate=$_POST['otDate'];
-            $start=$_POST['start_h'];
-            $end=$_POST['end_h'];
+            $start=util::to_24($_POST['start_h']);
+            $end=util::to_24($_POST['end_h']);
             $description=$_POST['description'];
             if($id>0){
                 $overtime=OverTime::UpdateOvertime($staffid,$otDate,$description,$userid,0,$userid,$start,$end,$id);
             }else{
                 $overtime = OverTime::InsertOverTime($staffid,$otDate,$description,$userid,0,$userid,$start,$end);
             }
-            echo $overtime;
+            return response()->json(['success'=>$overtime]);
             
         } else {
             return view('noperms');

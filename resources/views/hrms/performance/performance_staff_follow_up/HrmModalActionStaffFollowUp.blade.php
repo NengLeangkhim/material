@@ -43,7 +43,7 @@
                                 // Header Form
                                 $header = "Update Follow Up";
                                 //Action go to
-                                $go_to = "hrm_performance_follow_up";
+                                $go_to = "/hrm_performance_follow_up/list?id=".$row->ps_id."";
                                 //// plan detail
                                 $pd_name = $row->pd_name;
                                 $pd_task = $row->pd_task;

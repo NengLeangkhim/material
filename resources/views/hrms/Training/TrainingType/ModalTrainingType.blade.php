@@ -12,14 +12,14 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
-            <form id="fm_trainingType">
+            <form id="fm_trainingType" onsubmit="return false;">
               @csrf
             <div class="row">
-              <input type="hidden" name="id" id="" value="@php if(isset($data[0])){echo $data[0][0]->id;} @endphp">
+              <input type="hidden" name="id" value="@php if(isset($data[0])){echo $data[0][0]->id;} @endphp">
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Training Course <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="trainingType" value="@php if(isset($data[0])){echo $data[0][0]->name;} @endphp" required>
+                  <input type="text" class="form-control" id="trainingType" name="trainingType" value="@php if(isset($data[0])){echo $data[0][0]->name;} @endphp" required>
                 </div>
                 <!-- /.form-group -->
                 
@@ -27,7 +27,7 @@
               
               <div class="col-md-12">
                   <div class="form-group">
-                  <label>Description <span class="text-danger">*</span></label>
+                  <label>Description</label>
                   <textarea name="description" id="" rows="5" class="form-control">@php if(isset($data[0])){echo $data[0][0]->description;} @endphp</textarea>
                 </div>
               </div>
@@ -36,7 +36,7 @@
             <!-- /.row -->
             <div class="col-md-12 text-right">
                 <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                <button class="btn bg-turbo-color" data-dismiss="modal" onclick="submit_form ('hrm_add_edit_trainingtype','fm_trainingType','hrm_trainingtype')">Save</button>
+                <button class="btn bg-turbo-color" onclick="hrms_insert_update_training_course()">Save</button>
             </div>
             </form>
           </div>

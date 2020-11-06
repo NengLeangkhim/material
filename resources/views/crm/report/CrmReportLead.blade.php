@@ -175,9 +175,9 @@
             var sourceId = $('#select_source').val();
             var assignTo = $('#select_assign_to').val();
             var status = $('#select_status').val();
-            var from = (new Date($('#DetailLeadFrom').val())).toISOString().substring(0, 10)
+            var from = $('#DetailLeadFrom').val() == '' ? '' : (new Date($('#DetailLeadFrom').val())).toISOString().substring(0, 10)
             var to = new Date($('#DetailLeadTo').val());
-            to = (new Date(to.getUTCFullYear(), to.getMonth() + 1, 1)).toISOString().substring(0,10)
+            to = $('#DetailLeadTo').val() == '' ? '' : (new Date(to.getUTCFullYear(), to.getMonth() + 1, 1)).toISOString().substring(0,10)
             $('#OrganizationTbl').dataTable().fnClearTable();
             $('#OrganizationTbl').dataTable().fnDraw();
             $('#OrganizationTbl').dataTable().fnDestroy();
@@ -192,7 +192,6 @@
                     'status_id' : status == 0 ? null : status
                 },
                 success : function(response){
-                   // console.log(response);
                     if(response.success) {
                         $.each(response.data, function(index, data){
                             $('#lead-detail-body').append(`

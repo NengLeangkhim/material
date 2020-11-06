@@ -62,11 +62,12 @@
                       @endphp
                       
                     </select>
+                    <label id="type" class="text-danger d-none">type is required *</label>
                   </div>
                   <div class="form-group">
                     <label>Staff <span class="text-danger">*</span></label>
                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                    <table class="table table-bordered table-striped mb-0">
+                    <table class="table table-bordered table-striped mb-0" id="tbl_mission">
                       <thead>
                         <tr>
                           <th>ID Number</th>
@@ -109,6 +110,7 @@
                       </tbody>
                     </table>
                     </div>
+                    <label id="missioncheck" class="text-danger d-none">employee must be select *</label>
                   </div>
                   <!-- /.form-group -->
                 </div>
@@ -139,13 +141,15 @@
                 <div class="col-md-6">
                     <div class="form-group">
                     <label>From Date <span class="text-danger">*</span></label>
-                    <input type="date" class="form-control" name="from_date" value="@php if(isset($data[1])){echo $data[1]['date_from'];} @endphp">
+                    <input type="date" class="form-control" name="from_date" value="@php if(isset($data[1])){echo date('m/d/Y', strtotime($data[1]['date_from']));} @endphp" required>
+                    <label id="from_date" class="text-danger d-none">from date is required *</label>
                   </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                     <label>To Date <span class="text-danger">*</span></label>
-                    <input type="date" class="form-control" name="to_date" value="@php if(isset($data[1])){echo $data[1]['date_to'];} @endphp">
+                    <input type="date" class="form-control" name="to_date" value="@php if(isset($data[1])){echo date('m/d/Y', strtotime($data[1]['date_to']));} @endphp" required>
+                    <label id="to_date" class="text-danger d-none">to date is required *</label>
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -183,18 +187,19 @@
                       @endphp
                       
                     </select>
+                    <label id="shift" class="text-danger d-none">shift is required</label>
                   </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                    <label>Description <span class="text-danger">*</span></label>
+                    <label>Description</label>
                     <textarea name="description" id="" rows="5" class="form-control">@php if(isset($data[1])){echo $data[1]['description'];} @endphp</textarea>
                   </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-md-12 text-right">
                   <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                  <button class="btn bg-turbo-color" data-dismiss="modal" onclick="submit_form ('hrm_insertmissionoutside','fm_missionoutside','hrm_mission_outside')">Save</button>
+                  <button class="btn bg-turbo-color" onclick="hrms_insert_update_mission()">Save</button>
                 </div>
               </div>
             </form>

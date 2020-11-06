@@ -164,16 +164,16 @@ jQuery.fn.center = function () {
 }
 
 function showloading(){
-  $("#moLoading").center();
-  $("#moLoadingdiv").show();
+    $("#moLoading").center();
+    $("#moLoadingdiv").show();
 }
 function hideloading(){
   $("#moLoadingdiv").hide();
 }
-function errorMessage(){
+function errorMessage(message="Please reload page and try again"){
   Swal.fire({ //get from sweetalert function
     title: 'ERROR Occur',
-    text: "Please reload page and try again",
+    text: message,
     icon: 'warning',
     showCancelButton: false,
     confirmButtonColor: '#3085d6',
@@ -200,39 +200,25 @@ function newXHR() {
           switch(realXHR.status){
             case 500:
               hideloading();
-              Swal.fire({ //get from sweetalert function
-                title: 'ERROR Occur',
-                text: "500 Internal Server Error",
-                icon: 'warning',
-                showCancelButton: false,
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'OK'
-              });
+              errorMessage("500 Internal server error!");
               break;
             case 200:
               hideloading();
             break;
             case 419:
-              hideloading();
+              hideloading("419 Page Expired! Please reload page and try again!");
               errorMessage();
             break;
             case 0:
               hideloading();
-              errorMessage();
+              errorMessage("Error connection blocked! Please reload page and try again!");
             break;
             case 404:
               hideloading();
             break;
             case 413:
               hideloading();
-              Swal.fire({ //get from sweetalert function
-                title: '413 ERROR Occur',
-                text: "413 Payload(file) too large",
-                icon: 'warning',
-                showCancelButton: false,
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'OK'
-              });
+              errorMessage("413 Payload(file) too large!");
             break;
             default:
               hideloading();
@@ -244,37 +230,6 @@ function newXHR() {
 }
 window.XMLHttpRequest = newXHR;
 
-
-// $( document ).ajaxStart(function(jqxhr) {
-//   showloading();
-//   console.log(jqxhr);
-// });
-// $( document ).ajaxStop(function() {
-//   hideloading();
-// });
-// $( document ).ajaxSend(function() {
-//   showloading();
-// });
-// $( document ).ajaxComplete(function() {
-//   hideloading();
-// });
-// $( document ).ajaxError(function(jqXHR) {
-//   if(jqXHR==500){
-//     hideloading();
-//     Swal.fire({ //get from sweetalert function
-//       title: 'ERROR Occur',
-//       text: "500 Internal Server Error",
-//       icon: 'warning',
-//       showCancelButton: false,
-//       confirmButtonColor: '#3085d6',
-//       confirmButtonText: 'OK'
-//     });
-//   }
-//   if(jqXHR==0){
-//     hideloading();
-//     errorMessage();
-//   }
-// });
 $('body').append('<div class="moLoadingClass" id="moLoadingdiv"><div id="moLoading"><center></br><div class="spinner-border text-primary center" role="status"><span class="sr-only">Loading...</span></div>&nbsp&nbsp<label style="font-weight:bold;font-size:16px;">Loading Please wait...</label></center></div></div>');
 $("#moLoading").center();
 

@@ -13,14 +13,28 @@ use Illuminate\Validation\Rule;
 class OrganizationController extends Controller
 {
 
-    
+
+    // get lead by APi
+    // public function getlead(){
+    //     if(perms::check_perm_module('CRM_0205')){//module codes
+    //         $lead=ModelCrmLead::CrmGetLead();
+    //         $result =json_decode($lead,true);
+    //         return view('crm.Lead.index',['lead'=>$result["data"]]);
+
+    //     }else{
+    //         return view('no_perms');
+    //     }
+    // }
+
     public function getorganization(){
-        return view('crm.Organization.index');
+        $organ=ModelCrmOrganization::CrmGetOrganize();
+        $result =json_decode($organ,true);
+        return view('crm.Organization.index',['organize'=>$result["data"]]);
     }
-    public function DetailOrganization() {   
-        // $param = $id;
-        //$sql=ModelCrmLead::CrmGetLeadID($id);
-        return view('crm.Organization.DetailOrganization');
+    public function DetailOrganization($id) {
+        $organ=ModelCrmOrganization::CrmGetOrganizeById($id);
+        $result =json_decode($organ,true);
+        return view('crm.Organization.DetailOrganization',['organize'=>$result["data"][0]]);
     }
     public function AddOrganization(){
         $contact = ModelCrmOrganization::CrmGetContact();
@@ -31,7 +45,7 @@ class OrganizationController extends Controller
         $province=ModelCrmLead::CrmGetLeadProvice();
         return view('crm.Organization.AddOrganization',['contact'=>$contact,'lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province]);
     }
-    
+
     public function StoreOrganization(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -53,8 +67,6 @@ class OrganizationController extends Controller
                                     ->where(function ($query) use ($request) {
                                     return $query->where('is_deleted', 'f');})
                                         ],
-                'customer_type' =>  [  'required'
-                                        ],
                 'lead_source' =>  [  'required'
                                         ],
                 'lead_industry' =>  [  'required'
@@ -72,7 +84,7 @@ class OrganizationController extends Controller
                 'street_kh' => [ 'required'
                                     ],
                 'city' => [ 'required'
-                                    ],   
+                                    ],
                 'district' => [ 'required'
                                     ],
                 'commune' => [ 'required'
@@ -116,28 +128,40 @@ class OrganizationController extends Controller
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
-            if(perms::check_perm_module('CRM_020504')){//module code list 
-                // $create_contact = Request::create('/api/contact','POST');
-                // $response = json_decode(Route::dispatch($create_contact)->getContent());
-                // if($response->insert=='success'){
-                //     return response()->json(['success'=>'Record is successfully added']);
-                // }
+            if(perms::check_perm_module('CRM_020504')){//module code list
+                $create_contact = Request::create('/api/organize','PUT');
+                $response = json_decode(Route::dispatch($create_contact)->getContent());
+                if($response->insert=='success'){
+                    return response()->json(['success'=>'Record is successfully updated']);
+                }
             }else{
                 return view('no_perms');
             }
         }
     }
-    public function EditOrganization(){
+    public function EditOrganization($id){
         $contact = ModelCrmOrganization::CrmGetContact();
         $lead_source=ModelCrmLead::CrmGetLeadSource();
         $lead_status=ModelCrmLead::CrmGetLeadStatus();
         $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
         $assig_to=ModelCrmLead::CrmGetLeadAssigTo();
         $province=ModelCrmLead::CrmGetLeadProvice();
-        return view('crm.Organization.EditOrganization',['contact'=>$contact,'lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province]);
+
+        $organ=ModelCrmOrganization::CrmGetOrganizeById($id);
+        $result =json_decode($organ,true);
+
+        return view('crm.Organization.EditOrganization',[
+            'contact'=>$contact,
+            'lead_source'=>$lead_source,
+            'lead_status'=>$lead_status,
+            'lead_industry'=>$lead_industry,
+            'assig_to'=>$assig_to,
+            'organize'=>$result["data"][0],
+            'province'=>$province
+            ]);
     }
     public function UpdateOrganization(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
@@ -179,7 +203,7 @@ class OrganizationController extends Controller
                 'street_kh' => [ 'required'
                                     ],
                 'city' => [ 'required'
-                                    ],   
+                                    ],
                 'district' => [ 'required'
                                     ],
                 'commune' => [ 'required'
@@ -223,10 +247,10 @@ class OrganizationController extends Controller
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
-            if(perms::check_perm_module('CRM_020504')){//module code list 
+            if(perms::check_perm_module('CRM_020504')){//module code list
                 // $create_contact = Request::create('/api/contact','POST');
                 // $response = json_decode(Route::dispatch($create_contact)->getContent());
                 // if($response->insert=='success'){
