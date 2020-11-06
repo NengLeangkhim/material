@@ -362,4 +362,116 @@ class InvoiceController extends Controller
                     ];
         return $this->sendResponse($arr_quote, 'Quote retrieved successfully.');
     }
+
+    public function show_invoice_filter(Request $request)
+    {
+        // $invoices = DB::table('bsc_invoice')
+        // ->select('bsc_invoice.*','ma_customer.name as customer_name')
+        // ->leftJoin('ma_customer','bsc_invoice.ma_customer_id','=','ma_customer.id')
+        // ->where([
+        //     ['bsc_invoice.invoice_type','=','invoice'],
+        //     ['bsc_invoice.status','=','t'],
+        //     ['bsc_invoice.is_deleted','=','f']
+        // ])->get();
+
+        $sql_where = "";
+        if($request->billing_date_from != ""){
+            $sql_where .= " AND bsc_invoice.billing_date >= '$request->billing_date_from'";
+        }
+        if($request->billing_date_to != ""){
+            $sql_where .= " AND bsc_invoice.billing_date <= '$request->billing_date_to'";
+        }
+        if($request->due_date_from != ""){
+            $sql_where .= " AND bsc_invoice.due_date >= '$request->due_date_from'";
+        }
+        if($request->due_date_to != ""){
+            $sql_where .= " AND bsc_invoice.due_date <= '$request->due_date_to'";
+        }
+        if($request->effective_date_from != ""){
+            $sql_where .= "AND bsc_invoice.effective_date >= '$request->effective_date_from'";
+        }
+        if($request->effective_date_to != ""){
+            $sql_where .= "AND bsc_invoice.effective_date >= '$request->effective_date_to'";
+        }
+        if($request->end_period_date_from != ""){
+            $sql_where .= "AND bsc_invoice.end_period_date >= '$request->end_period_date_from'";
+        }
+        if($request->end_period_date_to != ""){
+            $sql_where .= "AND bsc_invoice.end_period_date >= '$request->end_period_date_to'";
+        }
+
+        $sql_invoices = "SELECT 
+                        bsc_invoice.*,
+                        ma_customer.name as customer_name
+                    FROM
+                        bsc_invoice
+                        LEFT JOIN ma_customer ON bsc_invoice.ma_customer_id = ma_customer.id
+                    WHERE
+                        bsc_invoice.invoice_type = 'invoice'
+                        AND bsc_invoice.status = 't'
+                        AND bsc_invoice.is_deleted = 'f' {$sql_where}
+                    ";
+
+        $invoices = DB::select($sql_invoices);
+        
+        
+        $arr_invoice = [];
+        if(count($invoices) > 0){
+            foreach ($invoices as $key => $invoice) {
+                $invoice_payments = DB::select("SELECT 
+                                                    SUM(amount_paid) AS amount_paid
+                                                FROM
+                                                    bsc_payment
+                                                WHERE
+                                                    bsc_invoice_id = $invoice->id
+                                                    AND status = 't'
+                                                    AND is_deleted = 'f'
+                                            ");
+                $data_due_amount = DB::table('bsc_payment')
+                ->select('due_amount')
+                ->where([
+                    ['bsc_invoice_id','=',$invoice->id],
+                    ['status','=','t'],
+                    ['is_deleted','=','f']
+                ])
+                ->orderBy('id','desc')
+                ->first();
+                
+                $amount_paid = "";
+                if(count($invoice_payments)>0){
+                    foreach ($invoice_payments as $kkey => $invoice_payment) {
+                        $amount_paid = $invoice_payment->amount_paid;
+                    }
+                }
+                $due_amount = null;
+                if($data_due_amount != ""){
+                    $due_amount = $data_due_amount->due_amount;
+                }
+
+                $arr_invoice[$key] = [
+                    'id' => $invoice->id,
+                    'ma_customer_id' => $invoice->ma_customer_id,
+                    'billing_date' => $invoice->billing_date,
+                    'due_date' => $invoice->due_date,
+                    'invoice_number' => $invoice->invoice_number,
+                    'reference' => $invoice->reference,
+                    'address' => $invoice->address,
+                    'address_kh' => $invoice->address_kh,
+                    'effective_date' => $invoice->effective_date,
+                    'end_period_date' => $invoice->end_period_date,
+                    'deposit_on_payment' => $invoice->deposit_on_payment,
+                    'total' => $invoice->total,
+                    'vat_total' => $invoice->vat_total,
+                    'grand_total' => $invoice->grand_total,
+                    'create_date' => $invoice->create_date,
+                    'crm_quote_id' => $invoice->crm_quote_id,
+                    'customer_name' => $invoice->customer_name,
+                    'amount_paid' => $amount_paid,
+                    'due_amount' => $due_amount
+                ];
+            }
+        }
+
+        return $this->sendResponse($arr_invoice, 'Invoice retrieved successfully.');
+    }
 }
