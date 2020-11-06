@@ -83,6 +83,9 @@ class QuoteResource extends JsonResource
         //find lead by id
         $lead = DB::select("select * from crm_lead where id = $this->crm_lead_id");
 
+        //find status
+        $statusQuote = QuoteStatus::where('crm_quote_id',$this->id)->get();
+
         // return parent::toArray($lead);
         return [
             "id"=>$this->id,
@@ -96,6 +99,7 @@ class QuoteResource extends JsonResource
             "address"=>$addr,
             "create_date"=> $this->create_date,
             "acknowlegde_by"=>$acknowlegde,
+            "status_quote"=>$statusQuote,
             "create_by"=> $createby
         ];
     }
