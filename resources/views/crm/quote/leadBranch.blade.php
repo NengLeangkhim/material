@@ -37,6 +37,7 @@
                                                     <th style="color: #FFFFFF">Branch Name</th>
                                                     <th style="color: #FFFFFF">Lead Name</th>
                                                     <th style="color: #FFFFFF">Qoute Number</th>
+                                                    <th style="color: #FFFFFF">Create By</th>
                                                     <th style="color: #FFFFFF">Quote Stage</th>
                                                     <th style="color: #FFFFFF">Action</th>
                                                 </tr>
@@ -50,7 +51,8 @@
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td></td>
-                                                                <td></td> <!-- Contact Name -->
+                                                                <td></td>
+                                                                <td></td>
                                                                 <td></td>
                                                                 <td>
                                                                     <div class="row">
