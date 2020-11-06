@@ -40,15 +40,15 @@ class PurchasePaymentControllre extends Controller
        $bsc_account_charts_id= $request->bsc_account_charts_id;
 
        $data = array(
-        'create_by'=>$create_by,
-        'bsc_invoice_id'=>$bsc_invoice_id,
-        'grand_total'=>$grand_total,
-        'amount_paid'=>$amount_paid,
-        'date_paid'=>$date_paid,
-        'paid_from_chart_account_id'=>$account_type,
-        'reference'=>$reference,
-        'due_amount'=>$due_amount,
-        'bsc_account_charts_id'=>$bsc_account_charts_id
+            'create_by'=>$create_by,
+            'bsc_invoice_id'=>$bsc_invoice_id,
+            'grand_total'=>$grand_total,
+            'amount_paid'=>$amount_paid,
+            'date_paid'=>$date_paid,
+            'paid_from_chart_account_id'=>$account_type,
+            'reference'=>$reference,
+            'due_amount'=>$due_amount,
+            'bsc_account_charts_id'=>$bsc_account_charts_id
         );
         
         $request = Request::create('api/bsc_purchase_payments', 'POST',$data);
@@ -67,7 +67,7 @@ class PurchasePaymentControllre extends Controller
             session_start();
         }
         $token = $_SESSION['token'];
-
+        // dd($id);exit;
         $request = Request::create('/api/bsc_purchase_payments/'.$id, 'GET');
         $request->headers->set('Accept', 'application/json');
         $request->headers->set('Authorization', 'Bearer '.$token);

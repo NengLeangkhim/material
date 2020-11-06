@@ -21,7 +21,7 @@
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Purchase</th>
+                                                    <th>Purchase#</th>
                                                     <th>Supplier</th>
                                                     <th>Date</th>
                                                     <th>Due Date</th>
@@ -41,7 +41,7 @@
                                                         if($purchase->amount_paid == null && $purchase->due_amount == null){
                                                             $amount_paid = 0;
                                                             $due_amount = $purchase->grand_total;
-                                                            $status = 'Awaiting Payment';
+                                                            $status = 'Waiting Payment';
                                                         }else{
                                                             $amount_paid = $purchase->amount_paid;
                                                             $due_amount = $purchase->due_amount;
