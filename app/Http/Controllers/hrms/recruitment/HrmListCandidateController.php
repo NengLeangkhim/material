@@ -118,9 +118,9 @@ class HrmListCandidateController extends Controller
                                         ->where(function ($query) use ($request) {
                                         return $query->where('is_deleted', 'f');})
                                             ],
-                    'cv' => ['mimes:pdf','max:10240'
+                    'cv' => ['required','mimes:pdf','max:10240'
                                             ],
-                    'cover_letter' => [ 'mimes:pdf','max:10240'
+                    'cover_letter' => [ 'required','mimes:pdf','max:10240'
                                             ],
                 ],
                 [
@@ -131,6 +131,8 @@ class HrmListCandidateController extends Controller
                     'pw.required' => 'The Field is Required !!',   //massage validator
                     'position.required' => 'The Field is Required !!',   //massage validator
                     'email.unique' => 'The Email is Already Exist !!',   //massage validator
+                    'cv.required' => 'The Field is Required !!',   //massage validator
+                    'cover_letter.required' => 'The Field is Required !!',   //massage validator
                     'cv.mimes' => 'Please Select Pdf File Only !!',
                     'cover_letter.mimes' => 'Please Select Pdf File Only !!',
                     'cv.max' => 'File too Big, please select a file less than 10mb !!',
@@ -183,9 +185,9 @@ class HrmListCandidateController extends Controller
                                       ->where(function ($query) use ($request) {
                                       return $query->where('is_deleted', 'f');})
                                           ],
-                  'cv' => [ 'mimes:pdf','max:10240'
+                  'cv' => ['required','mimes:pdf','max:10240'
                                           ],
-                  'cover_letter' => ['mimes:pdf','max:10240',
+                  'cover_letter' => ['required','mimes:pdf','max:10240',
                                           ],
               ],
               [
@@ -195,6 +197,8 @@ class HrmListCandidateController extends Controller
                   'email.required' => 'The Field is Required !!',   //massage validator
                   'position.required' => 'The Field is Required !!',   //massage validator
                   'email.unique' => 'The Email is Already Exist !!',   //massage validator
+                  'cv.required' => 'The Field is Required !!',   //massage validator
+                  'cover_letter.required' => 'The Field is Required !!',   //massage validator
                   'cv.mimes' => 'Please Select Pdf File Only !!',
                   'cover_letter.mimes' => 'Please Select Pdf File Only !!',
                   'cv.max' => 'The file is too large !!',
