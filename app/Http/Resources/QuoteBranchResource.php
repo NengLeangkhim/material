@@ -19,7 +19,10 @@ class QuoteBranchResource extends JsonResource
 
         $createby =User::find($this->create_by,[
             'id',
-            'first_name_en'
+            'first_name_en',
+            'last_name_en',
+            'first_name_kh',
+            'last_name_kh'
         ]);
 
         // return parent::toArray($request);
