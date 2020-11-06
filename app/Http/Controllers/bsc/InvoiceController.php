@@ -312,7 +312,7 @@ class InvoiceController extends Controller
             }
             $token = $_SESSION['token'];
 
-            $id=$request->reference_id;
+            $id=$request->invoice_id;
             // get reference data
             $request = Request::create('/api/bsc_show_quote_single/'.$id, 'GET');
             $request->headers->set('Accept', 'application/json');
@@ -320,9 +320,14 @@ class InvoiceController extends Controller
             $res = app()->handle($request);
             $reference = json_decode($res->getContent()); // convert to json object
             $references= $reference->data;
-            return json_encode($references);
-            // $quotes=$references->quotes;
-            // $quote_products=$references->quote_products;
+            $arr_qoutes=array();
+            $qoutes=$references->quotes;
+            $quote_products=$references->quote_products;
+            $arr_qoutes = [
+                'quotes' => $qoutes,
+                'quote_products' => $quote_products
+            ];
+            return json_encode($arr_qoutes);
         }catch(Exception $e){
             echo $e->getMessage();
             exit();

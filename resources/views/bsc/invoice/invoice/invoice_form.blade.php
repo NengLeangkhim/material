@@ -249,69 +249,32 @@
 <script>
     function myFunction(id)
     {
-        let reference_id=id.value;
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 type:"POST",
                 url:'/bsc_reference_onchange',
                 data:{
                     _token: CSRF_TOKEN,
-                    reference_id     : reference_id
+                    invoice_id  : id.value
                 },
                 dataType: "JSON",
                 success:function(data){
-                    $.each(data[0], function(i, value){
-                        $('#customer').val(value.customer_name);
-                    });
-                    // $.each(data[1], function(i, value){
+                    let quotes = data.quotes;
+                    let quote_products = data.quote_products;
 
-                    // });
-                    // let tr='';
-                    // $.each(data[1],function(i,value){
-                    //     tr="<tr><td>"+value.customer_branch_name+"</td><td>"+value.customer_branch_name+"</td><td>"+value.customer_branch_name+"</td><td>"+value.qty+"</td><td>"+value.price+"</td><td>"+value.discount+"</td><td>"+value.discount+"</td><td>"+value.discount+"</td><td>"+value.discount+"</td></tr>";
-                    //     $("#invoice_table").append(tr);
-_products, function(// value) {
-                    //     alert(value);
-var tr = $(this).closest('tr');
-                var thisInput = $(this).val();
-                if(thisInput != ""){
-                    itemDetail[e] = {
-                        stock_product_id: thisInput,
-                        description           : tr.find(".item_des").text(),
-                        qty                   : tr.find(".item_qty").text(),
-                        unit_price            : tr.find(".item_unit_price").text(),
-                        discount              : tr.find(".item_discount").text(),
-                        bsc_account_charts_id : tr.find(".item_account").text(),
-                        tax                   : tr.find(".tax").val(),
-                        amount                : tr.find(".item_amount").text()
-                    };
+                    if(quotes.length > 0){
+                        $.each(quotes,function(i, quote){
+                            $('#customer').val(quote.customer_name);
+                        });
+                    }
+                    // if(quote_products.length > 0){
+                    //     $.each(quote_products,function(index, quote_product){
+                    //         console.log(quote_product);
+                    //     });
+
+                    // }
                 }
             });
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                type:"POST",
-                url:'/bsc_invoice_save',
-                data:{
-                    _token: CSRF_TOKEN,
-                    account_type     : $("#account_type").val(),
-                    customer         : $("#customer").val(),
-                    billing_date     : $("#billing_date").val(),
-                    reference        : $("#reference").val(),
-                    due_date         : $("#due_date").val(),
-                    effective_date   : $("#effective_date").val(),
-                    end_period_date  : $("#end_period_date").val(),
-                    deposit_on_payment : $("#deposit_on_payment").val(),
-                    total            : $('#txtTotal').text(),
-                    grandTotal       : $('#txtGrandTotal').text(),
-                    vatTotal         : $('#txtVatTotal').text(),
-                    itemDetail       : itemDetail
-                },
-                dataType: "JSON",
-                success:function(data){
-
-                }
-            });
-        }
     }
 </script>
 
