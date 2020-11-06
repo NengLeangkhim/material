@@ -123,11 +123,9 @@
                                                 </form>
 
                                     </div><br>
+
                                     <div class="col-12">
-                                        <hr style="border: 1px black">
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="table-responsive" id="tblShowTableSearch">
+                                        <div class="table-responsive pt-3" id="tblShowTableSearch">
 
                                         </div>
                                     </div>
