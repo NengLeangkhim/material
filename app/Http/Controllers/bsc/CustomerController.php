@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Symfony\Component\Console\Input\Input;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -135,7 +136,18 @@ class CustomerController extends Controller
     public function customer_branch_form()
     {
         try{
-            return view('bsc.customer_management.customer_branch.customer_branch_form');
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/bsc_customers', 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $customer = json_decode($res->getContent()); // convert to json object
+            $customers=$customer->data;
+
+            return view('bsc.customer_management.customer_branch.customer_branch_form',compact('customers'));
         }catch(Exception $e){
             echo $e->getMessage();
             exit();
@@ -147,6 +159,83 @@ class CustomerController extends Controller
     {
         try{
             return view('bsc.customer_management.customer_branch.customer_branch_edit');
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
+        }
+    }
+
+    // insert customer branch
+    public function customer_branch_insert(Request $request)
+    {
+        try{
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+            $create_by=$_SESSION['userid'];
+
+            $lead_name=$request->lead_name;
+            $lead_branch=$request->lead_branch;
+            $branch_name=$request->branch_name;
+            $address=$request->address;
+
+            $data=array(
+
+            );
+
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
+        }
+    }
+
+    // onchange get lead branch data by id
+    public function customer_lead_branch_by_id(Request $request)
+    {
+        try{
+            $lead_branch_id=$request->lead_branch_id;
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/bsc_show_lead_branch_single/'.$lead_branch_id, 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $customer = json_decode($res->getContent()); // convert to json object
+            $customers=$customer->data;
+            foreach($customers as $item)
+            {
+                $address=$item->gazetteer_code;
+                $addr=DB::select("SELECT * FROM public.get_gazetteers_address('".$address."') as address");
+                $addrs=$addr[0]->address;
+                $item->gazetteer_code=$addrs;
+            }
+            return json_encode($item);
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
+        }
+    }
+
+    // get value from customer when onchange
+    public function customer_branch_onchange_get_data(Request $request)
+    {
+        try{
+            $lead_id=$request->lead_id;
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/bsc_show_lead_branch_by_lead/'.$lead_id, 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $customer = json_decode($res->getContent()); // convert to json object
+            $customers=$customer->data;
+            return json_encode($customers);
+
         }catch(Exception $e){
             echo $e->getMessage();
             exit();

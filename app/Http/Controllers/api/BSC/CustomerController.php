@@ -17,11 +17,8 @@ class CustomerController extends Controller
     public function index()
     {
         $customers=DB::table('ma_customer')
-                    ->select('ma_customer.*','crm_lead.lead_number as lead_number','crm_lead_contact.phone','crm_lead.customer_name_en as customer_name','crm_lead.email as lead_email')
+                    ->select('ma_customer.*','crm_lead.lead_number as lead_number','crm_lead.customer_name_en as customer_name','crm_lead.email as lead_email')
                     ->leftJoin('crm_lead','ma_customer.crm_lead_id','=','crm_lead.id')
-                    ->leftJoin('crm_lead_branch','crm_lead_branch.crm_lead_id','=','crm_lead.id')
-                    ->leftJoin('crm_lead_branch_crm_lead_contact_rel','crm_lead_branch_crm_lead_contact_rel.crm_lead_branch_id','=','crm_lead_branch.id')
-                    ->leftJoin('crm_lead_contact','crm_lead_contact.id','=','crm_lead_branch_crm_lead_contact_rel.crm_lead_contact_id')
                     ->where([
                         ['ma_customer.status','=','t'],
                         ['ma_customer.is_deleted','=','f']
@@ -52,7 +49,11 @@ class CustomerController extends Controller
             $input = $request->all();
 
             $validator = Validator::make($input, [
-                'create_by'  => 'required'
+                'customer_name'         => 'required',
+                'crm_lead_id'           => 'required',
+                'branch_name'           => 'required',
+                'crm_lead_branch_id'    => 'required',
+                'crm_lead_address_id'   => 'required'
             ]);
 
             if($validator->fails()){
@@ -60,11 +61,22 @@ class CustomerController extends Controller
             }
 
 
-            $sql="insert_ma_customer('$request->customer_name',$request->create_by,)";
-            $q=DB::select("SELECT ".$sql);
+            $sql_customer="insert_ma_customer('$request->customer_name', $request->create_by, $request->crm_lead_id, $request->deposit, $request->balance, $request->invoice_balance, '$request->vat_type', '$request->vat_number')";
 
+            // insert_ma_customer("nname" varchar, "ncreate_by" int4, "ncrm_lead_id" int4, "ndeposit" numeric, "nbalance" numeric, "ninvoice_balance" numeric, "nvat_type" "public"."ma_customer_vat_type", "nvat_number" varchar)
+
+            $q_customer=DB::select("SELECT ".$sql_customer);
+            $customer_id = $q_customer[0]->insert_ma_customer;
+
+
+            $sql_customer_branch="insert_ma_customer_branch($customer_id, '$request->branch_name', $request->create_by, null, $request->crm_lead_branch_id, $request->crm_lead_address_id)";
+
+            // insert_ma_customer_branch("nma_customer_id" int4, "nbranch" varchar, "ncreate_by" int4, "nconnection_id" varchar, "ncrm_lead_branch_id" int4, "ncrm_lead_address_id" int4)
+
+            $q_customer_branch=DB::select("SELECT ".$sql_customer_branch);
+            
             DB::commit();
-            return $this->sendResponse($q, 'Customer created successfully.');
+            return $this->sendResponse($q_customer, 'Customer created successfully.');
 
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -112,9 +124,20 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $sql="delete_ma_customer($id, $request->update_by)";
+            $q=DB::select("SELECT ".$sql);
+
+            DB::commit();
+            return $this->sendResponse($q, 'Customer deleted successfully.');
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->sendError("Try again!");
+        }
     }
 
     // get lead from crm

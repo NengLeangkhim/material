@@ -72,16 +72,16 @@
                     </div>
                     <div class="col-md-6">
                       <label>Date of Birth <span class="text-danger">*</span></label>
-                      <input type="date" class="form-control" id="emDateOfBirth" name="emDateOfBirth" value="@php echo $dateofbirth; @endphp" required>
+                      <input type="date" class="form-control" id="emDateOfBirth" name="emDateOfBirth" value="@php if(isset($data[1])){echo date('m/d/Y', strtotime($data[1]['dateOfBirth']));} @endphp" required>
                     </div>
                     <div class="col-md-6">
                       <label>Join Date <span class="text-danger">*</span></label>
-                      <input type="date" class="form-control" id="emJoinDate" name="emJoinDate" value="@php echo $join_date; @endphp" required>
+                      <input type="date" class="form-control" id="emJoinDate" name="emJoinDate" value="@php if(isset($data[1])){echo date('m/d/Y', strtotime($data[1]['joint_date']));} @endphp" required>
                     </div>
                     <div class="col-md-6">
                       <label>Department <span class="text-danger">*</span></label>
                       
-                      <select name="emDepartment" id="emDepartment" class="form-control" required>
+                      <select name="emDepartment" id="emDepartment" class="form-control" required >
                         <option value="" hidden></option>
                         @php
                           foreach ($data[3] as $department) {
@@ -101,7 +101,7 @@
                     </div>
                     <div class="col-md-6">
                   <label>Position <span class="text-danger">*</span></label>
-                  <select name="emPosition" id="emPosition" class="form-control" required>
+                  <select name="emPosition" id="emPosition" class="form-control" required >
                     <option value="" selected hidden></option>
                   @php
                     foreach ($data[0] as $position) {

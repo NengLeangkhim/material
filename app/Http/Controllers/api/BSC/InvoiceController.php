@@ -332,23 +332,27 @@ class InvoiceController extends Controller
             ['status','=','t'],
             ['is_deleted','=','f']
         ])->get();
-        $quote_products = [];
+        // $quote_products = [];
         if(count($quote_branchs) > 0){
-            // $arr_quote_branch_id = [];
+            $arr_quote_branch_id = [];
             // $customer_id = "";
             foreach ($quote_branchs as $key => $quote_branch) {
-                $quote_products[$key] = DB::table('crm_quote_branch_detail')
-                ->select('crm_quote_branch_detail.*','ma_customer_branch.id as customer_branch_id','ma_customer_branch.branch as customer_branch_name')
-                ->leftJoin('crm_quote_branch','crm_quote_branch_detail.crm_quote_branch_id','=','crm_quote_branch.id')
-                ->leftJoin('crm_lead_branch','crm_quote_branch.crm_lead_branch_id','=','crm_lead_branch.id')
-                ->leftJoin('ma_customer_branch','crm_lead_branch.id','=','ma_customer_branch.crm_lead_branch_id')
-                ->where([
-                    ['crm_quote_branch_detail.crm_quote_branch_id','=',$quote_branch->id],
-                    ['crm_quote_branch_detail.status','=','t'],
-                    ['crm_quote_branch_detail.is_deleted','=','f']
-                ])
-                ->get();
+                $arr_quote_branch_id[$key] = $quote_branch->id;
             }
+            $quote_products = DB::table('crm_quote_branch_detail')
+            ->select('crm_quote_branch_detail.*','ma_customer_branch.id as customer_branch_id','ma_customer_branch.branch as customer_branch_name','stock_product.name as product_name','stock_product.description','stock_product.bsc_account_charts_id','bsc_account_charts.name_en as chart_account_name')
+            ->leftJoin('crm_quote_branch','crm_quote_branch_detail.crm_quote_branch_id','=','crm_quote_branch.id')
+            ->leftJoin('crm_lead_branch','crm_quote_branch.crm_lead_branch_id','=','crm_lead_branch.id')
+            ->leftJoin('ma_customer_branch','crm_lead_branch.id','=','ma_customer_branch.crm_lead_branch_id')
+            ->leftJoin('stock_product','crm_quote_branch_detail.stock_product_id','=','stock_product.id')
+            ->leftJoin('bsc_account_charts','stock_product.bsc_account_charts_id','=','bsc_account_charts.id')
+            ->whereIn('crm_quote_branch_detail.crm_quote_branch_id', $arr_quote_branch_id)
+            ->where([
+                // ['crm_quote_branch_detail.crm_quote_branch_id','=',$quote_branch->id],
+                ['crm_quote_branch_detail.status','=','t'],
+                ['crm_quote_branch_detail.is_deleted','=','f']
+            ])
+            ->get();
         }
 
 

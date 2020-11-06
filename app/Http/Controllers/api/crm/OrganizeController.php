@@ -28,7 +28,8 @@ class OrganizeController extends Controller
                 session_start();
             }
 
-            $userid = $request->input('userid');
+            $userid = $_SESSION['userid'];//when testing is done open this line
+            // $userid = 1;
 
             $lead_id=$request->input('lead_id');
             $con_id=$request->input('contact_id');
@@ -57,6 +58,8 @@ class OrganizeController extends Controller
             $address_type=$request->input('address_type');
             $addresscode=$request->input('village');
 
+            // dd($lead_address_id);
+            // return;
 
             return  OrganizeController::updateOrganize($lead_address_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$userid,$website,$facebook,$lead_source,$lead_status,$lead_industry,$assig_to_id,
             $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode, $prioroty,$assig_to);
