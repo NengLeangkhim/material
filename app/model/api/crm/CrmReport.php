@@ -25,7 +25,7 @@ class CrmReport extends Model
                     FROM crm_lead_assign
                     ORDER BY  crm_lead_branch_id, create_date DESC
                     ) AS first_gens
-                '.(($fromDate == null && $toDate == null ) ? ' ' : 'WHERE create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
+                '.(($fromDate == null || $toDate == null ) ? ' ' : 'WHERE create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
                 GROUP BY ma_user_id
             ');
         } catch(QueryException $e){
@@ -96,7 +96,7 @@ class CrmReport extends Model
             $result = DB::select('
                 SELECT crm_lead_source_id, source_name_en, source_name_kh, COUNT(*) AS total_lead
                 FROM view_crm_lead_report
-                '.(($fromDate == null && $toDate == null) ? ' ' : 'WHERE lead_detail_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
+                '.(($fromDate == null || $toDate == null) ? ' ' : 'WHERE lead_detail_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
                 GROUP BY crm_lead_source_id, source_name_en, source_name_kh
             ');
         } catch(QueryException $e){
@@ -122,7 +122,7 @@ class CrmReport extends Model
                     clb.priority, clb.name_en, clb.name_kh, clb.email
                 FROM crm_lead AS cl
                 INNER JOIN crm_lead_branch AS clb ON cl.id = clb.crm_lead_id
-                WHERE cl.crm_lead_source_id = '.$id.' AND cl.is_deleted = \'f\' '.(($fromDate == null && $toDate == null) ? ' ' :'AND clb.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').';
+                WHERE cl.crm_lead_source_id = '.$id.' AND cl.is_deleted = \'f\' '.(($fromDate == null || $toDate == null) ? ' ' :'AND clb.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').';
             ');
         } catch(QueryException $e){
             throw $e;
@@ -165,7 +165,7 @@ class CrmReport extends Model
                 SELECT crm_lead_branch_id
                 FROM view_crm_lead_report
                 WHERE crm_lead_status_id = '.$id.'
-                '.(($fromDate == null && $toDate == null) ? ' ' : ' AND lead_detail_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE')
+                '.(($fromDate == null || $toDate == null) ? ' ' : ' AND lead_detail_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE')
             );
         } catch(QueryException $e){
             throw $e;
@@ -205,7 +205,7 @@ class CrmReport extends Model
             $result = DB::select('
                 SELECT DISTINCT ON (crm_quote_status_type_id) crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh, COUNT(*) AS total_quotes
                 FROM view_crm_quote_report
-                '.(($fromDate==null && $toDate == null) ? '' : 'WHERE crm_quote_status_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
+                '.(($fromDate==null || $toDate == null) ? '' : 'WHERE crm_quote_status_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
                 GROUP BY crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh
                 ;
             ');
@@ -236,7 +236,7 @@ class CrmReport extends Model
                     FROM view_crm_quote_report
                     WHERE
                         crm_quote_status_type_id = '.$id.'
-                        '.(($fromDate == null && $toDate == null) ? ' ' : ' AND crm_quote_status_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
+                        '.(($fromDate == null || $toDate == null) ? ' ' : ' AND crm_quote_status_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
                 );
             ');
         } catch(QueryException $e){
@@ -391,7 +391,7 @@ class CrmReport extends Model
 
     public function getTotalLead($fromDate = null, $toDate = null){
         try {
-            $dateCondition = ($fromDate == null && $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $dateCondition = ($fromDate == null || $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
             $condition = 'WHERE is_deleted = \'f\' AND status = \'t\''.$dateCondition;
             $result = DB::selectOne('SELECT COUNT(*) AS total_lead FROM crm_lead '.$condition);
         } catch(QueryException $e){
@@ -402,7 +402,7 @@ class CrmReport extends Model
 
     public function getTotalBranch($fromDate = null, $toDate = null){
         try {
-            $dateCondition = ($fromDate == null && $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $dateCondition = ($fromDate == null || $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
             $condition = 'WHERE is_deleted = \'f\' AND status = \'t\''.$dateCondition;
             $result = DB::selectOne('SELECT COUNT(*) AS total_branch FROM crm_lead_branch '.$condition);
         } catch(QueryException $e){
@@ -413,7 +413,7 @@ class CrmReport extends Model
 
     public function getTotalLeadBranchSurvey($fromDate = null, $toDate = null){
         try {
-            $dateCondition = ($fromDate == null && $toDate == null) ? '' : ' AND cs.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $dateCondition = ($fromDate == null || $toDate == null) ? '' : ' AND cs.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
             $condition = 'WHERE clb.is_deleted = \'f\' AND clb.status = \'t\' AND cs.is_deleted = \'f\' AND cs.status = \'t\''.$dateCondition;
             $result = DB::selectOne('SELECT COUNT(*) AS total_lead_branch_survey FROM crm_lead_branch AS clb INNER JOIN crm_survey AS cs on clb.id = cs.crm_lead_branch_id '.$condition);
         } catch(QueryException $e){
@@ -424,7 +424,7 @@ class CrmReport extends Model
 
     public function getTotalQuote($fromDate = null, $toDate = null){
         try {
-            $dateCondition = ($fromDate == null && $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $dateCondition = ($fromDate == null || $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
             $condition = 'WHERE is_deleted = \'f\' AND status = \'t\''.$dateCondition;
             $result = DB::selectOne('SELECT COUNT(*) AS total_quote FROM crm_quote '.$condition);
         } catch(QueryException $e){
@@ -435,7 +435,7 @@ class CrmReport extends Model
 
     public function getTotalContact($fromDate = null, $toDate = null){
         try {
-            $dateCondition = ($fromDate == null && $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $dateCondition = ($fromDate == null || $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
             $condition = 'WHERE is_deleted = \'f\' AND status = \'t\''.$dateCondition;
             $result = DB::selectOne('SELECT COUNT(*) AS total_contact FROM crm_lead_contact '.$condition);
         } catch(QueryException $e){

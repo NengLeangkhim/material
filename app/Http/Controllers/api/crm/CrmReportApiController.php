@@ -130,7 +130,7 @@ class CrmReportApiController extends Controller
             $result = $this->crmReport->getLeadReportByStatus($fromDate, $toDate, $statusId);
 
             foreach($result as $res){
-                $branchIds = $this->crmReport->getLeadBranchesByStatus($res->crm_lead_status_id);
+                $branchIds = $this->crmReport->getLeadBranchesByStatus($res->crm_lead_status_id, $fromDate, $toDate);
                 $branches = [];
                 foreach($branchIds as $br){
                     array_push($branches, $this->crmReport->getLeadBranchesWithId($br->crm_lead_branch_id));
