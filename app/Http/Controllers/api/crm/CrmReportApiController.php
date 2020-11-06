@@ -125,8 +125,9 @@ class CrmReportApiController extends Controller
     public function getLeadReportByStatus(Request $request){
         $fromDate = $request->from_date;
         $toDate = $request->to_date;
+        $statusId = $request->status_id;
         try {
-            $result = $this->crmReport->getLeadReportByStatus($fromDate, $toDate);
+            $result = $this->crmReport->getLeadReportByStatus($fromDate, $toDate, $statusId);
 
             foreach($result as $res){
                 $branchIds = $this->crmReport->getLeadBranchesByStatus($res->crm_lead_status_id);
