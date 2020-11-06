@@ -3,13 +3,14 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\User;
+
 use App\model\api\crm\ModelCrmQuoteBranch as QuoteBranch;
 use App\model\api\crm\ModelCrmQuoteStatus as QuoteStatus;
 use App\model\api\crm\ModelCrmQuoteStatusType as QuoteStatusType;
 use App\model\api\crm\Crmlead as Crmlead;
 use App\model\api\crm\ModelCrmQuoteBranchDetail as QuoteBranchDetail;
 use App\model\api\crm\CrmLeadAddress as Address;
+use App\User;
 use App\Http\Resources\api\crm\lead\GetLead;
 use DB;
 class QuoteResource extends JsonResource
