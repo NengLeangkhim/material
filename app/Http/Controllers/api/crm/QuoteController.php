@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\api\crm;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\model\api\crm\ModelCrmQuote as Quote;
@@ -274,4 +273,7 @@ class QuoteController extends Controller
             return json_encode(["update"=>"fail","result"=> $e->getMessage()]);
         }
     }
+
+
+
 }
