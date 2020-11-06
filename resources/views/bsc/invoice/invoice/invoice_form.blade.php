@@ -154,7 +154,7 @@
                                                 <th>Unit Price</th>
                                                 <th>Discount</th>
                                                 <th>Account</th>
-                                                <th>Tax Rate</th>
+                                                <th style="white-space: nowrap">Tax Rate</th>
                                                 <th>Amount</th>
                                                 {{-- <th></th> --}}
                                             </tr>
@@ -259,6 +259,8 @@
                 },
                 dataType: "JSON",
                 success:function(data){
+                    $("#invoice_table").DataTable().destroy();
+                    $("#invoice_table tbody").empty();
                     let quotes = data.quotes;
                     let quote_products = data.quote_products;
 
@@ -267,14 +269,33 @@
                             $('#customer').val(quote.customer_name);
                         });
                     }
-                    // if(quote_products.length > 0){
-                    //     $.each(quote_products,function(index, quote_product){
-                    //         console.log(quote_product);
-                    //     });
+                    if(quote_products.length > 0){
+                        let tr='';
+                        let amounts=0;
+                        let option='<select style="width: 100%;height: 51px;border:none;white-space: nowrap;padding:0" class="form-control"><option value=""></option><option value="1" selected>Tax</option><option value="0">No Tax</option></select>';
+                        $.each(quote_products,function(index, quote_product){
+                            let qty=quote_product.qty;
+                            let price=quote_product.price;
+                            let discount=quote_product.discount;
+                            let amount = show_amounts(qty,price,discount);
 
-                    // }
+                            tr="<tr><td>"+quote_product.customer_branch_name+"</td><td>"+quote_product.product_name+"</td><td>"+quote_product.description+"</td><td>"+quote_product.qty+"</td><td>"+quote_product.price+"</td><td>"+quote_product.discount+"</td><td>"+quote_product.chart_account_name+"</td><td>"+option+"</td><td class='item_amount'>"+amount+"</td></tr>";
+                            $("#invoice_table").append(tr);
+                        });
+                    }
+                    showTotal();
+                    showGrandTotal();
                 }
             });
     }
+
+    // function show amount
+    function show_amounts(qty,price,discount)
+    {
+        let discount_price= (qty * price) * discount/100;
+        let amount = (qty * price) - discount_price;
+        return amount;
+    }
+
 </script>
 

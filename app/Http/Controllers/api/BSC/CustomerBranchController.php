@@ -90,16 +90,6 @@ class CustomerBranchController extends Controller
         LEFT JOIN crm_lead_contact clc ON clc.id=clb_clc.crm_lead_contact_id
         WHERE mcb.status='t' AND mcb.is_deleted='f' AND mcb.id=$id");
         return $this->sendResponse($customer_by_id, 'Customer Branch retrieved successfully.');
-        // $customer_by_id=DB::select("SELECT ma_customer_branch.*,crm_lead.customer_name_en as customer_name,get_gazetteers_address(crm_lead_address.gazetteer_code) as lead_address,clc.phone,clc.email,mc.deposit,mc.balance,mc.invoice_balance,mc.vat_type,mc.vat_number
-		// FROM ma_customer_branch
-		// LEFT JOIN ma_customer mc ON mc.id=ma_customer_branch.ma_customer_id
-		// LEFT JOIN crm_lead ON crm_lead.id=mc.crm_lead_id
-		// LEFT JOIN crm_lead_address ON crm_lead_address.id=ma_customer_branch.crm_lead_address_id
-		// LEFT JOIN crm_lead_branch clb ON clb.crm_lead_id=crm_lead.id
-		// LEFT JOIN crm_lead_branch_crm_lead_contact_rel clb_clc ON clb_clc.crm_lead_branch_id=clb.id
-		// LEFT JOIN crm_lead_contact clc ON clc.id=clb_clc.crm_lead_contact_id
-		// WHERE ma_customer_branch.status='t' AND ma_customer_branch.is_deleted='f' AND ma_customer_branch.id=$id");
-        // return $this->sendResponse($customer_by_id, 'Customer Branch retrieved successfully.');
     }
 
     /**
