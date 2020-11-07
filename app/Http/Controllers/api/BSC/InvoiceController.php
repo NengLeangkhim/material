@@ -352,7 +352,7 @@ class InvoiceController extends Controller
             ->leftJoin('bsc_account_charts','stock_product.bsc_account_charts_id','=','bsc_account_charts.id')
             ->whereIn('crm_quote_branch_detail.crm_quote_branch_id', $arr_quote_branch_id)
             ->where([
-                // ['crm_quote_branch_detail.crm_quote_branch_id','=',$quote_branch->id],
+                ['stock_product.bsc_account_charts_id','<>',null],
                 ['crm_quote_branch_detail.status','=','t'],
                 ['crm_quote_branch_detail.is_deleted','=','f']
             ])
