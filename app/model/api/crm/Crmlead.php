@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Exception;
 
 class Crmlead extends Model
 {
@@ -20,11 +21,11 @@ class Crmlead extends Model
             try{
                 $result= DB::select("SELECT CONCAT(last_name_en,' ',first_name_en) as fullname,email,contact,ma_company_dept_id,
                 ma_position_id,ma_position.name as ma_position_name,ma_position.ma_group_id,ma_group.name as ma_group_name
-                FROM ma_user 
+                FROM ma_user
                 JOIN ma_position on ma_position.id= ma_user.ma_position_id
                 JOIN ma_group on ma_group.id=ma_position.ma_group_id
-                WHERE ma_user.id=$userid and ma_user.is_deleted=FALSE and ma_user.status=TRUE");                
-             
+                WHERE ma_user.id=$userid and ma_user.is_deleted=FALSE and ma_user.status=TRUE");
+
                 return json_encode(["data"=>$result]);
             }catch(Exception $e){
                 return json_encode(["insert"=>"fail","result"=> $e->getMessage()]);
@@ -33,7 +34,7 @@ class Crmlead extends Model
         else{
             return json_encode(["insert"=>'Not found data']);
         }
-       
+
     }
     //get lead source
     public  static function leadSource(){
@@ -581,10 +582,10 @@ class Crmlead extends Model
         cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
         cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status
         from crm_lead cl
-         JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
-        join crm_lead_source cls on cls.id = cl.crm_lead_source_id
-        join crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
-        join crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
+        LEFT JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
+        LEFT JOIN crm_lead_source cls on cls.id = cl.crm_lead_source_id
+        LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
+        LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
         WHERE  cl.is_deleted=FALSE and cl.status=TRUE ORDER BY cl.lead_number DESC');
         return $lead;
     }
@@ -595,9 +596,9 @@ class Crmlead extends Model
         cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status,cla.ma_user_id
         from crm_lead cl
         JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
-        join crm_lead_source cls on cls.id = cl.crm_lead_source_id
-        join crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
-        join crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
+        LEFT JOIN crm_lead_source cls on cls.id = cl.crm_lead_source_id
+        LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
+        LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
 		jOIN crm_lead_branch clb on clb.crm_lead_id= cl.id
 		JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
         WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cla.ma_user_id=$userid ORDER BY cl.lead_number ASC");
@@ -609,10 +610,10 @@ class Crmlead extends Model
         cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
         cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status
         from crm_lead cl
-         JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
-        join crm_lead_source cls on cls.id = cl.crm_lead_source_id
-        join crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
-        join crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
+        LEFT JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
+        LEFT JOIN crm_lead_source cls on cls.id = cl.crm_lead_source_id
+        LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
+        LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
         WHERE cl.id=$id and  cl.is_deleted=FALSE and cl.status=TRUE ORDER BY cl.lead_number DESC");
         return $lead;
     }
@@ -647,15 +648,15 @@ class Crmlead extends Model
         JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
         join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
         join crm_lead on crm_lead.id= lb.crm_lead_id
-        join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
-        join crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
-        JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
-        join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
-        join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
-        join stock_product sp on sp.id= clitem.stock_product_id
+        left join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
+        left join crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
+        left JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
+        left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
+        LEFT JOIN crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
+        LEFT JOIN stock_product sp on sp.id= clitem.stock_product_id
         where ld.status=true and ld.is_deleted=false  and  lb.crm_lead_id=$id");
     }
-    // get branch by  assig to 
+    // get branch by  assig to
     public static function getbranch_leadbyassigto($id,$userid){
         return DB::select("SELECT  crm_lead.lead_number,clitem.id as lead_item_id,lbc.id as lead_con_bran_id,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
         lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
@@ -686,12 +687,12 @@ class Crmlead extends Model
         JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
         join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
         join crm_lead on crm_lead.id= lb.crm_lead_id
-        join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
-        join crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
-        JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
-        join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
-        join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
-        join stock_product sp on sp.id= clitem.stock_product_id
+        LEFT JOIN crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
+        LEFT JOIN crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
+        LEFT JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
+        LEFT JOIN crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
+        LEFT JOIN crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
+        LEFT JOIN stock_product sp on sp.id= clitem.stock_product_id
         where ld.status=true and ld.is_deleted=false  and  lb.crm_lead_id=$id and  la.ma_user_id=$userid");
     }
     //get   branch  by id
@@ -725,12 +726,12 @@ class Crmlead extends Model
         JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
         join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
         join crm_lead on crm_lead.id= lb.crm_lead_id
-        join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
-        join crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
-        JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
-        join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
-        join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
-        join stock_product sp on sp.id= clitem.stock_product_id
+        left join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
+        left join crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
+        left JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
+        left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
+        LEFT JOIN crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
+        LEFT JOIN stock_product sp on sp.id= clitem.stock_product_id
         where ld.status=true and ld.is_deleted=false and lb.id=$id");
     }
     // update Branch
@@ -1097,6 +1098,24 @@ class Crmlead extends Model
     public static function getschduletype(){
          return DB::select('SELECT id,name_en,name_kh from crm_lead_schedule_type where is_deleted=FALSE and status=TRUE');
     }
+    //Model get all schdule
+    public static function getschedule(){
+           return DB::select("SELECT cls.id as schedule_id,cls.crm_lead_branch_id,cls.name_en,cls.name_kh,cls.to_do_date,cls.comment,cls.priority,cls.create_by,
+           clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id
+           FROM crm_lead_schedule  cls
+           LEFT JOIN  crm_lead_branch clb on clb.id = cls.crm_lead_branch_id
+           JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
+           where cls.is_deleted=FALSE and cls.status=TRUE");
+    } 
+    //Model get all schdule by assgto 
+    // public static function getschedulebyassigto($id){
+    //     return DB::select("SELECT cls.id as schedule_id,cls.crm_lead_branch_id,cls.name_en,cls.name_kh,cls.to_do_date,cls.comment,cls.priority,cls.create_by,
+    //        clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id
+    //        FROM crm_lead_schedule  cls
+    //        LEFT JOIN  crm_lead_branch clb on clb.id = cls.crm_lead_branch_id
+    //        JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
+    //        where cls.is_deleted=FALSE and cls.status=TRUE and  cla.ma_user_id=$id");
+    // }
     //Model insert​ schdule type
     public static function insertscheduletype($userid,$name_en,$name_kh){
         if(isset($userid)){
@@ -1146,7 +1165,7 @@ class Crmlead extends Model
 
         }
     }
-    //insert schedule 
+    //insert schedule
     public static function insertschedule($branch_id,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id,$userid){
         if(isset($branch_id)){
             try{
@@ -1160,7 +1179,7 @@ class Crmlead extends Model
                     $priority,
                     $schedule_type_id,
                     $userid,
-                  
+
                 )
             );
                 return json_encode(['insert'=>'success']);;
@@ -1173,7 +1192,7 @@ class Crmlead extends Model
                 return json_encode(['insert'=>'not found date']);
         }
     }
-    // update schedule 
+    // update schedule
     public static function updateschedule($schedule_id,$branch_id,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id,$userid,$status){
         if(isset($schedule_id)){
             try{
@@ -1189,7 +1208,7 @@ class Crmlead extends Model
                     $priority,
                     $schedule_type_id,
                     $status,
-                  
+
                 )
             );
                 return json_encode(['update'=>'success']);;
@@ -1212,7 +1231,7 @@ class Crmlead extends Model
                     $schedule_type_id,
                     $comment,
                     $userid,
-                  
+
                 )
             );
                 return json_encode(['insert'=>'success']);;
@@ -1237,7 +1256,7 @@ class Crmlead extends Model
                     $schedule_type_id,
                     $comment,
                     $status
-                  
+
                 )
             );
                 return json_encode(['update'=>'success']);;
@@ -1276,7 +1295,7 @@ class Crmlead extends Model
                     $current_speed,
                     $current_price,
                     $vat_number,
-                  
+
                 )
             );
                 return json_encode(['update'=>'success']);;

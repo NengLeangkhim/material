@@ -10,7 +10,16 @@ use Illuminate\Support\Facades\Route;
 
 class CrmScheduleController extends Controller
 {
-   
+    // get UI Schedule
+    public function index(){
+        if(perms::check_perm_module('CRM_021002')){//module code list
+            return view('crm.schedule.index');
+        }else{
+            return view('no_perms');
+        }
+
+    }
+    // insert schedule of branch
     public function insertschedule(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
                 session_start();

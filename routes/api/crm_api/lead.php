@@ -81,7 +81,7 @@ Route::post('/insertscheduletype','api\crm\LeadController@insertscheduletype');
 // update  schedule  type
 Route::Post('/updatescheduletype','api\crm\LeadController@updatescheduletype');
 //get all schedule
-
+Route::get('/getschedule','api\crm\LeadController@getschedule');
 //insert schedule
 Route::post('/insertschedule','api\crm\LeadController@insertschedule');
 //update schedule

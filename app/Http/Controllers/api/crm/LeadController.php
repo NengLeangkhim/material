@@ -18,6 +18,7 @@ use App\Http\Resources\api\crm\lead\GetLeadBranch;
 use App\Http\Resources\api\crm\lead\GetHonorifics;
 use App\Http\Resources\api\crm\lead\LeadCurrentSpeedIsp;
 use App\Http\Resources\api\crm\lead\GetSurvey;
+use App\Http\Resources\api\crm\lead\GetLeadSchedule;
 use Illuminate\Database\QueryException;
 
 class LeadController extends Controller
@@ -131,7 +132,7 @@ class LeadController extends Controller
         $vat_number=$request->input('vat_number');
         $company_branch=$request->input('branch');
         $lead_source=$request->input('lead_source');
-        $lead_status=$request->input('lead_status');
+        $lead_status=$request->input('lead_status')!=""?$request->input('lead_status'):1;
         $lead_industry=$request->input('lead_industry');
         $assig_to=$request->input('assig_to');
         $service=$request->input('service');
@@ -238,10 +239,10 @@ class LeadController extends Controller
     }
     // get all lead
     public function getLead(){
-            $return=response()->json(auth()->user());
-            $return=json_encode($return,true);
-            $return=json_decode($return,true);
-            $userid=$return["original"]['id'];
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
 
         if(perms::check_perm_module('CRM_020501')){ // top managment
             $lead = Lead::getLead(); // all lead 
@@ -401,6 +402,28 @@ class LeadController extends Controller
         $name_en=$request->input('name_en');
         $status=$request->input('status');
         return Lead::updatescheduletype($schedule_id,$userid,$name_en,$name_kh,$status); //return to model
+    }
+    // get schedule 
+    public function getschedule(){
+        // $return=response()->json(auth()->user());
+        // $return=json_encode($return,true);
+        // $return=json_decode($return,true);
+        // $userid=$return["original"]['id'];
+            $schedule = Lead::getschedule(); // all lead 
+            return GetLeadSchedule::Collection($schedule); 
+        // if(perms::check_perm_module('CRM_020501')){ // top managment
+        //     $lead = Lead::getLead(); // all lead 
+        //     return GetLead::Collection($lead);          
+        // }
+        // else if (perms::check_perm_module('CRM_020509')) { // fro staff (Model and Leadlist by user)
+        //     $lead = Lead::getLeadbyassginto($userid); //  lead by assigned to
+        //     return GetLead::Collection($lead);
+        
+        // }
+        // else
+        // {
+        //     return view('no_perms');
+        // }
     }
     //insert schedule
     public function insertschedule(Request $request){
