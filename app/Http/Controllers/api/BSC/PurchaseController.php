@@ -125,8 +125,10 @@ class PurchaseController extends Controller
             if($purchase_details != ""){
                 foreach ($purchase_details as $key => $p_detail) {
                     // var_dump($p_detail[stock_product_id]);
-                    $sql_purchase_detail = "insert_bsc_invoice_detail($purchase_id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], $request->create_by, '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0)";
-                    $q_purchase_detail=DB::select("SELECT ".$sql_purchase_detail);
+                    if($p_detail['bsc_account_charts_id'] != null){
+                        $sql_purchase_detail = "insert_bsc_invoice_detail($purchase_id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], $request->create_by, '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0)";
+                        $q_purchase_detail=DB::select("SELECT ".$sql_purchase_detail);
+                    }
                 }
             }
 
@@ -236,11 +238,15 @@ class PurchaseController extends Controller
                 foreach ($purchase_details as $key => $p_detail) {
                     // var_dump($p_detail['stock_product_id']);
                     if($p_detail['is_old'] == 1 && $p_detail['is_delete'] == 0){
-                        $sql_purchase_detail = "update_bsc_invoice_detail($p_detail[bsc_invoice_detail_id], $request->update_by, $id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], '$request->status', '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0, '$request->status')";
-                        $q_purchase_detail=DB::select("SELECT ".$sql_purchase_detail);
+                        if ($p_detail['bsc_account_charts_id'] != null) {
+                            $sql_purchase_detail = "update_bsc_invoice_detail($p_detail[bsc_invoice_detail_id], $request->update_by, $id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], '$request->status', '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0, '$request->status')";
+                            $q_purchase_detail=DB::select("SELECT ".$sql_purchase_detail);
+                        }
                     }else if($p_detail['is_new'] == 1){
-                        $sql_purchase_detail_new = "insert_bsc_invoice_detail($purchase_id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], $request->update_by, '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0)";
-                        $q_purchase_detail_new=DB::select("SELECT ".$sql_purchase_detail_new);
+                        if ($p_detail['bsc_account_charts_id'] != null) {
+                            $sql_purchase_detail_new = "insert_bsc_invoice_detail($purchase_id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], $request->update_by, '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0)";
+                            $q_purchase_detail_new=DB::select("SELECT ".$sql_purchase_detail_new);
+                        }
                     }else if($p_detail['is_delete'] == 1){
                         $sql_purchase_detail_delete = "delete_bsc_invoice_detail($p_detail[bsc_invoice_detail_id], $request->update_by)";
                         $q_purchase_detail_delete=DB::select("SELECT ".$sql_purchase_detail_delete);
@@ -294,6 +300,7 @@ class PurchaseController extends Controller
         ->select('stock_product.*','bsc_account_charts.name_en as chart_account_name')
         ->leftJoin('bsc_account_charts','stock_product.bsc_account_charts_id','=','bsc_account_charts.id')
         ->where([
+            ['stock_product.bsc_account_charts_id','<>',null],
             ['stock_product.status','=','t'],
             ['stock_product.is_deleted','=','f']
         ])->get();
