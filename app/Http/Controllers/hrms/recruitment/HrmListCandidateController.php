@@ -185,9 +185,9 @@ class HrmListCandidateController extends Controller
                                       ->where(function ($query) use ($request) {
                                       return $query->where('is_deleted', 'f');})
                                           ],
-                  'cv' => ['required','mimes:pdf','max:10240'
+                  'cv' => ['mimes:pdf','max:10240'
                                           ],
-                  'cover_letter' => ['required','mimes:pdf','max:10240',
+                  'cover_letter' => ['mimes:pdf','max:10240',
                                           ],
               ],
               [
