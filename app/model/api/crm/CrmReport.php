@@ -481,9 +481,9 @@ class CrmReport extends Model
                     ) and is_deleted = false and status = true
                 )
                 AND is_deleted = false
-                AND status = true
-                --AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE
-                GROUP BY DATE_TRUNC(\''.$type.'\',create_date);
+                AND status = true '
+                .(($fromDate == null || $toDate == null)?'':'AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').
+                ' GROUP BY DATE_TRUNC(\''.$type.'\',create_date);
             ');
         } catch(QueryException $e){
             throw $e;

@@ -201,6 +201,9 @@
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1) {
+                    return
+                }
                 google.charts.load('current',{
                     packages: ['corechart']
                 }).then(CrmLeadDrawChart(data));
@@ -253,7 +256,9 @@
                         },
                     ]
                     $.each(data, function (index, value) {
-                        result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
+                        if(value.crm_lead_status_id != null){
+                            result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
+                        }
                     })
                     var data_chart = google.visualization.arrayToDataTable(result);
                     var view = new google.visualization.DataView(data_chart);
@@ -291,6 +296,9 @@
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1) {
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 }).then(CrmLeadDrawChart(data));
@@ -381,6 +389,9 @@
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1) {
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 }).then(CrmLeadDrawChart(data));
@@ -431,10 +442,19 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+        data : {
+            'type' : 'month',
+            'status_id' : 6
+        },
         //data: $('#FrmChartOrganizationReport').serialize(),
         success: function (response) {
           if (response.success == true) {
                 var data = response.data
+                if(data.length < 1) {
+                    $('#OrgChart').empty()
+                    $('#OrgChart').append(`<p>No Data</p>`)
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 }).then(CrmOrganizationDrawChart(data));
