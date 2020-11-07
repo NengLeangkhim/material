@@ -102,9 +102,9 @@
                                                 </div>
                                                 <select class="form-control input_required select2" name="reference" id="reference">
                                                     <option value="" selected hidden disabled>select item</option>
-                                                    @foreach ($qoutes as $qoute)
+                                                    {{-- @foreach ($qoutes as $qoute)
                                                         <option value="{{ $qoute->quote_id }}">{{ $qoute->quote_number }}</option>
-                                                    @endforeach
+                                                    @endforeach --}}
                                                 </select>
 
                                             </div>

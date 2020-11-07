@@ -170,7 +170,7 @@ class InvoiceController extends Controller
             $token = $_SESSION['token'];
 
             $bsc_account_charts_id=$request->account_type;
-            $customer=$request->customer;
+            $customer_id=$request->customer_id;
             $billing_date=$request->billing_date;
             $reference=$request->reference;
             $due_date=$request->due_date;
@@ -180,27 +180,34 @@ class InvoiceController extends Controller
             $total=$request->total;
             $vatTotal=$request->vatTotal;
             $grandTotal=$request->grandTotal;
+            $billing_address=$request->billing_address;
+            $crm_quote_id=$request->crm_quote_id;
             $itemDetail=$request->itemDetail;//data is array
 
             $data=array(
                 'create_by'=>$create_by,
-                'ma_customer_id'=>$customer,
+                'ma_customer_id'=>$customer_id,
                 'billing_date'=>$billing_date,
                 'due_date'=>$due_date,
                 'reference'=>$reference,
-                // 'address_en'=>$address_en,  not yet have space for input address
-                // 'address_kh'=>$address_kh, not yet have space for input address
+                'address_en'=>$billing_address,
+                'address_kh'=>$billing_address,
                 'effective_date'=>$effective_date,
                 'end_period_date'=>$end_period_date,
                 'deposit_on_payment'=>$deposit_on_payment,
                 'total'=>$total,
                 'vat_total'=>$vatTotal,
                 'grand_total'=>$grandTotal,
-                // 'crm_quote_id'=>$crm_quote_id,
+                'crm_quote_id'=>$crm_quote_id,
                 'bsc_account_charts_id'=>$bsc_account_charts_id,
                 'invoice_details'=>$itemDetail
             );
-            dd($data);exit;
+            // dd($data);exit;
+            $request = Request::create('api/bsc_invoices', 'POST',$data);
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $response = json_decode($res->getContent()); // convert to json object
             echo "success";
         }catch(Exception $e){
             echo $e->getMessage();
