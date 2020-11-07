@@ -170,13 +170,21 @@ class ChartAccountController extends Controller
 
     public function show_account_type(Request $request)
     {
-        $account_types = DB::table('bsc_account_type')->get();
+        $account_types = DB::table('bsc_account_type')
+        ->where([
+            ['status','=','t'],
+            ['is_deleted','=','f']
+        ])->get();
         return $this->sendResponse($account_types, 'Account type retrieved successfully');
     }
 
     public function show_company(Request $request)
     {
-        $companies = DB::table('ma_company')->get();
+        $companies = DB::table('ma_company')
+        ->where([
+            ['status','=','t'],
+            ['is_deleted','=','f']
+        ])->get();
         return $this->sendResponse($companies, 'Company retrieved successfully');
     }
 }

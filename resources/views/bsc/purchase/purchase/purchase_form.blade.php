@@ -22,8 +22,6 @@
                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                             </div>
                             <select class="form-control select2 input_required" name="account_type" id="purchase_account_chart_id">
-                                <option value="" selected hidden disabled>select item</option>
-
                                 @foreach ($account_payables as $account_payable)
                                     <option value="{{$account_payable->id}}">{{$account_payable->name_en}}</option>
                                 @endforeach
@@ -309,6 +307,7 @@
         let amount = (qty * price);
         return amount;
     }
+    
     // function Calculate Grand Total Amount
     function showGrandTotal(){
         let total = parseFloat($('#txtTotal').text());
@@ -394,7 +393,6 @@
                     if(data.saved.success == false){
                         alert("fail to insert");
                     }else{
-                        //alert("insert success");    
                         go_to('bsc_purchase_purchase_list');
                     }
                 }

@@ -23,7 +23,6 @@
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
                                 <select class="form-control select2 input_required" name="account_type" id="account_type">
-                                    <option selected hidden disabled>select item</option>
                                     @foreach ($ch_accounts as $ch_account)
                                         <option value="{{ $ch_account->id }}">{{ $ch_account->name_en }}</option>
                                     @endforeach>
@@ -62,23 +61,23 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <select class="form-control select2 input_required" name="reference" id="reference" onchange="myFunction(this)">
+                                            <select class="form-control select2 input_required reference" name="reference" id="reference" onchange="myFunction(this)">
                                                 <option value="" selected hidden disabled>select item</option>
                                                 @foreach ($qoutes as $qoute)
-                                                    <option value="{{ $qoute->id }}">{{ $qoute->quote_number }}</option>
+                                                    <option value="{{ $qoute->quote_number }}" data-crm_quote_id="{{ $qoute->id }}">{{ $qoute->quote_number }}</option>
                                                 @endforeach
                                             </select>
-
                                         </div>
+                                        <input type="hidden" id="crm_quote_id" name="crm_quote_id">
                                     </div>
-
+                                    <input type="hidden" id="billing_address" name="billing_address">
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Deposit on Payment<b class="color_label">*</b></label>
+                                        <label for="exampleInputEmail1">Customer</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fab fa-chrome"></i></span>
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <input type="number" class="form-control input_required" name="deposit_on_payment" id="deposit_on_payment" placeholder="Deposit on payment">
+                                            <input type="text" class="form-control" name="customer" id="customer" data-customer_id placeholder="Customer" readonly>
                                         </div>
                                     </div>
 
@@ -97,17 +96,12 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Customer<b class="color_label">*</b></label>
+                                        <label for="exampleInputEmail1">Deposit on Payment<b class="color_label">*</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <select class="form-control select2 input_required" name="customer" id="customer">
-                                                <option selected hidden disabled>select item</option>
-                                                @foreach ($customers as $customers)
-                                                    <option value="{{ $customers->id }}">{{ $customers->name }}</option>
-                                                @endforeach>
-                                            </select>
+                                            <input type="number" class="form-control input_required" name="deposit_on_payment" id="deposit_on_payment" placeholder="Deposit on payment">
                                         </div>
                                     </div>
                                 </div>
@@ -159,7 +153,7 @@
                                                 <th>Unit Price</th>
                                                 <th>Discount</th>
                                                 <th>Account</th>
-                                                <th>Tax Rate</th>
+                                                <th style="white-space: nowrap">Tax Rate</th>
                                                 <th>Amount</th>
                                                 {{-- <th></th> --}}
                                             </tr>
@@ -205,7 +199,7 @@
                                                 </div>
                                             </div>
                                             <hr class="line_in_tag_hr">
-                                            <div class="row">
+                                            {{-- <div class="row">
                                                 <div class="col-sm-6 text_right">
                                                     <label for="">Payment : </label>
                                                 </div>
@@ -230,7 +224,7 @@
                                                     <label for="">1000$</label>
                                                 </div>
                                             </div>
-                                            <hr class="line_in_tag_hr2">
+                                            <hr class="line_in_tag_hr2"> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -254,20 +248,55 @@
 <script>
     function myFunction(id)
     {
-        let reference_id = id.selectedIndex;
+        let crm_quote_id=$('.reference option:selected').attr('data-crm_quote_id');
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 type:"POST",
                 url:'/bsc_reference_onchange',
                 data:{
                     _token: CSRF_TOKEN,
-                    reference_id     : reference_id
+                    invoice_id  : crm_quote_id
                 },
                 dataType: "JSON",
                 success:function(data){
+                    $("#invoice_table").DataTable().destroy();
+                    $("#invoice_table tbody").empty();
+                    let quotes = data.quotes;
+                    let quote_products = data.quote_products;
 
+                    if(quotes.length > 0){
+                        $.each(quotes,function(i, quote){
+                            $('#customer').val(quote.customer_name);
+                            $('#customer').attr("data-customer_id",quote.customer_id);
+                            $('#billing_address').val(quote.billing_address);
+                        });
+                    }
+                    if(quote_products.length > 0){
+                        let tr='';
+                        let amounts=0;
+                        let option='<select class="invoice_tax" style="width: 100%;height: 51px;border:none;white-space: nowrap;padding:0" class="form-control"><option value=""></option><option value="1" selected>Tax</option><option value="0">No Tax</option></select>';
+                        $.each(quote_products,function(index, quote_product){
+                            let qty=quote_product.qty;
+                            let price=quote_product.price;
+                            let discount=quote_product.discount;
+                            let amount = show_amounts(qty,price,discount);
+
+                            tr="<tr><td class='customer_branch' data-customer_branch_id='"+quote_product.customer_branch_id+"'>"+quote_product.customer_branch_name+"</td><td class='stock_product_id' data-product_id='"+quote_product.stock_product_id+"'>"+quote_product.product_name+"</td><td class='description'>"+quote_product.description+"</td><td class='qty'>"+quote_product.qty+"</td><td class='price'>"+quote_product.price+"</td><td class='discount'>"+quote_product.discount+"</td><td class='chart_account' data-chart_account_id='"+quote_product.bsc_account_charts_id+"'>"+quote_product.chart_account_name+"</td><td>"+option+"</td><td class='item_amount'>"+amount+"</td></tr>";
+                            $("#invoice_table").append(tr);
+                        });
+                    }
+                    showTotal();
+                    showGrandTotal();
                 }
             });
+    }
+
+    // function show amount
+    function show_amounts(qty,price,discount)
+    {
+        let discount_price= (qty * price) * discount/100;
+        let amount = (qty * price) - discount_price;
+        return amount;
     }
 </script>
 <script type="text/javascript">
@@ -285,16 +314,17 @@
         }else{
             $(".stock_product_id").each(function(e){
                 var tr = $(this).closest('tr');
-                var thisInput = $(this).val();
+                var thisInput = $(this).attr('data-product_id');
                 if(thisInput != ""){
                     itemDetail[e] = {
                         stock_product_id: thisInput,
-                        description           : tr.find(".item_des").text(),
-                        qty                   : tr.find(".item_qty").text(),
-                        unit_price            : tr.find(".item_unit_price").text(),
-                        discount              : tr.find(".item_discount").text(),
-                        bsc_account_charts_id : tr.find(".item_account").text(),
-                        tax                   : tr.find(".tax").val(),
+                        ma_customer_branch_id : tr.find(".customer_branch").attr('data-customer_branch_id'),
+                        description           : tr.find(".description").text(),
+                        qty                   : tr.find(".qty").text(),
+                        unit_price            : tr.find(".price").text(),
+                        discount              : tr.find(".discount").text(),
+                        bsc_account_charts_id : tr.find(".chart_account").attr('data-chart_account_id'),
+                        tax                   : tr.find(".invoice_tax").val(),
                         amount                : tr.find(".item_amount").text()
                     };
                 }
@@ -306,7 +336,7 @@
                 data:{
                     _token: CSRF_TOKEN,
                     account_type     : $("#account_type").val(),
-                    customer         : $("#customer").val(),
+                    customer_id      : $("#customer").attr("data-customer_id"),
                     billing_date     : $("#billing_date").val(),
                     reference        : $("#reference").val(),
                     due_date         : $("#due_date").val(),
@@ -316,6 +346,8 @@
                     total            : $('#txtTotal').text(),
                     grandTotal       : $('#txtGrandTotal').text(),
                     vatTotal         : $('#txtVatTotal').text(),
+                    billing_address  : $('#billing_address').val(),
+                    crm_quote_id     : $('.reference option:selected').attr('data-crm_quote_id'),
                     itemDetail       : itemDetail
                 },
                 dataType: "JSON",
@@ -326,4 +358,5 @@
         }
     }
 </script>
+
 
