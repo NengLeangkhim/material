@@ -300,6 +300,7 @@ class PurchaseController extends Controller
         ->select('stock_product.*','bsc_account_charts.name_en as chart_account_name')
         ->leftJoin('bsc_account_charts','stock_product.bsc_account_charts_id','=','bsc_account_charts.id')
         ->where([
+            ['stock_product.bsc_account_charts_id','<>',null],
             ['stock_product.status','=','t'],
             ['stock_product.is_deleted','=','f']
         ])->get();
