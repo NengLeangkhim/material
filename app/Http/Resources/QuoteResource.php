@@ -3,13 +3,14 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\User;
+
 use App\model\api\crm\ModelCrmQuoteBranch as QuoteBranch;
 use App\model\api\crm\ModelCrmQuoteStatus as QuoteStatus;
 use App\model\api\crm\ModelCrmQuoteStatusType as QuoteStatusType;
 use App\model\api\crm\Crmlead as Crmlead;
 use App\model\api\crm\ModelCrmQuoteBranchDetail as QuoteBranchDetail;
 use App\model\api\crm\CrmLeadAddress as Address;
+use App\User;
 use App\Http\Resources\api\crm\lead\GetLead;
 use DB;
 class QuoteResource extends JsonResource
@@ -26,12 +27,18 @@ class QuoteResource extends JsonResource
         //get name assign to and createby
         $assign =User::find($this->assign_to,[
             'id',
-            'first_name_en'
+            'first_name_en',
+            'last_name_en',
+            'first_name_kh',
+            'last_name_kh'
         ]);
 
         $createby =User::find($this->create_by,[
             'id',
-            'first_name_en'
+            'first_name_en',
+            'last_name_en',
+            'first_name_kh',
+            'last_name_kh'
         ]);
 
         //get address name
@@ -64,7 +71,10 @@ class QuoteResource extends JsonResource
 
             $pre =User::find($q->create_by,[
                 'id',
-                'first_name_en'
+                'first_name_en',
+                'last_name_en',
+                'first_name_kh',
+                'last_name_kh'
             ]);
             array_push($acknowlegde,$pre);
         }
@@ -72,6 +82,9 @@ class QuoteResource extends JsonResource
 
         //find lead by id
         $lead = DB::select("select * from crm_lead where id = $this->crm_lead_id");
+
+        //find status
+        $statusQuote = QuoteStatus::where('crm_quote_id',$this->id)->get();
 
         // return parent::toArray($lead);
         return [
@@ -86,6 +99,7 @@ class QuoteResource extends JsonResource
             "address"=>$addr,
             "create_date"=> $this->create_date,
             "acknowlegde_by"=>$acknowlegde,
+            "status_quote"=>$statusQuote,
             "create_by"=> $createby
         ];
     }
