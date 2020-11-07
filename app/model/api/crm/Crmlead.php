@@ -1098,6 +1098,24 @@ class Crmlead extends Model
     public static function getschduletype(){
          return DB::select('SELECT id,name_en,name_kh from crm_lead_schedule_type where is_deleted=FALSE and status=TRUE');
     }
+    //Model get all schdule
+    public static function getschedule(){
+           return DB::select("SELECT cls.id as schedule_id,cls.crm_lead_branch_id,cls.name_en,cls.name_kh,cls.to_do_date,cls.comment,cls.priority,cls.create_by,
+           clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id
+           FROM crm_lead_schedule  cls
+           LEFT JOIN  crm_lead_branch clb on clb.id = cls.crm_lead_branch_id
+           JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
+           where cls.is_deleted=FALSE and cls.status=TRUE");
+    } 
+    //Model get all schdule by assgto 
+    // public static function getschedulebyassigto($id){
+    //     return DB::select("SELECT cls.id as schedule_id,cls.crm_lead_branch_id,cls.name_en,cls.name_kh,cls.to_do_date,cls.comment,cls.priority,cls.create_by,
+    //        clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id
+    //        FROM crm_lead_schedule  cls
+    //        LEFT JOIN  crm_lead_branch clb on clb.id = cls.crm_lead_branch_id
+    //        JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
+    //        where cls.is_deleted=FALSE and cls.status=TRUE and  cla.ma_user_id=$id");
+    // }
     //Model insert​ schdule type
     public static function insertscheduletype($userid,$name_en,$name_kh){
         if(isset($userid)){

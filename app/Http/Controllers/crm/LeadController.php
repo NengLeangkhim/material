@@ -73,9 +73,9 @@ class LeadController extends Controller
             $lead_source=ModelCrmLead::CrmGetLeadSource();
             $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
             $isp = Lead::leadcurrentspeedisp();
-            $companybranch=Lead::leadBranch();
+            $companybranch=Lead::leadBranch(); 
             // dd($lead_source);
-            return view('crm.Lead.editlead',['editlead'=>$result["data"],'companybranch'=>$companybranch,'lead_source'=>$lead_source,'lead_industry'=>$lead_industry,'currentisp'=>$isp]);
+            return view('crm.Lead.editlead',['editlead'=>$result["data"],'companybranch'=>$companybranch,'lead_source'=>$lead_source,'lead_industry'=>$lead_industry,'currentisp'=>$isp]); 
         }else{
             return view('no_perms');
         }

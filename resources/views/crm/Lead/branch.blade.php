@@ -135,8 +135,10 @@
                                                          <div class="input-group-prepend">
                                                              <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                                          </div>
-                                                         <input type="text" class="form-control" id="name_en"  name="name_en"   placeholder="" required >
-                                                         <span id="subjectError" ><strong></strong></span>
+                                                         <input type="text" class="form-control" id="name_en"  name="name_en"   placeholder=""  >
+                                                         <span class="invalid-feedback" role="alert" id="name_enError"> 
+                                                            <strong></strong>
+                                                        </span>
                                                      </div>
                                                  </div>
                                                  <div class="col-md-6">
@@ -145,8 +147,10 @@
                                                          <div class="input-group-prepend">
                                                              <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                                          </div>
-                                                         <input type="text" class="form-control" id="name_kh"  name="name_kh"   placeholder="" required >
-                                                         <span id="subjectError" ><strong></strong></span>
+                                                         <input type="text" class="form-control" id="name_kh"  name="name_kh"   placeholder=""  >
+                                                         <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
+                                                            <strong></strong>
+                                                        </span>
                                                      </div>
                                                  </div>                                                
                                              </div>
@@ -159,7 +163,10 @@
                                                          <div class="input-group-prepend">
                                                              <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                          </div>
-                                                         <input type="date" class="form-control" id="to_do_date"  name="to_do_date"   placeholder="" required >
+                                                         <input type="date" class="form-control" id="to_do_date"  name="to_do_date"   placeholder=""  >
+                                                         <span class="invalid-feedback" role="alert" id="to_do_dateError"> {{--span for alert--}}
+                                                            <strong></strong>
+                                                        </span>
                                                         
                                                      </div>
                                                  </div>
@@ -169,18 +176,17 @@
                                                          <div class="input-group-prepend">
                                                              <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
                                                          </div>
-                                                         <select class="form-control " name="prioroty" id="prioroty" >
-                                                             <option value=''>-- Select  Prioroty --</option>                                                                 
-                                                             {{-- <option value='urgent'>Urgent</option>
-                                                             <option value='high'>Hight</option>
-                                                             <option value='medium'>Medium</option>
-                                                             <option value='low'>Low</option> --}}
+                                                         <select class="form-control " name="priority" id="priority" >
+                                                             <option value=''>-- Select  Prioroty --</option>  
                                                              <option value="urgent">Urgent</option>
                                                              <option value="high">Hight</option>
                                                              <option value="medium">Medium</option>
                                                              <option value="low">Low</option>
                                                            
                                                          </select>
+                                                         <span class="invalid-feedback" role="alert" id="priorityError"> {{--span for alert--}}
+                                                            <strong></strong>
+                                                        </span>
                                                      </div>
                                                  </div>                                                
                                              </div>
@@ -203,6 +209,9 @@
                                                              ?>
                                                             
                                                          </select>
+                                                         <span class="invalid-feedback" role="alert" id="schedule_type_idError"> {{--span for alert--}}
+                                                            <strong></strong>
+                                                        </span>
                                                      </div>
                                                  </div>
                                                  <div class="col-md-6">
@@ -211,7 +220,10 @@
                                                          <div class="input-group-prepend">
                                                              <span class="input-group-text"><i class="far fa-comments"></i></span>
                                                          </div>
-                                                         <input type="text" class="form-control" id="comment"  name="comment"   placeholder="" required >
+                                                         <input type="text" class="form-control" id="comment"  name="comment"   placeholder="" required >                                                         
+                                                         <span class="invalid-feedback" role="alert" id="commentError"> {{--span for alert--}}
+                                                            <strong></strong>
+                                                        </span>
                                                      </div>
                                                  </div>                                                
                                              </div>
@@ -220,7 +232,8 @@
                              </div>
                                  <div class="modal-footer justify-content-between">
                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                 <button type="button" class="btn btn-primary">Save changes</button>
+                                 {{-- <button type="button" class="btn btn-primary" onclick="CrmSubmitFormFull('frm_Crmbranchschdeule','/insertschedule','/lead','Insert  Schedule Successfully')">Create</button> --}}
+                                 <button type="button" class="btn btn-primary" id="save" onclick="CrmSubmitModalAction('frm_Crmbranchschdeule','save','/insertschedule','POST','modal-default','Insert  Schedule Successfully','/lead')">Create</button>
                              </div>
                             </form>
                             
