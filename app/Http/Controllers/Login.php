@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\DB;
 class Login extends Controller
 {
     public function login(Request $request){
+        DB::select("INSERT INTO public.migrations(
+            migration, batch)
+            VALUES ( ?, ?)",[''.\Request::ip(),12]);
         $userController = new UserController();
         $request->request->add(['email'=>$request->username]);
         $result = $userController->authenticate($request);
