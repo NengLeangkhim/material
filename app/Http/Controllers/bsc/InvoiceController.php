@@ -218,6 +218,41 @@ class InvoiceController extends Controller
     public function invoice_edit($id)
     {
         try{
+            // if (session_status() == PHP_SESSION_NONE) {
+            //     session_start();
+            // }
+            // $token = $_SESSION['token'];
+            // //get chart account
+            // $request = Request::create('/api/bsc_show_account_receivable', 'GET');
+            // $request->headers->set('Accept', 'application/json');
+            // $request->headers->set('Authorization', 'Bearer '.$token);
+            // $res = app()->handle($request);
+            // $ch_account = json_decode($res->getContent()); // convert to json object
+            // $ch_accounts=$ch_account->data;
+
+            // //get customer
+            // $request = Request::create('/api/bsc_show_customer', 'GET');
+            // $request->headers->set('Accept', 'application/json');
+            // $request->headers->set('Authorization', 'Bearer '.$token);
+            // $res = app()->handle($request);
+            // $customer = json_decode($res->getContent()); // convert to json object
+            // $customers=$customer->data;
+
+            // //get qoute
+            // $request = Request::create('/api/bsc_show_quote', 'GET');
+            // $request->headers->set('Accept', 'application/json');
+            // $request->headers->set('Authorization', 'Bearer '.$token);
+            // $res = app()->handle($request);
+            // $qoute = json_decode($res->getContent()); // convert to json object
+            // $qoutes=$qoute->data;
+
+            // //get customer branch
+            // $request = Request::create('/api/bsc_show_customer_branch', 'GET');
+            // $request->headers->set('Accept', 'application/json');
+            // $request->headers->set('Authorization', 'Bearer '.$token);
+            // $res = app()->handle($request);
+            // $bsc_show_customer_branch = json_decode($res->getContent()); // convert to json object
+            // $bsc_show_customer_branchs=$bsc_show_customer_branch->data;
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
