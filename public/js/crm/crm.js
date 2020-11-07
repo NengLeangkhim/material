@@ -1220,7 +1220,6 @@ function Crm_delete(id,route,goto,alert) {
     //function click to edit quote lead
     function editQouteLead(qouteId){
         $.ajax({
-
             type: 'GET',
             url: '/quote/edit/lead',
             headers: {
@@ -1245,6 +1244,31 @@ function Crm_delete(id,route,goto,alert) {
     function editQuoteBranch(id,num){
         alert('hellio');
     }
+
+
+
+
+    //function click to update quote lead
+    $(document).on('click', '#btnUpdateQuoteLead', function (){
+            $.ajax({
+                method: 'PUT',
+                url: '/quote/edit/lead/update',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:
+                    $('#frmEditQuoteLead').serialize(),
+                success:function(data)
+                {
+                    console.log(data);
+                    // $(".content-wrapper").html(data);
+
+                }
+            });
+    });
+
+
+
 
 
 

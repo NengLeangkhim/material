@@ -225,7 +225,6 @@ class QuoteController extends Controller
                     'discount.*' =>  ['required'],
                     'discount_type.*' =>  ['required'],
 
-
                 ],
                 [
                     // 'product_name.*required' => 'This Field is require !!',   //massage validator
@@ -344,6 +343,41 @@ class QuoteController extends Controller
             $quoteStatus  = ModelCrmQuote::getQuoteStatus();
             return view('crm/quote/quoteLeadEdit', compact('quoteDetail','employee','quoteStatus'));
         }
+    }
+
+
+
+    //functoin go to submit edit quote
+    public static function quoteEditLeadUpdate(Request $request){
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $create_by = $_SESSION['userid'];
+
+            // $request->merge([
+            //     // 'update_by' => $create_by]
+            // );
+            $request->merge(['update_by' => 247]);
+
+            // $validator = \Validator::make($request->all());
+            // dump($validator);
+            // exit;
+            // return Response::json($request->all(), 200);
+            // // $token = $_SESSION['token'];
+            // // $request = Request::create('/api/quote', 'POST');
+            // // $request->headers->set('Accept', 'application/json');
+            // // $request->headers->set('Authorization', 'Bearer '.$token);
+            // // $res = app()->handle($request);
+            // // $response = json_decode($res->getContent());
+
+            $request = Request::create('/api/quote', 'PUT',$request->all());
+            $response = json_decode(Route::dispatch($request)->getContent());
+
+            if($response->insert=='success'){
+                return response()->json(['success'=>$response]);
+            }else{
+                return response()->json(['error'=>$response]);
+            }
     }
 
 
