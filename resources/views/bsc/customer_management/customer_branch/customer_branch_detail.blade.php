@@ -30,7 +30,7 @@
                                         <div class="col-md-6">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <p for="">Customer Name : &nbsp;{{ $customer_branch->customer_name}}</p>
+                                                    <p for="">Customer Name : &nbsp;{{ $customer_branch->ma_customer_name}}</p>
                                                 </div>
 
                                                 <div class="col-sm-12">
@@ -38,11 +38,11 @@
                                                 </div>
 
                                                 <div class="col-sm-12">
-                                                    <p for="">Email : &nbsp;{{ $customer_branch->email}}</p>
+                                                    <p for="">Email : &nbsp;{{ $customer_branch->lead_branch_email}}</p>
                                                 </div>
 
                                                 <div class="col-sm-12">
-                                                    <p for="">Phone : &nbsp;{{ $customer_branch->phone}}</p>
+                                                    <p for="">Phone : &nbsp;{{ $customer_branch->contact_phone}}</p>
                                                 </div>
 
                                                 <div class="col-sm-12">

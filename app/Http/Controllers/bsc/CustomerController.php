@@ -63,14 +63,27 @@ class CustomerController extends Controller
                 session_start();
             }
             $token = $_SESSION['token'];
+            //get lead data by id
             $request = Request::create('/api/bsc_lead_single/'.$lead_id, 'GET');
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
-            $customer = json_decode($res->getContent()); // convert to json object
-            $customers=$customer->data;
-            return json_encode($customers);
-            // dd($customers);exit;
+            $lead = json_decode($res->getContent()); // convert to json object
+            $leads=$lead->data;
+
+            //get lead branch by id
+            $request = Request::create('/api/bsc_show_lead_branch_by_lead/'.$lead_id, 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $lead_branch = json_decode($res->getContent()); // convert to json object
+            $lead_branchs=$lead_branch->data;
+
+            $result=array();
+            $result[]=$leads;
+            $result[]=$lead_branchs;
+
+            return json_encode($result);
         }catch(Exception $e){
             echo $e->getMessage();
             exit();
@@ -110,22 +123,32 @@ class CustomerController extends Controller
             $userId=$_SESSION['userid'];
             $lead_id=$request->lead_name;
             $customer_name=$request->customer_name;
-            $deposit=$request->deposit;
-            $balance=$request->balance;
-            $invoice_balance=$request->invoice_balance;
             $vat_type=$request->vat_type;
             $vat_number=$request->vat_number;
+            $crm_lead_address_id=$request->address_id;
+            $branch_name=$request->branch_name;
+            $lead_branch=$request->lead_branch;
 
             $data=array(
                 'create_by'=>$userId,
-                'lead_id'=>$lead_id,
+                'crm_lead_id'=>$lead_id,
                 'customer_name'=>$customer_name,
-                'deposit'=>$deposit,
-                'balance'=>$balance,
-                'invoice_balance'=>$invoice_balance,
+                'branch_name'=>$branch_name,
+                'crm_lead_branch_id'=>$lead_branch,
+                'crm_lead_address_id'=>$crm_lead_address_id,
                 'vat_type'=>$vat_type,
-                'vat_number'=>$vat_number
+                'vat_number'=>$vat_number,
+                'deposit'=>'null',
+                'balance'=>'null',
+                'invoice_balance'=>'null'
             );
+
+            $request = Request::create('api/bsc_customers', 'POST',$data);
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $response = json_decode($res->getContent()); // convert to json object
+            echo "Insert Success";
         }catch(Exception $e){
             echo $e->getMessage();
             exit();
@@ -175,14 +198,24 @@ class CustomerController extends Controller
             $token = $_SESSION['token'];
             $create_by=$_SESSION['userid'];
 
-            $lead_name=$request->lead_name;
+            $customer_id=$request->customer_name;
             $lead_branch=$request->lead_branch;
             $branch_name=$request->branch_name;
-            $address=$request->address;
-
+            $address=$request->crm_lead_address_id;
             $data=array(
-
+                'create_by'=>$create_by,
+                'ma_customer_id'=>$customer_id,
+                'branch_name'=>$branch_name,
+                'crm_lead_branch_id'=>$lead_branch,
+                'crm_lead_address_id'=>$address
             );
+
+            $request = Request::create('api/bsc_customer_branch', 'POST',$data);
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $response = json_decode($res->getContent()); // convert to json object
+            echo "Insert Success";
 
         }catch(Exception $e){
             echo $e->getMessage();

@@ -24,11 +24,11 @@ class InvoiceController extends Controller
             ['bsc_invoice.status','=','t'],
             ['bsc_invoice.is_deleted','=','f']
         ])->get();
-        
+
         $arr_invoice = [];
         if(count($invoices) > 0){
             foreach ($invoices as $key => $invoice) {
-                $invoice_payments = DB::select("SELECT 
+                $invoice_payments = DB::select("SELECT
                                                     SUM(amount_paid) AS amount_paid
                                                 FROM
                                                     bsc_payment
@@ -46,7 +46,7 @@ class InvoiceController extends Controller
                 ])
                 ->orderBy('id','desc')
                 ->first();
-                
+
                 $amount_paid = "";
                 if(count($invoice_payments)>0){
                     foreach ($invoice_payments as $kkey => $invoice_payment) {
@@ -103,8 +103,8 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        DB::beginTransaction();
-        try {
+        // DB::beginTransaction();
+        // try {
             $input = $request->all();
 
             $validator = Validator::make($input, [
@@ -146,13 +146,13 @@ class InvoiceController extends Controller
 
             // insert_bsc_invoice_detail(bsc_invoice_id, ma_customer_branch_id, stock_product_id, description, qty, unit_price, discount, bsc_account_charts_id, tax, amount, create_by, description_journal, bsc_account_charts_id_in_journal, bsc_journal_type_id, debit_amount, credit_amount);
 
-            DB::commit();
-            return $this->sendResponse($q_invoice, 'Invoice created successfully.');
+        //     DB::commit();
+        //     return $this->sendResponse($q_invoice, 'Invoice created successfully.');
 
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            return $this->sendError("Try again!");
-        }
+        // } catch (\Throwable $th) {
+        //     DB::rollBack();
+        //     return $this->sendError("Try again!");
+        // }
     }
 
     /**
@@ -317,7 +317,7 @@ class InvoiceController extends Controller
 
         return $this->sendResponse($quotes, 'Quote retrieved successfully.');
     }
-    
+
     public function show_quote_single(Request $request, $id)
     {
         $quotes = DB::table('crm_quote')
@@ -329,7 +329,7 @@ class InvoiceController extends Controller
             ['crm_quote.status','=','t'],
             ['crm_quote.is_deleted','=','f']
         ])->get();
-        
+
         $quote_branchs = DB::table('crm_quote_branch')
         ->where([
             ['crm_quote_id','=',$id],

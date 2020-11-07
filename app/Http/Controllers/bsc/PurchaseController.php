@@ -239,6 +239,6 @@ class PurchaseController extends Controller
         
         $response = json_decode($res->getContent()); // convert to json object
         return response()->json(['updateds'=>$response]);
-        //return $response;
+        
     }
 }

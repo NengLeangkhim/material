@@ -37,7 +37,7 @@
                                     <th>Invoice Balance</th>
                                     <th>VAT Type</th>
                                     <th>VAT Number</th>
-                                    <th>Action</th>
+                                    {{-- <th>Action</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,11 +51,11 @@
                                         <td>{{ $item->invoice_balance }}</td>
                                         <td>{{ $item->vat_type }}</td>
                                         <td>{{ $item->vat_number }}</td>
-                                        <td style="text-align-last: center">
-                                            {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp; --}}
+                                        {{-- <td style="text-align-last: center">
+                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
                                             <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                            {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
-                                        </td>
+                                            <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
 
