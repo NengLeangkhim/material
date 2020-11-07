@@ -64,7 +64,7 @@ class QuoteResource extends JsonResource
         $acknowlegde=[];
 
         foreach($quoteStatus as $q){
-            $array =  QuoteStatusType::where('id',$q->crm_quote_status_type_id)->get(['name_en','create_date'])->first();
+            $array =  QuoteStatusType::where('id',$q->crm_quote_status_type_id)->get(['id','name_en','create_date'])->first();
             // foreach($array as $a){
                 array_push($quoteStage,$array);
             // }
