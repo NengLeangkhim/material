@@ -62,6 +62,10 @@
                                                                 $amount_paid = 0;
                                                                 $due_amount = $purchase->grand_total;
                                                                 $status = 'Waiting Payment';
+                                                            }else if ($purchase->due_amount == 0) {
+                                                                $amount_paid = $purchase->amount_paid;
+                                                                $due_amount = $purchase->due_amount;
+                                                                $status = 'Paid'; 
                                                             }else{
                                                                 $amount_paid = $purchase->amount_paid;
                                                                 $due_amount = $purchase->due_amount;

@@ -35,11 +35,20 @@ class PurchaseReportController extends Controller
         $due_date_to = $request->due_date_to;
         $payment_status = $request->payment_status;
         
-        // dd($billing_date_from.' '.$billing_date_to.' '. $due_date_from.' '.$due_date_to.' '.$payment_status);exit;
-
         $data = array(
-            
+            'billing_date_from'=> $billing_date_from,
+            'billing_date_to'=> $billing_date_to,
+            'due_date_from'=> $due_date_from,
+            'due_date_to'=> $due_date_to
         );
+        
+        $request = Request::create('api/bsc_show_purchase_filter', 'GET',$data);
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        $response = json_decode($res->getContent()); // convert to json object
+        $purchase=$response->data;
+        return json_encode($purchase);
         
     }
 }

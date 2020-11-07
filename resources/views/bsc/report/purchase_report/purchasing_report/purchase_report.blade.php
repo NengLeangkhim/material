@@ -63,7 +63,7 @@
                         </div>   
                         <div class="row" style="margin-top: 5%;">
                             <div class="col-md-12">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="example1" class="table table-bordered table-striped2">
                                     <thead>
                                         <tr>
                                             <th>Purchase#</th>
@@ -86,6 +86,10 @@
                                                     $amount_paid = 0;
                                                     $due_amount = $purchase->grand_total;
                                                     $status = 'Waiting Payment';
+                                                }else if ($purchase->due_amount == 0) {
+                                                    $amount_paid = $purchase->amount_paid;
+                                                    $due_amount = $purchase->due_amount;
+                                                    $status = 'Paid'; 
                                                 }else{
                                                     $amount_paid = $purchase->amount_paid;
                                                     $due_amount = $purchase->due_amount;
@@ -131,7 +135,7 @@
         let due_date_from = $('#due_date_from').val();
         let due_date_to = $('#due_date_to').val();
         let payment_status = $('#payment_status').val();
-        
+
         $.ajax({
             type:"POST",
             url:'/bsc_purchase_purchase_report',
@@ -145,7 +149,32 @@
             },
             dataType:"JSON",
             success:function(data){
+                $("#example1").DataTable().destroy();
+                $("#example1 tbody").empty();
+                
+                $.each(data, function(i, value) {
+                    let amount_paid = 0;
+                    let due_amount = 0;
+                    let status = '';
 
+                    if(value.amount_paid == null && value.due_amount == null){
+                        amount_paid = 0;
+                        due_amount = value.grand_total;
+                        status = 'Waiting Payment';
+                    }else if(value.due_amount == 0){
+                        amount_paid = value.amount_paid;
+                        due_amount =  value.due_amount;
+                        status = 'Paid'; 
+                    }else{
+                        amount_paid = value.amount_paid;
+                        due_amount =  value.due_amount;
+                        status = 'Paid'; 
+                    }
+                    
+                    let tr="<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+value.amount_paid+"</td><td>"+value.due_amount+"</td><td>"+status+"</td></tr>";
+                    $("#example1").append(tr);
+                });
+                $('#example1').DataTable();
             }
         });
     }
