@@ -38,7 +38,6 @@ class PurchaseController extends Controller
         $purchase= $response->data->purchase;
         $purchase_detail = $response->data->purchase_detail;
         $purchase_payments = $response->data->purchase_payments;
-        // dd($purchase_payment);exit;
 
         // get show chart account data
         $request = Request::create('/api/bsc_show_chart_account_paid_from_to', 'GET');
@@ -47,7 +46,6 @@ class PurchaseController extends Controller
         $res = app()->handle($request);
         $show_chart_account = json_decode($res->getContent()); // convert to json object
         $show_chart_accounts = $show_chart_account->data;
-        // dd($show_chart_accounts);exit;
 
         return view('bsc.purchase.purchase.purchase_view',compact('purchase','purchase_detail','show_chart_accounts','purchase_payments'));
     }
@@ -197,7 +195,7 @@ class PurchaseController extends Controller
         $response = json_decode($res->getContent()); // convert to json object
         $purchase= $response->data->purchase;
         $purchase_detail = $response->data->purchase_detail;
-        //dd($purchase);exit;
+        
         return view('bsc.purchase.purchase.purchase_edit',compact('suppliers','account_payables','products','purchase','purchase_detail'));
     }
 
@@ -219,7 +217,7 @@ class PurchaseController extends Controller
         $status=$request->status==null ? 0 : 1;
         $itemDetail=$request->itemDetail;
     
-        //dd($itemDetail);exit;
+        
         $data = array(
             'ma_supplier_id'=>$ma_suppier_id,
             'billing_date'=>$billing_date,
@@ -233,15 +231,14 @@ class PurchaseController extends Controller
             'status'=>$status,
             'purchase_details'=>$itemDetail
         );
-        // dd($data);exit;
 
         $request = Request::create('api/bsc_purchases/'.$id, 'PUT',$data);
         $request->headers->set('Accept', 'application/json');
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
-        //dd($res);
+        
         $response = json_decode($res->getContent()); // convert to json object
         return response()->json(['updateds'=>$response]);
-        //return $response;
+        
     }
 }

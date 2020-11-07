@@ -103,6 +103,19 @@ function ShowPassword(){
         e.type="password";
     }
 }
+function hrms_date(){
+    $( "input[type='date']" ).each(function( index,item ) {
+        console.log(item);
+        $(item).attr("type","text");
+        // $(item).attr("autocomplete","off");
+        value=$(item).attr('value');
+        $(item).css("cursor","pointer");
+        $(item).datetimepicker({
+            format: 'L'
+        });
+        $(item).attr('value',value);
+      });
+}
 // All Employee
     // Add modal Employee in View
         function hrms_modal_add_edit_employee(id=-1){
@@ -121,7 +134,7 @@ function ShowPassword(){
                     $('#modal_employee').modal('show');
                     $("#emDepartment").select2();
                     $("#emPosition").select2();
-                    date();
+                    hrms_date();
                 }
             });
         }
@@ -220,7 +233,7 @@ function ShowPassword(){
                 success: function (data) {
                     document.getElementById('modal').innerHTML = data;
                     $('#modal_holiday').modal('show');
-                    date();
+                    hrms_date();
                 }
             });
         }
@@ -349,7 +362,7 @@ function ShowPassword(){
                     document.getElementById('modal').innerHTML = data;
                     $('#modal_overtime').modal('show');
                     time();
-                    date();
+                    hrms_date();
                     $('#emName').select2();
                 }
             });
@@ -468,7 +481,6 @@ function ShowPassword(){
     }
     function hrms_insert_update_training_list(){
         if(!hrms_validation('fm_training_list')){return;}
-        if(!hrms_validation_employee_training('tbl_training_list_add')){return;}
         if(check_session()){return;}
         Swal.fire({ //get from sweetalert function
                     title: 'Are you sure?',
@@ -499,7 +511,7 @@ function ShowPassword(){
                                     $('#modal_training_list').modal('hide');
                                 }else{
                                         $.each(data.error, function(key,value){
-                                            $('#'+key).addClass('is-invalid');
+                                            $('#'+key).removeClass('is-invalid');
                                         });
                                 }
 
@@ -1080,7 +1092,67 @@ function preview_image(event) {
     }
     reader.readAsDataURL(event.target.files[0]);
 }
-
+// Mission and Outside
+// modal add and edit mission
+    function hrms_modal_add_edit_mission(id=-1){
+        if(check_session()){
+        return;
+        }
+        $.ajax({
+            type: 'GET',
+            url: 'hrm_modal_add_edit_missionoutside',
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                id: id,
+            },
+            success: function (data) {
+                document.getElementById('modal').innerHTML = data;
+                $('#modal_missionoutside').modal('show');
+                hrms_date();
+            }
+        });
+    }
+// end modal add and edit mission
+// insert or update mission
+    function hrms_insert_update_mission(){
+        if(!hrms_validation('fm_missionoutside')){return;}
+        hrms_validation_employee_training('tbl_mission');
+        if(check_session()){return;}
+        Swal.fire({ //get from sweetalert function
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Save it!'
+                }).then((result) => {
+                    if (result.value) {
+                        var form_element=document.getElementById('fm_missionoutside');
+                        var form_data = new FormData(form_element);
+                        var request = new XMLHttpRequest();
+                        request.open("POST","hrm_insertmissionoutside");
+                        request.onreadystatechange=function(){
+                            if(this.readyState==4 && this.status==200){
+                                console.log(this.responseText);
+                                data=JSON.parse(this.responseText);
+                                if($.isEmptyObject(data.error)){
+                                    setTimeout(function () { go_to('hrm_mission_outside'); }, 300);
+                                    hrms_notification(data.success);
+                                    // alert(data.success);
+                                    $('#modal_missionoutside').modal('hide');
+                                }else{
+                                    $.each(data.error, function(key,value){
+                                        $('#'+key).removeClass('d-none');
+                                    });
+                                }
+                            }
+                        }
+                        request.send(form_data);
+                    }
+                })
+    }
+// end insert or update mission
 // Search mission by month
 function hrms_search_mission(route){
     if(check_session()){
@@ -1109,6 +1181,11 @@ function hrms_search_mission(route){
         }
     });
 }
+
+
+
+
+// end mission and outside
 
 function my_overtime_search(){
     var month=document.getElementById('otMonth').value;

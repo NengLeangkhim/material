@@ -37,7 +37,7 @@ class HrmPerformScheduleController extends Controller
                 $get_plan = ModelHrmPlan::hrm_get_plan_detial_ceo();// get query from performance plan
                 $staff = ModelHrmPermission::hrm_get_staff_ceo();// get query from staff table
             }else if(perms::check_perm_module('HRM_09070105')){//permission each departement
-                $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_top(); //query policy user
+                $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_top(); //query 
               //  $schedule = ModelHrmPerformSchedule::hrm_get_tbl_schedule_dept($dept);
                 $get_plan = ModelHrmPlan::hrm_get_plan_detial_ceo();// get query from performance plan
                 $staff = ModelHrmPermission::hrm_get_staff_dept($dept);// get query from staff table
@@ -59,26 +59,6 @@ class HrmPerformScheduleController extends Controller
                         <td>'.$row->staff_name.'</td>
                         <td class="text-center">';
                 $table_perm.='<a href="#" id="'.$row->id.'" title="List Schedule" onclick=\'go_to("/hrm_performance_staff_schedule/list?plan_id='.$row->id.'")\' class="ListSchedulePeroformance"><i class="fas fa-list"></i></a>';
-                // $table_perm.= '
-                //     <div class="dropdown">
-                //         <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                //             Action
-                //         </button>
-                //         <div class="dropdown-menu hrm_dropdown-menu"aria-labelledby="dropdownMenuButton">';
-                // if(perms::check_perm_module('HRM_09070103')){// Permission View
-                //     $table_perm.= '<button type="button" id="'.$row->id.'" class="dropdown-item hrm_item hrm_view_perform_schedule">View</button>';
-                // }
-                // if(perms::check_perm_module('HRM_09070102')){// Permission Update
-                //     $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'hrm_update_perform_schedule('.$row->id.','.$row->hr_performance_plan_id.')\' class="dropdown-item hrm_item hrm_update_perform_schedule">Update</button>';
-                // }
-                // if(perms::check_perm_module('HRM_09070201')){// Permission Add Staff Follow Up
-                //     if($row->ma_user_id == $id_user){ //can add follow up only by ur schedule
-                //         if(is_null($row->deleted) || $row->deleted=='t'){// check condition if the schedule already manager follow up so the users can't follow up anymore
-                //             $table_perm.= '<button type="button" id="'.$row->id.'" onclick=\'go_to("/hrm_performance_follow_up/modal/action?add='.$row->id.'")\' class="dropdown-item hrm_item hrm_add_perform_follow_up">Add Follow Up</button>';
-                //         }
-                //     }
-                // }</div></div>
-                
                 $table_perm.= ' 
                             </td>
                         </tr>';
@@ -95,13 +75,7 @@ class HrmPerformScheduleController extends Controller
          if (session_status() == PHP_SESSION_NONE) {
              session_start();
              }
-            if(perms::check_perm_module('HRM_09070101')){//module code list data tables id=142
-            // $id = $_GET['id'];
-            //  $plan_get= ModelHrmPlan::hrm_get_plan($id); 
-            //  foreach($plan_get as $row){
-            //      $id_plan = $row->id;
-            //  }
-            //  $plan_detail_get = ModelHrmPlanDetail::hrm_get_plan_detail($id_plan);
+            if(perms::check_perm_module('HRM_09070101')){//module code 
             $get_plan = ModelHrmPlan::hrm_get_plan_detial_ceo();// get query from performance plan
             $staff = ModelHrmPermission::hrm_get_staff_ceo();// get query from staff table
              return view('hrms/performance/performance_schedule/HrmModalActionSchedule', ['plan'=>$get_plan,'staff'=>$staff]); 
@@ -123,10 +97,6 @@ class HrmPerformScheduleController extends Controller
                 $dept = $row->ma_company_dept_id;
                 $id_user = $row->id;
             }
-            // $plan = ModelHrmPlan::hrm_get_plan($id);
-            // foreach($plan as $row){
-            //     $id_plan = $row->id;
-            // }
             if(perms::check_perm_module('HRM_09070104')){ //permission check for CEO and Admin
                 $schedule = ModelHrmPerformSchedule::hrm_list_schedule_top($id); //query 
                 $plan=ModelHrmPlan::hrm_get_plan($id);// get query from performance plan
@@ -135,7 +105,7 @@ class HrmPerformScheduleController extends Controller
                 $staff = ModelHrmPermission::hrm_get_staff_ceo();// get query from staff table
                 
             }else if(perms::check_perm_module('HRM_09070105')){//permission each departement
-                $schedule = ModelHrmPerformSchedule::hrm_list_schedule_top($id); //query policy user
+                $schedule = ModelHrmPerformSchedule::hrm_list_schedule_top($id); //query 
                 $plan=ModelHrmPlan::hrm_get_plan($id);// get query from performance plan
                 $plan_detail_get = ModelHrmPlanDetail::hrm_get_plan_detail($id);
                 $get_plan = ModelHrmPlan::hrm_get_plan_detial_ceo();// get query from performance plan
@@ -291,11 +261,12 @@ class HrmPerformScheduleController extends Controller
             $id_schedule= $request->schedule_plan_id;
             $staff_id = $request->staff_schedule;
             $plan_detail_id = $request->plan_detail_schedule;
+            $plan_id = $request->plan_schedule;
             $start = $request->staff_from_schedule;
             $to = $request->staff_to_schedule;
             $cmt = $request->staff_comment_schedule;
             $insert_schedule = ModelHrmPerformSchedule::hrm_update_perform_schedule($id_schedule,$userid,$staff_id,$start,$to,$plan_detail_id,$cmt,'t'); //Update data
-            return response()->json(['success'=>'Record is successfully Updated']);
+            return response()->json(['success'=>$plan_id]);
             }else{
                 return view('no_perms');
             }

@@ -24,7 +24,7 @@ class HrmPlanDetailController extends Controller
                 $plan_detail = ModelHrmPlanDetail::hrm_get_tbl_perform_plan_detail_dept($userid);
             //permission check for CEO and Admin
             if(perms::check_perm_module('HRM_09070408')){//code for view all plan
-                $plan_detail = ModelHrmPlanDetail::hrm_get_tbl_perform_plan_detail();  //query policy user
+                $plan_detail = ModelHrmPlanDetail::hrm_get_tbl_perform_plan_detail();  //query
             }
             $i=1;// variable increase number for table
             $table_perm= '<tbody>';
@@ -191,7 +191,7 @@ class HrmPlanDetailController extends Controller
             $task = $request->plan_detail_task;
             $parent = $request->plan_detail_parent;
             $insert_plan_datail = ModelHrmPlanDetail::hrm_update_perform_plan_detail($id_plan_detail,$userid,$id_plan,$p_detail_name,$task,$start,$to,$parent,'t'); //insert data
-            return response()->json(['success'=>'Record is successfully update']);
+            return response()->json(['success'=>$id_plan]);
         }
     }
     // function View Plan Detail//

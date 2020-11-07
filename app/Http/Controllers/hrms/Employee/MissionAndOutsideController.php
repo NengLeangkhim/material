@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\model\hrms\employee;
 use App\Http\Controllers\perms;
 use App\model\hrms\employee\Employee as EmployeeEmployee;
+use Illuminate\Validation\Validator;
 
 class MissionAndOutsideController extends Controller
 {
@@ -40,11 +41,21 @@ class MissionAndOutsideController extends Controller
     }
 
     // Insert Mission
-    function InsertUpdateMissionOutside(){
+    function InsertUpdateMissionOutside(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if (perms::check_perm_module('HRM_090104')) {
+            $validation=\Validator::make($request->all(),[
+                'type'=>'required',
+                'missioncheck'=>'required',
+                'from_date'=>'required','date',
+                'to_date'=>'required','date',
+                'shift'=>'required'
+            ]);
+            if($validation->fails()){
+                return response()->json(['error'=>$validation->getMessageBag()->toArray()]);
+            }
             $ms = new MissionAndOutSide();
             $userid = $_SESSION['userid'];
             $id=$_POST['id'];
