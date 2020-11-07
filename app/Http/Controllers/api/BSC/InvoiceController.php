@@ -137,8 +137,10 @@ class InvoiceController extends Controller
             if($invoice_details != ""){
                 foreach ($invoice_details as $key => $i_detail) {
                     // var_dump($i_detail[stock_product_id]);
-                    $sql_invoice_detail = "insert_bsc_invoice_detail($invoice_id, $i_detail[ma_customer_branch_id], $i_detail[stock_product_id], '$i_detail[description]', $i_detail[qty], $i_detail[unit_price], $i_detail[discount], $i_detail[bsc_account_charts_id], $i_detail[tax], $i_detail[amount], $request->create_by, '$i_detail[description]', $i_detail[bsc_account_charts_id], 1, 0, $i_detail[amount])";
-                    $q_invoice_detail=DB::select("SELECT ".$sql_invoice_detail);
+                    if($i_detail['bsc_account_charts_id'] != null){
+                        $sql_invoice_detail = "insert_bsc_invoice_detail($invoice_id, $i_detail[ma_customer_branch_id], $i_detail[stock_product_id], '$i_detail[description]', $i_detail[qty], $i_detail[unit_price], $i_detail[discount], $i_detail[bsc_account_charts_id], $i_detail[tax], $i_detail[amount], $request->create_by, '$i_detail[description]', $i_detail[bsc_account_charts_id], 1, 0, $i_detail[amount])";
+                        $q_invoice_detail=DB::select("SELECT ".$sql_invoice_detail);
+                    }
                 }
             }
 
@@ -246,8 +248,10 @@ class InvoiceController extends Controller
             if($invoice_details != ""){
                 foreach ($invoice_details as $key => $i_detail) {
                     // var_dump($i_detail['stock_product_id']);
-                    $sql_invoice_detail = "update_bsc_invoice_detail($i_detail[bsc_invoice_detail_id], $request->update_by, $id, $i_detail[ma_customer_branch_id], $i_detail[stock_product_id], '$i_detail[description]', $i_detail[qty], $i_detail[unit_price], $i_detail[discount], $i_detail[bsc_account_charts_id], $i_detail[tax], $i_detail[amount], '$request->status', '$i_detail[description]', $i_detail[bsc_account_charts_id], 1, 0, $i_detail[amount], '$request->status')";
-                    $q_invoice_detail=DB::select("SELECT ".$sql_invoice_detail);
+                    if($i_detail['bsc_account_charts_id'] != null){
+                        $sql_invoice_detail = "update_bsc_invoice_detail($i_detail[bsc_invoice_detail_id], $request->update_by, $id, $i_detail[ma_customer_branch_id], $i_detail[stock_product_id], '$i_detail[description]', $i_detail[qty], $i_detail[unit_price], $i_detail[discount], $i_detail[bsc_account_charts_id], $i_detail[tax], $i_detail[amount], '$request->status', '$i_detail[description]', $i_detail[bsc_account_charts_id], 1, 0, $i_detail[amount], '$request->status')";
+                        $q_invoice_detail=DB::select("SELECT ".$sql_invoice_detail);
+                    }
                 }
             }
 
