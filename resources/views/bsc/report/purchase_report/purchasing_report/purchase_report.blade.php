@@ -171,7 +171,7 @@
                         status = 'Paid'; 
                     }
                     
-                    let tr="<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+value.amount_paid+"</td><td>"+value.due_amount+"</td><td>"+status+"</td></tr>";
+                    let tr="<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+amount_paid+"</td><td>"+due_amount+"</td><td>"+status+"</td></tr>";
                     $("#example1").append(tr);
                 });
                 $('#example1').DataTable();
