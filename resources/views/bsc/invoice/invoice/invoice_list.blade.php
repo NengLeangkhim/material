@@ -84,8 +84,8 @@
                                                             <td>{{ $due_amount }}</td>
                                                             <td>{{ $status }}</td>
                                                             <td style="text-align-last: center">
-                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>
+                                                                <a title="View" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a> --}}
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -138,7 +138,7 @@
                                                                         <td>{{ $due_amount }}</td>
                                                                         <td style="text-align-last: center">
                                                                             <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>
+                                                                            {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a> --}}
                                                                         </td>
                                                                     </tr>
                                                                 @endforeach
@@ -183,7 +183,7 @@
                                                                             <td>{{ $invoice->due_amount }}</td>
                                                                             <td style="text-align-last: center">
                                                                                 <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>
+                                                                                {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a> --}}
                                                                             </td>
                                                                         </tr>
                                                                     @endif

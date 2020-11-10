@@ -24,7 +24,12 @@
                             </div>
                                 <select class="form-control select2 input_required" name="account_type" id="account_type">
                                     @foreach ($ch_accounts as $ch_account)
-                                        <option value="{{ $ch_account->id }}">{{ $ch_account->name_en }}</option>
+                                        <option
+                                            @if ($invoices->chart_account_id==$ch_account->id)
+                                                selected
+                                            @endif
+                                            value="{{ $ch_account->id }}">{{ $ch_account->name_en }}
+                                        </option>
                                     @endforeach>
                                 </select>
                         </div>
@@ -64,7 +69,12 @@
                                             <select class="form-control select2 input_required reference" name="reference" id="reference" onchange="myFunction(this)">
                                                 <option value="" selected hidden disabled>select item</option>
                                                 @foreach ($qoutes as $qoute)
-                                                    <option value="{{ $qoute->quote_number }}" data-crm_quote_id="{{ $qoute->id }}">{{ $qoute->quote_number }}</option>
+                                                    <option
+                                                    @if ($invoices->reference==$qoute->quote_number)
+                                                        selected
+                                                    @endif
+                                                        value="{{ $qoute->quote_number }}" data-crm_quote_id="{{ $qoute->id }}">{{ $qoute->quote_number }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -77,7 +87,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="customer" id="customer" data-customer_id placeholder="Customer" readonly>
+                                            <input type="text" class="form-control" name="customer" id="customer" data-customer_id placeholder="Customer" value="{{ $invoices->customer_name }}" readonly>
                                         </div>
                                     </div>
 
@@ -91,7 +101,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input type="date" class="form-control input_required"  name="billing_date" id="billing_date">
+                                            <input type="date" class="form-control input_required"  name="billing_date" id="billing_date" value="{{ $edate=explode(" ",$invoices->billing_date)[0] }}">
                                         </div>
                                     </div>
 
@@ -101,7 +111,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input type="number" class="form-control input_required" name="deposit_on_payment" id="deposit_on_payment" placeholder="Deposit on payment">
+                                            <input type="number" class="form-control input_required" name="deposit_on_payment" id="deposit_on_payment" placeholder="Deposit on payment" value="{{ $invoices->deposit_on_payment }}">
                                         </div>
                                     </div>
                                 </div>
@@ -114,7 +124,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input type="date" class="form-control input_required" name="due_date" id="due_date">
+                                            <input type="date" class="form-control input_required" name="due_date" id="due_date" value="{{ $edate=explode(" ",$invoices->due_date)[0] }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -123,7 +133,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input type="date" class="form-control input_required" name="effective_date" id="effective_date">
+                                            <input type="date" class="form-control input_required" name="effective_date" id="effective_date" value="{{ $edate=explode(" ",$invoices->effective_date)[0] }}">
                                         </div>
                                     </div>
                                 </div>
@@ -136,7 +146,18 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input type="date" class="form-control input_required" name="end_period_date" id="end_period_date">
+                                            <input type="date" class="form-control input_required" name="end_period_date" id="end_period_date" value="{{ $edate=explode(" ",$invoices->end_period_date)[0] }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="status">Status</label>
+                                        <div class="custom-control custom-switch">
+                                            <input
+                                            @if ($invoices->status==true)
+                                                checked
+                                            @endif
+                                                type="checkbox" class="custom-control-input" id="status" name="status" value="1">
+                                            <label class="custom-control-label" for="status"></label>
                                         </div>
                                     </div>
                                 </div>
@@ -159,7 +180,19 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-
+                                            @foreach ($invoice_details as $invoice_detail)
+                                                <tr>
+                                                    <td>{{ $invoice_detail->customer_branch_name }}</td>
+                                                    <td>{{ $invoice_detail->product_name }}</td>
+                                                    <td>{{ $invoice_detail->description }}</td>
+                                                    <td>{{ $invoice_detail->qty }}</td>
+                                                    <td>{{ $invoice_detail->unit_price }}</td>
+                                                    <td>{{ $invoice_detail->discount }}</td>
+                                                    <td>{{ $invoice_detail->chart_account_name }}</td>
+                                                    <td>{{ $invoice_detail->tax }}</td>
+                                                    <td>{{ $invoice_detail->customer_branch_name }}</td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

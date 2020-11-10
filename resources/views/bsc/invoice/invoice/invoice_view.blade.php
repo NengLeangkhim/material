@@ -38,7 +38,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="row">
-
+                                            <input type="hidden" id="bsc_invoice_id" value="{{ $invoices->id }}">
+                                            <input type="hidden" id="bsc_account_charts_id" value="{{ $invoices->chart_account_id }}">
                                             <div class="col-sm-12">
                                                 <p for="">Account Name : &nbsp;{{ $invoices->chart_account_name }}</p>
                                             </div>
@@ -204,6 +205,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" id="due_amount" name="due_amount" value="{{ $invoices->due_amount==null ? $invoices->grand_total : $invoices->due_amount }}">
                         <div class="col-md-12">
                             <form action="">
                                 @csrf
@@ -217,7 +219,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control input_required"  name="amount_paid" id="amount_paid" placeholder="Amount Paid">
+                                                    <input type="text" class="form-control input_required item_unit_price"  name="amount_paid" id="amount_paid" placeholder="Amount Paid">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -314,9 +316,9 @@ $('.detail').click(function(e)
         $("#amount_paid").on("keyup", function()
         {
             let amount_paid=parseFloat($('#amount_paid').val());
-            let grand_total=parseFloat($('#grand_total').val());
-            if(amount_paid > grand_total){
-                sweetalert('error','Amount Paid is bigger than Grand Total');
+            let due_amount=parseFloat($('#due_amount').val());
+            if(amount_paid > due_amount){
+                sweetalert('error','Amount Paid is bigger than Due Amount or Grand Total');
                 return false;
             }
         });
@@ -325,6 +327,11 @@ $('.detail').click(function(e)
     // add payment
     function invoice_payment()
     {
+
+        let amount_paid=parseFloat($('#amount_paid').val());
+        let grand_total=parseFloat($('#grand_total').val());
+        let due_amount=parseFloat($('#due_amount').val());
+
         let num_miss = 0;
         $(".input_required").each(function(){
             if($(this).val()=="" || $(this).val()==null){ num_miss++;}
@@ -335,36 +342,46 @@ $('.detail').click(function(e)
             });
             sweetalert('error', 'Please input or select field * required');
         }else{
-            let amount_paid=parseFloat($('#amount_paid').val());
-            let grand_total=parseFloat($('#grand_total').val());
-            let due_amount=grand_total - amount_paid;
-        if(amount_paid > grand_total){
+        if(amount_paid > due_amount){
             $('#amount_paid').css('border-color', 'red');
-            sweetalert('error','Amount Paid input is bigger than Grand Total');
+            sweetalert('error','Amount Paid input is bigger than Due Amount or Grand Total');
         }else if(amount_paid == 0){
-            $('#amount_paid').css('border-color', 'red');
             sweetalert('error','Amount Paid can not input Zero');
         }else{
+            let due_amounts = (due_amount - amount_paid).toFixed(2);
+            alert(due_amounts);exit;
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
                     type:"POST",
                     url:'/bsc_invoice_payment',
                     data:{
                         _token: CSRF_TOKEN,
-                        due_amount      : due_amount,
+                        due_amount      : due_amounts,
                         amount_paid     : amount_paid,
                         grand_total     : grand_total,
                         date_paid       : $('#date_paid').val(),
                         paid_to         : $('#paid_to').val(),
-                        reference       : $('#reference').val()
+                        reference       : $('#reference').val(),
+                        bsc_invoice_id  : $('#bsc_invoice_id').val(),
+                        bsc_account_charts_id  : $('#bsc_account_charts_id').val()
+
                     },
                     dataType: "JSON",
                     success:function(data){
-
-
+                        if(data.payment.success == false){
+                            alert("fail to payment");
+                        }else{
+                            go_to('bsc_invoices');
+                        }
                     }
                 });
             }
         }
     }
+
+    // input only number & .
+    $('.item_unit_price').keypress(function(e){
+        var x = event.charCode || event.keyCode;
+        if (isNaN(String.fromCharCode(e.which)) && x!=46 || x===32 || x===13 || (x===46 && event.currentTarget.innerText.includes('.'))) e.preventDefault();
+    });
 </script>

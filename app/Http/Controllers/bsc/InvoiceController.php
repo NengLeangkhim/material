@@ -57,7 +57,7 @@ class InvoiceController extends Controller
                 $addr=DB::select("SELECT * FROM public.get_gazetteers_address('".$address."') as address");
                 $addrs=$addr[0]->address;
                 $invoices->address=$addrs;
-
+                // dd($invoices);exit;
                 //get chart account payment paid from to
                 $request = Request::create('/api/bsc_show_chart_account_paid_from_to', 'GET');
                 $request->headers->set('Accept', 'application/json');
@@ -94,13 +94,37 @@ class InvoiceController extends Controller
             session_start();
         }
         try{
+            $token = $_SESSION['token'];
             $create_by = $_SESSION['userid'];
+
             $due_amount=$request->due_amount;
             $amount_paid=$request->amount_paid;
             $grand_total=$request->grand_total;
             $date_paid=$request->date_paid;
             $paid_to=$request->paid_to;
             $reference=$request->reference;
+            $bsc_invoice_id=$request->bsc_invoice_id;
+            $bsc_account_charts_id=$request->bsc_account_charts_id;
+
+            $data=array(
+                'create_by'=>$create_by,
+                'bsc_account_charts_id'=>$bsc_account_charts_id,
+                'bsc_invoice_id'=>$bsc_invoice_id,
+                'grand_total'=>$grand_total,
+                'amount_paid'=>$amount_paid,
+                'date_paid'=>$date_paid,
+                'paid_to_chart_account_id'=>$paid_to,
+                'reference'=>$reference,
+                'due_amount'=>$due_amount,
+            );
+            // add new
+            $request = Request::create('api/bsc_invoice_payments', 'POST',$data);
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            dd($res);exit;
+            $response = json_decode($res->getContent()); // convert to json object
+            echo "success";
 
         }catch(Exception $e){
             echo $e->getMessage();
@@ -218,41 +242,7 @@ class InvoiceController extends Controller
     public function invoice_edit($id)
     {
         try{
-            // if (session_status() == PHP_SESSION_NONE) {
-            //     session_start();
-            // }
-            // $token = $_SESSION['token'];
-            // //get chart account
-            // $request = Request::create('/api/bsc_show_account_receivable', 'GET');
-            // $request->headers->set('Accept', 'application/json');
-            // $request->headers->set('Authorization', 'Bearer '.$token);
-            // $res = app()->handle($request);
-            // $ch_account = json_decode($res->getContent()); // convert to json object
-            // $ch_accounts=$ch_account->data;
 
-            // //get customer
-            // $request = Request::create('/api/bsc_show_customer', 'GET');
-            // $request->headers->set('Accept', 'application/json');
-            // $request->headers->set('Authorization', 'Bearer '.$token);
-            // $res = app()->handle($request);
-            // $customer = json_decode($res->getContent()); // convert to json object
-            // $customers=$customer->data;
-
-            // //get qoute
-            // $request = Request::create('/api/bsc_show_quote', 'GET');
-            // $request->headers->set('Accept', 'application/json');
-            // $request->headers->set('Authorization', 'Bearer '.$token);
-            // $res = app()->handle($request);
-            // $qoute = json_decode($res->getContent()); // convert to json object
-            // $qoutes=$qoute->data;
-
-            // //get customer branch
-            // $request = Request::create('/api/bsc_show_customer_branch', 'GET');
-            // $request->headers->set('Accept', 'application/json');
-            // $request->headers->set('Authorization', 'Bearer '.$token);
-            // $res = app()->handle($request);
-            // $bsc_show_customer_branch = json_decode($res->getContent()); // convert to json object
-            // $bsc_show_customer_branchs=$bsc_show_customer_branch->data;
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
@@ -289,7 +279,17 @@ class InvoiceController extends Controller
             $bsc_show_customer_branch = json_decode($res->getContent()); // convert to json object
             $bsc_show_customer_branchs=$bsc_show_customer_branch->data;
 
-            return view('bsc.invoice.invoice.invoice_edit',compact('ch_accounts','customers','qoutes','bsc_show_customer_branchs'));
+
+            $request = Request::create('/api/bsc_invoices/'.$id, 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $invoice_by_id = json_decode($res->getContent()); // convert to json object
+            $invoice_by_ids= $invoice_by_id->data;
+            $invoices=$invoice_by_ids->invoice;
+            $invoice_details=$invoice_by_ids->invoice_detail;
+            // dd($invoice_by_ids);exit;
+            return view('bsc.invoice.invoice.invoice_edit',compact('ch_accounts','customers','qoutes','bsc_show_customer_branchs','invoices','invoice_details'));
         }catch(Exception $e){
             echo $e->getMessage();
             exit;
