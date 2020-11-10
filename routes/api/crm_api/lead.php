@@ -17,7 +17,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     // get lead
     Route::get('/getlead','api\crm\LeadController@getLead');
     //get lead detail
-    // Route::get('/getleadbyid/{id}','api\crm\LeadController@getleadbyid');
+    Route::get('/getleadbyid/{id}','api\crm\LeadController@getleadbyid');
     // edit lead
     Route::post('/editlead/{id}','api\crm\LeadController@editlead');
     // get brand by lead id
@@ -25,15 +25,15 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     // get brand by lead id
     Route::get('/getbranchbylead/{id}','api\crm\LeadController@getbranch_lead');
     // get branch by id
-    // Route::get('/getbranch/{id}','api\crm\LeadController@getbranchById');
+    Route::get('/getbranch/{id}','api\crm\LeadController@getbranchById');
     // insert lead
     Route::post('/insertlead','api\crm\LeadController@insertLead');
     // Update lead
     Route::post('/updatebranch','api\crm\LeadController@updatebranch');
 });
 
-    Route::get('/getbranch/{id}','api\crm\LeadController@getbranchById');
-    Route::get('/getleadbyid/{id}','api\crm\LeadController@getleadbyid');
+    // Route::get('/getbranch/{id}','api\crm\LeadController@getbranchById');
+    // Route::get('/getleadbyid/{id}','api\crm\LeadController@getleadbyid');
 
 // get all lead source
 Route::get('/leadsource','api\crm\LeadController@getLeadSource');

@@ -54,8 +54,8 @@
                                                             <tr>
                                                                 <td>{{$val2->quote_number}}</td>
                                                                 <td>{{$val2->subject}}</td>
-                                                                <td>{{$val2->crm_lead->customer_name_en}}</td>
-                                                                <td>{{$val2->crm_lead->customer_name_en}}</td> <!-- Contact Name -->
+                                                                {{-- <td>{{$val2->crm_lead->customer_name_en}}</td> --}}
+                                                                {{-- <td>{{$val2->crm_lead->customer_name_en}}</td> <!-- Contact Name --> --}}
                                                                 <td>
                                                                     <?php $sumTotal = 0;?>
                                                                     @foreach ($val2->crm_stock as $key3=>$val3)
