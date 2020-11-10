@@ -22,46 +22,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="col-12">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <label for="">Payment Date : </label>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label for="">02-10-2020</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="row">
-                                        <div class="col-sm-5">
-                                            <label for="">Reference : </label>
-                                        </div>
-                                        <div class="col-sm-7">
-                                            <label for="">Touch Rith</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="row">
-                                        <div class="col-sm-5">
-                                            <label for="">Customer : </label>
-                                        </div>
-                                        <div class="col-sm-7">
-                                            <label for="">Ly Hong</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
                             <thead>
                                 <tr>
                                     <th>Customer Branch</th>
@@ -70,29 +32,25 @@
                                     <th>Due Date</th>
                                     <th>Total </th>
                                     <th>Payment Amount</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Phnom Penh</td>
-                                    <td>ISP</td>
-                                    <td>02-10-2020</td>
-                                    <td>02-10-2020</td>
-                                    <td>200$</td>
-                                    <td>180$</td>
-                                </tr>
+                                @foreach ($invoices as $invoice)
+                                    <tr>
+                                        <td>{{ $invoice->customer_name }}</td>
+                                        <td>{{ $invoice->invoice_number }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($invoice->create_date)) }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($invoice->due_date)) }}</td>
+                                        <td>{{ $invoice->total }}</td>
+                                        <td>{{ $invoice->amount_paid }}</td>
+                                        <td style="text-align-last: center">
+                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
-                        </table><br/>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-9">
-
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="">Total : </label>180$
-                                </div>
-                            </div>
-                        </div>
+                        </table>
                     </div>
                 </div>
             </div>

@@ -52,12 +52,13 @@ class InvoiceController extends Controller
                 $invoice_by_ids= $invoice_by_id->data;
                 $invoices=$invoice_by_ids->invoice;
                 $invoice_details=$invoice_by_ids->invoice_detail;
+                $invoice_payments=$invoice_by_ids->invoice_payments;
                 $address=$invoices->address;
                 // function get address
                 $addr=DB::select("SELECT * FROM public.get_gazetteers_address('".$address."') as address");
                 $addrs=$addr[0]->address;
                 $invoices->address=$addrs;
-                // dd($invoices);exit;
+                // dd($invoice_by_ids);exit;
                 //get chart account payment paid from to
                 $request = Request::create('/api/bsc_show_chart_account_paid_from_to', 'GET');
                 $request->headers->set('Accept', 'application/json');
@@ -66,7 +67,7 @@ class InvoiceController extends Controller
                 $ch_account = json_decode($res->getContent()); // convert to json object
                 $ch_accounts=$ch_account->data;
 
-                return view('bsc.invoice.invoice.invoice_view',compact('invoices','invoice_details','ch_accounts'));
+                return view('bsc.invoice.invoice.invoice_view',compact('invoices','invoice_details','ch_accounts','invoice_payments'));
             }else{
                 return view('no_perms');
             }
@@ -79,8 +80,20 @@ class InvoiceController extends Controller
     // view payment
     public function view_payment()
     {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         try{
-            return view('bsc.invoice.invoice_payment.view_payment');
+
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/bsc_invoices', 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $invoice = json_decode($res->getContent()); // convert to json object
+            $invoices=$invoice->data;
+            // dd($invoices);exit;
+            return view('bsc.invoice.invoice_payment.view_payment',compact('invoices'));
         }catch(Exception $e){
             echo $e->getMessage();
             exit;
@@ -122,9 +135,8 @@ class InvoiceController extends Controller
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
-            dd($res);exit;
             $response = json_decode($res->getContent()); // convert to json object
-            echo "success";
+            return response()->json(['payment'=>$response]);
 
         }catch(Exception $e){
             echo $e->getMessage();
