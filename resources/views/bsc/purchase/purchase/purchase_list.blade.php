@@ -25,7 +25,7 @@
                                   <a class="nav-link active" id="home-tab" data-toggle="tab" href="#all" role="tab" aria-controls="home" aria-selected="true">All</a>
                                 </li>
                                 <li class="nav-item">
-                                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#awaiting" role="tab" aria-controls="profile" aria-selected="false">Awaiting Payment</a>
+                                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#awaiting" role="tab" aria-controls="profile" aria-selected="false">Waiting Payment</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#paid" role="tab" aria-controls="profile" aria-selected="false">Paid</a>
@@ -61,7 +61,11 @@
                                                             if($purchase->amount_paid == null && $purchase->due_amount == null){
                                                                 $amount_paid = 0;
                                                                 $due_amount = $purchase->grand_total;
-                                                                $status = 'Awaiting Payment';
+                                                                $status = 'Waiting Payment';
+                                                            }else if ($purchase->due_amount == 0) {
+                                                                $amount_paid = $purchase->amount_paid;
+                                                                $due_amount = $purchase->due_amount;
+                                                                $status = 'Paid'; 
                                                             }else{
                                                                 $amount_paid = $purchase->amount_paid;
                                                                 $due_amount = $purchase->due_amount;

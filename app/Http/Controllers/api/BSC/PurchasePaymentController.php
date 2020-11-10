@@ -86,7 +86,19 @@ class PurchasePaymentController extends Controller
      */
     public function show($id)
     {
-        //
+        $purchase_payments = DB::table('bsc_payment')
+        ->select('bsc_payment.*','bsc_invoice.billing_date','bsc_invoice.due_date','bsc_invoice.invoice_number','bsc_invoice.reference','bsc_invoice.grand_total','ma_supplier.name as supplier_name')
+        ->leftJoin('bsc_invoice','bsc_payment.bsc_invoice_id','=','bsc_invoice.id')
+        ->leftJoin('ma_supplier','bsc_invoice.ma_supplier_id','=','ma_supplier.id')
+        ->where([
+            ['bsc_payment.bsc_invoice_id','=',$id],
+            ['bsc_payment.outbound','=','t'],
+            ['bsc_payment.status','=','t'],
+            ['bsc_payment.is_deleted','=','f']
+        ])
+        ->get();
+
+        return $this->sendResponse($purchase_payments, 'Purchase payment retrieved successfully.');
     }
 
     /**
