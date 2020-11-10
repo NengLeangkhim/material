@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\api\crm;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\model\api\crm\ModelCrmQuote as Quote;
@@ -9,6 +8,7 @@ use App\model\api\crm\ModelCrmQuoteBranch as QuoteBranch;
 use App\model\api\crm\ModelCrmQuoteBranchDetail as QuoteBranchDetail;
 use App\Http\Resources\QuoteResource;
 use App\Http\Resources\QuoteBranchResource;
+use App\Http\Resources\QuoteBranchDetailResource;
 use App\model\api\crm\ModelCrmQuoteStatusType as QuoteStatusType;
 use App\Http\Resources\StockResource;
 
@@ -63,7 +63,6 @@ class QuoteController extends Controller
         try {
 
             $createby = $request->input('create_by');
-
             // insert to crm_quote
             $insert_quote = DB::select(
                 'SELECT public."insert_crm_quote"(?, ?, ?, ?, ?, ?)',
@@ -173,7 +172,7 @@ class QuoteController extends Controller
 
     public function getStockByBranchId($id){
         $product= QuoteBranchDetail::where('crm_quote_branch_id',$id)->orderBy('id','asc')->get();
-        return QuoteBranchResource::collection($product);
+        return QuoteBranchDetailResource::collection($product);
     }
 
     public function editQuote(Request $request){
@@ -274,4 +273,7 @@ class QuoteController extends Controller
             return json_encode(["update"=>"fail","result"=> $e->getMessage()]);
         }
     }
+
+
+
 }
