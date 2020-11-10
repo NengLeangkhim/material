@@ -167,6 +167,72 @@ class InvoiceController extends Controller
         }
     }
 
+    // invoice report
+    public function invoice_report()
+    {
+        try{
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+
+            $request = Request::create('/api/bsc_invoices', 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $invoice = json_decode($res->getContent()); // convert to json object
+            $invoices=$invoice->data;
+            // dd($invoices);exit;
+            return view('bsc.report.invoice_report.invoice_report',compact('invoices'));
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
+        }
+    }
+
+    // invoice report data when submit
+    public function invoice_report_get_data(Request $request)
+    {
+        try{
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+
+            $billing_date_from = $request->billing_date_from;
+            $billing_date_to = $request->billing_date_to;
+            $due_date_from = $request->due_date_from;
+            $due_date_to = $request->due_date_to;
+            $effective_date_from = $request->effective_date_from;
+            $effective_date_to = $request->effective_date_to;
+            $end_period_date_from = $request->end_period_date_from;
+            $end_period_date_to = $request->end_period_date_to;
+            $payment_status = $request->payment_status;
+
+            $data=array(
+                'billing_date_from'=> $billing_date_from,
+                'billing_date_to'=> $billing_date_to,
+                'due_date_from'=> $due_date_from,
+                'due_date_to'=> $due_date_to,
+                'effective_date_from'=> $effective_date_from,
+                'effective_date_to'=> $effective_date_to,
+                'end_period_date_from'=> $end_period_date_from,
+                'end_period_date_to'=> $end_period_date_to,
+            );
+
+            $request = Request::create('api/bsc_show_invoice_filter', 'GET',$data);
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $response = json_decode($res->getContent()); // convert to json object
+            $invoices=$response->data;
+            return json_encode($invoices);
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
+        }
+    }
+
     // show form create invoice
     public function form()
     {

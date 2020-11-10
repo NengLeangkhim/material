@@ -46,7 +46,7 @@
                                             <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
                                                 <thead>
                                                     <tr>
-                                                        <th>Number</th>
+                                                        <th>Invoice Number</th>
                                                         <th>Reference</th>
                                                         <th>Customer</th>
                                                         <th>Date</th>
@@ -104,7 +104,7 @@
                                                         <table id="example2" class="table table-bordered table-striped" style="white-space: nowrap">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Number</th>
+                                                                    <th>Invoice Number</th>
                                                                     <th>Reference</th>
                                                                     <th>Customer</th>
                                                                     <th>Date</th>
@@ -160,7 +160,7 @@
                                                         <table id="example3" class="table table-bordered table-striped">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Number</th>
+                                                                    <th>Invoice Number</th>
                                                                     <th>Reference</th>
                                                                     <th>Customer</th>
                                                                     <th>Date</th>
