@@ -36,7 +36,6 @@
                                                     <th style="color: #FFFFFF">Quote Number</th>
                                                     <th style="color: #FFFFFF">Subject</th>
                                                     <th style="color: #FFFFFF">Lead Name</th>
-                                                    <th style="color: #FFFFFF">Contact Name</th>
                                                     <th style="color: #FFFFFF">Total</th>
                                                     <th style="color: #FFFFFF">Quote Stage</th>
                                                     <th style="color: #FFFFFF">Assigned To </th>
@@ -55,7 +54,6 @@
                                                                 <td>{{$val2->quote_number}}</td>
                                                                 <td>{{$val2->subject}}</td>
                                                                 <td>{{$val2->crm_lead->customer_name_en}}</td>
-                                                                <td>{{$val2->crm_lead->customer_name_en}}</td> <!-- Contact Name -->
                                                                 <td>
                                                                     <?php $sumTotal = 0;?>
                                                                     @foreach ($val2->crm_stock as $key3=>$val3)
@@ -78,7 +76,14 @@
                                                                     {{ $GrandTT = number_format($sumTotal, 2, '.', '')." $" }}
 
                                                                 </td>
-                                                                <td>@foreach ($val2->quote_stage as $key3=>$val3) {{$val3->name_en}} @endforeach </td>
+                                                                <td>
+                                                                    <?php $num = count($val2->quote_stage); ?>
+                                                                    @if( $num > 0)
+                                                                        {{
+                                                                            $val2->quote_stage[$num-1]->name_en
+                                                                        }}
+                                                                    @endif
+                                                                </td>
                                                                 <td>{{$val2->assign_to->first_name_en}}</td>
                                                                 <td>Not Yet Data</td>
                                                                 <td>{{$val2->due_date}}</td>

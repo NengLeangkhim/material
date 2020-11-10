@@ -475,7 +475,7 @@
                         </div>
                             <div class="card card-primary">
                                 <div class="card-header" style="background:#1fa8e0">
-                                    <h3 class="card-title">Address Detail</h3>
+                                    <h3 class="card-title"> Install Address </h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
@@ -640,7 +640,7 @@
                                                                 </div>
                                                                 <div class="custom-control custom-checkbox">
                                                                     <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="checksurvey" >
-                                                                    <label for="customCheckbox2"  class="custom-control-label">Survey Or Not</label>
+                                                                    <label for="customCheckbox2"  class="custom-control-label">Survey Or Don't Survey</label>
                                                                 </div>                                                                
                                                             </div>
                                                         </div>

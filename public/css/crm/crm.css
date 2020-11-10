@@ -8,8 +8,8 @@
         height: 400px;
         width: 100%;
     }
-    
-    
+
+
     #floating-panel {
         position: absolute;
         top: 10px;
@@ -23,7 +23,7 @@
         line-height: 30px;
         padding-left: 10px;
     }
-    
+
     #lat {
         margin-left: 1em;
         margin-top: 2em;
@@ -35,7 +35,7 @@
         border: 3px solid #cccccc;
         border-radius: 5px;
     }
-    
+
     #long {
         margin-top: 2em;
         height: 25px;
@@ -58,7 +58,7 @@
     /* end declear style for google map */
 
 
-    .thead-item-list{ 
+    .thead-item-list{
         border: 1px solid #cccccc;
         background-color: whitesmoke;
     }
@@ -105,14 +105,14 @@
 
     .btn-list-item:hover {
         color: #0d2135;
-    }   
+    }
 
     /* .table td, .table th {
         padding: 0.3rem !important;
         border-top: none !important;
     } */
 
- 
+
 
     .td-total-quote{
         padding: 10px;
@@ -122,7 +122,7 @@
 
     .title-total-quote {
         border-radius: 5px;
-        border: 1px solid rgb(144, 141, 141); 
+        border: 1px solid rgb(144, 141, 141);
         padding: 10px;
     }
 
@@ -148,7 +148,7 @@
     }
 
     .txtbox-quote {
-        width: 100%; 
+        width: 100%;
         border-radius: 3px;
         border: 1px solid #d7cfcf;
     }
@@ -176,6 +176,5 @@
 
     /* @media only screen and (max-width: 1200px) {
 
-        
+
     } */
-    

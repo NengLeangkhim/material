@@ -3,7 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\User;
+use App\model\api\crm\Crmlead as Crmlead;
 class QuoteBranchResource extends JsonResource
 {
     /**
@@ -14,6 +15,23 @@ class QuoteBranchResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+
+
+        $createby =User::find($this->create_by,[
+            'id',
+            'first_name_en',
+            'last_name_en',
+            'first_name_kh',
+            'last_name_kh'
+        ]);
+
+        // return parent::toArray($request);
+        return [
+            "id"=>$this->id,
+            "crm_quote_id"=>$this->crm_quote_id,
+            "crm_lead_branch_id"=>$this->crm_lead_branch_id,
+            "create_by"=>$createby,
+            "create_date"=>$this->create_date
+        ];
     }
 }
