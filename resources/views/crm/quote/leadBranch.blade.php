@@ -56,7 +56,7 @@
                                                                     <td>
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                                <button type="button" class="btn btn-sm btn-success"  onclick="editQuoteBranch('{{ $val['branch_id'] }}');">
+                                                                                <button type="button" class="btn btn-sm btn-success"  onclick="goto_Action('/quote/edit/branch','{{ $val['quote_id'] }}', '{{ $val['quote_branch_id'] }}');">
                                                                                     Edit
                                                                                 </button>
                                                                             </div>

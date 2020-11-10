@@ -52,7 +52,8 @@ Route::post('/quote','api\crm\QuoteController@store');
 */
 
 // edit quote
-Route::put('/quote','api\crm\QuoteController@store');
+Route::put('/quote','api\crm\QuoteController@editQuote');
+Route::put('/quotebranch','api\crm\QuoteController@editQuoteBranch');
 
 
 /*

@@ -181,7 +181,6 @@ class QuoteController extends Controller
             $update_by = $request->input('update_by');
             $quote_id = $request->input('quote_id');
             // update quote
-            echo 'hello woddldsd'; exit;
             DB::select(
                 'SELECT public."update_crm_quote"(?, ?, ?, ?, ?, ?, ?, ?)',
                 array(

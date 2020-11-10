@@ -25,6 +25,7 @@ class QuoteController extends Controller
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         $listQuote = json_decode($res->getContent());
+        // dd($listQuote);
         return view('crm/quote/quoteShow',compact('listQuote'));
     }
 
@@ -290,12 +291,14 @@ class QuoteController extends Controller
                 foreach ($getQuoteDetail as $val) {
                     foreach ($val as $val2){
                         // use this api to get branch detail by branch id
+                        $data['quote_branch_id'] = $val2->id;  // get quote_branch_id
+
                         $request2 = Request::create('/api/getbranch/'.$val2->crm_lead_branch_id.'', 'GET');   // this use branch id to get branch deetail
                         $request2->headers->set('Accept', 'application/json');
                         $request2->headers->set('Authorization', 'Bearer '.$token);
                         $res2 = app()->handle($request2);
                         $getBranchDetail = json_decode($res2->getContent());
-                        $data['branch_id'] = $getBranchDetail->data[0]->branch_id;
+                        $data['crm_branch_id'] = $getBranchDetail->data[0]->branch_id;
                         $data['branch_name'] = $getBranchDetail->data[0]->company_en;
 
 
@@ -315,12 +318,14 @@ class QuoteController extends Controller
                         $data['quote_due_date'] = $response3->data->due_date;
                         $data['quote_number'] = $response3->data->quote_number;
                         $data['quote_subject'] = $response3->data->subject;
+                        $data['lead_id'] = $getBranchDetail->data[0]->lead_id;
 
                         //use this api to get lead detail
                         $request4 = Request::create('/api/getleadbyid/'.$getBranchDetail->data[0]->lead_id.'', 'GET');
                         $response4 = json_decode(Route::dispatch($request4)->getContent());
                         $data['lead_number'] = $response4->data[0]->lead_number;
                         $data['lead_name'] = $response4->data[0]->customer_name_en;
+
                         $dataQuoteLead[] = $data;
                     }
                 }
@@ -357,7 +362,7 @@ class QuoteController extends Controller
             // $request->merge([
             //     // 'update_by' => $create_by]
             // );
-            $request->merge(['update_by' => 247]);
+            $request->merge(['update_by' => $create_by]);
 
             // $validator = \Validator::make($request->all());
             // dump($validator);
@@ -370,10 +375,11 @@ class QuoteController extends Controller
             // // $res = app()->handle($request);
             // // $response = json_decode($res->getContent());
 
-            $request = Request::create('/api/quote', 'PUT',$request->all());
+            $request = Request::create('/api/quote', 'PUT', $request->all());
             $response = json_decode(Route::dispatch($request)->getContent());
 
-            if($response->insert=='success'){
+            // dump($response);
+            if($response->udpate=='success'){
                 return response()->json(['success'=>$response]);
             }else{
                 return response()->json(['error'=>$response]);
@@ -382,7 +388,35 @@ class QuoteController extends Controller
 
 
 
+    //function to list data to form edit quote branch
+    public static function quoteEditBranch(Request $request){
+            if(isset($_GET['id_']) && isset($_GET['id_2']) ){
+                $quoteId = $_GET['id_'];
+                $quoteBranchId = $_GET['id_2'];
 
+                $request1 = Request::create('/api/quotebranch/'.$quoteId.'', 'GET');  // get list quote by quote id
+                $response1 = json_decode(Route::dispatch($request1)->getContent());
+                // dd($response1->data);
+                foreach($response1->data as $key1=>$val1){
+                    if($val1->id == $quoteBranchId){
+                        $data['lead_branch_id'] = $val1->crm_lead_branch_id;
+                    }
+                }
+                    $request2 = Request::create('/api/getbranch/'.$data['lead_branch_id'].'', 'GET');  // get list lead branch detail by branch id
+                    $response2 = json_decode(Route::dispatch($request2)->getContent());
+                    $data['lead_branch_name'] = $response2->data[0]->company_en;
+
+                    $request3 = Request::create('/api/quotebranch/detail/'.$quoteBranchId.'', 'GET');  // get list quote branch detail by quote branch id
+                    $response3 = json_decode(Route::dispatch($request3)->getContent());
+                    // dump($response3);
+
+                // dump($response2->data[0]->company_en);
+                return view('crm/quote/quoteBranchEdit',compact('quoteId','data','response3'));
+
+            }else{
+                return redirect()->action('crm\QuoteController@showQuoteList');
+            }
+    }
 
 
 
