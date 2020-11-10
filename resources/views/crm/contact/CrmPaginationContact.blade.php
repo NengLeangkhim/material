@@ -27,7 +27,7 @@
               {{-- <a href="#" class="btn btn-sm bg-teal">
                 <i class="fas fa-comments"></i>
               </a> --}}
-              <a href="#" class="btn btn-sm btn-primary CrmContactDetail" onclick="go_to('/contact/detail?id={{$row->id}}')" ​value="/contact/detail">
+              <a href="javascript:void(0);" class="btn btn-sm btn-primary CrmContactDetail" onclick="go_to('/contact/detail?id={{$row->id}}')">
                 <i class="fas fa-user"></i> View Profile
               </a>
             </div>

@@ -49,13 +49,13 @@ class ModelCrmOrganize extends Model
         JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
         join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
         join crm_lead on crm_lead.id= lb.crm_lead_id
-        join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
-        join crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
-        JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
-        join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
-        join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
-        join stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=true and ld.is_deleted=false and ls.id=2");
+        left join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
+        left join crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
+        left JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
+        left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
+        left join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
+        left join stock_product sp on sp.id= clitem.stock_product_id
+        where ld.status=true and ld.is_deleted=false and ls.sequence=1");
     }
 
     //get organize by id
@@ -105,12 +105,12 @@ class ModelCrmOrganize extends Model
         JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
         join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
         join crm_lead on crm_lead.id= lb.crm_lead_id
-        join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
-        join crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
-        JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
-        join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
-        join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
-        join stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=true and ld.is_deleted=false and lb.id=$id and ls.id=2");
+        left join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
+        left join crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
+        left JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
+        left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
+        left join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
+        left join stock_product sp on sp.id= clitem.stock_product_id
+        where ld.status=true and ld.is_deleted=false and lb.id=$id and ls.sequence=1");
     }
 }

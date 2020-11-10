@@ -759,30 +759,34 @@ function Crm_delete(id,route,goto,alert) {
 //========================>> Start-Quote-CRM JS <<=========================================================
 
         // function template to get route & id to show data
-        function goto_Action(route,id){
-          $(".content-wrapper").html(spinner());
+        function goto_Action(route,id,id2,id3){
+          $(".content-wrapper").html();
           if(check_session()){
               return;
           }
           if(route.length<=0){
-              $(".content-wrapper").html(jnot_found());
+              $(".content-wrapper").html();
               return;
           }
           if(route=='/'){
-              $(".content-wrapper").html(jnot_found());
+              $(".content-wrapper").html();
               return;
           }
           $.ajax({
-              type: 'GET',
-              url:route,
-              data:{id_:id},
-              success:function(data){
-                  $(".content-wrapper").show();
-                  $(".content-wrapper").html(data);
-              },
-              error:function(){
-                $(".content-wrapper").html(jerror());
-              }
+                type: 'GET',
+                url:route,
+                data:{
+                    id_:id,
+                    id_2:id2,
+                    id_3:id3,
+                    },
+                success:function(data){
+                    $(".content-wrapper").show();
+                    $(".content-wrapper").html(data);
+                },
+                error:function(){
+                    $(".content-wrapper").html(jerror());
+                }
           });
         }
 
@@ -830,7 +834,6 @@ function Crm_delete(id,route,goto,alert) {
                     // console.log(this.responseText);
                     data = (this.responseText);
                     data = JSON.parse(this.responseText);
-
                 }
             }
             x.open("GET", url + "?" + id_ , true);
@@ -1172,36 +1175,6 @@ function Crm_delete(id,route,goto,alert) {
                               });
                         }
 
-
-                        // check if validate give empty qty field
-                        // if(key.slice(0, -2) == 'qty'){
-                        //     $.each($("input[name='qty[]'"),function(index,value){
-                        //         if($(this).val().length <= 0 ){
-                        //             $(this).addClass("is-invalid");
-                        //         }
-                        //     });
-                        // }
-
-                        // // check if validate give empty price field
-                        // if(key.slice(0, -2) == 'price'){
-                        //   $.each($("input[name='price[]'"),function(index,value){
-                        //       if($(this).val().length <= 0 ){
-                        //           $(this).addClass("is-invalid");
-                        //       }
-                        //   });
-                        // }
-
-                        // // check if validate give empty discount field
-                        // if(key.slice(0, -2) == 'discount'){
-                        //   $.each($("input[name='discount[]'"),function(index,value){
-                        //       if($(this).val().length <= 0 ){
-                        //           $(this).addClass("is-invalid");
-                        //       }
-                        //   });
-                        // }
-
-
-
                     });
 
                   }
@@ -1217,9 +1190,79 @@ function Crm_delete(id,route,goto,alert) {
 
 
 
+    //function click to edit quote lead
+    function editQouteLead(qouteId){
+        $.ajax({
+            type: 'GET',
+            url: '/quote/edit/lead',
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data:{
+                qouteId:qouteId,
+            },
+            success:function(data)
+            {
+                console.log(data);
+                $(".content-wrapper").html(data);
+                // hideloading();
+
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+    //function click to update quote lead
+    $(document).on('click', '#btnUpdateQuoteLead', function (){
+            var quoteId = $('#quote_id').val();
+            $.ajax({
+                method: 'PUT',
+                url: '/quote/edit/lead/update',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:
+                    $('#frmEditQuoteLead').serialize(),
+                success:function(data)
+                {
+                    console.log(data);
+                    if(data.success){
+                        sweetalert('success','Update successed!');
+                        setTimeout(function(){
+                            goto_Action('/quote/detail', quoteId);
+                        },2000);
+                    }else{
+                        sweetalert('error','Update failed!');
+                    }
+
+                },
+                error: function(data) {
+                    console.log(data);
+                    sweetalert('warning','Data not accessing to server!');
+                }
+            });
+    });
+
+
+
+
+
 
 
 
 
 
 //===========================>> End-Quote-CRM JS <<========================================================
+
+// =========================  set schedule of branch ================================
+
+// });
+
+
+// ========================= End set schedule of branch ================================

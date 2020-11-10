@@ -50,6 +50,15 @@ class ModelCrmQuote extends Model
 
 
 
+    public static function getQuoteStatus(){
+        $r = DB::table('crm_quote_status_type')
+            ->where('status','=','t')
+            ->where('is_deleted','=','f')
+            ->get();
+        return $r;
+    }
+
+
 
 
 

@@ -81,7 +81,14 @@
                             {{-- <dt class="col-sm-4 dt">Convert To BSC </dt> --}}
                                 {{-- <dd class="col-sm-8 dd">{{$listQuoteDetail->data->subject}}</dd> --}}
                             <dt class="col-sm-4 dt">Quote Stage </dt>
-                                <dd class="col-sm-8 dd">{{$listQuoteDetail->data->quote_stage[0]->name_en}}</dd>
+                                <dd class="col-sm-8 dd">
+                                    <?php $num = count($listQuoteDetail->data->quote_stage); ?>
+                                    @if( $num > 0)
+                                        {{
+                                            $listQuoteDetail->data->quote_stage[$num-1]->name_en
+                                        }}
+                                    @endif
+                                </dd>
                             <dt class="col-sm-4 dt">Create Date</dt>
                                         <?php
                                             $date = date_create($listQuoteDetail->data->create_date);
