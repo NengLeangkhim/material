@@ -141,10 +141,10 @@
                                             <th style="width: 120px">Quantity</th>
                                             <th class="td-item-quote">List Price($)</th>
                                             <th class="td-item-quote">Total($)</th>
-
                                         </tr>
                                 </thead>
                                 <tbody>
+
                                         <tr id=" +i+ " class="tr-quote-row row-quote-item" data-id="row_ +i+ ">
                                             <td class="td-item-quote-name">
                                                 <div class=" form-group">
@@ -210,6 +210,7 @@
                                             </td>
 
                                         </tr>
+
                                 </tbody>
                             </table>
                         </dl>
