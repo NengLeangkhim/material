@@ -24,11 +24,11 @@ class InvoiceController extends Controller
             ['bsc_invoice.status','=','t'],
             ['bsc_invoice.is_deleted','=','f']
         ])->get();
-        
+
         $arr_invoice = [];
         if(count($invoices) > 0){
             foreach ($invoices as $key => $invoice) {
-                $invoice_payments = DB::select("SELECT 
+                $invoice_payments = DB::select("SELECT
                                                     SUM(amount_paid) AS amount_paid
                                                 FROM
                                                     bsc_payment
@@ -46,7 +46,7 @@ class InvoiceController extends Controller
                 ])
                 ->orderBy('id','desc')
                 ->first();
-                
+
                 $amount_paid = "";
                 if(count($invoice_payments)>0){
                     foreach ($invoice_payments as $kkey => $invoice_payment) {
@@ -103,8 +103,8 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        DB::beginTransaction();
-        try {
+        // DB::beginTransaction();
+        // try {
             $input = $request->all();
 
             $validator = Validator::make($input, [
@@ -146,13 +146,13 @@ class InvoiceController extends Controller
 
             // insert_bsc_invoice_detail(bsc_invoice_id, ma_customer_branch_id, stock_product_id, description, qty, unit_price, discount, bsc_account_charts_id, tax, amount, create_by, description_journal, bsc_account_charts_id_in_journal, bsc_journal_type_id, debit_amount, credit_amount);
 
-            DB::commit();
-            return $this->sendResponse($q_invoice, 'Invoice created successfully.');
+        //     DB::commit();
+        //     return $this->sendResponse($q_invoice, 'Invoice created successfully.');
 
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            return $this->sendError("Try again!");
-        }
+        // } catch (\Throwable $th) {
+        //     DB::rollBack();
+        //     return $this->sendError("Try again!");
+        // }
     }
 
     /**
@@ -164,12 +164,11 @@ class InvoiceController extends Controller
     public function show($id)
     {
         $invoice = DB::table('bsc_invoice')
-        ->select('bsc_invoice.*','bsc_account_charts.name_en as chart_account_name','ma_customer.name as customer_name','ma_customer.balance as customer_balance','ma_customer.invoice_balance as customer_invoice_balance','bsc_payment.amount_paid','bsc_payment.date_paid','bsc_payment.due_amount')
+        ->select('bsc_invoice.*','bsc_account_charts.name_en as chart_account_name','bsc_account_charts.id as chart_account_id','ma_customer.name as customer_name','ma_customer.balance as customer_balance','ma_customer.invoice_balance as customer_invoice_balance')
         ->leftJoin('bsc_invoice_bsc_journal_rel','bsc_invoice.id','=','bsc_invoice_bsc_journal_rel.bsc_invoice_id')
         ->leftJoin('bsc_journal','bsc_invoice_bsc_journal_rel.bsc_journal_id','=','bsc_journal.id')
         ->leftJoin('bsc_account_charts','bsc_journal.bsc_account_charts_id','=','bsc_account_charts.id')
         ->leftJoin('ma_customer','bsc_invoice.ma_customer_id','=','ma_customer.id')
-        ->leftJoin('bsc_payment','bsc_invoice.id','=','bsc_payment.bsc_invoice_id')
         ->where([
             ['bsc_invoice.id','=',$id],
             ['bsc_invoice.invoice_type','=','invoice'],
@@ -190,7 +189,16 @@ class InvoiceController extends Controller
             ['bsc_invoice_detail.is_deleted','=','f']
         ])->get();
 
-        $arr_invoice = compact('invoice','invoice_detail');
+        $invoice_payments = DB::table('bsc_payment')
+        ->where([
+            ['bsc_payment.bsc_invoice_id','=',$id],
+            ['bsc_payment.inbound','=','t'],
+            ['bsc_payment.status','=','t'],
+            ['bsc_payment.is_deleted','=','f']
+        ])
+        ->get();
+
+        $arr_invoice = compact('invoice','invoice_detail','invoice_payments');
 
         return $this->sendResponse($arr_invoice, 'Invoice retrieved successfully.');
     }
@@ -317,7 +325,7 @@ class InvoiceController extends Controller
 
         return $this->sendResponse($quotes, 'Quote retrieved successfully.');
     }
-    
+
     public function show_quote_single(Request $request, $id)
     {
         $quotes = DB::table('crm_quote')
@@ -329,7 +337,7 @@ class InvoiceController extends Controller
             ['crm_quote.status','=','t'],
             ['crm_quote.is_deleted','=','f']
         ])->get();
-        
+
         $quote_branchs = DB::table('crm_quote_branch')
         ->where([
             ['crm_quote_id','=',$id],
@@ -395,13 +403,13 @@ class InvoiceController extends Controller
             $sql_where .= "AND bsc_invoice.effective_date >= '$request->effective_date_from'";
         }
         if($request->effective_date_to != ""){
-            $sql_where .= "AND bsc_invoice.effective_date >= '$request->effective_date_to'";
+            $sql_where .= "AND bsc_invoice.effective_date <= '$request->effective_date_to'";
         }
         if($request->end_period_date_from != ""){
             $sql_where .= "AND bsc_invoice.end_period_date >= '$request->end_period_date_from'";
         }
         if($request->end_period_date_to != ""){
-            $sql_where .= "AND bsc_invoice.end_period_date >= '$request->end_period_date_to'";
+            $sql_where .= "AND bsc_invoice.end_period_date <= '$request->end_period_date_to'";
         }
 
         $sql_invoices = "SELECT 

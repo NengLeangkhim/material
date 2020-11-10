@@ -25,8 +25,8 @@ class QuoteController extends Controller
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         $listQuote = json_decode($res->getContent());
-        // dd($listQuote);
-        return view('crm/quote/quoteShow',compact('listQuote'));
+        dd($listQuote);
+        // return view('crm/quote/quoteShow',compact('listQuote'));
     }
 
     // function to get show qoute detail
@@ -36,7 +36,6 @@ class QuoteController extends Controller
         }
         if(isset($_GET['id_'])){
             $quoId = $_GET['id_'];
-
             $token = $_SESSION['token'];
             $request = Request::create('/api/quote/'.$quoId.'', 'GET');
             $request->headers->set('Accept', 'application/json');
@@ -53,7 +52,7 @@ class QuoteController extends Controller
                 echo 'emtry';
             }
 
-            return view('crm/quote/qouteShowDetail', compact('listQuoteDetail','address','product'));
+            return view('crm/quote/qouteShowDetail', compact('listQuoteDetail','product'));
 
 
         }

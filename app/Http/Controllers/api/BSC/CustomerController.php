@@ -74,7 +74,7 @@ class CustomerController extends Controller
             // insert_ma_customer_branch("nma_customer_id" int4, "nbranch" varchar, "ncreate_by" int4, "nconnection_id" varchar, "ncrm_lead_branch_id" int4, "ncrm_lead_address_id" int4)
 
             $q_customer_branch=DB::select("SELECT ".$sql_customer_branch);
-            
+
             DB::commit();
             return $this->sendResponse($q_customer, 'Customer created successfully.');
 
@@ -156,8 +156,6 @@ class CustomerController extends Controller
     public function show_lead_single(Request $request, $id)
     {
         $leads = DB::table('crm_lead')
-        ->select('crm_lead.*','ma_customer.deposit','ma_customer.balance','ma_customer.invoice_balance','ma_customer.vat_type','ma_customer.vat_number')
-        ->leftJoin('ma_customer','crm_lead.id','=','ma_customer.crm_lead_id')
         ->where([
             ['crm_lead.id','=',$id],
             ['crm_lead.status','=','t'],
