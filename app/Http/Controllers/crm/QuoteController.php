@@ -36,7 +36,6 @@ class QuoteController extends Controller
         }
         if(isset($_GET['id_'])){
             $quoId = $_GET['id_'];
-
             $token = $_SESSION['token'];
             $request = Request::create('/api/quote/'.$quoId.'', 'GET');
             $request->headers->set('Accept', 'application/json');
@@ -53,7 +52,7 @@ class QuoteController extends Controller
                 echo 'emtry';
             }
 
-            return view('crm/quote/qouteShowDetail', compact('listQuoteDetail','address','product'));
+            return view('crm/quote/qouteShowDetail', compact('listQuoteDetail','product'));
 
 
         }
