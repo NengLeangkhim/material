@@ -69,7 +69,7 @@
                                                             }else{
                                                                 $amount_paid = $purchase->amount_paid;
                                                                 $due_amount = $purchase->due_amount;
-                                                                $status = 'Paid'; 
+                                                                $status = 'Waiting Payment'; 
                                                             }
                                                         @endphp
                                                         <tr>

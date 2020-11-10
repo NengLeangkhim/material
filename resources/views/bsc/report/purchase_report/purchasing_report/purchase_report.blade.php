@@ -50,7 +50,6 @@
                                         <span class="input-group-text"><i class="fas fa-building"></i></span>
                                     </div>
                                     <select class="form-control input_required" name="payment_status" id="payment_status">
-                                        {{-- <option selected hidden disabled>select item</option> --}}
                                         <option value="1" selected>All</option>
                                         <option value="2">Waiting Payment</option>
                                         <option value="3">Paid</option>
@@ -93,7 +92,7 @@
                                                 }else{
                                                     $amount_paid = $purchase->amount_paid;
                                                     $due_amount = $purchase->due_amount;
-                                                    $status = 'Paid'; 
+                                                    $status = 'Waiting Payment'; 
                                                 }
                                             @endphp
                                             <tr>
@@ -149,9 +148,10 @@
             },
             dataType:"JSON",
             success:function(data){
+                
                 $("#example1").DataTable().destroy();
                 $("#example1 tbody").empty();
-                
+                let tr = "";
                 $.each(data, function(i, value) {
                     let amount_paid = 0;
                     let due_amount = 0;
@@ -168,12 +168,23 @@
                     }else{
                         amount_paid = value.amount_paid;
                         due_amount =  value.due_amount;
-                        status = 'Paid'; 
+                        status = 'Waiting Payment'; 
                     }
-                    
-                    let tr="<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+amount_paid+"</td><td>"+due_amount+"</td><td>"+status+"</td></tr>";
-                    $("#example1").append(tr);
+                    if(payment_status == '2'){
+                        if(value.due_amount == null || value.due_amount != 0){
+
+                            tr += "<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+amount_paid+"</td><td>"+due_amount+"</td><td>"+status+"</td></tr>";
+                        }
+                    }else if(payment_status == '3'){
+                        if(value.due_amount == 0 && value.due_amount != null){
+
+                            tr += "<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+amount_paid+"</td><td>"+due_amount+"</td><td>"+status+"</td></tr>";
+                        }
+                    }else{
+                        tr += "<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+amount_paid+"</td><td>"+due_amount+"</td><td>"+status+"</td></tr>";
+                    }
                 });
+                $("#example1").append(tr);
                 $('#example1').DataTable();
             }
         });
