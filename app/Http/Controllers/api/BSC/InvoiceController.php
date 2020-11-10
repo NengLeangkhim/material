@@ -403,13 +403,13 @@ class InvoiceController extends Controller
             $sql_where .= "AND bsc_invoice.effective_date >= '$request->effective_date_from'";
         }
         if($request->effective_date_to != ""){
-            $sql_where .= "AND bsc_invoice.effective_date >= '$request->effective_date_to'";
+            $sql_where .= "AND bsc_invoice.effective_date <= '$request->effective_date_to'";
         }
         if($request->end_period_date_from != ""){
             $sql_where .= "AND bsc_invoice.end_period_date >= '$request->end_period_date_from'";
         }
         if($request->end_period_date_to != ""){
-            $sql_where .= "AND bsc_invoice.end_period_date >= '$request->end_period_date_to'";
+            $sql_where .= "AND bsc_invoice.end_period_date <= '$request->end_period_date_to'";
         }
 
         $sql_invoices = "SELECT 
