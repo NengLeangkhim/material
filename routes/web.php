@@ -117,6 +117,11 @@ Route::get('/quote/add/listAssignTo','crm\QuoteController@staffAssignQuote'); //
 Route::post('/quote/save','crm\QuoteController@saveQuote'); // sumit quote data to database api
 
 
+Route::get('/quote/edit/lead','crm\QuoteController@quoteEditLead'); // go to edit quote lead
+Route::put('/quote/edit/lead/update','crm\QuoteController@quoteEditLeadUpdate'); // go to submit quote lead edit
+
+
+
 // end quote
 
 
@@ -714,7 +719,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 ////// Performane Manager Follow Up
     /// Index manager Follow up
     Route::get('/hrm_performance_follow_up_manager','hrms\performance\HrmManagerFollowUpController@HrmIndexManagerFollowUp');
-    
+
     /// List manager Follow up
     Route::get('/hrm_performance_follow_up_manager/list','hrms\performance\HrmManagerFollowUpController@HrmListManagerFollowUp');
 

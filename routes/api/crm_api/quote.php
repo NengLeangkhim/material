@@ -61,3 +61,6 @@ Route::put('/quote','api\crm\QuoteController@store');
 
 // delete quote
 Route::delete('/quote/{id}','api\crm\QuoteController@destroy');
+
+
+Route::get('/preview-quote','api\crm\QuoteController@preview');
