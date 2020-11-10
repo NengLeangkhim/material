@@ -26,28 +26,30 @@
                         <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
                             <thead>
                                 <tr>
-                                    <th>Customer Branch</th>
-                                    <th>Invoice</th>
+                                    <th>Number</th>
+                                    <th>Reference</th>
+                                    <th>Customer</th>
                                     <th>Date</th>
                                     <th>Due Date</th>
-                                    <th>Total </th>
-                                    <th>Payment Amount</th>
-                                    <th>Action</th>
+                                    <th>Paid</th>
+                                    <th>Due</th>
+                                    <th>Detail</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($invoices as $invoice)
-                                    <tr>
-                                        <td>{{ $invoice->customer_name }}</td>
-                                        <td>{{ $invoice->invoice_number }}</td>
-                                        <td>{{ date('d-m-Y', strtotime($invoice->create_date)) }}</td>
-                                        <td>{{ date('d-m-Y', strtotime($invoice->due_date)) }}</td>
-                                        <td>{{ $invoice->total }}</td>
-                                        <td>{{ $invoice->amount_paid }}</td>
-                                        <td style="text-align-last: center">
-                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>{{ $invoice->invoice_number }}</td>
+                                            <td>{{ $invoice->reference }}</td>
+                                            <td>{{ $invoice->customer_name }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
+                                            <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
+                                            <td>{{ $invoice->amount_paid }}</td>
+                                            <td>{{ $invoice->due_amount }}</td>
+                                            <td style="text-align-last: center">
+                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view_detail/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>
+                                            </td>
+                                        </tr>
                                 @endforeach
                             </tbody>
                         </table>

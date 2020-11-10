@@ -80,10 +80,11 @@ class InvoiceController extends Controller
     // view payment
     public function view_payment()
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+
         try{
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
 
             $token = $_SESSION['token'];
             $request = Request::create('/api/bsc_invoices', 'GET');
@@ -97,6 +98,28 @@ class InvoiceController extends Controller
         }catch(Exception $e){
             echo $e->getMessage();
             exit;
+        }
+    }
+
+    //view payement detail
+    public function view_payment_detail($id)
+    {
+        try{
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/bsc_invoice_payments/'.$id, 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $view_payment_detail = json_decode($res->getContent()); // convert to json object
+            $view_payment_details= $view_payment_detail->data;
+            // dd($view_payment_details);exit;
+            return view('bsc.invoice.invoice_payment.view_payment_detail',compact('view_payment_details'));
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
         }
     }
 
