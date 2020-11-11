@@ -247,11 +247,12 @@ class LeadController extends Controller
         if(perms::check_perm_module('CRM_020501')){ // top managment
             $lead = Lead::getLead(); // all lead 
             return GetLead::Collection($lead);        
-            // dd($userid);  
+            // dd("top");  
         }
         else if (perms::check_perm_module('CRM_020509')) { // fro staff (Model and Leadlist by user)
             $lead = Lead::getLeadbyassginto($userid); //  lead by assigned to
             return GetLead::Collection($lead);
+            // dd
         
         }
         else
@@ -280,7 +281,7 @@ class LeadController extends Controller
         $return=json_decode($return,true);
         $userid=$return["original"]['id'];
         
-    if(perms::check_perm_module('CRM_0210')){ // for top managment
+    if(perms::check_perm_module('CRM_021003')){ // for top managment
         $branch_id = Lead::getbranch_lead($id);
         return GetLeadBranch::Collection($branch_id);
     }

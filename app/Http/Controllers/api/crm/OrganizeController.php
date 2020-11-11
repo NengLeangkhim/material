@@ -5,14 +5,33 @@ namespace App\Http\Controllers\api\crm;
 use App\model\api\crm\Crmlead;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\perms;
 use DB;
 use  App\model\api\crm\ModelCrmOrganize as Organize;
 class OrganizeController extends Controller
 {
     //get organize all
-    function index(){
-        $organ = Organize::getOrganize();
-        return json_encode(["data"=>$organ]);
+    public function index(){
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+        // dd($userid);
+        if(perms::check_perm_module('CRM_020301')){ // for top managment (Organisations List)
+            $organ = Organize::getOrganize();
+            return json_encode(["data"=>$organ]);
+          
+        }
+        else if (perms::check_perm_module('CRM_02030101')) { // for staff (Model  name Get Branch by user)
+            $organ = Organize::getOrganizebyassigto($userid);
+            return json_encode(["data"=>$organ]);
+            // dd("staff");
+        }
+        else
+        {
+            return view('no_perms');
+        }
+        
     }
 
 
