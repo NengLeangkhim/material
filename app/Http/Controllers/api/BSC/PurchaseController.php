@@ -322,26 +322,46 @@ class PurchaseController extends Controller
 
     public function show_chart_account_paid_from_to(Request $request)
     {
-        $paid_from_to = DB::table('bsc_account_charts')
-        ->whereIn('bsc_account_type_id',[1,2])
-        ->where([
-            ['status','=','t'],
-            ['is_deleted','=','f']
-        ])->get();
-        return $this->sendResponse($paid_from_to, 'Chart account retrieved successfully.');
+        $account_types = DB::select("SELECT
+                                    bsc_account_charts.bsc_account_type_id,
+                                    bsc_account_type.name_en AS account_type_name 
+                                FROM
+                                    bsc_account_charts
+                                    LEFT JOIN bsc_account_type ON bsc_account_charts.bsc_account_type_id = bsc_account_type.id 
+                                WHERE
+                                    bsc_account_charts.bsc_account_type_id IN (1,2)
+                                    AND bsc_account_charts.status = 't' 
+                                    AND bsc_account_charts.is_deleted = 'f' 
+                                GROUP BY
+                                    bsc_account_charts.bsc_account_type_id,
+                                    bsc_account_type.name_en 
+                                ORDER BY
+                                    bsc_account_charts.bsc_account_type_id ASC
+                                ");
+
+        $arr_chart_accounts = [];
+        if(count($account_types) > 0){
+            foreach ($account_types as $key => $account_type) {
+                $paid_from_to = DB::table('bsc_account_charts')
+                ->where([
+                    ['bsc_account_type_id','=',$account_type->bsc_account_type_id],
+                    ['parent_id','<>',null],
+                    ['status','=','t'],
+                    ['is_deleted','=','f']
+                ])->get();
+                $arr_chart_accounts[$key] = [
+                    'bsc_account_type_id' => $account_type->bsc_account_type_id,
+                    'bsc_account_type_name' => $account_type->account_type_name,
+                    'paid_from_to' => $paid_from_to
+                ];
+            }
+        }
+        
+        return $this->sendResponse($arr_chart_accounts, 'Chart account retrieved successfully.');
     }
     
     public function show_purchase_filter(Request $request)
     {
-        // $purchases = DB::table('bsc_invoice')
-        // ->select('bsc_invoice.*','ma_supplier.name as supplier_name')
-        // ->leftJoin('ma_supplier','bsc_invoice.ma_supplier_id','=','ma_supplier.id')
-        // ->where([
-        //     ['bsc_invoice.invoice_type','=','purchase'],
-        //     ['bsc_invoice.status','=','t'],
-        //     ['bsc_invoice.is_deleted','=','f']
-        // ])->get();
-        
         $sql_where = "";
         if($request->billing_date_from != ""){
             $sql_where .= " AND bsc_invoice.billing_date >= '$request->billing_date_from'";
