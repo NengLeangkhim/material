@@ -179,21 +179,24 @@
                                                 </div>
                                             </div>
                                         @endforeach
+                                        
+                                        @php
+                                            $display = "";
+                                            if ($due_amount == null){
+                                                $display = "display: none";
+                                            }
+                                        @endphp
+                                        <hr class="line_in_tag_hr2">
 
-                                        @if ($due_amount != null)
-
-                                            <hr class="line_in_tag_hr2">
-
-                                            <div class="row">
-                                                <div class="col-sm-6 text_right">
-                                                    <label for="">Amount Due : </label>
-                                                </div>
-                                                <div class="col-sm-6 text_right">
-                                                    <label for="" id="due_amount">{{ $due_amount==null ? $invoices->grand_total : $due_amount }}</label>
-                                                </div>
+                                        <div class="row" style="{{ $display }}">
+                                            <div class="col-sm-6 text_right">
+                                                <label for="">Amount Due : </label>
                                             </div>
-                                            <hr class="line_in_tag_hr">
-                                        @endif
+                                            <div class="col-sm-6 text_right">
+                                                <label for="" id="due_amount">{{ $due_amount==null ? $invoices->grand_total : $due_amount }}</label>
+                                            </div>
+                                        </div>
+                                        <hr class="line_in_tag_hr" style="{{ $display }}">
                                     </div>
                                 </div>
                             </div>
