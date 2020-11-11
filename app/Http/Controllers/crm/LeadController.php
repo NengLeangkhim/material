@@ -19,7 +19,7 @@ class LeadController extends Controller
 
     // get lead by APi
     public function getlead(){
-        if(perms::check_perm_module('CRM_020501')){//module codes
+        if(perms::check_perm_module('CRM_0205')){//module codes
             $lead=ModelCrmLead::CrmGetLead();
             $result =json_decode($lead,true);
             // dd($result);

@@ -769,20 +769,25 @@ class Crmlead extends Model
             // update lead detail
             Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,$lead_status,$comment);
 
-            //insert into table crm_survey
-            if($checksurvey!=='null'){
-                // var_dump("No");
-                CrmLead::insertsurey($branch_id,$user_create);
-                return  json_encode(["update"=>'success']);
-            }
-            else
-            {
-                crmLead::updatesurey($survey_id,$branch_id,$user_create);
-                return  json_encode(["update"=>'success']);
-                // var_dump("yes");
-            }
-
-
+                $survey=DB::select("SELECT id from crm_survey where is_deleted=FALSE and status=TRUE and crm_lead_branch_id=$branch_id ");
+                // $survey=$survey[0]->id;
+                // $survey=json_decode($survey,true);
+                // dd($survey);
+                if($survey!=null && $checksurvey!=='null'){
+                    return  json_encode(["update"=>'success']);
+                }
+                elseif($survey!=null && $checksurvey=='null'){
+                    crmLead::updatesurey($survey_id,$branch_id,$user_create);
+                    return  json_encode(["update"=>'success']);
+                }
+                elseif($checksurvey=='null'){
+                    return  json_encode(["update"=>'success']);
+                }
+                else
+                {
+                    CrmLead::insertsurey($branch_id,$user_create);
+                    return  json_encode(["update"=>'success']);
+                }  
 
         }catch(Exception $e){
             return json_encode(["update"=>"fail update branch","result"=> $e->getMessage()]);

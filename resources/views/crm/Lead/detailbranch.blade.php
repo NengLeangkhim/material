@@ -51,7 +51,7 @@
                         <div class="col-md-6 " align="left" >
                         <form id="frm_Crmlbranchsurvey" method="POST">
                             @csrf                                
-                            <input type="text" class="form-control" hidden  value="{{$detailbranch[$i]['comment']}}"  name='comment' id="comment"  required>
+                            <input type="text" class="form-control" hidden  value="{{$detailbranch[$i]['comment']}}"  name='comment' id="comment"  >
                             <input type="text" hidden value="{{$detailbranch[$i]['lead_detail_id']}}" name="lead_detail_id" id="lead_detail_id">
                             <input type="text" hidden value="{{$detailbranch[$i]['branch_id']}}" name="branch_id" id="branch_id">
                             <button type="button"  class="btn btn-success btn-md"  id="btn_convert"  value="{{$detailbranch[$i]["branch_id"]}}" onclick="submit_form('api/convertbranch','frm_Crmlbranchsurvey','/lead')" >Convert</button>
@@ -125,14 +125,14 @@
                                         <dt class="col-sm-4 dt">Comment</dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["comment"]}} </dd>
                                         <?php 
-                                            if($detailbranch[$i]["possible"]!=''){
+                                            if($detailbranch[$i]["possible"]==false){
                                                 ?>
                                                     <dt class="col-sm-4 dt" hidden>Survey</dt>
                                                     <dd class="col-sm-8 dd" hidden>
                                                         {{$detailbranch[$i]["survey_status"]!=false? 'Survey':'Not yet Survey'}}
                                                     </dd>
                                                 <?php
-                                            }else {
+                                            }if($detailbranch[$i]["possible"]==null){
                                                 ?>
                                                         <dt class="col-sm-4 dt">Survey</dt>
                                                         <dd class="col-sm-8 dd">
