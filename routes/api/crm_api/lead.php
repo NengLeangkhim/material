@@ -65,7 +65,8 @@ Route::get('/honorifics','api\crm\LeadController@getHonorifics');
 // Route::get('/getbranchbylead/{id}','api\crm\LeadController@getbranch_lead');
 // get  all branch
 Route::get('/getbranch','api\crm\LeadController@getbranch');
-
+// convert branch
+Route::post('/convertbranch','api\crm\LeadController@convertbranch');
 //get survey
 Route::get('/survey','api\crm\LeadController@getsurvey');
 
@@ -82,6 +83,8 @@ Route::post('/insertscheduletype','api\crm\LeadController@insertscheduletype');
 Route::Post('/updatescheduletype','api\crm\LeadController@updatescheduletype');
 //get all schedule
 Route::get('/getschedule','api\crm\LeadController@getschedule');
+//get  schedule by id
+Route::get('/getschedule/{id}','api\crm\LeadController@getschedulebyid');
 //insert schedule
 Route::post('/insertschedule','api\crm\LeadController@insertschedule');
 //update schedule

@@ -51,7 +51,21 @@
                                                 if($branch[$i]["survey_comment"]!=null){
                                                     ?>
                                                         <tr style="">
-                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["company_en"]}}</td>
+                                                            <td style="color: #d42931 ; font-weight:bold">
+                                                                {{$branch[$i]["company_en"]}}
+                                                                <?php
+                                                                if($branch[$i]["schedule_id"]!=null){
+                                                                    ?>
+                                                                    <sup style="color: #079992"> Schedule </sup>
+                                                                    <?php
+                                                                }
+                                                                else {
+                                                                    ?>
+                                                                        <sup style="color: #079992"> NO Schedule  </sup>
+                                                                    <?php
+                                                                }
+                                                                ?>
+                                                            </td>
                                                             <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["company_kh"]}}</td>
                                                             <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["primary_email"]}}</td>
                                                             <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["primary_website"]}}</td>
@@ -66,10 +80,21 @@
                                                                         </a>      
                                                                     </div>
                                                                     <div class="col-md-6 ">
-                                                                        <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule"  id="schedule{{$branch[$i]["branch_id"]}}" data-toggle="modal" data-target="#modal-default" value="{{$branch[$i]["branch_id"]}}"  title="Set Schedule Of Branch">
-                                                                            {{-- <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule"  id="schedule"  data-toggle="modal" data-target="#modal-default" value="{{$branch[$i]["branch_id"]}}" onclick="" title="Set Schedule Of Branch"> --}}
-                                                                            <i class="fas fa-calendar-day"> </i>
-                                                                        </button>
+                                                                        <?php
+                                                                           if($branch[$i]["schedule_id"]!=null){
+                                                                                ?>
+                                                                                    <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule"  id="detailschedule{{$branch[$i]["schedule_id"]}}" value="{{$branch[$i]["schedule_id"]}}"  title="Detail Schedule Of Branch">
+                                                                                        <i class="fas fa-calendar-day"> </i>
+                                                                                    </button>
+                                                                                <?php
+                                                                           }else {
+                                                                              ?>
+                                                                                <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule"  id="schedule{{$branch[$i]["branch_id"]}}" data-toggle="modal" data-target="#modal-default" value="{{$branch[$i]["branch_id"]}}"  title="Set Schedule Of Branch">
+                                                                                    <i class="fas fa-calendar-day"> </i>
+                                                                                </button>
+                                                                              <?php
+                                                                           }
+                                                                        ?>                                                                        
                                                                     </div>
                                                                 </div>
                                                                                                                
@@ -79,7 +104,20 @@
                                                 }else {
                                                     ?>
                                                         <tr>
-                                                            <td>{{$branch[$i]["company_en"]}}</td>
+                                                            <td>{{$branch[$i]["company_en"]}}
+                                                                <?php
+                                                                if($branch[$i]["schedule_id"]!=null){
+                                                                    ?>
+                                                                    <sup style="color: #079992;font-weight:bold"> Schedule </sup>
+                                                                    <?php
+                                                                }
+                                                                else {
+                                                                    ?>
+                                                                        <sup style="color: #079992;font-weight:bold"> NO Schedule   </sup>
+                                                                    <?php
+                                                                }
+                                                                ?>
+                                                            </td>
                                                             <td>{{$branch[$i]["company_kh"]}}</td>
                                                             <td>{{$branch[$i]["primary_email"]}}</td>
                                                             <td>{{$branch[$i]["primary_website"]}}</td>
@@ -94,10 +132,21 @@
                                                                         </a>       
                                                                     </div>
                                                                     <div class="col-md-6 ">
-                                                                        <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule"  data-toggle="modal" data-target="#modal-default" id="schedule{{$branch[$i]["branch_id"]}}"   value="{{$branch[$i]["branch_id"]}}"  title="Set Schedule Of Branch">
-                                                                            {{-- <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule" id="schedule"   data-toggle="modal" data-target="#modal-default" value="{{$branch[$i]["branch_id"]}}" onclick="" title="Set Schedule Of Branch"> --}}
-                                                                            <i class="fas fa-calendar-day"> </i> 
-                                                                        </button>                     
+                                                                        <?php
+                                                                           if($branch[$i]["schedule_id"]!=null){
+                                                                                ?>
+                                                                                    <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule"  id="detailschedule{{$branch[$i]["schedule_id"]}}"  value="{{$branch[$i]["schedule_id"]}}"  title="Detail Schedule Of Branch">
+                                                                                        <i class="fas fa-calendar-day"> </i>
+                                                                                    </button>
+                                                                                <?php
+                                                                           }else {
+                                                                              ?>
+                                                                                <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule"  id="schedule{{$branch[$i]["branch_id"]}}" data-toggle="modal" data-target="#modal-default" value="{{$branch[$i]["branch_id"]}}"  title="Set Schedule Of Branch">
+                                                                                    <i class="fas fa-calendar-day"> </i>
+                                                                                </button>
+                                                                              <?php
+                                                                           }
+                                                                        ?>                         
                                                                     </div>
                                                                 </div> 
                                                             </td>
@@ -113,6 +162,8 @@
                         </div>
                     </div>
                 </div>
+                {{-- detail schedule --}}
+                <div id="view_schedule"></div>  
                 {{-- Model alert --}}
                 <div class="modal fade" id="modal-default">
                     <div class="modal-dialog">
@@ -263,14 +314,34 @@
                 "responsive": true,
                 });
             });
-              $('.schedule').each(function(){
+            // get modal add schedule 
+            $('.schedule').each(function(){
                   var id =  $(this).attr("value");
 
                 $('#schedule'+id).click(function(){
                     var id =  $(this).attr("value");
                         // alert(id);
                         $('#branchID').val(id);
-                })
+                })                
+            })
+            // Detail modal add schedule 
+            $('.detailschedule').each(function(){
+                  var id =  $(this).attr("value");
+
+                $('#detailschedule'+id).click(function(){
+                    var id =  $(this).attr("value");
+                        $.ajax({
+                            url:"detailschedule",   //Request send to "action.php page"
+                            type:"GET",    //Using of Post method for send data
+                            data:{id:id},//Send data to server
+                            success:function(data){
+                            // alert(data);
+                                $('#view_schedule').html(data);
+                                $('#crm_view_perform_schedule').modal('show');   //It will display modal on webpage   
+                            }
+                        });
+                                    // $('#branchID').val(id);
+                    })                
             })
             </script>
             

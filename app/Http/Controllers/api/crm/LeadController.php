@@ -243,10 +243,11 @@ class LeadController extends Controller
         $return=json_encode($return,true);
         $return=json_decode($return,true);
         $userid=$return["original"]['id'];
-
+        
         if(perms::check_perm_module('CRM_020501')){ // top managment
             $lead = Lead::getLead(); // all lead 
-            return GetLead::Collection($lead);          
+            return GetLead::Collection($lead);        
+            // dd($userid);  
         }
         else if (perms::check_perm_module('CRM_020509')) { // fro staff (Model and Leadlist by user)
             $lead = Lead::getLeadbyassginto($userid); //  lead by assigned to
@@ -425,6 +426,11 @@ class LeadController extends Controller
         //     return view('no_perms');
         // }
     }
+    // get schedule by id 
+    public function getschedulebyid($id){
+        $schedule = Lead::getschedulebyid($id); // all lead 
+            return GetLeadSchedule::Collection($schedule); 
+    }
     //insert schedule
     public function insertschedule(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
@@ -447,7 +453,7 @@ class LeadController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        // $userid = $_SESSION['userid'];
+        $userid = $_SESSION['userid'];
         $schedule_id=$request->input('schedule_id');
         $branch_id=$request->input('branch_id');
         $name_kh=$request->input('name_kh');
@@ -456,7 +462,7 @@ class LeadController extends Controller
         $comment=$request->input('comment');
         $priority=$request->input('priority');
         $schedule_type_id=$request->input('schedule_type_id');
-        $userid =$request->input('user_create');
+        // $userid =$request->input('user_create');
         $status =$request->input('status');
         return Lead::updateschedule($schedule_id,$branch_id,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id,$userid,$status); // return to model
     }
@@ -465,13 +471,23 @@ class LeadController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        // $userid = $_SESSION['userid'];
+        $userid = $_SESSION['userid'];
         $schedule_id=$request->input('schedule_id');
-        $schedule_type_id=$request->input('schedule_type_id');
+        $schedule_type_id_result=$request->input('schedule_type_id_result');
+        $comment_result=$request->input('comment_result');
+
+        $branch_id=$request->input('branch_id');
+        $name_kh=$request->input('name_kh');
+        $name_en=$request->input('name_en');
+        $to_do_date=$request->input('to_do_date');
         $comment=$request->input('comment');
+        $priority=$request->input('priority');
+        $schedule_type_id=$request->input('schedule_type_id');
+        // $userid =$request->input('user_create');
+        
         // $userid =$userid;
-        $userid =$request->input('user_create');
-        return Lead::insertscheduleresult($schedule_id,$schedule_type_id,$comment,$userid); // return to Model
+        // $userid =$request->input('user_create');
+        return Lead::insertscheduleresult($schedule_id,$branch_id,$schedule_type_id_result,$comment_result,$userid,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id); // return to Model
     }
     //update schedule result
     public function updatescheduleredult(Request $request){
