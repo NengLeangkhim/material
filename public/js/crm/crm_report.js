@@ -10,6 +10,9 @@ var reportLeadByStatus = () => {
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1){
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 });
@@ -62,7 +65,9 @@ var reportLeadByStatus = () => {
                         },
                     ]
                     $.each(data, function (index, value) {
-                        result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
+                        if(value.crm_lead_status_id != null){
+                            result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
+                        }
                     })
                     var data_chart =google.visualization.arrayToDataTable(result);
                     // var view = new google.visualization.DataView(data);
@@ -112,6 +117,10 @@ var reportContact = () => {
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1){
+                    $('#ContactChart').append(`<p>No Data</P>`)
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 });
@@ -178,6 +187,11 @@ var reportOrganization = () => {
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1){
+                    $('#OrganizationChart').empty()
+                    $('#OrganizationChart').append(`<p>No Data</p>`)
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 });
@@ -244,6 +258,9 @@ var reportQuoteByStatus = () => {
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1){
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 });

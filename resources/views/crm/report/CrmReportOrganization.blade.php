@@ -51,17 +51,6 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="exampleInputEmail1">Status</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-unlock"></i></span>
-                                        </div>
-                                        <select class="form-control" name="select_source" id="select_status">
-                                            <option value="0">Please Select</option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
                         </div><!--End Form Group-->
                         <div class="form-group">
@@ -168,7 +157,6 @@
     $(document).ready(function(){
         setSelectOptionData('/api/leadsource','#select_source')
         setSelectOptionData('/api/leadassig','#select_assign_to')
-        setSelectOptionData('/api/leadstatus','#select_status')
 
         var url = '/api/crm/report/organizationReportDetail'
 

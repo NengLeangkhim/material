@@ -24,13 +24,13 @@ class QuoteController extends Controller
      */
     public function index()
     {
-        $quote = Quote::orderBy('id','asc')->get();
+        $quote = Quote::orderBy('id','asc')->Where('is_deleted', false)->get();
         return QuoteResource::Collection($quote);
     }
 
     public function getquotebranch($qid){
         // return QuoteBranch::get();
-        $quote = QuoteBranch::where('crm_quote_id',$qid)->orderBy('id','asc')->get();
+        $quote = QuoteBranch::where('crm_quote_id',$qid)->andWhere('is_deleted', false)->orderBy('id','asc')->get();
         // return $quote;
         return QuoteBranchResource::Collection($quote);
     }
@@ -165,7 +165,7 @@ class QuoteController extends Controller
     }
 
     public function getStatus(){
-        $status = QuoteStatusType::get();
+        $status = QuoteStatusType::get()->Where('is_deleted', false);
 
         return json_encode($status);
     }
@@ -231,7 +231,7 @@ class QuoteController extends Controller
                 ));
 
             //product count
-
+            $stockproductid = $request->input("product");
             $price = $request->input("price");
             $qty = $request->input("qty");
             $discount = $request->input("discount");
@@ -239,12 +239,10 @@ class QuoteController extends Controller
 
 
             $quotebranchdetailid = $request->input("quote_detail_id");
-            $stockproductid = $request->input("product");
+
 
 
             $all_product = count(collect($stockproductid));
-
-
 
 
             //update product
@@ -262,6 +260,27 @@ class QuoteController extends Controller
                         't',
                         $discount[$i],
                         $discount_type[$i]
+                    ));
+            }
+            //insert product
+            $stockproductid_new = $request->input("product_new");
+            $price_new = $request->input("price_new");
+            $qty_new = $request->input("qty_new");
+            $discount_new = $request->input("discount_new");
+            $discount_type_new = $request->input("discount_type_new");
+            $all_product_new =  count(collect($stockproductid_new));
+            for ($i = 0; $i < $all_product_new; $i++)
+            {
+                DB::select(
+                    'SELECT public."insert_crm_quote_branch_detail"(?, ?, ?, ?, ?, ?, ?)',
+                    array(
+                        $quote_branch_id,
+                        $stockproductid_new[$i],
+                        $price_new[$i],
+                        $qty_new[$i],
+                        $update_by,
+                        $discount_new[$i],
+                        $discount_type_new[$i]
                     ));
             }
 

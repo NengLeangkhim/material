@@ -188,6 +188,10 @@
     </div>
 </section><!-- end section Main content -->
 <script>
+    var currentDate = new Date()
+    var currentDateString = currentDate.toJSON().split('T')[0]
+    currentDate.setDate( currentDate.getDate() - 7 );
+    var currentDateStringSub7 = currentDate.toJSON().split('T')[0]
     $(function () {
     // Chart Lead Status
     var Lead_Chart = () => {
@@ -197,10 +201,17 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+        data: {
+            'from_date' : currentDateString,
+            'to_date' : currentDateString
+        },
         //data: $('#FrmChartReport').serialize(),
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1) {
+                    return
+                }
                 google.charts.load('current',{
                     packages: ['corechart']
                 }).then(CrmLeadDrawChart(data));
@@ -253,7 +264,9 @@
                         },
                     ]
                     $.each(data, function (index, value) {
-                        result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
+                        if(value.crm_lead_status_id != null){
+                            result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
+                        }
                     })
                     var data_chart = google.visualization.arrayToDataTable(result);
                     var view = new google.visualization.DataView(data_chart);
@@ -287,10 +300,17 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+        data: {
+            'from_date' : currentDateString,
+            'to_date' : currentDateString
+        },
         //data: $('#FrmChartQuoteReport').serialize(),
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1) {
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 }).then(CrmLeadDrawChart(data));
@@ -377,10 +397,18 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+        data: {
+            'type' : 'day',
+            'from_date' : currentDateStringSub7,
+            'to_date' : currentDateString
+        },
         //data: $('#FrmChartContactReport').serialize(),
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1) {
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 }).then(CrmLeadDrawChart(data));
@@ -431,10 +459,21 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+        data : {
+            'type' : 'day',
+            'status_id' : 2,
+            'from_date' : currentDateStringSub7,
+            'to_date' : currentDateString
+        },
         //data: $('#FrmChartOrganizationReport').serialize(),
         success: function (response) {
           if (response.success == true) {
                 var data = response.data
+                if(data.length < 1) {
+                    $('#OrgChart').empty()
+                    $('#OrgChart').append(`<p>No Data</p>`)
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 }).then(CrmOrganizationDrawChart(data));
