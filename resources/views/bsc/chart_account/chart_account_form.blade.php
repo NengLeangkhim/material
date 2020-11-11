@@ -36,9 +36,17 @@
                                             </div>
                                             <select class="form-control select2" name="bsc_account_type_id" id="bsc_account_type_id" required="">
                                                 <option selected hidden disabled>select item</option>
-                                                {{-- @foreach ($ch_account_types as $ch_account_type)
-                                                    <option value="{{ $ch_account_type->id }}">{{ $ch_account_type->name_en }}</option>
-                                                @endforeach --}}
+                                                @foreach ($ch_account_types as $ch_account_type)
+                                                    <option value="" disabled>{{ $ch_account_type->bsc_account_name }}</option>
+                                                    @php
+                                                        $account_types = $ch_account_type->account_types;
+                                                    @endphp
+                                                    @if ($account_types != "")
+                                                        @foreach ($account_types as $acc_type)
+                                                            <option value="{{ $acc_type->id }}">&nbsp;&nbsp;&nbsp;{{ $acc_type->name_en }}</option>
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -61,7 +69,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <input type="text" class="form-control"  name="name_en" id="name_en" placeholder="Name English" required="">
+                                            <input type="text" class="form-control" onfocusout="myName()"  name="name_en" id="name_en" placeholder="Name English" required="">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -110,36 +118,24 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                     {{-- <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Description</label>
+                                     <div class="col-md-6 col-ms-6">
+                                        <label for="exampleInputEmail1">Currency<b class="color_label"> *</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="description" id="description" placeholder="Description">
-                                        </div>
-                                    </div> --}}
-                                </div>
-                            </div>
-                            {{-- <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Tax<b class="color_label"> *</b></label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
-                                            </div>
-                                            <select class="form-control select2" name="tax" >
+                                            <select class="form-control select2" name="currency" id="currency" required>
                                                 <option selected hidden disabled>select item</option>
-                                                <option>Exclusive</option>
-                                                <option>Inclusive</option>
-                                                <option>Oppa</option>
-                                                <option>Other</option>
+                                                @foreach ($currencys as $currency)
+                                                    <option @if ($currency->name=='USD')
+                                                        selected
+                                                    @endif value="{{ $currency->id }}">{{ $currency->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
                             <br>
                             <div class="col-md-12">
                                 <!-- <input type="hidden" name="create_by" value="11"> -->
@@ -158,8 +154,46 @@
         $('.select2').select2();
     });
 
+    //onfocusout duplicate
+    function myName()
+    {
+        let name_en=$('#name_en').val();
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type:"POST",
+                url:'/bsc_ch_account_duplicate',
+                data:{
+                    _token: CSRF_TOKEN,
+                    name_en     : name_en
+                },
+                dataType: "JSON",
+                success:function(data){
+                    if(data !=0){
+                        sweetalert('error', 'Input name english is duplicated!');
+                    }
+                }
+            });
+    }
+
     // submit on form
     $("#frm_btn_sub_add_chart_account").click(function(){
-        submit_form ('/bsc_chart_account_form_add','frm_chart_account','bsc_chart_account_list');
+        let name_en=$('#name_en').val();
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type:"POST",
+                url:'/bsc_ch_account_duplicate',
+                data:{
+                    _token: CSRF_TOKEN,
+                    name_en     : name_en
+                },
+                dataType: "JSON",
+                success:function(data){
+                    if(data !=0){
+                        sweetalert('error', 'Input name english is duplicated!');
+                    }else{
+                        submit_form ('/bsc_chart_account_form_add','frm_chart_account','bsc_chart_account_list');
+                    }
+                }
+            });
     });
 </script>

@@ -36,14 +36,14 @@
                                                 <span class="input-group-text"><i class="fab fa-tumblr"></i></span>
                                             </div>
                                             <select class="form-control select2" name="bsc_account_type_id" id="bsc_account_type_id" required="">
-                                                @foreach ($ch_account_types as $ch_account_type)
+                                                {{-- @foreach ($ch_account_types as $ch_account_type)
                                                     <option
                                                         @if ($ch_account_type->id == $ch_account_by_ids->bsc_account_type_id)
                                                             selected
                                                         @endif
                                                         value="{{ $ch_account_type->id }}">{{ $ch_account_type->name_en }}
                                                     </option>
-                                                @endforeach
+                                                @endforeach --}}
                                             </select>
                                         </div>
                                     </div>
