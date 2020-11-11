@@ -188,6 +188,7 @@
     </div>
 </section><!-- end section Main content -->
 <script>
+    $currentDate = new Date().toJSON().split('T')[0]
     $(function () {
     // Chart Lead Status
     var Lead_Chart = () => {
@@ -196,6 +197,10 @@
         type: 'GET',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            'from_date' : $currentDate,
+            'to_date' : $currentDate
         },
         //data: $('#FrmChartReport').serialize(),
         success: function (response) {
@@ -292,6 +297,10 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+        data: {
+            'from_date' : $currentDate,
+            'to_date' : $currentDate
+        },
         //data: $('#FrmChartQuoteReport').serialize(),
         success: function (response) {
             if (response.success == true) {
@@ -385,6 +394,9 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+        data: {
+            'type' : 'day'
+        },
         //data: $('#FrmChartContactReport').serialize(),
         success: function (response) {
             if (response.success == true) {
@@ -443,7 +455,7 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data : {
-            'type' : 'month',
+            'type' : 'day',
             'status_id' : 2
         },
         //data: $('#FrmChartOrganizationReport').serialize(),

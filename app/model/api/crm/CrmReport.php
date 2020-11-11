@@ -444,7 +444,7 @@ class CrmReport extends Model
         return $result;
     }
 
-    public function getContactChartReport($fromDate, $toDate, $type = 'day'){
+    public function getContactChartReport($fromDate = null, $toDate = null, $type = 'day'){
         try {
             $result = DB::select('
                 SELECT
@@ -453,9 +453,9 @@ class CrmReport extends Model
                 FROM crm_lead_contact
                 WHERE
                     is_deleted = false
-                    AND status = true
-                    --AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE
-                GROUP BY DATE_TRUNC(\''.$type.'\',create_date);
+                    AND status = true '.
+                    (($fromDate == null || $toDate == null)?'':'AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE')
+                .'GROUP BY DATE_TRUNC(\''.$type.'\',create_date);
             ');
         } catch(QueryException $e){
             throw $e;
