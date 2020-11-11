@@ -64,4 +64,4 @@ Route::put('/quotebranch','api\crm\QuoteController@editQuoteBranch');
 Route::delete('/quote/{id}','api\crm\QuoteController@destroy');
 
 
-Route::get('/preview-quote','api\crm\QuoteController@preview');
+Route::get('/preview-quote/{id}','api\crm\PreviewQuoteController@index');
