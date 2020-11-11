@@ -131,7 +131,7 @@ class ChartAccountController extends Controller
     }
     public function edit($id)
     {
-        // try{
+        try{
             if(perms::check_perm_module('BSC_0303')){
                 // Get chart account type
                 if (session_status() == PHP_SESSION_NONE) {
@@ -169,14 +169,22 @@ class ChartAccountController extends Controller
                 $ch_account_by_id = json_decode($res->getContent()); // convert to json object
                 $ch_account_by_ids= $ch_account_by_id->data;
 
-                return view('bsc.chart_account.chart_account_list_edit',compact('ch_account_types','ch_accounts','companys','ch_account_by_ids'));
+            // Get currency
+                $request = Request::create('/api/bsc_show_currency', 'GET');
+                $request->headers->set('Accept', 'application/json');
+                $request->headers->set('Authorization', 'Bearer '.$token);
+                $res = app()->handle($request);
+                $currency = json_decode($res->getContent()); // convert to json object
+                $currencys=$currency->data;
+
+                return view('bsc.chart_account.chart_account_list_edit',compact('ch_account_types','ch_accounts','companys','ch_account_by_ids','currencys'));
             }else{
                 return view('no_perms');
             }
-        // }catch(Exception $e){
-        //     echo $e->getMessage();
-        //     exit;
-        // }
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit;
+        }
     }
     public function ch_account_edit(Request $request)
     {
@@ -193,6 +201,7 @@ class ChartAccountController extends Controller
             $name_kh=$request->name_kh;
             $ma_company_id=$request->ma_company_id;
             $parent_id=$request->parent_id;
+            $currency=$request->currency;
             $status=$request->status==null ? 0 : 1;
 
             $data=array(
@@ -202,7 +211,8 @@ class ChartAccountController extends Controller
                 'name_kh'=>$name_kh,
                 'ma_company_id'=>$ma_company_id,
                 'parent_id'=>$parent_id,
-                'status'=>$status
+                'status'=>$status,
+                'status'=>$currency
             );
 
             if(perms::check_perm_module('BSC_0303')){

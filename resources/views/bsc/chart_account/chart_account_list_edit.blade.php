@@ -36,14 +36,23 @@
                                                 <span class="input-group-text"><i class="fab fa-tumblr"></i></span>
                                             </div>
                                             <select class="form-control select2" name="bsc_account_type_id" id="bsc_account_type_id" required="">
-                                                {{-- @foreach ($ch_account_types as $ch_account_type)
-                                                    <option
-                                                        @if ($ch_account_type->id == $ch_account_by_ids->bsc_account_type_id)
-                                                            selected
-                                                        @endif
-                                                        value="{{ $ch_account_type->id }}">{{ $ch_account_type->name_en }}
-                                                    </option>
-                                                @endforeach --}}
+                                                <option value="" selected hidden disabled>select item</option>
+                                                @foreach ($ch_account_types as $ch_account_type)
+                                                    <option value="" disabled>{{ $ch_account_type->bsc_account_name }}</option>
+                                                    @php
+                                                        $account_types = $ch_account_type->account_types;
+                                                    @endphp
+                                                    @if ($account_types != "")
+                                                        @foreach ($account_types as $acc_type)
+                                                            <option
+                                                                @if ($acc_type->id == $ch_account_by_ids->bsc_account_type_id)
+                                                                    selected
+                                                                @endif
+                                                                value="{{ $acc_type->id }}">&nbsp;&nbsp;&nbsp;{{ $acc_type->name_en }}
+                                                            </option>
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -53,7 +62,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" value="{{ $ch_account_by_ids->code }}" name="code" id="code" placeholder="Code" readonly>
+                                            <input type="number" class="form-control" value="{{ $ch_account_by_ids->code }}" name="code" id="code" placeholder="Code" readonly>
                                         </div>
                                      </div>
                                 </div>
@@ -70,12 +79,12 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Name Khmer<b class="color_label"> *</b></label>
+                                        <label for="exampleInputEmail1">Name Khmer</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" value="{{ $ch_account_by_ids->name_kh }}"  name="name_kh" id="name_kh" placeholder="Name Khmer" required="">
+                                            <input type="text" class="form-control" value="{{ $ch_account_by_ids->name_kh }}"  name="name_kh" id="name_kh" placeholder="Name Khmer">
                                         </div>
                                     </div>
                                 </div>
@@ -123,6 +132,25 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Currency</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            </div>
+                                            <select class="form-control select2" name="currency" id="currency">
+                                                <option value="null">select item</option>
+                                                @foreach ($currencys as $currency)
+                                                    <option
+                                                        @if ($ch_account_by_ids->ma_currency_id == $currency->id)
+                                                            selected
+                                                        @endif
+                                                        value="{{ $currency->id }}">{{ $currency->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-md-6">
                                         <label for="status">Status</label>
                                         <div class="custom-control custom-switch">

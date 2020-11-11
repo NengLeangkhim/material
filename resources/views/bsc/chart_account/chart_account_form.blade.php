@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><span><i class="fas fa-user-plus"></i></span> Create New Chart Account</h1>
+                <h4><span><i class="fas fa-user-plus"></i></span> Create New Chart Account</h4>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -50,15 +50,22 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                         <label for="exampleInputEmail1">Code <b class="color_label"> *</b></label>
-                                         <div class="input-group">
+                                    <div class="col-md-6 col-ms-6">
+                                        <label for="exampleInputEmail1">Currency<b class="color_label"> *</b></label>
+                                        <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                                <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="code" id="code" placeholder="Code" required="">
+                                            <select class="form-control select2" name="currency" id="currency" required>
+                                                <option selected hidden disabled>select item</option>
+                                                @foreach ($currencys as $currency)
+                                                    <option @if ($currency->name=='USD')
+                                                        selected
+                                                    @endif value="{{ $currency->id }}">{{ $currency->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
-                                     </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -73,12 +80,12 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Name Khmer<b class="color_label"> *</b></label>
+                                        <label for="exampleInputEmail1">Name Khmer</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <input type="text" class="form-control"  name="name_kh" id="name_kh" placeholder="Name Khmer" required="">
+                                            <input type="text" class="form-control"  name="name_kh" id="name_kh" placeholder="Name Khmer">
                                         </div>
                                     </div>
                                 </div>
@@ -118,21 +125,15 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                     <div class="col-md-6 col-ms-6">
-                                        <label for="exampleInputEmail1">Currency<b class="color_label"> *</b></label>
+
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Code <b class="color_label"> *</b></label>
                                         <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fab fa-chrome"></i></span>
-                                            </div>
-                                            <select class="form-control select2" name="currency" id="currency" required>
-                                                <option selected hidden disabled>select item</option>
-                                                @foreach ($currencys as $currency)
-                                                    <option @if ($currency->name=='USD')
-                                                        selected
-                                                    @endif value="{{ $currency->id }}">{{ $currency->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                           <div class="input-group-prepend">
+                                               <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                           </div>
+                                           <input type="number" class="form-control" name="code" id="code" placeholder="Code" required="">
+                                       </div>
                                     </div>
                                 </div>
                             </div>
