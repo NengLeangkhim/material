@@ -298,7 +298,7 @@ class CrmReportApiController extends Controller
         $type = $request->input('type');
         $forStatusId = $request->input('status_id');
         try {
-            $result = $this->crmReport->getOrganizationChartReport($fromDate, $toDate, $type != null ? $type : 'month', $forStatusId != null ? $forStatusId : 6);
+            $result = $this->crmReport->getOrganizationChartReport($fromDate, $toDate, $type != null ? $type : 'month', $forStatusId != null ? $forStatusId : 2);
         } catch(QueryException $e){
             return $this->sendError($this->queryException);
         }

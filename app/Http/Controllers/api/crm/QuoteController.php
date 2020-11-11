@@ -24,13 +24,13 @@ class QuoteController extends Controller
      */
     public function index()
     {
-        $quote = Quote::orderBy('id','asc')->get();
+        $quote = Quote::orderBy('id','asc')->Where('is_deleted', false)->get();
         return QuoteResource::Collection($quote);
     }
 
     public function getquotebranch($qid){
         // return QuoteBranch::get();
-        $quote = QuoteBranch::where('crm_quote_id',$qid)->orderBy('id','asc')->get();
+        $quote = QuoteBranch::where('crm_quote_id',$qid)->andWhere('is_deleted', false)->orderBy('id','asc')->get();
         // return $quote;
         return QuoteBranchResource::Collection($quote);
     }
@@ -165,7 +165,7 @@ class QuoteController extends Controller
     }
 
     public function getStatus(){
-        $status = QuoteStatusType::get();
+        $status = QuoteStatusType::get()->Where('is_deleted', false);
 
         return json_encode($status);
     }

@@ -444,7 +444,7 @@
         },
         data : {
             'type' : 'month',
-            'status_id' : 6
+            'status_id' : 2
         },
         //data: $('#FrmChartOrganizationReport').serialize(),
         success: function (response) {

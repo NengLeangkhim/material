@@ -349,7 +349,7 @@ class CrmReport extends Model
         return $result;
     }
 
-    public function getOrganizationDetail($leadSource = null, $assignTo = null, $fromDate = null, $toDate = null, $status = 6){
+    public function getOrganizationDetail($leadSource = null, $assignTo = null, $fromDate = null, $toDate = null, $status = 2){ // status qualified
         try{
             $select = '
                 SELECT
