@@ -149,8 +149,28 @@ class ChartAccountController extends Controller
                 return $this->sendError('Validation Error.', $validator->errors());
             }
 
-            $sql="update_bsc_account_charts($id, $request->update_by, $request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, $request->parent_id, '$request->status')";
-            $q=DB::select("SELECT ".$sql);
+            
+            if($request->parent_id != "null"){
+                $sql="update_bsc_account_charts($id, $request->update_by, $request->bsc_account_type_id, '$request->name_en', '$request->name_kh', $request->ma_currency_id, $request->ma_company_id, $request->parent_id, '$request->status')";
+                $q=DB::select("SELECT ".$sql);
+            }else{
+                $sql_parent="update_bsc_account_charts($id, $request->update_by, $request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, null, '$request->status')";
+                $q_parent=DB::select("SELECT ".$sql_parent);
+
+                // $sql_parent="insert_bsc_account_charts($request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, null, $request->code, null, $request->create_by)";
+                // $q_parent=DB::select("SELECT ".$sql_parent);
+                $parent_id = $q_parent[0]->update_bsc_account_charts;
+
+                $chart_account_name_en = $request->name_en.'-'.$request->currency_name; 
+                $chart_account_name_kh = $request->name_kh.'-'.$request->currency_name; 
+
+                $sql_child="update_bsc_account_charts($id, $request->update_by, $request->bsc_account_type_id, '$chart_account_name_en', '$chart_account_name_kh', $request->ma_currency_id, $request->ma_company_id, $parent_id, '$request->status')";
+                $q=DB::select("SELECT ".$sql_child);
+            }
+
+
+            // $sql="update_bsc_account_charts($id, $request->update_by, $request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, $request->parent_id, '$request->status')";
+            // $q=DB::select("SELECT ".$sql);
 
             DB::commit();
             return $this->sendResponse($q, 'Chart account updated successfully.');
