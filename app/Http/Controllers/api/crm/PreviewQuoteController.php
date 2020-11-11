@@ -12,9 +12,12 @@ use App\Http\Resources\QuoteResource;
 use App\Http\Resources\QuoteBranchResource;
 use App\Http\Resources\QuoteBranchDetailResource;
 use App\model\api\crm\ModelCrmQuoteStatusType as QuoteStatusType;
+use App\model\crm\ModelCrmQuote as Q;
+
 class PreviewQuoteController extends Controller
 {
     public function index($recordId){
+
         //report errors
         error_reporting(E_ALL);
         ini_set("display_errors", 1);
@@ -27,7 +30,15 @@ class PreviewQuoteController extends Controller
 
         $mpdf = new \Mpdf\Mpdf($config);
 
-        $quote = Quote::find($recordId);
+
+        //request api
+        // $token = $_SESSION['token'];
+        $request = Request::create('/api/quote/'.$recordId.'', 'GET');
+        $request->headers->set('Accept', 'application/json');
+        // $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        $data = json_decode($res->getContent());
+        $quote = $data->data;
         $no = $quote->quote_number;
 
         $html =  $this->logosource().'
@@ -39,10 +50,10 @@ class PreviewQuoteController extends Controller
                 <tbody>
                     <tr>
                         <td align="left" valign="top" width="60%">
-                        '.$this->getQuoteTo(1).'
+                        '.$this->getQuoteTo($quote).'
                         </td>
                         <td valign="top" width="40%">
-                        '.$this->getQuoteInfo(1).'
+                        '.$this->getQuoteInfo($quote).'
                         </td>
                     </tr>
                 </tbody>
@@ -143,10 +154,9 @@ class PreviewQuoteController extends Controller
         <div style=" position:fixed; bottom:-24px; height:30px; width:100%; padding-top: 4px; padding-bottom: 4px; text-align: center; border-top:solid 1px #1fa8e1;"><span style="color:#1fa8e1;"><span style="font-family: verdana;"><span style="font-size: 10px;">#6, Street 289, Sangkat Boeng Kok II, Khan Toul Kork, Phnom Penh, Cambodia.<br />
         Tel: (855) 23 999 998 | Email: sales@turbotech.com. | Website: www.turbotech.com</span></span></span></div>' ;
 
-
         $mpdf->WriteHTML($html);
         $filename = 'Quote-'.$no.'.pdf';
-        // $mpdf->Output($filename, 'D');//download
+        // // $mpdf->Output($filename, 'D');//download
         $mpdf->Output($filename, 'I');
     }
     public function logosource(){
@@ -199,16 +209,9 @@ class PreviewQuoteController extends Controller
          return $returnValue;
      }
 
-    public  function getQuoteTo($recordId){
-
-         // $q = Quote::quoteto($recordId);
-        $token = $_SESSION['token'];
-        $request = Request::create('/api/quote/'.$quoId.'', 'GET');
-        $request->headers->set('Accept', 'application/json');
-        $request->headers->set('Authorization', 'Bearer '.$token);
-        $res = app()->handle($request);
-        $listQuoteDetail = json_decode($res->getContent());
-
+    public  function getQuoteTo($q){
+        $address = Q::getAddress($q->address->gazetteer_code);
+        $add = $address[0]->get_gazetteers_address_en;
 
          $output = '
          <table cellpadding="1" cellspacing="1" style="border: solid 1px #1fa8e1; font-size: 11px; font-family: Verdana;" width="90%">
@@ -221,33 +224,32 @@ class PreviewQuoteController extends Controller
                      <tr>
                          <td align="left" style="font-weight: bold;" valign="top" width="25%">Company Name</td>
                          <td align="left" style="font-weight: bold;" valign="top">:</td>
-                         <td style="font-weight: bold;" width="73%">accountname</td>
+                         <td style="font-weight: bold;" width="73%">'.$q->crm_lead->customer_name_en.'</td>
                      </tr>
                      <tr>
                          <td align="left" valign="top">Address</td>
                          <td align="left" valign="top">:</td>
-                         <td>bill_street,&nbsp;
-                         bill_city, bill_country.</td>
+                         <td>'.$add.'</td>
                      </tr>
                      <tr>
                          <td align="left" valign="top">Contact Name</td>
                          <td align="left" valign="top">:</td>
-                         <td>firstname lastname</td>
+                         <td>'.$q->contact->name_en.'</td>
                      </tr>
                      <tr>
                          <td align="left" valign="top">Position</td>
                                                  <td align="left" valign="top">:</td>
-                         <td>title</td>
+                         <td>'.$q->contact->position.'</td>
                      </tr>
                      <tr>
                          <td align="left" valign="top">Telephone</td>
                                                  <td align="left" valign="top">:</td>
-                         <td>mobile</td>
+                         <td>'.$q->contact->phone.'</td>
                      </tr>
                      <tr>
                          <td align="left" valign="top">E-mail</td>
                                                  <td align="left" valign="top">:</td>
-                         <td>email</td>
+                         <td>'.$q->contact->email.'</td>
                      </tr>
                  </tbody>
              </table>';
@@ -257,9 +259,9 @@ class PreviewQuoteController extends Controller
 
      }
 
-    public  function getQuoteInfo($recordId){
-
-         // $q = Quote::quoteinfo($recordId);
+    public  function getQuoteInfo($q){
+        $time = strtotime($q->create_date);
+        $newformat = date('d-m-Y',$time);
 
          $output = '<table border="0" cellpadding="1" cellspacing="1" style="font-size:11px; font-family: Verdana;" width="100%">
                  <tbody>
@@ -268,15 +270,15 @@ class PreviewQuoteController extends Controller
                      </tr>
                      <tr>
                          <td align="left" valign="top" width="20%">Quote Number</td>
-                         <td width="55%">: 21221</td>
+                         <td width="55%">: '.$q->quote_number.'</td>
                      </tr>
                      <tr>
                          <td align="left" valign="top">Quote Date</td>
-                         <td>: quotedate</td>
+                         <td>: '.$newformat.'</td>
                      </tr>
                      <tr>
                          <td align="left" valign="top">Valid Until</td>
-                         <td>: validtill</td>
+                         <td>: '.$q->due_date.'</td>
                      </tr>
                      <tr>
                          <td align="left" bgcolor="#1fa8e1" colspan="2" valign="top"><span style="color:#FFFFFF;"><span style="font-size: 12px;"><strong>SALE INFORMATION:</strong></span></span></td>
@@ -284,12 +286,12 @@ class PreviewQuoteController extends Controller
                      <tr>
                          <td align="left" valign="top">Name</td>
 
-                         <td width="55%">: last_name first_name</td>
+                         <td width="55%">: '.$q->assign_to->first_name_en.' '.$q->assign_to->last_name_en.'</td>
                      </tr>
                      <tr>
                          <td align="left" valign="top">Telephone</td>
 
-                         <td>: phone_mobile</td>
+                         <td>: '.$q->assign_to->contact.'</td>
                      </tr>
                      <tr>
                          <td align="left" valign="top">E-mail</td>

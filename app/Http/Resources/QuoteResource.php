@@ -4,6 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use App\model\api\crm\ModelCrmLeadBranchContact as BranchContact;
+use App\model\api\crm\ModelCrmLeadContact as Contact;
 use App\model\api\crm\ModelCrmQuoteBranch as QuoteBranch;
 use App\model\api\crm\ModelCrmQuoteStatus as QuoteStatus;
 use App\model\api\crm\ModelCrmQuoteStatusType as QuoteStatusType;
@@ -24,7 +26,7 @@ class QuoteResource extends JsonResource
     public function toArray($request)
     {
 
-        return parent::toArray($request);
+
 
         //get name assign to and createby
         $assign =User::find($this->assign_to,[
@@ -32,7 +34,8 @@ class QuoteResource extends JsonResource
             'first_name_en',
             'last_name_en',
             'first_name_kh',
-            'last_name_kh'
+            'last_name_kh',
+            'contact'
         ]);
 
         $createby =User::find($this->create_by,[
@@ -40,7 +43,8 @@ class QuoteResource extends JsonResource
             'first_name_en',
             'last_name_en',
             'first_name_kh',
-            'last_name_kh'
+            'last_name_kh',
+            'contact'
         ]);
 
         //get address name
@@ -48,7 +52,7 @@ class QuoteResource extends JsonResource
 
 
         //get stock
-        $quoteBranch =  QuoteBranch::where('crm_quote_id',$this->id)->get('id');
+        $quoteBranch =  QuoteBranch::where('crm_quote_id',$this->id)->get(['id','crm_lead_branch_id']);
 
         $quoteBranchDetail=[];
         foreach($quoteBranch as $q){
@@ -76,7 +80,8 @@ class QuoteResource extends JsonResource
                 'first_name_en',
                 'last_name_en',
                 'first_name_kh',
-                'last_name_kh'
+                'last_name_kh',
+                'contact'
             ]);
             array_push($acknowlegde,$pre);
         }
@@ -88,7 +93,10 @@ class QuoteResource extends JsonResource
         //find status
         $statusQuote = QuoteStatus::where('crm_quote_id',$this->id)->get();
 
-        // return parent::toArray($lead);
+        //get lead contact
+        $contactid = BranchContact::where('crm_lead_branch_id',$quoteBranch[0]->crm_lead_branch_id)->get('crm_lead_contact_id');
+        $last_contact_id= $contactid[count($contactid) - 1]->crm_lead_contact_id;
+        $contact = Contact::whereId($last_contact_id)->first();
         return [
             "id"=>$this->id,
             "due_date"=>$this->due_date,
@@ -102,7 +110,9 @@ class QuoteResource extends JsonResource
             "create_date"=> $this->create_date,
             "acknowlegde_by"=>$acknowlegde,
             "status_quote"=>$statusQuote,
-            "create_by"=> $createby
+            "create_by"=> $createby,
+            "contact"=>$contact
+
         ];
     }
 }
