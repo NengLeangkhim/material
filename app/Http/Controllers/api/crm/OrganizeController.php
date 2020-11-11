@@ -20,9 +20,10 @@ class OrganizeController extends Controller
         if(perms::check_perm_module('CRM_020301')){ // for top managment (Organisations List)
             $organ = Organize::getOrganize();
             return json_encode(["data"=>$organ]);
+            // dd("top");
           
         }
-        else if (perms::check_perm_module('CRM_02030101')) { // for staff (Model  name Get Branch by user)
+        else if (perms::check_perm_module('CRM_020301')) { // for staff (Model  name Get Branch by user)
             $organ = Organize::getOrganizebyassigto($userid);
             return json_encode(["data"=>$organ]);
             // dd("staff");

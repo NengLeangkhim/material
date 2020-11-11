@@ -61,7 +61,7 @@
                                                                 }
                                                                 else {
                                                                     ?>
-                                                                        <sup style="color: #079992"> NO Schedule  </sup>
+                                                                        <sup style="color: #079992"> No Schedule  </sup>
                                                                     <?php
                                                                 }
                                                                 ?>
@@ -113,7 +113,7 @@
                                                                 }
                                                                 else {
                                                                     ?>
-                                                                        <sup style="color: #079992;font-weight:bold"> NO Schedule   </sup>
+                                                                        <sup style="color: #079992;font-weight:bold"> No Schedule   </sup>
                                                                     <?php
                                                                 }
                                                                 ?>
