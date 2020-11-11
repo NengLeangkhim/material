@@ -59,7 +59,7 @@ class InvoicePaymentController extends Controller
 
             $q_invoice_payment=DB::select("SELECT ".$sql_invoice_payment);
             $invoice_payment_id = $q_invoice_payment[0]->insert_bsc_payment;
-            
+
             $sql_journal = "insert_bsc_journal(null, $request->bsc_account_charts_id, 0, $request->amount_paid, $request->create_by, 4)";
             // insert_bsc_journal(description, bsc_account_charts_id_in_journal, debit_amount, credit_amount, create_by, bsc_journal_type_id)
 
@@ -68,10 +68,10 @@ class InvoicePaymentController extends Controller
 
             DB::select("INSERT INTO public.bsc_payment_bsc_journal_rel(bsc_journal_id, bsc_payment_id) VALUES ($journal_id, $invoice_payment_id)");
             // INSERT INTO public."bsc_payment_bsc_journal_rel"(bsc_journal_id, bsc_payment_id) VALUES (last_journal_id, last_id);
-            
+
             DB::commit();
             return $this->sendResponse($q_invoice_payment, 'Invoice payment created successfully.');
-            
+
         } catch (\Throwable $th) {
             DB::rollBack();
             return $this->sendError("Try again!");

@@ -36,9 +36,9 @@
                                             </div>
                                             <select class="form-control select2" name="bsc_account_type_id" id="bsc_account_type_id" required="">
                                                 <option selected hidden disabled>select item</option>
-                                                @foreach ($ch_account_types as $ch_account_type)
+                                                {{-- @foreach ($ch_account_types as $ch_account_type)
                                                     <option value="{{ $ch_account_type->id }}">{{ $ch_account_type->name_en }}</option>
-                                                @endforeach
+                                                @endforeach --}}
                                             </select>
                                         </div>
                                     </div>
