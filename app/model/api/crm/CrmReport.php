@@ -464,21 +464,19 @@ class CrmReport extends Model
     }
 
     public function getOrganizationChartReport($fromDate, $toDate, $type = 'day', $forStatusId = 6){
+        // if lead is organization
+        $sql = 'SELECT DATE_TRUNC(\''.$type.'\',create_date)::DATE AS create_date, COUNT(id) AS total FROM crm_lead WHERE id IN ( SELECT DISTINCT ON (crm_lead_id) crm_lead_id FROM crm_lead_branch WHERE id in ( SELECT DISTINCT ON (crm_lead_branch_id) crm_lead_branch_id FROM crm_lead_detail WHERE crm_lead_status_id = '.$forStatusId.' and is_deleted = false and status = false ORDER BY crm_lead_branch_id, create_date DESC) and is_deleted = false and status = true ) AND is_deleted = false AND status = true '.(($fromDate == null || $toDate == null)?'':'AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').' GROUP BY DATE_TRUNC(\''.$type.'\',create_date) ORDER BY create_date;';
+        // else if lead_branch is organization
         try {
             $result = DB::select('
-                SELECT
-                    DATE_TRUNC(\''.$type.'\',create_date)::DATE AS  create_date,
+                SELECT DATE_TRUNC(\''.$type.'\',create_date)::DATE AS  create_date,
                     COUNT(id) AS total
-                FROM crm_lead
-                WHERE id IN (
-                    SELECT DISTINCT ON (crm_lead_id) crm_lead_id
-                    FROM crm_lead_branch
-                    WHERE id in (
-                        SELECT DISTINCT ON (crm_lead_branch_id) crm_lead_branch_id
-                        FROM crm_lead_detail
-                        WHERE crm_lead_status_id = '.$forStatusId.' and is_deleted = false and status = true
-                        ORDER BY crm_lead_branch_id, create_date DESC
-                    ) and is_deleted = false and status = true
+                FROM crm_lead_branch
+                WHERE id in (
+                    SELECT DISTINCT ON (crm_lead_branch_id) crm_lead_branch_id
+                    FROM crm_lead_detail
+                    WHERE crm_lead_status_id = '.$forStatusId.' and is_deleted = false and status = false
+                    ORDER BY crm_lead_branch_id, create_date DESC
                 )
                 AND is_deleted = false
                 AND status = true '
