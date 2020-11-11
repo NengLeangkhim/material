@@ -43,7 +43,7 @@
                                 <p for="">Due Date : {{$purchase->due_date}}</p><br/>
                                 <p for="">Purchase# : {{$purchase->invoice_number}}</p><br/>
                             </div>
-                        </div>                               
+                        </div>
                     </div>
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
@@ -68,7 +68,7 @@
                                         <td id="txtAmount" class="txtAmount">{{$item->amount}}</td>
                                     </tr>
                                 @endforeach
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -103,7 +103,7 @@
                                         </div>
                                     </div>
                                     <hr class="" style="margin: 0px;">
-                                    
+
                                     @php
                                         $due_amount = "";
                                     @endphp
@@ -129,6 +129,8 @@
                                         </div>
                                         <hr class="" style="margin: 0px;">
                                     @endforeach
+                                    @if ($purchase_payments)
+
                                     <div class="row">
                                         <div class="col-sm-6 text_right">
                                             <h4>
@@ -141,6 +143,7 @@
                                             </h4>
                                         </div>
                                     </div>
+                                    @endif
                                     <hr class="line_in_tag_hr2">
                                 </div>
                             </div>
@@ -213,10 +216,10 @@
                                 <input type="hidden" id="bsc_account_charts_id" value="{{$purchase->chart_account_id}}">
 
                                 {{-- @foreach ($purchase_payment as $pur_payment)
-                                   
-                                    <input type="hidden" id="due_amount_payment" value="{{$pur_payment->due_amount == null ? $purchase->grand_total : $pur_payment->due_amount}}"> 
+
+                                    <input type="hidden" id="due_amount_payment" value="{{$pur_payment->due_amount == null ? $purchase->grand_total : $pur_payment->due_amount}}">
                                 @endforeach --}}
-                        
+
                             </div>
                         </div>
                     </div>
@@ -226,7 +229,7 @@
     </div>
 </section>
 <script>
-   
+
    $(document).ready(function(){
         $('.select2').select2();
 
@@ -241,7 +244,7 @@
     });
 
     function makePayment(){
-        
+
         let amount_paid = parseFloat($('#amount_paid').val());
         let grand_total = parseFloat($('#show_hidden_grand_total').val());
         let due_amount_payment=parseFloat($('#due_amount_payment').text());
@@ -257,8 +260,8 @@
             });
             if(num_miss>0){
                 $(".input_required").each(function(){
-                    if($(this).val()=="" || $(this).val()==null){ 
-                        $(this).css("border-color","red"); 
+                    if($(this).val()=="" || $(this).val()==null){
+                        $(this).css("border-color","red");
                     }
                 });
                 sweetalert('error', 'Please input or select field * required');
@@ -269,7 +272,7 @@
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
                     type:"POST",
-                    url:'/bsc_purchase_make_payment',                    
+                    url:'/bsc_purchase_make_payment',
                     data:{
                         _token: CSRF_TOKEN,
                         amount_paid             : amount_paid,
@@ -285,7 +288,7 @@
                     success:function(data){
                         if(data.payment.success == false){
                             alert("fail to payment");
-                        }else{    
+                        }else{
                             go_to('bsc_purchase_purchase_list');
                         }
                     }

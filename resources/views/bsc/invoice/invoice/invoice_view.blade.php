@@ -180,18 +180,20 @@
                                             </div>
                                         @endforeach
 
+                                        @if ($due_amount != null)
 
-                                        <hr class="line_in_tag_hr2">
+                                            <hr class="line_in_tag_hr2">
 
-                                        <div class="row">
-                                            <div class="col-sm-6 text_right">
-                                                <label for="">Amount Due : </label>
+                                            <div class="row">
+                                                <div class="col-sm-6 text_right">
+                                                    <label for="">Amount Due : </label>
+                                                </div>
+                                                <div class="col-sm-6 text_right">
+                                                    <label for="" id="due_amount">{{ $due_amount==null ? $invoices->grand_total : $due_amount }}</label>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-6 text_right">
-                                                <label for="" id="due_amount">{{ $due_amount==null ? $invoices->grand_total : $due_amount }}</label>
-                                            </div>
-                                        </div>
-                                        <hr class="line_in_tag_hr">
+                                            <hr class="line_in_tag_hr">
+                                        @endif
                                     </div>
                                 </div>
                             </div>
