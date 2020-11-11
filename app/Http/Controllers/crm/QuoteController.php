@@ -278,15 +278,32 @@ class QuoteController extends Controller
     public function listLeadBranch(Request $request)
     {
         if(isset($_GET['id_'])){
-            echo $_GET['id_'];
-            // $request = Request::create('/api/quotebranch/'.$_GET['id_'].'', 'Get');
-            // $data = json_decode(Route::dispatch($request)->getContent());
 
-            // dd($data);
+            $request = Request::create('/api/quotebranch/'.$_GET['id_'].'', 'Get');
+            $data = json_decode(Route::dispatch($request)->getContent());
+                // $request2 = Request::create('/api/quote/'.$_GET['id_'].'', 'GET');
+                // $data2 = json_decode(Route::dispatch($request2)->getContent());
+
+                // $token = $_SESSION['token'];
+                // $request = Request::create('/api/quote', 'POST');
+                // $request->headers->set('Accept', 'application/json');
+                // $request->headers->set('Authorization', 'Bearer '.$token);
+                // $res = app()->handle($request);
+                // $response = json_decode($res->getContent());
+            // dump($data);
             return view('crm/quote/leadBranch', compact(''));
         }
     }
 
+
+
+    //function go to edit qoute lead
+    public static function quoteEditLead(){
+        if(isset($_GET['qouteId'])){
+            echo $_GET['qouteId'].'-----';
+            return view('crm/quote/quoteLeadEdit');
+        }
+    }
 
 
 

@@ -1217,6 +1217,36 @@ function Crm_delete(id,route,goto,alert) {
 
 
 
+    //function click to edit quote lead
+    function editQouteLead(qouteId){
+        $.ajax({
+
+            type: 'GET',
+            url: '/quote/edit/lead',
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data:{
+                qouteId:qouteId,
+            },
+            success:function(data)
+            {
+                console.log(data);
+                $(".content-wrapper").html(data);
+                hideloading();
+
+            }
+        });
+    }
+
+
+
+    //function click to edit quote by branch
+    function editQuoteBranch(id,num){
+        alert('hellio');
+    }
+
+
 
 
 

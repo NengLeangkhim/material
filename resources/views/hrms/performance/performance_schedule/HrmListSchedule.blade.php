@@ -207,7 +207,7 @@
                                    <div class="form-group">
                                        <label for="plan_name">Plan Name<span class="text-danger">*</span></label>
                                        <select name="plan_schedule" required id="plan_schedule" onchange="get_plan_schedule(this.value)" class="form-control plan_schedule select2">
-                                           <option value="">Please Select Plan</option>
+                                           <option value="0">Please Select Plan</option>
                                            <?php 
                                                    foreach($plan as $row_plan ){ 
                                                    echo "<option   value=".$row_plan->id.">$row_plan->name</option>";

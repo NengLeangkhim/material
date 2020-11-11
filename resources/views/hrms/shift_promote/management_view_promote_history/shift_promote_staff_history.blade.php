@@ -11,17 +11,17 @@
     </div>
     <div style="padding:10px 10px 10px 10px">
         <div class="row">
-            
+
             <div class="col-md-12">
-    
+
                 <div class="card">
                     <div class="card-header">
                         <h1 class="card-title hrm-title"><strong><i class="fas fa-user-edit"></i> Promote History</strong></h1>
 
                     </div>
-    
+
                     <div class="card-body">
-                        <div class="table-responsive"> 
+                        <div class="table-responsive">
                             <table id="tbl_shift_history" class="table table-bordered " style="white-space: nowrap;" >
                                 <thead>
                                     <tr>
@@ -34,7 +34,7 @@
                                         <th scope=" ">Action</th>
                                     </tr>
                                 </thead>
-    
+
 
                                 <tbody>
                                         @if(is_array($allstaffpromote))
@@ -55,7 +55,7 @@
                                                                 <a  href="javascript:void(0);" onclick="list_staff_promote_hisotry({{$val->ma_user_id}},{{$key+1}})">
                                                                     <span ><img src="/img/icons/plus_icon1.png" style="width: 22px; hight: 22px;"></span>
                                                                 </a>
-                                                        
+
                                                                 <a  href="javascript:void(0);" onclick="exit_list_history({{$key+1}})">
                                                                     <span ><img src="/img/icons/subtract_icon1.png" style="width: 25px; hight: 25px;"></span>
                                                                 </a>
@@ -63,7 +63,7 @@
                                                         </td>
                                                     </tr>
 
-                                                    <tr id=""> 
+                                                    <tr id="">
                                                         <td colspan="7" style="background-color: #F5F5F5" >
                                                             <div style="color: #F5F5F5 ;font-size: 0.1px;">{{$key+1}}</div>
                                                             <div style="display: none;">{{$val->ma_user_id}}</div>
@@ -84,10 +84,10 @@
                                             @endforeach
 
                                         @endif
-                                                    
 
-        
-        
+
+
+
                                 </tbody>
 
 
@@ -95,16 +95,16 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
         </div>
     </div>
-            
+
 
     {{-- <td colspan=2 style="background-color: #F5F5F5">
         <div id="list_promote_view_'.$i.'"> </div>
     </td> --}}
-    
+
     <script>
         $(document).ready(function() {
             $('#tbl_shift_history').DataTable({
@@ -112,6 +112,6 @@
             });
         });
     </script>
-        
-    
+
+
 </section>
