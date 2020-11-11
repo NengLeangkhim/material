@@ -19,11 +19,10 @@
             <!-- section Main content -->
             <section class="content">
                 <div class="container-fluid">
-                    
                     <div class="row">
-                        <div class="col-12 col-sm-12">
-                          <div class="card card-primary card-tabs">
-                            <div class="card-header p-0 pt-1">
+                        <div class="col-12 col-sm-12" >
+                          <div class="card card-primary card-tabs" >
+                            <div class="card-header p-0 pt-1" style="background: #1fa8e0">
                               <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                                 <li class="nav-item">
                                   <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">List Survey</a>
@@ -115,52 +114,30 @@
                                                                 <th style="color:#FFFFFF">Customer Name EN</th>
                                                                 <th style="color:#FFFFFF">Customer Name KH</th>
                                                                 <th style="color:#FFFFFF">Address Type</th>
-                                                                <th style="color:#FFFFFF">Home Number </th>
-                                                                <th style="color:#FFFFFF">Street Number </th>
-                                                                <th style="color:#FFFFFF">Latlong</th>
+                                                                <th style="color:#FFFFFF">Survey</th>
+                                                                <th style="color:#FFFFFF">Comment </th>
                                                                 <th style="color:#FFFFFF">Create By</th> 
-                                                                <th style="color:#FFFFFF">Detail</th>
+                                                                {{-- <th style="color:#FFFFFF">Detail</th> --}}
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                              <?php 
-                                                            for($i =0;$i<sizeof($survey);$i++){
-                                                                if( $survey[$i]["create_date"]==date('d-m-yy')){
+                                                            for($i =0;$i<sizeof($survey_result);$i++){
                                                                     ?>
-                                                                    <tr style="background: #d42931">
-                                                                        <td style="color:#FFFFFF">{{$survey[$i]["create_date"]}}</td>
-                                                                        <td style="color:#FFFFFF">{{$survey[$i]["name_en"]}}</td>
-                                                                        <td style="color:#FFFFFF">{{$survey[$i]["name_kh"]}}</td>
-                                                                        <td style="color:#FFFFFF">{{$survey[$i]["address_type"]}}</td>
-                                                                        <td style="color:#FFFFFF"># {{$survey[$i]["home_en"]}}</td>
-                                                                        <td style="color:#FFFFFF">St {{$survey[$i]["street_en"]}}</td>
-                                                                        <td style="color:#FFFFFF">{{$survey[$i]["latlg"]}}</td>                                                       
-                                                                        <td style="color:#FFFFFF">{{$survey[$i]["user_create"]['last_name_en']}} {{$survey[$i]["user_create"]['first_name_en']}}</td>                                                       
+                                                                    <tr>
+                                                                        <td >{{$survey_result[$i]["create_date"]}}</td>
+                                                                        <td >{{$survey_result[$i]["name_en"]}}</td>
+                                                                        <td >{{$survey_result[$i]["name_kh"]}}</td>
+                                                                        <td >{{$survey_result[$i]["address_type"]}}</td>
+                                                                        <td >{{$survey_result[$i]["possible"]==true? "Yes":"No"}}</td>
+                                                                        <td >{{$survey_result[$i]["comment"]}}</td>                                                    
+                                                                        <td >{{$survey_result[$i]["survey_create_by"]['last_name_en']}} {{$survey_result[$i]["survey_create_by"]['first_name_en']}}</td>                                                       
                                                                        
-                                                                        <td>
-                                                                            <a href="#" class="btn btn-block btn-info btn-sm branchdetail" value=""  onclick="go_to('detailsurvey/{{$survey[$i]['branch_id']}}')"><i class="fas fa-info-circle"></i></a>                                                     
-                                                                        </td>
+                                                                        {{-- <td>
+                                                                            <a href="#" class="btn btn-block btn-info btn-sm branchdetail" value=""  onclick="go_to('detailsurvey/{{$survey_result[$i]['branch_id']}}')"><i class="fas fa-info-circle"></i></a>                                                     
+                                                                        </td> --}}
                                                                     </tr> 
-                                                                <?php
-                                                                }
-                                                                else {
-                                                                    ?>
-                                                                    <tr >
-                                                                        <td>{{$survey[$i]["create_date"]}}</td>
-                                                                        <td>{{$survey[$i]["name_en"]}}</td>
-                                                                        <td>{{$survey[$i]["name_kh"]}}</td>
-                                                                        <td>{{$survey[$i]["address_type"]}}</td>
-                                                                        <td># {{$survey[$i]["home_en"]}}</td>
-                                                                        <td>St {{$survey[$i]["street_en"]}}</td>
-                                                                        <td>{{$survey[$i]["latlg"]}}</td>                                                       
-                                                                        <td>{{$survey[$i]["user_create"]['last_name_en']}} {{$survey[$i]["user_create"]['first_name_en']}}</td>
-                                                                       
-                                                                        <td>
-                                                                            <a href="#" class="btn btn-block btn-info btn-sm branchdetail" value=""  onclick="go_to('detailsurvey/{{$survey[$i]['branch_id']}}')"><i class="fas fa-info-circle"></i></a>                                                     
-                                                                        </td>
-                                                                    </tr> 
-                                                                <?php
-                                                                }
+                                                                <?php                                                                
                                                                
                                                             }
                                                             ?>
