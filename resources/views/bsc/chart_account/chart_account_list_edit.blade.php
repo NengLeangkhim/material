@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><span><i class="fas fa-user-edit"></i></span>Edit Chart Account</h1>
+                <h4><span><i class="fas fa-user-edit"></i></span>Edit Chart Account</h4>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
