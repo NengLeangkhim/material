@@ -4,9 +4,9 @@ $(document).ready(function(){
     var count = 1;
     $('.select2').select2();
     // Loop to Display 4 Table
-    for(count=0;count<4;count++){
-        inSertTable(count);
-    }
+    // for(count=0;count<4;count++){
+    //     inSertTable(count);
+    // }
 
     // add class into class select2
     $('.item_select').select2({

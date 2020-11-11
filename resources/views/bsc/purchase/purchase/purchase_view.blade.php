@@ -205,6 +205,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <a href="#" onclick="makePayment()" class="btn btn-success purchase_form"  value="bsc_purchase_purchase_form" id="purchase_form"><i class="fas fa-plus"></i> Add Payment</a>&nbsp;
+                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_purchase_purchase_list')">Cencel</button>
                                 <input type="hidden" name="" id="show_hidden_grand_total" value="{{$purchase->grand_total}}">
                                 {{--  --}}
                                 <input type="hidden" id="bsc_invoice_id" value="{{$purchase->id}}">
@@ -233,7 +234,7 @@
            let paid_amount =  parseFloat($(this).val());
            let due_amount_payment=parseFloat($('#due_amount_payment').text());
            if(paid_amount > due_amount_payment){
-                sweetalert('error', 'Your Paid Amount is bigger than Grand Total');
+                sweetalert('error', 'Your Paid Amount is bigger than Due Amount');
                 return false;
             }
         });
@@ -244,10 +245,9 @@
         let amount_paid = parseFloat($('#amount_paid').val());
         let grand_total = parseFloat($('#show_hidden_grand_total').val());
         let due_amount_payment=parseFloat($('#due_amount_payment').text());
-       
-        let due_amount = due_amount_payment - amount_paid;
-        if(amount_paid > due_amount){
-            sweetalert('error', 'Paid Amount input is bigger than Grand Total');
+
+        if(amount_paid > due_amount_payment){
+            sweetalert('error', 'Paid Amount input is bigger than Due Amount');
         }else if(amount_paid == 0){
             sweetalert('error', 'Paid Amount can not input Zero');
         }else{
@@ -263,20 +263,23 @@
                 });
                 sweetalert('error', 'Please input or select field * required');
             }else{
+
+                let due_amount = due_amount_payment - amount_paid;
+
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
                     type:"POST",
                     url:'/bsc_purchase_make_payment',                    
                     data:{
                         _token: CSRF_TOKEN,
-                        amount_paid  : amount_paid,
-                        due_amount   : due_amount,
-                        date_paid    : $('#date_paid').val(),
-                        account_type : $('#account_type').val(),
-                        reference    : $('#reference').val(),
-                        bsc_invoice_id :$('#bsc_invoice_id').val(),
-                        grand_total : grand_total,
-                        bsc_account_charts_id : $('#bsc_account_charts_id').val()
+                        amount_paid             : amount_paid,
+                        due_amount              : due_amount,
+                        date_paid               : $('#date_paid').val(),
+                        account_type            : $('#account_type').val(),
+                        reference               : $('#reference').val(),
+                        bsc_invoice_id          : $('#bsc_invoice_id').val(),
+                        grand_total             : grand_total,
+                        bsc_account_charts_id   : $('#bsc_account_charts_id').val()
                     },
                     dataType: "JSON",
                     success:function(data){

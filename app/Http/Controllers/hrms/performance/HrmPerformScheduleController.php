@@ -261,11 +261,12 @@ class HrmPerformScheduleController extends Controller
             $id_schedule= $request->schedule_plan_id;
             $staff_id = $request->staff_schedule;
             $plan_detail_id = $request->plan_detail_schedule;
+            $plan_id = $request->plan_schedule;
             $start = $request->staff_from_schedule;
             $to = $request->staff_to_schedule;
             $cmt = $request->staff_comment_schedule;
             $insert_schedule = ModelHrmPerformSchedule::hrm_update_perform_schedule($id_schedule,$userid,$staff_id,$start,$to,$plan_detail_id,$cmt,'t'); //Update data
-            return response()->json(['success'=>'Record is successfully Updated']);
+            return response()->json(['success'=>$plan_id]);
             }else{
                 return view('no_perms');
             }
