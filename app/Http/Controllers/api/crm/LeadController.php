@@ -18,6 +18,7 @@ use App\Http\Resources\api\crm\lead\GetLeadBranch;
 use App\Http\Resources\api\crm\lead\GetHonorifics;
 use App\Http\Resources\api\crm\lead\LeadCurrentSpeedIsp;
 use App\Http\Resources\api\crm\lead\GetSurvey;
+use App\Http\Resources\api\crm\lead\GetSurveyResult;
 use App\Http\Resources\api\crm\lead\GetLeadSchedule;
 use Illuminate\Database\QueryException;
 
@@ -354,8 +355,32 @@ class LeadController extends Controller
     }
     // get survey
     public function getsurvey(){
-        $survey= Lead::getsurvey();
-        return GetSurvey::Collection($survey);
+        if(perms::check_perm_module('CRM_02110101')){ //Modeul Survey list
+            $survey= Lead::getsurvey();
+            return GetSurvey::Collection($survey);
+        }
+        else
+        {
+            return view('no_perms');
+        }
+        
+    }
+    // get survey
+    public function getsurveyresult(){        
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+        // dd($return);
+        if(perms::check_perm_module('CRM_02110102')){ // for top managment
+            $survey= Lead::getsurveyresult();
+            return GetSurveyResult::Collection($survey);
+        }
+        else if (perms::check_perm_module('CRM_0211010201')) { // for staff (Model  name Get Branch by user)
+            $survey= Lead::getsurveyresultbycreate($userid);
+            return GetSurveyResult::Collection($survey);
+        }
+        
     }
     //get svrvey by branch id
     public function getsurveybyid($id){

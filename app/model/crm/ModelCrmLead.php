@@ -127,7 +127,17 @@ class ModelCrmLead extends Model
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         // dd($res);
-        return $res->getContent();
-       
+        return $res->getContent();       
+    }
+    // Model Get survey result
+    public static function GetsurveyResult(){
+
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/surveyresult', 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        // dd($res);
+        return $res->getContent();       
     }
 }

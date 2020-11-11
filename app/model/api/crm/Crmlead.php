@@ -1057,6 +1057,32 @@ class Crmlead extends Model
         join crm_lead_address cla on cla.id=lb.crm_lead_address_id
         WHERE cs.is_deleted=FALSE and cs.status=TRUE ORDER BY cs.create_date DESC');
     }
+    // Model get  all survey result
+    public static function getsurveyresult(){
+        return DB::select("SELECT csr.id as crm_survey_result_id,cs.id as crm_survey_id,lb.id as branch_id ,cs.crm_lead_branch_id,cs.create_by as survey_create_by,
+        csr.possible,csr.create_by,csr.create_date,comment,lb.name_en,lb.name_kh,cla.address_type,
+        cla.home_kh,cla.hom_en,cla.street_en,cla.street_kh,cla.latlg,cla.gazetteer_code,
+        (SELECT  get_gazetteers_address(cla.gazetteer_code) ) as address_kh ,
+        (SELECT  get_gazetteers_address_en(cla.gazetteer_code) ) as address_en
+        from crm_survey_result csr
+        JOIN crm_survey cs on cs.id=csr.crm_survey_id
+        join crm_lead_branch lb on lb.id =cs.crm_lead_branch_id
+         join crm_lead_address cla on cla.id=lb.crm_lead_address_id
+        WHERE  csr.is_deleted=FALSE and csr.status=TRUE ");
+    }
+     // Model get survey result by user  create
+    public static function getsurveyresultbycreate($id){
+        return DB::select("SELECT csr.id as crm_survey_result_id,cs.id as crm_survey_id,lb.id as branch_id ,cs.crm_lead_branch_id,cs.create_by as survey_create_by,
+        csr.possible,csr.create_by,csr.create_date,comment,lb.name_en,lb.name_kh,cla.address_type,
+        cla.home_kh,cla.hom_en,cla.street_en,cla.street_kh,cla.latlg,cla.gazetteer_code,
+        (SELECT  get_gazetteers_address(cla.gazetteer_code) ) as address_kh ,
+        (SELECT  get_gazetteers_address_en(cla.gazetteer_code) ) as address_en
+        from crm_survey_result csr
+        JOIN crm_survey cs on cs.id=csr.crm_survey_id
+        join crm_lead_branch lb on lb.id =cs.crm_lead_branch_id
+         join crm_lead_address cla on cla.id=lb.crm_lead_address_id
+        WHERE  csr.is_deleted=FALSE and csr.status=TRUE and csr.create_by=$id");
+    }
     //MOdel get survey by branch id
     public static function getsurveybyid($id){
         return DB::select("SELECT lb.id as branch_id , cs.id as survey_id, lb.name_en,lb.name_kh,cs.create_date,cs.create_by,
