@@ -68,6 +68,16 @@ class ModelCrmLead extends Model
         $res = app()->handle($request);
         return $res->getContent();
    }
+
+   // Model get schedule  by id 
+   public static function CrmGetSchdeuleById($id){
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/getschedule/'.$id, 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        return $res->getContent();
+    }
     //Model get Lead source
     public static function CrmGetLeadSource(){
         return DB::select('SELECT * from select_crm_lead_source()');

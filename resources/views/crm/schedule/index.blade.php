@@ -52,7 +52,7 @@
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-
+    <div id="view_schedule"></div>
 
 
 <!-- Page specific script -->
@@ -133,7 +133,20 @@
       events: events ,
       editable  : false,  
       eventClick: function (data) {  
-          alert(data.event.id);
+          // alert(data.event.id);
+          var id = data.event.id;
+                $.ajax({
+                url:"detailschedule",   //Request send to "action.php page"
+                type:"GET",    //Using of Post method for send data
+                data:{id:id},//Send data to server
+                success:function(data){
+                  // alert(data);
+                    $('#view_schedule').html(data);
+                    $('#crm_view_perform_schedule').modal('show');   //It will display modal on webpage   
+                }
+                });
+  
+           
       },
     });
 

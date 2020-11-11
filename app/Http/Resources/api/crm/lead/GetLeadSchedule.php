@@ -31,6 +31,9 @@ class GetLeadSchedule extends JsonResource
             "name_branch_en"=>$this->name_branch_en,
             "name_branch_kh"=>$this->name_branch_kh,
             "user_assig_to"=>$this->ma_user_id,
+            "schedule_type_id"=>$this->crm_lead_schedule_type_id,
+            "schedule_type"=>$this->schedule_type,
+            "status"=>$this->status,
             "create_by"=>$user,
         ];
     }
