@@ -1,7 +1,6 @@
 
 
 
-
     //function to add row table to add quote item
     $(document).ready(function(){
 
@@ -9,15 +8,25 @@
         var j = 0; //use for count current row remainder
         var getSumTotal = 0;
 
+
         $(document).on('click','#btnAddRowQuoteItem', function(event, issetBranId){
 
             var branId = $(this).attr("data-id");
-            // console.log('brd_id_get='+issetBranId);
+            // console.log('this is add btn'+branId);
+            if(branId == 'quoteBranchEdit'){
+                branId = '_new';
+                var numRow = $('#add_row_tablequoteItem').attr("data-id");
+                if(i == 0){   // check if i = 0 assign i = count row of quote branch item to get update new row add item
+                    i = parseInt(i + numRow);
+                        // console.log('place assign row num');
+                }
+            }
 
             // check to assign new value to branId
             if(typeof(issetBranId) != 'undefined'){
                 branId = issetBranId;
             }
+
             var tblRow =
                 '<tr id="'+i+'" class="tr-quote-row row-quote-item" data-id="row_'+i+'">'  +
                     '<td class="td-item-quote-name">' +
@@ -52,7 +61,7 @@
                     '</td>' +
                     '<td class="td-item-quote">' +
                         '<div class="">' +
-                            '<input type="text" class="valid-numeric-float form-control itemPrice_'+i+' price'+i+'" name="price'+branId+'[]" id="'+i+'" data-id="price'+i+'"  demo="itemPrice" value="0" required placeholder="0.0$">' +
+                            '<input type="text" class="valid-numeric-float form-control itemPrice_'+i+' price'+i+'" name="price'+branId+'[]"  id="itemPrice_'+i+'"     data-id="price'+i+'"  demo="itemPrice" value="0" required placeholder="0.0$">' +
                             '<span id="'+i+'Error" ><strong></strong></span>'+
                         '</div>'+
                         '<div class="row pt-1 form-inline">' +
@@ -89,24 +98,42 @@
                 '</tr>';
                 i++;
                 j++;
-            $('#add_row_tablequoteItem'+branId+'').append(tblRow);
+
+            if(branId == '_new'){
+                $('#add_row_tablequoteItem').append(tblRow);
+            }else{
+                $('#add_row_tablequoteItem'+branId+'').append(tblRow);
+            }
         });
 
 
 
-        //function button remove row table
+        // function button remove row table
         $(document).on('click', '.btnRemoveRow', function() {
             var btn_id = $(this).attr("id");
-            $('tr[data-id="row_'+btn_id+'"]').remove();
+
+            var numRow = $(this).attr("data-id"); // this value can be undefined
+            if(typeof(numRow) != 'undefined'){
+                if(i == 0){   // check if i = 0 assign i = count row of quote branch item to get update new row add item
+                    i = parseInt(i + numRow);
+                    j = parseInt(j + numRow);
+                    console.log('number row='+numRow+'--i='+i);
+                }
+                $( "tbody tr" ).remove('.row-quote-item_'+btn_id+'');
+            }
+
+
+            $('tbody tr[data-id="row_'+btn_id+'"]').remove();
             j--;
+            // console.log('j value='+j+'--rowId='+btn_id+'removeVal=');
             //for loop use when user delete row but grand total will refresh
             var sumTotal = 0;
             for(var x=0; x<=i; x++){
                 var value = $("#quote-netPrice_"+x+"").text();
                 if(value != ""){
-                    var getNetPrice = parseInt(value);
+                    var getNetPrice = parseFloat(value);
                     sumTotal += getNetPrice;
-                    console.log(sumTotal);
+                    // console.log(sumTotal);
                 }
             }
             getSumTotal = sumTotal;
@@ -116,15 +143,27 @@
 
 
 
+        // $(document).on('click', '.btnRemoveRow', function() {
+        //     alert('hellodsfd');
+        // });
+
+
+
+
+
         //function get textbox as percent or price for select item discount type
         $(document).on('change keyup','.select-itemDiscount', function() {
 
             var row_id = $(this).attr("id");
             var branId = $(this).attr("data-id");
+
             var textBoxType = "";
-            var select_val = $( "select[name='select-itemDiscount_"+row_id+"']" ).val();
+            var select_val = $("select[name='select-itemDiscount_"+row_id+"']").val();  //old use
+
+            // console.log('rowid_discount='+row_id+'--SelectVal='+select_val);
             if(select_val == 1){
-                $('#discount' + row_id + '').remove();
+                // console.log('select val=1');
+                $('#discount'+row_id+'').remove();
                 textBoxType = '<input type="text"  class="itemDisPercent_'+row_id+' txtbox-quote valid-numeric-float" name="discount'+branId+'[]" id="discount'+row_id+'" demo="itemDisPercent" data-id="'+i+'" value="0" required placeholder="0.0%">' ;
                 $('#fieldItemDiscount_'+row_id+'').append(textBoxType);
                 // $('#fieldItemDiscount_'+row_id+'').append('<input type="hidden" value="percent" name="discount_type[]">');
@@ -134,7 +173,8 @@
 
             }
             if(select_val == 2){
-                $('#discount' + row_id + '').remove();
+                // console.log('select val=2');
+                $('#discount'+row_id+'').remove();
                 textBoxType = '<input type="text"  class="itemDisPrice_'+row_id+' txtbox-quote valid-numeric-float" name="discount'+branId+'[]" id="discount'+row_id+'" demo="itemDisPrice" data-id="'+i+'" value="0" required placeholder="0.0$">' ;
                 $('#fieldItemDiscount_'+ row_id +'').append(textBoxType);
                 // $('#fieldItemDiscount_'+row_id+'').append('<input type="hidden" value="number" name="discount_type[]">');
@@ -179,7 +219,7 @@
 
 
         //function keyup area
-        var sumTotal = 0;
+        // var sumTotal = 0;
         $(document).keyup(function(e){
             var sumTotal = 0;
             var granTotal = 0;
@@ -190,22 +230,28 @@
                 var val_after_dis = 0;
                 var netPrice = 0;
 
-                var itemQty = $.trim($(".itemQty_"+row_id+"").val());
-                var itemPrice = $.trim($(".itemPrice_"+row_id+"").val());
-                subTotal = parseInt(itemQty) * parseInt(itemPrice);
-                $("#quote-sub-total_"+row_id+"").text(subTotal);
+                var itemQty = parseFloat($.trim($(".itemQty_"+row_id+"").val()));
 
-                    // console.log('rowId='+ row_id +'-itemQty='+itemQty+'-itemPrice='+itemPrice+'-subTotal='+subTotal);
-                //get discount percent for unit row
+                // var itemPrice = parseFloat($.trim($("[data-id=price"+row_id+"]").val()));   //old use
+
+                itemPrice = parseFloat($.trim($('#itemPrice_'+row_id+'').val()));
+
+
+                subTotal = (itemQty * itemPrice);
+                $("div #quote-sub-total_"+row_id+"").text(subTotal);
+
+                // console.log('rowId='+ row_id +'-itemQty='+itemQty+'-itemPrice='+itemPrice+'-subTotal='+subTotal);
+
+                    //get discount percent for unit row
                 if( $(".itemDisPercent_"+row_id+"").val()){
-                    var DisPercent =  $(".itemDisPercent_"+row_id+"").val();
-                    get_val = (parseInt(subTotal) * parseInt(DisPercent)) / 100;
+                    var DisPercent =  parseFloat($(".itemDisPercent_"+row_id+"").val());
+                    get_val = (parseFloat(subTotal) * DisPercent) / 100;
                 }
 
                  //get discount price for unit row
                 if($(".itemDisPrice_"+row_id+"").val()){
                     var DisPrice =  $(".itemDisPrice_"+row_id+"").val();
-                    get_val =  parseInt(DisPrice);
+                    get_val =  parseFloat(DisPrice);
                 }
 
 
@@ -214,22 +260,23 @@
                 netPrice = val_after_dis;
 
                 //show element value by id
-                $("#quote-sub-discount_"+row_id+"").text(get_val);
-                $("#quote-after-sub-disc_"+row_id+"").text(val_after_dis);
-                $("#quote-netPrice_"+row_id+"").text(netPrice);
+                $("div #quote-sub-discount_"+row_id+"").text(get_val);
+                $("div #quote-after-sub-disc_"+row_id+"").text(val_after_dis);
+                $("div #quote-netPrice_"+row_id+"").text(netPrice);
 
+                console.log('subDisc='+get_val+'--netPrice='+netPrice);
                 //for loop to get sumtotal all rows
                 for(var x=0; x<=i; x++){
 
                     var value = $("#quote-netPrice_"+x+"").text();
                     if(value != ''){
-                        var getNetPrice = parseInt(value);
+                        var getNetPrice = parseFloat(value);
                         sumTotal += getNetPrice;
                     }
 
                     //Compare item in stock with item entry in quotes
-                    var numPrdInQuote = parseInt($(".itemQty_"+x+"").val());
-                    var numPrdInStock = parseInt($("#numItemInStock_"+x+"").val());
+                    var numPrdInQuote = parseFloat($(".itemQty_"+x+"").val());
+                    var numPrdInStock = parseFloat($("#numItemInStock_"+x+"").val());
                     // console.log(numPrdInStock);
 
                     var stockMessage = "Stock not enough, the available item is ";
@@ -381,10 +428,10 @@
                             // var prdId = prdVal; // get id of product
                             var itemType = $.trim($("#showItemType_"+btnId+"").val());
                             var prdName = $.trim($(".itemName_"+prdVal+"").text());
-                            var prdPrice = $.trim($(".itemPrice_"+prdVal+"").val());
-                            var prdAviableStock = $.trim($(".stockItem_"+prdVal+"").text());
+                            var prdPrice = parseFloat($.trim($(".itemPrice_"+prdVal+"").val()));
+                            var prdAviableStock = parseFloat($.trim($(".stockItem_"+prdVal+"").text()));
 
-                            prdInStock = parseInt(prdAviableStock);
+                            prdInStock = prdAviableStock;
                             var prdDescription = $.trim($(".itemDescription_"+prdVal+"").text());
 
                                 stockMessage = "Stock not enough, the available item is ";
@@ -395,30 +442,29 @@
                                     $("#txtPrdId_"+btnId+"").val(prdVal);
                                     $("#product_name"+btnId+"").val(prdName);
                                     $("#txtDescription_"+btnId+"").val(prdDescription);
-                                    $(".itemPrice_"+btnId+"").val(parseInt(prdPrice));
+                                    $(".itemPrice_"+btnId+"").val(prdPrice);
                                     $("#itemType_"+btnId+"").text(itemType);
                                     $("#numItemInStock_"+btnId+"").val(numPrdInStock);
-                                    // $(".itemPrice_"+btnId+"").keyup(); //call function key press to generate data
-                                    // $(".row-quote-item").keyup();
-                                    var numPrdInQuote = $(".itemQty_"+btnId+"").val();
+                                    $(".itemPrice_"+btnId+"").keyup(); //call function key press to generate data
+                                    var numPrdInQuote = parseFloat($(".itemQty_"+btnId+"").val());
                                     if(numPrdInQuote > numPrdInStock){
+                                        $("#prdNotEnough_"+btnId+"").text('');
                                         $("#prdNotEnough_"+btnId+"").text(stockMessage+" "+prdInStock);
                                     }
                                 }else{
-
                                     //show item in row quote item with multi select
                                     $( "#btnAddRowQuoteItem" ).trigger( "click", branId);
 
                                     $("#txtPrdId_"+(i-1)+"").val(prdVal);
                                     $("#product_name"+(i-1)+"").val(prdName);
                                     $("#txtDescription_"+(i-1)+"").val(prdDescription);
-                                    $(".itemPrice_"+(i-1)+"").val(parseInt(prdPrice));
+                                    $(".itemPrice_"+(i-1)+"").val(parseFloat(prdPrice));
                                     $("#itemType_"+(i-1)+"").text(itemType);
                                     $("#numItemInStock_"+(i-1)+"").val(numPrdInStock);
-                                    // $(".row-quote-item").keyup();
-                                    // $(".itemPrice_"+(i-1)+"").keyup(); //call function key press to generate data
-                                    var numPrdInQuote = $(".itemQty_"+(i-1)+"").val();
+                                    $(".itemPrice_"+(i-1)+"").keyup(); //call function key press to generate data
+                                    var numPrdInQuote = parseFloat($(".itemQty_"+(i-1)+"").val());
                                     if(numPrdInQuote > numPrdInStock){
+                                        $("#prdNotEnough_"+(i-1)+"").text('');
                                         $("#prdNotEnough_"+(i-1)+"").text(stockMessage+" "+prdInStock);
                                     }
                                 }
@@ -426,7 +472,7 @@
                                 $(".row-quote-item").keyup();
 
                         });
-
+                        // $(".row-quote-item").keyup();
                     }else{
                         console.log("No items chosen!");
                     }
@@ -476,19 +522,22 @@
         });
 
 
+
+
+
         //function getnerate grand total after user click manu discount
         function generateGrandTotal(){
 
             var totalAfterDis2 = 0;
             var grandTotal2 = 0;
-            var sumTotal2 = parseInt($("#sumTotal").text());
+            var sumTotal2 = parseFloat($("#sumTotal").text());
             if($("#itemDiscountPercent").val()){
-                var allDisPercent2 = parseInt($("#itemDiscountPercent").val());
+                var allDisPercent2 = parseFloat($("#itemDiscountPercent").val());
                 totalAfterDis2 =  (sumTotal2  * allDisPercent2) / 100;
 
             }
             if($("#itemDiscountPrice").val() ){
-                var allDisPrice2 = parseInt($("#itemDiscountPrice").val());
+                var allDisPrice2 = parseFloat($("#itemDiscountPrice").val());
                 totalAfterDis2 =  allDisPrice2;
             }
 
@@ -508,13 +557,7 @@
 
 
 
-
-
-
-
-
     });
-
 
 
 
