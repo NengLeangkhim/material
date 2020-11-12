@@ -50,21 +50,14 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-ms-6">
-                                        <label for="exampleInputEmail1">Currency<b class="color_label"> *</b></label>
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Code <b class="color_label"> *</b></label>
                                         <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fab fa-chrome"></i></span>
-                                            </div>
-                                            <select class="form-control select2" name="currency" id="currency" required>
-                                                <option selected hidden disabled>select item</option>
-                                                @foreach ($currencys as $currency)
-                                                    <option @if ($currency->name=='USD')
-                                                        selected
-                                                    @endif value="{{ $currency->id }}">{{ $currency->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                           <div class="input-group-prepend">
+                                               <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                           </div>
+                                           <input type="number" class="form-control" name="code" id="code" placeholder="Code" required="">
+                                       </div>
                                     </div>
                                 </div>
                             </div>
@@ -126,14 +119,23 @@
                             <div class="form-group">
                                 <div class="row">
 
-                                    <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Code <b class="color_label"> *</b></label>
+
+                                    <div class="col-md-6 col-ms-6">
+                                        <label for="exampleInputEmail1">Currency<b class="color_label"> *</b></label>
                                         <div class="input-group">
-                                           <div class="input-group-prepend">
-                                               <span class="input-group-text"><i class="fas fa-building"></i></span>
-                                           </div>
-                                           <input type="number" class="form-control" name="code" id="code" placeholder="Code" required="">
-                                       </div>
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fab fa-chrome"></i></span>
+                                            </div>
+                                            <select class="form-control currency_name" name="currency" id="currency" required onchange="myCurrency()">
+                                                <option selected hidden disabled>select item</option>
+                                                @foreach ($currencys as $currency)
+                                                    <option @if ($currency->name=='USD')
+                                                        selected
+                                                    @endif value="{{ $currency->id }}" data-currency_name="{{ $currency->name }}">{{ $currency->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <input type="hidden" id="currency_name" name="currency_name">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +155,18 @@
 <script>
     $(document).ready(function(){
         $('.select2').select2();
+
+        //ready on currency
+        let currency_name = $('.currency_name option:selected').attr('data-currency_name');
+        $('#currency_name').val(currency_name);
     });
+
+    //onchange on currency
+    function myCurrency()
+    {
+        let currency_name = $('.currency_name option:selected').attr('data-currency_name');
+        $('#currency_name').val(currency_name);
+    }
 
     //onfocusout duplicate
     function myName()

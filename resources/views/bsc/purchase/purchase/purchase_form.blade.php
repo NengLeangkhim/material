@@ -159,7 +159,7 @@
                                                     </div>
                                                 </div>
                                                 <hr class="line_in_tag_hr">
-                                                <div class="row">
+                                                {{-- <div class="row">
                                                     <div class="col-sm-6 text_right">
                                                         <label for="">Payment</label>
                                                     </div>
@@ -188,7 +188,7 @@
                                                         </h4>
                                                     </div>
                                                 </div>
-                                                <hr class="line_in_tag_hr2">
+                                                <hr class="line_in_tag_hr2"> --}}
                                             </div>
                                         </div>
                                     </div>
