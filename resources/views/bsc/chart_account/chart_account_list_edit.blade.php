@@ -75,7 +75,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" value="{{ $ch_account_by_ids->name_en }}"  name="name_en" id="name_en" placeholder="Name English" required="">
+                                            <input type="text" class="form-control" value="{{ $ch_account_by_ids->name_en }}" data-old_name_en="{{ $ch_account_by_ids->name_en }}" onfocusout="myName()" name="name_en" id="name_en" placeholder="Name English" required="">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -138,17 +138,18 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <select class="form-control select2" name="currency" id="currency">
+                                            <select class="form-control" name="currency" id="currency" onchange="myCurrency()">
                                                 <option value="null">select item</option>
                                                 @foreach ($currencys as $currency)
                                                     <option
                                                         @if ($ch_account_by_ids->ma_currency_id == $currency->id)
                                                             selected
                                                         @endif
-                                                        value="{{ $currency->id }}">{{ $currency->name }}
+                                                        value="{{ $currency->id }}" data-currency_name="{{ $currency->name }}">{{ $currency->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
+                                            <input type="hidden" id="currency_name" name="currency_name" value="{{ $currency->name }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -183,6 +184,59 @@
 
     // submit on form
     $("#frm_btn_sub_update_chart_account").click(function(){
-        submit_form ('/bsc_chart_account_form_edit','frm_chart_account','bsc_chart_account_list');
+        let name_en=$('#name_en').val();
+        let old_name_en = $('#name_en').attr('data-old_name_en');
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type:"POST",
+                url:'/bsc_ch_account_duplicate',
+                data:{
+                    _token: CSRF_TOKEN,
+                    name_en     : name_en
+                },
+                dataType: "JSON",
+                success:function(data){
+                    if(data !=0){
+                        if(name_en != old_name_en){
+                            sweetalert('error', 'Input name english is duplicated!');
+                        }else{
+                            submit_form ('/bsc_chart_account_form_edit','frm_chart_account','bsc_chart_account_list');
+                        }
+                    }else{
+                        submit_form ('/bsc_chart_account_form_edit','frm_chart_account','bsc_chart_account_list');
+                    }
+                }
+            });
     });
+
+    //onchange on currency
+    function myCurrency()
+    {
+        let currency_name = $('#currency option:selected').attr('data-currency_name');
+        $('#currency_name').val(currency_name);
+    }
+
+    //onfocusout duplicate
+    function myName()
+    {
+        let old_name_en = $('#name_en').attr('data-old_name_en');
+        let name_en=$('#name_en').val();
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type:"POST",
+                url:'/bsc_ch_account_duplicate',
+                data:{
+                    _token: CSRF_TOKEN,
+                    name_en     : name_en
+                },
+                dataType: "JSON",
+                success:function(data){
+                    if(data !=0){
+                        if(name_en != old_name_en){
+                            sweetalert('error', 'Input name english is duplicated!');
+                        }
+                    }
+                }
+            });
+    }
 </script>

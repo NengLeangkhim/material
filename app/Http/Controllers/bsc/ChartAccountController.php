@@ -102,7 +102,8 @@ class ChartAccountController extends Controller
             $name_kh=$request->name_kh;
             $ma_company_id=$request->ma_company_id;
             $parent_id=$request->parent_id;
-            $currency=$request->currency;;
+            $currency=$request->currency;
+            $currency_name=$request->currency_name;
             $data=array(
                 'bsc_account_type_id'=>$bsc_account_type_id,
                 'create_by'=>$create_by,
@@ -111,7 +112,8 @@ class ChartAccountController extends Controller
                 'ma_company_id'=>$ma_company_id,
                 'parent_id'=>$parent_id,
                 'code'=>$code,
-                'ma_currency_id'=>$currency
+                'ma_currency_id'=>$currency,
+                'currency_name'=>$currency_name
             );
 
             if(perms::check_perm_module('BSC_0303')){
@@ -202,6 +204,7 @@ class ChartAccountController extends Controller
             $ma_company_id=$request->ma_company_id;
             $parent_id=$request->parent_id;
             $currency=$request->currency;
+            $currency_name=$request->currency_name;
             $status=$request->status==null ? 0 : 1;
 
             $data=array(
@@ -212,7 +215,8 @@ class ChartAccountController extends Controller
                 'ma_company_id'=>$ma_company_id,
                 'parent_id'=>$parent_id,
                 'status'=>$status,
-                'status'=>$currency
+                'ma_currency_id'=>$currency,
+                'currency_name'=>$currency_name
             );
 
             if(perms::check_perm_module('BSC_0303')){
