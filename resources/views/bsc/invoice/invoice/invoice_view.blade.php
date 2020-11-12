@@ -179,14 +179,14 @@
                                                 </div>
                                             </div>
                                         @endforeach
-                                        
+
                                         @php
                                             $display = "";
                                             if ($due_amount == null){
                                                 $display = "display: none";
                                             }
                                         @endphp
-                                        <hr class="line_in_tag_hr2">
+                                        <hr class="line_in_tag_hr2" style="{{ $display }}">
 
                                         <div class="row" style="{{ $display }}">
                                             <div class="col-sm-6 text_right">
@@ -239,7 +239,15 @@
                                                     <select class="form-control select2 input_required" name="paid_to" id="paid_to">
                                                         <option value="" selected hidden disabled>select item</option>
                                                         @foreach ($ch_accounts as $ch_account)
-                                                            <option value="{{ $ch_account->id }}">{{ $ch_account->name_en }}</option>
+                                                            <option value="" disabled>{{ $ch_account->bsc_account_type_name }}</option>
+                                                            @php
+                                                                $paid_from_to=$ch_account->paid_from_to;
+                                                            @endphp
+                                                            @if ($paid_from_to !=null)
+                                                                @foreach ($paid_from_to as $paid_to)
+                                                                    <option value="{{ $paid_to->id }}">&nbsp;&nbsp;&nbsp;{{ $paid_to->name_en }}</option>
+                                                                @endforeach
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                 </div>
