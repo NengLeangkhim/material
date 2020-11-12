@@ -192,7 +192,15 @@
                                         <select class="form-control select2" name="account_type" id="account_type">
                                             <option selected hidden disabled>select item</option>
                                             @foreach ($show_chart_accounts as $chart_account_show)
-                                                <option value="{{$chart_account_show->id}}">{{$chart_account_show->name_en}}</option>
+                                                <option value="" disabled>{{$chart_account_show->bsc_account_type_name}}</option>
+                                                @php
+                                                    $paid_from_to=$chart_account_show->paid_from_to;
+                                                @endphp
+                                                 @if ($paid_from_to !=null)
+                                                 @foreach ($paid_from_to as $paid_to)
+                                                     <option value="{{ $paid_to->id }}">&nbsp;&nbsp;&nbsp;{{ $paid_to->name_en }}</option>
+                                                 @endforeach
+                                             @endif
                                             @endforeach
                                         </select>
                                     </div>
@@ -217,11 +225,6 @@
                                 <input type="hidden" id="bsc_invoice_id" value="{{$purchase->id}}">
                                 {{--  --}}
                                 <input type="hidden" id="bsc_account_charts_id" value="{{$purchase->chart_account_id}}">
-
-                                {{-- @foreach ($purchase_payment as $pur_payment)
-
-                                    <input type="hidden" id="due_amount_payment" value="{{$pur_payment->due_amount == null ? $purchase->grand_total : $pur_payment->due_amount}}">
-                                @endforeach --}}
 
                             </div>
                         </div>

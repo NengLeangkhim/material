@@ -146,6 +146,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $row_count = 0;
+                                            @endphp
                                             @foreach ($purchase_detail as $key => $p_detail)
                                                 @php
                                                     $row_count = $key;
@@ -205,7 +208,7 @@
                                             <div class="col-md-4">
                                                 <div class="row">
                                                     <div class="col-sm-6 text_right">
-                                                        <label for="">Total</label>
+                                                        <label for="">Total :</label>
                                                     </div>
                                                     <div class="col-sm-6 text_right">
                                                         <label for="" id="txtTotal" class="txtTotal">0</label>
@@ -213,7 +216,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-6 text_right">
-                                                        <label for="">VAT Total</label>
+                                                        <label for="">VAT Total :</label>
                                                     </div>
                                                     <div class="col-sm-6 text_right">
                                                         <label for="" id="txtVatTotal" class="txtVatTotal">0</label>
@@ -221,44 +224,13 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-6 text_right">
-                                                        <label for="">Grand Total</label>
+                                                        <label for="">Grand Total :</label>
                                                     </div>
                                                     <div class="col-sm-6 text_right">
                                                         <label for="" id="txtGrandTotal">0</label>
                                                     </div>
                                                 </div>
                                                 <hr class="line_in_tag_hr">
-
-                                                {{-- <div class="row">
-                                                    <div class="col-sm-6 text_right">
-                                                        <label for="">Payment</label>
-                                                    </div>
-                                                    <div class="col-sm-6 text_right">
-                                                        <label for="">0</label>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-6 text_right">
-                                                        <label for="">Date</label>
-                                                    </div>
-                                                    <div class="col-sm-6 text_right">
-                                                        <label for="">0</label>
-                                                    </div>
-                                                </div>
-                                                <hr class="line_in_tag_hr2">
-                                                <div class="row">
-                                                    <div class="col-sm-6 text_right">
-                                                        <h4>
-                                                            <label for="">Amount Due</label>
-                                                        </h4>
-                                                    </div>
-                                                    <div class="col-sm-6 text_right">
-                                                        <h4>
-                                                            <label for="">0</label>
-                                                        </h4>
-                                                    </div>
-                                                </div>
-                                                <hr class="line_in_tag_hr2"> --}}
 
                                                 @php
                                                     $due_amount = "";
