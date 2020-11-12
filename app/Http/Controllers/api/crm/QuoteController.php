@@ -285,7 +285,6 @@ class QuoteController extends Controller
                     ));
             }
 
-
             DB::commit();
             return json_encode(["udpate"=>"success","result"=>[]]);
         }catch(Exception $e){

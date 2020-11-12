@@ -25,8 +25,9 @@ class QuoteController extends Controller
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         $listQuote = json_decode($res->getContent());
-        // dd($listQuote);
-        return view('crm/quote/quoteShow',compact('listQuote'));
+        // dump($listQuote);
+        // dump($token);
+        // return view('crm/quote/quoteShow',compact('listQuote'));
     }
 
     // function to get show qoute detail
@@ -457,14 +458,13 @@ class QuoteController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        echo 'helll update';
-        // $create_by = $_SESSION['userid'];
-        // $request->merge(['update_by' => $create_by]);
+        $create_by = $_SESSION['userid'];
+        $request->merge(['update_by' => $create_by]);
 
-        // $request = Request::create('/api/quotebranch', 'PUT', $request->all());
-        // $response = json_decode(Route::dispatch($request)->getContent());
+        $request = Request::create('/api/quotebranch', 'PUT', $request->all());
+        $response = json_decode(Route::dispatch($request)->getContent());
 
-        // dump($response);
+        dump($response);
         // if($response->udpate=='success'){
         //     return response()->json(['success'=>$response]);
         // }else{
