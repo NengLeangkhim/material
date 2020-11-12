@@ -333,7 +333,7 @@ class InvoiceController extends Controller
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $response = json_decode($res->getContent()); // convert to json object
-            echo "success";
+            return response()->json(['saved'=>$response]);
         }catch(Exception $e){
             echo $e->getMessage();
             exit();

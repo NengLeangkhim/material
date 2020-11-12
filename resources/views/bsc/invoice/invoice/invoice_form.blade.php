@@ -72,12 +72,12 @@
                                     </div>
                                     <input type="hidden" id="billing_address" name="billing_address">
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Customer</label>
+                                        <label for="exampleInputEmail1">Customer<b class="color_label">*</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="customer" id="customer" data-customer_id placeholder="Customer" readonly>
+                                            <input type="text" class="form-control input_required" name="customer" id="customer" data-customer_id placeholder="Customer" readonly>
                                         </div>
                                     </div>
 
@@ -326,7 +326,11 @@
                 },
                 dataType: "JSON",
                 success:function(data){
-
+                    if(data.saved.success == false){
+                        alert("fail to insert");
+                    }else{
+                        go_to('bsc_invoice_invoice_list');
+                    }
                 }
             });
         }
