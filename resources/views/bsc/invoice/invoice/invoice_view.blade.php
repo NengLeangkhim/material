@@ -206,7 +206,7 @@
                             <form action="">
                                 @csrf
                                 <div class="card-body">
-                                    <strong><h4 for="" style="text-align: center">Receive a Payment</h4><strong><br/>
+                                    <h4><label for="">Receive a Payment</label></h4>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
