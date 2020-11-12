@@ -54,7 +54,7 @@ class ChartAccountController extends Controller
                 $ch_account_type = json_decode($res->getContent()); // convert to json object
                 $ch_account_types=$ch_account_type->data;
             // Get all chart account
-                $request = Request::create('/api/bsc_chart_accounts', 'GET');
+                $request = Request::create('/api/bsc_show_chart_account_parent', 'GET');
                 $request->headers->set('Accept', 'application/json');
                 $request->headers->set('Authorization', 'Bearer '.$token);
                 $res = app()->handle($request);
@@ -146,7 +146,7 @@ class ChartAccountController extends Controller
                 $ch_account_types=$ch_account_type->data;
                 // dd($ch_account_types);exit;
             // Get all chart account
-                $request = Request::create('/api/bsc_chart_accounts', 'GET');
+                $request = Request::create('/api/bsc_show_chart_account_parent', 'GET');
                 $request->headers->set('Accept', 'application/json');
                 $request->headers->set('Authorization', 'Bearer '.$token);
                 $res = app()->handle($request);
