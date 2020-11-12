@@ -1257,6 +1257,8 @@ function Crm_delete(id,route,goto,alert) {
 
     //function click to submit update quote branch
     $(document).on('click','#btnUpdateQuoteBranch',function(){
+
+            var quoteId = $('#quote_id').val();
             $.ajax({
                 method: 'PUT',
                 url: '/quote/edit/branch/update',
@@ -1267,15 +1269,15 @@ function Crm_delete(id,route,goto,alert) {
                     $('#frmEditQuoteBranch').serialize(),
                 success:function(data)
                 {
-                    console.log(data);
-                    // if(data.success){
-                    //     sweetalert('success','Update successed!');
-                    //     setTimeout(function(){
-                    //         goto_Action('/quote/detail', quoteId);
-                    //     },2000);
-                    // }else{
-                    //     sweetalert('error','Update failed!');
-                    // }
+                    // console.log(data);
+                    if(data.success){
+                        sweetalert('success','Update successed!');
+                        setTimeout(function(){
+                            goto_Action('/quote/detail', quoteId);
+                        },2000);
+                    }else{
+                        sweetalert('error','Update failed!');
+                    }
 
                 },
                 error: function(data) {
