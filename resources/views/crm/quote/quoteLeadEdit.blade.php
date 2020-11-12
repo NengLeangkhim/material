@@ -108,7 +108,7 @@
                                 <dt class="col-sm-12 ">
                                     <div class="text-right" >
                                             <button type="button" class="mr-2 font-weight-bold btn btn-sm btn-primary"  id="btnUpdateQuoteLead" >Update</button>
-                                            <button type="button" class=" font-weight-bold  btn btn-sm btn-danger" >Cancel</button>
+                                            <button type="button" class=" font-weight-bold  btn btn-sm btn-danger" onclick='cancelEditLead();' >Cancel</button>
                                     </div>
                                 </dt>
 
@@ -151,10 +151,34 @@
 
     </form>
         <!-- ./col -->
+
+    <?php
+        // $quoteId = json_encode($quoteDetail->data->id);
+    ?>
     <script type="text/javascript">
         $(document).ready(function(){
             $('select').select2();
         });
+
+
+        function cancelEditLead(){
+            var qId = <?php echo json_encode($quoteDetail->data->id); ?>;
+            Swal.fire({ //get from sweetalert function
+                title: 'Cancel',
+                text: "Do you want to cancel ? ",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if(result.value) {
+                    goto_Action('/quote/leadBranch', qId);
+                }
+            });
+        }
+
+
     </script>
 
 </section>

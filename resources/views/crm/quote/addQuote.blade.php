@@ -375,52 +375,57 @@
 
 
                                         <!-- Grand Total Content -->
-                                        <div class="row-12 max-min-table-total">
-                                            <table class="table">
-                                                <tbody>
-                                                    <tr class="fieldGrandTotal">
-                                                        <td style="width: 50%"><input type="hidden"></td>
-                                                        <td  >
-                                                            <table class="table table-bordered tr-quote-row">
-                                                                <tbody>
-                                                                    <tr style="text-align: right">
-                                                                        <td  ><span style="padding-right: 12px;">Sum Total </span></td>
-                                                                        <td  ><div id="sumTotal"> 0.0 </div></td>
-                                                                    </tr>
+                                        <div class="row-12 max-min-table-total" >
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr class="fieldGrandTotal">
+                                                            <td style="width: 50%"><input type="hidden"></td>
+                                                            <td  >
+                                                                <table class="table table-bordered tr-quote-row">
+                                                                    <tbody>
+                                                                        <tr style="text-align: right">
+                                                                            <td  ><span style="padding-right: 12px;">Sum Total </span></td>
+                                                                            <td  ><div id="sumTotal"> 0.0 </div></td>
+                                                                        </tr>
+
+                                                                        <!-- <tr style="text-align: right">
+                                                                            <td >
+                                                                                <select class="allItemDiscount btn-list-item mdb-select md-form" name="allDiscount" id="allItemDiscount" >
+                                                                                    <option value="1"><span>+Discount (%)</span> </option>
+                                                                                    <option value="2"><span>+Discount ($)</span> </option>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td class="rowGrandDiscount">
+                                                                                <div id="allDiscount">
+                                                                                    <input type="text" style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="itemDiscountPercent" value="0" placeholder="0.0%" required>
+                                                                                </div>
+                                                                                <div  id="totalDiscount">
+                                                                                    0
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr> -->
 
 
-                                                                    <tr style="text-align: right">
-                                                                        <td >
-                                                                            <select class="allItemDiscount btn-list-item mdb-select md-form" name="allDiscount" id="allItemDiscount" >
-                                                                                <option value="1"><span>+Discount (%)</span> </option>
-                                                                                <option value="2"><span>+Discount ($)</span> </option>
-                                                                            </select>
-                                                                        </td>
-                                                                        <td class="rowGrandDiscount">
-                                                                            <div id="allDiscount">
-                                                                                <input type="text" style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="itemDiscountPercent" value="0" placeholder="0.0%" required>
-                                                                            </div>
-                                                                            <div  id="totalDiscount">
-                                                                                0
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
+                                                                        <tr class="td-total-quote grandTotal" >
+                                                                            <td  ><span style="padding-right: 12px;">Grand Total</span></td>
+                                                                            <td  ><div id="grandTotal"> 0.0 </div></td>
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
 
 
-                                                                    <tr class="td-total-quote grandTotal" >
-                                                                        <td  ><span style="padding-right: 12px;">Grand Total</span></td>
-                                                                        <td  ><div id="grandTotal"> 0.0 </div></td>
-                                                                    </tr>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
 
-                                                                </tbody>
-                                                            </table>
-
-
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-
-                                            </table>
+                                                </table>
+                                                {{-- <div class="col-md-8 col-sm-6 text-right font-weight-bold" >
+                                                    <label>Grand Total: </label>
+                                                </div>
+                                                <div class="col-md-4 col-sm-6 text-center font-weight-bold" >
+                                                    <label id="grandTotal"> 0.0 </label> <span>($)</span>
+                                                </div> --}}
                                         </div>
                                 </div>
                             </div>
@@ -496,7 +501,8 @@
 
 
 
-    <script type="text/javascript" src="js/crm/crmAddRowQuote.js"></script>
+    {{-- <script type="text/javascript" src="js/crm/crmAddRowQuote.js"></script> --}}
+
     <script type="text/javascript">
 
 
@@ -537,10 +543,5 @@
 
     </script>
 
-    <script type="text/javascript">
-
-
-
-    </script>
 
 

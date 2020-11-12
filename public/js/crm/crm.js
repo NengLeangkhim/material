@@ -938,6 +938,10 @@ function Crm_delete(id,route,goto,alert) {
       }
 
 
+    // function myfun111(){
+    //     alert('thiso is alert test');
+    // }
+
 
     //function for notify alert
     function notify_alert(id,type,locat,message){
@@ -1006,7 +1010,6 @@ function Crm_delete(id,route,goto,alert) {
                     ' </table>'+
                 '</div>'+
         '</div>';
-        // console.log('row content added');
         $('#content-quote-product').append($row_content);
 
     }
@@ -1017,7 +1020,7 @@ function Crm_delete(id,route,goto,alert) {
     $(document).on('click','.btnCloseRowContent',function(){
         var btnId = $(this).attr("id");
         $('#row_content'+btnId+'').remove();
-        console.log('this btn remove content row branch');
+        // console.log('this btn remove content row branch');
     });
 
 
@@ -1144,10 +1147,10 @@ function Crm_delete(id,route,goto,alert) {
               {
 
                   if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-                    // sweetalert('success','Data has been saved !');
+                        sweetalert('success','Data has been saved !');
                         setTimeout(function(){
-                            go_to('/quote/detail');// refresh content
-                        },2000);
+                            goto_Action('/quote/detail', data.quoteId.id);
+                        },1300);
 
                     // use go ot view quote detail
                   }else{
@@ -1160,7 +1163,7 @@ function Crm_delete(id,route,goto,alert) {
                         $("#" + key).addClass("is-invalid"); //give read border to input field
                         $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
                         $("#" + key + "Error").addClass("invalid-feedback");
-                        console.log('key='+key+'--value='+value);
+                        // console.log('key='+key+'--value='+value);
 
 
                         // check if validate give empty product field
@@ -1252,6 +1255,35 @@ function Crm_delete(id,route,goto,alert) {
 
 
 
+    //function click to submit update quote branch
+    $(document).on('click','#btnUpdateQuoteBranch',function(){
+            $.ajax({
+                method: 'PUT',
+                url: '/quote/edit/branch/update',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:
+                    $('#frmEditQuoteBranch').serialize(),
+                success:function(data)
+                {
+                    console.log(data);
+                    // if(data.success){
+                    //     sweetalert('success','Update successed!');
+                    //     setTimeout(function(){
+                    //         goto_Action('/quote/detail', quoteId);
+                    //     },2000);
+                    // }else{
+                    //     sweetalert('error','Update failed!');
+                    // }
+
+                },
+                error: function(data) {
+                    console.log(data);
+                    sweetalert('warning','Data not accessing to server!');
+                }
+            });
+    });
 
 
 
