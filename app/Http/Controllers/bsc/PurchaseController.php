@@ -195,8 +195,9 @@ class PurchaseController extends Controller
         $response = json_decode($res->getContent()); // convert to json object
         $purchase= $response->data->purchase;
         $purchase_detail = $response->data->purchase_detail;
+        $purchase_payments = $response->data->purchase_payments;
         
-        return view('bsc.purchase.purchase.purchase_edit',compact('suppliers','account_payables','products','purchase','purchase_detail'));
+        return view('bsc.purchase.purchase.purchase_edit',compact('suppliers','account_payables','products','purchase','purchase_detail','purchase_payments'));
     }
 
     public function update_data(Request $request){

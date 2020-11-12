@@ -129,19 +129,25 @@
                                         </div>
                                         <hr class="" style="margin: 0px;">
                                     @endforeach
-                                    <div class="row">
+                                    @php
+                                        $display="";
+                                        if($due_amount == null){
+                                            $display="display : none";
+                                        }
+                                    @endphp
+                                    <div class="row" style="{{$display}}">
                                         <div class="col-sm-6 text_right">
-                                            <h4>
-                                                <label for="">Amount Due :</label>
-                                            </h4>
-                                        </div>
-                                        <div class="col-sm-6 text_right">
-                                            <h4>
-                                                <label for="" id="due_amount_payment">{{$due_amount == null ? $purchase->grand_total : $due_amount}}</label>
-                                            </h4>
+                                                <h4>
+                                                    <label for="">Amount Due :</label>
+                                                </h4>
+                                            </div>
+                                            <div class="col-sm-6 text_right">
+                                                <h4>
+                                                    <label for="" id="due_amount_payment">{{$due_amount == null ? $purchase->grand_total : $due_amount}}</label>
+                                                </h4>
                                         </div>
                                     </div>
-                                    <hr class="line_in_tag_hr2">
+                                    <hr class="line_in_tag_hr2" style="{{$display}}">
                                 </div>
                             </div>
                         </div>
@@ -284,7 +290,7 @@
                     dataType: "JSON",
                     success:function(data){
                         if(data.payment.success == false){
-                            alert("fail to payment");
+                            //alert("fail to payment");
                         }else{    
                             go_to('bsc_purchase_purchase_list');
                         }
