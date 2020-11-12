@@ -25,8 +25,8 @@ class QuoteController extends Controller
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         $listQuote = json_decode($res->getContent());
-        dd($listQuote);
-        // return view('crm/quote/quoteShow',compact('listQuote'));
+        // dd($listQuote);
+        return view('crm/quote/quoteShow',compact('listQuote'));
     }
 
     // function to get show qoute detail
@@ -123,9 +123,9 @@ class QuoteController extends Controller
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $listProduct = json_decode($res->getContent());
-
-            // $request = Request::create('/api/stock/product/', 'GET');
-            // $listProduct = json_decode(Route::dispatch($request)->getContent());
+            // dump($listProduct);
+            // echo $branId;
+            // exit;
             return view('crm/quote/listProduct', compact('listProduct','row_id','branId'));
         }
 
@@ -192,7 +192,8 @@ class QuoteController extends Controller
             $res = app()->handle($request);
             $listBranch = json_decode($res->getContent());
 
-            // dd($listBranch);
+            // dump($listBranch);
+            // exit;
             return view('crm/quote/listQuoteBranch', compact('listBranch'));
         }
     }
@@ -253,7 +254,9 @@ class QuoteController extends Controller
                 $response = json_decode(Route::dispatch($request)->getContent());
 
                 if($response->insert=='success'){
-                    return response()->json(['success'=>$response]);
+                    //when add quote success, get quote id to get view quote detail
+                    $quoteId = ModelCrmQuote::getQuoteLastId();
+                    return response()->json(['success'=>$response,'quoteId'=> $quoteId]);
                 }else{
                     return response()->json(['error'=>$response]);
                 }
@@ -297,6 +300,9 @@ class QuoteController extends Controller
                         $request2->headers->set('Authorization', 'Bearer '.$token);
                         $res2 = app()->handle($request2);
                         $getBranchDetail = json_decode($res2->getContent());
+
+                        // dump($getBranchDetail);
+                        // exit;
                         $data['crm_branch_id'] = $getBranchDetail->data[0]->branch_id;
                         $data['branch_name'] = $getBranchDetail->data[0]->company_en;
 
@@ -313,22 +319,30 @@ class QuoteController extends Controller
                             $num = count($response3->data->quote_stage);
                             $data['quote_stage'] = $response3->data->quote_stage[($num-1)];
                         }
+
                         $data['quote_id'] = $response3->data->id;
                         $data['quote_due_date'] = $response3->data->due_date;
                         $data['quote_number'] = $response3->data->quote_number;
                         $data['quote_subject'] = $response3->data->subject;
                         $data['lead_id'] = $getBranchDetail->data[0]->lead_id;
 
+
                         //use this api to get lead detail
                         $request4 = Request::create('/api/getleadbyid/'.$getBranchDetail->data[0]->lead_id.'', 'GET');
-                        $response4 = json_decode(Route::dispatch($request4)->getContent());
+                        $request4->headers->set('Accept', 'application/json');
+                        $request4->headers->set('Authorization', 'Bearer '.$token);
+                        $res4 = app()->handle($request4);
+                        $response4 = json_decode($res4->getContent());
+
                         $data['lead_number'] = $response4->data[0]->lead_number;
                         $data['lead_name'] = $response4->data[0]->customer_name_en;
 
                         $dataQuoteLead[] = $data;
-                    }
-                }
 
+
+                    }
+
+                }
 
             // dump($dataQuoteLead[0]['branch_id']);
             return view('crm/quote/leadBranch', compact('dataQuoteLead'));
@@ -390,6 +404,11 @@ class QuoteController extends Controller
     //function to list data to form edit quote branch
     public static function quoteEditBranch(Request $request){
             if(isset($_GET['id_']) && isset($_GET['id_2']) ){
+                if (session_status() == PHP_SESSION_NONE) {
+                    session_start();
+                }
+                $token = $_SESSION['token'];
+
                 $quoteId = $_GET['id_'];
                 $quoteBranchId = $_GET['id_2'];
 
@@ -399,18 +418,31 @@ class QuoteController extends Controller
                 foreach($response1->data as $key1=>$val1){
                     if($val1->id == $quoteBranchId){
                         $data['lead_branch_id'] = $val1->crm_lead_branch_id;
+                        $data['quote_branch_id'] = $val1->id;
                     }
                 }
                     $request2 = Request::create('/api/getbranch/'.$data['lead_branch_id'].'', 'GET');  // get list lead branch detail by branch id
-                    $response2 = json_decode(Route::dispatch($request2)->getContent());
-                    $data['lead_branch_name'] = $response2->data[0]->company_en;
+                    // $response2 = json_decode(Route::dispatch($request2)->getContent());
+                    $request2->headers->set('Accept', 'application/json');
+                    $request2->headers->set('Authorization', 'Bearer '.$token);
+                    $res2 = app()->handle($request2);
+                    $response2 = json_decode($res2->getContent());
 
+                    $data['lead_branch_name'] = $response2->data[0]->company_en;
                     $request3 = Request::create('/api/quotebranch/detail/'.$quoteBranchId.'', 'GET');  // get list quote branch detail by quote branch id
                     $response3 = json_decode(Route::dispatch($request3)->getContent());
-                    // dump($response3);
+                        foreach($response3->data as $key2=>$val2){
+                            $product[] = ModelCrmQuote::getProductById($val2->stock_product_id);
+                            // dump($val2->stock_product_id);
+                        }
 
-                // dump($response2->data[0]->company_en);
-                return view('crm/quote/quoteBranchEdit',compact('quoteId','data','response3'));
+                    // dump($response3);
+                    // dump($quoteId);
+                    // dump($data);
+                    // dump($product[0][0]->prdName);
+
+                // dump($token);
+                return view('crm/quote/quoteBranchEdit',compact('quoteId','data','response3','product'));
 
             }else{
                 return redirect()->action('crm\QuoteController@showQuoteList');
@@ -420,6 +452,27 @@ class QuoteController extends Controller
 
 
 
+    //function to submit update quote branch edit
+    public static function quoteEditBranchUpdate(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        echo 'helll update';
+        // $create_by = $_SESSION['userid'];
+        // $request->merge(['update_by' => $create_by]);
+
+        // $request = Request::create('/api/quotebranch', 'PUT', $request->all());
+        // $response = json_decode(Route::dispatch($request)->getContent());
+
+        // dump($response);
+        // if($response->udpate=='success'){
+        //     return response()->json(['success'=>$response]);
+        // }else{
+        //     return response()->json(['error'=>$response]);
+        // }
+
+
+    }
 
 
 

@@ -167,6 +167,7 @@ $(window).on('shown.bs.modal', function() {
 {{--------------------------CRM---------------------}}
 <script type="text/javascript" src="js/crm/crm.js"></script>
 <script src="js/crm/crm_report.js"></script>
+<script type="text/javascript" src="js/crm/crmAddRowQuote.js"></script>
 
 {{-- ---------------------bsc-------------- --}}
 <script src="js/bsc/bsc.js"></script>
