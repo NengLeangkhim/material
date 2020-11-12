@@ -24,6 +24,8 @@ class QuoteResource extends JsonResource
     public function toArray($request)
     {
 
+        return parent::toArray($request);
+
         //get name assign to and createby
         $assign =User::find($this->assign_to,[
             'id',
