@@ -170,6 +170,7 @@ class QuoteController extends Controller
         return json_encode($status);
     }
 
+
     public function getStockByBranchId($id){
         $product= QuoteBranchDetail::where('crm_quote_branch_id',$id)->orderBy('id','asc')->get();
         return QuoteBranchDetailResource::collection($product);

@@ -40,4 +40,15 @@ class StockController extends Controller
                 return response()->json(["data"=>null]);
         }
     }
+
+    public function getProductByBranchId($id)
+    {
+        $data = DB::table('stock_product_type')
+                        ->where('stock_product.id',$id)
+                        ->rightJoin('stock_product', 'stock_product_type.id', '=', 'stock_product.stock_product_type_id')
+                        ->select(["stock_product.id","name","stock_qty","product_price","part_number","description","stock_product_type.group_type"])
+                        ->get();
+        return response()->json($data);
+    }
+
 }
