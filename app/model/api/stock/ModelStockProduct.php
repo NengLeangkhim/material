@@ -4,10 +4,10 @@ namespace App\model\api\stock;
 
 use Illuminate\Database\Eloquent\Model;
 use Eloquent;
-
+use Illuminate\Support\Facades\DB;
 class ModelStockProduct extends Eloquent
 {
-    
+
 
     protected $table ='stock_product';
     public $timestamps = false;
@@ -15,4 +15,5 @@ class ModelStockProduct extends Eloquent
     public function stockType(){
         return $this->belongsTo('App\model\api\stock\ModelCrmStockType');
     }
+
 }

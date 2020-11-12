@@ -35,9 +35,6 @@ Route::get('/quotebranch/detail/{qbid}','api\crm\QuoteController@getStockByBranc
 // get contact by id
 Route::get('/quote/{id}','api\crm\QuoteController@show');
 
-// get all product
-Route::get('/quote/stock/{type}','api\crm\QuoteController@getStock');
-
 
 /*
 |   ADD ROUTES
