@@ -157,8 +157,6 @@ class ChartAccountController extends Controller
                 $sql_parent="update_bsc_account_charts($id, $request->update_by, $request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, null, '$request->status')";
                 $q_parent=DB::select("SELECT ".$sql_parent);
 
-                // $sql_parent="insert_bsc_account_charts($request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, null, $request->code, null, $request->create_by)";
-                // $q_parent=DB::select("SELECT ".$sql_parent);
                 $parent_id = $q_parent[0]->update_bsc_account_charts;
 
                 $chart_account_name_en = $request->name_en.'-'.$request->currency_name; 
@@ -167,10 +165,6 @@ class ChartAccountController extends Controller
                 $sql_child="update_bsc_account_charts($id, $request->update_by, $request->bsc_account_type_id, '$chart_account_name_en', '$chart_account_name_kh', $request->ma_currency_id, $request->ma_company_id, $parent_id, '$request->status')";
                 $q=DB::select("SELECT ".$sql_child);
             }
-
-
-            // $sql="update_bsc_account_charts($id, $request->update_by, $request->bsc_account_type_id, '$request->name_en', '$request->name_kh', null, $request->ma_company_id, $request->parent_id, '$request->status')";
-            // $q=DB::select("SELECT ".$sql);
 
             DB::commit();
             return $this->sendResponse($q, 'Chart account updated successfully.');
