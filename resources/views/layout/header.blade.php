@@ -65,5 +65,11 @@
 {{-- Style for BSC --}}
 <link rel="stylesheet" href="css/bsc/bsc.css">
 {{-- End style BSC  --}}
+
+  <!-- fullCalendar -->
+  <link rel="stylesheet" href="plugins/fullcalendar/main.min.css">
+  <link rel="stylesheet" href="plugins/fullcalendar-daygrid/main.min.css">
+  <link rel="stylesheet" href="plugins/fullcalendar-timegrid/main.min.css">
+  <link rel="stylesheet" href="plugins/fullcalendar-bootstrap/main.min.css">
 </head>
 

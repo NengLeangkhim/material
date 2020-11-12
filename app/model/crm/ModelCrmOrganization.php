@@ -15,20 +15,24 @@ class ModelCrmOrganization extends Model
 
     // Model get Organize
     public  static function  CrmGetOrganize(){
+
+        $token = $_SESSION['token'];
         $request = Request::create('/api/organizies', 'GET');
         $request->headers->set('Accept', 'application/json');
-        // $request->headers->set('Authorization', 'Bearer '.$token);
+        $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
-        return $res->getContent();
+         return $res->getContent();
     }
 
     // Model get Organize by id
     public  static function  CrmGetOrganizeById($id){
+        
+        $token = $_SESSION['token'];
         $request = Request::create('/api/organize/'.$id, 'GET');
         $request->headers->set('Accept', 'application/json');
-        // $request->headers->set('Authorization', 'Bearer '.$token);
+        $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
-        return $res->getContent();
+         return $res->getContent();
     }
 
 }
