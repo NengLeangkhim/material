@@ -637,7 +637,9 @@ class Crmlead extends Model
 		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC  LIMIT 1) as  survey_id,
 		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_status,
 		(SELECT comment as survey_comment from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
-		(SELECT possible  from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date  DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1)
+		(SELECT possible  from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date  DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
+        (SELECT id from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_id,
+		(SELECT status from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_status
         from  crm_lead_branch_crm_lead_contact_rel lbc
         left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
         JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
@@ -676,7 +678,9 @@ class Crmlead extends Model
 		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC  LIMIT 1) as  survey_id,
 		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_status,
 		(SELECT comment as survey_comment from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
-		(SELECT possible  from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date  DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1)
+		(SELECT possible  from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date  DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
+        (SELECT id from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_id,
+		(SELECT status from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_status
         from  crm_lead_branch_crm_lead_contact_rel lbc
         left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
         JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
@@ -715,7 +719,9 @@ class Crmlead extends Model
 		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_id,
 		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_status,
 		(SELECT comment as survey_comment from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
-		(SELECT possible  from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date  DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1)
+		(SELECT possible  from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date  DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
+        (SELECT id from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_id,
+		(SELECT status from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_status
         from  crm_lead_branch_crm_lead_contact_rel lbc
         left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
         JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
@@ -763,20 +769,25 @@ class Crmlead extends Model
             // update lead detail
             Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,$lead_status,$comment);
 
-            //insert into table crm_survey
-            if($checksurvey!=='null'){
-                // var_dump("No");
-                CrmLead::insertsurey($branch_id,$user_create);
-                return  json_encode(["update"=>'success']);
-            }
-            else
-            {
-                crmLead::updatesurey($survey_id,$branch_id,$user_create);
-                return  json_encode(["update"=>'success']);
-                // var_dump("yes");
-            }
-
-
+                $survey=DB::select("SELECT id from crm_survey where is_deleted=FALSE and status=TRUE and crm_lead_branch_id=$branch_id ");
+                // $survey=$survey[0]->id;
+                // $survey=json_decode($survey,true);
+                // dd($survey);
+                if($survey!=null && $checksurvey!=='null'){
+                    return  json_encode(["update"=>'success']);
+                }
+                elseif($survey!=null && $checksurvey=='null'){
+                    crmLead::updatesurey($survey_id,$branch_id,$user_create);
+                    return  json_encode(["update"=>'success']);
+                }
+                elseif($checksurvey=='null'){
+                    return  json_encode(["update"=>'success']);
+                }
+                else
+                {
+                    CrmLead::insertsurey($branch_id,$user_create);
+                    return  json_encode(["update"=>'success']);
+                }  
 
         }catch(Exception $e){
             return json_encode(["update"=>"fail update branch","result"=> $e->getMessage()]);
@@ -1046,6 +1057,32 @@ class Crmlead extends Model
         join crm_lead_address cla on cla.id=lb.crm_lead_address_id
         WHERE cs.is_deleted=FALSE and cs.status=TRUE ORDER BY cs.create_date DESC');
     }
+    // Model get  all survey result
+    public static function getsurveyresult(){
+        return DB::select("SELECT csr.id as crm_survey_result_id,cs.id as crm_survey_id,lb.id as branch_id ,cs.crm_lead_branch_id,cs.create_by as survey_create_by,
+        csr.possible,csr.create_by,csr.create_date,comment,lb.name_en,lb.name_kh,cla.address_type,
+        cla.home_kh,cla.hom_en,cla.street_en,cla.street_kh,cla.latlg,cla.gazetteer_code,
+        (SELECT  get_gazetteers_address(cla.gazetteer_code) ) as address_kh ,
+        (SELECT  get_gazetteers_address_en(cla.gazetteer_code) ) as address_en
+        from crm_survey_result csr
+        JOIN crm_survey cs on cs.id=csr.crm_survey_id
+        join crm_lead_branch lb on lb.id =cs.crm_lead_branch_id
+         join crm_lead_address cla on cla.id=lb.crm_lead_address_id
+        WHERE  csr.is_deleted=FALSE and csr.status=TRUE ");
+    }
+     // Model get survey result by user  create
+    public static function getsurveyresultbycreate($id){
+        return DB::select("SELECT csr.id as crm_survey_result_id,cs.id as crm_survey_id,lb.id as branch_id ,cs.crm_lead_branch_id,cs.create_by as survey_create_by,
+        csr.possible,csr.create_by,csr.create_date,comment,lb.name_en,lb.name_kh,cla.address_type,
+        cla.home_kh,cla.hom_en,cla.street_en,cla.street_kh,cla.latlg,cla.gazetteer_code,
+        (SELECT  get_gazetteers_address(cla.gazetteer_code) ) as address_kh ,
+        (SELECT  get_gazetteers_address_en(cla.gazetteer_code) ) as address_en
+        from crm_survey_result csr
+        JOIN crm_survey cs on cs.id=csr.crm_survey_id
+        join crm_lead_branch lb on lb.id =cs.crm_lead_branch_id
+         join crm_lead_address cla on cla.id=lb.crm_lead_address_id
+        WHERE  csr.is_deleted=FALSE and csr.status=TRUE and csr.create_by=$id");
+    }
     //MOdel get survey by branch id
     public static function getsurveybyid($id){
         return DB::select("SELECT lb.id as branch_id , cs.id as survey_id, lb.name_en,lb.name_kh,cs.create_date,cs.create_by,
@@ -1098,6 +1135,35 @@ class Crmlead extends Model
     public static function getschduletype(){
          return DB::select('SELECT id,name_en,name_kh from crm_lead_schedule_type where is_deleted=FALSE and status=TRUE');
     }
+    //Model get all schdule
+    public static function getschedule(){
+           return DB::select("SELECT cls.id as schedule_id,cls.crm_lead_branch_id,cls.name_en,cls.name_kh,to_char(cls.to_do_date,'YYYY-MM-DD') as to_do_date,cls.comment,cls.priority,cls.create_by,
+           clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id,cls.crm_lead_schedule_type_id,clst.name_en as schedule_type,cls.status
+           FROM crm_lead_schedule  cls
+           LEFT JOIN  crm_lead_branch clb on clb.id = cls.crm_lead_branch_id
+           JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
+						LEFT JOIN crm_lead_schedule_type clst  on clst.id=cls.crm_lead_schedule_type_id
+           where cls.is_deleted=FALSE and cls.status=TRUE");
+    } 
+    // Model get schedule by id
+    public static function getschedulebyid($id){
+        return DB::select("SELECT cls.id as schedule_id,cls.crm_lead_branch_id,cls.name_en,cls.name_kh,to_char(cls.to_do_date,'YYYY-MM-DD') as to_do_date,cls.comment,cls.priority,cls.create_by,
+        clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id,cls.crm_lead_schedule_type_id,clst.name_en as schedule_type,cls.status
+        FROM crm_lead_schedule  cls
+        LEFT JOIN  crm_lead_branch clb on clb.id = cls.crm_lead_branch_id
+        JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
+                     LEFT JOIN crm_lead_schedule_type clst  on clst.id=cls.crm_lead_schedule_type_id
+        where cls.is_deleted=FALSE and cls.status=TRUE and cls.id=$id");
+    }
+    //Model get all schdule by assgto 
+    // public static function getschedulebyassigto($id){
+    //     return DB::select("SELECT cls.id as schedule_id,cls.crm_lead_branch_id,cls.name_en,cls.name_kh,cls.to_do_date,cls.comment,cls.priority,cls.create_by,
+    //        clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id
+    //        FROM crm_lead_schedule  cls
+    //        LEFT JOIN  crm_lead_branch clb on clb.id = cls.crm_lead_branch_id
+    //        JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
+    //        where cls.is_deleted=FALSE and cls.status=TRUE and  cla.ma_user_id=$id");
+    // }
     //Model insert​ schdule type
     public static function insertscheduletype($userid,$name_en,$name_kh){
         if(isset($userid)){
@@ -1204,19 +1270,25 @@ class Crmlead extends Model
         }
     }
     //insert schedule result
-    public static function insertscheduleresult($schedule_id,$schedule_type_id,$comment,$userid){
+    public static function insertscheduleresult($schedule_id,$branch_id,$schedule_type_id_result,$comment_result,$userid,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id){
         if(isset($schedule_id)){
             try{
                 $result=DB::select('SELECT insert_crm_lead_schedule_result(?,?,?,?)',
                 array(
                     $schedule_id,
-                    $schedule_type_id,
-                    $comment,
+                    $schedule_type_id_result,
+                    $comment_result,
                     $userid,
 
                 )
             );
-                return json_encode(['insert'=>'success']);;
+                try{
+                    CrmLead::updateschedule($schedule_id,$branch_id,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id,$userid,'f');
+               
+                    return json_encode(['insert'=>'success']);
+                }catch(Exception $e){
+                    return json_encode(["insert"=>"fail insert_crm_lead_schedule_result","result"=> $e->getMessage()]);                
+                }
             }catch(Exception $e){
                 return json_encode(["insert"=>"fail insert_crm_lead_schedule_result","result"=> $e->getMessage()]);
             }

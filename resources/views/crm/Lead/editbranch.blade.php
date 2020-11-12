@@ -699,7 +699,7 @@
                                                                                 <div class="custom-control custom-checkbox">
                                                                                     <input type="text" hidden value="{{$updatelead[$i]['survey_id']}}" name="survey_id">
                                                                                     <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="checksurvey" {{$updatelead[$i]['survey_status']!=false? 'checked':''}} >
-                                                                                    <label for="customCheckbox2"  class="custom-control-label">Survey Or Not</label>
+                                                                                    <label for="customCheckbox2"  class="custom-control-label">Survey Or Don’t Survey</label>
                                                                                 </div>                                                                
                                                                             </div>
                                                                         </div>

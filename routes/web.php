@@ -53,9 +53,12 @@ Route::get('/test_map', function(){
 
 //end lead
 
-// start survey
+// start schedule
 
-Route::get('/schedule','crm\CrmScheduleController@index');
+Route::POST('/insertschedule','crm\CrmScheduleController@insertschedule');
+Route::Get('/schedule','crm\CrmScheduleController@index');
+Route::Get('/detailschedule','crm\CrmScheduleController@detailschedule');
+Route::POST('/insertscheduleresult','crm\CrmScheduleController@insertscheduleresult');
 
 // end survey
 
@@ -119,6 +122,7 @@ Route::post('/quote/save','crm\QuoteController@saveQuote'); // sumit quote data 
 Route::get('/quote/edit/lead','crm\QuoteController@quoteEditLead'); // go to edit quote lead
 Route::put('/quote/edit/lead/update','crm\QuoteController@quoteEditLeadUpdate'); // go to submit quote lead edit
 
+Route::get('/quote/edit/branch','crm\QuoteController@quoteEditBranch'); // go to quote edit branch
 
 
 // end quote

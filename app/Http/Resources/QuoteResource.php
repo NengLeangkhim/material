@@ -24,6 +24,8 @@ class QuoteResource extends JsonResource
     public function toArray($request)
     {
 
+        return parent::toArray($request);
+
         //get name assign to and createby
         $assign =User::find($this->assign_to,[
             'id',
@@ -64,7 +66,7 @@ class QuoteResource extends JsonResource
         $acknowlegde=[];
 
         foreach($quoteStatus as $q){
-            $array =  QuoteStatusType::where('id',$q->crm_quote_status_type_id)->get(['name_en','create_date'])->first();
+            $array =  QuoteStatusType::where('id',$q->crm_quote_status_type_id)->get(['id','name_en','create_date'])->first();
             // foreach($array as $a){
                 array_push($quoteStage,$array);
             // }

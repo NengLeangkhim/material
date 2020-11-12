@@ -59,7 +59,8 @@
                                 <dt class="col-sm-4 dt" >Subject</dt>
                                     <dd class="col-sm-8 dd" >
                                         <input type="text" class="form-control" name="subject" value="{{ $quoteDetail->data->subject }}" placeholder="subject">
-                                        <input type="hidden" name="quote_id" value="{{ $quoteDetail->data->id }}" readonly>
+                                        <input type="hidden" name="quote_id"  id="quote_id" value="{{ $quoteDetail->data->id }}" readonly>
+                                        <input type="hidden" name="crm_lead_id" value="{{ $quoteDetail->data->crm_lead->id }}" readonly>
 
                                     </dd>
                                 <dt class="col-sm-4 dt">Assign To</dt>
@@ -73,7 +74,6 @@
                                                     {{ $val->first_name_en.' '.$val->last_name_en }}
                                                 </option>
                                             @endforeach
-
                                         </select>
                                     </dd>
                                 <dt class="col-sm-4 dt">Quote Status</dt>
@@ -81,9 +81,9 @@
                                         <select class="form-control select2" name="crm_quote_status_type_id">
                                             <?php
                                                 $num = count($quoteDetail->data->quote_stage);
-                                                echo $quoteDetail->data->quote_stage[($num-1)]->name_en;
+                                                // echo $quoteDetail->data->quote_stage[($num-1)]->name_en;
                                             ?>
-                                            <option value="">
+                                            <option value="{{ $quoteDetail->data->quote_stage[($num-1)]->id }}">
                                                 {{ $quoteDetail->data->quote_stage[($num-1)]->name_en }}
                                             </option>
                                             @foreach ($quoteStatus as $key=>$val )
@@ -116,36 +116,6 @@
                         </div>
                         <!-- /.card-body -->
                     </div>
-
-
-                    {{-- card use for Acknowledgement --}}
-                    {{-- <div class="card">
-                        <div class="card-header">
-                            <h1 class="card-title" style="font-weight: bold">
-                                Acknowledgement
-                            </h1>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <dl class="row">
-                                <dt class="col-sm-4 dt" >Create by</dt>
-                                    <dd class="col-sm-8 dd" >
-                                        <input type="text" class="form-control" value="" placeholder="subject">
-                                    </dd>
-                                <dt class="col-sm-4 dt">Finance Manager</dt>
-                                    <dd class="col-sm-8 dd" >
-                                        <input type="text" class="form-control" value="" placeholder="subject">
-                                    </dd>
-                                <dt class="col-sm-4 dt">Sale Manager</dt>
-                                    <dd class="col-sm-8 dd">
-                                        <input type="text" class="form-control" value="" placeholder="subject">
-                                    </dd>
-                            </dl>
-                        </div>
-
-                    </div> --}}
-
-
 
                 </div>
 
