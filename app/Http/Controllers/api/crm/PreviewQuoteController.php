@@ -12,6 +12,7 @@ use App\Http\Resources\QuoteResource;
 use App\Http\Resources\QuoteBranchResource;
 use App\Http\Resources\QuoteBranchDetailResource;
 use App\model\api\crm\ModelCrmQuoteStatusType as QuoteStatusType;
+use App\model\api\stock\ModelStockProduct as Stock;
 use App\model\crm\ModelCrmQuote as Q;
 
 class PreviewQuoteController extends Controller
@@ -40,6 +41,7 @@ class PreviewQuoteController extends Controller
         $data = json_decode($res->getContent());
         $quote = $data->data;
         $no = $quote->quote_number;
+
 
         $html =  $this->logosource().'
         <div style="width: 100%; padding-top: 5px; padding-bottom: -2px; text-align: center;"><span style="font-size:19px;"><span style="color: rgb(31, 168, 225);"><span style="font-family: verdana;"><b>QUOTATION</b></span></span></span></div>
@@ -74,7 +76,7 @@ class PreviewQuoteController extends Controller
                     </tr>
                 </thead>
                 <tbody>
-                    '.$this->getQuoteItem(33)["service"].'
+                    '.$this->getQuoteItem($recordId).'
                 </tbody>
             </table>
         </div>
@@ -210,8 +212,22 @@ class PreviewQuoteController extends Controller
      }
 
     public  function getQuoteTo($q){
-        $address = Q::getAddress($q->address->gazetteer_code);
-        $add = $address[0]->get_gazetteers_address_en;
+        $add = '';
+        $name = '';
+        $pos = '';
+        $phone = '';
+        $email = '';
+
+        if($q->address!=null){
+            $address = Q::getAddress($q->address->gazetteer_code);
+            $add = $address[0]->get_gazetteers_address_en;
+        }
+        if($q->contact!=null){
+            $name = $q->contact->name_en;
+            $pos = $q->contact->position;
+            $phone = $q->contact->phone;
+            $email = $q->contact->email;
+        }
 
          $output = '
          <table cellpadding="1" cellspacing="1" style="border: solid 1px #1fa8e1; font-size: 11px; font-family: Verdana;" width="90%">
@@ -234,22 +250,22 @@ class PreviewQuoteController extends Controller
                      <tr>
                          <td align="left" valign="top">Contact Name</td>
                          <td align="left" valign="top">:</td>
-                         <td>'.$q->contact->name_en.'</td>
+                         <td>'.$name.'</td>
                      </tr>
                      <tr>
                          <td align="left" valign="top">Position</td>
                                                  <td align="left" valign="top">:</td>
-                         <td>'.$q->contact->position.'</td>
+                         <td>'.$pos.'</td>
                      </tr>
                      <tr>
                          <td align="left" valign="top">Telephone</td>
                                                  <td align="left" valign="top">:</td>
-                         <td>'.$q->contact->phone.'</td>
+                         <td>'.$phone.'</td>
                      </tr>
                      <tr>
                          <td align="left" valign="top">E-mail</td>
                                                  <td align="left" valign="top">:</td>
-                         <td>'.$q->contact->email.'</td>
+                         <td>'.$email.'</td>
                      </tr>
                  </tbody>
              </table>';
@@ -303,24 +319,55 @@ class PreviewQuoteController extends Controller
 
      }
 
-    public  function getQuoteItem($recordId){
+    public  function getQuoteItem($qid){
+        // $token = $_SESSION['token'];
+        $request = Request::create('/api/quotebranch/'.$qid.'', 'GET');
+        $request->headers->set('Accept', 'application/json');
+        // $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        $data = json_decode($res->getContent());
+        $quotebranch = $data->data;
 
-         // $vattype = Quote::quoteto($recordId)['vattype'];
-         // $vatnumber = Quote::quoteto($recordId)['vatnumber'];
 
-         // get service display
-         // $services = Quote::quoteServices($recordId);
-         $i =1;
-         $output = '';
-         $subtotal = 0;
-         $services = [1,2,3];
+        $i =1;
+        $output = '';
+        // $    = 0;
+        $services = [1,2,3];
+
+
          // if(!empty($services)){
-             $output .= '<tr>
-                 <td colspan="5" style="height:25px; border-bottom: 1px solid #e6e6ff;">
-                     <span style="font-family:verdana;"><strong><span style="font-size: 12px;">'.$this->numberToRoman($i) .'. Services or Products Description</span></strong></span>
-                 </td>
-             </tr>';
-             foreach ($services as $rows) {
+             //body
+             //============ each branch infomation===========
+            foreach($quotebranch as $qb){
+
+                $branchname=$qb->crm_lead_branch->name;
+
+                // $token = $_SESSION['token'];
+                $request = Request::create('/api/quotebranch/detail/'.$qb->id.'', 'GET');
+                $request->headers->set('Accept', 'application/json');
+                // $request->headers->set('Authorization', 'Bearer '.$token);
+                $res = app()->handle($request);
+                $data = json_decode($res->getContent());
+                $quotedetail = $data->data;
+
+                $output .= '
+                <tr bgcolor="#e6e6ff">
+                    <td colspan="5" style="height:25px; border-bottom: 1px solid #e6e6ff;">
+                        <span style="font-family:verdana;"><strong><span style="font-size: 12px;">'.$branchname.'</span></strong></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="height:25px; border-bottom: 1px solid #e6e6ff;">
+                        <span style="font-family:verdana;"><strong><span style="font-size: 12px;">'.$this->numberToRoman($i) .'. Services or Products Description</span></strong></span>
+                    </td>
+                </tr>';
+
+             foreach ($quotedetail as $qq) {
+                dd($qq);
+
+                // $data = Stock::getServiceByBranchId($qq->stock_product_id);
+                // dd(json_encode($data));
+
                  // $qty = (int)$rows['quantity'];
                  // $unittype= 'Month(s)';
                  // if($rows["productid"]==10229){ // deposit
@@ -392,8 +439,7 @@ class PreviewQuoteController extends Controller
                      <td style="TEXT-ALIGN: right"><span style="font-size:11px;"><span style="font-family:verdana; text-align: right;">$  number_format($vattotal,2) </span></span></td>
                  </tr>';
              // }
-             $output .= $footer .
-             ' <tr style="background-color: #c9dce4;">
+             $output .= ' <tr style="background-color: #c9dce4;">
                  <td colspan="4" rowspan="1" style="height:25px; text-align: right;"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><span style="font-weight: bold;">Total with VAT </span><strong>(USD)</strong></span></span></td>
                  <td nowrap="nowrap" style="TEXT-ALIGN: right"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><strong>$  number_format($total,2) </strong></span></span></td>
              </tr>';
@@ -401,44 +447,44 @@ class PreviewQuoteController extends Controller
          // }
 
          // get products display
-         $subtotalProducts =0;
+        //  $subtotalProducts =0;
          // $products = Quote::quoteProducts($recordId);
-         $products=[1,2];
+        //  $products=[1,2];
          // if(!empty($products)){
-             $output .= '<tr>
-                 <td colspan="5" style="height:25px; border-bottom: 1px solid #e6e6ff;">
-                     <span style="font-family:verdana;"><strong><span style="font-size: 12px;">'. $this->numberToRoman($i) .'.Equipment, Installation & Maintenance (First Time Payment)</span></strong></span>
-                 </td>
-             </tr>';
+            //  $output .= '<tr>
+            //      <td colspan="5" style="height:25px; border-bottom: 1px solid #e6e6ff;">
+            //          <span style="font-family:verdana;"><strong><span style="font-size: 12px;">'. $this->numberToRoman($i) .'.Equipment, Installation & Maintenance (First Time Payment)</span></strong></span>
+            //      </td>
+            //  </tr>';
              // loop display
-             foreach ($products as $rows) {
-                 // $qty = (int)$rows['quantity'];
-                 // $unittype= 'Unit';
-                 // if($vatnumber!=''){ // business
-                 // 	$unitprice = $vattype=='Include'?($rows['listprice']*1.1):$rows['listprice'];
-                 // 	$amount = $vattype=='Include'?($rows['amount']/1.1):$rows['amount'];
-                 // }else{ // home
-                 // 	$unitprice = $vattype=='Include'?$rows['listprice']:($rows['listprice']*1.1);
-                 // 	$amount = $vattype=='Include'?$rows['amount']:($rows['amount']*1.1);
-                 // }
-                 // display in table
-                 $output .='<tr>
-                 <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: center; vertical-align: middle;">
-                                 <span style="font-size:11px;"> sequence_no </span></td>
-                 <td align="left" style="font-family:verdana; border-bottom: 1px solid #e6e6ff;" valign="middle">
-                                 <span style="font-size:11px;"> servicename </span><br />
-                                 <span style="font-size:9px;"> comment </span>
-                             </td>
-                 <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: left;" valign="middle">
-                             <span style="font-size:11px;"> $qty  $unittype</span></td>
-                 <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: right;" valign="middle">
-                                 <span style="font-size:11px;">$  number_format($unitprice,2) </span></td>
+            //  foreach ($products as $rows) {
+            //      // $qty = (int)$rows['quantity'];
+            //      // $unittype= 'Unit';
+            //      // if($vatnumber!=''){ // business
+            //      // 	$unitprice = $vattype=='Include'?($rows['listprice']*1.1):$rows['listprice'];
+            //      // 	$amount = $vattype=='Include'?($rows['amount']/1.1):$rows['amount'];
+            //      // }else{ // home
+            //      // 	$unitprice = $vattype=='Include'?$rows['listprice']:($rows['listprice']*1.1);
+            //      // 	$amount = $vattype=='Include'?$rows['amount']:($rows['amount']*1.1);
+            //      // }
+            //      // display in table
+            //      $output .='<tr>
+            //      <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: center; vertical-align: middle;">
+            //                      <span style="font-size:11px;"> sequence_no </span></td>
+            //      <td align="left" style="font-family:verdana; border-bottom: 1px solid #e6e6ff;" valign="middle">
+            //                      <span style="font-size:11px;"> servicename </span><br />
+            //                      <span style="font-size:9px;"> comment </span>
+            //                  </td>
+            //      <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: left;" valign="middle">
+            //                  <span style="font-size:11px;"> $qty  $unittype</span></td>
+            //      <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: right;" valign="middle">
+            //                      <span style="font-size:11px;">$  number_format($unitprice,2) </span></td>
 
-                 <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; TEXT-ALIGN: right" valign="middle">
-                             <span style="font-size:11px;">$  number_format($amount,2) </span></td>
-                         </tr>';
-                 // $subtotalProducts += $amount;
-             }
+            //      <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; TEXT-ALIGN: right" valign="middle">
+            //                  <span style="font-size:11px;">$  number_format($amount,2) </span></td>
+            //              </tr>';
+            //      // $subtotalProducts += $amount;
+            //  }
 
              // if($vatnumber != ''){
              // 	$vattotal = $subtotalProducts * 0.1;
@@ -461,21 +507,29 @@ class PreviewQuoteController extends Controller
                  </tr>';
              // }
              // if($totalProducts > 0){
-                 $output .= $footer .
-                 ' <tr style="background-color: #c9dce4;">
+                 $output .=' <tr style="background-color: #c9dce4;">
                      <td colspan="4" rowspan="1" style="height:25px; text-align: right;"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><span style="font-weight: bold;">Total with VAT </span><strong>(USD)</strong></span></span></td>
                      <td nowrap="nowrap" style="TEXT-ALIGN: right"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><strong>$ number_format($totalProducts,2)</strong></span></span></td>
                  </tr>';
              // }
 
          // }
+
+
+        }
+
+         //============ End each branch infomation===========
+
+
+        //footer
+        //grand total all branch
          $output .= '<tr style="background-color: #1fa8e1;">
              <td colspan="4" rowspan="1" style="height:25px; text-align: right;"><span style="color:#fff;"><span style="font-family:verdana; font-size: 11px;"><span style="font-weight: bold;">Grand Total </span><strong>(USD)</strong></span></span></td>
              <td nowrap="nowrap" style="TEXT-ALIGN: right"><span style="color:#fff;"><span style="font-family:verdana; font-size: 11px;"><strong>$ number_format($total + $totalProducts,2)</strong></span></span></td>
          </tr>';
 
          // return array('service'=>$output,'deposit'=>$this->deposit);
-         return array('service'=>$output);
+         return $output;
 
      }
 

@@ -51,11 +51,17 @@ class QuoteResource extends JsonResource
 
 
         //get stock
-        $quoteBranch =  QuoteBranch::where('crm_quote_id',$this->id)->get(['id','crm_lead_branch_id']);
+        $quoteBranch =  QuoteBranch::where('crm_quote_id',$this->id)
+                                ->where('status','t')
+                                ->where('is_deleted','f')
+                                ->get(['id','crm_lead_branch_id']);
 
         $quoteBranchDetail=[];
         foreach($quoteBranch as $q){
-            $array =  QuoteBranchDetail::where('crm_quote_branch_id',$q->id)->get();
+            $array =  QuoteBranchDetail::where('crm_quote_branch_id',$q->id)
+                                        ->where('status','t')
+                                        ->where('is_deleted','f')
+                                        ->get();
             if(sizeof($array)>0){
                 for($i=0;$i<sizeof($array);$i++){
                     array_push($quoteBranchDetail,$array[$i]);
@@ -64,12 +70,18 @@ class QuoteResource extends JsonResource
         }
 
         //get status quote
-        $quoteStatus =  QuoteStatus::where('crm_quote_id',$this->id)->get(['crm_quote_status_type_id','create_by']);
+        $quoteStatus =  QuoteStatus::where('crm_quote_id',$this->id)
+                                    ->where('status','t')
+                                    ->where('is_deleted','f')
+                                    ->get(['crm_quote_status_type_id','create_by']);
         $quoteStage=[];
         $acknowlegde=[];
 
         foreach($quoteStatus as $q){
-            $array =  QuoteStatusType::where('id',$q->crm_quote_status_type_id)->get(['id','name_en','create_date'])->first();
+            $array =  QuoteStatusType::where('id',$q->crm_quote_status_type_id)
+                                ->where('status','t')
+                                ->where('is_deleted','f')
+                                ->get(['id','name_en','create_date'])->first();
             // foreach($array as $a){
                 array_push($quoteStage,$array);
             // }
@@ -90,12 +102,18 @@ class QuoteResource extends JsonResource
         $lead = DB::select("select * from crm_lead where id = $this->crm_lead_id");
 
         //find status
-        $statusQuote = QuoteStatus::where('crm_quote_id',$this->id)->get();
+        $statusQuote = QuoteStatus::where('crm_quote_id',$this->id)
+                                    ->where('status','t')
+                                    ->where('is_deleted','f')
+                                    ->get();
 
         //get lead contact
-        $contactid = BranchContact::where('crm_lead_branch_id',$quoteBranch[0]->crm_lead_branch_id)->get('crm_lead_contact_id');
-        $last_contact_id= $contactid[count($contactid) - 1]->crm_lead_contact_id;
-        $contact = Contact::whereId($last_contact_id)->first();
+        $contact=null;
+        if(count($quoteBranch)>0){
+            $contactid = BranchContact::where('crm_lead_branch_id',$quoteBranch[0]->crm_lead_branch_id)->get('crm_lead_contact_id');
+            $last_contact_id= $contactid[count($contactid) - 1]->crm_lead_contact_id;
+            $contact = Contact::whereId($last_contact_id)->first();
+        }
         return [
             "id"=>$this->id,
             "due_date"=>$this->due_date,
