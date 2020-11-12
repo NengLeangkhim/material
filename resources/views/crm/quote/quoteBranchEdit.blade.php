@@ -42,7 +42,7 @@
       <!-- /.card -->
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-12">
 
 
 
@@ -53,87 +53,12 @@
                             Edit Item
                         </h1>
                     </div>
-                     <div class="card-body">
 
-                        <!-- table row for show item unit -->
-                        {{-- <dl class="row table-responsive">
-                            <table class="table table-bordered " style="min-width: 600px;">
-                                <thead class="font-weight-bold font-size-14">
-                                    <tr>
-                                        <td class="">Item Name</td>
-                                        <td style="">Quantity</td>
-                                        <td class="">Price</td>
-                                        <td class="">Total</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                            <tr id="row' i '" data-id="'+i+'" class="tr-quote-row row-quote-item">
-                                                <td class="td-item-quote-name">
-                                                    <div class=" form-group">
-                                                        <div class="row font-size-14">
-                                                            <div class="col-md-12 col-sm-12 col-12">
-                                                                Product AAAAA
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-
-                                                <td style="">
-                                                    <div class="font-size-14">
-                                                        <span>10</span>
-                                                    </div>
-                                                </td>
-                                                <td class="">
-                                                    <div class="row-12 font-size-14">
-                                                        <span>1000.00}</span>
-                                                    </div>
-                                                    <div class="row-12 pt-1 btn-list-item font-size-14">
-
-                                                        <div class="font-weight-normal">
-                                                                <div class="row">
-                                                                    <div class="col-6">
-                                                                        (-) Discount(%):
-                                                                    </div>
-                                                                    <div class="col-6 text-right">
-                                                                        0.0%
-                                                                    </div>
-                                                                </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row-12 pt-1 btn-list-item font-size-14">
-                                                        <div class="font-weight-normal">
-                                                            <div>
-                                                                Total After Discount:
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div style="color:red;" class="row-12 pt-1 btn-list-item font-size-14">
-                                                        <div class="font-weight-normal">
-                                                            <span>Net Price: </span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="">
-
-                                                    <div id="quote-sub-total_'+i+'" class="font-size-14 ">1000</div>
-                                                    <div id="quote-sub-discount_'+i+'" class="font-size-14 pt-1">100</div>
-                                                    <div id="quote-after-sub-disc_'+i+'" class="font-size-14 pt-1">900</div>
-                                                    <div id="quote-netPrice_'+i+'" style="color:red;" class="font-size-14 pt-1 ">900.00</div>
-                                                </td>
-
-                                            </tr>
-
-
-                                </tbody>
-
-                            </table>
-
-                        </dl> --}}
+                    <div class="card-body">
 
 
                         <dl class="row table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" style="min-width: 450px;">
                                 <thead class="thead-item-list">
                                         <tr>
                                             <th class="td-item-quote-name"><b style="color:red">*</b> Item Name</th>
@@ -141,11 +66,14 @@
                                             <th style="width: 120px">Quantity</th>
                                             <th class="td-item-quote">List Price($)</th>
                                             <th class="td-item-quote">Total($)</th>
+                                            <th style="width: 50px;" >
+                                                <button type="button" class="btn btn-info" id="btnAddRowQuoteItem" data-id="'+branId+'"><span><i class="fa fa-plus"></i></span></button>
+                                            </th>
                                         </tr>
                                 </thead>
                                 <tbody>
 
-                                        <tr id=" +i+ " class="tr-quote-row row-quote-item" data-id="row_ +i+ ">
+                                        <tr id=" i" class="tr-quote-row row-quote-item" data-id="row_ +i+ ">
                                             <td class="td-item-quote-name">
                                                 <div class=" form-group">
                                                     <div class="row form-inline2">
@@ -208,6 +136,9 @@
                                                 <div id="quote-after-sub-disc_  i  " class="td-quote-total">0</div>
                                                 <div id="quote-netPrice_  i  " style="color:red;"class="td-quote-total">0</div>
                                             </td>
+                                            <td style="width:auto;">
+                                                <button style="width: auto;" class="btnRemoveRow btn btn-denger" id="'+i+'" ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>
+                                            </td>
 
                                         </tr>
 
@@ -252,7 +183,9 @@
 
             </div>
 
-            <div class="col-md-3">
+
+
+            {{-- <div class="col-md-2 col-sm-12">
                 <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">More</h3>
@@ -278,7 +211,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     <!-- ./col -->

@@ -15,8 +15,10 @@ class CrmSurveyController extends Controller
         if(perms::check_perm_module('CRM_021101')){
             $survey=ModelCrmLead::Getsurvey();
             $result=json_decode($survey,true);
-            // dd($result);
-            return view('crm.survey.index',['survey'=>$result['data']]);
+            $survey_result=ModelCrmLead::GetsurveyResult();
+            $survey_result=json_decode($survey_result,true);
+            // dd($result,$survey_resul);
+            return view('crm.survey.index',['survey'=>$result['data'],'survey_result'=>$survey_result['data']]);
         
         }else{
             return view('no_perms');
