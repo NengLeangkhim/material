@@ -117,36 +117,6 @@
                         <!-- /.card-body -->
                     </div>
 
-
-                    {{-- card use for Acknowledgement --}}
-                    {{-- <div class="card">
-                        <div class="card-header">
-                            <h1 class="card-title" style="font-weight: bold">
-                                Acknowledgement
-                            </h1>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <dl class="row">
-                                <dt class="col-sm-4 dt" >Create by</dt>
-                                    <dd class="col-sm-8 dd" >
-                                        <input type="text" class="form-control" value="" placeholder="subject">
-                                    </dd>
-                                <dt class="col-sm-4 dt">Finance Manager</dt>
-                                    <dd class="col-sm-8 dd" >
-                                        <input type="text" class="form-control" value="" placeholder="subject">
-                                    </dd>
-                                <dt class="col-sm-4 dt">Sale Manager</dt>
-                                    <dd class="col-sm-8 dd">
-                                        <input type="text" class="form-control" value="" placeholder="subject">
-                                    </dd>
-                            </dl>
-                        </div>
-
-                    </div> --}}
-
-
-
                 </div>
 
                 <div class="col-md-3">
