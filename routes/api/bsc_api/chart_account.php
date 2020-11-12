@@ -11,4 +11,5 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('bsc_show_company', 'api\BSC\ChartAccountController@show_company');
     Route::get('bsc_duplicate_chart_account_name', 'api\BSC\ChartAccountController@duplicate_chart_account_name');
     Route::get('bsc_show_currency', 'api\BSC\ChartAccountController@show_currency');
+    Route::get('bsc_show_chart_account_parent', 'api\BSC\ChartAccountController@show_chart_account_parent');
 });
