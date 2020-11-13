@@ -24,13 +24,19 @@ class QuoteController extends Controller
      */
     public function index()
     {
-        $quote = Quote::orderBy('id','asc')->Where('is_deleted', false)->get();
+        $quote = Quote::orderBy('id','asc')
+        ->where('status','t')
+        ->where('is_deleted','f')
+        ->get();
         return QuoteResource::Collection($quote);
     }
 
     public function getquotebranch($qid){
         // return QuoteBranch::get();
-        $quote = QuoteBranch::where('crm_quote_id',$qid)->andWhere('is_deleted', false)->orderBy('id','asc')->get();
+        $quote = QuoteBranch::where('crm_quote_id',$qid)
+                                ->where('status','t')
+                                ->where('is_deleted','f')
+                                ->orderBy('id','asc')->get();
         // return $quote;
         return QuoteBranchResource::Collection($quote);
     }
@@ -172,7 +178,9 @@ class QuoteController extends Controller
 
 
     public function getStockByBranchId($id){
-        $product= QuoteBranchDetail::where('crm_quote_branch_id',$id)->orderBy('id','asc')->get();
+        $product= QuoteBranchDetail::where('crm_quote_branch_id',$id)
+                                ->where('status','t')
+                                ->where('is_deleted','f')->orderBy('id','asc')->get();
         return QuoteBranchDetailResource::collection($product);
     }
 
@@ -238,9 +246,27 @@ class QuoteController extends Controller
             $discount = $request->input("discount");
             $discount_type = $request->input("discount_type");
 
+            $quotebranchdetailid_old = $request->input("quote_detail_id");
+            $quotebranchdetailid_new = $request->input("quote_detail_id_updated");
 
-            $quotebranchdetailid = $request->input("quote_detail_id");
+            $old= $quotebranchdetailid_old;
+            $new = $quotebranchdetailid_new;
+            $deleted = $this->findDeletedQuote($old,$new,count($old),count($new));
 
+
+
+            if(!empty($deleted)){
+                //delete quote branch
+                for ($i = 0; $i <count($deleted); $i++)
+                {
+                    DB::select(
+                        'SELECT public."delete_crm_quote_branch_detail"(?, ?)',
+                        array(
+                            $deleted[$i],
+                            $update_by
+                        ));
+                }
+            }
 
 
             $all_product = count(collect($stockproductid));
@@ -252,7 +278,7 @@ class QuoteController extends Controller
                 DB::select(
                     'SELECT public."update_crm_quote_branch_detail"(?, ?, ?, ?, ?, ?, ?,?,?)',
                     array(
-                        $quotebranchdetailid[$i],
+                        $quotebranchdetailid_new[$i],
                         $update_by,
                         $quote_branch_id,
                         $stockproductid[$i],
@@ -263,30 +289,33 @@ class QuoteController extends Controller
                         $discount_type[$i]
                     ));
             }
-            //insert product
-            $stockproductid_new = $request->input("product_new");
-            $price_new = $request->input("price_new");
-            $qty_new = $request->input("qty_new");
-            $discount_new = $request->input("discount_new");
-            $discount_type_new = $request->input("discount_type_new");
-            $all_product_new =  count(collect($stockproductid_new));
-            for ($i = 0; $i < $all_product_new; $i++)
-            {
-                DB::select(
-                    'SELECT public."insert_crm_quote_branch_detail"(?, ?, ?, ?, ?, ?, ?)',
-                    array(
-                        $quote_branch_id,
-                        $stockproductid_new[$i],
-                        $price_new[$i],
-                        $qty_new[$i],
-                        $update_by,
-                        $discount_new[$i],
-                        $discount_type_new[$i]
-                    ));
+
+            if($request->input("product_new")){
+                //insert product
+                $stockproductid_new = $request->input("product_new");
+                $price_new = $request->input("price_new");
+                $qty_new = $request->input("qty_new");
+                $discount_new = $request->input("discount_new");
+                $discount_type_new = $request->input("discount_type_new");
+                $all_product_new =  count(collect($stockproductid_new));
+                for ($i = 0; $i < $all_product_new; $i++)
+                {
+                    DB::select(
+                        'SELECT public."insert_crm_quote_branch_detail"(?, ?, ?, ?, ?, ?, ?)',
+                        array(
+                            $quote_branch_id,
+                            $stockproductid_new[$i],
+                            $price_new[$i],
+                            $qty_new[$i],
+                            $update_by,
+                            $discount_new[$i],
+                            $discount_type_new[$i]
+                        ));
+                }
             }
 
             DB::commit();
-            return json_encode(["udpate"=>"success","result"=>[]]);
+            return json_encode(["update"=>"success","result"=>[]]);
         }catch(Exception $e){
             DB::rollback();
             return json_encode(["update"=>"fail","result"=> $e->getMessage()]);
@@ -294,5 +323,20 @@ class QuoteController extends Controller
     }
 
 
+    function findDeletedQuote( $old, $newarr, $countold, $countnew)
+    {
+        $deleted=[];
+        for ( $i = 0; $i < $countold; $i++)
+        {
+            $j;
+            for ($j = 0; $j < $countnew; $j++)
+                if ($old[$i] == $newarr[$j])
+                    break;
+
+            if ($j == $countnew)
+                    array_push($deleted,$old[$i]);
+        }
+        return $deleted;
+    }
 
 }

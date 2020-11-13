@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\crm;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\stock\product;
 use Illuminate\Http\Request;
 use Mpdf\Mpdf;
 use App\model\api\crm\ModelCrmQuote as Quote;
@@ -331,17 +332,14 @@ class PreviewQuoteController extends Controller
 
         $i =1;
         $output = '';
-        // $    = 0;
-        $services = [1,2,3];
 
+        $grandtotal=0;
 
-         // if(!empty($services)){
-             //body
-             //============ each branch infomation===========
-            foreach($quotebranch as $qb){
+        //============ each branch infomation===========
+        foreach($quotebranch as $qb){
 
-                $branchname=$qb->crm_lead_branch->name;
-
+            $branchname=$qb->crm_lead_branch->name;
+            $vatnumber= $qb->crm_lead_branch->vat_number;
                 // $token = $_SESSION['token'];
                 $request = Request::create('/api/quotebranch/detail/'.$qb->id.'', 'GET');
                 $request->headers->set('Accept', 'application/json');
@@ -350,101 +348,190 @@ class PreviewQuoteController extends Controller
                 $data = json_decode($res->getContent());
                 $quotedetail = $data->data;
 
-                $output .= '
+
+                //branchname header
+                $output.='
                 <tr bgcolor="#e6e6ff">
                     <td colspan="5" style="height:25px; border-bottom: 1px solid #e6e6ff;">
-                        <span style="font-family:verdana;"><strong><span style="font-size: 12px;">'.$branchname.'</span></strong></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="5" style="height:25px; border-bottom: 1px solid #e6e6ff;">
-                        <span style="font-family:verdana;"><strong><span style="font-size: 12px;">'.$this->numberToRoman($i) .'. Services or Products Description</span></strong></span>
+                        <span style="font-family:verdana;"><strong><span style="font-size: 12px;">Branch Name : '.$branchname.'</span></strong></span>
                     </td>
                 </tr>';
 
-             foreach ($quotedetail as $qq) {
-                dd($qq);
+                //loop the see service and product size
+                $services=[];
+                $products=[];
+                foreach($quotedetail as $qd){
+                    if($qd->stock_product->group_type==='service'){
+                        array_push($services,$qd);
+                    }
+                    if($qd->stock_product->group_type==='product'){
+                        array_push($products,$qd);
+                    }
+                }
 
-                // $data = Stock::getServiceByBranchId($qq->stock_product_id);
-                // dd(json_encode($data));
+                $service_total=0;
+                $product_total =0;
+                if($services!=[]){
+                    //loop all service for each branch
+                    $output .= '<tr>
+                        <td colspan="5" style="height:25px; border-bottom: 1px solid #e6e6ff;">
+                            <span style="font-family:verdana;"><strong><span style="font-size: 12px;">'.$this->numberToRoman($i) .'. Services or Products Description</span></strong></span>
+                        </td>
+                    </tr>';
+                    $amount =0;
+                    $total=0;
+                    $vattotal=0;
+                    $subtotal=0;
+                    $sequence= 1;
+                    foreach($services as $qd){
 
-                 // $qty = (int)$rows['quantity'];
-                 // $unittype= 'Month(s)';
-                 // if($rows["productid"]==10229){ // deposit
-                 // 	$this->deposit=10229;
-                 // 	$unittype= 'Time';
-                 // }if($rows["productid"]==1083 || $rows["productid"]==34848){ // Installation
-                 // 	$unittype= 'Time';
-                 // }
-                 // if($vatnumber!=''){ // business
-                 // 	$amount = $vattype=='Include'?($rows['amount']/1.1):$rows['amount'];
-                 // }else{ // home
-                 // 	$amount = $vattype=='Include'?$rows['amount']:($rows['amount']*1.1);
-                 // }
-                 // if($rows['quantity']==6 || $rows['quantity']==12){
-                 // 	$qty = 1;
-                 // 	if($vatnumber!=''){
-                 // 		$unitprice = $vattype=='Include'?($rows['amount']/1.1):$rows['amount'];
-                 // 	}else{
-                 // 		$unitprice = $vattype=='Include'?$rows['amount']:($rows['amount']*1.1);
-                 // 	}
-                 // 	if($rows['quantity']==6){
-                 // 		$unittype='Semester';
-                 // 	}else{
-                 // 		$unittype='Year';
-                 // 	}
-                 // }else{
-                 // 	if($vatnumber!=''){
-                 // 		$unitprice = $vattype=='Include'?($rows['listprice']*1.1):$rows['listprice'];
-                 // 	}else{
-                 // 		$unitprice = $vattype=='Include'?$rows['listprice']:($rows['listprice']*1.1);
-                 // 	}
-                 // }
-                 // display in table
-                 $output .='<tr>
-                 <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: center; vertical-align: middle;">
-                                 <span style="font-size:11px;"> sequence_no </span></td>
-                 <td align="left" style="font-family:verdana; border-bottom: 1px solid #e6e6ff;" valign="middle">
-                                 <span style="font-size:11px;"> servicename </span><br />
-                                 <span style="font-size:9px;"> comment </span>
-                             </td>
-                 <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: left;" valign="middle">
-                             <span style="font-size:11px;"> $qty  $unittype</span></td>
-                 <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: right;" valign="middle">
-                                 <span style="font-size:11px;">$  number_format($unitprice,2) </span></td>
+                        if($vatnumber != ''){
+                            //exclude
+                            $price=(int)$qd->price;
+                            $amount =$price * (int)$qd->qty;
+                            $subtotal+=$amount;
+                            $vattotal=$subtotal*0.1;
+                            $total = $subtotal + $vattotal;
+                        }else{
+                            //include
+                            $price = (int)$qd->price + ((int)$qd->price *0.1);
+                            $amount = $price * (int)$qd->qty;
+                            $subtotal+=$amount;
+                            $total = $subtotal;
+                        }
 
-                 <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; TEXT-ALIGN: right" valign="middle">
-                             <span style="font-size:11px;">$  number_format($amount,2) </span></td>
-                         </tr>';
-                 // $subtotal += $amount;
-             }
 
-             // if($vatnumber != ''){
-             // 	$vattotal = $subtotal * 0.1;
-             // 	$total = $subtotal + $vattotal;
-             // }else{
-             // 	$total = $subtotal;
-             // }
-             // end loop
-             $footer ='';
-             // if($vatnumber!=''){
-                 $footer = '	<tr bgcolor="#e6e6ff">
-                 <td colspan="4" rowspan="1" style="height:25px; text-align: right; border-bottom: 1px solid #c9dce4;">
-                                 <span style="font-family:verdana; font-size:11px;">Sub Total</span>
-                             </td>
-                 <td style=" border-bottom: 1px solid #c9dce4; TEXT-ALIGN: right;"><span style="font-family:verdana; font-size:11px;">$  number_format($subtotal,2) </span></td>
-                 </tr>
-                 <tr bgcolor="#e6e6ff">
-                     <td colspan="4" rowspan="1" style="height:25px; text-align: right;"><span style="font-family:verdana; font-size:11px;">VAT (10%)</span></td>
-                     <td style="TEXT-ALIGN: right"><span style="font-size:11px;"><span style="font-family:verdana; text-align: right;">$  number_format($vattotal,2) </span></span></td>
-                 </tr>';
-             // }
-             $output .= ' <tr style="background-color: #c9dce4;">
-                 <td colspan="4" rowspan="1" style="height:25px; text-align: right;"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><span style="font-weight: bold;">Total with VAT </span><strong>(USD)</strong></span></span></td>
-                 <td nowrap="nowrap" style="TEXT-ALIGN: right"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><strong>$  number_format($total,2) </strong></span></span></td>
-             </tr>';
-             $i++;
-         // }
+                        $output .='
+                            <tr>
+                                <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: center; vertical-align: middle;">
+                                                <span style="font-size:11px;"> '.$sequence.' </span></td>
+                                <td align="left" style="font-family:verdana; border-bottom: 1px solid #e6e6ff;" valign="middle">
+                                                <span style="font-size:11px;"> '.$qd->stock_product->name_en.' </span><br />
+                                                <span style="font-size:9px;"> '.$qd->stock_product->description.' </span>
+                                        </td>
+                                <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: left;" valign="middle">
+                                            <span style="font-size:11px;"> '.$qd->qty.'  '.$qd->stock_product->measure.'</span></td>
+                                <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: right;" valign="middle">
+                                                <span style="font-size:11px;">$  '.number_format($price,2).' </span></td>
+
+                                <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; TEXT-ALIGN: right" valign="middle">
+                                        <span style="font-size:11px;">$  '.number_format($amount,2).' </span></td>
+                            </tr>';
+                            $sequence+=1;
+                    }
+
+                    $footer ='';
+                    if($vatnumber !=''){
+                        //exclude
+                        $footer = '	<tr bgcolor="#e6e6ff">
+                        <td colspan="4" rowspan="1" style="height:25px; text-align: right; border-bottom: 1px solid #c9dce4;">
+                                        <span style="font-family:verdana; font-size:11px;">Sub Total</span>
+                                    </td>
+                        <td style=" border-bottom: 1px solid #c9dce4; TEXT-ALIGN: right;"><span style="font-family:verdana; font-size:11px;">$  '.number_format($subtotal,2).' </span></td>
+                        </tr>
+                        <tr bgcolor="#e6e6ff">
+                            <td colspan="4" rowspan="1" style="height:25px; text-align: right;"><span style="font-family:verdana; font-size:11px;">VAT (10%)</span></td>
+                            <td style="TEXT-ALIGN: right"><span style="font-size:11px;"><span style="font-family:verdana; text-align: right;">$  '.number_format($vattotal,2).' </span></span></td>
+                        </tr>';
+
+                        $output .=$footer.' <tr style="background-color: #c9dce4;">
+                            <td colspan="4" rowspan="1" style="height:25px; text-align: right;"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><span style="font-weight: bold;">Total with VAT </span><strong>(USD)</strong></span></span></td>
+                            <td nowrap="nowrap" style="TEXT-ALIGN: right"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><strong>$ '.number_format($total,2).'</strong></span></span></td>
+                        </tr>';
+
+                        $service_total+=$total;
+                    }else{
+                        $output .=$footer.' <tr style="background-color: #c9dce4;">
+                            <td colspan="4" rowspan="1" style="height:25px; text-align: right;"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><span style="font-weight: bold;">Total with VAT </span><strong>(USD)</strong></span></span></td>
+                            <td nowrap="nowrap" style="TEXT-ALIGN: right"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><strong>$ '.number_format($total,2).'</strong></span></span></td>
+                        </tr>';
+                        $service_total+=$total;
+                    }
+                }
+
+                //product loop
+
+                if($products!=[]){
+                    //loop all product for each branch
+                    $output .= '
+                    <tr>
+                        <td colspan="5" style="height:25px; border-bottom: 1px solid #e6e6ff;">
+                            <span style="font-family:verdana;"><strong><span style="font-size: 12px;">'. $this->numberToRoman($i) .'.Equipment, Installation & Maintenance (First Time Payment)</span></strong></span>
+                        </td>
+                    </tr>';
+
+                    $amount =0;
+                    $total=0;
+                    $vattotal=0;
+                    $subtotal=0;
+                    $sequence= 1;
+                    foreach($products as $qd){
+
+                        if($vatnumber != ''){
+                            //exclude
+                            $price=(int)$qd->price;
+                            $amount =$price * (int)$qd->qty;
+                            $subtotal+=$amount;
+                            $vattotal=$subtotal*0.1;
+                            $total = $subtotal + $vattotal;
+                        }else{
+                            //include
+                            $price = (int)$qd->price + ((int)$qd->price *0.1);
+                            $amount = $price * (int)$qd->qty;
+                            $subtotal+=$amount;
+                            $total = $subtotal;
+                        }
+
+
+                        $output .='
+                            <tr>
+                                <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: center; vertical-align: middle;">
+                                                <span style="font-size:11px;"> '.$sequence.' </span></td>
+                                <td align="left" style="font-family:verdana; border-bottom: 1px solid #e6e6ff;" valign="middle">
+                                                <span style="font-size:11px;"> '.$qd->stock_product->name_en.' </span><br />
+                                                <span style="font-size:9px;"> '.$qd->stock_product->description.' </span>
+                                        </td>
+                                <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: left;" valign="middle">
+                                            <span style="font-size:11px;"> '.$qd->qty.'  '.$qd->stock_product->measure.'</span></td>
+                                <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: right;" valign="middle">
+                                                <span style="font-size:11px;">$  '.number_format($price,2).' </span></td>
+
+                                <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; TEXT-ALIGN: right" valign="middle">
+                                        <span style="font-size:11px;">$  '.number_format($amount,2).' </span></td>
+                            </tr>';
+                            $sequence+=1;
+                    }
+
+                    $footer ='';
+                    if($vatnumber !=''){
+                        //exclude
+                        $footer = '	<tr bgcolor="#e6e6ff">
+                        <td colspan="4" rowspan="1" style="height:25px; text-align: right; border-bottom: 1px solid #c9dce4;">
+                                        <span style="font-family:verdana; font-size:11px;">Sub Total</span>
+                                    </td>
+                        <td style=" border-bottom: 1px solid #c9dce4; TEXT-ALIGN: right;"><span style="font-family:verdana; font-size:11px;">$  '.number_format($subtotal,2).' </span></td>
+                        </tr>
+                        <tr bgcolor="#e6e6ff">
+                            <td colspan="4" rowspan="1" style="height:25px; text-align: right;"><span style="font-family:verdana; font-size:11px;">VAT (10%)</span></td>
+                            <td style="TEXT-ALIGN: right"><span style="font-size:11px;"><span style="font-family:verdana; text-align: right;">$  '.number_format($vattotal,2).' </span></span></td>
+                        </tr>';
+
+                        $output .=$footer.' <tr style="background-color: #c9dce4;">
+                            <td colspan="4" rowspan="1" style="height:25px; text-align: right;"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><span style="font-weight: bold;">Total with VAT </span><strong>(USD)</strong></span></span></td>
+                            <td nowrap="nowrap" style="TEXT-ALIGN: right"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><strong>$ '.number_format($total,2).'</strong></span></span></td>
+                        </tr>';
+
+                        $product_total+=$total;
+                    }else{
+                        $output .=$footer.' <tr style="background-color: #c9dce4;">
+                            <td colspan="4" rowspan="1" style="height:25px; text-align: right;"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><span style="font-weight: bold;">Total with VAT </span><strong>(USD)</strong></span></span></td>
+                            <td nowrap="nowrap" style="TEXT-ALIGN: right"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><strong>$ '.number_format($total,2).'</strong></span></span></td>
+                        </tr>';
+                        $product_total+=$total;
+                    }
+                }
+
+
 
          // get products display
         //  $subtotalProducts =0;
@@ -493,24 +580,14 @@ class PreviewQuoteController extends Controller
              // 	$totalProducts = $subtotalProducts;
              // }
              // end loop
-             $footer ='';
-             // if($vatnumber!=''){
-                 $footer = '	<tr bgcolor="#e6e6ff">
-                 <td colspan="4" rowspan="1" style="height:25px; text-align: right; border-bottom: 1px solid #c9dce4;">
-                                 <span style="font-family:verdana; font-size:11px;">Sub Total</span>
-                             </td>
-                 <td style=" border-bottom: 1px solid #c9dce4; TEXT-ALIGN: right;"><span style="font-family:verdana; font-size:11px;">$ number_format($subtotalProducts,2)</span></td>
-                 </tr>
-                 <tr bgcolor="#e6e6ff">
-                     <td colspan="4" rowspan="1" style="height:25px; text-align: right;"><span style="font-family:verdana; font-size:11px;">VAT (10%)</span></td>
-                     <td style="TEXT-ALIGN: right"><span style="font-size:11px;"><span style="font-family:verdana; text-align: right;">$ number_format($vattotal,2)</span></span></td>
-                 </tr>';
-             // }
+
+
+             // vat total for each branch footer
              // if($totalProducts > 0){
-                 $output .=' <tr style="background-color: #c9dce4;">
-                     <td colspan="4" rowspan="1" style="height:25px; text-align: right;"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><span style="font-weight: bold;">Total with VAT </span><strong>(USD)</strong></span></span></td>
-                     <td nowrap="nowrap" style="TEXT-ALIGN: right"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><strong>$ number_format($totalProducts,2)</strong></span></span></td>
-                 </tr>';
+                //  $output .=' <tr style="background-color: #c9dce4;">
+                //      <td colspan="4" rowspan="1" style="height:25px; text-align: right;"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><span style="font-weight: bold;">Total with VAT </span><strong>(USD)</strong></span></span></td>
+                //      <td nowrap="nowrap" style="TEXT-ALIGN: right"><span style="color:#000;"><span style="font-family:verdana; font-size: 11px;"><strong>$ number_format($totalProducts,2)</strong></span></span></td>
+                //  </tr>';
              // }
 
          // }
@@ -525,7 +602,7 @@ class PreviewQuoteController extends Controller
         //grand total all branch
          $output .= '<tr style="background-color: #1fa8e1;">
              <td colspan="4" rowspan="1" style="height:25px; text-align: right;"><span style="color:#fff;"><span style="font-family:verdana; font-size: 11px;"><span style="font-weight: bold;">Grand Total </span><strong>(USD)</strong></span></span></td>
-             <td nowrap="nowrap" style="TEXT-ALIGN: right"><span style="color:#fff;"><span style="font-family:verdana; font-size: 11px;"><strong>$ number_format($total + $totalProducts,2)</strong></span></span></td>
+             <td nowrap="nowrap" style="TEXT-ALIGN: right"><span style="color:#fff;"><span style="font-family:verdana; font-size: 11px;"><strong>$ '.number_format(($product_total+$service_total),2).'</strong></span></span></td>
          </tr>';
 
          // return array('service'=>$output,'deposit'=>$this->deposit);
