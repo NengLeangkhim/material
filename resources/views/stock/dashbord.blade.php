@@ -1,153 +1,547 @@
-<section class="content">
-  <div class="container-fluid">
-        <!-- page content -->
-        <div class="right_col">
-          <!-- top tiles -->
-  <div id="AllCompanyChange">
-          <div class="row"  style="" >
-            @foreach($company[0] as $companys)
-            <div class="col-md-2 otherCompany">
-              <div class="header-title text-center">
-                  {{$companys->name}}
-              </div>
-              <div>
-                <div>
-                  <p>
-                  Branch : 
-                  @foreach($company[1] as $brand)
-                  @php
-                    $b=0;
-                    if($companys->id==$brand->ma_company_id){
-                      $b=$brand->count;
-                      break;
-                    }
-                    
-                   @endphp 
-                  @endforeach
-                  {{$b}}
-                  </p>
-                </div>
-                <div>
-                <p>Products : 
-                @foreach($company[2] as $pduct)
-                    @php
-                      if($companys->id==$pduct[0]->id){
-                        echo $pduct[0]->count;
-                      }
-                    @endphp
-                    
-                @endforeach
-                </p>
-                </div>
-              </div>
-              <div class="text-right">
-                <button class="btn-info" onClick="showCompanyDetail({{$companys->id}},1)">Show Detail</button>
+@php
+use App\Http\Controllers\stock\dashboard\stock_dashbordController;
+$company=stock_dashbordController::stock_company();
+use \App\Http\Controllers\hrms\dashboard\hr_dashboardController;
+$can = hr_dashboardController::monthly_can();
+$member_join = hr_dashboardController::monthly_member();
+$promote = hr_dashboardController::monthly_shift();
+$attendancec = hr_dashboardController::staff_attendence();
+$staff_byDept = hr_dashboardController::num_staff_byDept();
+$monthly_candidte = hr_dashboardController::MonthlyCandidate();
+$staff_gender = hr_dashboardController::staff_type();
+$monthly_shift_promote = hr_dashboardController::MonthlyShiftPromote();
+$monthly_new_member = hr_dashboardController::MonthlyJoinMember();
+$monthly_staffSuggestion = hr_dashboardController::MonthlyStaffSuggestion();
+$plan_training = hr_dashboardController::plan_trainingToday();
+$position_available = hr_dashboardController::AvailablePosition();
+$staff_mission = hr_dashboardController::Num_staffMission();
+$staff_suggestion = hr_dashboardController::Staff_Suggestion();
+
+
+// print_r($staff_suggestion);
+//function divide number to two digits
+Function index_num($v1){
+        //v = 1;
+        if($v1 == 0){
+            $arr = '0'.$v1;
+            return  $arr;
+        }
+        if($v1 > 0 && $v1 < 10){
+            $arr = '0'.$v1;
+            return  $arr;
+        }
+        if($v1 > 10 && $v1 < 100){
+            return $v1;
+        }
+        return $v1;
+}
+@endphp
+
+
+
+<div style="padding: 20px; font-family: Times New Roman, Times, serif; ">
+      {{-- // row l --}}
+      <div class="row">
+
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                  <div class=" card card-mini mb-4">
+                          <div class="card-body">
+                          <h4 class="mb-1" style="font-weight: bold; text-align: center ">
+                              <?php echo 'Company'; ?> </h4>
+                              <h5 style="text-align: center">​​</h5>
+                          
+                              <div class="chartjs-wrapper " >
+                                  <h1 style="text-align: center; color:#12b9d6"><?php echo index_num($company); ?> </h1>
+                                  {{-- <canvas id="pieChart_staffgender" width="100%" height="100px;"></canvas> --}}
+                                  {{-- <table class="table_style1" >
+                                        <tr class="tr-review">
+                                          <td>This Month<td>
+                                          <td> <?php  echo $can['ddd']; 
+                                                ?> 
+                                                <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span>
+                                          <td>
+                                        </tr>
+                                        <tr class="tr-review">
+                                        <td>This Week<td>
+                                        <td> <?php  echo $can['www']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
+                                        </tr class="tr-review">
+                                        <tr>
+                                        <td>This Year<td>
+                                        <td> <?php  echo $can['yyy']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
+                                        </tr>
+                                  </table> --}}
+                              </div>
+                          </div>
+                  </div>
+            </div>
+
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                  <div class=" card card-mini mb-4">
+                          <div class="card-body">
+                          <h4 class="mb-1" style="font-weight: bold; text-align: center ">
+                              <?php echo 'Products'; ?> </h4>
+                              <h5 style="text-align: center">​​​</h5>
+                              
+                          
+                          {{-- <table class="table_style1" >
+                              <tr class="tr-review">
+                                <td>Today<td>
+                                <td> <?php  echo $can['ddd']; 
+                                      ?> 
+                                      <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span>
+                                <td>
+                              </tr>
+                              <tr class="tr-review">
+                              <td>This Week<td>
+                              <td> <?php  echo $can['www']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
+                              </tr class="tr-review">
+                              <tr>
+                              <td>This Year<td>
+                              <td> <?php  echo $can['yyy']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
+                              </tr>
+                          </table> --}}
+
+                              <div class="chartjs-wrapper " >
+                                  
+                                  {{-- <canvas id="barChart_candidate" width="100%" height="30px;"></canvas> --}}
+                                <h1 style="text-align: center; color:#12b9d6" >{!! $position_available !!} </h1>
+                              </div>
+                          </div>
+                  </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                  <div class=" card card-mini mb-4">
+                          <div class="card-body">
+                          <h4 class="mb-1" style="text-align:center; font-weight: bold; ">
+                              <?php echo 'Product Import'; ?> </h4>
+                              <h5 style="text-align: center">This month</h5>
+
+                          {{-- <table class="table_style1" >
+                              <tr class="tr-review">
+                                <td>Today<td>
+                                <td> <?php  echo $can['ddd']; 
+                                      ?> 
+                                      <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span>
+                                <td>
+                              </tr>
+                              <tr class="tr-review">
+                              <td>This Week<td>
+                              <td> <?php  echo $can['www']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
+                              </tr class="tr-review">
+                              <tr>
+                              <td>This Year<td>
+                              <td> <?php  echo $can['yyy']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
+                              </tr>
+                          </table> --}}
+                              <div class="chartjs-wrapper" >
+                                <h1 style="text-align: center; color:#12b9d6">{!! $staff_mission !!} </h1>
+                                  
+                                  {{-- <canvas id="barChart_candidate" width="100%" height="30px;"></canvas> --}}
+
+                              </div>
+                          </div>
+                  </div>
+            </div>
+
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+              <div class=" card card-mini mb-4">
+                      <div class="card-body">
+                      <h4 class="mb-1" style="font-weight: bold; text-align: center ">
+                          <?php echo 'Procuct Export'; ?> </h4>
+                          <h5 style="text-align: center">This month</h5>
+
+                      {{-- <table class="table_style1" >
+                          <tr class="tr-review">
+                            <td>Today<td>
+                            <td> <?php  echo $can['ddd']; 
+                                  ?> 
+                                  <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span>
+                            <td>
+                          </tr>
+                          <tr class="tr-review">
+                          <td>This Week<td>
+                          <td> <?php  echo $can['www']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
+                          </tr class="tr-review">
+                          <tr>
+                          <td>This Year<td>
+                          <td> <?php  echo $can['yyy']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
+                          </tr>
+                      </table> --}}
+                          <div class="chartjs-wrapper " >
+                              <h1 style="text-align: center; color:#12b9d6">{!! $staff_suggestion !!} </h1>
+                              {{-- <canvas id="idChart_suggestion" width="100%" height="50px;"></canvas> --}}
+
+                          </div>
+                      </div>
               </div>
             </div>
-            @endforeach
+
+      </div>
+
+      {{-- // row 2 --}}
+      <div class="row">
+
+              
+              
+
+              {{-- // row 1, column 1 --}}
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class=" card card-mini mb-4">
+                            <div class="card-body">
+                            <h3 class="mb-1" style="font-weight: bold; ">Product Import</h3>
+                            <p></p>
+                                <div class="chartjs-wrapper " >
+                                    
+                                    <canvas id="barChart_candidate" width="100%" height="40%;"></canvas>
+
+                                </div>
+                            </div>
+                    </div>
+              </div>
+
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class=" card card-mini mb-4">
+                            <div class="card-body">
+                            <h3 class="mb-1" style="font-weight: bold; ">Product Export</h3>
+                            <p></p>
+                                <div class="chartjs-wrapper " >
+                                    
+                                    <canvas id="barChart_candidate" width="100%" height="40%;"></canvas>
+
+                                </div>
+                            </div>
+                    </div>
+              </div>
+
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class=" card card-mini mb-4">
+                            <div class="card-body">
+                            <h3 class="mb-1" style="font-weight: bold; ">Product Return</h3>
+                            <p></p>
+                                <div class="chartjs-wrapper" >
+                                    
+                                    <canvas id="barChart_candidate" width="100%" height="40%;"></canvas>
+
+                                </div>
+                            </div>
+                    </div>
+              </div>
+
+
+              {{-- // row 2, column 2 --}}
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                    <div class=" card card-mini mb-4">
+                            <div class="card-body">
+                            <h3 class="mb-1" style="font-weight: bold; ">
+                                <?php echo $attendancec['all_em']; ?> Employees</h3>
+                                <p> This Month</p>
+                              <table class="table_style1" >
+                                  <tr class="tr-review">
+                                    <td>Male<td>
+                                    <td> :<?php  echo index_num($staff_gender['male']); 
+                                          ?> 
+                                          {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span> --}}
+                                    <td>
+                                  </tr>
+                                  <tr class="tr-review">
+                                      <td>Female<td>
+                                      <td> :<?php  echo index_num($staff_gender['female']); ?> 
+                                    {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                                  </tr class="tr-review">
+                                  <tr class="tr-review">
+                                    <td>Other<td>
+                                    <td> :<?php  echo '00'; ?> 
+                                  {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                                </tr class="tr-review">
+                                
+                              </table>
+                                <div class="chartjs-wrapper" >
+                                    <canvas id="pieChart_staffgender" width="100%" height="40%"></canvas>
+                                </div>
+                            </div>
+                    </div>
+              </div>
+
+
+      </div>
+
+      {{-- // row 3 --}}
+      <div class="row"> 
+
+              {{-- // row 3, column 1 --}}
             
-          </div>
-          <div>
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                @php
-                if(count($company[0])>6){
-                  echo '<li class="page-item"><a class="page-link" href="javascript:void(0);">1/'.ceil(count($company[0])/5).'</a></li>';
-                  echo '<li class="page-item"><a class="page-link"href="javascript:void(0);" onclick="PaginationAllCompany(2);">Next</a></li>';
-                }
-                @endphp
-                
-              </ul>
-            </nav>
-        </div>
-</div>
-          <!-- /top tiles -->
-
-          <div class="row">
-            <div class="col-md-12 col-sm-12 ">
-              <div class="dashboard_graph">
-
-                <div class="row x_title">
-                  <div class="col-md-6">
-                    Location :
-                      <select class="mdb-select md-form" onchange="locationChange()" id="locationStorage">
-                        <option value="all">All</option>
-                        @foreach ($company[4] as $storage)
-                      <option value="{{$storage->id}}">{{$storage->name}}</option>
-                        @endforeach
-                      </select>
-                      <input type="text" placeholder="Search......" id="searchNameProduct" onkeyup="locationChange()">
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                  <div class=" card card-mini mb-4">
+                  <div class="card-body">
+                      <h3 class="mb-1" style="font-weight: bold; ">
+                      <?php echo $member_join['mmm']; ?> Member Join</h3>
+                      <p> This Month</p>
+                      <table class="table_style1" >
+                          <tr class="tr-review">
+                              <td>Today<td>
+                              <td> :<?php  echo $member_join['ddd']; ?> 
+                                {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                          </tr>
+                          <tr class="tr-review">
+                              <td>This Week<td>
+                              <td> :<?php  echo $member_join['www']; ?> 
+                                {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                          </tr class="tr-review">
+                          <tr>
+                              <td>This Year<td>
+                              <td> :<?php  echo $member_join['yyy']; ?> 
+                                {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                          </tr>
+                      </table>
+                      <div class="chart-container" >
+                            <canvas id="idChart_new_member" width="100%" height="40%"></canvas>
+                      </div>
                   </div>
-                  {{-- <div class="col-md-6">
-                    <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                      <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                      <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
-                    </div> --}}
-                    <div class="col-md-6 text-right">
-                      <input type="date" id="turbo_date_start" onchange="">to<input type="date" id="turbo_date_end" onchange="dashboardDateChange()">
+                  </div>
+              </div>
+
+              {{-- // row 3, column 2 --}}
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                  <div class=" card card-mini mb-4">
+                  <div class="card-body">
+                      <h3 class="mb-1" style="font-weight: bold; ">
+                      <?php echo $promote['mmm']; ?> Shift Promote</h3>
+                      <p> This Month</p>
+                      <table class="table_style1" >
+                          <tr class="tr-review">
+                              <td>Today<td>
+                              <td> :<?php  echo $promote['ddd']; ?> 
+                                {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                          </tr>
+                          <tr class="tr-review">
+                              <td>This Week<td>
+                              <td> :<?php  echo $promote['www']; ?> 
+                                {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                          </tr class="tr-review">
+                          <tr>
+                              <td>This Year<td>
+                              <td> :<?php  echo $promote['yyy']; ?> 
+                                {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                          </tr>
+                      </table>
+                      <div class="chartjs-wrapper img_dashboard" style="background-image: url('/img/');">
+                              <canvas id="idChart_shiftpromote" width="100%" height="40%;"></canvas>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+
+      </div>
+
+
+      {{-- // row 4 --}}
+      <div class="row"> 
+              
+              {{-- // row 4, column 1 --}}
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                  <div class="card card-mini mb-4">
+                    <div class="card-body">
+                      <h3 class="mb-1" style="font-weight: bold"><?php echo 'Attendence';  ?></h3>
+                      <table class="table_style1">
+                        <tr class="tr-review">
+                          <td><b>This Morning</b></td>
+                        </tr>
+                        <tr class="tr-review">
+                          <td>All Employees<td>
+                          <td> :<?php   echo $attendancec['all_em'];   ?> 
+                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                        </tr>
+                        <tr class="tr-review">
+                          <td>In time<td>
+                          <td> :<?php   echo $attendancec['intime'];   ?> 
+                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                        </tr>
+                        <tr class="tr-review">
+                          <td>Late<td>
+                          <td> :<?php   echo $attendancec['late'];   ?> 
+                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                        </tr>
+                        <tr class="tr-review">
+                          <td>Absents<td>
+                          <td> :<?php   echo $attendancec['absent'];   ?> 
+                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                        </tr>
+                        {{-- <tr class="tr-review">
+                          <td>Permission<td>
+                          <td> :<?php   echo '00';   ?> 
+                            <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
+                        </tr> --}}
+                        
+                      </table>
+                      <div class="media py-3 align-items-center justify-content-between">      
+                                {{-- <div style="padding-right: 15px">
+                                  <canvas id="staff_dougnutchart"></canvas>
+                                </div>
+                                <div >
+                                  <div id="myLegend_staff_chart"></div>
+                                </div> --}}
+                              <canvas id="chart_employee" width="100%" height="40%;"></canvas>
+
+                      </div>
+
                     </div>
                   </div>
+              </div>
+
+
+              {{-- // row 4, column 2 --}}
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 " >
+                <div class="card card-mini ">
+                  <div class="card-body">
+                    <h3 class="mb-1" style="font-weight: bold">05 Department</h3>
+                    <table style="width: 45%;">
+                        <tr class="tr-review">
+                          <td>
+                            <?php 
+                                foreach($staff_byDept['ITD'] as $key=>$val ){
+                                  $IT_name = $val->dept_name; 
+                                  echo 'ITD'; break;
+                                } 
+                                
+                            ?>
+                          
+                          <td>
+                          <td> :<?php echo index_num(count($staff_byDept['ITD'])); ?> 
+                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                        </tr>
+                        <tr class="tr-review">
+                          <td>
+                          <?php 
+                                foreach($staff_byDept['OPD'] as $key=>$val ){
+                                  $OPD_name = $val->dept_name;
+                                  echo $OPD_name; break;
+                                } 
+                            ?>
+                          <td>
+                          <td> :<?php echo index_num(count($staff_byDept['OPD'])); ?> 
+                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                        </tr>
+                        <tr class="tr-review">
+                          <td>
+                          <?php 
+                                foreach($staff_byDept['BSD'] as $key=>$val ){
+                                  $BSD_name = $val->dept_name;
+                                  echo $BSD_name; break;
+                                } 
+                            ?>
+                          <td>
+                          <td> :<?php echo index_num(count($staff_byDept['BSD'])); ?> 
+                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                        </tr>
+                        <tr class="tr-review">
+                          <td>
+                            <?php 
+                                foreach($staff_byDept['ACD'] as $key=>$val ){
+                                  $ACD_name = $val->dept_name;
+                                  echo $ACD_name; break;
+                                } 
+                            ?>
+                          <td>
+                          <td> :<?php echo index_num(count($staff_byDept['ACD'])); ?> 
+                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                        </tr>
+                        <tr>
+                          <td>
+                          <?php 
+                                foreach($staff_byDept['FND'] as $key=>$val ){
+                                  $FND_name = $val->dept_name;
+                                  echo $FND_name; break;
+                                } 
+                            ?>
+                          <td>
+                          <td> :<?php echo index_num(count($staff_byDept['FND'])); 
+                              ?> 
+                              {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                        </tr>
+
+                    </table>
+                    <div class="media py-3 align-items-center justify-content-between">
+                      
+                              <canvas id="chart_staff_each_dept" width="100%" height="40%;"></canvas>
+                      
+                    </div> 
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4" id="dashboarhProduct">
-                <table class="table table-bordered" id="tbl">
-                  <thead class="">
-                    <th>No</th>
-                    <th>Name</th>
-                    <th>qty available</th>
-                    <th>Purchase</th>
-                    <th>Request</th>
-                    <th>Return</th>
-                  </thead>
-                  <tbody>
-                    @php
-                    $i=0;
-                    @endphp
-                    @foreach ($company[3] as $item)
-                      <tr>
-                      <td>{{++$i}}</td>
-                        <td>{{$item->name}}</td>
-                        <td>{{$item->qty}}</td>
-                        <td>{{$item->import}}</td>
-                        <td>{{$item->request*-1}}</td>
-                        <td>{{$item->return}}</td>
-                        <td style="display:none">{{$item->id}}</td>
-                        @php
-                          if($i==1){
-                            $_SESSION['productID']=$item->id;
-                          }
-                        @endphp
-
-                      </tr>
-                    @endforeach
-                    
-                  </tbody>
-                </table>
-              </div>
-              <div class="col-md-8" id="dhsddhjdsdjf">
-                <canvas id="bar-chart-grouped" width="800" height="450"></canvas>
-              </div>
-              
-            </div>
-          </div>
-        </div>
-        <!-- /page content -->
       </div>
-    </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="ModalCompany" role="dialog">
-      <div class="modal-dialog modal-xl" >
-
-        <!-- Modal content-->
-        <div class="modal-content" id="copanyProductChange">
+     
 
 
-        </div>
+      <div class="row">
+
+              <div class="col-xl-12 col-md-12 col-sm-12">
+                <div class=" card card-mini mb-4">
+                        <div class="card-body">
+                        <h3 class="mb-1" style="font-weight: bold; ">
+                            <?php echo 'Staff Suggestion'; ?> </h3>
+                        {{-- <table class="table_style1" >
+                            <tr class="tr-review">
+                              <td>Today<td>
+                              <td> <?php  echo $can['ddd']; 
+                                    ?> 
+                                    <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span>
+                              <td>
+                            </tr>
+                            <tr class="tr-review">
+                            <td>This Week<td>
+                            <td> <?php  echo $can['www']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
+                            </tr class="tr-review">
+                            <tr>
+                            <td>This Year<td>
+                            <td> <?php  echo $can['yyy']; ?> <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td>
+                            </tr>
+                        </table> --}}
+                            <div class="chartjs-wrapper " >
+                                {{-- <h1 style="text-align: center;">00</h1> --}}
+                                <canvas id="idChart_suggestion" width="100%" height="30px;"></canvas>
+
+                            </div>
+                        </div>
+                </div>
+              </div>
+
 
       </div>
-    </div>
-  </div>
-  </section>
+
+
+
+</div>
+
+
+<?php 
+  $dept_name = array('ITD',$OPD_name,$BSD_name,$ACD_name,$FND_name);
+
+?>
+
+<script type="text/javascript">
+    //delcare JS variable from php to json
+    var staff_byDept = <?php echo json_encode($staff_byDept); ?>;
+    var dept_name = <?php echo json_encode($dept_name); ?>;
+    var attendence = <?php echo json_encode($attendancec); ?>;
+    var monthly_candidate = <?php echo json_encode($monthly_candidte); ?>;
+    var staff_gender = <?php echo json_encode($staff_gender); ?>;
+    var monthly_New_Member = <?php echo json_encode($monthly_new_member); ?>;
+    var monthly_shift_promote = <?php echo json_encode($monthly_shift_promote); ?>;
+    var monthly_staffSuggestion = <?php echo json_encode($monthly_staffSuggestion); ?>;
+
+</script>
+
+<script src="stJS/stock/chart_dashboard_stock.js"></script>
+
+
+
+
+
+
+
+ 

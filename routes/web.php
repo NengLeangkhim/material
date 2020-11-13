@@ -53,9 +53,12 @@ Route::get('/test_map', function(){
 
 //end lead
 
-// start survey
+// start schedule
 
-Route::get('/schedule','crm\CrmScheduleController@index');
+Route::POST('/insertschedule','crm\CrmScheduleController@insertschedule');
+Route::Get('/schedule','crm\CrmScheduleController@index');
+Route::Get('/detailschedule','crm\CrmScheduleController@detailschedule');
+Route::POST('/insertscheduleresult','crm\CrmScheduleController@insertscheduleresult');
 
 // end survey
 
@@ -104,7 +107,7 @@ Route::get('/quote/leadBranch','crm\QuoteController@listLeadBranch'); // get lis
 
 Route::get('/quote/add','crm\QuoteController@addQuote'); // to add qoute
 
-Route::get('/quote/deleteLeadQuote','crm\QuoteController@deleteLeadQuote'); // get delete lead for quote list
+Route::delete('/quote/deleteLeadQuote','crm\QuoteController@deleteLeadQuote'); // get delete lead for quote list
 
 Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quote item table
 Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get stock product api to view
@@ -117,6 +120,11 @@ Route::post('/quote/save','crm\QuoteController@saveQuote'); // sumit quote data 
 
 
 Route::get('/quote/edit/lead','crm\QuoteController@quoteEditLead'); // go to edit quote lead
+Route::put('/quote/edit/lead/update','crm\QuoteController@quoteEditLeadUpdate'); // go to submit quote lead edit
+
+Route::put('/quote/edit/branch/update','crm\QuoteController@quoteEditBranchUpdate'); // go to submit quote lead edit
+
+Route::get('/quote/edit/branch','crm\QuoteController@quoteEditBranch'); // go to quote edit branch
 
 
 // end quote

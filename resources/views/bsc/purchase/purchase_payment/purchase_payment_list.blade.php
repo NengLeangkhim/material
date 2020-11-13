@@ -14,16 +14,6 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="" class="account_name">Payment Date :</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="">Reference :</label><br/>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-12">
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="home-tab">
@@ -31,40 +21,55 @@
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
+                                                    <th>Purchase#</th>
                                                     <th>Supplier</th>
-                                                    <th>Purchase</th>
                                                     <th>Date</th>
                                                     <th>Due Date</th>
-                                                    <th>Total</th>
-                                                    <th>Payment Amount</th>
+                                                    <th>Paid</th>
+                                                    <th>Due</th>
+                                                    <th>Status</th>
+                                                    <th>Detail</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>TT-001</td>
-                                                    <td>Touch Rith</td>
-                                                    <td>2020-10-01</td>
-                                                    <td>2020-10-01</td>
-                                                    <td>1000$</td>
-                                                    <td>1000$</td>
-                                                </tr>
+                                                @foreach($purchases as $purchase)
+                                                    @php 
+                                                        $amount_paid = 0;
+                                                        $due_amount = 0;
+                                                        $status = '';
+                                                
+                                                        if($purchase->amount_paid == null && $purchase->due_amount == null){
+                                                            $amount_paid = 0;
+                                                            $due_amount = $purchase->grand_total;
+                                                            $status = 'Waiting Payment';
+                                                        }else if ($purchase->due_amount == 0) {
+                                                            $amount_paid = $purchase->amount_paid;
+                                                            $due_amount = $purchase->due_amount;
+                                                            $status = 'Paid'; 
+                                                        }else{
+                                                            $amount_paid = $purchase->amount_paid;
+                                                            $due_amount = $purchase->due_amount;
+                                                            $status = 'Waiting Payment'; 
+                                                        }
+                                                    @endphp
+                                                    <tr>
+                                                        <td>{{ $purchase->invoice_number }}</td>
+                                                        <td>{{ $purchase->supplier_name }}</td>
+                                                        <td>{{ $purchase->billing_date }}</td>
+                                                        <td>{{ $purchase->due_date }}</td>
+                                                        <td>{{ $amount_paid }}</td>
+                                                        <td>{{ $due_amount }}</td>
+                                                        <td>{{ $status }}</td>
+                                                        <td style="text-align: center;">
+                                                            <a href="javascript:;" onclick="go_to('bsc_purchase_payment_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-8"></div>
-                                        <div class="col-md-4">
-                                            <label for="">Total :</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>    
                         </div>
                     </div>
                 </div>
@@ -76,27 +81,11 @@
 <script type="text/javascript">
 
     $(function () {
-        
         $("#example1").DataTable({
-        "responsive": true,
-        "autoWidth": false,
+            "responsive": true,
+            "autoWidth": false,
         });
-       
+    });
 
-    });
-    $('.purchase_form').click(function(e)
-    {
-        var ld = $(this).attr("value");
-        go_to(ld);
-    })
-    $('.edit').click(function(e)
-    {
-        var id = $(this).attr("value");
-        go_to(id);
-    });
-    $('.purchase_view').click(function(e)
-    {
-        var id = $(this).attr("value");
-        go_to(id);
-    });
+    
 </script>

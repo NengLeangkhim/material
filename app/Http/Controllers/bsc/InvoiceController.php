@@ -52,12 +52,13 @@ class InvoiceController extends Controller
                 $invoice_by_ids= $invoice_by_id->data;
                 $invoices=$invoice_by_ids->invoice;
                 $invoice_details=$invoice_by_ids->invoice_detail;
+                $invoice_payments=$invoice_by_ids->invoice_payments;
                 $address=$invoices->address;
                 // function get address
                 $addr=DB::select("SELECT * FROM public.get_gazetteers_address('".$address."') as address");
                 $addrs=$addr[0]->address;
                 $invoices->address=$addrs;
-
+                // dd($invoice_by_ids);exit;
                 //get chart account payment paid from to
                 $request = Request::create('/api/bsc_show_chart_account_paid_from_to', 'GET');
                 $request->headers->set('Accept', 'application/json');
@@ -66,7 +67,7 @@ class InvoiceController extends Controller
                 $ch_account = json_decode($res->getContent()); // convert to json object
                 $ch_accounts=$ch_account->data;
 
-                return view('bsc.invoice.invoice.invoice_view',compact('invoices','invoice_details','ch_accounts'));
+                return view('bsc.invoice.invoice.invoice_view',compact('invoices','invoice_details','ch_accounts','invoice_payments'));
             }else{
                 return view('no_perms');
             }
@@ -79,11 +80,46 @@ class InvoiceController extends Controller
     // view payment
     public function view_payment()
     {
+
         try{
-            return view('bsc.invoice.invoice_payment.view_payment');
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/bsc_invoices', 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $invoice = json_decode($res->getContent()); // convert to json object
+            $invoices=$invoice->data;
+            // dd($invoices);exit;
+            return view('bsc.invoice.invoice_payment.view_payment',compact('invoices'));
         }catch(Exception $e){
             echo $e->getMessage();
             exit;
+        }
+    }
+
+    //view payement detail
+    public function view_payment_detail($id)
+    {
+        try{
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/bsc_invoice_payments/'.$id, 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $view_payment_detail = json_decode($res->getContent()); // convert to json object
+            $view_payment_details= $view_payment_detail->data;
+            // dd($view_payment_details);exit;
+            return view('bsc.invoice.invoice_payment.view_payment_detail',compact('view_payment_details'));
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
         }
     }
 
@@ -94,17 +130,106 @@ class InvoiceController extends Controller
             session_start();
         }
         try{
+            $token = $_SESSION['token'];
             $create_by = $_SESSION['userid'];
+
             $due_amount=$request->due_amount;
             $amount_paid=$request->amount_paid;
             $grand_total=$request->grand_total;
             $date_paid=$request->date_paid;
             $paid_to=$request->paid_to;
             $reference=$request->reference;
+            $bsc_invoice_id=$request->bsc_invoice_id;
+            $bsc_account_charts_id=$request->bsc_account_charts_id;
+
+            $data=array(
+                'create_by'=>$create_by,
+                'bsc_account_charts_id'=>$bsc_account_charts_id,
+                'bsc_invoice_id'=>$bsc_invoice_id,
+                'grand_total'=>$grand_total,
+                'amount_paid'=>$amount_paid,
+                'date_paid'=>$date_paid,
+                'paid_to_chart_account_id'=>$paid_to,
+                'reference'=>$reference,
+                'due_amount'=>$due_amount,
+            );
+            // add new
+            $request = Request::create('api/bsc_invoice_payments', 'POST',$data);
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $response = json_decode($res->getContent()); // convert to json object
+            return response()->json(['payment'=>$response]);
 
         }catch(Exception $e){
             echo $e->getMessage();
             exit;
+        }
+    }
+
+    // invoice report
+    public function invoice_report()
+    {
+        try{
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+
+            $request = Request::create('/api/bsc_invoices', 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $invoice = json_decode($res->getContent()); // convert to json object
+            $invoices=$invoice->data;
+            // dd($invoices);exit;
+            return view('bsc.report.invoice_report.invoice_report',compact('invoices'));
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
+        }
+    }
+
+    // invoice report data when submit
+    public function invoice_report_get_data(Request $request)
+    {
+        try{
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+
+            $billing_date_from = $request->billing_date_from;
+            $billing_date_to = $request->billing_date_to;
+            $due_date_from = $request->due_date_from;
+            $due_date_to = $request->due_date_to;
+            $effective_date_from = $request->effective_date_from;
+            $effective_date_to = $request->effective_date_to;
+            $end_period_date_from = $request->end_period_date_from;
+            $end_period_date_to = $request->end_period_date_to;
+            $payment_status = $request->payment_status;
+
+            $data=array(
+                'billing_date_from'=> $billing_date_from,
+                'billing_date_to'=> $billing_date_to,
+                'due_date_from'=> $due_date_from,
+                'due_date_to'=> $due_date_to,
+                'effective_date_from'=> $effective_date_from,
+                'effective_date_to'=> $effective_date_to,
+                'end_period_date_from'=> $end_period_date_from,
+                'end_period_date_to'=> $end_period_date_to,
+            );
+
+            $request = Request::create('api/bsc_show_invoice_filter', 'GET',$data);
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $response = json_decode($res->getContent()); // convert to json object
+            $invoices=$response->data;
+            return json_encode($invoices);
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
         }
     }
 
@@ -170,7 +295,7 @@ class InvoiceController extends Controller
             $token = $_SESSION['token'];
 
             $bsc_account_charts_id=$request->account_type;
-            $customer=$request->customer;
+            $customer_id=$request->customer_id;
             $billing_date=$request->billing_date;
             $reference=$request->reference;
             $due_date=$request->due_date;
@@ -180,27 +305,34 @@ class InvoiceController extends Controller
             $total=$request->total;
             $vatTotal=$request->vatTotal;
             $grandTotal=$request->grandTotal;
+            $billing_address=$request->billing_address;
+            $crm_quote_id=$request->crm_quote_id;
             $itemDetail=$request->itemDetail;//data is array
 
             $data=array(
                 'create_by'=>$create_by,
-                'ma_customer_id'=>$customer,
+                'ma_customer_id'=>$customer_id,
                 'billing_date'=>$billing_date,
                 'due_date'=>$due_date,
                 'reference'=>$reference,
-                // 'address_en'=>$address_en,  not yet have space for input address
-                // 'address_kh'=>$address_kh, not yet have space for input address
+                'address_en'=>$billing_address,
+                'address_kh'=>$billing_address,
                 'effective_date'=>$effective_date,
                 'end_period_date'=>$end_period_date,
                 'deposit_on_payment'=>$deposit_on_payment,
                 'total'=>$total,
                 'vat_total'=>$vatTotal,
                 'grand_total'=>$grandTotal,
-                // 'crm_quote_id'=>$crm_quote_id,
+                'crm_quote_id'=>$crm_quote_id,
                 'bsc_account_charts_id'=>$bsc_account_charts_id,
                 'invoice_details'=>$itemDetail
             );
-            dd($data);exit;
+            // dd($data);exit;
+            $request = Request::create('api/bsc_invoices', 'POST',$data);
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $response = json_decode($res->getContent()); // convert to json object
             echo "success";
         }catch(Exception $e){
             echo $e->getMessage();
@@ -211,6 +343,7 @@ class InvoiceController extends Controller
     public function invoice_edit($id)
     {
         try{
+
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
@@ -247,7 +380,17 @@ class InvoiceController extends Controller
             $bsc_show_customer_branch = json_decode($res->getContent()); // convert to json object
             $bsc_show_customer_branchs=$bsc_show_customer_branch->data;
 
-            return view('bsc.invoice.invoice.invoice_edit',compact('ch_accounts','customers','qoutes','bsc_show_customer_branchs'));
+
+            $request = Request::create('/api/bsc_invoices/'.$id, 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $invoice_by_id = json_decode($res->getContent()); // convert to json object
+            $invoice_by_ids= $invoice_by_id->data;
+            $invoices=$invoice_by_ids->invoice;
+            $invoice_details=$invoice_by_ids->invoice_detail;
+            // dd($invoice_by_ids);exit;
+            return view('bsc.invoice.invoice.invoice_edit',compact('ch_accounts','customers','qoutes','bsc_show_customer_branchs','invoices','invoice_details'));
         }catch(Exception $e){
             echo $e->getMessage();
             exit;
@@ -306,27 +449,31 @@ class InvoiceController extends Controller
     // get reference data by id
     public function reference_get_data_single(Request $request)
     {
-        // try{
+        try{
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
             $token = $_SESSION['token'];
 
-            $id=$request->reference_id;
+            $id=$request->invoice_id;
             // get reference data
             $request = Request::create('/api/bsc_show_quote_single/'.$id, 'GET');
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $reference = json_decode($res->getContent()); // convert to json object
-            dd($reference);exit;
-            // $invoice_by_ids= $invoice_by_id->data;
-            // $invoices=$invoice_by_ids->invoice;
-            // $invoice_details=$invoice_by_ids->invoice_detail;
-            // $address=$invoices->address;
-        // }catch(Exception $e){
-        //     echo $e->getMessage();
-        //     exit();
-        // }
+            $references= $reference->data;
+            $arr_qoutes=array();
+            $qoutes=$references->quotes;
+            $quote_products=$references->quote_products;
+            $arr_qoutes = [
+                'quotes' => $qoutes,
+                'quote_products' => $quote_products
+            ];
+            return json_encode($arr_qoutes);
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit();
+        }
     }
 }

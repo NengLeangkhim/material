@@ -4,6 +4,17 @@
     foreach($products as $product){
         $item.="<option value='{$product->id}'>{$product->name}</option>";
     }
+
+    $display="";
+    $bg_color = "";
+    $contenteditable="true";
+    $remove_btn = "";
+    if(count($purchase_payments) > 0){
+        $display="disabled";
+        $bg_color="background-color: #ffffff !important";
+        $contenteditable = "false";
+        $remove_btn = "hidden";
+    }
 @endphp
 <section class="content-header">
     <div class="container-fluid">
@@ -16,16 +27,13 @@
                     <div class="col-md-5">
                         <label for="exampleInputEmail1">Choose Account <b style="color:red">*</b> </label>
                     </div>
-                   {{-- @php
-                       dd();
-                   @endphp --}}
                     <div class="col-md-7">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                             </div>
-                            <select class="form-control select2 input_required" name="account_type" id="purchase_account_chart_id">
-                                <option value="" selected hidden disabled>select item</option>
+                            <select class="form-control input_required" name="account_type" id="purchase_account_chart_id" {{$display}}>
+                                
 
                                 @foreach ($account_payables as $account_payable)
                                     <option 
@@ -69,7 +77,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                                             </div>
-                                            <select class="form-control select2 input_required" name="account_type" id="purchase_supplier">
+                                        <select class="form-control select2 input_required" name="account_type" id="purchase_supplier" {{$display}}>
                                                 <option selected hidden disabled>select item</option>
 
                                                 @foreach ($suppliers as $supplier)
@@ -145,17 +153,21 @@
                                                 <th>Account</th>
                                                 <th>Tax</th>
                                                 <th>Amount</th>
-                                                <th></th>
+                                                <th {{$remove_btn}}></th>
                                             </tr>
                                         </thead>
+                                        
                                         <tbody>
+                                            @php
+                                                $row_count = 0;
+                                            @endphp
                                             @foreach ($purchase_detail as $key => $p_detail)
                                                 @php
                                                     $row_count = $key;
                                                 @endphp
                                                 <tr id="row{{$key}}">
-                                                    <td class="item_name" style="padding: 0;max-width: 165px;overflow: auto;">
-                                                    <select  data-is_old="1" data-is_new="0" data-is_delete="0" class="item_select stock_product_id" style="width: 100%;height: 51px;" data-purchase_detail_id="{{$p_detail->id}}"><option value=""></option>
+                                                <td class="item_name" style="padding: 0;max-width: 165px;overflow: auto;">
+                                                    <select {{$display}} data-is_old="1" data-is_new="0" data-is_delete="0" class="item_select stock_product_id" style="width: 100%;height: 51px;" data-purchase_detail_id="{{$p_detail->id}}"><option value=""></option>
                                                             @foreach ($products as $product)
                                                                 <option 
                                                                     @if ($p_detail->stock_product_id == $product->id)
@@ -167,12 +179,12 @@
                                                         </select>
                                                     </td>
 
-                                                    <td contenteditable="true" class="item_des" id="item_des">{{$p_detail->description}}</td>
-                                                    <td contenteditable="true" class="item_qty" id="item_qty">{{$p_detail->qty}}</td>
-                                                    <td contenteditable="true" class="item_unit_price" id="item_unit_price">{{$p_detail->unit_price}}</td>
+                                                    <td contenteditable="{{$contenteditable}}" class="item_des" id="item_des">{{$p_detail->description}}</td>
+                                                    <td contenteditable="{{$contenteditable}}" class="item_qty" id="item_qty">{{$p_detail->qty}}</td>
+                                                    <td contenteditable="{{$contenteditable}}" class="item_unit_price" id="item_unit_price">{{$p_detail->unit_price}}</td>
                                                     <td class="item_account" id="item_account" data-id="{{$p_detail->bsc_account_charts_id}}">{{$p_detail->chart_account_name}}</td>
                                                     <td class="item_tax" style="padding: 0;">
-                                                        <select style="border: 0px; height: 51px;" class="tax form-control">
+                                                        <select style="border: 0px; height: 51px; {{$bg_color}}" class="tax form-control" {{$display}}>
                                                             <option value=""></option>
                                                             <option 
                                                                 @if ($p_detail->tax == 1)
@@ -187,9 +199,9 @@
                                                         </select>
                                                     </td>
                                                     <td class="item_amount" id="item_amount">{{$p_detail->amount}}</td>
-                                                    <td style="text-align: center;"><button type="button" name="remove" data-row="row{{$key}}" class="btn btn-danger btn-xs remove">x</button></td>
+                                                <td {{$remove_btn}} style="text-align: center;"><button type="button" name="remove" data-row="row{{$key}}" class="btn btn-danger btn-xs remove">x</button></td>
                                                 </tr>
-                                         @endforeach
+                                            @endforeach
                                             <input type="hidden" id="row_count" value="{{$row_count}}">
                                         </tbody>
                                     </table>
@@ -197,7 +209,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <a  href="javascript:" class="btn btn-success purchase_form"  value="bsc_purchase_purchase_form" id="purchase_form"><i class="fas fa-plus"></i> Add Record</a>&nbsp;
+                                    <a {{$remove_btn}} href="javascript:" class="btn btn-success purchase_form"  value="bsc_purchase_purchase_form" id="purchase_form"><i class="fas fa-plus"></i> Add Record</a>&nbsp;
                                 </div>
                             </div>
                             <div class="form-group">
@@ -208,7 +220,7 @@
                                             <div class="col-md-4">
                                                 <div class="row">
                                                     <div class="col-sm-6 text_right">
-                                                        <label for="">Total</label>
+                                                        <label for="">Total :</label>
                                                     </div>
                                                     <div class="col-sm-6 text_right">
                                                         <label for="" id="txtTotal" class="txtTotal">0</label>
@@ -216,7 +228,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-6 text_right">
-                                                        <label for="">VAT Total</label>
+                                                        <label for="">VAT Total :</label>
                                                     </div>
                                                     <div class="col-sm-6 text_right">
                                                         <label for="" id="txtVatTotal" class="txtVatTotal">0</label>
@@ -224,43 +236,59 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-6 text_right">
-                                                        <label for="">Grand Total</label>
+                                                        <label for="">Grand Total :</label>
                                                     </div>
                                                     <div class="col-sm-6 text_right">
                                                         <label for="" id="txtGrandTotal">0</label>
                                                     </div>
                                                 </div>
                                                 <hr class="line_in_tag_hr">
-                                                <div class="row">
-                                                    <div class="col-sm-6 text_right">
-                                                        <label for="">Payment</label>
+
+                                                @php
+                                                    $due_amount = "";
+                                                @endphp
+                                                @foreach ($purchase_payments as $purchase_payment)
+                                                    @php
+                                                        $due_amount = $purchase_payment->due_amount;
+                                                    @endphp
+                                                    <div class="row">
+                                                        <div class="col-sm-6 text_right">
+                                                            <p for="">Payment :</p>
+                                                        </div>
+                                                        <div class="col-sm-6 text_right">
+                                                            <p for="" id="payment_amount">{{$purchase_payment->amount_paid}}</p>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-sm-6 text_right">
-                                                        <label for="">0</label>
+                                                    <div class="row">
+                                                        <div class="col-sm-6 text_right">
+                                                            <p for="">Date :</p>
+                                                        </div>
+                                                        <div class="col-sm-6 text_right">
+                                                            <p for="">{{$purchase_payment->date_paid}}</p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-6 text_right">
-                                                        <label for="">Date</label>
-                                                    </div>
-                                                    <div class="col-sm-6 text_right">
-                                                        <label for="">0</label>
-                                                    </div>
-                                                </div>
-                                                <hr class="line_in_tag_hr2">
-                                                <div class="row">
+                                                    <hr class="" style="margin: 0px;">
+                                                @endforeach
+
+                                                @php
+                                                    $display = "";
+                                                    if ($due_amount == null) {
+                                                       $display = "display : none";
+                                                    }
+                                                @endphp
+                                                <div class="row" style="{{$display}}">
                                                     <div class="col-sm-6 text_right">
                                                         <h4>
-                                                            <label for="">Amount Due</label>
+                                                            <label for="">Amount Due:</label>
                                                         </h4>
                                                     </div>
                                                     <div class="col-sm-6 text_right">
                                                         <h4>
-                                                            <label for="">0</label>
+                                                            <label for="" id="due_amount_payment">{{$due_amount == null ? $purchase->grand_total : $due_amount}}</label>
                                                         </h4>
                                                     </div>
                                                 </div>
-                                                <hr class="line_in_tag_hr2">
+                                                <hr class="line_in_tag_hr2" style="{{$display}}">
                                             </div>
                                         </div>
                                     </div>
@@ -294,6 +322,7 @@
                 containerCssClass: "add_class_select2"
             });
             $(".select2 .selection .add_class_select2").css('border','0px');
+            $(".select2 .selection .add_class_select2").css('background-color','#ffffff !important');
         });
 
         // Remove Table
@@ -346,6 +375,7 @@
             containerCssClass: "add_class_select2"
         });
         $(".select2 .selection .add_class_select2").css('border','0px');
+        $(".select2 .selection .add_class_select2").css('background-color','#ffffff !important');
 
         //
         $("#purchase_table tbody").delegate('.stock_product_id','change',function(){
@@ -419,7 +449,8 @@
 
     // function save all data
     function updateData(){
-
+        let purchase_date=$("#purchase_supplier").val();
+        alert(purchase_date);exit();
         let num_miss = 0;
         $(".input_required").each(function(){
             if($(this).val()=="" || $(this).val()==null){ num_miss++;}
@@ -438,9 +469,9 @@
                     itemDetail[e] = {
                         bsc_invoice_detail_id       : $(this).attr("data-purchase_detail_id"),
                         stock_product_id            : thisInput,
-                        is_old                 : $(this).attr("data-is_old"),
-                        is_new                 : $(this).attr("data-is_new"),
-                        is_delete                 : $(this).attr("data-is_delete"),
+                        is_old                      : $(this).attr("data-is_old"),
+                        is_new                      : $(this).attr("data-is_new"),
+                        is_delete                   : $(this).attr("data-is_delete"),
                         description                 : tr.find(".item_des").text(),
                         qty                         : tr.find(".item_qty").text(),
                         unit_price                  : tr.find(".item_unit_price").text(),

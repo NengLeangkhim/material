@@ -27,7 +27,6 @@ class QuoteResource extends JsonResource
     {
 
 
-
         //get name assign to and createby
         $assign =User::find($this->assign_to,[
             'id',

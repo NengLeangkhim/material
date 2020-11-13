@@ -59,7 +59,7 @@ class InvoicePaymentController extends Controller
 
             $q_invoice_payment=DB::select("SELECT ".$sql_invoice_payment);
             $invoice_payment_id = $q_invoice_payment[0]->insert_bsc_payment;
-            
+
             $sql_journal = "insert_bsc_journal(null, $request->bsc_account_charts_id, 0, $request->amount_paid, $request->create_by, 4)";
             // insert_bsc_journal(description, bsc_account_charts_id_in_journal, debit_amount, credit_amount, create_by, bsc_journal_type_id)
 
@@ -68,10 +68,10 @@ class InvoicePaymentController extends Controller
 
             DB::select("INSERT INTO public.bsc_payment_bsc_journal_rel(bsc_journal_id, bsc_payment_id) VALUES ($journal_id, $invoice_payment_id)");
             // INSERT INTO public."bsc_payment_bsc_journal_rel"(bsc_journal_id, bsc_payment_id) VALUES (last_journal_id, last_id);
-            
+
             DB::commit();
             return $this->sendResponse($q_invoice_payment, 'Invoice payment created successfully.');
-            
+
         } catch (\Throwable $th) {
             DB::rollBack();
             return $this->sendError("Try again!");
@@ -86,7 +86,19 @@ class InvoicePaymentController extends Controller
      */
     public function show($id)
     {
-        //
+        $invoice_payments = DB::table('bsc_payment')
+        ->select('bsc_payment.*','bsc_invoice.billing_date','bsc_invoice.due_date','bsc_invoice.invoice_number','bsc_invoice.reference','bsc_invoice.grand_total','ma_customer.name as customer_name')
+        ->leftJoin('bsc_invoice','bsc_payment.bsc_invoice_id','=','bsc_invoice.id')
+        ->leftJoin('ma_customer','bsc_invoice.ma_customer_id','=','ma_customer.id')
+        ->where([
+            ['bsc_payment.bsc_invoice_id','=',$id],
+            ['bsc_payment.inbound','=','t'],
+            ['bsc_payment.status','=','t'],
+            ['bsc_payment.is_deleted','=','f']
+        ])
+        ->get();
+
+        return $this->sendResponse($invoice_payments, 'Invoice payment retrieved successfully.');
     }
 
     /**

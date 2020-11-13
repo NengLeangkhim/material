@@ -38,7 +38,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="row">
-
+                                            <input type="hidden" id="bsc_invoice_id" value="{{ $invoices->id }}">
+                                            <input type="hidden" id="bsc_account_charts_id" value="{{ $invoices->chart_account_id }}">
                                             <div class="col-sm-12">
                                                 <p for="">Account Name : &nbsp;{{ $invoices->chart_account_name }}</p>
                                             </div>
@@ -153,62 +154,59 @@
                                             </div>
                                         </div>
                                         <hr class="line_in_tag_hr">
-                                        <div class="row">
-                                            <div class="col-sm-6 text_right">
-                                                <label for="">Payment : </label>
+                                        @php
+                                            $due_amount="";
+                                        @endphp
+                                        @foreach ($invoice_payments as $invoice_payment)
+                                            @php
+                                                $due_amount=$invoice_payment->due_amount;
+                                            @endphp
+                                            <div class="row">
+                                                <div class="col-sm-6 text_right">
+                                                    <label for="">Payment : </label>
+                                                </div>
+                                                <div class="col-sm-6 text_right">
+                                                    <label for="">{{ $invoice_payment->amount_paid }}</label>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-6 text_right">
-                                                <label for="">1000$</label>
-                                            </div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-sm-6 text_right">
-                                                <label for="">Date : </label>
+                                            <div class="row">
+                                                <div class="col-sm-6 text_right">
+                                                    <label for="">Date : </label>
+                                                </div>
+                                                <div class="col-sm-6 text_right">
+                                                    <label for="">{{ date('d-m-Y', strtotime($invoice_payment->date_paid))  }}</label>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-6 text_right">
-                                                <label for="">02-10-2020</label>
-                                            </div>
-                                        </div>
-                                        {{-- <hr class="line_in_tag_hr2">
-                                        <div class="row">
-                                            <div class="col-sm-6 text_right">
-                                                <label for="">Payment : </label>
-                                            </div>
-                                            <div class="col-sm-6 text_right">
-                                                <label for="">1000$</label>
-                                            </div>
-                                        </div>
+                                        @endforeach
 
-                                        <div class="row">
-                                            <div class="col-sm-6 text_right">
-                                                <label for="">Date : </label>
-                                            </div>
-                                            <div class="col-sm-6 text_right">
-                                                <label for="">02-10-2020</label>
-                                            </div>
-                                        </div> --}}
+                                        @php
+                                            $display = "";
+                                            if ($due_amount == null){
+                                                $display = "display: none";
+                                            }
+                                        @endphp
+                                        <hr class="line_in_tag_hr2" style="{{ $display }}">
 
-                                        <hr class="line_in_tag_hr2">
-
-                                        <div class="row">
+                                        <div class="row" style="{{ $display }}">
                                             <div class="col-sm-6 text_right">
                                                 <label for="">Amount Due : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
-                                                <label for="">1000$</label>
+                                                <label for="" id="due_amount">{{ $due_amount==null ? $invoices->grand_total : $due_amount }}</label>
                                             </div>
                                         </div>
-                                        <hr class="line_in_tag_hr">
+                                        <hr class="line_in_tag_hr" style="{{ $display }}">
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-12">
                             <form action="">
                                 @csrf
                                 <div class="card-body">
-                                    <strong><h4 for="" style="text-align: center">Receive a Payment</h4><strong><br/>
+                                    <h4><label for="">Receive a Payment</label></h4>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -217,7 +215,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control input_required"  name="amount_paid" id="amount_paid" placeholder="Amount Paid">
+                                                    <input type="text" class="form-control input_required item_unit_price"  name="amount_paid" id="amount_paid" placeholder="Amount Paid">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -241,7 +239,15 @@
                                                     <select class="form-control select2 input_required" name="paid_to" id="paid_to">
                                                         <option value="" selected hidden disabled>select item</option>
                                                         @foreach ($ch_accounts as $ch_account)
-                                                            <option value="{{ $ch_account->id }}">{{ $ch_account->name_en }}</option>
+                                                            <option value="" disabled>{{ $ch_account->bsc_account_type_name }}</option>
+                                                            @php
+                                                                $paid_from_to=$ch_account->paid_from_to;
+                                                            @endphp
+                                                            @if ($paid_from_to !=null)
+                                                                @foreach ($paid_from_to as $paid_to)
+                                                                    <option value="{{ $paid_to->id }}">&nbsp;&nbsp;&nbsp;{{ $paid_to->name_en }}</option>
+                                                                @endforeach
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -314,9 +320,9 @@ $('.detail').click(function(e)
         $("#amount_paid").on("keyup", function()
         {
             let amount_paid=parseFloat($('#amount_paid').val());
-            let grand_total=parseFloat($('#grand_total').val());
-            if(amount_paid > grand_total){
-                sweetalert('error','Amount Paid is bigger than Grand Total');
+            let due_amount=parseFloat($('#due_amount').text());
+            if(amount_paid > due_amount){
+                sweetalert('error','Amount Paid is bigger than Due Amount or Grand Total');
                 return false;
             }
         });
@@ -325,6 +331,11 @@ $('.detail').click(function(e)
     // add payment
     function invoice_payment()
     {
+
+        let amount_paid=parseFloat($('#amount_paid').val());
+        let grand_total=parseFloat($('#grand_total').val());
+        let due_amount=parseFloat($('#due_amount').text());
+
         let num_miss = 0;
         $(".input_required").each(function(){
             if($(this).val()=="" || $(this).val()==null){ num_miss++;}
@@ -335,36 +346,46 @@ $('.detail').click(function(e)
             });
             sweetalert('error', 'Please input or select field * required');
         }else{
-            let amount_paid=parseFloat($('#amount_paid').val());
-            let grand_total=parseFloat($('#grand_total').val());
-            let due_amount=grand_total - amount_paid;
-        if(amount_paid > grand_total){
+        if(amount_paid > due_amount){
             $('#amount_paid').css('border-color', 'red');
-            sweetalert('error','Amount Paid input is bigger than Grand Total');
+            sweetalert('error','Amount Paid input is bigger than Due Amount or Grand Total');
         }else if(amount_paid == 0){
-            $('#amount_paid').css('border-color', 'red');
             sweetalert('error','Amount Paid can not input Zero');
         }else{
+            let due_amounts = (due_amount - amount_paid).toFixed(2);
+            // alert(due_amounts);exit;
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
                     type:"POST",
                     url:'/bsc_invoice_payment',
                     data:{
                         _token: CSRF_TOKEN,
-                        due_amount      : due_amount,
+                        due_amount      : due_amounts,
                         amount_paid     : amount_paid,
                         grand_total     : grand_total,
                         date_paid       : $('#date_paid').val(),
                         paid_to         : $('#paid_to').val(),
-                        reference       : $('#reference').val()
+                        reference       : $('#reference').val(),
+                        bsc_invoice_id  : $('#bsc_invoice_id').val(),
+                        bsc_account_charts_id  : $('#bsc_account_charts_id').val()
+
                     },
                     dataType: "JSON",
                     success:function(data){
-
-
+                        if(data.payment.success == false){
+                            alert("fail to payment");
+                        }else{
+                            go_to('bsc_invoice_invoice_list');
+                        }
                     }
                 });
             }
         }
     }
+
+    // input only number & .
+    $('.item_unit_price').keypress(function(e){
+        var x = event.charCode || event.keyCode;
+        if (isNaN(String.fromCharCode(e.which)) && x!=46 || x===32 || x===13 || (x===46 && event.currentTarget.innerText.includes('.'))) e.preventDefault();
+    });
 </script>

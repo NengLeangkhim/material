@@ -209,7 +209,7 @@ class Payroll extends Model
                 INNER JOIN ma_user mu on hpl.ma_user_id=mu.id
                 INNER JOIN ma_position mp ON mu.ma_position_id=mp.id 
                 where hpl.id in(select hr_payroll_list_id from hr_payroll_list_hr_payroll_component_rel hplhpc 
-                join hr_payroll_component hpc on hplhpc.hr_payroll_component_id=hpc.id where for_month=$month and for_year=$year)";
+                join hr_payroll_component hpc on hplhpc.hr_payroll_component_id=hpc.id where hpl.status=true and hpl.is_deleted=false and for_month=$month and for_year=$year)";
             return $stm=DB::select($sql);
         } catch (\Throwable $th) {
             throw $th;

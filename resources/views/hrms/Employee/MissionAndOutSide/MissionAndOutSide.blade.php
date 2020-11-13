@@ -5,7 +5,7 @@
               <div class="card-header">
                 <h1 class="card-title hrm-title"><strong><i class="fas fa-route"></i> Mission</strong></h1>
                 <div class="col-md-12 text-right">
-                    <button type="button" class="btn bg-gradient-primary" onclick="HRM_ShowDetail('hrm_modal_add_edit_missionoutside','modal_missionoutside')"><i class="fas fa-plus"></i> Add</button>
+                    <button type="button" class="btn bg-gradient-primary" onclick="hrms_modal_add_edit_mission()"><i class="fas fa-plus"></i> Add</button>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -76,7 +76,7 @@
                         <td>{{$item->description}}</td>
                           <td>
                             <div class="row">
-                              <div class="col-md-4"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_modal_add_edit_missionoutside','modal_missionoutside',{{$item->id}})"><i class="far fa-edit"></i></a></div>
+                              <div class="col-md-4"><a href="javascript:;" onclick="hrms_modal_add_edit_mission({{$item->id}})"><i class="far fa-edit"></i></a></div>
                               <div class="col-md-4"><a href="javascript:;" onclick="HRM_ShowDetail('hrm_modal_mission_detail','modal_mission_detail',{{$item->id}})"><i class="fas fa-info"></i></a></div>
                               <div class="col-md-4"><a href="javascript:;" onclick="hrm_delete_data({{$item->id}},'hrm_delete_missionoutside','hrm_mission_outside','Delete Successfully !','HRM_09010403')"><i class="far fa-trash-alt"></i></a></div>
                             </div>

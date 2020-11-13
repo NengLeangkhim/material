@@ -69,7 +69,6 @@ class QuoteController extends Controller
         try {
 
             $createby = $request->input('create_by');
-
             // insert to crm_quote
             $insert_quote = DB::select(
                 'SELECT public."insert_crm_quote"(?, ?, ?, ?, ?, ?)',
@@ -315,10 +314,8 @@ class QuoteController extends Controller
                 }
             }
 
-
-
             DB::commit();
-            return json_encode(["udpate"=>"success","result"=>[]]);
+            return json_encode(["update"=>"success","result"=>[]]);
         }catch(Exception $e){
             DB::rollback();
             return json_encode(["update"=>"fail","result"=> $e->getMessage()]);

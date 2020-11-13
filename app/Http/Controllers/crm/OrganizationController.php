@@ -27,14 +27,25 @@ class OrganizationController extends Controller
     // }
 
     public function getorganization(){
-        $organ=ModelCrmOrganization::CrmGetOrganize();
-        $result =json_decode($organ,true);
-        return view('crm.Organization.index',['organize'=>$result["data"]]);
+        if(perms::check_perm_module('CRM_0203')){ // Module  Organizations
+            $organ=ModelCrmOrganization::CrmGetOrganize();
+            $result =json_decode($organ,true);
+            // dd($result);
+            return view('crm.Organization.index',['organize'=>$result["data"]]);
+        }else{
+            return view('no_perms');
+        }
+      
     }
     public function DetailOrganization($id) {
-        $organ=ModelCrmOrganization::CrmGetOrganizeById($id);
-        $result =json_decode($organ,true);
-        return view('crm.Organization.DetailOrganization',['organize'=>$result["data"][0]]);
+        if(perms::check_perm_module('CRM_02030102')){ //Module detail
+            $organ=ModelCrmOrganization::CrmGetOrganizeById($id);
+            $result =json_decode($organ,true);
+            // dd($result);
+            return view('crm.Organization.DetailOrganization',['organize'=>$result["data"][0]]);
+        }else{
+            return view('no_perms');
+        }
     }
     public function AddOrganization(){
         $contact = ModelCrmOrganization::CrmGetContact();
