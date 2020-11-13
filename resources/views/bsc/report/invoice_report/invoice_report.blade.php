@@ -110,39 +110,41 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($invoices as $invoice)
-                                            @php
-                                                $amount_paid = 0;
-                                                $due_amount = 0;
-                                                $status = '';
-
-                                                if($invoice->amount_paid == null && $invoice->due_amount == null){
+                                        @if (count($invoices) >0)
+                                            @foreach ($invoices as $invoice)
+                                                @php
                                                     $amount_paid = 0;
-                                                    $due_amount = $invoice->grand_total;
-                                                    $status = 'Waiting Payment';
-                                                }else if ($invoice->due_amount == 0) {
-                                                    $amount_paid = $invoice->amount_paid;
-                                                    $due_amount = $invoice->due_amount;
-                                                    $status = 'Paid';
-                                                }else{
-                                                    $amount_paid = $invoice->amount_paid;
-                                                    $due_amount = $invoice->due_amount;
-                                                    $status = 'Paid';
-                                                }
-                                            @endphp
-                                            <tr>
-                                                <td>{{ $invoice->invoice_number }}</td>
-                                                <td>{{ $invoice->reference }}</td>
-                                                <td>{{ $invoice->customer_name }}</td>
-                                                <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
-                                                <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
-                                                <td>{{ date('d-m-Y', strtotime($invoice->effective_date))}}</td>
-                                                <td>{{ date('d-m-Y', strtotime($invoice->end_period_date))}}</td>
-                                                <td>{{ $amount_paid }}</td>
-                                                <td>{{ $due_amount }}</td>
-                                                <td>{{ $status }}</td>
-                                            </tr>
-                                        @endforeach
+                                                    $due_amount = 0;
+                                                    $status = '';
+
+                                                    if($invoice->amount_paid == null && $invoice->due_amount == null){
+                                                        $amount_paid = 0;
+                                                        $due_amount = $invoice->grand_total;
+                                                        $status = 'Waiting Payment';
+                                                    }else if ($invoice->due_amount == 0) {
+                                                        $amount_paid = $invoice->amount_paid;
+                                                        $due_amount = $invoice->due_amount;
+                                                        $status = 'Paid';
+                                                    }else{
+                                                        $amount_paid = $invoice->amount_paid;
+                                                        $due_amount = $invoice->due_amount;
+                                                        $status = 'Paid';
+                                                    }
+                                                @endphp
+                                                <tr>
+                                                    <td>{{ $invoice->invoice_number }}</td>
+                                                    <td>{{ $invoice->reference }}</td>
+                                                    <td>{{ $invoice->customer_name }}</td>
+                                                    <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
+                                                    <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
+                                                    <td>{{ date('d-m-Y', strtotime($invoice->effective_date))}}</td>
+                                                    <td>{{ date('d-m-Y', strtotime($invoice->end_period_date))}}</td>
+                                                    <td>{{ $amount_paid }}</td>
+                                                    <td>{{ $due_amount }}</td>
+                                                    <td>{{ $status }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
@@ -199,43 +201,45 @@
                 $("#example1").DataTable().destroy();
                 $("#example1 tbody").empty();
                 let tr="";
-                $.each(data, function(i, value) {
-                    let amount_paid = 0;
-                    let due_amount = 0;
-                    let status = '';
-                    if(value.amount_paid == null && value.due_amount == null){
-                        amount_paid = 0;
-                        due_amount = value.grand_total;
-                        status = 'Waiting Payment';
-                    }else if(value.due_amount == 0){
-                        amount_paid = value.amount_paid;
-                        due_amount =  value.due_amount;
-                        status = 'Paid';
-                    }else{
-                        amount_paid = value.amount_paid;
-                        due_amount =  value.due_amount;
-                        status = 'Waiting Payment';
-                    }
-                    if(payment_status == '2'){
-                        if(value.due_amount == null || value.due_amount != 0){
+                if(data.length >0){
+                        $.each(data, function(i, value) {
+                            let amount_paid = 0;
+                            let due_amount = 0;
+                            let status = '';
+                            if(value.amount_paid == null && value.due_amount == null){
+                                amount_paid = 0;
+                                due_amount = value.grand_total;
+                                status = 'Waiting Payment';
+                            }else if(value.due_amount == 0){
+                                amount_paid = value.amount_paid;
+                                due_amount =  value.due_amount;
+                                status = 'Paid';
+                            }else{
+                                amount_paid = value.amount_paid;
+                                due_amount =  value.due_amount;
+                                status = 'Waiting Payment';
+                            }
+                            if(payment_status == '2'){
+                                if(value.due_amount == null || value.due_amount != 0){
 
-                            tr+="<tr><td>"+value.invoice_number+"</td><td>"+value.reference+"</td><td>"+value.customer_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+value.effective_date+"</td><td>"+value.end_period_date+"</td><td>"+amount_paid+"</td><td>"+due_amount+"</td><td>"+status+"</td></tr>";
-                        }
-                    }else if(payment_status == '3'){
-                        if(value.due_amount == 0 && value.due_amount != null){
+                                    tr+="<tr><td>"+value.invoice_number+"</td><td>"+value.reference+"</td><td>"+value.customer_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+value.effective_date+"</td><td>"+value.end_period_date+"</td><td>"+amount_paid+"</td><td>"+due_amount+"</td><td>"+status+"</td></tr>";
+                                }
+                            }else if(payment_status == '3'){
+                                if(value.due_amount == 0 && value.due_amount != null){
 
-                            tr+="<tr><td>"+value.invoice_number+"</td><td>"+value.reference+"</td><td>"+value.customer_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+value.effective_date+"</td><td>"+value.end_period_date+"</td><td>"+amount_paid+"</td><td>"+due_amount+"</td><td>"+status+"</td></tr>";
-                        }
-                    }else{
-                        tr+="<tr><td>"+value.invoice_number+"</td><td>"+value.reference+"</td><td>"+value.customer_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+value.effective_date+"</td><td>"+value.end_period_date+"</td><td>"+amount_paid+"</td><td>"+due_amount+"</td><td>"+status+"</td></tr>";
+                                    tr+="<tr><td>"+value.invoice_number+"</td><td>"+value.reference+"</td><td>"+value.customer_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+value.effective_date+"</td><td>"+value.end_period_date+"</td><td>"+amount_paid+"</td><td>"+due_amount+"</td><td>"+status+"</td></tr>";
+                                }
+                            }else{
+                                tr+="<tr><td>"+value.invoice_number+"</td><td>"+value.reference+"</td><td>"+value.customer_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+value.effective_date+"</td><td>"+value.end_period_date+"</td><td>"+amount_paid+"</td><td>"+due_amount+"</td><td>"+status+"</td></tr>";
+                            }
+                        });
+                        $("#example1 tbody").html(tr);
+                        $("#example1").DataTable({
+                            "responsive": true,
+                            "autoWidth": false,
+                        });
                     }
-                });
-                $("#example1 tbody").html(tr);
-                $("#example1").DataTable({
-                    "responsive": true,
-                    "autoWidth": false,
-                });
-            }
+                }
         });
     }
 </script>

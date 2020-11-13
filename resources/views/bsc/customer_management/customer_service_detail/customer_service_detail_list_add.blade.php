@@ -36,9 +36,11 @@
                                             </div>
                                             <select class="form-control select2" name="customer_service" id="customer_service" required>
                                                 <option selected hidden disabled>select item</option>
-                                                @foreach ($customer_services as $customer_service)
-                                                    <option value="{{ $customer_service->id }}">{{ $customer_service->customer_name." / ".$customer_service->customer_branch." / ".$customer_service->service_name }}</option>
-                                                @endforeach
+                                                @if (count($customer_services) >0)
+                                                    @foreach ($customer_services as $customer_service)
+                                                        <option value="{{ $customer_service->id }}">{{ $customer_service->customer_name." / ".$customer_service->customer_branch." / ".$customer_service->service_name }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>

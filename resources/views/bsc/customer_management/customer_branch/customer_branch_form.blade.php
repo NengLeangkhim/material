@@ -36,10 +36,11 @@
                                             </div>
                                             <select class="form-control select2" name="customer_name" id="customer_name" required onchange="myCustomer(this)">
                                                 <option selected hidden disabled>select item</option>
-                                                @foreach ($customers as $customer)
-                                                    <option value="{{ $customer->id }}" data-lead_id="{{ $customer->crm_lead_id }}">{{ $customer->name }}</option>
-                                                @endforeach
-
+                                                @if (count($customers) >0)
+                                                    @foreach ($customers as $customer)
+                                                        <option value="{{ $customer->id }}" data-lead_id="{{ $customer->crm_lead_id }}">{{ $customer->name }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -118,11 +119,13 @@
                 dataType: "JSON",
                 success:function(data){
                     let item='';
-                    $.each(data, function(i, value) {
-                        item+='<option value="'+value.id+'">'+value.name_en+'</option>';
-                    });
-                    let items='<option selected hidden disabled>select item</option>'+item;
-                    document.getElementById('lead_branch').innerHTML=items;
+                    if(data.length >0){
+                        $.each(data, function(i, value) {
+                            item+='<option value="'+value.id+'">'+value.name_en+'</option>';
+                        });
+                        let items='<option selected hidden disabled>select item</option>'+item;
+                        document.getElementById('lead_branch').innerHTML=items;
+                    }
                 }
             });
     }

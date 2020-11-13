@@ -25,56 +25,58 @@
                     <div class="card-body">
                         <div class="form-group">
                             <div class="col-md-12">
-                                @foreach ($customer_branchs as $customer_branch)
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <p for="">Customer Name : &nbsp;{{ $customer_branch->ma_customer_name}}</p>
-                                                </div>
+                                @if (count($customer_branchs) >0)
+                                    @foreach ($customer_branchs as $customer_branch)
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <p for="">Customer Name : &nbsp;{{ $customer_branch->ma_customer_name}}</p>
+                                                    </div>
 
-                                                <div class="col-sm-12">
-                                                    <p for="">Branch Name : &nbsp;{{ $customer_branch->branch}}</p>
-                                                </div>
+                                                    <div class="col-sm-12">
+                                                        <p for="">Branch Name : &nbsp;{{ $customer_branch->branch}}</p>
+                                                    </div>
 
-                                                <div class="col-sm-12">
-                                                    <p for="">Email : &nbsp;{{ $customer_branch->lead_branch_email}}</p>
-                                                </div>
+                                                    <div class="col-sm-12">
+                                                        <p for="">Email : &nbsp;{{ $customer_branch->lead_branch_email}}</p>
+                                                    </div>
 
-                                                <div class="col-sm-12">
-                                                    <p for="">Phone : &nbsp;{{ $customer_branch->contact_phone}}</p>
-                                                </div>
+                                                    <div class="col-sm-12">
+                                                        <p for="">Phone : &nbsp;{{ $customer_branch->contact_phone}}</p>
+                                                    </div>
 
-                                                <div class="col-sm-12">
-                                                    <p for="">Deposit : &nbsp;{{ $customer_branch->deposit}}</p>
+                                                    <div class="col-sm-12">
+                                                        <p for="">Deposit : &nbsp;{{ $customer_branch->deposit}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <p for="">Balance : &nbsp;{{ $customer_branch->balance}}</p>
+                                                    </div>
+
+                                                    <div class="col-sm-12">
+                                                        <p for="">Invoice Balance : &nbsp;{{ $customer_branch->invoice_balance}}</p>
+                                                    </div>
+
+                                                    <div class="col-sm-12">
+                                                        <p for="">VAT Type : &nbsp;{{ $customer_branch->vat_type}}</p>
+                                                    </div>
+
+                                                    <div class="col-sm-12">
+                                                        <p for="">VAT Number : &nbsp;{{ $customer_branch->vat_number}}</p>
+                                                    </div>
+
+                                                    <div class="col-sm-12">
+                                                        <p for="">Branch Address : &nbsp;{{ $customer_branch->lead_address}}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <p for="">Balance : &nbsp;{{ $customer_branch->balance}}</p>
-                                                </div>
-
-                                                <div class="col-sm-12">
-                                                    <p for="">Invoice Balance : &nbsp;{{ $customer_branch->invoice_balance}}</p>
-                                                </div>
-
-                                                <div class="col-sm-12">
-                                                    <p for="">VAT Type : &nbsp;{{ $customer_branch->vat_type}}</p>
-                                                </div>
-
-                                                <div class="col-sm-12">
-                                                    <p for="">VAT Number : &nbsp;{{ $customer_branch->vat_number}}</p>
-                                                </div>
-
-                                                <div class="col-sm-12">
-                                                    <p for="">Branch Address : &nbsp;{{ $customer_branch->lead_address}}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                @endif
 
                             </div>
                         </div>

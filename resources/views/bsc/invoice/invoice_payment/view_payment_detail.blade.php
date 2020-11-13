@@ -38,19 +38,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($view_payment_details as $view_payment_detail)
-                                    <tr>
-                                        <td>{{ $view_payment_detail->customer_name }}</td>
-                                        <td>{{ $view_payment_detail->customer_name }}</td>
-                                        <td>{{ $view_payment_detail->invoice_number }}</td>
-                                        <td>{{ $view_payment_detail->reference }}</td>
-                                        <td>{{ date('d-m-Y', strtotime($view_payment_detail->create_date)) }}</td>
-                                        <td>{{ date('d-m-Y', strtotime($view_payment_detail->billing_date)) }}</td>
-                                        <td>{{ date('d-m-Y', strtotime($view_payment_detail->due_date)) }}</td>
-                                        <td>{{ $view_payment_detail->total_invoice }}</td>
-                                        <td>{{ $view_payment_detail->amount_paid }}</td>
-                                    </tr>
-                                @endforeach
+                                @if (count($view_payment_details) >0)
+                                    @foreach ($view_payment_details as $view_payment_detail)
+                                        <tr>
+                                            <td>{{ $view_payment_detail->customer_name }}</td>
+                                            <td>{{ $view_payment_detail->customer_name }}</td>
+                                            <td>{{ $view_payment_detail->invoice_number }}</td>
+                                            <td>{{ $view_payment_detail->reference }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($view_payment_detail->create_date)) }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($view_payment_detail->billing_date)) }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($view_payment_detail->due_date)) }}</td>
+                                            <td>{{ $view_payment_detail->total_invoice }}</td>
+                                            <td>{{ $view_payment_detail->amount_paid }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -63,10 +65,12 @@
                                         <label for="">Total Paid :
                                             @php
                                                 $amount = 0;
-                                                foreach ($view_payment_details as $item) {
-                                                    $amount += $item->amount_paid;
+                                                if (count($view_payment_details) >0) {
+                                                    foreach ($view_payment_details as $item) {
+                                                        $amount += $item->amount_paid;
+                                                    }
+                                                    echo $amount;
                                                 }
-                                                echo $amount;
                                             @endphp
                                         </label>
                                     </div>
