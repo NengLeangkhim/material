@@ -60,7 +60,7 @@
 
                             <dl class="row table-responsive">
                                 <div>
-                                    <input type="hidden" name="quote_id" value="{{ $quoteId }}" readonly>
+                                    <input type="hidden" id="quote_id" name="quote_id" value="{{ $quoteId }}" readonly>
                                     <input type="hidden" name="quote_branch_id" value="{{ $data['quote_branch_id'] }}" readonly>
                                     <input type="hidden" name="lead_branch_id" value="{{ $data['lead_branch_id'] }}" readonly>
                                 </div>
@@ -89,8 +89,8 @@
                                                     <div class=" form-group">
                                                         <div class="row form-inline2">
                                                             <div class="col-md-8 col-sm-8 col-8">
-                                                                <input type="text" class="form-control txtPrdName_{{ $key }}"   name="product_name[]" id="product_name{{ $key }}"  value="{{ $product[$key][0]->prdName }}" required placeholder="Product Name" readonly>
-                                                                <input type="hidden" name="product[]" id="txtPrdId_{{ $key }}" value="{{ $val->stock_product_id }}" readonly>
+                                                                <input type="text" class="form-control txtPrdName_{{ $key }}"   name="product_name[]" id="product_name{{ $key }}"  value="{{ $response3->data[$key]->stock_product[0]->name }}" required placeholder="Product Name" readonly>
+                                                                <input type="hidden" name="product[]" id="txtPrdId_{{ $key }}" value="{{ $val->stock_product[0]->id }}" readonly>
                                                                 <span id="product_name{{ $key }}  Error" ><strong></strong></span>
                                                             </div>
                                                             <div class="col-md-4 col-sm-4 col-4">
@@ -102,11 +102,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="form-inline"><textarea class="form-control txtDescription_{{ $key }}" id="txtDescription_{{ $key }}"  rows="2" style="margin-top:10px; padding:10px; width: 100%!important;" placeholder="Description" disabled>{{ $product[$key][0]->description }}</textarea> </div>
+                                                        <div class="form-inline"><textarea class="form-control txtDescription_{{ $key }}" id="txtDescription_{{ $key }}"  rows="2" style="margin-top:10px; padding:10px; width: 100%!important;" placeholder="Description" disabled>{{ $response3->data[$key]->stock_product[0]->description }}</textarea> </div>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div id="itemType_{{$key}}" class="btn-list-item text-center">{{ ucfirst($product[$key][0]->group_type) }}</div>
+                                                    <div id="itemType_{{$key}}" class="btn-list-item text-center">{{ ucfirst($response3->data[$key]->stock_product[0]->group_type) }}</div>
                                                 </td>
                                                 <td style="width: 120px;">
                                                     <input type="text"  class="valid-numeric form-control itemQty_{{ $key }} qty{{ $key }}" name="qty[]" id="{{ $key }}" data-id="qty{{ $key }}" demo="itemQty"  value="{{ $val->qty }}"  required placeholder="Qty">

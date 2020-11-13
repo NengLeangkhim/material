@@ -170,6 +170,7 @@ class QuoteController extends Controller
         return json_encode($status);
     }
 
+
     public function getStockByBranchId($id){
         $product= QuoteBranchDetail::where('crm_quote_branch_id',$id)->orderBy('id','asc')->get();
         return QuoteBranchDetailResource::collection($product);
@@ -231,7 +232,7 @@ class QuoteController extends Controller
                 ));
 
             //product count
-
+            $stockproductid = $request->input("product");
             $price = $request->input("price");
             $qty = $request->input("qty");
             $discount = $request->input("discount");
@@ -239,12 +240,10 @@ class QuoteController extends Controller
 
 
             $quotebranchdetailid = $request->input("quote_detail_id");
-            $stockproductid = $request->input("product");
+
 
 
             $all_product = count(collect($stockproductid));
-
-
 
 
             //update product
@@ -264,7 +263,27 @@ class QuoteController extends Controller
                         $discount_type[$i]
                     ));
             }
-
+            //insert product
+            $stockproductid_new = $request->input("product_new");
+            $price_new = $request->input("price_new");
+            $qty_new = $request->input("qty_new");
+            $discount_new = $request->input("discount_new");
+            $discount_type_new = $request->input("discount_type_new");
+            $all_product_new =  count(collect($stockproductid_new));
+            for ($i = 0; $i < $all_product_new; $i++)
+            {
+                DB::select(
+                    'SELECT public."insert_crm_quote_branch_detail"(?, ?, ?, ?, ?, ?, ?)',
+                    array(
+                        $quote_branch_id,
+                        $stockproductid_new[$i],
+                        $price_new[$i],
+                        $qty_new[$i],
+                        $update_by,
+                        $discount_new[$i],
+                        $discount_type_new[$i]
+                    ));
+            }
 
             DB::commit();
             return json_encode(["udpate"=>"success","result"=>[]]);

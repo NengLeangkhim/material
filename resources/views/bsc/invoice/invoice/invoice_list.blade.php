@@ -46,7 +46,7 @@
                                             <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
                                                 <thead>
                                                     <tr>
-                                                        <th>Number</th>
+                                                        <th>Invoice Number</th>
                                                         <th>Reference</th>
                                                         <th>Customer</th>
                                                         <th>Date</th>
@@ -59,21 +59,25 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($invoices as $invoice)
-                                                        @php
-                                                            $amount_paid = 0;
-                                                            $due_amount = 0;
-                                                            $status = '';
-
-                                                            if($invoice->amount_paid == null && $invoice->due_amount == null){
+                                                            @php
                                                                 $amount_paid = 0;
-                                                                $due_amount = $invoice->grand_total;
-                                                                $status = 'Awaiting Payment';
-                                                            }else{
-                                                                $amount_paid = $invoice->amount_paid;
-                                                                $due_amount = $invoice->due_amount;
-                                                                $status = 'Paid';
-                                                            }
-                                                        @endphp
+                                                                $due_amount = 0;
+                                                                $status = '';
+
+                                                                if($invoice->amount_paid == null && $invoice->due_amount == null){
+                                                                    $amount_paid = 0;
+                                                                    $due_amount = $invoice->grand_total;
+                                                                    $status = 'Waiting Payment';
+                                                                }else if ($invoice->due_amount == 0) {
+                                                                    $amount_paid = $invoice->amount_paid;
+                                                                    $due_amount = $invoice->due_amount;
+                                                                    $status = 'Paid';
+                                                                }else{
+                                                                    $amount_paid = $invoice->amount_paid;
+                                                                    $due_amount = $invoice->due_amount;
+                                                                    $status = 'Waiting Payment';
+                                                                }
+                                                            @endphp
                                                         <tr>
                                                             <td>{{ $invoice->invoice_number }}</td>
                                                             <td>{{ $invoice->reference }}</td>
@@ -84,8 +88,8 @@
                                                             <td>{{ $due_amount }}</td>
                                                             <td>{{ $status }}</td>
                                                             <td style="text-align-last: center">
-                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>
+                                                                <a title="View" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a> --}}
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -104,7 +108,7 @@
                                                         <table id="example2" class="table table-bordered table-striped" style="white-space: nowrap">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Number</th>
+                                                                    <th>Invoice Number</th>
                                                                     <th>Reference</th>
                                                                     <th>Customer</th>
                                                                     <th>Date</th>
@@ -116,31 +120,33 @@
                                                             </thead>
                                                             <tbody>
                                                                 @foreach ($invoices as $invoice)
-                                                                    @php
-                                                                        $amount_paid = 0;
-                                                                        $due_amount = 0;
+                                                                    @if($invoice->due_amount == null || $invoice->due_amount != 0)
+                                                                        @php
+                                                                                $amount_paid = 0;
+                                                                                $due_amount = 0;
 
-                                                                        if($invoice->due_amount == null){
-                                                                            $amount_paid = 0;
-                                                                            $due_amount = $invoice->grand_total;
-                                                                        }else{
-                                                                            $amount_paid = $invoice->amount_paid;
-                                                                            $due_amount = $invoice->due_amount;
-                                                                        }
-                                                                    @endphp
-                                                                    <tr>
-                                                                        <td>{{ $invoice->invoice_number }}</td>
-                                                                        <td>{{ $invoice->reference }}</td>
-                                                                        <td>{{ $invoice->customer_name }}</td>
-                                                                        <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
-                                                                        <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
-                                                                        <td>{{ $amount_paid }}</td>
-                                                                        <td>{{ $due_amount }}</td>
-                                                                        <td style="text-align-last: center">
-                                                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>
-                                                                        </td>
-                                                                    </tr>
+                                                                                if($invoice->due_amount == null){
+                                                                                    $amount_paid = 0;
+                                                                                    $due_amount = $invoice->grand_total;
+                                                                                }else{
+                                                                                    $amount_paid = $invoice->amount_paid;
+                                                                                    $due_amount = $invoice->due_amount;
+                                                                                }
+                                                                            @endphp
+                                                                            <tr>
+                                                                                <td>{{ $invoice->invoice_number }}</td>
+                                                                                <td>{{ $invoice->reference }}</td>
+                                                                                <td>{{ $invoice->customer_name }}</td>
+                                                                                <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
+                                                                                <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
+                                                                                <td>{{ $amount_paid }}</td>
+                                                                                <td>{{ $due_amount }}</td>
+                                                                                <td style="text-align-last: center">
+                                                                                    <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                    {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a> --}}
+                                                                                </td>
+                                                                            </tr>
+                                                                    @endif
                                                                 @endforeach
                                                             </tbody>
                                                         </table>
@@ -160,7 +166,7 @@
                                                         <table id="example3" class="table table-bordered table-striped">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Number</th>
+                                                                    <th>Invoice Number</th>
                                                                     <th>Reference</th>
                                                                     <th>Customer</th>
                                                                     <th>Date</th>
@@ -183,7 +189,7 @@
                                                                             <td>{{ $invoice->due_amount }}</td>
                                                                             <td style="text-align-last: center">
                                                                                 <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>
+                                                                                {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a> --}}
                                                                             </td>
                                                                         </tr>
                                                                     @endif
