@@ -225,8 +225,8 @@ class LeadController extends Controller
                                         ],
                 'email' =>  [  'required'
                                         ],
-                'ma_honorifics_id' =>  [  'required'
-                                        ],
+                // 'ma_honorifics_id' =>  [  'required'
+                //                         ],
                 'position' =>  [  'required'
                                     ],
                 'national_id' =>  [  'required'
@@ -240,11 +240,11 @@ class LeadController extends Controller
                 //             ->where(function ($query) use ($request) {
                 //             return $query->where('is_deleted', 'f');})
                 //                         ],
-                'phone' => [ 'required','regex:/(0)[0-9]{7}/',
-                            Rule::unique('crm_lead_contact','phone')
-                            ->where(function ($query) use ($request) {
-                            return $query->where('is_deleted', 'f');})
-                                    ],
+                // 'phone' => [ 'required','regex:/(0)[0-9]{7}/',
+                //             Rule::unique('crm_lead_contact','phone')
+                //             ->where(function ($query) use ($request) {
+                //             return $query->where('is_deleted', 'f');})
+                //                     ],
                 'home_en' => [ 'required'
                                     ],
                 'street_en' => [ 'required'
@@ -281,7 +281,7 @@ class LeadController extends Controller
                 'company_facebook.required' => 'This Field is require !!',   //massage validator
                 'vat_number.required' => 'This Field is require !!',   //massage validator
                 'lead_status.required' => 'This Field is require !!',   //massage validator
-                'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
+                // 'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
                 'name_en.required' => 'This Field is require !!',   //massage validator
                 'name_kh.required' => 'This Field is require !!',   //massage validator
                 'email.required' => 'This Field is require !!',   //massage validator
@@ -301,7 +301,7 @@ class LeadController extends Controller
                 // 'primary_email.unique' => 'The Email is Already Exist !!',   //massage validator
                 // 'email.unique' => 'The Email is Already Exist !!',   //massage validator
                 'email.email' => 'The Email is Wrong !!',   //massage validator
-                'phone.unique' => 'The Phone is Already Exist !!',   //massage validator
+                // 'phone.unique' => 'The Phone is Already Exist !!',   //massage validator
                 'phone.regex' => 'The Phone Number is Wrong !!',   //massage validator
                 ]
             );
