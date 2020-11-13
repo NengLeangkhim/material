@@ -107,7 +107,7 @@ Route::get('/quote/leadBranch','crm\QuoteController@listLeadBranch'); // get lis
 
 Route::get('/quote/add','crm\QuoteController@addQuote'); // to add qoute
 
-Route::delete('/quote/deleteLeadQuote','crm\QuoteController@deleteLeadQuote'); // get delete lead for quote list
+Route::post('/quote/deleteLeadQuote','crm\QuoteController@deleteLeadQuote'); // get delete lead for quote list
 
 Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quote item table
 Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get stock product api to view

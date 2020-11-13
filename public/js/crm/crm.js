@@ -794,6 +794,7 @@ function Crm_delete(id,route,goto,alert) {
 
         // function to get delete quote lead
         function getDeleteQuoteLead(route,id) {
+
             Swal.fire({
               title: 'Do you want to delete this?',
               icon: 'warning',
@@ -807,19 +808,19 @@ function Crm_delete(id,route,goto,alert) {
               if (result.value) {
                 $.ajax({
                   url:route,
-                  data:{id:id},
-                  type:"DELETE",
+                  type: 'POST',
                   headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                   },
+                  data:{id_:id},
                   success:function(data){
-                        console.log(data);
+                        // console.log(data);
                         if(data.success){
                             sweetalert('success','Delete sucesssed!');
+                            setTimeout(function(){ go_to('/quote'); }, 1300);// Set timeout for refresh content
                         }else{
                             sweetalert('error','Delete failed!');
                         }
-                    //   setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
                   }
 
                  });

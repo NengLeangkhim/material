@@ -1,9 +1,6 @@
 
 
 
-
-
-
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -80,17 +77,16 @@
                                     <tbody id="add_row_tablequoteItem" class="add_row_tablequoteItem" data-id="{{ count($response3->data) }}">
 
                                         @foreach ($response3->data as $key=>$val)
-
+                                            <input type="hidden" name="quote_detail_id[]" value="{{ $val->id }}" readonly>
                                             <tr id="{{ $key }}" class="tr-quote-row row-quote-item row-quote-item_{{ $key }}" data-id="row_{{ $key }}">
                                                 <td class="td-item-quote-name">
 
-                                                    <input type="hidden" name="quote_detail_id" value="{{ $val->id }}" readonly>
-
+                                                    <input type="hidden" name="quote_detail_id_updated[]" value="{{ $val->id }}" readonly>
                                                     <div class=" form-group">
                                                         <div class="row form-inline2">
                                                             <div class="col-md-8 col-sm-8 col-8">
-                                                                <input type="text" class="form-control txtPrdName_{{ $key }}"   name="product_name[]" id="product_name{{ $key }}"  value="{{ $response3->data[$key]->stock_product[0]->name }}" required placeholder="Product Name" readonly>
-                                                                <input type="hidden" name="product[]" id="txtPrdId_{{ $key }}" value="{{ $val->stock_product[0]->id }}" readonly>
+                                                                <input type="text" class="form-control txtPrdName_{{ $key }}"   name="product_name[]" id="product_name{{ $key }}"  value="{{ $val->stock_product->name_en }}" required placeholder="Product Name" readonly>
+                                                                <input type="hidden" name="product[]" id="txtPrdId_{{ $key }}" value="{{ $val->stock_product->id }}" readonly>
                                                                 <span id="product_name{{ $key }}  Error" ><strong></strong></span>
                                                             </div>
                                                             <div class="col-md-4 col-sm-4 col-4">
@@ -102,11 +98,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="form-inline"><textarea class="form-control txtDescription_{{ $key }}" id="txtDescription_{{ $key }}"  rows="2" style="margin-top:10px; padding:10px; width: 100%!important;" placeholder="Description" disabled>{{ $response3->data[$key]->stock_product[0]->description }}</textarea> </div>
+                                                        <div class="form-inline"><textarea class="form-control txtDescription_{{ $key }}" id="txtDescription_{{ $key }}"  rows="2" style="margin-top:10px; padding:10px; width: 100%!important;" placeholder="Description" disabled>{{ $response3->data[$key]->stock_product->description }}</textarea> </div>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div id="itemType_{{$key}}" class="btn-list-item text-center">{{ ucfirst($response3->data[$key]->stock_product[0]->group_type) }}</div>
+                                                    <div id="itemType_{{$key}}" class="btn-list-item text-center">{{ ucfirst($response3->data[$key]->stock_product->group_type) }}</div>
                                                 </td>
                                                 <td style="width: 120px;">
                                                     <input type="text"  class="valid-numeric form-control itemQty_{{ $key }} qty{{ $key }}" name="qty[]" id="{{ $key }}" data-id="qty{{ $key }}" demo="itemQty"  value="{{ $val->qty }}"  required placeholder="Qty">

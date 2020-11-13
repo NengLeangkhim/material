@@ -19,8 +19,9 @@ class QuoteBranchDetailResource extends JsonResource
         $stockproduct = DB::table('stock_product_type')
                         ->where('stock_product.id',$this->stock_product_id)
                         ->rightJoin('stock_product', 'stock_product_type.id', '=', 'stock_product.stock_product_type_id')
-                        ->select(["stock_product.id","name","stock_qty","product_price","part_number","description","stock_product_type.group_type"])
-                        ->get();
+                        ->rightJoin('ma_measurement', 'ma_measurement.id', '=', 'stock_product.ma_measurement_id')
+                        ->select(["stock_product.id","name_en","stock_qty","product_price","part_number","description","ma_measurement.name as measure","stock_product_type.group_type"])
+                        ->first();
         return [
             "id"=>$this->id,
             "crm_quote_branch_id"=>$this->crm_quote_branch_id,
