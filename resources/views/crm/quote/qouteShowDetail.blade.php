@@ -39,9 +39,9 @@
                             <div class="pr-2">
                                 <button type="button" class="btn btn-md btn-info" >Preview</button>
                             </div>
-                            <div class="pr-2">
+                            {{-- <div class="pr-2">
                                 <button type="button" class="btn btn-md btn-success" >PDF</button>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="col-4" align="right">
                             <button type="button" ​value="" class="btn btn-primary btn-block btn-md ">Convert To BSC</button>
