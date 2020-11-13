@@ -1,10 +1,11 @@
 @php
     $item = "";
     $id="";
-    foreach($products as $product){
-        $item.="<option value='{$product->id}'>{$product->name}</option>";
+    if (count($products) > 0) {
+        foreach($products as $product){
+            $item.="<option value='{$product->id}'>{$product->name}</option>";
+        }
     }
-
     $display="";
     $bg_color = "";
     $contenteditable="true";
@@ -33,19 +34,17 @@
                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                             </div>
                             <select class="form-control input_required" name="account_type" id="purchase_account_chart_id" {{$display}}>
-                                
-
-                                @foreach ($account_payables as $account_payable)
-                                    <option 
-                                        @if ($purchase->chart_account_id == $account_payable->id)
-                                            selected
-                                        @endif
-                                        value="{{$account_payable->id}}">{{$account_payable->name_en}}
-                                    </option>
-                                @endforeach
-                               
+                                @if (count($account_payables) > 0)
+                                    @foreach ($account_payables as $account_payable)
+                                        <option 
+                                            @if ($purchase->chart_account_id == $account_payable->id)
+                                                selected
+                                            @endif
+                                            value="{{$account_payable->id}}">{{$account_payable->name_en}}
+                                        </option>
+                                    @endforeach
+                                @endif
                             </select>
-                            
                         </div>
                     </div>
                 </div>
@@ -77,17 +76,18 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                                             </div>
-                                        <select class="form-control select2 input_required" name="account_type" id="purchase_supplier" {{$display}}>
+                                            <select class="form-control select2 input_required" name="account_type" id="purchase_supplier" {{$display}}>
                                                 <option selected hidden disabled>select item</option>
-
-                                                @foreach ($suppliers as $supplier)
-                                                    <option 
-                                                        @if ($purchase->ma_supplier_id == $supplier->id)
-                                                            selected
-                                                        @endif
-                                                        value="{{$supplier->id}}">{{$supplier->name}}
-                                                    </option>
-                                                @endforeach
+                                                @if (count($suppliers) > 0)
+                                                    @foreach ($suppliers as $supplier)
+                                                        <option 
+                                                            @if ($purchase->ma_supplier_id == $supplier->id)
+                                                                selected
+                                                            @endif
+                                                            value="{{$supplier->id}}">{{$supplier->name}}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
                                                 
                                             </select>
                                         </div>
@@ -161,47 +161,49 @@
                                             @php
                                                 $row_count = 0;
                                             @endphp
-                                            @foreach ($purchase_detail as $key => $p_detail)
-                                                @php
-                                                    $row_count = $key;
-                                                @endphp
-                                                <tr id="row{{$key}}">
-                                                <td class="item_name" style="padding: 0;max-width: 165px;overflow: auto;">
-                                                    <select {{$display}} data-is_old="1" data-is_new="0" data-is_delete="0" class="item_select stock_product_id" style="width: 100%;height: 51px;" data-purchase_detail_id="{{$p_detail->id}}"><option value=""></option>
-                                                            @foreach ($products as $product)
-                                                                <option 
-                                                                    @if ($p_detail->stock_product_id == $product->id)
-                                                                        selected
-                                                                    @endif
-                                                                    value="{{$product->id}}">{{$product->name}}
-                                                                </option>";
-                                                            @endforeach
-                                                        </select>
-                                                    </td>
+                                            @if (count($purchase_detail) > 0)
+                                                @foreach ($purchase_detail as $key => $p_detail)
+                                                    @php
+                                                        $row_count = $key;
+                                                    @endphp
+                                                    <tr id="row{{$key}}">
+                                                    <td class="item_name" style="padding: 0;max-width: 165px;overflow: auto;">
+                                                        <select {{$display}} data-is_old="1" data-is_new="0" data-is_delete="0" class="item_select stock_product_id" style="width: 100%;height: 51px;" data-purchase_detail_id="{{$p_detail->id}}"><option value=""></option>
+                                                                @foreach ($products as $product)
+                                                                    <option 
+                                                                        @if ($p_detail->stock_product_id == $product->id)
+                                                                            selected
+                                                                        @endif
+                                                                        value="{{$product->id}}">{{$product->name}}
+                                                                    </option>";
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
 
-                                                    <td contenteditable="{{$contenteditable}}" class="item_des" id="item_des">{{$p_detail->description}}</td>
-                                                    <td contenteditable="{{$contenteditable}}" class="item_qty" id="item_qty">{{$p_detail->qty}}</td>
-                                                    <td contenteditable="{{$contenteditable}}" class="item_unit_price" id="item_unit_price">{{$p_detail->unit_price}}</td>
-                                                    <td class="item_account" id="item_account" data-id="{{$p_detail->bsc_account_charts_id}}">{{$p_detail->chart_account_name}}</td>
-                                                    <td class="item_tax" style="padding: 0;">
-                                                        <select style="border: 0px; height: 51px; {{$bg_color}}" class="tax form-control" {{$display}}>
-                                                            <option value=""></option>
-                                                            <option 
-                                                                @if ($p_detail->tax == 1)
-                                                                    selected
-                                                                @endif value="1">Tax
-                                                            </option>
-                                                            <option 
-                                                                @if ($p_detail->tax == 0)
-                                                                    selected
-                                                                @endif value="0">No Tax
-                                                            </option>
-                                                        </select>
-                                                    </td>
-                                                    <td class="item_amount" id="item_amount">{{$p_detail->amount}}</td>
-                                                <td {{$remove_btn}} style="text-align: center;"><button type="button" name="remove" data-row="row{{$key}}" class="btn btn-danger btn-xs remove">x</button></td>
-                                                </tr>
-                                            @endforeach
+                                                        <td contenteditable="{{$contenteditable}}" class="item_des" id="item_des">{{$p_detail->description}}</td>
+                                                        <td contenteditable="{{$contenteditable}}" class="item_qty" id="item_qty">{{$p_detail->qty}}</td>
+                                                        <td class="item_unit_price" id="item_unit_price">{{$p_detail->unit_price}}</td>
+                                                        <td class="item_account" id="item_account" data-id="{{$p_detail->bsc_account_charts_id}}">{{$p_detail->chart_account_name}}</td>
+                                                        <td class="item_tax" style="padding: 0;">
+                                                            <select style="border: 0px; height: 51px; {{$bg_color}}" class="tax form-control" {{$display}}>
+                                                                <option value=""></option>
+                                                                <option 
+                                                                    @if ($p_detail->tax == 1)
+                                                                        selected
+                                                                    @endif value="1">Tax
+                                                                </option>
+                                                                <option 
+                                                                    @if ($p_detail->tax == 0)
+                                                                        selected
+                                                                    @endif value="0">No Tax
+                                                                </option>
+                                                            </select>
+                                                        </td>
+                                                        <td class="item_amount" id="item_amount">{{$p_detail->amount}}</td>
+                                                    <td {{$remove_btn}} style="text-align: center;"><button type="button" name="remove" data-row="row{{$key}}" class="btn btn-danger btn-xs remove">x</button></td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
                                             <input type="hidden" id="row_count" value="{{$row_count}}">
                                         </tbody>
                                     </table>
@@ -247,28 +249,30 @@
                                                 @php
                                                     $due_amount = "";
                                                 @endphp
-                                                @foreach ($purchase_payments as $purchase_payment)
-                                                    @php
-                                                        $due_amount = $purchase_payment->due_amount;
-                                                    @endphp
-                                                    <div class="row">
-                                                        <div class="col-sm-6 text_right">
-                                                            <p for="">Payment :</p>
+                                                @if (count($purchase_payments) > 0)
+                                                    @foreach ($purchase_payments as $purchase_payment)
+                                                        @php
+                                                            $due_amount = $purchase_payment->due_amount;
+                                                        @endphp
+                                                        <div class="row">
+                                                            <div class="col-sm-6 text_right">
+                                                                <p for="">Payment :</p>
+                                                            </div>
+                                                            <div class="col-sm-6 text_right">
+                                                                <p for="" id="payment_amount">{{$purchase_payment->amount_paid}}</p>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-sm-6 text_right">
-                                                            <p for="" id="payment_amount">{{$purchase_payment->amount_paid}}</p>
+                                                        <div class="row">
+                                                            <div class="col-sm-6 text_right">
+                                                                <p for="">Date :</p>
+                                                            </div>
+                                                            <div class="col-sm-6 text_right">
+                                                                <p for="">{{$purchase_payment->date_paid}}</p>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-6 text_right">
-                                                            <p for="">Date :</p>
-                                                        </div>
-                                                        <div class="col-sm-6 text_right">
-                                                            <p for="">{{$purchase_payment->date_paid}}</p>
-                                                        </div>
-                                                    </div>
-                                                    <hr class="" style="margin: 0px;">
-                                                @endforeach
+                                                        <hr class="" style="margin: 0px;">
+                                                    @endforeach
+                                                @endif
 
                                                 @php
                                                     $display = "";
@@ -329,12 +333,21 @@
         $(document).on('click', '.remove', function(){
             tr=$(this).closest('tr');
             var delete_row = $(this).data("row");
+
             if($(this).closest('tbody').find('tr').length >1){
                 // $('#' + delete_row).remove();
-                $('#' + delete_row).hide();
-                tr.find('.stock_product_id').attr('data-is_delete','1','data-is_old','1','data-is_new','0');
-                showTotal();
-                showGrandTotal();
+                let num_count = 0;
+                $(".stock_product_id").each(function(e){
+                    if($(this).attr("data-is_delete") == 0){
+                        num_count++;
+                    }
+                });
+                if(num_count > 1){
+                    $('#' + delete_row).hide();
+                    tr.find('.stock_product_id').attr('data-is_delete','1','data-is_old','1','data-is_new','0');
+                    showTotal();
+                    showGrandTotal();
+                }
             }
         });
 
@@ -424,8 +437,11 @@
     function showTotal(){
         let total_amount = 0;
         $('.item_amount').each(function(e){
+            let tr=$(this).closest('tr');
             if(!isNaN(parseFloat($(this).text()))){
-                total_amount += parseFloat($(this).text());
+                if(tr.find(".stock_product_id").attr("data-is_delete") == 0){
+                    total_amount += parseFloat($(this).text());
+                }
             }
         });
         document.getElementById('txtTotal').innerHTML=total_amount.toFixed(2);
@@ -449,8 +465,6 @@
 
     // function save all data
     function updateData(){
-        let purchase_date=$("#purchase_supplier").val();
-        alert(purchase_date);exit();
         let num_miss = 0;
         $(".input_required").each(function(){
             if($(this).val()=="" || $(this).val()==null){ num_miss++;}
@@ -481,34 +495,38 @@
                     };
                 }
             });
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                type:"POST",
-                url:'/bsc_purchase_update_data',                    
-                data:{
-                    _token: CSRF_TOKEN,
-                    purchase_id           : $("#purchase_id").val(),
-                    bsc_account_charts_id : $("#purchase_account_chart_id").val(),
-                    suppier_id            : $("#purchase_supplier").val(),
-                    billing_date          : $("#purchase_date").val(),
-                    due_date              : $("#purchase_due_date").val(),  
-                    reference             : $("#purchase_reference").val(),    
-                    total                 : $("#txtTotal").text(),
-                    vat_total             : $("#txtVatTotal").text(), 
-                    grand_total           : $("#txtGrandTotal").text(), 
-                    status                : $("#status").val(),
-                    itemDetail            : itemDetail
-                },
-                dataType: "JSON",
-                success:function(data){
-                    
-                    if(data.updateds.success == false){
-                        alert("fail to update");
-                    }else{    
-                        go_to('bsc_purchase_purchase_list');
+            if(itemDetail.length > 0){
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                $.ajax({
+                    type:"POST",
+                    url:'/bsc_purchase_update_data',                    
+                    data:{
+                        _token: CSRF_TOKEN,
+                        purchase_id           : $("#purchase_id").val(),
+                        bsc_account_charts_id : $("#purchase_account_chart_id").val(),
+                        suppier_id            : $("#purchase_supplier").val(),
+                        billing_date          : $("#purchase_date").val(),
+                        due_date              : $("#purchase_due_date").val(),  
+                        reference             : $("#purchase_reference").val(),    
+                        total                 : $("#txtTotal").text(),
+                        vat_total             : $("#txtVatTotal").text(), 
+                        grand_total           : $("#txtGrandTotal").text(), 
+                        status                : $("#status").val(),
+                        itemDetail            : itemDetail
+                    },
+                    dataType: "JSON",
+                    success:function(data){
+                        
+                        if(data.updateds.success == false){
+                            alert("fail to update");
+                        }else{    
+                            go_to('bsc_purchase_purchase_list');
+                        }
                     }
-                }
-            });   
+                });   
+            }else{
+                sweetalert('error','Product must be have data before update!!');
+            }
         }
     }
 </script>
