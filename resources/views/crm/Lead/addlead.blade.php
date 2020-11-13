@@ -106,21 +106,27 @@
                                 <div class="form-group">
                                     <div class="row">
                                          <div class="col-md-6">
-                                            <label for="website">Website</label>
+                                            <label for="website">Website <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                                 </div>
                                                 <input type="text" class="form-control" name="website" id="website" placeholder="Website">
+                                                <span class="invalid-feedback" role="alert" id="websiteError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="company_facebook">Facebook</label>
+                                            <label for="company_facebook">Facebook<b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fab fa-facebook"></i></span>
                                                 </div>
                                                 <input type="text" class="form-control" name="company_facebook" id="company_facebook" placeholder="Facebook">
+                                                <span class="invalid-feedback" role="alert" id="company_facebookError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -128,7 +134,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="current_speed_isp">Current Speed ISP</label>
+                                            <label for="current_speed_isp">Current Speed ISP <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fab fa-tumblr"></i></span>
@@ -140,15 +146,21 @@
                                                     <option>Oppa</option>
                                                     <option>Other</option> --}}
                                                 </select>
+                                                <span class="invalid-feedback" role="alert" id="current_speed_ispError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="vat_number">Vat Number</label>
+                                            <label for="vat_number">Vat Number <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
                                                 </div>
                                                 <input type="text" class="form-control" name="vat_number" id="vat_number" placeholder="Vat Number">
+                                                <span class="invalid-feedback" role="alert" id="vat_numberError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -202,7 +214,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="lead_status">Lead Status</label>
+                                            <label for="lead_status">Lead Status<b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-unlock"></i></span>
@@ -213,6 +225,9 @@
                                                         <option value="{{$row->id}}">{{$row->name_en}}</option>
                                                     @endforeach
                                                 </select>
+                                                <span class="invalid-feedback" role="alert" id="lead_statusError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -442,18 +457,21 @@
                                                                     <option value='2'>Ms</option>
                                                                   
                                                                 </select>
-                                                                {{-- <span class="invalid-feedback" role="alert" id="ma_honorifics_idError"> {{--span for alert--}}
-                                                                    {{-- <strong></strong> --}}
-                                                                {{-- </span> --}}
+                                                                <span class="invalid-feedback" role="alert" id="ma_honorifics_idError"> 
+                                                                    <strong></strong>
+                                                                </span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <label for="position">Position</label>
+                                                            <label for="position">Position <b style="color:red">*</b></label>
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                                                 </div>
                                                                 <input type="text" class="form-control" name="position" id="position" placeholder="Position">
+                                                                <span class="invalid-feedback" role="alert" id="phoneError"> {{--span for alert--}}
+                                                                    <strong></strong>
+                                                                </span>
                                                             </div>
                                                         </div> 
                                                     </div>
@@ -461,12 +479,15 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="national_id">National ID Ceard / Passport ID</label>
+                                            <label for="national_id">National ID Ceard / Passport ID <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-address-card"></i></span>
                                                 </div>
                                                 <input type="text" class="form-control" name="national_id" id="national_id" placeholder="National ID Ceard ">
+                                                <span class="invalid-feedback" role="alert" id="national_idError"> {{--span for alert--}}
+                                                    <strong></strong>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>

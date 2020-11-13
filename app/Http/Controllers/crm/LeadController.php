@@ -213,8 +213,24 @@ class LeadController extends Controller
                                         ],
                 'service' =>  [  'required'
                                         ],
-                // 'ma_honorifics_id' =>  [  'required'
-                                        // ],
+                'website' =>  [  'required'
+                                        ],
+                'company_facebook' =>  [  'required'
+                                        ],
+                'current_speed_isp' =>  [  'required'
+                                        ],
+                'vat_number' =>  [  'required'
+                                        ],
+                'lead_status' =>  [  'required'
+                                        ],
+                'email' =>  [  'required'
+                                        ],
+                'ma_honorifics_id' =>  [  'required'
+                                        ],
+                'position' =>  [  'required'
+                                    ],
+                'national_id' =>  [  'required'
+                                    ],
                 'name_en' => [ 'required'
                                         ],
                 'name_kh' => [ 'required'
@@ -224,11 +240,11 @@ class LeadController extends Controller
                 //             ->where(function ($query) use ($request) {
                 //             return $query->where('is_deleted', 'f');})
                 //                         ],
-                // 'phone' => [ 'required','regex:/(0)[0-9]{7}/',
-                //             Rule::unique('crm_lead_contact','phone')
-                //             ->where(function ($query) use ($request) {
-                //             return $query->where('is_deleted', 'f');})
-                //                     ],
+                'phone' => [ 'required','regex:/(0)[0-9]{7}/',
+                            Rule::unique('crm_lead_contact','phone')
+                            ->where(function ($query) use ($request) {
+                            return $query->where('is_deleted', 'f');})
+                                    ],
                 'home_en' => [ 'required'
                                     ],
                 'street_en' => [ 'required'
@@ -260,7 +276,12 @@ class LeadController extends Controller
                 'lead_industry.required' => 'This Field is require !!',   //massage validator
                 'assig_to.required' => 'This Field is require !!',   //massage validator
                 'service.required' => 'This Field is require !!',   //massage validator
-                // 'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
+                'website.required' => 'This Field is require !!',   //massage validator
+                'current_speed_isp.required' => 'This Field is require !!',   //massage validator
+                'company_facebook.required' => 'This Field is require !!',   //massage validator
+                'vat_number.required' => 'This Field is require !!',   //massage validator
+                'lead_status.required' => 'This Field is require !!',   //massage validator
+                'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
                 'name_en.required' => 'This Field is require !!',   //massage validator
                 'name_kh.required' => 'This Field is require !!',   //massage validator
                 'email.required' => 'This Field is require !!',   //massage validator
@@ -269,6 +290,8 @@ class LeadController extends Controller
                 'street_en.required' => 'This Field is require !!',   //massage validator
                 'home_kh.required' => 'This Field is require !!',   //massage validator
                 'street_kh.required' => 'This Field is require !!',   //massage validator
+                'position.required' => 'This Field is require !!',   //massage validator
+                'national_id.required' => 'This Field is require !!',   //massage validator
                 // 'addresscode.required' => 'This Field is require !!',   //massage validator
                 'district.required' => 'This Field is require !!',   //massage validator
                 'commune.required' => 'This Field is require !!',   //massage validator
@@ -278,7 +301,7 @@ class LeadController extends Controller
                 // 'primary_email.unique' => 'The Email is Already Exist !!',   //massage validator
                 // 'email.unique' => 'The Email is Already Exist !!',   //massage validator
                 'email.email' => 'The Email is Wrong !!',   //massage validator
-                // 'phone.unique' => 'The Phone is Already Exist !!',   //massage validator
+                'phone.unique' => 'The Phone is Already Exist !!',   //massage validator
                 'phone.regex' => 'The Phone Number is Wrong !!',   //massage validator
                 ]
             );

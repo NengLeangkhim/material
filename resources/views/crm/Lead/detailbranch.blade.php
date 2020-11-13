@@ -42,19 +42,19 @@
                     <?php
                     for($i =0;$i<sizeof($detailbranch); $i++){
                         ?>
-                         <div class="col-md-6 " align="right">
-                            <button type="button" ​value="editbranch/{{$detailbranch[$i]["branch_id"]}}" class="btn btn-primary btn-md CrmLeadEdit" >Edit</button>
+                         <div class="col-md-6 " >
+                            <button type="button" ​value="editbranch/{{$detailbranch[$i]["branch_id"]}}" class="btn btn-primary btn-md CrmLeadEdit form-control" >Edit</button>
                             <input type="text" hidden value="{{$detailbranch[$i]["lead_status"]}}"  id="lead_status" >
                             
                         </div>
                          
-                        <div class="col-md-6 " align="left" >
+                        <div class="col-md-6 ">
                         <form id="frm_Crmlbranchsurvey" method="POST">
                             @csrf                                
                             <input type="text" class="form-control" hidden  value="{{$detailbranch[$i]['comment']}}"  name='comment' id="comment"  >
                             <input type="text" hidden value="{{$detailbranch[$i]['lead_detail_id']}}" name="lead_detail_id" id="lead_detail_id">
                             <input type="text" hidden value="{{$detailbranch[$i]['branch_id']}}" name="branch_id" id="branch_id">
-                            <button type="button"  class="btn btn-success btn-md"  id="btn_convert"  value="{{$detailbranch[$i]["branch_id"]}}" onclick="submit_form('api/convertbranch','frm_Crmlbranchsurvey','/lead')" >Convert</button>
+                            <button type="button"  class="btn btn-success btn-md form-control"  id="btn_convert"  value="{{$detailbranch[$i]["branch_id"]}}" onclick="submit_form('api/convertbranch','frm_Crmlbranchsurvey','/lead')" >Convert</button>
                         </form>
                     </div>
                         <?php

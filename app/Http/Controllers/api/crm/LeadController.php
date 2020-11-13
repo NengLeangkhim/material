@@ -162,7 +162,7 @@ class LeadController extends Controller
         $addresscode=$request->input('village');
 
         // return $lead_id;
-        // var_dump($checksurvey);
+        // dd($lead_status);
         return  Lead::insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
         $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
         $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
@@ -432,25 +432,26 @@ class LeadController extends Controller
     }
     // get schedule 
     public function getschedule(){
-        // $return=response()->json(auth()->user());
-        // $return=json_encode($return,true);
-        // $return=json_decode($return,true);
-        // $userid=$return["original"]['id'];
-            $schedule = Lead::getschedule(); // all lead 
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+      
+        if(perms::check_perm_module('CRM_021004')){ // top managment
+            $schedule = Lead::getschedule(); // all Schedule 
             return GetLeadSchedule::Collection($schedule); 
-        // if(perms::check_perm_module('CRM_020501')){ // top managment
-        //     $lead = Lead::getLead(); // all lead 
-        //     return GetLead::Collection($lead);          
-        // }
-        // else if (perms::check_perm_module('CRM_020509')) { // fro staff (Model and Leadlist by user)
-        //     $lead = Lead::getLeadbyassginto($userid); //  lead by assigned to
-        //     return GetLead::Collection($lead);
+            // dd("sgfvdr");        
+        }
+        else if (perms::check_perm_module('CRM_02100401')) { // fro staff (Model and Leadlist by user)
+            $schedule = Lead::getschedulebyuser($userid); // all Schedule 
+            return GetLeadSchedule::Collection($schedule); 
+            // dd("staff");
         
-        // }
-        // else
-        // {
-        //     return view('no_perms');
-        // }
+        }
+        else
+        {
+            return view('no_perms');
+        }
     }
     // get schedule by id 
     public function getschedulebyid($id){
@@ -513,6 +514,7 @@ class LeadController extends Controller
         
         // $userid =$userid;
         // $userid =$request->input('user_create');
+// dd($schedule_type_id_result,$schedule_type_id);
         return Lead::insertscheduleresult($schedule_id,$branch_id,$schedule_type_id_result,$comment_result,$userid,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id); // return to Model
     }
     //update schedule result

@@ -410,7 +410,16 @@ class CrmReport extends Model
         }
         return $result;
     }
-
+    public function getTotalSurvey($fromDate = null, $toDate = null){
+        try {
+            $dateCondition = ($fromDate == null || $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $condition = 'WHERE is_deleted = \'f\' AND status = \'t\''.$dateCondition;
+            $result = DB::selectOne('SELECT COUNT(*) AS total_survey FROM crm_survey_result '.$condition);
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
     public function getTotalLeadBranchSurvey($fromDate = null, $toDate = null){
         try {
             $dateCondition = ($fromDate == null || $toDate == null) ? '' : ' AND cs.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';

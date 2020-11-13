@@ -19,7 +19,7 @@ class DashboardController extends Controller
         $new_lead = $responseBody->data->total_branch;
         $total_contact = $responseBody->data->total_contact; // get total contact
         $total_quote = $responseBody->data->total_quote; // get total quote
-        $total_survey = $responseBody->data->total_lead_branch_survey; // get total quote
+        $total_survey = $responseBody->data->total_survey; // get total quote
         return view('crm.dashboard.CrmDashboard',['new_lead'=>$new_lead == '' ? '0' : $new_lead,'total_contact'=>$total_contact == '' ? '0' : $total_contact,'total_quote'=>$total_quote == '' ? '0' : $total_quote,'total_survey'=>$total_survey == '' ? '0' : $total_survey]);
     }
 }

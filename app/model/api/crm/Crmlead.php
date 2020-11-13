@@ -1138,22 +1138,38 @@ class Crmlead extends Model
     //Model get all schdule
     public static function getschedule(){
            return DB::select("SELECT cls.id as schedule_id,cls.crm_lead_branch_id,cls.name_en,cls.name_kh,to_char(cls.to_do_date,'YYYY-MM-DD') as to_do_date,cls.comment,cls.priority,cls.create_by,
-           clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id,cls.crm_lead_schedule_type_id,clst.name_en as schedule_type,cls.status
+           clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id,cls.crm_lead_schedule_type_id,clst.name_en as schedule_type,cls.status,
+           clsr.id as schedule_result_id,clsr.comment as  comment_result, clsr.crm_lead_schedule_type_id as crm_lead_schedule_type_result_id,clsr.create_date,clsr.create_by as user_create_schedule_result
            FROM crm_lead_schedule  cls
            LEFT JOIN  crm_lead_branch clb on clb.id = cls.crm_lead_branch_id
            JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
-						LEFT JOIN crm_lead_schedule_type clst  on clst.id=cls.crm_lead_schedule_type_id
-           where cls.is_deleted=FALSE and cls.status=TRUE");
+           LEFT JOIN crm_lead_schedule_type clst  on clst.id=cls.crm_lead_schedule_type_id
+           LEFT JOIN crm_lead_schedule_result clsr on clsr.crm_lead_schedule_id= cls.id
+           WHERE cls.is_deleted=FALSE and cls.status=TRUE  ");
     } 
+    //Model get all schdule by user create 
+    public static function getschedulebyuser($id){
+        return DB::select("SELECT cls.id as schedule_id,cls.crm_lead_branch_id,cls.name_en,cls.name_kh,to_char(cls.to_do_date,'YYYY-MM-DD') as to_do_date,cls.comment,cls.priority,cls.create_by,
+            clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id,cls.crm_lead_schedule_type_id,clst.name_en as schedule_type,cls.status,
+		    clsr.id as schedule_result_id,clsr.comment as  comment_result, clsr.crm_lead_schedule_type_id as crm_lead_schedule_type_result_id,clsr.create_date,clsr.create_by as user_create_schedule_result
+            FROM crm_lead_schedule  cls
+            LEFT JOIN  crm_lead_branch clb on clb.id = cls.crm_lead_branch_id
+            JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
+            LEFT JOIN crm_lead_schedule_type clst  on clst.id=cls.crm_lead_schedule_type_id
+			LEFT JOIN crm_lead_schedule_result clsr on clsr.crm_lead_schedule_id= cls.id
+            WHERE cls.is_deleted=FALSE and cls.status=TRUE  and clsr.create_by=$id");
+ } 
     // Model get schedule by id
     public static function getschedulebyid($id){
         return DB::select("SELECT cls.id as schedule_id,cls.crm_lead_branch_id,cls.name_en,cls.name_kh,to_char(cls.to_do_date,'YYYY-MM-DD') as to_do_date,cls.comment,cls.priority,cls.create_by,
-        clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id,cls.crm_lead_schedule_type_id,clst.name_en as schedule_type,cls.status
+        clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id,cls.crm_lead_schedule_type_id,clst.name_en as schedule_type,cls.status,
+        clsr.id as schedule_result_id,clsr.comment as  comment_result, clsr.crm_lead_schedule_type_id as crm_lead_schedule_type_result_id,clsr.create_date,clsr.create_by as user_create_schedule_result
         FROM crm_lead_schedule  cls
         LEFT JOIN  crm_lead_branch clb on clb.id = cls.crm_lead_branch_id
         JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
-                     LEFT JOIN crm_lead_schedule_type clst  on clst.id=cls.crm_lead_schedule_type_id
-        where cls.is_deleted=FALSE and cls.status=TRUE and cls.id=$id");
+        LEFT JOIN crm_lead_schedule_type clst  on clst.id=cls.crm_lead_schedule_type_id
+        LEFT JOIN crm_lead_schedule_result clsr on clsr.crm_lead_schedule_id= cls.id
+        WHERE cls.is_deleted=FALSE and cls.status=TRUE  and cls.id=$id");
     }
     //Model get all schdule by assgto 
     // public static function getschedulebyassigto($id){
@@ -1283,7 +1299,7 @@ class Crmlead extends Model
                 )
             );
                 try{
-                    CrmLead::updateschedule($schedule_id,$branch_id,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id,$userid,'f');
+                    CrmLead::updateschedule($schedule_id,$branch_id,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id,$userid,'t');
                
                     return json_encode(['insert'=>'success']);
                 }catch(Exception $e){
