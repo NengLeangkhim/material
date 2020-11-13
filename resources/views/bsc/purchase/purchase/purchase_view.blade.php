@@ -177,7 +177,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                         </div>
-                                        <input type="number" class="form-control input_required" name="amount_paid" id="amount_paid" placeholder="Amount Paid" >
+                                        <input type="number" class="form-control input_required" name="amount_paid" id="amount_paid" value="{{$due_amount == null ? $purchase->grand_total : $due_amount}}" autofocus placeholder="Amount Paid" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -295,6 +295,7 @@
                         _token: CSRF_TOKEN,
                         amount_paid             : amount_paid,
                         due_amount              : due_amount,
+                        old_due_amount          : parseFloat($('#due_amount_payment').text()),
                         date_paid               : $('#date_paid').val(),
                         account_type            : $('#account_type').val(),
                         reference               : $('#reference').val(),
@@ -304,10 +305,13 @@
                     },
                     dataType: "JSON",
                     success:function(data){
-                        if(data.payment.success == false){
-                            alert("fail to payment");
-                        }else{
+                        if(data.payment.success == true){
                             go_to('bsc_purchase_purchase_list');
+                        }else{
+                            if(data.payment == "amount_paid_bigger_then_due"){
+                                sweetalert('error','Amount Paid input is bigger than Due Amount or Grand Total');
+                            }
+                            alert("fail to payment");
                         }
                     }
                 });
