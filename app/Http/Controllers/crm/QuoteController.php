@@ -420,8 +420,7 @@ class QuoteController extends Controller
                         $data['quote_branch_id'] = $val1->id;
                     }
                 }
-
-                    dump($quoteBranchId);
+                    // dump($quoteBranchId);
                     $request2 = Request::create('/api/getbranch/'.$data['lead_branch_id'].'', 'GET');  // get list lead branch detail by branch id
                     // $response2 = json_decode(Route::dispatch($request2)->getContent());
 
@@ -434,14 +433,11 @@ class QuoteController extends Controller
                     $request3 = Request::create('/api/quotebranch/detail/'.$quoteBranchId.'', 'GET');  // get list quote branch detail by quote branch id
                     $response3 = json_decode(Route::dispatch($request3)->getContent());
                     dump($response3);
-
                         // foreach($response3->data as $key2=>$val2){
                         //     $product[] = ModelCrmQuote::getProductById($val2->stock_product_id);
                         //     // dump($val2->stock_product_id);
                         // }
-
                 return view('crm/quote/quoteBranchEdit',compact('quoteId','data','response3'));
-
             }else{
                 return redirect()->action('crm\QuoteController@showQuoteList');
             }
@@ -455,17 +451,37 @@ class QuoteController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $create_by = $_SESSION['userid'];
-        $request->merge(['update_by' => $create_by]);
-        $request = Request::create('/api/quotebranch', 'PUT');
-        $response = json_decode(Route::dispatch($request)->getContent());
-        // dump($response);
-        if($response->udpate == 'success'){
-            return response()->json(['success'=>$response]);
-        }else{
-            return response()->json(['error'=>$response]);
-        }
 
+
+        $validator = \Validator::make($request->all(),[
+
+                'product_name.*' =>  ['required'],
+
+            ],
+            [
+                // 'product_name.*required' => 'This Field is require !!',   //massage validator
+            ]
+
+        );
+
+        if ($validator->fails()) //check validator for fail
+        {
+            return response()->json(array(
+                'errors' => $validator->getMessageBag()->toArray()
+            ));
+        }else{
+
+            $create_by = $_SESSION['userid'];
+            $request->merge(['update_by' => $create_by]);
+            $request = Request::create('/api/quotebranch', 'PUT');
+            $response = json_decode(Route::dispatch($request)->getContent());
+
+            if($response->udpate == 'success'){
+                return response()->json(['success'=>$response]);
+            }else{
+                return response()->json(['error'=>$response]);
+            }
+        }
 
     }
 

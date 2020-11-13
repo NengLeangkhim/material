@@ -1176,7 +1176,7 @@ function Crm_delete(id,route,goto,alert) {
 
                         // check if validate give empty product field
                         if(key.slice(0, -2) == 'product_name'){
-                              // console.log('require key--'+key);
+                            //   console.log('require key--'+key);
                               $.each($("input[name='product_name[]'"),function(index,value){
                                   var prd_id=  $(this).attr("id");
                                   if( $(this).val() ==  "" ){
@@ -1266,6 +1266,10 @@ function Crm_delete(id,route,goto,alert) {
     //function click to submit update quote branch
     $(document).on('click','#btnUpdateQuoteBranch',function(){
 
+            $("#frmEditQuoteBranch input").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteBranch select").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteBranch textarea").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteBranch radio").removeClass("is-invalid");//remove all error message
             var quoteId = $('#quote_id').val();
             $.ajax({
                 method: 'PUT',
@@ -1277,15 +1281,49 @@ function Crm_delete(id,route,goto,alert) {
                     $('#frmEditQuoteBranch').serialize(),
                 success:function(data)
                 {
-                    console.log(data);
-                    if(data.success){
+
+                    if(data.success){ //condition for check success
                         sweetalert('success','Update successed!');
                         setTimeout(function(){
                             goto_Action('/quote/detail', quoteId);
                         },2000);
+
                     }else{
-                        sweetalert('error','Update failed!');
+                        // sweetalert('error','Update failed!');
+                        var num1 = 0;
+                        $.each(data.errors, function(key, value) {//foreach show error
+                            if(num1 == 0){
+                                sweetalert('warning', value);
+                            }
+                            console.log('key='+key+'--value='+value);
+                            num1 += 1;
+                            $("#" + key).addClass("is-invalid"); //give read border to input field
+                            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+                            $("#" + key + "Error").addClass("invalid-feedback");
+
+                            if(key.slice(0, -2) == 'product_name'){
+                                //   console.log('require key--'+key);
+                                    $.each($("input[name='product_name[]'"),function(index,value){
+                                        var prd_id=  $(this).attr("id");
+                                        if( $(this).val() ==  "" ){
+                                            $(this).addClass("is-invalid");
+                                            notify_alert("#"+prd_id+"","error","bottom","This field required !");
+                                        }
+                                    });
+                            }
+
+                        });
+
+
+
+
+
                     }
+
+                    // if(data.success){
+
+                    // }else{
+                    // }
 
                 },
                 error: function(data) {

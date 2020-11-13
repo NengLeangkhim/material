@@ -97,8 +97,8 @@
                                 <dd class="col-sm-8 dd">{{$create_date}}</dd>
                             {{-- <dt class="col-sm-4 dt">Modified Time </dt> --}}
                                 {{-- <dd class="col-sm-8 dd">{{$listQuoteDetail->data->subject}}</dd> --}}
-                            <dt class="col-sm-4 dt">Organizations Name</dt>
-                                <dd class="col-sm-8 dd">No Source</dd>
+                            <dt class="col-sm-4 dt">Create By</dt>
+                                <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->create_by->first_name_en}}</dd>
                             <dt class="col-sm-4 dt">Comment </dt>
                                 <dd class="col-sm-8 dd">No Source</dd>
                         </dl>
@@ -108,7 +108,7 @@
 
 
                 {{-- card use for Acknowledgement --}}
-                 <div class="card">
+                 {{-- <div class="card">
                     <div class="card-header">
                         <h1 class="card-title" style="font-weight: bold">
                             Acknowledgement
@@ -126,7 +126,7 @@
                         </dl>
                     </div>
 
-                </div>
+                </div> --}}
 
 
                 {{-- card use for Address Detail--}}

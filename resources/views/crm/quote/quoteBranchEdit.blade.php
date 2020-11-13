@@ -154,7 +154,9 @@
 
                                                 </td>
                                                 <td style="width:auto;">
-                                                    <button style="width: auto;"  class="btnRemoveRow btn btn-denger" id="{{$key}}"  data-id="{{ count($response3->data) }}"  ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>
+                                                    @if($key != 0)
+                                                        <button style="width: auto;"  class="btnRemoveRow btn btn-denger" id="{{$key}}"  data-id="{{ count($response3->data) }}"  ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>
+                                                    @endif
                                                 </td>
 
                                             </tr>
