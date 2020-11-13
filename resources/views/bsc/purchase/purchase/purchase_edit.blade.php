@@ -16,9 +16,6 @@
                     <div class="col-md-5">
                         <label for="exampleInputEmail1">Choose Account <b style="color:red">*</b> </label>
                     </div>
-                   {{-- @php
-                       dd();
-                   @endphp --}}
                     <div class="col-md-7">
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -438,9 +435,9 @@
                     itemDetail[e] = {
                         bsc_invoice_detail_id       : $(this).attr("data-purchase_detail_id"),
                         stock_product_id            : thisInput,
-                        is_old                 : $(this).attr("data-is_old"),
-                        is_new                 : $(this).attr("data-is_new"),
-                        is_delete                 : $(this).attr("data-is_delete"),
+                        is_old                      : $(this).attr("data-is_old"),
+                        is_new                      : $(this).attr("data-is_new"),
+                        is_delete                   : $(this).attr("data-is_delete"),
                         description                 : tr.find(".item_des").text(),
                         qty                         : tr.find(".item_qty").text(),
                         unit_price                  : tr.find(".item_unit_price").text(),

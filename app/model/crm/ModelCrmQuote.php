@@ -39,6 +39,7 @@ class ModelCrmQuote extends Model
     }
 
 
+    //function to get product detail by product id in table stock
     public static function getProduct($id){
         $r = DB::table('stock_product')
                 ->where('id','=',$id)
@@ -49,7 +50,38 @@ class ModelCrmQuote extends Model
     }
 
 
+    //function to get quote status
+    public static function getQuoteStatus(){
+        $r = DB::table('crm_quote_status_type')
+            ->where('status','=','t')
+            ->where('is_deleted','=','f')
+            ->get();
+        return $r;
+    }
 
+
+    //function to get quote by last id
+    public static function getQuoteLastId(){
+        $r = DB::table('crm_quote')
+            ->select('id')
+            ->orderBy('id', 'DESC')->first();
+        return $r;
+    }
+
+
+    //function to get product detail from tblStock by product id
+    public static function getProductById($prdId){
+        $r = DB::table('stock_product as prd')
+            ->select('prd.id','prd.name as prdName','prd.stock_product_type_id','prd.description','prd_type.group_type')
+            ->join('stock_product_type as prd_type','prd_type.id','=','prd.stock_product_type_id')
+            ->where([
+                ['prd.id','=', $prdId],
+                ['prd.status','=','t'],
+                ['prd.is_deleted','=','f']
+            ])
+            ->get();
+        return $r;
+    }
 
 
 

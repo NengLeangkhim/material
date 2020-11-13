@@ -53,9 +53,12 @@ Route::get('/test_map', function(){
 
 //end lead
 
-// start survey
+// start schedule
 
-Route::get('/schedule','crm\CrmScheduleController@index');
+Route::POST('/insertschedule','crm\CrmScheduleController@insertschedule');
+Route::Get('/schedule','crm\CrmScheduleController@index');
+Route::Get('/detailschedule','crm\CrmScheduleController@detailschedule');
+Route::POST('/insertscheduleresult','crm\CrmScheduleController@insertscheduleresult');
 
 // end survey
 
@@ -114,6 +117,14 @@ Route::get('/quote/add/listQuoteBranch','crm\QuoteController@listQuoteBranch'); 
 Route::get('/quote/add/listAssignTo','crm\QuoteController@staffAssignQuote'); // list staff get assign quote
 
 Route::post('/quote/save','crm\QuoteController@saveQuote'); // sumit quote data to database api
+
+
+Route::get('/quote/edit/lead','crm\QuoteController@quoteEditLead'); // go to edit quote lead
+Route::put('/quote/edit/lead/update','crm\QuoteController@quoteEditLeadUpdate'); // go to submit quote lead edit
+
+Route::put('/quote/edit/branch/update','crm\QuoteController@quoteEditBranchUpdate'); // go to submit quote lead edit
+
+Route::get('/quote/edit/branch','crm\QuoteController@quoteEditBranch'); // go to quote edit branch
 
 
 // end quote
@@ -713,7 +724,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
 ////// Performane Manager Follow Up
     /// Index manager Follow up
     Route::get('/hrm_performance_follow_up_manager','hrms\performance\HrmManagerFollowUpController@HrmIndexManagerFollowUp');
-    
+
     /// List manager Follow up
     Route::get('/hrm_performance_follow_up_manager/list','hrms\performance\HrmManagerFollowUpController@HrmListManagerFollowUp');
 

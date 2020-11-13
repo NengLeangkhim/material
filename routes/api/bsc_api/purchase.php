@@ -12,6 +12,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('bsc_show_product', 'api\BSC\PurchaseController@show_product');
     Route::get('bsc_show_product_single/{id}', 'api\BSC\PurchaseController@show_product_single');
     Route::get('bsc_show_chart_account_paid_from_to', 'api\BSC\PurchaseController@show_chart_account_paid_from_to');
+    Route::get('bsc_show_purchase_filter', 'api\BSC\PurchaseController@show_purchase_filter');
     Route::resource('bsc_purchase_payments', 'api\BSC\PurchasePaymentController');
 });
 

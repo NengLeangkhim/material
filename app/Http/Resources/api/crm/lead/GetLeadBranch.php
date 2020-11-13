@@ -76,6 +76,8 @@ class GetLeadBranch extends JsonResource
             "district"=>$this->district,
             "commune"=>$this->commune,
             "village"=>$this->village,
+            "schedule_id"=>$this->schedule_id,
+            "schedule_status"=>$this->schedule_status,
             "create_by"=>$user,
         ];
     }

@@ -51,6 +51,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row-12 mt-3 pt-2 pb-2" style="border-top: 2px solid rgba(66, 59, 64, 0.39)">
+                        <h4 class="rounded-sm p-1" style="background-color: #1fa8e0">
+                            <label style="color: white;">Plan Child</label>
+                        </h4>
+                    </div>
                     <div class="row-12 pt-2 table-responsive">
                         <table id="tblShowPlanDetailReport" class="table table-bordered table-hover" style="width:100%; min-width: 50px; white-space:nowrap;">
                             <thead>

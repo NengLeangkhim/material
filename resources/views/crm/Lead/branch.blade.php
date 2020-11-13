@@ -51,7 +51,21 @@
                                                 if($branch[$i]["survey_comment"]!=null){
                                                     ?>
                                                         <tr style="">
-                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["company_en"]}}</td>
+                                                            <td style="color: #d42931 ; font-weight:bold">
+                                                                {{$branch[$i]["company_en"]}}
+                                                                <?php
+                                                                if($branch[$i]["schedule_id"]!=null){
+                                                                    ?>
+                                                                    <sup style="color: #079992"> Schedule </sup>
+                                                                    <?php
+                                                                }
+                                                                else {
+                                                                    ?>
+                                                                        <sup style="color: #079992"> No Schedule  </sup>
+                                                                    <?php
+                                                                }
+                                                                ?>
+                                                            </td>
                                                             <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["company_kh"]}}</td>
                                                             <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["primary_email"]}}</td>
                                                             <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["primary_website"]}}</td>
@@ -61,14 +75,26 @@
                                                             <td style="color: #d42931 ; font-weight:bold">  
                                                                 <div class="row-12 form-inline">
                                                                     <div class="col-md-6">
-                                                                        <a href="#" class="btn btn-block btn-info btn-sm branchdetail"  data-toggle="modal" data-target="#modal-default" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')" title="Detail Branch">
+                                                                        <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')" title="Detail Branch">
                                                                             <i class="fas fa-info-circle"></i>
                                                                         </a>      
                                                                     </div>
                                                                     <div class="col-md-6 ">
-                                                                        <a href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule"  id="schedule"  data-toggle="modal" data-target="#modal-default" value="{{$branch[$i]["branch_id"]}}" onclick="" title="Set Schedule Of Branch">
-                                                                            <i class="fas fa-calendar-day"> </i>
-                                                                        </a>
+                                                                        <?php
+                                                                           if($branch[$i]["schedule_id"]!=null){
+                                                                                ?>
+                                                                                    <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule"  id="detailschedule{{$branch[$i]["schedule_id"]}}" value="{{$branch[$i]["schedule_id"]}}"  title="Detail Schedule Of Branch">
+                                                                                        <i class="fas fa-calendar-day"> </i>
+                                                                                    </button>
+                                                                                <?php
+                                                                           }else {
+                                                                              ?>
+                                                                                <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule"  id="schedule{{$branch[$i]["branch_id"]}}" data-toggle="modal" data-target="#modal-default" value="{{$branch[$i]["branch_id"]}}"  title="Set Schedule Of Branch">
+                                                                                    <i class="fas fa-calendar-day"> </i>
+                                                                                </button>
+                                                                              <?php
+                                                                           }
+                                                                        ?>                                                                        
                                                                     </div>
                                                                 </div>
                                                                                                                
@@ -78,7 +104,20 @@
                                                 }else {
                                                     ?>
                                                         <tr>
-                                                            <td>{{$branch[$i]["company_en"]}}</td>
+                                                            <td>{{$branch[$i]["company_en"]}}
+                                                                <?php
+                                                                if($branch[$i]["schedule_id"]!=null){
+                                                                    ?>
+                                                                    <sup style="color: #079992;font-weight:bold"> Schedule </sup>
+                                                                    <?php
+                                                                }
+                                                                else {
+                                                                    ?>
+                                                                        <sup style="color: #079992;font-weight:bold"> No Schedule   </sup>
+                                                                    <?php
+                                                                }
+                                                                ?>
+                                                            </td>
                                                             <td>{{$branch[$i]["company_kh"]}}</td>
                                                             <td>{{$branch[$i]["primary_email"]}}</td>
                                                             <td>{{$branch[$i]["primary_website"]}}</td>
@@ -93,9 +132,21 @@
                                                                         </a>       
                                                                     </div>
                                                                     <div class="col-md-6 ">
-                                                                        <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule" id="schedule"   data-toggle="modal" data-target="#modal-default" value="{{$branch[$i]["branch_id"]}}" onclick="" title="Set Schedule Of Branch">
-                                                                            <i class="fas fa-calendar-day"> </i> 
-                                                                        </button>                     
+                                                                        <?php
+                                                                           if($branch[$i]["schedule_id"]!=null){
+                                                                                ?>
+                                                                                    <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule"  id="detailschedule{{$branch[$i]["schedule_id"]}}"  value="{{$branch[$i]["schedule_id"]}}"  title="Detail Schedule Of Branch">
+                                                                                        <i class="fas fa-calendar-day"> </i>
+                                                                                    </button>
+                                                                                <?php
+                                                                           }else {
+                                                                              ?>
+                                                                                <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule"  id="schedule{{$branch[$i]["branch_id"]}}" data-toggle="modal" data-target="#modal-default" value="{{$branch[$i]["branch_id"]}}"  title="Set Schedule Of Branch">
+                                                                                    <i class="fas fa-calendar-day"> </i>
+                                                                                </button>
+                                                                              <?php
+                                                                           }
+                                                                        ?>                         
                                                                     </div>
                                                                 </div> 
                                                             </td>
@@ -111,32 +162,132 @@
                         </div>
                     </div>
                 </div>
+                {{-- detail schedule --}}
+                <div id="view_schedule"></div>  
                 {{-- Model alert --}}
                 <div class="modal fade" id="modal-default">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Default Modal</h4>
+                                <h4 class="modal-title">Schedule Of Branch</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                    <p>One fine body&hellip;</p>
-                                    <?php 
-                                        for($i =0;$i<sizeof($branch);$i++){
-                                            ?>
-                                                    <input type="text" value="{{$branch[$i]["branch_id"]}}">
-                                            <?php
-                                            
-                                        }
-                                    ?>
-                                    
-                            </div>
-                                <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
+                            <form id="frm_Crmbranchschdeule" method="POST">
+                                @csrf
+                                <div class="modal-body">
+                                    <input type="text"  id="branchID" name="branch_id" hidden>
+                                         <div class="form-group">
+                                             <div class="row">
+                                                 <div class="col-md-6">
+                                                     <label for="exampleInputEmail1">Subject Name ENG</label>
+                                                     <div class="input-group">
+                                                         <div class="input-group-prepend">
+                                                             <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                                         </div>
+                                                         <input type="text" class="form-control" id="name_en"  name="name_en"   placeholder=""  >
+                                                         <span class="invalid-feedback" role="alert" id="name_enError"> 
+                                                            <strong></strong>
+                                                        </span>
+                                                     </div>
+                                                 </div>
+                                                 <div class="col-md-6">
+                                                     <label for="exampleInputEmail1">Subject Name KH</label>
+                                                     <div class="input-group">
+                                                         <div class="input-group-prepend">
+                                                             <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                                         </div>
+                                                         <input type="text" class="form-control" id="name_kh"  name="name_kh"   placeholder=""  >
+                                                         <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
+                                                            <strong></strong>
+                                                        </span>
+                                                     </div>
+                                                 </div>                                                
+                                             </div>
+                                         </div>
+                                         <div class="form-group">
+                                             <div class="row">
+                                                 <div class="col-md-6">
+                                                     <label for="exampleInputEmail1">To Do Date</label>
+                                                     <div class="input-group">
+                                                         <div class="input-group-prepend">
+                                                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                                         </div>
+                                                         <input type="date" class="form-control" id="to_do_date"  name="to_do_date"   placeholder=""  >
+                                                         <span class="invalid-feedback" role="alert" id="to_do_dateError"> {{--span for alert--}}
+                                                            <strong></strong>
+                                                        </span>
+                                                        
+                                                     </div>
+                                                 </div>
+                                                 <div class="col-md-6">
+                                                     <label for="exampleInputEmail1">Priority</label>
+                                                     <div class="input-group">
+                                                         <div class="input-group-prepend">
+                                                             <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
+                                                         </div>
+                                                         <select class="form-control " name="priority" id="priority" >
+                                                             <option value=''>-- Select  Prioroty --</option>  
+                                                             <option value="urgent">Urgent</option>
+                                                             <option value="high">Hight</option>
+                                                             <option value="medium">Medium</option>
+                                                             <option value="low">Low</option>
+                                                           
+                                                         </select>
+                                                         <span class="invalid-feedback" role="alert" id="priorityError"> {{--span for alert--}}
+                                                            <strong></strong>
+                                                        </span>
+                                                     </div>
+                                                 </div>                                                
+                                             </div>
+                                         </div>
+                                         <div class="form-group">
+                                             <div class="row">
+                                                 <div class="col-md-6">
+                                                     <label for="exampleInputEmail1">Schedule Type</label>
+                                                     <div class="input-group">
+                                                         <div class="input-group-prepend">
+                                                             <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                                         </div>
+                                                         <select class="form-control" name="schedule_type_id" id="schedule_type_id" >
+                                                             <?php 
+                                                             for($i =0;$i<sizeof($schedule_type);$i++){
+                                                                 ?>
+                                                                    <option value="{{$schedule_type[$i]["id"]}}" > {{$schedule_type[$i]["name_en"]}} /  {{$schedule_type[$i]["name_kh"]}} </option> 
+                                                                 <?php
+                                                             }
+                                                             ?>
+                                                            
+                                                         </select>
+                                                         <span class="invalid-feedback" role="alert" id="schedule_type_idError"> {{--span for alert--}}
+                                                            <strong></strong>
+                                                        </span>
+                                                     </div>
+                                                 </div>
+                                                 <div class="col-md-6">
+                                                     <label for="exampleInputEmail1">Comment</label>
+                                                     <div class="input-group">
+                                                         <div class="input-group-prepend">
+                                                             <span class="input-group-text"><i class="far fa-comments"></i></span>
+                                                         </div>
+                                                         <input type="text" class="form-control" id="comment"  name="comment"   placeholder="" required >                                                         
+                                                         <span class="invalid-feedback" role="alert" id="commentError"> {{--span for alert--}}
+                                                            <strong></strong>
+                                                        </span>
+                                                     </div>
+                                                 </div>                                                
+                                             </div>
+                                         </div>
+                                     
+                             </div>
+                                 <div class="modal-footer justify-content-between">
+                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                 {{-- <button type="button" class="btn btn-primary" onclick="CrmSubmitFormFull('frm_Crmbranchschdeule','/insertschedule','/lead','Insert  Schedule Successfully')">Create</button> --}}
+                                 <button type="button" class="btn btn-primary" id="save" onclick="CrmSubmitModalAction('frm_Crmbranchschdeule','save','/insertschedule','POST','modal-default','Insert  Schedule Successfully','/lead')">Create</button>
+                             </div>
+                            </form>
+                            
                         </div>
                         <!-- /.modal-content -->
                     </div>
@@ -163,26 +314,34 @@
                 "responsive": true,
                 });
             });
-            // $('.backlead').click(function(e)
-            // {
-            //     var ld = $(this).attr("​value");
-            //     go_to(ld);
-            // })
-            // $('.edit').click(function(e)
-            // {
-            //     var id = $(this).attr("​value");
-            //     go_to(id);
-            // });
-            // $('.branchdetail').click(function(e)
-            // {
-            //     var id = $(this).attr("​value");
-            //     go_to(id);
-            //     // alert(id);
-            // });
-            $('#schedule').click(function(){
-                // e.preventDefault();
-                var id = $(this).attr("​value");
-                alert(id);
+            // get modal add schedule 
+            $('.schedule').each(function(){
+                  var id =  $(this).attr("value");
+
+                $('#schedule'+id).click(function(){
+                    var id =  $(this).attr("value");
+                        // alert(id);
+                        $('#branchID').val(id);
+                })                
+            })
+            // Detail modal add schedule 
+            $('.detailschedule').each(function(){
+                  var id =  $(this).attr("value");
+
+                $('#detailschedule'+id).click(function(){
+                    var id =  $(this).attr("value");
+                        $.ajax({
+                            url:"detailschedule",   //Request send to "action.php page"
+                            type:"GET",    //Using of Post method for send data
+                            data:{id:id},//Send data to server
+                            success:function(data){
+                            // alert(data);
+                                $('#view_schedule').html(data);
+                                $('#crm_view_perform_schedule').modal('show');   //It will display modal on webpage   
+                            }
+                        });
+                                    // $('#branchID').val(id);
+                    })                
             })
             </script>
             

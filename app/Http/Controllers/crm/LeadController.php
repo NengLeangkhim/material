@@ -19,7 +19,7 @@ class LeadController extends Controller
 
     // get lead by APi
     public function getlead(){
-        if(perms::check_perm_module('CRM_020501')){//module codes
+        if(perms::check_perm_module('CRM_0205')){//module codes
             $lead=ModelCrmLead::CrmGetLead();
             $result =json_decode($lead,true);
             // dd($result);
@@ -34,8 +34,11 @@ class LeadController extends Controller
         if(perms::check_perm_module('CRM_0210')){//module codes
             $branch=ModelCrmLead::CrmGetBranch($id);
             $result =json_decode($branch,true);
-            // dd($result);
-            return view('crm.Lead.branch',['branch'=>$result["data"]]);
+            $schedule_type=ModelCrmLead::CrmGetSchdeuleType();
+            $schedule_type =json_decode($schedule_type,true);
+            // $schedule_type =json_decode($schedule_type,true);
+            // DD($result,$schedule_type['data']);
+            return view('crm.Lead.branch',['branch'=>$result["data"] ,'schedule_type'=>$schedule_type['data']]);
         }else{
             return view('no_perms');
         }
@@ -70,9 +73,9 @@ class LeadController extends Controller
             $lead_source=ModelCrmLead::CrmGetLeadSource();
             $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
             $isp = Lead::leadcurrentspeedisp();
-            $companybranch=Lead::leadBranch();
-            // dd($result);
-            return view('crm.Lead.editlead',['editlead'=>$result["data"],'companybranch'=>$companybranch,'lead_source'=>$lead_source,'lead_industry'=>$lead_industry,'currentisp'=>$isp]);
+            $companybranch=Lead::leadBranch(); 
+            // dd($lead_source);
+            return view('crm.Lead.editlead',['editlead'=>$result["data"],'companybranch'=>$companybranch,'lead_source'=>$lead_source,'lead_industry'=>$lead_industry,'currentisp'=>$isp]); 
         }else{
             return view('no_perms');
         }

@@ -167,9 +167,19 @@ $(window).on('shown.bs.modal', function() {
 {{--------------------------CRM---------------------}}
 <script type="text/javascript" src="js/crm/crm.js"></script>
 <script src="js/crm/crm_report.js"></script>
+<script type="text/javascript" src="js/crm/crmAddRowQuote.js"></script>
 
 {{-- ---------------------bsc-------------- --}}
 <script src="js/bsc/bsc.js"></script>
 
-
-
+<!-- jQuery UI -->
+<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../dist/js/adminlte.min.js"></script>
+<!-- fullCalendar 2.2.5 -->
+<script src="plugins/moment/moment.min.js"></script>
+<script src="plugins/fullcalendar/main.min.js"></script>
+<script src="plugins/fullcalendar-daygrid/main.min.js"></script>
+<script src="plugins/fullcalendar-timegrid/main.min.js"></script>
+<script src="plugins/fullcalendar-interaction/main.min.js"></script>
+<script src="plugins/fullcalendar-bootstrap/main.min.js"></script>

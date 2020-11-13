@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\crm;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\perms;
 use App\model\api\crm\Crmlead as Lead;
 use App\addressModel;
 use App\Http\Resources\api\crm\lead\LeadSource as SourceResource;
@@ -17,6 +18,8 @@ use App\Http\Resources\api\crm\lead\GetLeadBranch;
 use App\Http\Resources\api\crm\lead\GetHonorifics;
 use App\Http\Resources\api\crm\lead\LeadCurrentSpeedIsp;
 use App\Http\Resources\api\crm\lead\GetSurvey;
+use App\Http\Resources\api\crm\lead\GetSurveyResult;
+use App\Http\Resources\api\crm\lead\GetLeadSchedule;
 use Illuminate\Database\QueryException;
 
 class LeadController extends Controller
@@ -130,7 +133,7 @@ class LeadController extends Controller
         $vat_number=$request->input('vat_number');
         $company_branch=$request->input('branch');
         $lead_source=$request->input('lead_source');
-        $lead_status=$request->input('lead_status');
+        $lead_status=$request->input('lead_status')!=""?$request->input('lead_status'):1;
         $lead_industry=$request->input('lead_industry');
         $assig_to=$request->input('assig_to');
         $service=$request->input('service');
@@ -237,9 +240,28 @@ class LeadController extends Controller
     }
     // get all lead
     public function getLead(){
-        $lead = Lead::getLead();
-        // return Lead::getLead();
-        return GetLead::Collection($lead);
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+        
+        if(perms::check_perm_module('CRM_020501')){ // top managment
+            $lead = Lead::getLead(); // all lead 
+            return GetLead::Collection($lead);        
+            // dd("top");  
+        }
+        else if (perms::check_perm_module('CRM_020509')) { // fro staff (Model and Leadlist by user)
+            $lead = Lead::getLeadbyassginto($userid); //  lead by assigned to
+            return GetLead::Collection($lead);
+            // dd
+        
+        }
+        else
+        {
+            return view('no_perms');
+        }
+        
+        // return GetLead::Collection($lead);
     }
     // get  lead by id
     public function getleadbyid($id){
@@ -254,8 +276,25 @@ class LeadController extends Controller
     }
     // get  show branch by lead id
     public function getbranch_lead($id){
+
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+        
+    if(perms::check_perm_module('CRM_021003')){ // for top managment
         $branch_id = Lead::getbranch_lead($id);
         return GetLeadBranch::Collection($branch_id);
+    }
+    else if (perms::check_perm_module('CRM_0213')) { // for staff (Model  name Get Branch by user)
+        $branch_id = Lead::getbranch_leadbyassigto($id,$userid);
+        return GetLeadBranch::Collection($branch_id);
+    }
+    else
+    {
+        return view('no_perms');
+    }
+       
     }
     // //  edit lead 
     public function editlead( Request $request){
@@ -316,8 +355,32 @@ class LeadController extends Controller
     }
     // get survey
     public function getsurvey(){
-        $survey= Lead::getsurvey();
-        return GetSurvey::Collection($survey);
+        if(perms::check_perm_module('CRM_02110101')){ //Modeul Survey list
+            $survey= Lead::getsurvey();
+            return GetSurvey::Collection($survey);
+        }
+        else
+        {
+            return view('no_perms');
+        }
+        
+    }
+    // get survey
+    public function getsurveyresult(){        
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+        // dd($return);
+        if(perms::check_perm_module('CRM_02110102')){ // for top managment
+            $survey= Lead::getsurveyresult();
+            return GetSurveyResult::Collection($survey);
+        }
+        else if (perms::check_perm_module('CRM_0211010201')) { // for staff (Model  name Get Branch by user)
+            $survey= Lead::getsurveyresultbycreate($userid);
+            return GetSurveyResult::Collection($survey);
+        }
+        
     }
     //get svrvey by branch id
     public function getsurveybyid($id){
@@ -367,12 +430,39 @@ class LeadController extends Controller
         $status=$request->input('status');
         return Lead::updatescheduletype($schedule_id,$userid,$name_en,$name_kh,$status); //return to model
     }
+    // get schedule 
+    public function getschedule(){
+        // $return=response()->json(auth()->user());
+        // $return=json_encode($return,true);
+        // $return=json_decode($return,true);
+        // $userid=$return["original"]['id'];
+            $schedule = Lead::getschedule(); // all lead 
+            return GetLeadSchedule::Collection($schedule); 
+        // if(perms::check_perm_module('CRM_020501')){ // top managment
+        //     $lead = Lead::getLead(); // all lead 
+        //     return GetLead::Collection($lead);          
+        // }
+        // else if (perms::check_perm_module('CRM_020509')) { // fro staff (Model and Leadlist by user)
+        //     $lead = Lead::getLeadbyassginto($userid); //  lead by assigned to
+        //     return GetLead::Collection($lead);
+        
+        // }
+        // else
+        // {
+        //     return view('no_perms');
+        // }
+    }
+    // get schedule by id 
+    public function getschedulebyid($id){
+        $schedule = Lead::getschedulebyid($id); // all lead 
+            return GetLeadSchedule::Collection($schedule); 
+    }
     //insert schedule
     public function insertschedule(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        // $userid = $_SESSION['userid'];
+        $userid = $_SESSION['userid'];
         $branch_id=$request->input('branch_id');
         $name_kh=$request->input('name_kh');
         $name_en=$request->input('name_en');
@@ -381,7 +471,7 @@ class LeadController extends Controller
         $priority=$request->input('priority');
         $schedule_type_id=$request->input('schedule_type_id');
         // $userid =$userid;
-        $userid =$request->input('user_create');
+        // $userid =$request->input('user_create');
         return Lead::insertschedule($branch_id,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id,$userid); //return to model
     }
     //update schedule
@@ -389,7 +479,7 @@ class LeadController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        // $userid = $_SESSION['userid'];
+        $userid = $_SESSION['userid'];
         $schedule_id=$request->input('schedule_id');
         $branch_id=$request->input('branch_id');
         $name_kh=$request->input('name_kh');
@@ -398,7 +488,7 @@ class LeadController extends Controller
         $comment=$request->input('comment');
         $priority=$request->input('priority');
         $schedule_type_id=$request->input('schedule_type_id');
-        $userid =$request->input('user_create');
+        // $userid =$request->input('user_create');
         $status =$request->input('status');
         return Lead::updateschedule($schedule_id,$branch_id,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id,$userid,$status); // return to model
     }
@@ -407,13 +497,23 @@ class LeadController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        // $userid = $_SESSION['userid'];
+        $userid = $_SESSION['userid'];
         $schedule_id=$request->input('schedule_id');
-        $schedule_type_id=$request->input('schedule_type_id');
+        $schedule_type_id_result=$request->input('schedule_type_id_result');
+        $comment_result=$request->input('comment_result');
+
+        $branch_id=$request->input('branch_id');
+        $name_kh=$request->input('name_kh');
+        $name_en=$request->input('name_en');
+        $to_do_date=$request->input('to_do_date');
         $comment=$request->input('comment');
+        $priority=$request->input('priority');
+        $schedule_type_id=$request->input('schedule_type_id');
+        // $userid =$request->input('user_create');
+        
         // $userid =$userid;
-        $userid =$request->input('user_create');
-        return Lead::insertscheduleresult($schedule_id,$schedule_type_id,$comment,$userid); // return to Model
+        // $userid =$request->input('user_create');
+        return Lead::insertscheduleresult($schedule_id,$branch_id,$schedule_type_id_result,$comment_result,$userid,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id); // return to Model
     }
     //update schedule result
     public function updatescheduleredult(Request $request){

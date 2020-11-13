@@ -67,25 +67,25 @@ function hrm_get_name_file(name_input,id_label){
     }
 
 }
-//// File Validation 
+//// File Validation
   function HrmFileValidationSize(id_input,size){
-    const fi = document.getElementById(id_input); 
-    // Check if any file is selected. 
-    if (fi.files.length > 0) { 
-        for (const i = 0; i <= fi.files.length - 1; i++) { 
-            const fsize = fi.files.item(i).size; 
-            const file = Math.round((fsize / 1024)); 
-            // The size of the file. 
-            if (file >= size) {  
+    const fi = document.getElementById(id_input);
+    // Check if any file is selected.
+    if (fi.files.length > 0) {
+        for (const i = 0; i <= fi.files.length - 1; i++) {
+            const fsize = fi.files.item(i).size;
+            const file = Math.round((fsize / 1024));
+            // The size of the file.
+            if (file >= size) {
                 $('#'+id_input+'').addClass('is-invalid');
                 $("#" + id_input + "Error").children("strong").text("").text("File too Big, please select a file less than 10mb !!");
-            }else { 
+            }else {
                 //alert(file);
                 $('#'+id_input+'').removeClass('is-invalid');
                 $("#" + id_input + "Error").children("strong").text("").text("");
-            } 
-        } 
-    } 
+            }
+        }
+    }
   }
 /////////////=================================EMPLOYEE SUGGESTION =============================///////////////
 
@@ -943,7 +943,7 @@ $(document).on('click', '.hrm_view_policy_user', function(){
       success:function(data)
       {
         if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-          console.log(data);
+          //console.log(data);
           $('#hrm_perform_plan_modal').modal('hide');
           sweetalert('success','The Plan has been Update Successfully !!');
           setTimeout(function(){ go_to('hrm_list_plan_performance'); }, 300);// Set timeout for refresh content
@@ -1050,7 +1050,7 @@ function HrmAddPlanDetail(){
       success:function(data)
       {
         if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-          console.log(data);
+         // console.log(data);
           $('#hrm_perform_plan_detail_modal').modal('hide');
           sweetalert('success','The Plan Detail has been Insert Successfully !!');
           setTimeout(function(){ go_to('hrm_list_plan_performance'); }, 300);// Set timeout for refresh content
@@ -1084,10 +1084,10 @@ function HrmAddPlanDetail(){
       success:function(data)
       {
         if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-          console.log(data);
+          //console.log(data);
           $('#hrm_perform_plan_detail_modal').modal('hide');
           sweetalert('success','The Plan Detail has been Update Successfully !!');
-          setTimeout(function(){ go_to('hrm_list_plan_performance'); }, 300);// Set timeout for refresh content
+          setTimeout(function(){ go_to('hrm_list_plan_performance/plan/modal?id='+data.success[0]+''); }, 300);// Set timeout for refresh content
       }else{
         // $(".print-error-msg").find("ul").html('');
 
@@ -1257,7 +1257,7 @@ if($('#action_schedule_staff').text()=='Create') //check condition for create qu
     success:function(data)
     {
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-        console.log(data);
+        //console.log(data);
         $('#hrm_perform_schedule_modal').modal('hide');
         sweetalert('success','The Schedule has been Insert Successfully !!');
         setTimeout(function(){ go_to('hrm_performance_staff_schedule'); }, 300);// Set timeout for refresh content
@@ -1291,10 +1291,9 @@ if($('#action_schedule_staff').text()=='Update') // Check Condition for update q
     success:function(data)
     {
       if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-        console.log(data);
         $('#hrm_perform_schedule_modal').modal('hide');
         sweetalert('success','The Schedule has been Update Successfully !!');
-        setTimeout(function(){ go_to('hrm_performance_staff_schedule'); }, 300);// Set timeout for refresh content
+        setTimeout(function(){ go_to('/hrm_performance_staff_schedule/list?plan_id='+data.success[0]+''); }, 300);// Set timeout for refresh content
     }else{
       // $(".print-error-msg").find("ul").html('');
 
