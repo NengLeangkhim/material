@@ -219,8 +219,8 @@ class LeadController extends Controller
                                         ],
                 'current_speed_isp' =>  [  'required'
                                         ],
-                'vat_number' =>  [  'required'
-                                        ],
+                // 'vat_number' =>  [  'required'
+                //                         ],
                 'lead_status' =>  [  'required'
                                         ],
                 'email' =>  [  'required'
@@ -279,7 +279,7 @@ class LeadController extends Controller
                 'website.required' => 'This Field is require !!',   //massage validator
                 'current_speed_isp.required' => 'This Field is require !!',   //massage validator
                 'company_facebook.required' => 'This Field is require !!',   //massage validator
-                'vat_number.required' => 'This Field is require !!',   //massage validator
+                // 'vat_number.required' => 'This Field is require !!',   //massage validator
                 'lead_status.required' => 'This Field is require !!',   //massage validator
                 // 'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
                 'name_en.required' => 'This Field is require !!',   //massage validator
