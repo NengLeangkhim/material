@@ -19,12 +19,12 @@
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-3 col-6" >
               <!-- small box -->
-              <div class="small-box bg-light">
+              <div class="small-box bg-white" style="border:2px solid #d42931" >
                 <div class="inner">
                   <div class="row">
-                    <div class="col-8">
+                    <div class="col-8" >
                       <h3 class="text-info">{{$new_lead}}</h3>
 
                       <p>New Leads</p>
@@ -39,7 +39,7 @@
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
-              <div class="small-box bg-light">
+              <div class="small-box bg-white" style="border:2px solid #d42931">
                 <div class="inner">
                   <div class="row">
                     <div class="col-8">
@@ -57,7 +57,7 @@
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
-              <div class="small-box bg-light">
+              <div class="small-box bg-white" style="border:2px solid #d42931">
                 <div class="inner">
                   <div class="row">
                     <div class="col-8">
@@ -75,7 +75,7 @@
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
-              <div class="small-box bg-light">
+              <div class="small-box bg-white" style="border:2px solid #d42931">
                 <div class="inner">
                   <div class="row">
                     <div class="col-8">
@@ -96,8 +96,8 @@
         <div class="row">
             <div class="col-md-6">
               <!-- AREA CHART -->
-              <div class="card card-primary">
-                <div class="card-header">
+              <div class="card card-primary" >
+                <div class="card-header" style="background: #1fa8e0"> 
                   <h3 class="card-title">Lead Status Chart</h3>
 
                   <div class="card-tools">
@@ -118,7 +118,7 @@
             <div class="col-md-6">
               <!-- LINE CHART -->
               <div class="card card-info">
-                <div class="card-header">
+                <div class="card-header" style="background: #1fa8e0">
                   <h3 class="card-title">Quote Status Chart</h3>
 
                   <div class="card-tools">
@@ -143,7 +143,7 @@
           <div class="col-md-6">
             <!-- AREA CHART -->
             <div class="card card-primary">
-              <div class="card-header">
+              <div class="card-header" style="background: #1fa8e0">
                 <h3 class="card-title">Contact Chart</h3>
 
                 <div class="card-tools">
@@ -164,7 +164,7 @@
           <div class="col-md-6">
             <!-- LINE CHART -->
             <div class="card card-info">
-              <div class="card-header">
+              <div class="card-header" style="background: #1fa8e0">
                 <h3 class="card-title">Organization Chart</h3>
 
                 <div class="card-tools">
@@ -230,12 +230,12 @@
                         {
                             id: 1,
                             name_en: 'new',
-                            code: 'color:#007bff'
+                            code: 'color:#fed330'
                         },
                         {
                             id: 2,
                             name_en: 'qualified',
-                            code: 'color:#66c8cf'
+                            code: 'color:#C4E538'
                         },
                         {
                             id: 3,
@@ -245,22 +245,22 @@
                         {
                             id: 4,
                             name_en: 'surveyed',
-                            code: 'color:black'
+                            code: 'color:#fa8231'
                         },
                         {
                             id: 5,
                             name_en: 'proposition',
-                            code: 'color:#ffc107'
+                            code: 'color:#2bcbba'
                         },
                         {
                             id: 6,
-                            name_en: '..',
-                            code: 'color:#28a745'
+                            name_en: 'won',
+                            code: 'color:#4b4b4b'
                         },
                         {
                             id: 7,
                             name_en: 'junk',
-                            code: 'color:red'
+                            code: 'color:#ff3838'
                         },
                     ]
                     $.each(data, function (index, value) {

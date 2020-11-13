@@ -29,6 +29,7 @@
                   <div id="external-events">
                    
                   </div>
+                  <input type="text" hidden value="{{$_SESSION['token']}}" id="gettoken">
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->
@@ -153,28 +154,38 @@
     calendar.render();
   }
 
-    function GetData() {  
+    function GetData() { 
+      var myvar= $( "#gettoken" ).val(); 
+    // alert(myvar);
         var events = [];  
         $.ajax({  
             url: 'api/getschedule',  
             type: "GET",  
             dataType: "JSON",  
+            headers: {
+                    'Authorization': `Bearer ${myvar}`,
+                },
             success: function (result) {               
                 $.each(result, function (i, data) { 
                   for(var i=0;i<data.length;i++){     
                     if(data[i].priority=='urgent'){
-                        color='#e84118';
+                        color='#c23616';
                     }    
                     else if(data[i].priority=='high'){
-                      color='#b71540';
+                      color='#fa8231'
                     }    
                     else if(data[i].priority=='medium'){
-                      color='#4cd137';
-                    } 
+                      color='#1e3799';
+                 
+                    }                     
                     else
                     {
-                      color="#e1b12c";
-                    }     
+                      color="#fff200";
+                    }  
+                    //  branch that schedule result
+                    if(data[i].schedule_result_id!=null){
+                      color='#4cd137';
+                    }   
                     events.push(  
                    {  
                        title: data[i].name_branch_en,  

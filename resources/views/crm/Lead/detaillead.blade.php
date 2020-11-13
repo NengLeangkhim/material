@@ -26,7 +26,7 @@
         <div class="card card-default color-palette-box card-header">
             <div class="col-12" >
               <div class="row">
-                <div class="col-6">
+                <div class="col-9">
                     <div class="row">
                         {{-- <div class="> --}}
                             <h3 class="card-title"​>
@@ -37,16 +37,19 @@
                         {{-- </div> --}}
                     </div>
                 </div>
-                <div class="col-md-6 ">
+                <div class="col-md-3 ">
                    <div class="row">
                     <?php
                     for($i =0;$i<sizeof($detaillead); $i++){
                         ?>
-                         <div class="col-md-6 " align="right">
-                            <button type="button" ​value="editlead/{{$detaillead[$i]["lead_id"]}}" class="btn btn-primary btn-md LeadEdit" >Edit</button>
-                                                        
+                         <div class="col-md-6 " >
+                            {{-- <button type="button" ​value="editlead/{{$detaillead[$i]["lead_id"]}}" class="btn btn-primary btn-md LeadEdit form-control" >Edit</button>                                                         --}}
                         </div>                         
-                      
+                        <div class="col-md-6 " >
+                            <div class="row">
+                                <button type="button" ​value="editlead/{{$detaillead[$i]["lead_id"]}}" class="btn btn-primary btn-md LeadEdit form-control" >Edit</button> 
+                            </div>
+                        </div>  
                         <?php
                     }
                     ?>
@@ -59,7 +62,7 @@
       <!-- /.card -->      
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 {{-- Lead detail --}}
                 <div class="card">
                     <div class="card-header">
@@ -120,7 +123,7 @@
 
 
             </div>
-            <div class="col-md-4">
+            {{-- <div class="col-md-4">
                 <div class="card card-secondary">
                     <div class="card-header">
                       <h3 class="card-title">Update</h3>        
@@ -176,7 +179,7 @@
                           <!-- /.card-body -->
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     <!-- ./col -->
