@@ -808,11 +808,18 @@ function Crm_delete(id,route,goto,alert) {
                 $.ajax({
                   url:route,
                   data:{id:id},
-                  type:"GET",
+                  type:"DELETE",
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
                   success:function(data){
-
+                        console.log(data);
+                        if(data.success){
+                            sweetalert('success','Delete sucesssed!');
+                        }else{
+                            sweetalert('error','Delete failed!');
+                        }
                     //   setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
-                    $.notify("Delete successed !", "success");
                   }
 
                  });
@@ -1269,7 +1276,7 @@ function Crm_delete(id,route,goto,alert) {
                     $('#frmEditQuoteBranch').serialize(),
                 success:function(data)
                 {
-                    // console.log(data);
+                    console.log(data);
                     if(data.success){
                         sweetalert('success','Update successed!');
                         setTimeout(function(){
