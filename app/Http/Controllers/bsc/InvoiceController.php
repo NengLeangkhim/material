@@ -134,6 +134,7 @@ class InvoiceController extends Controller
             $create_by = $_SESSION['userid'];
 
             $due_amount=$request->due_amount;
+            $old_due_amount=$request->old_due_amount;
             $amount_paid=$request->amount_paid;
             $grand_total=$request->grand_total;
             $date_paid=$request->date_paid;
@@ -142,24 +143,28 @@ class InvoiceController extends Controller
             $bsc_invoice_id=$request->bsc_invoice_id;
             $bsc_account_charts_id=$request->bsc_account_charts_id;
 
-            $data=array(
-                'create_by'=>$create_by,
-                'bsc_account_charts_id'=>$bsc_account_charts_id,
-                'bsc_invoice_id'=>$bsc_invoice_id,
-                'grand_total'=>$grand_total,
-                'amount_paid'=>$amount_paid,
-                'date_paid'=>$date_paid,
-                'paid_to_chart_account_id'=>$paid_to,
-                'reference'=>$reference,
-                'due_amount'=>$due_amount,
-            );
-            // add new
-            $request = Request::create('api/bsc_invoice_payments', 'POST',$data);
-            $request->headers->set('Accept', 'application/json');
-            $request->headers->set('Authorization', 'Bearer '.$token);
-            $res = app()->handle($request);
-            $response = json_decode($res->getContent()); // convert to json object
-            return response()->json(['payment'=>$response]);
+            if($amount_paid <= $old_due_amount){
+                $data=array(
+                    'create_by'=>$create_by,
+                    'bsc_account_charts_id'=>$bsc_account_charts_id,
+                    'bsc_invoice_id'=>$bsc_invoice_id,
+                    'grand_total'=>$grand_total,
+                    'amount_paid'=>$amount_paid,
+                    'date_paid'=>$date_paid,
+                    'paid_to_chart_account_id'=>$paid_to,
+                    'reference'=>$reference,
+                    'due_amount'=>$due_amount,
+                );
+                // add new
+                $request = Request::create('api/bsc_invoice_payments', 'POST',$data);
+                $request->headers->set('Accept', 'application/json');
+                $request->headers->set('Authorization', 'Bearer '.$token);
+                $res = app()->handle($request);
+                $response = json_decode($res->getContent()); // convert to json object
+                return response()->json(['payment'=>$response]);
+            }else{
+                return response()->json(['payment'=>'amount_paid_bigger_then_due']);
+            }
 
         }catch(Exception $e){
             echo $e->getMessage();

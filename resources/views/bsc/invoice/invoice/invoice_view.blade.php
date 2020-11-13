@@ -227,7 +227,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control input_required item_unit_price"  name="amount_paid" id="amount_paid" placeholder="Amount Paid">
+                                                    <input type="text" class="form-control input_required item_unit_price"  name="amount_paid" id="amount_paid" value="{{ $due_amount==null ? $invoices->grand_total : $due_amount }}" autofocus placeholder="Amount Paid">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -360,21 +360,22 @@ $('.detail').click(function(e)
             });
             sweetalert('error', 'Please input or select field * required');
         }else{
-        if(amount_paid > due_amount){
-            $('#amount_paid').css('border-color', 'red');
-            sweetalert('error','Amount Paid input is bigger than Due Amount or Grand Total');
-        }else if(amount_paid == 0){
-            sweetalert('error','Amount Paid can not input Zero');
-        }else{
-            let due_amounts = (due_amount - amount_paid).toFixed(2);
-            // alert(due_amounts);exit;
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            if(amount_paid > due_amount){
+                $('#amount_paid').css('border-color', 'red');
+                sweetalert('error','Amount Paid input is bigger than Due Amount or Grand Total');
+            }else if(amount_paid == 0){
+                sweetalert('error','Amount Paid can not input Zero');
+            }else{
+                let due_amounts = (due_amount - amount_paid).toFixed(2);
+                // alert(due_amounts);exit;
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
                     type:"POST",
                     url:'/bsc_invoice_payment',
                     data:{
                         _token: CSRF_TOKEN,
                         due_amount      : due_amounts,
+                        old_due_amount  : parseFloat($('#due_amount').text()),
                         amount_paid     : amount_paid,
                         grand_total     : grand_total,
                         date_paid       : $('#date_paid').val(),
@@ -386,10 +387,13 @@ $('.detail').click(function(e)
                     },
                     dataType: "JSON",
                     success:function(data){
-                        if(data.payment.success == false){
-                            alert("fail to payment");
-                        }else{
+                        if(data.payment.success == true){
                             go_to('bsc_invoice_invoice_list');
+                        }else{
+                            if(data.payment == "amount_paid_bigger_then_due"){
+                                sweetalert('error','Amount Paid input is bigger than Due Amount or Grand Total');
+                            }
+                            alert("fail to payment");
                         }
                     }
                 });
