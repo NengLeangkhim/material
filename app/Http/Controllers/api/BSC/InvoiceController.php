@@ -103,8 +103,8 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        // DB::beginTransaction();
-        // try {
+        DB::beginTransaction();
+        try {
             $input = $request->all();
 
             $validator = Validator::make($input, [
@@ -146,13 +146,13 @@ class InvoiceController extends Controller
 
             // insert_bsc_invoice_detail(bsc_invoice_id, ma_customer_branch_id, stock_product_id, description, qty, unit_price, discount, bsc_account_charts_id, tax, amount, create_by, description_journal, bsc_account_charts_id_in_journal, bsc_journal_type_id, debit_amount, credit_amount);
 
-        //     DB::commit();
-        //     return $this->sendResponse($q_invoice, 'Invoice created successfully.');
+            DB::commit();
+            return $this->sendResponse($q_invoice, 'Invoice created successfully.');
 
-        // } catch (\Throwable $th) {
-        //     DB::rollBack();
-        //     return $this->sendError("Try again!");
-        // }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->sendError("Try again!");
+        }
     }
 
     /**
