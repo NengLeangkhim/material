@@ -20,3 +20,6 @@ use Illuminate\Support\Facades\Route;
 
 // get all product and service
 Route::get('/stock/{type}','api\stock\StockController@getStockPopup');
+
+// get all product and service by id
+Route::get('/stock/product/{id}','api\stock\StockController@getProductByBranchId');

@@ -29,7 +29,7 @@
                         <td class="text-center">
                           
                           @php
-                              if($empayroll[10]==1){
+                              if($empayroll[11]==1){
                                 $bg="bg-danger disabled";
                                 $disable="disabled";
                               }else {

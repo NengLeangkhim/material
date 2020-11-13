@@ -47,7 +47,7 @@ class dashbord extends Controller
         if(perms::check_perm_module('STO_0103')){//module code
                 // return view('start');
                 $arr[]=array();
-                $arr[0]=DB::select('select id,name from ma_company');
+                $arr[0]=DB::select("select id,name from ma_company where status='t' and is_deleted='f'");
                 $arr[1]=DB::select('SELECT COUNT(cd.ma_company_branch_id),cd.ma_company_id from ma_company c INNER JOIN ma_company_detail cd on c."id"=cd.ma_company_id GROUP BY cd.ma_company_id');
                 $arr[2]=array();
                 $arr[3]=DB::select("select p.id,p.name,
