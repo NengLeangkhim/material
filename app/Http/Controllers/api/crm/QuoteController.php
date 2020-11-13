@@ -24,7 +24,10 @@ class QuoteController extends Controller
      */
     public function index()
     {
-        $quote = Quote::orderBy('id','asc')->get();
+        $quote = Quote::orderBy('id','asc')
+        ->where('status','t')
+        ->where('is_deleted','f')
+        ->get();
         return QuoteResource::Collection($quote);
     }
 
