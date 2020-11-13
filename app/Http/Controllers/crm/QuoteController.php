@@ -43,7 +43,7 @@ class QuoteController extends Controller
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $listQuoteDetail = json_decode($res->getContent());
-            dump($listQuoteDetail);
+            // dump($listQuoteDetail);
             if($listQuoteDetail != ''){
                 // $address = ModelCrmQuote::getAddress($listQuoteDetail->data->address->gazetteer_code); //get address detail by code
                 foreach($listQuoteDetail->data->crm_stock as $k=>$val){
@@ -52,7 +52,6 @@ class QuoteController extends Controller
             }else{
                 echo 'emtry';
             }
-            dump($product);
             return view('crm/quote/qouteShowDetail', compact('listQuoteDetail','product'));
         }
     }
@@ -432,7 +431,7 @@ class QuoteController extends Controller
                     $data['lead_branch_name'] = $response2->data[0]->company_en;
                     $request3 = Request::create('/api/quotebranch/detail/'.$quoteBranchId.'', 'GET');  // get list quote branch detail by quote branch id
                     $response3 = json_decode(Route::dispatch($request3)->getContent());
-                    dump($response3);
+                    // dump($response3);
                         // foreach($response3->data as $key2=>$val2){
                         //     $product[] = ModelCrmQuote::getProductById($val2->stock_product_id);
                         //     // dump($val2->stock_product_id);
@@ -463,7 +462,6 @@ class QuoteController extends Controller
             ]
 
         );
-
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(

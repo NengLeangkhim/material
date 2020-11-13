@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><span><i class="far fa-clipboard"></i></span> Quote Detail</h1>
+                <h1><span><i class="far fa-clipboard" style="color:#1fa8e0;"></i></span> <b>Quote Detail</b></h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -25,28 +25,30 @@
                     <div class="row">
                             {{-- <div class="> --}}
                             <h3 class="card-title"​>
-                                <i class="fas fa-hotel" style="padding-right:15px; font-size:35px"></i>
+                                <i class="fas fa-hotel" style="color:#1fa8e0; padding-right:15px; font-size:30px"></i>
                                     {{$listQuoteDetail->data->subject}}
                             </h3>
                         {{-- </div> --}}
                     </div>
                 </div>
                 <div class="col-6" >
-                   <div class="row">
+
+                   {{-- <div class="row">
 
                         <div class="col-md-6 col-sm-6 " align="right">
 
                             <div class="pr-2">
                                 <button type="button" class="btn btn-md btn-info" >Preview</button>
                             </div>
-                            {{-- <div class="pr-2">
+                            <div class="pr-2">
                                 <button type="button" class="btn btn-md btn-success" >PDF</button>
-                            </div> --}}
+                            </div>
                         </div>
                         <div class="col-4" align="right">
                             <button type="button" ​value="" class="btn btn-primary btn-block btn-md ">Convert To BSC</button>
                         </div>
-                   </div>
+                   </div> --}}
+
                 </div>
               </div>
             </div>
@@ -73,7 +75,7 @@
                             <dt class="col-sm-4 dt">Contact Name</dt>
                                 <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->crm_lead->customer_name_en}} </dd>
                             <dt class="col-sm-4 dt">Assign To</dt>
-                                <dd class="col-sm-8 dd">{{$listQuoteDetail->data->assign_to->first_name_en}} </dd>
+                                <dd class="col-sm-8 dd">{{$listQuoteDetail->data->assign_to->first_name_en.' '.$listQuoteDetail->data->assign_to->last_name_en}} </dd>
                             <dt class="col-sm-4 dt">Quote Number</dt>
                                 <dd class="col-sm-8 dd">{{$listQuoteDetail->data->quote_number}}</dd>
                             {{-- <dt class="col-sm-4 dt">Valid Until </dt> --}}
@@ -98,9 +100,23 @@
                             {{-- <dt class="col-sm-4 dt">Modified Time </dt> --}}
                                 {{-- <dd class="col-sm-8 dd">{{$listQuoteDetail->data->subject}}</dd> --}}
                             <dt class="col-sm-4 dt">Create By</dt>
-                                <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->create_by->first_name_en}}</dd>
+                                <dd class="col-sm-8 dd" >
+                                    <?php $num = count($listQuoteDetail->data->acknowlegde_by); ?>
+                                    @if( $num > 0)
+                                        {{
+                                            $listQuoteDetail->data->acknowlegde_by[$num-1]->first_name_en.' '.$listQuoteDetail->data->acknowlegde_by[$num-1]->last_name_en
+                                        }}
+                                    @endif
+                                </dd>
                             <dt class="col-sm-4 dt">Comment </dt>
-                                <dd class="col-sm-8 dd">No Source</dd>
+                                <dd class="col-sm-8 dd">
+                                    <?php $num = count($listQuoteDetail->data->status_quote); ?>
+                                    @if( $num > 0)
+                                        {{
+                                            $listQuoteDetail->data->status_quote[$num-1]->comment
+                                        }}
+                                    @endif
+                                </dd>
                         </dl>
                     </div>
                     <!-- /.card-body -->

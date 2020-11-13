@@ -1028,7 +1028,6 @@ function Crm_delete(id,route,goto,alert) {
     $(document).on('click','.btnCloseRowContent',function(){
         var btnId = $(this).attr("id");
         $('#row_content'+btnId+'').remove();
-        // console.log('this btn remove content row branch');
     });
 
 
@@ -1125,8 +1124,8 @@ function Crm_delete(id,route,goto,alert) {
 
     $(document).on('click','#btnOrganization', function(){
                 // clear textfieild lead branch
-              $('input[name="getLeadBranch"]').val("");
-              ('input[name="crm_lead_branch_id"]').val("");
+                $('.btnCloseRowContent').click();
+                $('.btnCloseRowContent').click();
     });
 
 
