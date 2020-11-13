@@ -122,6 +122,8 @@ Route::post('/quote/save','crm\QuoteController@saveQuote'); // sumit quote data 
 Route::get('/quote/edit/lead','crm\QuoteController@quoteEditLead'); // go to edit quote lead
 Route::put('/quote/edit/lead/update','crm\QuoteController@quoteEditLeadUpdate'); // go to submit quote lead edit
 
+Route::put('/quote/edit/branch/update','crm\QuoteController@quoteEditBranchUpdate'); // go to submit quote lead edit
+
 Route::get('/quote/edit/branch','crm\QuoteController@quoteEditBranch'); // go to quote edit branch
 
 
