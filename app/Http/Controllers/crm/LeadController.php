@@ -22,8 +22,12 @@ class LeadController extends Controller
         if(perms::check_perm_module('CRM_0205')){//module codes
             $lead=ModelCrmLead::CrmGetLead();
             $result =json_decode($lead,true);
-            // dd($result);
-            return view('crm.Lead.index',['lead'=>$result["data"]]);
+            if($result!=null){
+                return view('crm.Lead.index',['lead'=>$result["data"]]);
+            }
+            else{
+                return view('no_perms');
+            }
 
         }else{
             return view('no_perms');
@@ -36,9 +40,16 @@ class LeadController extends Controller
             $result =json_decode($branch,true);
             $schedule_type=ModelCrmLead::CrmGetSchdeuleType();
             $schedule_type =json_decode($schedule_type,true);
-            // $schedule_type =json_decode($schedule_type,true);
-            // DD($result,$schedule_type['data']);
-            return view('crm.Lead.branch',['branch'=>$result["data"] ,'schedule_type'=>$schedule_type['data']]);
+            if($result!=null){
+                // $schedule_type =json_decode($schedule_type,true);
+                            // DD($result,$schedule_type['data']);
+                return view('crm.Lead.branch',['branch'=>$result["data"] ,'schedule_type'=>$schedule_type['data']]);
+            }
+            else
+            {
+                return view('no_perms');
+            }
+            
         }else{
             return view('no_perms');
         }

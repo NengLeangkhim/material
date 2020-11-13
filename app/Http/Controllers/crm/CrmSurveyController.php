@@ -17,8 +17,13 @@ class CrmSurveyController extends Controller
             $result=json_decode($survey,true);
             $survey_result=ModelCrmLead::GetsurveyResult();
             $survey_result=json_decode($survey_result,true);
-            // dd($result,$survey_resul);
-            return view('crm.survey.index',['survey'=>$result['data'],'survey_result'=>$survey_result['data']]);
+            if($survey_result!=null){
+                // dd($result,$survey_resul);
+                return view('crm.survey.index',['survey'=>$result['data'],'survey_result'=>$survey_result['data']]);
+
+            }else{
+                return view('no_perms');
+            }
         
         }else{
             return view('no_perms');

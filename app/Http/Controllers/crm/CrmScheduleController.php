@@ -88,9 +88,15 @@ class CrmScheduleController extends Controller
                     $schedule_type =json_decode($schedule_type,true);
                     $schedule = ModelCrmLead::CrmGetSchdeuleById($id);
                     $schedule =json_decode($schedule,true);
-                    // dd($schedule,$schedule_type);
-                    // return view('crm.schedule.detailschedule', ['schedule_get' => $schedule]);
-                    return view('crm.schedule.detailscheduleresult',['schedule_type'=>$schedule_type['data'],'schedule'=>$schedule['data']]);
+                    if($schedule!=null){
+                        // dd($schedule,$schedule_type);
+                        // return view('crm.schedule.detailschedule', ['schedule_get' => $schedule]);
+                        return view('crm.schedule.detailscheduleresult',['schedule_type'=>$schedule_type['data'],'schedule'=>$schedule['data']]);
+                    }else{
+                        return view('no_perms');
+
+                    }
+                   
                    
                 }else{
                     return view('no_perms');
@@ -104,10 +110,16 @@ class CrmScheduleController extends Controller
                     $schedule_type =json_decode($schedule_type,true);
                     $schedule = ModelCrmLead::CrmGetSchdeuleById($id);
                     $schedule =json_decode($schedule,true);
-                    // dd($schedule,$schedule_type);
-                    // return view('crm.schedule.detailschedule', ['schedule_get' => $schedule]);
-                    return view('crm.schedule.detailschedule',['schedule_type'=>$schedule_type['data'],'schedule'=>$schedule['data']]);
-                   
+                    if($schedule!=null){
+                        // dd($schedule,$schedule_type);
+                        // return view('crm.schedule.detailschedule', ['schedule_get' => $schedule]);
+                        return view('crm.schedule.detailschedule',['schedule_type'=>$schedule_type['data'],'schedule'=>$schedule['data']]);
+                    
+
+                    }else
+                    {
+                        return view('no_perms');  
+                    }   
                 }else{
                     return view('no_perms');
                 }

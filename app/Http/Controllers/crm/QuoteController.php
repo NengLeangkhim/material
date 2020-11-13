@@ -25,8 +25,8 @@ class QuoteController extends Controller
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         $listQuote = json_decode($res->getContent());
-        dd($listQuote);
-        // return view('crm/quote/quoteShow',compact('listQuote'));
+        // dd($listQuote);
+        return view('crm/quote/quoteShow',compact('listQuote'));
     }
 
     // function to get show qoute detail
