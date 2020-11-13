@@ -152,7 +152,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="vat_number">Vat Number <b style="color:red">*</b></label>
+                                            <label for="vat_number">Vat Number</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
