@@ -327,8 +327,7 @@
     <!-- ./col -->
     <script>
         function PreviewQuote(recordId) {
-            var domain =window.location.host;
-            var url = domain+ "/api/preview-quote/" + recordId;
+            var url = "/api/preview-quote/" + recordId;
             var windowName = "Preview Quote";
             var windowSize = "width=650,height=750,scrollbars=yes";
             window.open(url, windowName, windowSize);
