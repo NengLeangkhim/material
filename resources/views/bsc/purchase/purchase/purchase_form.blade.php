@@ -1,8 +1,10 @@
 @php
     $item = "";
     $id="";
-    foreach($products as $product){
-        $item.="<option value='{$product->id}'>{$product->name}</option>";
+    if (count($products) > 0) {
+        foreach($products as $product){
+            $item.="<option value='{$product->id}'>{$product->name}</option>";
+        }
     }
 @endphp
 <section class="content-header">
@@ -21,10 +23,12 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                             </div>
-                            <select class="form-control select2 input_required" name="account_type" id="purchase_account_chart_id">
-                                @foreach ($account_payables as $account_payable)
-                                    <option value="{{$account_payable->id}}">{{$account_payable->name_en}}</option>
-                                @endforeach
+                            <select class="form-control input_required" name="account_type" id="purchase_account_chart_id">
+                                @if (count($account_payables) > 0)
+                                    @foreach ($account_payables as $account_payable)
+                                        <option value="{{$account_payable->id}}">{{$account_payable->name_en}}</option>
+                                    @endforeach
+                                @endif
                                
                             </select>
                             
@@ -61,11 +65,11 @@
                                             </div>
                                             <select class="form-control select2 input_required" name="account_type" id="purchase_supplier">
                                                 <option selected hidden disabled>select item</option>
-
-                                                @foreach ($suppliers as $supplier)
-                                                    <option value="{{$supplier->id}}">{{$supplier->name}}</option>
-                                                @endforeach
-                                                
+                                                @if (count($suppliers) > 0)
+                                                    @foreach ($suppliers as $supplier)
+                                                        <option value="{{$supplier->id}}">{{$supplier->name}}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -136,7 +140,7 @@
                                             <div class="col-md-4">
                                                 <div class="row">
                                                     <div class="col-sm-6 text_right">
-                                                        <label for="">Total</label>
+                                                        <label for="">Total :</label>
                                                     </div>
                                                     <div class="col-sm-6 text_right">
                                                         <label for="" id="txtTotal" class="txtTotal">0</label>
@@ -144,7 +148,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-6 text_right">
-                                                        <label for="">VAT Total</label>
+                                                        <label for="">VAT Total :</label>
                                                     </div>
                                                     <div class="col-sm-6 text_right">
                                                         <label for="" id="txtVatTotal" class="txtVatTotal">0</label>
@@ -152,43 +156,13 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-6 text_right">
-                                                        <label for="">Grand Total</label>
+                                                        <label for="">Grand Total :</label>
                                                     </div>
                                                     <div class="col-sm-6 text_right">
                                                         <label for="" id="txtGrandTotal">0</label>
                                                     </div>
                                                 </div>
                                                 <hr class="line_in_tag_hr">
-                                                {{-- <div class="row">
-                                                    <div class="col-sm-6 text_right">
-                                                        <label for="">Payment</label>
-                                                    </div>
-                                                    <div class="col-sm-6 text_right">
-                                                        <label for="">0</label>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-6 text_right">
-                                                        <label for="">Date</label>
-                                                    </div>
-                                                    <div class="col-sm-6 text_right">
-                                                        <label for="">0</label>
-                                                    </div>
-                                                </div>
-                                                <hr class="line_in_tag_hr2">
-                                                <div class="row">
-                                                    <div class="col-sm-6 text_right">
-                                                        <h4>
-                                                            <label for="">Amount Due</label>
-                                                        </h4>
-                                                    </div>
-                                                    <div class="col-sm-6 text_right">
-                                                        <h4>
-                                                            <label for="">0</label>
-                                                        </h4>
-                                                    </div>
-                                                </div>
-                                                <hr class="line_in_tag_hr2"> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -333,7 +307,7 @@
                 '<td class="item_name" style="padding: 0;max-width: 165px;overflow: auto;"><select class="item_select stock_product_id" style="width: 100%;height: 51px;"><option value=""></option>'+$("#items").val()+'</select></td>'+
                 '<td contenteditable="true" class="item_des" id="item_des"></td>'+
                 '<td contenteditable="true" class="item_qty" id="item_qty"></td>'+
-                '<td contenteditable="true" class="item_unit_price" id="item_unit_price"></td>'+
+                '<td class="item_unit_price" id="item_unit_price"></td>'+
                 '<td class="item_account" id="item_account" data-id=""></td>'+
                 '<td class="item_tax" style="padding: 0;"><select style="border: 0px; height: 51px;" class="tax form-control"><option value=""></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
                 '<td class="item_amount" id="item_amount"></td>'+
@@ -371,32 +345,36 @@
                     };
                 }
             });
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                type:"POST",
-                url:'/bsc_purchase_save',                    
-                data:{
-                    _token: CSRF_TOKEN,
-                    bsc_account_charts_id : $("#purchase_account_chart_id").val(),
-                    suppier_id            : $("#purchase_supplier").val(),
-                    billing_date          : $("#purchase_date").val(),
-                    due_date              : $("#purchase_due_date").val(),  
-                    reference             : $("#purchase_reference").val(),    
-                    total                 : $("#txtTotal").text(),
-                    vat_total             : $("#txtVatTotal").text(), 
-                    grand_total           : $("#txtGrandTotal").text(), 
-                    itemDetail            : itemDetail
-                },
-                dataType: "JSON",
-                success:function(data){
-
-                    if(data.saved.success == false){
-                        alert("fail to insert");
-                    }else{
-                        go_to('bsc_purchase_purchase_list');
+            if(itemDetail.length > 0){
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                $.ajax({
+                    type:"POST",
+                    url:'/bsc_purchase_save',                    
+                    data:{
+                        _token: CSRF_TOKEN,
+                        bsc_account_charts_id : $("#purchase_account_chart_id").val(),
+                        suppier_id            : $("#purchase_supplier").val(),
+                        billing_date          : $("#purchase_date").val(),
+                        due_date              : $("#purchase_due_date").val(),  
+                        reference             : $("#purchase_reference").val(),    
+                        total                 : $("#txtTotal").text(),
+                        vat_total             : $("#txtVatTotal").text(), 
+                        grand_total           : $("#txtGrandTotal").text(), 
+                        itemDetail            : itemDetail
+                    },
+                    dataType: "JSON",
+                    success:function(data){
+    
+                        if(data.saved.success == false){
+                            alert("fail to insert");
+                        }else{
+                            go_to('bsc_purchase_purchase_list');
+                        }
                     }
-                }
-            });   
+                });   
+            }else{
+                sweetalert('error','Please select field item!!');
+            }
         }
     }
 </script>

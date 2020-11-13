@@ -52,46 +52,48 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($purchases as $purchase)
-                                                        @php 
-                                                            $amount_paid = 0;
-                                                            $due_amount = 0;
-                                                            $status = '';
-                                                    
-                                                            if($purchase->amount_paid == null && $purchase->due_amount == null){
+                                                    @if (count($purchases) > 0)
+                                                        @foreach($purchases as $purchase)
+                                                            @php 
                                                                 $amount_paid = 0;
-                                                                $due_amount = $purchase->grand_total;
-                                                                $status = 'Waiting Payment';
-                                                            }else if ($purchase->due_amount == 0) {
-                                                                $amount_paid = $purchase->amount_paid;
-                                                                $due_amount = $purchase->due_amount;
-                                                                $status = 'Paid'; 
-                                                            }else{
-                                                                $amount_paid = $purchase->amount_paid;
-                                                                $due_amount = $purchase->due_amount;
-                                                                $status = 'Waiting Payment'; 
-                                                            }
-                                                        @endphp
-                                                        <tr>
-                                                            <td>{{ $purchase->invoice_number }}</td>
-                                                            <td>{{ $purchase->supplier_name }}</td>
-                                                            <td>{{ $purchase->billing_date }}</td>
-                                                            <td>{{ $purchase->due_date }}</td>
-                                                            <td>{{ $amount_paid }}</td>
-                                                            <td>{{ $due_amount }}</td>
-                                                            <td>{{ $status }}</td>
-                                                            <td style="text-align: center;">
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <a href="javascript:;" onclick="go_to('bsc_purchase_purchase_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
+                                                                $due_amount = 0;
+                                                                $status = '';
+                                                        
+                                                                if($purchase->amount_paid == null && $purchase->due_amount == null){
+                                                                    $amount_paid = 0;
+                                                                    $due_amount = $purchase->grand_total;
+                                                                    $status = 'Waiting Payment';
+                                                                }else if ($purchase->due_amount == 0) {
+                                                                    $amount_paid = $purchase->amount_paid;
+                                                                    $due_amount = $purchase->due_amount;
+                                                                    $status = 'Paid'; 
+                                                                }else{
+                                                                    $amount_paid = $purchase->amount_paid;
+                                                                    $due_amount = $purchase->due_amount;
+                                                                    $status = 'Waiting Payment'; 
+                                                                }
+                                                            @endphp
+                                                            <tr>
+                                                                <td>{{ $purchase->invoice_number }}</td>
+                                                                <td>{{ $purchase->supplier_name }}</td>
+                                                                <td>{{ $purchase->billing_date }}</td>
+                                                                <td>{{ $purchase->due_date }}</td>
+                                                                <td>{{ $amount_paid }}</td>
+                                                                <td>{{ $due_amount }}</td>
+                                                                <td>{{ $status }}</td>
+                                                                <td style="text-align: center;">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <a href="javascript:;" onclick="go_to('bsc_purchase_purchase_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <a href="javascript:" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')"><i class="far fa-edit"></i></a>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="col-md-6">
-                                                                        <a href="javascript:" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')"><i class="far fa-edit"></i></a>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach                                                     
+                                                    @endif
                                                 </tbody>
                                             </table>
                                         </div>
@@ -118,40 +120,42 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach($purchases as $purchase)
-                                                                    @if($purchase->due_amount == null || $purchase->due_amount != 0)
-                                                                        @php 
-                                                                            $amount_paid = 0;
-                                                                            $due_amount = 0;
-                                                                            
-                                                                            if($purchase->due_amount == null){
+                                                                @if (count($purchases) > 0)
+                                                                    @foreach($purchases as $purchase)
+                                                                        @if($purchase->due_amount == null || $purchase->due_amount != 0)
+                                                                            @php 
                                                                                 $amount_paid = 0;
-                                                                                $due_amount = $purchase->grand_total;
-                                                                            }else{
-                                                                                $amount_paid = $purchase->amount_paid;
-                                                                                $due_amount = $purchase->due_amount;
-                                                                            }
-                                                                        @endphp
-                                                                        <tr>
-                                                                            <td>{{ $purchase->invoice_number }}</td>
-                                                                            <td>{{ $purchase->supplier_name }}</td>
-                                                                            <td>{{ $purchase->billing_date }}</td>
-                                                                            <td>{{ $purchase->due_date }}</td>
-                                                                            <td>{{ $amount_paid }}</td>
-                                                                            <td>{{ $due_amount }}</td>
-                                                                            <td style="text-align: center;">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-6">
-                                                                                        <a href="javascript:;" onclick="go_to('bsc_purchase_purchase_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
+                                                                                $due_amount = 0;
+                                                                                
+                                                                                if($purchase->due_amount == null){
+                                                                                    $amount_paid = 0;
+                                                                                    $due_amount = $purchase->grand_total;
+                                                                                }else{
+                                                                                    $amount_paid = $purchase->amount_paid;
+                                                                                    $due_amount = $purchase->due_amount;
+                                                                                }
+                                                                            @endphp
+                                                                            <tr>
+                                                                                <td>{{ $purchase->invoice_number }}</td>
+                                                                                <td>{{ $purchase->supplier_name }}</td>
+                                                                                <td>{{ $purchase->billing_date }}</td>
+                                                                                <td>{{ $purchase->due_date }}</td>
+                                                                                <td>{{ $amount_paid }}</td>
+                                                                                <td>{{ $due_amount }}</td>
+                                                                                <td style="text-align: center;">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <a href="javascript:;" onclick="go_to('bsc_purchase_purchase_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <a href="javascript:" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')"><i class="far fa-edit"></i></a>
+                                                                                        </div>
                                                                                     </div>
-                                                                                    <div class="col-md-6">
-                                                                                        <a href="javascript:" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')"><i class="far fa-edit"></i></a>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endif
-                                                                @endforeach
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endif
+                                                                    @endforeach                                                                   
+                                                                @endif
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -180,28 +184,30 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach($purchases as $purchase)
-                                                                    @if($purchase->due_amount == 0 && $purchase->due_amount != null)
-                                                                        <tr>
-                                                                            <td>{{ $purchase->invoice_number }}</td>
-                                                                            <td>{{ $purchase->supplier_name }}</td>
-                                                                            <td>{{ $purchase->billing_date }}</td>
-                                                                            <td>{{ $purchase->due_date }}</td>
-                                                                            <td>{{ $purchase->amount_paid }}</td>
-                                                                            <td>{{ $purchase->due_amount }}</td>
-                                                                            <td style="text-align: center;">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-6">
-                                                                                        <a href="javascript:void(0);" onclick="go_to('bsc_purchase_purchase_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
+                                                                @if (count($purchases) > 0)
+                                                                    @foreach($purchases as $purchase)
+                                                                        @if($purchase->due_amount == 0 && $purchase->due_amount != null)
+                                                                            <tr>
+                                                                                <td>{{ $purchase->invoice_number }}</td>
+                                                                                <td>{{ $purchase->supplier_name }}</td>
+                                                                                <td>{{ $purchase->billing_date }}</td>
+                                                                                <td>{{ $purchase->due_date }}</td>
+                                                                                <td>{{ $purchase->amount_paid }}</td>
+                                                                                <td>{{ $purchase->due_amount }}</td>
+                                                                                <td style="text-align: center;">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <a href="javascript:void(0);" onclick="go_to('bsc_purchase_purchase_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <a href="javascript:" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')"><i class="far fa-edit"></i></a>
+                                                                                        </div>
                                                                                     </div>
-                                                                                    <div class="col-md-6">
-                                                                                        <a href="javascript:" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')"><i class="far fa-edit"></i></a>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endif
-                                                                @endforeach
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
                                                             </tbody>
                                                         </table>
                                                     </div>
