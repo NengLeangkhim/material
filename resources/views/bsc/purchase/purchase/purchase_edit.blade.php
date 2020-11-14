@@ -181,7 +181,7 @@
                                                         </td>
 
                                                         <td contenteditable="{{$contenteditable}}" class="item_des" id="item_des">{{$p_detail->description}}</td>
-                                                        <td contenteditable="{{$contenteditable}}" class="item_qty" id="item_qty">{{$p_detail->qty}}</td>
+                                                        <td contenteditable="{{$contenteditable}}" class="item_qty" id="item_qty" onkeypress="return (this.innerText.length < 5)">{{$p_detail->qty}}</td>
                                                         <td class="item_unit_price" id="item_unit_price">{{$p_detail->unit_price}}</td>
                                                         <td class="item_account" id="item_account" data-id="{{$p_detail->bsc_account_charts_id}}">{{$p_detail->chart_account_name}}</td>
                                                         <td class="item_tax" style="padding: 0;">
@@ -327,6 +327,7 @@
             });
             $(".select2 .selection .add_class_select2").css('border','0px');
             $(".select2 .selection .add_class_select2").css('background-color','#ffffff !important');
+            myKeyPress();
         });
 
         // Remove Table
@@ -351,14 +352,12 @@
             }
         });
 
-        // Can Input only Number and . in Field Quantity and UnitPrice
-        $('.item_qty').keypress(function(e){
-            if (isNaN(String.fromCharCode(e.which))) e.preventDefault();
-        });
+         // Can Input only Number and . in Field Quantity and UnitPrice
         $('.item_unit_price').keypress(function(e){
             var x = event.charCode || event.keyCode;
             if (isNaN(String.fromCharCode(e.which)) && x!=46 || x===32 || x===13 || (x===46 && event.currentTarget.innerText.includes('.'))) e.preventDefault();
         });
+        myKeyPress();
         
 
         $("#purchase_table tbody").delegate('.item_qty','keyup',function(){
@@ -420,6 +419,13 @@
 
     });
 
+    function myKeyPress(){
+        // Can Input only Number and . in Field Quantity and UnitPrice
+        $('.item_qty').keypress(function(e){
+            if (isNaN(String.fromCharCode(e.which))) e.preventDefault();
+        });
+    }
+
     // function show Amount
     function show_amount(qty,price){
         let amount = (qty * price);
@@ -452,7 +458,7 @@
         tr +='<tr id="row'+count+'">'+
                 '<td class="item_name" style="padding: 0;max-width: 165px;overflow: auto;"><select class="item_select stock_product_id" style="width: 100%;height: 51px;" data-is_old="0" data-is_new="1" data-is_delete="0"><option value=""></option>'+$("#items").val()+'</select></td>'+
                 '<td contenteditable="true" class="item_des" id="item_des"></td>'+
-                '<td contenteditable="true" class="item_qty" id="item_qty"></td>'+
+                '<td contenteditable="true" class="item_qty" id="item_qty" onkeypress="if(navigator.userAgent.indexOf(\'Firefox\') != -1) if($(this).parent().index()==0) return (this.innerText.length < 6) ; else return (this.innerText.length < 5); return (this.innerText.length < 5);"></td>'+
                 '<td contenteditable="true" class="item_unit_price" id="item_unit_price"></td>'+
                 '<td class="item_account" id="item_account" data-id=""></td>'+
                 '<td class="item_tax" style="padding: 0;"><select style="border: 0px; height: 51px;" class="tax form-control"><option value=""></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
