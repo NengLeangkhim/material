@@ -117,7 +117,7 @@
                 if(i == 0){   // check if i = 0 assign i = count row of quote branch item to get update new row add item
                     i = parseInt(i + numRow);
                     j = parseInt(j + numRow);
-                    console.log('number row='+numRow+'--i='+i);
+                    // console.log('number row='+numRow+'--i='+i);
                 }
                 $( "tbody tr" ).remove('.row-quote-item_'+btn_id+'');
             }
@@ -264,7 +264,7 @@
                 $("div #quote-after-sub-disc_"+row_id+"").text(val_after_dis);
                 $("div #quote-netPrice_"+row_id+"").text(netPrice);
 
-                console.log('subDisc='+get_val+'--netPrice='+netPrice);
+                // console.log('subDisc='+get_val+'--netPrice='+netPrice);
                 //for loop to get sumtotal all rows
                 for(var x=0; x<=i; x++){
 

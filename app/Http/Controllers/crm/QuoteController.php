@@ -42,7 +42,7 @@ class QuoteController extends Controller
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $listQuoteDetail = json_decode($res->getContent());
-            dump($listQuoteDetail);
+            // dump($listQuoteDetail);
             if($listQuoteDetail != ''){
                 // $address = ModelCrmQuote::getAddress($listQuoteDetail->data->address->gazetteer_code); //get address detail by code
                 foreach($listQuoteDetail->data->crm_stock as $k=>$val){
@@ -51,7 +51,6 @@ class QuoteController extends Controller
             }else{
                 echo 'emtry';
             }
-            dump($product);
             return view('crm/quote/qouteShowDetail', compact('listQuoteDetail','product'));
         }
     }
@@ -61,16 +60,12 @@ class QuoteController extends Controller
             session_start();
         }
         $province=ModelCrmLead::CrmGetLeadProvice();
-
         $token = $_SESSION['token'];
         $request = Request::create('/api/quote/status', 'GET');
         $request->headers->set('Accept', 'application/json');
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         $quotestatus = json_decode($res->getContent());
-
-        // $request = Request::create('/api/quote/status', 'GET');
-        // $quotestatus = json_decode(Route::dispatch($request)->getContent());
         return view('crm/quote/addQuote', compact('province','quotestatus'));
     }
 
@@ -80,19 +75,16 @@ class QuoteController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if(isset($_GET['id'])){
-            $quoId = $_GET['id'];
 
+        if(isset($_POST['id_'])){
+            $quoId = $_POST['id_'];
+            $create_by = $_SESSION['userid'];
             $token = $_SESSION['token'];
-            $request = Request::create('/api/quote/'.$quoId.'', 'delete');
-            $response = json_decode(Route::dispatch($request)->getContent());
-
-            // $request->headers->set('Accept', 'application/json');
-            // $request->headers->set('Authorization', 'Bearer '.$token);
-            // $res = app()->handle($request);
-            // $response = json_decode($res->getContent());
-
-            dump($response);
+            $request = Request::create('/api/quote/'.$quoId.'/'.$create_by.'', 'delete');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $response = json_decode($res->getContent());
             if($response->delete=='success'){
                 return response()->json(['success'=>$response]);
             }else{
@@ -396,7 +388,7 @@ class QuoteController extends Controller
             $response = json_decode(Route::dispatch($request)->getContent());
 
             // dump($response);
-            if($response->udpate=='success'){
+            if($response->update=='success'){
                 return response()->json(['success'=>$response]);
             }else{
                 return response()->json(['error'=>$response]);
@@ -419,15 +411,14 @@ class QuoteController extends Controller
                 $request1 = Request::create('/api/quotebranch/'.$quoteId.'', 'GET');  // get list quote by quote id
                 $response1 = json_decode(Route::dispatch($request1)->getContent());
                 // dump($response1->data);
-                dump($token);
+                // dump($token);
                 foreach($response1->data as $key1=>$val1){
                     if($val1->id == $quoteBranchId){
                         $data['lead_branch_id'] = $val1->crm_lead_branch->id;
                         $data['quote_branch_id'] = $val1->id;
                     }
                 }
-
-                    dump($quoteBranchId);
+                    // dump($quoteBranchId);
                     $request2 = Request::create('/api/getbranch/'.$data['lead_branch_id'].'', 'GET');  // get list lead branch detail by branch id
                     // $response2 = json_decode(Route::dispatch($request2)->getContent());
 
@@ -439,15 +430,12 @@ class QuoteController extends Controller
                     $data['lead_branch_name'] = $response2->data[0]->company_en;
                     $request3 = Request::create('/api/quotebranch/detail/'.$quoteBranchId.'', 'GET');  // get list quote branch detail by quote branch id
                     $response3 = json_decode(Route::dispatch($request3)->getContent());
-                    dump($response3);
-
+                    // dump($response3);
                         // foreach($response3->data as $key2=>$val2){
                         //     $product[] = ModelCrmQuote::getProductById($val2->stock_product_id);
                         //     // dump($val2->stock_product_id);
                         // }
-
                 return view('crm/quote/quoteBranchEdit',compact('quoteId','data','response3'));
-
             }else{
                 return redirect()->action('crm\QuoteController@showQuoteList');
             }
@@ -461,17 +449,36 @@ class QuoteController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $create_by = $_SESSION['userid'];
-        $request->merge(['update_by' => $create_by]);
-        $request = Request::create('/api/quotebranch', 'PUT');
-        $response = json_decode(Route::dispatch($request)->getContent());
-        dump($response);
-        if($response->udpate == 'success'){
-            return response()->json(['success'=>$response]);
-        }else{
-            return response()->json(['error'=>$response]);
-        }
 
+
+        $validator = \Validator::make($request->all(),[
+
+                'product_name.*' =>  ['required'],
+
+            ],
+            [
+                // 'product_name.*required' => 'This Field is require !!',   //massage validator
+            ]
+
+        );
+        if ($validator->fails()) //check validator for fail
+        {
+            return response()->json(array(
+                'errors' => $validator->getMessageBag()->toArray()
+            ));
+        }else{
+
+            $create_by = $_SESSION['userid'];
+            $request->merge(['update_by' => $create_by]);
+            $request = Request::create('/api/quotebranch', 'PUT');
+            $response = json_decode(Route::dispatch($request)->getContent());
+
+            if($response->update == 'success'){
+                return response()->json(['success'=>$response]);
+            }else{
+                return response()->json(['error'=>$response]);
+            }
+        }
 
     }
 

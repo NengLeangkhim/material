@@ -314,6 +314,8 @@ class QuoteController extends Controller
                 }
             }
 
+
+
             DB::commit();
             return json_encode(["update"=>"success","result"=>[]]);
         }catch(Exception $e){
