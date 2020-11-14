@@ -368,32 +368,38 @@ class QuoteController extends Controller
                 session_start();
             }
             $create_by = $_SESSION['userid'];
-
-            // $request->merge([
-            //     // 'update_by' => $create_by]
-            // );
             $request->merge(['update_by' => $create_by]);
 
-            // $validator = \Validator::make($request->all());
-            // dump($validator);
-            // exit;
-            // return Response::json($request->all(), 200);
-            // // $token = $_SESSION['token'];
-            // // $request = Request::create('/api/quote', 'POST');
-            // // $request->headers->set('Accept', 'application/json');
-            // // $request->headers->set('Authorization', 'Bearer '.$token);
-            // // $res = app()->handle($request);
-            // // $response = json_decode($res->getContent());
+                $validator = \Validator::make($request->all(),[
+                        'subject' =>  ['required'],
+                        'assign_to' =>  ['required'],
+                        'due_date' =>  ['date'],
+                        'comment' =>  ['required'],
+                    ]
+                );
 
-            $request = Request::create('/api/quote', 'PUT', $request->all());
-            $response = json_decode(Route::dispatch($request)->getContent());
+                if ($validator->fails()) //check validator for fail
+                {
+                    return response()->json(array(
+                        'errors' => $validator->getMessageBag()->toArray()
+                    ));
+                }else{
 
-            // dump($response);
-            if($response->update=='success'){
-                return response()->json(['success'=>$response]);
-            }else{
-                return response()->json(['error'=>$response]);
-            }
+                    $token = $_SESSION['token'];
+                    $request = Request::create('/api/quote', 'PUT', $request->all());
+                    $request->headers->set('Accept', 'application/json');
+                    $request->headers->set('Authorization', 'Bearer '.$token);
+                    $res = app()->handle($request);
+                    $response = json_decode($res->getContent());
+
+                    // dump($response);
+                    if($response->update=='success'){
+                        return response()->json(['success'=>$response]);
+                    }else{
+                        return response()->json(['error'=>$response]);
+                    }
+                }
+
     }
 
 
@@ -432,10 +438,7 @@ class QuoteController extends Controller
                     $request3 = Request::create('/api/quotebranch/detail/'.$quoteBranchId.'', 'GET');  // get list quote branch detail by quote branch id
                     $response3 = json_decode(Route::dispatch($request3)->getContent());
                     // dump($response3);
-                        // foreach($response3->data as $key2=>$val2){
-                        //     $product[] = ModelCrmQuote::getProductById($val2->stock_product_id);
-                        //     // dump($val2->stock_product_id);
-                        // }
+                    // exit;
                 return view('crm/quote/quoteBranchEdit',compact('quoteId','data','response3'));
             }else{
                 return redirect()->action('crm\QuoteController@showQuoteList');

@@ -43,7 +43,7 @@
                                 <p for="">Due Date : {{$purchase->due_date}}</p><br/>
                                 <p for="">Purchase# : {{$purchase->invoice_number}}</p><br/>
                             </div>
-                        </div>                               
+                        </div>
                     </div>
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
@@ -68,7 +68,7 @@
                                         <td id="txtAmount" class="txtAmount">{{$item->amount}}</td>
                                     </tr>
                                 @endforeach
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -103,7 +103,7 @@
                                         </div>
                                     </div>
                                     <hr class="" style="margin: 0px;">
-                                    
+
                                     @php
                                         $due_amount = "";
                                     @endphp
@@ -129,19 +129,25 @@
                                         </div>
                                         <hr class="" style="margin: 0px;">
                                     @endforeach
-                                    <div class="row">
+                                    @php
+                                        $display="";
+                                        if($due_amount == null){
+                                            $display="display : none";
+                                        }
+                                    @endphp
+                                    <div class="row" style="{{$display}}">
                                         <div class="col-sm-6 text_right">
-                                            <h4>
-                                                <label for="">Amount Due :</label>
-                                            </h4>
-                                        </div>
-                                        <div class="col-sm-6 text_right">
-                                            <h4>
-                                                <label for="" id="due_amount_payment">{{$due_amount == null ? $purchase->grand_total : $due_amount}}</label>
-                                            </h4>
+                                                <h4>
+                                                    <label for="">Amount Due :</label>
+                                                </h4>
+                                            </div>
+                                            <div class="col-sm-6 text_right">
+                                                <h4>
+                                                    <label for="" id="due_amount_payment">{{$due_amount == null ? $purchase->grand_total : $due_amount}}</label>
+                                                </h4>
                                         </div>
                                     </div>
-                                    <hr class="line_in_tag_hr2">
+                                    <hr class="line_in_tag_hr2" style="{{$display}}">
                                 </div>
                             </div>
                         </div>
@@ -186,7 +192,15 @@
                                         <select class="form-control select2" name="account_type" id="account_type">
                                             <option selected hidden disabled>select item</option>
                                             @foreach ($show_chart_accounts as $chart_account_show)
-                                                <option value="{{$chart_account_show->id}}">{{$chart_account_show->name_en}}</option>
+                                                <option value="" disabled>{{$chart_account_show->bsc_account_type_name}}</option>
+                                                @php
+                                                    $paid_from_to=$chart_account_show->paid_from_to;
+                                                @endphp
+                                                 @if ($paid_from_to !=null)
+                                                 @foreach ($paid_from_to as $paid_to)
+                                                     <option value="{{ $paid_to->id }}">&nbsp;&nbsp;&nbsp;{{ $paid_to->name_en }}</option>
+                                                 @endforeach
+                                             @endif
                                             @endforeach
                                         </select>
                                     </div>
@@ -212,11 +226,6 @@
                                 {{--  --}}
                                 <input type="hidden" id="bsc_account_charts_id" value="{{$purchase->chart_account_id}}">
 
-                                {{-- @foreach ($purchase_payment as $pur_payment)
-                                   
-                                    <input type="hidden" id="due_amount_payment" value="{{$pur_payment->due_amount == null ? $purchase->grand_total : $pur_payment->due_amount}}"> 
-                                @endforeach --}}
-                        
                             </div>
                         </div>
                     </div>
@@ -226,7 +235,7 @@
     </div>
 </section>
 <script>
-   
+
    $(document).ready(function(){
         $('.select2').select2();
 
@@ -241,7 +250,7 @@
     });
 
     function makePayment(){
-        
+
         let amount_paid = parseFloat($('#amount_paid').val());
         let grand_total = parseFloat($('#show_hidden_grand_total').val());
         let due_amount_payment=parseFloat($('#due_amount_payment').text());
@@ -257,8 +266,8 @@
             });
             if(num_miss>0){
                 $(".input_required").each(function(){
-                    if($(this).val()=="" || $(this).val()==null){ 
-                        $(this).css("border-color","red"); 
+                    if($(this).val()=="" || $(this).val()==null){
+                        $(this).css("border-color","red");
                     }
                 });
                 sweetalert('error', 'Please input or select field * required');
@@ -269,7 +278,7 @@
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
                     type:"POST",
-                    url:'/bsc_purchase_make_payment',                    
+                    url:'/bsc_purchase_make_payment',
                     data:{
                         _token: CSRF_TOKEN,
                         amount_paid             : amount_paid,
@@ -285,7 +294,7 @@
                     success:function(data){
                         if(data.payment.success == false){
                             alert("fail to payment");
-                        }else{    
+                        }else{
                             go_to('bsc_purchase_purchase_list');
                         }
                     }

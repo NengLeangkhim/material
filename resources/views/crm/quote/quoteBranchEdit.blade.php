@@ -85,7 +85,7 @@
                                                     <div class=" form-group">
                                                         <div class="row form-inline2">
                                                             <div class="col-md-8 col-sm-8 col-8">
-                                                                <input type="text" class="form-control txtPrdName_{{ $key }}"   name="product_name[]" id="product_name{{ $key }}"  value="{{ $val->stock_product->name_en }}" required placeholder="Product Name" readonly>
+                                                                <input type="text" class="form-control txtPrdName_{{ $key }}"   name="product_name[]" id="product_name{{ $key }}"  value="{{ $val->stock_product->name }}" required placeholder="Product Name" readonly>
                                                                 <input type="hidden" name="product[]" id="txtPrdId_{{ $key }}" value="{{ $val->stock_product->id }}" readonly>
                                                                 <span id="product_name{{ $key }}  Error" ><strong></strong></span>
                                                             </div>

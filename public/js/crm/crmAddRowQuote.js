@@ -136,7 +136,10 @@
                     // console.log(sumTotal);
                 }
             }
-            getSumTotal = sumTotal;
+            // getSumTotal = sumTotal;
+            var getTaxation =  (sumTotal * 0.1);  // add tax 10% of total product
+            getSumTotal = (sumTotal + getTaxation);
+            $("#getTaxation").text(getTaxation);
             $("#sumTotal").text(sumTotal);
             $("#grandTotal").text(getSumTotal);
         });
@@ -292,9 +295,11 @@
 
                 }
 
+                var getTaxation =  (sumTotal * 0.1);  // add tax 10% of total product
+                granTotal = (sumTotal + getTaxation);
+
+                $("#getTaxation").text(getTaxation);
                 $("#sumTotal").text(sumTotal);
-                getSumTotal = sumTotal;
-                granTotal = getSumTotal;
                 $("#grandTotal").text(granTotal);
 
 
@@ -544,6 +549,10 @@
             $("#totalDiscount").text(totalAfterDis2);
             grandTotal2 = sumTotal2 - totalAfterDis2;
 
+            var getTaxation =  (sumTotal2 * 0.1);  // add tax 10% of total product
+            grandTotal2 += getTaxation;
+            granTotal = (sumTotal + getTaxation);
+            $("#getTaxation").text(getTaxation);
             $("#grandTotal").text(grandTotal2);
 
         }
