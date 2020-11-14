@@ -30,8 +30,15 @@ class OrganizationController extends Controller
         if(perms::check_perm_module('CRM_0203')){ // Module  Organizations
             $organ=ModelCrmOrganization::CrmGetOrganize();
             $result =json_decode($organ,true);
-            // dd($result);
-            return view('crm.Organization.index',['organize'=>$result["data"]]);
+            if($result!=null){
+                // dd($result);
+                return view('crm.Organization.index',['organize'=>$result["data"]]);
+
+            }
+            else
+            {
+                return view('no_perms');
+            }
         }else{
             return view('no_perms');
         }

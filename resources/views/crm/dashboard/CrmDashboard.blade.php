@@ -329,38 +329,38 @@
                         },
                         {
                             id: 1,
-                            name_en: 'new',
-                            code: 'color:#007bff'
+                            name_en: 'pending',
+                            code: 'color:#ff3838'
                         },
                         {
                             id: 2,
-                            name_en: 'qualified',
-                            code: 'color:#ffc107'
+                            name_en: 'approved',
+                            code: 'color:#4cd137'
                         },
                         {
                             id: 3,
-                            name_en: 'surveying',
+                            name_en: 'negogiate',
                             code: 'color:#ffc107'
                         },
                         {
                             id: 4,
-                            name_en: 'surveyed',
-                            code: 'color:black'
+                            name_en: 'open',
+                            code: 'color:#00a8ff'
                         },
                         {
                             id: 5,
-                            name_en: 'proposition',
-                            code: 'color:#ffc107'
+                            name_en: 'new pending',
+                            code: 'color:#e84118'
                         },
                         {
                             id: 6,
-                            name_en: '..',
+                            name_en: 'tset123',
                             code: 'color:#ffc107'
                         },
                         {
                             id: 7,
-                            name_en: 'junk',
-                            code: 'color:#28a745'
+                            name_en: '..',
+                            code: 'color:#9AECDB'
                         },
                     ]
                     $.each(data, function (index, value) {
@@ -423,7 +423,7 @@
                     var colors = [{
                             id: 0,
                             name_en: 'none',
-                            code: 'color:#007bff'
+                            code: 'color:#1dd1a1'
                         }
                     ]
                     $.each(data, function (index, value) {
@@ -487,8 +487,8 @@
                     var colors = [{
                             id: 0,
                             name_en: 'none',
-                            code: 'color:#007bff'
-                        }
+                            code: 'color:#25CCF7'
+                        },
                     ]
                     $.each(data, function (index, value) {
                         result.push([value.create_date, value.total, colors[0].code])
