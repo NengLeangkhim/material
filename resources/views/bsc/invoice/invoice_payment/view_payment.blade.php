@@ -33,11 +33,31 @@
                                     <th>Due Date</th>
                                     <th>Paid</th>
                                     <th>Due</th>
+                                    <th>Status</th>
                                     <th>Detail</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($invoices as $invoice)
+                                    @php
+                                        $amount_paid = 0;
+                                        $due_amount = 0;
+                                        $status = '';
+
+                                        if($invoice->amount_paid == null && $invoice->due_amount == null){
+                                            $amount_paid = 0;
+                                            $due_amount = $invoice->grand_total;
+                                            $status = 'Waiting Payment';
+                                        }else if ($invoice->due_amount == 0) {
+                                            $amount_paid = $invoice->amount_paid;
+                                            $due_amount = $invoice->due_amount;
+                                            $status = 'Paid';
+                                        }else{
+                                            $amount_paid = $invoice->amount_paid;
+                                            $due_amount = $invoice->due_amount;
+                                            $status = 'Waiting Payment';
+                                        }
+                                    @endphp
                                         <tr>
                                             <td>{{ $invoice->invoice_number }}</td>
                                             <td>{{ $invoice->reference }}</td>
@@ -46,6 +66,7 @@
                                             <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
                                             <td>{{ $invoice->amount_paid }}</td>
                                             <td>{{ $invoice->due_amount }}</td>
+                                            <td>{{ $status }}</td>
                                             <td style="text-align-last: center">
                                                 <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view_detail/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>
                                             </td>

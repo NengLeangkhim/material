@@ -180,10 +180,15 @@
                                             </div>
                                         @endforeach
 
+                                        @php
+                                            $display = "";
+                                            if ($due_amount == null){
+                                                $display = "display: none";
+                                            }
+                                        @endphp
+                                        <hr class="line_in_tag_hr2" style="{{ $display }}">
 
-                                        <hr class="line_in_tag_hr2">
-
-                                        <div class="row">
+                                        <div class="row" style="{{ $display }}">
                                             <div class="col-sm-6 text_right">
                                                 <label for="">Amount Due : </label>
                                             </div>
@@ -191,7 +196,7 @@
                                                 <label for="" id="due_amount">{{ $due_amount==null ? $invoices->grand_total : $due_amount }}</label>
                                             </div>
                                         </div>
-                                        <hr class="line_in_tag_hr">
+                                        <hr class="line_in_tag_hr" style="{{ $display }}">
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +206,7 @@
                             <form action="">
                                 @csrf
                                 <div class="card-body">
-                                    <strong><h4 for="" style="text-align: center">Receive a Payment</h4><strong><br/>
+                                    <h4><label for="">Receive a Payment</label></h4>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -234,7 +239,15 @@
                                                     <select class="form-control select2 input_required" name="paid_to" id="paid_to">
                                                         <option value="" selected hidden disabled>select item</option>
                                                         @foreach ($ch_accounts as $ch_account)
-                                                            <option value="{{ $ch_account->id }}">{{ $ch_account->name_en }}</option>
+                                                            <option value="" disabled>{{ $ch_account->bsc_account_type_name }}</option>
+                                                            @php
+                                                                $paid_from_to=$ch_account->paid_from_to;
+                                                            @endphp
+                                                            @if ($paid_from_to !=null)
+                                                                @foreach ($paid_from_to as $paid_to)
+                                                                    <option value="{{ $paid_to->id }}">&nbsp;&nbsp;&nbsp;{{ $paid_to->name_en }}</option>
+                                                                @endforeach
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                 </div>

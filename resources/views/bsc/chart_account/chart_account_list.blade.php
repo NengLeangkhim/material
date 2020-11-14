@@ -46,9 +46,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#revenue" role="tab" aria-controls="profile" aria-selected="false">Revenue</a>
                                 </li>
-                                {{-- <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#archive" role="tab" aria-controls="profile" aria-selected="false">Archive</a>
-                                </li> --}}
                             </ul><br/>
                             {{-- ======================= End Tab menu =================== --}}
                                 <div class="tab-content" id="myTabContent">
@@ -352,15 +349,6 @@
         "responsive": true,
         "autoWidth": false,
         });
-        // $('#example2').DataTable({
-        // "paging": true,
-        // "lengthChange": false,
-        // "searching": false,
-        // "ordering": true,
-        // "info": true,
-        // "autoWidth": false,
-        // "responsive": true,
-        // });
 
     });
     // Delete chart account
@@ -374,15 +362,15 @@
         var ld = $(this).attr("​value");
         go_to(ld);
     })
-    $('.edit').click(function(e)
-    {
-        var id = $(this).attr("​value");
-        go_to(id);
-    });
-    $('.detail').click(function(e)
-    {
-        var id = $(this).attr("​value");
-        go_to(id);
-    });
+    // $('.edit').click(function(e)
+    // {
+    //     var id = $(this).attr("​value");
+    //     go_to(id);
+    // });
+    // $('.detail').click(function(e)
+    // {
+    //     var id = $(this).attr("​value");
+    //     go_to(id);
+    // });
     </script>
 

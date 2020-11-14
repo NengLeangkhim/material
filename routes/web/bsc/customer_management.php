@@ -7,7 +7,6 @@ use PhpParser\Node\Stmt\TryCatch;
     // Customer
         Route::get('bsc_customer','bsc\CustomerController@customer');
         Route::get('bsc_customer_form','bsc\CustomerController@customer_form');
-        Route::get('bsc_chart_account_list_edit/{id}','bsc\CustomerController@customer_edit');
         Route::post('bsc_customer_insert','bsc\CustomerController@customer_insert');
         Route::post('bsc_customer_onchange','bsc\CustomerController@get_customer_single');
     // Customer Branch
