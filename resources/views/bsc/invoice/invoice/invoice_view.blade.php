@@ -104,10 +104,12 @@
                         <table  class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Customer Branch Name</th>
+                                    <th>Customer Branch</th>
                                     <th>Item</th>
                                     <th>Description</th>
                                     <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                    <th>Dsicount</th>
                                     <th>Account</th>
                                     <th>Tax Rate</th>
                                     <th>Amount</th>
@@ -121,9 +123,11 @@
                                             <td>{{ $invoice_detail->product_name }}</td>
                                             <td>{{ $invoice_detail->description }}</td>
                                             <td>{{ $invoice_detail->qty }}</td>
+                                            <td>{{ $invoice_detail->unit_price }}</td>
+                                            <td>{{ $invoice_detail->discount }}</td>
                                             <td>{{ $invoice_detail->chart_account_name }}</td>
                                             <td>{{ $invoice_detail->tax }}</td>
-                                            <td>{{ $invoice_detail->amount }}</td>
+                                            <td class="item_amount">{{ $invoice_detail->amount }}</td>
                                         </tr>
                                     @endforeach
                                 @endif
@@ -140,7 +144,7 @@
                                                 <label for="">Total : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
-                                                <label for="">{{ $invoices->total }}</label>
+                                                <label for="" id="txtTotal">0</label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -148,7 +152,7 @@
                                                 <label for="">Vat Total : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
-                                                <label for="">{{ $invoices->vat_total }}</label>
+                                                <label for="" id="txtVatTotal">0</label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -156,7 +160,7 @@
                                                 <label for="">Grand Total : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
-                                                <label for="">{{ $invoices->grand_total }}</label>
+                                                <label for="" id="txtGrandTotal">0</label>
                                             </div>
                                         </div>
                                         <hr class="line_in_tag_hr">
@@ -331,6 +335,10 @@ $('.detail').click(function(e)
     $('.select2').select2();
 
     $(document).ready(function(){
+        //show total & grand total
+        showTotal();
+        showGrandTotal();
+
         $("#amount_paid").on("keyup", function()
         {
             let amount_paid=parseFloat($('#amount_paid').val());
@@ -406,4 +414,23 @@ $('.detail').click(function(e)
         var x = event.charCode || event.keyCode;
         if (isNaN(String.fromCharCode(e.which)) && x!=46 || x===32 || x===13 || (x===46 && event.currentTarget.innerText.includes('.'))) e.preventDefault();
     });
+
+    // End Calculate Grand Total
+    function showTotal(){
+        let total_amount = 0;
+        $('.item_amount').each(function(e){
+            if(!isNaN(parseFloat($(this).text()))){
+                total_amount += parseFloat($(this).text());
+            }
+        });
+        document.getElementById('txtTotal').innerHTML=total_amount.toFixed(2);
+    }
+
+    // Calculate Grand Total
+    function showGrandTotal(){
+        let total = parseFloat($('#txtTotal').text());
+        let totalvat = parseFloat($('#txtVatTotal').text());
+        let grandTotal = total + totalvat;
+        document.getElementById('txtGrandTotal').innerHTML=grandTotal.toFixed(2);
+    }
 </script>
