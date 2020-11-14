@@ -50,7 +50,7 @@
       <!-- /.card -->
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 {{-- Lead detail --}}
                 <div class="card">
                     <div class="card-header">
@@ -124,7 +124,7 @@
                 </div>
                     {{-- end address detail --}}
             </div>
-            <div class="col-md-4">
+            {{-- <div class="col-md-4">
                 <div class="card card-secondary">
                     <div class="card-header">
                       <h3 class="card-title">Update</h3>
@@ -180,7 +180,7 @@
                           <!-- /.card-body -->
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     <!-- ./col -->
