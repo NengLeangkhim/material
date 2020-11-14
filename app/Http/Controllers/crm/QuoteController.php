@@ -389,7 +389,7 @@ class QuoteController extends Controller
             $response = json_decode(Route::dispatch($request)->getContent());
 
             // dump($response);
-            if($response->udpate=='success'){
+            if($response->update=='success'){
                 return response()->json(['success'=>$response]);
             }else{
                 return response()->json(['error'=>$response]);
@@ -474,7 +474,7 @@ class QuoteController extends Controller
             $request = Request::create('/api/quotebranch', 'PUT');
             $response = json_decode(Route::dispatch($request)->getContent());
 
-            if($response->udpate == 'success'){
+            if($response->update == 'success'){
                 return response()->json(['success'=>$response]);
             }else{
                 return response()->json(['error'=>$response]);

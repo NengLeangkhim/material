@@ -1062,6 +1062,17 @@ function Crm_delete(id,route,goto,alert) {
                         if($('tbody tr').hasClass('selected') == true){
                             var branch_id = $('.selected').attr("id");
 
+                            // console.log('branchid='+branch_id);
+                            if(typeof(branch_id) == 'undefined'){
+                                $("#getSelectRow").notify(
+                                    "No data available in table!",
+                                    "info",
+                                    {
+                                    position:"right",
+                                    }
+                                );
+                                return 0;
+                            }
                             //check if row content of branch already add
                             if(typeof($('#lead_branch'+branch_id+'').val()) != 'undefined'){
                                     $("#getSelectRow").notify(
@@ -1137,6 +1148,7 @@ function Crm_delete(id,route,goto,alert) {
     //function to add qoute data to database
     $(document).on('click','#btnQuoteSave',function(){
 
+
           $("#frm_addQuote input").removeClass("is-invalid");//remove all error message
           $("#frm_addQuote select").removeClass("is-invalid");//remove all error message
           $("#frm_addQuote textarea").removeClass("is-invalid");//remove all error message
@@ -1152,7 +1164,7 @@ function Crm_delete(id,route,goto,alert) {
 
               success:function(data)
               {
-
+                    // if(!hrms_validation('frm_addQuote')){return;}
                   if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
                         sweetalert('success','Data has been saved !');
                         setTimeout(function(){
@@ -1294,7 +1306,7 @@ function Crm_delete(id,route,goto,alert) {
                             if(num1 == 0){
                                 sweetalert('warning', value);
                             }
-                            console.log('key='+key+'--value='+value);
+                            // console.log('key='+key+'--value='+value);
                             num1 += 1;
                             $("#" + key).addClass("is-invalid"); //give read border to input field
                             $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
