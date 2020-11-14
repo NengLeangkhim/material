@@ -49,7 +49,7 @@
         <!-- /.card -->
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-12">
 
                     {{-- card use for Quote detail --}}
                     <div class="card">
@@ -58,14 +58,15 @@
                             <dl class="row">
                                 <dt class="col-sm-4 dt" >Subject</dt>
                                     <dd class="col-sm-8 dd" >
-                                        <input type="text" class="form-control" name="subject" value="{{ $quoteDetail->data->subject }}" placeholder="subject">
+                                        <input type="text" class="form-control" name="subject" id="subject" value="{{ $quoteDetail->data->subject }}" placeholder="subject">
+                                        <span id="subjectError" ><strong></strong></span>
                                         <input type="hidden" name="quote_id"  id="quote_id" value="{{ $quoteDetail->data->id }}" readonly>
                                         <input type="hidden" name="crm_lead_id" value="{{ $quoteDetail->data->crm_lead->id }}" readonly>
 
                                     </dd>
                                 <dt class="col-sm-4 dt">Assign To</dt>
                                     <dd class="col-sm-8 dd">
-                                        <select class="form-control select2"  name="assign_to" >
+                                        <select class="form-control select2"  name="assign_to" id="assign_to" >
                                             <option value="{{ $quoteDetail->data->assign_to->id }}">
                                                 {{ $quoteDetail->data->assign_to->first_name_en.' '.$quoteDetail->data->assign_to->last_name_en }}
                                             </option>
@@ -75,6 +76,7 @@
                                                 </option>
                                             @endforeach
                                         </select>
+                                        <span id="assign_toError" ><strong></strong></span>
                                     </dd>
                                 <dt class="col-sm-4 dt">Quote Status</dt>
                                     <dd class="col-sm-8 dd">
@@ -95,14 +97,17 @@
                                     </dd>
                                 <dt class="col-sm-4 dt">Due Date</dt>
                                     <dd class="col-sm-8 dd">
-                                        <input type="text" name="due_date" class="form-control" value="{{ $quoteDetail->data->due_date }}" >
+                                        <input type="text" name="due_date" id="due_date" class="form-control" value="{{ $quoteDetail->data->due_date }}" placeholder="Due Date" >
+                                        <span id="due_dateError" ><strong></strong></span>
                                     </dd>
                                 <dt class="col-sm-4 dt">Comment</dt>
                                     <dd class="col-sm-8 dd">
                                         <?php
                                             $num2 = count($quoteDetail->data->status_quote);
                                         ?>
-                                        <input type="text" name="comment" class="form-control" value="{{ $quoteDetail->data->status_quote[$num2-1]->comment }}" placeholder="comment">
+                                        <input type="text" name="comment" id="comment" class="form-control" value="{{ $quoteDetail->data->status_quote[$num2-1]->comment }}" placeholder="comment">
+                                        <span id="commentError" ><strong></strong></span>
+
                                     </dd>
 
                                 <dt class="col-sm-12 ">
@@ -119,7 +124,7 @@
 
                 </div>
 
-                <div class="col-md-3">
+                {{-- <div class="col-md-3">
                     <div class="card card-secondary">
                             <div class="card-header">
                                 <h3 class="card-title">More</h3>
@@ -145,7 +150,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
+
+
             </div>
         </div>
 

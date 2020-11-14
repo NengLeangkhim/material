@@ -36,13 +36,8 @@
                    <div class="row">
 
                         <div class="col-md-6 col-sm-6 " align="right">
-
-                            <div class="pr-2">
-                                <button onclick='PreviewQuote({{$listQuoteDetail->data->id}})' type="button" class="btn btn-md btn-info" >Preview</button>
-                            </div>
-                            <div class="pr-2">
-                                <button type="button" class="btn btn-md btn-success" >PDF</button>
-                            </div>
+                                <button onclick='PreviewQuote({{$listQuoteDetail->data->id}})' type="button" class="btn btn-md btn-info" >
+                                    Preview</button>
                         </div>
                         <div class="col-4" align="right">
                             <button type="button" ​value="" class="btn btn-primary btn-block btn-md ">Convert To BSC</button>
@@ -57,7 +52,7 @@
       <!-- /.card -->
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-12">
 
                 {{-- card use for Quote detail --}}
                 <div class="card">
@@ -311,7 +306,8 @@
 
 
             </div>
-            <div class="col-md-3">
+
+            {{-- <div class="col-md-3">
                 <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">More</h3>
@@ -337,7 +333,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
+
         </div>
     </div>
     <!-- ./col -->
