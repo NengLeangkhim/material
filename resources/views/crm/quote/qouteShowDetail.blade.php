@@ -21,7 +21,7 @@
         <div class="card card-default color-palette-box card-header">
             <div class="col-12" >
               <div class="row">
-                <div class="col-6">
+                <div class="col-8">
                     <div class="row">
                             {{-- <div class="> --}}
                             <h3 class="card-title"​>
@@ -31,16 +31,16 @@
                         {{-- </div> --}}
                     </div>
                 </div>
-                <div class="col-6" >
+                <div class="col-4" >
 
                    <div class="row">
 
-                        <div class="col-md-12 col-sm-12 " align="right">
-                                <button onclick='PreviewQuote({{$listQuoteDetail->data->id}})' type="button" class="btn btn-md btn-info" >
+                        <div class="col-6 " >
+                                <button onclick='PreviewQuote({{$listQuoteDetail->data->id}})' type="button" class="btn btn-md btn-info form-control" >
                                     Preview</button>
                         </div>
 
-                        <div class="col-4" align="right">
+                        <div class="col-6">
                             <?php $num = count($listQuoteDetail->data->quote_stage); ?>
                             @if( $num > 0)
 

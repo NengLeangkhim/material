@@ -53,11 +53,11 @@
                                                                     <td>{{ $val['quote_number'] }}</td>
                                                                     <td>{{ $val['quote_create_by'] }}</td>
                                                                     <td>{{ $val['quote_stage']->name_en }}</td>
-                                                                    <td>
+                                                                    <td style="text-align: center">
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                                <button type="button" class="btn btn-sm btn-success"  onclick="goto_Action('/quote/edit/branch','{{ $val['quote_id'] }}', '{{ $val['quote_branch_id'] }}');">
-                                                                                    Edit
+                                                                                <button type="button" class="btn  btn-block btn-sm btn-success"  onclick="goto_Action('/quote/edit/branch','{{ $val['quote_id'] }}', '{{ $val['quote_branch_id'] }}');">
+                                                                                    <i class="fas fa-wrench"></i>
                                                                                 </button>
                                                                             </div>
 
