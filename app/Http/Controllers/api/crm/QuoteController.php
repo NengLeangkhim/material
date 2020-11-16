@@ -11,6 +11,7 @@ use App\Http\Resources\QuoteBranchResource;
 use App\Http\Resources\QuoteBranchDetailResource;
 use App\model\api\crm\ModelCrmQuoteStatusType as QuoteStatusType;
 use App\Http\Resources\StockResource;
+use App\Http\Controllers\perms;
 
 use DB;
 Use Exception;
@@ -24,11 +25,32 @@ class QuoteController extends Controller
      */
     public function index()
     {
-        $quote = Quote::orderBy('id','asc')
-        ->where('status','t')
-        ->where('is_deleted','f')
-        ->get();
-        return QuoteResource::Collection($quote);
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+        if(perms::check_perm_module_api('CRM_020602',$userid)){ // top managment
+            $quote = Quote::orderBy('id','asc')
+                ->where('status','t')
+                ->where('is_deleted','f')
+                ->get();
+                return QuoteResource::Collection($quote);       
+            // dd("top");  
+        }
+        else if (perms::check_perm_module_api('CRM_020603',$userid)) { // fro staff (Model and Leadlist by user)
+            $quote = Quote::orderBy('id','asc')
+            ->where('status','t')
+            ->where('is_deleted','f')
+            ->where('assign_to',$userid)
+            ->get();
+            return QuoteResource::Collection($quote);    
+            // dd("staff");
+        
+        }
+        else
+        {
+            return view('no_perms');
+        }
     }
 
     public function getquotebranch($qid){
@@ -171,7 +193,7 @@ class QuoteController extends Controller
     }
 
     public function getStatus(){
-        $status = QuoteStatusType::get()->Where('is_deleted', false);
+        $status = QuoteStatusType::get()->where('is_deleted', false);
 
         return json_encode($status);
     }

@@ -32,12 +32,15 @@ class PreviewQuoteController extends Controller
 
         $mpdf = new \Mpdf\Mpdf($config);
 
-
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+         
         //request api
-        // $token = $_SESSION['token'];
+        $token = $_SESSION['token'];
         $request = Request::create('/api/quote/'.$recordId.'', 'GET');
         $request->headers->set('Accept', 'application/json');
-        // $request->headers->set('Authorization', 'Bearer '.$token);
+        $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         $data = json_decode($res->getContent());
         $quote = $data->data;
