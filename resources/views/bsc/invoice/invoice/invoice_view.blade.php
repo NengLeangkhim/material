@@ -367,15 +367,21 @@ $('.detail').click(function(e)
                 if($(this).val()=="" || $(this).val()==null){ $(this).css("border-color","red"); }
             });
             sweetalert('error', 'Please input or select field * required');
+            return false;
         }else{
             if(amount_paid > due_amount){
                 $('#amount_paid').css('border-color', 'red');
                 sweetalert('error','Amount Paid input is bigger than Due Amount or Grand Total');
+                return false;
             }else if(amount_paid == 0){
                 sweetalert('error','Amount Paid can not input Zero');
+                return false;
+            }else if(amount_paid < 0){
+                sweetalert('error','Amount Paid must input bigger than Zero');
+                return false;
             }else{
+
                 let due_amounts =parseFloat(due_amount - amount_paid).toFixed(4);
-                // alert(due_amounts);exit;
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
                     type:"POST",
@@ -401,7 +407,7 @@ $('.detail').click(function(e)
                             if(data.payment == "amount_paid_bigger_then_due"){
                                 sweetalert('error','Amount Paid input is bigger than Due Amount or Grand Total');
                             }
-                            alert("fail to payment");
+                            sweetalert('error','Invoice insert is fail!');
                         }
                     }
                 });
