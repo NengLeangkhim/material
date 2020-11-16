@@ -4,7 +4,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1><i class="fas fa-code-branch"></i> Branch </h1>
+                            <h1><i class="fas fa-code-branch"></i> Branchs </h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -76,7 +76,7 @@
                                                                 <div class="row-12 form-inline">
                                                                     <div class="col-md-6">
                                                                         <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')" title="Detail Branch">
-                                                                            <i class="fas fa-info-circle"></i>
+                                                                            <i class="far fa-eye"></i>
                                                                         </a>      
                                                                     </div>
                                                                     <div class="col-md-6 ">
@@ -128,7 +128,7 @@
                                                                 <div class="row-12 form-inline">
                                                                     <div class="col-md-6">
                                                                         <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')" title="Detail Branch">
-                                                                            <i class="fas fa-info-circle"></i>
+                                                                            <i class="far fa-eye"></i>
                                                                         </a>       
                                                                     </div>
                                                                     <div class="col-md-6 ">

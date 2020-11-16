@@ -39,8 +39,14 @@
                 </div>
                 <div class="col-3" >
                    <div class="row">
-                        <div class="col-12 " align="right"><button type="button" ​value="/organizations/edit/{{$organize["branch_id"]}}" class="btn btn-primary btn-block btn-md CrmOrganizationEdit">Edit</button></div>
-                        {{-- <div class="col-6 " align="left"><button type="button"  class="btn btn-success btn-md">Convert</button></div> --}}
+                        <div class="col-12 ">
+                           <div class="row">
+                                <div class="col-6"></div>
+                                <div class="col-6">
+                                    <button type="button" ​value="/organizations/edit/{{$organize["branch_id"]}}" class="btn btn-primary btn-block btn-md CrmOrganizationEdit">Edit</button>
+                                </div>
+                           </div>
+                        </div>
                    </div>
                 </div>
               </div>

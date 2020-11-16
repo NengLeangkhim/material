@@ -4,7 +4,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1><span><i class="fas fa-sitemap"></i></span> Quote List</h1>
+                            <h1><span><i class="fas fa-file-invoice-dollar"></i></span> Quotes</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -91,13 +91,12 @@
                                                                     <div class="row-12 form-inline">
                                                                         <div class="col-md-4">
                                                                             <a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action('/quote/detail', '{{ $val2->id }}')"  >
-                                                                                {{-- <i class="fas fa-info"> </i>  --}}
-                                                                                View
+                                                                                <i class="far fa-eye"></i>
                                                                             </a>
                                                                         </div>
                                                                         <div class="col-md-4">
                                                                             <a href="#" class="btn btn-success btn-sm" onclick="goto_Action('/quote/leadBranch', '{{ $val2->id }}')">
-                                                                                Edit
+                                                                                <i class="fas fa-wrench"></i>
                                                                             </a>
                                                                         </div>
                                                                         <div class="col-md-4 ">
