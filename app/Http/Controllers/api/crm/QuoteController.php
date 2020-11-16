@@ -194,7 +194,7 @@ class QuoteController extends Controller
 
     public function getStatus(){
         $status = QuoteStatusType::get()->where('is_deleted', false);
-
+    
         return json_encode($status);
     }
 

@@ -33,7 +33,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 // get all quotes
 
 
-  Route::get('/quote/status','api\crm\QuoteController@getStatus');
+Route::get('/quote/status','api\crm\QuoteController@getStatus');
 
 Route::get('/quotebranch/{qid}','api\crm\QuoteController@getquotebranch');
 
