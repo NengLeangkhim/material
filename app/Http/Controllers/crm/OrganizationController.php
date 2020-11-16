@@ -161,7 +161,8 @@ class OrganizationController extends Controller
         }
     }
     public function EditOrganization($id){
-        $contact = ModelCrmOrganization::CrmGetContact();
+        if(perms::check_perm_module('CRM_02030102')){ //Module detail
+            $contact = ModelCrmOrganization::CrmGetContact();
         $lead_source=ModelCrmLead::CrmGetLeadSource();
         $lead_status=ModelCrmLead::CrmGetLeadStatus();
         $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
@@ -170,7 +171,7 @@ class OrganizationController extends Controller
 
         $organ=ModelCrmOrganization::CrmGetOrganizeById($id);
         $result =json_decode($organ,true);
-
+        // dd($result);
         return view('crm.Organization.EditOrganization',[
             'contact'=>$contact,
             'lead_source'=>$lead_source,
@@ -180,38 +181,43 @@ class OrganizationController extends Controller
             'organize'=>$result["data"][0],
             'province'=>$province
             ]);
+        }
+        else{
+            return view('no_perms');
+        }
+        
     }
     public function UpdateOrganization(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
             }
             $validator = \Validator::make($request->all(), [
-                'contact' =>  [  'required',
+                'contact_id' =>  [  'required',
                                     ],
                 'company_en' =>  [  'required'
                                         ],
                 'company_kh' =>  [  'required'
                                     ],
-                'primary_email' =>  [  'required',
-                                    Rule::unique('crm_lead','email')
-                                    ->where(function ($query) use ($request) {
-                                    return $query->where('is_deleted', 'f');})
-                                        ],
-                'primary_phone' =>  [  'required',
-                                    Rule::unique('crm_lead','phone')
-                                    ->where(function ($query) use ($request) {
-                                    return $query->where('is_deleted', 'f');})
-                                        ],
-                'customer_type' =>  [  'required'
-                                        ],
+                // 'primary_email' =>  [  'required',
+                //                     Rule::unique('crm_lead','email')
+                //                     ->where(function ($query) use ($request) {
+                //                     return $query->where('is_deleted', 'f');})
+                //                         ],
+                // 'primary_phone' =>  [  'required',
+                //                     Rule::unique('crm_lead','phone')
+                //                     ->where(function ($query) use ($request) {
+                //                     return $query->where('is_deleted', 'f');})
+                //                         ],
+                // 'customer_type' =>  [  'required'
+                //                         ],
                 'lead_source' =>  [  'required'
                                         ],
                 'lead_industry' =>  [  'required'
                                         ],
-                'assigendTo' =>  [  'required'
+                'assig_to_id' =>  [  'required'
                                         ],
-                'service' =>  [  'required'
-                                        ],
+                // 'service' =>  [  'required'
+                //                         ],
                 'home_en' => [ 'required'
                                     ],
                 'street_en' => [ 'required'
@@ -234,16 +240,16 @@ class OrganizationController extends Controller
                                     ],
             ],
             [
-                'contact.required' => 'This Field is require !!',   //massage validator
+                'contact_id.required' => 'This Field is require !!',   //massage validator
                 'company_en.required' => 'This Field is require !!',   //massage validator
                 'company_kh.required' => 'This Field is require !!',   //massage validator
-                'primary_email.required' => 'This Field is require !!',   //massage validator
-                'primary_phone.required' => 'This Field is require !!',   //massage validator
+                // 'primary_email.required' => 'This Field is require !!',   //massage validator
+                // 'primary_phone.required' => 'This Field is require !!',   //massage validator
                 'branch.required' => 'This Field is require !!',   //massage validator
                 'lead_source.required' => 'This Field is require !!',   //massage validator
                 'lead_industry.required' => 'This Field is require !!',   //massage validator
-                'assig_to.required' => 'This Field is require !!',   //massage validator
-                'service.required' => 'This Field is require !!',   //massage validator
+                'assig_to_id.required' => 'This Field is require !!',   //massage validator
+                // 'service.required' => 'This Field is require !!',   //massage validator
                 // address detail
                 'home_en.required' => 'This Field is require !!',   //massage validator
                 'street_en.required' => 'This Field is require !!',   //massage validator
@@ -255,11 +261,11 @@ class OrganizationController extends Controller
                 'latlong.required' => 'This Field is require !!',   //massage validator
                 'address_type.required' => 'This Field is require !!',   //massage validator
                 'village.required' => 'This Field is require !!',   //massage validator
-                'primary_email.unique' => 'The Email is Already Exist !!',   //massage validator
-                'primary_email.unique' => 'The Email is Already Exist !!',   //massage validator
-                'primary_email.email' => 'The Email is Wrong !!',   //massage validator
-                'primary_phone.unique' => 'The Phone is Already Exist !!',   //massage validator
-                'primary_phone.regex' => 'The Phone Number is Wrong !!',   //massage validator
+                // 'primary_email.unique' => 'The Email is Already Exist !!',   //massage validator
+                // 'primary_email.unique' => 'The Email is Already Exist !!',   //massage validator
+                // 'primary_email.email' => 'The Email is Wrong !!',   //massage validator
+                // 'primary_phone.unique' => 'The Phone is Already Exist !!',   //massage validator
+                // 'primary_phone.regex' => 'The Phone Number is Wrong !!',   //massage validator
                 ]
             );
         if ($validator->fails()) //check validator for fail
@@ -269,11 +275,15 @@ class OrganizationController extends Controller
             ));
         }else{
             if(perms::check_perm_module('CRM_020504')){//module code list
-                // $create_contact = Request::create('/api/contact','POST');
-                // $response = json_decode(Route::dispatch($create_contact)->getContent());
-                // if($response->insert=='success'){
-                //     return response()->json(['success'=>'Record is successfully added']);
-                // }
+                $token = $_SESSION['token'];
+                $create_contact = Request::create('/api/organize','PUT',$request->all());
+                $create_contact->headers->set('Accept', 'application/json');
+                $create_contact->headers->set('Authorization', 'Bearer '.$token);
+                $res = app()->handle($create_contact);
+                $response = json_decode($res->getContent());
+                if($response->update==='success'){
+                    return response()->json(['success'=>'Record is successfully added']);
+                }
             }else{
                 return view('no_perms');
             }

@@ -50,7 +50,7 @@
       <!-- /.card -->
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 {{-- Lead detail --}}
                 <div class="card">
                     <div class="card-header">
@@ -113,10 +113,9 @@
                             <dd class="col-sm-8 dd">{{$organize["commune"]}}</dd>
                             <dt class="col-sm-4 dt">Village</dt>
                             <dd class="col-sm-8 dd">{{$organize["village"]}}</dd>
-                            <dt class="col-sm-4">LatLg</dt>
-                            <dd class="col-sm-8">
-                                <input type="text" class="form-control"  name='latlng' id="latlong" placeholder="11.123456, 104.123456 Example" >
-                            </dd>
+                            <dt class="col-sm-4 dt" >LatLg</dt>
+                            <dd class="col-sm-8 dd">{{$organize["latlg"]}} </dd>
+                            <input type="text" class="form-control"  hidden name='latlng' id="latlong" value="{{$organize["latlg"]}}" >
                         </dl>
                     </div>
                     <div class="card-body">
@@ -125,7 +124,7 @@
                 </div>
                     {{-- end address detail --}}
             </div>
-            <div class="col-md-4">
+            {{-- <div class="col-md-4">
                 <div class="card card-secondary">
                     <div class="card-header">
                       <h3 class="card-title">Update</h3>
@@ -181,7 +180,7 @@
                           <!-- /.card-body -->
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     <!-- ./col -->
@@ -196,10 +195,17 @@
 
         function initMap() {
 
-            var haightAshbury = {
-                lat: 11.609033,
-                lng: 104.789047,
-            };
+            var latlong =document.getElementById('latlong').value;
+                    latlong.replace('/[\(\)]//g','');
+                    var coords = latlong.split(',');
+                    var lat = parseFloat(coords[0]);
+                    var long = parseFloat(coords[1]);
+
+                    var haightAshbury = {
+                        lat:lat,
+                        lng:long 
+                    };
+
 
 
             var get_latlng = 0;

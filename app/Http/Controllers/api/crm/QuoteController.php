@@ -214,7 +214,7 @@ class QuoteController extends Controller
                     ));
             }
             DB::commit();
-            return json_encode(["udpate"=>"success","result"=>[]]);
+            return json_encode(["update"=>"success","result"=>[]]);
         }catch(Exception $e){
             DB::rollback();
             return json_encode(["update"=>"fail","result"=> $e->getMessage()]);
@@ -313,8 +313,6 @@ class QuoteController extends Controller
                         ));
                 }
             }
-
-
 
             DB::commit();
             return json_encode(["update"=>"success","result"=>[]]);
