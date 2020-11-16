@@ -152,7 +152,7 @@
                                                 <label for="">Vat Total : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
-                                                <label for="" id="txtVatTotal">0</label>
+                                                <label for="" id="txtVatTotal">0.0000</label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -354,9 +354,9 @@ $('.detail').click(function(e)
     function invoice_payment()
     {
 
-        let amount_paid=parseFloat($('#amount_paid').val());
-        let grand_total=parseFloat($('#grand_total').val());
-        let due_amount=parseFloat($('#due_amount').text());
+        let amount_paid=parseFloat($('#amount_paid').val()).toFixed(4);
+        let grand_total=parseFloat($('#grand_total').val()).toFixed(4);
+        let due_amount=parseFloat($('#due_amount').text()).toFixed(4);
 
         let num_miss = 0;
         $(".input_required").each(function(){
@@ -374,7 +374,7 @@ $('.detail').click(function(e)
             }else if(amount_paid == 0){
                 sweetalert('error','Amount Paid can not input Zero');
             }else{
-                let due_amounts = (due_amount - amount_paid).toFixed(2);
+                let due_amounts =parseFloat(due_amount - amount_paid).toFixed(4);
                 // alert(due_amounts);exit;
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
@@ -383,7 +383,7 @@ $('.detail').click(function(e)
                     data:{
                         _token: CSRF_TOKEN,
                         due_amount      : due_amounts,
-                        old_due_amount  : parseFloat($('#due_amount').text()),
+                        old_due_amount  : parseFloat($('#due_amount').text()).toFixed(4),
                         amount_paid     : amount_paid,
                         grand_total     : grand_total,
                         date_paid       : $('#date_paid').val(),
@@ -423,7 +423,7 @@ $('.detail').click(function(e)
                 total_amount += parseFloat($(this).text());
             }
         });
-        document.getElementById('txtTotal').innerHTML=total_amount.toFixed(2);
+        document.getElementById('txtTotal').innerHTML=total_amount.toFixed(4);
     }
 
     // Calculate Grand Total
@@ -431,6 +431,6 @@ $('.detail').click(function(e)
         let total = parseFloat($('#txtTotal').text());
         let totalvat = parseFloat($('#txtVatTotal').text());
         let grandTotal = total + totalvat;
-        document.getElementById('txtGrandTotal').innerHTML=grandTotal.toFixed(2);
+        document.getElementById('txtGrandTotal').innerHTML=grandTotal.toFixed(4);
     }
 </script>

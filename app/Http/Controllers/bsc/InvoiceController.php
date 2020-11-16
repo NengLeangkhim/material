@@ -155,6 +155,7 @@ class InvoiceController extends Controller
                     'reference'=>$reference,
                     'due_amount'=>$due_amount,
                 );
+                // dd($data);exit();
                 // add new
                 $request = Request::create('api/bsc_invoice_payments', 'POST',$data);
                 $request->headers->set('Accept', 'application/json');
@@ -253,7 +254,7 @@ class InvoiceController extends Controller
             $res = app()->handle($request);
             $ch_account = json_decode($res->getContent()); // convert to json object
             $ch_accounts=$ch_account->data;
-
+            // dd($ch_accounts);exit;
             //get customer
             $request = Request::create('/api/bsc_show_customer', 'GET');
             $request->headers->set('Accept', 'application/json');
