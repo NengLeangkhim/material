@@ -38,6 +38,8 @@
                         <div class="col-6 " >
                                 <button onclick='PreviewQuote({{$listQuoteDetail->data->id}})' type="button" class="btn btn-md btn-info form-control" >
                                     Preview</button>
+                                <button onclick='DownloadQuote({{$listQuoteDetail->data->id}})' type="button" class="btn btn-md btn-info" >
+                                        Pdf</button>
                         </div>
 
                         <div class="col-6">
@@ -381,10 +383,14 @@
     <!-- ./col -->
     <script>
         function PreviewQuote(recordId) {
-            var url = "/api/preview-quote/" + recordId;
+            var url = "/api/preview-quote/I/" + recordId;
             var windowName = "Preview Quote";
             var windowSize = "width=650,height=750,scrollbars=yes";
             window.open(url, windowName, windowSize);
+        }
+        function DownloadQuote(recordId) {
+            var url = "/api/preview-quote/D/" + recordId;
+            window.open(url);
         }
     </script>
 

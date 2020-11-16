@@ -18,8 +18,10 @@ use App\model\crm\ModelCrmQuote as Q;
 
 class PreviewQuoteController extends Controller
 {
-    public function index($recordId){
-
+    public function index($mode,$recordId){
+        // if($mode != 'D' || $mode != 'I'){
+        //     return;
+        // }
         //report errors
         error_reporting(E_ALL);
         ini_set("display_errors", 1);
@@ -163,7 +165,7 @@ class PreviewQuoteController extends Controller
         $mpdf->WriteHTML($html);
         $filename = 'Quote-'.$no.'.pdf';
         // // $mpdf->Output($filename, 'D');//download
-        $mpdf->Output($filename, 'I');
+        $mpdf->Output($filename, $mode);
     }
     public function logosource(){
          $logo = '<table style="border:none;pedding:0;margin:0;width:100%">
