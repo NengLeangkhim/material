@@ -554,7 +554,6 @@
             granTotal = (sumTotal + getTaxation);
             $("#getTaxation").text(getTaxation);
             $("#grandTotal").text(grandTotal2);
-
         }
 
 

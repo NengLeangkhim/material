@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><span><i class="far fa-id-card" style="color:#1fa8e0; font-size: 35px; font-weight:bold;"></i></span> Lead Name:</h1>
+                <h1><span><i class="far fa-id-card" style=" font-size: 35px; font-weight:bold;"></i></span> Lead Name:</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -18,6 +18,15 @@
 </section>
 
 <section class="content">
+    <style>
+        .table td, .table th {
+            padding: 0.3rem !important;
+            border-top: none !important;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button{
+            padding: none ;
+        }
+    </style>
     <form action="" method="PUT" id="frmEditQuoteBranch">
         @csrf
         <div id="modal-list-quote">
@@ -30,7 +39,7 @@
                     <div class="col-6">
                         <div class="row">
                                 <h3 class="card-title"​>
-                                    <i class="fas fa-hotel" style="color:#1fa8e0; padding-right:15px; font-size:30px"></i>
+                                    <i class="fas fa-hotel" style="padding-right:15px; font-size:30px"></i>
                                     <label><span>Branch Name:</span> {{ $data['lead_branch_name']  }}</label>
                                 </h3>
                         </div>
@@ -202,6 +211,14 @@
                                                                     </div>
                                                                 </td>
                                                             </tr> -->
+                                                            <tr style="text-align: right">
+                                                                <td >
+                                                                    <span style="padding-right: 12px;">(+) Tax (10%) </span>
+                                                                </td>
+                                                                <td >
+                                                                    <div id="getTaxation"> 0.0 </div>
+                                                                </td>
+                                                            </tr>
 
                                                             <tr class="td-total-quote grandTotal" >
                                                                 <td  ><span style="padding-right: 12px;">Grand Total</span></td>
@@ -232,8 +249,6 @@
 
 
                 </div>
-
-
 
                 {{-- <div class="col-md-2 col-sm-12">
                     <div class="card card-secondary">

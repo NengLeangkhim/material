@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><span><i class="far fa-clipboard" style="color:#1fa8e0;"></i></span> <b>Quote Detail</b></h1>
+                <h1><span><i class="far fa-clipboard" style=""></i></span> <b>Quote Detail</b></h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -25,7 +25,7 @@
                     <div class="row">
                             {{-- <div class="> --}}
                             <h3 class="card-title"​>
-                                <i class="fas fa-hotel" style="color:#1fa8e0; padding-right:15px; font-size:30px"></i>
+                                <i class="fas fa-hotel" style=" padding-right:15px; font-size:30px"></i>
                                     {{$listQuoteDetail->data->subject}}
                             </h3>
                         {{-- </div> --}}
@@ -35,13 +35,22 @@
 
                    <div class="row">
 
-                        <div class="col-md-6 col-sm-6 " align="right">
+                        <div class="col-md-12 col-sm-12 " align="right">
                                 <button onclick='PreviewQuote({{$listQuoteDetail->data->id}})' type="button" class="btn btn-md btn-info" >
                                     Preview</button>
                         </div>
+
                         <div class="col-4" align="right">
-                            <button type="button" ​value="" class="btn btn-primary btn-block btn-md ">Convert To BSC</button>
+                            <?php $num = count($listQuoteDetail->data->quote_stage); ?>
+                            @if( $num > 0)
+
+                                    @if($listQuoteDetail->data->quote_stage[$num-1]->name_en == 'approved')
+                                        <button type="button" ​value="" class="btn btn-primary btn-block btn-md ">Convert To BSC</button>
+                                    @endif
+
+                            @endif
                         </div>
+
                    </div>
 
                 </div>
@@ -188,7 +197,7 @@
                                 </thead>
                                 <tbody>
                                     {{-- {{count($listQuoteDetail->data->crm_stock).'Data'}} --}}
-                                    @php $grandTotal = 0 @endphp
+                                    @php $sumTotal = 0 @endphp
                                     @foreach($listQuoteDetail->data->crm_stock as $k=>$val)
                                         {{-- {{$val->stock_product_id}} --}}
                                             <tr id="row'+i+'" data-id="'+i+'" class="tr-quote-row row-quote-item">
@@ -254,14 +263,15 @@
                                                         if($dis == "%"){
                                                             $val =  ($unitTotal * $val->discount) / 100;
                                                             $afterDis = ($unitTotal - $val);
-                                                            $grandTotal += $afterDis;
+                                                            $sumTotal += $afterDis;
                                                         }else{
 
                                                             $afterDis =  $unitTotal - $val->discount;
                                                             $val = $val->discount;
-                                                            $grandTotal += $afterDis;
+                                                            $sumTotal += $afterDis;
                                                         }
-                                                        $grandTotal;
+
+                                                        $sumTotal;
                                                     ?>
                                                     <div id="quote-sub-total_'+i+'" class="font-size-14 ">{{$unitTotal}}</div>
                                                     <div id="quote-sub-discount_'+i+'" class="font-size-14 pt-1">{{number_format($val, 0, '.', '')}}</div>
@@ -281,8 +291,39 @@
 
                         {{-- table row to show grand total item --}}
                         <dl class="row table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered font-size-14">
                                 <tbody>
+                                    <tr>
+                                        <td width="83%">
+                                            <div class="pull-right">
+                                                Sum Total
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="pull-right">
+                                                {{number_format($sumTotal, 2, '.', '')  }} ($)
+                                            </span>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td width="83%">
+                                            <div class="pull-right">
+                                                (+) Tax (10%)
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="pull-right">
+                                                <?php
+                                                    $Taxation = ($sumTotal * 0.1);
+                                                    $granTotal = ($sumTotal + $Taxation);
+                                                ?>
+                                                <div >{{number_format($Taxation, 2, '.', '')  }} ($)</div>
+                                            </span>
+                                        </td>
+
+                                    </tr>
+
                                     <tr>
                                         <td width="83%">
                                             <div class="pull-right">
@@ -291,7 +332,7 @@
                                         </td>
                                         <td>
                                             <span class="pull-right">
-                                                <b>{{number_format($grandTotal, 2, '.', '')  }}($)</b>
+                                                <b>{{number_format($granTotal, 2, '.', '')  }} ($)</b>
                                             </span>
                                         </td>
 
