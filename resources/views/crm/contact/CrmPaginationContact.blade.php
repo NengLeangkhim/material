@@ -17,7 +17,7 @@
                 </ul>
               </div>
               <div class="col-5 text-center">
-                <img src="../../dist/img/user8-128x128.jpg" alt="" class="img-circle img-fluid">
+                <img src="../../dist/img/user_contact.png" alt="" class="img-circle img-fluid" style="border: 3px solid black">
                 {{-- <i style="font-size:55px" class="fas fa-user-circle"></i> --}}
               </div>
             </div>

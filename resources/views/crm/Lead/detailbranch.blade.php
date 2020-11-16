@@ -9,12 +9,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><span><i class="fas fa-book-reader"></i></span> Detail Branch</h1>
+                <h1><span><i class="fas fa-code-branch"></i></span>Branch Detail</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('/lead')">Lead</a></li>
-                    <li class="breadcrumb-item active">Detail Branch</li>
+                    <li class="breadcrumb-item active">Branch Detail</li>
                 </ol>
             </div>
         </div>
@@ -30,7 +30,7 @@
                     <div class="row">
                         {{-- <div class="> --}}
                             <h3 class="card-title"​>
-                                <i class="far fa-id-card" style="padding-right:15px; font-size:35px"></i>
+                                {{-- <i class="far fa-id-card" style="padding-right:15px; font-size:35px"></i> --}}
                                     {{-- <h6 style="font-weight: bold; font-size: 20px">drgdS</h6>  --}}
                                   
                             </h3>
@@ -69,7 +69,7 @@
       <!-- /.card -->      
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 {{-- Lead detail --}}
                 <div class="card">
                     <div class="card-header">
@@ -267,7 +267,7 @@
                 </div>
                     {{-- end address detail --}}
             </div>
-            <div class="col-md-4">
+            {{-- <div class="col-md-4">
                 <div class="card card-secondary">
                     <div class="card-header">
                       <h3 class="card-title">Update</h3>        
@@ -323,7 +323,7 @@
                           <!-- /.card-body -->
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     <!-- ./col -->

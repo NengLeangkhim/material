@@ -33,7 +33,7 @@
                     <div class="row">
                         {{-- <div class="> --}}
                             <h3 class="card-title"​>
-                                <i class="far fa-id-card" style="padding-right:15px; font-size:35px"></i>
+                                {{-- <i class="far fa-id-card" style="padding-right:15px; font-size:35px"></i> --}}
                                     {{-- <h6 style="font-weight: bold; font-size: 20px">drgdS</h6>  --}}
                                     {{-- {{$name_en}} --}}
                             </h3>
