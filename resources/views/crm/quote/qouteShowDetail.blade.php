@@ -38,7 +38,7 @@
                         <div class="col-md-6 col-sm-6 " align="right">
 
                             <div class="pr-2">
-                                <button type="button" class="btn btn-md btn-info" >Preview</button>
+                                <button onclick='PreviewQuote({{$listQuoteDetail->data->id}})' type="button" class="btn btn-md btn-info" >Preview</button>
                             </div>
                             <div class="pr-2">
                                 <button type="button" class="btn btn-md btn-success" >PDF</button>
@@ -341,5 +341,14 @@
         </div>
     </div>
     <!-- ./col -->
+    <script>
+        function PreviewQuote(recordId) {
+            var url = "/api/preview-quote/" + recordId;
+            var windowName = "Preview Quote";
+            var windowSize = "width=650,height=750,scrollbars=yes";
+            window.open(url, windowName, windowSize);
+        }
+    </script>
+
 </section>
 

@@ -406,7 +406,7 @@ class PreviewQuoteController extends Controller
                                 <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: center; vertical-align: middle;">
                                                 <span style="font-size:11px;"> '.$sequence.' </span></td>
                                 <td align="left" style="font-family:verdana; border-bottom: 1px solid #e6e6ff;" valign="middle">
-                                                <span style="font-size:11px;"> '.$qd->stock_product->name_en.' </span><br />
+                                                <span style="font-size:11px;"> '.$qd->stock_product->name.' </span><br />
                                                 <span style="font-size:9px;"> '.$qd->stock_product->description.' </span>
                                         </td>
                                 <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: left;" valign="middle">
@@ -488,7 +488,7 @@ class PreviewQuoteController extends Controller
                                 <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: center; vertical-align: middle;">
                                                 <span style="font-size:11px;"> '.$sequence.' </span></td>
                                 <td align="left" style="font-family:verdana; border-bottom: 1px solid #e6e6ff;" valign="middle">
-                                                <span style="font-size:11px;"> '.$qd->stock_product->name_en.' </span><br />
+                                                <span style="font-size:11px;"> '.$qd->stock_product->name.' </span><br />
                                                 <span style="font-size:9px;"> '.$qd->stock_product->description.' </span>
                                         </td>
                                 <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: left;" valign="middle">
