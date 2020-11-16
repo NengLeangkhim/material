@@ -4,9 +4,8 @@ namespace App\model\api\crm;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ModelCrmQuoteBranchDetail extends Model
+class ModelCrmLeadBranchContact extends Model
 {
-    protected $table = 'crm_quote_branch_detail';
+    protected $table = 'crm_lead_branch_crm_lead_contact_rel';
     public $timestamps = false;
-
 }

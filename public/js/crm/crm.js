@@ -808,11 +808,18 @@ function Crm_delete(id,route,goto,alert) {
                 $.ajax({
                   url:route,
                   data:{id:id},
-                  type:"GET",
+                  type:"DELETE",
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
                   success:function(data){
-
+                        console.log(data);
+                        if(data.success){
+                            sweetalert('success','Delete sucesssed!');
+                        }else{
+                            sweetalert('error','Delete failed!');
+                        }
                     //   setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
-                    $.notify("Delete successed !", "success");
                   }
 
                  });
@@ -1257,6 +1264,8 @@ function Crm_delete(id,route,goto,alert) {
 
     //function click to submit update quote branch
     $(document).on('click','#btnUpdateQuoteBranch',function(){
+
+            var quoteId = $('#quote_id').val();
             $.ajax({
                 method: 'PUT',
                 url: '/quote/edit/branch/update',
@@ -1268,14 +1277,14 @@ function Crm_delete(id,route,goto,alert) {
                 success:function(data)
                 {
                     console.log(data);
-                    // if(data.success){
-                    //     sweetalert('success','Update successed!');
-                    //     setTimeout(function(){
-                    //         goto_Action('/quote/detail', quoteId);
-                    //     },2000);
-                    // }else{
-                    //     sweetalert('error','Update failed!');
-                    // }
+                    if(data.success){
+                        sweetalert('success','Update successed!');
+                        setTimeout(function(){
+                            goto_Action('/quote/detail', quoteId);
+                        },2000);
+                    }else{
+                        sweetalert('error','Update failed!');
+                    }
 
                 },
                 error: function(data) {
