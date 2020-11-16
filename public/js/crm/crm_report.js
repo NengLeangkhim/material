@@ -31,42 +31,45 @@ var reportLeadByStatus = () => {
                         {
                             id: 1,
                             name_en: 'new',
-                            code: 'color:#007bff'
+                            code: '#FFF3fe'
                         },
                         {
                             id: 2,
                             name_en: 'qualified',
-                            code: 'color:#ffc107'
+                            code: '#ffc107'
                         },
                         {
                             id: 3,
                             name_en: 'surveying',
-                            code: 'color:#ffc107'
+                            code: '#ffc107'
                         },
                         {
                             id: 4,
                             name_en: 'surveyed',
-                            code: 'color:black'
+                            code: 'black'
                         },
                         {
                             id: 5,
                             name_en: 'proposition',
-                            code: 'color:#ffc107'
+                            code: '#ffc107'
                         },
                         {
                             id: 6,
                             name_en: '..',
-                            code: 'color:#ffc107'
+                            code: '#ffc107'
                         },
                         {
                             id: 7,
                             name_en: 'junk',
-                            code: 'color:#28a745'
+                            code: '#28a745'
                         },
                     ]
+
+                    var myColors = [];
                     $.each(data, function (index, value) {
                         if(value.crm_lead_status_id != null){
                             result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
+                            myColors.push(colors[value.crm_lead_status_id].code)
                         }
                     })
                     var data_chart =google.visualization.arrayToDataTable(result);
@@ -80,9 +83,11 @@ var reportLeadByStatus = () => {
                     //     },
                     //     2
                     // ]);
+
                     var options = {
                         title: 'Lead Performance',
                         pieSliceText:'value',
+                        colors: myColors
                     };
 
                     var chart = new google.visualization.PieChart(document.getElementById('LeadChart'))
