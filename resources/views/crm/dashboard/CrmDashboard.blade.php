@@ -210,6 +210,8 @@
             if (response.success == true) {
                 var data = response.data
                 if(data.length < 1) {
+                  $('#LeadChart').empty()
+                    $('#LeadChart').append(`<h1 style="text-align:center">No Data</h1>`)
                     return
                 }
                 google.charts.load('current',{
@@ -309,6 +311,8 @@
             if (response.success == true) {
                 var data = response.data
                 if(data.length < 1) {
+                  $('#QuoteChart').empty()
+                    $('#QuoteChart').append(`<h1 style="text-align:center">No Data</h1>`)
                     return
                 }
                 google.charts.load('current', {
@@ -330,37 +334,42 @@
                         {
                             id: 1,
                             name_en: 'pending',
-                            code: 'color:#ff3838'
+                            code: 'color:#EA2027'
                         },
                         {
                             id: 2,
                             name_en: 'approved',
-                            code: 'color:#4cd137'
+                            code: 'color:#009432'
                         },
                         {
                             id: 3,
                             name_en: 'negogiate',
-                            code: 'color:#ffc107'
+                            code: 'color:#FFC312'
                         },
                         {
                             id: 4,
                             name_en: 'open',
-                            code: 'color:#00a8ff'
+                            code: 'color:#EE5A24'
                         },
                         {
                             id: 5,
-                            name_en: 'new pending',
-                            code: 'color:#e84118'
+                            name_en: 'installed',
+                            code: 'color:#12CBC4'
                         },
                         {
                             id: 6,
-                            name_en: 'tset123',
-                            code: 'color:#ffc107'
+                            name_en: 'installing',
+                            code: 'color:#006266'
                         },
                         {
-                            id: 7,
-                            name_en: '..',
-                            code: 'color:#9AECDB'
+                            id: 9,
+                            name_en: 'accepted',
+                            code: 'color:#fff200'
+                        },
+                        {
+                            id: 12,
+                            name_en: 'disapproved',
+                            code: 'color:#ff5252'
                         },
                     ]
                     $.each(data, function (index, value) {
@@ -407,6 +416,8 @@
             if (response.success == true) {
                 var data = response.data
                 if(data.length < 1) {
+                  $('#ContactChart').empty()
+                    $('#ContactChart').append(`<h1 style="text-align:center">No Data</h1>`)
                     return
                 }
                 google.charts.load('current', {
@@ -471,7 +482,7 @@
                 var data = response.data
                 if(data.length < 1) {
                     $('#OrgChart').empty()
-                    $('#OrgChart').append(`<p>No Data</p>`)
+                    $('#OrgChart').append(`<h1 style="text-align:center">No Data</h1>`)
                     return
                 }
                 google.charts.load('current', {
