@@ -75,9 +75,9 @@
                     <div class="form-group">
                         <div class="col-md-12" style="padding-right: 20px;">
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <div class="row">
                                         <div class="col-sm-6 text_right">
                                             <label for="">Total :</label>
@@ -113,6 +113,9 @@
                                             @php
                                                 $due_amount = $purchase_payment->due_amount;
 
+                                                $amount_paid = $purchase_payment->amount_paid;
+                                                $payment = number_format($amount_paid, 4, '.', '');
+
                                                 if($due_amount == 0){
                                                     $my_display="display : none";
                                                 }
@@ -122,7 +125,7 @@
                                                     <p for="">Payment :</p>
                                                 </div>
                                                 <div class="col-sm-6 text_right">
-                                                    <p for="" id="payment_amount">{{$purchase_payment->amount_paid}}</p>
+                                                    <p for="" id="payment_amount">{{$payment}}</p>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -151,7 +154,7 @@
                                         </div>
                                         <div class="col-sm-6 text_right">
                                             <h4>
-                                                <label for="" id="due_amount_payment">{{$due_amount == null ? $purchase->grand_total : $due_amount}}</label>
+                                                <label for="" id="due_amount_payment">{{$due_amount == null ? number_format($purchase->grand_total, 4, '.', '') : number_format($due_amount, 4, '.', '')}}</label>
                                             </h4>
                                         </div>
                                     </div>
@@ -271,6 +274,10 @@
             sweetalert('error', 'Paid Amount input is bigger than Due Amount');
         }else if(amount_paid == 0){
             sweetalert('error', 'Paid Amount can not input Zero');
+            return false;
+        }else if(amount_paid < 0){
+            sweetalert('error','Amount Paid can not smaller than Zero');
+            return false;
         }else{
             let num_miss = 0;
             $(".input_required").each(function(){
@@ -311,7 +318,7 @@
                             if(data.payment == "amount_paid_bigger_then_due"){
                                 sweetalert('error','Amount Paid input is bigger than Due Amount or Grand Total');
                             }
-                            alert("fail to payment");
+                            sweetalert('error','Purchase Insert is fail!!');
                         }
                     }
                 });

@@ -35,6 +35,13 @@
                                             </thead>
                                             <tbody>
                                                @foreach ($purchases as $purchase)
+                                                    @php
+                                                        $payment_amount = $purchase->amount_paid;
+                                                        $payment = number_format($payment_amount, 4, '.', '');
+
+                                                        $grand_total = $purchase->grand_total;
+                                                        $total = number_format($grand_total, 4, '.', '');
+                                                    @endphp
                                                     <tr>
                                                         <td>{{$purchase->supplier_name}}</td>
                                                         <td>{{$purchase->invoice_number}}</td>
@@ -42,8 +49,8 @@
                                                         <td>{{$purchase->due_date}}</td>
                                                         <td>{{$purchase->create_date}}</td>
                                                         <td>{{$purchase->reference}}</td>
-                                                        <td>{{$purchase->grand_total}}</td>
-                                                        <td>{{$purchase->amount_paid}}</td>
+                                                        <td>{{$total}}</td>
+                                                        <td>{{$payment}}</td>
                                                     </tr>
                                                @endforeach
                                             </tbody>
@@ -56,15 +63,15 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-md-10"></div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-9"></div>
+                                        <div class="col-md-3">
                                             <label for="">Total Paid : 
                                                 @php
                                                     $amount = 0;
                                                     foreach ($purchases as $item) {
                                                         $amount += $item->amount_paid;
                                                     }
-                                                    echo $amount;
+                                                    echo number_format($amount, 4, '.', '');
                                                 @endphp
                                             </label>
                                         </div>
