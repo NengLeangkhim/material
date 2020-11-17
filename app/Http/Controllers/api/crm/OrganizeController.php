@@ -17,13 +17,13 @@ class OrganizeController extends Controller
         $return=json_decode($return,true);
         $userid=$return["original"]['id'];
         // dd($userid);
-        if(perms::check_perm_module('CRM_020301')){ // for top managment (Organisations List)
+        if(perms::check_perm_module_api('CRM_020301',$userid)){ // for top managment (Organisations List)
             $organ = Organize::getOrganize();
             return json_encode(["data"=>$organ]);
             // dd("top");
           
         }
-        else if (perms::check_perm_module('CRM_020301')) { // for staff (Model  name Get Branch by user)
+        else if (perms::check_perm_module_api('CRM_020301',$userid)) { // for staff (Model  name Get Branch by user)
             $organ = Organize::getOrganizebyassigto($userid);
             return json_encode(["data"=>$organ]);
             // dd("staff");

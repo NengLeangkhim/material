@@ -245,12 +245,12 @@ class LeadController extends Controller
         $return=json_decode($return,true);
         $userid=$return["original"]['id'];
         
-        if(perms::check_perm_module('CRM_020501')){ // top managment
+        if(perms::check_perm_module_api('CRM_020501',$userid)){ // top managment
             $lead = Lead::getLead(); // all lead 
             return GetLead::Collection($lead);        
             // dd("top");  
         }
-        else if (perms::check_perm_module('CRM_020509')) { // fro staff (Model and Leadlist by user)
+        else if (perms::check_perm_module_api('CRM_020509',$userid)) { // fro staff (Model and Leadlist by user)
             $lead = Lead::getLeadbyassginto($userid); //  lead by assigned to
             return GetLead::Collection($lead);
             // dd("staff");
@@ -282,11 +282,11 @@ class LeadController extends Controller
         $return=json_decode($return,true);
         $userid=$return["original"]['id'];
         
-    if(perms::check_perm_module('CRM_021003')){ // for top managment
+    if(perms::check_perm_module_api('CRM_021003',$userid)){ // for top managment
         $branch_id = Lead::getbranch_lead($id);
         return GetLeadBranch::Collection($branch_id);
     }
-    else if (perms::check_perm_module('CRM_0213')) { // for staff (Model  name Get Branch by user)
+    else if (perms::check_perm_module_api('CRM_0213',$userid)) { // for staff (Model  name Get Branch by user)
         $branch_id = Lead::getbranch_leadbyassigto($id,$userid);
         return GetLeadBranch::Collection($branch_id);
     }
@@ -372,11 +372,11 @@ class LeadController extends Controller
         $return=json_decode($return,true);
         $userid=$return["original"]['id'];
         // dd($return);
-        if(perms::check_perm_module('CRM_02110102')){ // for top managment
+        if(perms::check_perm_module_api('CRM_02110102',$userid)){ // for top managment
             $survey= Lead::getsurveyresult();
             return GetSurveyResult::Collection($survey);
         }
-        else if (perms::check_perm_module('CRM_0211010201')) { // for staff (Model  name Get Branch by user)
+        else if (perms::check_perm_module_api('CRM_0211010201',$userid)) { // for staff (Model  name Get Branch by user)
             $survey= Lead::getsurveyresultbycreate($userid);
             return GetSurveyResult::Collection($survey);
         }
@@ -437,12 +437,12 @@ class LeadController extends Controller
         $return=json_decode($return,true);
         $userid=$return["original"]['id'];
       
-        if(perms::check_perm_module('CRM_021004')){ // top managment
+        if(perms::check_perm_module_api('CRM_021004',$userid)){ // top managment
             $schedule = Lead::getschedule(); // all Schedule 
             return GetLeadSchedule::Collection($schedule); 
             // dd("sgfvdr");        
         }
-        else if (perms::check_perm_module('CRM_02100401')) { // fro staff (Model and Leadlist by user)
+        else if (perms::check_perm_module_api('CRM_02100401',$userid)) { // fro staff (Model and Leadlist by user)
             $schedule = Lead::getschedulebyuser($userid); // all Schedule 
             return GetLeadSchedule::Collection($schedule); 
             // dd("staff");

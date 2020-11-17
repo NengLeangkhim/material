@@ -35,9 +35,35 @@ class perms extends Controller
         //
         // return false;
     }
+    // check session for API
+    private static function check_session_api($userid){
+        if(isset($userid)){
+            if(!empty($userid)){
+                return true;
+            }
+        }
+        header('Location:/');
+        exit;
+        //
+        // return false;
+    }
     public static function check_perm(){
         if(self::check_session()){
             $mo=DB::select("SELECT * from public.exec_get_access_module_of(".$_SESSION['userid'].",null)");
+            if(count($mo)>0){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            // return view('login');
+            return false;
+        }
+    }
+     // check perm for API
+    public static function check_perm_api($userid){
+        if(self::check_session_api($userid)){
+            $mo=DB::select("SELECT * from public.exec_get_access_module_of(".$userid.",null)");
             if(count($mo)>0){
                 return true;
             }else{
@@ -52,6 +78,20 @@ class perms extends Controller
     public static function check_perm_module($mo){
         if(self::check_perm()){
             $mo=DB::select("SELECT public.exec_check_position('$mo',".$_SESSION['userid'].") as id");
+            if(!empty($mo[0]->id)){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            // return view('no_perms');
+            return false;
+        }
+    }
+    // check perm  module for API
+    public static function check_perm_module_api($mo,$userid){
+        if(self::check_perm_api($userid)){
+            $mo=DB::select("SELECT public.exec_check_position('$mo',".$userid.") as id");
             if(!empty($mo[0]->id)){
                 return true;
             }else{
