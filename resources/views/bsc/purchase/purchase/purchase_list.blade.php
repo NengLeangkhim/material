@@ -72,14 +72,17 @@
                                                                     $due_amount = $purchase->due_amount;
                                                                     $status = 'Waiting Payment'; 
                                                                 }
+
+                                                                $paid = number_format($amount_paid, 4, '.', '');
+                                                                $due = number_format($due_amount, 4, '.', '');
                                                             @endphp
                                                             <tr>
                                                                 <td>{{ $purchase->invoice_number }}</td>
                                                                 <td>{{ $purchase->supplier_name }}</td>
                                                                 <td>{{ $purchase->billing_date }}</td>
                                                                 <td>{{ $purchase->due_date }}</td>
-                                                                <td>{{ $amount_paid }}</td>
-                                                                <td>{{ $due_amount }}</td>
+                                                                <td>{{ $paid }}</td>
+                                                                <td>{{ $due }}</td>
                                                                 <td>{{ $status }}</td>
                                                                 <td style="text-align: center;">
                                                                     <div class="row">
@@ -134,14 +137,17 @@
                                                                                     $amount_paid = $purchase->amount_paid;
                                                                                     $due_amount = $purchase->due_amount;
                                                                                 }
+
+                                                                                $paid = number_format($amount_paid, 4, '.', '');
+                                                                                $due = number_format($due_amount, 4, '.', '');
                                                                             @endphp
                                                                             <tr>
                                                                                 <td>{{ $purchase->invoice_number }}</td>
                                                                                 <td>{{ $purchase->supplier_name }}</td>
                                                                                 <td>{{ $purchase->billing_date }}</td>
                                                                                 <td>{{ $purchase->due_date }}</td>
-                                                                                <td>{{ $amount_paid }}</td>
-                                                                                <td>{{ $due_amount }}</td>
+                                                                                <td>{{ $paid }}</td>
+                                                                                <td>{{ $due }}</td>
                                                                                 <td style="text-align: center;">
                                                                                     <div class="row">
                                                                                         <div class="col-md-6">
@@ -187,13 +193,21 @@
                                                                 @if (count($purchases) > 0)
                                                                     @foreach($purchases as $purchase)
                                                                         @if($purchase->due_amount == 0 && $purchase->due_amount != null)
+
+                                                                            @php
+                                                                                $paid = $purchase->amount_paid;
+                                                                                $amount_paid = number_format($paid, 4, '.', '');
+
+                                                                                $due = $purchase->due_amount;
+                                                                                $due_amount = number_format($due, 4, '.', '');
+                                                                            @endphp
                                                                             <tr>
                                                                                 <td>{{ $purchase->invoice_number }}</td>
                                                                                 <td>{{ $purchase->supplier_name }}</td>
                                                                                 <td>{{ $purchase->billing_date }}</td>
                                                                                 <td>{{ $purchase->due_date }}</td>
-                                                                                <td>{{ $purchase->amount_paid }}</td>
-                                                                                <td>{{ $purchase->due_amount }}</td>
+                                                                                <td>{{ $amount_paid }}</td>
+                                                                                <td>{{ $due_amount }}</td>
                                                                                 <td style="text-align: center;">
                                                                                     <div class="row">
                                                                                         <div class="col-md-6">

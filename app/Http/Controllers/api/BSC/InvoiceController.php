@@ -289,6 +289,7 @@ class InvoiceController extends Controller
         $chart_accounts = DB::table('bsc_account_charts')
         ->where([
             ['bsc_account_type_id','=',14],
+            ['parent_id','<>',null],
             ['status','=','t'],
             ['is_deleted','=','f']
         ])->get();
@@ -317,11 +318,32 @@ class InvoiceController extends Controller
 
     public function show_quote(Request $request)
     {
-        $quotes = DB::table('crm_quote')
-        ->where([
-            ['status','=','t'],
-            ['is_deleted','=','f']
-        ])->get();
+        $sql_quotes = "SELECT
+                        crm_quote.* ,
+                        qs.crm_quote_status_type_id
+                    FROM
+                        crm_quote
+                        LEFT JOIN ( SELECT * FROM crm_quote_status WHERE ID IN ( SELECT MAX ( ID ) FROM crm_quote_status GROUP BY crm_quote_id ) ) AS qs ON crm_quote.ID = qs.crm_quote_id 
+                        LEFT JOIN ma_customer ON crm_quote.crm_lead_id = ma_customer.crm_lead_id
+                    WHERE
+                        qs.crm_quote_status_type_id = 2 
+                        AND ma_customer.id <> null
+                        AND crm_quote.status = 't' 
+                        AND crm_quote.is_deleted = 'f'
+                    ";
+
+        $quotes = DB::select($sql_quotes);
+
+        // $quotes = DB::table('crm_quote')
+        // ->select('crm_quote.*')
+        // // ->leftJoin('ma_customer','crm_quote.crm_lead_id','=','ma_customer.crm_lead_id')
+        // ->leftJoin('crm_quote_status','crm_quote.id','=','crm_quote_status.crm_quote_id')
+        // ->where([
+        //     ['crm_quote_status.crm_quote_status_type_id','=','2'],
+        //     // ['ma_customer.id','<>',null],
+        //     ['crm_quote.status','=','t'],
+        //     ['crm_quote.is_deleted','=','f']
+        // ])->get();
 
         return $this->sendResponse($quotes, 'Quote retrieved successfully.');
     }
