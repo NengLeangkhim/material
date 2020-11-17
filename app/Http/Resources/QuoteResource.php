@@ -101,13 +101,13 @@ class QuoteResource extends JsonResource
         //find lead by id
         $lead = DB::select("select * from crm_lead where id = $this->crm_lead_id");
 
-        $statusQuote=[];
+        // $statusQuote=[];
         //find status
-        $delquote = QuoteStatus::where('crm_quote_id',$this->id)
+        $statusQuote = QuoteStatus::where('crm_quote_id',$this->id)
                                     ->where('status','t')
                                     ->where('is_deleted','f')
-                                    ->get();
-        array_push($statusQuote,$delquote);
+                                    ->get()->sortBy('id')->toArray();
+        // array_push($statusQuote,$delquote);
         //get lead contact
         $contact=null;
         if(count($quoteBranch)>0){
@@ -124,9 +124,26 @@ class QuoteResource extends JsonResource
         //                 ->select(["stock_product.id","stock_product.name","stock_qty","product_price","part_number","description","stock_product_type.group_type","ma_measurement.name as measurement"])
         //                 ->get();
 
-        usort($quoteStage, function($a, $b){strcmp($a->id, $b->id);});
-        usort($statusQuote, function($a, $b){strcmp($a->id, $b->id);});
-        usort($acknowlegde, function($a, $b){strcmp($a->id, $b->id);});
+        usort($quoteStage, function($a, $b) {
+            return strcmp($a->id, $b->id);
+        });
+        usort($acknowlegde, function($a, $b) {
+            return strcmp($a->id, $b->id);
+        });
+
+        // dd($quoteStage);
+        // dd($statusQuote);
+        // usort($statusQuote, function($a, $b) {
+        //     return strcmp($a->id, $b->id);
+        // });
+
+        // $go = $statusQuote->sort(function ($a, $b) use (x) {
+        //     $pos_a = array_search($a->id, x);
+        //     $pos_b = array_search($b->id, x);
+        //     return $pos_a - $pos_b;
+        //   });
+
+        //   dd($statusQuote);
 
         return [
             "id"=>$this->id,
