@@ -1,5 +1,5 @@
 <section>
-<div style="padding:10px 10px 10px 10px">
+<div style="padding:10px 10px 10px 10px" id="add_edit_employee">
     <div class="row">
       <div id="testt"></div>
         <div class="col-md-12">
@@ -17,7 +17,7 @@
                     // print_r($employee);
                 @endphp
                 <table class="table table-bordered" id="tbl_employee" style="white-space:nowrap">
-                  <thead>                  
+                  <thead>
                     <tr>
                       <th>Employee ID</th>
                       <th>Name</th>
@@ -40,7 +40,7 @@
                           </div>
                           <div class="text-center">
                               {{ $e->firstName." ".$e->lastName }}
-                          </div>  
+                          </div>
                       </td>
                       <td style="padding-top:37px "> {{$e->firstNameKh." ".$e->lastNameKh }} </td>
                       <td style="padding-top:37px ">{{ $e->contact}}</td>
@@ -58,7 +58,7 @@
                 </table>
               </div>
               <!-- /.card-body -->
-              
+
             <!-- /.card -->
     </div>
 </div>

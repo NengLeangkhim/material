@@ -14,7 +14,9 @@ use Illuminate\Validation\Rule;
 
 class AllemployeeController extends Controller
 {
-    
+    function add_edit_employee(){
+        return view('hrms/Employee/AllEmployees/add_edit_employee');
+    }
     // List All employee
     public function AllEmployee(){
         if(session_status()== PHP_SESSION_NONE){
@@ -123,7 +125,7 @@ class AllemployeeController extends Controller
                 echo $em;
                 return;
             }
-            
+
         }
 
 
@@ -164,12 +166,12 @@ class AllemployeeController extends Controller
                     $data[1] = $em->EmployeeOnRow($id);
                     return view('hrms/Employee/AllEmployees/employeeDetail')->with('data', $data);
                 }
-            } 
+            }
         } else {
             $data = 'modal_employee_detail';
             return view('modal_no_perms')->with('modal', $data);
         }
-        
+
     }
 
 
@@ -186,7 +188,7 @@ class AllemployeeController extends Controller
 
     // test insert employee with validation
     function hrms_insert_update_employee(Request $request){
-         
+
         $validation=\Validator::make($request->all(),[
             'emFirstName'=>'required',
             'emLastName'=>'required',
@@ -210,7 +212,7 @@ class AllemployeeController extends Controller
         if($validation->fails()){
             return response()->json(['error' => $validation->getMessageBag()->toArray()]);
         }
-        
+
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -278,8 +280,8 @@ class AllemployeeController extends Controller
                     return response()->json(['success'=>'Employee is inserted !']);
                 }
             }
-            
+
         }
-        
+
     }
 }

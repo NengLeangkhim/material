@@ -902,6 +902,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_detail_employee', 'hrms\Employee\AllemployeeController@EmployeeDetail');
         Route::get('hrm_employee_leave', 'hrms\Employee\AllemployeeController@Employee_Leave');
         Route::post('hrms_insert_update_employee','hrms\Employee\AllemployeeController@hrms_insert_update_employee');
+        Route::get('add_edit_employee','hrms\Employee\AllemployeeController@add_edit_employee');
     //End All Employee
 
     // Start Holiday

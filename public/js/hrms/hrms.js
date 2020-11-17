@@ -117,6 +117,28 @@ function hrms_date(){
       });
 }
 // All Employee
+    // modal add and edit employee
+        function hrms_add_edit_employee(id=-1){
+            if(check_session()){
+                return;
+            }
+            $.ajax({
+                type: 'GET',
+                url: '/add_edit_employee',
+                data:{
+                    _token: '<?php echo csrf_token() ?>',
+                    id:id
+                },
+                success: function (data) {
+                    document.getElementById('add_edit_employee').innerHTML=data;
+                    // $('#modal_employee').modal('show');
+                    // $("#emDepartment").select2();
+                    // $("#emPosition").select2();
+                    // hrms_date();
+                }
+            });
+        }
+    // end modal add and edit employee
     // Add modal Employee in View
         function hrms_modal_add_edit_employee(id=-1){
             if(check_session()){
@@ -276,8 +298,8 @@ function hrms_date(){
                         request.send(form_data);
                     }
                 })
-            
-            
+
+
         }
     // End Holiday
     //  Attendance
@@ -405,8 +427,8 @@ function hrms_date(){
                         request.send(form_data);
                     }
                 })
-            
-            
+
+
         }
         function OvertimeDetail(){
             if(check_session()){
@@ -446,7 +468,7 @@ function hrms_date(){
         if(check_session()){
             return;
         }
-        
+
         $.ajax({
             type: 'GET',
             url: 'hrm_modal_traininglist',
@@ -491,7 +513,7 @@ function hrms_date(){
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Yes, Save it!'
                 }).then((result) => {
-                    if (result.value) {  
+                    if (result.value) {
                         var form_element=document.getElementById('fm_training_list');
                         var form_data = new FormData(form_element);
                         var request = new XMLHttpRequest();
@@ -520,7 +542,7 @@ function hrms_date(){
                         request.send(form_data);
                     }
                 })
-            
+
     }
 
 
@@ -599,7 +621,7 @@ function hrms_date(){
                         request.send(form_data);
                     }
                 })
-        
+
     }
 
 
