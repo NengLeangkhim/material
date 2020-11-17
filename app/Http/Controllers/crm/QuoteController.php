@@ -33,7 +33,7 @@ class QuoteController extends Controller
         {
             return view('no_perms');
         }
-        
+
     }
 
     // function to get show qoute detail
@@ -50,6 +50,8 @@ class QuoteController extends Controller
             $res = app()->handle($request);
             $listQuoteDetail = json_decode($res->getContent());
             // dump($listQuoteDetail);
+            // dump($listQuoteDetail->data->crm_stock[0]->stock_product_id);
+
             if($listQuoteDetail != ''){
                 // $address = ModelCrmQuote::getAddress($listQuoteDetail->data->address->gazetteer_code); //get address detail by code
                 foreach($listQuoteDetail->data->crm_stock as $k=>$val){
@@ -58,6 +60,7 @@ class QuoteController extends Controller
             }else{
                 echo 'emtry';
             }
+            // dump($product);
             return view('crm/quote/qouteShowDetail', compact('listQuoteDetail','product'));
         }
     }
@@ -127,8 +130,8 @@ class QuoteController extends Controller
             $res = app()->handle($request);
             $listProduct = json_decode($res->getContent());
             // dump($listProduct);
-            // echo $branId;
             // exit;
+
             return view('crm/quote/listProduct', compact('listProduct','row_id','branId'));
         }
 
@@ -149,7 +152,7 @@ class QuoteController extends Controller
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $listService = json_decode($res->getContent());
-
+            // dump($listService);
             // $request = Request::create('/api/stock/service/', 'GET');
             // $listService = json_decode(Route::dispatch($request)->getContent());
             return view('crm/quote/listService', compact('listService','row_id','branId'));

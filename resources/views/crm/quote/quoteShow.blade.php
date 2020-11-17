@@ -36,7 +36,7 @@
                                                     <th style="color: #FFFFFF">Quote Number</th>
                                                     <th style="color: #FFFFFF">Subject</th>
                                                     <th style="color: #FFFFFF">Lead Name</th>
-                                                    <th style="color: #FFFFFF">Total</th>
+                                                    {{-- <th style="color: #FFFFFF">Total</th> --}}
                                                     <th style="color: #FFFFFF">Quote Stage</th>
                                                     <th style="color: #FFFFFF">Assigned To </th>
                                                     <th style="color: #FFFFFF">Convert To BSC</th>
@@ -54,7 +54,7 @@
                                                                 <td>{{$val2->quote_number}}</td>
                                                                 <td>{{$val2->subject}}</td>
                                                                 <td>{{$val2->crm_lead->customer_name_en}}</td>
-                                                                <td>
+                                                                {{-- <td>
                                                                     <?php $sumTotal = 0;?>
                                                                     @foreach ($val2->crm_stock as $key3=>$val3)
                                                                             @if($val3->discount_type == "percent")
@@ -75,7 +75,7 @@
                                                                     @endforeach
                                                                     {{ $GrandTT = number_format($sumTotal, 2, '.', '')." $" }}
 
-                                                                </td>
+                                                                </td> --}}
                                                                 <td>
                                                                     <?php $num = count($val2->quote_stage); ?>
                                                                     @if( $num > 0)

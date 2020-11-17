@@ -9,6 +9,107 @@
         var getSumTotal = 0;
 
 
+        // $(document).on('click','#btnAddRowQuoteItem', function(event, issetBranId){
+
+        //     var branId = $(this).attr("data-id");
+        //     // console.log('this is add btn'+branId);
+        //     if(branId == 'quoteBranchEdit'){
+        //         branId = '_new';
+        //         var numRow = $('#add_row_tablequoteItem').attr("data-id");
+        //         if(i == 0){   // check if i = 0 assign i = count row of quote branch item to get update new row add item
+        //             i = parseInt(i + numRow);
+        //                 // console.log('place assign row num');
+        //         }
+        //     }
+
+        //     // check to assign new value to branId
+        //     if(typeof(issetBranId) != 'undefined'){
+        //         branId = issetBranId;
+        //     }
+
+        //     var tblRow =
+        //         '<tr id="'+i+'" class="tr-quote-row row-quote-item" data-id="row_'+i+'">'  +
+        //             '<td class="td-item-quote-name">' +
+        //                 '<div class=" form-group">' +
+        //                     '<div class="row form-inline2">' +
+        //                         '<div class="col-md-8 col-sm-8 col-8">' +
+        //                             '<input type="text" class="form-control txtPrdName_'+i+'"   name="product_name[]" id="product_name'+i+'"  value="" required placeholder="Product Name" readonly>'+
+        //                             '<input type="hidden" name="product'+branId+'[]" id="txtPrdId_'+i+'"  readonly>'+
+        //                             '<span id="product_name'+i+'Error" ><strong></strong></span>'+
+        //                         '</div>' +
+        //                         '<div class="col-md-4 col-sm-4 col-4">' +
+        //                             '<div class="row-12">'+
+        //                                 '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemProduct_'+i+'"   name="addItemProduct"  id="'+i+'"  data-id="'+branId+'" > <span>+ Add Product </span></button>'+
+        //                             '</div>' +
+        //                             '<div class="row-12 pt-1">'+
+        //                                 '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemService_'+i+'"  name="addItemService"  id="'+i+'" data-id="'+branId+'" > <span>+ Add Service </span></button>'+
+        //                             '</div>'+
+        //                         '</div>' +
+        //                     '</div>' +
+        //                     '<div class="form-inline"><textarea class="form-control txtDescription_'+i+'" id="txtDescription_'+i+'"  rows="2" style="margin-top:10px; padding:10px; width: 100%!important;" placeholder="Description" disabled></textarea> </div>' +
+        //                 '</div>' +
+        //             '</td>' +
+        //             '<td>' +
+        //                 '<div id="itemType_'+i+'" class="btn-list-item text-center">----</div>'+
+        //             '</td>'+
+        //             '<td style="width: 120px;">' +
+        //                 '<input type="text"  class="valid-numeric form-control itemQty_'+i+' qty'+i+' " name="qty'+branId+'[]" id="'+i+'" data-id="qty'+i+'" demo="itemQty"  value="1"  required placeholder="Qty">' +
+        //                 '<input type="hidden" id="numItemInStock_'+i+'" readonly> '+
+        //                 '<p id="prdNotEnough_'+i+'" class="font-size-14" style="color:red;"></p>'+
+        //                 '<span id="'+i+'Error" ><strong></strong></span>'+
+
+        //             '</td>' +
+        //             '<td></td>' +
+        //             '<td class="td-item-quote">' +
+        //                 '<div class="">' +
+        //                     '<input type="text" class="valid-numeric-float form-control itemPrice_'+i+' price'+i+'" name="price'+branId+'[]"  id="itemPrice_'+i+'"     data-id="price'+i+'"  demo="itemPrice" value="0" required placeholder="0.0$">' +
+        //                     '<span id="'+i+'Error" ><strong></strong></span>'+
+        //                 '</div>'+
+        //                 '<div class="row pt-1 form-inline">' +
+        //                     '<div class="col-md-6 col-sm-6 col-6">' +
+        //                         '<select  class="select-itemDiscount btn-list-item mdb-select md-form" name="select-itemDiscount_'+i+'" id="'+i+'"  data-id="'+branId+'" required > ' +
+        //                             '<option value="1"><span>+Discount (%)</span> </option>'+
+        //                             '<option value="2"><span>+Discount ($)</span> </option>'+
+        //                         '</select>'+
+        //                     '</div>'+
+
+        //                     '<div class="col-md-6 col-sm-6 col-6 field-input-discount" data-id="'+i+'" id="fieldItemDiscount_'+i+'">' +
+        //                         '<input type="text"  class="itemDisPercent_'+i+' txtbox-quote valid-numeric-float" name="discount'+branId+'[]" id="discount'+i+'" demo="itemDisPercent" data-id="'+i+'" value="0" placeholder="0.0%">' +
+        //                         '<input type="hidden" id="discount_type'+i+'" value="percent" name="discount_type'+branId+'[]"> '+
+        //                         '<span id="discountError" ><strong></strong></span>'+
+        //                     '</div>'+
+
+        //                 '</div>' +
+        //                 '<div class="btn-list-item" style="color:black; margin-left: 7px; margin-top:15px;">' +
+        //                     '<span>Total After Discount: </span>'+
+        //                 '</div>' +
+        //                 '<div class="btn-list-item" style="color:red; margin-left: 7px; margin-top:15px;">' +
+        //                     '<span>Net Price: </span>'+
+        //                 '</div>' +
+        //             '</td>' +
+        //             '<td class="td-item-quote ">' +
+        //                 '<div id="quote-sub-total_'+i+'" class="td-quote-total">0</div>' +
+        //                 '<div id="quote-sub-discount_'+i+'" class="td-quote-total">0</div>' +
+        //                 '<div id="quote-after-sub-disc_'+i+'" class="td-quote-total">0</div>' +
+        //                 '<div id="quote-netPrice_'+i+'" style="color:red;"class="td-quote-total">0</div>' +
+        //             '</td>' +
+        //             '<td style="width:auto;">' +
+        //                 '<button style="width: auto;" class="btnRemoveRow btn btn-denger" id="'+i+'" ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>' +
+        //             '</td>' +
+        //         '</tr>';
+        //         i++;
+        //         j++;
+
+        //     if(branId == '_new'){
+        //         $('#add_row_tablequoteItem').append(tblRow);
+        //     }else{
+        //         $('#add_row_tablequoteItem'+branId+'').append(tblRow);
+        //     }
+        // });
+
+
+
+
         $(document).on('click','#btnAddRowQuoteItem', function(event, issetBranId){
 
             var branId = $(this).attr("data-id");
@@ -29,21 +130,21 @@
 
             var tblRow =
                 '<tr id="'+i+'" class="tr-quote-row row-quote-item" data-id="row_'+i+'">'  +
-                    '<td class="td-item-quote-name">' +
-                        '<div class=" form-group">' +
+                    '<td class="">' +
+                        '<div class="form-group">' +
+                            '<div class="row pb-2">' +
+                                '<div class="col-6">'+
+                                    '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemProduct_'+i+'"   name="addItemProduct"  id="'+i+'"  data-id="'+branId+'" > <span>+ Add Product </span></button>'+
+                                '</div>' +
+                                '<div class="col-6">'+
+                                    '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemService_'+i+'"  name="addItemService"  id="'+i+'" data-id="'+branId+'" > <span>+ Add Service </span></button>'+
+                                '</div>'+
+                            '</div>' +
                             '<div class="row form-inline2">' +
-                                '<div class="col-md-8 col-sm-8 col-8">' +
+                                '<div class="col-12">' +
                                     '<input type="text" class="form-control txtPrdName_'+i+'"   name="product_name[]" id="product_name'+i+'"  value="" required placeholder="Product Name" readonly>'+
                                     '<input type="hidden" name="product'+branId+'[]" id="txtPrdId_'+i+'"  readonly>'+
                                     '<span id="product_name'+i+'Error" ><strong></strong></span>'+
-                                '</div>' +
-                                '<div class="col-md-4 col-sm-4 col-4">' +
-                                    '<div class="row-12">'+
-                                        '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemProduct_'+i+'"   name="addItemProduct"  id="'+i+'"  data-id="'+branId+'" > <span>+ Add Product </span></button>'+
-                                    '</div>' +
-                                    '<div class="row-12 pt-1">'+
-                                        '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemService_'+i+'"  name="addItemService"  id="'+i+'" data-id="'+branId+'" > <span>+ Add Service </span></button>'+
-                                    '</div>'+
                                 '</div>' +
                             '</div>' +
                             '<div class="form-inline"><textarea class="form-control txtDescription_'+i+'" id="txtDescription_'+i+'"  rows="2" style="margin-top:10px; padding:10px; width: 100%!important;" placeholder="Description" disabled></textarea> </div>' +
@@ -52,12 +153,15 @@
                     '<td>' +
                         '<div id="itemType_'+i+'" class="btn-list-item text-center">----</div>'+
                     '</td>'+
-                    '<td style="width: 120px;">' +
+                    '<td style="width: 100px;">' +
                         '<input type="text"  class="valid-numeric form-control itemQty_'+i+' qty'+i+' " name="qty'+branId+'[]" id="'+i+'" data-id="qty'+i+'" demo="itemQty"  value="1"  required placeholder="Qty">' +
                         '<input type="hidden" id="numItemInStock_'+i+'" readonly> '+
                         '<p id="prdNotEnough_'+i+'" class="font-size-14" style="color:red;"></p>'+
                         '<span id="'+i+'Error" ><strong></strong></span>'+
 
+                    '</td>' +
+                    '<td>' +
+                        '<div id="prd_measurement_'+i+'" class="btn-list-item text-center">----</div>'+
                     '</td>' +
                     '<td class="td-item-quote">' +
                         '<div class="">' +
@@ -108,6 +212,12 @@
 
 
 
+
+
+
+
+
+
         // function button remove row table
         $(document).on('click', '.btnRemoveRow', function() {
             var btn_id = $(this).attr("id");
@@ -139,9 +249,9 @@
             // getSumTotal = sumTotal;
             var getTaxation =  (sumTotal * 0.1);  // add tax 10% of total product
             getSumTotal = (sumTotal + getTaxation);
-            $("#getTaxation").text(getTaxation);
-            $("#sumTotal").text(sumTotal);
-            $("#grandTotal").text(getSumTotal);
+            $("#getTaxation").text(getTaxation.toFixed(4));
+            $("#sumTotal").text(sumTotal.toFixed(4));
+            $("#grandTotal").text(getSumTotal.toFixed(4));
         });
 
 
@@ -241,7 +351,7 @@
 
 
                 subTotal = (itemQty * itemPrice);
-                $("div #quote-sub-total_"+row_id+"").text(subTotal);
+                $("div #quote-sub-total_"+row_id+"").text(subTotal.toFixed(4));
 
                 // console.log('rowId='+ row_id +'-itemQty='+itemQty+'-itemPrice='+itemPrice+'-subTotal='+subTotal);
 
@@ -257,23 +367,25 @@
                     get_val =  parseFloat(DisPrice);
                 }
 
-
-
                 val_after_dis = subTotal - get_val;
                 netPrice = val_after_dis;
 
                 //show element value by id
-                $("div #quote-sub-discount_"+row_id+"").text(get_val);
-                $("div #quote-after-sub-disc_"+row_id+"").text(val_after_dis);
-                $("div #quote-netPrice_"+row_id+"").text(netPrice);
+                $("div #quote-sub-discount_"+row_id+"").text(get_val.toFixed(4));
+                $("div #quote-after-sub-disc_"+row_id+"").text(val_after_dis.toFixed(4));
+                $("div #quote-netPrice_"+row_id+"").text(netPrice.toFixed(4));
 
-                // console.log('subDisc='+get_val+'--netPrice='+netPrice);
                 //for loop to get sumtotal all rows
+                if(i == 0){
+                    i = $('#add_row_tablequoteItem').data('id');
+                }
                 for(var x=0; x<=i; x++){
 
                     var value = $("#quote-netPrice_"+x+"").text();
+
                     if(value != ''){
                         var getNetPrice = parseFloat(value);
+                        // console.log('netPrie='+getNetPrice);
                         sumTotal += getNetPrice;
                     }
 
@@ -297,10 +409,9 @@
 
                 var getTaxation =  (sumTotal * 0.1);  // add tax 10% of total product
                 granTotal = (sumTotal + getTaxation);
-
-                $("#getTaxation").text(getTaxation);
-                $("#sumTotal").text(sumTotal);
-                $("#grandTotal").text(granTotal);
+                $("#getTaxation").text(getTaxation.toFixed(4));
+                $("#sumTotal").text(sumTotal.toFixed(4));
+                $("#grandTotal").text(granTotal.toFixed(4));
 
 
             });
@@ -435,12 +546,18 @@
                             var prdName = $.trim($(".itemName_"+prdVal+"").text());
                             var prdPrice = parseFloat($.trim($(".itemPrice_"+prdVal+"").val()));
                             var prdAviableStock = parseFloat($.trim($(".stockItem_"+prdVal+"").text()));
-
+                            var itemMeasurement = $.trim($(".itemMeasurement_"+prdVal+"").text());
+                            if(itemMeasurement == ''){
+                                itemMeasurement = 'Not Value';
+                            }
+                            // console.log('itemMeasurement='+itemMeasurement);
                             prdInStock = prdAviableStock;
                             var prdDescription = $.trim($(".itemDescription_"+prdVal+"").text());
 
                                 stockMessage = "Stock not enough, the available item is ";
                                 numPrdInStock = prdInStock;
+
+
 
                                 if(num == 0){
                                     //show item in row quote item  with one select
@@ -448,6 +565,7 @@
                                     $("#product_name"+btnId+"").val(prdName);
                                     $("#txtDescription_"+btnId+"").val(prdDescription);
                                     $(".itemPrice_"+btnId+"").val(prdPrice);
+                                    $("#prd_measurement_"+btnId+"").text(itemMeasurement);
                                     $("#itemType_"+btnId+"").text(itemType);
                                     $("#numItemInStock_"+btnId+"").val(numPrdInStock);
                                     $(".itemPrice_"+btnId+"").keyup(); //call function key press to generate data
@@ -459,11 +577,11 @@
                                 }else{
                                     //show item in row quote item with multi select
                                     $( "#btnAddRowQuoteItem" ).trigger( "click", branId);
-
                                     $("#txtPrdId_"+(i-1)+"").val(prdVal);
                                     $("#product_name"+(i-1)+"").val(prdName);
                                     $("#txtDescription_"+(i-1)+"").val(prdDescription);
                                     $(".itemPrice_"+(i-1)+"").val(parseFloat(prdPrice));
+                                    $("#prd_measurement_"+(i-1)+"").text(itemMeasurement);
                                     $("#itemType_"+(i-1)+"").text(itemType);
                                     $("#numItemInStock_"+(i-1)+"").val(numPrdInStock);
                                     $(".itemPrice_"+(i-1)+"").keyup(); //call function key press to generate data
@@ -546,14 +664,14 @@
                 totalAfterDis2 =  allDisPrice2;
             }
 
-            $("#totalDiscount").text(totalAfterDis2);
+            $("#totalDiscount").text(totalAfterDis2.toFixed(4));
             grandTotal2 = sumTotal2 - totalAfterDis2;
 
             var getTaxation =  (sumTotal2 * 0.1);  // add tax 10% of total product
             grandTotal2 += getTaxation;
             granTotal = (sumTotal + getTaxation);
-            $("#getTaxation").text(getTaxation);
-            $("#grandTotal").text(grandTotal2);
+            $("#getTaxation").text(getTaxation.toFixed(4));
+            $("#grandTotal").text(grandTotal2.toFixed(4));
         }
 
 
