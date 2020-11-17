@@ -9,12 +9,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><span><i class="fas fa-book-reader"></i></span> Detail Branch</h1>
+                <h1><span><i class="fas fa-code-branch"></i></span>Branch Detail</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('/lead')">Lead</a></li>
-                    <li class="breadcrumb-item active">Detail Branch</li>
+                    <li class="breadcrumb-item active">Branch Detail</li>
                 </ol>
             </div>
         </div>
@@ -30,7 +30,7 @@
                     <div class="row">
                         {{-- <div class="> --}}
                             <h3 class="card-title"​>
-                                <i class="far fa-id-card" style="padding-right:15px; font-size:35px"></i>
+                                {{-- <i class="far fa-id-card" style="padding-right:15px; font-size:35px"></i> --}}
                                     {{-- <h6 style="font-weight: bold; font-size: 20px">drgdS</h6>  --}}
                                   
                             </h3>
@@ -42,19 +42,19 @@
                     <?php
                     for($i =0;$i<sizeof($detailbranch); $i++){
                         ?>
-                         <div class="col-md-6 " align="right">
-                            <button type="button" ​value="editbranch/{{$detailbranch[$i]["branch_id"]}}" class="btn btn-primary btn-md CrmLeadEdit" >Edit</button>
+                         <div class="col-md-6 " >
+                            <button type="button" ​value="editbranch/{{$detailbranch[$i]["branch_id"]}}" class="btn btn-primary btn-md CrmLeadEdit form-control" >Edit</button>
                             <input type="text" hidden value="{{$detailbranch[$i]["lead_status"]}}"  id="lead_status" >
                             
                         </div>
                          
-                        <div class="col-md-6 " align="left" >
+                        <div class="col-md-6 ">
                         <form id="frm_Crmlbranchsurvey" method="POST">
                             @csrf                                
                             <input type="text" class="form-control" hidden  value="{{$detailbranch[$i]['comment']}}"  name='comment' id="comment"  >
                             <input type="text" hidden value="{{$detailbranch[$i]['lead_detail_id']}}" name="lead_detail_id" id="lead_detail_id">
                             <input type="text" hidden value="{{$detailbranch[$i]['branch_id']}}" name="branch_id" id="branch_id">
-                            <button type="button"  class="btn btn-success btn-md"  id="btn_convert"  value="{{$detailbranch[$i]["branch_id"]}}" onclick="submit_form('api/convertbranch','frm_Crmlbranchsurvey','/lead')" >Convert</button>
+                            <button type="button"  class="btn btn-success btn-md form-control"  id="btn_convert"  value="{{$detailbranch[$i]["branch_id"]}}" onclick="submit_form('api/convertbranch','frm_Crmlbranchsurvey','/lead')" >Convert</button>
                         </form>
                     </div>
                         <?php
@@ -69,7 +69,7 @@
       <!-- /.card -->      
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 {{-- Lead detail --}}
                 <div class="card">
                     <div class="card-header">
@@ -267,7 +267,7 @@
                 </div>
                     {{-- end address detail --}}
             </div>
-            <div class="col-md-4">
+            {{-- <div class="col-md-4">
                 <div class="card card-secondary">
                     <div class="card-header">
                       <h3 class="card-title">Update</h3>        
@@ -323,7 +323,7 @@
                           <!-- /.card-body -->
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     <!-- ./col -->

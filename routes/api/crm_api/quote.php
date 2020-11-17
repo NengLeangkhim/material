@@ -16,24 +16,32 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['jwt.verify']], function() {
 
-});
+    //get list quote
+    Route::get('/quotes','api\crm\QuoteController@index');
+    
 
+     Route::get('/quote/status','api\crm\QuoteController@getStatus');
+
+    // get perview qutoe
+    Route::get('/quote/{id}','api\crm\QuoteController@show');
+
+    // get  quotes status
+  
+
+});
 /*
 |   GET ROUTES
 */
 
 // get all quotes
 
-Route::get('/quotes','api\crm\QuoteController@index');
-
-Route::get('/quote/status','api\crm\QuoteController@getStatus');
 
 Route::get('/quotebranch/{qid}','api\crm\QuoteController@getquotebranch');
 
 Route::get('/quotebranch/detail/{qbid}','api\crm\QuoteController@getStockByBranchId');
 
 // get contact by id
-Route::get('/quote/{id}','api\crm\QuoteController@show');
+
 
 
 /*

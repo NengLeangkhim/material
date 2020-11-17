@@ -1,14 +1,11 @@
 
 
 
-
-
-
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><span><i class="far fa-id-card" style="color:#1fa8e0; font-size: 35px; font-weight:bold;"></i></span> Lead Name:</h1>
+                <h1><span><i class="far fa-id-card" style=" font-size: 35px; font-weight:bold;"></i></span> Lead Name:</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -21,6 +18,15 @@
 </section>
 
 <section class="content">
+    <style>
+        .table td, .table th {
+            padding: 0.3rem !important;
+            border-top: none !important;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button{
+            padding: none ;
+        }
+    </style>
     <form action="" method="PUT" id="frmEditQuoteBranch">
         @csrf
         <div id="modal-list-quote">
@@ -33,7 +39,7 @@
                     <div class="col-6">
                         <div class="row">
                                 <h3 class="card-title"​>
-                                    <i class="fas fa-hotel" style="color:#1fa8e0; padding-right:15px; font-size:30px"></i>
+                                    <i class="fas fa-hotel" style="padding-right:15px; font-size:30px"></i>
                                     <label><span>Branch Name:</span> {{ $data['lead_branch_name']  }}</label>
                                 </h3>
                         </div>
@@ -80,17 +86,16 @@
                                     <tbody id="add_row_tablequoteItem" class="add_row_tablequoteItem" data-id="{{ count($response3->data) }}">
 
                                         @foreach ($response3->data as $key=>$val)
-
+                                            <input type="hidden" name="quote_detail_id[]" value="{{ $val->id }}" readonly>
                                             <tr id="{{ $key }}" class="tr-quote-row row-quote-item row-quote-item_{{ $key }}" data-id="row_{{ $key }}">
                                                 <td class="td-item-quote-name">
 
-                                                    <input type="hidden" name="quote_detail_id" value="{{ $val->id }}" readonly>
-
+                                                    <input type="hidden" name="quote_detail_id_updated[]" value="{{ $val->id }}" readonly>
                                                     <div class=" form-group">
                                                         <div class="row form-inline2">
                                                             <div class="col-md-8 col-sm-8 col-8">
-                                                                <input type="text" class="form-control txtPrdName_{{ $key }}"   name="product_name[]" id="product_name{{ $key }}"  value="{{ $response3->data[$key]->stock_product[0]->name }}" required placeholder="Product Name" readonly>
-                                                                <input type="hidden" name="product[]" id="txtPrdId_{{ $key }}" value="{{ $val->stock_product[0]->id }}" readonly>
+                                                                <input type="text" class="form-control txtPrdName_{{ $key }}"   name="product_name[]" id="product_name{{ $key }}"  value="{{ $val->stock_product->name }}" required placeholder="Product Name" readonly>
+                                                                <input type="hidden" name="product[]" id="txtPrdId_{{ $key }}" value="{{ $val->stock_product->id }}" readonly>
                                                                 <span id="product_name{{ $key }}  Error" ><strong></strong></span>
                                                             </div>
                                                             <div class="col-md-4 col-sm-4 col-4">
@@ -102,11 +107,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="form-inline"><textarea class="form-control txtDescription_{{ $key }}" id="txtDescription_{{ $key }}"  rows="2" style="margin-top:10px; padding:10px; width: 100%!important;" placeholder="Description" disabled>{{ $response3->data[$key]->stock_product[0]->description }}</textarea> </div>
+                                                        <div class="form-inline"><textarea class="form-control txtDescription_{{ $key }}" id="txtDescription_{{ $key }}"  rows="2" style="margin-top:10px; padding:10px; width: 100%!important;" placeholder="Description" disabled>{{ $response3->data[$key]->stock_product->description }}</textarea> </div>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div id="itemType_{{$key}}" class="btn-list-item text-center">{{ ucfirst($response3->data[$key]->stock_product[0]->group_type) }}</div>
+                                                    <div id="itemType_{{$key}}" class="btn-list-item text-center">{{ ucfirst($response3->data[$key]->stock_product->group_type) }}</div>
                                                 </td>
                                                 <td style="width: 120px;">
                                                     <input type="text"  class="valid-numeric form-control itemQty_{{ $key }} qty{{ $key }}" name="qty[]" id="{{ $key }}" data-id="qty{{ $key }}" demo="itemQty"  value="{{ $val->qty }}"  required placeholder="Qty">
@@ -158,7 +163,9 @@
 
                                                 </td>
                                                 <td style="width:auto;">
-                                                    <button style="width: auto;"  class="btnRemoveRow btn btn-denger" id="{{$key}}"  data-id="{{ count($response3->data) }}"  ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>
+                                                    @if($key != 0)
+                                                        <button style="width: auto;"  class="btnRemoveRow btn btn-denger" id="{{$key}}"  data-id="{{ count($response3->data) }}"  ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>
+                                                    @endif
                                                 </td>
 
                                             </tr>
@@ -204,6 +211,14 @@
                                                                     </div>
                                                                 </td>
                                                             </tr> -->
+                                                            <tr style="text-align: right">
+                                                                <td >
+                                                                    <span style="padding-right: 12px;">(+) Tax (10%) </span>
+                                                                </td>
+                                                                <td >
+                                                                    <div id="getTaxation"> 0.0 </div>
+                                                                </td>
+                                                            </tr>
 
                                                             <tr class="td-total-quote grandTotal" >
                                                                 <td  ><span style="padding-right: 12px;">Grand Total</span></td>
@@ -234,8 +249,6 @@
 
 
                 </div>
-
-
 
                 {{-- <div class="col-md-2 col-sm-12">
                     <div class="card card-secondary">

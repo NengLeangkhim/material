@@ -405,6 +405,15 @@
                                                                             </td>
                                                                         </tr> -->
 
+                                                                        <tr style="text-align: right">
+                                                                            <td >
+                                                                                <span style="padding-right: 12px;">(+) Tax (10%) </span>
+                                                                            </td>
+                                                                            <td >
+                                                                                <div id="getTaxation"> 0.0 </div>
+                                                                            </td>
+                                                                        </tr>
+
 
                                                                         <tr class="td-total-quote grandTotal" >
                                                                             <td  ><span style="padding-right: 12px;">Grand Total</span></td>

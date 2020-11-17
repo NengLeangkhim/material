@@ -117,7 +117,7 @@
                 if(i == 0){   // check if i = 0 assign i = count row of quote branch item to get update new row add item
                     i = parseInt(i + numRow);
                     j = parseInt(j + numRow);
-                    console.log('number row='+numRow+'--i='+i);
+                    // console.log('number row='+numRow+'--i='+i);
                 }
                 $( "tbody tr" ).remove('.row-quote-item_'+btn_id+'');
             }
@@ -136,7 +136,10 @@
                     // console.log(sumTotal);
                 }
             }
-            getSumTotal = sumTotal;
+            // getSumTotal = sumTotal;
+            var getTaxation =  (sumTotal * 0.1);  // add tax 10% of total product
+            getSumTotal = (sumTotal + getTaxation);
+            $("#getTaxation").text(getTaxation);
             $("#sumTotal").text(sumTotal);
             $("#grandTotal").text(getSumTotal);
         });
@@ -264,7 +267,7 @@
                 $("div #quote-after-sub-disc_"+row_id+"").text(val_after_dis);
                 $("div #quote-netPrice_"+row_id+"").text(netPrice);
 
-                console.log('subDisc='+get_val+'--netPrice='+netPrice);
+                // console.log('subDisc='+get_val+'--netPrice='+netPrice);
                 //for loop to get sumtotal all rows
                 for(var x=0; x<=i; x++){
 
@@ -292,9 +295,11 @@
 
                 }
 
+                var getTaxation =  (sumTotal * 0.1);  // add tax 10% of total product
+                granTotal = (sumTotal + getTaxation);
+
+                $("#getTaxation").text(getTaxation);
                 $("#sumTotal").text(sumTotal);
-                getSumTotal = sumTotal;
-                granTotal = getSumTotal;
                 $("#grandTotal").text(granTotal);
 
 
@@ -544,8 +549,11 @@
             $("#totalDiscount").text(totalAfterDis2);
             grandTotal2 = sumTotal2 - totalAfterDis2;
 
+            var getTaxation =  (sumTotal2 * 0.1);  // add tax 10% of total product
+            grandTotal2 += getTaxation;
+            granTotal = (sumTotal + getTaxation);
+            $("#getTaxation").text(getTaxation);
             $("#grandTotal").text(grandTotal2);
-
         }
 
 

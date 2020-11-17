@@ -18,8 +18,10 @@ use App\model\crm\ModelCrmQuote as Q;
 
 class PreviewQuoteController extends Controller
 {
-    public function index($recordId){
-
+    public function index($mode,$recordId){
+        // if($mode != 'D' || $mode != 'I'){
+        //     return;
+        // }
         //report errors
         error_reporting(E_ALL);
         ini_set("display_errors", 1);
@@ -32,12 +34,15 @@ class PreviewQuoteController extends Controller
 
         $mpdf = new \Mpdf\Mpdf($config);
 
-
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+         
         //request api
-        // $token = $_SESSION['token'];
+        $token = $_SESSION['token'];
         $request = Request::create('/api/quote/'.$recordId.'', 'GET');
         $request->headers->set('Accept', 'application/json');
-        // $request->headers->set('Authorization', 'Bearer '.$token);
+        $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         $data = json_decode($res->getContent());
         $quote = $data->data;
@@ -160,7 +165,7 @@ class PreviewQuoteController extends Controller
         $mpdf->WriteHTML($html);
         $filename = 'Quote-'.$no.'.pdf';
         // // $mpdf->Output($filename, 'D');//download
-        $mpdf->Output($filename, 'I');
+        $mpdf->Output($filename, $mode);
     }
     public function logosource(){
          $logo = '<table style="border:none;pedding:0;margin:0;width:100%">
