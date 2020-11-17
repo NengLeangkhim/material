@@ -85,7 +85,20 @@
                                                                     @endif
                                                                 </td>
                                                                 <td>{{$val2->assign_to->first_name_en}}</td>
-                                                                <td>Not Yet Data</td>
+                                                                <td>
+                                                                    <?php
+                                                                         $num = count($val2->quote_stage);
+                                                                         if($val2->quote_stage[$num-1]->id == 2){
+                                                                                ?>
+                                                                                    <h5>Yes</h5>
+                                                                                <?php
+                                                                         }else {
+                                                                            ?>
+                                                                                <h5>No</h5>
+                                                                                <?php
+                                                                         }
+                                                                        ?>
+                                                                </td>
                                                                 <td>{{$val2->due_date}}</td>
                                                                 <td>
                                                                     <div class="row-12 form-inline">
