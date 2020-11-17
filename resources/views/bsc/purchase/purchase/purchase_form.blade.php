@@ -1,6 +1,7 @@
 @php
     $item = "";
     $id="";
+    $contenteditable="false";
     if (count($products) > 0) {
         foreach($products as $product){
             $item.="<option value='{$product->id}'>{$product->name}</option>";
@@ -9,16 +10,16 @@
 @endphp
 <section class="content-header">
     <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-4">
-                <h1><i class="fas fa-user-plus"></i> Create Purchase</h1>
+        <div class="row">
+            <div class="col-md-3">
+                <h4><i class="fas fa-user-plus"></i> Create Purchase</h4>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <label for="exampleInputEmail1">Choose Account <b style="color:red">*</b> </label>
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-8">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
@@ -101,7 +102,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-building"></i></span>
                                             </div>
-                                            <input maxlength="5" type="text" class="form-control" name="code" id="purchase_reference" placeholder="Reference" >
+                                            <input type="text" class="form-control" name="code" id="purchase_reference" placeholder="Reference" >
                                         </div>
                                     </div>
                                 </div>
@@ -112,12 +113,12 @@
                                         <thead>
                                             <tr>
                                                 <th style="min-width: 165px;">Item</th>
-                                                <th>Description</th>
-                                                <th>Quantity</th>
-                                                <th>Unit Price</th>
-                                                <th>Account</th>
-                                                <th>Tax</th>
-                                                <th>Amount</th>
+                                                <th style="min-width: 150px;">Description</th>
+                                                <th style="min-width: 65px;">Quantity</th>
+                                                <th style="min-width: 80px;">Unit Price</th>
+                                                <th style="min-width: 120px;">Account</th>
+                                                <th style="min-width: 90px;">Tax</th>
+                                                <th style="min-width: 125px;">Amount</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -224,7 +225,7 @@
             var qty=$(this).text();
             let price = tr.find('.item_unit_price').text();
             let amount = show_amount(qty, price);
-            tr.find('.item_amount').text(amount.toFixed(2));
+            tr.find('.item_amount').text(amount.toFixed(4));
             showTotal();
             showGrandTotal();
         });
@@ -235,11 +236,14 @@
             var price=$(this).text();
             let qty =  tr.find('.item_qty').text();
             let amount =show_amount(qty,price);
-            tr.find('.item_amount').text(amount.toFixed(2));
+            tr.find('.item_amount').text(amount.toFixed(4));
             showTotal();
             showGrandTotal();
         });
 
+        $("#purchase_table tbody").delegate('.item_des','keyup',function(){
+
+        });
         
         // Remove border select2 in field Item
         $('.item_select').select2({
@@ -267,9 +271,11 @@
                     tr.find('.item_account').attr('data-id',data['bsc_account_charts_id']==null ? "null" : data['bsc_account_charts_id']);
                     tr.find('.item_tax [value=1]').attr('selected', 'true');
                     let amount = show_amount(1, data['product_price']);
-                    tr.find('.item_amount').text(amount.toFixed(2));
+                    tr.find('.item_amount').text(amount.toFixed(4));
                     showTotal();
                     showGrandTotal();
+                    tr.find('.item_des').attr('contentEditable',true);
+                    tr.find('.item_qty').attr('contentEditable',true);
                     
                 }
             });
@@ -294,7 +300,7 @@
         let total = parseFloat($('#txtTotal').text());
         let totalvat = parseFloat($('#txtVatTotal').text());
         let grandTotal = total + totalvat;
-        document.getElementById('txtGrandTotal').innerHTML=grandTotal.toFixed(2);
+        document.getElementById('txtGrandTotal').innerHTML=grandTotal.toFixed(4);
     }
 
     // function Calculate Total Amount
@@ -305,19 +311,19 @@
                 total_amount += parseFloat($(this).text());
             }
         });
-        document.getElementById('txtTotal').innerHTML=total_amount.toFixed(2);
+        document.getElementById('txtTotal').innerHTML=total_amount.toFixed(4);
     }
     
     function inSertTable(count){ 
         var tr = '';
         tr +='<tr id="row'+count+'">'+
-                '<td class="item_name" style="padding: 0;max-width: 165px;overflow: auto;"><select class="item_select stock_product_id" style="width: 100%;height: 51px;"><option value=""></option>'+$("#items").val()+'</select></td>'+
-                '<td contenteditable="true" class="item_des" id="item_des"></td>'+
-                '<td contenteditable="true" class="item_qty" id="item_qty" onkeypress="if(navigator.userAgent.indexOf(\'Firefox\') != -1) if($(this).parent().index()==0) return (this.innerText.length < 6) ; else return (this.innerText.length < 5); return (this.innerText.length < 5);"></td>'+
-                '<td class="item_unit_price" id="item_unit_price"></td>'+
-                '<td class="item_account" id="item_account" data-id=""></td>'+
-                '<td class="item_tax" style="padding: 0;"><select style="border: 0px; height: 51px;" class="tax form-control"><option value=""></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
-                '<td class="item_amount" id="item_amount"></td>'+
+                '<td style="max-width: 165px;padding: 0;overflow: auto;" class="item_name"><select class="item_select stock_product_id" style="width: 100%;height: 51px;"><option value=""></option>'+$("#items").val()+'</select></td>'+
+                '<td style="max-width: 150px;" contenteditable="{{$contenteditable}}" class="item_des" id="item_des"></td>'+
+                '<td style="max-width: 65px;" contenteditable="{{$contenteditable}}" class="item_qty" id="item_qty" onkeypress="if(navigator.userAgent.indexOf(\'Firefox\') != -1) if($(this).parent().index()==0) return (this.innerText.length < 6) ; else return (this.innerText.length < 5); return (this.innerText.length < 5);"></td>'+
+                '<td style="max-width: 80px;" class="item_unit_price" id="item_unit_price"></td>'+
+                '<td style="max-width: 120px;" class="item_account" id="item_account" data-id=""></td>'+
+                '<td style="max-width: 90px;padding: 0;" class="item_tax"><select style="border: 0px; height: 51px;" class="tax form-control"><option value=""></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
+                '<td style="max-width: 125px;" class="item_amount" id="item_amount"></td>'+
                 '<td style="text-align: center;"><button type="button" name="remove" data-row="row'+count+'" class="btn btn-danger btn-xs remove">x</button></td>'+
             '</tr>';
         $('#purchase_table tbody').append(tr);
@@ -373,7 +379,7 @@
                     success:function(data){
     
                         if(data.saved.success == false){
-                            alert("fail to insert");
+                            sweetalert('error','fail to insert!!');
                         }else{
                             go_to('bsc_purchase_purchase_list');
                         }
