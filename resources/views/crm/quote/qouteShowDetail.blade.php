@@ -93,7 +93,7 @@
                                     <?php $num = count($listQuoteDetail->data->quote_stage); ?>
                                     @if( $num > 0)
                                         {{
-                                            $listQuoteDetail->data->quote_stage[$num-1]->name_en
+                                            ucfirst($listQuoteDetail->data->quote_stage[$num-1]->name_en)
                                         }}
                                     @endif
                                 </dd>
@@ -187,12 +187,13 @@
 
                         {{-- table row for show item unit --}}
                         <dl class="row table-responsive">
-                            <table class="table table-bordered " style="min-width: 600px;">
+                            <table class="table table-bordered " style="min-width: 840px;">
                                 <thead class="font-weight-bold font-size-14">
                                     <tr>
                                         <td class="">Item Name</td>
-                                        {{-- <td class="">Type</td> --}}
+                                        <td style="width: 0px;">Type</td>
                                         <td style="">Quantity</td>
+                                        <td style="width: 0px;">Measurement</td>
                                         <td class="">Price</td>
                                         <td class="">Total</td>
                                     </tr>
@@ -203,25 +204,48 @@
                                     @foreach($listQuoteDetail->data->crm_stock as $k=>$val)
                                         {{-- {{$val->stock_product_id}} --}}
                                             <tr id="row'+i+'" data-id="'+i+'" class="tr-quote-row row-quote-item">
-                                                <td class="td-item-quote-name">
+                                                <td class="" style="width: 33%;">
                                                     <div class=" form-group">
                                                         <div class="row font-size-14">
-                                                            <div class="col-md-12 col-sm-12 col-12">
+                                                            <div class="col-12 font-size-17">
                                                                 @if($product[$k][0]->id == $val->stock_product_id)
                                                                         {{$product[$k][0]->name}}
-
                                                                 @endif
                                                                 {{-- {{    $val->stock_product_id }} --}}
+                                                            </div>
+                                                            <div class="col-12 font-size-13">
+                                                                <p>
+                                                                    @if($product[$k][0]->id == $val->stock_product_id)
+                                                                            {{$product[$k][0]->description}}
+                                                                    @endif
+                                                                </p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </td>
-
+                                                <td style="">
+                                                    <div class="font-size-14">
+                                                        @if($product[$k][0]->id == $val->stock_product_id)
+                                                            {{ ucfirst($product[$k][0]->group_type) }}
+                                                        @endif
+                                                    </div>
+                                                </td>
                                                 <td style="">
                                                     <div class="font-size-14">
                                                         <span>{{number_format($val->qty, 2, '.', '')}}</span>
                                                     </div>
                                                 </td>
+                                                <td style="">
+                                                    <div class="font-size-14">
+                                                        @if($product[$k][0]->measurement == '')
+                                                            @php $measurement = 'Not Value'  @endphp
+                                                        @else
+                                                            @php $measurement = $product[$k][0]->measurement  @endphp
+                                                        @endif
+                                                        <span>{{ $measurement }}</span>
+                                                    </div>
+                                                </td>
+
                                                 <td class="">
                                                     <div class="row-12 font-size-14">
                                                         <span>{{$val->price}}</span>
@@ -236,7 +260,7 @@
                                                         <div class="font-weight-normal">
                                                                 <div class="row">
                                                                     <div class="col-6">
-                                                                        (-) Discount({{ $dis }}):
+                                                                        <span>(-)Discount({{ $dis }}):</span>
                                                                     </div>
                                                                     <div class="col-6 text-right">
                                                                         {{number_format($val->discount, 2, '.', '')}}

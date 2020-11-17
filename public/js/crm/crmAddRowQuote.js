@@ -146,7 +146,6 @@
                                     '<input type="hidden" name="product'+branId+'[]" id="txtPrdId_'+i+'"  readonly>'+
                                     '<span id="product_name'+i+'Error" ><strong></strong></span>'+
                                 '</div>' +
-
                             '</div>' +
                             '<div class="form-inline"><textarea class="form-control txtDescription_'+i+'" id="txtDescription_'+i+'"  rows="2" style="margin-top:10px; padding:10px; width: 100%!important;" placeholder="Description" disabled></textarea> </div>' +
                         '</div>' +
@@ -547,12 +546,18 @@
                             var prdName = $.trim($(".itemName_"+prdVal+"").text());
                             var prdPrice = parseFloat($.trim($(".itemPrice_"+prdVal+"").val()));
                             var prdAviableStock = parseFloat($.trim($(".stockItem_"+prdVal+"").text()));
-
+                            var itemMeasurement = $.trim($(".itemMeasurement_"+prdVal+"").text());
+                            if(itemMeasurement == ''){
+                                itemMeasurement = 'Not Value';
+                            }
+                            // console.log('itemMeasurement='+itemMeasurement);
                             prdInStock = prdAviableStock;
                             var prdDescription = $.trim($(".itemDescription_"+prdVal+"").text());
 
                                 stockMessage = "Stock not enough, the available item is ";
                                 numPrdInStock = prdInStock;
+
+
 
                                 if(num == 0){
                                     //show item in row quote item  with one select
@@ -560,6 +565,7 @@
                                     $("#product_name"+btnId+"").val(prdName);
                                     $("#txtDescription_"+btnId+"").val(prdDescription);
                                     $(".itemPrice_"+btnId+"").val(prdPrice);
+                                    $("#prd_measurement_"+btnId+"").text(itemMeasurement);
                                     $("#itemType_"+btnId+"").text(itemType);
                                     $("#numItemInStock_"+btnId+"").val(numPrdInStock);
                                     $(".itemPrice_"+btnId+"").keyup(); //call function key press to generate data
@@ -571,11 +577,11 @@
                                 }else{
                                     //show item in row quote item with multi select
                                     $( "#btnAddRowQuoteItem" ).trigger( "click", branId);
-
                                     $("#txtPrdId_"+(i-1)+"").val(prdVal);
                                     $("#product_name"+(i-1)+"").val(prdName);
                                     $("#txtDescription_"+(i-1)+"").val(prdDescription);
                                     $(".itemPrice_"+(i-1)+"").val(parseFloat(prdPrice));
+                                    $("#prd_measurement_"+(i-1)+"").text(itemMeasurement);
                                     $("#itemType_"+(i-1)+"").text(itemType);
                                     $("#numItemInStock_"+(i-1)+"").val(numPrdInStock);
                                     $(".itemPrice_"+(i-1)+"").keyup(); //call function key press to generate data

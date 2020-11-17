@@ -41,10 +41,13 @@ class ModelCrmQuote extends Model
 
     //function to get product detail by product id in table stock
     public static function getProduct($id){
-        $r = DB::table('stock_product')
-                ->where('id','=',$id)
-                ->where('status','=','t')
-                ->where('is_deleted','=','f')
+        $r = DB::table('stock_product as prd')
+                ->select('prd.*','mes.name as measurement','prdType.group_type')
+                ->join('ma_measurement as mes','prd.ma_measurement_id','=','mes.id')
+                ->join('stock_product_type as prdType','prd.stock_product_type_id','=','prdType.id')
+                ->where('prd.id','=',$id)
+                ->where('prd.status','=','t')
+                ->where('prd.is_deleted','=','f')
                 ->get();
         return $r;
     }
