@@ -23,7 +23,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped" style="width: 100%; max-width: 1200px; table-layout: fixed;">
                             <thead>
                                 <tr>
                                     <th>Customer</th>
@@ -60,8 +60,8 @@
                         <div class="form-group">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-10"></div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-9"></div>
+                                    <div class="col-md-3">
                                         <label for="">Total Paid :
                                             @php
                                                 $amount = 0;
@@ -69,8 +69,8 @@
                                                     foreach ($view_payment_details as $item) {
                                                         $amount += $item->amount_paid;
                                                     }
-                                                    echo $amount;
                                                 }
+                                                echo number_format($amount,4,'.',',');
                                             @endphp
                                         </label>
                                     </div>

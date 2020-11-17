@@ -100,7 +100,7 @@ function showGrandTotal(){
     let total = parseFloat($('#txtTotal').text());
     let totalvat = parseFloat($('#txtVatTotal').text());
     let grandTotal = total + totalvat;
-    document.getElementById('txtGrandTotal').innerHTML=grandTotal.toFixed(2);
+    document.getElementById('txtGrandTotal').innerHTML=grandTotal.toFixed(4);
 }
 // End Calculate Grand Total
 function showTotal(){
@@ -110,7 +110,7 @@ function showTotal(){
             total_amount += parseFloat($(this).text());
         }
     });
-    document.getElementById('txtTotal').innerHTML=total_amount.toFixed(2);
+    document.getElementById('txtTotal').innerHTML=total_amount.toFixed(4);
 }
 // function insert row
 function inSertTable(count){

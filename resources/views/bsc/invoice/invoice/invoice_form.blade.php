@@ -193,7 +193,7 @@ if (count($bsc_show_customer_branchs) >0) {
                                                     <label for="">VAT Total : </label>
                                                 </div>
                                                 <div class="col-sm-6 text_right">
-                                                    <label for="" id="txtVatTotal">0</label>
+                                                    <label for="" id="txtVatTotal">0.0000</label>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -301,11 +301,11 @@ if (count($bsc_show_customer_branchs) >0) {
                         ma_customer_branch_id : tr.find(".customer_branch").attr('data-customer_branch_id'),
                         description           : tr.find(".description").text(),
                         qty                   : tr.find(".qty").text(),
-                        unit_price            : tr.find(".price").text(),
-                        discount              : tr.find(".discount").text(),
+                        unit_price            : parseFloat (tr.find(".price").text()).toFixed(4),
+                        discount              : parseFloat(tr.find(".discount").text()).toFixed(4),
                         bsc_account_charts_id : tr.find(".chart_account").attr('data-chart_account_id'),
                         tax                   : tr.find(".invoice_tax").val(),
-                        amount                : tr.find(".item_amount").text()
+                        amount                : parseFloat(tr.find(".item_amount").text()).toFixed(4)
                     };
                 }
             });
@@ -324,9 +324,9 @@ if (count($bsc_show_customer_branchs) >0) {
                         effective_date   : $("#effective_date").val(),
                         end_period_date  : $("#end_period_date").val(),
                         deposit_on_payment : $("#deposit_on_payment").val(),
-                        total            : $('#txtTotal').text(),
-                        grandTotal       : $('#txtGrandTotal').text(),
-                        vatTotal         : $('#txtVatTotal').text(),
+                        total            : parseFloat($('#txtTotal').text()).toFixed(4),
+                        grandTotal       : parseFloat($('#txtGrandTotal').text()).toFixed(4),
+                        vatTotal         : parseFloat($('#txtVatTotal').text()).toFixed(4),
                         billing_address  : $('#billing_address').val(),
                         crm_quote_id     : $('.reference option:selected').attr('data-crm_quote_id'),
                         itemDetail       : itemDetail
