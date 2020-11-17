@@ -20,6 +20,12 @@ class GetLeadSchedule extends JsonResource
             'last_name_en',
             'email'
         ]);
+        $user_result =User::find($this->user_create_schedule_result,[
+            'id',
+            'first_name_en',
+            'last_name_en',
+            'email'
+        ]);
         return [
             "schedule_id"=> $this->schedule_id,
             "branch_id"=> $this->crm_lead_branch_id,
@@ -34,7 +40,12 @@ class GetLeadSchedule extends JsonResource
             "schedule_type_id"=>$this->crm_lead_schedule_type_id,
             "schedule_type"=>$this->schedule_type,
             "status"=>$this->status,
+            "schedule_result_id"=>$this->schedule_result_id,
+            "crm_lead_schedule_type_result_id"=>$this->crm_lead_schedule_type_result_id,
+            "comment_result"=>$this->comment_result,
+            "create_date_result"=>date('d-m-yy', strtotime($this->create_date)),
             "create_by"=>$user,
+            "create_by_result"=>$user_result,
         ];
     }
 }

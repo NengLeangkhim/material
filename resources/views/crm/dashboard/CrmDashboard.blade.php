@@ -19,12 +19,12 @@
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-3 col-6" >
               <!-- small box -->
-              <div class="small-box bg-light">
+              <div class="small-box bg-white" style="border:2px solid #d42931" >
                 <div class="inner">
                   <div class="row">
-                    <div class="col-8">
+                    <div class="col-8" >
                       <h3 class="text-info">{{$new_lead}}</h3>
 
                       <p>New Leads</p>
@@ -39,7 +39,7 @@
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
-              <div class="small-box bg-light">
+              <div class="small-box bg-white" style="border:2px solid #d42931">
                 <div class="inner">
                   <div class="row">
                     <div class="col-8">
@@ -57,7 +57,7 @@
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
-              <div class="small-box bg-light">
+              <div class="small-box bg-white" style="border:2px solid #d42931">
                 <div class="inner">
                   <div class="row">
                     <div class="col-8">
@@ -75,7 +75,7 @@
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
-              <div class="small-box bg-light">
+              <div class="small-box bg-white" style="border:2px solid #d42931">
                 <div class="inner">
                   <div class="row">
                     <div class="col-8">
@@ -96,8 +96,8 @@
         <div class="row">
             <div class="col-md-6">
               <!-- AREA CHART -->
-              <div class="card card-primary">
-                <div class="card-header">
+              <div class="card card-primary" >
+                <div class="card-header" style="background: #1fa8e0"> 
                   <h3 class="card-title">Lead Status Chart</h3>
 
                   <div class="card-tools">
@@ -118,7 +118,7 @@
             <div class="col-md-6">
               <!-- LINE CHART -->
               <div class="card card-info">
-                <div class="card-header">
+                <div class="card-header" style="background: #1fa8e0">
                   <h3 class="card-title">Quote Status Chart</h3>
 
                   <div class="card-tools">
@@ -143,7 +143,7 @@
           <div class="col-md-6">
             <!-- AREA CHART -->
             <div class="card card-primary">
-              <div class="card-header">
+              <div class="card-header" style="background: #1fa8e0">
                 <h3 class="card-title">Contact Chart</h3>
 
                 <div class="card-tools">
@@ -164,7 +164,7 @@
           <div class="col-md-6">
             <!-- LINE CHART -->
             <div class="card card-info">
-              <div class="card-header">
+              <div class="card-header" style="background: #1fa8e0">
                 <h3 class="card-title">Organization Chart</h3>
 
                 <div class="card-tools">
@@ -188,6 +188,10 @@
     </div>
 </section><!-- end section Main content -->
 <script>
+    var currentDate = new Date()
+    var currentDateString = currentDate.toJSON().split('T')[0]
+    currentDate.setDate( currentDate.getDate() - 7 );
+    var currentDateStringSub7 = currentDate.toJSON().split('T')[0]
     $(function () {
     // Chart Lead Status
     var Lead_Chart = () => {
@@ -197,10 +201,17 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+        data: {
+            'from_date' : currentDateString,
+            'to_date' : currentDateString
+        },
         //data: $('#FrmChartReport').serialize(),
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1) {
+                    return
+                }
                 google.charts.load('current',{
                     packages: ['corechart']
                 }).then(CrmLeadDrawChart(data));
@@ -219,12 +230,12 @@
                         {
                             id: 1,
                             name_en: 'new',
-                            code: 'color:#007bff'
+                            code: 'color:#fed330'
                         },
                         {
                             id: 2,
                             name_en: 'qualified',
-                            code: 'color:#66c8cf'
+                            code: 'color:#C4E538'
                         },
                         {
                             id: 3,
@@ -234,26 +245,28 @@
                         {
                             id: 4,
                             name_en: 'surveyed',
-                            code: 'color:black'
+                            code: 'color:#fa8231'
                         },
                         {
                             id: 5,
                             name_en: 'proposition',
-                            code: 'color:#ffc107'
+                            code: 'color:#2bcbba'
                         },
                         {
                             id: 6,
-                            name_en: '..',
-                            code: 'color:#28a745'
+                            name_en: 'won',
+                            code: 'color:#4b4b4b'
                         },
                         {
                             id: 7,
                             name_en: 'junk',
-                            code: 'color:red'
+                            code: 'color:#ff3838'
                         },
                     ]
                     $.each(data, function (index, value) {
-                        result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
+                        if(value.crm_lead_status_id != null){
+                            result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
+                        }
                     })
                     var data_chart = google.visualization.arrayToDataTable(result);
                     var view = new google.visualization.DataView(data_chart);
@@ -287,10 +300,17 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+        data: {
+            'from_date' : currentDateString,
+            'to_date' : currentDateString
+        },
         //data: $('#FrmChartQuoteReport').serialize(),
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1) {
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 }).then(CrmLeadDrawChart(data));
@@ -309,38 +329,38 @@
                         },
                         {
                             id: 1,
-                            name_en: 'new',
-                            code: 'color:#007bff'
+                            name_en: 'pending',
+                            code: 'color:#ff3838'
                         },
                         {
                             id: 2,
-                            name_en: 'qualified',
-                            code: 'color:#ffc107'
+                            name_en: 'approved',
+                            code: 'color:#4cd137'
                         },
                         {
                             id: 3,
-                            name_en: 'surveying',
+                            name_en: 'negogiate',
                             code: 'color:#ffc107'
                         },
                         {
                             id: 4,
-                            name_en: 'surveyed',
-                            code: 'color:black'
+                            name_en: 'open',
+                            code: 'color:#00a8ff'
                         },
                         {
                             id: 5,
-                            name_en: 'proposition',
-                            code: 'color:#ffc107'
+                            name_en: 'new pending',
+                            code: 'color:#e84118'
                         },
                         {
                             id: 6,
-                            name_en: '..',
+                            name_en: 'tset123',
                             code: 'color:#ffc107'
                         },
                         {
                             id: 7,
-                            name_en: 'junk',
-                            code: 'color:#28a745'
+                            name_en: '..',
+                            code: 'color:#9AECDB'
                         },
                     ]
                     $.each(data, function (index, value) {
@@ -377,10 +397,18 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+        data: {
+            'type' : 'day',
+            'from_date' : currentDateStringSub7,
+            'to_date' : currentDateString
+        },
         //data: $('#FrmChartContactReport').serialize(),
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1) {
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 }).then(CrmLeadDrawChart(data));
@@ -395,7 +423,7 @@
                     var colors = [{
                             id: 0,
                             name_en: 'none',
-                            code: 'color:#007bff'
+                            code: 'color:#1dd1a1'
                         }
                     ]
                     $.each(data, function (index, value) {
@@ -431,10 +459,21 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+        data : {
+            'type' : 'day',
+            'status_id' : 2,
+            'from_date' : currentDateStringSub7,
+            'to_date' : currentDateString
+        },
         //data: $('#FrmChartOrganizationReport').serialize(),
         success: function (response) {
           if (response.success == true) {
                 var data = response.data
+                if(data.length < 1) {
+                    $('#OrgChart').empty()
+                    $('#OrgChart').append(`<p>No Data</p>`)
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 }).then(CrmOrganizationDrawChart(data));
@@ -448,8 +487,8 @@
                     var colors = [{
                             id: 0,
                             name_en: 'none',
-                            code: 'color:#007bff'
-                        }
+                            code: 'color:#25CCF7'
+                        },
                     ]
                     $.each(data, function (index, value) {
                         result.push([value.create_date, value.total, colors[0].code])

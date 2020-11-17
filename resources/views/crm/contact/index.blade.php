@@ -4,7 +4,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1><i class="fas fa-address-card"></i> <span>Contact</span></h1>
+                            <h1><i class="fas fa-address-card"></i> <span>Contacts</span></h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -48,11 +48,11 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr style="background: #1fa8e0">
-                                            <th style="color: #FFFFFF">Contact Number</th>
-                                            <th style="color: #FFFFFF">Name eng</th>
-                                            <th style="color: #FFFFFF">Name Kh</th>
-                                            <th style="color: #FFFFFF">phone</th>
-                                            <th style="color: #FFFFFF">facebook</th>
+                                            {{-- <th style="color: #FFFFFF">Contact Number</th> --}}
+                                            <th style="color: #FFFFFF">Name EN</th>
+                                            <th style="color: #FFFFFF">Name KH</th>
+                                            <th style="color: #FFFFFF">Phone</th>
+                                            <th style="color: #FFFFFF">Facebook</th>
                                             <th style="color: #FFFFFF">Email </th>
                                             <th style="color: #FFFFFF">Detail</th>
                                         </tr>
@@ -60,15 +60,22 @@
                                     <tbody>
                                     @foreach($contact_table->data as $row)
                                         <tr>
-                                            <td>TT-CON0000002</td>
+                                            {{-- <td>TT-CON0000002</td> --}}
                                             <td>{{$row->name_en}}</td>
                                             <td>{{$row->name_kh}}</td>
                                             <td>{{$row->phone}}</td>
                                             <td>{{$row->facebook}}</td>
                                             <td>{{$row->email}}</td>
-                                            <td>
-                                                <a href="#" class="btn btn-info btn-sm CrmEditContact" ​value="/contact/edit/{{$row->id}}"><i class="fas fa-wrench"></i></a>
-                                                <a href="javascript:void(0);" class="btn btn-danger btn-sm CrmDeleteContact" onclick="Crm_delete({{$row->id}},'/contact/delete','/contact','Deleted successfully')"><i class="fas fa-trash"></i></a>
+                                            <td style="text-align: center">                                                
+                                              
+                                                <div class="row-12 form-inline">
+                                                  <div class="col-md-6">
+                                                    <button class="btn btn-info btn-block  btn-sm CrmEditContact" ​value="/contact/edit/{{$row->id}}"><i class="fas fa-wrench"></i></button>      
+                                                  </div>
+                                                  <div class="col-md-6 ">
+                                                    <button href="javascript:void(0);" class="btn btn-block  btn-danger btn-sm CrmDeleteContact" onclick="Crm_delete({{$row->id}},'/contact/delete','/contact','Deleted successfully')"><i class="fas fa-trash"></i></button>         
+                                                  </div>
+                                              </div> 
                                             </td>
                                         </tr>                                       
                                     @endforeach

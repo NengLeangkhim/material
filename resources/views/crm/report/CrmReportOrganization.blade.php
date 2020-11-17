@@ -21,9 +21,20 @@
           <div class="col-12">
               <div class="card">
                   <div class="card-header">
-                      <div class="col-12 text-right">
-                                <button class="btn btn-success"><span><i class="far fa-file-excel"></i></span> Excel</button>
-                                <button class="btn btn-danger"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
+                      <div class="col-12">
+                        <div class="row">
+                            <div class="col-9"></div>
+                            <div class="col-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                            <button class="btn btn-success form-control"><span><i class="far fa-file-excel"></i></span> Excel</button>
+                                    </div>
+                                    <div class="col-6">
+                                            <button class="btn btn-danger form-control"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                       </div>
                   </div>
                   <div class="card-body">
@@ -47,17 +58,6 @@
                                             <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                         </div>
                                         <select class="form-control" name="select_source" id="select_assign_to">
-                                            <option value="0">Please Select</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="exampleInputEmail1">Status</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-unlock"></i></span>
-                                        </div>
-                                        <select class="form-control" name="select_source" id="select_status">
                                             <option value="0">Please Select</option>
                                         </select>
                                     </div>
@@ -168,7 +168,6 @@
     $(document).ready(function(){
         setSelectOptionData('/api/leadsource','#select_source')
         setSelectOptionData('/api/leadassig','#select_assign_to')
-        setSelectOptionData('/api/leadstatus','#select_status')
 
         var url = '/api/crm/report/organizationReportDetail'
 

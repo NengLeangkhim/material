@@ -4,7 +4,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1><span><i class="fas fa-sitemap"></i></span> Quote List</h1>
+                            <h1><span><i class="fas fa-file-invoice-dollar"></i></span> Quotes</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -36,7 +36,7 @@
                                                     <th style="color: #FFFFFF">Quote Number</th>
                                                     <th style="color: #FFFFFF">Subject</th>
                                                     <th style="color: #FFFFFF">Lead Name</th>
-                                                    <th style="color: #FFFFFF">Total</th>
+                                                    {{-- <th style="color: #FFFFFF">Total</th> --}}
                                                     <th style="color: #FFFFFF">Quote Stage</th>
                                                     <th style="color: #FFFFFF">Assigned To </th>
                                                     <th style="color: #FFFFFF">Convert To BSC</th>
@@ -54,7 +54,7 @@
                                                                 <td>{{$val2->quote_number}}</td>
                                                                 <td>{{$val2->subject}}</td>
                                                                 <td>{{$val2->crm_lead->customer_name_en}}</td>
-                                                                <td>
+                                                                {{-- <td>
                                                                     <?php $sumTotal = 0;?>
                                                                     @foreach ($val2->crm_stock as $key3=>$val3)
                                                                             @if($val3->discount_type == "percent")
@@ -75,7 +75,7 @@
                                                                     @endforeach
                                                                     {{ $GrandTT = number_format($sumTotal, 2, '.', '')." $" }}
 
-                                                                </td>
+                                                                </td> --}}
                                                                 <td>
                                                                     <?php $num = count($val2->quote_stage); ?>
                                                                     @if( $num > 0)
@@ -84,20 +84,19 @@
                                                                         }}
                                                                     @endif
                                                                 </td>
-                                                                <td>{{$val2->assign_to->first_name_en}}</td>
+                                                                <td>{{$val2->assign_to->first_name_en.' '.$val2->assign_to->last_name_en}}</td>
                                                                 <td>Not Yet Data</td>
                                                                 <td>{{$val2->due_date}}</td>
                                                                 <td>
                                                                     <div class="row-12 form-inline">
                                                                         <div class="col-md-4">
                                                                             <a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action('/quote/detail', '{{ $val2->id }}')"  >
-                                                                                {{-- <i class="fas fa-info"> </i>  --}}
-                                                                                View
+                                                                                <i class="far fa-eye"></i>
                                                                             </a>
                                                                         </div>
                                                                         <div class="col-md-4">
                                                                             <a href="#" class="btn btn-success btn-sm" onclick="goto_Action('/quote/leadBranch', '{{ $val2->id }}')">
-                                                                                Edit
+                                                                                <i class="fas fa-wrench"></i>
                                                                             </a>
                                                                         </div>
                                                                         <div class="col-md-4 ">
