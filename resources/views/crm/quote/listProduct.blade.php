@@ -32,9 +32,9 @@
                                         </div>
                                     </th>
                                     <th>Product Name</th>
-                                    <th>Part Number</th>
                                     <th>Unit Price</th>
                                     <th>Available In Stock</th>
+                                    <th>Measurement</th>
                                     <th>Description</th>
                                 </tr>
                             </thead>
@@ -57,11 +57,7 @@
                                                         {{$val2->name}}
                                                     </div>
                                                 </td>
-                                                <td class="border">
-                                                    <div class="itemPartNumber_{{$val2->id}}">
-                                                        {{$val2->part_number}}
-                                                    </div>
-                                                </td>
+
                                                 <td class="border">
                                                     {{-- <div class="itemPrice_{{$val2->id}}">
                                                         {{$val2->product_price}}
@@ -77,6 +73,12 @@
                                                         {{$val2->stock_qty}}
                                                     </div>
                                                 </td>
+                                                <td class="border">
+                                                    <div class="itemMeasurement_{{$val2->id}}">
+                                                        {{$val2->measurement}}
+                                                    </div>
+                                                </td>
+
                                                 <td class="border">
                                                     <div class="itemDescription_{{$val2->id}}">
                                                         {{$val2->description}}
