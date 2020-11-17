@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\e_request\ere_get_assoc;
 use App\Http\Controllers\perms;
+use App\model\hrms\employee\Employee;
+use App\model\hrms\Training\TrainingList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\model\mainapp\employeeProfile\profileModel;
+use App\model\Setting\LeaveType;
+
 // use App\model\hrms\shift_promote\management_promoteModel; 
 
 class profile extends Controller
@@ -48,11 +52,15 @@ class profile extends Controller
             return;
         }
         if(perms::check_perm_module('PRO_07')){//module codes
-            $pro = profileModel::getUserInfo($user_id);
-            $addr_code = $pro[0]->gazetteer_code;
-            $addr_detail = profileModel::address_detail($addr_code);
-            // dd($addr_detail);
-            return view('profile',compact("pro","addr_detail"));//,"pos","name","id_number","dept","kindof","transfer_to","leave_kind","trans_to","date_from","time_from","date_to","time_to","date_resume","leave_number","reason","req_by","create_date"));
+            // $pro = profileModel::getUserInfo($user_id);
+            // $addr_code = $pro[0]->gazetteer_code;
+            // $addr_detail = profileModel::address_detail($addr_code);
+            $employee=profileModel::get_data_info_of_one_employee($user_id);
+            $address=profileModel::get_address_of_employee($employee[0]->gazetteer_code);
+            $training=TrainingList::my_training($user_id);
+            $leave_type=LeaveType::get_leave_type();
+            $all_leave=LeaveType::get_all_permission($user_id);
+            return view('profile',compact("employee","address","training","leave_type","all_leave"));//,"pos","name","id_number","dept","kindof","transfer_to","leave_kind","trans_to","date_from","time_from","date_to","time_to","date_resume","leave_number","reason","req_by","create_date"));
         }else{
             return view('no_perms');
         }

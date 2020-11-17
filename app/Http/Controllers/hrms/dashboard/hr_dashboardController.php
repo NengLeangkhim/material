@@ -4,10 +4,8 @@ namespace App\Http\Controllers\hrms\dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\model\hrms\dashboard\hr_dashboardModel; 
-
-
-
+use App\model\hrms\dashboard\hr_dashboardModel;
+use App\model\hrms\employee\Employee;
 
 class hr_dashboardController extends Controller
 {
@@ -219,7 +217,7 @@ class hr_dashboardController extends Controller
 
     // check attendance staff by today
     public static function staff_attendence(){
-        $all_em = hr_dashboardModel::em_all();
+        $all_em = Employee::AllEmployee();
         $intime = 0;
         $late = 0;
         $absent = 0;
@@ -342,9 +340,9 @@ class hr_dashboardController extends Controller
 
     //generate staff by type gender
     public static function staff_type(){
-        $all_em = hr_dashboardModel::em_all();
-        $m = '';
-        $f = '';
+        $all_em=Employee::AllEmployee();
+        $m = 0;
+        $f = 0;
 
         foreach($all_em as $val){
            if($val->sex == 'male'){
@@ -572,6 +570,7 @@ class hr_dashboardController extends Controller
         $r = count($data);
         return $r;
     }
+
 
     
 

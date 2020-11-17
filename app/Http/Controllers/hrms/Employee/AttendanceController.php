@@ -19,7 +19,7 @@ class AttendanceController extends Controller
         if (perms::check_perm_module('HRM_090103')) {
             $att=new Attendance();
             $em=new Employee();
-            $allem=$em->AllEmployee();
+            $allem=$em->list_employee_without_night_sheet();
             if(isset($_POST['attendanceDate'])){
                 $date = date('Y-m-d').'';
             }else{
