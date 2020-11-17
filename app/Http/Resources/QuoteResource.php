@@ -124,9 +124,15 @@ class QuoteResource extends JsonResource
         //                 ->select(["stock_product.id","stock_product.name","stock_qty","product_price","part_number","description","stock_product_type.group_type","ma_measurement.name as measurement"])
         //                 ->get();
 
-        usort($quoteStage, fn($a, $b) => strcmp($a->id, $b->id));
-        usort($statusQuote, fn($a, $b) => strcmp($a->id, $b->id));
-        usort($acknowlegde, fn($a, $b) => strcmp($a->id, $b->id));
+        usort($quoteStage, function($a, $b) {
+            return strcmp($a->id, $b->id);
+        });
+        usort($acknowlegde, function($a, $b) {
+            return strcmp($a->id, $b->id);
+        });
+        usort($statusQuote, function($a, $b) {
+            return strcmp($a->id, $b->id);
+        });
 
         return [
             "id"=>$this->id,
