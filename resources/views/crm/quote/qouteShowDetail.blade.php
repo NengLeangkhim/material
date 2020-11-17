@@ -21,7 +21,7 @@
         <div class="card card-default color-palette-box card-header">
             <div class="col-12" >
               <div class="row">
-                <div class="col-8">
+                <div class="col-sm-6 col-xs-8 col-12">
                     <div class="row">
                             {{-- <div class="> --}}
                             <h3 class="card-title"​>
@@ -31,27 +31,27 @@
                         {{-- </div> --}}
                     </div>
                 </div>
-                <div class="col-4" >
-
+                <div class="col-sm-6 col-xs-4 col-12 pt-2">
                    <div class="row">
-
-                        <div class="col-6 " >
-                                <button onclick='PreviewQuote({{$listQuoteDetail->data->id}})' type="button" class="btn btn-md btn-info form-control" >
-                                    Preview</button>
-                                <button onclick='DownloadQuote({{$listQuoteDetail->data->id}})' type="button" class="btn btn-md btn-info" >
-                                        Pdf</button>
-                        </div>
-
-                        <div class="col-6">
+                        <div class="col-sm-5 col-5">
                             <?php $num = count($listQuoteDetail->data->quote_stage); ?>
                             @if( $num > 0)
-
                                     @if($listQuoteDetail->data->quote_stage[$num-1]->name_en == 'approved')
-                                        <button type="button" ​value="" class="btn btn-primary btn-block btn-md ">Convert To BSC</button>
+                                        <button type="button" ​value="" class="btn-block btn-primary btn-sm btn font-weight-bold">Convert To BSC</button>
                                     @endif
-
                             @endif
                         </div>
+                        <div class="col-sm-4 col-4">
+                                <button onclick='PreviewQuote({{$listQuoteDetail->data->id}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
+                                    Preview</button>
+
+                        </div>
+                        <div class="col-sm-3 col-3">
+                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
+                                PDF</button>
+                        </div>
+
+
 
                    </div>
 
@@ -275,10 +275,10 @@
 
                                                         $sumTotal;
                                                     ?>
-                                                    <div id="quote-sub-total_'+i+'" class="font-size-14 ">{{$unitTotal}}</div>
-                                                    <div id="quote-sub-discount_'+i+'" class="font-size-14 pt-1">{{number_format($val, 0, '.', '')}}</div>
-                                                    <div id="quote-after-sub-disc_'+i+'" class="font-size-14 pt-1">{{$afterDis}}</div>
-                                                    <div id="quote-netPrice_'+i+'" style="color:red;" class="font-size-14 pt-1 ">{{ $afterDis }}</div>
+                                                    <div id="quote-sub-total_'+i+'" class="font-size-14 ">{{number_format($unitTotal, 4, '.', '')}}</div>
+                                                    <div id="quote-sub-discount_'+i+'" class="font-size-14 pt-1">{{number_format($val, 4, '.', '')}}</div>
+                                                    <div id="quote-after-sub-disc_'+i+'" class="font-size-14 pt-1">{{number_format($afterDis, 4, '.', '')}}</div>
+                                                    <div id="quote-netPrice_'+i+'" style="color:red;" class="font-size-14 pt-1 ">{{number_format( $afterDis, 4, '.', '')}}</div>
                                                 </td>
 
                                             </tr>
@@ -303,7 +303,7 @@
                                         </td>
                                         <td>
                                             <span class="pull-right">
-                                                {{number_format($sumTotal, 2, '.', '')  }} ($)
+                                                {{number_format($sumTotal, 4, '.', '')  }} ($)
                                             </span>
                                         </td>
 
@@ -320,7 +320,7 @@
                                                     $Taxation = ($sumTotal * 0.1);
                                                     $granTotal = ($sumTotal + $Taxation);
                                                 ?>
-                                                <div >{{number_format($Taxation, 2, '.', '')  }} ($)</div>
+                                                <div >{{number_format($Taxation, 4, '.', '')  }} ($)</div>
                                             </span>
                                         </td>
 
@@ -334,7 +334,7 @@
                                         </td>
                                         <td>
                                             <span class="pull-right">
-                                                <b>{{number_format($granTotal, 2, '.', '')  }} ($)</b>
+                                                <b>{{number_format($granTotal, 4, '.', '')  }} ($)</b>
                                             </span>
                                         </td>
 

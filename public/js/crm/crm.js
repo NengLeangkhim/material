@@ -972,7 +972,7 @@ function Crm_delete(id,route,goto,alert) {
         // var i = 0;
         $row_content =
 
-        '<div id="row_content'+i+'" class="form-group border border-secondary rounded p-3  row_content">'+
+        '<div id="row_content'+i+'" class="form-group border border-secondary rounded pt-3 p-1  row_content">'+
                 '<div class="col-12" align="right">' +
                     '<button type="button" id="'+i+'" class="close btnCloseRowContent" style="color:blue;" aria-label="Close">'+
                         '<span aria-hidden="true">&times;</span>'+
@@ -1002,9 +1002,10 @@ function Crm_delete(id,route,goto,alert) {
                         '<table class="table table-bordered ">'+
                             '<thead class="thead-item-list">'+
                                 '<tr>'+
-                                    '<th class="td-item-quote-name"><b style="color:red">*</b> Item Name</th>'+
+                                    '<th class="td-item-quote-name" style="width:30%;"><b style="color:red">*</b> Item Name</th>'+
                                     '<th class="td-item-quote">Type</th>'+
-                                    '<th style="width: 120px">Quantity</th>'+
+                                    '<th style="width: 100px">Quantity</th>'+
+                                    '<th style="width: 120px">Measurement</th>'+
                                     '<th class="td-item-quote">List Price($)</th>'+
                                     '<th class="td-item-quote">Total($)</th>'+
                                     '<th style="width: 50px;" >'+

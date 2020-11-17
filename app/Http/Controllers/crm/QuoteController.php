@@ -33,7 +33,7 @@ class QuoteController extends Controller
         {
             return view('no_perms');
         }
-        
+
     }
 
     // function to get show qoute detail
@@ -126,9 +126,9 @@ class QuoteController extends Controller
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $listProduct = json_decode($res->getContent());
-            // dump($listProduct);
-            // echo $branId;
-            // exit;
+            dump($listProduct);
+            exit;
+
             return view('crm/quote/listProduct', compact('listProduct','row_id','branId'));
         }
 
@@ -149,7 +149,7 @@ class QuoteController extends Controller
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $listService = json_decode($res->getContent());
-
+            // dump($listService);
             // $request = Request::create('/api/stock/service/', 'GET');
             // $listService = json_decode(Route::dispatch($request)->getContent());
             return view('crm/quote/listService', compact('listService','row_id','branId'));
@@ -360,9 +360,11 @@ class QuoteController extends Controller
             session_start();
         }
         if(isset($_GET['qouteId'])){
-
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
             $token = $_SESSION['token'];
-            $request = Request::create('/api/quote/'.$_GET['qouteId'].'', 'GET',$request->all()); 
+            $request = Request::create('/api/quote/'.$_GET['qouteId'].'', 'GET');   // this use branch id to get branch deetail
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);

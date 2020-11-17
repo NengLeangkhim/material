@@ -284,6 +284,7 @@
 </section>
 
 <script type="text/javascript">
+
     $(document).ready(function(){
         $(".row-quote-item").keyup();
         $(".row-quote-item").keyup();

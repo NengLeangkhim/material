@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 
 */
 
+Route::get('/quote/status','api\crm\QuoteController@getStatus');
+
 Route::group(['middleware' => ['jwt.verify']], function() {
 
     //get list quote
