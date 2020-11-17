@@ -278,6 +278,7 @@ class PurchaseController extends Controller
         $chart_accounts = DB::table('bsc_account_charts')
         ->where([
             ['bsc_account_type_id','=',15],
+            ['parent_id','<>',null],
             ['status','=','t'],
             ['is_deleted','=','f']
         ])->get();
