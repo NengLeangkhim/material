@@ -73,6 +73,7 @@ class QuoteResource extends JsonResource
         $quoteStatus =  QuoteStatus::where('crm_quote_id',$this->id)
                                     ->where('status','t')
                                     ->where('is_deleted','f')
+                                    ->orderBy('id','asc')
                                     ->get(['crm_quote_status_type_id','create_by']);
         $quoteStage=[];
         $acknowlegde=[];
@@ -101,13 +102,12 @@ class QuoteResource extends JsonResource
         //find lead by id
         $lead = DB::select("select * from crm_lead where id = $this->crm_lead_id");
 
-        // $statusQuote=[];
         //find status
         $statusQuote = QuoteStatus::where('crm_quote_id',$this->id)
                                     ->where('status','t')
                                     ->where('is_deleted','f')
                                     ->get()->sortBy('id')->toArray();
-        // array_push($statusQuote,$delquote);
+
         //get lead contact
         $contact=null;
         if(count($quoteBranch)>0){
@@ -116,34 +116,6 @@ class QuoteResource extends JsonResource
             $contact = Contact::whereId($last_contact_id)->first();
         }
 
-        //measurement
-        // $measure = DB::table('ma_measurement')
-        //                 ->where('id',$id)
-        //                 ->rightJoin('stock_product', 'stock_product_type.id', '=', 'stock_product.stock_product_type_id')
-        //                 ->rightJoin('ma_measurement', 'ma_measurement.id', '=', 'stock_product.ma_measurement_id')
-        //                 ->select(["stock_product.id","stock_product.name","stock_qty","product_price","part_number","description","stock_product_type.group_type","ma_measurement.name as measurement"])
-        //                 ->get();
-
-        usort($quoteStage, function($a, $b) {
-            return strcmp($a->id, $b->id);
-        });
-        usort($acknowlegde, function($a, $b) {
-            return strcmp($a->id, $b->id);
-        });
-
-        // dd($quoteStage);
-        // dd($statusQuote);
-        // usort($statusQuote, function($a, $b) {
-        //     return strcmp($a->id, $b->id);
-        // });
-
-        // $go = $statusQuote->sort(function ($a, $b) use (x) {
-        //     $pos_a = array_search($a->id, x);
-        //     $pos_b = array_search($b->id, x);
-        //     return $pos_a - $pos_b;
-        //   });
-
-        //   dd($statusQuote);
 
         return [
             "id"=>$this->id,
