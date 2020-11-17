@@ -18,7 +18,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     //get list quote
     Route::get('/quotes','api\crm\QuoteController@index');
-    
+
 
      Route::get('/quote/status','api\crm\QuoteController@getStatus');
 
@@ -26,7 +26,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('/quote/{id}','api\crm\QuoteController@show');
 
     // get  quotes status
-  
+
 
 });
 /*
