@@ -21,13 +21,17 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     //get list quote
     Route::get('/quotes','api\crm\QuoteController@index');
 
-    // get perview qutoe
-    Route::get('/quote/{id}','api\crm\QuoteController@show');
+
+     Route::get('/quote/status','api\crm\QuoteController@getStatus');
+
+
 
     // get  quotes status
 
 
 });
+// get perview qutoe
+Route::get('/quote/{id}','api\crm\QuoteController@show');
 /*
 |   GET ROUTES
 */
@@ -68,4 +72,4 @@ Route::put('/quotebranch','api\crm\QuoteController@editQuoteBranch');
 Route::delete('/quote/{id}/{uid}','api\crm\QuoteController@destroy');
 
 
-Route::get('/preview-quote/{mode}/{id}','api\crm\PreviewQuoteController@index');
+Route::get('/preview-quote/{id}','api\crm\PreviewQuoteController@index');
