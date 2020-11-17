@@ -356,12 +356,20 @@ class QuoteController extends Controller
 
     //function go to edit qoute lead
     public static function quoteEditLead(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(isset($_GET['qouteId'])){
 
-            $request = Request::create('/api/quote/'.$_GET['qouteId'].'', 'GET');   // this use branch id to get branch deetail
-            $quoteDetail = json_decode(Route::dispatch($request)->getContent());
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/quote/'.$_GET['qouteId'].'', 'GET',$request->all()); 
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $quoteDetail = json_decode($res->getContent());
             $employee  = ModelCrmQuote::getEmployee();
             $quoteStatus  = ModelCrmQuote::getQuoteStatus();
+            // dd($quoteDetail);
             return view('crm/quote/quoteLeadEdit', compact('quoteDetail','employee','quoteStatus'));
         }
     }

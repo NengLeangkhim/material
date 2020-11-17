@@ -138,7 +138,7 @@ class Crmlead extends Model
         ->Where([
             ['ma_user.status', '=', 't'],
             ['ma_user.is_deleted', '=', 'f'],
-            ['ma_company_dept.id', '=', 5]
+            // ['ma_company_dept.id', '=', 5]
         ])->orderBy('ma_user.first_name_en','ASC')->get();
     }
     // get Honorifics
@@ -885,10 +885,10 @@ class Crmlead extends Model
                 // $priority='urgent';
                 $result=DB::select('SELECT update_crm_lead_assign(?,?,?,?,?)',
                 array(
-                    $assig_to_id,
+                    $assig_to,
                     $user_create,
                     $branch_id,
-                    $assig_to,
+                    $assig_to_id,
                     't',
                 )
             );

@@ -92,7 +92,7 @@ class ModelCrmLead extends Model
     }
     //Model get lead user assigned to
     public static function CrmGetLeadAssigTo(){
-        return DB::select("SELECT * from  ma_user");
+        return DB::select("SELECT * from  ma_user WHERE is_deleted=FALSE and status=TRUE ORDER BY id ASC");
     }
     //Model get lead privice 
     public static function CrmGetLeadProvice(){
