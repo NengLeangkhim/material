@@ -22,14 +22,13 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
      Route::get('/quote/status','api\crm\QuoteController@getStatus');
 
-
+    // get perview qutoe
+    Route::get('/quote/{id}','api\crm\QuoteController@show');
 
     // get  quotes status
 
 
 });
-// get perview qutoe
-Route::get('/quote/{id}','api\crm\QuoteController@show');
 /*
 |   GET ROUTES
 */

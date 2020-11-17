@@ -101,12 +101,13 @@ class QuoteResource extends JsonResource
         //find lead by id
         $lead = DB::select("select * from crm_lead where id = $this->crm_lead_id");
 
+        $statusQuote=[];
         //find status
-        $statusQuote = QuoteStatus::where('crm_quote_id',$this->id)
+        $delquote = QuoteStatus::where('crm_quote_id',$this->id)
                                     ->where('status','t')
                                     ->where('is_deleted','f')
                                     ->get();
-
+        array_push($statusQuote,$delquote);
         //get lead contact
         $contact=null;
         if(count($quoteBranch)>0){
@@ -122,6 +123,11 @@ class QuoteResource extends JsonResource
         //                 ->rightJoin('ma_measurement', 'ma_measurement.id', '=', 'stock_product.ma_measurement_id')
         //                 ->select(["stock_product.id","stock_product.name","stock_qty","product_price","part_number","description","stock_product_type.group_type","ma_measurement.name as measurement"])
         //                 ->get();
+
+        usort($quoteStage, fn($a, $b) => strcmp($a->id, $b->id));
+        usort($statusQuote, fn($a, $b) => strcmp($a->id, $b->id));
+        usort($acknowlegde, fn($a, $b) => strcmp($a->id, $b->id));
+
         return [
             "id"=>$this->id,
             "due_date"=>$this->due_date,
