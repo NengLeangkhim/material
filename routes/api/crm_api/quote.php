@@ -20,7 +20,10 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('/quotes','api\crm\QuoteController@index');
 
 
+     Route::get('/quote/status','api\crm\QuoteController@getStatus');
 
+    // get perview qutoe
+    Route::get('/quote/{id}','api\crm\QuoteController@show');
 
     // get  quotes status
 
@@ -30,10 +33,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 |   GET ROUTES
 */
 
-Route::get('/quote/status','api\crm\QuoteController@getStatus');
-
-// get perview qutoe
-Route::get('/quote/{id}','api\crm\QuoteController@show');
 // get all quotes
 
 
