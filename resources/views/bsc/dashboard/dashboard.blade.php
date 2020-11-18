@@ -183,7 +183,7 @@ Function index_num($v1){
         new Chart(document.getElementById("bar-chart-grouped"), {
             type: 'bar',
             data: {
-            labels: ["1900", "1950", "1999", "2050", "2020"],
+            labels: ["July", "August", "September", "October", "November"],
             datasets: [
                 {
                 label: "Income",
@@ -208,7 +208,7 @@ Function index_num($v1){
         new Chart(document.getElementById("bar-chart-payable"), {
             type: 'bar',
             data: {
-            labels: ["1900", "1950", "1999", "2050","2020"],
+                labels: ["July", "August", "September", "October", "November"],
             datasets: [
                 {
                 label: "Account Receivable",

@@ -261,7 +261,7 @@ if (count($bsc_show_customer_branchs) >0) {
                             let discount=quote_product.discount;
                             let amount = show_amounts(qty,price,discount);
 
-                            tr="<tr><td class='customer_branch' data-customer_branch_id='"+quote_product.customer_branch_id+"'>"+quote_product.customer_branch_name+"</td><td class='stock_product_id' data-product_id='"+quote_product.stock_product_id+"'>"+quote_product.product_name+"</td><td class='description'>"+quote_product.description+"</td><td class='qty'>"+quote_product.qty+"</td><td class='price'>"+quote_product.price+"</td><td class='discount'>"+quote_product.discount+"</td><td class='chart_account' data-chart_account_id='"+quote_product.bsc_account_charts_id+"'>"+quote_product.chart_account_name+"</td><td>"+option+"</td><td class='item_amount'>"+amount+"</td></tr>";
+                            tr="<tr><td class='customer_branch' data-customer_branch_id='"+quote_product.customer_branch_id+"'>"+quote_product.customer_branch_name+"</td><td class='stock_product_id' data-product_id='"+quote_product.stock_product_id+"'>"+quote_product.product_name+"</td><td class='description'>"+quote_product.description+"</td><td class='qty'>"+quote_product.qty+"</td><td class='price'>"+parseFloat(quote_product.price).toFixed(4)+"</td><td class='discount'>"+parseFloat(quote_product.discount).toFixed(4)+"</td><td class='chart_account' data-chart_account_id='"+quote_product.bsc_account_charts_id+"'>"+quote_product.chart_account_name+"</td><td>"+option+"</td><td class='item_amount'>"+parseFloat(amount).toFixed(4)+"</td></tr>";
                             $("#invoice_table").append(tr);
                         });
                     }
