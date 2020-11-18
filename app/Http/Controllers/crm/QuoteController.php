@@ -478,7 +478,7 @@ class QuoteController extends Controller
 
             ],
             [
-                // 'product_name.*required' => 'This Field is require !!',   //massage validator
+                'product_name.*required' => 'This Field is require !!',   //massage validator
             ]
 
         );
@@ -489,6 +489,16 @@ class QuoteController extends Controller
             ));
         }else{
 
+            $form = $request->all();
+            if(!isset($form['product']) || !isset($form['quote_detail_id_updated'])){
+                $arr = [];
+                $request->request->add([
+                    'product' =>  $arr,
+                    'quote_detail_id_updated' => $arr
+                ]);
+            }
+            // $emptyArray = [];
+            // exit;
             $create_by = $_SESSION['userid'];
             $request->merge(['update_by' => $create_by]);
             $request = Request::create('/api/quotebranch', 'PUT');

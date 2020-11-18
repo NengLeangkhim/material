@@ -36,8 +36,8 @@ class QuoteController extends Controller
                 ->where('status','t')
                 ->where('is_deleted','f')
                 ->get();
-                return QuoteResource::Collection($quote);       
-            // dd("top");  
+                return QuoteResource::Collection($quote);
+            // dd("top");
         }
         else if (perms::check_perm_module_api('CRM_020603',$userid)) { // fro staff (Model and Leadlist by user)
             $quote = Quote::orderBy('id','asc')
@@ -45,9 +45,9 @@ class QuoteController extends Controller
             ->where('is_deleted','f')
             ->where('assign_to',$userid)
             ->get();
-            return QuoteResource::Collection($quote);    
+            return QuoteResource::Collection($quote);
             // dd("staff");
-        
+
         }
         else
         {
@@ -292,10 +292,8 @@ class QuoteController extends Controller
             $qty = $request->input("qty");
             $discount = $request->input("discount");
             $discount_type = $request->input("discount_type");
-
             $quotebranchdetailid_old = $request->input("quote_detail_id");
             $quotebranchdetailid_new = $request->input("quote_detail_id_updated");
-
             $old= $quotebranchdetailid_old;
             $new = $quotebranchdetailid_new;
             $deleted = $this->findDeletedQuote($old,$new,count($old),count($new));
@@ -316,9 +314,12 @@ class QuoteController extends Controller
             }
 
 
+
+
             $all_product = count(collect($stockproductid));
 
-
+            // dump($all_product);
+            // exit;
             //update product
             for ($i = 0; $i < $all_product; $i++)
             {
@@ -407,7 +408,7 @@ class QuoteController extends Controller
             $vat_number=$row->vat_number;
         }
         if($vat_number!=null){
-            $vat_number_type='exception';
+            $vat_number_type='exclude';
         }
         else{
             $vat_number_type='include';
