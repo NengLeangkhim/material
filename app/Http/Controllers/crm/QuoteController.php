@@ -20,6 +20,7 @@ class QuoteController extends Controller
             session_start();
         }
         $token = $_SESSION['token'];
+        dump($token);
         $request = Request::create('/api/quotes', 'GET');
         $request->headers->set('Accept', 'application/json');
         $request->headers->set('Authorization', 'Bearer '.$token);
@@ -170,12 +171,13 @@ class QuoteController extends Controller
                 session_start();
             }
             $token = $_SESSION['token'];
-            $request = Request::create('/api/getlead/', 'GET');
+            $request = Request::create('/api/getleadconvert', 'GET');
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $listLead = json_decode($res->getContent());
-            // dd($listLead);
+            // dump($listLead);
+            // exit;
             return view('crm/quote/listQuoteLead', compact('listLead'));
 
         }
@@ -192,7 +194,7 @@ class QuoteController extends Controller
             $id = $_GET['id'];
 
             $token = $_SESSION['token'];
-            $request = Request::create('/api/getbranchbylead/'.$id.'', 'GET');
+            $request = Request::create('/api/getbranchbyleadconver/'.$id.'', 'GET');
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
@@ -283,6 +285,7 @@ class QuoteController extends Controller
     }
 
 
+    //function to list lead branch when edit branch quote
     public function listLeadBranch(Request $request)
     {
         if (session_status() == PHP_SESSION_NONE) {
@@ -365,7 +368,7 @@ class QuoteController extends Controller
         if(isset($_GET['qouteId'])){
 
             $token = $_SESSION['token'];
-            $request = Request::create('/api/quote/'.$_GET['qouteId'].'', 'GET',$request->all()); 
+            $request = Request::create('/api/quote/'.$_GET['qouteId'].'', 'GET',$request->all());
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
@@ -478,7 +481,7 @@ class QuoteController extends Controller
 
             ],
             [
-                // 'product_name.*required' => 'This Field is require !!',   //massage validator
+                'product_name.*required' => 'This Field is require !!',   //massage validator
             ]
 
         );
@@ -489,6 +492,16 @@ class QuoteController extends Controller
             ));
         }else{
 
+            $form = $request->all();
+            if(!isset($form['product']) || !isset($form['quote_detail_id_updated'])){
+                $arr = [];
+                $request->request->add([
+                    'product' =>  $arr,
+                    'quote_detail_id_updated' => $arr
+                ]);
+            }
+            // $emptyArray = [];
+            // exit;
             $create_by = $_SESSION['userid'];
             $request->merge(['update_by' => $create_by]);
             $request = Request::create('/api/quotebranch', 'PUT');

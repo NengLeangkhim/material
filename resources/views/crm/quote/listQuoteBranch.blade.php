@@ -48,7 +48,7 @@
                                                     <input type="hidden"  id="brdcompanyEn_{{$val2->branch_id}}" value="{{$val2->company_en}}">
                                                     <input type="hidden"  id="brdAddressNameEn_{{$val2->branch_id}}" value="{{$val2->address_en}}">
                                                     <input type="hidden"  id="branAddressId_{{$val2->lead_address_id}}" value="{{$val2->lead_address_id}}">
-
+                                                    <input type="hidden"  id="branVatNumber_{{$val2->branch_id}}" value="{{$val2->vat_number}}">
 
                                                 </td>
                                                 <td class="border">
