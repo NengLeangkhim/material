@@ -327,24 +327,12 @@ class InvoiceController extends Controller
                         LEFT JOIN ma_customer ON crm_quote.crm_lead_id = ma_customer.crm_lead_id
                     WHERE
                         qs.crm_quote_status_type_id = 2 
-                        AND ma_customer.id <> null
+                        AND ma_customer.id IS NOT null
                         AND crm_quote.status = 't' 
                         AND crm_quote.is_deleted = 'f'
                     ";
 
         $quotes = DB::select($sql_quotes);
-
-        // $quotes = DB::table('crm_quote')
-        // ->select('crm_quote.*')
-        // // ->leftJoin('ma_customer','crm_quote.crm_lead_id','=','ma_customer.crm_lead_id')
-        // ->leftJoin('crm_quote_status','crm_quote.id','=','crm_quote_status.crm_quote_id')
-        // ->where([
-        //     ['crm_quote_status.crm_quote_status_type_id','=','2'],
-        //     // ['ma_customer.id','<>',null],
-        //     ['crm_quote.status','=','t'],
-        //     ['crm_quote.is_deleted','=','f']
-        // ])->get();
-
         return $this->sendResponse($quotes, 'Quote retrieved successfully.');
     }
 
@@ -434,7 +422,7 @@ class InvoiceController extends Controller
             $sql_where .= "AND bsc_invoice.end_period_date <= '$request->end_period_date_to'";
         }
 
-        $sql_invoices = "SELECT 
+        $sql_invoices = "SELECT
                         bsc_invoice.*,
                         ma_customer.name as customer_name
                     FROM
@@ -447,12 +435,12 @@ class InvoiceController extends Controller
                     ";
 
         $invoices = DB::select($sql_invoices);
-        
-        
+
+
         $arr_invoice = [];
         if(count($invoices) > 0){
             foreach ($invoices as $key => $invoice) {
-                $invoice_payments = DB::select("SELECT 
+                $invoice_payments = DB::select("SELECT
                                                     SUM(amount_paid) AS amount_paid
                                                 FROM
                                                     bsc_payment
@@ -470,7 +458,7 @@ class InvoiceController extends Controller
                 ])
                 ->orderBy('id','desc')
                 ->first();
-                
+
                 $amount_paid = "";
                 if(count($invoice_payments)>0){
                     foreach ($invoice_payments as $kkey => $invoice_payment) {

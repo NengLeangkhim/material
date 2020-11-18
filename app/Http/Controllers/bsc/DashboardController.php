@@ -11,4 +11,9 @@ class DashboardController extends Controller
     {
         return view('bsc.dashboard.dashboard');
     }
+
+    public static function read_data()
+    {
+        return 2;
+    }
 }
