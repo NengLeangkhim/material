@@ -100,7 +100,7 @@ class QuoteController extends Controller
                     $request->input('lead_id'),
                     $request->input('due_date'),
                     $request->input('assign_to'),
-                    null,
+                    $request->input('crm_address_id'),
                     $request->input('subject'),
                     $createby
                 ));

@@ -126,7 +126,7 @@ class QuoteResource extends JsonResource
             "quote_stage"=> $quoteStage,
             "assign_to"=> $assign,
             "subject"=> $this->subject,
-            "address"=>$addr,
+            "address"=>$this->crm_lead_address_id,
             "create_date"=> $this->create_date,
             "acknowlegde_by"=>$acknowlegde,
             "status_quote"=>$statusQuote,
