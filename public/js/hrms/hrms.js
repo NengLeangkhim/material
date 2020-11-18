@@ -235,6 +235,167 @@ function hrms_date(){
                 })
         }
 
+
+        function hrm_delete_employee(id) {
+//             swal.fire({
+//             title: 'Details',
+//         html:
+//             '<p style="float: left;" autofocus>Name:</p>' +
+//             '<input id="swal-input1" class="swal2-input">' +
+//             '<p style="float: left;">Email:</p>' +
+//             '<input id="swal-input2" class="swal2-input">' +
+//             '<p style="float: left;">Description:</p>'+
+//             '<input id="swal-input3" class="swal2-input">' +
+//             '<p style="float: left;">Notes:</p>' +
+//             '<input id="swal-input4" class="swal2-input">',
+//             customClass: {
+//                                 validationMessage: 'text-danger'
+//                             },
+
+//         preConfirm: function () {
+//             if($('#swal-input1').val().length==0){
+//                 Swal.showValidationMessage(
+//                                         '<i class="fa fa-info-circle"></i> Your name is required'
+//                                     )
+//         }
+//             }
+            
+//             });
+// return;
+            var label_name='<div style="font-size:30px;margin-bottom:20px;font-weight: bold"> Leave Information Detail</div>';
+            var request_exit_date='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Request Exit Date</label><div class="col-sm-7"><input type="date" class="form-control" id="request_exit_date" value="" required></div></div>';
+            var type_of_exit='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Type of Exit</label><div class="col-sm-7"><input type="text" class="form-control"  id="type_of_exit" value="" required></div></div>';
+            var hr_receive_date='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">HR Received Date </label><div class="col-sm-7"><input type="date" class="form-control" id="hr_receive_date" value="" required></div></div>';
+            var effective_exit_date='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Effective Exit Date</label><div class="col-sm-7"><input type="date" class="form-control" id="effective_exit_date" value="" required></div></div>';
+            var training_and_development='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Training & Development</label><div class="col-sm-7"><input type="text" class="form-control" id="training_and_development" value="" required></div></div>';
+            var opportunity_to_promote='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Opportunity to Promote</label><div class="col-sm-7"><input type="text" class="form-control" id="opportunity_to_promote" value="" required></div></div>';
+            var work_presure='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Work Presure</label><div class="col-sm-7"><input type="text" class="form-control" id="work_presure" value="" required></div></div>';
+            var working_on_holiday='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Working on Holiday</label><div class="col-sm-7"><input type="text" class="form-control" id="working_on_holiday" value="" required></div></div>';
+            var motivation='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Motivation</label><div class="col-sm-7"><input type="text" class="form-control" id="motivation" value="" required></div></div>';
+            var overall_opion='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Overall Opion</label><div class="col-sm-7"><input type="text" class="form-control" id="overall_opion" value="" required></div></div>';
+            var submit_date='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Submit Date</label><div class="col-sm-7"><input type="date" class="form-control" id="submit_date" value="" required></div></div>';
+            var manager_approved_date='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Manager Approved Date</label><div class="col-sm-7"><input type="date" class="form-control" id="manager_approved_date" value="" required></div></div>';
+            var reason_of_exit='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Reason of Exit</label><div class="col-sm-7"><input type="text" class="form-control" id="reason_of_exit" value="" required></div></div>';
+            var duties_and_responsibility='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Duties & Responsibility</label><div class="col-sm-7"><input type="text" class="form-control" id="duties_and_responsibility" value="" required></div></div>';
+            var given_salary='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Given Salary</label><div class="col-sm-7"><input type="text" class="form-control" id="given_salary" value="" required></div></div>';
+            var work_environment='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Work Environment</label><div class="col-sm-7"><input type="text" class="form-control" id="work_environment" value="" required></div></div>';
+            var team_work='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Team Work</label><div class="col-sm-7"><input type="text" class="form-control" id="team_work" value="" required></div></div>';
+            var management_issue='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Management Issue</label><div class="col-sm-7"><input type="text" class="form-control" id="management_issue" value="" required></div></div>';
+            var comment='<div class="form-group text-left row"><label for="inputEmail3" class="col-sm-5 col-form-label">Comment</label><div class="col-sm-7"><input type="text" class="form-control" id="comment" value="" required></div></div>';
+            Swal.fire({ //get from sweetalert function
+                            // title: 'Leave Information Detail',
+                            html:label_name+request_exit_date+type_of_exit+hr_receive_date+effective_exit_date+training_and_development+opportunity_to_promote+work_presure+working_on_holiday+motivation+overall_opion+submit_date+manager_approved_date+reason_of_exit+duties_and_responsibility+given_salary+work_environment+team_work+management_issue+comment,
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Save and Delete',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            closeOnClickOutside: false,
+                            customClass: {
+                                validationMessage: 'text-danger'
+                            },
+                            preConfirm:(value)=>{
+                                input_id=[
+                                    "request_exit_date",
+                                    "type_of_exit",
+                                    "hr_receive_date",
+                                    "effective_exit_date",
+                                    "training_and_development",
+                                    "opportunity_to_promote",
+                                    "work_presure",
+                                    "working_on_holiday",
+                                    "motivation",
+                                    "overall_opion",
+                                    "submit_date",
+                                    "manager_approved_date",
+                                    "reason_of_exit",
+                                    "duties_and_responsibility",
+                                    "given_salary",
+                                    "work_environment",
+                                    "team_work",
+                                    "management_issue",
+                                    "comment"
+                                ];
+                                i=0;
+                                data=[];
+                                $.each(input_id,function(index,value){
+                                    if($('#'+value).prop('required') && $('#'+value).val().length<=0){
+                                        $('#'+value).addClass('is-invalid');
+                                        i++;
+                                    }else{
+                                        $('#'+value).removeClass('is-invalid');
+                                        data[value]=$('#'+value).val()
+                                    }
+
+                                })
+                        
+                                if(i>0){
+                                   Swal.showValidationMessage('<p class="text-danger">Input the required field !!</p>') 
+                                }else{
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Successfully !!',
+                                        'success'
+                                    )
+                                }
+                            }
+                    })
+            return;
+            if(check_session()){
+            return;
+            }
+            $.ajax({
+                type: 'GET',
+                url: 'hrm_delete_data',
+                data: {
+                    _token: '<?php echo csrf_token() ?>',
+                    perm: 'HRM_09010103'
+                },
+                success: function (data) {
+                    if(data=='1'){
+                        // event.preventDefault();
+                        Swal.fire({ //get from sweetalert function
+                            // title: 'Leave Information Detail',
+                            html:label_name+request_exit_date+type_of_exit+hr_receive_date+effective_exit_date+training_and_development+opportunity_to_promote+work_presure+working_on_holiday+motivation+overall_opion+submit_date+manager_approve_date+reason_of_exit+duties_and_responsibility+given_salary+work_environment+team_work+management_issue+comment,
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, delete it!',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            closeOnClickOutside: false
+                        }).then((result) => {
+                            var em_leave_info_exit_date=$('#em_leave_info_exit_date').val();
+                            return;
+                            if (result.value) {
+
+                                $.ajax({
+                                    url: 'hrm_delete_employee',   //Request send to "action.php page"
+                                    data: { id: id },
+                                    type: "GET",    //Using of Post method for send data
+                                    success: function (data) {
+                                        setTimeout(function () { go_to('hrm_allemployee'); }, 300);// Set timeout for refresh content
+                                        Swal.fire(
+                                            'Deleted!',
+                                            em_leave_info_exit_date,
+                                            'success'
+                                        )
+                                        // }
+                                    }
+
+                                });
+
+                            }
+                        })
+                    }else{
+                        alert('No Permission');
+                    }
+                }
+            });
+
+        };
+
     // End Employee
 
 
@@ -451,6 +612,27 @@ function hrms_date(){
             });
         }
    // End Overtime
+
+   // Warning & Punishment
+        function hrsm_modal_add_edit_warning_and_punishment(id=-1){
+            if(check_session()){return;}
+            $.ajax({
+                type: 'GET',
+                url: '/hrm_modal_warning_and_punishment',
+                data: {
+                    _token: '<?php echo csrf_token() ?>',
+                    id: id
+                },
+                success: function (data) {
+                    document.getElementById('modal').innerHTML = data;
+                    $('#modal_warning_and_punishment').modal('show');
+                    hrms_date();
+                }
+            });
+                
+        }
+   // End Warning and Punishment
+
 // End Employee
 // Training
 

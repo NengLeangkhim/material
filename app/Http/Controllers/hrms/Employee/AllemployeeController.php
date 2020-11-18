@@ -135,6 +135,7 @@ class AllemployeeController extends Controller
 
     // Delete Employee
     function DeleteEmployee(){
+        return;
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }

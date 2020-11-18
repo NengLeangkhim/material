@@ -957,7 +957,11 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_delete_overtime', 'hrms\Employee\OverTimeController@DeleteOvertime');
         Route::get('hrm_my_overtime','hrms\Employee\OverTimeController@my_overtime');
     // End Overtime
-
+    
+    // Warning & Punishment
+       Route::get('hrm_warning_and_punishment','hrms\Employee\WarningAndPunishmentController@warning_and_punishment_list');
+       Route::get('hrm_modal_warning_and_punishment','hrms\Employee\WarningAndPunishmentController@modal_warning_and_punishment');
+    // end Warning & Punishment
 // End Employee
 
 // Start Training

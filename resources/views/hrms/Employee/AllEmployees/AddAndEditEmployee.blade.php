@@ -201,7 +201,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-4 col-form-label">Bank Account</label>
                     <div class="col-sm-8">
@@ -209,7 +209,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-4 col-form-label">Spouse <span class="text-danger">*</span></label>
                     <div class="col-sm-8">
@@ -233,7 +233,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-4 col-form-label">Children <span class="text-danger">*</span></label>
                     <div class="col-sm-8">
@@ -541,7 +541,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Father Name</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="emhome_en" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                <input type="text" class="form-control" name="parent_father_name" id="parent_father_name" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp" required>
                             </div>
                         </div>
 
@@ -590,7 +590,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">City/Province <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <select name="permanent_province" id="permanent_province" class="form-control" onchange="getbranch(this,'permenent_idistrict','s','/district')" required>
+                                <select name="parent_province" id="parent_province" class="form-control" onchange="getbranch(this,'parent_idistrict','s','/district')" required>
                                     <option value="" hidden></option>
                                     @php
                                           foreach ($data[2] as $province) {
@@ -612,7 +612,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Khan/District <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <select class="form-control dynamic" name="permenent_idistrict" id="permenent_idistrict" onchange="getbranch(this,'permenent_commune','s','/commune')" required>
+                                <select class="form-control dynamic" name="parent_idistrict" id="parent_idistrict" onchange="getbranch(this,'parent_commune','s','/commune')" required>
                                     <option value="" hidden></option>
                                </select>
                             </div>
@@ -621,7 +621,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Sengkat/Commune <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <select name="permenent_commune" id="permenent_commune" class="form-control" onchange="getbranch(this,'permenent_village','s','/village')" required>
+                                <select name="parent_commune" id="parent_commune" class="form-control" onchange="getbranch(this,'parent_village','s','/village')" required>
                                     <option value="" hidden></option>
                                 </select>
                             </div>
@@ -630,7 +630,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Village <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <select name="permenent_village" id="permenent_village" class="form-control" required>
+                                <select name="parent_village" id="parent_village" class="form-control" required>
                                     <option value="" hidden></option>
                                 </select>
                             </div>
@@ -655,6 +655,98 @@
                   </div>
               </div>
 
+
+
+
+                <div><br><br></div>
+                <div class="col-md-12">
+                    <label>Education Detail</label>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div><br></div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-5 col-form-label">Education Level</label>
+                                <div class="col-sm-7">
+                                    <input type="email" class="form-control" name="emhome_en" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-5 col-form-label">Major Subject</label>
+                                    <div class="col-sm-7">
+                                        <input type="email" class="form-control" name="emstreet_en" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
+                                    </div>
+                                </div>
+
+                                
+                        </div>
+                        <div class="col-md-6">
+                            <div><br></div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-5 col-form-label">Education Status</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="parent_father_name" id="parent_father_name" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-5 col-form-label">University/School</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="emhome_en" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div><br><br></div>
+                <div class="col-md-12">
+                    <label>Experience Detail</label>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div><br></div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-5 col-form-label"># of Experience</label>
+                                <div class="col-sm-7">
+                                    <input type="email" class="form-control" name="emhome_en" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-5 col-form-label">Sector</label>
+                                    <div class="col-sm-7">
+                                        <input type="email" class="form-control" name="emstreet_en" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
+                                    </div>
+                                </div>
+
+                                
+                        </div>
+                        <div class="col-md-6">
+                            <div><br></div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-5 col-form-label">Company's Name</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="parent_father_name" id="parent_father_name" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-5 col-form-label">Last Position</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="emhome_en" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
 
