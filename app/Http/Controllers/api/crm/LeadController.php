@@ -274,6 +274,11 @@ class LeadController extends Controller
         $branch_id = Lead::getbranchById($id);
         return GetLeadBranch::Collection($branch_id);
     }
+    // get branch by lead id convert
+    public function getbranch_lead_convert($id){
+        $branch_id_convert = Lead::getbranch_lead_convert($id);
+        return GetLeadBranch::Collection($branch_id_convert);
+    }
     // get  show branch by lead id
     public function getbranch_lead($id){
 
