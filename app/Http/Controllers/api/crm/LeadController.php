@@ -533,4 +533,11 @@ class LeadController extends Controller
         return Lead::updatescheduleredult($schedule_result_id,$userid,$schedule_id,$schedule_type_id,$comment,$status);
 
     }
+    public function getleadconvert(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $convert = Lead::getleadconvert();
+        return json_encode(["data"=>$convert]);
+    }
 }

@@ -62,7 +62,7 @@
                                                 </td>
                                                 <td class="border">
                                                     <div class="leadEmail">
-                                                        {{$val2->email_branch}}
+                                                        {{$val2->email}}
                                                     </div>
                                                 </td>
 

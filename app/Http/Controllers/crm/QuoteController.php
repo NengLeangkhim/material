@@ -171,7 +171,7 @@ class QuoteController extends Controller
                 session_start();
             }
             $token = $_SESSION['token'];
-            $request = Request::create('/api/organizies/', 'GET');
+            $request = Request::create('/api/getleadconvert', 'GET');
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
@@ -285,6 +285,7 @@ class QuoteController extends Controller
     }
 
 
+    //function to list lead branch when edit branch quote
     public function listLeadBranch(Request $request)
     {
         if (session_status() == PHP_SESSION_NONE) {
