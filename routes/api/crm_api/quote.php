@@ -27,10 +27,13 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     // get perview qutoe
     Route::get('/quote/{id}','api\crm\QuoteController@show');
 
-    // get  quotes status
+    // get  convert quotes 
+    Route::post("/convertqoute",'api\crm\QuoteController@convertqoute');
 
 
 });
+
+
 /*
 |   GET ROUTES
 */

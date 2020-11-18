@@ -34,11 +34,11 @@ class LeadController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-            // $userid = $_SESSION['userid'];
+            $userid = $_SESSION['userid'];
             $name_en=$request->input('name_en');
             $name_kh=$request->input('name_kh');
-            // $create_by=$userid;
-            $create_by=$request->input('create_by');
+            $create_by=$userid;
+            // $create_by=$request->input('create_by');
             return Lead::addleadsource($name_en,$name_kh,$create_by);
     }
     // get lead industry

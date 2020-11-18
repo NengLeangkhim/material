@@ -11,6 +11,8 @@ use App\Http\Resources\QuoteBranchResource;
 use App\Http\Resources\QuoteBranchDetailResource;
 use App\model\api\crm\ModelCrmQuoteStatusType as QuoteStatusType;
 use App\Http\Resources\StockResource;
+use App\model\api\crm\Crmlead as Lead;
+use App\Http\Resources\api\crm\lead\GetLead;
 use App\Http\Controllers\perms;
 
 use DB;
@@ -383,5 +385,81 @@ class QuoteController extends Controller
         }
         return $deleted;
     }
+    public function convertqoute(Request $request){
 
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+
+        $lead_id=$request->input("lead_id");
+        $quote_id=$request->input("quote_id");
+        // $lead_id=$_POST['lead_id'];
+        // $quote_id=$_POST['quote_id'];
+        // var_dump($lead_id);
+
+        //get lead 
+        $lead = Lead::getleadbyid($lead_id);
+        $lead=GetLead::Collection($lead);
+        foreach($lead as $row){
+            $lead_id=$row->lead_id;
+            $lead_name=$row->customer_name_en;
+            $vat_number=$row->vat_number;
+        }
+        if($vat_number!=null){
+            $vat_number_type='exception';
+        }
+        else{
+            $vat_number_type='include';
+        }
+        //get branch 
+         $branch=QuoteController::getquotebranch($quote_id);
+         $branch=json_encode($branch,true);
+         $branch=json_decode($branch,true);
+
+        DB::beginTransaction();
+            try{
+                // add in ma_customer
+                $customer=DB::select(
+                    'SELECT public."insert_ma_customer"(?, ?, ?, ?, ?, ?, ?, ?)',
+                    array(
+                        $lead_name,
+                        $userid,
+                        $lead_id,
+                        null,
+                        null,
+                        null,
+                        $vat_number_type,
+                        $vat_number
+                    ));
+                    $customer=$customer[0]->insert_ma_customer;
+                    // add in ma_customer_branch
+                    foreach($branch as $row){
+                        $branch_id=$row['crm_lead_branch']['id'];
+                        $address_id=DB::select("SELECT crm_lead_address_id,name_en FROM crm_lead_branch where id=$branch_id");
+                        $branch_name=$address_id[0]->name_en;
+                    DB::select(
+                        'SELECT public."insert_ma_customer_branch"(?, ?, ?, ?, ?, ?)',
+                        array(
+                            $customer,
+                            $branch_name,
+                            $userid,
+                            null,
+                            $lead_id,
+                            $address_id[0]->crm_lead_address_id,
+                        ));
+                    }
+                DB::commit();
+                return json_encode(["convert"=>"success"]);
+                // return json_encode(["convert"=>$customer]);
+            }catch(Exception $e){
+                DB::rollback();
+                return json_encode(["convert"=>"fail","result"=> $e->getMessage()]);
+            }  
+             
+              
+      
+
+        
+    }
 }
