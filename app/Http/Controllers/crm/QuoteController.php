@@ -20,6 +20,7 @@ class QuoteController extends Controller
             session_start();
         }
         $token = $_SESSION['token'];
+        dump($token);
         $request = Request::create('/api/quotes', 'GET');
         $request->headers->set('Accept', 'application/json');
         $request->headers->set('Authorization', 'Bearer '.$token);
@@ -170,12 +171,13 @@ class QuoteController extends Controller
                 session_start();
             }
             $token = $_SESSION['token'];
-            $request = Request::create('/api/getlead/', 'GET');
+            $request = Request::create('/api/organizies/', 'GET');
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $listLead = json_decode($res->getContent());
-            // dd($listLead);
+            // dump($listLead);
+            // exit;
             return view('crm/quote/listQuoteLead', compact('listLead'));
 
         }
@@ -359,19 +361,20 @@ class QuoteController extends Controller
 
     //function go to edit qoute lead
     public static function quoteEditLead(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(isset($_GET['qouteId'])){
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
-            }
+
             $token = $_SESSION['token'];
-            $request = Request::create('/api/quote/'.$_GET['qouteId'].'', 'GET');   // this use branch id to get branch deetail
+            $request = Request::create('/api/quote/'.$_GET['qouteId'].'', 'GET',$request->all());
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $quoteDetail = json_decode($res->getContent());
-
             $employee  = ModelCrmQuote::getEmployee();
             $quoteStatus  = ModelCrmQuote::getQuoteStatus();
+            // dd($quoteDetail);
             return view('crm/quote/quoteLeadEdit', compact('quoteDetail','employee','quoteStatus'));
         }
     }

@@ -85,13 +85,9 @@
                                                 $num = count($quoteDetail->data->quote_stage);
                                                 // echo $quoteDetail->data->quote_stage[($num-1)]->name_en;
                                             ?>
-                                            <option value="{{ $quoteDetail->data->quote_stage[($num-1)]->id }}">
-                                                {{ $quoteDetail->data->quote_stage[($num-1)]->name_en }}
-                                            </option>
                                             @foreach ($quoteStatus as $key=>$val )
-                                                <option value="{{ $val->id }}">
-                                                    {{ $val->name_en }}
-                                                </option>
+                                                    <option value="{{$val->id }}" {{$val->id==$quoteDetail->data->quote_stage[($num-1)]->id ? 'selected="selected"':''}}> {{$val->name_en}}</option>     
+                                            
                                             @endforeach
                                         </select>
                                     </dd>

@@ -193,9 +193,32 @@ class QuoteController extends Controller
     }
 
     public function getStatus(){
-        $status = QuoteStatusType::get()->where('is_deleted', false);
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+        $dept=DB::select("SELECT ma_company_dept_id from ma_user WHERE id=$userid ");
+        $dept=$dept[0]->ma_company_dept_id;
 
-        return json_encode($status);
+        if($dept==5) //sale
+        {
+            $status = QuoteStatusType::get()->where('is_deleted', false)
+                                            ->where('id', '!=', 2)
+                                            ->where('id', '!=', 12);
+            return json_encode($status);
+        }
+        elseif($dept==10) //finace
+        {
+            $status = QuoteStatusType::get()->where('is_deleted', false)
+                                            ->whereIn('id',[2,12]) ;
+            return json_encode($status);
+        }
+        else
+        {
+            $status = QuoteStatusType::get()->where('is_deleted', false);
+            return json_encode($status);
+        }
+
     }
 
 

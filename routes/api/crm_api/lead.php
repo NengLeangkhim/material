@@ -34,9 +34,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/updatebranch','api\crm\LeadController@updatebranch');
     //get survey
     Route::get('/survey','api\crm\LeadController@getsurvey');
-    //get survey result 
+    //get survey result
     Route::get('/surveyresult','api\crm\LeadController@getsurveyresult');
-    
+
 });
 
 
@@ -79,7 +79,7 @@ Route::get('/getbranch','api\crm\LeadController@getbranch');
 Route::post('/convertbranch','api\crm\LeadController@convertbranch');
 //get survey
 // Route::get('/survey','api\crm\LeadController@getsurvey');
-// //get survey result 
+// //get survey result
 // Route::get('/surveyresult','api\crm\LeadController@getsurveyresult');
 //get survey by branch id
 Route::get('/survey/{id}','api\crm\LeadController@getsurveybyid') ;

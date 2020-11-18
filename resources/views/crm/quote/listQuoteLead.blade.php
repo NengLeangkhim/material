@@ -26,11 +26,9 @@
                                     <th>
                                         No.
                                     </th>
-                                    <th>Khmer Name</th>
                                     <th>English Name</th>
                                     <th>Lead Number</th>
                                     <th>Email</th>
-                                    <th>Website</th>
                                 </tr>
                             </thead>
 
@@ -46,14 +44,8 @@
                                                     <input type="hidden" name="leadQuote" id="leadQuote" value="{{$val2->lead_id}}">
                                                 </td>
                                                 <td class="border">
-                                                    <div id="leadKhName_{{$val2->lead_id}}"  class="leadKhName" >
-                                                        {{$val2->customer_name_kh}}
-                                                    </div>
-                                                </td>
-
-                                                <td class="border">
                                                     <div class="leadEnName" id="leadEnName_{{$val2->lead_id}}">
-                                                        {{$val2->customer_name_en}}
+                                                        {{$val2->name_en_branch}}
                                                     </div>
                                                 </td>
 
@@ -64,14 +56,10 @@
                                                 </td>
                                                 <td class="border">
                                                     <div class="leadEmail">
-                                                        {{$val2->email}}
+                                                        {{$val2->email_branch}}
                                                     </div>
                                                 </td>
-                                                <td class="border">
-                                                    <div class="leadWebsite">
-                                                        {{$val2->website}}
-                                                    </div>
-                                                </td>
+
                                             </tr>
 
                                     @endforeach
