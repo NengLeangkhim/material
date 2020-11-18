@@ -100,7 +100,7 @@ class QuoteController extends Controller
                     $request->input('lead_id'),
                     $request->input('due_date'),
                     $request->input('assign_to'),
-                    null,
+                    $request->input('crm_address_id'),
                     $request->input('subject'),
                     $createby
                 ));
@@ -201,26 +201,26 @@ class QuoteController extends Controller
         $userid=$return["original"]['id'];
         $dept=DB::select("SELECT ma_company_dept_id from ma_user WHERE id=$userid ");
         $dept=$dept[0]->ma_company_dept_id;
-      
+
         if($dept==5) //sale
         {
             $status = QuoteStatusType::get()->where('is_deleted', false)
-                                            ->where('id', '!=', 2)    
-                                            ->where('id', '!=', 12);    
+                                            ->where('id', '!=', 2)
+                                            ->where('id', '!=', 12);
             return json_encode($status);
         }
         elseif($dept==10) //finace
         {
             $status = QuoteStatusType::get()->where('is_deleted', false)
-                                            ->whereIn('id',[2,12]) ;    
+                                            ->whereIn('id',[2,12]) ;
             return json_encode($status);
         }
         else
         {
-            $status = QuoteStatusType::get()->where('is_deleted', false);    
+            $status = QuoteStatusType::get()->where('is_deleted', false);
             return json_encode($status);
         }
-      
+
     }
 
 
@@ -399,7 +399,7 @@ class QuoteController extends Controller
         // $quote_id=$_POST['quote_id'];
         // var_dump($lead_id);
 
-        //get lead 
+        //get lead
         $lead = Lead::getleadbyid($lead_id);
         $lead=GetLead::Collection($lead);
         foreach($lead as $row){
@@ -413,7 +413,7 @@ class QuoteController extends Controller
         else{
             $vat_number_type='include';
         }
-        //get branch 
+        //get branch
          $branch=QuoteController::getquotebranch($quote_id);
          $branch=json_encode($branch,true);
          $branch=json_decode($branch,true);
@@ -456,11 +456,11 @@ class QuoteController extends Controller
             }catch(Exception $e){
                 DB::rollback();
                 return json_encode(["convert"=>"fail","result"=> $e->getMessage()]);
-            }  
-             
-              
-      
+            }
 
-        
+
+
+
+
     }
 }

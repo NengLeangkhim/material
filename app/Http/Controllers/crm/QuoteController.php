@@ -20,6 +20,7 @@ class QuoteController extends Controller
             session_start();
         }
         $token = $_SESSION['token'];
+        dump($token);
         $request = Request::create('/api/quotes', 'GET');
         $request->headers->set('Accept', 'application/json');
         $request->headers->set('Authorization', 'Bearer '.$token);
@@ -170,12 +171,13 @@ class QuoteController extends Controller
                 session_start();
             }
             $token = $_SESSION['token'];
-            $request = Request::create('/api/getlead/', 'GET');
+            $request = Request::create('/api/getleadconvert', 'GET');
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $listLead = json_decode($res->getContent());
-            // dd($listLead);
+            // dump($listLead);
+            // exit;
             return view('crm/quote/listQuoteLead', compact('listLead'));
 
         }
@@ -192,7 +194,7 @@ class QuoteController extends Controller
             $id = $_GET['id'];
 
             $token = $_SESSION['token'];
-            $request = Request::create('/api/getbranchbylead/'.$id.'', 'GET');
+            $request = Request::create('/api/getbranchbyleadconver/'.$id.'', 'GET');
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
@@ -283,6 +285,7 @@ class QuoteController extends Controller
     }
 
 
+    //function to list lead branch when edit branch quote
     public function listLeadBranch(Request $request)
     {
         if (session_status() == PHP_SESSION_NONE) {
