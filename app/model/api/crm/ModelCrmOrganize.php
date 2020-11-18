@@ -58,7 +58,7 @@ class ModelCrmOrganize extends Model
         left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         left join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         left join stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=false and ld.is_deleted=false and ls.sequence=1");
+        where crm_lead.status=true and ld.status=false and ld.is_deleted=false and ls.sequence=1");
     }
     // get organize by assigto
     public static function getOrganizebyassigto($id){
