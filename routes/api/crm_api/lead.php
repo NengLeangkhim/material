@@ -26,6 +26,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/editlead','api\crm\LeadController@editlead');
     // get brand by lead id
     Route::get('/getbranchbylead/{id}','api\crm\LeadController@getbranch_lead');
+    // get brand by lead id
+    Route::get('/getbranchbyleadconver/{id}','api\crm\LeadController@getbranch_lead_convert');
     // get branch by id
     Route::get('/getbranch/{id}','api\crm\LeadController@getbranchById');
     // insert lead
@@ -36,11 +38,14 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('/survey','api\crm\LeadController@getsurvey');
     //get survey result 
     Route::get('/surveyresult','api\crm\LeadController@getsurveyresult');
-    
+    //get lead that  have branch convert
+    Route::get('/getleadconvert','api\crm\LeadController@getleadconvert');
+
 });
 
 
     Route::get('/getleadbyid/{id}','api\crm\LeadController@getleadbyid');
+    
 
 // get all lead source
 Route::get('/leadsource','api\crm\LeadController@getLeadSource');

@@ -27,10 +27,13 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     // get perview qutoe
     Route::get('/quote/{id}','api\crm\QuoteController@show');
 
-    // get  quotes status
+    // get  convert quotes 
+    Route::post("/convertqoute",'api\crm\QuoteController@convertqoute');
 
 
 });
+
+
 /*
 |   GET ROUTES
 */
@@ -71,4 +74,4 @@ Route::put('/quotebranch','api\crm\QuoteController@editQuoteBranch');
 Route::delete('/quote/{id}/{uid}','api\crm\QuoteController@destroy');
 
 
-Route::get('/preview-quote/{id}','api\crm\PreviewQuoteController@index');
+Route::get('/preview-quote/{mode}/{id}','api\crm\PreviewQuoteController@index');

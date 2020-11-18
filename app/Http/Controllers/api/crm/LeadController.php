@@ -34,11 +34,11 @@ class LeadController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-            // $userid = $_SESSION['userid'];
+            $userid = $_SESSION['userid'];
             $name_en=$request->input('name_en');
             $name_kh=$request->input('name_kh');
-            // $create_by=$userid;
-            $create_by=$request->input('create_by');
+            $create_by=$userid;
+            // $create_by=$request->input('create_by');
             return Lead::addleadsource($name_en,$name_kh,$create_by);
     }
     // get lead industry
@@ -273,6 +273,11 @@ class LeadController extends Controller
     public function getbranchById($id){
         $branch_id = Lead::getbranchById($id);
         return GetLeadBranch::Collection($branch_id);
+    }
+    // get branch by lead id convert
+    public function getbranch_lead_convert($id){
+        $branch_id_convert = Lead::getbranch_lead_convert($id);
+        return GetLeadBranch::Collection($branch_id_convert);
     }
     // get  show branch by lead id
     public function getbranch_lead($id){
@@ -532,5 +537,12 @@ class LeadController extends Controller
         $status =$request->input('status');
         return Lead::updatescheduleredult($schedule_result_id,$userid,$schedule_id,$schedule_type_id,$comment,$status);
 
+    }
+    public function getleadconvert(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $convert = Lead::getleadconvert();
+        return json_encode(["data"=>$convert]);
     }
 }

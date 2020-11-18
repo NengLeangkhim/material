@@ -73,7 +73,7 @@
                                 <table class="table table-bordered" style="min-width: 850px;">
                                     <thead class="thead-item-list">
                                             <tr>
-                                                <th class="td-item-quote-name"><b style="color:red">*</b> Item Name</th>
+                                                <th class=""><b style="color:red">*</b> Item Name</th>
                                                 <th class="td-item-quote">Type</th>
                                                 <th style="width: 120px">Quantity</th>
                                                 <th style="width: 120px">Measurement</th>
@@ -85,6 +85,7 @@
                                             </tr>
                                     </thead>
                                     <tbody id="add_row_tablequoteItem" class="add_row_tablequoteItem" data-id="{{ count($response3->data) }}">
+
 
                                         @foreach ($response3->data as $key=>$val)
                                             <input type="hidden" name="quote_detail_id[]" value="{{ $val->id }}" readonly>
@@ -117,7 +118,7 @@
                                                 </td>
                                                 <td style="width: 120px;">
                                                     <input type="text"  class="valid-numeric form-control itemQty_{{ $key }} qty{{ $key }}" name="qty[]" id="{{ $key }}" data-id="qty{{ $key }}" demo="itemQty"  value="{{ $val->qty }}"  required placeholder="Qty">
-                                                    <input type="hidden" id="numItemInStock_{{ $key }}  " readonly>
+                                                    <input type="hidden" id="numItemInStock_{{ $key }}" readonly>
                                                     <p id="prdNotEnough_{{ $key }}" class="font-size-14" style="color:red;"></p>
                                                     <span id="{{ $key }}Error" ><strong></strong></span>
                                                 </td>
@@ -174,7 +175,7 @@
                                                     <div id="quote-netPrice_{{$key}}" style="color:red;"class="td-quote-total">0</div>
 
                                                 </td>
-                                                <td style="width:auto;">
+                                                <td style="width:auto;" class="fieldBtnRemove" id="fieldBtnRemove_{{$key}}">
                                                     @if($key != 0)
                                                         <button style="width: auto;"  class="btnRemoveRow btn btn-denger" id="{{$key}}"  data-id="{{ count($response3->data) }}"  ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>
                                                     @endif
