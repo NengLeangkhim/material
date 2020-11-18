@@ -26,6 +26,7 @@
                                     <th>
                                         No.
                                     </th>
+                                    <th>Khmer Name</th>
                                     <th>English Name</th>
                                     <th>Lead Number</th>
                                     <th>Email</th>
@@ -44,8 +45,13 @@
                                                     <input type="hidden" name="leadQuote" id="leadQuote" value="{{$val2->lead_id}}">
                                                 </td>
                                                 <td class="border">
+                                                    <div class="leadKhName" id="leadKhName_{{$val2->lead_id}}">
+                                                        {{$val2->customer_name_kh}}
+                                                    </div>
+                                                </td>
+                                                <td class="border">
                                                     <div class="leadEnName" id="leadEnName_{{$val2->lead_id}}">
-                                                        {{$val2->name_en_branch}}
+                                                        {{$val2->customer_name_en}}
                                                     </div>
                                                 </td>
 

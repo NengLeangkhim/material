@@ -71,7 +71,7 @@
 
 
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Lead Name<b style="color:red">*</b></label>
+                                                <label for="exampleInputEmail1">Organization Name<b style="color:red">*</b></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
