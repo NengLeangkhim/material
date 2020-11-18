@@ -114,6 +114,14 @@ class QuoteResource extends JsonResource
             $last_contact_id= $contactid[count($contactid) - 1]->crm_lead_contact_id;
             $contact = Contact::whereId($last_contact_id)->first();
         }
+
+        //measurement
+        // $measure = DB::table('ma_measurement')
+        //                 ->where('id',$id)
+        //                 ->rightJoin('stock_product', 'stock_product_type.id', '=', 'stock_product.stock_product_type_id')
+        //                 ->rightJoin('ma_measurement', 'ma_measurement.id', '=', 'stock_product.ma_measurement_id')
+        //                 ->select(["stock_product.id","stock_product.name","stock_qty","product_price","part_number","description","stock_product_type.group_type","ma_measurement.name as measurement"])
+        //                 ->get();
         return [
             "id"=>$this->id,
             "due_date"=>$this->due_date,
@@ -129,7 +137,6 @@ class QuoteResource extends JsonResource
             "status_quote"=>$statusQuote,
             "create_by"=> $createby,
             "contact"=>$contact
-
         ];
     }
 }

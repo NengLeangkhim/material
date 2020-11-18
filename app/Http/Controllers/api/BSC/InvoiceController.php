@@ -327,7 +327,7 @@ class InvoiceController extends Controller
                         LEFT JOIN ma_customer ON crm_quote.crm_lead_id = ma_customer.crm_lead_id
                     WHERE
                         qs.crm_quote_status_type_id = 2 
-                        AND ma_customer.id IS NOT null
+                        AND ma_customer.id IS NOT null  
                         AND crm_quote.status = 't' 
                         AND crm_quote.is_deleted = 'f'
                     ";
@@ -339,7 +339,7 @@ class InvoiceController extends Controller
     public function show_quote_single(Request $request, $id)
     {
         $quotes = DB::table('crm_quote')
-        ->select('crm_quote.id','crm_quote.quote_number','crm_lead_address.gazetteer_code as billing_address','ma_customer.id as customer_id','ma_customer.name as customer_name')
+        ->select('crm_quote.id','crm_quote.quote_number','crm_lead_address.gazetteer_code as billing_address','ma_customer.id as customer_id','ma_customer.name as customer_name','ma_customer.vat_number')
         ->leftJoin('crm_lead_address','crm_quote.crm_lead_address_id','=','crm_lead_address.id')
         ->leftJoin('ma_customer','crm_quote.crm_lead_id','=','ma_customer.crm_lead_id')
         ->where([
