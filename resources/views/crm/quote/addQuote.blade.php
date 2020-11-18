@@ -379,7 +379,7 @@
                                                 <table class="table">
                                                     <tbody id="grandTotalBody">
 
-                                                        {{-- <tr class="fieldGrandTotal">
+                                                        <tr class="fieldGrandTotal">
                                                             <td style="width: 50%"><input type="hidden"></td>
                                                             <td >
 
@@ -427,7 +427,7 @@
 
 
                                                             </td>
-                                                        </tr> --}}
+                                                        </tr>
 
                                                     </tbody>
 

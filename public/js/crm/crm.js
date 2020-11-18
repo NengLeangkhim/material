@@ -1133,35 +1133,35 @@ function Crm_delete(id,route,goto,alert) {
 
 
 
-    function addGrandTotalQuote(){
+    // function addGrandTotalQuote(){
 
-        var content =   '<tr class="fieldGrandTotal">'+
-                            '<td style="width: 50%"><input type="hidden"></td>'+
-                            '<td>'+
-                                '<table class="table table-bordered tr-quote-row">'+
-                                    '<tbody>'+
-                                        '<tr style="text-align: right">'+
-                                            '<td  ><span style="padding-right: 12px;">Sum Total </span></td>'+
-                                            '<td  ><div id="sumTotal"> 0.0 </div></td>'+
-                                        '</tr>'+
-                                        '<tr style="text-align: right">'+
-                                            '<td>'+
-                                                '<span style="padding-right: 12px;">(+) Tax (10%) </span>'+
-                                            '</td>'+
-                                            '<td>'+
-                                                '<div id="getTaxation"> 0.0 </div>'+
-                                            '</td>'+
-                                        '</tr>'+
-                                        '<tr class="td-total-quote grandTotal" >'+
-                                            '<td  ><span style="padding-right: 12px;">Grand Total</span></td>'+
-                                            '<td  ><div id="grandTotal"> 0.0 </div></td>'+
-                                        '</tr>'+
-                                    '</tbody>'+
-                                '</table>'+
-                            '</td>'+
-                        '</tr> ';
-        $('grandTotalBody').append(content);
-    }
+    //     var content =   '<tr class="fieldGrandTotal">'+
+    //                         '<td style="width: 50%"><input type="hidden"></td>'+
+    //                         '<td>'+
+    //                             '<table class="table table-bordered tr-quote-row">'+
+    //                                 '<tbody>'+
+    //                                     '<tr style="text-align: right">'+
+    //                                         '<td  ><span style="padding-right: 12px;">Sum Total </span></td>'+
+    //                                         '<td  ><div id="sumTotal"> 0.0 </div></td>'+
+    //                                     '</tr>'+
+    //                                     '<tr style="text-align: right">'+
+    //                                         '<td>'+
+    //                                             '<span style="padding-right: 12px;">(+) Tax (10%) </span>'+
+    //                                         '</td>'+
+    //                                         '<td>'+
+    //                                             '<div id="getTaxation"> 0.0 </div>'+
+    //                                         '</td>'+
+    //                                     '</tr>'+
+    //                                     '<tr class="td-total-quote grandTotal" >'+
+    //                                         '<td  ><span style="padding-right: 12px;">Grand Total</span></td>'+
+    //                                         '<td  ><div id="grandTotal"> 0.0 </div></td>'+
+    //                                     '</tr>'+
+    //                                 '</tbody>'+
+    //                             '</table>'+
+    //                         '</td>'+
+    //                     '</tr> ';
+    //     $('grandTotalBody').append(content);
+    // }
 
 
 
