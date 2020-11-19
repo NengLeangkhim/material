@@ -191,7 +191,7 @@
     var currentDate = new Date()
     var currentDateString = currentDate.toJSON().split('T')[0]
     currentDate.setDate( currentDate.getDate() - 7 );
-    var currentDateStringSub7 = currentDate.toJSON().split('T')[0]
+    var currentDateStringSub7 = currentDate.toJSON().split('T')[0]   
     $(function () {
     // Chart Lead Status
     var Lead_Chart = () => {
@@ -408,7 +408,7 @@
         },
         data: {
             'type' : 'day',
-            'from_date' : currentDateStringSub7,
+            'from_date' : currentDateString,
             'to_date' : currentDateString
         },
         //data: $('#FrmChartContactReport').serialize(),
@@ -473,7 +473,7 @@
         data : {
             'type' : 'day',
             'status_id' : 2,
-            'from_date' : currentDateStringSub7,
+            'from_date' : currentDateString,
             'to_date' : currentDateString
         },
         //data: $('#FrmChartOrganizationReport').serialize(),

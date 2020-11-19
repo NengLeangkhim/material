@@ -484,8 +484,6 @@
                                 stockMessage = "Stock not enough, the available item is ";
                                 numPrdInStock = prdInStock;
 
-
-
                                 if(num == 0){
                                     //show item in row quote item  with one select
                                     $("#txtPrdId_"+btnId+"").val(prdVal);

@@ -973,6 +973,7 @@ function Crm_delete(id,route,goto,alert) {
         $row_content =
 
         '<div id="row_content'+i+'" class="form-group border border-secondary rounded pt-3 p-1  row_content">'+
+                '<input type="hidden" id="vatNumber'+branId+'" required readonly>'+
                 '<div class="col-12" align="right">' +
                     '<button type="button" id="'+i+'" class="close btnCloseRowContent" style="color:blue;" aria-label="Close">'+
                         '<span aria-hidden="true">&times;</span>'+
@@ -1059,7 +1060,7 @@ function Crm_delete(id,route,goto,alert) {
                         }
                     });
 
-                    $('#getSelectRow').click( function () {
+                    $('#getSelectRow').click( function (){
                         if($('tbody tr').hasClass('selected') == true){
                             var branch_id = $('.selected').attr("id");
 
@@ -1092,6 +1093,7 @@ function Crm_delete(id,route,goto,alert) {
                                     var branchNameEn = $.trim($('#brdcompanyEn_'+branch_id+'').val());
                                     var addressName = $.trim($('#brdAddressNameEn_'+branch_id+'').val());
                                     var addressId = $.trim($('#branAddressId_'+branch_id+'').val());
+                                    var vatNumber = $.trim($('#branVatNumber_'+branch_id+'').val());
 
                                     //function to add row content for add product branch
                                     row_content(i,branch_id);
@@ -1103,7 +1105,7 @@ function Crm_delete(id,route,goto,alert) {
                                     $('#lead_branch'+branch_id+'').val(branch_id);
                                     $('#branchAddress'+branch_id+'').val(addressName);
                                     $('#branchAddress_id'+branch_id+'').val(addressId);
-
+                                    $('#vatNumber'+branch_id+'').val(vatNumber);
 
                                     //close modal
                                     $('#listQuoteBranch').modal('hide');
@@ -1128,6 +1130,38 @@ function Crm_delete(id,route,goto,alert) {
           notify_alert("#lead_name","error","bottom","Requirement this field !");
         }
     });
+
+
+
+    // function addGrandTotalQuote(){
+
+    //     var content =   '<tr class="fieldGrandTotal">'+
+    //                         '<td style="width: 50%"><input type="hidden"></td>'+
+    //                         '<td>'+
+    //                             '<table class="table table-bordered tr-quote-row">'+
+    //                                 '<tbody>'+
+    //                                     '<tr style="text-align: right">'+
+    //                                         '<td  ><span style="padding-right: 12px;">Sum Total </span></td>'+
+    //                                         '<td  ><div id="sumTotal"> 0.0 </div></td>'+
+    //                                     '</tr>'+
+    //                                     '<tr style="text-align: right">'+
+    //                                         '<td>'+
+    //                                             '<span style="padding-right: 12px;">(+) Tax (10%) </span>'+
+    //                                         '</td>'+
+    //                                         '<td>'+
+    //                                             '<div id="getTaxation"> 0.0 </div>'+
+    //                                         '</td>'+
+    //                                     '</tr>'+
+    //                                     '<tr class="td-total-quote grandTotal" >'+
+    //                                         '<td  ><span style="padding-right: 12px;">Grand Total</span></td>'+
+    //                                         '<td  ><div id="grandTotal"> 0.0 </div></td>'+
+    //                                     '</tr>'+
+    //                                 '</tbody>'+
+    //                             '</table>'+
+    //                         '</td>'+
+    //                     '</tr> ';
+    //     $('grandTotalBody').append(content);
+    // }
 
 
 

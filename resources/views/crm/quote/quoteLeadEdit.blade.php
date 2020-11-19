@@ -204,22 +204,22 @@
 
         })
 
-        // function cancelEditLead(){
-        //     var qId = <?php echo json_encode($quoteDetail->data->id); ?>;
-        //     Swal.fire({ //get from sweetalert function
-        //         title: 'Cancel',
-        //         text: "Do you want to cancel ? ",
-        //         icon: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonColor: '#3085d6',
-        //         cancelButtonColor: '#d33',
-        //         confirmButtonText: 'OK'
-        //     }).then((result) => {
-        //         if(result.value) {
-        //             goto_Action('/quote/leadBranch', qId);
-        //         }
-        //     });
-        // }
+        function cancelEditLead(){
+            var qId = <?php echo json_encode($quoteDetail->data->id); ?>;
+            Swal.fire({ //get from sweetalert function
+                title: 'Cancel',
+                text: "Do you want to cancel ? ",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if(result.value) {
+                    goto_Action('/quote/leadBranch', qId);
+                }
+            });
+        }
 
 
     </script>

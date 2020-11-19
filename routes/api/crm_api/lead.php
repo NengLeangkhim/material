@@ -30,6 +30,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('/getbranchbyleadconver/{id}','api\crm\LeadController@getbranch_lead_convert');
     // get branch by id
     Route::get('/getbranch/{id}','api\crm\LeadController@getbranchById');
+
+    Route::get('/getbranchconvert/{id}','api\crm\LeadController@getbranchByIdconvert');
     // insert lead
     Route::post('/insertlead','api\crm\LeadController@insertLead');
     // Update lead

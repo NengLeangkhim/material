@@ -45,6 +45,7 @@
                                 @foreach ($listProduct as $key=>$val)
                                     @foreach ($val as $key2=>$val2)
                                             <tr>
+                                                {{-- <input type="hidden" class="itemPrice_{{$val2->id}}" value="{{$val2->product_price}}" readonly> --}}
                                                 <td class="border">
                                                     <input type="hidden" id="showItemType_{{$row_id}}" value="Product">
                                                     <div class="custom-control custom-checkbox">
@@ -60,8 +61,21 @@
 
                                                 <td class="border">
                                                     <div>
-                                                        {{$val2->product_price}}
-                                                        <input type="hidden" class="itemPrice_{{$val2->id}}" value="{{$val2->product_price}}" readonly>
+                                                        @php
+                                                            $prdPrice = 0
+                                                        @endphp
+                                                        @if($getBranchDetail[0]->vat_number == '')
+                                                            @php
+                                                                $taxVat = floatval($val2->product_price * 0.1);
+                                                                $prdPrice = floatval($val2->product_price + $taxVat);
+                                                            @endphp
+                                                        @else
+                                                            @php
+                                                                $prdPrice = $val2->product_price;
+                                                            @endphp
+                                                        @endif
+                                                        {{ $prdPrice }}
+                                                        <input type="hidden" class="itemPrice_{{$val2->id}}" value="{{$prdPrice}}" readonly>
                                                     </div>
                                                 </td>
 
