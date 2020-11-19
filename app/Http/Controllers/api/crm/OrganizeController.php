@@ -17,13 +17,13 @@ class OrganizeController extends Controller
         $return=json_decode($return,true);
         $userid=$return["original"]['id'];
         // dd($userid);
-        if(perms::check_perm_module('CRM_020301')){ // for top managment (Organisations List)
+        if(perms::check_perm_module_api('CRM_020301',$userid)){ // for top managment (Organisations List)
             $organ = Organize::getOrganize();
             return json_encode(["data"=>$organ]);
             // dd("top");
           
         }
-        else if (perms::check_perm_module('CRM_020301')) { // for staff (Model  name Get Branch by user)
+        else if (perms::check_perm_module_api('CRM_020301',$userid)) { // for staff (Model  name Get Branch by user)
             $organ = Organize::getOrganizebyassigto($userid);
             return json_encode(["data"=>$organ]);
             // dd("staff");
@@ -78,7 +78,8 @@ class OrganizeController extends Controller
             $address_type=$request->input('address_type');
             $addresscode=$request->input('village');
 
-            // dd($lead_address_id);
+            // dd($assig_to_id,$assig_to);
+
             // return;
 
             return  OrganizeController::updateOrganize($lead_address_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$userid,$website,$facebook,$lead_source,$lead_status,$lead_industry,$assig_to_id,

@@ -22,8 +22,12 @@ class LeadController extends Controller
         if(perms::check_perm_module('CRM_0205')){//module codes
             $lead=ModelCrmLead::CrmGetLead();
             $result =json_decode($lead,true);
-            // dd($result);
-            return view('crm.Lead.index',['lead'=>$result["data"]]);
+            if($result!=null){
+                return view('crm.Lead.index',['lead'=>$result["data"]]);
+            }
+            else{
+                return view('no_perms');
+            }
 
         }else{
             return view('no_perms');
@@ -36,9 +40,16 @@ class LeadController extends Controller
             $result =json_decode($branch,true);
             $schedule_type=ModelCrmLead::CrmGetSchdeuleType();
             $schedule_type =json_decode($schedule_type,true);
-            // $schedule_type =json_decode($schedule_type,true);
-            // DD($result,$schedule_type['data']);
-            return view('crm.Lead.branch',['branch'=>$result["data"] ,'schedule_type'=>$schedule_type['data']]);
+            if($result!=null){
+                // $schedule_type =json_decode($schedule_type,true);
+                            // DD($result,$schedule_type['data']);
+                return view('crm.Lead.branch',['branch'=>$result["data"] ,'schedule_type'=>$schedule_type['data']]);
+            }
+            else
+            {
+                return view('no_perms');
+            }
+            
         }else{
             return view('no_perms');
         }
@@ -213,8 +224,24 @@ class LeadController extends Controller
                                         ],
                 'service' =>  [  'required'
                                         ],
+                'website' =>  [  'required'
+                                        ],
+                'company_facebook' =>  [  'required'
+                                        ],
+                'current_speed_isp' =>  [  'required'
+                                        ],
+                // 'vat_number' =>  [  'required'
+                //                         ],
+                'lead_status' =>  [  'required'
+                                        ],
+                'email' =>  [  'required'
+                                        ],
                 // 'ma_honorifics_id' =>  [  'required'
-                                        // ],
+                //                         ],
+                'position' =>  [  'required'
+                                    ],
+                'national_id' =>  [  'required'
+                                    ],
                 'name_en' => [ 'required'
                                         ],
                 'name_kh' => [ 'required'
@@ -260,6 +287,11 @@ class LeadController extends Controller
                 'lead_industry.required' => 'This Field is require !!',   //massage validator
                 'assig_to.required' => 'This Field is require !!',   //massage validator
                 'service.required' => 'This Field is require !!',   //massage validator
+                'website.required' => 'This Field is require !!',   //massage validator
+                'current_speed_isp.required' => 'This Field is require !!',   //massage validator
+                'company_facebook.required' => 'This Field is require !!',   //massage validator
+                // 'vat_number.required' => 'This Field is require !!',   //massage validator
+                'lead_status.required' => 'This Field is require !!',   //massage validator
                 // 'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
                 'name_en.required' => 'This Field is require !!',   //massage validator
                 'name_kh.required' => 'This Field is require !!',   //massage validator
@@ -269,6 +301,8 @@ class LeadController extends Controller
                 'street_en.required' => 'This Field is require !!',   //massage validator
                 'home_kh.required' => 'This Field is require !!',   //massage validator
                 'street_kh.required' => 'This Field is require !!',   //massage validator
+                'position.required' => 'This Field is require !!',   //massage validator
+                'national_id.required' => 'This Field is require !!',   //massage validator
                 // 'addresscode.required' => 'This Field is require !!',   //massage validator
                 'district.required' => 'This Field is require !!',   //massage validator
                 'commune.required' => 'This Field is require !!',   //massage validator

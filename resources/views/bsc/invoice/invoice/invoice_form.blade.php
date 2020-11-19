@@ -1,8 +1,10 @@
 @php
+if (count($bsc_show_customer_branchs) >0) {
     foreach ($bsc_show_customer_branchs as $bsc_show_customer_branch) {
         $item='';
         $item.="<option value='{$bsc_show_customer_branch->id}'>{$bsc_show_customer_branch->branch}</option>";
     }
+}
 @endphp
 <input type="hidden" id="customer_branch_item" value="{{ $item }}">
 <form id="frm_chart_account" action="">
@@ -22,10 +24,12 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                                <select class="form-control select2 input_required" name="account_type" id="account_type">
-                                    @foreach ($ch_accounts as $ch_account)
-                                        <option value="{{ $ch_account->id }}">{{ $ch_account->name_en }}</option>
-                                    @endforeach>
+                                <select class="form-control input_required" name="account_type" id="account_type">
+                                    @if (count($ch_accounts) >0)
+                                        @foreach ($ch_accounts as $ch_account)
+                                            <option value="{{ $ch_account->id }}">{{ $ch_account->name_en }}</option>
+                                        @endforeach>
+                                    @endif
                                 </select>
                         </div>
                     </div>
@@ -63,21 +67,23 @@
                                             </div>
                                             <select class="form-control select2 input_required reference" name="reference" id="reference" onchange="myFunction(this)">
                                                 <option value="" selected hidden disabled>select item</option>
-                                                @foreach ($qoutes as $qoute)
-                                                    <option value="{{ $qoute->quote_number }}" data-crm_quote_id="{{ $qoute->id }}">{{ $qoute->quote_number }}</option>
-                                                @endforeach
+                                                @if (count($qoutes) >0)
+                                                    @foreach ($qoutes as $qoute)
+                                                        <option value="{{ $qoute->quote_number }}" data-crm_quote_id="{{ $qoute->id }}">{{ $qoute->quote_number }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                         <input type="hidden" id="crm_quote_id" name="crm_quote_id">
                                     </div>
                                     <input type="hidden" id="billing_address" name="billing_address">
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Customer</label>
+                                        <label for="exampleInputEmail1">Customer<b class="color_label">*</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="customer" id="customer" data-customer_id placeholder="Customer" readonly>
+                                            <input type="text" class="form-control input_required" name="customer" id="customer" data-customer_id placeholder="Customer" readonly>
                                         </div>
                                     </div>
 
@@ -94,21 +100,7 @@
                                             <input type="date" class="form-control input_required"  name="billing_date" id="billing_date">
                                         </div>
                                     </div>
-
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Deposit on Payment<b class="color_label">*</b></label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fab fa-chrome"></i></span>
-                                            </div>
-                                            <input type="number" class="form-control input_required" name="deposit_on_payment" id="deposit_on_payment" placeholder="Deposit on payment">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                     <div class="col-md-6">
                                         <label for="exampleInputEmail1">Due Date<b class="color_label">*</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
@@ -117,6 +109,11 @@
                                             <input type="date" class="form-control input_required" name="due_date" id="due_date">
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
                                     <div class="col-md-6">
                                         <label for="exampleInputEmail1">Effective Date<b class="color_label">*</b></label>
                                         <div class="input-group">
@@ -126,17 +123,26 @@
                                             <input type="date" class="form-control input_required" name="effective_date" id="effective_date">
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                     <div class="col-md-6">
+                                    <div class="col-md-6">
                                         <label for="exampleInputEmail1">End Period Date<b class="color_label">*</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
                                             <input type="date" class="form-control input_required" name="end_period_date" id="end_period_date">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6" style="display: none">
+                                        <label for="exampleInputEmail1">Deposit on Payment</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fab fa-chrome"></i></span>
+                                            </div>
+                                            <input type="number" class="form-control" name="deposit_on_payment" id="deposit_on_payment" value="0" placeholder="Deposit on payment">
                                         </div>
                                     </div>
                                 </div>
@@ -187,7 +193,7 @@
                                                     <label for="">VAT Total : </label>
                                                 </div>
                                                 <div class="col-sm-6 text_right">
-                                                    <label for="" id="txtVatTotal">0</label>
+                                                    <label for="" id="txtVatTotal">0.0000</label>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -295,40 +301,48 @@
                         ma_customer_branch_id : tr.find(".customer_branch").attr('data-customer_branch_id'),
                         description           : tr.find(".description").text(),
                         qty                   : tr.find(".qty").text(),
-                        unit_price            : tr.find(".price").text(),
-                        discount              : tr.find(".discount").text(),
+                        unit_price            : parseFloat (tr.find(".price").text()).toFixed(4),
+                        discount              : parseFloat(tr.find(".discount").text()).toFixed(4),
                         bsc_account_charts_id : tr.find(".chart_account").attr('data-chart_account_id'),
                         tax                   : tr.find(".invoice_tax").val(),
-                        amount                : tr.find(".item_amount").text()
+                        amount                : parseFloat(tr.find(".item_amount").text()).toFixed(4)
                     };
                 }
             });
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                type:"POST",
-                url:'/bsc_invoice_save',
-                data:{
-                    _token: CSRF_TOKEN,
-                    account_type     : $("#account_type").val(),
-                    customer_id      : $("#customer").attr("data-customer_id"),
-                    billing_date     : $("#billing_date").val(),
-                    reference        : $("#reference").val(),
-                    due_date         : $("#due_date").val(),
-                    effective_date   : $("#effective_date").val(),
-                    end_period_date  : $("#end_period_date").val(),
-                    deposit_on_payment : $("#deposit_on_payment").val(),
-                    total            : $('#txtTotal').text(),
-                    grandTotal       : $('#txtGrandTotal').text(),
-                    vatTotal         : $('#txtVatTotal').text(),
-                    billing_address  : $('#billing_address').val(),
-                    crm_quote_id     : $('.reference option:selected').attr('data-crm_quote_id'),
-                    itemDetail       : itemDetail
-                },
-                dataType: "JSON",
-                success:function(data){
-
-                }
-            });
+            if(itemDetail.length >0){
+                $.ajax({
+                    type:"POST",
+                    url:'/bsc_invoice_save',
+                    data:{
+                        _token: CSRF_TOKEN,
+                        account_type     : $("#account_type").val(),
+                        customer_id      : $("#customer").attr("data-customer_id"),
+                        billing_date     : $("#billing_date").val(),
+                        reference        : $("#reference").val(),
+                        due_date         : $("#due_date").val(),
+                        effective_date   : $("#effective_date").val(),
+                        end_period_date  : $("#end_period_date").val(),
+                        deposit_on_payment : $("#deposit_on_payment").val(),
+                        total            : parseFloat($('#txtTotal').text()).toFixed(4),
+                        grandTotal       : parseFloat($('#txtGrandTotal').text()).toFixed(4),
+                        vatTotal         : parseFloat($('#txtVatTotal').text()).toFixed(4),
+                        billing_address  : $('#billing_address').val(),
+                        crm_quote_id     : $('.reference option:selected').attr('data-crm_quote_id'),
+                        itemDetail       : itemDetail
+                    },
+                    dataType: "JSON",
+                    success:function(data){
+                        if(data.saved.success == false){
+                            alert("fail to insert");
+                        }else{
+                            go_to('bsc_invoice_invoice_list');
+                        }
+                    }
+                });
+            }else{
+               sweetalert('error','Product must be have data before save!');
+            }
         }
     }
 </script>

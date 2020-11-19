@@ -73,6 +73,7 @@ class QuoteResource extends JsonResource
         $quoteStatus =  QuoteStatus::where('crm_quote_id',$this->id)
                                     ->where('status','t')
                                     ->where('is_deleted','f')
+                                    ->orderBy('id','asc')
                                     ->get(['crm_quote_status_type_id','create_by']);
         $quoteStage=[];
         $acknowlegde=[];
@@ -105,7 +106,7 @@ class QuoteResource extends JsonResource
         $statusQuote = QuoteStatus::where('crm_quote_id',$this->id)
                                     ->where('status','t')
                                     ->where('is_deleted','f')
-                                    ->get();
+                                    ->get()->sortBy('id')->toArray();
 
         //get lead contact
         $contact=null;
@@ -114,6 +115,8 @@ class QuoteResource extends JsonResource
             $last_contact_id= $contactid[count($contactid) - 1]->crm_lead_contact_id;
             $contact = Contact::whereId($last_contact_id)->first();
         }
+
+
         return [
             "id"=>$this->id,
             "due_date"=>$this->due_date,
@@ -123,13 +126,12 @@ class QuoteResource extends JsonResource
             "quote_stage"=> $quoteStage,
             "assign_to"=> $assign,
             "subject"=> $this->subject,
-            "address"=>$addr,
+            "address"=>$this->crm_lead_address_id,
             "create_date"=> $this->create_date,
             "acknowlegde_by"=>$acknowlegde,
             "status_quote"=>$statusQuote,
             "create_by"=> $createby,
             "contact"=>$contact
-
         ];
     }
 }

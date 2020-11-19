@@ -29,21 +29,21 @@
         <div class="card card-default color-palette-box card-header">
             <div class="col-12" >
               <div class="row">
-                <div class="col-6">
+                <div class="col-9">
                     <div class="row">
                         {{-- <div class="> --}}
                             <h3 class="card-title"​>
-                                <i class="far fa-id-card" style="padding-right:15px; font-size:35px"></i>
+                                {{-- <i class="far fa-id-card" style="padding-right:15px; font-size:35px"></i> --}}
                                     {{-- <h6 style="font-weight: bold; font-size: 20px">drgdS</h6>  --}}
-                                    {{$name_en}}
+                                    {{-- {{$name_en}} --}}
                             </h3>
                         {{-- </div> --}}
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-3">
                    <div class="row">
-                        <div class="col-6 text-right"><button onclick="go_to('/contact/edit/{{$id}}')" class="btn btn-info btn-md">Edit</button></div>
-                        <div class="col-6 text-left"><button type="button"  class="btn btn-success btn-md">Convert</button></div>
+                        <div class="col-6 text-right"></div>
+                        <div class="col-6 text-right"><button onclick="go_to('/contact/edit/{{$id}}')" class="btn btn-info btn-md form-control">Edit</button></div>
                    </div>
                 </div>
               </div>
@@ -53,7 +53,7 @@
       <!-- /.card -->      
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 {{-- contact detail --}}
                 <div class="card">
                     <div class="card-header">
@@ -82,7 +82,7 @@
                 </div>
                     {{-- end contact detail --}}
             </div>
-            <div class="col-md-4">
+            {{-- <div class="col-md-4">
                 <div class="card card-secondary">
                     <div class="card-header">
                       <h3 class="card-title">Update</h3>        
@@ -138,7 +138,7 @@
                           <!-- /.card-body -->
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     <!-- ./col -->

@@ -377,10 +377,12 @@
                                         <!-- Grand Total Content -->
                                         <div class="row-12 max-min-table-total" >
                                                 <table class="table">
-                                                    <tbody>
+                                                    <tbody id="grandTotalBody">
+
                                                         <tr class="fieldGrandTotal">
                                                             <td style="width: 50%"><input type="hidden"></td>
-                                                            <td  >
+                                                            <td >
+
                                                                 <table class="table table-bordered tr-quote-row">
                                                                     <tbody>
                                                                         <tr style="text-align: right">
@@ -405,6 +407,15 @@
                                                                             </td>
                                                                         </tr> -->
 
+                                                                        <tr style="text-align: right">
+                                                                            <td >
+                                                                                <span style="padding-right: 12px;">(+) Tax (10%) </span>
+                                                                            </td>
+                                                                            <td >
+                                                                                <div id="getTaxation"> 0.0 </div>
+                                                                            </td>
+                                                                        </tr>
+
 
                                                                         <tr class="td-total-quote grandTotal" >
                                                                             <td  ><span style="padding-right: 12px;">Grand Total</span></td>
@@ -417,15 +428,11 @@
 
                                                             </td>
                                                         </tr>
+
                                                     </tbody>
 
                                                 </table>
-                                                {{-- <div class="col-md-8 col-sm-6 text-right font-weight-bold" >
-                                                    <label>Grand Total: </label>
-                                                </div>
-                                                <div class="col-md-4 col-sm-6 text-center font-weight-bold" >
-                                                    <label id="grandTotal"> 0.0 </label> <span>($)</span>
-                                                </div> --}}
+
                                         </div>
                                 </div>
                             </div>

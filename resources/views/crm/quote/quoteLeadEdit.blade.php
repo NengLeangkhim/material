@@ -49,7 +49,7 @@
         <!-- /.card -->
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-12">
 
                     {{-- card use for Quote detail --}}
                     <div class="card">
@@ -58,14 +58,16 @@
                             <dl class="row">
                                 <dt class="col-sm-4 dt" >Subject</dt>
                                     <dd class="col-sm-8 dd" >
-                                        <input type="text" class="form-control" name="subject" value="{{ $quoteDetail->data->subject }}" placeholder="subject">
+                                        <input type="text" class="form-control" name="subject" id="subject" value="{{ $quoteDetail->data->subject }}" placeholder="subject">
+                                        <span id="subjectError" ><strong></strong></span>
                                         <input type="hidden" name="quote_id"  id="quote_id" value="{{ $quoteDetail->data->id }}" readonly>
-                                        <input type="hidden" name="crm_lead_id" value="{{ $quoteDetail->data->crm_lead->id }}" readonly>
+                                        <input type="hidden" name="crm_lead_id" id="crm_lead_id" value="{{ $quoteDetail->data->crm_lead->id }}" readonly>
+                                        <input type="text" hidden value="{{$_SESSION['token']}}" id="token">
 
                                     </dd>
                                 <dt class="col-sm-4 dt">Assign To</dt>
                                     <dd class="col-sm-8 dd">
-                                        <select class="form-control select2"  name="assign_to" >
+                                        <select class="form-control select2"  name="assign_to" id="assign_to" >
                                             <option value="{{ $quoteDetail->data->assign_to->id }}">
                                                 {{ $quoteDetail->data->assign_to->first_name_en.' '.$quoteDetail->data->assign_to->last_name_en }}
                                             </option>
@@ -75,34 +77,34 @@
                                                 </option>
                                             @endforeach
                                         </select>
+                                        <span id="assign_toError" ><strong></strong></span>
                                     </dd>
                                 <dt class="col-sm-4 dt">Quote Status</dt>
                                     <dd class="col-sm-8 dd">
-                                        <select class="form-control select2" name="crm_quote_status_type_id">
+                                        <select class="form-control select2" name="crm_quote_status_type_id" id="crm_quote_status_type_id">
                                             <?php
                                                 $num = count($quoteDetail->data->quote_stage);
                                                 // echo $quoteDetail->data->quote_stage[($num-1)]->name_en;
                                             ?>
-                                            <option value="{{ $quoteDetail->data->quote_stage[($num-1)]->id }}">
-                                                {{ $quoteDetail->data->quote_stage[($num-1)]->name_en }}
-                                            </option>
                                             @foreach ($quoteStatus as $key=>$val )
-                                                <option value="{{ $val->id }}">
-                                                    {{ $val->name_en }}
-                                                </option>
+                                                    <option value="{{$val->id }}" {{$val->id==$quoteDetail->data->quote_stage[($num-1)]->id ? 'selected="selected"':''}}> {{$val->name_en}}</option>     
+                                            
                                             @endforeach
                                         </select>
                                     </dd>
                                 <dt class="col-sm-4 dt">Due Date</dt>
                                     <dd class="col-sm-8 dd">
-                                        <input type="text" name="due_date" class="form-control" value="{{ $quoteDetail->data->due_date }}" >
+                                        <input type="text" name="due_date" id="due_date" class="form-control" value="{{ $quoteDetail->data->due_date }}" placeholder="Due Date" >
+                                        <span id="due_dateError" ><strong></strong></span>
                                     </dd>
                                 <dt class="col-sm-4 dt">Comment</dt>
                                     <dd class="col-sm-8 dd">
                                         <?php
                                             $num2 = count($quoteDetail->data->status_quote);
                                         ?>
-                                        <input type="text" name="comment" class="form-control" value="{{ $quoteDetail->data->status_quote[$num2-1]->comment }}" placeholder="comment">
+                                        <input type="text" name="comment" id="comment" class="form-control" value="{{ $quoteDetail->data->status_quote[$num2-1]->comment }}" placeholder="comment">
+                                        <span id="commentError" ><strong></strong></span>
+
                                     </dd>
 
                                 <dt class="col-sm-12 ">
@@ -119,7 +121,7 @@
 
                 </div>
 
-                <div class="col-md-3">
+                {{-- <div class="col-md-3">
                     <div class="card card-secondary">
                             <div class="card-header">
                                 <h3 class="card-title">More</h3>
@@ -145,7 +147,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
+
+
             </div>
         </div>
 
@@ -159,7 +163,46 @@
         $(document).ready(function(){
             $('select').select2();
         });
+        $("#crm_quote_status_type_id").change(function(){
+            var id=$(this).val(); 
+            var lead_id=$("#crm_lead_id").val();
+            var quote_id=$("#quote_id").val();
+            var token=$("#token").val();
+            
+            if(id==2){
+                // alert(id+" "+lead_id+" "+quote_id+" "+token);
+                Swal.fire({ //get from sweetalert function
+                title: 'Cancel',
+                text: "Do you wan to Convert to BSC? ",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if(result.value) {
+                    $.ajax({
+                        url:'api/convertqoute',
+                        type:'post',
+                        data:{lead_id:lead_id,quote_id:quote_id},
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            },
+                        success:function(data){
+                            sweetalert('success','Convert Quote successed!');
+                        },
+                        error: function(data) {
+                            console.log(data);
+                            sweetalert('warning','Data not accessing to server!');
+                        }
+                    })
+                }
+            }); 
+            }
+            
+            
 
+        })
 
         function cancelEditLead(){
             var qId = <?php echo json_encode($quoteDetail->data->id); ?>;

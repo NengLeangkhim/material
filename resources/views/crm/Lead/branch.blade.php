@@ -4,7 +4,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1><i class="fas fa-code-branch"></i> Branch </h1>
+                            <h1><i class="fas fa-code-branch"></i> Branchs </h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -37,9 +37,10 @@
                                                 {{-- <th>Lead Number</th> --}}
                                                 <th style="color:#FFFFFF">Company Name EN</th>
                                                 <th  style="color:#FFFFFF">Company Name KH</th>
-                                                <th  style="color:#FFFFFF">Email</th>
-                                                <th  style="color:#FFFFFF">Website </th>
-                                                <th  style="color:#FFFFFF">Facebook </th>
+                                                {{-- <th  style="color:#FFFFFF">Email</th>
+                                                <th  style="color:#FFFFFF">Website </th> --}}
+                                                {{-- <th  style="color:#FFFFFF">Facebook </th> --}}
+                                                <th  style="color:#FFFFFF">Schedule</th>
                                                 <th  style="color:#FFFFFF">Lead status</th>
                                                 <th  style="color:#FFFFFF">Assigned To</th>
                                                 <th  style="color:#FFFFFF">Detail</th>
@@ -53,30 +54,32 @@
                                                         <tr style="">
                                                             <td style="color: #d42931 ; font-weight:bold">
                                                                 {{$branch[$i]["company_en"]}}
+                                                            </td>
+                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["company_kh"]}}</td>
+                                                            {{-- <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["primary_email"]}}</td>
+                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["primary_website"]}}</td> --}}
+                                                            {{-- <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["facebook"]}}</td> --}}
+                                                            <td style="color: #d42931 ; font-weight:bold,text-align: center">
                                                                 <?php
                                                                 if($branch[$i]["schedule_id"]!=null){
                                                                     ?>
-                                                                    <sup style="color: #079992"> Schedule </sup>
+                                                                    <label for="">Yes</label>
                                                                     <?php
                                                                 }
                                                                 else {
                                                                     ?>
-                                                                        <sup style="color: #079992"> No Schedule  </sup>
+                                                                       <label for="">No</label>
                                                                     <?php
                                                                 }
                                                                 ?>
                                                             </td>
-                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["company_kh"]}}</td>
-                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["primary_email"]}}</td>
-                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["primary_website"]}}</td>
-                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["facebook"]}}</td>
                                                             <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["lead_status"]}}</td>
                                                             <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]['assig']}}</td> 
                                                             <td style="color: #d42931 ; font-weight:bold">  
                                                                 <div class="row-12 form-inline">
                                                                     <div class="col-md-6">
                                                                         <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')" title="Detail Branch">
-                                                                            <i class="fas fa-info-circle"></i>
+                                                                            <i class="far fa-eye"></i>
                                                                         </a>      
                                                                     </div>
                                                                     <div class="col-md-6 ">
@@ -105,30 +108,32 @@
                                                     ?>
                                                         <tr>
                                                             <td>{{$branch[$i]["company_en"]}}
+                                                            </td>
+                                                            <td>{{$branch[$i]["company_kh"]}}</td>
+                                                            {{-- <td>{{$branch[$i]["primary_email"]}}</td>
+                                                            <td>{{$branch[$i]["primary_website"]}}</td> --}}
+                                                            {{-- <td>{{$branch[$i]["facebook"]}}</td> --}}
+                                                            <td style="text-align: center">
                                                                 <?php
                                                                 if($branch[$i]["schedule_id"]!=null){
                                                                     ?>
-                                                                    <sup style="color: #079992;font-weight:bold"> Schedule </sup>
+                                                                        <label for="">Yes</label>
                                                                     <?php
                                                                 }
                                                                 else {
                                                                     ?>
-                                                                        <sup style="color: #079992;font-weight:bold"> No Schedule   </sup>
+                                                                        <label for="">No</label>
                                                                     <?php
                                                                 }
                                                                 ?>
                                                             </td>
-                                                            <td>{{$branch[$i]["company_kh"]}}</td>
-                                                            <td>{{$branch[$i]["primary_email"]}}</td>
-                                                            <td>{{$branch[$i]["primary_website"]}}</td>
-                                                            <td>{{$branch[$i]["facebook"]}}</td>
                                                             <td>{{$branch[$i]["lead_status"]}}</td>
                                                             <td>{{$branch[$i]['assig']}}</td> 
                                                             <td> 
                                                                 <div class="row-12 form-inline">
                                                                     <div class="col-md-6">
                                                                         <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')" title="Detail Branch">
-                                                                            <i class="fas fa-info-circle"></i>
+                                                                            <i class="far fa-eye"></i>
                                                                         </a>       
                                                                     </div>
                                                                     <div class="col-md-6 ">

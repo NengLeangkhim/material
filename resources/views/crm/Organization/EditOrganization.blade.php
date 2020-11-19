@@ -9,6 +9,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="javascript:void(0);" class="CrmOrganization" onclick="go_to('organizations')">Organization</a></li>
                         <li class="breadcrumb-item active">Update Organization</li>
+                        
                     </ol>
                 </div>
             </div>
@@ -21,11 +22,12 @@
                 <div class="col-md-12">
                     <form id="frm_CrmOrganizationEdit">
                         @csrf
+                        <input type="text" hidden value="{{$_SESSION['token']}}" id="gettoken">
                         <input name="address_id" value="{{$organize["crm_lead_address_id"]}}" type="hidden"/>
                         <input name="branch_id" value="{{$organize["branch_id"]}}" type="hidden"/>
                         <input name="lead_id" value="{{$organize["lead_id"]}}" type="hidden"/>
                         <input name="lead_con_bran_id" value="{{$organize["lead_con_bran_id"]}}" type="hidden"/>
-                        <input name="assig_to" value="{{$organize["ma_user_id"]}}" type="hidden"/>
+                        <input name="assig_to" value="{{$organize["assig_id"]}}" hidden />
                         <input name="prioroty" value="{{$organize["priority"]}}" type="hidden"/>
                         <input name="address_type" value="{{$organize["address_type"]}}" type="hidden"/>
                         <!-- general form elements -->
@@ -42,7 +44,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                 </div>
-                                                <select class="form-control" name="contact_id" id="contact" >
+                                                <select class="form-control" name="contact_id" id="contact_id" >
                                                     <option></option>
                                                     @foreach($contact as $row)
                                                         @if($row->id === $organize["contact_id"])
@@ -52,7 +54,7 @@
                                                         @endif
                                                     @endforeach
                                                 </select>
-                                                <span class="invalid-feedback" role="alert" id="contactError"> {{--span for alert--}}
+                                                <span class="invalid-feedback" role="alert" id="contact_idError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
                                             </div>
@@ -136,32 +138,6 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="customer_type">Customer Type <b style="color:red">*</b></label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                                    </div>
-                                                <select class="form-control" name="customer_type" id="customer_type">
-                                                    <option></option>
-                                                    <option>Publi</option>
-                                                    <option>Staff</option>
-                                                    <option>MNK Staff</option>
-                                                    <option>UPG Staff</option>
-                                                    <option>Tela Staff</option>
-                                                    <option>City Glod Staff</option>
-                                                    <option>Amory Staff</option>
-                                                    <option>Other</option>
-                                                </select>
-                                                <span class="invalid-feedback" role="alert" id="customer_typeError"> {{--span for alert--}}
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
                                             <label for="lead_source">Lead Source <b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -177,14 +153,15 @@
                                                         @endif
                                                     @endforeach
                                                 </select>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text btn btn-info" data-toggle="modal" data-target="#modal-info"><i class="fas fa-plus"></i></span>
-                                                </div>
                                                 <span class="invalid-feedback" role="alert" id="lead_sourceError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">                                        
                                         <div class="col-md-6">
                                             <label for="lead_status">Lead Status</label>
                                             <div class="input-group">
@@ -205,10 +182,6 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
                                         <div class="col-md-6">
                                             <label for="lead_industry">Industry <b style="color:red">*</b></label>
                                             <div class="input-group">
@@ -225,32 +198,34 @@
                                                         @endif
                                                     @endforeach
                                                 </select>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text btn btn-info" data-toggle="modal" data-target="#modal-info-industry"><i class="fas fa-plus"></i></span>
-                                                </div>
                                                 <span class="invalid-feedback" role="alert" id="lead_industryError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
                                             </div>
                                         </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">                                        
                                         <div class="col-md-6">
                                             <label for="assig_to_id">Assigened To<b style="color:red">*</b></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                                 </div>
-                                                <select class="form-control" name="assig_to_id" id="assigendTo">
+                                                <select class="form-control select2" name="assig_to_id" id="assig_to_id">
                                                     <option></option>
                                                     @foreach($assig_to as $row )
-                                                        @if($row->id === $organize["ma_user_id"])
+                                                        {{-- @if($row->id === $organize["ma_user_id"])
                                                             <option selected value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option>
                                                         @else
                                                             <option value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option>
-                                                        @endif
-
+                                                        @endif --}}
+                                                        <option value="{{$row->id}}" {{$row->id==$organize["ma_user_id"] ? 'selected="selected"':''}}> {{$row->first_name_en}} {{$row->last_name_en}}</option>        
                                                     @endforeach
                                                 </select>
-                                                <span class="invalid-feedback" role="alert" id="assigendToError"> {{--span for alert--}}
+                                                <span class="invalid-feedback" role="alert" id="assig_to_idError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
                                             </div>
@@ -306,12 +281,17 @@
                                                     </div>
                                                     <select class="form-control select2 city"  id="city" name="city" onchange="getbranch(this,'district','s','/district')" >
                                                         <option></option>
-                                                        @foreach($province as $row )
+                                                        {{-- @foreach($province as $row )
                                                             @if($row->name_latin === $organize["province"])
                                                                 <option selected value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option>
                                                             @else
                                                                 <option value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option>
                                                             @endif
+                                                        @endforeach --}}
+                                                        @foreach($province as $row )
+                                                                        {{-- <option value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option> --}}
+                                                            <option value="{{$row->code}}" {{$row->name_latin==$organize["province"] ? 'selected="selected"':''}}>{{$row->name_latin}}</option>
+                                                           
                                                         @endforeach
                                                     </select>
                                                     <span class="invalid-feedback" role="alert" id="cityError"> {{--span for alert--}}
@@ -362,7 +342,7 @@
                                                         <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
                                                     </div>
                                                     <select class="form-control dynamic" name="district" id="district" onchange="getbranch(this,'commune','s','/commune')" >
-                                                        <option> </option>
+                                                        <option value="{{$organize['district']}}">{{$organize['district']}}</option>
                                                     </select>
                                                     <span class="invalid-feedback" role="alert" id="districtError"> {{--span for alert--}}
                                                         <strong></strong>
@@ -379,7 +359,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name='latlong' id="latlong" placeholder="11.123456, 104.123456 Example" >
+                                                    <input type="text" class="form-control"  name='latlong' id="latlong" value="{{$organize['latlg']}}" placeholder="11.123456, 104.123456 Example" >
                                                     <span class="invalid-feedback" role="alert" id="latlongError"> {{--span for alert--}}
                                                         <strong></strong>
                                                     </span>
@@ -392,7 +372,7 @@
                                                         <span class="input-group-text"><i class="fas fa-street-view"></i></span>
                                                     </div>
                                                     <select class="form-control dynamic" name="commune" id="commune" onchange="getbranch(this,'village','s','/village')" >
-                                                        <option> </option>
+                                                        <option value="{{$organize['commune']}}">{{$organize['commune']}}</option>
                                                     </select>
                                                     <span class="invalid-feedback" role="alert" id="communeError"> {{--span for alert--}}
                                                         <strong></strong>
@@ -413,7 +393,7 @@
                                                         <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
                                                     </div>
                                                     <select class="form-control " name="village" id="village" dats-dependent="village" >
-                                                        <option value="">select Village</option>
+                                                        <option value="{{$organize['gazetteer_code']}}">{{$organize['village']}}</option>
                                                     </select>
                                                     <span class="invalid-feedback" role="alert" id="villageError"> {{--span for alert--}}
                                                         <strong></strong>
@@ -431,8 +411,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-primary" onclick="CrmSubmitFormEditFull('frm_CrmOrganizationEdit','/api/organize','/organization','Update Successfully')" id="frm_btn_sub_addlead">Save</button>
-                                        <button type="button" class="btn btn-danger" onclick="go_to('organization')">Cencel</button>
+                                        <button type="button" class="btn btn-primary" onclick="CrmSubmitFormFull('frm_CrmOrganizationEdit','/organizations/update','/organizations','Update Successfully')" id="frm_btn_sub_addlead">Save</button>
+                                        <button type="button" class="btn btn-danger" onclick="go_to('/organizations')">Cencel</button>
                                     </div>
                                 </div>
                         </div>
@@ -442,63 +422,10 @@
         </div>
     </section>
     {{-- =================Modal lead source========================= --}}
-    <div class="modal fade" id="modal-info">
-        <form id="ifrm_source" action="/addleadsource" method="POST">
-            @csrf
-            <div class="modal-dialog">
-            <div class="modal-content bg-info">
-                <div class="modal-header">
-                <h4 class="modal-title">Create Lead Source</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-tty"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="lead_source" name="source" id="exampleInputEmail1" placeholder="Website" required>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline-light save_source" onclick="SubForm('/addleadsource','ifrm_source','ileadsource')">Save </button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-            </div>
-        </form>
-        <!-- /.modal-dialog -->
-      </div>
+   
+     
        {{-- =================Modal lead industry========================= --}}
-    <div class="modal fade" id="modal-info-industry">
-        <form id="ifrm_industry" >
-            @csrf
-            <div class="modal-dialog">
-            <div class="modal-content bg-info">
-                <div class="modal-header">
-                <h4 class="modal-title">Create Lead industry</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-industry"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  id="lead_source" name="industry"  placeholder="Website" required>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline-light save_source" onclick="SubForm('/addleadindustry','ifrm_industry','iindustry')">Save </button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-            </div>
-        </form>
-        <!-- /.modal-dialog -->
-      </div>
+
     <script type="text/javascript">
             $('.lead').click(function(e)
             {
@@ -536,10 +463,16 @@
 
         function initMap() {
 
-            var haightAshbury = {
-                lat: 11.620803,
-                lng: 104.892215
-            };
+            var latlong =document.getElementById('latlong').value;
+                    latlong.replace('/[\(\)]//g','');
+                    var coords = latlong.split(',');
+                    var lat = parseFloat(coords[0]);
+                    var long = parseFloat(coords[1]);
+
+                    var haightAshbury = {
+                        lat:lat,
+                        lng:long 
+                    };
 
 
             var get_latlng = 0;
@@ -552,7 +485,7 @@
 
             //declear default value for latlong on map
             addMarker(haightAshbury);
-            document.getElementById('latlong').value = '11.620803, 104.892215';
+            // document.getElementById('latlong').value = '11.620803, 104.892215';
 
             // This event listener will call addMarker() when the map is clicked.
             map.addListener('click', function(event) {
@@ -634,41 +567,46 @@
             });
         }
 
-        //edit Form
-        function CrmSubmitFormEditFull(form,url,goto,alert){
-            $("#"+form+" input").removeClass("is-invalid");//remove all error message
-            $("#"+form+" select").removeClass("is-invalid");//remove all error message
-            $("#"+form+" textarea").removeClass("is-invalid");//remove all error message
-            $("#"+form+" radio").removeClass("is-invalid");//remove all error message
-            $.ajax({
-            url: url,//get link route
-            type:'PUT',//type post or put
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: //_token: $('#token').val(),
-            $('#'+form+'').serialize(),
+        // //edit Form
+        // function CrmSubmitFormEditFull(form,url,goto,alert){
+        //     // var myvar= document.getElementById('gettoken').val();
+        //     var myvar= $( "#gettoken" ).val();
+        //     //   console.log(myvar);
+           
+        //     $("#"+form+" input").removeClass("is-invalid");//remove all error message
+        //     $("#"+form+" select").removeClass("is-invalid");//remove all error message
+        //     $("#"+form+" textarea").removeClass("is-invalid");//remove all error message
+        //     $("#"+form+" radio").removeClass("is-invalid");//remove all error message
+        //     $.ajax({
+        //     url: url,//get link route
+        //     type:'PUT',//type post or put
+        //     headers: {
+        //               'Authorization': `Bearer ${myvar}`,
+        //           },
+        //     data: //_token: $('#token').val(),
+        //     $('#'+form+'').serialize(),
 
-            success:function(data)
-            {
-                if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-                // console.log(data);
-                sweetalert('success',alert);
-                go_to(goto);// refresh content
-            }else{
-                $.each( data.errors, function( key, value ) {//foreach show error
-                    $("#" + key).addClass("is-invalid"); //give read border to input field
-                    // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-                    $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
-                    // sweetalert('warning',value);
-                });
-            }
-            }
-            });
-            }
-        $(document).ready(function(){
-            customGetBranch(p, 'district', d, '/district')
-            customGetBranch(d,'commune',c,'/commune')
-            customGetBranch(c,'village',v,'/village')
-        })
+        //     success:function(data)
+        //     {
+        //         console.log(data);
+        //         // if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
+        //         // // console.log(data);
+        //         // sweetalert('success',alert);
+        //         // go_to(goto);// refresh content
+        //     }else{
+        //         $.each( data.errors, function( key, value ) {//foreach show error
+        //             $("#" + key).addClass("is-invalid"); //give read border to input field
+        //             // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+        //             $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+        //             // sweetalert('warning',value);
+        //         });
+        //     }
+        //     }
+        //     });
+        //     }
+        // $(document).ready(function(){
+        //     customGetBranch(p, 'district', d, '/district')
+        //     customGetBranch(d,'commune',c,'/commune')
+        //     customGetBranch(c,'village',v,'/village')
+        // })
     </script>

@@ -238,14 +238,16 @@ class CustomerController extends Controller
             $res = app()->handle($request);
             $customer = json_decode($res->getContent()); // convert to json object
             $customers=$customer->data;
-            foreach($customers as $item)
-            {
-                $address=$item->gazetteer_code;
-                $addr=DB::select("SELECT * FROM public.get_gazetteers_address('".$address."') as address");
-                $addrs=$addr[0]->address;
-                $item->gazetteer_code=$addrs;
+            if(count($customers) >0){
+                foreach($customers as $item)
+                {
+                    $address=$item->gazetteer_code;
+                    $addr=DB::select("SELECT * FROM public.get_gazetteers_address('".$address."') as address");
+                    $addrs=$addr[0]->address;
+                    $item->gazetteer_code=$addrs;
+                }
+                return json_encode($item);
             }
-            return json_encode($item);
         }catch(Exception $e){
             echo $e->getMessage();
             exit();

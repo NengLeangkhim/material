@@ -21,9 +21,20 @@
           <div class="col-12">
               <div class="card">
                   <div class="card-header">
-                      <div class="col-12 text-right">
-                                <button class="btn btn-success"><span><i class="far fa-file-excel"></i></span> Excel</button>
-                                <button class="btn btn-danger"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
+                      <div class="col-12 ">
+                            <div class="row">
+                                <div class="col-9"></div>
+                                <div class="col-3">
+                                    <div class="row">
+                                        <div class="col-6">
+                                                <button class="btn btn-success form-control"><span><i class="far fa-file-excel"></i></span> Excel</button>
+                                        </div>
+                                        <div class="col-6">
+                                                <button class="btn btn-danger form-control"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                       </div>
                   </div>
                   <div class="card-body">

@@ -794,6 +794,7 @@ function Crm_delete(id,route,goto,alert) {
 
         // function to get delete quote lead
         function getDeleteQuoteLead(route,id) {
+
             Swal.fire({
               title: 'Do you want to delete this?',
               icon: 'warning',
@@ -807,19 +808,19 @@ function Crm_delete(id,route,goto,alert) {
               if (result.value) {
                 $.ajax({
                   url:route,
-                  data:{id:id},
-                  type:"DELETE",
+                  type: 'POST',
                   headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                   },
+                  data:{id_:id},
                   success:function(data){
-                        console.log(data);
+                        // console.log(data);
                         if(data.success){
                             sweetalert('success','Delete sucesssed!');
+                            setTimeout(function(){ go_to('/quote'); }, 1300);// Set timeout for refresh content
                         }else{
                             sweetalert('error','Delete failed!');
                         }
-                    //   setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
                   }
 
                  });
@@ -971,7 +972,8 @@ function Crm_delete(id,route,goto,alert) {
         // var i = 0;
         $row_content =
 
-        '<div id="row_content'+i+'" class="form-group border border-secondary rounded p-3  row_content">'+
+        '<div id="row_content'+i+'" class="form-group border border-secondary rounded pt-3 p-1  row_content">'+
+                '<input type="hidden" id="vatNumber'+branId+'" required readonly>'+
                 '<div class="col-12" align="right">' +
                     '<button type="button" id="'+i+'" class="close btnCloseRowContent" style="color:blue;" aria-label="Close">'+
                         '<span aria-hidden="true">&times;</span>'+
@@ -1001,9 +1003,10 @@ function Crm_delete(id,route,goto,alert) {
                         '<table class="table table-bordered ">'+
                             '<thead class="thead-item-list">'+
                                 '<tr>'+
-                                    '<th class="td-item-quote-name"><b style="color:red">*</b> Item Name</th>'+
+                                    '<th class="td-item-quote-name" style="width:30%;"><b style="color:red">*</b> Item Name</th>'+
                                     '<th class="td-item-quote">Type</th>'+
-                                    '<th style="width: 120px">Quantity</th>'+
+                                    '<th style="width: 100px">Quantity</th>'+
+                                    '<th style="width: 120px">Measurement</th>'+
                                     '<th class="td-item-quote">List Price($)</th>'+
                                     '<th class="td-item-quote">Total($)</th>'+
                                     '<th style="width: 50px;" >'+
@@ -1027,7 +1030,6 @@ function Crm_delete(id,route,goto,alert) {
     $(document).on('click','.btnCloseRowContent',function(){
         var btnId = $(this).attr("id");
         $('#row_content'+btnId+'').remove();
-        // console.log('this btn remove content row branch');
     });
 
 
@@ -1058,10 +1060,21 @@ function Crm_delete(id,route,goto,alert) {
                         }
                     });
 
-                    $('#getSelectRow').click( function () {
+                    $('#getSelectRow').click( function (){
                         if($('tbody tr').hasClass('selected') == true){
                             var branch_id = $('.selected').attr("id");
 
+                            // console.log('branchid='+branch_id);
+                            if(typeof(branch_id) == 'undefined'){
+                                $("#getSelectRow").notify(
+                                    "No data available in table!",
+                                    "info",
+                                    {
+                                    position:"right",
+                                    }
+                                );
+                                return 0;
+                            }
                             //check if row content of branch already add
                             if(typeof($('#lead_branch'+branch_id+'').val()) != 'undefined'){
                                     $("#getSelectRow").notify(
@@ -1080,6 +1093,7 @@ function Crm_delete(id,route,goto,alert) {
                                     var branchNameEn = $.trim($('#brdcompanyEn_'+branch_id+'').val());
                                     var addressName = $.trim($('#brdAddressNameEn_'+branch_id+'').val());
                                     var addressId = $.trim($('#branAddressId_'+branch_id+'').val());
+                                    var vatNumber = $.trim($('#branVatNumber_'+branch_id+'').val());
 
                                     //function to add row content for add product branch
                                     row_content(i,branch_id);
@@ -1091,7 +1105,7 @@ function Crm_delete(id,route,goto,alert) {
                                     $('#lead_branch'+branch_id+'').val(branch_id);
                                     $('#branchAddress'+branch_id+'').val(addressName);
                                     $('#branchAddress_id'+branch_id+'').val(addressId);
-
+                                    $('#vatNumber'+branch_id+'').val(vatNumber);
 
                                     //close modal
                                     $('#listQuoteBranch').modal('hide');
@@ -1119,13 +1133,45 @@ function Crm_delete(id,route,goto,alert) {
 
 
 
+    // function addGrandTotalQuote(){
+
+    //     var content =   '<tr class="fieldGrandTotal">'+
+    //                         '<td style="width: 50%"><input type="hidden"></td>'+
+    //                         '<td>'+
+    //                             '<table class="table table-bordered tr-quote-row">'+
+    //                                 '<tbody>'+
+    //                                     '<tr style="text-align: right">'+
+    //                                         '<td  ><span style="padding-right: 12px;">Sum Total </span></td>'+
+    //                                         '<td  ><div id="sumTotal"> 0.0 </div></td>'+
+    //                                     '</tr>'+
+    //                                     '<tr style="text-align: right">'+
+    //                                         '<td>'+
+    //                                             '<span style="padding-right: 12px;">(+) Tax (10%) </span>'+
+    //                                         '</td>'+
+    //                                         '<td>'+
+    //                                             '<div id="getTaxation"> 0.0 </div>'+
+    //                                         '</td>'+
+    //                                     '</tr>'+
+    //                                     '<tr class="td-total-quote grandTotal" >'+
+    //                                         '<td  ><span style="padding-right: 12px;">Grand Total</span></td>'+
+    //                                         '<td  ><div id="grandTotal"> 0.0 </div></td>'+
+    //                                     '</tr>'+
+    //                                 '</tbody>'+
+    //                             '</table>'+
+    //                         '</td>'+
+    //                     '</tr> ';
+    //     $('grandTotalBody').append(content);
+    // }
+
+
+
 
 
 
     $(document).on('click','#btnOrganization', function(){
                 // clear textfieild lead branch
-              $('input[name="getLeadBranch"]').val("");
-              ('input[name="crm_lead_branch_id"]').val("");
+                $('.btnCloseRowContent').click();
+                $('.btnCloseRowContent').click();
     });
 
 
@@ -1136,6 +1182,7 @@ function Crm_delete(id,route,goto,alert) {
 
     //function to add qoute data to database
     $(document).on('click','#btnQuoteSave',function(){
+
 
           $("#frm_addQuote input").removeClass("is-invalid");//remove all error message
           $("#frm_addQuote select").removeClass("is-invalid");//remove all error message
@@ -1152,7 +1199,7 @@ function Crm_delete(id,route,goto,alert) {
 
               success:function(data)
               {
-
+                    // if(!hrms_validation('frm_addQuote')){return;}
                   if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
                         sweetalert('success','Data has been saved !');
                         setTimeout(function(){
@@ -1175,7 +1222,7 @@ function Crm_delete(id,route,goto,alert) {
 
                         // check if validate give empty product field
                         if(key.slice(0, -2) == 'product_name'){
-                              // console.log('require key--'+key);
+                            //   console.log('require key--'+key);
                               $.each($("input[name='product_name[]'"),function(index,value){
                                   var prd_id=  $(this).attr("id");
                                   if( $(this).val() ==  "" ){
@@ -1230,6 +1277,10 @@ function Crm_delete(id,route,goto,alert) {
 
     //function click to update quote lead
     $(document).on('click', '#btnUpdateQuoteLead', function (){
+            $("#frmEditQuoteLead input").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteLead select").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteLead textarea").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteLead radio").removeClass("is-invalid");//remove all error message
             var quoteId = $('#quote_id').val();
             $.ajax({
                 method: 'PUT',
@@ -1241,14 +1292,26 @@ function Crm_delete(id,route,goto,alert) {
                     $('#frmEditQuoteLead').serialize(),
                 success:function(data)
                 {
-                    console.log(data);
-                    if(data.success){
+
+                    if(data.success){ //condition for check success
                         sweetalert('success','Update successed!');
                         setTimeout(function(){
                             goto_Action('/quote/detail', quoteId);
-                        },2000);
+                        },1500);
+
                     }else{
-                        sweetalert('error','Update failed!');
+                        var num1 = 0;
+                        $.each(data.errors, function(key, value) {//foreach show error
+                            if(num1 == 0){
+                                sweetalert('warning', value);
+                            }
+                            console.log('key='+key+'--value='+value);
+                            num1 += 1;
+                            $("#" + key).addClass("is-invalid"); //give read border to input field
+                            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+                            $("#" + key + "Error").addClass("invalid-feedback");
+
+                        });
                     }
 
                 },
@@ -1265,6 +1328,10 @@ function Crm_delete(id,route,goto,alert) {
     //function click to submit update quote branch
     $(document).on('click','#btnUpdateQuoteBranch',function(){
 
+            $("#frmEditQuoteBranch input").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteBranch select").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteBranch textarea").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteBranch radio").removeClass("is-invalid");//remove all error message
             var quoteId = $('#quote_id').val();
             $.ajax({
                 method: 'PUT',
@@ -1276,15 +1343,49 @@ function Crm_delete(id,route,goto,alert) {
                     $('#frmEditQuoteBranch').serialize(),
                 success:function(data)
                 {
-                    console.log(data);
-                    if(data.success){
+
+                    if(data.success){ //condition for check success
                         sweetalert('success','Update successed!');
                         setTimeout(function(){
                             goto_Action('/quote/detail', quoteId);
                         },2000);
+
                     }else{
-                        sweetalert('error','Update failed!');
+                        // sweetalert('error','Update failed!');
+                        var num1 = 0;
+                        $.each(data.errors, function(key, value) {//foreach show error
+                            if(num1 == 0){
+                                sweetalert('warning', value);
+                            }
+                            // console.log('key='+key+'--value='+value);
+                            num1 += 1;
+                            $("#" + key).addClass("is-invalid"); //give read border to input field
+                            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+                            $("#" + key + "Error").addClass("invalid-feedback");
+
+                            if(key.slice(0, -2) == 'product_name'){
+                                //   console.log('require key--'+key);
+                                    $.each($("input[name='product_name[]'"),function(index,value){
+                                        var prd_id=  $(this).attr("id");
+                                        if( $(this).val() ==  "" ){
+                                            $(this).addClass("is-invalid");
+                                            notify_alert("#"+prd_id+"","error","bottom","This field required !");
+                                        }
+                                    });
+                            }
+
+                        });
+
+
+
+
+
                     }
+
+                    // if(data.success){
+
+                    // }else{
+                    // }
 
                 },
                 error: function(data) {

@@ -21,7 +21,7 @@
             <div class="col-md-6">
                 <!-- AREA CHART -->
                 <div class="card card-primary">
-                    <div class="card-header">
+                    <div class="card-header" style="background: #1fa8e0">
                     <h3 class="card-title">Lead Chart</h3>
 
                     <div class="card-tools">
@@ -75,7 +75,7 @@
             <div class="col-md-6">
                 <!-- DONUT CHART -->
                 <div class="card card-danger">
-                    <div class="card-header">
+                    <div class="card-header" style="background: #1fa8e0">
                     <h3 class="card-title">Contact Chart</h3>
 
                     <div class="card-tools">
@@ -131,7 +131,7 @@
             <div class="col-md-6">
                 <!-- LINE CHART -->
                 <div class="card card-info">
-                    <div class="card-header">
+                    <div class="card-header" style="background: #1fa8e0">
                     <h3 class="card-title">Organization Chart</h3>
 
                     <div class="card-tools">
@@ -152,7 +152,7 @@
                                       </div>
                                       <input type="hidden" name="fromDate">
                                       <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="ReportOrganizationFrom" name='ReportOrganizationFrom'  required>
-                                      <span class="invalid-feedback" role="alert" id="ReportOrganizationFromError"> {{--span for alert--}}
+                                      <span class="invalid-feedback" role="alert" id="ReportOrganizationFromError"> span for alert
                                         <strong></strong>
                                       </span>
                                     </div>
@@ -185,7 +185,7 @@
             <div class="col-md-6">
                 <!-- BAR CHART -->
                 <div class="card card-success">
-                    <div class="card-header">
+                    <div class="card-header" style="background: #1fa8e0">
                     <h3 class="card-title">Quote Chart</h3>
 
                     <div class="card-tools">

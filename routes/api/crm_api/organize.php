@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['middleware' => ['jwt.verify']], function() {
     
-Route::get('/organizies','api\crm\OrganizeController@index');
+    Route::get('/organizies','api\crm\OrganizeController@index');
 
-Route::get('/organize/{id}','api\crm\OrganizeController@show');
+    Route::get('/organize/{id}','api\crm\OrganizeController@show');
 
-Route::put('/organize','api\crm\OrganizeController@update');
+    Route::put('/organize','api\crm\OrganizeController@update');
 });
