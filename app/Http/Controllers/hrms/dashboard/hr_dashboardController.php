@@ -4,10 +4,8 @@ namespace App\Http\Controllers\hrms\dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\model\hrms\dashboard\hr_dashboardModel; 
-
-
-
+use App\model\hrms\dashboard\hr_dashboardModel;
+use App\model\hrms\employee\Employee;
 
 class hr_dashboardController extends Controller
 {
@@ -132,7 +130,7 @@ class hr_dashboardController extends Controller
             $m = 0;
             $d = 0;
             $w = 0;
-                $member = hr_dashboardModel::em_all();
+                $member=Employee::AllEmployee();
                 // print_r($member[55]->name_kh);
                 // echo count($member);
                 foreach($member as $key=> $val1){
@@ -219,7 +217,7 @@ class hr_dashboardController extends Controller
 
     // check attendance staff by today
     public static function staff_attendence(){
-        $all_em = hr_dashboardModel::em_all();
+        $all_em=Employee::allEmployee_without_night_sheet();
         $intime = 0;
         $late = 0;
         $absent = 0;
@@ -342,7 +340,7 @@ class hr_dashboardController extends Controller
 
     //generate staff by type gender
     public static function staff_type(){
-        $all_em = hr_dashboardModel::em_all();
+        $all_em=Employee::AllEmployee();
         $m = '';
         $f = '';
 
@@ -485,7 +483,7 @@ class hr_dashboardController extends Controller
     //function get last 1,2,3,4 monthly number of staff join work
     public static function MonthlyJoinMember(){
         $field_name = 'join_date';
-        $data = hr_dashboardModel::em_all();
+        $data=Employee::AllEmployee();
         $r = hr_dashboardController::separateMonth($data, $field_name);
         if(is_array($r)){
             return $r;

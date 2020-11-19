@@ -15,6 +15,7 @@ class shift_promote_historyController extends Controller
         $all_promote = management_promoteModel::all_shift_promote();
         $x = 0;
         $staff_was_promote = '';
+        $data=array();
         if(count($all_promote) > 0){
             $get_array[$x] = $all_promote[0];
             for($i=0; $i< count($all_promote); $i++){
@@ -22,7 +23,7 @@ class shift_promote_historyController extends Controller
                     $r = management_promoteModel::all_shift_promoteByID($all_promote[$i]->ma_user_id);
                     if(count($r) > 1){
                         $get_array[$x+=1] = $all_promote[$i];
-                        $data[]  = $all_promote[$i];
+                        $data  = $all_promote[$i];
                     }
                 }
             }  
