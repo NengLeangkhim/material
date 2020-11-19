@@ -217,7 +217,7 @@
                         <div class="  card" >
                             <div class="card-header">
                                 <h1 class="card-title" style="font-weight: bold">
-                                    {{-- II- ADDRESS DETAIL --}}
+                                    III- Other Information
                                 </h1>
                             </div>
                             <!-- /.card-header -->
@@ -305,7 +305,7 @@
                         <div class="  card" >
                             <div class="card-header">
                                 <h1 class="card-title" style="font-weight: bold">
-                                    III- EDUCATION DETAIL
+                                    IV- EDUCATION DETAIL
                                 </h1>
                             </div>
                             <!-- /.card-header -->
@@ -346,7 +346,7 @@
                         <div class="  card" >
                             <div class="card-header">
                                 <h1 class="card-title" style="font-weight: bold">
-                                    IV- EXPERIENCE DETAIL
+                                    V- EXPERIENCE DETAIL
                                 </h1>
                             </div>
                             <!-- /.card-header -->
@@ -388,7 +388,7 @@
                         <div class="  card" >
                             <div class="card-header">
                                 <h1 class="card-title" style="font-weight: bold">
-                                    III- EMPLOYEE DETAIL 
+                                    VI- EMPLOYEE DETAIL 
                                 </h1>
                             </div>
                             <!-- /.card-header -->
@@ -439,7 +439,7 @@
                         <div class="  card" >
                             <div class="card-header">
                                 <h1 class="card-title" style="font-weight: bold">
-                                    III- Warning and Punishment 
+                                    VII- Warning and Punishment 
                                 </h1>
                             </div>
                             <!-- /.card-header -->
@@ -484,7 +484,7 @@
                         <div class="  card" >
                             <div class="card-header">
                                 <h1 class="card-title" style="font-weight: bold">
-                                    III- Exit Information
+                                    VIII- Exit Information
                                 </h1>
                             </div>
                             <!-- /.card-header -->
@@ -555,7 +555,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h1 class="card-title" style="font-weight: bold">
-                                    III- Leave Information
+                                    IX- Leave Information
                                 </h1>
                             </div>
                             <!-- /.card-header -->
@@ -668,7 +668,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h1 class="card-title" style="font-weight: bold">
-                                    III- Training Detail
+                                    X- Training Detail
                                 </h1>
                             </div>
                             <!-- /.card-header -->
@@ -724,7 +724,7 @@
                         <div class="  card" >
                             <div class="card-header">
                                 <h1 class="card-title" style="font-weight: bold">
-                                    III- Payroll Detail
+                                    XI- Payroll Detail
                                 </h1>
                             </div>
                             <!-- /.card-header -->

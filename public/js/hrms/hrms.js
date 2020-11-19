@@ -628,8 +628,29 @@ function hrms_date(){
                     $('#modal_warning_and_punishment').modal('show');
                     hrms_date();
                 }
+            });       
+        }
+
+        function validation_form_warning_and_punishment(){
+            $('#fm_warning_and_punishment').validate({
+                rules: {
+                    type_of_warning: "required",
+                    reason_of_warning:"required",
+                    date_warning:"required",
+                    warning_by:"required",
+                    edit_by:"required",
+                    approved_by:"required"
+                },
+                messages: {
+                    type_of_warning: "Please specify your name",
+                    reason_of_warning:"Please specify your name",
+                    date_warning:"Please specify your name",
+                    warning_by:"Please specify your name",
+                    edit_by:"Please specify your name",
+                    approved_by:"Please specify your name"
+                }
             });
-                
+            alert('Yes');
         }
    // End Warning and Punishment
 
