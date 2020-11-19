@@ -13,7 +13,7 @@
                 </ol>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
+    </div>
 </section>
 <section class="content">
     <div class="container-fluid">
@@ -26,7 +26,6 @@
                             <div class="col-md-4 text_right">
                                 <a href="#" class="btn btn-success purchase_form"  value="" id="">Print</a>
                                 <a href="#" class="btn btn-secondary purchase_form"  value="bsc_purchase_purchase_purchase_edit" id="purchase_edit" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')">Edit</a>
-                                {{-- <a href="#" class="btn btn-danger purchase_form"  value="" id="">Delete</a> --}}
                             </div>
                         </div>
                     </div>
@@ -58,26 +57,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($purchase_detail as $item)
-                                    <tr>
-                                        <td>{{$item->product_name}}</td>
-                                        <td>{{$item->description}}</td>
-                                        <td>{{$item->qty}}</td>
-                                        <td>{{$item->chart_account_name}}</td>
-                                        <td>{{$item->tax}}</td>
-                                        <td id="txtAmount" class="txtAmount">{{$item->amount}}</td>
-                                    </tr>
-                                @endforeach
-
+                                @if (count($purchase_detail) > 0)
+                                    @foreach ($purchase_detail as $item)
+                                        <tr>
+                                            <td>{{$item->product_name}}</td>
+                                            <td>{{$item->description}}</td>
+                                            <td>{{$item->qty}}</td>
+                                            <td>{{$item->chart_account_name}}</td>
+                                            <td>{{$item->tax}}</td>
+                                            <td id="txtAmount" class="txtAmount">{{$item->amount}}</td>
+                                        </tr>
+                                    @endforeach                                   
+                                @endif
                             </tbody>
                         </table>
                     </div>
                     <div class="form-group">
                         <div class="col-md-12" style="padding-right: 20px;">
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <div class="row">
                                         <div class="col-sm-6 text_right">
                                             <label for="">Total :</label>
@@ -106,45 +106,56 @@
 
                                     @php
                                         $due_amount = "";
+                                        $my_display = "";
                                     @endphp
-                                    @foreach ($purchase_payments as $purchase_payment)
-                                        @php
-                                            $due_amount = $purchase_payment->due_amount;
-                                        @endphp
-                                        <div class="row">
-                                            <div class="col-sm-6 text_right">
-                                                <p for="">Payment :</p>
+                                    @if (count($purchase_payments) > 0)
+                                        @foreach ($purchase_payments as $purchase_payment)
+                                            @php
+                                                $due_amount = $purchase_payment->due_amount;
+
+                                                $amount_paid = $purchase_payment->amount_paid;
+                                                $payment = number_format($amount_paid, 4, '.', '');
+
+                                                if($due_amount == 0){
+                                                    $my_display="display : none";
+                                                }
+                                            @endphp
+                                            <div class="row">
+                                                <div class="col-sm-6 text_right">
+                                                    <p for="">Payment :</p>
+                                                </div>
+                                                <div class="col-sm-6 text_right">
+                                                    <p for="" id="payment_amount">{{$payment}}</p>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-6 text_right">
-                                                <p for="" id="payment_amount">{{$purchase_payment->amount_paid}}</p>
+                                            <div class="row">
+                                                <div class="col-sm-6 text_right">
+                                                    <p for="">Date :</p>
+                                                </div>
+                                                <div class="col-sm-6 text_right">
+                                                    <p for="">{{$purchase_payment->date_paid}}</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6 text_right">
-                                                <p for="">Date :</p>
-                                            </div>
-                                            <div class="col-sm-6 text_right">
-                                                <p for="">{{$purchase_payment->date_paid}}</p>
-                                            </div>
-                                        </div>
-                                        <hr class="" style="margin: 0px;">
-                                    @endforeach
+                                            <hr class="" style="margin: 0px;">
+                                        @endforeach                                       
+                                    @endif
                                     @php
                                         $display="";
                                         if($due_amount == null){
                                             $display="display : none";
                                         }
                                     @endphp
+                                   
                                     <div class="row" style="{{$display}}">
                                         <div class="col-sm-6 text_right">
-                                                <h4>
-                                                    <label for="">Amount Due :</label>
-                                                </h4>
-                                            </div>
-                                            <div class="col-sm-6 text_right">
-                                                <h4>
-                                                    <label for="" id="due_amount_payment">{{$due_amount == null ? $purchase->grand_total : $due_amount}}</label>
-                                                </h4>
+                                            <h4>
+                                                <label for="">Amount Due :</label>
+                                            </h4>
+                                        </div>
+                                        <div class="col-sm-6 text_right">
+                                            <h4>
+                                                <label for="" id="due_amount_payment">{{$due_amount == null ? number_format($purchase->grand_total, 4, '.', '') : number_format($due_amount, 4, '.', '')}}</label>
+                                            </h4>
                                         </div>
                                     </div>
                                     <hr class="line_in_tag_hr2" style="{{$display}}">
@@ -153,7 +164,9 @@
                         </div>
                     </div>
                     <br/>
-                    <div class="card-body">
+                    
+
+                    <div class="card-body" style="{{$my_display}}">
                         <div class="form-group">
                             <div class="row">
                                 <h2><b>Make Payment</b></h2>
@@ -167,7 +180,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                         </div>
-                                        <input type="number" class="form-control input_required" name="amount_paid" id="amount_paid" placeholder="Amount Paid" >
+                                        <input type="number" class="form-control input_required" name="amount_paid" id="amount_paid" value="{{$due_amount == null ? $purchase->grand_total : $due_amount}}" autofocus placeholder="Amount Paid" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -191,17 +204,19 @@
                                         </div>
                                         <select class="form-control select2" name="account_type" id="account_type">
                                             <option selected hidden disabled>select item</option>
-                                            @foreach ($show_chart_accounts as $chart_account_show)
-                                                <option value="" disabled>{{$chart_account_show->bsc_account_type_name}}</option>
-                                                @php
-                                                    $paid_from_to=$chart_account_show->paid_from_to;
-                                                @endphp
-                                                 @if ($paid_from_to !=null)
-                                                 @foreach ($paid_from_to as $paid_to)
-                                                     <option value="{{ $paid_to->id }}">&nbsp;&nbsp;&nbsp;{{ $paid_to->name_en }}</option>
-                                                 @endforeach
-                                             @endif
-                                            @endforeach
+                                            @if (count($show_chart_accounts) > 0)
+                                                @foreach ($show_chart_accounts as $chart_account_show)
+                                                    <option value="" disabled>{{$chart_account_show->bsc_account_type_name}}</option>
+                                                    @php
+                                                        $paid_from_to=$chart_account_show->paid_from_to;
+                                                    @endphp
+                                                    @if ($paid_from_to !=null)
+                                                        @foreach ($paid_from_to as $paid_to)
+                                                            <option value="{{ $paid_to->id }}">&nbsp;&nbsp;&nbsp;{{ $paid_to->name_en }}</option>
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach                                              
+                                            @endif
                                         </select>
                                     </div>
                                 </div>
@@ -259,6 +274,10 @@
             sweetalert('error', 'Paid Amount input is bigger than Due Amount');
         }else if(amount_paid == 0){
             sweetalert('error', 'Paid Amount can not input Zero');
+            return false;
+        }else if(amount_paid < 0){
+            sweetalert('error','Amount Paid can not smaller than Zero');
+            return false;
         }else{
             let num_miss = 0;
             $(".input_required").each(function(){
@@ -283,6 +302,7 @@
                         _token: CSRF_TOKEN,
                         amount_paid             : amount_paid,
                         due_amount              : due_amount,
+                        old_due_amount          : parseFloat($('#due_amount_payment').text()),
                         date_paid               : $('#date_paid').val(),
                         account_type            : $('#account_type').val(),
                         reference               : $('#reference').val(),
@@ -292,10 +312,13 @@
                     },
                     dataType: "JSON",
                     success:function(data){
-                        if(data.payment.success == false){
-                            alert("fail to payment");
-                        }else{
+                        if(data.payment.success == true){
                             go_to('bsc_purchase_purchase_list');
+                        }else{
+                            if(data.payment == "amount_paid_bigger_then_due"){
+                                sweetalert('error','Amount Paid input is bigger than Due Amount or Grand Total');
+                            }
+                            sweetalert('error','Purchase Insert is fail!!');
                         }
                     }
                 });

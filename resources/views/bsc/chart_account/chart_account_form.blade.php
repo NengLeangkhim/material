@@ -36,17 +36,19 @@
                                             </div>
                                             <select class="form-control select2" name="bsc_account_type_id" id="bsc_account_type_id" required="">
                                                 <option selected hidden disabled>select item</option>
-                                                @foreach ($ch_account_types as $ch_account_type)
-                                                    <option value="" disabled>{{ $ch_account_type->bsc_account_name }}</option>
-                                                    @php
-                                                        $account_types = $ch_account_type->account_types;
-                                                    @endphp
-                                                    @if ($account_types != "")
-                                                        @foreach ($account_types as $acc_type)
-                                                            <option value="{{ $acc_type->id }}">&nbsp;&nbsp;&nbsp;{{ $acc_type->name_en }}</option>
-                                                        @endforeach
-                                                    @endif
-                                                @endforeach
+                                                @if (count($ch_account_types) >0)
+                                                    @foreach ($ch_account_types as $ch_account_type)
+                                                        <option value="" disabled>{{ $ch_account_type->bsc_account_name }}</option>
+                                                        @php
+                                                            $account_types = $ch_account_type->account_types;
+                                                        @endphp
+                                                        @if ($account_types != "")
+                                                            @foreach ($account_types as $acc_type)
+                                                                <option value="{{ $acc_type->id }}">&nbsp;&nbsp;&nbsp;{{ $acc_type->name_en }}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -61,6 +63,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -83,6 +86,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -93,9 +97,11 @@
                                             </div>
                                             <select class="form-control select2" name="ma_company_id" id="ma_company_id" required="">
                                                 <option value="" selected hidden disabled>select item</option>
-                                                @foreach ($companys as $company)
-                                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                                @endforeach
+                                                @if (count($companys) >0)
+                                                    @foreach ($companys as $company)
+                                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -108,18 +114,19 @@
                                             </div>
                                             <select class="form-control select2" name="parent_id" id="parent_id">
                                                 <option value="null" selected>select item</option>
-                                                @foreach ($ch_accounts as $ch_account)
-                                                    <option value="{{ $ch_account->id }}">{{ $ch_account->name_en }}</option>
-                                                @endforeach
+                                                @if (count($ch_accounts) >0)
+                                                    @foreach ($ch_accounts as $ch_account)
+                                                        <option value="{{ $ch_account->id }}">{{ $ch_account->name_en }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <div class="row">
-
-
                                     <div class="col-md-6 col-ms-6">
                                         <label for="exampleInputEmail1">Currency<b class="color_label"> *</b></label>
                                         <div class="input-group">
@@ -128,11 +135,13 @@
                                             </div>
                                             <select class="form-control currency_name" name="currency" id="currency" required onchange="myCurrency()">
                                                 <option selected hidden disabled>select item</option>
-                                                @foreach ($currencys as $currency)
-                                                    <option @if ($currency->name=='USD')
-                                                        selected
-                                                    @endif value="{{ $currency->id }}" data-currency_name="{{ $currency->name }}">{{ $currency->name }}</option>
-                                                @endforeach
+                                                @if (count($currencys) >0)
+                                                    @foreach ($currencys as $currency)
+                                                        <option @if ($currency->name=='USD')
+                                                            selected
+                                                        @endif value="{{ $currency->id }}" data-currency_name="{{ $currency->name }}">{{ $currency->name }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                             <input type="hidden" id="currency_name" name="currency_name">
                                         </div>

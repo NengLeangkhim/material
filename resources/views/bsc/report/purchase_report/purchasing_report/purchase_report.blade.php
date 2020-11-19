@@ -75,36 +75,41 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($purchases as $purchase)
-                                            @php 
-                                                $amount_paid = 0;
-                                                $due_amount = 0;
-                                                $status = '';
-                                        
-                                                if($purchase->amount_paid == null && $purchase->due_amount == null){
+                                        @if (count($purchases) > 0)    
+                                            @foreach ($purchases as $purchase)
+                                                @php 
                                                     $amount_paid = 0;
-                                                    $due_amount = $purchase->grand_total;
-                                                    $status = 'Waiting Payment';
-                                                }else if ($purchase->due_amount == 0) {
-                                                    $amount_paid = $purchase->amount_paid;
-                                                    $due_amount = $purchase->due_amount;
-                                                    $status = 'Paid'; 
-                                                }else{
-                                                    $amount_paid = $purchase->amount_paid;
-                                                    $due_amount = $purchase->due_amount;
-                                                    $status = 'Waiting Payment'; 
-                                                }
-                                            @endphp
-                                            <tr>
-                                                <td>{{ $purchase->invoice_number }}</td>
-                                                <td>{{ $purchase->supplier_name }}</td>
-                                                <td>{{ $purchase->billing_date }}</td>
-                                                <td>{{ $purchase->due_date }}</td>
-                                                <td>{{ $amount_paid }}</td>
-                                                <td>{{ $due_amount }}</td>
-                                                <td>{{ $status }}</td>
-                                            </tr>
-                                        @endforeach
+                                                    $due_amount = 0;
+                                                    $status = '';
+                                            
+                                                    if($purchase->amount_paid == null && $purchase->due_amount == null){
+                                                        $amount_paid = 0;
+                                                        $due_amount = $purchase->grand_total;
+                                                        $status = 'Waiting Payment';
+                                                    }else if ($purchase->due_amount == 0) {
+                                                        $amount_paid = $purchase->amount_paid;
+                                                        $due_amount = $purchase->due_amount;
+                                                        $status = 'Paid'; 
+                                                    }else{
+                                                        $amount_paid = $purchase->amount_paid;
+                                                        $due_amount = $purchase->due_amount;
+                                                        $status = 'Waiting Payment'; 
+                                                    }
+
+                                                    $paid = number_format($amount_paid, 4, '.', '');
+                                                    $due = number_format($due_amount, 4, '.', '');
+                                                @endphp
+                                                <tr>
+                                                    <td>{{ $purchase->invoice_number }}</td>
+                                                    <td>{{ $purchase->supplier_name }}</td>
+                                                    <td>{{ $purchase->billing_date }}</td>
+                                                    <td>{{ $purchase->due_date }}</td>
+                                                    <td>{{ $paid }}</td>
+                                                    <td>{{ $due }}</td>
+                                                    <td>{{ $status }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
@@ -152,38 +157,40 @@
                 $("#example1").DataTable().destroy();
                 $("#example1 tbody").empty();
                 let tr = "";
-                $.each(data, function(i, value) {
-                    let amount_paid = 0;
-                    let due_amount = 0;
-                    let status = '';
-
-                    if(value.amount_paid == null && value.due_amount == null){
-                        amount_paid = 0;
-                        due_amount = value.grand_total;
-                        status = 'Waiting Payment';
-                    }else if(value.due_amount == 0){
-                        amount_paid = value.amount_paid;
-                        due_amount =  value.due_amount;
-                        status = 'Paid'; 
-                    }else{
-                        amount_paid = value.amount_paid;
-                        due_amount =  value.due_amount;
-                        status = 'Waiting Payment'; 
-                    }
-                    if(payment_status == '2'){
-                        if(value.due_amount == null || value.due_amount != 0){
-                            
-                            tr += "<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+amount_paid+"</td><td>"+due_amount+"</td><td>"+status+"</td></tr>";
+                if(data.length > 0){
+                    $.each(data, function(i, value) {
+                        let amount_paid = 0;
+                        let due_amount = 0;
+                        let status = '';
+    
+                        if(value.amount_paid == null && value.due_amount == null){
+                            amount_paid = 0;
+                            due_amount = value.grand_total;
+                            status = 'Waiting Payment';
+                        }else if(value.due_amount == 0){
+                            amount_paid = value.amount_paid;
+                            due_amount =  value.due_amount;
+                            status = 'Paid'; 
+                        }else{
+                            amount_paid = value.amount_paid;
+                            due_amount =  value.due_amount;
+                            status = 'Waiting Payment'; 
                         }
-                    }else if(payment_status == '3'){
-                        if(value.due_amount == 0 && value.due_amount != null){
-                            
-                            tr += "<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+amount_paid+"</td><td>"+due_amount+"</td><td>"+status+"</td></tr>";
+                        if(payment_status == '2'){
+                            if(value.due_amount == null || value.due_amount != 0){
+                                
+                                tr += "<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+parseFloat(amount_paid).toFixed(4)+"</td><td>"+parseFloat(due_amount).toFixed(4)+"</td><td>"+status+"</td></tr>";
+                            }
+                        }else if(payment_status == '3'){
+                            if(value.due_amount == 0 && value.due_amount != null){
+                                
+                                tr += "<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+parseFloat(amount_paid).toFixed(4)+"</td><td>"+parseFloat(due_amount).toFixed(4)+"</td><td>"+status+"</td></tr>";
+                            }
+                        }else{
+                            tr += "<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+parseFloat(amount_paid).toFixed(4)+"</td><td>"+parseFloat(due_amount).toFixed(4)+"</td><td>"+status+"</td></tr>";
                         }
-                    }else{
-                        tr += "<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+amount_paid+"</td><td>"+due_amount+"</td><td>"+status+"</td></tr>";
-                    }
-                });
+                    });
+                }
                 $("#example1").append(tr);
                 $('#example1').DataTable();
             }

@@ -36,9 +36,11 @@
                                             </div>
                                             <select class="form-control select2" name="lead_name" id="lead_name" required onchange="myCustomer(this)">
                                                 <option selected hidden disabled>select item</option>
-                                                @foreach ($customers as $customer)
-                                                    <option value="{{ $customer->id }}">{{ $customer->customer_name_en }}</option>
-                                                @endforeach
+                                                @if (count($customers) >0)
+                                                    @foreach ($customers as $customer)
+                                                        <option value="{{ $customer->id }}">{{ $customer->customer_name_en }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -197,7 +199,9 @@
                 },
                 dataType: "JSON",
                 success:function(data){
+                    if(data.length >0){
 
+                    }
                 }
             });
     }

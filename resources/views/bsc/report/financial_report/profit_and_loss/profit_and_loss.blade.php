@@ -120,6 +120,18 @@
             });
         });
 
+        const USD_FOMMATER = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2
+        })
+
+        const KHR_FOMMATER = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'KHR',
+            minimumFractionDigits: 0
+        })
+
         var setReportHeader = (id, data, col)=>{
             $(id).append(`
                 <div class="col-${col}"></div>
@@ -142,6 +154,7 @@
                         <div class="row">
                             <div class="col-${col}">${e.name_en}</div>
                             ${e.value_list.map(ef=>`
+                                <!-- <div class="col-1 text-right">${ef.total_debit == 0 ? '-' : ((e.currency_name_en == 'USD') ? USD_FOMMATER.format(ef.total_debit) : KHR_FOMMATER.format(ef.total_debit))}</div> -->
                                 <div class="col-1 text-right">${ef.total_debit == 0 ? '-' : ef.total_debit}</div>
                             `).join('')}
                         </div>
@@ -150,6 +163,7 @@
                         <div class="row bold">
                             <div class="col-${col}">${name} in ${e.currency_name_en}</div>
                             ${e.value_list.map(ef=>`
+                                <!-- <div class="col-1 text-right">${ef.total_debit == 0 ? '-' : ((e.currency_name_en == 'USD') ? USD_FOMMATER.format(ef.total_debit) : KHR_FOMMATER.format(ef.total_debit))}</div> -->
                                 <div class="col-1 text-right">${ef.total_debit == 0 ? '-' : ef.total_debit}</div>
                             `).join('')}
                         </div>
@@ -168,6 +182,7 @@
                         <div class="row bold">
                             <div class="col-${col}">${name} in ${e.currency_name_en}</div>
                             ${e.value_list.map(ef=>`
+                                <!-- <div class="col-1 text-right">${ef.total_debit == 0 ? '-' : ((e.currency_name_en == 'USD') ? USD_FOMMATER.format(ef.total_debit) : KHR_FOMMATER.format(ef.total_debit))}</div> -->
                                 <div class="col-1 text-right">${ef.total_debit == 0 ? '-' : ef.total_debit}</div>
                             `).join('')}
                         </div>
