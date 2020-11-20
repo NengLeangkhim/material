@@ -1097,7 +1097,6 @@ function Crm_delete(id,route,goto,alert) {
                                     //get value from textbox
                                     var branchNameEn = $.trim($('#brdcompanyEn_'+branch_id+'').val());
                                     var addressName = $.trim($('#brdAddressNameEn_'+branch_id+'').val());
-                                    // var leadAddressId = $.trim($('#leadAddressId').val());
                                     var vatNumber = $.trim($('#branVatNumber_'+branch_id+'').val());
 
                                     //function to add row content for add product branch
@@ -1109,7 +1108,6 @@ function Crm_delete(id,route,goto,alert) {
                                     $('#branch'+branch_id+'').val(branchNameEn);
                                     $('#lead_branch'+branch_id+'').val(branch_id);
                                     $('#branchAddress'+branch_id+'').val(addressName);
-                                    // $('#crm_address_id').val(leadAddressId);
                                     // console.log('vat num from select row='+vatNumber);
                                     if(vatNumber == ''){
                                         $('#valueAddTax').text('No');
