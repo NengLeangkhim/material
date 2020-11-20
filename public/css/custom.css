@@ -206,21 +206,25 @@ body{
 
     .back-color-blue {
         background-color: #1fa8e0;
+        color: white;
         position: relative;
     }
 
     .back-color-blue:hover {
         background-color: #159ed4;
+        color: white;
         position: relative;
     }
 
     .back-color-blue:active {
         background-color: #159ed4;
+        color: white;
         position: relative;
     }
 
     .back-color-blue:link {
         background-color: #159ed4;
+        color: white;
         position: relative;
     }
 

@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="card card-default">
                 <div class="card-header">
-                    <h3 class="card-title hrm-title"><strong><i class="fas fa-users"></i> Your Attendance</strong></h3>
+                    <h3 class="card-title hrm-title"><strong><i class="fas fa-users"></i> My Attendance</strong></h3>
                 </div>
                 <!-- /.card-header -->
                 

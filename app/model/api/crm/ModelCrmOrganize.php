@@ -13,8 +13,11 @@ class ModelCrmOrganize extends Model
         crm_lead.lead_number,lb.crm_lead_id as lead_id,
         lb.id as branch_id,
         lc.id as contact_id,
+        la.id as assig_id,
         lc.phone as contact_phone,
         lb.name_en as name_en_branch,
+        crm_lead.customer_name_en,
+		crm_lead.customer_name_kh,
         lb.email as email_branch,
         lbc.id as lead_con_bran_id,
         lb.priority,
@@ -55,7 +58,7 @@ class ModelCrmOrganize extends Model
         left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         left join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         left join stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=false and ld.is_deleted=false and ls.sequence=1");
+        where crm_lead.status=true and ld.status=false and ld.is_deleted=false and ls.sequence=1");
     }
     // get organize by assigto
     public static function getOrganizebyassigto($id){
@@ -63,8 +66,11 @@ class ModelCrmOrganize extends Model
         crm_lead.lead_number,lb.crm_lead_id as lead_id,
         lb.id as branch_id,
         lc.id as contact_id,
+        la.id as assig_id,
         lc.phone as contact_phone,
         lb.name_en as name_en_branch,
+        crm_lead.customer_name_en,
+		crm_lead.customer_name_kh,
         lb.email as email_branch,
         lbc.id as lead_con_bran_id,
         lb.priority,
@@ -113,11 +119,14 @@ class ModelCrmOrganize extends Model
         crm_lead.lead_number,lb.crm_lead_id as lead_id,
         lb.id as branch_id,
         lc.id as contact_id,
+        la.id as assig_id,
         crm_lead.website,
         crm_lead.facebook,
         lbc.id as lead_con_bran_id,
         lc.phone as contact_phone,
         lb.name_en as name_en_branch,
+        crm_lead.customer_name_en,
+		crm_lead.customer_name_kh,
         lb.name_kh as name_kh_branch,
         lb.email as email_branch,
         cli.id as lead_industry_id,

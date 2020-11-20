@@ -27,7 +27,7 @@
                         <input name="branch_id" value="{{$organize["branch_id"]}}" type="hidden"/>
                         <input name="lead_id" value="{{$organize["lead_id"]}}" type="hidden"/>
                         <input name="lead_con_bran_id" value="{{$organize["lead_con_bran_id"]}}" type="hidden"/>
-                        <input name="assig_to" value="{{$organize["ma_user_id"]}}" type="hidden"/>
+                        <input name="assig_to" value="{{$organize["assig_id"]}}" hidden />
                         <input name="prioroty" value="{{$organize["priority"]}}" type="hidden"/>
                         <input name="address_type" value="{{$organize["address_type"]}}" type="hidden"/>
                         <!-- general form elements -->
@@ -214,15 +214,15 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                                 </div>
-                                                <select class="form-control" name="assig_to_id" id="assig_to_id">
+                                                <select class="form-control select2" name="assig_to_id" id="assig_to_id">
                                                     <option></option>
                                                     @foreach($assig_to as $row )
-                                                        @if($row->id === $organize["ma_user_id"])
+                                                        {{-- @if($row->id === $organize["ma_user_id"])
                                                             <option selected value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option>
                                                         @else
                                                             <option value="{{$row->id}}">{{$row->first_name_en}} {{$row->last_name_en}}</option>
-                                                        @endif
-
+                                                        @endif --}}
+                                                        <option value="{{$row->id}}" {{$row->id==$organize["ma_user_id"] ? 'selected="selected"':''}}> {{$row->first_name_en}} {{$row->last_name_en}}</option>        
                                                     @endforeach
                                                 </select>
                                                 <span class="invalid-feedback" role="alert" id="assig_to_idError"> {{--span for alert--}}
