@@ -37,17 +37,19 @@ class PreviewQuoteController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-         
+
         //request api
-        $token = $_SESSION['token'];
+        // $token = $_SESSION['token'];
         $request = Request::create('/api/quote/'.$recordId.'', 'GET');
         $request->headers->set('Accept', 'application/json');
-        $request->headers->set('Authorization', 'Bearer '.$token);
+        // $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         $data = json_decode($res->getContent());
         $quote = $data->data;
         $no = $quote->quote_number;
 
+
+        // dd($quote);
 
         $html =  $this->logosource().'
         <div style="width: 100%; padding-top: 5px; padding-bottom: -2px; text-align: center;"><span style="font-size:19px;"><span style="color: rgb(31, 168, 225);"><span style="font-family: verdana;"><b>QUOTATION</b></span></span></span></div>
@@ -340,6 +342,8 @@ class PreviewQuoteController extends Controller
 
         $grandtotal=0;
 
+        $service_total=0;
+        $product_total =0;
         //============ each branch infomation===========
         foreach($quotebranch as $qb){
 
@@ -374,8 +378,6 @@ class PreviewQuoteController extends Controller
                     }
                 }
 
-                $service_total=0;
-                $product_total =0;
                 if($services!=[]){
                     //loop all service for each branch
                     $output .= '<tr>
