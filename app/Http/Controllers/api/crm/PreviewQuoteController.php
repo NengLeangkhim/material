@@ -498,27 +498,43 @@ class PreviewQuoteController extends Controller
                     $sequence= 1;
                     foreach($products as $qd){
 
+                        $originalprice = (int)$qd->price;
+
+                        $desc = $qd->stock_product->description;
+                        if($qd->discount!=null){
+                            try {
+                                if((float)$qd->discount >(float)'0.0000'){
+                                    if($qd->discount_type=='number'){
+                                        $discount = (float)$qd->discount .'$';
+                                        $originalprice= $originalprice- $discount;
+                                        $desc.='<br>Discount '.$discount;
+                                    }else if($qd->discount_type=='percent'){
+                                        $discount = (float)$qd->discount .'%';
+                                        $originalprice=$originalprice- ($originalprice*((float)$discount/100));
+                                        $desc.='<br>Discount '.$discount;
+                                    }
+                                }
+                            }
+                            catch(Exception $e) {
+                                $desc = $qd->stock_product->description;
+                            }
+                        }
+
                         if($vatnumber != ''){
                             //exclude
-                            $price=(int)$qd->price;
+                            $price=$originalprice;
                             $amount =$price * (int)$qd->qty;
                             $subtotal+=$amount;
                             $vattotal=$subtotal*0.1;
                             $total = $subtotal + $vattotal;
                         }else{
                             //include
-                            $price = (int)$qd->price + ((int)$qd->price *0.1);
+                            $price = $originalprice + ($originalprice *0.1);
                             $amount = $price * (int)$qd->qty;
                             $subtotal+=$amount;
                             $total = $subtotal;
                         }
 
-                        $desc = $qd->stock_product->description;
-                        if($qd->discount!=null){
-                            if((float)$qd->discount >(float)'0.0000'){
-                                $desc.='<br>Discount';
-                            }
-                        }
 
                         $output .='
                             <tr>
