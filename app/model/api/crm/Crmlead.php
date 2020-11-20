@@ -1505,12 +1505,14 @@ class Crmlead extends Model
     public static function getleadconvert(){
         return DB::select("SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.website,cl.facebook,cl.create_date,
         cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,cl.crm_lead_source_id,
-        cl.crm_lead_industry_id,cl.crm_lead_current_isp_id
+        cl.crm_lead_industry_id,cl.crm_lead_current_isp_id,
+        (SELECT id as lead_addr_id from crm_lead_address WHERE crm_lead_id= cl.id  LIMIT 1)
         from crm_lead cl
         LEFT JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
-				LEFT JOIN crm_lead_branch clb on clb.crm_lead_id = cl.id
-				JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= clb.id
-				JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
+        LEFT JOIN crm_lead_branch clb on clb.crm_lead_id = cl.id
+        JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= clb.id
+        JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
+        JOIN crm_lead_address cld on cld.crm_lead_id= cl.id
          WHERE  cl.is_deleted=FALSE and cl.status=TRUE  and clb.is_deleted=FALSE and  ls.sequence=1   and clb.status=TRUE  GROUP BY cl.id");
         //  SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.website,cl.facebook,cl.create_date,
         //  cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,cl.crm_lead_source_id,

@@ -82,6 +82,8 @@
                                                     </div>
                                                     <input type="hidden" id="lead_id" name="lead_id" >
                                                     <span id="lead_nameError" ><strong></strong></span>
+                                                    <input type="hidden" id="crm_address_id" name="crm_address_id">
+
                                                 </div>
 
                                             </div>
@@ -406,13 +408,21 @@
                                                                                 </div>
                                                                             </td>
                                                                         </tr> -->
+                                                                        <tr style="text-align: right">
+                                                                            <td >
+                                                                                <span style="padding-right: 12px;" >Value Add Tax(VAT)</span>
+                                                                            </td>
+                                                                            <td >
+                                                                                <div id="valueAddTax"> None </div>
+                                                                            </td>
+                                                                        </tr>
 
                                                                         <tr style="text-align: right">
                                                                             <td >
-                                                                                <span style="padding-right: 12px;">(+) Tax (10%) </span>
+                                                                                <span style="padding-right: 12px;" id="labelTaxQuote">+ Tax (0%)</span>
                                                                             </td>
                                                                             <td >
-                                                                                <div id="getTaxation"> 0.0 </div>
+                                                                                <div id="getTaxation">0.0</div>
                                                                             </td>
                                                                         </tr>
 
