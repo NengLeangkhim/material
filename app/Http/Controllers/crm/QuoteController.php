@@ -20,11 +20,14 @@ class QuoteController extends Controller
             session_start();
         }
         $token = $_SESSION['token'];
+        // dump($token);
         $request = Request::create('/api/quotes', 'GET');
         $request->headers->set('Accept', 'application/json');
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         $listQuote = json_decode($res->getContent());
+        // dump($listQuote);
+        // exit;
         if($listQuote != null){
                 return view('crm/quote/quoteShow', compact('listQuote'));
         }else
