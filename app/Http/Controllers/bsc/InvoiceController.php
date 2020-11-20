@@ -155,6 +155,7 @@ class InvoiceController extends Controller
                         'paid_to_chart_account_id'=>$paid_to,
                         'reference'=>$reference,
                         'due_amount'=>$due_amount,
+                        'old_due_amount'=>$old_due_amount
                     );
                     // dd($data);exit();
                     // add new
@@ -282,8 +283,16 @@ class InvoiceController extends Controller
             $res = app()->handle($request);
             $bsc_show_customer_branch = json_decode($res->getContent()); // convert to json object
             $bsc_show_customer_branchs=$bsc_show_customer_branch->data;
-            // dd($qoutes);exit;
-            return view('bsc.invoice.invoice.invoice_form',compact('ch_accounts','customers','qoutes','bsc_show_customer_branchs'));
+
+            //get vat chart account
+            $request = Request::create('/api/bsc_show_vat_chart_account', 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $vat_chart_account = json_decode($res->getContent()); // convert to json object
+            $vat_chart_accounts=$vat_chart_account->data;
+            // dd($vat_chart_accounts);exit;
+            return view('bsc.invoice.invoice.invoice_form',compact('ch_accounts','customers','qoutes','bsc_show_customer_branchs','vat_chart_accounts'));
         }catch(Exception $e){
             echo $e->getMessage();
             exit;
@@ -317,6 +326,8 @@ class InvoiceController extends Controller
             $grandTotal=$request->grandTotal;
             $billing_address=$request->billing_address;
             $crm_quote_id=$request->crm_quote_id;
+            $tax=$request->tax;
+            $bsc_vat_account_charts_id=$request->bsc_vat_account_charts_id;
             $itemDetail=$request->itemDetail;//data is array
 
             $data=array(
@@ -335,6 +346,7 @@ class InvoiceController extends Controller
                 'grand_total'=>$grandTotal,
                 'crm_quote_id'=>$crm_quote_id,
                 'bsc_account_charts_id'=>$bsc_account_charts_id,
+                'bsc_vat_account_charts_id'=>$bsc_vat_account_charts_id,
                 'invoice_details'=>$itemDetail
             );
             // dd($data);exit;

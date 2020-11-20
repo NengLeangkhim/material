@@ -176,7 +176,7 @@
                             <br>
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-primary save" id="frm_btn_sub_update_chart_account">Update</button>
-                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_chart_account_list')">Cencel</button>
+                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_chart_account_list')">Cancel</button>
                             </div>
                         </div>
                     </div>
