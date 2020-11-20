@@ -326,7 +326,6 @@ class InvoiceController extends Controller
             $grandTotal=$request->grandTotal;
             $billing_address=$request->billing_address;
             $crm_quote_id=$request->crm_quote_id;
-            $tax=$request->tax;
             $bsc_vat_account_charts_id=$request->bsc_vat_account_charts_id;
             $itemDetail=$request->itemDetail;//data is array
 

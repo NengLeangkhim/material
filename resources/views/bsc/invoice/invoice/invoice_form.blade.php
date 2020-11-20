@@ -360,11 +360,11 @@ if (count($bsc_show_customer_branchs) >0) {
                         ma_customer_branch_id : tr.find(".customer_branch").attr('data-customer_branch_id'),
                         description           : tr.find(".description").text(),
                         qty                   : tr.find(".qty").text(),
-                        unit_price            : parseFloat (tr.find(".price").text()).toFixed(4),
+                        unit_price            : parseFloat (tr.find(".price").attr('data-unit_price_old')).toFixed(4),
                         discount              : parseFloat(tr.find(".discount").text()).toFixed(4),
                         bsc_account_charts_id : tr.find(".chart_account").attr('data-chart_account_id'),
                         tax                   : tr.find(".invoice_tax").attr('data-invoice_tax'),
-                        amount                : parseFloat(tr.find(".item_amount").text()).toFixed(4)
+                        amount                : parseFloat(tr.find(".item_amount").attr('data-amount')).toFixed(4)
                     };
                 }
             });
