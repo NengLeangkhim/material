@@ -26,8 +26,7 @@ class QuoteController extends Controller
         $res = app()->handle($request);
         $listQuote = json_decode($res->getContent());
         if($listQuote != null){
-        // dump($listQuote);
-                return view('crm/quote/quoteShow',compact('listQuote'));
+                return view('crm/quote/quoteShow', compact('listQuote'));
         }else
         {
             return view('crm/quote/quoteShow');
