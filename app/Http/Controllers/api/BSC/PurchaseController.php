@@ -137,21 +137,24 @@ class PurchaseController extends Controller
                 return $this->sendError('Validation Error.', $validator->errors());
             }
 
-            $sql_purchase ="insert_bsc_invoice(null, $request->ma_supplier_id, '$request->billing_date', '$request->due_date', '$request->reference', null, null, null, null, 'purchase', null, $request->total, $request->vat_total, $request->grand_total, $request->create_by, null, null, $request->bsc_account_charts_id, 2, 0, $request->grand_total)";
-
-            $q_purchase=DB::select("SELECT ".$sql_purchase);
-            $purchase_id = $q_purchase[0]->insert_bsc_invoice;
-
             $purchase_details = $request->purchase_details;
-            
-            if($purchase_details != ""){
-                foreach ($purchase_details as $key => $p_detail) {
-                    // var_dump($p_detail[stock_product_id]);
-                    if($p_detail['bsc_account_charts_id'] != null){
-                        $sql_purchase_detail = "insert_bsc_invoice_detail($purchase_id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], $request->create_by, '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0)";
-                        $q_purchase_detail=DB::select("SELECT ".$sql_purchase_detail);
+            if(count($purchase_details) > 0){
+                $sql_purchase ="insert_bsc_invoice(null, $request->ma_supplier_id, '$request->billing_date', '$request->due_date', '$request->reference', null, null, null, null, 'purchase', null, $request->total, $request->vat_total, $request->grand_total, $request->create_by, null, null, $request->bsc_account_charts_id, 2, 0, $request->grand_total)";
+
+                $q_purchase=DB::select("SELECT ".$sql_purchase);
+                $purchase_id = $q_purchase[0]->insert_bsc_invoice;
+
+                if($purchase_details != ""){
+                    foreach ($purchase_details as $key => $p_detail) {
+                        // var_dump($p_detail[stock_product_id]);
+                        if($p_detail['bsc_account_charts_id'] != null){
+                            $sql_purchase_detail = "insert_bsc_invoice_detail($purchase_id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], $request->create_by, '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0)";
+                            $q_purchase_detail=DB::select("SELECT ".$sql_purchase_detail);
+                        }
                     }
                 }
+            }else{
+                return $this->sendError("Product can not be null");
             }
 
 
