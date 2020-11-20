@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/quote/status','api\crm\QuoteController@getStatus');
 
-// Route::group(['middleware' => ['jwt.verify']], function() {
+Route::group(['middleware' => ['jwt.verify']], function() {
 
     //get list quote
     Route::get('/quotes','api\crm\QuoteController@index');
@@ -31,7 +31,7 @@ Route::get('/quote/status','api\crm\QuoteController@getStatus');
     Route::post("/convertqoute",'api\crm\QuoteController@convertqoute');
 
 
-// });
+});
 
 
 /*

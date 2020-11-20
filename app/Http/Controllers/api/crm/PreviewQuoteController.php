@@ -285,7 +285,7 @@ class PreviewQuoteController extends Controller
 
     public  function getQuoteInfo($q){
         $time = strtotime($q->create_date);
-        $newformat = date('d-m-Y',$time);
+        $newformat = date('Y-m-d',$time);
 
          $output = '<table border="0" cellpadding="1" cellspacing="1" style="font-size:11px; font-family: Verdana;" width="100%">
                  <tbody>
