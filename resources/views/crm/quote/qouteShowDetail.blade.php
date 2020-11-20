@@ -34,12 +34,12 @@
                 <div class="col-sm-6 col-xs-4 col-12 pt-2">
                    <div class="row">
                         <div class="col-sm-4 col-4">
-                            <?php $num = count($listQuoteDetail->data->quote_stage); ?>
+                            {{-- <?php $num = count($listQuoteDetail->data->quote_stage); ?>
                             @if( $num > 0)
                                     @if($listQuoteDetail->data->quote_stage[$num-1]->id == 2)
                                         <button type="button" ​value="" class="btn-block btn-primary btn-sm btn font-weight-bold">Convert To BSC</button>
                                     @endif
-                            @endif
+                            @endif --}}
                         </div>
                         <div class="col-sm-4 col-4">
                                 <button onclick='PreviewQuote({{$listQuoteDetail->data->id}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >

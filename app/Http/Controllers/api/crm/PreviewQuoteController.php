@@ -40,10 +40,10 @@ class PreviewQuoteController extends Controller
         }
 
         //request api
-        // $token = $_SESSION['token'];
+        $token = $_SESSION['token'];
         $request = Request::create('/api/quote/'.$recordId.'', 'GET');
         $request->headers->set('Accept', 'application/json');
-        // $request->headers->set('Authorization', 'Bearer '.$token);
+        $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         $data = json_decode($res->getContent());
         $quote = $data->data;
@@ -329,10 +329,10 @@ class PreviewQuoteController extends Controller
      }
 
     public  function getQuoteItem($qid){
-        // $token = $_SESSION['token'];
+        $token = $_SESSION['token'];
         $request = Request::create('/api/quotebranch/'.$qid.'', 'GET');
         $request->headers->set('Accept', 'application/json');
-        // $request->headers->set('Authorization', 'Bearer '.$token);
+        $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         $data = json_decode($res->getContent());
         $quotebranch = $data->data;
@@ -350,10 +350,10 @@ class PreviewQuoteController extends Controller
 
             $branchname=$qb->crm_lead_branch->name;
             $vatnumber= $qb->crm_lead_branch->vat_number;
-                // $token = $_SESSION['token'];
+                $token = $_SESSION['token'];
                 $request = Request::create('/api/quotebranch/detail/'.$qb->id.'', 'GET');
                 $request->headers->set('Accept', 'application/json');
-                // $request->headers->set('Authorization', 'Bearer '.$token);
+                $request->headers->set('Authorization', 'Bearer '.$token);
                 $res = app()->handle($request);
                 $data = json_decode($res->getContent());
                 $quotedetail = $data->data;
