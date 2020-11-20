@@ -15,6 +15,7 @@ use App\Http\Resources\QuoteBranchDetailResource;
 use App\model\api\crm\ModelCrmQuoteStatusType as QuoteStatusType;
 use App\model\api\stock\ModelStockProduct as Stock;
 use App\model\crm\ModelCrmQuote as Q;
+use Exception;
 
 class PreviewQuoteController extends Controller
 {
@@ -392,21 +393,44 @@ class PreviewQuoteController extends Controller
                     $sequence= 1;
                     foreach($services as $qd){
 
+
+                        $originalprice = (int)$qd->price;
+
+                        $desc = $qd->stock_product->description;
+                        if($qd->discount!=null){
+                            try {
+                                if((float)$qd->discount >(float)'0.0000'){
+                                    if($qd->discount_type=='number'){
+                                        $discount = (float)$qd->discount .'$';
+                                        $originalprice= $originalprice- $discount;
+                                        $desc.='<br>Discount '.$discount;
+                                    }else if($qd->discount_type=='percent'){
+                                        $discount = (float)$qd->discount .'%';
+                                        $originalprice=$originalprice- ($originalprice*((float)$discount/100));
+                                        $desc.='<br>Discount '.$discount;
+                                    }
+                                }
+                            }
+                            catch(Exception $e) {
+                                $desc = $qd->stock_product->description;
+                            }
+                        }
+
+
                         if($vatnumber != ''){
                             //exclude
-                            $price=(int)$qd->price;
+                            $price=$originalprice;
                             $amount =$price * (int)$qd->qty;
                             $subtotal+=$amount;
                             $vattotal=$subtotal*0.1;
                             $total = $subtotal + $vattotal;
                         }else{
                             //include
-                            $price = (int)$qd->price + ((int)$qd->price *0.1);
+                            $price = $originalprice + ($originalprice *0.1);
                             $amount = $price * (int)$qd->qty;
                             $subtotal+=$amount;
                             $total = $subtotal;
                         }
-
 
                         $output .='
                             <tr>
@@ -414,7 +438,7 @@ class PreviewQuoteController extends Controller
                                                 <span style="font-size:11px;"> '.$sequence.' </span></td>
                                 <td align="left" style="font-family:verdana; border-bottom: 1px solid #e6e6ff;" valign="middle">
                                                 <span style="font-size:11px;"> '.$qd->stock_product->name.' </span><br />
-                                                <span style="font-size:9px;"> '.$qd->stock_product->description.' </span>
+                                                <span style="font-size:9px;"> '. $desc .' </span>
                                         </td>
                                 <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: left;" valign="middle">
                                             <span style="font-size:11px;"> '.$qd->qty.'  '.$qd->stock_product->measure.'</span></td>
@@ -489,6 +513,12 @@ class PreviewQuoteController extends Controller
                             $total = $subtotal;
                         }
 
+                        $desc = $qd->stock_product->description;
+                        if($qd->discount!=null){
+                            if((float)$qd->discount >(float)'0.0000'){
+                                $desc.='<br>Discount';
+                            }
+                        }
 
                         $output .='
                             <tr>
@@ -496,7 +526,7 @@ class PreviewQuoteController extends Controller
                                                 <span style="font-size:11px;"> '.$sequence.' </span></td>
                                 <td align="left" style="font-family:verdana; border-bottom: 1px solid #e6e6ff;" valign="middle">
                                                 <span style="font-size:11px;"> '.$qd->stock_product->name.' </span><br />
-                                                <span style="font-size:9px;"> '.$qd->stock_product->description.' </span>
+                                                <span style="font-size:9px;"> '.$desc.' </span>
                                         </td>
                                 <td style="font-family:verdana; border-bottom: 1px solid #e6e6ff; text-align: left;" valign="middle">
                                             <span style="font-size:11px;"> '.$qd->qty.'  '.$qd->stock_product->measure.'</span></td>
