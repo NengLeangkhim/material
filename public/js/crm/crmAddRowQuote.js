@@ -495,11 +495,11 @@
                         var prdInStock = '';
                         selectval.forEach(prdVal => {
 
-                            var vatNumber = $('#vatNumber').val();
-                            // console.log('vat1 value='+vatNumber);
+                            var vatNumber = $('#vatNumber'+branId+'').val();
+                            // console.log('vat1 value='+vatNumber+'--branid='+branId);
                             if(vatNumber == '' || typeof vatNumber === 'undefined'){
-                                $('#valueAddTax').text('No');
-                                // console.log('vat1 No');
+                                // $('#valueAddTax').text('No');
+                                console.log('vat1 No');
                             }else{
                                 $('#valueAddTax').text('Yes');
                                 // console.log('vat1 Yes');

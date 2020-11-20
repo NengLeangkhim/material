@@ -20,18 +20,17 @@ class QuoteController extends Controller
             session_start();
         }
         $token = $_SESSION['token'];
-        // dump($token);
         $request = Request::create('/api/quotes', 'GET');
         $request->headers->set('Accept', 'application/json');
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         $listQuote = json_decode($res->getContent());
-        if($listQuote!=null){
-        // dump($token);
+        if($listQuote != null){
+        // dump($listQuote);
                 return view('crm/quote/quoteShow',compact('listQuote'));
         }else
         {
-            return view('no_perms');
+            return view('crm/quote/quoteShow');
         }
     }
 
@@ -108,7 +107,7 @@ class QuoteController extends Controller
             // dump($arr);
 
             // exit;
-            dump($getQuoteBranch);
+            // dump($getQuoteBranch);
             return view('crm/quote/qouteShowDetail', compact('listQuoteDetail','getQuoteBranch'));
         }
     }
