@@ -9,107 +9,17 @@
         var getSumTotal = 0;
 
 
-        // $(document).on('click','#btnAddRowQuoteItem', function(event, issetBranId){
+        $(document).on('click','.btnClickEditBranch', function(){
+            j = 0;
+            i = 0;
+        });
 
-        //     var branId = $(this).attr("data-id");
-        //     // console.log('this is add btn'+branId);
-        //     if(branId == 'quoteBranchEdit'){
-        //         branId = '_new';
-        //         var numRow = $('#add_row_tablequoteItem').attr("data-id");
-        //         if(i == 0){   // check if i = 0 assign i = count row of quote branch item to get update new row add item
-        //             i = parseInt(i + numRow);
-        //                 // console.log('place assign row num');
-        //         }
-        //     }
+        $(document).on('click','#CrmAddQuote', function(){
+            j = 0;
+            i = 0;
+        });
 
-        //     // check to assign new value to branId
-        //     if(typeof(issetBranId) != 'undefined'){
-        //         branId = issetBranId;
-        //     }
-
-        //     var tblRow =
-        //         '<tr id="'+i+'" class="tr-quote-row row-quote-item" data-id="row_'+i+'">'  +
-        //             '<td class="td-item-quote-name">' +
-        //                 '<div class=" form-group">' +
-        //                     '<div class="row form-inline2">' +
-        //                         '<div class="col-md-8 col-sm-8 col-8">' +
-        //                             '<input type="text" class="form-control txtPrdName_'+i+'"   name="product_name[]" id="product_name'+i+'"  value="" required placeholder="Product Name" readonly>'+
-        //                             '<input type="hidden" name="product'+branId+'[]" id="txtPrdId_'+i+'"  readonly>'+
-        //                             '<span id="product_name'+i+'Error" ><strong></strong></span>'+
-        //                         '</div>' +
-        //                         '<div class="col-md-4 col-sm-4 col-4">' +
-        //                             '<div class="row-12">'+
-        //                                 '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemProduct_'+i+'"   name="addItemProduct"  id="'+i+'"  data-id="'+branId+'" > <span>+ Add Product </span></button>'+
-        //                             '</div>' +
-        //                             '<div class="row-12 pt-1">'+
-        //                                 '<button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemService_'+i+'"  name="addItemService"  id="'+i+'" data-id="'+branId+'" > <span>+ Add Service </span></button>'+
-        //                             '</div>'+
-        //                         '</div>' +
-        //                     '</div>' +
-        //                     '<div class="form-inline"><textarea class="form-control txtDescription_'+i+'" id="txtDescription_'+i+'"  rows="2" style="margin-top:10px; padding:10px; width: 100%!important;" placeholder="Description" disabled></textarea> </div>' +
-        //                 '</div>' +
-        //             '</td>' +
-        //             '<td>' +
-        //                 '<div id="itemType_'+i+'" class="btn-list-item text-center">----</div>'+
-        //             '</td>'+
-        //             '<td style="width: 120px;">' +
-        //                 '<input type="text"  class="valid-numeric form-control itemQty_'+i+' qty'+i+' " name="qty'+branId+'[]" id="'+i+'" data-id="qty'+i+'" demo="itemQty"  value="1"  required placeholder="Qty">' +
-        //                 '<input type="hidden" id="numItemInStock_'+i+'" readonly> '+
-        //                 '<p id="prdNotEnough_'+i+'" class="font-size-14" style="color:red;"></p>'+
-        //                 '<span id="'+i+'Error" ><strong></strong></span>'+
-
-        //             '</td>' +
-        //             '<td></td>' +
-        //             '<td class="td-item-quote">' +
-        //                 '<div class="">' +
-        //                     '<input type="text" class="valid-numeric-float form-control itemPrice_'+i+' price'+i+'" name="price'+branId+'[]"  id="itemPrice_'+i+'"     data-id="price'+i+'"  demo="itemPrice" value="0" required placeholder="0.0$">' +
-        //                     '<span id="'+i+'Error" ><strong></strong></span>'+
-        //                 '</div>'+
-        //                 '<div class="row pt-1 form-inline">' +
-        //                     '<div class="col-md-6 col-sm-6 col-6">' +
-        //                         '<select  class="select-itemDiscount btn-list-item mdb-select md-form" name="select-itemDiscount_'+i+'" id="'+i+'"  data-id="'+branId+'" required > ' +
-        //                             '<option value="1"><span>+Discount (%)</span> </option>'+
-        //                             '<option value="2"><span>+Discount ($)</span> </option>'+
-        //                         '</select>'+
-        //                     '</div>'+
-
-        //                     '<div class="col-md-6 col-sm-6 col-6 field-input-discount" data-id="'+i+'" id="fieldItemDiscount_'+i+'">' +
-        //                         '<input type="text"  class="itemDisPercent_'+i+' txtbox-quote valid-numeric-float" name="discount'+branId+'[]" id="discount'+i+'" demo="itemDisPercent" data-id="'+i+'" value="0" placeholder="0.0%">' +
-        //                         '<input type="hidden" id="discount_type'+i+'" value="percent" name="discount_type'+branId+'[]"> '+
-        //                         '<span id="discountError" ><strong></strong></span>'+
-        //                     '</div>'+
-
-        //                 '</div>' +
-        //                 '<div class="btn-list-item" style="color:black; margin-left: 7px; margin-top:15px;">' +
-        //                     '<span>Total After Discount: </span>'+
-        //                 '</div>' +
-        //                 '<div class="btn-list-item" style="color:red; margin-left: 7px; margin-top:15px;">' +
-        //                     '<span>Net Price: </span>'+
-        //                 '</div>' +
-        //             '</td>' +
-        //             '<td class="td-item-quote ">' +
-        //                 '<div id="quote-sub-total_'+i+'" class="td-quote-total">0</div>' +
-        //                 '<div id="quote-sub-discount_'+i+'" class="td-quote-total">0</div>' +
-        //                 '<div id="quote-after-sub-disc_'+i+'" class="td-quote-total">0</div>' +
-        //                 '<div id="quote-netPrice_'+i+'" style="color:red;"class="td-quote-total">0</div>' +
-        //             '</td>' +
-        //             '<td style="width:auto;">' +
-        //                 '<button style="width: auto;" class="btnRemoveRow btn btn-denger" id="'+i+'" ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>' +
-        //             '</td>' +
-        //         '</tr>';
-        //         i++;
-        //         j++;
-
-        //     if(branId == '_new'){
-        //         $('#add_row_tablequoteItem').append(tblRow);
-        //     }else{
-        //         $('#add_row_tablequoteItem'+branId+'').append(tblRow);
-        //     }
-        // });
-
-
-
-
+        // console.log('i val='+i);
         $(document).on('click','#btnAddRowQuoteItem', function(event, issetBranId){
 
             var branId = $(this).attr("data-id");
@@ -119,8 +29,9 @@
                 var numRow = $('#add_row_tablequoteItem').attr("data-id");
                 if(i == 0){   // check if i = 0 assign i = count row of quote branch item to get update new row add item
                     i = parseInt(i + numRow);
-                        // console.log('place assign row num');
+                    j = parseInt(j + numRow);
                 }
+
             }
 
             // check to assign new value to branId
@@ -196,13 +107,13 @@
                         '<div id="quote-after-sub-disc_'+i+'" class="td-quote-total">0</div>' +
                         '<div id="quote-netPrice_'+i+'" style="color:red;"class="td-quote-total">0</div>' +
                     '</td>' +
-                    '<td style="width:auto;">' +
+                    '<td style="width:auto;" class="fieldBtnRemove" id="fieldBtnRemove_'+i+'" >' +
                         '<button style="width: auto;" class="btnRemoveRow btn btn-denger" id="'+i+'" ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>' +
                     '</td>' +
                 '</tr>';
                 i++;
                 j++;
-
+                clearTrashButton(j,i); //call function clear trash icon
             if(branId == '_new'){
                 $('#add_row_tablequoteItem').append(tblRow);
             }else{
@@ -212,7 +123,23 @@
 
 
 
-
+        // function to clear trash button if row field product <= 1 row
+        function clearTrashButton(vj,vi){
+            if(vj == 1){ // j=0, has one row prodcut, remove trash icon from row
+                $('.btnRemoveRow').remove();
+                for(var x=0; x<=vi; x++){
+                    $('#fieldBtnRemove_'+x+'').addClass('trashRemoved');
+                }
+            }else{
+                for(var x=0; x<=vi; x++){
+                    var addTrash = '<button style="width: auto;" class="btnRemoveRow btn btn-denger" id="'+x+'" ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>';
+                    if($('#fieldBtnRemove_'+x+'').hasClass('trashRemoved')){
+                        $('#fieldBtnRemove_'+x+'').removeClass('trashRemoved');
+                        $('#fieldBtnRemove_'+x+'').append(addTrash);
+                    }
+                }
+            }
+        }
 
 
 
@@ -221,7 +148,6 @@
         // function button remove row table
         $(document).on('click', '.btnRemoveRow', function() {
             var btn_id = $(this).attr("id");
-
             var numRow = $(this).attr("data-id"); // this value can be undefined
             if(typeof(numRow) != 'undefined'){
                 if(i == 0){   // check if i = 0 assign i = count row of quote branch item to get update new row add item
@@ -231,11 +157,9 @@
                 }
                 $( "tbody tr" ).remove('.row-quote-item_'+btn_id+'');
             }
-
-
-            $('tbody tr[data-id="row_'+btn_id+'"]').remove();
+            $('tbody tr[data-id="row_'+btn_id+'"]').remove();  //use call method remove row quote
             j--;
-            // console.log('j value='+j+'--rowId='+btn_id+'removeVal=');
+            clearTrashButton(j,i); //call function clear trash icon
             //for loop use when user delete row but grand total will refresh
             var sumTotal = 0;
             for(var x=0; x<=i; x++){
@@ -252,6 +176,7 @@
             $("#getTaxation").text(getTaxation.toFixed(4));
             $("#sumTotal").text(sumTotal.toFixed(4));
             $("#grandTotal").text(getSumTotal.toFixed(4));
+
         });
 
 
@@ -378,6 +303,8 @@
                 //for loop to get sumtotal all rows
                 if(i == 0){
                     i = $('#add_row_tablequoteItem').data('id');
+                    j = parseInt(j + i);
+                    // console.log('keyup i='+i+'--j='+j);
                 }
                 for(var x=0; x<=i; x++){
 
@@ -557,8 +484,6 @@
                                 stockMessage = "Stock not enough, the available item is ";
                                 numPrdInStock = prdInStock;
 
-
-
                                 if(num == 0){
                                     //show item in row quote item  with one select
                                     $("#txtPrdId_"+btnId+"").val(prdVal);
@@ -576,7 +501,7 @@
                                     }
                                 }else{
                                     //show item in row quote item with multi select
-                                    $( "#btnAddRowQuoteItem" ).trigger( "click", branId);
+                                    $("#btnAddRowQuoteItem" ).trigger( "click", branId);
                                     $("#txtPrdId_"+(i-1)+"").val(prdVal);
                                     $("#product_name"+(i-1)+"").val(prdName);
                                     $("#txtDescription_"+(i-1)+"").val(prdDescription);

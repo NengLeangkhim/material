@@ -37,9 +37,10 @@
                                                 {{-- <th>Lead Number</th> --}}
                                                 <th style="color:#FFFFFF">Company Name EN</th>
                                                 <th  style="color:#FFFFFF">Company Name KH</th>
-                                                <th  style="color:#FFFFFF">Email</th>
-                                                <th  style="color:#FFFFFF">Website </th>
-                                                <th  style="color:#FFFFFF">Facebook </th>
+                                                {{-- <th  style="color:#FFFFFF">Email</th>
+                                                <th  style="color:#FFFFFF">Website </th> --}}
+                                                {{-- <th  style="color:#FFFFFF">Facebook </th> --}}
+                                                <th  style="color:#FFFFFF">Schedule</th>
                                                 <th  style="color:#FFFFFF">Lead status</th>
                                                 <th  style="color:#FFFFFF">Assigned To</th>
                                                 <th  style="color:#FFFFFF">Detail</th>
@@ -53,23 +54,25 @@
                                                         <tr style="">
                                                             <td style="color: #d42931 ; font-weight:bold">
                                                                 {{$branch[$i]["company_en"]}}
+                                                            </td>
+                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["company_kh"]}}</td>
+                                                            {{-- <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["primary_email"]}}</td>
+                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["primary_website"]}}</td> --}}
+                                                            {{-- <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["facebook"]}}</td> --}}
+                                                            <td style="color: #d42931 ; font-weight:bold,text-align: center">
                                                                 <?php
                                                                 if($branch[$i]["schedule_id"]!=null){
                                                                     ?>
-                                                                    <sup style="color: #079992"> Schedule </sup>
+                                                                    <label for="">Yes</label>
                                                                     <?php
                                                                 }
                                                                 else {
                                                                     ?>
-                                                                        <sup style="color: #079992"> No Schedule  </sup>
+                                                                       <label for="">No</label>
                                                                     <?php
                                                                 }
                                                                 ?>
                                                             </td>
-                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["company_kh"]}}</td>
-                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["primary_email"]}}</td>
-                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["primary_website"]}}</td>
-                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["facebook"]}}</td>
                                                             <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["lead_status"]}}</td>
                                                             <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]['assig']}}</td> 
                                                             <td style="color: #d42931 ; font-weight:bold">  
@@ -105,23 +108,25 @@
                                                     ?>
                                                         <tr>
                                                             <td>{{$branch[$i]["company_en"]}}
+                                                            </td>
+                                                            <td>{{$branch[$i]["company_kh"]}}</td>
+                                                            {{-- <td>{{$branch[$i]["primary_email"]}}</td>
+                                                            <td>{{$branch[$i]["primary_website"]}}</td> --}}
+                                                            {{-- <td>{{$branch[$i]["facebook"]}}</td> --}}
+                                                            <td style="text-align: center">
                                                                 <?php
                                                                 if($branch[$i]["schedule_id"]!=null){
                                                                     ?>
-                                                                    <sup style="color: #079992;font-weight:bold"> Schedule </sup>
+                                                                        <label for="">Yes</label>
                                                                     <?php
                                                                 }
                                                                 else {
                                                                     ?>
-                                                                        <sup style="color: #079992;font-weight:bold"> No Schedule   </sup>
+                                                                        <label for="">No</label>
                                                                     <?php
                                                                 }
                                                                 ?>
                                                             </td>
-                                                            <td>{{$branch[$i]["company_kh"]}}</td>
-                                                            <td>{{$branch[$i]["primary_email"]}}</td>
-                                                            <td>{{$branch[$i]["primary_website"]}}</td>
-                                                            <td>{{$branch[$i]["facebook"]}}</td>
                                                             <td>{{$branch[$i]["lead_status"]}}</td>
                                                             <td>{{$branch[$i]['assig']}}</td> 
                                                             <td> 

@@ -105,27 +105,20 @@ class Attendance extends Model
                 // print_r($detail);
                 foreach($detail as $de){
                     if(strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) >= strtotime("06:00:00") && strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) < strtotime("12:00:00") && $de->typeName=='Check-in'){
-                        
                         $morning_checkin= self::ConvertTimeStampToTime($de->deviceStamp);
-    
                     }elseif(strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) <= strtotime("17:30:00") && strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) >= strtotime("12:00:00") && $de->typeName == 'Check-in'){
-                        
                         $evening_checkin= self::ConvertTimeStampToTime($de->deviceStamp);
-
                     }elseif(strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) >= strtotime("13:30:00") && strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) <= strtotime("20:00:00") && $de->typeName == 'Check-out'){
-                        
                         $evening_checkout = self::ConvertTimeStampToTime($de->deviceStamp);
-
                     }elseif(strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) >= strtotime("08:00:00") && strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) <= strtotime("13:30:00") && $de->typeName == 'Check-out'){
-                        
                         $morning_checkout = self::ConvertTimeStampToTime($de->deviceStamp);
                     }
                 }
                 if(strlen($morning_checkin)==0){
                     if(self::CheckPermisstion($emid,$date)==1){
                         $morning_checkin="Permission";
-                    }elseif(self::CheckOutside($emid,$date)==1){
-                        $morning_checkin="Mission";
+                    }elseif($permission=self::CheckOutside($emid,$date)!=0){
+                        $morning_checkin=$permission;
                     }else{
                         $morning_checkin = 'Absent';
                     }
@@ -152,11 +145,31 @@ class Attendance extends Model
                     $evening_checkin = 'Permission';
                     $evening_checkout = 'Permission';
                 }elseif(self::CheckOutside($emid,$date)==1){
-                    $morning_checkin = 'Outside';
-                    $morning_checkout = 'Outside';
-                    $evening_checkin = 'Outside';
-                    $evening_checkout = 'Outside';
-                }else{
+                    $permission=self::CheckOutside_shift($emid,$date);
+                    if($permission['shift']=='am'){
+                        $morning_checkin = $permission['type'];
+                        $morning_checkout = $permission['type'];
+                        $evening_checkin = 'Absent';
+                        $evening_checkout = 'Absent';
+                    }elseif($permission['shift']=='pm'){
+                        $morning_checkin = 'Absent';
+                        $morning_checkout = 'Absent';
+                        $evening_checkin = $permission['type'];
+                        $evening_checkout = $permission['type'];
+                    }elseif($permission['shift']=='full'){
+                        $morning_checkin = $permission['type'];
+                        $morning_checkout = $permission['type'];
+                        $evening_checkin = $permission['type'];
+                        $evening_checkout = $permission['type'];
+                    }
+                    else{
+                        $morning_checkin = $permission;
+                        $morning_checkout =  $permission;
+                        $evening_checkin =  $permission;
+                        $evening_checkout =  $permission;
+                    }
+                }
+                else{
                     $morning_checkin = 'Absent';
                     $morning_checkout = 'Absent';
                     $evening_checkin = 'Absent';
@@ -197,10 +210,32 @@ class Attendance extends Model
         try {
             $dd = new DateTime($date);
             $d = $dd->format('Y-m-d H:i:s');
-            $sql= "SELECT hm.type from hr_mission hm INNER JOIN hr_mission_detail hmd on hm.id=hmd.hr_mission_id and '$d' BETWEEN hm.date_from and hm.date_to and hmd.ma_user_id=$id";
+            $sql= "SELECT hm.type,hm.shift from hr_mission hm INNER JOIN hr_mission_detail hmd on hm.id=hmd.hr_mission_id and '$d' BETWEEN hm.date_from and hm.date_to and hmd.ma_user_id=$id";
             $permission = DB::select($sql);
             if (count($permission) > 0) {
                 return 1;
+            } else {
+                return 0;
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+        
+    }
+
+    // Check Mission of employee
+    public static function CheckOutside_shift($id,$date){
+        try {
+            $dd = new DateTime($date);
+            $d = $dd->format('Y-m-d H:i:s');
+            $sql= "SELECT hm.type,hm.shift,hm.type from hr_mission hm INNER JOIN hr_mission_detail hmd on hm.id=hmd.hr_mission_id and '$d' BETWEEN hm.date_from and hm.date_to and hmd.ma_user_id=$id LIMIT 1";
+            $permission = DB::select($sql);
+            if (count($permission) > 0) {
+                $data=[
+                    'shift'=>$permission[0]->shift,
+                    'type'=>$permission[0]->type
+                ];
+                return $data;
             } else {
                 return 0;
             }

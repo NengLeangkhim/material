@@ -52,7 +52,7 @@
                                             <th style="color: #FFFFFF">Name EN</th>
                                             <th style="color: #FFFFFF">Name KH</th>
                                             <th style="color: #FFFFFF">Phone</th>
-                                            <th style="color: #FFFFFF">Facebook</th>
+                                            {{-- <th style="color: #FFFFFF">Facebook</th> --}}
                                             <th style="color: #FFFFFF">Email </th>
                                             <th style="color: #FFFFFF">Detail</th>
                                         </tr>
@@ -64,7 +64,7 @@
                                             <td>{{$row->name_en}}</td>
                                             <td>{{$row->name_kh}}</td>
                                             <td>{{$row->phone}}</td>
-                                            <td>{{$row->facebook}}</td>
+                                            {{-- <td>{{$row->facebook}}</td> --}}
                                             <td>{{$row->email}}</td>
                                             <td style="text-align: center">                                                
                                               

@@ -38,7 +38,7 @@
                                                 <th style="color: #FFFFFF">Customer Name</th>
                                                 <th style="color: #FFFFFF">Email</th>
                                                 <th style="color: #FFFFFF">Website </th>
-                                                <th style="color: #FFFFFF">Facebook </th>
+                                                {{-- <th style="color: #FFFFFF">Facebook </th> --}}
                                                 <th style="color: #FFFFFF">Action</th>
                                                 {{-- <th>Detail</th> --}}
                                             </tr>
@@ -54,7 +54,7 @@
                                                         <td>{{$lead[$i]["email"]}}</td>
                                                         <td>{{$lead[$i]["website"]}}</td>
                                                         {{-- <td>{{$lead[$i]["create_by"]['last_name_en']." ".$lead[$i]["create_by"]['first_name_en']}}</td>                                                 --}}
-                                                        <td>{{$lead[$i]["facebook"]}}</td>                                                
+                                                        {{-- <td>{{$lead[$i]["facebook"]}}</td>                                                 --}}
                                                         <td>
                                                             <div class="row-12 form-inline">
                                                                 <div class="col-md-6">

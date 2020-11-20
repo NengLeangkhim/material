@@ -78,7 +78,8 @@ class OrganizeController extends Controller
             $address_type=$request->input('address_type');
             $addresscode=$request->input('village');
 
-            // dd($latlong);
+            // dd($assig_to_id,$assig_to);
+
             // return;
 
             return  OrganizeController::updateOrganize($lead_address_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$userid,$website,$facebook,$lead_source,$lead_status,$lead_industry,$assig_to_id,

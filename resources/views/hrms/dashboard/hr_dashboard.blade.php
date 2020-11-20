@@ -188,7 +188,7 @@ Function index_num($v1){
                     <div class=" card card-mini mb-4">
                             <div class="card-body">
                             <h3 class="mb-1" style="font-weight: bold; ">
-                                <?php echo $attendancec['all_em']; ?> Employees</h3>
+                                <?php echo $staff_gender['male']+$staff_gender['female']; ?> Employees</h3>
                                 <p> This Month</p>
                               <table class="table_style1" >
                                   <tr class="tr-review">
