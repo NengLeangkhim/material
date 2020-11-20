@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\api\BSC;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use DB;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class InvoiceController extends Controller
 {
@@ -16,6 +18,16 @@ class InvoiceController extends Controller
      */
     public function index()
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030401', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         $invoices = DB::table('bsc_invoice')
         ->select('bsc_invoice.*','ma_customer.name as customer_name')
         ->leftJoin('ma_customer','bsc_invoice.ma_customer_id','=','ma_customer.id')
@@ -103,6 +115,16 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030401', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         DB::beginTransaction();
         try {
             $input = $request->all();
@@ -124,27 +146,37 @@ class InvoiceController extends Controller
                 return $this->sendError('Validation Error.', $validator->errors());
             }
 
-            $sql_invoice ="insert_bsc_invoice($request->ma_customer_id, null, '$request->billing_date', '$request->due_date', '$request->reference', '$request->address_en', '$request->address_kh', '$request->effective_date', '$request->end_period_date', 'invoice', $request->deposit_on_payment, $request->total, $request->vat_total, $request->grand_total, $request->create_by, $request->crm_quote_id, null, $request->bsc_account_charts_id, 1, $request->grand_total, 0)";
-            // var_dump($sql_invoice); exit;
-
-            // insert_bsc_invoice(ma_customer_id, ma_supplier_id, billing_date, due_date, reference, address, address_kh, effective_date, end_period_date, invoice_type, deposit_on_payment, total, vat_total, grand_total, create_by, crm_quote_id, description, bsc_account_charts_id, bsc_journal_type_id, debit_amount, credit_amount);
-
-            $q_invoice=DB::select("SELECT ".$sql_invoice);
-            $invoice_id = $q_invoice[0]->insert_bsc_invoice;
-
             $invoice_details = $request->invoice_details;
-
-            if($invoice_details != ""){
-                foreach ($invoice_details as $key => $i_detail) {
-                    // var_dump($i_detail[stock_product_id]);
-                    if($i_detail['bsc_account_charts_id'] != null){
-                        $sql_invoice_detail = "insert_bsc_invoice_detail($invoice_id, $i_detail[ma_customer_branch_id], $i_detail[stock_product_id], '$i_detail[description]', $i_detail[qty], $i_detail[unit_price], $i_detail[discount], $i_detail[bsc_account_charts_id], $i_detail[tax], $i_detail[amount], $request->create_by, '$i_detail[description]', $i_detail[bsc_account_charts_id], 1, 0, $i_detail[amount])";
-                        $q_invoice_detail=DB::select("SELECT ".$sql_invoice_detail);
+            if(count($invoice_details) > 0){
+                $sql_invoice ="insert_bsc_invoice($request->ma_customer_id, null, '$request->billing_date', '$request->due_date', '$request->reference', '$request->address_en', '$request->address_kh', '$request->effective_date', '$request->end_period_date', 'invoice', $request->deposit_on_payment, $request->total, $request->vat_total, $request->grand_total, $request->create_by, $request->crm_quote_id, null, $request->bsc_account_charts_id, 1, $request->grand_total, 0)";
+    
+                // insert_bsc_invoice(ma_customer_id, ma_supplier_id, billing_date, due_date, reference, address, address_kh, effective_date, end_period_date, invoice_type, deposit_on_payment, total, vat_total, grand_total, create_by, crm_quote_id, description, bsc_account_charts_id, bsc_journal_type_id, debit_amount, credit_amount);
+    
+                $q_invoice=DB::select("SELECT ".$sql_invoice);
+                $invoice_id = $q_invoice[0]->insert_bsc_invoice;
+    
+                if($invoice_details != ""){
+                    foreach ($invoice_details as $key => $i_detail) {
+                        if($i_detail['bsc_account_charts_id'] != null){
+                            $sql_invoice_detail = "insert_bsc_invoice_detail($invoice_id, $i_detail[ma_customer_branch_id], $i_detail[stock_product_id], '$i_detail[description]', $i_detail[qty], $i_detail[unit_price], $i_detail[discount], $i_detail[bsc_account_charts_id], $i_detail[tax], $i_detail[amount], $request->create_by, '$i_detail[description]', $i_detail[bsc_account_charts_id], 1, 0, $i_detail[amount])";
+                            $q_invoice_detail=DB::select("SELECT ".$sql_invoice_detail);
+                        }
                     }
                 }
+    
+                // insert_bsc_invoice_detail(bsc_invoice_id, ma_customer_branch_id, stock_product_id, description, qty, unit_price, discount, bsc_account_charts_id, tax, amount, create_by, description_journal, bsc_account_charts_id_in_journal, bsc_journal_type_id, debit_amount, credit_amount);
+    
+                $sql_journal_vat ="insert_bsc_journal(null, $request->bsc_vat_account_charts_id, 0, $request->vat_total, $request->create_by, 1)";
+    
+                // insert_bsc_journal("ndescription" varchar, "nbsc_account_charts_id" int4, "ndebit_amount" numeric, "ncredit_amount" numeric, "ncreate_by" int4, "nbsc_journal_type_id" int4);
+    
+                $q_journal_vat=DB::select("SELECT ".$sql_journal_vat);
+                $journal_id = $q_journal_vat[0]->insert_bsc_journal;
+    
+                DB::select("INSERT INTO public.bsc_invoice_bsc_journal_rel(bsc_journal_id, bsc_invoice_id) VALUES ($journal_id, $invoice_id)");
+            }else{
+                return $this->sendError("Product can not be null");
             }
-
-            // insert_bsc_invoice_detail(bsc_invoice_id, ma_customer_branch_id, stock_product_id, description, qty, unit_price, discount, bsc_account_charts_id, tax, amount, create_by, description_journal, bsc_account_charts_id_in_journal, bsc_journal_type_id, debit_amount, credit_amount);
 
             DB::commit();
             return $this->sendResponse($q_invoice, 'Invoice created successfully.');
@@ -163,6 +195,16 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030401', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         $invoice = DB::table('bsc_invoice')
         ->select('bsc_invoice.*','bsc_account_charts.name_en as chart_account_name','bsc_account_charts.id as chart_account_id','ma_customer.name as customer_name','ma_customer.balance as customer_balance','ma_customer.invoice_balance as customer_invoice_balance')
         ->leftJoin('bsc_invoice_bsc_journal_rel','bsc_invoice.id','=','bsc_invoice_bsc_journal_rel.bsc_invoice_id')
@@ -223,6 +265,16 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030401', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         DB::beginTransaction();
         try {
             $input = $request->all();
@@ -387,15 +439,16 @@ class InvoiceController extends Controller
 
     public function show_invoice_filter(Request $request)
     {
-        // $invoices = DB::table('bsc_invoice')
-        // ->select('bsc_invoice.*','ma_customer.name as customer_name')
-        // ->leftJoin('ma_customer','bsc_invoice.ma_customer_id','=','ma_customer.id')
-        // ->where([
-        //     ['bsc_invoice.invoice_type','=','invoice'],
-        //     ['bsc_invoice.status','=','t'],
-        //     ['bsc_invoice.is_deleted','=','f']
-        // ])->get();
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
 
+        if (!perms::check_perm_module_api('BSC_030403', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         $sql_where = "";
         if($request->billing_date_from != ""){
             $sql_where .= " AND bsc_invoice.billing_date >= '$request->billing_date_from'";
@@ -495,5 +548,18 @@ class InvoiceController extends Controller
         }
 
         return $this->sendResponse($arr_invoice, 'Invoice retrieved successfully.');
+    }
+
+    public function show_vat_chart_account(Request $request)
+    {
+        $vat_chart_accounts = DB::table('bsc_account_charts')
+        ->where([
+            ['bsc_account_type_id','=',12],
+            ['name_en','LIKE','%Tax%'],
+            ['parent_id','<>',null],
+            ['status','=','t'],
+            ['is_deleted','=','f']
+        ])->get();
+        return $this->sendResponse($vat_chart_accounts, 'VAT chart account retrieved successfully.');
     }
 }

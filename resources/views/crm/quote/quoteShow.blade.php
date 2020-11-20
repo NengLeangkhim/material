@@ -47,35 +47,13 @@
                                             </thead>
                                             <tbody>
 
-
                                                 @foreach ($listQuote as $val)
                                                     @foreach ($val as $key => $val2)
                                                             <tr>
                                                                 <td>{{$val2->quote_number}}</td>
                                                                 <td>{{$val2->subject}}</td>
                                                                 <td>{{$val2->crm_lead->customer_name_en}}</td>
-                                                                {{-- <td>
-                                                                    <?php $sumTotal = 0;?>
-                                                                    @foreach ($val2->crm_stock as $key3=>$val3)
-                                                                            @if($val3->discount_type == "percent")
-                                                                                    <?php
 
-                                                                                        $dis = (($val3->price * $val3->qty) * $val3->discount / 100);
-                                                                                        $total = ($val3->price * $val3->qty) - $dis;
-                                                                                        $sumTotal += $total;
-
-                                                                                    ?>
-                                                                            @else
-                                                                                    <?php
-                                                                                        $total = ($val3->price * $val3->qty) - $val3->discount;
-                                                                                        $sumTotal += $total;
-
-                                                                                    ?>
-                                                                            @endif
-                                                                    @endforeach
-                                                                    {{ $GrandTT = number_format($sumTotal, 2, '.', '')." $" }}
-
-                                                                </td> --}}
                                                                 <td>
                                                                     <?php $num = count($val2->quote_stage); ?>
                                                                     @if( $num > 0)
@@ -84,8 +62,20 @@
                                                                         }}
                                                                     @endif
                                                                 </td>
-                                                                <td>{{$val2->assign_to->first_name_en.' '.$val2->assign_to->last_name_en}}</td>
-                                                                <td>Not Yet Data</td>
+                                                                <td>{{$val2->assign_to->first_name_en}}</td>
+                                                                <td>
+
+                                                                    <?php
+                                                                            $num = count($val2->quote_stage);
+                                                                            if($num > 0){
+                                                                                if($val2->quote_stage[$num-1]->id == 2){
+                                                                                        echo 'Yes';
+                                                                                }else {
+                                                                                        echo 'No';
+                                                                                }
+                                                                            }
+                                                                    ?>
+                                                                </td>
                                                                 <td>{{$val2->due_date}}</td>
                                                                 <td>
                                                                     <div class="row-12 form-inline">

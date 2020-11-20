@@ -88,6 +88,22 @@ class ModelCrmQuote extends Model
 
 
 
+    //function to get vat_number by branch lead id
+    public static function getBranchLead($blid){
+        $r = DB::table('crm_lead_branch as br')
+                ->select('br.*','le.vat_number')
+                ->join('crm_lead as le','br.crm_lead_id','=','le.id')
+                ->where([
+                    ['br.id','=', $blid],
+                    ['br.status','=','t'],
+                    ['br.is_deleted','=','f']
+                ])
+                ->get();
+        return $r;
+    }
+
+
+
 
 
 }

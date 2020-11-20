@@ -73,6 +73,7 @@ class QuoteResource extends JsonResource
         $quoteStatus =  QuoteStatus::where('crm_quote_id',$this->id)
                                     ->where('status','t')
                                     ->where('is_deleted','f')
+                                    ->orderBy('id','asc')
                                     ->get(['crm_quote_status_type_id','create_by']);
         $quoteStage=[];
         $acknowlegde=[];
@@ -105,7 +106,7 @@ class QuoteResource extends JsonResource
         $statusQuote = QuoteStatus::where('crm_quote_id',$this->id)
                                     ->where('status','t')
                                     ->where('is_deleted','f')
-                                    ->get();
+                                    ->get()->sortBy('id')->toArray();
 
         //get lead contact
         $contact=null;
@@ -115,13 +116,7 @@ class QuoteResource extends JsonResource
             $contact = Contact::whereId($last_contact_id)->first();
         }
 
-        //measurement
-        // $measure = DB::table('ma_measurement')
-        //                 ->where('id',$id)
-        //                 ->rightJoin('stock_product', 'stock_product_type.id', '=', 'stock_product.stock_product_type_id')
-        //                 ->rightJoin('ma_measurement', 'ma_measurement.id', '=', 'stock_product.ma_measurement_id')
-        //                 ->select(["stock_product.id","stock_product.name","stock_qty","product_price","part_number","description","stock_product_type.group_type","ma_measurement.name as measurement"])
-        //                 ->get();
+
         return [
             "id"=>$this->id,
             "due_date"=>$this->due_date,
@@ -131,7 +126,7 @@ class QuoteResource extends JsonResource
             "quote_stage"=> $quoteStage,
             "assign_to"=> $assign,
             "subject"=> $this->subject,
-            "address"=>$addr,
+            "address"=>$this->crm_lead_address_id,
             "create_date"=> $this->create_date,
             "acknowlegde_by"=>$acknowlegde,
             "status_quote"=>$statusQuote,

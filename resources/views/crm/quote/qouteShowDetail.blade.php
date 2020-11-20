@@ -33,20 +33,20 @@
                 </div>
                 <div class="col-sm-6 col-xs-4 col-12 pt-2">
                    <div class="row">
-                        <div class="col-sm-5 col-5">
-                            <?php $num = count($listQuoteDetail->data->quote_stage); ?>
+                        <div class="col-sm-4 col-4">
+                            {{-- <?php $num = count($listQuoteDetail->data->quote_stage); ?>
                             @if( $num > 0)
-                                    @if($listQuoteDetail->data->quote_stage[$num-1]->name_en == 'approved')
+                                    @if($listQuoteDetail->data->quote_stage[$num-1]->id == 2)
                                         <button type="button" ​value="" class="btn-block btn-primary btn-sm btn font-weight-bold">Convert To BSC</button>
                                     @endif
-                            @endif
+                            @endif --}}
                         </div>
                         <div class="col-sm-4 col-4">
                                 <button onclick='PreviewQuote({{$listQuoteDetail->data->id}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
                                     Preview</button>
 
                         </div>
-                        <div class="col-sm-3 col-3">
+                        <div class="col-sm-4 col-4">
                             <button onclick='DownloadQuote({{$listQuoteDetail->data->id}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
                                 PDF</button>
                         </div>
