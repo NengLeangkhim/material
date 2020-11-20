@@ -212,11 +212,6 @@
             }
         });
 
-         // Can Input only Number and . in Field Quantity and UnitPrice
-        $('.item_unit_price').keypress(function(e){
-            var x = event.charCode || event.keyCode;
-            if (isNaN(String.fromCharCode(e.which)) && x!=46 || x===32 || x===13 || (x===46 && event.currentTarget.innerText.includes('.'))) e.preventDefault();
-        });
         myKeyPress();
         
 
@@ -291,10 +286,14 @@
         });      
     });
 
+    // Function Can Input only Number and . in Field Quantity and UnitPrice
     function myKeyPress(){
-        // Can Input only Number and . in Field Quantity and UnitPrice
         $('.item_qty').keypress(function(e){
             if (isNaN(String.fromCharCode(e.which))) e.preventDefault();
+        });
+        $('.item_unit_price').keypress(function(e){
+            var x = event.charCode || event.keyCode;
+            if (isNaN(String.fromCharCode(e.which)) && x!=46 || x===32 || x===13 || (x===46 && event.currentTarget.innerText.includes('.'))) e.preventDefault();
         });
     }
 
