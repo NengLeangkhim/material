@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\api\BSC;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use DB;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class InvoicePaymentController extends Controller
 {
@@ -37,6 +39,16 @@ class InvoicePaymentController extends Controller
      */
     public function store(Request $request)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030401', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         DB::beginTransaction();
         try {
             $input = $request->all();
@@ -86,6 +98,16 @@ class InvoicePaymentController extends Controller
      */
     public function show($id)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030402', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         $invoice_payments = DB::table('bsc_payment')
         ->select('bsc_payment.*','bsc_invoice.billing_date','bsc_invoice.due_date','bsc_invoice.invoice_number','bsc_invoice.reference','bsc_invoice.grand_total','ma_customer.name as customer_name')
         ->leftJoin('bsc_invoice','bsc_payment.bsc_invoice_id','=','bsc_invoice.id')

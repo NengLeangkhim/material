@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\api\BSC;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use DB;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class InvoiceController extends Controller
 {
@@ -16,6 +18,16 @@ class InvoiceController extends Controller
      */
     public function index()
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030401', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         $invoices = DB::table('bsc_invoice')
         ->select('bsc_invoice.*','ma_customer.name as customer_name')
         ->leftJoin('ma_customer','bsc_invoice.ma_customer_id','=','ma_customer.id')
@@ -103,6 +115,16 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030401', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         DB::beginTransaction();
         try {
             $input = $request->all();
@@ -163,6 +185,16 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030401', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         $invoice = DB::table('bsc_invoice')
         ->select('bsc_invoice.*','bsc_account_charts.name_en as chart_account_name','bsc_account_charts.id as chart_account_id','ma_customer.name as customer_name','ma_customer.balance as customer_balance','ma_customer.invoice_balance as customer_invoice_balance')
         ->leftJoin('bsc_invoice_bsc_journal_rel','bsc_invoice.id','=','bsc_invoice_bsc_journal_rel.bsc_invoice_id')
@@ -223,6 +255,16 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030401', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         DB::beginTransaction();
         try {
             $input = $request->all();
@@ -387,15 +429,16 @@ class InvoiceController extends Controller
 
     public function show_invoice_filter(Request $request)
     {
-        // $invoices = DB::table('bsc_invoice')
-        // ->select('bsc_invoice.*','ma_customer.name as customer_name')
-        // ->leftJoin('ma_customer','bsc_invoice.ma_customer_id','=','ma_customer.id')
-        // ->where([
-        //     ['bsc_invoice.invoice_type','=','invoice'],
-        //     ['bsc_invoice.status','=','t'],
-        //     ['bsc_invoice.is_deleted','=','f']
-        // ])->get();
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
 
+        if (!perms::check_perm_module_api('BSC_030403', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         $sql_where = "";
         if($request->billing_date_from != ""){
             $sql_where .= " AND bsc_invoice.billing_date >= '$request->billing_date_from'";

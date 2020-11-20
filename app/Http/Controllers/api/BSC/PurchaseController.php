@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\api\BSC;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use DB;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class PurchaseController extends Controller
 {
@@ -16,6 +18,16 @@ class PurchaseController extends Controller
      */
     public function index()
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030501', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         $purchases = DB::table('bsc_invoice')
         ->select('bsc_invoice.*','ma_supplier.name as supplier_name')
         ->leftJoin('ma_supplier','bsc_invoice.ma_supplier_id','=','ma_supplier.id')
@@ -97,6 +109,16 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030501', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         DB::beginTransaction();
         try {
             $input = $request->all();
@@ -150,6 +172,16 @@ class PurchaseController extends Controller
      */
     public function show($id)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030501', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         $purchase = DB::table('bsc_invoice')
         ->select('bsc_invoice.*','bsc_account_charts.name_en as chart_account_name','bsc_account_charts.id as chart_account_id','ma_supplier.name as supplier_name')
         ->leftJoin('bsc_invoice_bsc_journal_rel','bsc_invoice.id','=','bsc_invoice_bsc_journal_rel.bsc_invoice_id')
@@ -209,6 +241,16 @@ class PurchaseController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030501', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         DB::beginTransaction();
         try {
             $input = $request->all();
@@ -363,6 +405,16 @@ class PurchaseController extends Controller
     
     public function show_purchase_filter(Request $request)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030503', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         $sql_where = "";
         if($request->billing_date_from != ""){
             $sql_where .= " AND bsc_invoice.billing_date >= '$request->billing_date_from'";
