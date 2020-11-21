@@ -89,7 +89,10 @@
 
                                         @foreach ($response3->data as $key=>$val)
                                             <input type="hidden" name="quote_detail_id[]" value="{{ $val->id }}" readonly>
-                                            <tr id="{{ $key }}" class="tr-quote-row row-quote-item row-quote-item_{{ $key }}" data-id="row_{{ $key }}">
+                                            <input type="hidden" id="getBranchIdEdit" value="{{ $getBranchId }}" readonly>
+                                            <input type="hidden" id="vatNumber" value="{{ $getVatNum }}" readonly>
+
+                                            <tr id="{{ $key }}" class="tr-quote-row row-quote-item row-quote-item_{{ $key }}" data-id="row_{{ $key }}" >
                                                 <td style="width: 30%;">
 
                                                     <input type="hidden" name="quote_detail_id_updated[]" value="{{ $val->id }}" readonly>
@@ -196,8 +199,54 @@
                             {{-- table row to show grand total item --}}
                             <dl class="row table-responsive">
 
-                                    <table class="table">
+                                    <table class="table table-bordered">
                                         <tbody>
+                                            <tr style="text-align: right">
+                                                <td  ><span style="padding-right: 12px;">Sum Total </span></td>
+                                                <td  ><div id="sumTotal"> 0.0 </div></td>
+                                            </tr>
+                                            <tr style="text-align: right">
+                                                <td >
+                                                    <span style="padding-right: 12px;" >Value Add Tax(VAT)</span>
+                                                </td>
+                                                <td >
+                                                    <div id="valueAddTax">
+                                                        @php
+                                                            if($getVatNum != ''){
+                                                                echo 'Yes';
+                                                            }else{
+                                                                echo 'No';
+                                                            }
+                                                        @endphp
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr style="text-align: right">
+                                                <td >
+                                                    <span style="padding-right: 12px;" id="labelTaxQuote">
+                                                        @php
+                                                            if($getVatNum != ''){
+                                                                echo '+ Tax (10%)';
+                                                            }else{
+                                                                echo '+ Tax (0%)';
+                                                            }
+                                                        @endphp
+                                                    </span>
+                                                </td>
+                                                <td >
+                                                    <div id="getTaxation">0.0</div>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr class="td-total-quote grandTotal" >
+                                                <td  ><span style="padding-right: 12px;">Grand Total</span></td>
+                                                <td  ><div id="grandTotal"> 0.0 </div></td>
+                                            </tr>
+
+                                        </tbody>
+                                        {{-- <tbody>
                                             <tr class="fieldGrandTotal">
                                                 <td style="width: 50%"><input type="hidden"></td>
                                                 <td  >
@@ -244,7 +293,7 @@
 
                                                 </td>
                                             </tr>
-                                        </tbody>
+                                        </tbody> --}}
 
                                     </table>
                             </dl>

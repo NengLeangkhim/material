@@ -123,11 +123,11 @@
                                             <td>{{ $invoice_detail->product_name }}</td>
                                             <td>{{ $invoice_detail->description }}</td>
                                             <td>{{ $invoice_detail->qty }}</td>
-                                            <td>{{ $invoice_detail->unit_price }}</td>
-                                            <td>{{ $invoice_detail->discount }}</td>
+                                            <td>{{ number_format($invoice_detail->unit_price,4,".",",") }}</td>
+                                            <td>{{ number_format($invoice_detail->discount,4,".",",") }}</td>
                                             <td>{{ $invoice_detail->chart_account_name }}</td>
                                             <td>{{ $invoice_detail->tax }}</td>
-                                            <td class="item_amount">{{ $invoice_detail->amount }}</td>
+                                            <td class="item_amount">{{ number_format($invoice_detail->amount,4,".",",") }}</td>
                                         </tr>
                                     @endforeach
                                 @endif
@@ -181,7 +181,7 @@
                                                         <label for="">Payment : </label>
                                                     </div>
                                                     <div class="col-sm-6 text_right">
-                                                        <label for="">{{ $invoice_payment->amount_paid }}</label>
+                                                        <label for="">{{ number_format($invoice_payment->amount_paid,4,".",",") }}</label>
                                                     </div>
                                                 </div>
 
@@ -209,7 +209,7 @@
                                                 <label for="">Amount Due : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
-                                                <label for="" id="due_amount">{{ $due_amount==null ? $invoices->grand_total : $due_amount }}</label>
+                                                <label for="" id="due_amount">{{ number_format($due_amount==null ? $invoices->grand_total : $due_amount,4,".",",") }}</label>
                                             </div>
                                         </div>
                                         <hr class="line_in_tag_hr" style="{{ $display }}">
@@ -231,7 +231,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control input_required item_unit_price"  name="amount_paid" id="amount_paid" value="{{ $due_amount==null ? $invoices->grand_total : $due_amount }}" autofocus placeholder="Amount Paid">
+                                                    <input type="number" class="form-control input_required item_unit_price"  name="amount_paid" id="amount_paid" value="{{ number_format($due_amount==null ? $invoices->grand_total : $due_amount,4,".",".") }}" autofocus placeholder="Amount Paid">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">

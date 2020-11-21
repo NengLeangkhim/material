@@ -52,7 +52,7 @@
                                     <th>Description</th>
                                     <th>Quantity</th>
                                     <th>Account</th>
-                                    <th>Tax Rate</th>
+                                    <th hidden>Tax Rate</th>
                                     <th>Amount</th>
                                 </tr>
                             </thead>
@@ -64,7 +64,7 @@
                                             <td>{{$item->description}}</td>
                                             <td>{{$item->qty}}</td>
                                             <td>{{$item->chart_account_name}}</td>
-                                            <td>{{$item->tax}}</td>
+                                            <td hidden>{{$item->tax}}</td>
                                             <td id="txtAmount" class="txtAmount">{{$item->amount}}</td>
                                         </tr>
                                     @endforeach                                   
@@ -86,7 +86,7 @@
                                             <label for="" id="txtTotal" value="">{{$purchase->total}}</label>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row" hidden>
                                         <div class="col-sm-6 text_right">
                                             <label for="">VAT Total :</label>
                                         </div>
@@ -232,7 +232,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="row">
+                            <div class="row" style="margin-top: 30px;">
                                 <a href="#" onclick="makePayment()" class="btn btn-success purchase_form"  value="bsc_purchase_purchase_form" id="purchase_form"><i class="fas fa-plus"></i> Add Payment</a>&nbsp;
                                 <button type="button" class="btn btn-danger" onclick="go_to('bsc_purchase_purchase_list')">Cencel</button>
                                 <input type="hidden" name="" id="show_hidden_grand_total" value="{{$purchase->grand_total}}">
@@ -318,7 +318,7 @@
                             if(data.payment == "amount_paid_bigger_then_due"){
                                 sweetalert('error','Amount Paid input is bigger than Due Amount or Grand Total');
                             }
-                            sweetalert('error','Purchase Insert is fail!!');
+                            sweetalert('error','Purchase Insert is fail!!');                            
                         }
                     }
                 });

@@ -85,8 +85,8 @@
                                                                 <td>{{ $invoice->customer_name }}</td>
                                                                 <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
                                                                 <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
-                                                                <td>{{ $amount_paid }}</td>
-                                                                <td>{{ $due_amount }}</td>
+                                                                <td>{{ number_format($amount_paid,4,".",",") }}</td>
+                                                                <td>{{ number_format($due_amount,4,".",",") }}</td>
                                                                 <td>{{ $status }}</td>
                                                                 <td style="text-align-last: center">
                                                                     <a title="View" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
@@ -142,8 +142,8 @@
                                                                                     <td>{{ $invoice->customer_name }}</td>
                                                                                     <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
                                                                                     <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
-                                                                                    <td>{{ $amount_paid }}</td>
-                                                                                    <td>{{ $due_amount }}</td>
+                                                                                    <td>{{ number_format($amount_paid,4,".",",") }}</td>
+                                                                                    <td>{{ number_format($due_amount,4,".",",") }}</td>
                                                                                     <td style="text-align-last: center">
                                                                                         <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
                                                                                         {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a> --}}
@@ -190,8 +190,8 @@
                                                                                 <td>{{ $invoice->customer_name }}</td>
                                                                                 <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
                                                                                 <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
-                                                                                <td>{{ $invoice->amount_paid }}</td>
-                                                                                <td>{{ $invoice->due_amount }}</td>
+                                                                                <td>{{ number_format($amount_paid,4,".",",") }}</td>
+                                                                                <td>{{ number_format($due_amount,4,".",",") }}</td>
                                                                                 <td style="text-align-last: center">
                                                                                     <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
                                                                                     {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a> --}}

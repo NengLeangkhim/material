@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\api\BSC;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CustomerBranchController extends Controller
 {
@@ -16,6 +18,16 @@ class CustomerBranchController extends Controller
      */
     public function index()
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030202', $userid)) {
+            return $this->sendError("No Permission");
+        }
+
         $customers=DB::select("SELECT ma_customer_branch.*,crm_lead.customer_name_en as customer_name,get_gazetteers_address(crm_lead_address.gazetteer_code) as lead_address FROM ma_customer_branch
             JOIN ma_customer ON ma_customer.id=ma_customer_branch.ma_customer_id
             JOIN crm_lead ON crm_lead.id=ma_customer.crm_lead_id
@@ -42,6 +54,16 @@ class CustomerBranchController extends Controller
      */
     public function store(Request $request)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030202', $userid)) {
+            return $this->sendError("No Permission");
+        }
+
         DB::beginTransaction();
         try {
             $input = $request->all();
@@ -80,6 +102,16 @@ class CustomerBranchController extends Controller
      */
     public function show($id)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030202', $userid)) {
+            return $this->sendError("No Permission");
+        }
+
         $customer_by_id=DB::select("SELECT mcb.*,mc.name as ma_customer_name,mc.balance,mc.deposit,mc.invoice_balance,mc.vat_type,mc.vat_number,
         get_gazetteers_address(cla.gazetteer_code) as lead_address,clb.email as lead_branch_email,clc.phone as contact_phone
         FROM ma_customer_branch mcb
@@ -123,6 +155,16 @@ class CustomerBranchController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030202', $userid)) {
+            return $this->sendError("No Permission");
+        }
+
         DB::beginTransaction();
         try {
             $sql="delete_ma_customer_branch($id, $request->update_by)";
