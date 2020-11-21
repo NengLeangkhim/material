@@ -129,7 +129,7 @@
                             <br>
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-primary save" id="frm_btn_sub_add_customer">Save</button>
-                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_customer')">Cencel</button>
+                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_customer')">Cancel</button>
                             </div>
                         </div>
                     </div>
