@@ -26,7 +26,7 @@ class QuoteController extends Controller
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         $listQuote = json_decode($res->getContent());
-        dump($listQuote);
+        // dump($listQuote);
         // exit;
         if($listQuote != null){
                 return view('crm/quote/quoteShow', compact('listQuote'));
@@ -77,40 +77,8 @@ class QuoteController extends Controller
                     $data = [];
                 }
             }
-
-            // dump($getQuoteBranch);
-            // if($listQuoteDetail != ''){
-            //     $crmStock = $listQuoteDetail->data->crm_stock;
-            //     $stockList = [];
-            //     $arr = array();
-            //     foreach($crmStock as $stock){
-            //         if(empty($stockList)){
-            //             array_push($stockList, [$stock]);
-            //         } else {
-            //             $push = false;
-            //             foreach($stockList as $kList => $list){
-            //                 foreach($list as $kl => $l){
-            //                     if($l->crm_quote_branch_id == $stock->crm_quote_branch_id){
-            //                         array_push($stockList[$kList], $stock);
-            //                         $push = true;
-            //                     }
-            //                 }
-            //             }
-            //             if(!$push){
-            //                 array_push($stockList, [$stock]);
-            //             }
-            //         }
-            //         // dump($stock);
-            //     }
-            // }else{
-            //     echo 'Data Emptry';
-            // }
-            // dump($stockList);
-            // dump($arr);
-
-            // exit;
-            // dump($getQuoteBranch);
             return view('crm/quote/qouteShowDetail', compact('listQuoteDetail','getQuoteBranch'));
+            // return view('crm/quote/qouteShowDetail');
         }
     }
     // function to add new quote data

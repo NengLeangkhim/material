@@ -15,7 +15,12 @@
      </div>
 </section>
 <section class="content">
-
+    @if(!isset($listQuoteDetail))
+        <div class="row-12">
+            <div class="col-12 text-center font-weight-bold"><h3> No Data Detail !</h3></div>
+        </div>
+        @php exit; @endphp
+    @endif
     <div class="container-fluid">
       <!-- COLOR PALETTE -->
         <div class="card card-default color-palette-box card-header">
@@ -75,6 +80,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
+                        @if(isset($listQuoteDetail))
                         <dl class="row">
                             <dt class="col-sm-4 dt" >Subject</dt>
                                 <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->subject}}</dd>
@@ -124,6 +130,9 @@
                                     @endif
                                 </dd>
                         </dl>
+                        @else
+                            <div class="row text-center">No Data Detail !</div>
+                        @endif
                     </div>
                     <!-- /.card-body -->
                 </div>
