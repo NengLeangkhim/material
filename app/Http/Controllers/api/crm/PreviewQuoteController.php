@@ -393,44 +393,81 @@ class PreviewQuoteController extends Controller
                     $sequence= 1;
                     foreach($services as $qd){
 
-
-                        $originalprice = (int)$qd->price;
-
-                        $desc = $qd->stock_product->description;
-                        if($qd->discount!=null){
-                            try {
-                                if((float)$qd->discount >(float)'0.0000'){
-                                    if($qd->discount_type=='number'){
-                                        $discount = (float)$qd->discount .'$';
-                                        $originalprice= $originalprice- (float)$discount;
-                                        $desc.='<br>Discount '.$discount;
-                                    }else if($qd->discount_type=='percent'){
-                                        $discount = (float)$qd->discount .'%';
-                                        $originalprice=$originalprice- ($originalprice*((float)$discount/100));
-                                        $desc.='<br>Discount '.$discount;
-                                    }
-                                }
-                            }
-                            catch(Exception $e) {
-                                $desc = $qd->stock_product->description;
-                            }
-                        }
-
-
                         if($vatnumber != ''){
                             //exclude
-                            $price=$originalprice;
-                            $amount =$price * (int)$qd->qty;
+                            $price=(int)$qd->price;
+                            $amount = $price * (int)$qd->qty;
+
+
+                            //discount
+                            $desc = $qd->stock_product->description;
+
+                            if($qd->discount!=null){
+                                try {
+                                    if((float)$qd->discount >(float)'0.0000'){
+                                        if($qd->discount_type=='number'){
+                                            $discount = (float)$qd->discount .'$';
+                                            $amount = $amount - (float)$discount;
+                                            $desc.='<br>Discount '.$discount;
+                                        }else if($qd->discount_type=='percent'){
+                                            $discount = (float)$qd->discount .'%';
+                                            $amount =$amount - ($amount *((float)$discount/100));
+                                            $desc.='<br>Discount '.$discount;
+                                        }
+                                    }
+                                }
+                                catch(Exception $e) {
+                                    $desc = $qd->stock_product->description;
+                                }
+                            }
+
+
+
                             $subtotal+=$amount;
                             $vattotal=$subtotal*0.1;
                             $total = $subtotal + $vattotal;
                         }else{
                             //include
-                            $price = $originalprice + ($originalprice *0.1);
+                            $price = (int)$qd->price + ((int)$qd->price *0.1);
                             $amount = $price * (int)$qd->qty;
+
+
+                            //discount
+                            $desc = $qd->stock_product->description;
+
+                            if($qd->discount!=null){
+                                try {
+                                    if((float)$qd->discount >(float)'0.0000'){
+                                        if($qd->discount_type=='number'){
+                                            $amount_before_vat = ((float)$amount * 100)/110;
+
+                                            $discount = (float)$qd->discount .'$';
+                                            $amount_before_vat = (float)$amount_before_vat - (float)$discount;
+
+                                            $amount = $amount_before_vat + ((float)$amount_before_vat *0.1);
+                                            $price = (float)$amount /(int)$qd->qty;
+                                            $desc.='<br>Discount '.$discount;
+                                        }else if($qd->discount_type=='percent'){
+                                            $amount_before_vat = ((float)$amount * 100)/110;
+
+                                            $discount = (float)$qd->discount .'%';
+                                            $amount_before_vat = $amount_before_vat - ($amount_before_vat *((float)$discount/100));
+
+                                            $amount = $amount_before_vat + ((float)$amount_before_vat *0.1);
+                                            $price = (float)$amount /(int)$qd->qty;
+                                            $desc.='<br>Discount '. $discount ;
+                                        }
+                                    }
+                                }
+                                catch(Exception $e) {
+                                    $desc = $qd->stock_product->description;
+                                }
+                            }
+
                             $subtotal+=$amount;
                             $total = $subtotal;
                         }
+
 
                         $output .='
                             <tr>
@@ -498,43 +535,81 @@ class PreviewQuoteController extends Controller
                     $sequence= 1;
                     foreach($products as $qd){
 
-                        $originalprice = (int)$qd->price;
-
-                        $desc = $qd->stock_product->description;
-                        if($qd->discount!=null){
-                            try {
-                                if((float)$qd->discount >(float)'0.0000'){
-                                    if($qd->discount_type=='number'){
-                                        // $discount = (float)$qd->discount .'$';
-                                        // $originalprice= $originalprice- $discount;
-                                        $desc.='<br>Discount ';
-                                    }else if($qd->discount_type=='percent'){
-                                        $discount = (float)$qd->discount .'%';
-                                        $originalprice=$originalprice- ($originalprice*((float)$discount/100));
-                                        $desc.='<br>Discount '.$discount;
-                                    }
-                                }
-                            }
-                            catch(Exception $e) {
-                                $desc = $qd->stock_product->description;
-                            }
-                        }
 
                         if($vatnumber != ''){
                             //exclude
-                            $price=$originalprice;
-                            $amount =$price * (int)$qd->qty;
+                            $price=(int)$qd->price;
+                            $amount = $price * (int)$qd->qty;
+
+
+                            //discount
+                            $desc = $qd->stock_product->description;
+
+                            if($qd->discount!=null){
+                                try {
+                                    if((float)$qd->discount >(float)'0.0000'){
+                                        if($qd->discount_type=='number'){
+                                            $discount = (float)$qd->discount .'$';
+                                            $amount = $amount - (float)$discount;
+                                            $desc.='<br>Discount '.$discount;
+                                        }else if($qd->discount_type=='percent'){
+                                            $discount = (float)$qd->discount .'%';
+                                            $amount =$amount - ($amount *((float)$discount/100));
+                                            $desc.='<br>Discount '.$discount;
+                                        }
+                                    }
+                                }
+                                catch(Exception $e) {
+                                    $desc = $qd->stock_product->description;
+                                }
+                            }
+
+
+
                             $subtotal+=$amount;
                             $vattotal=$subtotal*0.1;
                             $total = $subtotal + $vattotal;
                         }else{
                             //include
-                            $price = $originalprice + ($originalprice *0.1);
+                            $price = (int)$qd->price + ((int)$qd->price *0.1);
                             $amount = $price * (int)$qd->qty;
+
+
+                            //discount
+                            $desc = $qd->stock_product->description;
+
+                            if($qd->discount!=null){
+                                try {
+                                    if((float)$qd->discount >(float)'0.0000'){
+                                        if($qd->discount_type=='number'){
+                                            $amount_before_vat = ((float)$amount * 100)/110;
+
+                                            $discount = (float)$qd->discount .'$';
+                                            $amount_before_vat = (float)$amount_before_vat - (float)$discount;
+
+                                            $amount = $amount_before_vat + ((float)$amount_before_vat *0.1);
+                                            $price = (float)$amount /(int)$qd->qty;
+                                            $desc.='<br>Discount '.$discount;
+                                        }else if($qd->discount_type=='percent'){
+                                            $amount_before_vat = ((float)$amount * 100)/110;
+
+                                            $discount = (float)$qd->discount .'%';
+                                            $amount_before_vat = $amount_before_vat - ($amount_before_vat *((float)$discount/100));
+
+                                            $amount = $amount_before_vat + ((float)$amount_before_vat *0.1);
+                                            $price = (float)$amount /(int)$qd->qty;
+                                            $desc.='<br>Discount '. $discount ;
+                                        }
+                                    }
+                                }
+                                catch(Exception $e) {
+                                    $desc = $qd->stock_product->description;
+                                }
+                            }
+
                             $subtotal+=$amount;
                             $total = $subtotal;
                         }
-
 
                         $output .='
                             <tr>
