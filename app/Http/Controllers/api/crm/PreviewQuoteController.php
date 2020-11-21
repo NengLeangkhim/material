@@ -402,7 +402,7 @@ class PreviewQuoteController extends Controller
                                 if((float)$qd->discount >(float)'0.0000'){
                                     if($qd->discount_type=='number'){
                                         $discount = (float)$qd->discount .'$';
-                                        $originalprice= $originalprice- $discount;
+                                        $originalprice= $originalprice- (float)$discount;
                                         $desc.='<br>Discount '.$discount;
                                     }else if($qd->discount_type=='percent'){
                                         $discount = (float)$qd->discount .'%';
@@ -505,9 +505,9 @@ class PreviewQuoteController extends Controller
                             try {
                                 if((float)$qd->discount >(float)'0.0000'){
                                     if($qd->discount_type=='number'){
-                                        $discount = (float)$qd->discount .'$';
-                                        $originalprice= $originalprice- $discount;
-                                        $desc.='<br>Discount '.$discount;
+                                        // $discount = (float)$qd->discount .'$';
+                                        // $originalprice= $originalprice- $discount;
+                                        $desc.='<br>Discount ';
                                     }else if($qd->discount_type=='percent'){
                                         $discount = (float)$qd->discount .'%';
                                         $originalprice=$originalprice- ($originalprice*((float)$discount/100));
