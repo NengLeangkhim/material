@@ -86,7 +86,7 @@
                                                                     <td>
                                                                         <?php $num = count($val2->quote_stage); ?>
                                                                         @if( $num > 0)
-                                                                            @if(($val2->quote_stage[$num-1]->id)==2)                                                                            
+                                                                            @if(($val2->quote_stage[$num-1]->id)==2)
                                                                                 <div class="row-12 form-inline">
                                                                                     <div class="col-md-4">
                                                                                         <a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action('/quote/detail', '{{ $val2->id }}')"  >
@@ -96,15 +96,15 @@
                                                                                     {{-- <div class="col-md-4">
                                                                                         <a href="#" class="btn btn-success btn-sm" onclick="goto_Action('/quote/leadBranch', '{{ $val2->id }}')">
                                                                                             <i class="fas fa-wrench"></i>
-                                                                                        </a>                                                                          
+                                                                                        </a>
                                                                                     </div> --}}
                                                                                     <div class="col-md-4 ">
                                                                                     <a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead('/quote/deleteLeadQuote', '{{ $val2->id }}')"> <span class="glyphicon glyphicon-remove"></span>  </a>
                                                                                     </div>
                                                                                 </div>
-                                                                                
+
                                                                             @endif
-                                                                            @if(($val2->quote_stage[$num-1]->id)!=2)                                                                            
+                                                                            @if(($val2->quote_stage[$num-1]->id)!=2)
                                                                                 <div class="row-12 form-inline">
                                                                                     <div class="col-md-4">
                                                                                         <a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action('/quote/detail', '{{ $val2->id }}')"  >
@@ -114,14 +114,14 @@
                                                                                     <div class="col-md-4">
                                                                                         <a href="#" class="btn btn-success btn-sm" onclick="goto_Action('/quote/leadBranch', '{{ $val2->id }}')">
                                                                                             <i class="fas fa-wrench"></i>
-                                                                                        </a>                                                                          
+                                                                                        </a>
                                                                                     </div>
                                                                                     <div class="col-md-4 ">
                                                                                     <a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead('/quote/deleteLeadQuote', '{{ $val2->id }}')"> <span class="glyphicon glyphicon-remove"></span>  </a>
                                                                                     </div>
-                                                                                </div>                                                                        
+                                                                                </div>
                                                                             @endif
-                                                                        @endif                                                                   
+                                                                        @endif
                                                                     </td>
                                                                 </tr>
                                                         @endforeach

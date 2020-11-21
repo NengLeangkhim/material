@@ -176,7 +176,14 @@
 
             $("#sumTotal").text(sumTotal.toFixed(4));
             var branId = $(this).data("code");
+            if(typeof(branId) == 'undefined' || branId == '_new'){
+                branId = '';
+            }
             var vatVal = $('#vatNumber'+branId+'').val();
+            if(typeof(vatVal) == 'undefined'){
+                vatVal = '';
+            }
+            // var vatVal = $('#vatNumber'+branId+'').val();
             // console.log('vatval remove row ='+vatVal+'--bran id='+branId);
             checkVatValue(vatVal,sumTotal);
 
@@ -354,14 +361,14 @@
 
                 $("#sumTotal").text(sumTotal.toFixed(4));
                 var branId = $(this).data("code");
-                if(typeof(branId) == 'undefined' ){
+                if(typeof(branId) == 'undefined' || branId == '_new'){
                     branId = '';
                 }
                 var vatVal = $('#vatNumber'+branId+'').val();
                 if(typeof(vatVal) == 'undefined'){
                     vatVal = '';
                 }
-                console.log('vatval keyup ='+vatVal+'--bran id='+branId);
+                // console.log('vatval keyup ='+vatVal+'--bran id='+branId);
                 checkVatValue(vatVal,sumTotal);
                 generateGrandTotal(vatVal);
             });
