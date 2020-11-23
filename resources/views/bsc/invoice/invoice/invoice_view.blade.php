@@ -126,7 +126,7 @@
                                             <td>{{ number_format($invoice_detail->unit_price,4,".",",") }}</td>
                                             <td>{{ number_format($invoice_detail->discount,4,".",",") }}</td>
                                             <td>{{ $invoice_detail->chart_account_name }}</td>
-                                            <td>{{ $invoice_detail->tax }}</td>
+                                            <td>{{ $invoice_detail->tax == 0 ? "No Tax" : "Tax" }}</td>
                                             <td class="item_amount">{{ number_format($invoice_detail->amount,4,".",",") }}</td>
                                         </tr>
                                     @endforeach
@@ -337,6 +337,7 @@ $('.detail').click(function(e)
     $(document).ready(function(){
         //show total & grand total
         showTotal();
+        vatTotal();
         showGrandTotal();
 
         $("#amount_paid").on("keyup", function()
@@ -353,11 +354,9 @@ $('.detail').click(function(e)
     // add payment
     function invoice_payment()
     {
-
         let amount_paid=parseFloat($('#amount_paid').val()).toFixed(4);
         let grand_total=parseFloat($('#grand_total').val()).toFixed(4);
         let due_amount=parseFloat($('#due_amount').text()).toFixed(4);
-
         let num_miss = 0;
         $(".input_required").each(function(){
             if($(this).val()=="" || $(this).val()==null){ num_miss++;}
@@ -369,18 +368,17 @@ $('.detail').click(function(e)
             sweetalert('error', 'Please input or select field * required');
             return false;
         }else{
-            if(amount_paid > due_amount){
+            if(parseFloat(amount_paid) > parseFloat(due_amount)){
                 $('#amount_paid').css('border-color', 'red');
                 sweetalert('error','Amount Paid input is bigger than Due Amount or Grand Total');
                 return false;
-            }else if(amount_paid == 0){
+            }else if(parseFloat(amount_paid) == 0){
                 sweetalert('error','Amount Paid can not input Zero');
                 return false;
-            }else if(amount_paid < 0){
+            }else if(parseFloat(amount_paid) < 0){
                 sweetalert('error','Amount Paid must input bigger than Zero');
                 return false;
             }else{
-
                 let due_amounts =parseFloat(due_amount - amount_paid).toFixed(4);
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
@@ -438,5 +436,12 @@ $('.detail').click(function(e)
         let totalvat = parseFloat($('#txtVatTotal').text());
         let grandTotal = total + totalvat;
         document.getElementById('txtGrandTotal').innerHTML=grandTotal.toFixed(4);
+    }
+    //Calculate Vat Total
+    function vatTotal()
+    {
+        let total = parseFloat($('#txtTotal').text());
+        let vat_total= (total * 10)/100;
+        document.getElementById('txtVatTotal').innerHTML=vat_total.toFixed(4);
     }
 </script>
