@@ -199,7 +199,7 @@
         function checkVatValue(vat,getsumtotal){
             var getTax = 0;
             var grandTotal = 0;
-            console.log('vat in function='+vat);
+            // console.log('vat in function='+vat);
             if(vat != ''){  // exclude tax
                 // console.log('function check vat, have val');
                 getTax = (getsumtotal * 0.1);
@@ -331,7 +331,7 @@
                     branId = '';
                 }
                 var vatVal = $('#vatNumber'+branId+'').val();
-                console.log('xx vatVal='+vatVal);
+                // console.log('xx vatVal='+vatVal);
                 if(typeof(vatVal) == 'undefined' || vatVal == ''){
                     vatVal = '';  // this mean vat need to include tax to unit product
                     $('#vatLabelQuote'+row_id+'').text('Vat Include (10%)');
