@@ -199,7 +199,7 @@ if (count($bsc_show_customer_branchs) >0) {
                                         </div>
                                         <div class="col-md-4">
                                             <div class="row" id="display_none">
-                                                <input type="hidden" id="old_total">
+                                                <input type="text" id="old_total">
                                                 <div class="col-sm-6 text_right">
                                                     <label for="" id="total_label">Total :</label>
                                                 </div>
@@ -273,12 +273,14 @@ if (count($bsc_show_customer_branchs) >0) {
                     }
 
                     if(quote_products.length > 0){
-                        let tr='';
-                        let amounts=0;
+                        let tr="";
                         let attr_tax_rate='';
-                        let amount_with_tax=0;
-                        let unit_price =0;
                         let percent ='';
+                        let amount = 0;
+                        let vats = 0;
+                        let vat_per_item = 0;
+                        let price_show = 0;
+                        let amount_show = 0;
                         $.each(quote_products,function(index, quote_product){
                             let discount_type = quote_product.discount_type;
                             if(discount_type == 'percent'){
@@ -289,19 +291,31 @@ if (count($bsc_show_customer_branchs) >0) {
                             let qty=quote_product.qty;
                             let price=quote_product.price;
                             let discount=quote_product.discount;
-                            let amount = show_amounts(discount_type,qty,price,discount);
+                            amount = show_amounts(discount_type,qty,price,discount);
+                            vats = vat(amount);
+                            vat_per_item = vats / qty;
 
                             if(vat_number == ""){
                                 tax_rate="Tax";
                                 attr_tax_rate=1;
-                                unit_price = unit_prices(price);
-                                amount_with_tax = show_amount_with_tax(discount_type,qty,unit_price,discount);
+                                price_show = parseFloat(price) + parseFloat(vat_per_item);
+                                amount_show = show_amount_old(discount_type,qty,price_show,discount);
                             }else{
                                 tax_rate="No Tax";
                                 attr_tax_rate=0;
                             }
 
-                            tr="<tr><td class='customer_branch' data-customer_branch_id='"+quote_product.customer_branch_id+"'>"+quote_product.customer_branch_name+"</td><td class='stock_product_id' data-product_id='"+quote_product.stock_product_id+"'>"+quote_product.product_name+"</td><td class='description'>"+quote_product.description+"</td><td class='qty'>"+quote_product.qty+"</td><td class='price' data-unit_price_old='"+price+"'>"+parseFloat(vat_number == "" ? unit_price : price).toFixed(4)+"</td><td class='discount'>"+parseFloat(quote_product.discount).toFixed(4)+" "+percent+"</td><td class='chart_account' data-chart_account_id='"+quote_product.bsc_account_charts_id+"'>"+quote_product.chart_account_name+"</td><td class='invoice_tax' data-invoice_tax="+attr_tax_rate+">"+tax_rate+"</td><td class='item_amount' data-amount='"+amount+"'>"+parseFloat(vat_number == "" ? amount_with_tax : amount).toFixed(4)+"</td></tr>";
+                            tr="<tr>"+
+                                    "<td class='customer_branch' data-customer_branch_id='"+quote_product.customer_branch_id+"'>"+quote_product.customer_branch_name+"</td>"+
+                                    "<td class='stock_product_id' data-product_id='"+quote_product.stock_product_id+"'>"+quote_product.product_name+"</td>"+
+                                    "<td class='description'>"+quote_product.description+"</td>"+
+                                    "<td class='qty'>"+quote_product.qty+"</td>"+
+                                    "<td class='price' data-unit_price_old='"+price+"'>"+parseFloat(vat_number == ""  ? price_show : price).toFixed(4)+"</td>"+
+                                    "<td class='discount'>"+parseFloat(quote_product.discount).toFixed(4)+" "+percent+"</td>"+
+                                    "<td class='chart_account' data-chart_account_id='"+quote_product.bsc_account_charts_id+"'>"+quote_product.chart_account_name+"</td>"+
+                                    "<td class='invoice_tax' data-invoice_tax="+attr_tax_rate+">"+tax_rate+"</td>"+
+                                    "<td class='item_amount' data-amount='"+amount+"' data-vat='"+vats+"'>"+parseFloat(vat_number == "" ? amount_show : amount).toFixed(4)+"</td>"+
+                                "</tr>";
                             $("#invoice_table").append(tr);
                         });
                     }
@@ -327,12 +341,14 @@ if (count($bsc_show_customer_branchs) >0) {
     // function show amount
     function show_amounts(discount_type,qty,price,discount)
     {
+        let amount = 0;
+        let discount_price = 0;
         if(discount_type == 'percent'){
-            let discount_price= (qty * price) * discount/100;
-            let amount = (qty * price) - discount_price;
+            discount_price= (qty * price) * discount/100;
+            amount = (qty * price) - discount_price;
             return amount;
         }else{
-            let amount = (price - discount) * qty;
+            amount = (qty * price)  - discount;
             return amount;
         }
     }

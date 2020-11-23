@@ -91,25 +91,29 @@ $(document).ready(function(){
 });
 // show new unit price
 function unit_prices(price){
+    let unit_prices =0;
     if(!isNaN(parseFloat(price))){
-        let unit_prices = (parseFloat(price) * 10)/100 + parseFloat(price);
+        unit_prices = (parseFloat(price) * 10)/100 + parseFloat(price);
         return unit_prices;
     }
 }
 //Total amount after discount
 function show_amount(qty,price,discount){
+    let amount = 0;
     let discount_price = (qty * price) * discount/100;
-    let amount = (qty * price) - discount_price;
+    amount = (qty * price) - discount_price;
     return amount;
 }
  //Show amount with tax
  function show_amount_with_tax(discount_type,qty,unit_price,discount){
+    let amount = 0;
+    let discount_price = 0;
     if(discount_type == 'percent'){
-        let discount_price= (qty * unit_price) * discount/100;
-        let amount = (qty * unit_price) - discount_price;
+        discount_price= (qty * unit_price) * discount/100;
+        amount = (qty * unit_price) - discount_price;
         return amount;
     }else{
-        let amount = (unit_price - discount) * qty;
+        amount = (unit_price - discount) * qty;
         return amount;
     }
  }
@@ -137,9 +141,35 @@ function showTotal(){
 //Calculate Vat Total
 function vatTotal()
 {
-    let total = parseFloat($('#old_total').val());
-    let vat_total= (total * 10)/100;
+    let vat_total = 0;
+    $('.item_amount').each(function(e){
+        if(!isNaN($(this).attr('data-vat'))){
+            vat_total += parseFloat($(this).attr('data-vat'));
+        }
+    });
     document.getElementById('txtVatTotal').innerHTML=vat_total.toFixed(4);
+}
+
+// Vat
+function vat(old_amount){
+    let vat = 0;
+    if(!isNaN(vat)){
+        vat = (old_amount * 10) /100;
+    }
+    return vat;
+}
+// show amount
+function show_amount_old(discount_type,qty,price_show,discount){
+    let discount_price = 0;
+    let amount = 0;
+    if(discount_type == 'percent'){
+        discount_price = (qty * price_show) * discount /100;
+        amount = (qty * price_show) - discount_price;
+        return amount;
+    }else{
+        amount = (qty * price_show) - discount;
+        return amount;
+    }
 }
 // function insert row
 function inSertTable(count){
