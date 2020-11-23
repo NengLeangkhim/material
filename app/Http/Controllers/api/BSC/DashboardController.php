@@ -18,42 +18,85 @@ class DashboardController extends Controller
         $from_date_this_month = date('Y-m-d 00:00:00', strtotime(date('Y-m-1')));
         $to_date_this_month = date('Y-m-d H:i:s');
 
+        // total revenue
         $q_total_revenue_this_month = $this->sum_total_dr_cr_by_acc_type('10,11',$from_date_this_month,$to_date_this_month);
         $q_total_revenue_all = $this->sum_total_dr_cr_by_acc_type('10,11');
         
+        // total expense
         $q_total_expense_this_month = $this->sum_total_dr_cr_by_acc_type('12,13',$from_date_this_month,$to_date_this_month);
         $q_total_expense_all = $this->sum_total_dr_cr_by_acc_type('12,13');
 
-        $total_revenue_debit_this_month = 0;
-        $total_revenue_credit_this_month = 0;
-        $total_revenue_debit_all = 0;
-        $total_revenue_credit_all = 0;
-        $total_expense_debit_this_month = 0;
-        $total_expense_credit_this_month = 0;
-        $total_expense_debit_all = 0;
-        $total_expense_credit_all = 0;
+        // total account receivable
+        $q_total_receivable_this_month = $this->sum_total_dr_cr_by_acc_type('14',$from_date_this_month,$to_date_this_month);
+        $q_total_receivable_all = $this->sum_total_dr_cr_by_acc_type('14');
+        
+        // total account payable
+        $q_total_payable_this_month = $this->sum_total_dr_cr_by_acc_type('14',$from_date_this_month,$to_date_this_month);
+        $q_total_payable_all = $this->sum_total_dr_cr_by_acc_type('14');
+
+        $total_revenue_debit_this_month = 0; $total_revenue_credit_this_month = 0;
+        $total_revenue_debit_all = 0; $total_revenue_credit_all = 0;
+        $total_expense_debit_this_month = 0; $total_expense_credit_this_month = 0;
+        $total_expense_debit_all = 0; $total_expense_credit_all = 0;
+        $total_receivable_debit_this_month = 0; $total_receivable_credit_this_month = 0;
+        $total_receivable_debit_all = 0; $total_receivable_credit_all = 0;
+        $total_payable_debit_this_month = 0; $total_payable_credit_this_month = 0;
+        $total_payable_debit_all = 0; $total_payable_credit_all = 0;
+        
+        // total dr cr revenue this month
         if(count($q_total_revenue_this_month) > 0){
             foreach ($q_total_revenue_this_month as $key => $t_revenue_this_m) {
                 $total_revenue_debit_this_month += $t_revenue_this_m->total_debit;
                 $total_revenue_credit_this_month += $t_revenue_this_m->total_credit;
             }
         }
+        // total dr cr revenue all
         if(count($q_total_revenue_all) > 0){
             foreach ($q_total_revenue_all as $key => $t_revenue_this_m) {
                 $total_revenue_debit_all += $t_revenue_this_m->total_debit;
                 $total_revenue_credit_all += $t_revenue_this_m->total_credit;
             }
         }
+        // total dr cr expense this month
         if(count($q_total_expense_this_month) > 0){
             foreach ($q_total_expense_this_month as $key => $t_expense_this_m) {
                 $total_expense_debit_this_month += $t_expense_this_m->total_debit;
                 $total_expense_credit_this_month += $t_expense_this_m->total_credit;
             }
         }
+        // total dr cr expense all
         if(count($q_total_expense_all) > 0){
             foreach ($q_total_expense_all as $key => $t_expense_this_m) {
                 $total_expense_debit_all += $t_expense_this_m->total_debit;
                 $total_expense_credit_all += $t_expense_this_m->total_credit;
+            }
+        }
+        // total dr cr account receivable this month
+        if(count($q_total_receivable_this_month) > 0){
+            foreach ($q_total_receivable_this_month as $key => $t_receivable_this_m) {
+                $total_receivable_debit_this_month += $t_receivable_this_m->total_debit;
+                $total_receivable_credit_this_month += $t_receivable_this_m->total_credit;
+            }
+        }
+        // total dr cr account receivable all
+        if(count($q_total_receivable_all) > 0){
+            foreach ($q_total_receivable_all as $key => $t_receivable_this_m) {
+                $total_receivable_debit_all += $t_receivable_this_m->total_debit;
+                $total_receivable_credit_all += $t_receivable_this_m->total_credit;
+            }
+        }
+        // total dr cr account payable this month
+        if(count($q_total_payable_this_month) > 0){
+            foreach ($q_total_payable_this_month as $key => $t_payable_this_m) {
+                $total_payable_debit_this_month += $t_payable_this_m->total_debit;
+                $total_payable_credit_this_month += $t_payable_this_m->total_credit;
+            }
+        }
+        // total dr cr account payable all
+        if(count($q_total_payable_all) > 0){
+            foreach ($q_total_payable_all as $key => $t_payable_this_m) {
+                $total_payable_debit_all += $t_payable_this_m->total_debit;
+                $total_payable_credit_all += $t_payable_this_m->total_credit;
             }
         }
         
@@ -65,7 +108,15 @@ class DashboardController extends Controller
             'total_expense_debit_this_month' => $total_expense_debit_this_month,
             'total_expense_credit_this_month' => $total_expense_credit_this_month,
             'total_expense_debit_all' => $total_expense_debit_all,
-            'total_expense_credit_all' => $total_expense_credit_all
+            'total_expense_credit_all' => $total_expense_credit_all,
+            'total_receivable_debit_this_month' => $total_receivable_debit_this_month,
+            'total_receivable_credit_this_month' => $total_receivable_credit_this_month,
+            'total_receivable_debit_all' => $total_receivable_debit_all,
+            'total_receivable_credit_all' => $total_receivable_credit_all,
+            'total_payable_debit_this_month' => $total_payable_debit_this_month,
+            'total_payable_credit_this_month' => $total_payable_credit_this_month,
+            'total_payable_debit_all' => $total_payable_debit_all,
+            'total_payable_credit_all' => $total_payable_credit_all
         ];
 
         return $this->sendResponse($arr_dashboard,'Dashboard retrieve successfully');
