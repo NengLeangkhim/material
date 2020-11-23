@@ -78,7 +78,6 @@ class QuoteController extends Controller
                 }
             }
             return view('crm/quote/qouteShowDetail', compact('listQuoteDetail','getQuoteBranch'));
-            // return view('crm/quote/qouteShowDetail');
         }
     }
     // function to add new quote data
