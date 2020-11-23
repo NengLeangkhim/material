@@ -160,25 +160,27 @@ class Crmlead extends Model
     $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey)
     {
 
-        if($lead_id!=='null')
-        {
 
-            return CrmLead::addbranchinlead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
-             $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
-             $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-             $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
+            if($lead_id!=='null')
+            {
+                // dd('fkcccs');
+                return CrmLead::addbranchinlead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
+                 $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
+                 $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+                 $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
 
 
-        }
-        else
-        {
+            }
+            else
+            {
+                // dd('fkkks');
+                return Crmlead::addlead($con_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
+                $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
+                $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+                $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
 
-            return Crmlead::addlead($con_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
-            $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
-            $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-            $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
+            }
 
-        }
     }
     // add lead
     public static function addlead($con_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
@@ -187,7 +189,9 @@ class Crmlead extends Model
     $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey){
 
         if(isset($company_en)){
-                try{
+            // DB::beginTransaction();
+                try {
+
                     // insert into table crm_lead
                     $result= DB::select('SELECT "public".insert_crm_lead(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                         array(
@@ -204,27 +208,30 @@ class Crmlead extends Model
                             $lead_industry,
                             $current_speed_isp,
                             $employee_count,
-                            $current_speed,
+                            $current_speed."",
                             $current_price,
                             $vat_number,
                             )
 
                         );
-
+// dd($result);
                         $lead_id=$result[0]->insert_crm_lead;
 
                         //insert Into crm_lead_address
                         $address=Crmlead::insertaddress ($lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode,$user_create);
                         $address_id=$address[0]->insert_crm_lead_address;
 
+
                         //insert into crm_lead_branch
                         $branch=CrmLead::insertbranch ($lead_id,$company_en,$company_kh,$primary_email,$address_id,$user_create,$prioroty);
                         $branch_id=$branch[0]->insert_crm_lead_branch;
+
 
                         //insert into crm_lead_assign
                         CrmLead::insertassign ($branch_id,$assig_to,$user_create);
 
                         //insert into crm_lead_comtact
+                        $contact_id=null;
                         if($con_id!=='null')
                         {
                                 $contact_id=$con_id;
@@ -243,10 +250,11 @@ class Crmlead extends Model
                         CrmLead::insertleaditems($branch_id,$service,$address_id,$user_create);
 
                         //insert into crm_lead_detail
-                        CrmLead::insertleaddetail($branch_id,$lead_status,$comment,$user_create);
+                         CrmLead::insertleaddetail($branch_id,$lead_status,$comment,$user_create);
 
                          //insert into table crm_survey
                         // CrmLead::insertsurey($branch_id,$user_create);
+                        // dd($test);
                         if($checksurvey!=='null'){
                                 // var_dump("No");
                                 CrmLead::insertsurey($branch_id,$user_create);
@@ -260,9 +268,8 @@ class Crmlead extends Model
                         // return json_encode(["result"=>$address_id,$lead_id,$branch_id,$contact_id]);
 
 
-                }
-                catch(Exception $e)
-                {
+                } catch(Exception $e){
+                    // DB::rollback();
                     return json_encode(["insert"=>"fail insert_lead","result"=> $e->getMessage()]);
                 }
 
@@ -281,7 +288,8 @@ class Crmlead extends Model
 
         // return "df";
         if(isset($company_en)){
-                try{
+            // DB::beginTransaction();
+                try {
                      //insert Into crm_lead_address
                      $address=Crmlead::insertaddress ($lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode,$user_create);
                      $address_id=$address[0]->insert_crm_lead_address;
@@ -329,6 +337,7 @@ class Crmlead extends Model
                 }
                 catch(Exception $e)
                 {
+                    // DB::rollback();
                     return json_encode(["insert"=>"fail insert lead","result"=> $e->getMessage()]);
                 }
             }
