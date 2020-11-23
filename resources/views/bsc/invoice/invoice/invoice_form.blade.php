@@ -199,7 +199,7 @@ if (count($bsc_show_customer_branchs) >0) {
                                         </div>
                                         <div class="col-md-4">
                                             <div class="row" id="display_none">
-                                                <input type="text" id="old_total">
+                                                <input type="hidden" id="old_total">
                                                 <div class="col-sm-6 text_right">
                                                     <label for="" id="total_label">Total :</label>
                                                 </div>
@@ -298,7 +298,7 @@ if (count($bsc_show_customer_branchs) >0) {
                             if(vat_number == ""){
                                 tax_rate="Tax";
                                 attr_tax_rate=1;
-                                price_show = parseFloat(price) + parseFloat(vat_per_item);
+                                price_show = newUnitPrice(discount_type,price,vat_per_item);
                                 amount_show = show_amount_old(discount_type,qty,price_show,discount);
                             }else{
                                 tax_rate="No Tax";

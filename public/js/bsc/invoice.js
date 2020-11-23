@@ -171,6 +171,19 @@ function show_amount_old(discount_type,qty,price_show,discount){
         return amount;
     }
 }
+//show new unit price
+function newUnitPrice(discount_type,price,vat_per_item){
+    let new_price = 0;
+    let vat_price = 0;
+    if(discount_type == 'percent'){
+        vat_price = (price * 10)/100;
+        new_price =parseFloat(price) + parseFloat(vat_price);
+        return new_price;
+    }else{
+        new_price = parseFloat(price) + parseFloat(vat_per_item);
+        return new_price;
+    }
+}
 // function insert row
 function inSertTable(count){
     var tr = '';
