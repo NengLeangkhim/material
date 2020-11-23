@@ -23,24 +23,24 @@
         $(document).on('click','#btnAddRowQuoteItem', function(event, issetBranId){
 
             var branId = $(this).attr("data-id");
-            // console.log('this is add btn'+branId);
-            if(branId == 'quoteBranchEdit'){
+            var branId2 = branId;
+            // console.log('check branch in funct add='+branId);
+            // check to assign new value to branId
+            if(typeof(issetBranId) != 'undefined'){
+                branId = issetBranId;
+            }
+
+            if(branId2 == 'quoteBranchEdit'){
                 branId = '_new';
                 var numRow = $('#add_row_tablequoteItem').attr("data-id");
                 if(i == 0){   // check if i = 0 assign i = count row of quote branch item to get update new row add item
                     i = parseInt(i + numRow);
                     j = parseInt(j + numRow);
                 }
-
-            }
-
-            // check to assign new value to branId
-            if(typeof(issetBranId) != 'undefined'){
-                branId = issetBranId;
             }
 
             var tblRow =
-                '<tr id="'+i+'" class="tr-quote-row row-quote-item" data-id="row_'+i+'">'  +
+                '<tr id="'+i+'" class="tr-quote-row row-quote-item" data-id="row_'+i+'" data-code="'+branId+'">'  +
                     '<td class="">' +
                         '<div class="form-group">' +
                             '<div class="row pb-2">' +
@@ -98,26 +98,34 @@
                             '<span>Total After Discount: </span>'+
                         '</div>' +
                         '<div class="btn-list-item" style="color:red; margin-left: 7px; margin-top:15px;">' +
+                            '<span id="vatLabelQuote'+i+'">Vat Include (0%)</span>'+
+                        '</div>' +
+                        '<div class="btn-list-item" style="color:red; margin-left: 7px; margin-top:15px;">' +
                             '<span>Net Price: </span>'+
                         '</div>' +
+
                     '</td>' +
                     '<td class="td-item-quote ">' +
                         '<div id="quote-sub-total_'+i+'" class="td-quote-total">0</div>' +
                         '<div id="quote-sub-discount_'+i+'" class="td-quote-total">0</div>' +
                         '<div id="quote-after-sub-disc_'+i+'" class="td-quote-total">0</div>' +
+                        '<div id="quote-addVat_'+i+'" style="color:red;"class="td-quote-total">0</div>' +
                         '<div id="quote-netPrice_'+i+'" style="color:red;"class="td-quote-total">0</div>' +
                     '</td>' +
                     '<td style="width:auto;" class="fieldBtnRemove" id="fieldBtnRemove_'+i+'" >' +
-                        '<button style="width: auto;" class="btnRemoveRow btn btn-denger" id="'+i+'" ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>' +
+                        '<button style="width: auto;" class="btnRemoveRow btn btn-denger" id="'+i+'" data-code="'+branId+'" ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>' +
                     '</td>' +
                 '</tr>';
                 i++;
                 j++;
                 clearTrashButton(j,i); //call function clear trash icon
+                // console.log();
             if(branId == '_new'){
                 $('#add_row_tablequoteItem').append(tblRow);
+                // console.log('row was apend in func add no branch='+branId);
             }else{
                 $('#add_row_tablequoteItem'+branId+'').append(tblRow);
+                // console.log('row was apend in func add with branch='+branId);
             }
         });
 
@@ -170,20 +178,42 @@
                     // console.log(sumTotal);
                 }
             }
-            // getSumTotal = sumTotal;
-            var getTaxation =  (sumTotal * 0.1);  // add tax 10% of total product
-            getSumTotal = (sumTotal + getTaxation);
-            $("#getTaxation").text(getTaxation.toFixed(4));
+
             $("#sumTotal").text(sumTotal.toFixed(4));
-            $("#grandTotal").text(getSumTotal.toFixed(4));
+            var branId = $(this).data("code");
+            if(typeof(branId) == 'undefined' || branId == '_new'){
+                branId = '';
+            }
+            var vatVal = $('#vatNumber'+branId+'').val();
+            if(typeof(vatVal) == 'undefined'){
+                vatVal = '';
+            }
+            // var vatVal = $('#vatNumber'+branId+'').val();
+            // console.log('vatval remove row ='+vatVal+'--bran id='+branId);
+            checkVatValue(vatVal,sumTotal);
 
         });
 
 
 
-        // $(document).on('click', '.btnRemoveRow', function() {
-        //     alert('hellodsfd');
-        // });
+        function checkVatValue(vat,getsumtotal){
+            var getTax = 0;
+            var grandTotal = 0;
+            // console.log('vat in function='+vat);
+            if(vat != ''){  // exclude tax
+                // console.log('function check vat, have val');
+                getTax = (getsumtotal * 0.1);
+                grandTotal = (getsumtotal + getTax);
+                $('#labelTaxQuote').text('Vat Exclude (10%)');
+                $('#getTaxation').text(getTax.toFixed(4));
+                $("#grandTotal").text(grandTotal.toFixed(4));
+            }else{ //include tax
+                // console.log('function check vat, null val');
+                $('#labelTaxQuote').text('Vat Exclude (0%)');
+                $('#getTaxation').text(getTax.toFixed(4));
+                $("#grandTotal").text(getsumtotal.toFixed(4));
+            }
+        }
 
 
 
@@ -295,6 +325,24 @@
                 val_after_dis = subTotal - get_val;
                 netPrice = val_after_dis;
 
+
+                var branId = $(this).data("code");
+                if(typeof(branId) == 'undefined' || branId == '_new'){
+                    branId = '';
+                }
+                var vatVal = $('#vatNumber'+branId+'').val();
+                // console.log('xx vatVal='+vatVal);
+                if(typeof(vatVal) == 'undefined' || vatVal == ''){
+                    vatVal = '';  // this mean vat need to include tax to unit product
+                    $('#vatLabelQuote'+row_id+'').text('Vat Include (10%)');
+                    var vat = (val_after_dis * 0.1);
+                    netPrice = vat + val_after_dis;
+                    $('#quote-addVat_'+row_id+'').text(vat.toFixed(4));
+                    // console.log('net price + vat='+netPrice+'--vat='+vat);
+                }
+                // console.log('vatval keyup ='+vatVal+'--bran id='+branId);
+
+
                 //show element value by id
                 $("div #quote-sub-discount_"+row_id+"").text(get_val.toFixed(4));
                 $("div #quote-after-sub-disc_"+row_id+"").text(val_after_dis.toFixed(4));
@@ -304,7 +352,6 @@
                 if(i == 0){
                     i = $('#add_row_tablequoteItem').data('id');
                     j = parseInt(j + i);
-                    // console.log('keyup i='+i+'--j='+j);
                 }
                 for(var x=0; x<=i; x++){
 
@@ -333,18 +380,10 @@
                     }
 
                 }
-
-                var getTaxation =  (sumTotal * 0.1);  // add tax 10% of total product
-                granTotal = (sumTotal + getTaxation);
-                $("#getTaxation").text(getTaxation.toFixed(4));
+                checkVatValue(vatVal,sumTotal);
                 $("#sumTotal").text(sumTotal.toFixed(4));
-                $("#grandTotal").text(granTotal.toFixed(4));
-
-
+                generateGrandTotal(vatVal);
             });
-
-            generateGrandTotal();
-
         });
 
 
@@ -366,6 +405,9 @@
                         }
 
                         var branId_ = $(this).attr("data-id");
+                        if(branId_ == '_new'){ // check if new name go to get branch value
+                            branId_ = $('#getBranchIdEdit').val(); //exchange value to branch id
+                        }
                         var branId = "branId="+branId_;
                         // console.log('add prd branId='+branId);
 
@@ -412,6 +454,9 @@
             }
 
             var branId_ = $(this).attr("data-id");
+            if(branId_ == '_new'){ // check if new name go to get branch value
+                branId_ = $('#getBranchIdEdit').val(); //exchange value to branch id
+            }
             var branId = "branId="+branId_;
 
             var row_id = $(this).attr("id");
@@ -468,6 +513,16 @@
                         var stockMessage = '';
                         var prdInStock = '';
                         selectval.forEach(prdVal => {
+
+                            var vatNumber = $('#vatNumber'+branId+'').val();
+                            // console.log('vat1 value='+vatNumber+'--branid='+branId);
+                            if(vatNumber == '' || typeof vatNumber === 'undefined'){
+                                $('#valueAddTax').text('No');
+                                // console.log('vat1 No');
+                            }else{
+                                $('#valueAddTax').text('Yes');
+                                // console.log('vat1 Yes');
+                            }
                             // var prdId = prdVal; // get id of product
                             var itemType = $.trim($("#showItemType_"+btnId+"").val());
                             var prdName = $.trim($(".itemName_"+prdVal+"").text());
@@ -501,7 +556,7 @@
                                     }
                                 }else{
                                     //show item in row quote item with multi select
-                                    $("#btnAddRowQuoteItem" ).trigger( "click", branId);
+                                    $("#btnAddRowQuoteItem").trigger( "click", branId);
                                     $("#txtPrdId_"+(i-1)+"").val(prdVal);
                                     $("#product_name"+(i-1)+"").val(prdName);
                                     $("#txtDescription_"+(i-1)+"").val(prdDescription);
@@ -518,14 +573,14 @@
                                 }
                                 num += 1;
                                 $(".row-quote-item").keyup();
-
                         });
-                        // $(".row-quote-item").keyup();
+
                     }else{
                         console.log("No items chosen!");
                     }
-                    // $(".row-quote-item").keyup();
-                    //hide modal when click button select item
+
+
+
                     $('#listQuoteItem').modal('hide');
 
         });
@@ -549,32 +604,32 @@
 
 
 
-        //function get textbox as percent or price for select item discount type
-        $('.allItemDiscount').on('change ', function(e) {
-            var textBoxType = "";
-            var select_val = $("#allItemDiscount").val();
+        // //function get textbox as percent or price for select item discount type
+        // $('.allItemDiscount').on('change ', function(e) {
+        //     var textBoxType = "";
+        //     var select_val = $("#allItemDiscount").val();
 
-                if(select_val == 1){
-                    $('#itemDiscountPrice').remove();
-                    textBoxType = '<input type="text"  style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="itemDiscountPercent" value="0" placeholder="0.0%" required>' ;
-                    $('#allDiscount').append(textBoxType);
-                }
-                if(select_val == 2){
-                    $('#itemDiscountPercent').remove();
-                    textBoxType = '<input type="text"  style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPrice[]" id="itemDiscountPrice" value="0" placeholder="0.0$" required>' ;
-                    $('#allDiscount').append(textBoxType);
-                }
-                generateGrandTotal();
+        //         if(select_val == 1){
+        //             $('#itemDiscountPrice').remove();
+        //             textBoxType = '<input type="text"  style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPercent[]" id="itemDiscountPercent" value="0" placeholder="0.0%" required>' ;
+        //             $('#allDiscount').append(textBoxType);
+        //         }
+        //         if(select_val == 2){
+        //             $('#itemDiscountPercent').remove();
+        //             textBoxType = '<input type="text"  style="width:40%;" class="txtbox-quote valid-numeric-float" name="itemDiscountPrice[]" id="itemDiscountPrice" value="0" placeholder="0.0$" required>' ;
+        //             $('#allDiscount').append(textBoxType);
+        //         }
+        //         generateGrandTotal();
 
 
-        });
+        // });
 
 
 
 
 
         //function getnerate grand total after user click manu discount
-        function generateGrandTotal(){
+        function generateGrandTotal(vat){
 
             var totalAfterDis2 = 0;
             var grandTotal2 = 0;
@@ -592,11 +647,12 @@
             $("#totalDiscount").text(totalAfterDis2.toFixed(4));
             grandTotal2 = sumTotal2 - totalAfterDis2;
 
-            var getTaxation =  (sumTotal2 * 0.1);  // add tax 10% of total product
-            grandTotal2 += getTaxation;
-            granTotal = (sumTotal + getTaxation);
-            $("#getTaxation").text(getTaxation.toFixed(4));
-            $("#grandTotal").text(grandTotal2.toFixed(4));
+            // var getTaxation =  (sumTotal2 * 0.1);  // add tax 10% of total product
+            // grandTotal2 += getTaxation;
+            // $("#getTaxation").text(getTaxation.toFixed(4));
+            // $("#grandTotal").text(grandTotal2.toFixed(4));
+            // checkVatValue(vat,sumTotal2);
+
         }
 
 

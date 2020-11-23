@@ -29,6 +29,7 @@
                                     <th>Khmer Name</th>
                                     <th>English Name</th>
                                     <th>Lead Number</th>
+                                    <th>VAT Type</th>
                                     <th>Email</th>
                                 </tr>
                             </thead>
@@ -43,6 +44,7 @@
                                                 <td class="border">
                                                     {{$key2+1}}
                                                     <input type="hidden" name="leadQuote" id="leadQuote" value="{{$val2->lead_id}}">
+                                                    <input type="hidden" id="leadAddressId{{$val2->lead_id}}" value="{{$val2->lead_addr_id}}">
                                                 </td>
                                                 <td class="border">
                                                     <div class="leadKhName" id="leadKhName_{{$val2->lead_id}}">
@@ -58,6 +60,15 @@
                                                 <td class="border">
                                                     <div class="leadNumber">
                                                         {{$val2->lead_number}}
+                                                    </div>
+                                                </td>
+                                                <td class="border">
+                                                    <div class="vatLead">
+                                                        @if($val2->vat_number != '')
+                                                            <span>Exclude</span>
+                                                        @else
+                                                            <span>Include</span>
+                                                        @endif
                                                     </div>
                                                 </td>
                                                 <td class="border">

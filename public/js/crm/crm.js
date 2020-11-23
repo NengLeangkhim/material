@@ -915,6 +915,9 @@ function Crm_delete(id,route,goto,alert) {
                   var lead_name = $.trim($('#'+getName+'_'+lead_id+'').text());
                   $('#'+fieldID+'').val(lead_id);
                   $('#'+fieldName+'').val(lead_name);
+                  var leadAddressId = $('#leadAddressId'+lead_id+'').val();
+                  $('#crm_address_id').val(leadAddressId);
+
                   $('#'+modal_form+'').modal('hide');
               }else{
                     $("#"+btnId+"").notify(
@@ -973,7 +976,6 @@ function Crm_delete(id,route,goto,alert) {
         $row_content =
 
         '<div id="row_content'+i+'" class="form-group border border-secondary rounded pt-3 p-1  row_content">'+
-                '<input type="hidden" id="vatNumber'+branId+'" required readonly>'+
                 '<div class="col-12" align="right">' +
                     '<button type="button" id="'+i+'" class="close btnCloseRowContent" style="color:blue;" aria-label="Close">'+
                         '<span aria-hidden="true">&times;</span>'+
@@ -986,7 +988,9 @@ function Crm_delete(id,route,goto,alert) {
                             '</div>'+
                             '<input type="text" class="form-control" id="branch'+branId+'"  name="branch"   placeholder="" required readonly>'+
                             '<input type="hidden" id="lead_branch'+branId+'"  name="lead_branch[]"  required readonly>'+
-                    ' </div>'+
+                        ' </div>'+
+                        // '<div id="showVatInfo_'+branId+'" style="color:blue;" class="pl-2 pt-1 font-weight-bold font-size-14"></div>'+
+                        '<input type="hidden" id="vatNumber'+branId+'" readonly>'+
                 '</div>'+
 
                 '<div class="form-group col-11">'+
@@ -995,9 +999,10 @@ function Crm_delete(id,route,goto,alert) {
                             '<span class="font-weight-bold input-group-text">Address:</span>'+
                         '</div>'+
                         '<input type="text" class="form-control" id="branchAddress'+branId+'"  name="branchAddress"   placeholder="" required readonly>'+
-                        '<input type="hidden" id="branchAddress_id'+branId+'"  name="branchAddress_id[]"  required readonly>'+
+                        '<input type="hidden" id="'+branId+'"  name=""  required readonly>'+
                     '</div>'+
                 '</div>'+
+
 
                 '<div class="col-12">'+
                         '<table class="table table-bordered ">'+
@@ -1092,7 +1097,6 @@ function Crm_delete(id,route,goto,alert) {
                                     //get value from textbox
                                     var branchNameEn = $.trim($('#brdcompanyEn_'+branch_id+'').val());
                                     var addressName = $.trim($('#brdAddressNameEn_'+branch_id+'').val());
-                                    var addressId = $.trim($('#branAddressId_'+branch_id+'').val());
                                     var vatNumber = $.trim($('#branVatNumber_'+branch_id+'').val());
 
                                     //function to add row content for add product branch
@@ -1104,7 +1108,15 @@ function Crm_delete(id,route,goto,alert) {
                                     $('#branch'+branch_id+'').val(branchNameEn);
                                     $('#lead_branch'+branch_id+'').val(branch_id);
                                     $('#branchAddress'+branch_id+'').val(addressName);
-                                    $('#branchAddress_id'+branch_id+'').val(addressId);
+                                    // console.log('vat num from select row='+vatNumber);
+                                    if(vatNumber == ''){
+                                        $('#valueAddTax').text('No');
+                                        // console.log('Vat no');
+                                    }else{
+                                        $('#valueAddTax').text('Yes');
+                                        // console.log('Vat yes');
+                                    }
+                                    // console.log('vat_number='+vatNumber);
                                     $('#vatNumber'+branch_id+'').val(vatNumber);
 
                                     //close modal
@@ -1160,7 +1172,7 @@ function Crm_delete(id,route,goto,alert) {
     //                             '</table>'+
     //                         '</td>'+
     //                     '</tr> ';
-    //     $('grandTotalBody').append(content);
+    //     $('#grandTotalBody').append(content);
     // }
 
 
