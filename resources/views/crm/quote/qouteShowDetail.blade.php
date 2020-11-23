@@ -15,7 +15,12 @@
      </div>
 </section>
 <section class="content">
-
+    @if(!isset($listQuoteDetail))
+        <div class="row-12">
+            <div class="col-12 text-center font-weight-bold"><h3> No Data Detail !</h3></div>
+        </div>
+        @php exit; @endphp
+    @endif
     <div class="container-fluid">
       <!-- COLOR PALETTE -->
         <div class="card card-default color-palette-box card-header">
@@ -75,6 +80,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
+                        @if(isset($listQuoteDetail))
                         <dl class="row">
                             <dt class="col-sm-4 dt" >Subject</dt>
                                 <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->subject}}</dd>
@@ -124,6 +130,9 @@
                                     @endif
                                 </dd>
                         </dl>
+                        @else
+                            <div class="row text-center">No Data Detail !</div>
+                        @endif
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -187,9 +196,11 @@
 
                         {{-- table row for show item unit --}}
                         <dl class="row table-responsive">
-                                    @php $sumTotal = 0 @endphp
+
                                     @if(isset($getQuoteBranch))
+                                        @php $granTotal = 0 @endphp
                                         @foreach ($getQuoteBranch as $k=>$val)
+                                                @php $sumTotal = 0 @endphp
                                                 <div class="">
                                                         <div class="card-header">
                                                             <div class="input-group">
@@ -288,10 +299,46 @@
                                                                                                     </div>
                                                                                             </div>
                                                                                             <div class="row-12 pt-1 btn-list-item font-size-14">
+                                                                                                <?php
+                                                                                                    // function to calculate price discount
+                                                                                                    $unitTotal = ($val2->qty * $val2->price);
+                                                                                                    if($dis == "%"){
+                                                                                                        $val =  ($unitTotal * $val2->discount) / 100;
+                                                                                                        $afterDis = ($unitTotal - $val);
+                                                                                                        // $sumTotal += $afterDis;
+                                                                                                    }else{
+                                                                                                        $afterDis =  $unitTotal - $val2->discount;
+                                                                                                        $val = $val2->discount;
+                                                                                                        // $sumTotal += $afterDis;
+                                                                                                    }
+
+                                                                                                    // $sumTotal;
+                                                                                                ?>
                                                                                                 <div class="font-weight-normal">
                                                                                                     <div>
                                                                                                         Total After Discount:
                                                                                                     </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="row-12 pt-1 btn-list-item font-size-14">
+                                                                                                @if(isset($getQuoteBranch[0]['branch_info']))
+                                                                                                    @if($getQuoteBranch[0]['branch_info']->vat_number == '')
+                                                                                                        @php
+                                                                                                            $vatDis = '10%';
+                                                                                                            $vatIncl = ($afterDis * 0.1);
+                                                                                                            $sumTotal = ($afterDis * 1.1);
+                                                                                                        @endphp
+                                                                                                    @else
+                                                                                                        @php
+                                                                                                            $vatDis = '0%';
+                                                                                                            $vatIncl = 0;
+                                                                                                            $sumTotal = $afterDis;
+                                                                                                        @endphp
+                                                                                                    @endif
+                                                                                                @endif
+                                                                                                <div class="font-weight-normal">
+                                                                                                    <span>VAT Include ({{ $vatDis }})</span>
                                                                                                 </div>
                                                                                             </div>
 
@@ -302,31 +349,18 @@
                                                                                             </div>
                                                                                         </td>
                                                                                         <td class="">
-                                                                                            <?php
-                                                                                                // function to calculate price discount
-                                                                                                $unitTotal = ($val2->qty * $val2->price);
-                                                                                                if($dis == "%"){
-                                                                                                    $val =  ($unitTotal * $val2->discount) / 100;
-                                                                                                    $afterDis = ($unitTotal - $val);
-                                                                                                    $sumTotal += $afterDis;
-                                                                                                }else{
 
-                                                                                                    $afterDis =  $unitTotal - $val2->discount;
-                                                                                                    $val = $val2->discount;
-                                                                                                    $sumTotal += $afterDis;
-                                                                                                }
-                                                                                                // $sumTotal;
-                                                                                            ?>
                                                                                             <div id="quote-sub-total_'+i+'" class="font-size-14 ">{{number_format($unitTotal, 4, '.', '')}}</div>
                                                                                             <div id="quote-sub-discount_'+i+'" class="font-size-14 pt-1">{{number_format($val, 4, '.', '')}}</div>
                                                                                             <div id="quote-after-sub-disc_'+i+'" class="font-size-14 pt-1">{{number_format($afterDis, 4, '.', '')}}</div>
-                                                                                            <div id="quote-netPrice_'+i+'" style="color:red;" class="font-size-14 pt-1 ">{{number_format( $afterDis, 4, '.', '')}}</div>
+                                                                                            <div id="" class="font-size-14 pt-1">{{number_format($vatIncl, 4, '.', '')}}</div>
+                                                                                            <div id="quote-netPrice_'+i+'" style="color:red;" class="font-size-14 pt-1 ">{{number_format($sumTotal, 4, '.', '')}}</div>
                                                                                         </td>
 
                                                                                     </tr>
 
 
-
+                                                                                    @php $granTotal += $sumTotal;   @endphp
                                                                             @endforeach
                                                                         @endif
                                                                 </tbody>
@@ -348,25 +382,18 @@
                             <table class="table table-bordered font-size-14">
                                 <tbody>
                                     @php
-                                        $vat = '';
-                                        $tax = '';
+                                        $vat = 'No';
+                                        $tax = '0%';
                                         $Taxation = 0;
-                                        $granTotal = 0;
+                                        $granTotal2 = $granTotal;
                                     @endphp
                                     @if(isset($getQuoteBranch[0]['branch_info']))
                                         @if($getQuoteBranch[0]['branch_info']->vat_number != '')
                                             @php
                                                 $vat = 'Yes';
                                                 $tax = '10%';
-                                                $Taxation = ($sumTotal * 0.1);
-                                                $granTotal = ($sumTotal + $Taxation);
-                                            @endphp
-                                        @else
-                                            @php
-                                                $vat = 'No';
-                                                $tax = '0%';
-                                                $Taxation = 0;
-                                                $granTotal = $sumTotal;
+                                                $Taxation = ($granTotal * 0.1);
+                                                $granTotal2 = ($granTotal * 1.1);
                                             @endphp
                                         @endif
                                     @endif
@@ -378,7 +405,7 @@
                                         </td>
                                         <td>
                                             <span class="pull-right">
-                                                {{number_format($sumTotal, 4, '.', '')  }} ($)
+                                                {{number_format($granTotal, 4, '.', '')  }} ($)
                                             </span>
                                         </td>
 
@@ -399,7 +426,7 @@
                                     <tr>
                                         <td width="83%">
                                             <div class="pull-right">
-                                                + Tax ({{ $tax }})
+                                                VAT Exclude ({{ $tax }})
                                             </div>
                                         </td>
                                         <td>
@@ -418,7 +445,7 @@
                                         </td>
                                         <td>
                                             <span class="pull-right">
-                                                <b>{{number_format($granTotal, 4, '.', '')  }} ($)</b>
+                                                <b>{{number_format($granTotal2, 4, '.', '')  }} ($)</b>
                                             </span>
                                         </td>
 

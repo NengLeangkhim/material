@@ -142,7 +142,7 @@
                                                     </div>
                                                     <div class="row pt-1 form-inline">
                                                         <div class="col-md-6 col-sm-6 col-6">
-                                                            <select  class="select-itemDiscount btn-list-item mdb-select md-form select-itemDiscount_{{$key}}"  name="select-itemDiscount_{{$key}}" id="{{$key}}"  data-id="_new" required >
+                                                            <select  class="select-itemDiscount btn-list-item mdb-select md-form select-itemDiscount_{{$key}}"  name="select-itemDiscount_{{$key}}" id="{{$key}}" data-id='' required >
                                                                 @if($val->discount_type == 'percent')
                                                                     <option value="1" selected><span> Discount (%)</span> </option>
                                                                     <option value="2" ><span> Discount ($)</span> </option>
@@ -168,6 +168,9 @@
                                                         <span>Total After Discount: </span>
                                                     </div>
                                                     <div class="btn-list-item" style="color:red; margin-left: 7px; margin-top:15px;">
+                                                        <span id="vatLabelQuote{{$key}}">Vat Include (0%)</span>
+                                                    </div>
+                                                    <div class="btn-list-item" style="color:red; margin-left: 7px; margin-top:15px;">
                                                         <span>Net Price: </span>
                                                     </div>
                                                 </td>
@@ -175,6 +178,7 @@
                                                     <div id="quote-sub-total_{{$key}}" class="td-quote-total">0</div>
                                                     <div id="quote-sub-discount_{{$key}}" class="td-quote-total">0</div>
                                                     <div id="quote-after-sub-disc_{{$key}}" class="td-quote-total">0</div>
+                                                    <div id="quote-addVat_{{$key}}" style="color:red;"class="td-quote-total">0</div>
                                                     <div id="quote-netPrice_{{$key}}" style="color:red;"class="td-quote-total">0</div>
 
                                                 </td>

@@ -59,7 +59,7 @@
 
                                                 <td class="border">
                                                     <div >
-                                                        @php
+                                                        {{-- @php
                                                             $prdPrice = 0
                                                         @endphp
                                                         @if($getBranchDetail[0]->vat_number == '')
@@ -71,9 +71,9 @@
                                                             @php
                                                                 $prdPrice = $val2->product_price;
                                                             @endphp
-                                                        @endif
-                                                        {{$prdPrice}}
-                                                        <input type="hidden" class="itemPrice_{{$val2->id}}" value="{{$prdPrice}}" readonly>
+                                                        @endif --}}
+                                                        {{$val2->product_price}}
+                                                        <input type="hidden" class="itemPrice_{{$val2->id}}" value="{{ $val2->product_price }}" readonly>
                                                     </div>
                                                 </td>
 

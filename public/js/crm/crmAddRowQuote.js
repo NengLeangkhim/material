@@ -98,13 +98,18 @@
                             '<span>Total After Discount: </span>'+
                         '</div>' +
                         '<div class="btn-list-item" style="color:red; margin-left: 7px; margin-top:15px;">' +
+                            '<span id="vatLabelQuote'+i+'">Vat Include (0%)</span>'+
+                        '</div>' +
+                        '<div class="btn-list-item" style="color:red; margin-left: 7px; margin-top:15px;">' +
                             '<span>Net Price: </span>'+
                         '</div>' +
+
                     '</td>' +
                     '<td class="td-item-quote ">' +
                         '<div id="quote-sub-total_'+i+'" class="td-quote-total">0</div>' +
                         '<div id="quote-sub-discount_'+i+'" class="td-quote-total">0</div>' +
                         '<div id="quote-after-sub-disc_'+i+'" class="td-quote-total">0</div>' +
+                        '<div id="quote-addVat_'+i+'" style="color:red;"class="td-quote-total">0</div>' +
                         '<div id="quote-netPrice_'+i+'" style="color:red;"class="td-quote-total">0</div>' +
                     '</td>' +
                     '<td style="width:auto;" class="fieldBtnRemove" id="fieldBtnRemove_'+i+'" >' +
@@ -176,7 +181,14 @@
 
             $("#sumTotal").text(sumTotal.toFixed(4));
             var branId = $(this).data("code");
+            if(typeof(branId) == 'undefined' || branId == '_new'){
+                branId = '';
+            }
             var vatVal = $('#vatNumber'+branId+'').val();
+            if(typeof(vatVal) == 'undefined'){
+                vatVal = '';
+            }
+            // var vatVal = $('#vatNumber'+branId+'').val();
             // console.log('vatval remove row ='+vatVal+'--bran id='+branId);
             checkVatValue(vatVal,sumTotal);
 
@@ -187,17 +199,17 @@
         function checkVatValue(vat,getsumtotal){
             var getTax = 0;
             var grandTotal = 0;
-            console.log('vat in function='+vat);
+            // console.log('vat in function='+vat);
             if(vat != ''){  // exclude tax
-                console.log('function check vat, have val');
+                // console.log('function check vat, have val');
                 getTax = (getsumtotal * 0.1);
                 grandTotal = (getsumtotal + getTax);
-                $('#labelTaxQuote').text('+ Tax (10%)');
+                $('#labelTaxQuote').text('Vat Exclude (10%)');
                 $('#getTaxation').text(getTax.toFixed(4));
                 $("#grandTotal").text(grandTotal.toFixed(4));
             }else{ //include tax
-                console.log('function check vat, null val');
-                $('#labelTaxQuote').text('+ Tax (0%)');
+                // console.log('function check vat, null val');
+                $('#labelTaxQuote').text('Vat Exclude (0%)');
                 $('#getTaxation').text(getTax.toFixed(4));
                 $("#grandTotal").text(getsumtotal.toFixed(4));
             }
@@ -313,6 +325,24 @@
                 val_after_dis = subTotal - get_val;
                 netPrice = val_after_dis;
 
+
+                var branId = $(this).data("code");
+                if(typeof(branId) == 'undefined' || branId == '_new'){
+                    branId = '';
+                }
+                var vatVal = $('#vatNumber'+branId+'').val();
+                // console.log('xx vatVal='+vatVal);
+                if(typeof(vatVal) == 'undefined' || vatVal == ''){
+                    vatVal = '';  // this mean vat need to include tax to unit product
+                    $('#vatLabelQuote'+row_id+'').text('Vat Include (10%)');
+                    var vat = (val_after_dis * 0.1);
+                    netPrice = vat + val_after_dis;
+                    $('#quote-addVat_'+row_id+'').text(vat.toFixed(4));
+                    // console.log('net price + vat='+netPrice+'--vat='+vat);
+                }
+                // console.log('vatval keyup ='+vatVal+'--bran id='+branId);
+
+
                 //show element value by id
                 $("div #quote-sub-discount_"+row_id+"").text(get_val.toFixed(4));
                 $("div #quote-after-sub-disc_"+row_id+"").text(val_after_dis.toFixed(4));
@@ -322,7 +352,6 @@
                 if(i == 0){
                     i = $('#add_row_tablequoteItem').data('id');
                     j = parseInt(j + i);
-                    // console.log('keyup i='+i+'--j='+j);
                 }
                 for(var x=0; x<=i; x++){
 
@@ -351,18 +380,8 @@
                     }
 
                 }
-
-                $("#sumTotal").text(sumTotal.toFixed(4));
-                var branId = $(this).data("code");
-                if(typeof(branId) == 'undefined' ){
-                    branId = '';
-                }
-                var vatVal = $('#vatNumber'+branId+'').val();
-                if(typeof(vatVal) == 'undefined'){
-                    vatVal = '';
-                }
-                console.log('vatval keyup ='+vatVal+'--bran id='+branId);
                 checkVatValue(vatVal,sumTotal);
+                $("#sumTotal").text(sumTotal.toFixed(4));
                 generateGrandTotal(vatVal);
             });
         });
@@ -495,15 +514,14 @@
                         var prdInStock = '';
                         selectval.forEach(prdVal => {
 
-                            var vatNumber = $('#vatNumber').val();
-                            // console.log('vat1 value='+vatNumber);
+                            var vatNumber = $('#vatNumber'+branId+'').val();
+                            // console.log('vat1 value='+vatNumber+'--branid='+branId);
                             if(vatNumber == '' || typeof vatNumber === 'undefined'){
                                 $('#valueAddTax').text('No');
                                 // console.log('vat1 No');
                             }else{
                                 $('#valueAddTax').text('Yes');
                                 // console.log('vat1 Yes');
-
                             }
                             // var prdId = prdVal; // get id of product
                             var itemType = $.trim($("#showItemType_"+btnId+"").val());
