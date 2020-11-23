@@ -31,16 +31,16 @@
                                     <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead">
                                     <select class="form-control select2" name="lead_id" id="lead_id" >
                                     {{-- <option value=''>-- Select Lead  --</option>                                       --}}
-                                    <option value=''>-- Select Lead  --</option>                                      
+                                    <option value=''>-- Select Lead  --</option>
                                     </select>
-                                   
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- left column -->
-                <div class="col-md-12">                   
+                <div class="col-md-12">
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header" style="background:#1fa8e0">
@@ -276,8 +276,8 @@
                                                 </div>
                                                 <select class="form-control select2bs4 "  multiple="multiple" name="service" id="service">
                                                     <option value=''>-- Select Lead Assigened To --</option>
-                                                    
-                                                   
+
+
                                                 </select>
                                                 <span class="invalid-feedback" role="alert" id="serviceError"> {{--span for alert--}}
                                                     <strong></strong>
@@ -321,12 +321,12 @@
                                                                     <span class="input-group-text"><i class="fas fa-industry"></i></span>
                                                                 </div>
                                                                 <select class="form-control " name="prioroty" id="prioroty" >
-                                                                    <option value=''>-- Select  Prioroty --</option>                                                                 
+                                                                    <option value=''>-- Select  Prioroty --</option>
                                                                     <option value='urgent'>Urgent</option>
                                                                     <option value='high'>Hight</option>
                                                                     <option value='medium'>Medium</option>
                                                                     <option value='low'>Low</option>
-                                                                  
+
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -342,7 +342,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>                                        
+                                        </div>
                                         <div class="col-md-6">
                                             <label for="comment">Comment</label>
                                             <div class="input-group">
@@ -369,9 +369,9 @@
                                             <input type="text" hidden value="{{$_SESSION['token']}}" id="getcontact">
                                             <select class="form-control select2" name="contact_id" id="contact_id">
                                                 {{-- <option value='{{$_SESSION['token']}}' >-- Select Contact  --</option>                                       --}}
-                                                <option value=''>-- Select Contact  --</option>                                      
+                                                <option value=''>-- Select Contact  --</option>
                                             </select>
-                                           
+
                                         </div>
                                        </div>
                                     </div>
@@ -440,7 +440,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="row">                                        
+                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -452,12 +452,14 @@
                                                                     <span class="input-group-text"><i class="fas fa-industry"></i></span>
                                                                 </div>
                                                                 <select class="form-control " name="ma_honorifics_id" id="ma_honorifics_id" >
-                                                                    <option value=''>-- Select Contact Honorifics --</option>                                                                 
+                                                                    {{-- <option value=''>-- Select Contact Honorifics --</option> --}}
                                                                     <option value='1'>Mr</option>
                                                                     <option value='2'>Ms</option>
-                                                                  
+
                                                                 </select>
-                                                                <span class="invalid-feedback" role="alert" id="ma_honorifics_idError"> 
+
+
+                                                                <span class="invalid-feedback" role="alert" id="ma_honorifics_idError">
                                                                     <strong></strong>
                                                                 </span>
                                                             </div>
@@ -473,7 +475,7 @@
                                                                     <strong></strong>
                                                                 </span>
                                                             </div>
-                                                        </div> 
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -662,13 +664,13 @@
                                                                 <div class="custom-control custom-checkbox">
                                                                     <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="checksurvey" >
                                                                     <label for="customCheckbox2"  class="custom-control-label">Survey Or Don't Survey</label>
-                                                                </div>                                                                
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>            
-                                            
+                                            </div>
+
                                             <div class="col-md-6">
                                                 <label for="village">Village <b style="color:red">*</b></label>
                                                 <div class="input-group">
@@ -699,13 +701,13 @@
                                         <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
                                     </div>
                                 </div>
-                            </div>                  
+                            </div>
                  </div>
              </div>
             </div>
         </form>
     </section>
- 
+
       </div>
       <script type="text/javascript" src="js/crm/crm.js"></script>
 
@@ -773,5 +775,5 @@
             clearMarkers();
             markers = [];
         }
-        
+
     </script>
