@@ -134,21 +134,23 @@ class AllemployeeController extends Controller
 
 
     // Delete Employee
-    function DeleteEmployee(){
-        return;
+    function DeleteEmployee(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if (perms::check_perm_module('HRM_09010101')) {
-
+            $leave=$request->leave_data;
+            echo $leave[0];
+            // $id=$_GET['id'];
+            // echo $id;
+            // $userid = $_SESSION['userid'];
+            // $em=new Employee();
+            // $em->DeleteEmployee($id,$userid);
         }else{
             $data = 'modal_employee';
             return view('modal_no_perms')->with('modal', $data);
         }
-        $id=$_GET['id'];
-        $userid = $_SESSION['userid'];
-        $em=new Employee();
-        $em->DeleteEmployee($id,$userid);
+        
     }
 
 

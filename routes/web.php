@@ -898,7 +898,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_allemployee', 'hrms\Employee\AllemployeeController@AllEmployee');
         Route::get('hrm_add_edit_employee', 'hrms\Employee\AllemployeeController@AddAndEditEmployee');
         Route::post('hrm_insert_update_employee', 'hrms\Employee\AllemployeeController@InsertUpdateEmployee');
-        Route::get('hrm_delete_employee', 'hrms\Employee\AllemployeeController@DeleteEmployee');
+        Route::post('hrm_delete_employee', 'hrms\Employee\AllemployeeController@DeleteEmployee');
         Route::get('hrm_detail_employee', 'hrms\Employee\AllemployeeController@EmployeeDetail');
         Route::get('hrm_employee_leave', 'hrms\Employee\AllemployeeController@Employee_Leave');
         Route::post('hrms_insert_update_employee','hrms\Employee\AllemployeeController@hrms_insert_update_employee');
@@ -961,6 +961,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
     // Warning & Punishment
        Route::get('hrm_warning_and_punishment','hrms\Employee\WarningAndPunishmentController@warning_and_punishment_list');
        Route::get('hrm_modal_warning_and_punishment','hrms\Employee\WarningAndPunishmentController@modal_warning_and_punishment');
+       Route::post('hrm_insert_update_warning_and_punishment','hrms\Employee\WarningAndPunishmentController@insert_update_warnning_and_punishment');
     // end Warning & Punishment
 // End Employee
 

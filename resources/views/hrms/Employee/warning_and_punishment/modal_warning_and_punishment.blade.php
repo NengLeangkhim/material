@@ -20,43 +20,49 @@
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Type of Warning <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" id="startDate" name="type_of_warning" value="">
+                  <input type="text" class="form-control" id="em_type_of_warning" name="em_type_of_warning" value="" required>
                 </div>
               </div>
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Reason of Warning <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" id="endDate" name="reason_of_warning" value="">
+                  <input type="text" class="form-control" id="em_reason_of_warning" name="em_reason_of_warning" value="" required>
                 </div>
               </div>
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Date <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" id="startDate" name="date_warning" value="">
+                  <input type="date" class="form-control" id="em_date_warning" name="em_date_warning" value="" required>
                 </div>
               </div>
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Warning By <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" id="startDate" name="warning_by" value="">
+                  <select name="em_warning_by" id="em_warning_by" class="form-control" required>
+                    <option value="1">Seng Kimsros</option>
+                  </select>
                 </div>
               </div>
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Edit By <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" id="startDate" name="edit_by" value="">
+                  <select name="em_edit_by" id="em_edit_by" class="form-control" required>
+                    <option value="1">Seng Kimsros</option>
+                  </select>
                 </div>
               </div>
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Approved By <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" id="startDate" name="approved_by" value="">
+                  <select name="em_approved_by" id="em_approved_by" class="form-control" required>
+                    <option value="1">Seng Kimsros</option>
+                  </select>
                 </div>
               </div>
               <div class="col-md-12">
                   <div class="form-group">
                   <label>Description</label>
-                  <textarea name="description" id="" rows="5" class="form-control"></textarea>
+                  <textarea name="em_warning_description" id="em_warning_description" rows="5" class="form-control"></textarea>
                 </div>
               </div>
               <!-- /.col -->
@@ -64,7 +70,7 @@
             <!-- /.row -->
             <div class="col-md-12 text-right">
                 <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                <button class="btn bg-turbo-color" onclick="validation_form_warning_and_punishment()">Save</button>
+                <button class="btn bg-turbo-color" onclick="hrms_insert_update_warning_and_punishment()">Save</button>
             </div>
             </form>
           </div>

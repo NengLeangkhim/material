@@ -245,7 +245,7 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="col-md-12">
+                        <div class="col-md-12 bg-turbo-color" style="padding-top: 5px;padding-left: 5px">
                             <label>Current Address</label>
                         </div>
                         <div><br></div>
@@ -353,7 +353,7 @@
                             </div>
                       </div>
                       <div class="col-md-6">
-                        <div class="col-md-12">
+                        <div class="col-md-12 bg-turbo-color" style="padding-top: 5px;padding-left: 5px">
                             <label>Permanent Address</label>
                         </div>
                         <div><br></div>
@@ -438,7 +438,7 @@
               <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="col-md-12">
+                        <div class="col-md-12 bg-turbo-color" style="padding-top: 5px;padding-left: 5px">
                             <label>Contact Information</label>
                         </div>
                         <div><br></div>
@@ -534,7 +534,7 @@
                             </div>
                       </div>
                       <div class="col-md-6">
-                        <div class="col-md-12">
+                        <div class="col-md-12 bg-turbo-color" style="padding-top: 5px;padding-left: 5px">
                             <label>Relative/Emergency Contact</label>
                         </div>
                         <div><br></div>
@@ -659,7 +659,7 @@
 
 
                 <div><br><br></div>
-                <div class="col-md-12">
+                <div class="col-md-12 bg-turbo-color" style="padding-top: 5px;padding-left: 5px">
                     <label>Education Detail</label>
                 </div>
                 <div class="col-md-12">
@@ -706,7 +706,7 @@
 
 
                 <div><br><br></div>
-                <div class="col-md-12">
+                <div class="col-md-12 bg-turbo-color" style="padding-top: 5px;padding-left: 5px">
                     <label>Experience Detail</label>
                 </div>
                 <div class="col-md-12">
