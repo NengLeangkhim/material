@@ -74,6 +74,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->registerRoute('','web',$bsc.'customer_management.php');
         $this->registerRoute('','web',$bsc.'report_balancesheet.php');
         $this->registerRoute('','web',$bsc.'report_income_statement.php');
+        $this->registerRoute('','web',$bsc.'dashboard.php');
     }
 
     /**
@@ -116,6 +117,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->registerRoute('api','api',$bsc.'purchase.php');
         $this->registerRoute('api','api',$bsc.'customer_management.php');
         $this->registerRoute('api','api',$bsc.'chart_account.php');
+        $this->registerRoute('api','api',$bsc.'dashboard.php');
     }
 
     protected function registerRoute($prefix, $middleware, $path){
