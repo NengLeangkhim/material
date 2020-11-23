@@ -99,6 +99,12 @@ class DashboardController extends Controller
                 $total_payable_credit_all += $t_payable_this_m->total_credit;
             }
         }
+
+        // total account receivable
+        $total_receivable_this_month = $total_receivable_debit_this_month - $total_receivable_credit_this_month;
+        $total_receivable_all = $total_receivable_debit_all - $total_receivable_credit_all;
+        $total_payable_this_month = $total_payable_credit_this_month - $total_payable_debit_this_month;
+        $total_payable_all = $total_payable_credit_all - $total_payable_debit_all;
         
         $arr_dashboard = [
             'total_revenue_debit_this_month' => $total_revenue_debit_this_month,
@@ -109,14 +115,10 @@ class DashboardController extends Controller
             'total_expense_credit_this_month' => $total_expense_credit_this_month,
             'total_expense_debit_all' => $total_expense_debit_all,
             'total_expense_credit_all' => $total_expense_credit_all,
-            'total_receivable_debit_this_month' => $total_receivable_debit_this_month,
-            'total_receivable_credit_this_month' => $total_receivable_credit_this_month,
-            'total_receivable_debit_all' => $total_receivable_debit_all,
-            'total_receivable_credit_all' => $total_receivable_credit_all,
-            'total_payable_debit_this_month' => $total_payable_debit_this_month,
-            'total_payable_credit_this_month' => $total_payable_credit_this_month,
-            'total_payable_debit_all' => $total_payable_debit_all,
-            'total_payable_credit_all' => $total_payable_credit_all
+            'total_receivable_this_month' => $total_receivable_this_month,
+            'total_receivable_all' => $total_receivable_all,
+            'total_payable_this_month' => $total_payable_this_month,
+            'total_payable_all' => $total_payable_all
         ];
 
         return $this->sendResponse($arr_dashboard,'Dashboard retrieve successfully');
