@@ -67,6 +67,7 @@ class InvoicePaymentController extends Controller
 
             if($request->amount_paid > 0){
                 if($request->amount_paid <= $request->old_due_amount){
+                    // save account receivable
                     $sql_invoice_payment ="insert_bsc_payment($request->bsc_invoice_id, $request->grand_total, $request->amount_paid, '$request->date_paid', $request->paid_to_chart_account_id, '$request->reference', $request->due_amount, 't', 'f', $request->create_by, null, $request->paid_to_chart_account_id, 4, $request->amount_paid, 0)";
                     // dd($sql_invoice_payment); exit;
                     // insert_bsc_payment(bsc_invoice_id, total_invoice, amount_paid, date_paid, bsc_account_charts_id, reference, due_amount, inbound, outbound, create_by, description, bsc_account_charts_id_in_journal, bsc_journal_type_id, debit_amount, credit_amount);
@@ -74,6 +75,7 @@ class InvoicePaymentController extends Controller
                     $q_invoice_payment=DB::select("SELECT ".$sql_invoice_payment);
                     $invoice_payment_id = $q_invoice_payment[0]->insert_bsc_payment;
 
+                    // save cash account
                     $sql_journal = "insert_bsc_journal(null, $request->bsc_account_charts_id, 0, $request->amount_paid, $request->create_by, 4)";
                     // insert_bsc_journal(description, bsc_account_charts_id_in_journal, debit_amount, credit_amount, create_by, bsc_journal_type_id)
 
