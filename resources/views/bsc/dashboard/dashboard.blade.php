@@ -32,17 +32,17 @@ Function index_num($v1){
                   <div class=" card card-mini mb-4">
                         <div class="card-body">
                             <h5 class="mb-1" style="font-weight: bold; text-align: center ">
-                              <?php echo 'Income'; ?>
+                              <?php echo 'Revenue'; ?>
                             </h5>
                             <div class="chartjs-wrapper " >
-                                <h3 style="text-align: center; color:#12b9d6"><?php echo "100"; ?> </h3>
+                                <h5 style="text-align: center; color:#12b9d6">{{ number_format($dashboards->total_revenue_debit_this_month,4,".",",") }}</h5>
                             </div>
                             <div class="row" style="text-align: center">
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                     All Total :
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                    1000000
+                                    {{ number_format($dashboards->total_revenue_debit_all,4,".",",") }}
                                 </div>
                             </div>
                         </div>
@@ -56,14 +56,14 @@ Function index_num($v1){
                             <?php echo 'Expense'; ?>
                         </h5>
                         <div class="chartjs-wrapper " >
-                            <h3 style="text-align: center; color:#12b9d6"><?php echo "100"; ?> </h3>
+                            <h5 style="text-align: center; color:#12b9d6">{{number_format($dashboards->total_expense_debit_this_month,4,".",",") }}</h5>
                         </div>
                         <div class="row" style="text-align: center">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                 All Total :
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                1000000
+                                {{ number_format($dashboards->total_expense_debit_all,4,".",",") }}
                             </div>
                         </div>
                     </div>
@@ -77,14 +77,14 @@ Function index_num($v1){
                             <?php echo 'Account Receivable'; ?>
                         </h5>
                         <div class="chartjs-wrapper " >
-                            <h3 style="text-align: center; color:#12b9d6"><?php echo "100"; ?> </h3>
+                            <h5 style="text-align: center; color:#12b9d6">{{ number_format($dashboards->total_receivable_debit_this_month,4,".",",") }}</h5>
                         </div>
                         <div class="row" style="text-align: center">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                 All Total :
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                1000000
+                                {{ number_format($dashboards->total_receivable_debit_all,4,".",",") }}
                             </div>
                         </div>
                     </div>
@@ -98,14 +98,14 @@ Function index_num($v1){
                             <?php echo 'Account Payable'; ?>
                         </h5>
                         <div class="chartjs-wrapper " >
-                            <h3 style="text-align: center; color:#12b9d6"><?php echo "100"; ?> </h3>
+                            <h5 style="text-align: center; color:#12b9d6">{{ number_format($dashboards->total_payable_debit_this_month,4,".",",") }}</h5>
                         </div>
                         <div class="row" style="text-align: center">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                 All Total :
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                1000000
+                                {{ number_format($dashboards->total_payable_debit_all,4,".",",") }}
                             </div>
                         </div>
                     </div>
