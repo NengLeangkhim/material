@@ -390,7 +390,18 @@ class QuoteController extends Controller
             $quoteDetail = json_decode($res->getContent());
             $employee  = ModelCrmQuote::getEmployee();
             $quoteStatus  = ModelCrmQuote::getQuoteStatus();
-            // dd($quoteDetail);
+            // dump($quoteDetail);
+            // $arr = array('x1'=>100,'x2'=>200,'x3'=>222);
+            // $arr2 = [];
+            // $arr2 = array('a1'=>'','a2'=>200,'a3'=>333,'a4'=>$arr);
+            // dump($arr2);
+            // // $arrSize=sizeof($arr2);
+            // if(!empty($arr2)){
+            //     echo 'arr has array';
+            // }else{
+            //     echo 'arr emty array';
+            // }
+
             return view('crm/quote/quoteLeadEdit', compact('quoteDetail','employee','quoteStatus'));
         }
     }

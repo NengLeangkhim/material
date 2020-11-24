@@ -66,9 +66,11 @@
 
                             <dl class="row table-responsive">
                                 <div>
+                                @if(isset($data))
                                     <input type="hidden" id="quote_id" name="quote_id" value="{{ $quoteId }}" readonly>
                                     <input type="hidden" name="quote_branch_id" value="{{ $data['quote_branch_id'] }}" readonly>
                                     <input type="hidden" name="lead_branch_id" value="{{ $data['lead_branch_id'] }}" readonly>
+                                @endif
                                 </div>
                                 <table class="table table-bordered" style="min-width: 850px;">
                                     <thead class="thead-item-list">
@@ -86,112 +88,114 @@
                                     </thead>
                                     <tbody id="add_row_tablequoteItem" class="add_row_tablequoteItem" data-id="{{ count($response3->data) }}">
 
+                                        @if(isset($response3->data))
+                                            @foreach ($response3->data as $key=>$val)
+                                                <input type="hidden" name="quote_detail_id[]" value="{{ $val->id }}" readonly>
+                                                <input type="hidden" id="getBranchIdEdit" value="{{ $getBranchId }}" readonly>
+                                                <input type="hidden" id="vatNumber" value="{{ $getVatNum }}" readonly>
 
-                                        @foreach ($response3->data as $key=>$val)
-                                            <input type="hidden" name="quote_detail_id[]" value="{{ $val->id }}" readonly>
-                                            <input type="hidden" id="getBranchIdEdit" value="{{ $getBranchId }}" readonly>
-                                            <input type="hidden" id="vatNumber" value="{{ $getVatNum }}" readonly>
+                                                <tr id="{{ $key }}" class="tr-quote-row row-quote-item row-quote-item_{{ $key }}" data-id="row_{{ $key }}" >
+                                                    <td style="width: 30%;">
 
-                                            <tr id="{{ $key }}" class="tr-quote-row row-quote-item row-quote-item_{{ $key }}" data-id="row_{{ $key }}" >
-                                                <td style="width: 30%;">
-
-                                                    <input type="hidden" name="quote_detail_id_updated[]" value="{{ $val->id }}" readonly>
-                                                    <div class="form-group">
-                                                        <div class="row pb-2">
-                                                            <div class="col-6">
-                                                                <button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemProduct_{{ $key }}"   name="addItemProduct"  id="{{ $key }}"  data-id="_new" > <span>  Add Product </span></button>
+                                                        <input type="hidden" name="quote_detail_id_updated[]" value="{{ $val->id }}" readonly>
+                                                        <div class="form-group">
+                                                            <div class="row pb-2">
+                                                                <div class="col-6">
+                                                                    <button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemProduct_{{ $key }}"   name="addItemProduct"  id="{{ $key }}"  data-id="_new" > <span>  Add Product </span></button>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemService_{{ $key }}"  name="addItemService"  id="{{ $key }}" data-id="_new" > <span>  Add Service </span></button>
+                                                                </div>
                                                             </div>
-                                                            <div class="col-6">
-                                                                <button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemService_{{ $key }}"  name="addItemService"  id="{{ $key }}" data-id="_new" > <span>  Add Service </span></button>
+                                                            <div class="row form-inline2">
+                                                                <div class="col-12">
+                                                                    <input type="text" class="form-control txtPrdName_{{ $key }}"   name="product_name[]" id="product_name{{ $key }}"  value="{{ $val->stock_product->name }}" required placeholder="Product Name" readonly>
+                                                                    <input type="hidden" name="product[]" id="txtPrdId_{{ $key }}" value="{{ $val->stock_product->id }}" readonly>
+                                                                    <span id="product_name{{ $key }}  Error" ><strong></strong></span>
+                                                                </div>
+
                                                             </div>
+                                                            <div class="form-inline"><textarea class="form-control txtDescription_{{ $key }}" id="txtDescription_{{ $key }}"  rows="2" style="margin-top:10px; padding:10px; width: 100%!important;" placeholder="Description" disabled>{{ $response3->data[$key]->stock_product->description }}</textarea> </div>
                                                         </div>
-                                                        <div class="row form-inline2">
-                                                            <div class="col-12">
-                                                                <input type="text" class="form-control txtPrdName_{{ $key }}"   name="product_name[]" id="product_name{{ $key }}"  value="{{ $val->stock_product->name }}" required placeholder="Product Name" readonly>
-                                                                <input type="hidden" name="product[]" id="txtPrdId_{{ $key }}" value="{{ $val->stock_product->id }}" readonly>
-                                                                <span id="product_name{{ $key }}  Error" ><strong></strong></span>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="form-inline"><textarea class="form-control txtDescription_{{ $key }}" id="txtDescription_{{ $key }}"  rows="2" style="margin-top:10px; padding:10px; width: 100%!important;" placeholder="Description" disabled>{{ $response3->data[$key]->stock_product->description }}</textarea> </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div id="itemType_{{$key}}" class="btn-list-item text-center">{{ ucfirst($response3->data[$key]->stock_product->group_type) }}</div>
-                                                </td>
-                                                <td style="width: 120px;">
-                                                    <input type="text"  class="valid-numeric form-control itemQty_{{ $key }} qty{{ $key }}" name="qty[]" id="{{ $key }}" data-id="qty{{ $key }}" demo="itemQty"  value="{{ $val->qty }}"  required placeholder="Qty">
-                                                    <input type="hidden" id="numItemInStock_{{ $key }}" readonly>
-                                                    <p id="prdNotEnough_{{ $key }}" class="font-size-14" style="color:red;"></p>
-                                                    <span id="{{ $key }}Error" ><strong></strong></span>
-                                                </td>
-                                                <td>
-                                                    <div id="" class="btn-list-item text-center">
-                                                        @if($response3->data[$key]->stock_product->measure == '')
-                                                            @php $measurement= 'Not value' @endphp
-                                                        @else
-                                                            @php $measurement= $response3->data[$key]->stock_product->measure @endphp
-                                                        @endif
-                                                        {{ $measurement }}
-                                                    </div>
-                                                </td>
-                                                <td class="td-item-quote">
-                                                    <div class="">
-                                                        <input type="text" class="valid-numeric-float form-control itemPrice_{{ $key }}   price{{ $key }}" name="price[]"  id="itemPrice_{{ $key }}"   data-id="price{{ $key }}"  demo="itemPrice" value="{{ $val->price }}" required placeholder="0.0$">
+                                                    </td>
+                                                    <td>
+                                                        <div id="itemType_{{$key}}" class="btn-list-item text-center">{{ ucfirst($response3->data[$key]->stock_product->group_type) }}</div>
+                                                    </td>
+                                                    <td style="width: 120px;">
+                                                        <input type="text"  class="valid-numeric form-control itemQty_{{ $key }} qty{{ $key }}" name="qty[]" id="{{ $key }}" data-id="qty{{ $key }}" demo="itemQty"  value="{{ $val->qty }}"  required placeholder="Qty">
+                                                        <input type="hidden" id="numItemInStock_{{ $key }}" readonly>
+                                                        <p id="prdNotEnough_{{ $key }}" class="font-size-14" style="color:red;"></p>
                                                         <span id="{{ $key }}Error" ><strong></strong></span>
-                                                    </div>
-                                                    <div class="row pt-1 form-inline">
-                                                        <div class="col-md-6 col-sm-6 col-6">
-                                                            <select  class="select-itemDiscount btn-list-item mdb-select md-form select-itemDiscount_{{$key}}"  name="select-itemDiscount_{{$key}}" id="{{$key}}" data-id='' required >
-                                                                @if($val->discount_type == 'percent')
-                                                                    <option value="1" selected><span> Discount (%)</span> </option>
-                                                                    <option value="2" ><span> Discount ($)</span> </option>
-                                                                @else
-                                                                    <option value="1" ><span> Discount (%)</span> </option>
-                                                                    <option value="2" selected><span> Discount ($)</span> </option>
-                                                                @endif
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="col-md-6 col-sm-6 col-6 field-input-discount" data-id="{{ $key }}" id="fieldItemDiscount_{{$key}}">
-                                                            @if($val->discount_type == 'percent')
-                                                                <input type="text"  class="itemDisPercent_{{ $key }} txtbox-quote valid-numeric-float" name="discount[]" id="discount{{$key}}" demo="itemDisPercent" data-id="{{ $key }}" value="{{ $val->discount }}" placeholder="0.0%">
+                                                    </td>
+                                                    <td>
+                                                        <div id="" class="btn-list-item text-center">
+                                                            @if($response3->data[$key]->stock_product->measure == '')
+                                                                @php $measurement= 'Not value' @endphp
                                                             @else
-                                                                <input type="text"  class="itemDisPrice_{{ $key }} txtbox-quote valid-numeric-float" name="discount[]" id="discount{{ $key }}" demo="itemDisPrice" data-id="{{ $key }}" value="{{ $val->discount }}" required placeholder="0.0$">
+                                                                @php $measurement= $response3->data[$key]->stock_product->measure @endphp
                                                             @endif
-                                                            <input type="hidden" id="discount_type{{ $key }}" value="{{ $val->discount_type }}" name="discount_type[]">
-                                                            <span id="discountError" ><strong></strong></span>
+                                                            {{ $measurement }}
                                                         </div>
+                                                    </td>
+                                                    <td class="td-item-quote">
+                                                        <div class="">
+                                                            <input type="text" class="valid-numeric-float form-control itemPrice_{{ $key }}   price{{ $key }}" name="price[]"  id="itemPrice_{{ $key }}"   data-id="price{{ $key }}"  demo="itemPrice" value="{{ $val->price }}" required placeholder="0.0$">
+                                                            <span id="{{ $key }}Error" ><strong></strong></span>
+                                                        </div>
+                                                        <div class="row pt-1 form-inline">
+                                                            <div class="col-md-6 col-sm-6 col-6">
+                                                                <select  class="select-itemDiscount btn-list-item mdb-select md-form select-itemDiscount_{{$key}}"  name="select-itemDiscount_{{$key}}" id="{{$key}}" data-id='' required >
+                                                                    @if($val->discount_type == 'percent')
+                                                                        <option value="1" selected><span> Discount (%)</span> </option>
+                                                                        <option value="2" ><span> Discount ($)</span> </option>
+                                                                    @else
+                                                                        <option value="1" ><span> Discount (%)</span> </option>
+                                                                        <option value="2" selected><span> Discount ($)</span> </option>
+                                                                    @endif
+                                                                </select>
+                                                            </div>
 
-                                                    </div>
-                                                    <div class="btn-list-item" style="color:black; margin-left: 7px; margin-top:15px;">
-                                                        <span>Total After Discount: </span>
-                                                    </div>
-                                                    <div class="btn-list-item" style="color:red; margin-left: 7px; margin-top:15px;">
-                                                        <span id="vatLabelQuote{{$key}}">Vat Include (0%)</span>
-                                                    </div>
-                                                    <div class="btn-list-item" style="color:red; margin-left: 7px; margin-top:15px;">
-                                                        <span>Net Price: </span>
-                                                    </div>
-                                                </td>
-                                                <td class="td-item-quote ">
-                                                    <div id="quote-sub-total_{{$key}}" class="td-quote-total">0</div>
-                                                    <div id="quote-sub-discount_{{$key}}" class="td-quote-total">0</div>
-                                                    <div id="quote-after-sub-disc_{{$key}}" class="td-quote-total">0</div>
-                                                    <div id="quote-addVat_{{$key}}" style="color:red;"class="td-quote-total">0</div>
-                                                    <div id="quote-netPrice_{{$key}}" style="color:red;"class="td-quote-total">0</div>
+                                                            <div class="col-md-6 col-sm-6 col-6 field-input-discount" data-id="{{ $key }}" id="fieldItemDiscount_{{$key}}">
+                                                                @if($val->discount_type == 'percent')
+                                                                    <input type="text"  class="itemDisPercent_{{ $key }} txtbox-quote valid-numeric-float" name="discount[]" id="discount{{$key}}" demo="itemDisPercent" data-id="{{ $key }}" value="{{ $val->discount }}" placeholder="0.0%">
+                                                                @else
+                                                                    <input type="text"  class="itemDisPrice_{{ $key }} txtbox-quote valid-numeric-float" name="discount[]" id="discount{{ $key }}" demo="itemDisPrice" data-id="{{ $key }}" value="{{ $val->discount }}" required placeholder="0.0$">
+                                                                @endif
+                                                                <input type="hidden" id="discount_type{{ $key }}" value="{{ $val->discount_type }}" name="discount_type[]">
+                                                                <span id="discountError" ><strong></strong></span>
+                                                            </div>
 
-                                                </td>
-                                                <td style="width:auto;" class="fieldBtnRemove" id="fieldBtnRemove_{{$key}}">
-                                                    @if($key != 0)
-                                                        <button style="width: auto;"  class="btnRemoveRow btn btn-denger" id="{{$key}}"  data-id="{{ count($response3->data) }}"  ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>
-                                                    @endif
-                                                </td>
+                                                        </div>
+                                                        <div class="btn-list-item" style="color:black; margin-left: 7px; margin-top:15px;">
+                                                            <span>Total After Discount: </span>
+                                                        </div>
+                                                        <div class="btn-list-item" style="color:red; margin-left: 7px; margin-top:15px;">
+                                                            <span id="vatLabelQuote{{$key}}">Vat Include (0%)</span>
+                                                        </div>
+                                                        <div class="btn-list-item" style="color:red; margin-left: 7px; margin-top:15px;">
+                                                            <span>Net Price: </span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="td-item-quote ">
+                                                        <div id="quote-sub-total_{{$key}}" class="td-quote-total">0</div>
+                                                        <div id="quote-sub-discount_{{$key}}" class="td-quote-total">0</div>
+                                                        <div id="quote-after-sub-disc_{{$key}}" class="td-quote-total">0</div>
+                                                        <div id="quote-addVat_{{$key}}" style="color:red;"class="td-quote-total">0</div>
+                                                        <div id="quote-netPrice_{{$key}}" style="color:red;"class="td-quote-total">0</div>
 
-                                            </tr>
+                                                    </td>
+                                                    <td style="width:auto;" class="fieldBtnRemove" id="fieldBtnRemove_{{$key}}">
+                                                        @if($key != 0)
+                                                            <button style="width: auto;"  class="btnRemoveRow btn btn-denger" id="{{$key}}"  data-id="{{ count($response3->data) }}"  ><span><i style="color:#d42931;" class="fa fa-trash"></i></span></button>
+                                                        @endif
+                                                    </td>
 
-                                        @endforeach
+                                                </tr>
 
+                                            @endforeach
+                                        @else
+                                            <tr><td class="text-center" colspan="7">No data available in table</td></tr>
+                                        @endif
 
                                     </tbody>
                                 </table>
@@ -201,8 +205,7 @@
 
 
                             {{-- table row to show grand total item --}}
-                            <dl class="row table-responsive">
-
+                            <dl class="row pr-3">
                                     <table class="table table-bordered">
                                         <tbody>
                                             <tr style="text-align: right">

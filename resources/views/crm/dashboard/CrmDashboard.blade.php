@@ -434,7 +434,8 @@
                         },
                     ]
                     $.each(data, function (index, value) {
-                        result.push([value.quote_status_name_en, value.total_quotes, colors[value.crm_quote_status_type_id].code])
+                        var color = (colors.find(e => (e.id == value.crm_quote_status_type_id))).code
+                        result.push([value.quote_status_name_en, value.total_quotes, color])
                     })
                     var data = google.visualization.arrayToDataTable(result)
                     var view = new google.visualization.DataView(data)
