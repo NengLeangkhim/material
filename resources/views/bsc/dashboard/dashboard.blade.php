@@ -183,18 +183,21 @@ Function index_num($v1){
         new Chart(document.getElementById("bar-chart-grouped"), {
             type: 'bar',
             data: {
-            labels: ["July", "August", "September", "October", "November"],
-            datasets: [
-                {
-                label: "Income",
-                backgroundColor: "#3e95cd",
-                data: [133,221,783,2478,2020]
-                }, {
-                label: "Expense",
-                backgroundColor: "#8e5ea2",
-                data: [408,547,675,734,2020]
-                }
-            ]
+                labels: ["July", "August", "September", "October", "November"],
+                datasets: [
+                    {
+                        label: "Revenue",
+                        data: [133,221,783,2478,2020],
+                        backgroundColor: "#36A2EB",
+                      
+                    }, 
+                    {
+                        label: "Expense",
+                        data: [408,547,675,734,2020],
+                        backgroundColor: "#FF6384",
+                       
+                    }
+                ]
             },
             options: {
             title: {
@@ -209,17 +212,20 @@ Function index_num($v1){
             type: 'bar',
             data: {
                 labels: ["July", "August", "September", "October", "November"],
-            datasets: [
-                {
-                label: "Account Receivable",
-                backgroundColor: "#3e95cd",
-                data: [133,221,783,2478,2020]
-                }, {
-                label: "Account Payable",
-                backgroundColor: "#8e5ea2",
-                data: [408,547,675,734,2020]
-                }
-            ]
+                datasets: [
+                    {
+                        label: "Account Receivable",
+                        data: [133,221,783,2478,2020],
+                        backgroundColor: "#36A2EB"
+                        
+                    }, 
+                    {
+                        label: "Account Payable",
+                        data: [408,547,675,734,2020],
+                        backgroundColor: "#FF6384"
+                        
+                    }
+                ]
             },
             options: {
             title: {
