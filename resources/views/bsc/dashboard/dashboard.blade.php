@@ -35,14 +35,14 @@ Function index_num($v1){
                               <?php echo 'Revenue'; ?>
                             </h5>
                             <div class="chartjs-wrapper " >
-                                <h5 style="text-align: center; color:#12b9d6">{{ number_format($dashboards->total_revenue_debit_this_month,4,".",",") }}</h5>
+                                <h5 style="text-align: center; color:#12b9d6">{{ number_format($amount_dashboards->total_revenue_this_month_debit,4,".",",") }}</h5>
                             </div>
                             <div class="row" style="text-align: center">
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                     All Total :
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                    {{ number_format($dashboards->total_revenue_debit_all,4,".",",") }}
+                                    {{ number_format($amount_dashboards->total_revenue_all_debit,4,".",",") }}
                                 </div>
                             </div>
                         </div>
@@ -56,14 +56,14 @@ Function index_num($v1){
                             <?php echo 'Expense'; ?>
                         </h5>
                         <div class="chartjs-wrapper " >
-                            <h5 style="text-align: center; color:#12b9d6">{{number_format($dashboards->total_expense_debit_this_month,4,".",",") }}</h5>
+                            <h5 style="text-align: center; color:#12b9d6">{{number_format($amount_dashboards->total_expense_this_month_debit,4,".",",") }}</h5>
                         </div>
                         <div class="row" style="text-align: center">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                 All Total :
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                {{ number_format($dashboards->total_expense_debit_all,4,".",",") }}
+                                {{ number_format($amount_dashboards->total_expense_all_debit,4,".",",") }}
                             </div>
                         </div>
                     </div>
@@ -77,14 +77,14 @@ Function index_num($v1){
                             <?php echo 'Account Receivable'; ?>
                         </h5>
                         <div class="chartjs-wrapper " >
-                            <h5 style="text-align: center; color:#12b9d6">{{ number_format($dashboards->total_receivable_this_month,4,".",",") }}</h5>
+                            <h5 style="text-align: center; color:#12b9d6">{{ number_format($amount_dashboards->total_receivable_this_month,4,".",",") }}</h5>
                         </div>
                         <div class="row" style="text-align: center">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                 All Total :
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                {{ number_format($dashboards->total_receivable_all,4,".",",") }}
+                                {{ number_format($amount_dashboards->total_receivable_all,4,".",",") }}
                             </div>
                         </div>
                     </div>
@@ -98,14 +98,14 @@ Function index_num($v1){
                             <?php echo 'Account Payable'; ?>
                         </h5>
                         <div class="chartjs-wrapper " >
-                            <h5 style="text-align: center; color:#12b9d6">{{ number_format($dashboards->total_payable_this_month,4,".",",") }}</h5>
+                            <h5 style="text-align: center; color:#12b9d6">{{ number_format($amount_dashboards->total_payable_this_month,4,".",",") }}</h5>
                         </div>
                         <div class="row" style="text-align: center">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                 All Total :
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                {{ number_format($dashboards->total_payable_all,4,".",",") }}
+                                {{ number_format($amount_dashboards->total_payable_all,4,".",",") }}
                             </div>
                         </div>
                     </div>
