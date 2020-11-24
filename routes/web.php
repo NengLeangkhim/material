@@ -50,7 +50,7 @@ Route::get('/test_map', function(){
     return view('crm.lead.mapShowLatLong');
 });
 
-
+Route::get('/addleadtype','crm\LeadController@addleadtype'); // use get type in add lead
 //end lead
 
 // start schedule

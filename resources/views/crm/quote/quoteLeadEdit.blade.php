@@ -63,7 +63,6 @@
                                         <input type="hidden" name="quote_id"  id="quote_id" value="{{ $quoteDetail->data->id }}" readonly>
                                         <input type="hidden" name="crm_lead_id" id="crm_lead_id" value="{{ $quoteDetail->data->crm_lead->id }}" readonly>
                                         <input type="text" hidden value="{{$_SESSION['token']}}" id="token">
-
                                     </dd>
                                 <dt class="col-sm-4 dt">Assign To</dt>
                                     <dd class="col-sm-8 dd">
@@ -71,11 +70,14 @@
                                             <option value="{{ $quoteDetail->data->assign_to->id }}">
                                                 {{ $quoteDetail->data->assign_to->first_name_en.' '.$quoteDetail->data->assign_to->last_name_en }}
                                             </option>
-                                            @foreach ($employee as $key=>$val )
-                                                <option value="{{ $val->id }}">
-                                                    {{ $val->first_name_en.' '.$val->last_name_en }}
-                                                </option>
-                                            @endforeach
+                                            @if(isset($employee))
+                                                @foreach ($employee as $key=>$val )
+                                                    <option value="{{ $val->id }}">
+                                                        {{ $val->first_name_en.' '.$val->last_name_en }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
+
                                         </select>
                                         <span id="assign_toError" ><strong></strong></span>
                                     </dd>
@@ -87,8 +89,8 @@
                                                 // echo $quoteDetail->data->quote_stage[($num-1)]->name_en;
                                             ?>
                                             @foreach ($quoteStatus as $key=>$val )
-                                                    <option value="{{$val->id }}" {{$val->id==$quoteDetail->data->quote_stage[($num-1)]->id ? 'selected="selected"':''}}> {{$val->name_en}}</option>     
-                                            
+                                                    <option value="{{$val->id }}" {{$val->id==$quoteDetail->data->quote_stage[($num-1)]->id ? 'selected="selected"':''}}> {{$val->name_en}}</option>
+
                                             @endforeach
                                         </select>
                                     </dd>
@@ -164,11 +166,11 @@
             $('select').select2();
         });
         $("#crm_quote_status_type_id").change(function(){
-            var id=$(this).val(); 
+            var id=$(this).val();
             var lead_id=$("#crm_lead_id").val();
             var quote_id=$("#quote_id").val();
             var token=$("#token").val();
-            
+
             if(id==2){
                 // alert(id+" "+lead_id+" "+quote_id+" "+token);
                 Swal.fire({ //get from sweetalert function
@@ -197,10 +199,10 @@
                         }
                     })
                 }
-            }); 
+            });
             }
-            
-            
+
+
 
         })
 
