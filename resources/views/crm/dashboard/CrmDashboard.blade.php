@@ -16,182 +16,243 @@
 </section>
 <!-- section Main content -->
 <section class="content">
+    {{-- Style --}}
+    <style>
+        .title-chart {
+            color: #000000;
+            font-weight: 600;
+            font-size: 26px;
+        }
+        .sub-title-chart {
+            color: #000000;
+            font-weight: 400;
+            font-size: 12px;
+        }
+        .chart-number {
+            font-size: 22px;
+        }
+    </style>
+    {{-- /Style --}}
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
             <div class="col-lg-3 col-6" >
               <!-- small box -->
-              <div class="small-box bg-white" style="border:2px solid #d42931" >
-                <div class="inner">
-                  <div class="row">
-                    <div class="col-8" >
-                      <h3 class="text-info">{{$new_lead}}</h3>
-
-                      <p>New Leads</p>
+                <div class="small-box bg-white" >
+                    <div class="inner">
+                        <div class="row">
+                            <div class="col-12" >
+                                <div class="p-3 text-center">
+                                    <h2 class="title-chart">New Leads</h2>
+                                    <p class="sub-title-chart">Today</p>
+                                    <h3 class="text-info chart-number">{{$new_lead}}</h3>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-4">
-                      <img src="img/icons/iconfinder_compose_1055085.png">
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
-              <div class="small-box bg-white" style="border:2px solid #d42931">
-                <div class="inner">
-                  <div class="row">
-                    <div class="col-8">
-                    <h3 class="text-info">{{$total_contact}}</h3>
-
-                      <p>Total Contacts</p>
+              <div class="small-box bg-white">
+                    <div class="inner">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="p-3 text-center">
+                                    <h2 class="title-chart">Total Contacts</h2>
+                                    <p class="sub-title-chart">Today</p>
+                                    <h3 class="text-info chart-number">{{$total_contact}}</h3>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-4">
-                      <img src="img/icons/iconfinder_Phone_3336937.png">
-                    </div>
-                  </div>
                 </div>
-              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-white">
+                    <div class="inner">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="p-3 text-center">
+                                    <h2 class="title-chart">Total Quotes</h2>
+                                    <p class="sub-title-chart">Today</p>
+                                    <h3 class="text-info chart-number">{{$total_quote}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
-              <div class="small-box bg-white" style="border:2px solid #d42931">
-                <div class="inner">
-                  <div class="row">
-                    <div class="col-8">
-                      <h3 class="text-info">{{$total_quote}}</h3>
-
-                      <p>Total Quotes</p>
-                    </div>
-                    <div class="col-4">
-                      <img src="img/icons/iconfinder_Mind-Map-Paper_379340.png">
-                    </div>
-                  </div>
+                <div class="small-box bg-white">
+                      <div class="inner">
+                          <div class="row">
+                              <div class="col-12">
+                                  <div class="p-3 text-center">
+                                      <h2 class="title-chart">Survey</h2>
+                                      <p class="sub-title-chart">Today</p>
+                                      <h3 class="text-info chart-number">{{$total_survey}}</h3>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
                 </div>
-              </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-white" style="border:2px solid #d42931">
-                <div class="inner">
-                  <div class="row">
-                    <div class="col-8">
-                      <h3 class="text-info">{{$total_survey}}</h3>
-
-                      <p>Survey</p>
-                    </div>
-                    <div class="col-4">
-                      <img src="img/icons/iconfinder_note_1296370.png">
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
             <!-- ./col -->
         </div>
         <!-- /.row -->
         <div class="row">
             <div class="col-md-6">
-              <!-- AREA CHART -->
-              <div class="card card-primary" >
-                <div class="card-header" style="background: #1fa8e0"> 
-                  <h3 class="card-title">Lead Status Chart</h3>
-
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                    </button>
-                  </div>
+                <!-- AREA CHART -->
+                <div class="card card-primary" >
+                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                        <h3 class="card-title text-dark text-bold">Lead Status Chart</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            {{-- <div id="LeadChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></div> --}}
+                            <div id="top_x_div" style="width: 800px; height: 500px;"></div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
-                <div class="card-body">
-                  <div class="chart">
-                    <div id="LeadChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></div>
-                  </div>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
+                <!-- /.card -->
             </div>
             <!-- /.col (LEFT) -->
             <div class="col-md-6">
-              <!-- LINE CHART -->
-              <div class="card card-info">
-                <div class="card-header" style="background: #1fa8e0">
-                  <h3 class="card-title">Quote Status Chart</h3>
-
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                    </button>
-                  </div>
+                <!-- LINE CHART -->
+                <div class="card card-info">
+                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                        <h3 class="card-title text-dark text-bold">Quote Status Chart</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            {{-- <div id="QuoteChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></div> --}}
+                            <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
-                <div class="card-body">
-                  <div class="chart">
-                    <div id="QuoteChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></div>
-                  </div>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
+                <!-- /.card -->
             </div>
             <!-- /.col (RIGHT) -->
-          </div>
-          <!-- /.row -->
-          <!-- /.row -->
+        </div>
+        <!-- /.row -->
+        <!-- /.row -->
         <div class="row">
-          <div class="col-md-6">
-            <!-- AREA CHART -->
-            <div class="card card-primary">
-              <div class="card-header" style="background: #1fa8e0">
-                <h3 class="card-title">Contact Chart</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                  </button>
+            <div class="col-md-6">
+                <!-- AREA CHART -->
+                <div class="card card-primary">
+                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                        <h3 class="card-title text-dark text-bold">Contact Chart</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                        <div id="ContactChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;" ></div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
-              </div>
-              <div class="card-body">
-                <div class="chart">
-                  <div id="ContactChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;" ></div>
-                </div>
-              </div>
-              <!-- /.card-body -->
+                <!-- /.card -->
             </div>
-            <!-- /.card -->
-          </div>
           <!-- /.col (LEFT) -->
           <div class="col-md-6">
-            <!-- LINE CHART -->
-            <div class="card card-info">
-              <div class="card-header" style="background: #1fa8e0">
-                <h3 class="card-title">Organization Chart</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                  </button>
+                <!-- LINE CHART -->
+                <div class="card card-info">
+                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                        <h3 class="card-title text-dark text-bold">Organization Chart</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            <div id="OrgChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
-              </div>
-              <div class="card-body">
-                <div class="chart">
-                  <div id="OrgChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;">
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+                <!-- /.card -->
           </div>
           <!-- /.col (RIGHT) -->
         </div>
         <!-- /.row -->
     </div>
 </section><!-- end section Main content -->
+
+{{-- Lead Status Chart --}}
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawStuff);
+    function drawStuff() {
+      var data = new google.visualization.arrayToDataTable([
+        ['Move', 'Percentage'],
+        ["King's pawn (e4)", 44],
+        ["Queen's pawn (d4)", 31],
+        ["Knight to King 3 (Nf3)", 12],
+        ["Queen's bishop pawn (c4)", 10],
+        ['Other', 3]
+      ]);
+      var options = {
+        width: 800,
+        legend: { position: 'none' },
+        // chart: {
+        //   title: 'Chess opening moves',
+        //   subtitle: 'popularity by percentage' },
+        axes: {
+          x: {
+            0: { side: 'bottom', label: 'White to move'} // Top x-axis.
+          }
+        },
+        bar: { groupWidth: "90%" }
+      };
+      var chart = new google.charts.Bar(document.getElementById('top_x_div'));
+      // Convert the Classic options to Material options.
+      chart.draw(data, google.charts.Bar.convertOptions(options));
+    };
+</script>
+
+{{-- Quote Status Chart --}}
+<script type="text/javascript">
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['Work',     11],
+        ['Eat',      2],
+        ['Commute',  2],
+        ['Watch TV', 2],
+        ['Sleep',    7]
+      ]);
+
+      var options = {
+        title: 'My Daily Activities',
+        is3D: true,
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+      chart.draw(data, options);
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
 <script>
     var currentDate = new Date()
     var currentDateString = currentDate.toJSON().split('T')[0]
     currentDate.setDate( currentDate.getDate() - 7 );
-    var currentDateStringSub7 = currentDate.toJSON().split('T')[0]   
+    var currentDateStringSub7 = currentDate.toJSON().split('T')[0]
     $(function () {
     // Chart Lead Status
     var Lead_Chart = () => {
@@ -398,6 +459,8 @@
         }
       });
     }
+
+
     // Contact Chart
     var Contact_Chart = () =>{
       $.ajax({
@@ -462,6 +525,9 @@
         }
       });
     }
+
+
+
     // Organization Chart
     var Organization_Chart = () => {
       $.ajax({
@@ -478,7 +544,7 @@
         },
         //data: $('#FrmChartOrganizationReport').serialize(),
         success: function (response) {
-          if (response.success == true) {
+            if (response.success == true) {
                 var data = response.data
                 if(data.length < 1) {
                     $('#OrgChart').empty()
