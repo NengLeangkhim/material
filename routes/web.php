@@ -962,6 +962,10 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
        Route::get('hrm_warning_and_punishment','hrms\Employee\WarningAndPunishmentController@warning_and_punishment_list');
        Route::get('hrm_modal_warning_and_punishment','hrms\Employee\WarningAndPunishmentController@modal_warning_and_punishment');
        Route::post('hrm_insert_update_warning_and_punishment','hrms\Employee\WarningAndPunishmentController@insert_update_warnning_and_punishment');
+       Route::get('hrm_modal_warning_and_punishment_type','hrms\Employee\WarningAndPunishmentController@modal_warning_and_punishment_type');
+       Route::post('hrm_insert_update_warning_and_punishment_type','hrms\Employee\WarningAndPunishmentController@insert_update_warnning_and_punishment_type');
+       Route::get('hrm_delete_warning_and_punishment','hrms\Employee\WarningAndPunishmentController@delete_worning_and_punishment');
+       Route::get('hrm_delete_warning_and_punishment_type','hrms\Employee\WarningAndPunishmentController@delete_worning_and_punishment_type');
     // end Warning & Punishment
 // End Employee
 

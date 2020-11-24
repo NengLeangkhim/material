@@ -120,6 +120,86 @@ class profileModel extends Model
 
     }
 
+    // Exit information
+    public static function exit_information($id){
+        try {
+            $exit_infoamtion=DB::table('ma_user_exit as mue')
+            ->join('ma_user_exit_type as mut','mut.id','=','mue.ma_exit_type_id')
+            ->where('mue.ma_user_id','=',$id)
+            ->get();
+            return $exit_infoamtion;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+    // employee experirence
+    public static function experience_detil($id){
+        try {
+            $experience=DB::table('ma_user_experience')
+            ->where('ma_user_id','=',$id)
+            ->get();
+            $arr=array();
+            if(count($experience)>0){
+                foreach($experience as $exper){
+                    $data=[
+                        'experience_period'=>$exper->experience_period,
+                        'sector'=>$exper->sector,
+                        'company_name'=>$exper->company_name,
+                        'last_position'=>$exper->last_position
+                    ];
+                    array_push($arr,$data);
+                }
+            }else{
+                $data=[
+                    'experience_period'=>null,
+                    'sector'=>null,
+                    'company_name'=>null,
+                    'last_position'=>null
+                ];
+                array_push($arr,$data);
+            }
+            return $arr;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+    // education detail
+    public static function education_deatail($id){
+        try {
+            $education=DB::table('ma_user_education_detail as mued')
+            ->join('ma_user_education_level as muel','muel.id','=','mued.ma_education_level_id')
+            ->where('mued.ma_user_id','=',$id)
+            ->get();
+            $array=array();
+            if(count($education)>0){
+                foreach($education as $edu){
+                    $data=[
+                        'name_en'=>$edu->name_en,
+                        'major'=>$edu->major,
+                        'education_status'=>$edu->education_status,
+                        'school'=>$edu->school
+                    ];
+                    array_push($array,$data);
+                }
+            }else{
+                $data=[
+                    'name_en'=>null,
+                    'major'=>null,
+                    'education_status'=>null,
+                    'school'=>null
+                ];
+                array_push($array,$data);
+            }
+            return $array;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
 
 
 

@@ -13,56 +13,128 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body" style="display: block;">
+            {{-- @dump($warning) --}}
             <form id="fm_warning_and_punishment" onsubmit="return false">
               @csrf
             <div class="row">
-              <input type="hidden" name="id" id="" value="">
+              <input type="hidden" name="id" id="" value="@php if(isset($warning)){echo $warning[0]->id;} @endphp">
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Type of Warning <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="em_type_of_warning" name="em_type_of_warning" value="" required>
+                  <select name="em_type_of_warning" class="form-control" required>
+                    <option value="" hidden></option>
+                      @foreach ($warning_type as $warn_type)
+                        @if (isset($warning))
+                          @if ($warn_type->id==$warning[0]->ma_warning_type_id)
+                            <option selected value="{{$warn_type->id}}">{{$warn_type->name_en}}</option>
+                          @else
+                              <option value="{{$warn_type->id}}">{{$warn_type->name_en}}</option>
+                          @endif
+                            
+                        @else
+                            <option value="{{$warn_type->id}}">{{$warn_type->name_en}}</option>
+                        @endif
+                      @endforeach
+                  </select>
+                  <div class="text-danger d-none text-sm" id="em_type_of_warning">This field is required</div>
                 </div>
               </div>
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Reason of Warning <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="em_reason_of_warning" name="em_reason_of_warning" value="" required>
+                  <input type="text" class="form-control" name="em_reason_of_warning" value="@php if(isset($warning)){echo $warning[0]->warning_reason;} @endphp" required autocomplete="off">
+                  <div class="text-danger d-none text-sm" id="em_reason_of_warning">This field is required</div>
                 </div>
               </div>
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Date <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" id="em_date_warning" name="em_date_warning" value="" required>
+                  <input type="text" id="warning_date" class="form-control" name="em_date_warning" value="@php if(isset($warning)){echo $warning[0]->verbal_warning_date;} @endphp" required>
+                  <div class="text-danger d-none text-sm" id="em_date_warning">This field is required</div>
                 </div>
               </div>
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Warning By <span class="text-danger">*</span></label>
-                  <select name="em_warning_by" id="em_warning_by" class="form-control" required>
-                    <option value="1">Seng Kimsros</option>
+                  <select name="em_warning_by" class="form-control" required>
+                    <option value="" hidden></option>
+                    @foreach ($employee as $em_warning_by)
+                      @if (isset($warning))
+                          @if ($em_warning_by->id==$warning[0]->warning_by)
+                              <option selected value="{{$em_warning_by->id}}">{{$em_warning_by->lastName}} {{$em_warning_by->firstName}}</option>
+                          @else
+                              <option value="{{$em_warning_by->id}}">{{$em_warning_by->lastName}} {{$em_warning_by->firstName}}</option>
+                          @endif
+                      @else
+                        <option value="{{$em_warning_by->id}}">{{$em_warning_by->lastName}} {{$em_warning_by->firstName}}</option>
+                      @endif
+                    @endforeach
                   </select>
+                  <div class="text-danger d-none text-sm" id="em_warning_by">This field is required</div>
                 </div>
               </div>
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Edit By <span class="text-danger">*</span></label>
-                  <select name="em_edit_by" id="em_edit_by" class="form-control" required>
-                    <option value="1">Seng Kimsros</option>
+                  <select name="em_edit_by" class="form-control" required>
+                    <option value="1" hidden></option>
+                    @foreach ($employee as $em_edit_by)
+                      @if (isset($warning))
+                          @if ($em_edit_by->id==$warning[0]->edited_by)
+                              <option selected value="{{$em_edit_by->id}}">{{$em_edit_by->lastName}} {{$em_edit_by->firstName}}</option>
+                          @else
+                              <option value="{{$em_edit_by->id}}">{{$em_edit_by->lastName}} {{$em_edit_by->firstName}}</option>
+                          @endif
+                      @else
+                          <option value="{{$em_edit_by->id}}">{{$em_edit_by->lastName}} {{$em_edit_by->firstName}}</option>
+                      @endif
+                      
+                    @endforeach
+                    
                   </select>
+                  <div class="text-danger d-none text-sm" id="em_edit_by">This field is required</div>
                 </div>
               </div>
               <div class="col-md-6">
                   <div class="form-group">
                   <label>Approved By <span class="text-danger">*</span></label>
-                  <select name="em_approved_by" id="em_approved_by" class="form-control" required>
-                    <option value="1">Seng Kimsros</option>
+                  <select name="em_approved_by" class="form-control" required>
+                    <option value="1" hidden></option>
+                    @foreach ($employee as $em_approve_by)
+                      @if (isset($warning))
+                          @if ($em_approve_by->id==$warning[0]->approve_by)
+                              <option selected value="{{$em_approve_by->id}}">{{$em_approve_by->lastName}} {{$em_approve_by->firstName}}</option>
+                          @else
+                              <option value="{{$em_approve_by->id}}">{{$em_approve_by->lastName}} {{$em_approve_by->firstName}}</option>
+                          @endif
+                      @else
+                          <option value="{{$em_approve_by->id}}">{{$em_approve_by->lastName}} {{$em_approve_by->firstName}}</option>
+                      @endif
+                      
+                    @endforeach
                   </select>
+                  <div class="text-danger d-none text-sm" id="em_approved_by">This field is required</div>
                 </div>
               </div>
               <div class="col-md-12">
                   <div class="form-group">
-                  <label>Description</label>
-                  <textarea name="em_warning_description" id="em_warning_description" rows="5" class="form-control"></textarea>
+                  <label>Staff Warning <Span class="text-danger">*</Span></label>
+                  <select name="em_staff_warning" class="form-control" required>
+                    <option value="" hidden></option>
+                    @foreach ($employee as $em_staff_warning)
+                      @if (isset($warning))
+                          @if ($em_staff_warning->id==$warning[0]->ma_user_id)
+                              <option selected value="{{$em_staff_warning->id}}">{{$em_staff_warning->lastName}} {{$em_staff_warning->firstName}}</option>
+                          @else
+                              <option value="{{$em_staff_warning->id}}">{{$em_staff_warning->lastName}} {{$em_staff_warning->firstName}}</option>
+                          @endif
+                      @else
+                          <option value="{{$em_staff_warning->id}}">{{$em_staff_warning->lastName}} {{$em_staff_warning->firstName}}</option>
+                      @endif
+                      
+                    @endforeach
+                  </select>
+                  <div class="text-danger d-none text-sm" id="em_staff_warning">This field is required</div>
                 </div>
               </div>
               <!-- /.col -->

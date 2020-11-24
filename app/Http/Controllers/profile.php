@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\e_request\ere_get_assoc;
 use App\Http\Controllers\perms;
 use App\model\hrms\employee\Employee;
+use App\model\hrms\employee\warning_and_punishment;
 use App\model\hrms\Training\TrainingList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -60,7 +61,68 @@ class profile extends Controller
             $training=TrainingList::my_training($user_id);
             $leave_type=LeaveType::get_leave_type();
             $all_leave=LeaveType::get_all_permission($user_id);
-            return view('profile',compact("employee","address","training","leave_type","all_leave"));//,"pos","name","id_number","dept","kindof","transfer_to","leave_kind","trans_to","date_from","time_from","date_to","time_to","date_resume","leave_number","reason","req_by","create_date"));
+            $warning=warning_and_punishment::warning_and_punishment_list_one($user_id);
+            $exit_info=profileModel::exit_information($user_id);
+            if(count($exit_info)>0){
+                $exit_information=[
+                    'id'=>$exit_info[0]->id,
+                    'ma_user_id'=>$exit_info[0]->ma_user_id,
+                    'ma_exit_type_id'=>$exit_info[0]->ma_exit_type_id,
+                    'training_development'=>$exit_info[0]->training_development,
+                    'opportunity_to_promote'=>$exit_info[0]->opportunity_to_promote,
+                    'work_presure'=>$exit_info[0]->work_presure,
+                    'working_on_holiday'=>$exit_info[0]->working_on_holiday,
+                    'motivation'=>$exit_info[0]->motivation,
+                    'overall_option'=>$exit_info[0]->overall_option,
+                    'request_exit_date'=>$exit_info[0]->request_exit_date,
+                    'hr_received_date'=>$exit_info[0]->hr_received_date,
+                    'effective_date'=>$exit_info[0]->effective_date,
+                    'submit_date'=>$exit_info[0]->submit_date,
+                    'manager_approved_date'=>$exit_info[0]->manager_approved_date,
+                    'exit_reason'=>$exit_info[0]->exit_reason,
+                    'duties_responsibility'=>$exit_info[0]->duties_responsibility,
+                    'given_salary'=>$exit_info[0]->given_salary,
+                    'work_environment'=>$exit_info[0]->work_environment,
+                    'team_work'=>$exit_info[0]->team_work,
+                    'management_issue'=>$exit_info[0]->management_issue,
+                    'comment'=>$exit_info[0]->comment,
+                    'create_date'=>$exit_info[0]->create_date,
+                    'create_by'=>$exit_info[0]->create_by,
+                    'name_en'=>$exit_info[0]->name_en,
+                    'name_kh'=>$exit_info[0]->name_kh
+                ];
+            }else{
+                $exit_information=[
+                    'id'=>null,
+                    'ma_user_id'=>null,
+                    'ma_exit_type_id'=>null,
+                    'training_development'=>null,
+                    'opportunity_to_promote'=>null,
+                    'work_presure'=>null,
+                    'working_on_holiday'=>null,
+                    'motivation'=>null,
+                    'overall_option'=>null,
+                    'request_exit_date'=>null,
+                    'hr_received_date'=>null,
+                    'effective_date'=>null,
+                    'submit_date'=>null,
+                    'manager_approved_date'=>null,
+                    'exit_reason'=>null,
+                    'duties_responsibility'=>null,
+                    'given_salary'=>null,
+                    'work_environment'=>null,
+                    'team_work'=>null,
+                    'management_issue'=>null,
+                    'comment'=>null,
+                    'create_date'=>null,
+                    'create_by'=>null,
+                    'name_en'=>null,
+                    'name_kh'=>null
+                ];
+            }
+            $job_experience=profileModel::experience_detil($user_id);
+            $education=profileModel::education_deatail($user_id);
+            return view('profile',compact("employee","address","training","leave_type","all_leave","warning","exit_information","job_experience","education"));//,"pos","name","id_number","dept","kindof","transfer_to","leave_kind","trans_to","date_from","time_from","date_to","time_to","date_resume","leave_number","reason","req_by","create_date"));
         }else{
             return view('no_perms');
         }

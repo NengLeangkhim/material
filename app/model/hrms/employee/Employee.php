@@ -180,7 +180,7 @@ class Employee extends Model
             $sql= "SELECT public.insert_ma_user_employee('$firstName_en','$lasttName_kh','$email','$contact',$position,$companyid,$branch_id,$company_dept_id,$create_by,'$idNumber','$sex','$firstName_kh','$lastName_kh','$image','$OfficePhone','$jointDate','$dateOfBirth','$home_en','$home_kh','$street_en','$street_kh',null,'$gazetteer',null,'$spous','$has_children',$children,$salary,$currency,'$description','$payrollAccount')";
             $stm=DB::select($sql);
             if($stm[0]->insert_ma_user_employee>0){
-                return 1;
+                return $stm[0]->insert_ma_user_employee;
             }else{
                 return 0;
             }
@@ -189,6 +189,17 @@ class Employee extends Model
             throw $th;
         }
         
+    }
+
+
+    // insert employee (edit)
+    public static function insert_employee(){
+        try {
+
+        } catch (\Throwable $th) {
+            
+            throw $th;
+        }
     }
 
     // Inert base salary for employee
@@ -221,7 +232,7 @@ class Employee extends Model
             $sql= "SELECT public.update_ma_user_employee($id,'$firstName_en','$lastName_en','$email','$contact',$position,$companyid,$branch_id,$company_dept_id,$create_by,'$idNumber','$sex','$firstName_kh','$lastName_kh','$image','$OfficePhone','$jointDate','$dateOfBirth','$home_en','$home_kh','$street_en','$street_kh',null,'$gazetteer',null,'$spous','$has_children',$children,$salary,$currency,'$description','$payrollAccount','t')";
             $stm=DB::select($sql);
             if($stm[0]->update_ma_user_employee>0){
-                return 1;
+                return $stm[0]->update_ma_user_employee;
             }else{
                 return 0;
             }
@@ -230,6 +241,86 @@ class Employee extends Model
            throw $th;
        }
         
+    }
+
+
+    // Blood Group
+    public static function blood_group(){
+        try {
+            $blood=DB::table('ma_user_blood_group')
+            ->where([
+                ['status','=','t'],
+                ['is_deleted','=','f']
+            ])
+            ->get();
+            return $blood;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+    // identification type
+    public static function identification_type(){
+        try {
+            $identification=DB::table('ma_user_identification_type')
+            ->where([
+                ['status','=','t'],
+                ['is_deleted','=','f']
+            ])
+            ->get();
+            return $identification;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+    // religion
+    public static function religion(){
+        try {
+            $religion=DB::table('ma_user_religion')
+            ->where([
+                ['status','=','t'],
+                ['is_deleted','=','f']
+            ])
+            ->get();
+            return $religion;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+    // education level
+    public static function education_level(){
+        try {
+            $education_level=DB::table('ma_user_education_level')
+            ->where([
+                ['status','=','t'],
+                ['is_deleted','=','f']
+            ])
+            ->get();
+            return $education_level;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+    // relative_type
+    public static function relative_type(){
+        try {
+            $relative=DB::table('ma_user_relative_type')
+            ->where([
+                ['status','=','t'],
+                ['is_deleted','=','f']
+            ])
+            ->get();
+            return $relative;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     

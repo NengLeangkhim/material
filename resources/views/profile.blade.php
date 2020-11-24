@@ -311,25 +311,30 @@
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-12 ">
-                                            <div class="row font-size-14">
-                                                <dt class="col-sm-4 col-xs-6 col-6 dt" >Education Level</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >MBA</dd>
-                                                <dt class="col-sm-4 col-xs-6 col-6 dt">Major Subject</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >Human Resource Management</dd>
-                                    
-                                            </div>
-
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 ">
-                                            <div class="row font-size-14">
-                                                <dt class="col-sm-4 col-xs-6 col-6 dt" >Education Status</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >Degree</dd>
-                                                <dt class="col-sm-4 col-xs-6 col-6 dt">University/School </dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >Bo Entertainment</dd>
+                                    @foreach ($education as $edu)
                                         
-                                            </div>
-                                    </div>
+                                        <div class="col-md-12 bg-turbo-color" style="margin-bottom: 10px">EducationLevel : {{$edu['name_en']}}</div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 ">
+                                                <div class="row font-size-14">
+                                                    <dt class="col-sm-4 col-xs-6 col-6 dt" >Education Level</dt>
+                                                        <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$edu['name_en']}}</dd>
+                                                    <dt class="col-sm-4 col-xs-6 col-6 dt">Subject</dt>
+                                                        <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$edu['major']}}</dd>
+                                        
+                                                </div>
+
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 ">
+                                                <div class="row font-size-14">
+                                                    <dt class="col-sm-4 col-xs-6 col-6 dt" >Education Status</dt>
+                                                        <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$edu['education_status']}}</dd>
+                                                    <dt class="col-sm-4 col-xs-6 col-6 dt">University/School </dt>
+                                                        <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$edu['school']}}</dd>
+                                            
+                                                </div>
+                                        </div>
+                                    @endforeach
+                                    
                                 </div>
         
                             </div>
@@ -351,28 +356,35 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-12 ">
-                                            <div class="row font-size-14">
-                                                <dt class="col-sm-4 col-xs-6 col-6 dt" ># of Experience</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >3 Year</dd>
-                                                <dt class="col-sm-4 col-xs-6 col-6 dt">Sector</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >Human Resource Management</dd>
-                                    
+                                <div class="">
+                                    <div class="row">
+                                        @foreach ($job_experience as $experience)
+                                            <div class="col-md-12 bg-turbo-color" style="margin-bottom: 10px">
+                                                Company : {{$experience['company_name']}}
                                             </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 ">
+                                                    <div class="row font-size-14">
+                                                        <dt class="col-sm-4 col-xs-6 col-6 dt" ># of Experience</dt>
+                                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$experience['experience_period']}} Year</dd>
+                                                        <dt class="col-sm-4 col-xs-6 col-6 dt">Sector</dt>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$experience['sector']}}</dd>
+                                            
+                                                    </div>
 
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 ">
-                                            <div class="row font-size-14">
-                                                <dt class="col-sm-4 col-xs-6 col-6 dt" >Compnay's Name</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >Degree</dd>
-                                                <dt class="col-sm-4 col-xs-6 col-6 dt">Last Position </dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >Bo Entertainment</dd>
-                                        
                                             </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 ">
+                                                    <div class="row font-size-14">
+                                                        <dt class="col-sm-4 col-xs-6 col-6 dt" >Compnay's Name</dt>
+                                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$experience['company_name']}}</dd>
+                                                        <dt class="col-sm-4 col-xs-6 col-6 dt">Last Position </dt>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$experience['last_position']}}</dd>
+                                                
+                                                    </div>
+                                            </div>
+                                        @endforeach
+                                        
                                     </div>
                                 </div>
-        
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -444,7 +456,38 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <div class="row">
+                                @php
+                                    $i=0;
+                                @endphp
+                                <table class="table" id="tbl_warning">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Type of Warning</th>
+                                            <th>Verbal Warning Date</th>
+                                            <th>Reason of Warning</th>
+                                            <th>Staff</th>
+                                            <th>Warning By</th>
+                                            <th>Approved By</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($warning as $warn)
+                                            <tr>
+                                                <th>{{++$i}}</th>
+                                                <td>{{$warn->name_en}}</td>
+                                            <td>{{$warn->verbal_warning_date}}</td>
+                                            <td>{{$warn->warning_reason}}</td>
+                                            <td>{{$warn->staff_last_name}} {{$warn->staff_first_name}}</td>
+                                            <td>{{$warn->last_warning_by}} {{$warn->first_warning_by}}</td>
+                                            <td>{{$warn->last_approve_by}} {{$warn->first_approve_by}}</td>
+                                            </tr>
+                                        @endforeach
+                                        
+                                        
+                                    </tbody>
+                                </table>
+                                {{-- <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-12 ">
                                             <div class="row font-size-14">
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Type of Warning</dt>
@@ -466,7 +509,7 @@
                                                     <dd class="col-sm-8 col-xs-6 col-6 dd" >ABA</dd>
                                             </div>
                                     </div>
-                                </div>
+                                </div> --}}
         
                             </div>
                             <!-- /.card-body -->
@@ -477,7 +520,7 @@
 
 
 
-            <!-- ====>> This Part Profile Warning and Punishment <<==== -->
+            <!-- ====>> This Part Profile Exit Infomation <<==== -->
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12">
@@ -493,48 +536,48 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12 ">
                                             <div class="row font-size-14">
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Request Exit Date</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">No</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{$exit_information['request_exit_date']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Type of Exit </dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">No</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd">{{$exit_information['name_en']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >HR Recieved Date</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > No</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['hr_received_date']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Effective Exit Date</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > No</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['effective_date']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Training & Development</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > No</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['training_development']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Opportunity to Promote</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > No</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['opportunity_to_promote']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Work Presure</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > No</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['work_presure']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Working on Holiday</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > No</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['working_on_holiday']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Motivation</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > No</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['motivation']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Overall Opion</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > No</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['overall_option']}}</dd>
                                             </div>
 
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 ">
                                             <div class="row font-size-14">
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Submit Date</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >No</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['submit_date']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Manager Approved Date</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >No</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['manager_approved_date']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Reasion of Exit</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >ABA</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['exit_reason']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Duties & Responsibility</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > No</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['duties_responsibility']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Given Salary</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > No</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['given_salary']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Work Environment</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > No</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['work_environment']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Team Work</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > No</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['team_work']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Management Issue</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > No</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['management_issue']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Comment</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > No</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['comment']}}</dd>
                                             </div>
                                     </div>
                                 </div>
@@ -717,8 +760,8 @@
 
 
 
-            <!-- ====>> This Part Profile Warning and Punishment <<==== -->
-            <div class="col-md-12">
+            <!-- ====>> This Part Profile Payroll <<==== -->
+            {{-- <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="  card" >
@@ -814,7 +857,7 @@
                         </div>
                     </div>
                 </div> 
-            </div>
+            </div> --}}
 
 
 
@@ -913,6 +956,7 @@
             $('#tbl_profile_training').DataTable(
             );
             $("#tbl_profile_training_wrapper").css("width","100%");
+            $('#tbl_warning').DataTable();
         });
         img_exist();
     </script>
