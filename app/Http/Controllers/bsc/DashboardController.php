@@ -21,9 +21,10 @@ class DashboardController extends Controller
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $dashboard = json_decode($res->getContent()); // convert to json object
-            $dashboards=$dashboard->data;
+            $amount_dashboards=$dashboard->data->show_amount_dashboard;
+            $amount_high_chart_dashboards=$dashboard->data->show_high_chart_dashboard;
             // dd($dashboards);exit();
-            return view('bsc.dashboard.dashboard',compact('dashboards'));
+            return view('bsc.dashboard.dashboard',compact('amount_dashboards','amount_high_chart_dashboards'));
         }catch(Exception $e){
             echo $e->getMessage();
             exit();
