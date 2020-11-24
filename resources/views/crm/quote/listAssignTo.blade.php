@@ -12,8 +12,8 @@
 
                     <div class="row pb-3">
                         <div class="col-md-2 col-sm-2 col-4">
-                            <input type="button" class="btn btn-success " id="getSelectRow"  value="Select"> 
-                        </div> 
+                            <input type="button" class="btn btn-success " id="getSelectRow"  value="Select">
+                        </div>
                         <div class="col-md-5 col-sm-5 col-4"></div>
                         <div class="col-md-5 col-sm-5 col-4">
                             <input type="search" id="mySearchQuote" class="form-control" placeholder="Search">
@@ -36,40 +36,41 @@
                             <tbody>
 
                                 {{-- foreach variable --}}
+                                @if(isset($employee))
+                                    @foreach($employee as $key=>$val)
+                                                {{-- {{ print_r($val->first_name_en) }}<br><br> --}}
+                                                <tr id="{{$val->id}}">
+                                                    <td class="border">
+                                                        {{$key+1}}
+                                                        <input type="hidden" name="leadQuote" id="leadQuote" value="{{$val->id}}">
+                                                    </td>
+                                                    <td class="border">
+                                                        <div id="em_name_kh{{$val->id}}"  class="em_name_kh" >
+                                                            {{$val->first_name_kh.' '.$val->last_name_kh}}
+                                                        </div>
+                                                    </td>
 
-                                @foreach ($employee as $key=>$val)
-                                            {{-- {{ print_r($val->first_name_en) }}<br><br> --}}
-                                            <tr id="{{$val->id}}">
-                                                <td class="border">
-                                                    {{$key+1}}
-                                                    <input type="hidden" name="leadQuote" id="leadQuote" value="{{$val->id}}">
-                                                </td>
-                                                <td class="border">
-                                                    <div id="em_name_kh{{$val->id}}"  class="em_name_kh" >
-                                                        {{$val->first_name_kh.' '.$val->last_name_kh}}
-                                                    </div>
-                                                </td>
+                                                    <td class="border">
+                                                        <div  id="em_name_en_{{$val->id}}" class="em_name_en">
+                                                            {{$val->first_name_en.' '.$val->last_name_en}}
+                                                        </div>
+                                                    </td>
 
-                                                <td class="border">
-                                                    <div  id="em_name_en_{{$val->id}}" class="em_name_en">
-                                                        {{$val->first_name_en.' '.$val->last_name_en}}
-                                                    </div>
-                                                </td>
+                                                    <td class="border">
+                                                        <div class="leadNumber">
+                                                            {{$val->id_number}}
+                                                        </div>
+                                                    </td>
+                                                    <td class="border">
+                                                        <div class="leadEmail">
+                                                            {{$val->positionName}}
+                                                        </div>
+                                                    </td>
 
-                                                <td class="border">
-                                                    <div class="leadNumber">
-                                                        {{$val->id_number}}
-                                                    </div>
-                                                </td>
-                                                <td class="border">
-                                                    <div class="leadEmail">
-                                                        {{$val->positionName}}
-                                                    </div>
-                                                </td>
-                                
-                                            </tr>
-                                   
-                                @endforeach    
+                                                </tr>
+
+                                    @endforeach
+                                @endif
 
                             </tbody>
                         </table>

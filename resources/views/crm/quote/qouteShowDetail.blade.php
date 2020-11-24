@@ -84,7 +84,7 @@
                         <dl class="row">
                             <dt class="col-sm-4 dt" >Subject</dt>
                                 <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->subject}}</dd>
-                            <dt class="col-sm-4 dt">Contact Name</dt>
+                            <dt class="col-sm-4 dt">Organization Name</dt>
                                 <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->crm_lead->customer_name_en}} </dd>
                             <dt class="col-sm-4 dt">Assign To</dt>
                                 <dd class="col-sm-8 dd">{{$listQuoteDetail->data->assign_to->first_name_en.' '.$listQuoteDetail->data->assign_to->last_name_en}} </dd>
@@ -201,22 +201,31 @@
                                         @php $granTotal = 0 @endphp
                                         @foreach ($getQuoteBranch as $k=>$val)
                                                 @php $sumTotal = 0 @endphp
-                                                <div class="">
-                                                        <div class="card-header">
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text">Branch Name</span>
-                                                                </div>
-                                                                <input type="text" class="form-control" value="{{ $val['branch_info']->name }}"  readonly>
+                                                    <div class="bordered">
+                                                        {{-- <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">Branch Name</span>
                                                             </div>
+                                                            <input type="text" class="form-control" value="{{ $val['branch_info']->name }}"  readonly>
+                                                        </div> --}}
+                                                        <div class="">
+                                                            {{-- <div class="input-group-prepend">
+                                                                <span class="input-group-text">Branch Name</span>
+                                                            </div> --}}
+                                                            <div class="form-inline border rounded back-color-blue">
+                                                                <label class="border-right p-2">Lead Branch ({{ $k+1 }})</label>
+                                                                <div class="pl-2 ">{{ $val['branch_info']->name }}</div>
+                                                            </div>
+                                                            {{-- <input type="text" class="form-control" value="{{ $val['branch_info']->name }}"  readonly> --}}
                                                         </div>
-                                                        <div class="card-body">
-                                                            <table class="table table-bordered" style="min-width: 840px;">
+
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered" style="min-width: 900px;">
                                                                 <thead class="font-weight-bold font-size-14">
                                                                     <tr>
                                                                         <td class="">Item Name</td>
                                                                         <td style="width: 0px;">Type</td>
-                                                                        <td style="">Quantity</td>
+                                                                        <td style="width: 0px;">Quantity</td>
                                                                         <td style="width: 0px;">Measurement</td>
                                                                         <td class="">Price</td>
                                                                         <td class="">Total</td>
@@ -365,7 +374,6 @@
                                                                         @endif
                                                                 </tbody>
                                                             </table>
-
                                                         </div>
                                                     </div>
                                         @endforeach
