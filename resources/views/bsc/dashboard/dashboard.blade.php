@@ -175,26 +175,104 @@ Function index_num($v1){
                         </div>
                 </div>
         </div>
-
 </div>
+@php
+    if($amount_high_chart_dashboards->arr_month != ""){
+        $arr_month = $amount_high_chart_dashboards->arr_month;
+        // dd($arr_month[0]);
+        $month_name = "";
+        for ($i=0; $i < 5; $i++) { 
+            if ($i != 4) {
+                $opt_camma = ",";
+            }else {
+                $opt_camma = "";
+            }
+            $month_name .= '"'.$arr_month[$i].'"'.$opt_camma;
+        }
+    }
+    
+    //get Data Amount Revenue
+    if ($amount_high_chart_dashboards->arr_total_amount_revenue_debit != "") {
+       $arr_revenue = $amount_high_chart_dashboards->arr_total_amount_revenue_debit;
+       //dd($data_revenue);
+        $data_revenue = "";
+        for ($i=0; $i < 5; $i++) { 
+            if ($i != 4) {
+                $opt_camma = ",";
+            }else {
+                $opt_camma = "";
+            }
+            $data_revenue .= $arr_revenue[$i].$opt_camma;
+           
+        }
+    }
 
-<script>
+    // get Data Amount Expens
+    if ($amount_high_chart_dashboards->arr_total_amount_expense_debit != "") {
+        $arr_expense = $amount_high_chart_dashboards->arr_total_amount_expense_debit;
+        $data_expense = "";
+        for ($i=0; $i < 5; $i++) { 
+            if ($i != 4) {
+                $opt_camma = ",";
+            }else {
+                $opt_camma = "";
+            }
+            $data_expense .= $arr_expense[$i].$opt_camma;
+           
+        }
+    }
+
+    // get Data Amount Receivable
+    if ($amount_high_chart_dashboards->arr_total_amount_receivable != "") {
+        $arr_receivable = $amount_high_chart_dashboards->arr_total_amount_receivable;
+        $data_receivable = "";
+        for ($i=0; $i < 5; $i++) { 
+            if ($i != 4) {
+                $opt_camma = ",";
+            }else {
+                $opt_camma = "";
+            }
+            $data_receivable .= $arr_receivable[$i].$opt_camma;
+           
+        }
+    }
+
+    // get Data Amount Payable
+    if ($amount_high_chart_dashboards->arr_total_amount_payable != "") {
+        $arr_payable = $amount_high_chart_dashboards->arr_total_amount_payable;
+        $data_payable = "";
+        for ($i=0; $i < 5; $i++) { 
+            if ($i != 4) {
+                $opt_camma = ",";
+            }else {
+                $opt_camma = "";
+            }
+            $data_payable .= $arr_payable[$i].$opt_camma;
+           
+        }
+    }
+   
+@endphp
+<script>    
+     
+
     //bar chart for Income & Expense by month
         new Chart(document.getElementById("bar-chart-grouped"), {
             type: 'bar',
             data: {
-            labels: ["July", "August", "September", "October", "November"],
-            datasets: [
-                {
-                label: "Income",
-                backgroundColor: "#3e95cd",
-                data: [133,221,783,2478,2020]
-                }, {
-                label: "Expense",
-                backgroundColor: "#8e5ea2",
-                data: [408,547,675,734,2020]
-                }
-            ]
+                labels: [<?php echo $month_name; ?>],
+                datasets: [
+                    {
+                        label: "Revenue",
+                        data: [<?php echo $data_revenue; ?>],
+                        backgroundColor: "#36A2EB"
+                    }, 
+                    {
+                        label: "Expense",
+                        data: [<?php echo $data_expense; ?>],
+                        backgroundColor: "#FF6384",
+                    }
+                ]
             },
             options: {
             title: {
@@ -208,18 +286,19 @@ Function index_num($v1){
         new Chart(document.getElementById("bar-chart-payable"), {
             type: 'bar',
             data: {
-                labels: ["July", "August", "September", "October", "November"],
-            datasets: [
-                {
-                label: "Account Receivable",
-                backgroundColor: "#3e95cd",
-                data: [133,221,783,2478,2020]
-                }, {
-                label: "Account Payable",
-                backgroundColor: "#8e5ea2",
-                data: [408,547,675,734,2020]
-                }
-            ]
+                labels: [<?php echo $month_name; ?>],
+                datasets: [
+                    {
+                        label: "Account Receivable",
+                        data: [<?php echo $data_receivable; ?>],
+                        backgroundColor: "#36A2EB"
+                    }, 
+                    {
+                        label: "Account Payable",
+                        data: [<?php echo $data_payable; ?>],
+                        backgroundColor: "#FF6384"
+                    }
+                ]
             },
             options: {
             title: {
