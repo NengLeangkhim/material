@@ -377,9 +377,11 @@ class InvoiceController extends Controller
                         crm_quote
                         LEFT JOIN ( SELECT * FROM crm_quote_status WHERE ID IN ( SELECT MAX ( ID ) FROM crm_quote_status GROUP BY crm_quote_id ) ) AS qs ON crm_quote.ID = qs.crm_quote_id 
                         LEFT JOIN ma_customer ON crm_quote.crm_lead_id = ma_customer.crm_lead_id
+                        LEFT JOIN bsc_invoice ON crm_quote.id = bsc_invoice.crm_quote_id
                     WHERE
                         qs.crm_quote_status_type_id = 2 
                         AND ma_customer.id IS NOT null  
+                        AND bsc_invoice.crm_quote_id IS NULL
                         AND crm_quote.status = 't' 
                         AND crm_quote.is_deleted = 'f'
                     ";
