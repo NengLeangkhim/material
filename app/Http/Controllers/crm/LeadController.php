@@ -204,6 +204,7 @@ class LeadController extends Controller
         return $id;
     }
     public function StoreLead(Request $request){
+
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
             }
