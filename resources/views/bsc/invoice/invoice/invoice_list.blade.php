@@ -23,7 +23,7 @@
                         <div class="col-12">
                             <div class="row margin_left">
                                 <!-- <a  href="#" class="btn btn-block btn-success lead" value="addlead" onclick="addlead()"><i class="fas fa-wrench"></i> Add Lead</a>  -->
-                                <a  href="#" class="btn btn-success invoice_form" ​value="bsc_invoice_invoice_form" id="invoice_form"><i class="fas fa-plus"></i> Add New</a>&nbsp;
+                                {!! $button_add !!}&nbsp;
                             </div><br/>
                             {{-- ======================= Start Tab menu =================== --}}
                             <ul class="nav nav-tabs border_transparent" id="myTab" role="tablist">

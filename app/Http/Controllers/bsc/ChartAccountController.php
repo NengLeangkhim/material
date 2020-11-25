@@ -15,23 +15,50 @@ class ChartAccountController extends Controller
 {
     public function list()
     {
+        if(!perms::check_perm_module('BSC_0303')){
+            return view('no_perms');
+        }
+
+        if(perms::check_perm_module('BSC_030301')){ // Permission Add
+            $button_add = '<a  href="#" class="btn btn-success btn-sm chart_account" ​value="bsc_chart_account_form" id="chart_account"><i class="fas fa-plus"></i> Add Account</a>';
+        }else{
+            $button_add='';
+        }
+        if(perms::check_perm_module('BSC_030302')){ // Permission import
+            $button_import = '<a  href="#" class="btn btn-success btn-sm chart_account" ​value="bsc_chart_account_form" id="chart_account"><i class="far fa-file-excel"></i> Import</a>';
+        }else{
+            $button_import='';
+        }
+        if(perms::check_perm_module('BSC_030303')){ // Permission export
+            $button_export = '<a  href="#" class="btn btn-success btn-sm chart_account" ​value="bsc_chart_account_form" id="chart_account"><i class="far fa-file-excel"></i> Export</a>';
+        }else{
+            $button_export='';
+        }
+        if(perms::check_perm_module('BSC_030303')){ // Permission edit
+            $button_edit = '1';
+        }else{
+            $button_edit='0';
+        }
+        if(perms::check_perm_module('BSC_030303')){ // Permission delete
+            $button_delete = '1';
+        }else{
+            $button_delete='0';
+        }
         try{
-            if(perms::check_perm_module('BSC_0303')){
-                // Get all chart account
-                    if (session_status() == PHP_SESSION_NONE) {
-                        session_start();
-                    }
-                    $token = $_SESSION['token'];
-                    $request = Request::create('/api/bsc_chart_accounts', 'GET');
-                    $request->headers->set('Accept', 'application/json');
-                    $request->headers->set('Authorization', 'Bearer '.$token);
-                    $res = app()->handle($request);
-                    $ch_account = json_decode($res->getContent()); // convert to json object
-                    $ch_accounts=$ch_account->data;
-                return view('bsc.chart_account.chart_account_list',compact('ch_accounts'));
-            }else{
-                return view('no_perms');
+
+            // Get all chart account
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
             }
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/bsc_chart_accounts', 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $ch_account = json_decode($res->getContent()); // convert to json object
+            $ch_accounts=$ch_account->data;
+            return view('bsc.chart_account.chart_account_list',compact('ch_accounts','button_add','button_import','button_export','button_edit','button_delete'));
+
         }catch(Exception $ex){
             echo $ex->getMessage();
             exit;
@@ -40,7 +67,10 @@ class ChartAccountController extends Controller
 
     public function form()
     {
-        // try{
+        if(!perms::check_perm_module('BSC_030301')){
+            return view('no_perms');
+        }
+        try{
             if(perms::check_perm_module('BSC_0303')){
                 // Get chart account type
                 if (session_status() == PHP_SESSION_NONE) {
@@ -81,10 +111,10 @@ class ChartAccountController extends Controller
             }else{
                 return view('no_perms');
             }
-        // }catch(Exception $e){
-        //     echo $e->getMessage();
-        //     exit;
-        // }
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit;
+        }
     }
 
     public function add(Request $request)
@@ -133,6 +163,9 @@ class ChartAccountController extends Controller
     }
     public function edit($id)
     {
+        if(!perms::check_perm_module('BSC_030304')){
+            return view('no_perms');
+        }
         try{
             if(perms::check_perm_module('BSC_0303')){
                 // Get chart account type
@@ -236,6 +269,9 @@ class ChartAccountController extends Controller
     }
     public function ch_account_delete()
     {
+        if(!perms::check_perm_module('BSC_030305')){
+            return view('no_perms');
+        }
         try{
             $id=$_GET['id'];
             if (session_status() == PHP_SESSION_NONE) {
