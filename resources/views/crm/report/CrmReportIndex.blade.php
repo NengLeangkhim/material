@@ -17,6 +17,7 @@
 <!-- section Main content -->
 <section class="content">
     <div class="container-fluid">
+
         <div class="row">
             <div class="col-md-6">
                 <!-- AREA CHART -->
@@ -127,6 +128,7 @@
                 </div> <!-- /.card -->
             </div><!-- End Col -->
         </div><!-- /.row -->
+
         <div class="row">
             <div class="col-md-6">
                 <!-- LINE CHART -->
@@ -182,57 +184,57 @@
                     </div><!-- /.card-body -->
                 </div><!-- /.card -->
             </div><!-- End Col -->
+
             <div class="col-md-6">
                 <!-- BAR CHART -->
                 <div class="card card-success">
                     <div class="card-header" style="background: #1fa8e0">
-                    <h3 class="card-title">Quote Chart</h3>
-
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                        </button>
-                    </div>
+                        <h3 class="card-title">Quote Chart</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-body">
-                      <div class="form-group">
-                        <form id="FrmChartQuoteReport">
-                          @csrf
-                          <div class="row">
-                                <div class="col-md-6">
-                                  <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                      </div>
-                                      <input type="hidden" name="fromDate">
-                                      <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="ReportQuoteFrom" name='ReportQuoteFrom'  required>
-                                      <span class="invalid-feedback" role="alert" id="ReportQuoteFromError"> {{--span for alert--}}
-                                        <strong></strong>
-                                      </span>
+                        <div class="form-group">
+                            <form id="FrmChartQuoteReport">
+                            @csrf
+                            <div class="row">
+                                    <div class="col-md-6">
+                                    <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                        </div>
+                                        <input type="hidden" name="fromDate">
+                                        <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="ReportQuoteFrom" name='ReportQuoteFrom'  required>
+                                        <span class="invalid-feedback" role="alert" id="ReportQuoteFromError"> {{--span for alert--}}
+                                            <strong></strong>
+                                        </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                      </div>
-                                      <input type="hidden" name="toDate">
-                                      <input type="text" class="form-control" placeholder="Select Date" id="ReportQuoteTo" value="<?php echo date('Y-m')?>" name='ReportQuoteTo'  required>
-                                      <span class="invalid-feedback" role="alert" id="ReportQuoteToError"> {{--span for alert--}}
-                                        <strong></strong>
-                                      </span>
-                                  </div>
-                                </div>
-                          </div>
-                        </form>
-                      </div>
-                      <div class="chart">
-                          <div id="QuoteChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
-                      </div>
-                      <div class="col-md-12 text-right">
-                        <button class="btn btn-info" onclick="go_to('/crmreport/detailquote')"><span><i class="fas fa-info"></i></span> Detail</button>
-                      </div>
+                                    <div class="col-md-6">
+                                    <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                        </div>
+                                        <input type="hidden" name="toDate">
+                                        <input type="text" class="form-control" placeholder="Select Date" id="ReportQuoteTo" value="<?php echo date('Y-m')?>" name='ReportQuoteTo'  required>
+                                        <span class="invalid-feedback" role="alert" id="ReportQuoteToError"> {{--span for alert--}}
+                                            <strong></strong>
+                                        </span>
+                                    </div>
+                                    </div>
+                            </div>
+                            </form>
+                        </div>
+                        <div class="chart">
+                            <div id="QuoteChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                        </div>
+                        <div class="col-md-12 text-right">
+                            <button class="btn btn-info" onclick="go_to('/crmreport/detailquote')"><span><i class="fas fa-info"></i></span> Detail</button>
+                        </div>
                     </div><!-- /.card-body -->
                 </div><!-- /.card -->
             </div><!-- End Col -->

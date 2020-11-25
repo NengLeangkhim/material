@@ -27,10 +27,10 @@
                                 <div class="col-3">
                                     <div class="row">
                                         <div class="col-6">
-                                                <button class="btn btn-success form-control"><span><i class="far fa-file-excel"></i></span> Excel</button>
+                                                <button class="btn btn-success form-control" id="btnExportExcelContactReport"><span><i class="far fa-file-excel"></i></span> Excel</button>
                                         </div>
                                         <div class="col-6">
-                                                <button class="btn btn-danger form-control"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
+                                                <button class="btn btn-danger form-control" id="btnExportPDFContactReport"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
                                         </div>
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@
                             </div>
                         </div><!--End Form Group-->
                         <div class="table-responsive" style="padding-top: 10px;">
-                            <table id="OrganizationTbl" class="table table-bordered table-striped">
+                            <table id="OrganizationTbl2" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>National ID</th>
@@ -108,9 +108,9 @@
             var from = $('#DetailContactFrom').val() == '' ? '' : (new Date($('#DetailContactFrom').val())).toISOString().substring(0, 10)
             var to = new Date($('#DetailContactTo').val());
             to = $('#DetailContactTo').val() == '' ? '' : (new Date(to.getUTCFullYear(), to.getMonth() + 1, 1)).toISOString().substring(0,10)
-            $('#OrganizationTbl').dataTable().fnClearTable();
-            $('#OrganizationTbl').dataTable().fnDraw();
-            $('#OrganizationTbl').dataTable().fnDestroy();
+            $('#OrganizationTbl2').dataTable().fnClearTable();
+            $('#OrganizationTbl2').dataTable().fnDraw();
+            $('#OrganizationTbl2').dataTable().fnDestroy();
             $.ajax({
                 url : url,
                 type : 'GET',
@@ -133,7 +133,7 @@
                             </tr>
                             `)
                         })
-                        $('#OrganizationTbl').DataTable();
+                        $('#OrganizationTbl2').DataTable();
                     }
                 },
                 fail : function(){
