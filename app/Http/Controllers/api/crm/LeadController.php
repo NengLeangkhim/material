@@ -408,9 +408,18 @@ class LeadController extends Controller
         $userid = $_SESSION['userid'];
         $survey_id =$request->input('survey_id');
         // $userid =$request->input('user_create');
-        $possible =$request->input('possible')!='1'? 'f':'t';
+        $possible =$request->input('possible');
         $comment =$request->input('commentsurvey');
         $branch_id =$request->input('branch_id');
+        
+        if($possible=='yes'){
+            $possible='t';
+        }
+        else
+        {
+            $possible='f';
+        }
+        // dd($possible);
         // var_dump($userid,$survey_id,$possible,$comment,$branch_id);
         return Lead::insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id);
     }
