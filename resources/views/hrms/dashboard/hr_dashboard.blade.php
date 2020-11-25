@@ -40,8 +40,7 @@ Function index_num($v1){
 <div style="padding: 20px; font-family: Times New Roman, Times, serif; ">
       {{-- // row l --}}
       <div class="row">
-
-
+      
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
                   <div class=" card card-mini mb-4">
                           <div class="card-body">

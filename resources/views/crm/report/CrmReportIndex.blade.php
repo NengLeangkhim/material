@@ -17,16 +17,17 @@
 <!-- section Main content -->
 <section class="content">
     <div class="container-fluid">
+        
+    <!-- row-2 -->
         <div class="row">
             <div class="col-md-6">
-                <!-- AREA CHART -->
+                <!-- PIA CHART -->
                 <div class="card card-primary">
-                    <div class="card-header" style="background: #1fa8e0">
-                    <h3 class="card-title">Lead Chart</h3>
-
+                    <div class="card-header" style="background-color: #ffffff; border: none;"> 
+                    <h3 class="card-title" style="color: black; font-size: 1.75rem; font-weight: bold;">Lead Chart</h3>
+                    
                     <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                        </button>
+                        
                     </div>
                     </div>
                     <div class="card-body">
@@ -64,7 +65,7 @@
                           </form>
                         </div>
                         <div class="chart">
-                            <div id="LeadChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                          <div id="piechart" style="width: auto; height: 290px;"></div>
                         </div>
                         <div class="col-md-12 text-right">
                           <button class="btn btn-info" onclick="go_to('/crmreport/detaillead')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -75,8 +76,8 @@
             <div class="col-md-6">
                 <!-- DONUT CHART -->
                 <div class="card card-danger">
-                    <div class="card-header" style="background: #1fa8e0">
-                    <h3 class="card-title">Contact Chart</h3>
+                    <div class="card-header" style="background-color: #ffffff; border: none;">
+                    <h3 class="card-title" style="color: black; font-size: 1.75rem; font-weight: bold;">Contact Chart</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -118,7 +119,7 @@
                         </form>
                       </div>
                       <div class="chart-contact">
-                        <div id="ContactChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                        <div id="columnchart" style="width: auto; height: 290px;"></div>
                       </div>
                       <div class="col-md-12 text-right">
                         <button class="btn btn-info" onclick="go_to('/crmreport/detailcontact')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -131,8 +132,8 @@
             <div class="col-md-6">
                 <!-- LINE CHART -->
                 <div class="card card-info">
-                    <div class="card-header" style="background: #1fa8e0">
-                    <h3 class="card-title">Organization Chart</h3>
+                    <div class="card-header" style="background-color: #ffffff; border: none;">
+                    <h3 class="card-title" style="color: black; font-size: 1.75rem; font-weight: bold;">Organization Chart</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -174,7 +175,7 @@
                         </form>
                       </div>
                       <div class="chart">
-                          <div id="OrganizationChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                        <div id="organizationchart" style="width: auto; height: 290px;" ></div>
                       </div>
                       <div class="col-md-12 text-right">
                         <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -185,8 +186,8 @@
             <div class="col-md-6">
                 <!-- BAR CHART -->
                 <div class="card card-success">
-                    <div class="card-header" style="background: #1fa8e0">
-                    <h3 class="card-title">Quote Chart</h3>
+                    <div class="card-header" style="background-color: #ffffff; border: none;">
+                    <h3 class="card-title" style="color: black; font-size: 1.75rem; font-weight: bold;" >Quote Chart</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -228,7 +229,7 @@
                         </form>
                       </div>
                       <div class="chart">
-                          <div id="QuoteChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                        <div id="quoite_chart" style="width: 500px; height: 500px;"></div>
                       </div>
                       <div class="col-md-12 text-right">
                         <button class="btn btn-info" onclick="go_to('/crmreport/detailquote')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -239,6 +240,103 @@
         </div>
     </div><!-- /.container-fluid -->
 </section><!-- end section Main content -->
+
+<script type="text/javascript">
+
+//Lead pie chart
+
+  google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawPieChart);
+
+      function drawPieChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['New',     11],
+          ['Sualified',      2],
+          ['Surveying',  2],
+          ['Won', 2],
+        ]);
+
+        var options = {
+          title: 'Lead Performance',
+          colors: ['#007bff','#ff6384', '#4bc0c0','#ffcd56','#7d9b10'],
+        };
+
+        var pie_chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        pie_chart.draw(data, options);
+      }
+
+
+//contact Column-chart 
+
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawColumnChart);
+        function drawColumnChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Element', 'Density', { role: 'style' }],
+            ['Jan', 8, '#007bff'],           
+            ['Feb', 10, '#4bc0c0'],            
+            ['Mar', 19, '#ffcd56'],
+            ['Apr', 21, '#7d9b10' ],
+            ['May', 25, '#ff6384' ], 
+          ]);
+          var options = {
+            
+          };
+
+          var column_chart = new google.visualization.ColumnChart(document.getElementById('columnchart'));
+          column_chart.draw(data, options);
+        }
+
+//organization_chart_bar
+
+google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawOranizationChart);
+        function drawOranizationChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Element', 'Density', { role: 'style' }],
+            ['Jan', 8, '#007bff'],           
+            ['Feb', 10, '#4bc0c0'],            
+            ['Mar', 19, '#ffcd56'],
+            ['Apr', 21, '#7d9b10' ],
+            ['May', 25, '#ff6384' ], 
+          ]);
+          var options = {
+            
+          };
+
+          var organizaion_chart = new google.visualization.ColumnChart(document.getElementById('organizationchart'));
+          organizaion_chart.draw(data, options);
+        }
+
+//dounut quote chart 
+
+google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(QuoteChart);
+      function QuoteChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['New',     11],
+          ['Sualified',      2],
+          ['Surveying',  2],
+          ['Won', 2],
+        ]);
+
+        var options = {
+          pieHole: 0.4,
+          colors: ['#007bff','#ff6384', '#4bc0c0','#ffcd56','#7d9b10'],
+        };
+
+        var dounut_chart = new google.visualization.PieChart(document.getElementById('quoite_chart'));
+
+        dounut_chart.draw(data, options);
+      }
+
+    </script>
+<!-- / pie chart script -->
+
 <script>
     reportQuoteByStatus();
     reportContact();
@@ -323,5 +421,14 @@
       $("#ReportQuoteFrom").on("dp.change", function (e) {
         reportQuoteByStatus();
       })
+
+
+
+
+      
+
     });
+
+
+
   </script>
