@@ -180,7 +180,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                         </div>
-                                        <input type="number" class="form-control input_required" name="amount_paid" id="amount_paid" value="{{$due_amount == null ? $purchase->grand_total : $due_amount}}" autofocus placeholder="Amount Paid" >
+                                        <input type="number" class="form-control input_required" name="amount_paid" id="amount_paid" value="{{$due_amount == null ? number_format($purchase->grand_total, 4, '.', '') : number_format($due_amount, 4, '.', '')}}" autofocus placeholder="Amount Paid" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -276,7 +276,7 @@
             sweetalert('error', 'Paid Amount can not input Zero');
             return false;
         }else if(amount_paid < 0){
-            sweetalert('error','Amount Paid can not smaller than Zero');
+            sweetalert('error','Amount Paid must bigger than Zero');
             return false;
         }else{
             let num_miss = 0;
