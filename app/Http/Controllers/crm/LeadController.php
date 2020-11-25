@@ -144,6 +144,7 @@ class LeadController extends Controller
                 $res = app()->handle($create_contact);
                 $response = json_decode($res->getContent());
                 // return $res;
+                // dd($response);
                 if($response->update=='success'){
                     return response()->json(['success'=>'Record is successfully added']);
                 }
@@ -224,6 +225,8 @@ class LeadController extends Controller
                     'assig_to' =>  [  'required'
                                             ],
                     'primary_phone' =>  [  'required'
+                                            ],
+                    'phone' =>  [  'required'
                                             ],
                     'service' =>  [  'required'
                                             ],
@@ -418,6 +421,7 @@ class LeadController extends Controller
                 $create_contact->headers->set('Authorization', 'Bearer '.$token);
                 $res = app()->handle($create_contact);
                 $response = json_decode($res->getContent());
+                // dd($response);
                 if($response->insert==='success'){
                     return response()->json(['success'=>'Record is successfully added']);
                 }
@@ -482,12 +486,12 @@ class LeadController extends Controller
                                         ],
                 'primary_phone' =>  [  'required'
                                         ],
-                'branch' =>  [  'required'
-                                        ],
-                'lead_source' =>  [  'required'
-                                        ],
-                'lead_industry' =>  [  'required'
-                                        ],
+                // 'branch' =>  [  'required'
+                //                         ],
+                // 'lead_source' =>  [  'required'
+                //                         ],
+                // 'lead_industry' =>  [  'required'
+                //                         ],
                 'assig_to' =>  [  'required'
                                         ],
                 'service' =>  [  'required'
@@ -534,9 +538,9 @@ class LeadController extends Controller
                 'company_kh.required' => 'This Field is require !!',   //massage validator
                 'primary_email.required' => 'This Field is require !!',   //massage validator
                 'primary_phone.required' => 'This Field is require !!',   //massage validator
-                'branch.required' => 'This Field is require !!',   //massage validator
-                'lead_source.required' => 'This Field is require !!',   //massage validator
-                'lead_industry.required' => 'This Field is require !!',   //massage validator
+                // 'branch.required' => 'This Field is require !!',   //massage validator
+                // 'lead_source.required' => 'This Field is require !!',   //massage validator
+                // 'lead_industry.required' => 'This Field is require !!',   //massage validator
                 'assig_to.required' => 'This Field is require !!',   //massage validator
                 'service.required' => 'This Field is require !!',   //massage validator
                 'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator

@@ -86,7 +86,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                         </div>
-                                                        <input type="text" class="form-control" name="primary_phone"id="primary_phone" value="01000000" placeholder="Primary Phone" >
+                                                        <input type="text" class="form-control" name="primary_phone"id="primary_phone" value="{{$editlead[$i]['phone']}}" placeholder="Primary Phone" >
                                                         <span class="invalid-feedback" role="alert" id="primary_phoneError"> {{--span for alert--}}
                                                             <strong></strong>
                                                         </span>

@@ -95,7 +95,7 @@
                                         <dt class="col-sm-4 dt">Primary Email</dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["primary_email"]}}</dd>
                                         <dt class="col-sm-4 dt">Primary Phone</dt>
-                                        <dd class="col-sm-8 dd">0000000</dd>
+                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["primary_phone"]}}</dd>
                                         <dt class="col-sm-4 dt">Primary Website </dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["primary_website"]}} </dd>
                                         <dt class="col-sm-4 dt">Company Branch </dt>
