@@ -19,7 +19,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                <!-- DONUT CHART -->
+                <!-- PIE CHART -->
                 <div class="card card-primary">
                     <div class="card-header" style="background: #ffffff;border:none;">
                       <h3 class="card-title" style="color: #000000;font-weight: bold;">Lead Chart</h3>
@@ -60,7 +60,7 @@
                         </div>
                         <div class="chart">                                      
                           <div style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;display:block;">                            
-                            <div id="donutchart" style="width: auto; height: 310px;"></div>
+                            <div id="donutchart" style="width: auto; height: 300px;"></div>
                           </div>                          
                         </div>
                         <div class="col-md-12 text-right">
@@ -321,8 +321,8 @@
       var data = google.visualization.arrayToDataTable([
         ['Task', 'Hours per Day'],
           ['New',     2],
-          ['Qualified',      11],
-          ['Surveying',  2]      
+          ['Qualified', 11],
+          ['Surveying', 2]      
       ]);
       var options = {
         title: 'Lead Performance',
