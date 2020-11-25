@@ -43,6 +43,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     //get lead that  have branch convert
     Route::get('/getleadconvert','api\crm\LeadController@getleadconvert');
 
+    //get POP
+    Route::get('getpop','api\crm\POPController@getpop');
+
 });
 
 
