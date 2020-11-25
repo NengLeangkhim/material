@@ -21,13 +21,8 @@
             <div class="col-md-6">
                 <!-- AREA CHART -->
                 <div class="card card-primary">
-                    <div class="card-header" style="background: #1fa8e0">
-                    <h3 class="card-title">Lead Chart</h3>
-
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                        </button>
-                    </div>
+                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                        <h3 class="card-title text-dark text-bold" >Lead Chart</h3>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
@@ -75,13 +70,8 @@
             <div class="col-md-6">
                 <!-- DONUT CHART -->
                 <div class="card card-danger">
-                    <div class="card-header" style="background: #1fa8e0">
-                    <h3 class="card-title">Contact Chart</h3>
-
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                        </button>
-                    </div>
+                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                        <h3 class="card-title text-dark text-bold">Contact Chart</h3>
                     </div>
                     <div class="card-body">
                       <div class="form-group">
@@ -120,6 +110,10 @@
                       <div class="chart-contact">
                         <div id="ContactChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
                       </div>
+
+                      {{-- <div class="chart">
+                        <div id="contact-chart"></div>
+                      </div> --}}
                       <div class="col-md-12 text-right">
                         <button class="btn btn-info" onclick="go_to('/crmreport/detailcontact')"><span><i class="fas fa-info"></i></span> Detail</button>
                       </div>
@@ -131,13 +125,8 @@
             <div class="col-md-6">
                 <!-- LINE CHART -->
                 <div class="card card-info">
-                    <div class="card-header" style="background: #1fa8e0">
-                    <h3 class="card-title">Organization Chart</h3>
-
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                        </button>
-                    </div>
+                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                        <h3 class="card-title text-dark text-bold">Organization Chart</h3>
                     </div>
                     <div class="card-body">
                       <div class="form-group">
@@ -185,50 +174,48 @@
             <div class="col-md-6">
                 <!-- BAR CHART -->
                 <div class="card card-success">
-                    <div class="card-header" style="background: #1fa8e0">
-                    <h3 class="card-title">Quote Chart</h3>
-
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                        </button>
-                    </div>
+                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                        <h3 class="card-title text-dark text-bold">Quote Chart</h3>
                     </div>
                     <div class="card-body">
-                      <div class="form-group">
-                        <form id="FrmChartQuoteReport">
-                          @csrf
-                          <div class="row">
-                                <div class="col-md-6">
-                                  <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                      </div>
-                                      <input type="hidden" name="fromDate">
-                                      <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="ReportQuoteFrom" name='ReportQuoteFrom'  required>
-                                      <span class="invalid-feedback" role="alert" id="ReportQuoteFromError"> {{--span for alert--}}
-                                        <strong></strong>
-                                      </span>
+                        <div class="form-group">
+                            <form id="FrmChartQuoteReport">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6">
+                                    <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                        </div>
+                                        <input type="hidden" name="fromDate">
+                                        <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="ReportQuoteFrom" name='ReportQuoteFrom'  required>
+                                        <span class="invalid-feedback" role="alert" id="ReportQuoteFromError"> {{--span for alert--}}
+                                            <strong></strong>
+                                        </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                        </div>
+                                        <input type="hidden" name="toDate">
+                                        <input type="text" class="form-control" placeholder="Select Date" id="ReportQuoteTo" value="<?php echo date('Y-m')?>" name='ReportQuoteTo'  required>
+                                        <span class="invalid-feedback" role="alert" id="ReportQuoteToError"> {{--span for alert--}}
+                                            <strong></strong>
+                                        </span>
+                                    </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                  <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                      </div>
-                                      <input type="hidden" name="toDate">
-                                      <input type="text" class="form-control" placeholder="Select Date" id="ReportQuoteTo" value="<?php echo date('Y-m')?>" name='ReportQuoteTo'  required>
-                                      <span class="invalid-feedback" role="alert" id="ReportQuoteToError"> {{--span for alert--}}
-                                        <strong></strong>
-                                      </span>
-                                  </div>
-                                </div>
-                          </div>
-                        </form>
-                      </div>
+                            </form>
+                        </div>
+                        <div class="chart">
+                            <div class="QuoteChart"></div>
+                        </div>
                       <div class="chart">
-                          <div id="QuoteChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                          <div id="ReportQuoteChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
                       </div>
                       <div class="col-md-12 text-right">
                         <button class="btn btn-info" onclick="go_to('/crmreport/detailquote')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -239,6 +226,34 @@
         </div>
     </div><!-- /.container-fluid -->
 </section><!-- end section Main content -->
+
+{{-- <script>
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+        ['Date', ''],
+        ['2014', 22]
+        ]);
+        var options = {
+        chart: {
+            title: 'Contact Performance',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+        },
+        bars: 'vertical',
+        vAxis: {format: 'decimal'},
+        height: 250,
+        colors: ['#1fa8e0'],
+        bar: {
+            groupWidth: '85%'
+        }
+        };
+        var chart = new google.charts.Bar(document.getElementById('contact-chart'));
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+</script> --}}
+
+
 <script>
     reportQuoteByStatus();
     reportContact();
@@ -250,6 +265,113 @@
       reportOrganization();
       reportLeadByStatus();
   });
+
+    // Quote Chart
+    var Quote_Chart = () =>{
+        $.ajax({
+            url: '/api/crm/report/quoteByStatus',
+            type: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                'from_date' : currentDateString,
+                'to_date' : currentDateString
+            },
+            //data: $('#FrmChartQuoteReport').serialize(),
+            success: function (response) {
+                if (response.success == true) {
+                    var data = response.data
+                    if(data.length < 1) {
+                        $('#QuoteChart').empty()
+                        $('#QuoteChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                        return
+                    }
+                    google.charts.load('current', {
+                        packages: ['corechart']
+                    }).then(CrmLeadDrawChart(data));
+                    //  google.charts.setOnLoadCallback(CrmLeadDrawChart(data))
+
+                    function CrmLeadDrawChart(data) {
+                        var result = [
+                            ["Quote", "", {
+                                role: 'style'
+                            }]
+                        ]
+                        var colors = [{
+                                id: 0,
+                                name_en: 'none',
+                                code: ''
+                            },
+                            {
+                                id: 1,
+                                name_en: 'pending',
+                                code: 'color:#EA2027'
+                            },
+                            {
+                                id: 2,
+                                name_en: 'approved',
+                                code: 'color:#009432'
+                            },
+                            {
+                                id: 3,
+                                name_en: 'negogiate',
+                                code: 'color:#FFC312'
+                            },
+                            {
+                                id: 4,
+                                name_en: 'open',
+                                code: 'color:#EE5A24'
+                            },
+                            {
+                                id: 5,
+                                name_en: 'installed',
+                                code: 'color:#12CBC4'
+                            },
+                            {
+                                id: 6,
+                                name_en: 'installing',
+                                code: 'color:#006266'
+                            },
+                            {
+                                id: 9,
+                                name_en: 'accepted',
+                                code: 'color:#fff200'
+                            },
+                            {
+                                id: 12,
+                                name_en: 'disapproved',
+                                code: 'color:#ff5252'
+                            },
+                        ]
+                        $.each(data, function (index, value) {
+                            var color = (colors.find(e => (e.id == value.crm_quote_status_type_id))).code
+                            result.push([value.quote_status_name_en, value.total_quotes, color])
+                        })
+                        var data = google.visualization.arrayToDataTable(result)
+                        var view = new google.visualization.DataView(data)
+                        view.setColumns([0, 1,
+                            {
+                                calc: "stringify",
+                                sourceColumn: 1,
+                                type: "string",
+                                role: "annotation"
+                            },
+                            2
+                        ]);
+                        var options = {
+                            title: 'Quote Performance',
+                        };
+
+                        var chart = new google.visualization.BarChart(document.getElementById('ReportQuoteChart'))
+
+                        chart.draw(view, options)
+                    }
+                }
+            }
+        });
+    }
+    Quote_Chart();
     // $(document).ready(function() {
     //   ReportLeadChart();
     // //   ReportContactChart();

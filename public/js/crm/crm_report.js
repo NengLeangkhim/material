@@ -140,7 +140,7 @@ var reportContact = () => {
                     var colors = [{
                             id: 0,
                             name_en: 'none',
-                            code: 'color:#c8d6e5'
+                            code: 'color:#1fa8e0'
                         }
                     ]
                     $.each(data, function (index, value) {
@@ -158,7 +158,7 @@ var reportContact = () => {
                         2
                     ]);
                     var options = {
-                        title: 'Contact Chart',
+                        title: 'Contact Performnace',
                     };
 
                     var chart = new google.visualization.ColumnChart(document.getElementById('ContactChart'))
@@ -211,7 +211,7 @@ var reportOrganization = () => {
                     var colors = [{
                             id: 0,
                             name_en: 'none',
-                            code: 'color:#576574'
+                            code: 'color:#1fa8e0'
                         }
                     ]
                     $.each(data, function (index, value) {

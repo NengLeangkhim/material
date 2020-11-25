@@ -115,8 +115,7 @@
                     </div>
                     <div class="card-body">
                         <div class="chart">
-                            {{-- <div id="LeadChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></div> --}}
-                            <div id="top_x_div" style="width: 800px; height: 500px;"></div>
+                            <div id="LeadChart" style="min-height: 300px; height: 400px; max-height: 400px; max-width: 100%;"></div>
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -132,8 +131,7 @@
                     </div>
                     <div class="card-body">
                         <div class="chart">
-                            {{-- <div id="QuoteChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></div> --}}
-                            <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+                            <div id="QuoteChart" style="min-height: 300px; height: 400px; max-height: 400px; max-width: 100%;"></div>
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -153,7 +151,8 @@
                     </div>
                     <div class="card-body">
                         <div class="chart">
-                        <div id="ContactChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;" ></div>
+                            {{-- <div id="ContactChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;" ></div> --}}
+                            <div id="contact_chart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -165,11 +164,12 @@
                 <!-- LINE CHART -->
                 <div class="card card-info">
                     <div class="card-header" style="background-color: #ffffff !important; border: none;">
-                        <h3 class="card-title text-dark text-bold">Organization Chart</h3>
+                        <h3 class="card-title text-dark text-bold">Survey Chart</h3>
                     </div>
                     <div class="card-body">
                         <div class="chart">
-                            <div id="OrgChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></div>
+                            {{-- <div id="OrgChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></div> --}}
+                            <div id="survey_chart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -181,72 +181,6 @@
         <!-- /.row -->
     </div>
 </section><!-- end section Main content -->
-
-{{-- Lead Status Chart --}}
-<script type="text/javascript">
-    google.charts.load('current', {'packages':['bar']});
-    google.charts.setOnLoadCallback(drawStuff);
-    function drawStuff() {
-      var data = new google.visualization.arrayToDataTable([
-        ['Move', 'Percentage'],
-        ["King's pawn (e4)", 44],
-        ["Queen's pawn (d4)", 31],
-        ["Knight to King 3 (Nf3)", 12],
-        ["Queen's bishop pawn (c4)", 10],
-        ['Other', 3]
-      ]);
-      var options = {
-        width: 800,
-        legend: { position: 'none' },
-        // chart: {
-        //   title: 'Chess opening moves',
-        //   subtitle: 'popularity by percentage' },
-        axes: {
-          x: {
-            0: { side: 'bottom', label: 'White to move'} // Top x-axis.
-          }
-        },
-        bar: { groupWidth: "90%" }
-      };
-      var chart = new google.charts.Bar(document.getElementById('top_x_div'));
-      // Convert the Classic options to Material options.
-      chart.draw(data, google.charts.Bar.convertOptions(options));
-    };
-</script>
-
-{{-- Quote Status Chart --}}
-<script type="text/javascript">
-    google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-      var data = google.visualization.arrayToDataTable([
-        ['Task', 'Hours per Day'],
-        ['Work',     11],
-        ['Eat',      2],
-        ['Commute',  2],
-        ['Watch TV', 2],
-        ['Sleep',    7]
-      ]);
-
-      var options = {
-        title: 'My Daily Activities',
-        is3D: true,
-      };
-
-      var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-      chart.draw(data, options);
-    }
-</script>
-
-
-
-
-
-
-
-
-
-
 
 <script>
     var currentDate = new Date()
@@ -461,7 +395,6 @@
       });
     }
 
-
     // Contact Chart
     var Contact_Chart = () =>{
       $.ajax({
@@ -506,6 +439,7 @@
                     })
                     var data = google.visualization.arrayToDataTable(result);
                     var view = new google.visualization.DataView(data);
+
                     view.setColumns([0, 1,
                         {
                             calc: "stringify",
@@ -527,8 +461,6 @@
       });
     }
 
-
-
     // Organization Chart
     var Organization_Chart = () => {
       $.ajax({
@@ -543,6 +475,7 @@
             'from_date' : currentDateString,
             'to_date' : currentDateString
         },
+
         //data: $('#FrmChartOrganizationReport').serialize(),
         success: function (response) {
             if (response.success == true) {
@@ -593,9 +526,48 @@
         }
       });
     }
-    Organization_Chart();
+
+    // Survey Chart
+    var Survey_Chart = () => {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Success',12],
+          ['Unsuccess',6]
+        ]);
+
+        var options = {
+            title: 'Survey Performance',
+            colors:['#1fa8e0','#ff6384']
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('survey_chart'));
+
+        chart.draw(data, options);
+    }
+
+    // new Contact chart
+    var Con_Chart = () => {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Max-Contact',50],
+          ['Contact',6]
+        ]);
+
+        var options = {
+            title: 'Contact Performance',
+            colors:['#1fa8e0','#ff6384'],
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('contact_chart'));
+
+        chart.draw(data, options);
+    }
+
+    // Organization_Chart();
+    Con_Chart();
+    Survey_Chart();
     Lead_Chart();
     Quote_Chart();
-    Contact_Chart();
+    // Contact_Chart();
     })
   </script>
