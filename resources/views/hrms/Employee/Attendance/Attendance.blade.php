@@ -128,11 +128,11 @@
                           <div class="info-box-content">
                             <span class="info-box-text"><h4><strong>Present</strong></h4></span>
                             <span class="info-box-number">Morning :@php
-                                echo ' '.$attendance[2];
+                                echo ($attendance[2]+$attendance[0]);
                             @endphp</span>
 
                             <span class="info-box-number">Afternoon :@php
-                                echo $attendance[6];
+                                echo ($attendance[6]+$attendance[4]);
                             @endphp</span>
                           </div>
                           <!-- /.info-box-content -->

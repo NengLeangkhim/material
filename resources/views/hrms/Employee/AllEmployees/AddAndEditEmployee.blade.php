@@ -222,21 +222,21 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Home</label>
                             <div class="col-sm-7">
-                                <input type="email" class="form-control" name="emhome_en" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                <input type="text" class="form-control" name="emhome_en" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
                             </div>
                         </div>
 
                         <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Street</label>
                                 <div class="col-sm-7">
-                                    <input type="email" class="form-control" name="emstreet_en" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
+                                    <input type="text" class="form-control" name="emstreet_en" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Group</label>
                                 <div class="col-sm-7">
-                                    <input type="email" class="form-control" name="em_group" value="">
+                                    <input type="text" class="form-control" name="em_group" value="">
                                 </div>
                             </div>
 
@@ -330,21 +330,21 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Home</label>
                             <div class="col-sm-7">
-                                <input type="email" class="form-control" name="em_permanent_home_en" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                <input type="text" class="form-control" name="em_permanent_home_en" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Street</label>
                             <div class="col-sm-7">
-                                <input type="email" class="form-control" name="em_permanent_street_en" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
+                                <input type="text" class="form-control" name="em_permanent_street_en" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Group</label>
                             <div class="col-sm-7">
-                                <input type="email" class="form-control" name="em_permanent_group" value="">
+                                <input type="text" class="form-control" name="em_permanent_group" value="">
                             </div>
                         </div>
 
@@ -427,7 +427,7 @@
                         <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label"># of Identification <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="email" class="form-control" name="number_of_dentification" id="number_of_dentification" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp" required>
+                                    <input type="text" class="form-control" name="number_of_dentification" id="number_of_dentification" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp" required>
                                 </div>
                             </div>
 
@@ -569,21 +569,21 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Home</label>
                             <div class="col-sm-7">
-                                <input type="email" class="form-control" name="parent_home" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                <input type="text" class="form-control" name="parent_home" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Street</label>
                             <div class="col-sm-7">
-                                <input type="email" class="form-control" name="parent_street" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
+                                <input type="text" class="form-control" name="parent_street" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Group</label>
                             <div class="col-sm-7">
-                                <input type="email" class="form-control" name="parent_group" value="">
+                                <input type="text" class="form-control" name="parent_group" value="">
                             </div>
                         </div>
 
@@ -646,7 +646,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Home Phone</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="emhome_en" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                <input type="text" class="form-control" name="parent_home_phone" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
                             </div>
                         </div>
 
@@ -681,7 +681,7 @@
                             <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-5 col-form-label">Major Subject</label>
                                     <div class="col-sm-7">
-                                        <input type="email" class="form-control" name="em_major_subject" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
+                                        <input type="text" class="form-control" name="em_major_subject" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
                                     </div>
                                 </div>
 
@@ -721,14 +721,14 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label"># of Experience</label>
                                 <div class="col-sm-7">
-                                    <input type="email" class="form-control" name="number_of_experience" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                    <input type="number" class="form-control" name="number_of_experience" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-5 col-form-label">Sector</label>
                                     <div class="col-sm-7">
-                                        <input type="email" class="form-control" name="sector" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
+                                        <input type="text" class="form-control" name="sector" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
                                     </div>
                                 </div>
 

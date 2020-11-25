@@ -158,7 +158,6 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-
                                 <!-- ====>> Row current address <<==== -->
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-12 ">
@@ -166,19 +165,19 @@
                                             <div class="row font-size-14">
                                                 
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Home</dt>
-                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >{{ $employee[0]->hom_en }}</dd>
+                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$current_address['home']}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Street</dt>
-                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >{{ $employee[0]->street_en }}</dd>
+                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$current_address['street']}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Group</dt>
-                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >{{ $employee[0]->hom_en }}</dd>
+                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >null</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Province</dt>
-                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >{{ $address['province'] }}</dd>
+                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$current_address['province']}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >District</dt>
-                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >{{ $address['distric'] }}</dd>
+                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$current_address['district']}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Commune</dt>
-                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >{{ $address['commune'] }}</dd>
+                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$current_address['commune']}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Village</dt>
-                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" > {{$address['village']}}</dd>
+                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$current_address['village']}} </dd>
                                             </div>
                                     </div>
 
@@ -186,19 +185,19 @@
                                         <dt class="col-sm-4 col-xs-4 col-6 dt" >Permanent Address</dt>
                                         <div class="row font-size-14">
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Home</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$permanent_address['home']}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Street</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$permanent_address['street']}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Group</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >null</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Province</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                        <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$permanent_address['province']}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >District</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                        <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$permanent_address['district']}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Commune</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                        <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$permanent_address['commune']}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt">Village</dt>
-                                                <dd class="col-sm-8 col-xs-8  col-6 dd" > No</dd>
+                                        <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$permanent_address['village']}}</dd>
                                         </div>
                                 </div>
                                 </div>
@@ -222,7 +221,6 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-
                                 <!-- ====>> Row current address <<==== -->
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-12 ">
@@ -230,21 +228,27 @@
                                             <div class="row font-size-14">
                                                 
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Type of Identification</dt>
-                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['iden_type']}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" ># of Identification</dt>
-                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['ma_identification_number']}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Issued Date</dt>
-                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['issued_date']}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Issued Place</dt>
-                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['issued_place']}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Issued By</dt>
-                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['issued_by']}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Blood Group</dt>
-                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['blood_name']}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Religion</dt>
-                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" > No</dd>
+                                            <dd class="col-sm-8 col-xs-8  col-6 dd" > {{$em_contect['religion']}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Maritial Status</dt>
-                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >No</dd>
+                                            <dd class="col-sm-8 col-xs-8  col-6 dd" >@php
+                                                if($em_contect['is_marriage']==null){
+                                                    echo 'False';
+                                                } else {
+                                                    echo 'True';
+                                                }
+                                            @endphp</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Spouse Name</dt>
                                                     <dd class="col-sm-8 col-xs-8  col-6 dd" > No</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Date of Birth</dt>

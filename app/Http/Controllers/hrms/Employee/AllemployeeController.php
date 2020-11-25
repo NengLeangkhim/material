@@ -67,22 +67,23 @@ class AllemployeeController extends Controller
     
 
     // Delete Employee
-    function DeleteEmployee(Request $request){
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
+    function DeleteEmployee($id){
+        try {
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            if (perms::check_perm_module('HRM_09010101')) {
+                $userid = $_SESSION['userid'];
+                $em=new Employee();
+                $em->DeleteEmployee($id,$userid);
+            }else{
+                $data = 'modal_employee';
+                return view('modal_no_perms')->with('modal', $data);
+            }
+        } catch (\Throwable $th) {
+            throw $th;
         }
-        if (perms::check_perm_module('HRM_09010101')) {
-            $leave=$request->leave_data;
-            echo $leave[0];
-            // $id=$_GET['id'];
-            // echo $id;
-            // $userid = $_SESSION['userid'];
-            // $em=new Employee();
-            // $em->DeleteEmployee($id,$userid);
-        }else{
-            $data = 'modal_employee';
-            return view('modal_no_perms')->with('modal', $data);
-        }
+        
         
     }
 
@@ -185,7 +186,7 @@ class AllemployeeController extends Controller
             $officePhone=$request->emOfficePhone;
             $salary=$request->inputsalary;
             $email=$request->emEmail;
-            $spous=$request->emSpous;
+            $spous=$request->maritial_status;
             $chidren=$request->emChildren;
             $homeNumber_en=$request->emhome_en;
             $homeNumber_kh=$request->emhome_kh;
@@ -237,19 +238,61 @@ class AllemployeeController extends Controller
 
                         ];
                         $relative_father=[
-                            'ma_relative_type_id'
-                            'name_en'
-                            'name_kh'
-                            'occupation'
-                            'birth_date'
-                            'ma_education_level_id',
-                            'phone_number'
-                            'home_phone',
-                            'gazetteer_code',
-                            'create_date',
-                            'create_by',
-                            ''
+                            'ma_relative_type_id'=>1,
+                            'name_en'=>$request->parent_father_name,
+                            'name_kh'=>null,
+                            'occupation'=>$request->parent_father_occupation,
+                            'birth_date'=>null,
+                            'ma_education_level_id'=>null,
+                            'phone_number'=>$request->parent_mobile_phone,
+                            'home_phone'=>$request->parent_home_phone,
+                            'gazetteer_code'=>$request->parent_village,
+                            'create_date'=>date('Y-m-d h:m:s'),
+                            'create_by'=>$userid,
+                            'status'=>'t',
+                            'is_deleted'=>'f'
                         ];
+                        $relative_mother=[
+                            'ma_relative_type_id'=>2,
+                            'name_en'=>$request->parent_mother_name,
+                            'name_kh'=>null,
+                            'occupation'=>$request->parent_mother_occupation,
+                            'birth_date'=>null,
+                            'ma_education_level_id'=>null,
+                            'phone_number'=>$request->parent_mobile_phone,
+                            'home_phone'=>$request->parent_home_phone,
+                            'gazetteer_code'=>$request->parent_village,
+                            'create_date'=>date('Y-m-d h:m:s'),
+                            'create_by'=>$userid,
+                            'status'=>'t',
+                            'is_deleted'=>'f'
+                        ];
+                        $education_detail=[
+                            'ma_user_id'=>$em,
+                            'ma_education_level_id'=>$request->em_education_level,
+                            'major'=>$request->em_major_subject,
+                            'education_status'=>$request->em_education_status,
+                            'school'=>$request->university_school,
+                            'create_date'=>date('Y-m-d h:m:s'),
+                            'create_by'=>$userid,
+                            'status'=>'t',
+                            'is_deleted'=>'f'
+                        ];
+                        $experience_detail=[
+                            'ma_user_id'=>$em,
+                            'experience_period'=>$request->number_of_experience,
+                            'sector'=>$request->sector,
+                            'company_name'=>$request->company_name,
+                            'last_position'=>$request->last_position,
+                            'create_date'=>date('Y-m-d h:m:s'),
+                            'create_by'=>$userid,
+                            'status'=>'t',
+                            'is_deleted'=>'f'
+                        ];
+                        DB::table('ma_user_experience')->insert($experience_detail);
+                        DB::table('ma_user_education_detail')->insert($education_detail);
+                        DB::table('ma_user_relative')->insert($relative_mother);
+                        DB::table('ma_user_relative')->insert($relative_father);
                         DB::table('ma_user_contact')->insert($contact_employee);
                         DB::table('ma_user_address')->insert($address_Permanent);
                         DB::commit();
@@ -287,6 +330,62 @@ class AllemployeeController extends Controller
                         'is_deleted'=>'f'
 
                     ];
+                    $relative_father=[
+                        'ma_relative_type_id'=>1,
+                        'name_en'=>$request->parent_father_name,
+                        'name_kh'=>null,
+                        'occupation'=>$request->parent_father_occupation,
+                        'birth_date'=>null,
+                        'ma_education_level_id'=>null,
+                        'phone_number'=>$request->parent_mobile_phone,
+                        'home_phone'=>$request->parent_home_phone,
+                        'gazetteer_code'=>$request->parent_village,
+                        'create_date'=>date('Y-m-d h:m:s'),
+                        'create_by'=>$userid,
+                        'status'=>'t',
+                        'is_deleted'=>'f'
+                    ];
+                    $relative_mother=[
+                        'ma_relative_type_id'=>2,
+                        'name_en'=>$request->parent_mother_name,
+                        'name_kh'=>null,
+                        'occupation'=>$request->parent_mother_occupation,
+                        'birth_date'=>null,
+                        'ma_education_level_id'=>null,
+                        'phone_number'=>$request->parent_mobile_phone,
+                        'home_phone'=>$request->parent_home_phone,
+                        'gazetteer_code'=>$request->parent_village,
+                        'create_date'=>date('Y-m-d h:m:s'),
+                        'create_by'=>$userid,
+                        'status'=>'t',
+                        'is_deleted'=>'f'
+                    ];
+                    $education_detail=[
+                        'ma_user_id'=>$userid,
+                        'ma_education_level_id'=>$request->em_education_level,
+                        'major'=>$request->em_major_subject,
+                        'education_status'=>$request->em_education_status,
+                        'school'=>$request->university_school,
+                        'create_date'=>date('Y-m-d h:m:s'),
+                        'create_by'=>$userid,
+                        'status'=>'t',
+                        'is_deleted'=>'f'
+                    ];
+                    $experience_detail=[
+                        'ma_user_id'=>$em,
+                        'experience_period'=>$request->number_of_experience,
+                        'sector'=>$request->sector,
+                        'company_name'=>$request->company_name,
+                        'last_position'=>$request->last_position,
+                        'create_date'=>date('Y-m-d h:m:s'),
+                        'create_by'=>$userid,
+                        'status'=>'t',
+                        'is_deleted'=>'f'
+                    ];
+                    DB::table('ma_user_experience')->insert($experience_detail);
+                    DB::table('ma_user_education_detail')->insert($education_detail);
+                    DB::table('ma_user_relative')->insert($relative_mother);
+                    DB::table('ma_user_relative')->insert($relative_father);
                     DB::table('ma_user_contact')->insert($contact_employee);
                     DB::table('ma_user_address')->insert($address_Permanent);
                     DB::commit();
@@ -327,7 +426,62 @@ class AllemployeeController extends Controller
                                 'is_deleted'=>'f'
 
                             ];
-
+                            $relative_father=[
+                                'ma_relative_type_id'=>1,
+                                'name_en'=>$request->parent_father_name,
+                                'name_kh'=>null,
+                                'occupation'=>$request->parent_father_occupation,
+                                'birth_date'=>null,
+                                'ma_education_level_id'=>null,
+                                'phone_number'=>$request->parent_mobile_phone,
+                                'home_phone'=>$request->parent_home_phone,
+                                'gazetteer_code'=>$request->parent_village,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'create_by'=>$userid,
+                                'status'=>'t',
+                                'is_deleted'=>'f'
+                            ];
+                            $relative_mother=[
+                                'ma_relative_type_id'=>2,
+                                'name_en'=>$request->parent_mother_name,
+                                'name_kh'=>null,
+                                'occupation'=>$request->parent_mother_occupation,
+                                'birth_date'=>null,
+                                'ma_education_level_id'=>null,
+                                'phone_number'=>$request->parent_mobile_phone,
+                                'home_phone'=>$request->parent_home_phone,
+                                'gazetteer_code'=>$request->parent_village,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'create_by'=>$userid,
+                                'status'=>'t',
+                                'is_deleted'=>'f'
+                            ];
+                            $education_detail=[
+                                'ma_user_id'=>$userid,
+                                'ma_education_level_id'=>$request->em_education_level,
+                                'major'=>$request->em_major_subject,
+                                'education_status'=>$request->em_education_status,
+                                'school'=>$request->university_school,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'create_by'=>$userid,
+                                'status'=>'t',
+                                'is_deleted'=>'f'
+                            ];
+                            $experience_detail=[
+                                'ma_user_id'=>$em,
+                                'experience_period'=>$request->number_of_experience,
+                                'sector'=>$request->sector,
+                                'company_name'=>$request->company_name,
+                                'last_position'=>$request->last_position,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'create_by'=>$userid,
+                                'status'=>'t',
+                                'is_deleted'=>'f'
+                            ];
+                            DB::table('ma_user_experience')->insert($experience_detail);
+                            DB::table('ma_user_education_detail')->insert($education_detail);
+                            DB::table('ma_user_relative')->insert($relative_mother);
+                            DB::table('ma_user_relative')->insert($relative_father);
                             DB::table('ma_user_contact')->insert($contact_employee);
                             DB::table('ma_user_address')->insert($address_Permanent);
                             DB::commit();
@@ -365,8 +519,63 @@ class AllemployeeController extends Controller
                             'create_by'=>$userid,
                             'status'=>'t',
                             'is_deleted'=>'f'
-
                         ];
+                        $relative_father=[
+                            'ma_relative_type_id'=>1,
+                            'name_en'=>$request->parent_father_name,
+                            'name_kh'=>null,
+                            'occupation'=>$request->parent_father_occupation,
+                            'birth_date'=>null,
+                            'ma_education_level_id'=>null,
+                            'phone_number'=>$request->parent_mobile_phone,
+                            'home_phone'=>$request->parent_home_phone,
+                            'gazetteer_code'=>$request->parent_village,
+                            'create_date'=>date('Y-m-d h:m:s'),
+                            'create_by'=>$userid,
+                            'status'=>'t',
+                            'is_deleted'=>'f'
+                        ];
+                        $relative_mother=[
+                            'ma_relative_type_id'=>2,
+                            'name_en'=>$request->parent_mother_name,
+                            'name_kh'=>null,
+                            'occupation'=>$request->parent_mother_occupation,
+                            'birth_date'=>null,
+                            'ma_education_level_id'=>null,
+                            'phone_number'=>$request->parent_mobile_phone,
+                            'home_phone'=>$request->parent_home_phone,
+                            'gazetteer_code'=>$request->parent_village,
+                            'create_date'=>date('Y-m-d h:m:s'),
+                            'create_by'=>$userid,
+                            'status'=>'t',
+                            'is_deleted'=>'f'
+                        ];
+                        $education_detail=[
+                            'ma_user_id'=>$userid,
+                            'ma_education_level_id'=>$request->em_education_level,
+                            'major'=>$request->em_major_subject,
+                            'education_status'=>$request->em_education_status,
+                            'school'=>$request->university_school,
+                            'create_date'=>date('Y-m-d h:m:s'),
+                            'create_by'=>$userid,
+                            'status'=>'t',
+                            'is_deleted'=>'f'
+                        ];
+                        $experience_detail=[
+                            'ma_user_id'=>$em,
+                            'experience_period'=>$request->number_of_experience,
+                            'sector'=>$request->sector,
+                            'company_name'=>$request->company_name,
+                            'last_position'=>$request->last_position,
+                            'create_date'=>date('Y-m-d h:m:s'),
+                            'create_by'=>$userid,
+                            'status'=>'t',
+                            'is_deleted'=>'f'
+                        ];
+                        DB::table('ma_user_experience')->insert($experience_detail);
+                        DB::table('ma_user_education_detail')->insert($education_detail);
+                        DB::table('ma_user_relative')->insert($relative_mother);
+                        DB::table('ma_user_relative')->insert($relative_father);
                         DB::table('ma_user_contact')->insert($contact_employee);
                         DB::table('ma_user_address')->insert($address_Permanent);
                         DB::commit();
@@ -378,6 +587,63 @@ class AllemployeeController extends Controller
 
         } catch (\Throwable $th) {
             DB::rollback();
+            throw $th;
+        }
+    }
+
+    function insert_exit_employee(Request $request){
+        // return $request->id;
+        DB::beginTransaction();
+        try {
+            // $validation=\Validator::make($request->all(),[
+            //     'request_exit_date'=>'required|date',
+            //     'type_of_exit'=>'required',
+            //     'hr_received_date'=>'required|date',
+            //     'effective_exit_date'=>'required|date',
+            //     'submit_date'=>'required|date',
+            //     'manager_approved_date'=>'required|date',
+            //     'reason_of_exit'=>'required'
+            // ]);
+            // if($validation->fails()){
+            //     return response()->json(['error' => $validation->getMessageBag()->toArray()]);
+            // }
+
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $userid = $_SESSION['userid'];
+            $values=[
+                'ma_user_id'=>$request->id,
+                'ma_exit_type_id'=>$request->type_of_exit,
+                'training_development'=>$request->training_and_development,
+                'opportunity_to_promote'=>$request->opportunity_to_promote,
+                'work_presure'=>$request->work_presure,
+                'working_on_holiday'=>$request->working_on_holiday,
+                'motivation'=>$request->motivation,
+                'overall_option'=>$request->overall_opion,
+                'request_exit_date'=>$request->request_exit_date,
+                'hr_received_date'=>$request->hr_received_date,
+                'effective_date'=>$request->effective_exit_date,
+                'submit_date'=>$request->submit_date,
+                'manager_approved_date'=>$request->manager_approved_date,
+                'exit_reason'=>$request->reason_of_exit,
+                'duties_responsibility'=>$request->duties_and_responsibility,
+                'given_salary'=>$request->given_salary,
+                'work_environment'=>$request->working_environment,
+                'team_work'=>$request->team_work,
+                'management_issue'=>$request->management_issue,
+                'comment'=>$request->comment,
+                'create_date'=>date('Y-m-d h:m:s'),
+                'create_by'=>$userid,
+                'status'=>'t',
+                'is_deleted'=>'f'
+            ];
+            DB::table('ma_user_exit')->insert($values);
+            self::DeleteEmployee($request->id);
+            DB::commit();
+            return 'Successfully !!';
+        } catch (\Throwable $th) {
+            DB::rollBack();
             throw $th;
         }
     }

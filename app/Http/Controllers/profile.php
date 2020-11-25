@@ -48,7 +48,11 @@ class profile extends Controller
             session_start();
         }
         if(isset($_SESSION['userid'])){
-            $user_id=$_SESSION['userid'];
+            if(isset($_GET['id'])){
+                $user_id=$_GET['id'];
+            }else{
+                $user_id=$_SESSION['userid'];
+            }
         }else{
             return;
         }
@@ -57,12 +61,14 @@ class profile extends Controller
             // $addr_code = $pro[0]->gazetteer_code;
             // $addr_detail = profileModel::address_detail($addr_code);
             $employee=profileModel::get_data_info_of_one_employee($user_id);
-            $address=profileModel::get_address_of_employee($employee[0]->gazetteer_code);
+            // dd($employee[0]->gazetteer_code);
+            // $address=profileModel::get_address_of_employee($employee[0]->gazetteer_code);
             $training=TrainingList::my_training($user_id);
             $leave_type=LeaveType::get_leave_type();
             $all_leave=LeaveType::get_all_permission($user_id);
             $warning=warning_and_punishment::warning_and_punishment_list_one($user_id);
             $exit_info=profileModel::exit_information($user_id);
+            
             if(count($exit_info)>0){
                 $exit_information=[
                     'id'=>$exit_info[0]->id,
@@ -122,7 +128,12 @@ class profile extends Controller
             }
             $job_experience=profileModel::experience_detil($user_id);
             $education=profileModel::education_deatail($user_id);
-            return view('profile',compact("employee","address","training","leave_type","all_leave","warning","exit_information","job_experience","education"));//,"pos","name","id_number","dept","kindof","transfer_to","leave_kind","trans_to","date_from","time_from","date_to","time_to","date_resume","leave_number","reason","req_by","create_date"));
+            $permanent_address=profileModel::permanent_address($user_id);
+            $current_address=profileModel::current_address($user_id);
+            // dd($current_address);
+            // return;
+            $em_contect=profileModel::user_contact($user_id);
+            return view('profile',compact("employee","training","leave_type","all_leave","warning","exit_information","job_experience","education","permanent_address","em_contect","current_address"));//,"pos","name","id_number","dept","kindof","transfer_to","leave_kind","trans_to","date_from","time_from","date_to","time_to","date_resume","leave_number","reason","req_by","create_date"));
         }else{
             return view('no_perms');
         }
