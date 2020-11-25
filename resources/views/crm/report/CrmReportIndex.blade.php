@@ -346,7 +346,7 @@
       var data = google.visualization.arrayToDataTable([
         ['Year', ' ', { role: 'style' } ],
        
-        ['2020', 10,'stroke-color: #1fa8e0; stroke-width: 2; fill-color: #4bc0c0;  fill-opacity: 0.6'],  
+        ['2020', 10,'stroke-color: #1fa8e0; stroke-width: 2; fill-color: #4bc0c0;'],  
       ]);
  
        var view = new google.visualization.DataView(data);
@@ -375,8 +375,8 @@
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
         ['Year', ' ', { role: 'style' } ],
-        ['2019', 10, 'stroke-color:#c56183; stroke-width: 2;fill-color: #ffa5a5; fill-opacity: 0.2'],
-        ['2020', 14, 'stroke-color: #1fa8e0; stroke-width: 2; fill-color: #4bc0c0;  fill-opacity: 0.6']
+        ['2019', 10, 'stroke-color:#c56183; stroke-width: 2;fill-color: #ffa5a5; '],
+        ['2020', 14, 'stroke-color: #1fa8e0; stroke-width: 2; fill-color: #4bc0c0; ']
    
       ]);
 
