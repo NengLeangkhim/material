@@ -100,10 +100,7 @@
                 <div class="card-header" style="background: #1fa8e0"> 
                   <h3 class="card-title">Lead Status Chart</h3>
 
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                    </button>
-                  </div>
+                  
                 </div>
                 <div class="card-body">
                   <div class="chart">
