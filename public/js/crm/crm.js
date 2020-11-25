@@ -308,6 +308,12 @@ function Crm_delete(id,route,goto,alert) {
 //         });
 //       }
 
+
+
+
+
+
+
 // -----------END Report ---------- //
 // -----------Setting CRM ---------- //
  ////view Manage Setting///////
@@ -598,7 +604,7 @@ function Crm_delete(id,route,goto,alert) {
 
       // get  service in  selection
         $('#service').ready(function(){
-          $('#service').find('option').not(':first').remove();
+        //   $('#service').find('option').not(':first').remove();
               $.ajax({
                   url:'api/stock/service',
                   type:'get',
@@ -637,10 +643,10 @@ function Crm_delete(id,route,goto,alert) {
 
                           //     $("#lead_id").append(option);
                           // }
+                        $("#lead_id").append('<option value="">--Select Lead--</option>');
                         $.each(response['data'], function(i,item){
                             var id = response['data'][i].lead_id;
                                 var name = response['data'][i].customer_name_en;
-                                // alert(name);
                                 var option = "<option value='"+id+"'>"+name+"</option>";
                                 $("#lead_id").append(option)
                                 if(getLeadId != ''){

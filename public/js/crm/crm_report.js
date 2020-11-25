@@ -360,3 +360,138 @@ var reportQuoteByStatus = () => {
         }
     });
 }
+
+
+
+    //=========================================Export Report CRM=====================
+
+    // function for export datatable to excel
+    function exportTableToExcel(filename){
+        let table = document.getElementsByTagName("table");
+        TableToExcel.convert(table[0], { // html code may contain multiple tables so here we are refering to 1st table tag
+            name: ''+filename+'.xlsx',
+            sheet: {
+                name: 'Sheet 1'
+            }
+        });
+
+    }
+
+
+     // function for export datatable to pdf
+     function exportTableToPDF(tblId,filename){
+        html2canvas($('#'+tblId+'')[0], {
+            onrendered: function (canvas) {
+                var data = canvas.toDataURL();
+                var docDefinition = {
+                    content: [{
+                        image: data,
+                        width: 500,
+                    }]
+                };
+                pdfMake.createPdf(docDefinition).open(""+filename+".pdf");
+                pdfMake.createPdf(docDefinition).download(""+filename+".pdf");
+            }
+        });
+    }
+
+
+
+    // function click to export quote as excel
+    $(document).on('click','#btnReportQuoteExcel',function(){
+            var table = $('#QuoteDetailTbl').DataTable();
+            if(!table.data().any()){  // condition true it mean table empty data
+                // alert('Table Empty table');
+                sweetalert('warning', 'No data export !');
+            }else{
+                exportTableToExcel('QuoteReport');
+            }
+    });
+
+
+    // button to click export quote report to pdf file
+    $(document).on("click", "#btnReportQuotePDF", function () {
+        var table = $('#QuoteDetailTbl').DataTable();
+        if(!table.data().any()){
+            sweetalert('warning', 'No data export !');
+        }else{
+            exportTableToPDF('QuoteDetailTbl','QuoteReport');
+        }
+    });
+
+    //button to click export lead report to excel file
+    $(document).on("click", "#btnExportExcelLeadReport", function(){
+        var table = $('#OrganizationTbl').DataTable();
+        if(!table.data().any()){
+            sweetalert('warning', 'No data export !');
+        }else{
+            exportTableToExcel('LeadReport');
+        }
+    });
+
+
+
+    //button to click export lead report to pdf file
+    $(document).on("click", "#btnExportPdfLeadReport", function(){
+        var table = $('#OrganizationTbl').DataTable();
+        if(!table.data().any()){
+            sweetalert('warning', 'No data export !');
+        }else{
+            exportTableToPDF('OrganizationTbl','LeadReport');
+        }
+    });
+
+
+
+    //button to click export contact report to excel file
+    $(document).on("click", "#btnExportExcelContactReport", function(){
+        var table = $('#OrganizationTbl2').DataTable();  // table contact report
+        if(!table.data().any()){
+            sweetalert('warning', 'No data export !');
+        }else{
+            exportTableToExcel('ContactReport');
+        }
+    });
+
+
+    //button to click export contact report to pdf file
+    $(document).on("click", "#btnExportPDFContactReport", function(){
+        var table = $('#OrganizationTbl2').DataTable();  // table contact report
+        if(!table.data().any()){
+            sweetalert('warning', 'No data export !');
+        }else{
+            exportTableToPDF('OrganizationTbl2','ContactReport');
+        }
+    });
+
+
+
+    //button to click export organization report to excel file
+    $(document).on("click", "#btnExportExcelOrganizReport", function(){
+        var table = $('#OrganizationTbl3').DataTable();  // table contact report
+        if(!table.data().any()){
+            sweetalert('warning', 'No data export !');
+        }else{
+            exportTableToExcel('OrganizReport');
+        }
+    });
+
+
+    //button to click export organization report to pdf file
+    $(document).on("click", "#btnExportPDFOrganizReport", function(){
+        var table = $('#OrganizationTbl3').DataTable();  // table contact report
+        if(!table.data().any()){
+            sweetalert('warning', 'No data export !');
+        }else{
+            exportTableToPDF('OrganizationTbl3','OrganizReport');
+        }
+    });
+
+
+
+
+
+
+
+
+

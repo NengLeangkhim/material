@@ -30,7 +30,7 @@
                                     </div>
                                     <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead">
                                     <select class="form-control " name="lead_id" id="lead_id" data-code="<?php if(isset($leadSeleted)){echo $leadSeleted;}else{echo '';} ?>">
-                                            <option value=''>-- Select Lead  --</option>
+                                            {{-- <option value=''>-- Select Lead  --</option> --}}
                                     </select>
 
                                 </div>
@@ -265,7 +265,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-speakap"></i></span>
                                                     </div>
-                                                    <select class="form-control select2bs4 "  multiple="multiple" name="service" id="service" placeholder='Choose service'>
+                                                    <select class="form-control select2"  multiple="multiple" name="service" id="service" placeholder='Choose service'>
                                                         <option value=''>-- Select Lead Assigened To --</option>
                                                     </select>
                                                     <span class="invalid-feedback" role="alert" id="serviceError"> {{--span for alert--}}
@@ -479,7 +479,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-speakap"></i></span>
                                                     </div>
-                                                    <select class="form-control select2bs4 "  multiple="multiple" name="service" id="service">
+                                                    <select class="form-control select2"  multiple="multiple" name="service" id="service">
                                                         <option value=''>-- Select Lead Assigened To --</option>
                                                     </select>
                                                     <span class="invalid-feedback" role="alert" id="serviceError"> {{--span for alert--}}
