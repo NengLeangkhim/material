@@ -191,7 +191,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="exampleInputEmail1">Schedule_Type</label>
+                                    <label for="exampleInputEmail1">Result_Type</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
@@ -199,9 +199,9 @@
                                         <select class="form-control " name="schedule_type_id_result" id="schedule_type_id_result" >
                                             <option value=''>-- Select  schedule_type --</option>  
                                             <?php 
-                                            for($i =0; $i<sizeof($schedule_type); $i++){
+                                            for($i =0; $i<sizeof($result_type); $i++){
                                             ?>                                                                
-                                                    <option value="{{$schedule_type[$i]["id"]}}" > {{$schedule_type[$i]["name_en"]}} / {{$schedule_type[$i]["name_kh"]}}</option>  
+                                                    <option value="{{$result_type[$i]["id"]}}" > {{$result_type[$i]["name_en"]}} / {{$result_type[$i]["name_kh"]}}</option>  
                                                     <?php
                                             }
                                            

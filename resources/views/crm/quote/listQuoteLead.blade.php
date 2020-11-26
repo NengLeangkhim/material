@@ -37,51 +37,50 @@
                             <tbody>
 
                                 {{-- foreach variable --}}
+                                @if(isset($listLead))
+                                    @foreach ($listLead as $key=>$val)
+                                        @foreach ($val as $key2=>$val2)
+                                                <tr id="{{$val2->lead_id}}">
+                                                    <td class="border">
+                                                        {{$key2+1}}
+                                                        <input type="hidden" name="leadQuote" id="leadQuote" value="{{$val2->lead_id}}">
+                                                        <input type="hidden" id="leadAddressId{{$val2->lead_id}}" value="{{$val2->lead_addr_id}}">
+                                                    </td>
+                                                    <td class="border">
+                                                        <div class="leadKhName" id="leadKhName_{{$val2->lead_id}}">
+                                                            {{$val2->customer_name_kh}}
+                                                        </div>
+                                                    </td>
+                                                    <td class="border">
+                                                        <div class="leadEnName" id="leadEnName_{{$val2->lead_id}}">
+                                                            {{$val2->customer_name_en}}
+                                                        </div>
+                                                    </td>
 
-                                @foreach ($listLead as $key=>$val)
-                                    @foreach ($val as $key2=>$val2)
-                                            <tr id="{{$val2->lead_id}}">
-                                                <td class="border">
-                                                    {{$key2+1}}
-                                                    <input type="hidden" name="leadQuote" id="leadQuote" value="{{$val2->lead_id}}">
-                                                    <input type="hidden" id="leadAddressId{{$val2->lead_id}}" value="{{$val2->lead_addr_id}}">
-                                                </td>
-                                                <td class="border">
-                                                    <div class="leadKhName" id="leadKhName_{{$val2->lead_id}}">
-                                                        {{$val2->customer_name_kh}}
-                                                    </div>
-                                                </td>
-                                                <td class="border">
-                                                    <div class="leadEnName" id="leadEnName_{{$val2->lead_id}}">
-                                                        {{$val2->customer_name_en}}
-                                                    </div>
-                                                </td>
+                                                    <td class="border">
+                                                        <div class="leadNumber">
+                                                            {{$val2->lead_number}}
+                                                        </div>
+                                                    </td>
+                                                    <td class="border">
+                                                        <div class="vatLead">
+                                                            @if($val2->vat_number != '')
+                                                                <span>Exclude</span>
+                                                            @else
+                                                                <span>Include</span>
+                                                            @endif
+                                                        </div>
+                                                    </td>
+                                                    <td class="border">
+                                                        <div class="leadEmail">
+                                                            {{$val2->email}}
+                                                        </div>
+                                                    </td>
 
-                                                <td class="border">
-                                                    <div class="leadNumber">
-                                                        {{$val2->lead_number}}
-                                                    </div>
-                                                </td>
-                                                <td class="border">
-                                                    <div class="vatLead">
-                                                        @if($val2->vat_number != '')
-                                                            <span>Exclude</span>
-                                                        @else
-                                                            <span>Include</span>
-                                                        @endif
-                                                    </div>
-                                                </td>
-                                                <td class="border">
-                                                    <div class="leadEmail">
-                                                        {{$val2->email}}
-                                                    </div>
-                                                </td>
-
-                                            </tr>
-
+                                                </tr>
+                                        @endforeach
                                     @endforeach
-                                @endforeach
-
+                                @endif
                             </tbody>
                         </table>
                     </div>

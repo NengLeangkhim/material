@@ -27,6 +27,7 @@ class GetLead extends JsonResource
             "customer_name_kh"=>$this->customer_name_kh,
             "email"=>$this->email,
             "website"=>$this->website,
+            "phone"=>$this->phone,
             "facebook"=>$this->facebook,
             "create_date"=>$this->create_date,
             "crm_lead_source_id"=>$this->crm_lead_source_id,
