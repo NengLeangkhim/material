@@ -664,37 +664,39 @@ function go_to(route){
     if(check_session()){
         return;
     }
-    if(route.length<=0){
-        $(".content-wrapper").html(jnot_found());
-        return;
-    }
-    if(route=='/'){
-        $(".content-wrapper").html(jnot_found());
-        return;
-    }
-    showloading();
-    $.ajax({
-        type: 'GET',
-        url:route,
-        success:function(data){
-            $(".content-wrapper").html(data);
-            hideloading();
-        },
-        error:function(jqXHR){
-          hideloading();
-          $(".content-wrapper").html(jerror());
-          if(jqXHR.status==404){
-            Swal.fire({ //get from sweetalert function
-                title: 'ERROR Occur',
-                text: "404 Link reuqested not found",
-                icon: 'warning',
-                showCancelButton: false,
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'OK'
-            });
-          }
+    if (typeof route !== typeof undefined && route !== false) {
+        if(route.length<=0){
+            $(".content-wrapper").html(jnot_found());
+            return;
         }
-     });
+        if(route=='/'){
+            $(".content-wrapper").html(jnot_found());
+            return;
+        }
+        showloading();
+        $.ajax({
+            type: 'GET',
+            url:route,
+            success:function(data){
+                $(".content-wrapper").html(data);
+                hideloading();
+            },
+            error:function(jqXHR){
+            hideloading();
+            $(".content-wrapper").html(jerror());
+            if(jqXHR.status==404){
+                Swal.fire({ //get from sweetalert function
+                    title: 'ERROR Occur',
+                    text: "404 Link reuqested not found",
+                    icon: 'warning',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK'
+                });
+            }
+            }
+        });
+    }
 }
 
 
