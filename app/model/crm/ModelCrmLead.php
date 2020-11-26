@@ -60,9 +60,9 @@ class ModelCrmLead extends Model
         return $res->getContent();
    }
    // Model get schedule type
-   public static function CrmGetSchdeuleType(){
+   public static function CrmGetSchdeuleType($id){
         $token = $_SESSION['token'];
-        $request = Request::create('/api/getscheduletype', 'GET');
+        $request = Request::create('/api/getscheduletype/'.$id, 'GET');
         $request->headers->set('Accept', 'application/json');
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);

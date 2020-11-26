@@ -19,16 +19,16 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                <!-- AREA CHART -->
+                <!-- PIE CHART -->
                 <div class="card card-primary">
-                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
-                        <h3 class="card-title text-dark text-bold" >Lead Chart</h3>
-                    </div>
-                    <div class="card-body">
+                    <div class="card-header" style="background: #ffffff;border:none;">
+                      <h3 class="card-title" style="color: #000000;font-weight: bold;">Branch Chart</h3>
+                    </div>                    
+                    <div class="card-body">                      
                         <div class="form-group">
                           <form id="FrmChartReport">
                             @csrf
-                            <div class="row">
+                            <div class="row" hidden>
                                 <div class="col-md-6">
                                     <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
                                     <div class="input-group">
@@ -36,7 +36,7 @@
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
                                         <input type="hidden" name="fromDate">
-                                        <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y')?>" id="LeadChartFrom" name='LeadChartFrom' required>
+                                        <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="LeadChartFrom" name='LeadChartFrom' required>
                                         <span class="invalid-feedback" role="alert" id="LeadChartFromError"> {{--span for alert--}}
                                           <strong></strong>
                                         </span>
@@ -49,7 +49,7 @@
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
                                         <input type="hidden" name="toDate">
-                                        <input type="text" class="form-control" placeholder="Select Date" id="LeadChartTo" value="<?php echo date('Y')?>" name='LeadChartTo' required>
+                                        <input type="text" class="form-control" placeholder="Select Date" id="LeadChartTo" value="<?php echo date('Y-m')?>" name='LeadChartTo' required>
                                         <span class="invalid-feedback" role="alert" id="LeadChartToError"> {{--span for alert--}}
                                           <strong></strong>
                                         </span>
@@ -58,8 +58,10 @@
                             </div>
                           </form>
                         </div>
-                        <div class="chart">
-                            <div id="LeadChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                        <div class="chart">                                      
+                          <div style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;display:block;">                            
+                            <div id="donutchart" style="width: auto; height: 300px;"></div>
+                          </div>                          
                         </div>
                         <div class="col-md-12 text-right">
                           <button class="btn btn-info" onclick="go_to('/crmreport/detaillead')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -68,16 +70,16 @@
                 </div><!-- /.card -->
             </div><!-- End Col -->
             <div class="col-md-6">
-                <!-- DONUT CHART -->
+                <!-- Column CHART -->
                 <div class="card card-danger">
-                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
-                        <h3 class="card-title text-dark text-bold">Contact Chart</h3>
+                    <div class="card-header" style="background: #ffffff;border:none;">
+                      <h3 class="card-title" style="color: #000000;font-weight: bold; ">Contact Chart</h3>              
                     </div>
                     <div class="card-body">
                       <div class="form-group">
                         <form id="FrmChartContactReport">
                           @csrf
-                          <div class="row">
+                          <div class="row" hidden>
                                 <div class="col-md-6">
                                   <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
                                   <div class="input-group">
@@ -107,8 +109,10 @@
                           </div>
                         </form>
                       </div>
-                      <div class="chart-contact">
-                        <div id="ContactChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                      <div class="chart-contact"> 
+                        <div style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">
+                          <div id="columnchart_values" style="width:auto;height:auto;"></div>
+                        </div>                       
                       </div>
 
                       {{-- <div class="chart">
@@ -125,14 +129,14 @@
             <div class="col-md-6">
                 <!-- LINE CHART -->
                 <div class="card card-info">
-                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
-                        <h3 class="card-title text-dark text-bold">Organization Chart</h3>
+                    <div class="card-header" style="background: #ffffff;border:none;">
+                      <h3 class="card-title" style="color: #000000;font-weight: bold; ">Organization Chart</h3>                    
                     </div>
                     <div class="card-body">
                       <div class="form-group">
                         <form id="FrmChartOrganizationReport">
                           @csrf
-                          <div class="row">
+                          <div class="row" hidden>
                                 <div class="col-md-6">
                                   <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
                                   <div class="input-group">
@@ -163,7 +167,7 @@
                         </form>
                       </div>
                       <div class="chart">
-                          <div id="OrganizationChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                        <div id="OrganizationChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
                       </div>
                       <div class="col-md-12 text-right">
                         <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -174,14 +178,14 @@
             <div class="col-md-6">
                 <!-- BAR CHART -->
                 <div class="card card-success">
-                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
-                        <h3 class="card-title text-dark text-bold">Quote Chart</h3>
+                    <div class="card-header" style="background: #ffffff;border:none;">
+                    <h3 class="card-title" style="color: #000000;font-weight: bold;  ">Quote Chart</h3>                    
                     </div>
                     <div class="card-body">
                         <div class="form-group">
                             <form id="FrmChartQuoteReport">
                                 @csrf
-                                <div class="row">
+                                <div class="row" hidden>
                                     <div class="col-md-6">
                                     <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
                                     <div class="input-group">
@@ -209,13 +213,13 @@
                                     </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="chart">
-                            <div class="QuoteChart"></div>
-                        </div>
-                      <div class="chart">
-                          <div id="ReportQuoteChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="chart">                         
+                          <div  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:20px;">
+                            <div id="barchart_values" style="width:auto; height: 300px;"></div>                      
+                          </div>
                       </div>
                       <div class="col-md-12 text-right">
                         <button class="btn btn-info" onclick="go_to('/crmreport/detailquote')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -386,14 +390,14 @@
     $(function () {
       // Date Lead
       $('#LeadChartFrom').datetimepicker({
-        format: 'YYYY',
+        format: 'YYYY-MM',
         sideBySide: true,
       });
       $("#LeadChartFrom").on("dp.change", function (e) {
         reportLeadByStatus();
       })
       $('#LeadChartTo').datetimepicker({
-        format: 'YYYY',
+        format: 'YYYY-MM',
         sideBySide: true,
       });
       $("#LeadChartTo").on("dp.change", function (e) {
@@ -446,3 +450,91 @@
       })
     });
   </script>
+
+  {{-- lead chart --}} 
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+          ['New',     2],
+          ['Qualified', 11],
+          ['Surveying', 2]      
+      ]);
+      var options = {
+        title: 'Lead Performance',
+        pieHole: 0.4,
+        slices: {
+            0: { color: '#ff6384' },
+            1: { color: '#1fa8e0' },
+            2: { color: '#c060a1' }            
+          }
+      };
+      var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+      chart.draw(data, options);
+    }
+  </script>
+
+   {{-- Contact chart --}}
+   <script type="text/javascript">
+     google.charts.load("current", {packages:['corechart']});
+     google.charts.setOnLoadCallback(drawChart);
+     function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Year', ' ', { role: 'style' } ],
+       
+        ['2020', 10,'stroke-color: #1fa8e0; stroke-width: 2; fill-color: #4bc0c0;'],  
+      ]);
+ 
+       var view = new google.visualization.DataView(data);
+       view.setColumns([0, 1,
+                        { calc: "stringify",
+                          sourceColumn: 1,
+                          type: "string",
+                          role: "annotation" },
+                        2]); 
+       var options = {
+         title: "Contact Chart",
+         width: 550,
+         height: 300,
+         bar: {groupWidth: "70%"},
+         legend: { position: "none" },
+       };
+       var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+       chart.draw(view, options);
+   }
+   </script>
+
+   {{-- Quote chart --}}
+   <script type="text/javascript">
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Year', ' ', { role: 'style' } ],
+        ['2019', 10, 'stroke-color:#c56183; stroke-width: 2;fill-color: #ffa5a5; '],
+        ['2020', 14, 'stroke-color: #1fa8e0; stroke-width: 2; fill-color: #4bc0c0; ']
+   
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Quote Performance",
+        width: 550,
+        height: 200,
+        bar: {groupWidth: "70%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+      chart.draw(view, options);
+    }
+    </script>

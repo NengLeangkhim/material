@@ -319,4 +319,20 @@ class CrmReportApiController extends Controller
         $d = DateTime::createFromFormat($format, $date);
         return $d && $d->format($format) === $date;
     }
+    public function getSurvey(Request $request){
+        // $fromDate = $request->input('from_date');
+        // $toDate = $request->input('to_date');
+        $fromDate = '2020-11-01';
+        $toDate = '2020-11-24';
+        // dd($fromDate);
+
+        $type = $request->input('type');
+        $forStatusId = $request->input('status_id');
+        try {
+            $result = $this->crmReport->getSurvey($fromDate, $toDate);
+        } catch(QueryException $e){
+            return $this->sendError($this->queryException);
+        }
+        return $this->sendResponse($result,'');
+    }
 }

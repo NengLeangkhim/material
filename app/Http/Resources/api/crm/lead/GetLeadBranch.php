@@ -36,6 +36,7 @@ class GetLeadBranch extends JsonResource
             "company_en"=>$this->name_en_branch,
             "company_kh"=>$this->name_kh_branch,
             "primary_email"=>$this->email_branch,
+            "primary_phone"=>$this->branch_phone,
             "primary_website"=>$this->website,
             "facebook"=>$this->facebook,
             "vat_number"=>$this->vat_number,
