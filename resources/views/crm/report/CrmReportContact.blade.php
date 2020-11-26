@@ -69,9 +69,10 @@
                             </div>
                         </div><!--End Form Group-->
                         <div class="table-responsive" style="padding-top: 10px;">
-                            <table id="OrganizationTbl2" class="table table-bordered table-striped">
+                            <table id="OrganizationTbl2" class="table table-bordered table-striped" style="white-space: nowrap;">
                                 <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>National ID</th>
                                         <th>Name In English</th>
                                         <th>Name In Khmer</th>
@@ -123,6 +124,7 @@
                         $.each(response.data, function(index, data){
                             $('#lead-detail-body').append(`
                             <tr>
+                                <td>${index+1}</td>
                                 <td>${data.national_id}</td>
                                 <td>${data.name_en}</td>
                                 <td>${data.name_kh}</td>

@@ -117,9 +117,10 @@
                             <button class="btn btn-primary" id="btn-generate-report">Generate Report</button>
                         </div>
                         <div class="table-responsive" style="padding-top: 10px;">
-                            <table id="QuoteDetailTbl" class="table table-bordered table-striped" style="border-collapse:collapse" cellspacing="0" cellpadding="0">
+                            <table id="QuoteDetailTbl" class="table table-bordered table-striped" style="border-collapse:collapse; white-space: nowrap; " cellspacing="0" cellpadding="0">
                                 <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Quote Number</th>
                                         <th>Lead Number</th>
                                         <th>Customer Name</th>
@@ -201,18 +202,22 @@
                     $('#quote-detail-body').empty();
                     if(response.success) {
                         $.each(response.data, function(index, data){
+                            var getDate = moment(data.crm_quote_status_create_date);
+                            var create_date = getDate.format("YYYY-MM-DD HH:m:s a");
                             $('#quote-detail-body').append(`
-                            <tr>
-                                <td>${data.quote_number}</td>
-                                <td>${data.lead_number}</td>
-                                <td>${data.customer_name_en}</td>
-                                <td>${data.crm_quote_status_create_date}</td>
-                                <td>${data.due_date}</td>
-                                <td>${data.email}</td>
-                                <td>${data.website}</td>
-                                <td>${data.quote_status_name_en}</td>
-                            </tr>
+                                <tr>
+                                    <td>${index+1}</td>
+                                    <td>${data.quote_number}</td>
+                                    <td>${data.lead_number}</td>
+                                    <td>${data.customer_name_en}</td>
+                                    <td>${create_date}</td>
+                                    <td>${data.due_date}</td>
+                                    <td>${data.email}</td>
+                                    <td>${data.website}</td>
+                                    <td>${data.quote_status_name_en}</td>
+                                </tr>
                             `)
+                            // data.crm_quote_status_create_date
                         })
                     }
 

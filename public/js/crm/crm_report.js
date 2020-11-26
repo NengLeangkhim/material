@@ -401,7 +401,6 @@ var reportQuoteByStatus = () => {
     $(document).on('click','#btnReportQuoteExcel',function(){
             var table = $('#QuoteDetailTbl').DataTable();
             if(!table.data().any()){  // condition true it mean table empty data
-                // alert('Table Empty table');
                 sweetalert('warning', 'No data export !');
             }else{
                 exportTableToExcel('QuoteReport');
