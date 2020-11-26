@@ -138,7 +138,7 @@ class Crmlead extends Model
         ->Where([
             ['ma_user.status', '=', 't'],
             ['ma_user.is_deleted', '=', 'f'],
-            ['ma_company_dept.id', '=', 5]
+            // ['ma_company_dept.id', '=', 5]
         ])->orderBy('ma_user.first_name_en','ASC')->get();
     }
     // get Honorifics
@@ -154,77 +154,84 @@ class Crmlead extends Model
         return DB::select('SELECT  id,branch as name,company,ma_company_branch_id  FROM "public"."ma_company_detail" Where status=true and is_deleted=false');
     }
 
-    public static function insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
+    public static function insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
     $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
     $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
     $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey)
     {
 
-        if($lead_id!=='null')
-        {
 
-            return CrmLead::addbranchinlead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
-             $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
-             $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-             $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
+            if($lead_id!=='null')
+            {
+                // dd('lead');
+                return CrmLead::addbranchinlead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
+                 $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
+                 $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+                 $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
 
 
-        }
-        else
-        {
+            }
+            else
+            {
+                // dd('no lead');
+                return Crmlead::addlead($con_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
+                $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
+                $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+                $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
 
-            return Crmlead::addlead($con_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
-            $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
-            $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-            $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
+            }
 
-        }
     }
     // add lead
-    public static function addlead($con_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
+    public static function addlead($con_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
     $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
     $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
     $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey){
 
         if(isset($company_en)){
-                try{
+            DB::beginTransaction();
+                try {
+
                     // insert into table crm_lead
-                    $result= DB::select('SELECT "public".insert_crm_lead(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                    $result= DB::select('SELECT "public".insert_crm_lead(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                         array(
                             $company_en,
                             $company_kh,
                             $primary_email,
+                            $primary_phone,
                             $website,
                             $facebook,
                             $lead_source,
                             $user_create,
                             8,
                             $company_branch,
-
                             $lead_industry,
                             $current_speed_isp,
                             $employee_count,
-                            $current_speed,
+                            $current_speed."",
                             $current_price,
                             $vat_number,
                             )
 
                         );
-
+// dd($result);
                         $lead_id=$result[0]->insert_crm_lead;
 
                         //insert Into crm_lead_address
                         $address=Crmlead::insertaddress ($lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode,$user_create);
                         $address_id=$address[0]->insert_crm_lead_address;
 
+
                         //insert into crm_lead_branch
-                        $branch=CrmLead::insertbranch ($lead_id,$company_en,$company_kh,$primary_email,$address_id,$user_create,$prioroty);
+                        $branch=CrmLead::insertbranch ($lead_id,$company_en,$company_kh,$primary_email,$primary_phone,$address_id,$user_create,$prioroty);
                         $branch_id=$branch[0]->insert_crm_lead_branch;
+
 
                         //insert into crm_lead_assign
                         CrmLead::insertassign ($branch_id,$assig_to,$user_create);
 
                         //insert into crm_lead_comtact
+                        $contact_id=null;
                         if($con_id!=='null')
                         {
                                 $contact_id=$con_id;
@@ -243,26 +250,28 @@ class Crmlead extends Model
                         CrmLead::insertleaditems($branch_id,$service,$address_id,$user_create);
 
                         //insert into crm_lead_detail
-                        CrmLead::insertleaddetail($branch_id,$lead_status,$comment,$user_create);
+                         CrmLead::insertleaddetail($branch_id,$lead_status,$comment,$user_create);
 
                          //insert into table crm_survey
                         // CrmLead::insertsurey($branch_id,$user_create);
+                        // dd($test);
                         if($checksurvey!=='null'){
                                 // var_dump("No");
                                 CrmLead::insertsurey($branch_id,$user_create);
+                                DB::commit();
                                 return json_encode(["insert"=>"success"]);
                         }
                         else
                         {
+                            DB::commit();
                             return json_encode(["insert"=>"success"]);
                         }
 
                         // return json_encode(["result"=>$address_id,$lead_id,$branch_id,$contact_id]);
 
 
-                }
-                catch(Exception $e)
-                {
+                } catch(Exception $e){
+                    DB::rollback();
                     return json_encode(["insert"=>"fail insert_lead","result"=> $e->getMessage()]);
                 }
 
@@ -274,20 +283,22 @@ class Crmlead extends Model
 
     }
     // add branch by lead id
-    public static function addbranchinlead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
+    public static function addbranchinlead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
     $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
     $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
     $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey){
 
+        // dd("dxfvfdn");
         // return "df";
         if(isset($company_en)){
-                try{
+            DB::beginTransaction();
+                try {
                      //insert Into crm_lead_address
                      $address=Crmlead::insertaddress ($lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode,$user_create);
                      $address_id=$address[0]->insert_crm_lead_address;
 
                      //insert into crm_lead_branch
-                     $branch=CrmLead::insertbranch ($lead_id,$company_en,$company_kh,$primary_email,$address_id,$user_create,$prioroty);
+                     $branch=CrmLead::insertbranch ($lead_id,$company_en,$company_kh,$primary_email,$primary_phone,$address_id,$user_create,$prioroty);
                      $branch_id=$branch[0]->insert_crm_lead_branch;
 
                      //insert into crm_lead_assign
@@ -317,10 +328,12 @@ class Crmlead extends Model
                      if($checksurvey!=='null'){
                         // var_dump("No");
                         CrmLead::insertsurey($branch_id,$user_create);
+                        DB::commit();
                         return json_encode(["insert"=>"success"]);
                     }
                     else
                     {
+                        DB::commit();
                         return json_encode(["insert"=>"success"]);
                     }
 
@@ -329,6 +342,7 @@ class Crmlead extends Model
                 }
                 catch(Exception $e)
                 {
+                    DB::rollback();
                     return json_encode(["insert"=>"fail insert lead","result"=> $e->getMessage()]);
                 }
             }
@@ -368,16 +382,17 @@ class Crmlead extends Model
 
     }
     //insert into table crm_lead_branch
-    public  static function insertbranch ($lead_id,$company_en,$company_kh,$primary_email,$address_id,$user_create,$prioroty){
+    public  static function insertbranch ($lead_id,$company_en,$company_kh,$primary_email,$primary_phone,$address_id,$user_create,$prioroty){
         if(isset($lead_id)){
             try{
                 // $priority='urgent';
-                $result=DB::select('SELECT insert_crm_lead_branch(?,?,?,?,?,?,?)',
+                $result=DB::select('SELECT insert_crm_lead_branch(?,?,?,?,?,?,?,?)',
                 array(
                     $lead_id,
                     $company_en,
                     $company_kh,
                     $primary_email,
+                    $primary_phone,
                     $address_id,
                     $prioroty,
                     $user_create
@@ -578,7 +593,7 @@ class Crmlead extends Model
     // }
     //get  all lead
     public static function getlead(){
-        $lead= DB::select('SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.website,cl.facebook,cl.create_date,
+        $lead= DB::select('SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
         cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
         cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status
         from crm_lead cl
@@ -591,7 +606,7 @@ class Crmlead extends Model
     }
      //get lead by assisgto
     public static function getLeadbyassginto($userid){
-        $lead= DB::select("SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.website,cl.facebook,cl.create_date,
+        $lead= DB::select("SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
         cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
         cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status,cla.ma_user_id
         from crm_lead cl
@@ -606,7 +621,7 @@ class Crmlead extends Model
     }
     //get   lead  by id
     public static function getleadbyid($id){
-        $lead= DB::select("SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.website,cl.facebook,cl.create_date,
+        $lead= DB::select("SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
         cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
         cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status
         from crm_lead cl
@@ -625,14 +640,14 @@ class Crmlead extends Model
         lb.create_date as date_create_branch,
         lb.create_by as user_create_branch_id,ld.comment,
          lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,lb.crm_lead_address_id,
-         lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,
+         lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,lb.phone as branch_phone,
         lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.id as lead_assig_id,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
         ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,ld.id as lead_detail_id,
         (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
         (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,ladd.address_type,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,2)) as province,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,4)) as district,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,6)) as commune,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 2) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 1) end end)) as province,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 4) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 3) end end)) as district,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune,
         (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village,
 		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC  LIMIT 1) as  survey_id,
 		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_status,
@@ -658,6 +673,47 @@ class Crmlead extends Model
         LEFT JOIN stock_product sp on sp.id= clitem.stock_product_id
         where ld.status=true and ld.is_deleted=false  and  lb.crm_lead_id=$id");
     }
+    //get branch by lead id convert
+    public static function getbranch_lead_convert($id){
+        return DB::select("SELECT  crm_lead.lead_number,clitem.id as lead_item_id,lbc.id as lead_con_bran_id,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
+        lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
+        crm_lead.vat_number,cls.name_en as lead_source,cli.name_en as lead_industry,mcd.company,sp.name as service_name,sp.id as servie_id,
+        lb.create_date as date_create_branch,
+        lb.create_by as user_create_branch_id,ld.comment,
+         lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,lb.crm_lead_address_id,
+         lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,lb.phone as branch_phone,
+        lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.id as lead_assig_id,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
+        ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,ld.id as lead_detail_id,
+        (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
+        (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,ladd.address_type,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 2) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 1) end end)) as province,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 4) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 3) end end)) as district,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune,
+        (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village,
+		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC  LIMIT 1) as  survey_id,
+		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_status,
+		(SELECT comment as survey_comment from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
+		(SELECT possible  from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date  DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
+        (SELECT id from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_id,
+		(SELECT status from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_status
+        from  crm_lead_branch_crm_lead_contact_rel lbc
+        left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
+        JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
+        JOIN crm_lead_assign la on la.crm_lead_branch_id= lb.id
+        JOIN ma_user u on la.ma_user_id=u.id
+        JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lbc.crm_lead_branch_id
+        JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
+        JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
+        join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
+        join crm_lead on crm_lead.id= lb.crm_lead_id
+        left join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
+        left join crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
+        left JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
+        left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
+        LEFT JOIN crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
+        LEFT JOIN stock_product sp on sp.id= clitem.stock_product_id
+        where   lb.crm_lead_id=$id and  ld.crm_lead_status_id=2 ");
+    }
     // get branch by  assig to
     public static function getbranch_leadbyassigto($id,$userid){
         return DB::select("SELECT  crm_lead.lead_number,clitem.id as lead_item_id,lbc.id as lead_con_bran_id,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
@@ -666,14 +722,14 @@ class Crmlead extends Model
         lb.create_date as date_create_branch,
         lb.create_by as user_create_branch_id,ld.comment,
          lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,lb.crm_lead_address_id,
-         lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,
+         lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,lb.phone as branch_phone,
         lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.id as lead_assig_id,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
         ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,ld.id as lead_detail_id,
         (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
         (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,ladd.address_type,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,2)) as province,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,4)) as district,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,6)) as commune,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 2) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 1) end end)) as province,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 4) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 3) end end)) as district,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune,
         (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village,
 		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC  LIMIT 1) as  survey_id,
 		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_status,
@@ -707,14 +763,14 @@ class Crmlead extends Model
         lb.create_date as date_create_branch,
         lb.create_by as user_create_branch_id,ld.comment,lb.crm_lead_address_id,
          lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,
-         lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,
+         lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,lb.phone as branch_phone,
         lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.id as lead_assig_id,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
         ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,ld.id as lead_detail_id,
         (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
         (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,ladd.address_type,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,2)) as province,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,4)) as district,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,6)) as commune,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 2) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 1) end end)) as province,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 4) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 3) end end)) as district,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune,
         (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village,
 		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_id,
 		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_status,
@@ -740,9 +796,91 @@ class Crmlead extends Model
         LEFT JOIN stock_product sp on sp.id= clitem.stock_product_id
         where ld.status=true and ld.is_deleted=false and lb.id=$id");
     }
+    //
+    public static function getbranchByIdconvert($id){
+        return DB::select("SELECT  crm_lead.lead_number,clitem.id as lead_item_id,lbc.id as lead_con_bran_id,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
+        lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
+        crm_lead.vat_number,cls.name_en as lead_source,cli.name_en as lead_industry,mcd.company,sp.name as service_name,sp.id as servie_id,
+        lb.create_date as date_create_branch,
+        lb.create_by as user_create_branch_id,ld.comment,lb.crm_lead_address_id,
+         lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,
+         lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,lb.phone as branch_phone,
+        lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.id as lead_assig_id,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
+        ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,ld.id as lead_detail_id,
+        (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
+        (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,ladd.address_type,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 2) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 1) end end)) as province,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 4) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 3) end end)) as district,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune,
+        (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village,
+		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_id,
+		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_status,
+		(SELECT comment as survey_comment from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
+		(SELECT possible  from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date  DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
+        (SELECT id from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_id,
+		(SELECT status from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_status
+        from  crm_lead_branch_crm_lead_contact_rel lbc
+        left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
+        JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
+        JOIN crm_lead_assign la on la.crm_lead_branch_id= lb.id
+        JOIN ma_user u on la.ma_user_id=u.id
+        JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lbc.crm_lead_branch_id
+        JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
+        JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
+        join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
+        join crm_lead on crm_lead.id= lb.crm_lead_id
+        left join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
+        left join crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
+        left JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
+        left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
+        LEFT JOIN crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
+        LEFT JOIN stock_product sp on sp.id= clitem.stock_product_id
+        where ld.status=false and ld.is_deleted=false and lb.id=$id");
+    }
+    //get   branch  by id
+    public static function getbranchByIdConverted($id){
+        return DB::select("SELECT  crm_lead.lead_number,clitem.id as lead_item_id,lbc.id as lead_con_bran_id,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
+        lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
+        crm_lead.vat_number,cls.name_en as lead_source,cli.name_en as lead_industry,mcd.company,sp.name as service_name,sp.id as servie_id,
+        lb.create_date as date_create_branch,
+        lb.create_by as user_create_branch_id,ld.comment,lb.crm_lead_address_id,
+         lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,
+         lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,lb.phone as branch_phone,
+        lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.id as lead_assig_id,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
+        ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,ld.id as lead_detail_id,
+        (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
+        (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,ladd.address_type,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 2) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 1) end end)) as province,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 4) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 3) end end)) as district,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune,
+        (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village,
+		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_id,
+		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_status,
+		(SELECT comment as survey_comment from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
+		(SELECT possible  from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date  DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
+        (SELECT id from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_id,
+		(SELECT status from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_status
+        from  crm_lead_branch_crm_lead_contact_rel lbc
+        left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
+        JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
+        JOIN crm_lead_assign la on la.crm_lead_branch_id= lb.id
+        JOIN ma_user u on la.ma_user_id=u.id
+        JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lbc.crm_lead_branch_id
+        JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
+        JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
+        join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
+        join crm_lead on crm_lead.id= lb.crm_lead_id
+        left join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
+        left join crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
+        left JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
+        left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
+        LEFT JOIN crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
+        LEFT JOIN stock_product sp on sp.id= clitem.stock_product_id
+        where ld.status=false and ld.is_deleted=false and lb.id=$id");
+    }
     // update Branch
     public static function updatebranch($lead_address_id,$lead_detail_id,$lead_item_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
-    $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,
+    $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,$primary_phone,
     $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
     $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$survey_id){
 
@@ -751,7 +889,7 @@ class Crmlead extends Model
             $address=Crmlead::updateleadaddress($lead_address_id,$user_create,$lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode);
             $address_id=$address[0]->update_crm_lead_address;
             // update branch
-            $branch=Crmlead::updatetablebranch($branch_id,$user_create,$lead_id,$company_en,$company_kh,$primary_email,$address_id,$prioroty);
+            $branch=Crmlead::updatetablebranch($branch_id,$user_create,$lead_id,$company_en,$company_kh,$primary_email,$primary_phone,$address_id,$prioroty);
             $branch_id=$branch[0]->update_crm_lead_branch;
             //update assgin to
             Crmlead::updatetableassigto($assig_to_id,$user_create,$branch_id,$assig_to);
@@ -787,7 +925,7 @@ class Crmlead extends Model
                 {
                     CrmLead::insertsurey($branch_id,$user_create);
                     return  json_encode(["update"=>'success']);
-                }  
+                }
 
         }catch(Exception $e){
             return json_encode(["update"=>"fail update branch","result"=> $e->getMessage()]);
@@ -850,11 +988,11 @@ class Crmlead extends Model
         }
     }
     // update branch
-    public static function updatetablebranch($branch_id,$user_create,$lead_id,$company_en,$company_kh,$primary_email,$address_id,$prioroty){
+    public static function updatetablebranch($branch_id,$user_create,$lead_id,$company_en,$company_kh,$primary_email,$primary_phone,$address_id,$prioroty){
         if(isset($branch_id)){
             try{
                 // $priority='urgent';
-                $result=DB::select('SELECT update_crm_lead_branch(?,?,?,?,?,?,?,?,?)',
+                $result=DB::select('SELECT update_crm_lead_branch(?,?,?,?,?,?,?,?,?,?)',
                 array(
                     $branch_id,
                     $user_create,
@@ -862,6 +1000,7 @@ class Crmlead extends Model
                     $company_en,
                     $company_kh,
                     $primary_email,
+                    $primary_phone,
                     $address_id,
                     $prioroty,
                     't',
@@ -885,10 +1024,10 @@ class Crmlead extends Model
                 // $priority='urgent';
                 $result=DB::select('SELECT update_crm_lead_assign(?,?,?,?,?)',
                 array(
-                    $assig_to_id,
+                    $assig_to,
                     $user_create,
                     $branch_id,
-                    $assig_to,
+                    $assig_to_id,
                     't',
                 )
             );
@@ -1132,30 +1271,46 @@ class Crmlead extends Model
         }
     }
     // Model get schdule type
-    public static function getschduletype(){
-         return DB::select('SELECT id,name_en,name_kh from crm_lead_schedule_type where is_deleted=FALSE and status=TRUE');
+    public static function getschduletype($id){
+         return DB::select("SELECT id,name_en,name_kh from crm_lead_schedule_type where is_deleted=FALSE and status=TRUE and is_result_type=$id");
     }
     //Model get all schdule
     public static function getschedule(){
            return DB::select("SELECT cls.id as schedule_id,cls.crm_lead_branch_id,cls.name_en,cls.name_kh,to_char(cls.to_do_date,'YYYY-MM-DD') as to_do_date,cls.comment,cls.priority,cls.create_by,
-           clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id,cls.crm_lead_schedule_type_id,clst.name_en as schedule_type,cls.status
+           clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id,cls.crm_lead_schedule_type_id,clst.name_en as schedule_type,cls.status,
+           clsr.id as schedule_result_id,clsr.comment as  comment_result, clsr.crm_lead_schedule_type_id as crm_lead_schedule_type_result_id,clsr.create_date,clsr.create_by as user_create_schedule_result
            FROM crm_lead_schedule  cls
            LEFT JOIN  crm_lead_branch clb on clb.id = cls.crm_lead_branch_id
            JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
-						LEFT JOIN crm_lead_schedule_type clst  on clst.id=cls.crm_lead_schedule_type_id
-           where cls.is_deleted=FALSE and cls.status=TRUE");
-    } 
+           LEFT JOIN crm_lead_schedule_type clst  on clst.id=cls.crm_lead_schedule_type_id
+           LEFT JOIN crm_lead_schedule_result clsr on clsr.crm_lead_schedule_id= cls.id
+           WHERE cls.is_deleted=FALSE and cls.status=TRUE  ");
+    }
+    //Model get all schdule by user create
+    public static function getschedulebyuser($id){
+        return DB::select("SELECT cls.id as schedule_id,cls.crm_lead_branch_id,cls.name_en,cls.name_kh,to_char(cls.to_do_date,'YYYY-MM-DD') as to_do_date,cls.comment,cls.priority,cls.create_by,
+            clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id,cls.crm_lead_schedule_type_id,clst.name_en as schedule_type,cls.status,
+		    clsr.id as schedule_result_id,clsr.comment as  comment_result, clsr.crm_lead_schedule_type_id as crm_lead_schedule_type_result_id,clsr.create_date,clsr.create_by as user_create_schedule_result
+            FROM crm_lead_schedule  cls
+            LEFT JOIN  crm_lead_branch clb on clb.id = cls.crm_lead_branch_id
+            JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
+            LEFT JOIN crm_lead_schedule_type clst  on clst.id=cls.crm_lead_schedule_type_id
+			LEFT JOIN crm_lead_schedule_result clsr on clsr.crm_lead_schedule_id= cls.id
+            WHERE cls.is_deleted=FALSE and cls.status=TRUE  and clsr.create_by=$id");
+ }
     // Model get schedule by id
     public static function getschedulebyid($id){
         return DB::select("SELECT cls.id as schedule_id,cls.crm_lead_branch_id,cls.name_en,cls.name_kh,to_char(cls.to_do_date,'YYYY-MM-DD') as to_do_date,cls.comment,cls.priority,cls.create_by,
-        clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id,cls.crm_lead_schedule_type_id,clst.name_en as schedule_type,cls.status
+        clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id,cls.crm_lead_schedule_type_id,clst.name_en as schedule_type,cls.status,
+        clsr.id as schedule_result_id,clsr.comment as  comment_result, clsr.crm_lead_schedule_type_id as crm_lead_schedule_type_result_id,clsr.create_date,clsr.create_by as user_create_schedule_result
         FROM crm_lead_schedule  cls
         LEFT JOIN  crm_lead_branch clb on clb.id = cls.crm_lead_branch_id
         JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
-                     LEFT JOIN crm_lead_schedule_type clst  on clst.id=cls.crm_lead_schedule_type_id
-        where cls.is_deleted=FALSE and cls.status=TRUE and cls.id=$id");
+        LEFT JOIN crm_lead_schedule_type clst  on clst.id=cls.crm_lead_schedule_type_id
+        LEFT JOIN crm_lead_schedule_result clsr on clsr.crm_lead_schedule_id= cls.id
+        WHERE cls.is_deleted=FALSE and cls.status=TRUE  and cls.id=$id");
     }
-    //Model get all schdule by assgto 
+    //Model get all schdule by assgto
     // public static function getschedulebyassigto($id){
     //     return DB::select("SELECT cls.id as schedule_id,cls.crm_lead_branch_id,cls.name_en,cls.name_kh,cls.to_do_date,cls.comment,cls.priority,cls.create_by,
     //        clb.name_en as name_branch_en,clb.name_kh as name_branch_kh,cla.ma_user_id
@@ -1283,11 +1438,11 @@ class Crmlead extends Model
                 )
             );
                 try{
-                    CrmLead::updateschedule($schedule_id,$branch_id,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id,$userid,'f');
-               
+                    CrmLead::updateschedule($schedule_id,$branch_id,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id,$userid,'t');
+
                     return json_encode(['insert'=>'success']);
                 }catch(Exception $e){
-                    return json_encode(["insert"=>"fail insert_crm_lead_schedule_result","result"=> $e->getMessage()]);                
+                    return json_encode(["insert"=>"fail insert_crm_lead_schedule_result","result"=> $e->getMessage()]);
                 }
             }catch(Exception $e){
                 return json_encode(["insert"=>"fail insert_crm_lead_schedule_result","result"=> $e->getMessage()]);
@@ -1324,19 +1479,20 @@ class Crmlead extends Model
         }
     }
     //  edit lead
-    public static function editLead($lead_id,$lead_number,$company_en,$company_kh,$primary_email,$user_create,
-    $website,$facebook,
-    $vat_number,$company_branch,$lead_source,$status,$lead_industry,$current_speed_isp,
+    public static function editLead($lead_id,$lead_number,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
+    $vat_number,$company_branch,$lead_source,$status,$lead_industry,$current_speed_isp,$primary_phone,
     $current_speed,$current_price,$employee_count){
         if(isset($lead_id)){
+            DB::beginTransaction();
             try{
-                $result=DB::select('SELECT update_crm_lead(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                $result=DB::select('SELECT update_crm_lead(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                 array(
                     $lead_id,
                     $user_create,
                     $company_en,
                     $company_kh,
                     $primary_email,
+                    $primary_phone,
                     $website,
                     $facebook,
                     $lead_source,
@@ -1352,8 +1508,10 @@ class Crmlead extends Model
 
                 )
             );
+            DB::commit();
                 return json_encode(['update'=>'success']);;
             }catch(Exception $e){
+                DB::rollback();
                 return json_encode(["update"=>"fail update_crm_lead","result"=> $e->getMessage()]);
             }
         }
@@ -1361,5 +1519,31 @@ class Crmlead extends Model
         {
                 return json_encode(['update'=>'not found date']);
         }
+    }
+    // Module
+    public static function getleadconvert(){
+        return DB::select("SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.website,cl.facebook,cl.create_date,
+        cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,cl.crm_lead_source_id,
+        cl.crm_lead_industry_id,cl.crm_lead_current_isp_id,
+        (SELECT id as lead_addr_id from crm_lead_address WHERE crm_lead_id= cl.id  LIMIT 1)
+        from crm_lead cl
+        LEFT JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
+        LEFT JOIN crm_lead_branch clb on clb.crm_lead_id = cl.id
+        JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= clb.id
+        JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
+        JOIN crm_lead_address cld on cld.crm_lead_id= cl.id
+         WHERE  cl.is_deleted=FALSE and cl.status=TRUE  and clb.is_deleted=FALSE and  ls.sequence=1   and clb.status=TRUE  GROUP BY cl.id");
+        //  SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.website,cl.facebook,cl.create_date,
+        //  cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,cl.crm_lead_source_id,
+        //  cl.crm_lead_industry_id,cl.crm_lead_current_isp_id
+        //  from crm_lead cl
+        //  LEFT JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
+        //  LEFT JOIN crm_lead_source cls on cls.id = cl.crm_lead_source_id
+        //  LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
+        //  LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
+        //          LEFT JOIN crm_lead_branch clb on clb.crm_lead_id = cl.id
+        //          JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= clb.id
+        //          JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
+        //   WHERE  cl.is_deleted=FALSE and cl.status=TRUE  and clb.is_deleted=FALSE and  ls.sequence=1   and clb.status=TRUE  GROUP BY cl.id
     }
 }

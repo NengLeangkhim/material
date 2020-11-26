@@ -130,9 +130,15 @@ class CrmReportApiController extends Controller
             $result = $this->crmReport->getLeadReportByStatus($fromDate, $toDate, $statusId);
 
             foreach($result as $res){
+                if($res->crm_lead_status_id == null){
+                    continue;
+                }
                 $branchIds = $this->crmReport->getLeadBranchesByStatus($res->crm_lead_status_id, $fromDate, $toDate);
                 $branches = [];
                 foreach($branchIds as $br){
+                    if($br->crm_lead_branch_id == null) {
+                        continue;
+                    }
                     array_push($branches, $this->crmReport->getLeadBranchesWithId($br->crm_lead_branch_id));
                 }
                 $res->lead_branchList = $branches;
@@ -261,12 +267,14 @@ class CrmReportApiController extends Controller
             $totalLeadBranchSurvey = $this->crmReport->getTotalLeadBranchSurvey($fromDate, $toDate);
             $totalQuote = $this->crmReport->getTotalQuote($fromDate, $toDate);
             $totalContact = $this->crmReport->getTotalContact($fromDate, $toDate);
+            $totalSurvey = $this->crmReport->getTotalSurvey($fromDate, $toDate);
             $result = [
                 'total_lead' => $totalLead->total_lead
                 ,'total_branch' => $totalBranch->total_branch
                 ,'total_lead_branch_survey' => $totalLeadBranchSurvey->total_lead_branch_survey
                 ,'total_quote' => $totalQuote->total_quote
                 ,'total_contact' => $totalContact->total_contact
+                ,'total_survey' => $totalSurvey->total_survey
             ];
         } catch(QueryException $e){
             return $this->sendError($this->queryException);
@@ -292,7 +300,7 @@ class CrmReportApiController extends Controller
         $type = $request->input('type');
         $forStatusId = $request->input('status_id');
         try {
-            $result = $this->crmReport->getOrganizationChartReport($fromDate, $toDate, $type != null ? $type : 'month', $forStatusId != null ? $forStatusId : 6);
+            $result = $this->crmReport->getOrganizationChartReport($fromDate, $toDate, $type != null ? $type : 'month', $forStatusId != null ? $forStatusId : 2);
         } catch(QueryException $e){
             return $this->sendError($this->queryException);
         }
@@ -310,5 +318,21 @@ class CrmReportApiController extends Controller
     {
         $d = DateTime::createFromFormat($format, $date);
         return $d && $d->format($format) === $date;
+    }
+    public function getSurvey(Request $request){
+        // $fromDate = $request->input('from_date');
+        // $toDate = $request->input('to_date');
+        $fromDate = '2020-11-01';
+        $toDate = '2020-11-24';
+        // dd($fromDate);
+
+        $type = $request->input('type');
+        $forStatusId = $request->input('status_id');
+        try {
+            $result = $this->crmReport->getSurvey($fromDate, $toDate);
+        } catch(QueryException $e){
+            return $this->sendError($this->queryException);
+        }
+        return $this->sendResponse($result,'');
     }
 }

@@ -13,8 +13,11 @@ class ModelCrmOrganize extends Model
         crm_lead.lead_number,lb.crm_lead_id as lead_id,
         lb.id as branch_id,
         lc.id as contact_id,
+        la.id as assig_id,
         lc.phone as contact_phone,
         lb.name_en as name_en_branch,
+        crm_lead.customer_name_en,
+		crm_lead.customer_name_kh,
         lb.email as email_branch,
         lbc.id as lead_con_bran_id,
         lb.priority,
@@ -35,9 +38,9 @@ class ModelCrmOrganize extends Model
         ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,
         (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
         (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,3)) as province,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,5)) as district,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,7)) as commune,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 2) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 1) end end)) as province,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 4) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 3) end end)) as district,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune,
         (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village
         from  crm_lead_branch_crm_lead_contact_rel lbc
         left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
@@ -55,7 +58,7 @@ class ModelCrmOrganize extends Model
         left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         left join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         left join stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=false and ld.is_deleted=false and ls.sequence=1");
+        where crm_lead.status=true and ld.status=false and ld.is_deleted=false and ls.sequence=1");
     }
     // get organize by assigto
     public static function getOrganizebyassigto($id){
@@ -63,8 +66,11 @@ class ModelCrmOrganize extends Model
         crm_lead.lead_number,lb.crm_lead_id as lead_id,
         lb.id as branch_id,
         lc.id as contact_id,
+        la.id as assig_id,
         lc.phone as contact_phone,
         lb.name_en as name_en_branch,
+        crm_lead.customer_name_en,
+		crm_lead.customer_name_kh,
         lb.email as email_branch,
         lbc.id as lead_con_bran_id,
         lb.priority,
@@ -85,9 +91,9 @@ class ModelCrmOrganize extends Model
         ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,
         (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
         (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,3)) as province,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,5)) as district,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,7)) as commune,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 2) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 1) end end)) as province,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 4) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 3) end end)) as district,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune,
         (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village
         from  crm_lead_branch_crm_lead_contact_rel lbc
         left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
@@ -113,11 +119,14 @@ class ModelCrmOrganize extends Model
         crm_lead.lead_number,lb.crm_lead_id as lead_id,
         lb.id as branch_id,
         lc.id as contact_id,
+        la.id as assig_id,
         crm_lead.website,
         crm_lead.facebook,
         lbc.id as lead_con_bran_id,
         lc.phone as contact_phone,
         lb.name_en as name_en_branch,
+        crm_lead.customer_name_en,
+		crm_lead.customer_name_kh,
         lb.name_kh as name_kh_branch,
         lb.email as email_branch,
         cli.id as lead_industry_id,
@@ -140,9 +149,9 @@ class ModelCrmOrganize extends Model
         ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,
         (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
         (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,3)) as province,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,5)) as district,
-        (SELECT name_latin FROM  ma_gazetteers WHERE code= substr(ladd.gazetteer_code, 0 ,7)) as commune,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 2) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 1) end end)) as province,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 4) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 3) end end)) as district,
+        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune,
         (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village
         from  crm_lead_branch_crm_lead_contact_rel lbc
         left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
@@ -160,6 +169,6 @@ class ModelCrmOrganize extends Model
         left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         left join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         left join stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=true and ld.is_deleted=false and lb.id=$id and ls.sequence=1");
+        where ld.status=false and ld.is_deleted=false and lb.id=$id and ls.sequence=1");
     }
 }

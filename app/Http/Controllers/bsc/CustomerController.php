@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\bsc;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\perms;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\Console\Input\Input;
 use Exception;
@@ -14,6 +15,14 @@ class CustomerController extends Controller
     // customer get data
     public function customer()
     {
+        if(!perms::check_perm_module('BSC_030201')){
+            return view('no_perms');
+        }
+        if(perms::check_perm_module('BSC_03020102')){ // Permission Add
+            $button_add = '<a  href="#" class="btn btn-success btn-sm customer" ​value="bsc_customer_form" id="customer"><i class="fas fa-plus"></i> Add Customer</a>';
+        }else{
+            $button_add='';
+        }
         try{
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -25,7 +34,8 @@ class CustomerController extends Controller
             $res = app()->handle($request);
             $customer = json_decode($res->getContent()); // convert to json object
             $customers=$customer->data;
-            return view('bsc.customer_management.customer.customer_list',compact('customers'));
+            // dd($customers);exit();
+            return view('bsc.customer_management.customer.customer_list',compact('customers','button_add'));
         }catch(Exception $e){
             echo $e->getMessage();
             exit;
@@ -35,6 +45,9 @@ class CustomerController extends Controller
     // customer form
     public function customer_form()
     {
+        if(!perms::check_perm_module('BSC_03020102')){
+            return view('no_perms');
+        }
         try{
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -158,6 +171,9 @@ class CustomerController extends Controller
     //customer branch form
     public function customer_branch_form()
     {
+        if(!perms::check_perm_module('BSC_03020201')){
+            return view('no_perms');
+        }
         try{
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -238,14 +254,16 @@ class CustomerController extends Controller
             $res = app()->handle($request);
             $customer = json_decode($res->getContent()); // convert to json object
             $customers=$customer->data;
-            foreach($customers as $item)
-            {
-                $address=$item->gazetteer_code;
-                $addr=DB::select("SELECT * FROM public.get_gazetteers_address('".$address."') as address");
-                $addrs=$addr[0]->address;
-                $item->gazetteer_code=$addrs;
+            if(count($customers) >0){
+                foreach($customers as $item)
+                {
+                    $address=$item->gazetteer_code;
+                    $addr=DB::select("SELECT * FROM public.get_gazetteers_address('".$address."') as address");
+                    $addrs=$addr[0]->address;
+                    $item->gazetteer_code=$addrs;
+                }
+                return json_encode($item);
             }
-            return json_encode($item);
         }catch(Exception $e){
             echo $e->getMessage();
             exit();
@@ -278,6 +296,14 @@ class CustomerController extends Controller
     // view customer branch
     public function customer_branch()
     {
+        if(!perms::check_perm_module('BSC_030202')){
+            return view('no_perms');
+        }
+        if(perms::check_perm_module('BSC_03020201')){ // Permission Add
+            $button_add = '<a  href="#" class="btn btn-success btn-sm customer_branch" ​value="bsc_customer_branch_form" id="customer_branch"><i class="fas fa-plus"></i> Add Customer Branch</a>';
+        }else{
+            $button_add='';
+        }
         try{
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -289,7 +315,8 @@ class CustomerController extends Controller
             $res = app()->handle($request);
             $customer_branch = json_decode($res->getContent()); // convert to json object
             $customer_branchs=$customer_branch->data;
-            return view('bsc.customer_management.customer_branch.customer_branch_list',compact('customer_branchs'));
+            // dd($customer_branchs);exit();
+            return view('bsc.customer_management.customer_branch.customer_branch_list',compact('customer_branchs','button_add'));
         }catch(Exception $e){
             echo $e->getMessage();
             exit;
@@ -314,6 +341,9 @@ class CustomerController extends Controller
 
     public function customer_service()
     {
+        if(!perms::check_perm_module('BSC_030203')){
+            return view('no_perms');
+        }
         try{
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -325,7 +355,6 @@ class CustomerController extends Controller
             $res = app()->handle($request);
             $customer_service = json_decode($res->getContent()); // convert to json object
             $customer_services=$customer_service->data;
-
             return view('bsc.customer_management.customer_service.customer_service_list',compact('customer_services'));
         }catch(Exception $e){
             echo $e->getMessage();
@@ -335,6 +364,26 @@ class CustomerController extends Controller
 
     public function customer_service_detail()
     {
+        if(!perms::check_perm_module('BSC_030204')){
+            return view('no_perms');
+        }
+        if(perms::check_perm_module('BSC_03020401')){ // Permission Add
+            $button_add = '<a  href="#" class="btn btn-success service_detail" ​value="customer_service_detail_add" id="service_detail"><i class="fas fa-plus"></i> Add Customer Service Detail</a>';
+        }else{
+            $button_add='';
+        }
+
+        if(perms::check_perm_module('BSC_03020402')){ // Permission edit
+            $button_edit = '1';
+        }else{
+            $button_edit='';
+        }
+
+        if(perms::check_perm_module('BSC_03020403')){ // Permission edit
+            $button_delete = '1';
+        }else{
+            $button_delete='';
+        }
         try{
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -347,7 +396,7 @@ class CustomerController extends Controller
             $customer_service_detail = json_decode($res->getContent()); // convert to json object
             $customer_service_details=$customer_service_detail->data;
 
-            return view('bsc.customer_management.customer_service_detail.customer_service_detail_list',compact('customer_service_details'));
+            return view('bsc.customer_management.customer_service_detail.customer_service_detail_list',compact('customer_service_details','button_add','button_edit','button_delete'));
         }catch(Exception $e){
             echo $e->getMessage();
             exit;
@@ -356,6 +405,9 @@ class CustomerController extends Controller
 
     public function customer_service_detail_edit($id)
     {
+        if(!perms::check_perm_module('BSC_03020402')){
+            return view('no_perms');
+        }
         try{
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -386,6 +438,9 @@ class CustomerController extends Controller
 
     public function customer_service_detail_add()
     {
+        if(!perms::check_perm_module('BSC_03020401')){
+            return view('no_perms');
+        }
         try{
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();

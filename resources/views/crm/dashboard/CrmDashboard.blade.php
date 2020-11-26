@@ -16,178 +16,177 @@
 </section>
 <!-- section Main content -->
 <section class="content">
+    {{-- Style --}}
+    <style>
+        .title-chart {
+            color: #000000;
+            font-weight: 600;
+            font-size: 26px;
+        }
+        .sub-title-chart {
+            color: #000000;
+            font-weight: 400;
+            font-size: 12px;
+        }
+        .chart-number {
+            font-size: 22px;
+        }
+    </style>
+    {{-- /Style --}}
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-3 col-6" >
               <!-- small box -->
-              <div class="small-box bg-light">
-                <div class="inner">
-                  <div class="row">
-                    <div class="col-8">
-                      <h3 class="text-info">{{$new_lead}}</h3>
-
-                      <p>New Leads</p>
+                <div class="small-box bg-white" >
+                    <div class="inner">
+                        <div class="row">
+                            <div class="col-12" >
+                                <div class="p-3 text-center">
+                                    <h2 class="title-chart">New Leads</h2>
+                                    <p class="sub-title-chart">Today</p>
+                                    <h3 class="text-info chart-number">{{$new_lead}}</h3>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-4">
-                      <img src="img/icons/iconfinder_compose_1055085.png">
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
-              <div class="small-box bg-light">
-                <div class="inner">
-                  <div class="row">
-                    <div class="col-8">
-                    <h3 class="text-info">{{$total_contact}}</h3>
-
-                      <p>Total Contacts</p>
+              <div class="small-box bg-white">
+                    <div class="inner">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="p-3 text-center">
+                                    <h2 class="title-chart">Total Contacts</h2>
+                                    <p class="sub-title-chart">Today</p>
+                                    <h3 class="text-info chart-number">{{$total_contact}}</h3>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-4">
-                      <img src="img/icons/iconfinder_Phone_3336937.png">
-                    </div>
-                  </div>
                 </div>
-              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-white">
+                    <div class="inner">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="p-3 text-center">
+                                    <h2 class="title-chart">Total Quotes</h2>
+                                    <p class="sub-title-chart">Today</p>
+                                    <h3 class="text-info chart-number">{{$total_quote}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
-              <div class="small-box bg-light">
-                <div class="inner">
-                  <div class="row">
-                    <div class="col-8">
-                      <h3 class="text-info">{{$total_quote}}</h3>
-
-                      <p>Total Quotes</p>
-                    </div>
-                    <div class="col-4">
-                      <img src="img/icons/iconfinder_Mind-Map-Paper_379340.png">
-                    </div>
-                  </div>
+                <div class="small-box bg-white">
+                      <div class="inner">
+                          <div class="row">
+                              <div class="col-12">
+                                  <div class="p-3 text-center">
+                                      <h2 class="title-chart">Survey</h2>
+                                      <p class="sub-title-chart">Today</p>
+                                      <h3 class="text-info chart-number">{{$total_survey}}</h3>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
                 </div>
-              </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-light">
-                <div class="inner">
-                  <div class="row">
-                    <div class="col-8">
-                      <h3 class="text-info">{{$total_survey}}</h3>
-
-                      <p>Survey</p>
-                    </div>
-                    <div class="col-4">
-                      <img src="img/icons/iconfinder_note_1296370.png">
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
             <!-- ./col -->
         </div>
         <!-- /.row -->
         <div class="row">
             <div class="col-md-6">
-              <!-- AREA CHART -->
-              <div class="card card-primary">
-                <div class="card-header">
-                  <h3 class="card-title">Lead Status Chart</h3>
-
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                    </button>
-                  </div>
+                <!-- AREA CHART -->
+                <div class="card card-primary" >
+                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                        <h3 class="card-title text-dark text-bold">Lead Status Chart</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            <div id="LeadChart" style="min-height: 300px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
-                <div class="card-body">
-                  <div class="chart">
-                    <div id="LeadChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></div>
-                  </div>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
+                <!-- /.card -->
             </div>
             <!-- /.col (LEFT) -->
             <div class="col-md-6">
-              <!-- LINE CHART -->
-              <div class="card card-info">
-                <div class="card-header">
-                  <h3 class="card-title">Quote Status Chart</h3>
-
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                    </button>
-                  </div>
+                <!-- LINE CHART -->
+                <div class="card card-info">
+                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                        <h3 class="card-title text-dark text-bold">Quote Status Chart</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            <div id="QuoteChart" style="min-height: 300px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
-                <div class="card-body">
-                  <div class="chart">
-                    <div id="QuoteChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></div>
-                  </div>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
+                <!-- /.card -->
             </div>
             <!-- /.col (RIGHT) -->
-          </div>
-          <!-- /.row -->
-          <!-- /.row -->
+        </div>
+        <!-- /.row -->
+        <!-- /.row -->
         <div class="row">
-          <div class="col-md-6">
-            <!-- AREA CHART -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Contact Chart</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                  </button>
+            <div class="col-md-6">
+                <!-- AREA CHART -->
+                <div class="card card-primary">
+                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                        <h3 class="card-title text-dark text-bold">Contact Chart</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            {{-- <div id="ContactChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;" ></div> --}}
+                            <div id="contact_chart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
-              </div>
-              <div class="card-body">
-                <div class="chart">
-                  <div id="ContactChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;" ></div>
-                </div>
-              </div>
-              <!-- /.card-body -->
+                <!-- /.card -->
             </div>
-            <!-- /.card -->
-          </div>
           <!-- /.col (LEFT) -->
           <div class="col-md-6">
-            <!-- LINE CHART -->
-            <div class="card card-info">
-              <div class="card-header">
-                <h3 class="card-title">Organization Chart</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                  </button>
+                <!-- LINE CHART -->
+                <div class="card card-info">
+                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                        <h3 class="card-title text-dark text-bold">Survey Chart</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            {{-- <div id="OrgChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></div> --}}
+                            <div id="survey_chart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
-              </div>
-              <div class="card-body">
-                <div class="chart">
-                  <div id="OrgChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;">
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+                <!-- /.card -->
           </div>
           <!-- /.col (RIGHT) -->
         </div>
         <!-- /.row -->
     </div>
 </section><!-- end section Main content -->
+
 <script>
+    var currentDate = new Date()
+    var currentDateString = currentDate.toJSON().split('T')[0]
+    currentDate.setDate( currentDate.getDate() - 7 );
+    var currentDateStringSub7 = currentDate.toJSON().split('T')[0]
     $(function () {
     // Chart Lead Status
     var Lead_Chart = () => {
@@ -197,10 +196,19 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+        data: {
+            'from_date' : currentDateString,
+            'to_date' : currentDateString
+        },
         //data: $('#FrmChartReport').serialize(),
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1) {
+                  $('#LeadChart').empty()
+                    $('#LeadChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                    return
+                }
                 google.charts.load('current',{
                     packages: ['corechart']
                 }).then(CrmLeadDrawChart(data));
@@ -219,12 +227,12 @@
                         {
                             id: 1,
                             name_en: 'new',
-                            code: 'color:#007bff'
+                            code: 'color:#fed330'
                         },
                         {
                             id: 2,
                             name_en: 'qualified',
-                            code: 'color:#66c8cf'
+                            code: 'color:#C4E538'
                         },
                         {
                             id: 3,
@@ -234,26 +242,28 @@
                         {
                             id: 4,
                             name_en: 'surveyed',
-                            code: 'color:black'
+                            code: 'color:#fa8231'
                         },
                         {
                             id: 5,
                             name_en: 'proposition',
-                            code: 'color:#ffc107'
+                            code: 'color:#2bcbba'
                         },
                         {
                             id: 6,
-                            name_en: '..',
-                            code: 'color:#28a745'
+                            name_en: 'won',
+                            code: 'color:#4b4b4b'
                         },
                         {
                             id: 7,
                             name_en: 'junk',
-                            code: 'color:red'
+                            code: 'color:#ff3838'
                         },
                     ]
                     $.each(data, function (index, value) {
-                        result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
+                        if(value.crm_lead_status_id != null){
+                            result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
+                        }
                     })
                     var data_chart = google.visualization.arrayToDataTable(result);
                     var view = new google.visualization.DataView(data_chart);
@@ -287,10 +297,19 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+        data: {
+            'from_date' : currentDateString,
+            'to_date' : currentDateString
+        },
         //data: $('#FrmChartQuoteReport').serialize(),
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1) {
+                  $('#QuoteChart').empty()
+                    $('#QuoteChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 }).then(CrmLeadDrawChart(data));
@@ -309,42 +328,48 @@
                         },
                         {
                             id: 1,
-                            name_en: 'new',
-                            code: 'color:#007bff'
+                            name_en: 'pending',
+                            code: 'color:#EA2027'
                         },
                         {
                             id: 2,
-                            name_en: 'qualified',
-                            code: 'color:#ffc107'
+                            name_en: 'approved',
+                            code: 'color:#009432'
                         },
                         {
                             id: 3,
-                            name_en: 'surveying',
-                            code: 'color:#ffc107'
+                            name_en: 'negogiate',
+                            code: 'color:#FFC312'
                         },
                         {
                             id: 4,
-                            name_en: 'surveyed',
-                            code: 'color:black'
+                            name_en: 'open',
+                            code: 'color:#EE5A24'
                         },
                         {
                             id: 5,
-                            name_en: 'proposition',
-                            code: 'color:#ffc107'
+                            name_en: 'installed',
+                            code: 'color:#12CBC4'
                         },
                         {
                             id: 6,
-                            name_en: '..',
-                            code: 'color:#ffc107'
+                            name_en: 'installing',
+                            code: 'color:#006266'
                         },
                         {
-                            id: 7,
-                            name_en: 'junk',
-                            code: 'color:#28a745'
+                            id: 9,
+                            name_en: 'accepted',
+                            code: 'color:#fff200'
+                        },
+                        {
+                            id: 12,
+                            name_en: 'disapproved',
+                            code: 'color:#ff5252'
                         },
                     ]
                     $.each(data, function (index, value) {
-                        result.push([value.quote_status_name_en, value.total_quotes, colors[value.crm_quote_status_type_id].code])
+                        var color = (colors.find(e => (e.id == value.crm_quote_status_type_id))).code
+                        result.push([value.quote_status_name_en, value.total_quotes, color])
                     })
                     var data = google.visualization.arrayToDataTable(result)
                     var view = new google.visualization.DataView(data)
@@ -369,6 +394,7 @@
         }
       });
     }
+
     // Contact Chart
     var Contact_Chart = () =>{
       $.ajax({
@@ -377,10 +403,20 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+        data: {
+            'type' : 'day',
+            'from_date' : currentDateString,
+            'to_date' : currentDateString
+        },
         //data: $('#FrmChartContactReport').serialize(),
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1) {
+                  $('#ContactChart').empty()
+                    $('#ContactChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 }).then(CrmLeadDrawChart(data));
@@ -395,7 +431,7 @@
                     var colors = [{
                             id: 0,
                             name_en: 'none',
-                            code: 'color:#007bff'
+                            code: 'color:#1dd1a1'
                         }
                     ]
                     $.each(data, function (index, value) {
@@ -403,6 +439,7 @@
                     })
                     var data = google.visualization.arrayToDataTable(result);
                     var view = new google.visualization.DataView(data);
+
                     view.setColumns([0, 1,
                         {
                             calc: "stringify",
@@ -423,6 +460,7 @@
         }
       });
     }
+
     // Organization Chart
     var Organization_Chart = () => {
       $.ajax({
@@ -431,10 +469,22 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+        data : {
+            'type' : 'day',
+            'status_id' : 2,
+            'from_date' : currentDateString,
+            'to_date' : currentDateString
+        },
+
         //data: $('#FrmChartOrganizationReport').serialize(),
         success: function (response) {
-          if (response.success == true) {
+            if (response.success == true) {
                 var data = response.data
+                if(data.length < 1) {
+                    $('#OrgChart').empty()
+                    $('#OrgChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 }).then(CrmOrganizationDrawChart(data));
@@ -448,8 +498,8 @@
                     var colors = [{
                             id: 0,
                             name_en: 'none',
-                            code: 'color:#007bff'
-                        }
+                            code: 'color:#25CCF7'
+                        },
                     ]
                     $.each(data, function (index, value) {
                         result.push([value.create_date, value.total, colors[0].code])
@@ -476,9 +526,48 @@
         }
       });
     }
-    Organization_Chart();
+
+    // Survey Chart
+    var Survey_Chart = () => {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Success',12],
+          ['Unsuccess',6]
+        ]);
+
+        var options = {
+            title: 'Survey Performance',
+            colors:['#1fa8e0','#ff6384']
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('survey_chart'));
+
+        chart.draw(data, options);
+    }
+
+    // new Contact chart
+    var Con_Chart = () => {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Max-Contact',50],
+          ['Contact',6]
+        ]);
+
+        var options = {
+            title: 'Contact Performance',
+            colors:['#1fa8e0','#ff6384'],
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('contact_chart'));
+
+        chart.draw(data, options);
+    }
+
+    // Organization_Chart();
+    Con_Chart();
+    Survey_Chart();
     Lead_Chart();
     Quote_Chart();
-    Contact_Chart();
+    // Contact_Chart();
     })
   </script>

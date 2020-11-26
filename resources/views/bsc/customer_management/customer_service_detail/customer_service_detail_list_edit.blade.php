@@ -37,14 +37,16 @@
                                             </div>
                                             <select class="form-control select2" name="customer_service" required>
                                                 <option selected hidden disabled>select item</option>
-                                                @foreach ($customer_services as $customer_service)
-                                                    <option
-                                                        @if ($customer_service_details->ma_customer_service_id==$customer_service->id)
-                                                            selected
-                                                        @endif
-                                                        value="{{ $customer_service->id }}">{{ $customer_service->customer_name." / ".$customer_service->customer_branch." / ".$customer_service->service_name }}
-                                                    </option>
-                                                @endforeach
+                                                @if (count($customer_services) >0)
+                                                    @foreach ($customer_services as $customer_service)
+                                                        <option
+                                                            @if ($customer_service_details->ma_customer_service_id==$customer_service->id)
+                                                                selected
+                                                            @endif
+                                                            value="{{ $customer_service->id }}">{{ $customer_service->customer_name." / ".$customer_service->customer_branch." / ".$customer_service->service_name }}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -115,7 +117,7 @@
                             <br>
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-primary save" id="frm_btn_sub_add_customer_service_detail">Update</button>
-                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_customer_service_detail')">Cencel</button>
+                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_customer_service_detail')">Cancel</button>
                             </div>
                         </div>
                     </div>

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\api\BSC;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use DB;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class PurchaseController extends Controller
 {
@@ -16,6 +18,16 @@ class PurchaseController extends Controller
      */
     public function index()
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030501', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         $purchases = DB::table('bsc_invoice')
         ->select('bsc_invoice.*','ma_supplier.name as supplier_name')
         ->leftJoin('ma_supplier','bsc_invoice.ma_supplier_id','=','ma_supplier.id')
@@ -97,6 +109,16 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030501', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         DB::beginTransaction();
         try {
             $input = $request->all();
@@ -115,21 +137,24 @@ class PurchaseController extends Controller
                 return $this->sendError('Validation Error.', $validator->errors());
             }
 
-            $sql_purchase ="insert_bsc_invoice(null, $request->ma_supplier_id, '$request->billing_date', '$request->due_date', '$request->reference', null, null, null, null, 'purchase', null, $request->total, $request->vat_total, $request->grand_total, $request->create_by, null, null, $request->bsc_account_charts_id, 2, 0, $request->grand_total)";
-
-            $q_purchase=DB::select("SELECT ".$sql_purchase);
-            $purchase_id = $q_purchase[0]->insert_bsc_invoice;
-
             $purchase_details = $request->purchase_details;
-            
-            if($purchase_details != ""){
-                foreach ($purchase_details as $key => $p_detail) {
-                    // var_dump($p_detail[stock_product_id]);
-                    if($p_detail['bsc_account_charts_id'] != null){
-                        $sql_purchase_detail = "insert_bsc_invoice_detail($purchase_id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], $request->create_by, '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0)";
-                        $q_purchase_detail=DB::select("SELECT ".$sql_purchase_detail);
+            if(count($purchase_details) > 0){
+                $sql_purchase ="insert_bsc_invoice(null, $request->ma_supplier_id, '$request->billing_date', '$request->due_date', '$request->reference', null, null, null, null, 'purchase', null, $request->total, $request->vat_total, $request->grand_total, $request->create_by, null, null, $request->bsc_account_charts_id, 2, 0, $request->grand_total)";
+
+                $q_purchase=DB::select("SELECT ".$sql_purchase);
+                $purchase_id = $q_purchase[0]->insert_bsc_invoice;
+
+                if($purchase_details != ""){
+                    foreach ($purchase_details as $key => $p_detail) {
+                        // var_dump($p_detail[stock_product_id]);
+                        if($p_detail['bsc_account_charts_id'] != null){
+                            $sql_purchase_detail = "insert_bsc_invoice_detail($purchase_id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], $request->create_by, '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0)";
+                            $q_purchase_detail=DB::select("SELECT ".$sql_purchase_detail);
+                        }
                     }
                 }
+            }else{
+                return $this->sendError("Product can not be null");
             }
 
 
@@ -150,6 +175,16 @@ class PurchaseController extends Controller
      */
     public function show($id)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030501', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         $purchase = DB::table('bsc_invoice')
         ->select('bsc_invoice.*','bsc_account_charts.name_en as chart_account_name','bsc_account_charts.id as chart_account_id','ma_supplier.name as supplier_name')
         ->leftJoin('bsc_invoice_bsc_journal_rel','bsc_invoice.id','=','bsc_invoice_bsc_journal_rel.bsc_invoice_id')
@@ -209,6 +244,16 @@ class PurchaseController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030501', $userid)) {
+            return $this->sendError("No Permission");
+        }
+        
         DB::beginTransaction();
         try {
             $input = $request->all();
@@ -278,6 +323,7 @@ class PurchaseController extends Controller
         $chart_accounts = DB::table('bsc_account_charts')
         ->where([
             ['bsc_account_type_id','=',15],
+            ['parent_id','<>',null],
             ['status','=','t'],
             ['is_deleted','=','f']
         ])->get();
@@ -322,25 +368,55 @@ class PurchaseController extends Controller
 
     public function show_chart_account_paid_from_to(Request $request)
     {
-        $paid_from_to = DB::table('bsc_account_charts')
-        ->whereIn('bsc_account_type_id',[1,2])
-        ->where([
-            ['status','=','t'],
-            ['is_deleted','=','f']
-        ])->get();
-        return $this->sendResponse($paid_from_to, 'Chart account retrieved successfully.');
+        $account_types = DB::select("SELECT
+                                    bsc_account_charts.bsc_account_type_id,
+                                    bsc_account_type.name_en AS account_type_name 
+                                FROM
+                                    bsc_account_charts
+                                    LEFT JOIN bsc_account_type ON bsc_account_charts.bsc_account_type_id = bsc_account_type.id 
+                                WHERE
+                                    bsc_account_charts.bsc_account_type_id IN (1,2)
+                                    AND bsc_account_charts.status = 't' 
+                                    AND bsc_account_charts.is_deleted = 'f' 
+                                GROUP BY
+                                    bsc_account_charts.bsc_account_type_id,
+                                    bsc_account_type.name_en 
+                                ORDER BY
+                                    bsc_account_charts.bsc_account_type_id ASC
+                                ");
+
+        $arr_chart_accounts = [];
+        if(count($account_types) > 0){
+            foreach ($account_types as $key => $account_type) {
+                $paid_from_to = DB::table('bsc_account_charts')
+                ->where([
+                    ['bsc_account_type_id','=',$account_type->bsc_account_type_id],
+                    ['parent_id','<>',null],
+                    ['status','=','t'],
+                    ['is_deleted','=','f']
+                ])->get();
+                $arr_chart_accounts[$key] = [
+                    'bsc_account_type_id' => $account_type->bsc_account_type_id,
+                    'bsc_account_type_name' => $account_type->account_type_name,
+                    'paid_from_to' => $paid_from_to
+                ];
+            }
+        }
+        
+        return $this->sendResponse($arr_chart_accounts, 'Chart account retrieved successfully.');
     }
     
     public function show_purchase_filter(Request $request)
     {
-        // $purchases = DB::table('bsc_invoice')
-        // ->select('bsc_invoice.*','ma_supplier.name as supplier_name')
-        // ->leftJoin('ma_supplier','bsc_invoice.ma_supplier_id','=','ma_supplier.id')
-        // ->where([
-        //     ['bsc_invoice.invoice_type','=','purchase'],
-        //     ['bsc_invoice.status','=','t'],
-        //     ['bsc_invoice.is_deleted','=','f']
-        // ])->get();
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030503', $userid)) {
+            return $this->sendError("No Permission");
+        }
         
         $sql_where = "";
         if($request->billing_date_from != ""){

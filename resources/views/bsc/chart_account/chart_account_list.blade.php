@@ -22,9 +22,9 @@
                     <div class="card-header">
                         <div class="col-12">
                             <div class="row​ margin_left">
-                                <a  href="#" class="btn btn-success btn-sm chart_account" ​value="bsc_chart_account_form" id="chart_account"><i class="fas fa-plus"></i> Add Account</a>&nbsp;
-                                <a  href="#" class="btn btn-success btn-sm chart_account" ​value="bsc_chart_account_form" id="chart_account"><i class="far fa-file-excel"></i> Import</a>&nbsp;
-                                <a  href="#" class="btn btn-success btn-sm chart_account" ​value="bsc_chart_account_form" id="chart_account"><i class="far fa-file-excel"></i> Export</a>
+                                {!! $button_add !!}
+                                {!! $button_import !!}
+                                {!! $button_export !!}
                             </div><br/>
                             {{-- ======================= Start Tab menu =================== --}}
                             <ul class="nav nav-tabs border_transparent" id="myTab" role="tablist">
@@ -46,9 +46,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#revenue" role="tab" aria-controls="profile" aria-selected="false">Revenue</a>
                                 </li>
-                                {{-- <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#archive" role="tab" aria-controls="profile" aria-selected="false">Archive</a>
-                                </li> --}}
                             </ul><br/>
                             {{-- ======================= End Tab menu =================== --}}
                                 <div class="tab-content" id="myTabContent">
@@ -65,18 +62,24 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($ch_accounts as $item)
-                                                        <tr>
-                                                            <td>{{ $item->code }}</td>
-                                                            <td>{{ $item->name_en }}</td>
-                                                            <td>{{ $item->account_type_name }}</td>
-                                                            <td style="text-align-last: center">
-                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
+                                                    @if (count($ch_accounts) >0)
+                                                        @foreach ($ch_accounts as $item)
+                                                            <tr>
+                                                                <td>{{ $item->code }}</td>
+                                                                <td>{{ $item->name_en }}</td>
+                                                                <td>{{ $item->account_type_name }}</td>
+                                                                <td style="text-align-last: center">
+                                                                    @if ($button_edit == '1')
+                                                                        <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                    @endif
+                                                                    @if ($button_delete == '1')
+                                                                        <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_030305')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                    @endif
+                                                                    {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
                                                 </tbody>
                                             </table>
                                         </div>
@@ -99,20 +102,26 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach ($ch_accounts as $asset)
-                                                                    @if ($asset->bsc_account_id==1)
-                                                                        <tr>
-                                                                            <td>{{ $item->code }}</td>
-                                                                            <td>{{ $item->name_en }}</td>
-                                                                            <td>{{ $item->account_type_name }}</td>
-                                                                            <td style="text-align-last: center">
-                                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endif
-                                                                @endforeach
+                                                                @if (count($ch_accounts) >0)
+                                                                    @foreach ($ch_accounts as $asset)
+                                                                        @if ($asset->bsc_account_id==1)
+                                                                            <tr>
+                                                                                <td>{{ $item->code }}</td>
+                                                                                <td>{{ $item->name_en }}</td>
+                                                                                <td>{{ $item->account_type_name }}</td>
+                                                                                <td style="text-align-last: center">
+                                                                                    @if ($button_edit == '1')
+                                                                                        <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                    @endif
+                                                                                    @if ($button_delete == '1')
+                                                                                        <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_030305')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                    @endif
+                                                                                    {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -138,20 +147,26 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach ($ch_accounts as $asset)
-                                                                    @if ($asset->bsc_account_id==2)
-                                                                        <tr>
-                                                                            <td>{{ $item->code }}</td>
-                                                                            <td>{{ $item->name_en }}</td>
-                                                                            <td>{{ $item->account_type_name }}</td>
-                                                                            <td style="text-align-last: center">
-                                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endif
-                                                                @endforeach
+                                                                @if (count($ch_accounts) >0)
+                                                                    @foreach ($ch_accounts as $asset)
+                                                                        @if ($asset->bsc_account_id==2)
+                                                                            <tr>
+                                                                                <td>{{ $item->code }}</td>
+                                                                                <td>{{ $item->name_en }}</td>
+                                                                                <td>{{ $item->account_type_name }}</td>
+                                                                                <td style="text-align-last: center">
+                                                                                    @if ($button_edit == '1')
+                                                                                        <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                    @endif
+                                                                                    @if ($button_delete == '1')
+                                                                                        <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_030305')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                    @endif
+                                                                                    {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -177,20 +192,26 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach ($ch_accounts as $asset)
-                                                                    @if ($asset->bsc_account_id==3)
-                                                                        <tr>
-                                                                            <td>{{ $item->code }}</td>
-                                                                            <td>{{ $item->name_en }}</td>
-                                                                            <td>{{ $item->account_type_name }}</td>
-                                                                            <td style="text-align-last: center">
-                                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endif
-                                                                @endforeach
+                                                                @if (count($ch_accounts) >0)
+                                                                    @foreach ($ch_accounts as $asset)
+                                                                        @if ($asset->bsc_account_id==3)
+                                                                            <tr>
+                                                                                <td>{{ $item->code }}</td>
+                                                                                <td>{{ $item->name_en }}</td>
+                                                                                <td>{{ $item->account_type_name }}</td>
+                                                                                <td style="text-align-last: center">
+                                                                                    @if ($button_edit == '1')
+                                                                                        <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                    @endif
+                                                                                    @if ($button_delete == '1')
+                                                                                        <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_030305')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                    @endif
+                                                                                    {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -216,20 +237,26 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach ($ch_accounts as $asset)
-                                                                    @if ($asset->bsc_account_id==6)
-                                                                        <tr>
-                                                                            <td>{{ $item->code }}</td>
-                                                                            <td>{{ $item->name_en }}</td>
-                                                                            <td>{{ $item->account_type_name }}</td>
-                                                                            <td style="text-align-last: center">
-                                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endif
-                                                                @endforeach
+                                                                @if (count($ch_accounts))
+                                                                    @foreach ($ch_accounts as $asset)
+                                                                        @if ($asset->bsc_account_id==6)
+                                                                            <tr>
+                                                                                <td>{{ $item->code }}</td>
+                                                                                <td>{{ $item->name_en }}</td>
+                                                                                <td>{{ $item->account_type_name }}</td>
+                                                                                <td style="text-align-last: center">
+                                                                                    @if ($button_edit == '1')
+                                                                                        <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                    @endif
+                                                                                    @if ($button_delete == '1')
+                                                                                        <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_030305')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                    @endif
+                                                                                    {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -255,20 +282,26 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach ($ch_accounts as $asset)
-                                                                    @if ($asset->bsc_account_id==4)
-                                                                        <tr>
-                                                                            <td>{{ $item->code }}</td>
-                                                                            <td>{{ $item->name_en }}</td>
-                                                                            <td>{{ $item->account_type_name }}</td>
-                                                                            <td style="text-align-last: center">
-                                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endif
-                                                                @endforeach
+                                                                @if (count($ch_accounts) >0)
+                                                                    @foreach ($ch_accounts as $asset)
+                                                                        @if ($asset->bsc_account_id==4)
+                                                                            <tr>
+                                                                                <td>{{ $item->code }}</td>
+                                                                                <td>{{ $item->name_en }}</td>
+                                                                                <td>{{ $item->account_type_name }}</td>
+                                                                                <td style="text-align-last: center">
+                                                                                    @if ($button_edit == '1')
+                                                                                        <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                    @endif
+                                                                                    @if ($button_delete == '1')
+                                                                                        <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_030305')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                    @endif
+                                                                                    {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -299,8 +332,12 @@
                                                                     <td>Touch Rith</td>
                                                                     <td>Call</td>
                                                                     <td style="text-align-last: center">
-                                                                        <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                        <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                        @if ($button_edit == '1')
+                                                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_chart_account_list_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                        @endif
+                                                                        @if ($button_delete == '1')
+                                                                            <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_030305')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                        @endif
                                                                         {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
                                                                     </td>
                                                                 </tr>
@@ -352,15 +389,6 @@
         "responsive": true,
         "autoWidth": false,
         });
-        // $('#example2').DataTable({
-        // "paging": true,
-        // "lengthChange": false,
-        // "searching": false,
-        // "ordering": true,
-        // "info": true,
-        // "autoWidth": false,
-        // "responsive": true,
-        // });
 
     });
     // Delete chart account
@@ -374,15 +402,15 @@
         var ld = $(this).attr("​value");
         go_to(ld);
     })
-    $('.edit').click(function(e)
-    {
-        var id = $(this).attr("​value");
-        go_to(id);
-    });
-    $('.detail').click(function(e)
-    {
-        var id = $(this).attr("​value");
-        go_to(id);
-    });
+    // $('.edit').click(function(e)
+    // {
+    //     var id = $(this).attr("​value");
+    //     go_to(id);
+    // });
+    // $('.detail').click(function(e)
+    // {
+    //     var id = $(this).attr("​value");
+    //     go_to(id);
+    // });
     </script>
 

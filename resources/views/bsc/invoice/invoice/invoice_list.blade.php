@@ -23,7 +23,7 @@
                         <div class="col-12">
                             <div class="row margin_left">
                                 <!-- <a  href="#" class="btn btn-block btn-success lead" value="addlead" onclick="addlead()"><i class="fas fa-wrench"></i> Add Lead</a>  -->
-                                <a  href="#" class="btn btn-success invoice_form" ​value="bsc_invoice_invoice_form" id="invoice_form"><i class="fas fa-plus"></i> Add New</a>&nbsp;
+                                {!! $button_add !!}&nbsp;
                             </div><br/>
                             {{-- ======================= Start Tab menu =================== --}}
                             <ul class="nav nav-tabs border_transparent" id="myTab" role="tablist">
@@ -46,7 +46,7 @@
                                             <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap">
                                                 <thead>
                                                     <tr>
-                                                        <th>Number</th>
+                                                        <th>Invoice Number</th>
                                                         <th>Reference</th>
                                                         <th>Customer</th>
                                                         <th>Date</th>
@@ -58,37 +58,43 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($invoices as $invoice)
-                                                        @php
-                                                            $amount_paid = 0;
-                                                            $due_amount = 0;
-                                                            $status = '';
+                                                    @if (count($invoices) >0)
+                                                        @foreach ($invoices as $invoice)
+                                                                @php
+                                                                    $amount_paid = 0;
+                                                                    $due_amount = 0;
+                                                                    $status = '';
 
-                                                            if($invoice->amount_paid == null && $invoice->due_amount == null){
-                                                                $amount_paid = 0;
-                                                                $due_amount = $invoice->grand_total;
-                                                                $status = 'Awaiting Payment';
-                                                            }else{
-                                                                $amount_paid = $invoice->amount_paid;
-                                                                $due_amount = $invoice->due_amount;
-                                                                $status = 'Paid';
-                                                            }
-                                                        @endphp
-                                                        <tr>
-                                                            <td>{{ $invoice->invoice_number }}</td>
-                                                            <td>{{ $invoice->reference }}</td>
-                                                            <td>{{ $invoice->customer_name }}</td>
-                                                            <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
-                                                            <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
-                                                            <td>{{ $amount_paid }}</td>
-                                                            <td>{{ $due_amount }}</td>
-                                                            <td>{{ $status }}</td>
-                                                            <td style="text-align-last: center">
-                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
+                                                                    if($invoice->amount_paid == null && $invoice->due_amount == null){
+                                                                        $amount_paid = 0;
+                                                                        $due_amount = $invoice->grand_total;
+                                                                        $status = 'Waiting Payment';
+                                                                    }else if ($invoice->due_amount == 0) {
+                                                                        $amount_paid = $invoice->amount_paid;
+                                                                        $due_amount = $invoice->due_amount;
+                                                                        $status = 'Paid';
+                                                                    }else{
+                                                                        $amount_paid = $invoice->amount_paid;
+                                                                        $due_amount = $invoice->due_amount;
+                                                                        $status = 'Waiting Payment';
+                                                                    }
+                                                                @endphp
+                                                            <tr>
+                                                                <td>{{ $invoice->invoice_number }}</td>
+                                                                <td>{{ $invoice->reference }}</td>
+                                                                <td>{{ $invoice->customer_name }}</td>
+                                                                <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
+                                                                <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
+                                                                <td>{{ number_format($amount_paid,4,".",",") }}</td>
+                                                                <td>{{ number_format($due_amount,4,".",",") }}</td>
+                                                                <td>{{ $status }}</td>
+                                                                <td style="text-align-last: center">
+                                                                    <a title="View" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                    {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a> --}}
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
                                                 </tbody>
                                             </table>
                                         </div>
@@ -104,7 +110,7 @@
                                                         <table id="example2" class="table table-bordered table-striped" style="white-space: nowrap">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Number</th>
+                                                                    <th>Invoice Number</th>
                                                                     <th>Reference</th>
                                                                     <th>Customer</th>
                                                                     <th>Date</th>
@@ -115,33 +121,37 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach ($invoices as $invoice)
-                                                                    @php
-                                                                        $amount_paid = 0;
-                                                                        $due_amount = 0;
+                                                                @if (count($invoices) >0)
+                                                                    @foreach ($invoices as $invoice)
+                                                                        @if($invoice->due_amount == null || $invoice->due_amount != 0)
+                                                                            @php
+                                                                                    $amount_paid = 0;
+                                                                                    $due_amount = 0;
 
-                                                                        if($invoice->due_amount == null){
-                                                                            $amount_paid = 0;
-                                                                            $due_amount = $invoice->grand_total;
-                                                                        }else{
-                                                                            $amount_paid = $invoice->amount_paid;
-                                                                            $due_amount = $invoice->due_amount;
-                                                                        }
-                                                                    @endphp
-                                                                    <tr>
-                                                                        <td>{{ $invoice->invoice_number }}</td>
-                                                                        <td>{{ $invoice->reference }}</td>
-                                                                        <td>{{ $invoice->customer_name }}</td>
-                                                                        <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
-                                                                        <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
-                                                                        <td>{{ $amount_paid }}</td>
-                                                                        <td>{{ $due_amount }}</td>
-                                                                        <td style="text-align-last: center">
-                                                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                            <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
+                                                                                    if($invoice->due_amount == null){
+                                                                                        $amount_paid = 0;
+                                                                                        $due_amount = $invoice->grand_total;
+                                                                                    }else{
+                                                                                        $amount_paid = $invoice->amount_paid;
+                                                                                        $due_amount = $invoice->due_amount;
+                                                                                    }
+                                                                                @endphp
+                                                                                <tr>
+                                                                                    <td>{{ $invoice->invoice_number }}</td>
+                                                                                    <td>{{ $invoice->reference }}</td>
+                                                                                    <td>{{ $invoice->customer_name }}</td>
+                                                                                    <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
+                                                                                    <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
+                                                                                    <td>{{ number_format($amount_paid,4,".",",") }}</td>
+                                                                                    <td>{{ number_format($due_amount,4,".",",") }}</td>
+                                                                                    <td style="text-align-last: center">
+                                                                                        <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                        {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a> --}}
+                                                                                    </td>
+                                                                                </tr>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -160,7 +170,7 @@
                                                         <table id="example3" class="table table-bordered table-striped">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Number</th>
+                                                                    <th>Invoice Number</th>
                                                                     <th>Reference</th>
                                                                     <th>Customer</th>
                                                                     <th>Date</th>
@@ -171,23 +181,25 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach ($invoices as $invoice)
-                                                                     @if($invoice->due_amount == 0 && $invoice->due_amount != null)
-                                                                        <tr>
-                                                                            <td>{{ $invoice->invoice_number }}</td>
-                                                                            <td>{{ $invoice->reference }}</td>
-                                                                            <td>{{ $invoice->customer_name }}</td>
-                                                                            <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
-                                                                            <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
-                                                                            <td>{{ $invoice->amount_paid }}</td>
-                                                                            <td>{{ $invoice->due_amount }}</td>
-                                                                            <td style="text-align-last: center">
-                                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
-                                                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a>
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endif
-                                                                @endforeach
+                                                                @if (count($invoices) >0)
+                                                                    @foreach ($invoices as $invoice)
+                                                                        @if($invoice->due_amount == 0 && $invoice->due_amount != null)
+                                                                            <tr>
+                                                                                <td>{{ $invoice->invoice_number }}</td>
+                                                                                <td>{{ $invoice->reference }}</td>
+                                                                                <td>{{ $invoice->customer_name }}</td>
+                                                                                <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
+                                                                                <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
+                                                                                <td>{{ number_format($amount_paid,4,".",",") }}</td>
+                                                                                <td>{{ number_format($due_amount,4,".",",") }}</td>
+                                                                                <td style="text-align-last: center">
+                                                                                    <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
+                                                                                    {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_edit/{{ $invoice->id }}')"><i class="far fa-edit"></i></a> --}}
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
                                                             </tbody>
                                                         </table>
                                                     </div>

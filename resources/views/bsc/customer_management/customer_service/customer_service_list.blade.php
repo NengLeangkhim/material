@@ -33,14 +33,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($customer_services as $customer_service)
-                                    <tr>
-                                        <td>{{ $customer_service->customer_name }}</td>
-                                        <td>{{ $customer_service->customer_branch }}</td>
-                                        <td>{{ $customer_service->service_name }}</td>
-                                        <td>{{ $customer_service->service_status }}</td>
-                                    </tr>
-                                @endforeach
+                                @if (count($customer_services) >0)
+                                    @foreach ($customer_services as $customer_service)
+                                        <tr>
+                                            <td>{{ $customer_service->customer_name }}</td>
+                                            <td>{{ $customer_service->customer_branch }}</td>
+                                            <td>{{ $customer_service->service_name }}</td>
+                                            <td>{{ $customer_service->service_status }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

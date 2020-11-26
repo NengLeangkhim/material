@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="row​ margin_left">
-                    <a  href="#" class="btn btn-success btn-sm customer_branch" ​value="bsc_customer_branch_form" id="customer_branch"><i class="fas fa-plus"></i> Add Customer Branch</a>&nbsp;
+                    {!! $button_add !!}&nbsp;
                 </div><br/>
                 <div class="card">
                     <div class="card-body">
@@ -36,19 +36,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($customer_branchs as $item)
-                                    <tr>
-                                        <td>{{ $item->customer_name }}</td>
-                                        <td>{{ $item->branch }}</td>
-                                        <td>{{ $item->lead_address }}</td>
-                                        <td style="text-align-last: center">
-                                            {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_customer_branch_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp; --}}
-                                            <a title="View Detail" id="icon_margin_auto" href="#" class="detail" onclick="go_to('customer_branch_detail/{{ $item->id }}')"><i class="fas fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
-                                            {{-- <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp; --}}
-                                            {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                @if (count($customer_branchs) >0)
+                                    @foreach ($customer_branchs as $item)
+                                        <tr>
+                                            <td>{{ $item->customer_name }}</td>
+                                            <td>{{ $item->branch }}</td>
+                                            <td>{{ $item->lead_address }}</td>
+                                            <td style="text-align-last: center">
+                                                {{-- <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_customer_branch_edit/{{ $item->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp; --}}
+                                                <a title="View Detail" id="icon_margin_auto" href="#" class="detail" onclick="go_to('customer_branch_detail/{{ $item->id }}')"><i class="fas fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
+                                                {{-- <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$item->id}},'bsc_chart_account_list_delete','bsc_chart_account_list','Chart Account Deleted Succseefully !','BSC_0303')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp; --}}
+                                                {{-- <a title="Archive" href="javascript:;"><i class="fa fa-archive"></i></a> --}}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

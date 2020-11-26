@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><span><i class="fas fa-user-plus"></i></span> Create Customer Branch</h1>
+                <h4><span><i class="fas fa-user-plus"></i></span> Create Customer Branch</h4>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -36,10 +36,11 @@
                                             </div>
                                             <select class="form-control select2" name="customer_name" id="customer_name" required onchange="myCustomer(this)">
                                                 <option selected hidden disabled>select item</option>
-                                                @foreach ($customers as $customer)
-                                                    <option value="{{ $customer->id }}" data-lead_id="{{ $customer->crm_lead_id }}">{{ $customer->name }}</option>
-                                                @endforeach
-
+                                                @if (count($customers) >0)
+                                                    @foreach ($customers as $customer)
+                                                        <option value="{{ $customer->id }}" data-lead_id="{{ $customer->crm_lead_id }}">{{ $customer->name }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -84,7 +85,7 @@
                             <br>
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-primary save" id="frm_btn_sub_add_customer_branch">Save</button>
-                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_customer_branch')">Cencel</button>
+                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_customer_branch')">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -118,11 +119,13 @@
                 dataType: "JSON",
                 success:function(data){
                     let item='';
-                    $.each(data, function(i, value) {
-                        item+='<option value="'+value.id+'">'+value.name_en+'</option>';
-                    });
-                    let items='<option selected hidden disabled>select item</option>'+item;
-                    document.getElementById('lead_branch').innerHTML=items;
+                    if(data.length >0){
+                        $.each(data, function(i, value) {
+                            item+='<option value="'+value.id+'">'+value.name_en+'</option>';
+                        });
+                        let items='<option selected hidden disabled>select item</option>'+item;
+                        document.getElementById('lead_branch').innerHTML=items;
+                    }
                 }
             });
     }

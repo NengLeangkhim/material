@@ -143,7 +143,8 @@ class CrmReport extends Model
             $condition =
                 (($fromDate == null || $toDate == null) ? ' ' : ' WHERE lead_detail_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ')
                 .(($statusId == null || $statusId == '') ? ' ' : ''.(($fromDate == null || $toDate == null) ? ' WHERE ' : ' AND ').' crm_lead_status_id = '.$statusId);
-            $result = DB::select('SELECT crm_lead_status_id, status_en, status_kh, count(*) AS total_lead FROM view_crm_lead_report '.$condition.' GROUP BY crm_lead_status_id, status_en, status_kh');
+                // dd('with status_report as (SELECT crm_lead_status_id, status_en, status_kh, count(*) AS total_lead FROM view_crm_lead_report '.$condition.' GROUP BY crm_lead_status_id, status_en, status_kh) select sr.* from crm_lead_status as ls inner join status_report sr on ls.id = sr.crm_lead_status_id');
+            $result = DB::select('with status_report as (SELECT crm_lead_status_id, status_en, status_kh, count(*) AS total_lead FROM view_crm_lead_report '.$condition.' GROUP BY crm_lead_status_id, status_en, status_kh) select ls.id as crm_lead_status_id, ls.name_en as status_en, ls.name_kh as status_kh, COALESCE(sr.total_lead, null, 0, total_lead) total_lead from crm_lead_status as ls left join status_report sr on ls.id = sr.crm_lead_status_id ');
         } catch(QueryException $e){
             throw $e;
         }
@@ -203,10 +204,10 @@ class CrmReport extends Model
     public function getQuoteByStatus($fromDate = null, $toDate = null){
         try {
             $result = DB::select('
-                SELECT DISTINCT ON (crm_quote_status_type_id) crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh, COUNT(*) AS total_quotes
+               with quote_status as ( SELECT DISTINCT ON (crm_quote_status_type_id) crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh, COUNT(*) AS total_quotes
                 FROM view_crm_quote_report
                 '.(($fromDate==null || $toDate == null) ? '' : 'WHERE crm_quote_status_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
-                GROUP BY crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh
+                GROUP BY crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh) select cqst.id as crm_quote_status_type_id, cqst.name_en as quote_status_name_en,cqst.name_kh as quote_status_name_kh ,COALESCE(total_quotes, null, 0, total_quotes) total_quotes  from crm_quote_status_type cqst left join  quote_status on  quote_status.crm_quote_status_type_id= cqst.id
                 ;
             ');
         } catch(QueryException $e){
@@ -349,7 +350,7 @@ class CrmReport extends Model
         return $result;
     }
 
-    public function getOrganizationDetail($leadSource = null, $assignTo = null, $fromDate = null, $toDate = null, $status = 6){
+    public function getOrganizationDetail($leadSource = null, $assignTo = null, $fromDate = null, $toDate = null, $status = 2){ // status qualified
         try{
             $select = '
                 SELECT
@@ -410,7 +411,16 @@ class CrmReport extends Model
         }
         return $result;
     }
-
+    public function getTotalSurvey($fromDate = null, $toDate = null){
+        try {
+            $dateCondition = ($fromDate == null || $toDate == null) ? '' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
+            $condition = 'WHERE is_deleted = \'f\' AND status = \'t\''.$dateCondition;
+            $result = DB::selectOne('SELECT COUNT(*) AS total_survey FROM crm_survey_result '.$condition);
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
     public function getTotalLeadBranchSurvey($fromDate = null, $toDate = null){
         try {
             $dateCondition = ($fromDate == null || $toDate == null) ? '' : ' AND cs.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE';
@@ -444,7 +454,7 @@ class CrmReport extends Model
         return $result;
     }
 
-    public function getContactChartReport($fromDate, $toDate, $type = 'day'){
+    public function getContactChartReport($fromDate = null, $toDate = null, $type = 'day'){
         try {
             $result = DB::select('
                 SELECT
@@ -453,9 +463,9 @@ class CrmReport extends Model
                 FROM crm_lead_contact
                 WHERE
                     is_deleted = false
-                    AND status = true
-                    --AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE
-                GROUP BY DATE_TRUNC(\''.$type.'\',create_date);
+                    AND status = true '.
+                    (($fromDate == null || $toDate == null)?'':'AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE')
+                .' GROUP BY DATE_TRUNC(\''.$type.'\',create_date) ORDER BY create_date;
             ');
         } catch(QueryException $e){
             throw $e;
@@ -464,28 +474,35 @@ class CrmReport extends Model
     }
 
     public function getOrganizationChartReport($fromDate, $toDate, $type = 'day', $forStatusId = 6){
+        // if lead is organization
+        $sql = 'SELECT DATE_TRUNC(\''.$type.'\',create_date)::DATE AS create_date, COUNT(id) AS total FROM crm_lead WHERE id IN ( SELECT DISTINCT ON (crm_lead_id) crm_lead_id FROM crm_lead_branch WHERE id in ( SELECT DISTINCT ON (crm_lead_branch_id) crm_lead_branch_id FROM crm_lead_detail WHERE crm_lead_status_id = '.$forStatusId.' and is_deleted = false and status = false ORDER BY crm_lead_branch_id, create_date DESC) and is_deleted = false and status = true ) AND is_deleted = false AND status = true '.(($fromDate == null || $toDate == null)?'':'AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').' GROUP BY DATE_TRUNC(\''.$type.'\',create_date) ORDER BY create_date;';
+        // else if lead_branch is organization
         try {
             $result = DB::select('
-                SELECT
-                    DATE_TRUNC(\''.$type.'\',create_date)::DATE AS  create_date,
+                SELECT DATE_TRUNC(\''.$type.'\',create_date)::DATE AS  create_date,
                     COUNT(id) AS total
-                FROM crm_lead
-                WHERE id IN (
-                    SELECT DISTINCT ON (crm_lead_id) crm_lead_id
-                    FROM crm_lead_branch
-                    WHERE id in (
-                        SELECT DISTINCT ON (crm_lead_branch_id) crm_lead_branch_id
-                        FROM crm_lead_detail
-                        WHERE crm_lead_status_id = '.$forStatusId.' and is_deleted = false and status = true
-                        ORDER BY crm_lead_branch_id, create_date DESC
-                    ) and is_deleted = false and status = true
+                FROM crm_lead_branch
+                WHERE id in (
+                    SELECT DISTINCT ON (crm_lead_branch_id) crm_lead_branch_id
+                    FROM crm_lead_detail
+                    WHERE crm_lead_status_id = '.$forStatusId.' and is_deleted = false and status = false
+                    ORDER BY crm_lead_branch_id, create_date DESC
                 )
                 AND is_deleted = false
-                AND status = true
-                --AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE
-                GROUP BY DATE_TRUNC(\''.$type.'\',create_date);
+                AND status = true '
+                .(($fromDate == null || $toDate == null)?'':'AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').
+                ' GROUP BY DATE_TRUNC(\''.$type.'\',create_date) ORDER BY create_date;
             ');
         } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+    public function getSurvey(){
+        try{
+            dd("survey");
+        }
+        catch(QueryException $e){
             throw $e;
         }
         return $result;

@@ -60,16 +60,16 @@ class ModelCrmLead extends Model
         return $res->getContent();
    }
    // Model get schedule type
-   public static function CrmGetSchdeuleType(){
+   public static function CrmGetSchdeuleType($id){
         $token = $_SESSION['token'];
-        $request = Request::create('/api/getscheduletype', 'GET');
+        $request = Request::create('/api/getscheduletype/'.$id, 'GET');
         $request->headers->set('Accept', 'application/json');
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         return $res->getContent();
    }
 
-   // Model get schedule  by id 
+   // Model get schedule  by id
    public static function CrmGetSchdeuleById($id){
         $token = $_SESSION['token'];
         $request = Request::create('/api/getschedule/'.$id, 'GET');
@@ -92,9 +92,9 @@ class ModelCrmLead extends Model
     }
     //Model get lead user assigned to
     public static function CrmGetLeadAssigTo(){
-        return DB::select("SELECT * from  ma_user");
+        return DB::select("SELECT * from  ma_user WHERE is_deleted=FALSE and status=TRUE ORDER BY id ASC");
     }
-    //Model get lead privice 
+    //Model get lead privice
     public static function CrmGetLeadProvice(){
         return DB::select("SELECT  * from public.get_gazetteers_province()");
     }
@@ -127,7 +127,7 @@ class ModelCrmLead extends Model
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         // dd($res);
-        return $res->getContent();       
+        return $res->getContent();
     }
     // Model Get survey result
     public static function GetsurveyResult(){
@@ -138,6 +138,6 @@ class ModelCrmLead extends Model
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
         // dd($res);
-        return $res->getContent();       
+        return $res->getContent();
     }
 }

@@ -49,16 +49,19 @@
                                                         }else{
                                                             $amount_paid = $purchase->amount_paid;
                                                             $due_amount = $purchase->due_amount;
-                                                            $status = 'Paid'; 
+                                                            $status = 'Waiting Payment'; 
                                                         }
+
+                                                        $paid = number_format($amount_paid, 4, '.', '');
+                                                        $due = number_format($due_amount, 4, '.', '');
                                                     @endphp
                                                     <tr>
                                                         <td>{{ $purchase->invoice_number }}</td>
                                                         <td>{{ $purchase->supplier_name }}</td>
                                                         <td>{{ $purchase->billing_date }}</td>
                                                         <td>{{ $purchase->due_date }}</td>
-                                                        <td>{{ $amount_paid }}</td>
-                                                        <td>{{ $due_amount }}</td>
+                                                        <td>{{ $paid }}</td>
+                                                        <td>{{ $due }}</td>
                                                         <td>{{ $status }}</td>
                                                         <td style="text-align: center;">
                                                             <a href="javascript:;" onclick="go_to('bsc_purchase_payment_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>

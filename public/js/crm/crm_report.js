@@ -10,6 +10,9 @@ var reportLeadByStatus = () => {
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1){
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 });
@@ -28,41 +31,46 @@ var reportLeadByStatus = () => {
                         {
                             id: 1,
                             name_en: 'new',
-                            code: 'color:#007bff'
+                            code: '#EE5A24'
                         },
                         {
                             id: 2,
                             name_en: 'qualified',
-                            code: 'color:#ffc107'
+                            code: '#C4E538'
                         },
                         {
                             id: 3,
                             name_en: 'surveying',
-                            code: 'color:#ffc107'
+                            code: '#fff200'
                         },
                         {
                             id: 4,
                             name_en: 'surveyed',
-                            code: 'color:black'
+                            code: '#18dcff'
                         },
                         {
                             id: 5,
                             name_en: 'proposition',
-                            code: 'color:#ffc107'
+                            code: '#7d5fff'
                         },
                         {
                             id: 6,
-                            name_en: '..',
-                            code: 'color:#ffc107'
+                            name_en: 'won',
+                            code: '#00cec9'
                         },
                         {
                             id: 7,
                             name_en: 'junk',
-                            code: 'color:#28a745'
+                            code: '#ff3838'
                         },
                     ]
+
+                    var myColors = [];
                     $.each(data, function (index, value) {
-                        result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
+                        if(value.crm_lead_status_id != null){
+                            result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
+                            myColors.push(colors[value.crm_lead_status_id].code)
+                        }
                     })
                     var data_chart =google.visualization.arrayToDataTable(result);
                     // var view = new google.visualization.DataView(data);
@@ -75,9 +83,11 @@ var reportLeadByStatus = () => {
                     //     },
                     //     2
                     // ]);
+
                     var options = {
                         title: 'Lead Performance',
                         pieSliceText:'value',
+                        colors: myColors
                     };
 
                     var chart = new google.visualization.PieChart(document.getElementById('LeadChart'))
@@ -112,6 +122,10 @@ var reportContact = () => {
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1){
+                    $('#ContactChart').append(`<p>No Data</P>`)
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 });
@@ -126,7 +140,7 @@ var reportContact = () => {
                     var colors = [{
                             id: 0,
                             name_en: 'none',
-                            code: 'color:#007bff'
+                            code: 'color:#1fa8e0'
                         }
                     ]
                     $.each(data, function (index, value) {
@@ -144,7 +158,7 @@ var reportContact = () => {
                         2
                     ]);
                     var options = {
-                        title: 'Contact Chart',
+                        title: 'Contact Performnace',
                     };
 
                     var chart = new google.visualization.ColumnChart(document.getElementById('ContactChart'))
@@ -178,6 +192,11 @@ var reportOrganization = () => {
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1){
+                    $('#OrganizationChart').empty()
+                    $('#OrganizationChart').append(`<p>No Data</p>`)
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 });
@@ -192,7 +211,7 @@ var reportOrganization = () => {
                     var colors = [{
                             id: 0,
                             name_en: 'none',
-                            code: 'color:#007bff'
+                            code: 'color:#1fa8e0'
                         }
                     ]
                     $.each(data, function (index, value) {
@@ -244,6 +263,9 @@ var reportQuoteByStatus = () => {
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
+                if(data.length < 1){
+                    return
+                }
                 google.charts.load('current', {
                     packages: ['corechart']
                 });
@@ -262,38 +284,43 @@ var reportQuoteByStatus = () => {
                         },
                         {
                             id: 1,
-                            name_en: 'new',
-                            code: 'color:#007bff'
+                            name_en: 'pending',
+                            code: 'color:#EA2027'
                         },
                         {
                             id: 2,
-                            name_en: 'qualified',
-                            code: 'color:#ffc107'
+                            name_en: 'approved',
+                            code: 'color:#009432'
                         },
                         {
                             id: 3,
-                            name_en: 'surveying',
-                            code: 'color:#ffc107'
+                            name_en: 'negogiate',
+                            code: 'color:#FFC312'
                         },
                         {
                             id: 4,
-                            name_en: 'surveyed',
-                            code: 'color:black'
+                            name_en: 'open',
+                            code: 'color:#EE5A24'
                         },
                         {
                             id: 5,
-                            name_en: 'proposition',
-                            code: 'color:#ffc107'
+                            name_en: 'installed',
+                            code: 'color:#12CBC4'
                         },
                         {
                             id: 6,
-                            name_en: '..',
-                            code: 'color:#ffc107'
+                            name_en: 'installing',
+                            code: 'color:#006266'
                         },
                         {
-                            id: 7,
-                            name_en: 'junk',
-                            code: 'color:#28a745'
+                            id: 9,
+                            name_en: 'accepted',
+                            code: 'color:#fff200'
+                        },
+                        {
+                            id: 12,
+                            name_en: 'disapproved',
+                            code: 'color:#ff5252'
                         },
                     ]
                     $.each(data, function (index, value) {
@@ -333,3 +360,138 @@ var reportQuoteByStatus = () => {
         }
     });
 }
+
+
+
+    //=========================================Export Report CRM=====================
+
+    // function for export datatable to excel
+    function exportTableToExcel(filename){
+        let table = document.getElementsByTagName("table");
+        TableToExcel.convert(table[0], { // html code may contain multiple tables so here we are refering to 1st table tag
+            name: ''+filename+'.xlsx',
+            sheet: {
+                name: 'Sheet 1'
+            }
+        });
+
+    }
+
+
+     // function for export datatable to pdf
+     function exportTableToPDF(tblId,filename){
+        html2canvas($('#'+tblId+'')[0], {
+            onrendered: function (canvas) {
+                var data = canvas.toDataURL();
+                var docDefinition = {
+                    content: [{
+                        image: data,
+                        width: 500,
+                    }]
+                };
+                pdfMake.createPdf(docDefinition).open(""+filename+".pdf");
+                pdfMake.createPdf(docDefinition).download(""+filename+".pdf");
+            }
+        });
+    }
+
+
+
+    // function click to export quote as excel
+    $(document).on('click','#btnReportQuoteExcel',function(){
+            var table = $('#QuoteDetailTbl').DataTable();
+            if(!table.data().any()){  // condition true it mean table empty data
+                // alert('Table Empty table');
+                sweetalert('warning', 'No data export !');
+            }else{
+                exportTableToExcel('QuoteReport');
+            }
+    });
+
+
+    // button to click export quote report to pdf file
+    $(document).on("click", "#btnReportQuotePDF", function () {
+        var table = $('#QuoteDetailTbl').DataTable();
+        if(!table.data().any()){
+            sweetalert('warning', 'No data export !');
+        }else{
+            exportTableToPDF('QuoteDetailTbl','QuoteReport');
+        }
+    });
+
+    //button to click export lead report to excel file
+    $(document).on("click", "#btnExportExcelLeadReport", function(){
+        var table = $('#OrganizationTbl').DataTable();
+        if(!table.data().any()){
+            sweetalert('warning', 'No data export !');
+        }else{
+            exportTableToExcel('LeadReport');
+        }
+    });
+
+
+
+    //button to click export lead report to pdf file
+    $(document).on("click", "#btnExportPdfLeadReport", function(){
+        var table = $('#OrganizationTbl').DataTable();
+        if(!table.data().any()){
+            sweetalert('warning', 'No data export !');
+        }else{
+            exportTableToPDF('OrganizationTbl','LeadReport');
+        }
+    });
+
+
+
+    //button to click export contact report to excel file
+    $(document).on("click", "#btnExportExcelContactReport", function(){
+        var table = $('#OrganizationTbl2').DataTable();  // table contact report
+        if(!table.data().any()){
+            sweetalert('warning', 'No data export !');
+        }else{
+            exportTableToExcel('ContactReport');
+        }
+    });
+
+
+    //button to click export contact report to pdf file
+    $(document).on("click", "#btnExportPDFContactReport", function(){
+        var table = $('#OrganizationTbl2').DataTable();  // table contact report
+        if(!table.data().any()){
+            sweetalert('warning', 'No data export !');
+        }else{
+            exportTableToPDF('OrganizationTbl2','ContactReport');
+        }
+    });
+
+
+
+    //button to click export organization report to excel file
+    $(document).on("click", "#btnExportExcelOrganizReport", function(){
+        var table = $('#OrganizationTbl3').DataTable();  // table contact report
+        if(!table.data().any()){
+            sweetalert('warning', 'No data export !');
+        }else{
+            exportTableToExcel('OrganizReport');
+        }
+    });
+
+
+    //button to click export organization report to pdf file
+    $(document).on("click", "#btnExportPDFOrganizReport", function(){
+        var table = $('#OrganizationTbl3').DataTable();  // table contact report
+        if(!table.data().any()){
+            sweetalert('warning', 'No data export !');
+        }else{
+            exportTableToPDF('OrganizationTbl3','OrganizReport');
+        }
+    });
+
+
+
+
+
+
+
+
+

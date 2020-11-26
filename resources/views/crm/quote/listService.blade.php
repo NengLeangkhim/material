@@ -31,15 +31,15 @@
                                         </div>
                                     </th>
                                     <th>Service Name</th>
-                                    {{-- <th>Part Number</th> --}}
                                     <th>Unit Price</th>
-                                    <th>Available In Stock</th>
+                                    <th>Qty In Stock</th>
+                                    <th>Measurement</th>
                                     <th>Description</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-
+                                {{-- getBranchDetail --}}
                                 {{-- foreach variable --}}
                                 @foreach ($listService as $key=>$val)
                                     @foreach ($val as $key2=>$val2)
@@ -56,15 +56,24 @@
                                                         {{$val2->name}}
                                                     </div>
                                                 </td>
-                                                {{-- <td class="border">
-                                                    <div class="itemPartNumber_{{$val2->id}}">
-                                                        {{$val2->part_number}}
-                                                    </div>
-                                                </td> --}}
+
                                                 <td class="border">
                                                     <div >
+                                                        {{-- @php
+                                                            $prdPrice = 0
+                                                        @endphp
+                                                        @if($getBranchDetail[0]->vat_number == '')
+                                                            @php
+                                                                $taxVat = floatval($val2->product_price * 0.1);
+                                                                $prdPrice = floatval($val2->product_price + $taxVat);
+                                                            @endphp
+                                                        @else
+                                                            @php
+                                                                $prdPrice = $val2->product_price;
+                                                            @endphp
+                                                        @endif --}}
                                                         {{$val2->product_price}}
-                                                        <input type="hidden" class="itemPrice_{{$val2->id}}" value="{{$val2->product_price}}" readonly>
+                                                        <input type="hidden" class="itemPrice_{{$val2->id}}" value="{{ $val2->product_price }}" readonly>
                                                     </div>
                                                 </td>
 
@@ -73,6 +82,13 @@
                                                         {{$val2->stock_qty}}
                                                     </div>
                                                 </td>
+
+                                                <td class="border">
+                                                    <div class="itemMeasurement_{{$val2->id}}">
+                                                        {{$val2->measurement}}
+                                                    </div>
+                                                </td>
+
                                                 <td class="border">
                                                     <div class="itemDescription_{{$val2->id}}">
                                                         {{$val2->description}}

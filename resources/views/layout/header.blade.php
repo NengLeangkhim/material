@@ -12,7 +12,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <link rel="icon" href="img/icon.png">
-  <title>TURBOTECH DEV</title>
+  <title>TURBOTECH</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -32,7 +32,7 @@
   {{-- style chart JS --}}
   <link href="plugins/chart.js/Chart.min.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/font_size.css"> 
+  <link rel="stylesheet" href="css/font_size.css">
 
 {{-- ===========Name Style Of Each Project================== --}}
 

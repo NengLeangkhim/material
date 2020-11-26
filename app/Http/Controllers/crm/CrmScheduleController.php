@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Route;
 use App\model\api\crm\Crmlead as Lead;
 use App\model\crm\ModelCrmLead;
+use Illuminate\Support\Facades\DB;
 
 class CrmScheduleController extends Controller
 {
@@ -77,19 +78,59 @@ class CrmScheduleController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
             } 
-            if(perms::check_perm_module('CRM_02100201')){//module code list data tables id=147
-                $id = $_GET['id'];
-                $schedule_type=ModelCrmLead::CrmGetSchdeuleType();
-                $schedule_type =json_decode($schedule_type,true);
-                $schedule = ModelCrmLead::CrmGetSchdeuleById($id);
-                $schedule =json_decode($schedule,true);
-                // dd($schedule,$schedule_type);
-                // return view('crm.schedule.detailschedule', ['schedule_get' => $schedule]);
-                return view('crm.schedule.detailschedule',['schedule_type'=>$schedule_type['data'],'schedule'=>$schedule['data']]);
+            $id = $_GET['id'];
+            // dd($id);
+            $result=DB::select("SELECT id from crm_lead_schedule_result WHERE crm_lead_schedule_id=$id");
+            if($result!=null){
+                if(perms::check_perm_module('CRM_02100201')){//module code list data tables id=147
                
-            }else{
-                return view('no_perms');
+                    $schedule_type=ModelCrmLead::CrmGetSchdeuleType('FALSE');
+                    $schedule_type =json_decode($schedule_type,true);
+                    $result_type=ModelCrmLead::CrmGetSchdeuleType('TRUE');
+                    $result_type =json_decode($result_type,true);
+                    $schedule = ModelCrmLead::CrmGetSchdeuleById($id);
+                    $schedule =json_decode($schedule,true);
+                    // dd($schedule_type);
+                    if($schedule!=null){
+                        // dd($schedule,$schedule_type);
+                        // return view('crm.schedule.detailschedule', ['schedule_get' => $schedule]);
+                        return view('crm.schedule.detailscheduleresult',['schedule_type'=>$schedule_type['data'],'result_type'=>$result_type['data'],'schedule'=>$schedule['data']]);
+                    }else{
+                        return view('no_perms');
+
+                    }
+                   
+                   
+                }else{
+                    return view('no_perms');
+                }
             }
+            if($result==null)
+            {
+                if(perms::check_perm_module('CRM_02100201')){//module code list data tables id=147
+               
+                    $schedule_type=ModelCrmLead::CrmGetSchdeuleType('FALSE');
+                    $schedule_type =json_decode($schedule_type,true);
+                    $result_type=ModelCrmLead::CrmGetSchdeuleType('TRUE');
+                    $result_type =json_decode($result_type,true);
+                    $schedule = ModelCrmLead::CrmGetSchdeuleById($id);
+                    $schedule =json_decode($schedule,true);
+                    // dd($schedule_type);
+                    if($schedule!=null){
+                        // dd($schedule,$schedule_type);
+                        // return view('crm.schedule.detailschedule', ['schedule_get' => $schedule]);
+                        return view('crm.schedule.detailschedule',['schedule_type'=>$schedule_type['data'],'result_type'=>$result_type['data'],'schedule'=>$schedule['data']]);
+                    
+
+                    }else
+                    {
+                        return view('no_perms');  
+                    }   
+                }else{
+                    return view('no_perms');
+                }
+            }
+            
     }
     // insert  schedule result
     public function insertscheduleresult(Request $request){

@@ -21,9 +21,20 @@
           <div class="col-12">
               <div class="card">
                   <div class="card-header">
-                      <div class="col-12 text-right">
-                                <button class="btn btn-success"><span><i class="far fa-file-excel"></i></span> Excel</button>
-                                <button class="btn btn-danger"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
+                      <div class="col-12">
+                        <div class="row">
+                            <div class="col-9"></div>
+                            <div class="col-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                            <button class="btn btn-success form-control" id="btnExportExcelOrganizReport"><span><i class="far fa-file-excel"></i></span> Excel</button>
+                                    </div>
+                                    <div class="col-6">
+                                            <button class="btn btn-danger form-control" id="btnExportPDFOrganizReport"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                       </div>
                   </div>
                   <div class="card-body">
@@ -47,17 +58,6 @@
                                             <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                         </div>
                                         <select class="form-control" name="select_source" id="select_assign_to">
-                                            <option value="0">Please Select</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="exampleInputEmail1">Status</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-unlock"></i></span>
-                                        </div>
-                                        <select class="form-control" name="select_source" id="select_status">
                                             <option value="0">Please Select</option>
                                         </select>
                                     </div>
@@ -111,7 +111,7 @@
                             </div>
                         </div><!--End Form Group--> --}}
                         <div class="table-responsive" style="padding-top: 10px;">
-                            <table id="OrganizationTbl" class="table table-bordered table-striped">
+                            <table id="OrganizationTbl3" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>Lead Number</th>
@@ -168,7 +168,6 @@
     $(document).ready(function(){
         setSelectOptionData('/api/leadsource','#select_source')
         setSelectOptionData('/api/leadassig','#select_assign_to')
-        setSelectOptionData('/api/leadstatus','#select_status')
 
         var url = '/api/crm/report/organizationReportDetail'
 
@@ -179,9 +178,9 @@
             var from = $('#DetailOrganizationFrom').val() == '' ? '' : (new Date($('#DetailOrganizationFrom').val())).toISOString().substring(0, 10)
             var to = new Date($('#DetailOrganizationTo').val());
             to = $('#DetailOrganizationTo').val() == '' ? '' : (new Date(to.getUTCFullYear(), to.getMonth() + 1, 1)).toISOString().substring(0,10)
-            $('#OrganizationTbl').dataTable().fnClearTable();
-            $('#OrganizationTbl').dataTable().fnDraw();
-            $('#OrganizationTbl').dataTable().fnDestroy();
+            $('#OrganizationTbl3').dataTable().fnClearTable();
+            $('#OrganizationTbl3').dataTable().fnDraw();
+            $('#OrganizationTbl3').dataTable().fnDestroy();
             $.ajax({
                 url : url,
                 type : 'GET',
@@ -209,7 +208,7 @@
                             </tr>
                             `)
                         })
-                        $('#OrganizationTbl').DataTable();
+                        $('#OrganizationTbl3').DataTable();
                     }
                 },
                 fail : function(){

@@ -34,11 +34,11 @@ class LeadController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-            // $userid = $_SESSION['userid'];
+            $userid = $_SESSION['userid'];
             $name_en=$request->input('name_en');
             $name_kh=$request->input('name_kh');
-            // $create_by=$userid;
-            $create_by=$request->input('create_by');
+            $create_by=$userid;
+            // $create_by=$request->input('create_by');
             return Lead::addleadsource($name_en,$name_kh,$create_by);
     }
     // get lead industry
@@ -126,6 +126,7 @@ class LeadController extends Controller
         $company_en=$request->input('company_en');
         $company_kh=$request->input('company_kh');
         $primary_email=$request->input('primary_email');
+        $primary_phone=$request->input('primary_phone');
         $user_create=$userid;
         // $user_create=$request->input('user_create');
         $website=$request->input('website');
@@ -162,8 +163,8 @@ class LeadController extends Controller
         $addresscode=$request->input('village');
 
         // return $lead_id;
-        // var_dump($checksurvey);
-        return  Lead::insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
+        // dd($lead_id);
+        return  Lead::insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
         $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
         $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
         $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
@@ -189,6 +190,7 @@ class LeadController extends Controller
             $company_en=$request->input('company_en');
             $company_kh=$request->input('company_kh');
             $primary_email=$request->input('primary_email');
+            $primary_phone=$request->input('primary_phone');
             // $user_create=$request->input('user_create');
             $user_create=$userid;
             $website=$request->input('website');
@@ -228,7 +230,7 @@ class LeadController extends Controller
 
             // var_dump($survey_id);
             return  Lead::updatebranch($lead_address_id,$lead_detail_id,$lead_item_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
-            $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,
+            $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,$primary_phone,
             $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
             $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$survey_id);
     }
@@ -244,23 +246,23 @@ class LeadController extends Controller
         $return=json_encode($return,true);
         $return=json_decode($return,true);
         $userid=$return["original"]['id'];
-        
-        if(perms::check_perm_module('CRM_020501')){ // top managment
-            $lead = Lead::getLead(); // all lead 
-            return GetLead::Collection($lead);        
-            // dd("top");  
+
+        if(perms::check_perm_module_api('CRM_020501',$userid)){ // top managment
+            $lead = Lead::getLead(); // all lead
+            return GetLead::Collection($lead);
+            // dd("top");
         }
-        else if (perms::check_perm_module('CRM_020509')) { // fro staff (Model and Leadlist by user)
+        else if (perms::check_perm_module_api('CRM_020509',$userid)) { // fro staff (Model and Leadlist by user)
             $lead = Lead::getLeadbyassginto($userid); //  lead by assigned to
             return GetLead::Collection($lead);
-            // dd
-        
+            // dd("staff");
+
         }
         else
         {
             return view('no_perms');
         }
-        
+
         // return GetLead::Collection($lead);
     }
     // get  lead by id
@@ -268,11 +270,21 @@ class LeadController extends Controller
         $lead = Lead::getleadbyid($id);
         return GetLead::Collection($lead);
     }
-    
+
     // get branch by id
     public function getbranchById($id){
         $branch_id = Lead::getbranchById($id);
         return GetLeadBranch::Collection($branch_id);
+    }
+    //
+    public function getbranchByIdconvert($id){
+        $branch_id = Lead::getbranchByIdconvert($id);
+        return GetLeadBranch::Collection($branch_id);
+    }
+    // get branch by lead id convert
+    public function getbranch_lead_convert($id){
+        $branch_id_convert = Lead::getbranch_lead_convert($id);
+        return GetLeadBranch::Collection($branch_id_convert);
     }
     // get  show branch by lead id
     public function getbranch_lead($id){
@@ -281,12 +293,12 @@ class LeadController extends Controller
         $return=json_encode($return,true);
         $return=json_decode($return,true);
         $userid=$return["original"]['id'];
-        
-    if(perms::check_perm_module('CRM_021003')){ // for top managment
+
+    if(perms::check_perm_module_api('CRM_021003',$userid)){ // for top managment
         $branch_id = Lead::getbranch_lead($id);
         return GetLeadBranch::Collection($branch_id);
     }
-    else if (perms::check_perm_module('CRM_0213')) { // for staff (Model  name Get Branch by user)
+    else if (perms::check_perm_module_api('CRM_0213',$userid)) { // for staff (Model  name Get Branch by user)
         $branch_id = Lead::getbranch_leadbyassigto($id,$userid);
         return GetLeadBranch::Collection($branch_id);
     }
@@ -294,9 +306,9 @@ class LeadController extends Controller
     {
         return view('no_perms');
     }
-       
+
     }
-    // //  edit lead 
+    // //  edit lead
     public function editlead( Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -307,10 +319,11 @@ class LeadController extends Controller
         $company_en=$request->input('company_en');
         $company_kh=$request->input('company_kh');
         $primary_email=$request->input('primary_email');
+        $primary_phone=$request->input('primary_phone');
         // $user_create=$request->input('user_create');
         $user_create=$userid;
         $website=$request->input('website');
-        $facebook=$request->input('facebook');
+        $facebook=$request->input('company_facebook');
         $vat_number=$request->input('vat_number');
         $company_branch=$request->input('branch');
         $lead_source=$request->input('lead_source');
@@ -321,10 +334,10 @@ class LeadController extends Controller
         $current_price=$request->input('current_price');
         $employee_count=$request->input('employee_count');
 
-        // var_dump("zdcvdx");
+        // dd($primary_phone);
 
         return  Lead::editLead($lead_id,$lead_number,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
-        $vat_number,$company_branch,$lead_source,$status,$lead_industry,$current_speed_isp,
+        $vat_number,$company_branch,$lead_source,$status,$lead_industry,$current_speed_isp,$primary_phone,
         $current_speed,$current_price,$employee_count);
     }
 
@@ -363,24 +376,24 @@ class LeadController extends Controller
         {
             return view('no_perms');
         }
-        
+
     }
     // get survey
-    public function getsurveyresult(){        
+    public function getsurveyresult(){
         $return=response()->json(auth()->user());
         $return=json_encode($return,true);
         $return=json_decode($return,true);
         $userid=$return["original"]['id'];
         // dd($return);
-        if(perms::check_perm_module('CRM_02110102')){ // for top managment
+        if(perms::check_perm_module_api('CRM_02110102',$userid)){ // for top managment
             $survey= Lead::getsurveyresult();
             return GetSurveyResult::Collection($survey);
         }
-        else if (perms::check_perm_module('CRM_0211010201')) { // for staff (Model  name Get Branch by user)
+        else if (perms::check_perm_module_api('CRM_0211010201',$userid)) { // for staff (Model  name Get Branch by user)
             $survey= Lead::getsurveyresultbycreate($userid);
             return GetSurveyResult::Collection($survey);
         }
-        
+
     }
     //get svrvey by branch id
     public function getsurveybyid($id){
@@ -395,15 +408,24 @@ class LeadController extends Controller
         $userid = $_SESSION['userid'];
         $survey_id =$request->input('survey_id');
         // $userid =$request->input('user_create');
-        $possible =$request->input('possible')!='1'? 'f':'t';
+        $possible =$request->input('possible');
         $comment =$request->input('commentsurvey');
         $branch_id =$request->input('branch_id');
+        
+        if($possible=='yes'){
+            $possible='t';
+        }
+        else
+        {
+            $possible='f';
+        }
+        // dd($possible);
         // var_dump($userid,$survey_id,$possible,$comment,$branch_id);
         return Lead::insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id);
     }
     // get schdule type
-    public function getschduletype(){
-        $schedule_type= Lead::getschduletype();
+    public function getschduletype($id){
+        $schedule_type= Lead::getschduletype($id);
         return LeadCurrentSpeedIsp::Collection($schedule_type);
     }
     // insert schedule type
@@ -430,32 +452,33 @@ class LeadController extends Controller
         $status=$request->input('status');
         return Lead::updatescheduletype($schedule_id,$userid,$name_en,$name_kh,$status); //return to model
     }
-    // get schedule 
+    // get schedule
     public function getschedule(){
-        // $return=response()->json(auth()->user());
-        // $return=json_encode($return,true);
-        // $return=json_decode($return,true);
-        // $userid=$return["original"]['id'];
-            $schedule = Lead::getschedule(); // all lead 
-            return GetLeadSchedule::Collection($schedule); 
-        // if(perms::check_perm_module('CRM_020501')){ // top managment
-        //     $lead = Lead::getLead(); // all lead 
-        //     return GetLead::Collection($lead);          
-        // }
-        // else if (perms::check_perm_module('CRM_020509')) { // fro staff (Model and Leadlist by user)
-        //     $lead = Lead::getLeadbyassginto($userid); //  lead by assigned to
-        //     return GetLead::Collection($lead);
-        
-        // }
-        // else
-        // {
-        //     return view('no_perms');
-        // }
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+
+        if(perms::check_perm_module_api('CRM_021004',$userid)){ // top managment
+            $schedule = Lead::getschedule(); // all Schedule
+            return GetLeadSchedule::Collection($schedule);
+            // dd("sgfvdr");
+        }
+        else if (perms::check_perm_module_api('CRM_02100401',$userid)) { // fro staff (Model and Leadlist by user)
+            $schedule = Lead::getschedulebyuser($userid); // all Schedule
+            return GetLeadSchedule::Collection($schedule);
+            // dd("staff");
+
+        }
+        else
+        {
+            return view('no_perms');
+        }
     }
-    // get schedule by id 
+    // get schedule by id
     public function getschedulebyid($id){
-        $schedule = Lead::getschedulebyid($id); // all lead 
-            return GetLeadSchedule::Collection($schedule); 
+        $schedule = Lead::getschedulebyid($id); // all lead
+            return GetLeadSchedule::Collection($schedule);
     }
     //insert schedule
     public function insertschedule(Request $request){
@@ -510,9 +533,10 @@ class LeadController extends Controller
         $priority=$request->input('priority');
         $schedule_type_id=$request->input('schedule_type_id');
         // $userid =$request->input('user_create');
-        
+
         // $userid =$userid;
         // $userid =$request->input('user_create');
+// dd($schedule_type_id_result,$schedule_type_id);
         return Lead::insertscheduleresult($schedule_id,$branch_id,$schedule_type_id_result,$comment_result,$userid,$name_en,$name_kh,$to_do_date,$comment,$priority,$schedule_type_id); // return to Model
     }
     //update schedule result
@@ -530,5 +554,12 @@ class LeadController extends Controller
         $status =$request->input('status');
         return Lead::updatescheduleredult($schedule_result_id,$userid,$schedule_id,$schedule_type_id,$comment,$status);
 
+    }
+    public function getleadconvert(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $convert = Lead::getleadconvert();
+        return json_encode(["data"=>$convert]);
     }
 }

@@ -26,18 +26,32 @@ class StockController extends Controller
                 $type = DB::table('stock_product_type')
                         ->where('stock_product_type.group_type','product')
                         ->rightJoin('stock_product', 'stock_product_type.id', '=', 'stock_product.stock_product_type_id')
-                        ->select(["stock_product.id","name","stock_qty","product_price","part_number","description"])
+                        ->rightJoin('ma_measurement', 'ma_measurement.id', '=', 'stock_product.ma_measurement_id')
+                        ->select(["stock_product.id","stock_product.name","stock_qty","product_price","part_number","description","ma_measurement.name as measurement"])
                         ->get();
                 return response()->json(["data"=>$type]);
             case "service":
                 $type = DB::table('stock_product_type')
                         ->where('stock_product_type.group_type','service')
                         ->rightJoin('stock_product', 'stock_product_type.id', '=', 'stock_product.stock_product_type_id')
-                        ->select(["stock_product.id","name","stock_qty","product_price","description"])
+                        ->rightJoin('ma_measurement', 'ma_measurement.id', '=', 'stock_product.ma_measurement_id')
+                        ->select(["stock_product.id","stock_product.name","stock_qty","product_price","description","ma_measurement.name as measurement"])
                         ->get();
                 return response()->json(["data"=>$type]);
             default:
                 return response()->json(["data"=>null]);
         }
     }
+
+    public function getProductByBranchId($id)
+    {
+        $data = DB::table('stock_product_type')
+                        ->where('stock_product.id',$id)
+                        ->rightJoin('stock_product', 'stock_product_type.id', '=', 'stock_product.stock_product_type_id')
+                        ->rightJoin('ma_measurement', 'ma_measurement.id', '=', 'stock_product.ma_measurement_id')
+                        ->select(["stock_product.id","stock_product.name","stock_qty","product_price","part_number","description","stock_product_type.group_type","ma_measurement.name as measurement"])
+                        ->get();
+        return response()->json($data);
+    }
+
 }

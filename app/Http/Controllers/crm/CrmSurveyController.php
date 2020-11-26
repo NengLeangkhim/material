@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\perms;
 use App\model\crm\ModelCrmLead;
+use App\model\api\crm\CRMLeadPOP;
 use App\Http\Controllers\api\crm\LeadController;
 
 class CrmSurveyController extends Controller
@@ -17,8 +18,16 @@ class CrmSurveyController extends Controller
             $result=json_decode($survey,true);
             $survey_result=ModelCrmLead::GetsurveyResult();
             $survey_result=json_decode($survey_result,true);
-            // dd($result,$survey_resul);
-            return view('crm.survey.index',['survey'=>$result['data'],'survey_result'=>$survey_result['data']]);
+            $pop=CRMLeadPOP::getPOP();
+                // dd($pop,$survey_result);
+
+            if($survey_result!=null){
+                // dd($result,$survey_resul);
+                return view('crm.survey.index',['survey'=>$result['data'],'survey_result'=>$survey_result['data'],'pop'=>$pop]);
+
+            }else{
+                return view('no_perms');
+            }
         
         }else{
             return view('no_perms');

@@ -308,6 +308,12 @@ function Crm_delete(id,route,goto,alert) {
 //         });
 //       }
 
+
+
+
+
+
+
 // -----------END Report ---------- //
 // -----------Setting CRM ---------- //
  ////view Manage Setting///////
@@ -550,129 +556,8 @@ function Crm_delete(id,route,goto,alert) {
     //     });
     // });
 
-    // get data into combobox branch
-    $('#branch').ready(function(){
-        // $('#branch').find('option').not(':first').remove();
-            $.ajax({
-                // url:'http://127.0.0.1:8000/api/branch',
-                url:'api/branch',
-                type:'get',
-                dataType:'json',
-                success:function(response){
-                        for(var i=0; i<response['data'].length ;i++){
-                            var id = response['data'][i].ma_company_branch_id;
-                            var name = response['data'][i].name;
-                            var company = response['data'][i].company;
-                            // alert(name);
-                            var option = "<option value='"+id+"'>"+name+" / "+company+"</option>";
 
-                            $("#branch").append(option);
-                        }
-                //     }
-                }
-            })
-
-        })
-     // get  current_speed_isp in  selection
-        $('#current_speed_isp').ready(function(){
-          $('#current_speed_isp').find('option').not(':first').remove();
-              $.ajax({
-                  url:'api/currentsppedisp',
-                  type:'get',
-                  dataType:'json',
-                  success:function(response){
-
-                          for(var i=0; i<response['data'].length ;i++){
-                              var id = response['data'][i].id;
-                              var name = response['data'][i].name_en;
-                              // alert(name);
-                              var option = "<option value='"+id+"'>"+name+"</option>";
-
-                              $("#current_speed_isp").append(option);
-                          }
-                  //     }
-                  }
-              })
-
-          })
-
-      // get  service in  selection
-        $('#service').ready(function(){
-          $('#service').find('option').not(':first').remove();
-              $.ajax({
-                  url:'api/stock/service',
-                  type:'get',
-                  dataType:'json',
-                  success:function(response){
-                          $.each(response['data'], function(i,item){
-                            var id = response['data'][i].id;
-                              var name = response['data'][i].name;
-                              // alert(name);
-                              var option = "<option value='"+id+"'>"+name+"</option>";
-
-                              $("#service").append(option);
-                          })
-                  }
-              })
-
-          })
-        // get  lead in  selection
-        $('#lead_id').ready(function(){
-          var myvar= $( "#getlead" ).val();
-          // alert(myvar);
-
-              $.ajax({
-                  url:'api/getlead',
-                  type:'get',
-                  dataType:'json',
-                  headers: {
-                    'Authorization': `Bearer ${myvar}`,
-                },
-                  success:function(response){
-                          // for(var i=0; i<response['data'].length; i++){
-                          //     var id = response['data'][i].lead_id;
-                          //     var name = response['data'][i].customer_name_en;
-                          //     // alert(name);
-                          //     var option = "<option value='"+id+"'>"+name+"</option>";
-
-                          //     $("#lead_id").append(option);
-                          // }
-                      $.each(response['data'], function(i,item){
-                        var id = response['data'][i].lead_id;
-                            var name = response['data'][i].customer_name_en;
-                            // alert(name);
-                            var option = "<option value='"+id+"'>"+name+"</option>";
-
-                            $("#lead_id").append(option)
-                      })
-
-                  }
-              })
-          })
-          // get contact in add lead
-          $('#contact_id  #getcontact').ready(function(){
-            // $('#lead_id').find('option').not(':first').remove();
-            var myvar= $( "#getcontact" ).val();
-                $.ajax({
-                    url:'api/contacts',
-                    type:'get',
-                    dataType:'json',
-                    headers: {
-                      'Authorization': `Bearer ${myvar}`,
-                  },
-                    success:function(response){
-                            $.each(response['data'], function(i,item){
-                              var id = response['data'][i].id;
-                              var name = response['data'][i].name_en;
-                              // alert(name);
-                              var option = "<option value='"+id+"'>"+name+"</option>";
-
-                              $("#contact_id").append(option);
-                            })
-
-                    }
-                })
-            })
+     
 
             //click back to home
         $('.lead').click(function(e){
@@ -754,6 +639,12 @@ function Crm_delete(id,route,goto,alert) {
         });
 
 
+        // select option lead in add lead, if have value go to list field add branch
+        $("#lead_id").change(function () {
+            var lead_id = $(this).val();
+            goto_Action('/addleadtype',lead_id);
+        })
+
 
 
 //========================>> Start-Quote-CRM JS <<=========================================================
@@ -794,6 +685,7 @@ function Crm_delete(id,route,goto,alert) {
 
         // function to get delete quote lead
         function getDeleteQuoteLead(route,id) {
+
             Swal.fire({
               title: 'Do you want to delete this?',
               icon: 'warning',
@@ -807,12 +699,19 @@ function Crm_delete(id,route,goto,alert) {
               if (result.value) {
                 $.ajax({
                   url:route,
-                  data:{id:id},
-                  type:"GET",
+                  type: 'POST',
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
+                  data:{id_:id},
                   success:function(data){
-
-                    //   setTimeout(function(){ go_to(goto); }, 300);// Set timeout for refresh content
-                    $.notify("Delete successed !", "success");
+                        // console.log(data);
+                        if(data.success){
+                            sweetalert('success','Delete sucesssed!');
+                            setTimeout(function(){ go_to('/quote'); }, 1300);// Set timeout for refresh content
+                        }else{
+                            sweetalert('error','Delete failed!');
+                        }
                   }
 
                  });
@@ -903,10 +802,15 @@ function Crm_delete(id,route,goto,alert) {
       function btnActionAfterClickRowTbl(tbl,btnId,getName,fieldID,fieldName,modal_form){
           $('#'+btnId+'').click( function () {
               if($('tbody tr').hasClass('selected') == true){
-                  var lead_id = $('.selected').attr("id");
-                  var lead_name = $.trim($('#'+getName+'_'+lead_id+'').text());
-                  $('#'+fieldID+'').val(lead_id);
-                  $('#'+fieldName+'').val(lead_name);
+                    var lead_id = $('.selected').attr("id");
+                    var lead_name = $.trim($('#'+getName+'_'+lead_id+'').text());
+                    $('#'+fieldID+'').val(lead_id);
+                    $('#'+fieldName+'').val(lead_name);
+                    var leadAddressId = $('#leadAddressId'+lead_id+'').val();
+                    if(typeof leadAddressId != 'undefined'){
+                        $('#crm_address_id').val(leadAddressId);
+                    }
+                    // console.log('when selected tr table addrssid='+leadAddressId);
                   $('#'+modal_form+'').modal('hide');
               }else{
                     $("#"+btnId+"").notify(
@@ -938,6 +842,10 @@ function Crm_delete(id,route,goto,alert) {
       }
 
 
+    // function myfun111(){
+    //     alert('thiso is alert test');
+    // }
+
 
     //function for notify alert
     function notify_alert(id,type,locat,message){
@@ -960,7 +868,7 @@ function Crm_delete(id,route,goto,alert) {
         // var i = 0;
         $row_content =
 
-        '<div id="row_content'+i+'" class="form-group border border-secondary rounded p-3  row_content">'+
+        '<div id="row_content'+i+'" class="form-group border border-secondary rounded pt-3 p-1  row_content">'+
                 '<div class="col-12" align="right">' +
                     '<button type="button" id="'+i+'" class="close btnCloseRowContent" style="color:blue;" aria-label="Close">'+
                         '<span aria-hidden="true">&times;</span>'+
@@ -973,7 +881,9 @@ function Crm_delete(id,route,goto,alert) {
                             '</div>'+
                             '<input type="text" class="form-control" id="branch'+branId+'"  name="branch"   placeholder="" required readonly>'+
                             '<input type="hidden" id="lead_branch'+branId+'"  name="lead_branch[]"  required readonly>'+
-                    ' </div>'+
+                        ' </div>'+
+                        // '<div id="showVatInfo_'+branId+'" style="color:blue;" class="pl-2 pt-1 font-weight-bold font-size-14"></div>'+
+                        '<input type="hidden" id="vatNumber'+branId+'" readonly>'+
                 '</div>'+
 
                 '<div class="form-group col-11">'+
@@ -982,17 +892,19 @@ function Crm_delete(id,route,goto,alert) {
                             '<span class="font-weight-bold input-group-text">Address:</span>'+
                         '</div>'+
                         '<input type="text" class="form-control" id="branchAddress'+branId+'"  name="branchAddress"   placeholder="" required readonly>'+
-                        '<input type="hidden" id="branchAddress_id'+branId+'"  name="branchAddress_id[]"  required readonly>'+
+                        '<input type="hidden" id="'+branId+'"  name=""  required readonly>'+
                     '</div>'+
                 '</div>'+
+
 
                 '<div class="col-12">'+
                         '<table class="table table-bordered ">'+
                             '<thead class="thead-item-list">'+
                                 '<tr>'+
-                                    '<th class="td-item-quote-name"><b style="color:red">*</b> Item Name</th>'+
+                                    '<th class="td-item-quote-name" style="width:30%;"><b style="color:red">*</b> Item Name</th>'+
                                     '<th class="td-item-quote">Type</th>'+
-                                    '<th style="width: 120px">Quantity</th>'+
+                                    '<th style="width: 100px">Quantity</th>'+
+                                    '<th style="width: 120px">Measurement</th>'+
                                     '<th class="td-item-quote">List Price($)</th>'+
                                     '<th class="td-item-quote">Total($)</th>'+
                                     '<th style="width: 50px;" >'+
@@ -1006,7 +918,6 @@ function Crm_delete(id,route,goto,alert) {
                     ' </table>'+
                 '</div>'+
         '</div>';
-        // console.log('row content added');
         $('#content-quote-product').append($row_content);
 
     }
@@ -1017,7 +928,6 @@ function Crm_delete(id,route,goto,alert) {
     $(document).on('click','.btnCloseRowContent',function(){
         var btnId = $(this).attr("id");
         $('#row_content'+btnId+'').remove();
-        console.log('this btn remove content row branch');
     });
 
 
@@ -1048,14 +958,25 @@ function Crm_delete(id,route,goto,alert) {
                         }
                     });
 
-                    $('#getSelectRow').click( function () {
+                    $('#getSelectRow').click( function (){
                         if($('tbody tr').hasClass('selected') == true){
                             var branch_id = $('.selected').attr("id");
 
+                            // console.log('branchid='+branch_id);
+                            if(typeof(branch_id) == 'undefined'){
+                                $("#getSelectRow").notify(
+                                    "No data available in table!",
+                                    "info",
+                                    {
+                                    position:"right",
+                                    }
+                                );
+                                return 0;
+                            }
                             //check if row content of branch already add
                             if(typeof($('#lead_branch'+branch_id+'').val()) != 'undefined'){
                                     $("#getSelectRow").notify(
-                                        "This record was seleted!",
+                                        "This record was choosen !",
                                         "info",
                                         {
                                         position:"right",
@@ -1069,7 +990,7 @@ function Crm_delete(id,route,goto,alert) {
                                     //get value from textbox
                                     var branchNameEn = $.trim($('#brdcompanyEn_'+branch_id+'').val());
                                     var addressName = $.trim($('#brdAddressNameEn_'+branch_id+'').val());
-                                    var addressId = $.trim($('#branAddressId_'+branch_id+'').val());
+                                    var vatNumber = $.trim($('#branVatNumber_'+branch_id+'').val());
 
                                     //function to add row content for add product branch
                                     row_content(i,branch_id);
@@ -1080,8 +1001,16 @@ function Crm_delete(id,route,goto,alert) {
                                     $('#branch'+branch_id+'').val(branchNameEn);
                                     $('#lead_branch'+branch_id+'').val(branch_id);
                                     $('#branchAddress'+branch_id+'').val(addressName);
-                                    $('#branchAddress_id'+branch_id+'').val(addressId);
-
+                                    // console.log('vat num from select row='+vatNumber);
+                                    if(vatNumber == ''){
+                                        $('#valueAddTax').text('No');
+                                        // console.log('Vat no');
+                                    }else{
+                                        $('#valueAddTax').text('Yes');
+                                        // console.log('Vat yes');
+                                    }
+                                    // console.log('vat_number='+vatNumber);
+                                    $('#vatNumber'+branch_id+'').val(vatNumber);
 
                                     //close modal
                                     $('#listQuoteBranch').modal('hide');
@@ -1109,13 +1038,50 @@ function Crm_delete(id,route,goto,alert) {
 
 
 
+    // function addGrandTotalQuote(){
+
+    //     var content =   '<tr class="fieldGrandTotal">'+
+    //                         '<td style="width: 50%"><input type="hidden"></td>'+
+    //                         '<td>'+
+    //                             '<table class="table table-bordered tr-quote-row">'+
+    //                                 '<tbody>'+
+    //                                     '<tr style="text-align: right">'+
+    //                                         '<td  ><span style="padding-right: 12px;">Sum Total </span></td>'+
+    //                                         '<td  ><div id="sumTotal"> 0.0 </div></td>'+
+    //                                     '</tr>'+
+    //                                     '<tr style="text-align: right">'+
+    //                                         '<td>'+
+    //                                             '<span style="padding-right: 12px;">(+) Tax (10%) </span>'+
+    //                                         '</td>'+
+    //                                         '<td>'+
+    //                                             '<div id="getTaxation"> 0.0 </div>'+
+    //                                         '</td>'+
+    //                                     '</tr>'+
+    //                                     '<tr class="td-total-quote grandTotal" >'+
+    //                                         '<td  ><span style="padding-right: 12px;">Grand Total</span></td>'+
+    //                                         '<td  ><div id="grandTotal"> 0.0 </div></td>'+
+    //                                     '</tr>'+
+    //                                 '</tbody>'+
+    //                             '</table>'+
+    //                         '</td>'+
+    //                     '</tr> ';
+    //     $('#grandTotalBody').append(content);
+    // }
+
+
+
 
 
 
     $(document).on('click','#btnOrganization', function(){
                 // clear textfieild lead branch
-              $('input[name="getLeadBranch"]').val("");
-              ('input[name="crm_lead_branch_id"]').val("");
+                $('.btnCloseRowContent').click();
+                $('.btnCloseRowContent').click();
+
+                // clear data in grandTotal
+                $('#sumTotal').text('0.0');
+                $('#getTaxation').text('0.0');
+                $('#grandTotal').text('0.0');
     });
 
 
@@ -1126,6 +1092,7 @@ function Crm_delete(id,route,goto,alert) {
 
     //function to add qoute data to database
     $(document).on('click','#btnQuoteSave',function(){
+
 
           $("#frm_addQuote input").removeClass("is-invalid");//remove all error message
           $("#frm_addQuote select").removeClass("is-invalid");//remove all error message
@@ -1142,12 +1109,12 @@ function Crm_delete(id,route,goto,alert) {
 
               success:function(data)
               {
-
+                    // if(!hrms_validation('frm_addQuote')){return;}
                   if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-                    // sweetalert('success','Data has been saved !');
+                        sweetalert('success','Data has been saved !');
                         setTimeout(function(){
-                            go_to('/quote/detail');// refresh content
-                        },2000);
+                            goto_Action('/quote/detail', data.quoteId.id);
+                        },1300);
 
                     // use go ot view quote detail
                   }else{
@@ -1160,12 +1127,12 @@ function Crm_delete(id,route,goto,alert) {
                         $("#" + key).addClass("is-invalid"); //give read border to input field
                         $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
                         $("#" + key + "Error").addClass("invalid-feedback");
-                        console.log('key='+key+'--value='+value);
+                        // console.log('key='+key+'--value='+value);
 
 
                         // check if validate give empty product field
                         if(key.slice(0, -2) == 'product_name'){
-                              // console.log('require key--'+key);
+                            //   console.log('require key--'+key);
                               $.each($("input[name='product_name[]'"),function(index,value){
                                   var prd_id=  $(this).attr("id");
                                   if( $(this).val() ==  "" ){
@@ -1220,6 +1187,10 @@ function Crm_delete(id,route,goto,alert) {
 
     //function click to update quote lead
     $(document).on('click', '#btnUpdateQuoteLead', function (){
+            $("#frmEditQuoteLead input").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteLead select").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteLead textarea").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteLead radio").removeClass("is-invalid");//remove all error message
             var quoteId = $('#quote_id').val();
             $.ajax({
                 method: 'PUT',
@@ -1231,14 +1202,26 @@ function Crm_delete(id,route,goto,alert) {
                     $('#frmEditQuoteLead').serialize(),
                 success:function(data)
                 {
-                    console.log(data);
-                    if(data.success){
+
+                    if(data.success){ //condition for check success
                         sweetalert('success','Update successed!');
                         setTimeout(function(){
                             goto_Action('/quote/detail', quoteId);
-                        },2000);
+                        },1500);
+
                     }else{
-                        sweetalert('error','Update failed!');
+                        var num1 = 0;
+                        $.each(data.errors, function(key, value) {//foreach show error
+                            if(num1 == 0){
+                                sweetalert('warning', value);
+                            }
+                            console.log('key='+key+'--value='+value);
+                            num1 += 1;
+                            $("#" + key).addClass("is-invalid"); //give read border to input field
+                            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+                            $("#" + key + "Error").addClass("invalid-feedback");
+
+                        });
                     }
 
                 },
@@ -1252,6 +1235,75 @@ function Crm_delete(id,route,goto,alert) {
 
 
 
+    //function click to submit update quote branch
+    $(document).on('click','#btnUpdateQuoteBranch',function(){
+
+            $("#frmEditQuoteBranch input").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteBranch select").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteBranch textarea").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteBranch radio").removeClass("is-invalid");//remove all error message
+            var quoteId = $('#quote_id').val();
+            $.ajax({
+                method: 'PUT',
+                url: '/quote/edit/branch/update',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:
+                    $('#frmEditQuoteBranch').serialize(),
+                success:function(data)
+                {
+
+                    if(data.success){ //condition for check success
+                        sweetalert('success','Update successed!');
+                        setTimeout(function(){
+                            goto_Action('/quote/detail', quoteId);
+                        },2000);
+
+                    }else{
+                        // sweetalert('error','Update failed!');
+                        var num1 = 0;
+                        $.each(data.errors, function(key, value) {//foreach show error
+                            if(num1 == 0){
+                                sweetalert('warning', value);
+                            }
+                            // console.log('key='+key+'--value='+value);
+                            num1 += 1;
+                            $("#" + key).addClass("is-invalid"); //give read border to input field
+                            $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
+                            $("#" + key + "Error").addClass("invalid-feedback");
+
+                            if(key.slice(0, -2) == 'product_name'){
+                                //   console.log('require key--'+key);
+                                    $.each($("input[name='product_name[]'"),function(index,value){
+                                        var prd_id=  $(this).attr("id");
+                                        if( $(this).val() ==  "" ){
+                                            $(this).addClass("is-invalid");
+                                            notify_alert("#"+prd_id+"","error","bottom","This field required !");
+                                        }
+                                    });
+                            }
+
+                        });
+
+
+
+
+
+                    }
+
+                    // if(data.success){
+
+                    // }else{
+                    // }
+
+                },
+                error: function(data) {
+                    console.log(data);
+                    sweetalert('warning','Data not accessing to server!');
+                }
+            });
+    });
 
 
 

@@ -130,7 +130,7 @@ class hr_dashboardController extends Controller
             $m = 0;
             $d = 0;
             $w = 0;
-                $member = hr_dashboardModel::em_all();
+                $member=Employee::AllEmployee();
                 // print_r($member[55]->name_kh);
                 // echo count($member);
                 foreach($member as $key=> $val1){
@@ -483,7 +483,7 @@ class hr_dashboardController extends Controller
     //function get last 1,2,3,4 monthly number of staff join work
     public static function MonthlyJoinMember(){
         $field_name = 'join_date';
-        $data = hr_dashboardModel::em_all();
+        $data=Employee::AllEmployee();
         $r = hr_dashboardController::separateMonth($data, $field_name);
         if(is_array($r)){
             return $r;

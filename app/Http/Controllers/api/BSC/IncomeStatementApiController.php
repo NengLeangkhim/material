@@ -4,6 +4,8 @@ namespace App\Http\Controllers\api\BSC;
 
 use App\Http\Controllers\Controller;
 use App\model\api\BSC\IncomeStatement;
+use Exception;
+use App\Http\Controllers\perms;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -16,8 +18,19 @@ class IncomeStatementApiController extends Controller {
     }
 
     public function getIS(Request $request){
-        $data = $this->getIncomeStatement($request);
-        return view('bsc.report.financial_report.profit_and_loss.profit_and_loss');
+        // $data = $this->getIncomeStatement($request);
+
+        if(!perms::check_perm_module('BSC_030101')){
+            return view('no_perms');
+        }
+        
+        try{
+            return view('bsc.report.financial_report.profit_and_loss.profit_and_loss');
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit;
+        }
+        
     }
 
     public function getCompareIncomeStatement(Request $request){
@@ -86,32 +99,6 @@ class IncomeStatementApiController extends Controller {
         return $this->sendResponse($data,$typeName);
     }
 
-    public function incomeStatement($fromDate, $toDate){
-        try {
-            $income = $this->is->getData('(10,11)', $fromDate, $toDate);
-            $expense = $this->is->getData('(12,13)', $fromDate, $toDate);
-            $cogs = $this->is->getData('(5)', $fromDate, $toDate);
-
-            $total_income = $this->getTotalSameCurrency($income);
-            $total_expense = $this->getTotalSameCurrency($expense);
-            $total_cogs = $this->getTotalSameCurrency($cogs);
-            $gross_profit = $this->getTotalSubstraction($total_income, $total_cogs);
-            $net_income = $this->getTotalSubstraction($gross_profit, $total_expense);
-
-            $income_statement = [
-                'income_list' => $income, 'total_income' => $total_income,
-                'cogs_list' => $cogs, 'total_cogs' => $total_cogs,
-                'gross_profit' => $gross_profit,
-                'expense_list' => $expense, 'total_expense' => $total_expense,
-                'net_income' => $net_income
-            ];
-        } catch(QueryException $e){
-            return $this->sendError($e->getMessage());
-        }
-        return $income_statement;
-        // return $this->sendResponse($income_statement, '');
-    }
-
     protected function mergeFirstList($secondList, $totalList, $index = 0, $isAppend = true){
         $newList = ['data'=>[], 'total_list'=>[]];
         foreach($secondList as $value){
@@ -168,30 +155,35 @@ class IncomeStatementApiController extends Controller {
 
     protected function setDataForTotalList($index, $firstList, $totalList){
         for($i=0; $i<count($totalList); $i++){
+            $isInsertNew = true;
             foreach($firstList['total_list'] as $key => $value){
-                if($value[$key]['ma_currency_id'] == $totalList[$i]['ma_currency_id']){
-                    $firstList['total_list'][$key]['value_list']['total_debit'] = $totalList[$i]['value_list']['total_debit'];
-                    $firstList['total_list'][$key]['value_list']['total_debit'] = $totalList[$i]['value_list']['total_debit'];
-                } else {
-                    $value_list = [];
-                    for($j=0; $j<$index; $j++){
-                        array_push($firstList['total_list'][$key]['value_list'], [
-                            "total_debit"=> 0,
-                            "total_credit"=> 0
-                        ]);
-                    }
-                    array_push($firstList['total_list'][$key]['value_list'], [
-                        "total_debit"=> $totalList[$i]['value_list']['total_debit'],
-                        "total_credit"=> $totalList[$i]['value_list']['total_debit']
-                    ]);
-                    $newValue = [
-                        "ma_currency_id"=> $totalList[$i]['ma_currency_id'],
-                        "currency_name_en"=> $totalList[$i]['currency_name_en'],
-                        "currency_name_kh"=> $totalList[$i]['currency_name_kh'],
-                        "value_list" => [$value_list]
+                if($value['ma_currency_id'] == $totalList[$i]['ma_currency_id']){
+                    $firstList['total_list'][$key]['value_list'][$index] = [
+                        'total_debit' => $totalList[$i]['value_list'][0]['total_debit'],
+                        'total_credit' => $totalList[$i]['value_list'][0]['total_credit']
                     ];
-                    array_push($firstList['total_list'], $newValue);
+                    $isInsertNew = false;
                 }
+            }
+            if($isInsertNew) {
+                $value_list = [];
+                for($j=0; $j<$index; $j++){
+                    array_push($value_list, [
+                        "total_debit"=> 0,
+                        "total_credit"=> 0
+                    ]);
+                }
+                array_push($value_list, [
+                    "total_debit"=> $totalList[$i]['value_list'][0]['total_debit'],
+                    "total_credit"=> $totalList[$i]['value_list'][0]['total_debit']
+                ]);
+                $newValue = [
+                    "ma_currency_id"=> $totalList[$i]['ma_currency_id'],
+                    "currency_name_en"=> $totalList[$i]['currency_name_en'],
+                    "currency_name_kh"=> $totalList[$i]['currency_name_kh'],
+                    "value_list" => $value_list
+                ];
+                array_push($firstList['total_list'], $newValue);
             }
         }
         return $firstList['total_list'];
@@ -199,35 +191,39 @@ class IncomeStatementApiController extends Controller {
 
     protected function setDataForAccountList($index, $firstList, $secondList){
         for($i=0; $i<count($secondList); $i++){
+            $isInsertNew = true;
             foreach($firstList['data'] as $key => $value) {
-                if($value['id'] == $secondList[$i]['id']){
+                if($value['id'] == $secondList[$i]->id){
                     // both lists have the same account chart
-                    $firstList['data'][$key]['value_list'][$index]['total_debit'] = $secondList[$i]['total_debit'];
-                    $firstList['data'][$key]['value_list'][$index]['total_credit'] = $secondList[$i]['total_credit'];
-                } else {
-                    // second list has other account chart
-                    $value_list = [];
-                    for($j=0; $j<$index; $j++){
-                        array_push($firstList['data'][$key]['value_list'], [
-                            "total_debit"=> 0,
-                            "total_credit"=> 0
-                        ]);
-                    }
-                    array_push($firstList['data'][$key]['value_list'], [
-                        "total_debit"=> $secondList[$i]['total_debit'],
-                        "total_credit"=> $secondList[$i]['total_credit']
-                    ]);
-                    $newValue = [
-                        "id"=> $secondList[$i]['id'],
-                        "name_en"=> $secondList[$i]['name_en'],
-                        "name_kh"=> $secondList[$i]['name_kh'],
-                        "ma_currency_id"=> $secondList[$i]['ma_currency_id'],
-                        "currency_name_en"=> $secondList[$i]['currency_name_en'],
-                        "currency_name_kh"=> $secondList[$i]['currency_name_kh'],
-                        "value_list" => [$value_list]
-                    ];
-                    array_push($firstList['data'], $newValue);
+                    $firstList['data'][$key]['value_list'][$index]['total_debit'] = $secondList[$i]->total_debit;
+                    $firstList['data'][$key]['value_list'][$index]['total_credit'] = $secondList[$i]->total_credit;
+                    $isInsertNew = false;
                 }
+            }
+            if($isInsertNew){
+                // second list has other account chart
+                $value_list = [];
+                // generate empty data
+                for($j=0; $j<$index; $j++){
+                    array_push($value_list, [
+                        "total_debit"=> 0,
+                        "total_credit"=> 0
+                    ]);
+                }
+                array_push($value_list, [
+                    "total_debit"=> $secondList[$i]->total_debit,
+                    "total_credit"=> $secondList[$i]->total_credit
+                ]);
+                $newValue = [
+                    "id"=> $secondList[$i]->id,
+                    "name_en"=> $secondList[$i]->name_en,
+                    "name_kh"=> $secondList[$i]->name_kh,
+                    "ma_currency_id"=> $secondList[$i]->ma_currency_id,
+                    "currency_name_en"=> $secondList[$i]->currency_name_en,
+                    "currency_name_kh"=> $secondList[$i]->currency_name_kh,
+                    "value_list" => $value_list
+                ];
+                array_push($firstList['data'], $newValue);
             }
         }
         return $firstList['data'];
@@ -266,35 +262,39 @@ class IncomeStatementApiController extends Controller {
 
     protected function setDataForSubtractedList($index, $firstList, $secondList){
         for($i=0; $i<count($secondList); $i++){
+            $isInsertNew = true;
             foreach($firstList as $key => $value){
-                if($value[$key]['ma_currency_id'] == $secondList[$i]['ma_currency_id']){
-                    $firstList[$key]['value_list']['total_debit'] = $secondList[$i]['value_list']['total_debit'];
-                    $firstList[$key]['value_list']['total_debit'] = $secondList[$i]['value_list']['total_debit'];
-                } else {
-                    $value_list = [];
-                    for($j=0; $j<$index; $j++){
-                        array_push($firstList[$key]['value_list'], [
-                            "total_debit"=> 0,
-                            "total_credit"=> 0
-                        ]);
-                    }
-                    array_push($firstList[$key]['value_list'], [
-                        "total_debit"=> $secondList[$i]['value_list']['total_debit'],
-                        "total_credit"=> $secondList[$i]['value_list']['total_debit']
-                    ]);
-                    $newValue = [
-                        "ma_currency_id"=> $secondList[$i]['ma_currency_id'],
-                        "currency_name_en"=> $secondList[$i]['currency_name_en'],
-                        "currency_name_kh"=> $secondList[$i]['currency_name_kh'],
-                        "value_list" => [$value_list]
-                    ];
-                    array_push($firstList, $newValue);
+                if($value['ma_currency_id'] == $secondList[$i]['ma_currency_id']){
+                    $firstList[$key]['value_list'][$index]['total_debit'] = $secondList[$i]['value_list'][0]['total_debit'];
+                    $firstList[$key]['value_list'][$index]['total_debit'] = $secondList[$i]['value_list'][0]['total_debit'];
+                    $isInsertNew = false;
                 }
+            }
+            if($isInsertNew) {
+                $value_list = [];
+                for($j=0; $j<$index; $j++){
+                    array_push($value_list, [
+                        "total_debit"=> 0,
+                        "total_credit"=> 0
+                    ]);
+                }
+                array_push($value_list, [
+                    "total_debit"=> $secondList[$i]['value_list'][0]['total_debit'],
+                    "total_credit"=> $secondList[$i]['value_list'][0]['total_debit']
+                ]);
+                $newValue = [
+                    "ma_currency_id"=> $secondList[$i]['ma_currency_id'],
+                    "currency_name_en"=> $secondList[$i]['currency_name_en'],
+                    "currency_name_kh"=> $secondList[$i]['currency_name_kh'],
+                    "value_list" => $value_list
+                ];
+                array_push($firstList, $newValue);
             }
         }
         return $firstList;
     }
 
+    // merge secondList into the firstList
     protected function mergeSubtractedList($index, $firstList, $secondList){
         if(empty($firstList)){
             if(!empty($secondList)){
@@ -311,12 +311,15 @@ class IncomeStatementApiController extends Controller {
         }
     }
 
+    // MARK: - IS 1st
     protected function getMultipleIncomeStatement($arrDate = []){
         $mainIncomeList = [];
         $mainCogsList = [];
         $mainGrossProfitList = [];
         $mainExpeseList = [];
         $mainNetIncomeList = [];
+        $test = [];
+        $test_t = [];
         foreach($arrDate as $key => $date) {
             $fromDate = $date['fromDate'];
             $toDate = $date['toDate'];
@@ -330,19 +333,18 @@ class IncomeStatementApiController extends Controller {
                 $total_cogs = $this->getTotalSameCurrency($cogs);
                 $gross_profit = $this->getTotalSubstraction($total_income, $total_cogs);
                 $net_income = $this->getTotalSubstraction($gross_profit, $total_expense);
-
+                array_push($test, $cogs);
+                array_push($test_t, $total_cogs);
                 // Merge Array Here
                 $mainIncomeList = $this->mergeList($key, $mainIncomeList, $income, $total_income);
-                $mainCogsList = $this->mergeList($key, $mainCogsList, $expense, $total_expense);
-                $mainExpeseList = $this->mergeList($key, $mainExpeseList, $cogs, $total_cogs);
+                $mainExpeseList = $this->mergeList($key, $mainExpeseList, $expense, $total_expense);
+                $mainCogsList = $this->mergeList($key, $mainCogsList, $cogs, $total_cogs);
                 $mainGrossProfitList = $this->mergeSubtractedList($key, $mainGrossProfitList, $gross_profit);
                 $mainNetIncomeList = $this->mergeSubtractedList($key, $mainNetIncomeList, $net_income);
-
             } catch(QueryException $e){
                 return $this->sendError($e->getMessage());
             }
         }
-
         // Finally merge list
         $finalReport = [
             'income_list' => $mainIncomeList,
@@ -354,48 +356,20 @@ class IncomeStatementApiController extends Controller {
         return $finalReport;
     }
 
-    public function getIncomeStatement(Request $request){
-        $fromDate = $request->fromDate;
-        $toDate = $request->toDate;
-        try {
-            $income = $this->is->getData('(10,11)', $fromDate, $toDate);
-            $expense = $this->is->getData('(12,13)', $fromDate, $toDate);
-            $cogs = $this->is->getData('(5)', $fromDate, $toDate);
-
-            $total_income = $this->getTotalSameCurrency($income);
-            $total_expense = $this->getTotalSameCurrency($expense);
-            $total_cogs = $this->getTotalSameCurrency($cogs);
-            $gross_profit = $this->getTotalSubstraction($total_income, $total_cogs);
-            $net_income = $this->getTotalSubstraction($gross_profit, $total_expense);
-
-            $income_statement = [
-                'income_list' => $income, 'total_income' => $total_income,
-                'cogs_list' => $cogs, 'total_cogs' => $total_cogs,
-                'gross_profit' => $gross_profit,
-                'expense_list' => $expense, 'total_expense' => $total_expense,
-                'net_income' => $net_income
-            ];
-        } catch(QueryException $e){
-            return $this->sendError($e->getMessage());
-        }
-
-        return $this->sendResponse($income_statement, '');
-    }
-
     protected function getTotalSameCurrency($value = []){
         $results = [];
         foreach($value as $key => $val){
-            if(count($results) < 1) {
+            if(count($results) == 0) {
                 $newValue = [
                     "ma_currency_id"=> $val->ma_currency_id,
                     "currency_name_en"=> $val->currency_name_en,
                     "currency_name_kh"=> $val->currency_name_kh,
                     "value_list" => [
-                        [
-                            "total_debit"=> $val->total_debit,
-                            "total_credit"=> $val->total_credit
+                            [
+                                "total_debit"=> $val->total_debit,
+                                "total_credit"=> $val->total_credit
+                            ]
                         ]
-                    ]
                 ];
                 array_push($results, $newValue);
             } else {
@@ -415,14 +389,13 @@ class IncomeStatementApiController extends Controller {
                         "currency_name_en"=> $val->currency_name_en,
                         "currency_name_kh"=> $val->currency_name_kh,
                         "value_list" => [
-                            [
-                                "total_debit"=> $val->total_debit,
-                                "total_credit"=> $val->total_credit
+                                [
+                                    "total_debit"=> $val->total_debit,
+                                    "total_credit"=> $val->total_credit
+                                ]
                             ]
-                        ]
                     ];
                     array_push($results, $newValue);
-                    $input = false;
                 }
             }
         }
@@ -447,8 +420,8 @@ class IncomeStatementApiController extends Controller {
                     'currency_name_kh' => $svalue['currency_name_kh'],
                     'value_list' =>  [
                         [
-                            'total_debit' => $svalue['value_list'][0]['total_debit'],
-                            'total_credit' => $svalue['value_list'][0]['total_debit'],
+                            'total_debit' => ($svalue['value_list'][0]['total_debit'])*(-1),
+                            'total_credit' => ($svalue['value_list'][0]['total_debit'])*(-1),
                         ]
                     ]
                 ]);

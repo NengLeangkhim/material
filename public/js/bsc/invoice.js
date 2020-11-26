@@ -89,28 +89,100 @@ $(document).ready(function(){
     });
 
 });
+// show new unit price
+function unit_prices(price){
+    let unit_prices =0;
+    if(!isNaN(parseFloat(price))){
+        unit_prices = (parseFloat(price) * 10)/100 + parseFloat(price);
+        return unit_prices;
+    }
+}
 //Total amount after discount
 function show_amount(qty,price,discount){
+    let amount = 0;
     let discount_price = (qty * price) * discount/100;
-    let amount = (qty * price) - discount_price;
+    amount = (qty * price) - discount_price;
     return amount;
 }
+ //Show amount with tax
+ function show_amount_with_tax(discount_type,qty,unit_price,discount){
+    let amount = 0;
+    let discount_price = 0;
+    if(discount_type == 'percent'){
+        discount_price= (qty * unit_price) * discount/100;
+        amount = (qty * unit_price) - discount_price;
+        return amount;
+    }else{
+        amount = (unit_price - discount) * qty;
+        return amount;
+    }
+ }
 // Calculate Grand Total
 function showGrandTotal(){
-    let total = parseFloat($('#txtTotal').text());
+    let total = parseFloat($('#old_total').val());
     let totalvat = parseFloat($('#txtVatTotal').text());
     let grandTotal = total + totalvat;
-    document.getElementById('txtGrandTotal').innerHTML=grandTotal.toFixed(2);
+    document.getElementById('txtGrandTotal').innerHTML=grandTotal.toFixed(4);
 }
+
 // End Calculate Grand Total
 function showTotal(){
     let total_amount = 0;
+    let old_total_amount = 0;
     $('.item_amount').each(function(e){
         if(!isNaN(parseFloat($(this).text()))){
             total_amount += parseFloat($(this).text());
+            old_total_amount += parseFloat($(this).attr("data-amount"));
         }
     });
-    document.getElementById('txtTotal').innerHTML=total_amount.toFixed(2);
+    document.getElementById('txtTotal').innerHTML=total_amount.toFixed(4);
+    $('#old_total').val(parseFloat(old_total_amount).toFixed(4));
+}
+//Calculate Vat Total
+function vatTotal()
+{
+    let vat_total = 0;
+    $('.item_amount').each(function(e){
+        if(!isNaN($(this).attr('data-vat'))){
+            vat_total += parseFloat($(this).attr('data-vat'));
+        }
+    });
+    document.getElementById('txtVatTotal').innerHTML=vat_total.toFixed(4);
+}
+
+// Vat
+function vat(old_amount){
+    let vat = 0;
+    if(!isNaN(vat)){
+        vat = (old_amount * 10) /100;
+    }
+    return vat;
+}
+// show amount
+function show_amount_old(discount_type,qty,price_show,discount){
+    let discount_price = 0;
+    let amount = 0;
+    if(discount_type == 'percent'){
+        discount_price = (qty * price_show) * discount /100;
+        amount = (qty * price_show) - discount_price;
+        return amount;
+    }else{
+        amount = (qty * price_show) - discount;
+        return amount;
+    }
+}
+//show new unit price
+function newUnitPrice(discount_type,price,vat_per_item){
+    let new_price = 0;
+    let vat_price = 0;
+    if(discount_type == 'percent'){
+        vat_price = (price * 10)/100;
+        new_price =parseFloat(price) + parseFloat(vat_price);
+        return new_price;
+    }else{
+        new_price = parseFloat(price) + parseFloat(vat_per_item);
+        return new_price;
+    }
 }
 // function insert row
 function inSertTable(count){

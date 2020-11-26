@@ -36,9 +36,11 @@
                                             </div>
                                             <select class="form-control select2" name="lead_name" id="lead_name" required onchange="myCustomer(this)">
                                                 <option selected hidden readonly>select item</option>
-                                                @foreach ($customers as $customer)
-                                                    <option value="{{ $customer->id }}">{{ $customer->customer_name_en }}</option>
-                                                @endforeach
+                                                @if (count($customers) >0)
+                                                    @foreach ($customers as $customer)
+                                                        <option value="{{ $customer->id }}">{{ $customer->customer_name_en }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -127,7 +129,7 @@
                             <br>
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-primary save" id="frm_btn_sub_add_customer">Save</button>
-                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_customer')">Cencel</button>
+                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_customer')">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -160,14 +162,16 @@
                 },
                 dataType: "JSON",
                 success:function(data){
-                    $('#customer_name').val(data[0].customer_name_en);
-                    $('#vat_number').val(data[0].vat_number);
-                    let item='';
-                    $.each(data[1], function(i, value){
-                        item+='<option value="'+value.id+'">'+value.name_en+'</option>';
-                    });
-                    items='<option selected hidden disabled>select item</option>'+item;
-                    document.getElementById('lead_branch').innerHTML=items;
+                    if(data.length > 0){
+                        $('#customer_name').val(data[0].customer_name_en);
+                        $('#vat_number').val(data[0].vat_number);
+                        let item='';
+                        $.each(data[1], function(i, value){
+                            item+='<option value="'+value.id+'">'+value.name_en+'</option>';
+                        });
+                        items='<option selected hidden disabled>select item</option>'+item;
+                        document.getElementById('lead_branch').innerHTML=items;
+                    }
                 }
             });
     }

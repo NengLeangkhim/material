@@ -77,10 +77,10 @@
                                                 </div>
                                                 <select class="form-control " name="priority" id="priority" >
                                                     <option value=''>-- Select  Prioroty --</option>  
-                                                    <option value="{{$schedule[$i]['priority']}}"  {{$schedule[$i]['priority']=='urgent' ? 'selected="selected"':''}} >Urgent</option>
-                                                    <option value="{{$schedule[$i]['priority']}}"  {{$schedule[$i]['priority']=='high' ? 'selected="selected"':''}}>Hight</option>
-                                                    <option value="{{$schedule[$i]['priority']}}"  {{$schedule[$i]['priority']=='medium' ? 'selected="selected"':''}}>Medium</option>
-                                                    <option value="{{$schedule[$i]['priority']}}"  {{$schedule[$i]['priority']=='low' ? 'selected="selected"':''}}>Low</option>
+                                                    <option value="urgent"  {{$schedule[$i]['priority']=='urgent' ? 'selected="selected"':''}} >Urgent</option>
+                                                    <option value="high"  {{$schedule[$i]['priority']=='high' ? 'selected="selected"':''}}>Hight</option>
+                                                    <option value="medium"  {{$schedule[$i]['priority']=='medium' ? 'selected="selected"':''}}>Medium</option>
+                                                    <option value="low"  {{$schedule[$i]['priority']=='low' ? 'selected="selected"':''}}>Low</option>
                                                 
                                                 </select>
                                                 <span class="invalid-feedback" role="alert" id="priorityError"> {{--span for alert--}}
@@ -191,7 +191,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="exampleInputEmail1">Schedule_Type</label>
+                                    <label for="exampleInputEmail1">Result_Type</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
@@ -199,9 +199,9 @@
                                         <select class="form-control " name="schedule_type_id_result" id="schedule_type_id_result" >
                                             <option value=''>-- Select  schedule_type --</option>  
                                             <?php 
-                                            for($i =0; $i<sizeof($schedule_type); $i++){
+                                            for($i =0; $i<sizeof($result_type); $i++){
                                             ?>                                                                
-                                                    <option value="{{$schedule_type[$i]["id"]}}" > {{$schedule_type[$i]["name_en"]}} / {{$schedule_type[$i]["name_kh"]}}</option>  
+                                                    <option value="{{$result_type[$i]["id"]}}" > {{$result_type[$i]["name_en"]}} / {{$result_type[$i]["name_kh"]}}</option>  
                                                     <?php
                                             }
                                            
@@ -245,7 +245,13 @@
         }
         if(!checked){
             $("#detail").attr("hidden",true);
-
+            $("#name_en").attr("readonly",false);
+            $("#name_kh").attr("readonly",false);
+            $("#comment").attr("readonly",false);
+            $("#status").attr("readonly",false);
+            $("#schedule_type_id").attr("readonly",false);
+            $("#priority").attr("readonly",false);
+            $("#to_do_date").attr("readonly",false);
 
         }
 

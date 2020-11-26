@@ -22,4 +22,5 @@ use Illuminate\Support\Facades\Route;
     Route::get('/crm/report/getTotalReport','api\crm\CrmReportApiController@getTotalReport');
     Route::get('/crm/report/getContactChartReport', 'api\crm\CrmReportApiController@getContactChartReport');
     Route::get('/crm/report/getOrganizationChartReport', 'api\crm\CrmReportApiController@getOrganizationChartReport');
+    Route::get('/crm/report/getSurvey','api\crm\CrmReportApiController@getSurvey');
 // });

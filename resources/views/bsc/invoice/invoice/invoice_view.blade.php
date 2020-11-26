@@ -27,7 +27,7 @@
                             <div class="col-md-8"></div>
                             <div class="col-md-4 text_right">
                                 <a href="#" class="btn btn-success purchase_form"  value="" id="">Print</a>
-                                <a href="#" class="btn btn-secondary purchase_form"  value="bsc_purchase_purchase_purchase_edit" id="purchase_edit" onclick="go_to('bsc_invoice_invoice_edit/{{ $invoices->id }}')">Edit</a>
+                                {{-- <a href="#" class="btn btn-secondary purchase_form"  value="bsc_purchase_purchase_purchase_edit" id="purchase_edit" onclick="go_to('bsc_invoice_invoice_edit/{{ $invoices->id }}')">Edit</a> --}}
                                 {{-- <a href="#" class="btn btn-danger purchase_form"  value="" id="">Delete</a> --}}
                             </div>
                         </div>
@@ -38,7 +38,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="row">
-
+                                            <input type="hidden" id="bsc_invoice_id" value="{{ $invoices->id }}">
+                                            <input type="hidden" id="bsc_account_charts_id" value="{{ $invoices->chart_account_id }}">
                                             <div class="col-sm-12">
                                                 <p for="">Account Name : &nbsp;{{ $invoices->chart_account_name }}</p>
                                             </div>
@@ -47,7 +48,7 @@
                                                 <p for="">Customer Name : &nbsp;{{ $invoices->customer_name }}</p>
                                             </div>
 
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-12" style="display: none">
                                                 <p for="">Deposit : &nbsp;{{ $invoices->deposit_on_payment }}</p>
                                             </div>
 
@@ -61,6 +62,10 @@
 
                                             <div class="col-sm-12">
                                                 <p for="">Billing Date : &nbsp;{{ date('d-m-Y', strtotime($invoices->billing_date)) }}</p>
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                <p for="">Address : &nbsp;{{ $invoices->address }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -86,9 +91,9 @@
                                                 <p for="">End Period Date : &nbsp;{{ date('d-m-Y', strtotime($invoices->end_period_date)) }}</p>
                                             </div>
 
-                                            <div class="col-sm-12">
+                                            {{-- <div class="col-sm-12">
                                                 <p for="">Address : &nbsp;{{ $invoices->address }}</p>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -99,27 +104,33 @@
                         <table  class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Customer Branch Name</th>
+                                    <th>Customer Branch</th>
                                     <th>Item</th>
                                     <th>Description</th>
                                     <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                    <th>Dsicount</th>
                                     <th>Account</th>
                                     <th>Tax Rate</th>
                                     <th>Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($invoice_details as $invoice_detail)
-                                    <tr>
-                                        <td>{{ $invoice_detail->customer_branch_name }}</td>
-                                        <td>{{ $invoice_detail->product_name }}</td>
-                                        <td>{{ $invoice_detail->description }}</td>
-                                        <td>{{ $invoice_detail->qty }}</td>
-                                        <td>{{ $invoice_detail->chart_account_name }}</td>
-                                        <td>{{ $invoice_detail->tax }}</td>
-                                        <td>{{ $invoice_detail->amount }}</td>
-                                    </tr>
-                                @endforeach
+                                @if (count($invoice_details) >0)
+                                    @foreach ($invoice_details as $invoice_detail)
+                                        <tr>
+                                            <td>{{ $invoice_detail->customer_branch_name }}</td>
+                                            <td>{{ $invoice_detail->product_name }}</td>
+                                            <td>{{ $invoice_detail->description }}</td>
+                                            <td>{{ $invoice_detail->qty }}</td>
+                                            <td>{{ number_format($invoice_detail->unit_price,4,".",",") }}</td>
+                                            <td>{{ number_format($invoice_detail->discount,4,".",",") }}</td>
+                                            <td>{{ $invoice_detail->chart_account_name }}</td>
+                                            <td>{{ $invoice_detail->tax == 0 ? "No Tax" : "Tax" }}</td>
+                                            <td class="item_amount">{{ number_format($invoice_detail->amount,4,".",",") }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table><br/>
                         <div class="form-group">
@@ -133,7 +144,7 @@
                                                 <label for="">Total : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
-                                                <label for="">{{ $invoices->total }}</label>
+                                                <label for="" id="txtTotal">0</label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -141,7 +152,7 @@
                                                 <label for="">Vat Total : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
-                                                <label for="">{{ $invoices->vat_total }}</label>
+                                                <label for="" id="txtVatTotal">0.0000</label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -149,66 +160,69 @@
                                                 <label for="">Grand Total : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
-                                                <label for="">{{ $invoices->grand_total }}</label>
+                                                <label for="" id="txtGrandTotal">0</label>
                                             </div>
                                         </div>
                                         <hr class="line_in_tag_hr">
-                                        <div class="row">
-                                            <div class="col-sm-6 text_right">
-                                                <label for="">Payment : </label>
-                                            </div>
-                                            <div class="col-sm-6 text_right">
-                                                <label for="">1000$</label>
-                                            </div>
-                                        </div>
+                                        @php
+                                            $due_amount="";
+                                            $due_total="";
+                                        @endphp
+                                        @if (count($invoice_payments) >0)
+                                            @foreach ($invoice_payments as $invoice_payment)
+                                                @php
+                                                    $due_amount=$invoice_payment->due_amount;
+                                                    if($due_amount == 0){
+                                                        $due_total="display : none";
+                                                    }
+                                                @endphp
+                                                <div class="row">
+                                                    <div class="col-sm-6 text_right">
+                                                        <label for="">Payment : </label>
+                                                    </div>
+                                                    <div class="col-sm-6 text_right">
+                                                        <label for="">{{ number_format($invoice_payment->amount_paid,4,".",",") }}</label>
+                                                    </div>
+                                                </div>
 
-                                        <div class="row">
-                                            <div class="col-sm-6 text_right">
-                                                <label for="">Date : </label>
-                                            </div>
-                                            <div class="col-sm-6 text_right">
-                                                <label for="">02-10-2020</label>
-                                            </div>
-                                        </div>
-                                        {{-- <hr class="line_in_tag_hr2">
-                                        <div class="row">
-                                            <div class="col-sm-6 text_right">
-                                                <label for="">Payment : </label>
-                                            </div>
-                                            <div class="col-sm-6 text_right">
-                                                <label for="">1000$</label>
-                                            </div>
-                                        </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6 text_right">
+                                                        <label for="">Date : </label>
+                                                    </div>
+                                                    <div class="col-sm-6 text_right">
+                                                        <label for="">{{ date('d-m-Y', strtotime($invoice_payment->date_paid))  }}</label>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @endif
 
-                                        <div class="row">
-                                            <div class="col-sm-6 text_right">
-                                                <label for="">Date : </label>
-                                            </div>
-                                            <div class="col-sm-6 text_right">
-                                                <label for="">02-10-2020</label>
-                                            </div>
-                                        </div> --}}
+                                        @php
+                                            $display = "";
+                                            if ($due_amount == null){
+                                                $display = "display: none";
+                                            }
+                                        @endphp
+                                        <hr class="line_in_tag_hr2" style="{{ $display }}">
 
-                                        <hr class="line_in_tag_hr2">
-
-                                        <div class="row">
+                                        <div class="row" style="{{ $display }}">
                                             <div class="col-sm-6 text_right">
                                                 <label for="">Amount Due : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
-                                                <label for="">1000$</label>
+                                                <label for="" id="due_amount">{{ number_format($due_amount==null ? $invoices->grand_total : $due_amount,4,".",",") }}</label>
                                             </div>
                                         </div>
-                                        <hr class="line_in_tag_hr">
+                                        <hr class="line_in_tag_hr" style="{{ $display }}">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
+
+                        <div class="col-md-12" style="{{ $due_total }}">
                             <form action="">
                                 @csrf
                                 <div class="card-body">
-                                    <strong><h4 for="" style="text-align: center">Receive a Payment</h4><strong><br/>
+                                    <h4><label for="">Receive a Payment</label></h4>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -217,7 +231,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control input_required"  name="amount_paid" id="amount_paid" placeholder="Amount Paid">
+                                                    <input type="number" class="form-control input_required item_unit_price" oninput="limitDecimalPlaces(event, 4)"  name="amount_paid" id="amount_paid" value="{{ number_format($due_amount==null ? $invoices->grand_total : $due_amount,4,".",".") }}" autofocus placeholder="Amount Paid">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -240,9 +254,19 @@
                                                     </div>
                                                     <select class="form-control select2 input_required" name="paid_to" id="paid_to">
                                                         <option value="" selected hidden disabled>select item</option>
-                                                        @foreach ($ch_accounts as $ch_account)
-                                                            <option value="{{ $ch_account->id }}">{{ $ch_account->name_en }}</option>
-                                                        @endforeach
+                                                        @if (count($ch_accounts) >0)
+                                                            @foreach ($ch_accounts as $ch_account)
+                                                                <option value="" disabled>{{ $ch_account->bsc_account_type_name }}</option>
+                                                                @php
+                                                                    $paid_from_to=$ch_account->paid_from_to;
+                                                                @endphp
+                                                                @if ($paid_from_to !=null)
+                                                                    @foreach ($paid_from_to as $paid_to)
+                                                                        <option value="{{ $paid_to->id }}">&nbsp;&nbsp;&nbsp;{{ $paid_to->name_en }}</option>
+                                                                    @endforeach
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -311,12 +335,17 @@ $('.detail').click(function(e)
     $('.select2').select2();
 
     $(document).ready(function(){
+        //show total & grand total
+        showTotal();
+        vatTotal();
+        showGrandTotal();
+
         $("#amount_paid").on("keyup", function()
         {
             let amount_paid=parseFloat($('#amount_paid').val());
-            let grand_total=parseFloat($('#grand_total').val());
-            if(amount_paid > grand_total){
-                sweetalert('error','Amount Paid is bigger than Grand Total');
+            let due_amount=parseFloat($('#due_amount').text());
+            if(amount_paid > due_amount){
+                sweetalert('error','Amount Paid is bigger than Due Amount or Grand Total');
                 return false;
             }
         });
@@ -325,6 +354,9 @@ $('.detail').click(function(e)
     // add payment
     function invoice_payment()
     {
+        let amount_paid=parseFloat($('#amount_paid').val()).toFixed(4);
+        let grand_total=parseFloat($('#grand_total').val()).toFixed(4);
+        let due_amount=parseFloat($('#due_amount').text()).toFixed(4);
         let num_miss = 0;
         $(".input_required").each(function(){
             if($(this).val()=="" || $(this).val()==null){ num_miss++;}
@@ -334,37 +366,89 @@ $('.detail').click(function(e)
                 if($(this).val()=="" || $(this).val()==null){ $(this).css("border-color","red"); }
             });
             sweetalert('error', 'Please input or select field * required');
+            return false;
         }else{
-            let amount_paid=parseFloat($('#amount_paid').val());
-            let grand_total=parseFloat($('#grand_total').val());
-            let due_amount=grand_total - amount_paid;
-        if(amount_paid > grand_total){
-            $('#amount_paid').css('border-color', 'red');
-            sweetalert('error','Amount Paid input is bigger than Grand Total');
-        }else if(amount_paid == 0){
-            $('#amount_paid').css('border-color', 'red');
-            sweetalert('error','Amount Paid can not input Zero');
-        }else{
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            if(parseFloat(amount_paid) > parseFloat(due_amount)){
+                $('#amount_paid').css('border-color', 'red');
+                sweetalert('error','Amount Paid input is bigger than Due Amount or Grand Total');
+                return false;
+            }else if(parseFloat(amount_paid) == 0){
+                sweetalert('error','Amount Paid can not input Zero');
+                return false;
+            }else if(parseFloat(amount_paid) < 0){
+                sweetalert('error','Amount Paid must input bigger than Zero');
+                return false;
+            }else{
+                let due_amounts =parseFloat(due_amount - amount_paid).toFixed(4);
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
                     type:"POST",
                     url:'/bsc_invoice_payment',
                     data:{
                         _token: CSRF_TOKEN,
-                        due_amount      : due_amount,
+                        due_amount      : due_amounts,
+                        old_due_amount  : parseFloat($('#due_amount').text()).toFixed(4),
                         amount_paid     : amount_paid,
                         grand_total     : grand_total,
                         date_paid       : $('#date_paid').val(),
                         paid_to         : $('#paid_to').val(),
-                        reference       : $('#reference').val()
+                        reference       : $('#reference').val(),
+                        bsc_invoice_id  : $('#bsc_invoice_id').val(),
+                        bsc_account_charts_id  : $('#bsc_account_charts_id').val()
+
                     },
                     dataType: "JSON",
                     success:function(data){
-
-
+                        if(data.payment.success == true){
+                            go_to('bsc_invoice_invoice_list');
+                        }else{
+                            if(data.payment == "amount_paid_bigger_then_due"){
+                                sweetalert('error','Amount Paid input is bigger than Due Amount or Grand Total');
+                            }
+                            sweetalert('error','Invoice insert is fail!');
+                        }
                     }
                 });
             }
+        }
+    }
+
+    // input only number & .
+    $('.item_unit_price').keypress(function(e){
+        var x = event.charCode || event.keyCode;
+        if (isNaN(String.fromCharCode(e.which)) && x!=46 || x===32 || x===13 || (x===46 && event.currentTarget.innerText.includes('.'))) e.preventDefault();
+    });
+
+    // End Calculate Grand Total
+    function showTotal(){
+        let total_amount = 0;
+        $('.item_amount').each(function(e){
+            if(!isNaN(parseFloat($(this).text()))){
+                total_amount += parseFloat($(this).text());
+            }
+        });
+        document.getElementById('txtTotal').innerHTML=total_amount.toFixed(4);
+    }
+
+    // Calculate Grand Total
+    function showGrandTotal(){
+        let total = parseFloat($('#txtTotal').text());
+        let totalvat = parseFloat($('#txtVatTotal').text());
+        let grandTotal = total + totalvat;
+        document.getElementById('txtGrandTotal').innerHTML=grandTotal.toFixed(4);
+    }
+    //Calculate Vat Total
+    function vatTotal()
+    {
+        let total = parseFloat($('#txtTotal').text());
+        let vat_total= (total * 10)/100;
+        document.getElementById('txtVatTotal').innerHTML=vat_total.toFixed(4);
+    }
+    // max length input after dote
+    function limitDecimalPlaces(e, count) {
+        if (e.target.value.indexOf('.') == -1) { return; }
+        if ((e.target.value.length - e.target.value.indexOf('.')) > count) {
+            e.target.value = parseFloat(e.target.value).toFixed(count);
         }
     }
 </script>

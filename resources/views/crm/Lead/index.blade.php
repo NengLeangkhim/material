@@ -26,9 +26,9 @@
                                     <div class="col-12">
                                         <div class="row">
                                             <!-- <a  href="#" class="btn btn-block btn-success lead" value="addlead" onclick="addlead()"><i class="fas fa-wrench"></i> Add Lead</a>  -->
-                                            <a  href="#" class="btn btn-success lead" ​value="addlead" id="lead"><i class="fas fa-plus"></i> Add Lead</a> 
+                                            <a  href="#" class="btn btn-success lead" ​value="addlead" id="lead"><i class="fas fa-plus"></i> Add Lead</a>
                                         </div>
-                                    </div>                               
+                                    </div>
                                 </div>
                                 <div class="card-body">
                                     <table id="example1" class="table table-bordered table-striped">
@@ -38,14 +38,14 @@
                                                 <th style="color: #FFFFFF">Customer Name</th>
                                                 <th style="color: #FFFFFF">Email</th>
                                                 <th style="color: #FFFFFF">Website </th>
-                                                <th style="color: #FFFFFF">Facebook </th>
+                                                {{-- <th style="color: #FFFFFF">Facebook </th> --}}
                                                 <th style="color: #FFFFFF">Action</th>
                                                 {{-- <th>Detail</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {{-- {{dd()}} --}}
-                                            <?php 
+                                            <?php
                                             for($i =0;$i<sizeof($lead);$i++){
                                                 ?>
                                                     <tr>
@@ -54,30 +54,30 @@
                                                         <td>{{$lead[$i]["email"]}}</td>
                                                         <td>{{$lead[$i]["website"]}}</td>
                                                         {{-- <td>{{$lead[$i]["create_by"]['last_name_en']." ".$lead[$i]["create_by"]['first_name_en']}}</td>                                                 --}}
-                                                        <td>{{$lead[$i]["facebook"]}}</td>                                                
+                                                        {{-- <td>{{$lead[$i]["facebook"]}}</td>                                                 --}}
                                                         <td>
                                                             <div class="row-12 form-inline">
                                                                 <div class="col-md-6">
                                                                     <a href="javascript:void(0);" class="btn btn-block btn-danger  btn-sm branch" value="detaillead/{{$lead[$i]["lead_id"]}}" onclick="go_to('detaillead/{{$lead[$i]['lead_id']}}')" title="Edit Lead">
                                                                         <i class="fas fa-edit">  </i>
-                                                                    </a>  
+                                                                    </a>
                                                                 </div>
                                                                 <div class="col-md-6 ">
                                                                     <a href="javascript:void(0);" class="btn btn-block btn-info btn-sm branch" value="branch/{{$lead[$i]["lead_id"]}}" onclick="go_to('branch/{{$lead[$i]['lead_id']}}')" title="Show Branch Of Lead">
                                                                         <i class="fas fa-code-branch">  </i>
-                                                                    </a>                      
+                                                                    </a>
                                                                 </div>
                                                             </div>
-                                                                                                  
+
                                                         </td>
-                                                        {{-- <td>  
-                                                            <a href="#" class="btn btn-block btn-info btn-sm detail" ​value="detaillead" ><i class="fas fa-info-circle"></i></a>                                                     
+                                                        {{-- <td>
+                                                            <a href="#" class="btn btn-block btn-info btn-sm detail" ​value="detaillead" ><i class="fas fa-info-circle"></i></a>
                                                         </td> --}}
-                                                    </tr> 
+                                                    </tr>
                                                 <?php
                                             }
                                             ?>
-                                        </tbody>  
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -88,7 +88,7 @@
 
 
             <script type="text/javascript">
-            
+
             $(function () {
                 $("#example1").DataTable({
                 "responsive": true,
@@ -124,6 +124,5 @@
             //     var id = $(this).attr("​value");
             //     go_to(id);
             // });
-            
+
             </script>
-            
