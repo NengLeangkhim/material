@@ -253,7 +253,6 @@
       }
 </script> --}}
 
-
 <script>
     reportQuoteByStatus();
     reportContact();

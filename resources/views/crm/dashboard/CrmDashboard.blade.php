@@ -151,8 +151,8 @@
                     </div>
                     <div class="card-body">
                         <div class="chart">
-                            {{-- <div id="ContactChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;" ></div> --}}
-                            <div id="contact_chart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                            <div id="ContactChart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                            {{-- <div id="contact_chart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div> --}}
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -227,37 +227,37 @@
                         {
                             id: 1,
                             name_en: 'new',
-                            code: 'color:#fed330'
+                            code: 'color:#36a2eb'
                         },
                         {
                             id: 2,
                             name_en: 'qualified',
-                            code: 'color:#C4E538'
+                            code: 'color:#4bc0c0'
                         },
                         {
                             id: 3,
                             name_en: 'surveying',
-                            code: 'color:#f06060'
+                            code: 'color:#ffcd56'
                         },
                         {
                             id: 4,
                             name_en: 'surveyed',
-                            code: 'color:#fa8231'
+                            code: 'color:#ff3d67'
                         },
                         {
                             id: 5,
                             name_en: 'proposition',
-                            code: 'color:#2bcbba'
+                            code: 'color:#7d9b10'
                         },
                         {
                             id: 6,
                             name_en: 'won',
-                            code: 'color:#4b4b4b'
+                            code: 'color:#9966ff'
                         },
                         {
                             id: 7,
                             name_en: 'junk',
-                            code: 'color:#ff3838'
+                            code: 'color:#96f'
                         },
                     ]
                     $.each(data, function (index, value) {
@@ -397,16 +397,16 @@
 
     // Contact Chart
     var Contact_Chart = () =>{
-      $.ajax({
-        url: '/api/crm/report/getContactChartReport', //get link route
-        type: 'GET',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-            'type' : 'day',
-            'from_date' : currentDateString,
-            'to_date' : currentDateString
+        $.ajax({
+            url: '/api/crm/report/getContactChartReport', //get link route
+            type: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                'type' : 'day',
+                'from_date' : currentDateString,
+                'to_date' : currentDateString
         },
         //data: $('#FrmChartContactReport').serialize(),
         success: function (response) {
@@ -431,13 +431,15 @@
                     var colors = [{
                             id: 0,
                             name_en: 'none',
-                            code: 'color:#1dd1a1'
+                            code: '#1fa8e0'
                         }
                     ]
+
                     $.each(data, function (index, value) {
                         result.push([value.create_date, value.total, colors[0].code])
                     })
                     var data = google.visualization.arrayToDataTable(result);
+                    console.log(data);
                     var view = new google.visualization.DataView(data);
 
                     view.setColumns([0, 1,
@@ -450,7 +452,32 @@
                         2
                     ]);
                     var options = {
-                        title: 'Contact Chart',
+                        title: 'Contact Performance',
+                        colors:['#1fa8e0'],
+                        annotations: {
+                            textStyle: {
+                                fontName: 'Times-Roman',
+                                fontSize: 18,
+                                bold: true,
+                                // The color of the text.
+                                color: '#871b47',
+                                // The transparency of the text.
+                                opacity: 0.8
+                            }
+                        },
+                        vAxis: {
+                            minValue: 0,
+                            maxValue: 100,
+                            // format: '#\'%\'',
+                            direction: 1
+                        },
+
+                        hAxis: {
+                            maxTextLines: 10,
+                            textStyle: {
+                                fontSize: 14,
+                            }
+                        },
                     };
 
                     var chart = new google.visualization.ColumnChart(document.getElementById('ContactChart'))
@@ -459,6 +486,41 @@
             }
         }
       });
+    }
+
+    // Survey Chart
+    var Survey_Chart = () => {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Success',12],
+          ['Unsuccess',8]
+        ]);
+
+        var options = {
+            title: 'Survey Performance',
+            colors:['#1fa8e0','#ff6384'],
+            annotations: {
+                textStyle: {
+                    fontName: 'Times-Roman',
+                    fontSize: 18,
+                    bold: true,
+                    italic: true,
+                    // The color of the text.
+                    color: '#871b47',
+                    // The color of the text outline.
+                    auraColor: '#d799ae',
+                    // The transparency of the text.
+                    opacity: 0.8
+                }
+            },
+            style: {
+                opacity: 0.5
+            }
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('survey_chart'));
+
+        chart.draw(data, options);
     }
 
     // Organization Chart
@@ -527,47 +589,11 @@
       });
     }
 
-    // Survey Chart
-    var Survey_Chart = () => {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Success',12],
-          ['Unsuccess',6]
-        ]);
-
-        var options = {
-            title: 'Survey Performance',
-            colors:['#1fa8e0','#ff6384']
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('survey_chart'));
-
-        chart.draw(data, options);
-    }
-
-    // new Contact chart
-    var Con_Chart = () => {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Max-Contact',50],
-          ['Contact',6]
-        ]);
-
-        var options = {
-            title: 'Contact Performance',
-            colors:['#1fa8e0','#ff6384'],
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('contact_chart'));
-
-        chart.draw(data, options);
-    }
-
     // Organization_Chart();
-    Con_Chart();
+    // Con_Chart();
     Survey_Chart();
     Lead_Chart();
     Quote_Chart();
-    // Contact_Chart();
+    Contact_Chart();
     })
   </script>
