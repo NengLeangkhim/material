@@ -46,9 +46,9 @@ class ModelHrmPolicy extends Model
     public static function hrm_get_tbl_policy_user(){
         return DB::table('hr_policy_user as p_u')
         ->select('p_u.*','p.name as name_policy','s.first_name_en', 's.last_name_en','s.id_number','s.ma_position_id','po.name as position_name')
-        ->join('ma_user as s','p_u.id_user','=','s.id')
+        ->join('ma_user as s','p_u.ma_user_id','=','s.id')
         ->join('ma_position as po','s.ma_position_id','=','po.id')
-        ->join('hr_policy as p','p_u.id_policy','=','p.id')
+        ->join('hr_policy as p','p_u.hr_policy_id','=','p.id')
         ->where('p_u.is_deleted','=','f')
         ->orderBy('p_u.id','ASC')
         ->get();
