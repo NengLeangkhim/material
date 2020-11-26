@@ -33,7 +33,7 @@
                                                 <button class="btn btn-danger form-control" id="btnExportPDFContactReport"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
                             </div>
                       </div>
                   </div>

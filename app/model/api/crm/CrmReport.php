@@ -143,7 +143,8 @@ class CrmReport extends Model
             $condition =
                 (($fromDate == null || $toDate == null) ? ' ' : ' WHERE lead_detail_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ')
                 .(($statusId == null || $statusId == '') ? ' ' : ''.(($fromDate == null || $toDate == null) ? ' WHERE ' : ' AND ').' crm_lead_status_id = '.$statusId);
-            $result = DB::select('SELECT crm_lead_status_id, status_en, status_kh, count(*) AS total_lead FROM view_crm_lead_report '.$condition.' GROUP BY crm_lead_status_id, status_en, status_kh');
+                // dd('with status_report as (SELECT crm_lead_status_id, status_en, status_kh, count(*) AS total_lead FROM view_crm_lead_report '.$condition.' GROUP BY crm_lead_status_id, status_en, status_kh) select sr.* from crm_lead_status as ls inner join status_report sr on ls.id = sr.crm_lead_status_id');
+            $result = DB::select('with status_report as (SELECT crm_lead_status_id, status_en, status_kh, count(*) AS total_lead FROM view_crm_lead_report '.$condition.' GROUP BY crm_lead_status_id, status_en, status_kh) select ls.id as crm_lead_status_id, ls.name_en as status_en, ls.name_kh as status_kh, COALESCE(sr.total_lead, null, 0, total_lead) total_lead from crm_lead_status as ls left join status_report sr on ls.id = sr.crm_lead_status_id ');
         } catch(QueryException $e){
             throw $e;
         }
@@ -203,10 +204,10 @@ class CrmReport extends Model
     public function getQuoteByStatus($fromDate = null, $toDate = null){
         try {
             $result = DB::select('
-                SELECT DISTINCT ON (crm_quote_status_type_id) crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh, COUNT(*) AS total_quotes
+               with quote_status as ( SELECT DISTINCT ON (crm_quote_status_type_id) crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh, COUNT(*) AS total_quotes
                 FROM view_crm_quote_report
                 '.(($fromDate==null || $toDate == null) ? '' : 'WHERE crm_quote_status_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
-                GROUP BY crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh
+                GROUP BY crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh) select cqst.id as crm_quote_status_type_id, cqst.name_en as quote_status_name_en,cqst.name_kh as quote_status_name_kh ,COALESCE(total_quotes, null, 0, total_quotes) total_quotes  from crm_quote_status_type cqst left join  quote_status on  quote_status.crm_quote_status_type_id= cqst.id
                 ;
             ');
         } catch(QueryException $e){
@@ -493,6 +494,15 @@ class CrmReport extends Model
                 ' GROUP BY DATE_TRUNC(\''.$type.'\',create_date) ORDER BY create_date;
             ');
         } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+    public function getSurvey(){
+        try{
+            dd("survey");
+        }
+        catch(QueryException $e){
             throw $e;
         }
         return $result;
