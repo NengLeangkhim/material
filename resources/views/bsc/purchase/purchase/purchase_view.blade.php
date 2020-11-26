@@ -180,7 +180,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                         </div>
-                                        <input type="number" class="form-control input_required" name="amount_paid" id="amount_paid" value="{{$due_amount == null ? number_format($purchase->grand_total, 4, '.', '') : number_format($due_amount, 4, '.', '')}}" autofocus placeholder="Amount Paid" >
+                                        <input oninput="limitDecimalPlaces(event, 4)" type="number" class="form-control input_required" name="amount_paid" id="amount_paid" value="{{$due_amount == null ? number_format($purchase->grand_total, 4, '.', '') : number_format($due_amount, 4, '.', '')}}" autofocus placeholder="Amount Paid" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -323,6 +323,13 @@
                     }
                 });
             }
+        }
+    }
+    // max length input after dote
+    function limitDecimalPlaces(e, count) {
+        if (e.target.value.indexOf('.') == -1) { return; }
+        if ((e.target.value.length - e.target.value.indexOf('.')) > count) {
+            e.target.value = parseFloat(e.target.value).toFixed(count);
         }
     }
 </script>
