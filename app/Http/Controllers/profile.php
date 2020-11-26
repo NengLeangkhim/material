@@ -66,7 +66,7 @@ class profile extends Controller
             $training=TrainingList::my_training($user_id);
             $leave_type=LeaveType::get_leave_type();
             $all_leave=LeaveType::get_all_permission($user_id);
-            $warning=warning_and_punishment::warning_and_punishment_list_one($user_id);
+            $warning=warning_and_punishment::warning_and_punishment_staff($user_id);
             $exit_info=profileModel::exit_information($user_id);
             
             if(count($exit_info)>0){

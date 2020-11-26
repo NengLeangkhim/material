@@ -15,7 +15,7 @@ class WarningAndPunishmentController extends Controller
     function warning_and_punishment_list(){
         $warning=warning_and_punishment::warning_and_punishment_list();
         $warning_type=warning_and_punishment::warning_and_punishment_type_list();
-        return view('hrms\Employee\warning_and_punishment\warning_and_punishment')->with(compact('warning','warning_type'));
+        return view('hrms.Employee.warning_and_punishment.warning_and_punishment')->with(compact('warning','warning_type'));
     }
 
     function modal_warning_and_punishment(Request $request){

@@ -631,7 +631,6 @@ function hrms_date(){
 
 
         function hrms_insert_update_warning_and_punishment_type(){
-            alert();
             if(!hrms_validation('fm_warning_and_punishment_type')){return;}
             if(check_session()){return;}
             Swal.fire({ //get from sweetalert function
