@@ -120,7 +120,7 @@ Function index_num($v1){
                             <h5 class="mb-1" style="font-weight: bold; ">
                                 Income & Expense By Month
                             </h5>
-                                <p> This Month</p>
+                                {{-- <p> This Month</p>
                                 <table class="table_style1" >
                                     <tr class="tr-review">
                                         <td>Today<td>
@@ -134,7 +134,7 @@ Function index_num($v1){
                                         <td>This Year<td>
                                         <td> :<?php ?></td>
                                     </tr>
-                                </table>
+                                </table> --}}
                                 <div class="chartjs-wrapper" >
                                     <canvas id="bar-chart-grouped" width="800" height="450"></canvas>
                                 </div>
@@ -149,7 +149,7 @@ Function index_num($v1){
                                 <h5 class="mb-1" style="font-weight: bold; ">
                                     Account Receivable & Account Payable By Month
                                 </h5>
-                                <p> This Month</p>
+                                {{-- <p> This Month</p>
                                 <table class="table_style1" >
                                     <tr class="tr-review">
                                         <td>Today<td>
@@ -163,7 +163,7 @@ Function index_num($v1){
                                         <td>This Year<td>
                                         <td> :<?php ?></td>
                                     </tr>
-                                </table>
+                                </table> --}}
                                     <div class="chartjs-wrapper " >
                                         <canvas id="bar-chart-payable" width="800" height="450"></canvas>
                                     </div>
