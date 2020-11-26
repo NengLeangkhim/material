@@ -83,12 +83,12 @@ class ReportBalanceSheet extends Controller
         if($this->validateDate($dateparam)){
             try {
                 //All Assets
-                $assetList = $this->getSum($this->getBalanceSheetDataList(1,$dateparam), true);
+                $assetList = $this->getSum($this->getBalanceSheetDataList(1,$dateparam,true), true);
 
                 //All Liablitiy
-                $liabilityList = $this->getSum($this->getBalanceSheetDataList(2,$dateparam), false);
+                $liabilityList = $this->getSum($this->getBalanceSheetDataList(2,$dateparam,false), false);
                 //All Equity
-                $equityList = $this->getSum($this->getBalanceSheetDataList(3,$dateparam), true);
+                $equityList = $this->getSum($this->getBalanceSheetDataList(3,$dateparam,true), true);
                 $validateBalanceSheet = ($assetList['total'] == ($liabilityList['total'] + $equityList['total']) ? true : false);
                 $result = [
                     'is_error' => false,
@@ -127,7 +127,7 @@ class ReportBalanceSheet extends Controller
         return $data;
     }
 
-    function getBalanceSheetDataList(int $id, string $date, $rate = 4000){
+    function getBalanceSheetDataList(int $id, string $date, $rate = 4000, $isDebitMinusCredit = true){
         if ($date == null || $date == ''){
             $date = now();
         }
