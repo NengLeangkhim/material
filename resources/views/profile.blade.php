@@ -50,26 +50,26 @@
                                             <div class="col-lg-9 col-md-9 col-sm-8">
                                                     <div class="row">
                                                             <dt class="col-sm-5 col-xs-6 col-6 pt-2" >ID Number</dt>
-                                                                <dd class="col-sm-7 col-xs-6  col-6  pt-2" >{{ $employee[0]->id_number }}</dd>
+                                                                <dd class="col-sm-7 col-xs-6  col-6  pt-2" >{{ $employee[0]->id_number ?? ''}}</dd>
                                                     
                                                             <dt class="col-sm-5 col-xs-6  col-6 pt-2" >Name </dt>
-                                                                <dd class="col-sm-7 col-xs-6  col-6  pt-2" > {{ $employee[0]->full_name}}</dd>
+                                                                <dd class="col-sm-7 col-xs-6  col-6  pt-2" > {{ $employee[0]->full_name ?? ''}}</dd>
                                                    
                                                             <dt class="col-sm-5 col-xs-6  col-6  pt-2">Position</dt>
-                                                                <dd class="col-sm-7 col-xs-6  col-6  pt-2">{{ $employee[0]->position }}</dd>
+                                                                <dd class="col-sm-7 col-xs-6  col-6  pt-2">{{ $employee[0]->position ??'' }}</dd>
                                                     
                                                             <dt class="col-sm-5 col-xs-6  col-6  pt-2">Department</dt>
-                                                                <dd class="col-sm-7 col-xs-6  col-6  pt-2">{{ $employee[0]->department }}</dd>
+                                                                <dd class="col-sm-7 col-xs-6  col-6  pt-2">{{ $employee[0]->department ??''}}</dd>
 
                                                             <dt class="col-sm-5 col-xs-6  col-6  pt-2">Office Phone</dt>
-                                                                <dd class="col-sm-7 col-xs-6  col-6  pt-2">{{ $employee[0]->office_phone }}</dd>
+                                                                <dd class="col-sm-7 col-xs-6  col-6  pt-2">{{ $employee[0]->office_phone ??''}}</dd>
                                                                 
                                                             <dt class="col-sm-5 col-xs-6  col-6  pt-2">Email</dt>
-                                                                <dd class="col-sm-7 col-xs-6  col-6  pt-2">{{ $employee[0]->email }}</dd>
+                                                                <dd class="col-sm-7 col-xs-6  col-6  pt-2">{{ $employee[0]->email ??''}}</dd>
 
 
                                                             <dt class="col-sm-5 col-xs-6  col-6  pt-2">Company</dt>
-                                                                <dd class="col-sm-7 col-xs-6  col-6  pt-2">{{ $employee[0]->company }}</dd>
+                                                                <dd class="col-sm-7 col-xs-6  col-6  pt-2">{{ $employee[0]->company ??''}}</dd>
                                                     </div>
                                             </div>
                                                 
@@ -110,13 +110,13 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12 ">
                                             <div class="row font-size-14">
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Name in Latin</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > {{ $employee[0]->full_name }} </dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > {{ $employee[0]->full_name ??''}} </dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Gander</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{ $employee[0]->sex }}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{ $employee[0]->sex ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Date of Birth</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{ $employee[0]->birth_date }}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{ $employee[0]->birth_date ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Age</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{date('Y')-date('Y',strtotime($employee[0]->birth_date))}}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{date('Y')-date('Y',strtotime($employee[0]->birth_date??''))}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Height</dt>
                                                     <dd class="col-sm-8 col-xs-6 col-6 dd">null</dd>
                                             </div>
@@ -125,11 +125,11 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12 ">
                                             <div class="row font-size-14">
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Name in Khmer</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{ $employee[0]->full_name_kh }}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{ $employee[0]->full_name_kh ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Marital Status</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{ $employee[0]->martital_status }}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{ $employee[0]->martital_status ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Has Child</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{$employee[0]->child_count}}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{$employee[0]->child_count ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Ranking of Age</dt>
                                                     <dd class="col-sm-8 col-xs-6 col-6 dd">null</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Weight </dt>
@@ -165,19 +165,19 @@
                                             <div class="row font-size-14">
                                                 
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Home</dt>
-                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$current_address['home']}}</dd>
+                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$current_address['home'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Street</dt>
-                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$current_address['street']}}</dd>
+                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$current_address['street'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Group</dt>
                                                     <dd class="col-sm-8 col-xs-8 col-6 dd" >null</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Province</dt>
-                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$current_address['province']}}</dd>
+                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$current_address['province'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >District</dt>
-                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$current_address['district']}}</dd>
+                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$current_address['district'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Commune</dt>
-                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$current_address['commune']}}</dd>
+                                                    <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$current_address['commune'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Village</dt>
-                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$current_address['village']}} </dd>
+                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$current_address['village'] ??''}} </dd>
                                             </div>
                                     </div>
 
@@ -185,19 +185,19 @@
                                         <dt class="col-sm-4 col-xs-4 col-6 dt" >Permanent Address</dt>
                                         <div class="row font-size-14">
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Home</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$permanent_address['home']}}</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$permanent_address['home'] ??''}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Street</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$permanent_address['street']}}</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$permanent_address['street'] ??''}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Group</dt>
                                                 <dd class="col-sm-8 col-xs-8 col-6 dd" >null</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Province</dt>
-                                        <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$permanent_address['province']}}</dd>
+                                        <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$permanent_address['province'] ??''}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >District</dt>
-                                        <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$permanent_address['district']}}</dd>
+                                        <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$permanent_address['district'] ??''}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Commune</dt>
-                                        <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$permanent_address['commune']}}</dd>
+                                        <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$permanent_address['commune'] ??''}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt">Village</dt>
-                                        <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$permanent_address['village']}}</dd>
+                                        <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$permanent_address['village'] ??''}}</dd>
                                         </div>
                                 </div>
                                 </div>
@@ -228,19 +228,19 @@
                                             <div class="row font-size-14">
                                                 
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Type of Identification</dt>
-                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['iden_type']}}</dd>
+                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['iden_type'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" ># of Identification</dt>
-                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['ma_identification_number']}}</dd>
+                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['ma_identification_number'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Issued Date</dt>
-                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['issued_date']}}</dd>
+                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['issued_date'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Issued Place</dt>
-                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['issued_place']}}</dd>
+                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['issued_place'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Issued By</dt>
-                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['issued_by']}}</dd>
+                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['issued_by'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt" >Blood Group</dt>
-                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['blood_name']}}</dd>
+                                            <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$em_contect['blood_name'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Religion</dt>
-                                            <dd class="col-sm-8 col-xs-8  col-6 dd" > {{$em_contect['religion']}}</dd>
+                                            <dd class="col-sm-8 col-xs-8  col-6 dd" > {{$em_contect['religion'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Maritial Status</dt>
                                             <dd class="col-sm-8 col-xs-8  col-6 dd" >@php
                                                 if($em_contect['is_marriage']==null){
@@ -250,15 +250,15 @@
                                                 }
                                             @endphp</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Spouse Name</dt>
-                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['wife_name']}}</dd>
+                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['wife_name'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Date of Birth</dt>
-                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['wife_date_of_birth']}}</dd>
+                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['wife_date_of_birth'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Spouse's Occupation</dt>
-                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['wife_occupation']}}</dd>
+                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['wife_occupation'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Education Level</dt>
-                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['wife_education_level']}}</dd>
+                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['wife_education_level'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Mobile Phone</dt>
-                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['wife_mobile_phone']}}</dd>
+                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['wife_mobile_phone'] ??''}}</dd>
                                             </div>
                                     </div>
 
@@ -266,31 +266,31 @@
                                         <dt class="col-sm-12 col-xs-12 col-12 dt text-left">Relative/Emergency Contact</dt>
                                         <div class="row font-size-14">
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Father Name in Latin</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['father_name']}}</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['father_name']??''}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt">Mather Name in Latin</dt>
-                                                <dd class="col-sm-8 col-xs-8  col-6 dd">{{$relative['mother_name']}}</dd>
+                                                <dd class="col-sm-8 col-xs-8  col-6 dd">{{$relative['mother_name'] ??''}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Father Occupation</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['father_occupation']}}</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['father_occupation'] ??''}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Mother Occupation</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['mother_occupation']}}</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['mother_occupation'] ??''}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Home #</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['parent_home']}}</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['parent_home'] ??''}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Street</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['parent_street']}}</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['parent_street'] ??''}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Group</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['parent_group']}}</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['parent_group'] ??''}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Province</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['province']}}</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['province'] ??''}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >District</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['district']}}</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['district'] ??''}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Commune</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['commune']}}</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['commune'] ??''}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt">Village</dt>
-                                                <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['village']}}</dd>
+                                                <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['village'] ??''}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Mobile Phone</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['phone_number']}}</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['phone_number'] ??''}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Home Phone</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['home_phone']}}</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['home_phone'] ??''}}</dd>
                                         </div>
                                 </div>
                                 </div>
@@ -317,13 +317,13 @@
                                 <div class="row">
                                     @foreach ($education as $edu)
                                         
-                                        <div class="col-md-12 bg-turbo-color" style="margin-bottom: 10px">EducationLevel : {{$edu['name_en']}}</div>
+                                        <div class="col-md-12 bg-turbo-color" style="margin-bottom: 10px">EducationLevel : {{$edu['name_en'] ??''}}</div>
                                         <div class="col-lg-6 col-md-6 col-sm-12 ">
                                                 <div class="row font-size-14">
                                                     <dt class="col-sm-4 col-xs-6 col-6 dt" >Education Level</dt>
-                                                        <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$edu['name_en']}}</dd>
+                                                        <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$edu['name_en'] ??''}}</dd>
                                                     <dt class="col-sm-4 col-xs-6 col-6 dt">Subject</dt>
-                                                        <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$edu['major']}}</dd>
+                                                        <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$edu['major'] ??''}}</dd>
                                         
                                                 </div>
 
@@ -331,9 +331,9 @@
                                         <div class="col-lg-6 col-md-6 col-sm-12 ">
                                                 <div class="row font-size-14">
                                                     <dt class="col-sm-4 col-xs-6 col-6 dt" >Education Status</dt>
-                                                        <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$edu['education_status']}}</dd>
+                                                        <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$edu['education_status'] ??''}}</dd>
                                                     <dt class="col-sm-4 col-xs-6 col-6 dt">University/School </dt>
-                                                        <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$edu['school']}}</dd>
+                                                        <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$edu['school']??''}}</dd>
                                             
                                                 </div>
                                         </div>
@@ -364,14 +364,14 @@
                                     <div class="row">
                                         @foreach ($job_experience as $experience)
                                             <div class="col-md-12 bg-turbo-color" style="margin-bottom: 10px">
-                                                Company : {{$experience['company_name']}}
+                                                Company : {{$experience['company_name']??''}}
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-12 ">
                                                     <div class="row font-size-14">
                                                         <dt class="col-sm-4 col-xs-6 col-6 dt" ># of Experience</dt>
-                                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$experience['experience_period']}} Year</dd>
+                                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$experience['experience_period']??''}} Year</dd>
                                                         <dt class="col-sm-4 col-xs-6 col-6 dt">Sector</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$experience['sector']}}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$experience['sector']??''}}</dd>
                                             
                                                     </div>
 
@@ -379,9 +379,9 @@
                                             <div class="col-lg-6 col-md-6 col-sm-12 ">
                                                     <div class="row font-size-14">
                                                         <dt class="col-sm-4 col-xs-6 col-6 dt" >Compnay's Name</dt>
-                                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$experience['company_name']}}</dd>
+                                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$experience['company_name']??''}}</dd>
                                                         <dt class="col-sm-4 col-xs-6 col-6 dt">Last Position </dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$experience['last_position']}}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$experience['last_position']??''}}</dd>
                                                 
                                                     </div>
                                             </div>
@@ -413,26 +413,26 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12 ">
                                             <div class="row font-size-14">
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Employee ID</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{$employee[0]->id_number}}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{$employee[0]->id_number ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Position </dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{$employee[0]->position}}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{$employee[0]->position ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Company</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > {{$employee[0]->company}}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" > {{$employee[0]->company ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Start Date</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$employee[0]->join_date}}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$employee[0]->join_date ??''}}</dd>
                                             </div>
 
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 ">
                                             <div class="row font-size-14">
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">HQ/Branch</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$employee[0]->branch}}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$employee[0]->branch ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Salary</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{ $employee[0]->salary }}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{ $employee[0]->salary ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Bank Name </dt>
                                                     <dd class="col-sm-8 col-xs-6 col-6 dd" >ABA</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Account Number </dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$employee[0]->bank_account}}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$employee[0]->bank_account ??''}}</dd>
                                             </div>
                                     </div>
                                 </div>
@@ -479,12 +479,12 @@
                                         @foreach ($warning as $warn)
                                             <tr>
                                                 <th>{{++$i}}</th>
-                                                <td>{{$warn->name_en}}</td>
-                                            <td>{{$warn->verbal_warning_date}}</td>
-                                            <td>{{$warn->warning_reason}}</td>
-                                            <td>{{$warn->staff_last_name}} {{$warn->staff_first_name}}</td>
-                                            <td>{{$warn->last_warning_by}} {{$warn->first_warning_by}}</td>
-                                            <td>{{$warn->last_approve_by}} {{$warn->first_approve_by}}</td>
+                                                <td>{{$warn->name_en ??''}}</td>
+                                            <td>{{$warn->verbal_warning_date??''}}</td>
+                                            <td>{{$warn->warning_reason??''}}</td>
+                                            <td>{{$warn->staff_last_name??''}} {{$warn->staff_first_name??''}}</td>
+                                            <td>{{$warn->last_warning_by??''}} {{$warn->first_warning_by??''}}</td>
+                                            <td>{{$warn->last_approve_by??''}} {{$warn->first_approve_by??''}}</td>
                                             </tr>
                                         @endforeach
                                         
@@ -540,48 +540,48 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12 ">
                                             <div class="row font-size-14">
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Request Exit Date</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{$exit_information['request_exit_date']}}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{$exit_information['request_exit_date'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Type of Exit </dt>
-                                            <dd class="col-sm-8 col-xs-6 col-6 dd">{{$exit_information['name_en']}}</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd">{{$exit_information['name_en'] ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >HR Recieved Date</dt>
-                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['hr_received_date']}}</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['hr_received_date']??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Effective Exit Date</dt>
-                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['effective_date']}}</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['effective_date']??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Training & Development</dt>
-                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['training_development']}}</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['training_development']??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Opportunity to Promote</dt>
-                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['opportunity_to_promote']}}</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['opportunity_to_promote']??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Work Presure</dt>
-                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['work_presure']}}</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['work_presure']??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Working on Holiday</dt>
-                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['working_on_holiday']}}</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['working_on_holiday']??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Motivation</dt>
-                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['motivation']}}</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['motivation']??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Overall Opion</dt>
-                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['overall_option']}}</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['overall_option']??''}}</dd>
                                             </div>
 
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 ">
                                             <div class="row font-size-14">
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Submit Date</dt>
-                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['submit_date']}}</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['submit_date']??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Manager Approved Date</dt>
-                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['manager_approved_date']}}</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['manager_approved_date']??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Reasion of Exit</dt>
-                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['exit_reason']}}</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['exit_reason']??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Duties & Responsibility</dt>
-                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['duties_responsibility']}}</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['duties_responsibility']??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Given Salary</dt>
-                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['given_salary']}}</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['given_salary']??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Work Environment</dt>
-                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['work_environment']}}</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['work_environment']??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Team Work</dt>
                                             <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['team_work']}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Management Issue</dt>
-                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['management_issue']}}</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['management_issue']??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Comment</dt>
-                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['comment']}}</dd>
+                                            <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$exit_information['comment']??''}}</dd>
                                             </div>
                                     </div>
                                 </div>
@@ -611,9 +611,9 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12 ">
                                             <div class="row font-size-14">
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Employee ID</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{$employee[0]->id_number}}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{$employee[0]->id_number??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">HO/Branch Name </dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{$employee[0]->branch}}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd">{{$employee[0]->branch??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Request Date</dt>
                                                     <dd class="col-sm-8 col-xs-6 col-6 dd" > No</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Period of Leave</dt>
@@ -623,9 +623,9 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12 ">
                                             <div class="row font-size-14">
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Staff Name</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$employee[0]->full_name}}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{$employee[0]->full_name??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt">Position</dt>
-                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{ $employee[0]->position }}</dd>
+                                                    <dd class="col-sm-8 col-xs-6 col-6 dd" >{{ $employee[0]->position ??''}}</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >Type of Request Leave</dt>
                                                     <dd class="col-sm-8 col-xs-6 col-6 dd" >ABA</dd>
                                                 <dt class="col-sm-4 col-xs-6 col-6 dt" >From</dt>
@@ -655,41 +655,41 @@
                                                 <tbody>
                                                     <tr>
                                                         <th class="text-right">Annual Leave</th>
-                                                        <td class="text-center">{{$leave_type[0]}}</td>
-                                                        <td class="text-center">{{($leave_type[0]-$all_leave['annual'])}}</td>
-                                                        <td class="text-center">{{$all_leave['annual']}}</td>
+                                                        <td class="text-center">{{$leave_type[0]??''}}</td>
+                                                        <td class="text-center">{{($leave_type[0]-$all_leave['annual'])??''}}</td>
+                                                        <td class="text-center">{{$all_leave['annual']??''}}</td>
                                                         <td class="text-center">0</td>
                                                         <td class="text-center"></td>
                                                     </tr>
                                                     <tr>
                                                         <th class="text-right">Sick Leave</th>
-                                                        <td class="text-center">{{$leave_type[3]}}</td>
-                                                        <td class="text-center">{{($leave_type[3]-$all_leave['sick'])}}</td>
-                                                        <td class="text-center">{{$all_leave['sick']}}</td>
+                                                        <td class="text-center">{{$leave_type[3]??''}}</td>
+                                                        <td class="text-center">{{($leave_type[3]-$all_leave['sick'])??''}}</td>
+                                                        <td class="text-center">{{$all_leave['sick']??''}}</td>
                                                         <td class="text-center">0</td>
                                                         <td class="text-center"></td>
                                                     </tr>
                                                     <tr>
                                                         <th class="text-right">Maternity Leave</th>
-                                                        <td class="text-center">{{$leave_type[1]}}</td>
-                                                        <td class="text-center">{{($leave_type[1]-$all_leave['maternity'])}}</td>
-                                                        <td class="text-center">{{$all_leave['maternity']}}</td>
+                                                        <td class="text-center">{{$leave_type[1]??''}}</td>
+                                                        <td class="text-center">{{($leave_type[1]-$all_leave['maternity'])??''}}</td>
+                                                        <td class="text-center">{{$all_leave['maternity']??''}}</td>
                                                         <td class="text-center">0</td>
                                                         <td class="text-center"></td>
                                                     </tr>
                                                     <tr>
                                                         <th class="text-right">Special Leave</th>
-                                                        <td class="text-center">{{$leave_type[2]}}</td>
-                                                        <td class="text-center">{{($leave_type[2]-$all_leave['special'])}}</td>
-                                                        <td class="text-center">{{$all_leave['special']}}</td>
+                                                        <td class="text-center">{{$leave_type[2]??''}}</td>
+                                                        <td class="text-center">{{($leave_type[2]-$all_leave['special'])??''}}</td>
+                                                        <td class="text-center">{{$all_leave['special']??''}}</td>
                                                         <td class="text-center">0</td>
                                                         <td class="text-center"></td>
                                                     </tr>
                                                     <tr>
                                                         <th class="text-right">Unpaid Leave</th>
-                                                        <td class="text-center">{{$leave_type[4]}}</td>
-                                                        <td class="text-center">{{$leave_type[4]-$all_leave['no_salary']}}</td>
-                                                        <td class="text-center">{{$all_leave['no_salary']}}</td>
+                                                        <td class="text-center">{{$leave_type[4]??''}}</td>
+                                                        <td class="text-center">{{$leave_type[4]-$all_leave['no_salary']??''}}</td>
+                                                        <td class="text-center">{{$all_leave['no_salary']??''}}</td>
                                                         <td class="text-center">0</td>
                                                         <td class="text-center"></td>
                                                     </tr>
@@ -735,13 +735,13 @@
                                                 <tbody>
                                                     @foreach ($training as $train)
                                                         <tr>
-                                                            <th>{{$train->type}}</th>
-                                                            <td>{{$train->trainer}}</td>
+                                                            <th>{{$train->type??''}}</th>
+                                                            <td>{{$train->trainer??''}}</td>
                                                             @if ($train->hrid>0)
-                                                                <td class="text-center">{{$train->actual_f_date}}/{{$train->actual_t_date}}</td>
+                                                                <td class="text-center">{{$train->actual_f_date??''}}/{{$train->actual_t_date??''}}</td>
                                                                 <td class="text-center"><input type="checkbox" checked disabled></td> 
                                                             @else
-                                                                <td class="text-center">{{$train->schet_f_date}}/{{$train->schet_t_date}}</td>
+                                                                <td class="text-center">{{$train->schet_f_date??''}}/{{$train->schet_t_date??''}}</td>
                                                                 <td class="text-center"><input type="checkbox" disabled></td>
                                                             @endif
                                                             
