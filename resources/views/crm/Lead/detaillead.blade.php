@@ -91,6 +91,8 @@
                                     <dd class="col-sm-8 dd">{{$detaillead[$i]["facebook"]}}</dd>
                                     <dt class="col-sm-4 dt">Primary Website </dt>
                                     <dd class="col-sm-8 dd">{{$detaillead[$i]["website"]}} </dd>
+                                    <dt class="col-sm-4 dt">Primary Phone </dt>
+                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["phone"]}} </dd>
                                     <dt class="col-sm-4 dt">Company Branch </dt>
                                     <dd class="col-sm-8 dd">{{$detaillead[$i]["company"]}} </dd> 
                                     <dt class="col-sm-4 dt">Vat Number </dt>

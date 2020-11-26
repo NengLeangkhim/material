@@ -173,8 +173,15 @@
                                                 <div class="input-group">
                                                 </div>
                                                 <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="possible" >
-                                                    <label for="customCheckbox2"  class="custom-control-label">Yes Or No</label>
+                                                    {{-- <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="possible" >
+                                                    <label for="customCheckbox2"  class="custom-control-label">Yes Or No</label> --}}
+                                                    <input type="radio" id="male" name="possible" value="yes">
+                                                    <label for="male">Yes</label><br>
+                                                    <input type="radio" id="female" name="possible" value="no">
+                                                    <label for="female">No</label>
+                                                    <span class="invalid-feedback" role="alert" id="possibleError"> {{--span for alert--}}
+                                                        <strong></strong>
+                                                    </span>
                                                 </div>                                                                
                                             </div>
                                             <?php

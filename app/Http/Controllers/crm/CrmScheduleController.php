@@ -84,14 +84,17 @@ class CrmScheduleController extends Controller
             if($result!=null){
                 if(perms::check_perm_module('CRM_02100201')){//module code list data tables id=147
                
-                    $schedule_type=ModelCrmLead::CrmGetSchdeuleType();
+                    $schedule_type=ModelCrmLead::CrmGetSchdeuleType('FALSE');
                     $schedule_type =json_decode($schedule_type,true);
+                    $result_type=ModelCrmLead::CrmGetSchdeuleType('TRUE');
+                    $result_type =json_decode($result_type,true);
                     $schedule = ModelCrmLead::CrmGetSchdeuleById($id);
                     $schedule =json_decode($schedule,true);
+                    // dd($schedule_type);
                     if($schedule!=null){
                         // dd($schedule,$schedule_type);
                         // return view('crm.schedule.detailschedule', ['schedule_get' => $schedule]);
-                        return view('crm.schedule.detailscheduleresult',['schedule_type'=>$schedule_type['data'],'schedule'=>$schedule['data']]);
+                        return view('crm.schedule.detailscheduleresult',['schedule_type'=>$schedule_type['data'],'result_type'=>$result_type['data'],'schedule'=>$schedule['data']]);
                     }else{
                         return view('no_perms');
 
@@ -106,14 +109,17 @@ class CrmScheduleController extends Controller
             {
                 if(perms::check_perm_module('CRM_02100201')){//module code list data tables id=147
                
-                    $schedule_type=ModelCrmLead::CrmGetSchdeuleType();
+                    $schedule_type=ModelCrmLead::CrmGetSchdeuleType('FALSE');
                     $schedule_type =json_decode($schedule_type,true);
+                    $result_type=ModelCrmLead::CrmGetSchdeuleType('TRUE');
+                    $result_type =json_decode($result_type,true);
                     $schedule = ModelCrmLead::CrmGetSchdeuleById($id);
                     $schedule =json_decode($schedule,true);
+                    // dd($schedule_type);
                     if($schedule!=null){
                         // dd($schedule,$schedule_type);
                         // return view('crm.schedule.detailschedule', ['schedule_get' => $schedule]);
-                        return view('crm.schedule.detailschedule',['schedule_type'=>$schedule_type['data'],'schedule'=>$schedule['data']]);
+                        return view('crm.schedule.detailschedule',['schedule_type'=>$schedule_type['data'],'result_type'=>$result_type['data'],'schedule'=>$schedule['data']]);
                     
 
                     }else
