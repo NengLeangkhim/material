@@ -179,7 +179,7 @@
                 <!-- BAR CHART -->
                 <div class="card card-success">
                     <div class="card-header" style="background: #ffffff;border:none;">
-                    <h3 class="card-title" style="color: #000000;font-weight: bold;  ">Quote Chart</h3>                    
+                      <h3 class="card-title" style="color: #000000;font-weight: bold;  ">Quote Chart</h3>                    
                     </div>
                     <div class="card-body">
                         <div class="form-group">
@@ -212,18 +212,18 @@
                                         </span>
                                     </div>
                                     </div>
-                                </div>
+                                </div>                        
+                            </form>
                           </div>
-                        </form>
-                      </div>
-                      <div class="chart">                         
-                          <div  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:20px;">
-                            <div id="barchart_values" style="width:auto; height: 300px;"></div>                      
+                          <div class="chart">                         
+                              <div  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:10px;">
+                                <div id="barchart_values" style="width:auto; height: auto;"></div>                      
+                              </div>
                           </div>
-                      </div>
-                      <div class="col-md-12 text-right">
-                        <button class="btn btn-info" onclick="go_to('/crmreport/detailquote')"><span><i class="fas fa-info"></i></span> Detail</button>
-                      </div>
+                          <div class="col-md-12 text-right">
+                            <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
+                          </div>  
+                    </div>
                     </div><!-- /.card-body -->
                 </div><!-- /.card -->
             </div><!-- End Col -->
