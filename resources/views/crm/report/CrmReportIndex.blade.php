@@ -65,7 +65,9 @@
                           </form>
                         </div>
                         <div class="chart">
-                          <div id="piechart" style="width: auto; height: 290px;"></div>
+                          <div style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">
+                            <div id="piechart"></div>
+                          </div> 
                         </div>
                         <div class="col-md-12 text-right">
                           <button class="btn btn-info" onclick="go_to('/crmreport/detaillead')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -119,7 +121,9 @@
                         </form>
                       </div>
                       <div class="chart-contact">
-                        <div id="columnchart" style="width: auto; height: 290px;"></div>
+                        <div style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">
+                          <div id="columnchart" style="width: auto; height: 290px;"></div>
+                        </div> 
                       </div>
                       <div class="col-md-12 text-right">
                         <button class="btn btn-info" onclick="go_to('/crmreport/detailcontact')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -175,7 +179,9 @@
                         </form>
                       </div>
                       <div class="chart">
+                      <div style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">
                         <div id="organizationchart" style="width: auto; height: 290px;" ></div>
+                      </div>                      
                       </div>
                       <div class="col-md-12 text-right">
                         <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -229,7 +235,9 @@
                         </form>
                       </div>
                       <div class="chart">
-                        <div id="quoite_chart" style="width: 500px; height: 500px;"></div>
+                        <div  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">
+                          <div id="quoite_chart"></div>
+                        </div>                  
                       </div>
                       <div class="col-md-12 text-right">
                         <button class="btn btn-info" onclick="go_to('/crmreport/detailquote')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -243,7 +251,7 @@
 
 <script type="text/javascript">
 
-//Lead pie chart
+//Lead pie-chart
 
   google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawPieChart);
@@ -253,13 +261,15 @@
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
           ['New',     11],
-          ['Sualified',      2],
+          ['Sualified',   2],
           ['Surveying',  2],
           ['Won', 2],
         ]);
 
         var options = {
           title: 'Lead Performance',
+          width: 580,
+          height: 290,
           colors: ['#007bff','#ff6384', '#4bc0c0','#ffcd56','#7d9b10'],
         };
 
@@ -292,49 +302,50 @@
 
 //organization_chart_bar
 
-google.charts.load("current", {packages:["corechart"]});
-        google.charts.setOnLoadCallback(drawOranizationChart);
-        function drawOranizationChart() {
-          var data = google.visualization.arrayToDataTable([
-            ['Element', 'Density', { role: 'style' }],
-            ['Jan', 8, '#007bff'],           
-            ['Feb', 10, '#4bc0c0'],            
-            ['Mar', 19, '#ffcd56'],
-            ['Apr', 21, '#7d9b10' ],
-            ['May', 25, '#ff6384' ], 
-          ]);
-          var options = {
-            
-          };
+  google.charts.load("current", {packages:["corechart"]});
+          google.charts.setOnLoadCallback(drawOranizationChart);
+          function drawOranizationChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Element', 'Density', { role: 'style' }],
+              ['Jan', 8, '#007bff'],           
+              ['Feb', 10, '#4bc0c0'],            
+              ['Mar', 19, '#ffcd56'],
+              ['Apr', 21, '#7d9b10' ],
+              ['May', 25, '#ff6384' ], 
+            ]);
+            var options = {
+              width: 580,
+              height: 250,
+            };
 
-          var organizaion_chart = new google.visualization.ColumnChart(document.getElementById('organizationchart'));
-          organizaion_chart.draw(data, options);
-        }
+            var organizaion_chart = new google.visualization.ColumnChart(document.getElementById('organizationchart'));
+            organizaion_chart.draw(data, options);
+          }
 
 //dounut quote chart 
 
-google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(QuoteChart);
-      function QuoteChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['New',     11],
-          ['Sualified',      2],
-          ['Surveying',  2],
-          ['Won', 2],
-        ]);
+  google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(QuoteChart);
+        function QuoteChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Approve',   11],
+            ['Successed',  2],
+          ]);
 
-        var options = {
-          pieHole: 0.4,
-          colors: ['#007bff','#ff6384', '#4bc0c0','#ffcd56','#7d9b10'],
-        };
+          var options = {
+            pieHole: 0.4,
+            colors: ['#007bff','#ff6384', '#4bc0c0','#ffcd56','#7d9b10'],
+            width: 580,
+            height: 265,
+          };
 
-        var dounut_chart = new google.visualization.PieChart(document.getElementById('quoite_chart'));
+          var dounut_chart = new google.visualization.PieChart(document.getElementById('quoite_chart'));
 
-        dounut_chart.draw(data, options);
-      }
+          dounut_chart.draw(data, options);
+        }
 
-    </script>
+</script>
 <!-- / pie chart script -->
 
 <script>
