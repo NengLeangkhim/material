@@ -1,8 +1,4 @@
 @php
-use \App\Http\Controllers\bsc\DashboardController;
-$read_data=DashboardController::read_data();
-
-
 // print_r($staff_suggestion);
 //function divide number to two digits
 Function index_num($v1){
@@ -179,7 +175,6 @@ Function index_num($v1){
 @php
     if($amount_high_chart_dashboards->arr_month != ""){
         $arr_month = $amount_high_chart_dashboards->arr_month;
-        // dd($arr_month[0]);
         $month_name = "";
         for ($i=0; $i < 5; $i++) { 
             if ($i != 4) {
@@ -194,7 +189,6 @@ Function index_num($v1){
     //get Data Amount Revenue
     if ($amount_high_chart_dashboards->arr_total_amount_revenue_debit != "") {
        $arr_revenue = $amount_high_chart_dashboards->arr_total_amount_revenue_debit;
-       //dd($data_revenue);
         $data_revenue = "";
         for ($i=0; $i < 5; $i++) { 
             if ($i != 4) {

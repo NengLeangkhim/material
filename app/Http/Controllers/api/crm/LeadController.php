@@ -126,6 +126,7 @@ class LeadController extends Controller
         $company_en=$request->input('company_en');
         $company_kh=$request->input('company_kh');
         $primary_email=$request->input('primary_email');
+        $primary_phone=$request->input('primary_phone');
         $user_create=$userid;
         // $user_create=$request->input('user_create');
         $website=$request->input('website');
@@ -162,8 +163,8 @@ class LeadController extends Controller
         $addresscode=$request->input('village');
 
         // return $lead_id;
-        // dd($lead_status);
-        return  Lead::insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
+        // dd($lead_id);
+        return  Lead::insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
         $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
         $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
         $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
@@ -189,6 +190,7 @@ class LeadController extends Controller
             $company_en=$request->input('company_en');
             $company_kh=$request->input('company_kh');
             $primary_email=$request->input('primary_email');
+            $primary_phone=$request->input('primary_phone');
             // $user_create=$request->input('user_create');
             $user_create=$userid;
             $website=$request->input('website');
@@ -228,7 +230,7 @@ class LeadController extends Controller
 
             // var_dump($survey_id);
             return  Lead::updatebranch($lead_address_id,$lead_detail_id,$lead_item_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
-            $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,
+            $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,$primary_phone,
             $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
             $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$survey_id);
     }
@@ -317,10 +319,11 @@ class LeadController extends Controller
         $company_en=$request->input('company_en');
         $company_kh=$request->input('company_kh');
         $primary_email=$request->input('primary_email');
+        $primary_phone=$request->input('primary_phone');
         // $user_create=$request->input('user_create');
         $user_create=$userid;
         $website=$request->input('website');
-        $facebook=$request->input('facebook');
+        $facebook=$request->input('company_facebook');
         $vat_number=$request->input('vat_number');
         $company_branch=$request->input('branch');
         $lead_source=$request->input('lead_source');
@@ -331,10 +334,10 @@ class LeadController extends Controller
         $current_price=$request->input('current_price');
         $employee_count=$request->input('employee_count');
 
-        // var_dump("zdcvdx");
+        // dd($primary_phone);
 
         return  Lead::editLead($lead_id,$lead_number,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
-        $vat_number,$company_branch,$lead_source,$status,$lead_industry,$current_speed_isp,
+        $vat_number,$company_branch,$lead_source,$status,$lead_industry,$current_speed_isp,$primary_phone,
         $current_speed,$current_price,$employee_count);
     }
 
@@ -405,15 +408,24 @@ class LeadController extends Controller
         $userid = $_SESSION['userid'];
         $survey_id =$request->input('survey_id');
         // $userid =$request->input('user_create');
-        $possible =$request->input('possible')!='1'? 'f':'t';
+        $possible =$request->input('possible');
         $comment =$request->input('commentsurvey');
         $branch_id =$request->input('branch_id');
+        
+        if($possible=='yes'){
+            $possible='t';
+        }
+        else
+        {
+            $possible='f';
+        }
+        // dd($possible);
         // var_dump($userid,$survey_id,$possible,$comment,$branch_id);
         return Lead::insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id);
     }
     // get schdule type
-    public function getschduletype(){
-        $schedule_type= Lead::getschduletype();
+    public function getschduletype($id){
+        $schedule_type= Lead::getschduletype($id);
         return LeadCurrentSpeedIsp::Collection($schedule_type);
     }
     // insert schedule type

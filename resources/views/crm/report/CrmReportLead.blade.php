@@ -3,12 +3,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><span><i class="fas fa-chart-pie"></i></span>Detail Lead Report</h1>
+                <h1><span><i class="fas fa-chart-pie"></i></span>Detail Branch Report</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('/crmreport')">Report</a></li>
-                <li class="breadcrumb-item active">Detail Lead Report</li>
+                <li class="breadcrumb-item active">Detail Branch Report</li>
                 </ol>
             </div>
         </div>
@@ -27,10 +27,10 @@
                             <div class="col-3">
                                 <div class="row">
                                     <div class="col-6">
-                                            <button class="btn btn-success form-control"><span><i class="far fa-file-excel"></i></span> Excel</button>
+                                            <button class="btn btn-success form-control" id="btnExportExcelLeadReport"><span><i class="far fa-file-excel"></i></span> Excel</button>
                                     </div>
                                     <div class="col-6">
-                                            <button class="btn btn-danger form-control"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
+                                            <button class="btn btn-danger form-control" id="btnExportPdfLeadReport"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
                                     </div>
                                 </div>
                             </div>
@@ -130,6 +130,7 @@
                                         <th>Branch Name</th>
                                         <th>Department</th>
                                         <th>Customer Name</th>
+                                        {{-- <th>Create Date</th> --}}
                                         <th>Priority</th>
                                         <th>Source</th>
                                         <th>Status</th>

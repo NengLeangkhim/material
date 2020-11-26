@@ -308,6 +308,12 @@ function Crm_delete(id,route,goto,alert) {
 //         });
 //       }
 
+
+
+
+
+
+
 // -----------END Report ---------- //
 // -----------Setting CRM ---------- //
  ////view Manage Setting///////
@@ -550,129 +556,8 @@ function Crm_delete(id,route,goto,alert) {
     //     });
     // });
 
-    // get data into combobox branch
-    $('#branch').ready(function(){
-        // $('#branch').find('option').not(':first').remove();
-            $.ajax({
-                // url:'http://127.0.0.1:8000/api/branch',
-                url:'api/branch',
-                type:'get',
-                dataType:'json',
-                success:function(response){
-                        for(var i=0; i<response['data'].length ;i++){
-                            var id = response['data'][i].ma_company_branch_id;
-                            var name = response['data'][i].name;
-                            var company = response['data'][i].company;
-                            // alert(name);
-                            var option = "<option value='"+id+"'>"+name+" / "+company+"</option>";
 
-                            $("#branch").append(option);
-                        }
-                //     }
-                }
-            })
-
-        })
-     // get  current_speed_isp in  selection
-        $('#current_speed_isp').ready(function(){
-          $('#current_speed_isp').find('option').not(':first').remove();
-              $.ajax({
-                  url:'api/currentsppedisp',
-                  type:'get',
-                  dataType:'json',
-                  success:function(response){
-
-                          for(var i=0; i<response['data'].length ;i++){
-                              var id = response['data'][i].id;
-                              var name = response['data'][i].name_en;
-                              // alert(name);
-                              var option = "<option value='"+id+"'>"+name+"</option>";
-
-                              $("#current_speed_isp").append(option);
-                          }
-                  //     }
-                  }
-              })
-
-          })
-
-      // get  service in  selection
-        $('#service').ready(function(){
-          $('#service').find('option').not(':first').remove();
-              $.ajax({
-                  url:'api/stock/service',
-                  type:'get',
-                  dataType:'json',
-                  success:function(response){
-                          $.each(response['data'], function(i,item){
-                            var id = response['data'][i].id;
-                              var name = response['data'][i].name;
-                              // alert(name);
-                              var option = "<option value='"+id+"'>"+name+"</option>";
-
-                              $("#service").append(option);
-                          })
-                  }
-              })
-
-          })
-        // get  lead in  selection
-        $('#lead_id').ready(function(){
-          var myvar= $( "#getlead" ).val();
-          // alert(myvar);
-
-              $.ajax({
-                  url:'api/getlead',
-                  type:'get',
-                  dataType:'json',
-                  headers: {
-                    'Authorization': `Bearer ${myvar}`,
-                },
-                  success:function(response){
-                          // for(var i=0; i<response['data'].length; i++){
-                          //     var id = response['data'][i].lead_id;
-                          //     var name = response['data'][i].customer_name_en;
-                          //     // alert(name);
-                          //     var option = "<option value='"+id+"'>"+name+"</option>";
-
-                          //     $("#lead_id").append(option);
-                          // }
-                      $.each(response['data'], function(i,item){
-                        var id = response['data'][i].lead_id;
-                            var name = response['data'][i].customer_name_en;
-                            // alert(name);
-                            var option = "<option value='"+id+"'>"+name+"</option>";
-
-                            $("#lead_id").append(option)
-                      })
-
-                  }
-              })
-          })
-          // get contact in add lead
-          $('#contact_id  #getcontact').ready(function(){
-            // $('#lead_id').find('option').not(':first').remove();
-            var myvar= $( "#getcontact" ).val();
-                $.ajax({
-                    url:'api/contacts',
-                    type:'get',
-                    dataType:'json',
-                    headers: {
-                      'Authorization': `Bearer ${myvar}`,
-                  },
-                    success:function(response){
-                            $.each(response['data'], function(i,item){
-                              var id = response['data'][i].id;
-                              var name = response['data'][i].name_en;
-                              // alert(name);
-                              var option = "<option value='"+id+"'>"+name+"</option>";
-
-                              $("#contact_id").append(option);
-                            })
-
-                    }
-                })
-            })
+     
 
             //click back to home
         $('.lead').click(function(e){
@@ -753,6 +638,12 @@ function Crm_delete(id,route,goto,alert) {
         })
         });
 
+
+        // select option lead in add lead, if have value go to list field add branch
+        $("#lead_id").change(function () {
+            var lead_id = $(this).val();
+            goto_Action('/addleadtype',lead_id);
+        })
 
 
 
@@ -911,13 +802,15 @@ function Crm_delete(id,route,goto,alert) {
       function btnActionAfterClickRowTbl(tbl,btnId,getName,fieldID,fieldName,modal_form){
           $('#'+btnId+'').click( function () {
               if($('tbody tr').hasClass('selected') == true){
-                  var lead_id = $('.selected').attr("id");
-                  var lead_name = $.trim($('#'+getName+'_'+lead_id+'').text());
-                  $('#'+fieldID+'').val(lead_id);
-                  $('#'+fieldName+'').val(lead_name);
-                  var leadAddressId = $('#leadAddressId'+lead_id+'').val();
-                  $('#crm_address_id').val(leadAddressId);
-
+                    var lead_id = $('.selected').attr("id");
+                    var lead_name = $.trim($('#'+getName+'_'+lead_id+'').text());
+                    $('#'+fieldID+'').val(lead_id);
+                    $('#'+fieldName+'').val(lead_name);
+                    var leadAddressId = $('#leadAddressId'+lead_id+'').val();
+                    if(typeof leadAddressId != 'undefined'){
+                        $('#crm_address_id').val(leadAddressId);
+                    }
+                    // console.log('when selected tr table addrssid='+leadAddressId);
                   $('#'+modal_form+'').modal('hide');
               }else{
                     $("#"+btnId+"").notify(
@@ -1083,7 +976,7 @@ function Crm_delete(id,route,goto,alert) {
                             //check if row content of branch already add
                             if(typeof($('#lead_branch'+branch_id+'').val()) != 'undefined'){
                                     $("#getSelectRow").notify(
-                                        "This record was seleted!",
+                                        "This record was choosen !",
                                         "info",
                                         {
                                         position:"right",
@@ -1184,6 +1077,11 @@ function Crm_delete(id,route,goto,alert) {
                 // clear textfieild lead branch
                 $('.btnCloseRowContent').click();
                 $('.btnCloseRowContent').click();
+
+                // clear data in grandTotal
+                $('#sumTotal').text('0.0');
+                $('#getTaxation').text('0.0');
+                $('#grandTotal').text('0.0');
     });
 
 
