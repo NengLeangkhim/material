@@ -27,10 +27,10 @@
                             <div class="col-3">
                                 <div class="row">
                                     <div class="col-6">
-                                            <button class="btn btn-success form-control"><span><i class="far fa-file-excel"></i></span> Excel</button>
+                                            <button class="btn btn-success form-control" id="btnExportExcelOrganizReport"><span><i class="far fa-file-excel"></i></span> Excel</button>
                                     </div>
                                     <div class="col-6">
-                                            <button class="btn btn-danger form-control"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
+                                            <button class="btn btn-danger form-control" id="btnExportPDFOrganizReport"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
                                     </div>
                                 </div>
                             </div>
@@ -111,9 +111,10 @@
                             </div>
                         </div><!--End Form Group--> --}}
                         <div class="table-responsive" style="padding-top: 10px;">
-                            <table id="OrganizationTbl" class="table table-bordered table-striped">
+                            <table id="OrganizationTbl3" class="table table-bordered table-striped" style="white-space: nowrap;">
                                 <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Lead Number</th>
                                         <th>Company Name</th>
                                         <th>Customer Name</th>
@@ -178,9 +179,9 @@
             var from = $('#DetailOrganizationFrom').val() == '' ? '' : (new Date($('#DetailOrganizationFrom').val())).toISOString().substring(0, 10)
             var to = new Date($('#DetailOrganizationTo').val());
             to = $('#DetailOrganizationTo').val() == '' ? '' : (new Date(to.getUTCFullYear(), to.getMonth() + 1, 1)).toISOString().substring(0,10)
-            $('#OrganizationTbl').dataTable().fnClearTable();
-            $('#OrganizationTbl').dataTable().fnDraw();
-            $('#OrganizationTbl').dataTable().fnDestroy();
+            $('#OrganizationTbl3').dataTable().fnClearTable();
+            $('#OrganizationTbl3').dataTable().fnDraw();
+            $('#OrganizationTbl3').dataTable().fnDestroy();
             $.ajax({
                 url : url,
                 type : 'GET',
@@ -196,6 +197,7 @@
                         $.each(response.data, function(index, data){
                             $('#lead-detail-body').append(`
                             <tr>
+                                <td>${index+1}</td>
                                 <td>${data.lead_number}</td>
                                 <td>${data.name_en}</td>
                                 <td>${data.customer_name_en}</td>
@@ -208,7 +210,7 @@
                             </tr>
                             `)
                         })
-                        $('#OrganizationTbl').DataTable();
+                        $('#OrganizationTbl3').DataTable();
                     }
                 },
                 fail : function(){

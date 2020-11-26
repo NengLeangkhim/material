@@ -308,6 +308,12 @@ function Crm_delete(id,route,goto,alert) {
 //         });
 //       }
 
+
+
+
+
+
+
 // -----------END Report ---------- //
 // -----------Setting CRM ---------- //
  ////view Manage Setting///////
@@ -551,7 +557,7 @@ function Crm_delete(id,route,goto,alert) {
     // });
 
 
-     
+
 
             //click back to home
         $('.lead').click(function(e){

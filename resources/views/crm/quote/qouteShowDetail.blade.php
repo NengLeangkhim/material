@@ -519,7 +519,7 @@
             var lead_id=$("#crm_lead_id").val();
             var quote_id=$("#quote_id").val();
             var token=$("#token").val();           
-            alert(lead_id+" "+quote_id+" "+token);
+            // alert(lead_id+" "+quote_id+" "+token);
                 Swal.fire({ //get from sweetalert function
                 title: 'Cancel',
                 text: "Do you wan to Convert to BSC? ",

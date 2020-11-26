@@ -183,3 +183,9 @@ $(window).on('shown.bs.modal', function() {
 <script src="plugins/fullcalendar-timegrid/main.min.js"></script>
 <script src="plugins/fullcalendar-interaction/main.min.js"></script>
 <script src="plugins/fullcalendar-bootstrap/main.min.js"></script>
+
+
+<script src="plugins/jsTableExport/jsExportExcel.js"></script>  <!-- this js use for export table to any file -->
+<script src="plugins/jsTableExport/html2canvas.min.js"></script>  <!-- this js html2canvas use to support export to pdf  -->
+<script src="plugins/jsTableExport/pdfmake.min.js"></script>  <!-- this js use for export data table to pdf -->
+
