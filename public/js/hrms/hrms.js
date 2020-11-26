@@ -703,7 +703,6 @@ function hrms_date(){
                 }
             });
     }
-<<<<<<< Updated upstream
 
     function hrms_modal_training(ids=-1){
         if(check_session()){
@@ -732,8 +731,6 @@ function hrms_date(){
             }
         });
     }
-=======
->>>>>>> Stashed changes
     function hrms_validation_employee_training(table_id){
         i=$('#'+table_id).find('input:checked').length;
         if(i>0){
