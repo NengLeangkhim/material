@@ -222,23 +222,23 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Home</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="emhome_en" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                <input type="text" class="form-control" name="emhome_en" value="@php if(isset($current_address)){echo $current_address['home'];} @endphp">
                             </div>
                         </div>
 
                         <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Street</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="emstreet_en" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
+                                    <input type="text" class="form-control" name="emstreet_en" value="@php if(isset($current_address)){echo $current_address['street'];} @endphp">
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            {{-- <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Group</label>
                                 <div class="col-sm-7">
                                     <input type="text" class="form-control" name="em_group" value="">
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">City/Province <span class="text-danger">*</span></label>
@@ -247,8 +247,8 @@
                                         <option value="" hidden></option>
                                         @php
                                             foreach ($data[2] as $province) {
-                                            if(isset($data[1])){
-                                                if($province->code==$data[1]['province']){
+                                            if(isset($current_address)){
+                                                if($province->code==$current_address['province_code']){
                                                     echo '<option selected value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
                                                 }else {
                                                     echo '<option value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
@@ -268,9 +268,9 @@
                                     <select class="form-control dynamic" name="idistrict" id="idistrict" onchange="getbranch(this,'icommune','s','/commune')" required >
                                         <option value="" hidden></option>
                                         @php
-                                            if(isset($data[1])){
+                                            if(isset($current_address)){
                                                 foreach ($data[1]['all_district'] as $district) {
-                                                if($data[1]['district']==$district->id){
+                                                if($current_address['district_code']==$district->id){
                                                     echo '<option selected value="'.$district->id.'">'.$district->name.'</option>';
                                                 }else {
                                                     echo '<option value="'.$district->id.'">'.$district->name.'</option>';
@@ -288,9 +288,9 @@
                                     <select class="form-control dynamic" name="icommune" id="icommune" onchange="getbranch(this,'ivillage','s','/village')" required>
                                         <option value="" hidden></option>
                                         @php
-                                            if(isset($data[1])){
+                                            if(isset($current_address)){
                                                 foreach ($data[1]['all_commune'] as $commune) {
-                                                if($commune->id==$data[1]['commune']){
+                                                if($commune->id==$current_address['commune_code']){
                                                     echo '<option selected value="'.$commune->id.'">'.$commune->name.'</option>';
                                                 }else {
                                                     echo '<option value="'.$commune->id.'">'.$commune->name.'</option>';
@@ -308,9 +308,9 @@
                                     <select class="form-control " name="ivillage" id="ivillage" dats-dependent="village" required>
                                         <option value="" hidden></option>
                                         @php
-                                            if(isset($data[1])){
+                                            if(isset($current_address)){
                                                 foreach ($data[1]['all_village'] as $village) {
-                                                if($village->id==$data[1]['village']){
+                                                if($village->id==$current_address['village_code']){
                                                     echo '<option selected value="'.$village->id.'">'.$village->name.'</option>';
                                                 }else {
                                                     echo '<option value="'.$village->id.'">'.$village->name.'</option>';
@@ -330,23 +330,23 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Home</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="em_permanent_home_en" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                <input type="text" class="form-control" name="em_permanent_home_en" value="@php if(isset($permanent_address)){echo $permanent_address['home'];} @endphp">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Street</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="em_permanent_street_en" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
+                                <input type="text" class="form-control" name="em_permanent_street_en" value="@php if(isset($permanent_address)){echo $permanent_address['street'];} @endphp">
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Group</label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control" name="em_permanent_group" value="">
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">City/Province <span class="text-danger">*</span></label>
@@ -355,8 +355,8 @@
                                     <option value="" hidden></option>
                                     @php
                                           foreach ($data[2] as $province) {
-                                          if(isset($data[1])){
-                                              if($province->code==$data[1]['province']){
+                                          if(isset($permanent_address)){
+                                              if($province->code==$permanent_address['province_code']){
                                                   echo '<option selected value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
                                               }else {
                                                   echo '<option value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
@@ -375,6 +375,17 @@
                             <div class="col-sm-7">
                                 <select class="form-control dynamic" name="permenent_idistrict" id="permenent_idistrict" onchange="getbranch(this,'permenent_commune','s','/commune')" required>
                                     <option value="" hidden></option>
+                                    @php
+                                        if(isset($permanent_address)){
+                                            foreach ($permanent_address['all_district'] as $district) {
+                                            if($permanent_address['district_code']==$district->id){
+                                                echo '<option selected value="'.$district->id.'">'.$district->name.'</option>';
+                                            }else {
+                                                echo '<option value="'.$district->id.'">'.$district->name.'</option>';
+                                            }
+                                            }
+                                        }
+                                 @endphp
                                </select>
                             </div>
                         </div>
@@ -384,6 +395,17 @@
                             <div class="col-sm-7">
                                 <select name="permenent_commune" id="permenent_commune" class="form-control" onchange="getbranch(this,'permenent_village','s','/village')" required>
                                     <option value="" hidden></option>
+                                    @php
+                                        if(isset($permanent_address)){
+                                            foreach ($permanent_address['all_commune'] as $commune) {
+                                            if($commune->id==$permanent_address['commune_code']){
+                                                echo '<option selected value="'.$commune->id.'">'.$commune->name.'</option>';
+                                            }else {
+                                                echo '<option value="'.$commune->id.'">'.$commune->name.'</option>';
+                                            }
+                                            }
+                                        }
+                                    @endphp
                                 </select>
                             </div>
                         </div>
@@ -393,6 +415,17 @@
                             <div class="col-sm-7">
                                 <select name="permenent_village" id="permenent_village" class="form-control" required>
                                     <option value="" hidden></option>
+                                     @php
+                                        if(isset($permanent_address)){
+                                            foreach ($permanent_address['all_village'] as $village) {
+                                            if($village->id==$permanent_address['village_code']){
+                                                echo '<option selected value="'.$village->id.'">'.$village->name.'</option>';
+                                            }else {
+                                                echo '<option value="'.$village->id.'">'.$village->name.'</option>';
+                                            }
+                                            }
+                                        }
+                                    @endphp
                                 </select>
                             </div>
                         </div>
@@ -418,7 +451,16 @@
                                 <select name="type_of_dentification" id="type_of_dentification" class="form-control" required>
                                     <option value="" hidden></option>
                                     @foreach ($data[5] as $identity_type)
-                                        <option value="{{$identity_type->id}}">{{$identity_type->name_en}} / {{$identity_type->name_kh}}</option>
+                                        @if (isset($contact))
+                                            @if ($contact['iden_type']==$identity_type->name_en)
+                                                <option selected value="{{$identity_type->id}}">{{$identity_type->name_en}} / {{$identity_type->name_kh}}</option>
+                                            @else
+                                                <option value="{{$identity_type->id}}">{{$identity_type->name_en}} / {{$identity_type->name_kh}}</option>
+                                            @endif
+                                        @else
+                                            <option value="{{$identity_type->id}}">{{$identity_type->name_en}} / {{$identity_type->name_kh}}</option>
+                                        @endif
+                                        
                                     @endforeach
                                 </select>
                             </div>
@@ -427,28 +469,28 @@
                         <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label"># of Identification <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="number_of_dentification" id="number_of_dentification" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp" required>
+                                    <input type="text" class="form-control" name="number_of_dentification" id="number_of_dentification" value="@php if(isset($contact)){echo $contact['ma_identification_number'];} @endphp" required>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Issued Date</label>
                                 <div class="col-sm-7">
-                                    <input type="date" class="form-control" name="issued_date" id="issued_date" value="">
+                                    <input type="date" class="form-control" name="issued_date" id="issued_date" value="@php if(isset($contact)){echo $contact['issued_date'];} @endphp">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Issued Place</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="issued_place">
+                                    <input type="text" class="form-control" name="issued_place" value="@php if(isset($contact)){echo $contact['issued_place'];} @endphp">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Issued by</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="issued_by">
+                                    <input type="text" class="form-control" name="issued_by" value="@php if(isset($contact)){echo $contact['issued_by'];} @endphp">
                                 </div>
                             </div>
 
@@ -458,7 +500,16 @@
                                     <select name="blood_group" id="blood_group" class="form-control">
                                         <option value="" hidden></option>
                                         @foreach ($data[4] as $blood)
-                                    <option value="{{$blood->id}}">{{$blood->name_en}} / {{$blood->name_kh}}</option>
+                                            @if (isset($contact))
+                                                @if ($contact['blood_name']==$blood->name_en)
+                                                    <option selected value="{{$blood->id}}">{{$blood->name_en}} / {{$blood->name_kh}}</option>
+                                                @else
+                                                    <option value="{{$blood->id}}">{{$blood->name_en}} / {{$blood->name_kh}}</option>
+                                                @endif
+                                            @else
+                                                <option value="{{$blood->id}}">{{$blood->name_en}} / {{$blood->name_kh}}</option>
+                                            @endif
+                                            
                                         @endforeach
                                     </select>
                                 </div>
@@ -470,7 +521,16 @@
                                     <select name="religion" id="religion" class="form-control" required>
                                         <option value="" hidden></option>
                                         @foreach ($data[6] as $religion)
-                                            <option value="{{$religion->id}}">{{$religion->name_en}} / {{$religion->name_kh}}</option>
+                                            @if (isset($contact))
+                                                @if ($contact['religion']==$religion->name_en)
+                                                    <option selected value="{{$religion->id}}">{{$religion->name_en}} / {{$religion->name_kh}}</option>
+                                                @else
+                                                    <option value="{{$religion->id}}">{{$religion->name_en}} / {{$religion->name_kh}}</option>
+                                                @endif
+                                            @else
+                                                <option value="{{$religion->id}}">{{$religion->name_en}} / {{$religion->name_kh}}</option>
+                                            @endif
+                                            
                                         @endforeach
                                     </select>
                                 </div>
@@ -480,8 +540,19 @@
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Maritial Status <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
                                     <select name="maritial_status" id="maritial_status" class="form-control">
-                                        <option value="f">No</option>
-                                        <option value="t">Yes</option>
+                                        @if (isset($contact))
+                                            @if ($contact['is_marriage']==false)
+                                                <option value="f">No</option>
+                                                <option value="t">Yes</option>
+                                            @else
+                                                <option value="t">Yes</option>
+                                                <option value="f">No</option></option>
+                                            @endif
+                                        @else
+                                            <option value="f">No</option>
+                                            <option value="t">Yes</option>
+                                        @endif
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -489,7 +560,7 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Spouse Name</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="spouse_name">
+                                    <input type="text" class="form-control" name="spouse_name" value="@php if(isset($relative)){echo $relative['wife_name'];} @endphp">
                                 </div>
                             </div>
                             
@@ -503,14 +574,14 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Date of Birth</label>
                                 <div class="col-sm-7">
-                                    <input type="date" class="form-control" name="spoue_date_of_bithr">
+                                    <input type="date" class="form-control" name="spoue_date_of_bith" value="@php if(isset($relative)){echo $relative['wife_date_of_birth'];} @endphp">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Spouse's Occupation</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="spouse_occupation">
+                                    <input type="text" class="form-control" name="spouse_occupation" value="@php if(isset($relative)){echo $relative['wife_occupation'];} @endphp">
                                 </div>
                             </div>
 
@@ -520,7 +591,16 @@
                                     <select name="spouse_education_level" id="spouse_education_level" class="form-control">
                                         <option value="" hidden></option>
                                         @foreach ($data[7] as $education_level)
-                                    <option value="{{$education_level->id}}">{{$education_level->name_en}} / {{$education_level->name_kh}}</option>
+                                            @if (isset($relative))
+                                                @if ($relative['wife_education_level']==$education_level->name_en)
+                                                    <option selected value="{{$education_level->id}}">{{$education_level->name_en}} / {{$education_level->name_kh}}</option>
+                                                @else
+                                                    <option value="{{$education_level->id}}">{{$education_level->name_en}} / {{$education_level->name_kh}}</option>
+                                                @endif
+                                            @else
+                                                <option value="{{$education_level->id}}">{{$education_level->name_en}} / {{$education_level->name_kh}}</option>
+                                            @endif
+                                            
                                         @endforeach
                                     </select>
                                 </div>
@@ -529,7 +609,7 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Mobile Phone</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="spouse_mobile_phone">
+                                    <input type="text" class="form-control" name="spouse_mobile_phone" value="@php if(isset($relative)){echo $relative['wife_mobile_phone'];} @endphp">
                                 </div>
                             </div>
                       </div>
@@ -541,49 +621,49 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Father Name <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="parent_father_name" id="parent_father_name" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp" required>
+                                <input type="text" class="form-control" name="parent_father_name" id="parent_father_name" value="@php if(isset($relative)){echo $relative['father_name'];} @endphp" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Mother Name <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="parent_mother_name" id="parent_mother_name" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp" required>
+                                <input type="text" class="form-control" name="parent_mother_name" id="parent_mother_name" value="@php if(isset($relative)){echo $relative['mother_name'];} @endphp" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Father Occupation <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="parent_father_occupation" id="parent_father_occupation" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp" required>
+                                <input type="text" class="form-control" name="parent_father_occupation" id="parent_father_occupation" value="@php if(isset($relative)){echo $relative['father_occupation'];} @endphp" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Mother Occupation <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="parent_mother_occupation" id="parent_mother_occupation" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                <input type="text" class="form-control" name="parent_mother_occupation" id="parent_mother_occupation" value="@php if(isset($relative)){echo $relative['mother_occupation'];} @endphp">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Home</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="parent_home" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                <input type="text" class="form-control" name="parent_home" value="@php if(isset($relative)){echo $relative['parent_home'];} @endphp">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Street</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="parent_street" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
+                                <input type="text" class="form-control" name="parent_street" value="@php if(isset($relative)){echo $relative['parent_street'];} @endphp">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Group</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="parent_group" value="">
+                                <input type="text" class="form-control" name="parent_group" value="@php if(isset($relative)){echo $relative['parent_group'];} @endphp">
                             </div>
                         </div>
 
@@ -594,8 +674,8 @@
                                     <option value="" hidden></option>
                                     @php
                                           foreach ($data[2] as $province) {
-                                          if(isset($data[1])){
-                                              if($province->code==$data[1]['province']){
+                                          if(isset($relative)){
+                                              if($province->code==$relative['province_code']){
                                                   echo '<option selected value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
                                               }else {
                                                   echo '<option value="'.$province->code.'">'.$province->name_latin.'/'.$province->name_kh.'</option>';
@@ -614,6 +694,17 @@
                             <div class="col-sm-7">
                                 <select class="form-control dynamic" name="parent_idistrict" id="parent_idistrict" onchange="getbranch(this,'parent_commune','s','/commune')" required>
                                     <option value="" hidden></option>
+                                    @php
+                                        if(isset($relative)){
+                                            foreach ($relative['all_district'] as $district) {
+                                            if($relative['district_code']==$district->id){
+                                                echo '<option selected value="'.$district->id.'">'.$district->name.'</option>';
+                                            }else {
+                                                echo '<option value="'.$district->id.'">'.$district->name.'</option>';
+                                            }
+                                            }
+                                        }
+                                 @endphp
                                </select>
                             </div>
                         </div>
@@ -623,6 +714,17 @@
                             <div class="col-sm-7">
                                 <select name="parent_commune" id="parent_commune" class="form-control" onchange="getbranch(this,'parent_village','s','/village')" required>
                                     <option value="" hidden></option>
+                                     @php
+                                        if(isset($relative)){
+                                            foreach ($relative['all_commune'] as $commune) {
+                                            if($commune->id==$relative['commune_code']){
+                                                echo '<option selected value="'.$commune->id.'">'.$commune->name.'</option>';
+                                            }else {
+                                                echo '<option value="'.$commune->id.'">'.$commune->name.'</option>';
+                                            }
+                                            }
+                                        }
+                                    @endphp
                                 </select>
                             </div>
                         </div>
@@ -632,6 +734,17 @@
                             <div class="col-sm-7">
                                 <select name="parent_village" id="parent_village" class="form-control" required>
                                     <option value="" hidden></option>
+                                    @php
+                                        if(isset($relative)){
+                                            foreach ($relative['all_village'] as $village) {
+                                            if($village->id==$relative['village_code']){
+                                                echo '<option selected value="'.$village->id.'">'.$village->name.'</option>';
+                                            }else {
+                                                echo '<option value="'.$village->id.'">'.$village->name.'</option>';
+                                            }
+                                            }
+                                        }
+                                    @endphp
                                 </select>
                             </div>
                         </div>
@@ -639,14 +752,13 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Mobile Phone <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="parent_mobile_phone" id="parent_mobile_phone" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp" required>
+                                <input type="text" class="form-control" name="parent_mobile_phone" id="parent_mobile_phone" value="@php if(isset($relative)){echo $relative['phone_number'];} @endphp" required>
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Home Phone</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="parent_home_phone" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                <input type="text" class="form-control" name="parent_home_phone" value="@php if(isset($relative)){echo $relative['home_phone'];} @endphp">
                             </div>
                         </div>
 
@@ -672,7 +784,16 @@
                                     <select name="em_education_level" id="" class="form-control">
                                         <option value="" hidden></option>
                                         @foreach ($data[7] as $em_education_level)
-                                            <option value="{{$em_education_level->id}}">{{$em_education_level->name_en}} / {{$em_education_level->name_kh}}</option>
+                                            @if (isset($education))
+                                                @if ($education[0]['name_en']==$em_education_level->name_en)
+                                                    <option selected value="{{$em_education_level->id}}">{{$em_education_level->name_en}} / {{$em_education_level->name_kh}}</option>
+                                                @else
+                                                    <option value="{{$em_education_level->id}}">{{$em_education_level->name_en}} / {{$em_education_level->name_kh}}</option>
+                                                @endif
+                                            @else
+                                                <option value="{{$em_education_level->id}}">{{$em_education_level->name_en}} / {{$em_education_level->name_kh}}</option>
+                                            @endif
+                                            
                                         @endforeach
                                     </select>
                                 </div>
@@ -681,7 +802,7 @@
                             <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-5 col-form-label">Major Subject</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" name="em_major_subject" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
+                                        <input type="text" class="form-control" name="em_major_subject" value="@php if(isset($education)){echo $education[0]['major'];} @endphp">
                                     </div>
                                 </div>
 
@@ -692,14 +813,14 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Education Status</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="em_education_status" id="parent_father_name" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp" required>
+                                    <input type="text" class="form-control" name="em_education_status" id="parent_father_name" value="@php if(isset($education)){echo $education[0]['education_status'];} @endphp" required>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">University/School</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="university_school" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                    <input type="text" class="form-control" name="university_school" value="@php if(isset($education)){echo $education[0]['school'];} @endphp">
                                 </div>
                             </div>
                         </div>
@@ -721,14 +842,14 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label"># of Experience</label>
                                 <div class="col-sm-7">
-                                    <input type="number" class="form-control" name="number_of_experience" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                    <input type="number" class="form-control" name="number_of_experience" value="@php if(isset($experience)){echo $experience[0]['experience_period'];} @endphp">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-5 col-form-label">Sector</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" name="sector" value="@php if(isset($data[1])){echo $data[1]['street_en'];} @endphp">
+                                        <input type="text" class="form-control" name="sector" value="@php if(isset($experience)){echo $experience[0]['sector'];} @endphp">
                                     </div>
                                 </div>
 
@@ -739,14 +860,14 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Company's Name</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="company_name" id="parent_father_name" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp" required>
+                                    <input type="text" class="form-control" name="company_name" id="parent_father_name" value="@php if(isset($experience)){echo $experience[0]['company_name'];} @endphp" required>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Last Position</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="last_position" value="@php if(isset($data[1])){echo $data[1]['home_en'];} @endphp">
+                                    <input type="text" class="form-control" name="last_position" value="@php if(isset($experience)){echo $experience[0]['last_position'];} @endphp">
                                 </div>
                             </div>
                         </div>

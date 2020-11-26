@@ -249,16 +249,27 @@ function hrms_date(){
                     request_exit_date:$('#request_exit_date').val(),
                     type_of_exit:$('#type_of_exit').val(),
                     hr_received_date:$('#hr_received_date').val(),
+                    effective_exit_date:$('#effective_exit_date').val(),
+                    training_and_development:$('#training_and_development').val(),
+                    opportunity_to_promote:$('#opportunity_to_promote').val(),
+                    work_presure:$('#work_presure').val(),
+                    working_on_holiday:$('#working_on_holiday').val(),
+                    motivation:$('#motivation').val(),
+                    overall_opion:$('#overall_opion').val(),
+                    submit_date:$('#submit_date').val(),
+                    manager_approved_date:$('#manager_approved_date').val(),
+                    reason_of_exit:$('#reason_of_exit').val(),
+                    duties_and_responsibility:$('#duties_and_responsibility').val(),
+                    given_salary:$('#given_salary').val(),
+                    working_environment:$('#working_environment').val(),
+                    team_work:$('#team_work').val(),
+                    management_issue:$('#management_issue').val(),
+                    comment:$('#comment').val()
                 },
                 success: function (data) {
-                    resual=JSON.parse(data);
-                    if($,isEmptyObject(resual.error)){
-                        alert(resual.success);
-                    }else{
-                        $.each(resual.error, function(key,value){
-                            $('#'+key).addClass('is-invalid');
-                        });
-                    }
+                    setTimeout(function () { go_to('hrm_allemployee'); }, 300);
+                   hrms_notification(this.responseText);
+                   $('#modal_exit_employee').modal('hide');
                 }
             });
 

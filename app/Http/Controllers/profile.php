@@ -130,10 +130,9 @@ class profile extends Controller
             $education=profileModel::education_deatail($user_id);
             $permanent_address=profileModel::permanent_address($user_id);
             $current_address=profileModel::current_address($user_id);
-            // dd($current_address);
-            // return;
             $em_contect=profileModel::user_contact($user_id);
-            return view('profile',compact("employee","training","leave_type","all_leave","warning","exit_information","job_experience","education","permanent_address","em_contect","current_address"));//,"pos","name","id_number","dept","kindof","transfer_to","leave_kind","trans_to","date_from","time_from","date_to","time_to","date_resume","leave_number","reason","req_by","create_date"));
+            $relative=profileModel::get_relative_emergency_contact($user_id);
+            return view('profile',compact("employee","training","leave_type","all_leave","warning","exit_information","job_experience","education","permanent_address","em_contect","current_address","relative"));//,"pos","name","id_number","dept","kindof","transfer_to","leave_kind","trans_to","date_from","time_from","date_to","time_to","date_resume","leave_number","reason","req_by","create_date"));
         }else{
             return view('no_perms');
         }

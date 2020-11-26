@@ -86,7 +86,11 @@ class profileModel extends Model
         try {
             $sql="SELECT concat(name_latin,'/',name_kh) as name FROM ma_gazetteers where code='$gazetteer'";
             $stm=DB::Select($sql);
-            return $stm[0]->name;
+            if(count($stm)>0){
+                return $stm[0]->name;
+            }else{
+                return '';
+            }
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -132,7 +136,7 @@ class profileModel extends Model
     }
 
 
-    // employee experirence
+    // employee experirence muli
     public static function experience_detil($id){
         try {
             $experience=DB::table('ma_user_experience')
@@ -165,7 +169,40 @@ class profileModel extends Model
     }
 
 
-    // education detail
+    // employee experirence one
+    public static function experience_detil_one($id){
+        try {
+            $experience=DB::table('ma_user_experience')
+            ->where('ma_user_id','=',$id)->limit(1)
+            ->get();
+            $arr=array();
+            if(count($experience)>0){
+                foreach($experience as $exper){
+                    $data=[
+                        'experience_period'=>$exper->experience_period,
+                        'sector'=>$exper->sector,
+                        'company_name'=>$exper->company_name,
+                        'last_position'=>$exper->last_position
+                    ];
+                    array_push($arr,$data);
+                }
+            }else{
+                $data=[
+                    'experience_period'=>null,
+                    'sector'=>null,
+                    'company_name'=>null,
+                    'last_position'=>null
+                ];
+                array_push($arr,$data);
+            }
+            return $arr;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+    // education detail multi
     public static function education_deatail($id){
         try {
             $education=DB::table('ma_user_education_detail as mued')
@@ -198,6 +235,40 @@ class profileModel extends Model
         }
     }
 
+    // education detail one
+    public static function education_deatail_one($id){
+        try {
+            $education=DB::table('ma_user_education_detail as mued')
+            ->join('ma_user_education_level as muel','muel.id','=','mued.ma_education_level_id')
+            ->where('mued.ma_user_id','=',$id)->limit(1)
+            ->get();
+            $array=array();
+            if(count($education)>0){
+                foreach($education as $edu){
+                    $data=[
+                        'name_en'=>$edu->name_en,
+                        'major'=>$edu->major,
+                        'education_status'=>$edu->education_status,
+                        'school'=>$edu->school
+                    ];
+                    array_push($array,$data);
+                }
+            }else{
+                $data=[
+                    'name_en'=>null,
+                    'major'=>null,
+                    'education_status'=>null,
+                    'school'=>null
+                ];
+                array_push($array,$data);
+            }
+            return $array;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
 
     // permanent address
     public static function permanent_address($id){
@@ -220,13 +291,23 @@ class profileModel extends Model
                     $commune= substr($permanent[0]->gazetteer_code, 0, 5);
                     $village= substr($permanent[0]->gazetteer_code, 0, 7);
                 }
+                $all_district=addressModel::GetLeadDistrict($province);
+                $all_commune=addressModel::GetLeadCommune($district);
+                $all_village=addressModel::GetLeadVillage($commune);
                 $data=[
                     'home'=>$permanent[0]->hom_en,
                     'street'=>$permanent[0]->street_en,
                     'village'=>self::get_address_employee($village),
                     'commune'=>self::get_address_employee($commune),
                     'district'=>self::get_address_employee($district),
-                    'province'=>self::get_address_employee($province)
+                    'province'=>self::get_address_employee($province),
+                    'village_code'=>$village,
+                    'district_code'=>$district,
+                    'commune_code'=>$commune,
+                    'province_code'=>$province,
+                    'all_village'=>$all_village,
+                    'all_district'=>$all_district,
+                    'all_commune'=>$all_commune
                 ];
             }else{
                 $data=[
@@ -235,7 +316,14 @@ class profileModel extends Model
                     'village'=>null,
                     'commune'=>null,
                     'district'=>null,
-                    'province'=>null
+                    'province'=>null,
+                    'village_code'=>null,
+                    'district_code'=>null,
+                    'commune_code'=>null,
+                    'province_code'=>null,
+                    'all_village'=>array(),
+                    'all_district'=>array(),
+                    'all_commune'=>array()
                 ];
             }
             return $data;
@@ -267,13 +355,23 @@ class profileModel extends Model
                     $commune= substr($current[0]->gazetteer_code, 0, 5);
                     $village= substr($current[0]->gazetteer_code, 0, 7);
                 }
+                $all_district=addressModel::GetLeadDistrict($province);
+                $all_commune=addressModel::GetLeadCommune($district);
+                $all_village=addressModel::GetLeadVillage($commune);
                 $data=[
                     'home'=>$current[0]->hom_en,
                     'street'=>$current[0]->street_en,
                     'village'=>self::get_address_employee($village),
                     'commune'=>self::get_address_employee($commune),
                     'district'=>self::get_address_employee($district),
-                    'province'=>self::get_address_employee($province)
+                    'province'=>self::get_address_employee($province),
+                    'village_code'=>$village,
+                    'district_code'=>$district,
+                    'commune_code'=>$commune,
+                    'province_code'=>$province,
+                    'all_village'=>$all_village,
+                    'all_district'=>$all_district,
+                    'all_commune'=>$all_commune
                 ];
             }else{
                 $data=[
@@ -282,7 +380,14 @@ class profileModel extends Model
                     'village'=>null,
                     'commune'=>null,
                     'district'=>null,
-                    'province'=>null
+                    'province'=>null,
+                    'village_code'=>null,
+                    'district_code'=>null,
+                    'commune_code'=>null,
+                    'province_code'=>null,
+                    'all_village'=>array(),
+                    'all_district'=>array(),
+                    'all_commune'=>array()
                 ];
             }
             return $data;
@@ -322,6 +427,105 @@ class profileModel extends Model
                 ];
             }
             return $data;        
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+    // get relatetive
+    public static function get_relative($id,$relative_type){
+        try {
+            $sql="SELECT mur.name_en as relative_type_name,murt.name_kh as relative_type_name_kh,occupation,birth_date,muel.name_en as education_level,mur.phone_number,mur.home_phone,mur.gazetteer_code,mur.home,mur.street,mur.group FROM ma_user_relative mur 
+                INNER JOIN ma_user_relative_type murt on murt.id=mur.ma_relative_type_id 
+                LEFT JOIN ma_user_education_level muel on muel.id=mur.ma_education_level_id WHERE mur.ma_user_id=$id and mur.ma_relative_type_id=$relative_type and mur.status='t' and mur.is_deleted='f' LIMIT 1";
+            $re=DB::select($sql);
+            if(count($re)>0){
+                $data=[
+                    'relative_type_name'=>$re[0]->relative_type_name,
+                    'relative_type_name_kh'=>$re[0]->relative_type_name_kh,
+                    'occupation'=>$re[0]->occupation,
+                    'birth_date'=>$re[0]->birth_date,
+                    'education_level'=>$re[0]->education_level,
+                    'phone_number'=>$re[0]->phone_number,
+                    'home_phone'=>$re[0]->home_phone,
+                    'gazetteer_code'=>$re[0]->gazetteer_code,
+                    'home'=>$re[0]->home,
+                    'street'=>$re[0]->street,
+                    'group'=>$re[0]->group
+                ];
+            }else{
+                $data=[
+                    'relative_type_name'=>null,
+                    'relative_type_name_kh'=>null,
+                    'occupation'=>null,
+                    'birth_date'=>null,
+                    'education_level'=>null,
+                    'phone_number'=>null,
+                    'home_phone'=>null,
+                    'gazetteer_code'=>null,
+                    'home'=>null,
+                    'street'=>null,
+                    'group'=>null
+                ];
+            }
+            return $data;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+
+
+    // get Relative/Emergency Contact
+    public static function get_relative_emergency_contact($id){
+        try {
+            $father=self::get_relative($id,1);
+            $mother=self::get_relative($id,2);
+            $wife=self::get_relative($id,3);
+            if(strlen($father['gazetteer_code'])>7){
+                $province=substr($father['gazetteer_code'],0,2);
+                $district= substr($father['gazetteer_code'], 0, 4);
+                $commune= substr($father['gazetteer_code'], 0, 6);
+                $village= substr($father['gazetteer_code'], 0, 8);
+            }else{
+                $province= substr($father['gazetteer_code'], 0, 1);
+                $district= substr($father['gazetteer_code'], 0, 3);
+                $commune= substr($father['gazetteer_code'], 0, 5);
+                $village= substr($father['gazetteer_code'], 0, 7);
+            }
+            $all_district=addressModel::GetLeadDistrict($province);
+            $all_commune=addressModel::GetLeadCommune($district);
+            $all_village=addressModel::GetLeadVillage($commune);
+            $data=[
+                'father_name'=>$father['relative_type_name'],
+                'mother_name'=>$mother['relative_type_name'],
+                'father_occupation'=>$father['occupation'],
+                'mother_occupation'=>$mother['occupation'],
+                'parent_home'=>$father['home'],
+                'parent_street'=>$father['street'],
+                'parent_group'=>$father['group'],
+                'village'=>self::get_address_employee($village),
+                'commune'=>self::get_address_employee($commune),
+                'district'=>self::get_address_employee($district),
+                'province'=>self::get_address_employee($province),
+                'village_code'=>$village,
+                'district_code'=>$district,
+                'commune_code'=>$commune,
+                'province_code'=>$province,
+                'all_village'=>$all_village,
+                'all_district'=>$all_district,
+                'all_commune'=>$all_commune,
+                'phone_number'=>$father['phone_number'],
+                'home_phone'=>$father['home_phone'],
+                'wife_name'=>$wife['relative_type_name'],
+                'wife_date_of_birth'=>$wife['birth_date'],
+                'wife_occupation'=>$wife['occupation'],
+                'wife_education_level'=>$wife['education_level'],
+                'wife_mobile_phone'=>$wife['phone_number']
+            ];
+            return $data;
         } catch (\Throwable $th) {
             throw $th;
         }

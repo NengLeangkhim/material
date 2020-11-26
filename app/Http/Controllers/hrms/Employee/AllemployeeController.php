@@ -9,9 +9,11 @@ use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
 use App\model\hrms\employee\Employee;
 use App\model\hrms\employee\DepartmentAndPosition;
+use App\model\mainapp\employeeProfile\profileModel;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Expr\Print_;
 use Illuminate\Validation\Rule;
+use phpDocumentor\Reflection\Types\Null_;
 
 class AllemployeeController extends Controller
 {
@@ -53,7 +55,13 @@ class AllemployeeController extends Controller
                 $id=$_GET['id'];
                 if ($id>0) {
                     $data[1]=Employee::EmployeeOnRow($id);
-                    return view('hrms/Employee/AllEmployees/AddAndEditEmployee')->with('data', $data);
+                    $current_address=profileModel::current_address($id);
+                    $permanent_address=profileModel::permanent_address($id);
+                    $contact=profileModel::user_contact($id);
+                    $relative=profileModel::get_relative_emergency_contact($id);
+                    $education=profileModel::education_deatail_one($id);
+                    $experience=profileModel::experience_detil_one($id);
+                    return view('hrms/Employee/AllEmployees/AddAndEditEmployee')->with(compact('data','current_address','permanent_address','contact','relative','education','experience'));
                 } else {
                     return view('hrms/Employee/AllEmployees/AddAndEditEmployee')->with('data', $data);
                 }
@@ -204,13 +212,313 @@ class AllemployeeController extends Controller
             $bankaccount=$request->emBankAccount;
             $imageDirectory=$request->imgdirectory;
             if($id>0){
-            if(strlen($profile['name'])>0){
-                    $upload=path_config::Move_Upload($profile, "/media/file/main_app/profile/img/");
-                    if($upload==0){
-                        $imageDirectory=$upload;
+                if(strlen($profile['name'])>0){
+                        $upload=path_config::Move_Upload($profile, "/media/file/main_app/profile/img/");
+                        if($upload==0){
+                            $imageDirectory=$upload;
+                            $em=Employee::UpdateEmployee($id,$firstName_en,$lastName_en,$email,$telephone,$position,8,16,$departement_id,$userid,$idNumber,$sex,$firstName_kh,$lastName_kh,$imageDirectory,$officePhone,$jointDate,$dateOfBirth,$homeNumber_en,$homeNumber_kh,$street_en,$street_kh,'null',$vilage,'null',$spous,$has_children,$chidren,$salary,4,$description,$bankaccount);
+                            $address_Permanent=[
+                                'hom_en'=>$request->em_permanent_home_en,
+                                'street_en'=>$request->em_permanent_street_en,
+                                'status'=>'t',
+                                'gazetteer_code'=>$request->permenent_village,
+                                'is_deleted'=>'f',
+                                'create_by'=>$userid,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'is_permanent_address'=>'t',
+                                'is_current_address'=>'f'
+                            ];
+                            
+                            
+                            $permanent=DB::table('ma_user_address')->where(
+                                [
+                                    ['ma_user_id','=',$em],
+                                    ['is_permanent_address','=','t']
+                                ])->first();
+                            if ($permanent===null) {
+                                $address_Permanent=[
+                                    'ma_user_id'=>$em,
+                                    'hom_en'=>$request->em_permanent_home_en,
+                                    'street_en'=>$request->em_permanent_street_en,
+                                    'status'=>'t',
+                                    'gazetteer_code'=>$request->permenent_village,
+                                    'is_deleted'=>'f',
+                                    'create_by'=>$userid,
+                                    'create_date'=>date('Y-m-d h:m:s'),
+                                    'is_permanent_address'=>'t',
+                                    'is_current_address'=>'f'
+                                ];
+                                DB::table('ma_user_address')->insert($address_Permanent);
+                            }else{
+                                DB::table('ma_user_address')->where(
+                                    [
+                                        ['ma_user_id','=',$em],
+                                        ['is_permanent_address','=','t']
+                                    ]
+                                    )->update($address_Permanent);
+                            }
+
+
+
+                            $contact_employee=[
+                                'ma_identification_type_id'=>$request->type_of_dentification,
+                                'ma_identification_number'=>$request->number_of_dentification,
+                                'issued_date'=>$request->issued_date,
+                                'issued_place'=>$request->issued_place,
+                                'issued_by'=>$request->issued_by,
+                                'ma_blood_group_id'=>$request->blood_group,
+                                'ma_religion_id'=>$request->religion,
+                                'is_marriage'=>$request->maritial_status,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'create_by'=>$userid,
+                                'status'=>'t',
+                                'is_deleted'=>'f'
+                            ];
+                            $relative_father=[
+                                'ma_relative_type_id'=>1,
+                                'name_en'=>$request->parent_father_name,
+                                'name_kh'=>null,
+                                'occupation'=>$request->parent_father_occupation,
+                                'birth_date'=>null,
+                                'ma_education_level_id'=>null,
+                                'phone_number'=>$request->parent_mobile_phone,
+                                'home_phone'=>$request->parent_home_phone,
+                                'gazetteer_code'=>$request->parent_village,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'create_by'=>$userid,
+                                'status'=>'t',
+                                'is_deleted'=>'f',
+                                'home'=>$request->parent_home,
+                                'street'=>$request->parent_street,
+                                'group'=>$request->parent_group
+                            ];
+                            $relative_mother=[
+                                'ma_relative_type_id'=>2,
+                                'name_en'=>$request->parent_mother_name,
+                                'name_kh'=>null,
+                                'occupation'=>$request->parent_mother_occupation,
+                                'birth_date'=>null,
+                                'ma_education_level_id'=>null,
+                                'phone_number'=>$request->parent_mobile_phone,
+                                'home_phone'=>$request->parent_home_phone,
+                                'gazetteer_code'=>$request->parent_village,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'create_by'=>$userid,
+                                'status'=>'t',
+                                'is_deleted'=>'f',
+                                'home'=>$request->parent_home,
+                                'street'=>$request->parent_street,
+                                'group'=>$request->parent_group
+                            ];
+
+                            $relative_spoue=[
+                                'ma_relative_type_id'=>3,
+                                'name_en'=>$request->spouse_name,
+                                'name_kh'=>null,
+                                'occupation'=>$request->spouse_occupation,
+                                'birth_date'=>$request->spoue_date_of_bith,
+                                'ma_education_level_id'=>$request->spouse_education_level,
+                                'phone_number'=>$request->spouse_mobile_phone,
+                                'home_phone'=>null,
+                                'gazetteer_code'=>null,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'create_by'=>$userid,
+                                'status'=>'t',
+                                'is_deleted'=>'f',
+                                'home'=>$request->parent_home,
+                                'street'=>$request->parent_street,
+                                'group'=>$request->parent_group
+                            ];
+
+                            $education_detail=[
+                                'ma_education_level_id'=>$request->em_education_level,
+                                'major'=>$request->em_major_subject,
+                                'education_status'=>$request->em_education_status,
+                                'school'=>$request->university_school,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'create_by'=>$userid,
+                                'status'=>'t',
+                                'is_deleted'=>'f'
+                            ];
+                            $experience_detail=[
+                                'experience_period'=>$request->number_of_experience,
+                                'sector'=>$request->sector,
+                                'company_name'=>$request->company_name,
+                                'last_position'=>$request->last_position,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'create_by'=>$userid,
+                                'status'=>'t',
+                                'is_deleted'=>'f'
+                            ];
+                            $experience=DB::table('ma_user_experience')->where('ma_user_id','=',$em)->first();
+                            if($experience===null){
+                                $experience_detail=[
+                                    'ma_user_id'=>$em,
+                                    'experience_period'=>$request->number_of_experience,
+                                    'sector'=>$request->sector,
+                                    'company_name'=>$request->company_name,
+                                    'last_position'=>$request->last_position,
+                                    'create_date'=>date('Y-m-d h:m:s'),
+                                    'create_by'=>$userid,
+                                    'status'=>'t',
+                                    'is_deleted'=>'f'
+                                ];
+                                DB::table('ma_user_experience')->insert($experience_detail);
+                            }else{
+                                DB::table('ma_user_experience')->where('ma_user_id','=',$em)->update($experience_detail);
+                            }
+                            $education=DB::table('ma_user_education_detail')->where('ma_user_id','=',$em)->first();
+                            if($education===null){
+                                $education_detail=[
+                                    'ma_user_id'=>$em,
+                                    'ma_education_level_id'=>$request->em_education_level,
+                                    'major'=>$request->em_major_subject,
+                                    'education_status'=>$request->em_education_status,
+                                    'school'=>$request->university_school,
+                                    'create_date'=>date('Y-m-d h:m:s'),
+                                    'create_by'=>$userid,
+                                    'status'=>'t',
+                                    'is_deleted'=>'f'
+                                ];
+                                DB::table('ma_user_education_detail')->insert($education_detail);
+                            }else{
+                                DB::table('ma_user_education_detail')->where('ma_user_id','=',$em)->update($education_detail);
+                            }
+                            $relative_m=DB::table('ma_user_relative')->where(
+                                [
+                                    ['ma_user_id','=',$em],
+                                    ['ma_relative_type_id','=',2]
+                                ]
+                                )->first();
+                            if($relative_m===null){
+                                $relative_mother=[
+                                    'ma_user_id'=>$em,
+                                    'ma_relative_type_id'=>2,
+                                    'name_en'=>$request->parent_mother_name,
+                                    'name_kh'=>null,
+                                    'occupation'=>$request->parent_mother_occupation,
+                                    'birth_date'=>null,
+                                    'ma_education_level_id'=>null,
+                                    'phone_number'=>$request->parent_mobile_phone,
+                                    'home_phone'=>$request->parent_home_phone,
+                                    'gazetteer_code'=>$request->parent_village,
+                                    'create_date'=>date('Y-m-d h:m:s'),
+                                    'create_by'=>$userid,
+                                    'status'=>'t',
+                                    'is_deleted'=>'f',
+                                    'home'=>$request->parent_home,
+                                    'street'=>$request->parent_street,
+                                    'group'=>$request->parent_group
+                                ];
+                                DB::table('ma_user_relative')->insert($relative_mother);
+                            }else{
+                                DB::table('ma_user_relative')->where(
+                                    [
+                                        ['ma_user_id','=',$em],
+                                        ['ma_relative_type_id','=',2]
+                                    ]
+                                    )->update($relative_mother);
+                            }
+                            
+                            $relative_f=DB::table('ma_user_relative')->where([
+                                ['ma_user_id','=',$em],
+                                ['ma_relative_type_id','=',1]
+                                ])->first();
+                            if($relative_f===null){
+                                $relative_father=[
+                                    'ma_user_id'=>$em,
+                                    'ma_relative_type_id'=>1,
+                                    'name_en'=>$request->parent_father_name,
+                                    'name_kh'=>null,
+                                    'occupation'=>$request->parent_father_occupation,
+                                    'birth_date'=>null,
+                                    'ma_education_level_id'=>null,
+                                    'phone_number'=>$request->parent_mobile_phone,
+                                    'home_phone'=>$request->parent_home_phone,
+                                    'gazetteer_code'=>$request->parent_village,
+                                    'create_date'=>date('Y-m-d h:m:s'),
+                                    'create_by'=>$userid,
+                                    'status'=>'t',
+                                    'is_deleted'=>'f',
+                                    'home'=>$request->parent_home,
+                                    'street'=>$request->parent_street,
+                                    'group'=>$request->parent_group
+                                ];
+                                DB::table('ma_user_relative')->insert($relative_father);
+                            }else{
+                                DB::table('ma_user_relative')->where(
+                                    [
+                                        ['ma_user_id','=',$em],
+                                        ['ma_relative_type_id','=',1]
+                                    ]
+                                    )->update($relative_father);
+                            }
+                            
+
+                            $relative_w=DB::table('ma_user_relative')->where([
+                                    ['ma_user_id','=',$em],
+                                    ['ma_relative_type_id','=',3]
+                                    ])->first();
+
+                                if($relative_w===null){
+                                    $relative_spoue=[
+                                        'ma_user_id'=>$em,
+                                        'ma_relative_type_id'=>3,
+                                        'name_en'=>$request->spouse_name,
+                                        'name_kh'=>null,
+                                        'occupation'=>$request->spouse_occupation,
+                                        'birth_date'=>$request->spoue_date_of_bith,
+                                        'ma_education_level_id'=>$request->spouse_education_level,
+                                        'phone_number'=>$request->spouse_mobile_phone,
+                                        'home_phone'=>null,
+                                        'gazetteer_code'=>null,
+                                        'create_date'=>date('Y-m-d h:m:s'),
+                                        'create_by'=>$userid,
+                                        'status'=>'t',
+                                        'is_deleted'=>'f',
+                                        'home'=>$request->parent_home,
+                                        'street'=>$request->parent_street,
+                                        'group'=>$request->parent_group
+                                    ];
+                                    DB::table('ma_user_relative')->insert($relative_spoue);
+                                }else{
+                                    DB::table('ma_user_relative')->where(
+                                        [
+                                            ['ma_user_id','=',$em],
+                                            ['ma_relative_type_id','=',3]
+                                        ])->update($relative_spoue);
+                                }
+                            $contact=DB::table('ma_user_contact')->where([
+                                ['ma_user_id','=',$em],
+                                ])->first();
+                            if($contact===null){
+                                $contact_employee=[
+                                    'ma_user_id'=>$em,
+                                    'ma_identification_type_id'=>$request->type_of_dentification,
+                                    'ma_identification_number'=>$request->number_of_dentification,
+                                    'issued_date'=>$request->issued_date,
+                                    'issued_place'=>$request->issued_place,
+                                    'issued_by'=>$request->issued_by,
+                                    'ma_blood_group_id'=>$request->blood_group,
+                                    'ma_religion_id'=>$request->religion,
+                                    'is_marriage'=>$request->maritial_status,
+                                    'create_date'=>date('Y-m-d h:m:s'),
+                                    'create_by'=>$userid,
+                                    'status'=>'t',
+                                    'is_deleted'=>'f'
+                                ];
+                                DB::table('ma_user_contact')->insert($contact_employee);
+                            }else{
+                                DB::table('ma_user_contact')->where('ma_user_id','=',$em)->update($contact_employee);
+                            }
+                            DB::commit();
+                            return response()->json(['success'=>'Employee is updated !']);
+                        }else{
+                            return response()->json(['error'=>'can not moved file !']);
+                        }
+                }else{
                         $em=Employee::UpdateEmployee($id,$firstName_en,$lastName_en,$email,$telephone,$position,8,16,$departement_id,$userid,$idNumber,$sex,$firstName_kh,$lastName_kh,$imageDirectory,$officePhone,$jointDate,$dateOfBirth,$homeNumber_en,$homeNumber_kh,$street_en,$street_kh,'null',$vilage,'null',$spous,$has_children,$chidren,$salary,4,$description,$bankaccount);
                         $address_Permanent=[
-                            'ma_user_id'=>$em,
                             'hom_en'=>$request->em_permanent_home_en,
                             'street_en'=>$request->em_permanent_street_en,
                             'status'=>'t',
@@ -221,8 +529,39 @@ class AllemployeeController extends Controller
                             'is_permanent_address'=>'t',
                             'is_current_address'=>'f'
                         ];
+                        
+                        
+                        $permanent=DB::table('ma_user_address')->where(
+                            [
+                                ['ma_user_id','=',$em],
+                                ['is_permanent_address','=','t']
+                            ])->first();
+                        if ($permanent===null) {
+                            $address_Permanent=[
+                                'ma_user_id'=>$em,
+                                'hom_en'=>$request->em_permanent_home_en,
+                                'street_en'=>$request->em_permanent_street_en,
+                                'status'=>'t',
+                                'gazetteer_code'=>$request->permenent_village,
+                                'is_deleted'=>'f',
+                                'create_by'=>$userid,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'is_permanent_address'=>'t',
+                                'is_current_address'=>'f'
+                            ];
+                            DB::table('ma_user_address')->insert($address_Permanent);
+                        }else{
+                            DB::table('ma_user_address')->where(
+                                [
+                                    ['ma_user_id','=',$em],
+                                    ['is_permanent_address','=','t']
+                                ]
+                                )->update($address_Permanent);
+                        }
+
+
+
                         $contact_employee=[
-                            'ma_user_id'=>$em,
                             'ma_identification_type_id'=>$request->type_of_dentification,
                             'ma_identification_number'=>$request->number_of_dentification,
                             'issued_date'=>$request->issued_date,
@@ -235,7 +574,6 @@ class AllemployeeController extends Controller
                             'create_by'=>$userid,
                             'status'=>'t',
                             'is_deleted'=>'f'
-
                         ];
                         $relative_father=[
                             'ma_relative_type_id'=>1,
@@ -250,7 +588,10 @@ class AllemployeeController extends Controller
                             'create_date'=>date('Y-m-d h:m:s'),
                             'create_by'=>$userid,
                             'status'=>'t',
-                            'is_deleted'=>'f'
+                            'is_deleted'=>'f',
+                            'home'=>$request->parent_home,
+                            'street'=>$request->parent_street,
+                            'group'=>$request->parent_group
                         ];
                         $relative_mother=[
                             'ma_relative_type_id'=>2,
@@ -265,10 +606,32 @@ class AllemployeeController extends Controller
                             'create_date'=>date('Y-m-d h:m:s'),
                             'create_by'=>$userid,
                             'status'=>'t',
-                            'is_deleted'=>'f'
+                            'is_deleted'=>'f',
+                            'home'=>$request->parent_home,
+                            'street'=>$request->parent_street,
+                            'group'=>$request->parent_group
                         ];
+
+                        $relative_spoue=[
+                           'ma_relative_type_id'=>3,
+                           'name_en'=>$request->spouse_name,
+                           'name_kh'=>null,
+                           'occupation'=>$request->spouse_occupation,
+                           'birth_date'=>$request->spoue_date_of_bith,
+                           'ma_education_level_id'=>$request->spouse_education_level,
+                           'phone_number'=>$request->spouse_mobile_phone,
+                           'home_phone'=>null,
+                           'gazetteer_code'=>null,
+                           'create_date'=>date('Y-m-d h:m:s'),
+                           'create_by'=>$userid,
+                           'status'=>'t',
+                           'is_deleted'=>'f',
+                            'home'=>$request->parent_home,
+                            'street'=>$request->parent_street,
+                            'group'=>$request->parent_group
+                        ];
+
                         $education_detail=[
-                            'ma_user_id'=>$em,
                             'ma_education_level_id'=>$request->em_education_level,
                             'major'=>$request->em_major_subject,
                             'education_status'=>$request->em_education_status,
@@ -279,7 +642,6 @@ class AllemployeeController extends Controller
                             'is_deleted'=>'f'
                         ];
                         $experience_detail=[
-                            'ma_user_id'=>$em,
                             'experience_period'=>$request->number_of_experience,
                             'sector'=>$request->sector,
                             'company_name'=>$request->company_name,
@@ -289,108 +651,170 @@ class AllemployeeController extends Controller
                             'status'=>'t',
                             'is_deleted'=>'f'
                         ];
-                        DB::table('ma_user_experience')->insert($experience_detail);
-                        DB::table('ma_user_education_detail')->insert($education_detail);
-                        DB::table('ma_user_relative')->insert($relative_mother);
-                        DB::table('ma_user_relative')->insert($relative_father);
-                        DB::table('ma_user_contact')->insert($contact_employee);
-                        DB::table('ma_user_address')->insert($address_Permanent);
+                        $experience=DB::table('ma_user_experience')->where('ma_user_id','=',$em)->first();
+                        if($experience===null){
+                            $experience_detail=[
+                                'ma_user_id'=>$em,
+                                'experience_period'=>$request->number_of_experience,
+                                'sector'=>$request->sector,
+                                'company_name'=>$request->company_name,
+                                'last_position'=>$request->last_position,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'create_by'=>$userid,
+                                'status'=>'t',
+                                'is_deleted'=>'f'
+                            ];
+                            DB::table('ma_user_experience')->insert($experience_detail);
+                        }else{
+                            DB::table('ma_user_experience')->where('ma_user_id','=',$em)->update($experience_detail);
+                        }
+                        $education=DB::table('ma_user_education_detail')->where('ma_user_id','=',$em)->first();
+                        if($education===null){
+                            $education_detail=[
+                                'ma_user_id'=>$em,
+                                'ma_education_level_id'=>$request->em_education_level,
+                                'major'=>$request->em_major_subject,
+                                'education_status'=>$request->em_education_status,
+                                'school'=>$request->university_school,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'create_by'=>$userid,
+                                'status'=>'t',
+                                'is_deleted'=>'f'
+                            ];
+                            DB::table('ma_user_education_detail')->insert($education_detail);
+                        }else{
+                            DB::table('ma_user_education_detail')->where('ma_user_id','=',$em)->update($education_detail);
+                        }
+                        $relative_m=DB::table('ma_user_relative')->where(
+                            [
+                                ['ma_user_id','=',$em],
+                                ['ma_relative_type_id','=',2]
+                            ]
+                            )->first();
+                        if($relative_m===null){
+                            $relative_mother=[
+                                'ma_user_id'=>$em,
+                                'ma_relative_type_id'=>2,
+                                'name_en'=>$request->parent_mother_name,
+                                'name_kh'=>null,
+                                'occupation'=>$request->parent_mother_occupation,
+                                'birth_date'=>null,
+                                'ma_education_level_id'=>null,
+                                'phone_number'=>$request->parent_mobile_phone,
+                                'home_phone'=>$request->parent_home_phone,
+                                'gazetteer_code'=>$request->parent_village,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'create_by'=>$userid,
+                                'status'=>'t',
+                                'is_deleted'=>'f',
+                                'home'=>$request->parent_home,
+                                'street'=>$request->parent_street,
+                                'group'=>$request->parent_group
+                            ];
+                            DB::table('ma_user_relative')->insert($relative_mother);
+                        }else{
+                            DB::table('ma_user_relative')->where(
+                                [
+                                    ['ma_user_id','=',$em],
+                                    ['ma_relative_type_id','=',2]
+                                ]
+                                )->update($relative_mother);
+                        }
+                        
+                        $relative_f=DB::table('ma_user_relative')->where([
+                            ['ma_user_id','=',$em],
+                            ['ma_relative_type_id','=',1]
+                            ])->first();
+                        if($relative_f===null){
+                            $relative_father=[
+                                'ma_user_id'=>$em,
+                                'ma_relative_type_id'=>1,
+                                'name_en'=>$request->parent_father_name,
+                                'name_kh'=>null,
+                                'occupation'=>$request->parent_father_occupation,
+                                'birth_date'=>null,
+                                'ma_education_level_id'=>null,
+                                'phone_number'=>$request->parent_mobile_phone,
+                                'home_phone'=>$request->parent_home_phone,
+                                'gazetteer_code'=>$request->parent_village,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'create_by'=>$userid,
+                                'status'=>'t',
+                                'is_deleted'=>'f',
+                                'home'=>$request->parent_home,
+                                'street'=>$request->parent_street,
+                                'group'=>$request->parent_group
+                            ];
+                            DB::table('ma_user_relative')->insert($relative_father);
+                        }else{
+                            DB::table('ma_user_relative')->where(
+                                [
+                                    ['ma_user_id','=',$em],
+                                    ['ma_relative_type_id','=',1]
+                                ]
+                                )->update($relative_father);
+                        }
+                        
+
+                        $relative_w=DB::table('ma_user_relative')->where([
+                                ['ma_user_id','=',$em],
+                                ['ma_relative_type_id','=',3]
+                                ])->first();
+
+                            if($relative_w===null){
+                                $relative_spoue=[
+                                    'ma_user_id'=>$em,
+                                    'ma_relative_type_id'=>3,
+                                    'name_en'=>$request->spouse_name,
+                                    'name_kh'=>null,
+                                    'occupation'=>$request->spouse_occupation,
+                                    'birth_date'=>$request->spoue_date_of_bith,
+                                    'ma_education_level_id'=>$request->spouse_education_level,
+                                    'phone_number'=>$request->spouse_mobile_phone,
+                                    'home_phone'=>null,
+                                    'gazetteer_code'=>null,
+                                    'create_date'=>date('Y-m-d h:m:s'),
+                                    'create_by'=>$userid,
+                                    'status'=>'t',
+                                    'is_deleted'=>'f',
+                                    'home'=>$request->parent_home,
+                                    'street'=>$request->parent_street,
+                                    'group'=>$request->parent_group
+                                ];
+                                DB::table('ma_user_relative')->insert($relative_spoue);
+                            }else{
+                                DB::table('ma_user_relative')->where(
+                                    [
+                                        ['ma_user_id','=',$em],
+                                        ['ma_relative_type_id','=',3]
+                                    ])->update($relative_spoue);
+                            }
+                        $contact=DB::table('ma_user_contact')->where([
+                            ['ma_user_id','=',$em],
+                            ])->first();
+                        if($contact===null){
+                            $contact_employee=[
+                                'ma_user_id'=>$em,
+                                'ma_identification_type_id'=>$request->type_of_dentification,
+                                'ma_identification_number'=>$request->number_of_dentification,
+                                'issued_date'=>$request->issued_date,
+                                'issued_place'=>$request->issued_place,
+                                'issued_by'=>$request->issued_by,
+                                'ma_blood_group_id'=>$request->blood_group,
+                                'ma_religion_id'=>$request->religion,
+                                'is_marriage'=>$request->maritial_status,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'create_by'=>$userid,
+                                'status'=>'t',
+                                'is_deleted'=>'f'
+                            ];
+                            DB::table('ma_user_contact')->insert($contact_employee);
+                        }else{
+                            DB::table('ma_user_contact')->where('ma_user_id','=',$em)->update($contact_employee);
+                        }
                         DB::commit();
                         return response()->json(['success'=>'Employee is updated !']);
-                    }else{
-                        return response()->json(['error'=>'can not moved file !']);
-                    }
-            }else{
-                    $em=Employee::UpdateEmployee($id,$firstName_en,$lastName_en,$email,$telephone,$position,8,16,$departement_id,$userid,$idNumber,$sex,$firstName_kh,$lastName_kh,$imageDirectory,$officePhone,$jointDate,$dateOfBirth,$homeNumber_en,$homeNumber_kh,$street_en,$street_kh,'null',$vilage,'null',$spous,$has_children,$chidren,$salary,4,$description,$bankaccount);
-                    $address_Permanent=[
-                        'ma_user_id'=>$em,
-                        'hom_en'=>$request->em_permanent_home_en,
-                        'street_en'=>$request->em_permanent_street_en,
-                        'status'=>'t',
-                        'gazetteer_code'=>$request->permenent_village,
-                        'is_deleted'=>'f',
-                        'create_by'=>$userid,
-                        'create_date'=>date('Y-m-d h:m:s'),
-                        'is_permanent_address'=>'t',
-                        'is_current_address'=>'f'
-                    ];
-                    $contact_employee=[
-                        'ma_user_id'=>$em,
-                        'ma_identification_type_id'=>$request->type_of_dentification,
-                        'ma_identification_number'=>$request->number_of_dentification,
-                        'issued_date'=>$request->issued_date,
-                        'issued_place'=>$request->issued_place,
-                        'issued_by'=>$request->issued_by,
-                        'ma_blood_group_id'=>$request->blood_group,
-                        'ma_religion_id'=>$request->religion,
-                        'is_marriage'=>$request->maritial_status,
-                        'create_date'=>date('Y-m-d h:m:s'),
-                        'create_by'=>$userid,
-                        'status'=>'t',
-                        'is_deleted'=>'f'
-
-                    ];
-                    $relative_father=[
-                        'ma_relative_type_id'=>1,
-                        'name_en'=>$request->parent_father_name,
-                        'name_kh'=>null,
-                        'occupation'=>$request->parent_father_occupation,
-                        'birth_date'=>null,
-                        'ma_education_level_id'=>null,
-                        'phone_number'=>$request->parent_mobile_phone,
-                        'home_phone'=>$request->parent_home_phone,
-                        'gazetteer_code'=>$request->parent_village,
-                        'create_date'=>date('Y-m-d h:m:s'),
-                        'create_by'=>$userid,
-                        'status'=>'t',
-                        'is_deleted'=>'f'
-                    ];
-                    $relative_mother=[
-                        'ma_relative_type_id'=>2,
-                        'name_en'=>$request->parent_mother_name,
-                        'name_kh'=>null,
-                        'occupation'=>$request->parent_mother_occupation,
-                        'birth_date'=>null,
-                        'ma_education_level_id'=>null,
-                        'phone_number'=>$request->parent_mobile_phone,
-                        'home_phone'=>$request->parent_home_phone,
-                        'gazetteer_code'=>$request->parent_village,
-                        'create_date'=>date('Y-m-d h:m:s'),
-                        'create_by'=>$userid,
-                        'status'=>'t',
-                        'is_deleted'=>'f'
-                    ];
-                    $education_detail=[
-                        'ma_user_id'=>$userid,
-                        'ma_education_level_id'=>$request->em_education_level,
-                        'major'=>$request->em_major_subject,
-                        'education_status'=>$request->em_education_status,
-                        'school'=>$request->university_school,
-                        'create_date'=>date('Y-m-d h:m:s'),
-                        'create_by'=>$userid,
-                        'status'=>'t',
-                        'is_deleted'=>'f'
-                    ];
-                    $experience_detail=[
-                        'ma_user_id'=>$em,
-                        'experience_period'=>$request->number_of_experience,
-                        'sector'=>$request->sector,
-                        'company_name'=>$request->company_name,
-                        'last_position'=>$request->last_position,
-                        'create_date'=>date('Y-m-d h:m:s'),
-                        'create_by'=>$userid,
-                        'status'=>'t',
-                        'is_deleted'=>'f'
-                    ];
-                    DB::table('ma_user_experience')->insert($experience_detail);
-                    DB::table('ma_user_education_detail')->insert($education_detail);
-                    DB::table('ma_user_relative')->insert($relative_mother);
-                    DB::table('ma_user_relative')->insert($relative_father);
-                    DB::table('ma_user_contact')->insert($contact_employee);
-                    DB::table('ma_user_address')->insert($address_Permanent);
-                    DB::commit();
-                    return response()->json(['success'=>'Employee is updated !']);
-            }
+                }
             }else{
                 if(strlen($profile['name'])>0){
                     $upload = path_config::Move_Upload($profile, "/media/file/main_app/profile/img/");
@@ -410,6 +834,7 @@ class AllemployeeController extends Controller
                                 'is_permanent_address'=>'t',
                                 'is_current_address'=>'f'
                             ];
+                            DB::table('ma_user_address')->insert($address_Permanent);
                             $contact_employee=[
                                 'ma_user_id'=>$em,
                                 'ma_identification_type_id'=>$request->type_of_dentification,
@@ -424,9 +849,11 @@ class AllemployeeController extends Controller
                                 'create_by'=>$userid,
                                 'status'=>'t',
                                 'is_deleted'=>'f'
-
                             ];
+                            DB::table('ma_user_contact')->insert($contact_employee);
+
                             $relative_father=[
+                                'ma_user_id'=>$em,
                                 'ma_relative_type_id'=>1,
                                 'name_en'=>$request->parent_father_name,
                                 'name_kh'=>null,
@@ -439,9 +866,16 @@ class AllemployeeController extends Controller
                                 'create_date'=>date('Y-m-d h:m:s'),
                                 'create_by'=>$userid,
                                 'status'=>'t',
-                                'is_deleted'=>'f'
+                                'is_deleted'=>'f',
+                                'home'=>$request->parent_home,
+                                'street'=>$request->parent_street,
+                                'group'=>$request->parent_group
                             ];
+                            DB::table('ma_user_relative')->insert($relative_father);
+
+
                             $relative_mother=[
+                                'ma_user_id'=>$em,
                                 'ma_relative_type_id'=>2,
                                 'name_en'=>$request->parent_mother_name,
                                 'name_kh'=>null,
@@ -454,10 +888,14 @@ class AllemployeeController extends Controller
                                 'create_date'=>date('Y-m-d h:m:s'),
                                 'create_by'=>$userid,
                                 'status'=>'t',
-                                'is_deleted'=>'f'
+                                'is_deleted'=>'f',
+                                'home'=>$request->parent_home,
+                                'street'=>$request->parent_street,
+                                'group'=>$request->parent_group
                             ];
+                            DB::table('ma_user_relative')->insert($relative_mother);
                             $education_detail=[
-                                'ma_user_id'=>$userid,
+                                'ma_user_id'=>$em,
                                 'ma_education_level_id'=>$request->em_education_level,
                                 'major'=>$request->em_major_subject,
                                 'education_status'=>$request->em_education_status,
@@ -467,6 +905,7 @@ class AllemployeeController extends Controller
                                 'status'=>'t',
                                 'is_deleted'=>'f'
                             ];
+                            DB::table('ma_user_education_detail')->insert($education_detail);
                             $experience_detail=[
                                 'ma_user_id'=>$em,
                                 'experience_period'=>$request->number_of_experience,
@@ -479,11 +918,26 @@ class AllemployeeController extends Controller
                                 'is_deleted'=>'f'
                             ];
                             DB::table('ma_user_experience')->insert($experience_detail);
-                            DB::table('ma_user_education_detail')->insert($education_detail);
-                            DB::table('ma_user_relative')->insert($relative_mother);
-                            DB::table('ma_user_relative')->insert($relative_father);
-                            DB::table('ma_user_contact')->insert($contact_employee);
-                            DB::table('ma_user_address')->insert($address_Permanent);
+                            $relative_spoue=[
+                                'ma_user_id'=>$em,
+                                'ma_relative_type_id'=>3,
+                                'name_en'=>$request->spouse_name,
+                                'name_kh'=>null,
+                                'occupation'=>$request->spouse_occupation,
+                                'birth_date'=>$request->spoue_date_of_bith,
+                                'ma_education_level_id'=>$request->spouse_education_level,
+                                'phone_number'=>$request->spouse_mobile_phone,
+                                'home_phone'=>null,
+                                'gazetteer_code'=>null,
+                                'create_date'=>date('Y-m-d h:m:s'),
+                                'create_by'=>$userid,
+                                'status'=>'t',
+                                'is_deleted'=>'f',
+                                'home'=>$request->parent_home,
+                                'street'=>$request->parent_street,
+                                'group'=>$request->parent_group
+                            ];
+                            DB::table('ma_user_relative')->insert($relative_spoue);
                             DB::commit();
                             return response()->json(['success'=>'Employee is inserted !']);
                         }
@@ -505,6 +959,7 @@ class AllemployeeController extends Controller
                             'is_permanent_address'=>'t',
                             'is_current_address'=>'f'
                         ];
+                        DB::table('ma_user_address')->insert($address_Permanent);
                         $contact_employee=[
                             'ma_user_id'=>$em,
                             'ma_identification_type_id'=>$request->type_of_dentification,
@@ -520,7 +975,10 @@ class AllemployeeController extends Controller
                             'status'=>'t',
                             'is_deleted'=>'f'
                         ];
+                        DB::table('ma_user_contact')->insert($contact_employee);
+
                         $relative_father=[
+                            'ma_user_id'=>$em,
                             'ma_relative_type_id'=>1,
                             'name_en'=>$request->parent_father_name,
                             'name_kh'=>null,
@@ -533,9 +991,16 @@ class AllemployeeController extends Controller
                             'create_date'=>date('Y-m-d h:m:s'),
                             'create_by'=>$userid,
                             'status'=>'t',
-                            'is_deleted'=>'f'
+                            'is_deleted'=>'f',
+                            'home'=>$request->parent_home,
+                            'street'=>$request->parent_street,
+                            'group'=>$request->parent_group
                         ];
+                        DB::table('ma_user_relative')->insert($relative_father);
+
+
                         $relative_mother=[
+                            'ma_user_id'=>$em,
                             'ma_relative_type_id'=>2,
                             'name_en'=>$request->parent_mother_name,
                             'name_kh'=>null,
@@ -548,10 +1013,14 @@ class AllemployeeController extends Controller
                             'create_date'=>date('Y-m-d h:m:s'),
                             'create_by'=>$userid,
                             'status'=>'t',
-                            'is_deleted'=>'f'
+                            'is_deleted'=>'f',
+                            'home'=>$request->parent_home,
+                            'street'=>$request->parent_street,
+                            'group'=>$request->parent_group
                         ];
+                        DB::table('ma_user_relative')->insert($relative_mother);
                         $education_detail=[
-                            'ma_user_id'=>$userid,
+                            'ma_user_id'=>$em,
                             'ma_education_level_id'=>$request->em_education_level,
                             'major'=>$request->em_major_subject,
                             'education_status'=>$request->em_education_status,
@@ -561,6 +1030,7 @@ class AllemployeeController extends Controller
                             'status'=>'t',
                             'is_deleted'=>'f'
                         ];
+                        DB::table('ma_user_education_detail')->insert($education_detail);
                         $experience_detail=[
                             'ma_user_id'=>$em,
                             'experience_period'=>$request->number_of_experience,
@@ -573,11 +1043,30 @@ class AllemployeeController extends Controller
                             'is_deleted'=>'f'
                         ];
                         DB::table('ma_user_experience')->insert($experience_detail);
-                        DB::table('ma_user_education_detail')->insert($education_detail);
-                        DB::table('ma_user_relative')->insert($relative_mother);
-                        DB::table('ma_user_relative')->insert($relative_father);
-                        DB::table('ma_user_contact')->insert($contact_employee);
-                        DB::table('ma_user_address')->insert($address_Permanent);
+                        $relative_spoue=[
+                            'ma_user_id'=>$em,
+                            'ma_relative_type_id'=>3,
+                            'name_en'=>$request->spouse_name,
+                            'name_kh'=>null,
+                            'occupation'=>$request->spouse_occupation,
+                            'birth_date'=>$request->spoue_date_of_bith,
+                            'ma_education_level_id'=>$request->spouse_education_level,
+                            'phone_number'=>$request->spouse_mobile_phone,
+                            'home_phone'=>null,
+                            'gazetteer_code'=>null,
+                            'create_date'=>date('Y-m-d h:m:s'),
+                            'create_by'=>$userid,
+                            'status'=>'t',
+                            'is_deleted'=>'f',
+                            'home'=>$request->parent_home,
+                            'street'=>$request->parent_street,
+                            'group'=>$request->parent_group
+                        ];
+                        DB::table('ma_user_relative')->insert($relative_spoue);
+                        
+                        
+                        
+                        
                         DB::commit();
                         return response()->json(['success'=>'Employee is inserted !']);
                     }

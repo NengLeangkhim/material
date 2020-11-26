@@ -54,7 +54,7 @@ class Employee extends Model
     // List Employee who stop work in company
     public static function Employee_Leave(){
         try {
-            $sql= "SELECT id_number,concat(first_name_en,' ',last_name_en) as name_en,concat(first_name_kh,' ',last_name_kh) as name_kh,contact,ma_position.name as position,ma_user.image FROM ma_user INNER JOIN ma_position on ma_user.ma_position_id=ma_position.id where ma_user.status='f' and ma_user.is_deleted='t' and ma_user.is_employee='t'";
+            $sql= "SELECT ma_user.id,id_number,concat(first_name_en,' ',last_name_en) as name_en,concat(first_name_kh,' ',last_name_kh) as name_kh,contact,ma_position.name as position,ma_user.image FROM ma_user INNER JOIN ma_position on ma_user.ma_position_id=ma_position.id where ma_user.status='f' and ma_user.is_deleted='t' and ma_user.is_employee='t'";
             $employee_leave=DB::select($sql);
             return $employee_leave;
         } catch (\Throwable $th) {

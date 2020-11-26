@@ -250,15 +250,15 @@
                                                 }
                                             @endphp</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Spouse Name</dt>
-                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" > No</dd>
+                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['wife_name']}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Date of Birth</dt>
-                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" > No</dd>
+                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['wife_date_of_birth']}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Spouse's Occupation</dt>
-                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" > No</dd>
+                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['wife_occupation']}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Education Level</dt>
-                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" > No</dd>
+                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['wife_education_level']}}</dd>
                                                 <dt class="col-sm-4 col-xs-4 col-6 dt">Mobile Phone</dt>
-                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" > No</dd>
+                                                    <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['wife_mobile_phone']}}</dd>
                                             </div>
                                     </div>
 
@@ -266,31 +266,31 @@
                                         <dt class="col-sm-12 col-xs-12 col-12 dt text-left">Relative/Emergency Contact</dt>
                                         <div class="row font-size-14">
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Father Name in Latin</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['father_name']}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt">Mather Name in Latin</dt>
-                                                <dd class="col-sm-8 col-xs-8  col-6 dd">no</dd>
+                                                <dd class="col-sm-8 col-xs-8  col-6 dd">{{$relative['mother_name']}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Father Occupation</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['father_occupation']}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Mother Occupation</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['mother_occupation']}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Home #</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['parent_home']}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Street</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['parent_street']}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Group</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['parent_group']}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Province</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['province']}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >District</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['district']}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Commune</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['commune']}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt">Village</dt>
-                                                <dd class="col-sm-8 col-xs-8  col-6 dd" >No</dd>
+                                                <dd class="col-sm-8 col-xs-8  col-6 dd" >{{$relative['village']}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Mobile Phone</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['phone_number']}}</dd>
                                             <dt class="col-sm-4 col-xs-4 col-6 dt" >Home Phone</dt>
-                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >No</dd>
+                                                <dd class="col-sm-8 col-xs-8 col-6 dd" >{{$relative['home_phone']}}</dd>
                                         </div>
                                 </div>
                                 </div>
