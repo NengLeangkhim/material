@@ -39,12 +39,12 @@
                 <div class="col-sm-6 col-xs-4 col-12 pt-2">
                    <div class="row">
                         <div class="col-sm-4 col-4">
-                            {{-- <?php $num = count($listQuoteDetail->data->quote_stage); ?>
+                            <?php $num = count($listQuoteDetail->data->quote_stage); ?>
                             @if( $num > 0)
                                     @if($listQuoteDetail->data->quote_stage[$num-1]->id == 2)
-                                        <button type="button" ​value="" class="btn-block btn-primary btn-sm btn font-weight-bold">Convert To BSC</button>
+                                        <button type="button" id="convert_to_BSC" class="btn-block btn-primary btn-sm btn font-weight-bold">Convert To BSC</button>
                                     @endif
-                            @endif --}}
+                            @endif
                         </div>
                         <div class="col-sm-4 col-4">
                                 <button onclick='PreviewQuote({{$listQuoteDetail->data->id}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
@@ -84,6 +84,9 @@
                         <dl class="row">
                             <dt class="col-sm-4 dt" >Subject</dt>
                                 <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->subject}}</dd>
+                                <input type="hidden" name="quote_id"  id="quote_id" value="{{ $listQuoteDetail->data->id }}" readonly>
+                                <input type="hidden" name="crm_lead_id" id="crm_lead_id" value="{{ $listQuoteDetail->data->crm_lead->id }}" readonly>
+                                <input type="text" hidden value="{{$_SESSION['token']}}" id="token">
                             <dt class="col-sm-4 dt">Organization Name</dt>
                                 <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->crm_lead->customer_name_en}} </dd>
                             <dt class="col-sm-4 dt">Assign To</dt>
@@ -511,6 +514,41 @@
             var url = "/api/preview-quote/D/" + recordId;
             window.open(url);
         }
+        $("#convert_to_BSC").click(function(){
+           
+            var lead_id=$("#crm_lead_id").val();
+            var quote_id=$("#quote_id").val();
+            var token=$("#token").val();           
+            alert(lead_id+" "+quote_id+" "+token);
+                Swal.fire({ //get from sweetalert function
+                title: 'Cancel',
+                text: "Do you wan to Convert to BSC? ",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if(result.value) {
+                    $.ajax({
+                        url:'api/convertqoute',
+                        type:'post',
+                        data:{lead_id:lead_id,quote_id:quote_id},
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            },
+                        success:function(data){
+                            sweetalert('success','Convert Quote successed!');
+                        },
+                        error: function(data) {
+                            console.log(data);
+                            sweetalert('warning','Data not accessing to server!');
+                        }
+                    })
+                }
+            });
+
+        })
     </script>
 
 </section>

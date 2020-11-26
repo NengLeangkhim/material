@@ -170,13 +170,18 @@
                     $('#quote-detail-body').empty()
                     if(response.success) {
                         $.each(response.data, function(index, data){
+                            var crm_quote_status_create_date= data.crm_quote_status_create_date;
+                            crm_quote_status_create_date=crm_quote_status_create_date.split(' ')[0];
+                            var due_date= data.due_date;
+                            due_date=due_date.split(' ')[0];
+
                             $('#quote-detail-body').append(`
                             <tr>
                                 <td>${data.quote_number}</td>
                                 <td>${data.lead_number}</td>
                                 <td>${data.customer_name_en}</td>
-                                <td>${data.crm_quote_status_create_date}</td>
-                                <td>${data.due_date}</td>
+                                <td>${crm_quote_status_create_date}</td>
+                                <td>${due_date}</td>
                                 <td>${data.email}</td>
                                 <td>${data.website}</td>
                                 <td>${data.quote_status_name_en}</td>

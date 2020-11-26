@@ -214,7 +214,7 @@ class Crmlead extends Model
                             )
 
                         );
-// dd($result);
+                        // dd($result);
                         $lead_id=$result[0]->insert_crm_lead;
 
                         //insert Into crm_lead_address
@@ -253,8 +253,6 @@ class Crmlead extends Model
                          CrmLead::insertleaddetail($branch_id,$lead_status,$comment,$user_create);
 
                          //insert into table crm_survey
-                        // CrmLead::insertsurey($branch_id,$user_create);
-                        // dd($test);
                         if($checksurvey!=='null'){
                                 // var_dump("No");
                                 CrmLead::insertsurey($branch_id,$user_create);
