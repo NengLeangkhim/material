@@ -308,6 +308,12 @@ function Crm_delete(id,route,goto,alert) {
 //         });
 //       }
 
+
+
+
+
+
+
 // -----------END Report ---------- //
 // -----------Setting CRM ---------- //
  ////view Manage Setting///////
@@ -550,133 +556,8 @@ function Crm_delete(id,route,goto,alert) {
     //     });
     // });
 
-    // get data into combobox branch
-    $('#branch').ready(function(){
-        // $('#branch').find('option').not(':first').remove();
-            $.ajax({
-                // url:'http://127.0.0.1:8000/api/branch',
-                url:'api/branch',
-                type:'get',
-                dataType:'json',
-                success:function(response){
-                        for(var i=0; i<response['data'].length ;i++){
-                            var id = response['data'][i].ma_company_branch_id;
-                            var name = response['data'][i].name;
-                            var company = response['data'][i].company;
-                            // alert(name);
-                            var option = "<option value='"+id+"'>"+name+" / "+company+"</option>";
 
-                            $("#branch").append(option);
-                        }
-                //     }
-                }
-            })
-
-        })
-     // get  current_speed_isp in  selection
-        $('#current_speed_isp').ready(function(){
-          $('#current_speed_isp').find('option').not(':first').remove();
-              $.ajax({
-                  url:'api/currentsppedisp',
-                  type:'get',
-                  dataType:'json',
-                  success:function(response){
-
-                          for(var i=0; i<response['data'].length ;i++){
-                              var id = response['data'][i].id;
-                              var name = response['data'][i].name_en;
-                              // alert(name);
-                              var option = "<option value='"+id+"'>"+name+"</option>";
-
-                              $("#current_speed_isp").append(option);
-                          }
-                  //     }
-                  }
-              })
-
-          })
-
-      // get  service in  selection
-        $('#service').ready(function(){
-          $('#service').find('option').not(':first').remove();
-              $.ajax({
-                  url:'api/stock/service',
-                  type:'get',
-                  dataType:'json',
-                  success:function(response){
-                          $.each(response['data'], function(i,item){
-                            var id = response['data'][i].id;
-                              var name = response['data'][i].name;
-                              // alert(name);
-                              var option = "<option value='"+id+"'>"+name+"</option>";
-
-                              $("#service").append(option);
-                          })
-                  }
-              })
-
-          })
-        // get  lead in  selection
-        $('#lead_id').ready(function(){
-            var getLeadId = $('#lead_id').attr('data-code');  // get value daat-id atfer selete option lead
-            // console.log('getleadid='+getLeadId);
-            var myvar= $("#getlead").val();
-              $.ajax({
-                  url:'api/getlead',
-                  type:'get',
-                  dataType:'json',
-                  headers: {
-                    'Authorization': `Bearer ${myvar}`,
-                },
-                  success:function(response){
-                          // for(var i=0; i<response['data'].length; i++){
-                          //     var id = response['data'][i].lead_id;
-                          //     var name = response['data'][i].customer_name_en;
-                          //     // alert(name);
-                          //     var option = "<option value='"+id+"'>"+name+"</option>";
-
-                          //     $("#lead_id").append(option);
-                          // }
-                        $.each(response['data'], function(i,item){
-                            var id = response['data'][i].lead_id;
-                                var name = response['data'][i].customer_name_en;
-                                // alert(name);
-                                var option = "<option value='"+id+"'>"+name+"</option>";
-                                $("#lead_id").append(option)
-                                if(getLeadId != ''){
-                                    $('#lead_id option[value="'+getLeadId+'"]').prop('selected', true);
-                                }
-                        })
-
-
-
-                  }
-              })
-          })
-          // get contact in add lead
-          $('#contact_id  #getcontact').ready(function(){
-            // $('#lead_id').find('option').not(':first').remove();
-            var myvar= $( "#getcontact" ).val();
-                $.ajax({
-                    url:'api/contacts',
-                    type:'get',
-                    dataType:'json',
-                    headers: {
-                      'Authorization': `Bearer ${myvar}`,
-                  },
-                    success:function(response){
-                            $.each(response['data'], function(i,item){
-                              var id = response['data'][i].id;
-                              var name = response['data'][i].name_en;
-                              // alert(name);
-                              var option = "<option value='"+id+"'>"+name+"</option>";
-
-                              $("#contact_id").append(option);
-                            })
-
-                    }
-                })
-            })
+     
 
             //click back to home
         $('.lead').click(function(e){

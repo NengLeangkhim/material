@@ -498,4 +498,13 @@ class CrmReport extends Model
         }
         return $result;
     }
+    public function getSurvey(){
+        try{
+            dd("survey");
+        }
+        catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
 }

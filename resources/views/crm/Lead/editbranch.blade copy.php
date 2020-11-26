@@ -112,8 +112,95 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                         </div>
-                                                        <input type="text" class="form-control" name="primary_phone"id="primary_phone" value="{{$updatelead[$i]['primary_phone']}}" placeholder="Primary Phone" >
+                                                        <input type="text" class="form-control" name="primary_phone"id="primary_phone" value="010453535" placeholder="Primary Phone" >
                                                         <span class="invalid-feedback" role="alert" id="primary_phoneError"> {{--span for alert--}}
+                                                            <strong></strong>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="website">Website</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fab fa-chrome"></i></span>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="website"  value="{{$updatelead[$i]['primary_website']}}" id="website" placeholder="Website">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="company_facebook">Facebook</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fab fa-facebook"></i></span>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="company_facebook" value="{{$updatelead[$i]['primary_website']}}"  id="company_facebook" placeholder="Facebook">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="current_speed_isp">Current Speed ISP</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fab fa-tumblr"></i></span>
+                                                        </div>
+                                                        <select class="form-control" name="current_speed_isp" id="current_speed_isp">  
+                                                                                                                
+                                                            @foreach($currentisp as $key)
+                                                                <option value="{{$key->id}}" {{$key->name_en==$updatelead[$i]['current_isp'] ? 'selected="selected"':''}}> {{$key->name_en}}</option>                                                               
+                                                            @endforeach
+                                                                                                                       
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="vat_number">Vat Number</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="vat_number" value="{{$updatelead[$i]['vat_number']}}" id="vat_number" placeholder="Vat Number">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="branch">Company Branch <b style="color:red">*</b></label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                        </div>
+                                                        <select class="form-control "  name="branch" id='branch' > 
+                                                            @foreach($companybranch as $key)
+                                                                <option value="{{$key->id}}" {{$key->company==$updatelead[$i]['company_detail'] ? 'selected="selected"':''}}> {{$key->name}} / {{$key->company}}</option>                                                               
+                                                            @endforeach                                                     
+                                                        </select>
+                                                        <span class="invalid-feedback" role="alert" id="branchError"> {{--span for alert--}}
+                                                            <strong></strong>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="lead_source">Lead Source <b style="color:red">*</b></label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fas fa-tty"></i></span>
+                                                        </div>
+                                                        <select class="form-control" name="lead_source" id="lead_source" >
+                                                            <option></option>
+                                                            @foreach($lead_source as $row)
+                                                                <option value="{{$row->id}}" {{$row->lead_source==$updatelead[$i]['lead_source'] ? 'selected="selected"':''}}> {{$row->lead_source}}</option>                                                               
+                                                            @endforeach
+                                                        </select>
+                                                        <span class="invalid-feedback" role="alert" id="lead_sourceError"> {{--span for alert--}}
                                                             <strong></strong>
                                                         </span>
                                                     </div>
@@ -138,6 +225,27 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
+                                                    <label for="lead_industry">Industry <b style="color:red">*</b></label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fas fa-industry"></i></span>
+                                                        </div>
+                                                        <select class="form-control " name="lead_industry" id="lead_industry" >
+                                                            <option> </option>
+                                                            @foreach($lead_industry as $row )
+                                                                <option value="{{$row->id}}" {{$row->name_en==$updatelead[$i]['lead_industry'] ? 'selected="selected"':''}}> {{$row->name_en}}</option>                                                               
+                                                            @endforeach
+                                                        </select>
+                                                        <span class="invalid-feedback" role="alert" id="lead_industryError"> {{--span for alert--}}
+                                                            <strong></strong>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-6">
                                                     <label for="assig_to">Assigened To<b style="color:red">*</b></label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -155,10 +263,6 @@
                                                         </span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="row">                                                
                                                 <div class="col-md-6">
                                                     <label for="service">Service<b style="color:red">*</b></label>
                                                     <div class="input-group">
@@ -176,12 +280,80 @@
                                                                     <?php
                                                                 }
                                                             ?>
+                                                            
+                                                                
                                                         </select>
                                                         <span class="invalid-feedback" role="alert" id="serviceError"> {{--span for alert--}}
                                                             <strong></strong>
                                                         </span>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="current_speed">Current Speed</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="current_speed" value="{{$updatelead[$i]['current_isp_speed']}}" id="current_speed" placeholder="Current Speed">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="current_price">Current Price</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="current_price" id="current_price" value="{{$updatelead[$i]['current_isp_price']}}" placeholder="Current Price">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label for="honorifics">Prioroty</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text"><i class="fas fa-industry"></i></span>
+                                                                        </div>
+                                                                        <select class="form-control " name="prioroty" id="prioroty" >
+                                                                            <option value=''>-- Select  Prioroty --</option>                                                                 
+                                                                            {{-- <option value='urgent'>Urgent</option>
+                                                                            <option value='high'>Hight</option>
+                                                                            <option value='medium'>Medium</option>
+                                                                            <option value='low'>Low</option> --}}
+                                                                            <option value="{{$updatelead[$i]['priority']}}"  {{$updatelead[$i]['priority']=='urgent' ? 'selected="selected"':''}}>Urgent</option>
+                                                                            <option value="{{$updatelead[$i]['priority']}}"  {{$updatelead[$i]['priority']=='high' ? 'selected="selected"':''}}>Hight</option>
+                                                                            <option value="{{$updatelead[$i]['priority']}}"  {{$updatelead[$i]['priority']=='medium' ? 'selected="selected"':''}}>Medium</option>
+                                                                            <option value="{{$updatelead[$i]['priority']}}"  {{$updatelead[$i]['priority']=='low' ? 'selected="selected"':''}}>Low</option>
+                                                                          
+                                                                        </select>
+                                                                        {{-- <span class="invalid-feedback" role="alert" id="ma_honorifics_idError"> {{--span for alert--}}
+                                                                            {{-- <strong></strong> --}}
+                                                                        {{-- </span> --}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label for="employee_count">Employee Count</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text"><i class="fas fa-user-friends"></i></span>
+                                                                        </div>
+                                                                        <input type="text" class="form-control" name="employee_count" id="employee_count"  value="{{$updatelead[$i]['employee_count']}}" placeholder="Current Speed">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>  
                                                 <div class="col-md-6">
                                                     <label for="comment">Comment</label>
                                                     <div class="input-group">
@@ -192,7 +364,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>  
+                                        </div>
                                         <?php
                                     }
                                 ?>
@@ -407,7 +579,7 @@
                                                                         <option></option>
                                                                     @foreach($province as $row )
                                                                         {{-- <option value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option> --}}
-                                                                        <option value="{{$row->code}}" {{$row->name_latin==$updatelead[$i]['province'] ? 'selected="selected"':''}}>{{$row->name_latin}} / {{$row->name_kh}}</option>
+                                                                        <option value="{{$row->code}}" {{$row->name_latin==$updatelead[$i]['province'] ? 'selected="selected"':''}}>{{$row->name_latin}}</option>
                                                            
                                                                         @endforeach
                                                                     </select>

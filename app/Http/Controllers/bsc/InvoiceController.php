@@ -13,23 +13,28 @@ class InvoiceController extends Controller
 {
     public function list()
     {
+        if(!perms::check_perm_module('BSC_030401')){
+            return view('no_perms');
+        }
+        if(perms::check_perm_module('BSC_03040101')){ // Permission Add
+            $button_add = '<a  href="#" class="btn btn-success invoice_form" ​value="bsc_invoice_invoice_form" id="invoice_form"><i class="fas fa-plus"></i> Add New</a>';
+        }else{
+            $button_add='';
+        }
         try{
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
-            if(perms::check_perm_module('BSC_030401')){
-                $token = $_SESSION['token'];
-                $request = Request::create('/api/bsc_invoices', 'GET');
-                $request->headers->set('Accept', 'application/json');
-                $request->headers->set('Authorization', 'Bearer '.$token);
-                $res = app()->handle($request);
-                $invoice = json_decode($res->getContent()); // convert to json object
-                $invoices=$invoice->data;
-                // dd($invoices);exit;
-                return view('bsc.invoice.invoice.invoice_list',compact('invoices'));
-            }else{
-               return view('no_perms');
-            }
+
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/bsc_invoices', 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $invoice = json_decode($res->getContent()); // convert to json object
+            $invoices=$invoice->data;
+            // dd($invoices);exit;
+            return view('bsc.invoice.invoice.invoice_list',compact('invoices','button_add'));
         }catch(Exception $e){
             echo $e->getMessage();
             exit;
@@ -38,6 +43,9 @@ class InvoiceController extends Controller
 
     public function view($id)
     {
+        if(!perms::check_perm_module('BSC_03040102')){
+            return view('no_perms');
+        }
         try{
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -80,7 +88,9 @@ class InvoiceController extends Controller
     // view payment
     public function view_payment()
     {
-
+        if(!perms::check_perm_module('BSC_030402')){
+            return view('no_perms');
+        }
         try{
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -181,6 +191,9 @@ class InvoiceController extends Controller
     // invoice report
     public function invoice_report()
     {
+        if(!perms::check_perm_module('BSC_030403')){
+            return view('no_perms');
+        }
         try{
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -247,6 +260,9 @@ class InvoiceController extends Controller
     // show form create invoice
     public function form()
     {
+        if(!perms::check_perm_module('BSC_03040101')){
+            return view('no_perms');
+        }
         try{
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();

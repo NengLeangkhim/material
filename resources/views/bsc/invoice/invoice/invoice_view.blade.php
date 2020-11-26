@@ -231,7 +231,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                                     </div>
-                                                    <input type="number" class="form-control input_required item_unit_price"  name="amount_paid" id="amount_paid" value="{{ number_format($due_amount==null ? $invoices->grand_total : $due_amount,4,".",".") }}" autofocus placeholder="Amount Paid">
+                                                    <input type="number" class="form-control input_required item_unit_price" oninput="limitDecimalPlaces(event, 4)"  name="amount_paid" id="amount_paid" value="{{ number_format($due_amount==null ? $invoices->grand_total : $due_amount,4,".",".") }}" autofocus placeholder="Amount Paid">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -443,5 +443,12 @@ $('.detail').click(function(e)
         let total = parseFloat($('#txtTotal').text());
         let vat_total= (total * 10)/100;
         document.getElementById('txtVatTotal').innerHTML=vat_total.toFixed(4);
+    }
+    // max length input after dote
+    function limitDecimalPlaces(e, count) {
+        if (e.target.value.indexOf('.') == -1) { return; }
+        if ((e.target.value.length - e.target.value.indexOf('.')) > count) {
+            e.target.value = parseFloat(e.target.value).toFixed(count);
+        }
     }
 </script>

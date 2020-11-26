@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="row​ margin_left">
-                    <a  href="#" class="btn btn-success btn-sm customer" ​value="bsc_customer_form" id="customer"><i class="fas fa-plus"></i> Add Customer</a>&nbsp;
+                    {!! $button_add !!}&nbsp;
                 </div><br/>
                 <div class="card">
                     <div class="card-body">

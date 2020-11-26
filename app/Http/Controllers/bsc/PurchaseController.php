@@ -14,6 +14,27 @@ class PurchaseController extends Controller
         if(!perms::check_perm_module('BSC_030501')){
             return view('no_perms');
         }
+
+        // Permission Button Add New Purchase
+        if(perms::check_perm_module('BSC_03050101')){ // Permission Add
+            $button_add = '<a  href="#" class="btn btn-success purchase_form"  value="bsc_purchase_purchase_form" id="purchase_form"><i class="fas fa-plus"></i> Add New</a>';
+        }else{
+            $button_add='';
+        }
+
+        //Permission Button Edit Purchase
+        if(perms::check_perm_module('BSC_03050103')){ // Permission Add
+            $button_edit_purchase = '1';
+        }else{
+            $button_edit_purchase='0';
+        }
+
+        //Permission Button View Purchase
+        if(perms::check_perm_module('BSC_03050102')){ // Permission Add
+            $button_view_purchase = '1';
+        }else{
+            $button_view_purchase='0';
+        }
         try{
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -26,7 +47,7 @@ class PurchaseController extends Controller
             $res = app()->handle($request);
             $purchase = json_decode($res->getContent()); // convert to json object
             $purchases = $purchase->data;
-            return view('bsc.purchase.purchase.purchase_list',compact('purchases'));
+            return view('bsc.purchase.purchase.purchase_list',compact('purchases','button_add','button_edit_purchase','button_view_purchase'));
         }catch(Exception $e){
             echo $e->getMessage();
             exit;
@@ -35,7 +56,7 @@ class PurchaseController extends Controller
 
     public function view($id)
     {
-        if(!perms::check_perm_module('BSC_030501')){
+        if(!perms::check_perm_module('BSC_03050102')){
             return view('no_perms');
         }
         try{
@@ -70,7 +91,7 @@ class PurchaseController extends Controller
 
     public function form()
     {
-        if(!perms::check_perm_module('BSC_030501')){
+        if(!perms::check_perm_module('BSC_03050101')){
             return view('no_perms');
         }
         try{
@@ -188,7 +209,7 @@ class PurchaseController extends Controller
 
     public function purchase_edit($id){
       
-        if(!perms::check_perm_module('BSC_030501')){
+        if(!perms::check_perm_module('BSC_03050103')){
             return view('no_perms');
         }
         try{

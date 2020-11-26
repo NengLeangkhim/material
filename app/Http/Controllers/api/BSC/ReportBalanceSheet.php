@@ -5,6 +5,8 @@ namespace App\Http\Controllers\api\BSC;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DateTime;
+use Exception;
+use App\Http\Controllers\perms;
 use Doctrine\DBAL\Query\QueryException;
 use Illuminate\Support\Facades\DB;
 
@@ -69,7 +71,18 @@ class ReportBalanceSheet extends Controller
     }
 
     function getBalanceSheet(Request $request){
-        return view('bsc.report.financial_report.balance_sheet.balance_sheet');
+
+        if(!perms::check_perm_module('BSC_030102')){
+            return view('no_perms');
+        }
+
+        try{
+            return view('bsc.report.financial_report.balance_sheet.balance_sheet');
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit;
+        }
+        
     }
 
     function balanceSheet(Request $request){
