@@ -676,15 +676,34 @@ function hrms_date(){
 // End Employee
 // Training
 
-    function hrm_chechEmployee_training(){
-        var countchecked = $("table input[type=checkbox]:checked").length;
-        if(countchecked>0){
-            submit_form ('hrm_insert_update_traininglist','fm_training_list','hrm_traininglist','modal_traininglist');
-        }else{
-            alert('Please check employee');
-        }
+    // function hrm_chechEmployee_training(){
+    //     var countchecked = $("table input[type=checkbox]:checked").length;
+    //     if(countchecked>0){
+    //         submit_form ('hrm_insert_update_traininglist','fm_training_list','hrm_traininglist','modal_traininglist');
+    //     }else{
+    //         alert('Please check employee');
+    //     }
 
+    // }
+    function hrms_modal_training(id=-1){
+        alert();
+        if(check_session()){return;}
+            $.ajax({
+                type: 'GET',
+                url: 'hrm_modal_traininglist',
+                data: {
+                    _token: '<?php echo csrf_token() ?>',
+                    id: id
+                },
+                success: function (data) {
+                    document.getElementById('modal').innerHTML = data;
+                    $('#modal_training_list').modal('show');
+                    date();
+                    // $('#emName').select2();
+                }
+            });
     }
+<<<<<<< Updated upstream
 
     function hrms_modal_training(ids=-1){
         if(check_session()){
@@ -713,6 +732,8 @@ function hrms_date(){
             }
         });
     }
+=======
+>>>>>>> Stashed changes
     function hrms_validation_employee_training(table_id){
         i=$('#'+table_id).find('input:checked').length;
         if(i>0){
