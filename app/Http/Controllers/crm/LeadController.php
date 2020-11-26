@@ -38,7 +38,7 @@ class LeadController extends Controller
         if(perms::check_perm_module('CRM_0210')){//module codes
             $branch=ModelCrmLead::CrmGetBranch($id);
             $result =json_decode($branch,true);
-            $schedule_type=ModelCrmLead::CrmGetSchdeuleType();
+            $schedule_type=ModelCrmLead::CrmGetSchdeuleType('FALSE');
             $schedule_type =json_decode($schedule_type,true);
             if($result!=null){
                 // $schedule_type =json_decode($schedule_type,true);

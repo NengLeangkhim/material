@@ -424,8 +424,8 @@ class LeadController extends Controller
         return Lead::insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id);
     }
     // get schdule type
-    public function getschduletype(){
-        $schedule_type= Lead::getschduletype();
+    public function getschduletype($id){
+        $schedule_type= Lead::getschduletype($id);
         return LeadCurrentSpeedIsp::Collection($schedule_type);
     }
     // insert schedule type

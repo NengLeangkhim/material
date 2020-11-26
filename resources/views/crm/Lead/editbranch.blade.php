@@ -407,7 +407,7 @@
                                                                         <option></option>
                                                                     @foreach($province as $row )
                                                                         {{-- <option value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option> --}}
-                                                                        <option value="{{$row->code}}" {{$row->name_latin==$updatelead[$i]['province'] ? 'selected="selected"':''}}>{{$row->name_latin}}</option>
+                                                                        <option value="{{$row->code}}" {{$row->name_latin==$updatelead[$i]['province'] ? 'selected="selected"':''}}>{{$row->name_latin}} / {{$row->name_kh}}</option>
                                                            
                                                                         @endforeach
                                                                     </select>
