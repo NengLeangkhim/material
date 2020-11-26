@@ -15,6 +15,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        date_default_timezone_set('Asia/Phnom_Penh');
         $from_date_this_month = date('Y-m-d 00:00:00', strtotime(date('Y-m-1')));
         $to_date_this_month = date('Y-m-d H:i:s');
 
