@@ -368,7 +368,12 @@ class LeadController extends Controller
     }
     // get survey
     public function getsurvey(){
-        if(perms::check_perm_module('CRM_02110101')){ //Modeul Survey list
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+
+        if(perms::check_perm_module_api('CRM_02110101',$userid)){ //Modeul Survey list
             $survey= Lead::getsurvey();
             return GetSurvey::Collection($survey);
         }
@@ -561,5 +566,22 @@ class LeadController extends Controller
         }
         $convert = Lead::getleadconvert();
         return json_encode(["data"=>$convert]);
+    }
+
+    public  function   getcountsurveyresult(){
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+
+        if(perms::check_perm_module_api('CRM_02110103',$userid)){ // top managment
+            $count = Lead::getcountsurveyresult(); // count survey
+            return $count;
+            // dd("sgfvdr");
+        }
+        else
+        {
+            return view('no_perms');
+        }
     }
 }

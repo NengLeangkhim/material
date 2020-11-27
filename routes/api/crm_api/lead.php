@@ -44,7 +44,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('/survey/{id}','api\crm\LeadController@getsurveybyid') ;
     //insert survey result
     Route::post('/insertsurvey','api\crm\LeadController@insertsurveyresult');
-    //get lead that  have branch convert
+    //get count su
+    Route::get('countsurvey','api\crm\LeadController@getcountsurveyresult');
+    //get lead that  have br,anch convert
     Route::get('/getleadconvert','api\crm\LeadController@getleadconvert');
 
     //get POP
@@ -66,6 +68,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/insertscheduleresult','api\crm\LeadController@insertscheduleresult');
     // update schedule reslut
     Route::post('/updatescheduleredult','api\crm\LeadController@updatescheduleredult');
+    
 
 });
 

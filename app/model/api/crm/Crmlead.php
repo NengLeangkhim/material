@@ -1544,4 +1544,16 @@ class Crmlead extends Model
         //          JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
         //   WHERE  cl.is_deleted=FALSE and cl.status=TRUE  and clb.is_deleted=FALSE and  ls.sequence=1   and clb.status=TRUE  GROUP BY cl.id
     }
+    // get count survey
+    public static function getcountsurveyresult(){
+        $count_t=DB::select("SELECT count(possible) as true from crm_survey_result  where possible=TRUE and is_deleted=False AND status=TRUE");
+        $count_t=$count_t[0]->true;
+        $count_f=DB::select("SELECT count(possible) as false from crm_survey_result  where possible=FALSE and is_deleted=False AND status=TRUE");
+        $count_f=$count_f[0]->false;
+        $array=[
+            'true'=>$count_t,
+            'false'=>$count_f
+        ];
+        return $array;
+    }
 }
