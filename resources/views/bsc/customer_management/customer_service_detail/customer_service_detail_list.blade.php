@@ -39,7 +39,7 @@
                                     <th>Service</th>
                                     <th>Effectvice Date</th>
                                     <th>End Period Date</th>
-                                    <th>Status</th>
+                                    <th>Service Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

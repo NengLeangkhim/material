@@ -184,6 +184,13 @@
                                                                 @if (count($invoices) >0)
                                                                     @foreach ($invoices as $invoice)
                                                                         @if($invoice->due_amount == 0 && $invoice->due_amount != null)
+                                                                        @php
+                                                                            $paid = $invoice->amount_paid;
+                                                                            $amount_paid = number_format($paid, 4, '.', '');
+
+                                                                            $due = $invoice->due_amount;
+                                                                            $due_amount = number_format($due, 4, '.', '');
+                                                                        @endphp
                                                                             <tr>
                                                                                 <td>{{ $invoice->invoice_number }}</td>
                                                                                 <td>{{ $invoice->reference }}</td>
