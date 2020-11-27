@@ -17,6 +17,7 @@
 <!-- section Main content -->
 <section class="content">
     <div class="container-fluid">
+
         <div class="row">
             <div class="col-md-6">
                 <!-- PIE CHART -->
@@ -58,11 +59,10 @@
                                 </div>
                             </form>
                         </div>
-
                         <div class="chart">
-                            <div style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;display:block;">
-                                <div id="donutchart" style="width: auto; height: 300px;"></div>
-                            </div>
+                          <div style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;display:block;">
+                            <div id="donutchart" style="width: auto; height: 300px;"></div>
+                          </div>
                         </div>
                         <div class="col-md-12 text-right">
                             <button class="btn btn-info" onclick="go_to('/crmreport/detaillead')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -110,7 +110,7 @@
                           </div>
                         </form>
                       </div>
-                      <div class="chart-contact">
+                      <div class="chart">
                         <div style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">
                           <div id="columnchart_values" style="width:auto;height:auto;"></div>
                         </div>
@@ -126,6 +126,7 @@
                 </div> <!-- /.card -->
             </div><!-- End Col -->
         </div><!-- /.row -->
+
         <div class="row">
             <div class="col-md-6">
                 <!-- LINE CHART -->
@@ -176,11 +177,12 @@
                     </div><!-- /.card-body -->
                 </div><!-- /.card -->
             </div><!-- End Col -->
+
             <div class="col-md-6">
                 <!-- BAR CHART -->
                 <div class="card card-success">
                     <div class="card-header" style="background: #ffffff;border:none;">
-                        <h3 class="card-title" style="color: #000000;font-weight: bold;">Quote Chart</h3>
+                      <h3 class="card-title" style="color: #000000;font-weight: bold;  ">Quote Chart</h3>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
@@ -215,15 +217,16 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
-                        <div class="chart">
-                            <div  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:20px;">
-                                <div id="barchart_values" style="width:auto; height: 300px;"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 text-right">
-                            <button class="btn btn-info" onclick="go_to('/crmreport/detailquote')"><span><i class="fas fa-info"></i></span> Detail</button>
-                        </div>
+                          </div>
+                          <div class="chart">
+                              <div  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:10px;">
+                                <div id="barchart_values" style="width:auto; height: auto;"></div>
+                              </div>
+                          </div>
+                          <div class="col-md-12 text-right">
+                            <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
+                          </div>
+                    </div>
                     </div><!-- /.card-body -->
                 </div><!-- /.card -->
             </div><!-- End Col -->
@@ -452,7 +455,7 @@
   </script>
 
   {{-- lead chart --}}
-  {{-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> --}}
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
     google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
@@ -509,32 +512,26 @@
 
    {{-- Quote chart --}}
    <script type="text/javascript">
-        google.charts.load("current", {packages:["corechart"]});
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ['Year', ' ', { role: 'style' } ],
-            ['2019', 10, 'stroke-color:#c56183; stroke-width: 2;fill-color: #ffa5a5; '],
-            ['2020', 14, 'stroke-color: #1fa8e0; stroke-width: 2; fill-color: #4bc0c0; ']
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Year', ' ', { role: 'style' } ],
+        ['2019', 10, 'stroke-color:#c56183; stroke-width: 2;fill-color: #ffa5a5; '],
+        ['2020', 14, 'stroke-color: #1fa8e0; stroke-width: 2; fill-color: #4bc0c0; ']
+
+      ]);
 
           ]);
 
-          var view = new google.visualization.DataView(data);
-          view.setColumns([0, 1,
-                           { calc: "stringify",
-                             sourceColumn: 1,
-                             type: "string",
-                             role: "annotation" },
-                           2]);
-
-          var options = {
-            title: "Quote Performance",
-            width: 900,
-            height: 200,
-            bar: {groupWidth: "70%"},
-            legend: { position: "none" },
-          };
-          var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
-          chart.draw(view, options);
-        }
+      var options = {
+        title: "Quote Performance",
+        width: 550,
+        height: 200,
+        bar: {groupWidth: "70%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+      chart.draw(view, options);
+    }
     </script>

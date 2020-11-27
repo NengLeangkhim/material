@@ -77,6 +77,7 @@ class QuoteController extends Controller
                     $data = [];
                 }
             }
+            // dd($listQuoteDetail);
             return view('crm/quote/qouteShowDetail', compact('listQuoteDetail','getQuoteBranch'));
         }
     }

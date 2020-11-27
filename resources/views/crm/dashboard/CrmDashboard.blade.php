@@ -128,6 +128,12 @@
                 <div class="card card-info">
                     <div class="card-header" style="background-color: #ffffff !important; border: none;">
                         <h3 class="card-title text-dark text-bold">Quote Status Chart</h3>
+                        <?php
+                            if (session_status() == PHP_SESSION_NONE) {
+                            session_start();
+                        }
+                        ?>
+                        <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead">
                     </div>
                     <div class="card-body">
                         <div class="chart">
@@ -276,6 +282,7 @@
                     ]);
                     var options = {
                         title: 'Lead Performance',
+                        colors: ['#ffffff'],
                         pieSliceText:'value',
                     };
 
@@ -382,6 +389,7 @@
                     ]);
                     var options = {
                         title: 'Quote Performance',
+                        colors: ['#ffffff']
                     };
 
                     var chart = new google.visualization.BarChart(document.getElementById('QuoteChart'))
@@ -451,7 +459,7 @@
                     ]);
                     var options = {
                         title: 'Contact Performance',
-                        colors:['#1fa8e0'],
+                        colors:['#ffffff'],
                         annotations: {
                             textStyle: {
                                 fontName: 'Times-Roman',
@@ -488,37 +496,56 @@
 
     // Survey Chart
     var Survey_Chart = () => {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Success',12],
-          ['Unsuccess',8]
-        ]);
+        var myvar= $("#getlead").val();
+        $.ajax({
+            url: '/api/countsurvey', //get link route
+            type: 'GET',
+            dataType:'json',
+            headers: {
+                    'Authorization': `Bearer ${myvar}`,
+                },
+            //data: $('#FrmChartContactReport').serialize(),
+            success: function (response) {
+                var ff = response.true,
+                    hh = response.false;
+                // alert(ff+'l'+hh);
 
-        var options = {
-            title: 'Survey Performance',
-            colors:['#1fa8e0','#ff6384'],
-            annotations: {
-                textStyle: {
-                    fontName: 'Times-Roman',
-                    fontSize: 18,
-                    bold: true,
-                    italic: true,
-                    // The color of the text.
-                    color: '#871b47',
-                    // The color of the text outline.
-                    auraColor: '#d799ae',
-                    // The transparency of the text.
-                    opacity: 0.8
-                }
-            },
-            style: {
-                opacity: 0.5
+                // function CrmSurveyChart(response) {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Task', '', {
+                            role: 'style'
+                        }],
+                        ['Success',ff,'color:#25CCF7'],
+                        ['Unsuccess',hh,'color:#ff3d67']
+                        ]);
+
+                        var options = {
+                            title: 'Survey Performance',
+                            colors:['#ffffff','#ffffff'],
+                            annotations: {
+                                textStyle: {
+                                    fontName: 'Times-Roman',
+                                    fontSize: 18,
+                                    bold: true,
+                                    italic: true,
+                                    // The color of the text.
+                                    color: '#871b47',
+                                    // The color of the text outline.
+                                    auraColor: '#d799ae',
+                                    // The transparency of the text.
+                                    opacity: 0.8
+                                }
+                            },
+                            style: {
+                                opacity: 0.5
+                            }
+                        };
+
+                        var chart = new google.visualization.BarChart(document.getElementById('survey_chart'));
+                        chart.draw(data, options);
+                // }
             }
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('survey_chart'));
-
-        chart.draw(data, options);
+        })
     }
 
     // Organization Chart
