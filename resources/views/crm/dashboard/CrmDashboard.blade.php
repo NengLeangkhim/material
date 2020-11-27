@@ -18,180 +18,184 @@
 <section class="content">
     {{-- Style --}}
     <style>
-        .title-chart {
-            color: #000000;
-            font-weight: 600;
-            font-size: 26px;
-        }
-        .sub-title-chart {
-            color: #000000;
-            font-weight: 400;
-            font-size: 12px;
-        }
         .chart-number {
-            font-size: 22px;
+            text-align: center;
+            color:#12b9d6
+        }
+
+        .chart {
+            width: 100%;
+            min-height: 450px;
+        }
+        .row .g-chart {
+            margin:0 !important;
         }
     </style>
     {{-- /Style --}}
     <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-            <div class="col-lg-3 col-6" >
-              <!-- small box -->
-                <div class="small-box bg-white" >
-                    <div class="inner">
-                        <div class="row">
-                            <div class="col-12" >
-                                <div class="p-3 text-center">
-                                    <h2 class="title-chart">New Leads</h2>
-                                    <p class="sub-title-chart">Today</p>
-                                    <h3 class="text-info chart-number">{{$new_lead}}</h3>
+        <div style="padding: 20px; font-family: Times New Roman, Times, serif;">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-3 col-6" >
+                <!-- small box -->
+                    <div class="small-box bg-white" >
+                        <div class="inner">
+                            <div class="row">
+                                <div class="col-12" >
+                                    <div class="p-3 text-center">
+                                        <h2>Leads</h2>
+                                        <p>Today</p>
+                                        <h1 class="chart-number">{{$new_lead}}</h1>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-white">
-                    <div class="inner">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="p-3 text-center">
-                                    <h2 class="title-chart">Total Contacts</h2>
-                                    <p class="sub-title-chart">Today</p>
-                                    <h3 class="text-info chart-number">{{$total_contact}}</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-white">
-                    <div class="inner">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="p-3 text-center">
-                                    <h2 class="title-chart">Total Quotes</h2>
-                                    <p class="sub-title-chart">Today</p>
-                                    <h3 class="text-info chart-number">{{$total_quote}}</h3>
+                        <div class="inner">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="p-3 text-center">
+                                        <h2 class="title-chart">Contacts</h2>
+                                        <p class="sub-title-chart">Today</p>
+                                        <h1 class="chart-number">{{$total_contact}}</h1>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-                <div class="small-box bg-white">
-                      <div class="inner">
-                          <div class="row">
-                              <div class="col-12">
-                                  <div class="p-3 text-center">
-                                      <h2 class="title-chart">Survey</h2>
-                                      <p class="sub-title-chart">Today</p>
-                                      <h3 class="text-info chart-number">{{$total_survey}}</h3>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                </div>
-            </div>
-            <!-- ./col -->
-        </div>
-        <!-- /.row -->
-        <div class="row">
-            <div class="col-md-6">
-                <!-- AREA CHART -->
-                <div class="card card-primary" >
-                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
-                        <h3 class="card-title text-dark text-bold">Lead Status Chart</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart">
-                            <div id="LeadChart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-white">
+                        <div class="inner">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="p-3 text-center">
+                                        <h2 class="title-chart">Quotes</h2>
+                                        <p class="sub-title-chart">Today</p>
+                                        <h1 class="chart-number">{{$total_quote}}</h1>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                <!-- small box -->
+                    <div class="small-box bg-white">
+                        <div class="inner">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="p-3 text-center">
+                                        <h2 class="title-chart">Survey</h2>
+                                        <p class="sub-title-chart">Today</p>
+                                        <h1 class="chart-number">{{$total_survey}}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./col -->
             </div>
+            <!-- /.row -->
+            <div class="row g-chart">
+                <div class="col-xl-6">
+                    <!-- AREA CHART -->
+                    <div class="card card-primary" >
+                        <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                            <h3 class="card-title text-dark text-bold">Lead Status Chart</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                <div id="LeadChart" style="width: 100%; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col (LEFT) -->
+                <div class="col-xl-6">
+                    <!-- LINE CHART -->
+                    <div class="card card-info">
+                        <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                            <h3 class="card-title text-dark text-bold">Quote Status Chart</h3>
+                            <?php
+                                if (session_status() == PHP_SESSION_NONE) {
+                                session_start();
+                            }
+                            ?>
+                            <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead">
+                        </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                <div id="QuoteChart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col (RIGHT) -->
+            </div>
+            <!-- /.row -->
+            <!-- /.row -->
+            <div class="row g-chart">
+                <div class="col-xl-6">
+                    <!-- AREA CHART -->
+                    <div class="card card-primary">
+                        <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                            <h3 class="card-title text-dark text-bold">Contact Chart</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                <div id="ContactChart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
             <!-- /.col (LEFT) -->
-            <div class="col-md-6">
-                <!-- LINE CHART -->
-                <div class="card card-info">
-                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
-                        <h3 class="card-title text-dark text-bold">Quote Status Chart</h3>
-                        <?php
-                            if (session_status() == PHP_SESSION_NONE) {
-                            session_start();
-                        }
-                        ?>
-                        <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead">
-                    </div>
-                    <div class="card-body">
-                        <div class="chart">
-                            <div id="QuoteChart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+            <div class="col-xl-6">
+                    <!-- LINE CHART -->
+                    <div class="card card-info">
+                        <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                            <h3 class="card-title text-dark text-bold">Survey Chart</h3>
                         </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                <div id="survey_chart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card-body -->
+                    <!-- /.card -->
                 </div>
-                <!-- /.card -->
+                <!-- /.col (RIGHT) -->
             </div>
-            <!-- /.col (RIGHT) -->
+            <!-- /.row -->
         </div>
-        <!-- /.row -->
-        <!-- /.row -->
-        <div class="row">
-            <div class="col-md-6">
-                <!-- AREA CHART -->
-                <div class="card card-primary">
-                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
-                        <h3 class="card-title text-dark text-bold">Contact Chart</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart">
-                            <div id="ContactChart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-            </div>
-          <!-- /.col (LEFT) -->
-          <div class="col-md-6">
-                <!-- LINE CHART -->
-                <div class="card card-info">
-                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
-                        <h3 class="card-title text-dark text-bold">Survey Chart</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart">
-                            <div id="survey_chart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-          </div>
-          <!-- /.col (RIGHT) -->
-        </div>
-        <!-- /.row -->
     </div>
 </section><!-- end section Main content -->
 
 <script>
+
     var currentDate = new Date()
     var currentDateString = currentDate.toJSON().split('T')[0]
     currentDate.setDate( currentDate.getDate() - 7 );
     var currentDateStringSub7 = currentDate.toJSON().split('T')[0]
+
     $(function () {
+
     // Chart Lead Status
     var Lead_Chart = () => {
       $.ajax({
@@ -282,6 +286,7 @@
                     ]);
                     var options = {
                         title: 'Lead Performance',
+                        width: '100%',
                         colors: ['#ffffff'],
                         pieSliceText:'value',
                     };
@@ -506,44 +511,40 @@
                 },
             //data: $('#FrmChartContactReport').serialize(),
             success: function (response) {
-                var ff = response.true,
-                    hh = response.false;
-                // alert(ff+'l'+hh);
+                var success = response.true,
+                    unsuccess = response.false;
 
-                // function CrmSurveyChart(response) {
-                    var data = google.visualization.arrayToDataTable([
-                        ['Task', '', {
-                            role: 'style'
-                        }],
-                        ['Success',ff,'color:#25CCF7'],
-                        ['Unsuccess',hh,'color:#ff3d67']
-                        ]);
+                var data = google.visualization.arrayToDataTable([
+                    ['Task','',{role: 'style'}],
+                    ['Success',success,'color:#25CCF7'],
+                    ['Unsuccess',unsuccess,'color:#ff3d67']
+                    ]);
 
-                        var options = {
-                            title: 'Survey Performance',
-                            colors:['#ffffff','#ffffff'],
-                            annotations: {
-                                textStyle: {
-                                    fontName: 'Times-Roman',
-                                    fontSize: 18,
-                                    bold: true,
-                                    italic: true,
-                                    // The color of the text.
-                                    color: '#871b47',
-                                    // The color of the text outline.
-                                    auraColor: '#d799ae',
-                                    // The transparency of the text.
-                                    opacity: 0.8
-                                }
-                            },
-                            style: {
-                                opacity: 0.5
-                            }
-                        };
+                var options = {
+                    title: 'Survey Performance',
+                    colors:['#ffffff','#ffffff'],
+                    annotations: {
+                        textStyle: {
+                            fontName: 'Times-Roman',
+                            fontSize: 18,
+                            bold: true,
+                            italic: true,
+                            color: '#871b47',
+                            auraColor: '#d799ae',
+                            opacity: 0.8
+                        }
+                    },
+                    style: {
+                        opacity: 0.5
+                    },
+                    hAxis: {
+                        maxValue: 50,
+                        value: 0
+                    }
 
-                        var chart = new google.visualization.BarChart(document.getElementById('survey_chart'));
-                        chart.draw(data, options);
-                // }
+                };
+                var chart = new google.visualization.BarChart(document.getElementById('survey_chart'));
+                    chart.draw(data, options);
             }
         })
     }
@@ -614,10 +615,18 @@
       });
     }
 
-    // Organization_Chart();
-    Survey_Chart();
     Lead_Chart();
     Quote_Chart();
     Contact_Chart();
-    })
-  </script>
+    Survey_Chart();
+
+    // responsive chart
+    window.onresize = () => {
+        Lead_Chart();
+        Quote_Chart();
+        Contact_Chart();
+        Survey_Chart();
+    };
+    });
+
+</script>
