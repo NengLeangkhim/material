@@ -59,10 +59,10 @@
                             </div>
                           </form>
                         </div>
-                        <div class="chart">
-                          <div style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;display:block;">
-                            <div id="donutchart" style="width: auto; height: 300px;"></div>
-                          </div>
+                        <div class="chart">                                      
+                          <div id="Branchchart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;display:block;">                            
+                         
+                          </div>                          
                         </div>
                         <div class="col-md-12 text-right">
                           <button class="btn btn-info" onclick="go_to('/crmreport/detaillead')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -110,10 +110,8 @@
                           </div>
                         </form>
                       </div>
-                      <div class="chart">
-                        <div style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">
-                          <div id="columnchart_values" style="width:auto;height:auto;"></div>
-                        </div>
+                      <div class="chart"> 
+                        <div id="Contact_Chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>                       
                       </div>
 
                       {{-- <div class="chart">
@@ -168,8 +166,8 @@
                           </div>
                         </form>
                       </div>
-                      <div class="chart">
-                        <div id="OrganizationChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                      <div class="chart col-md-12"> 
+                        <div id="organization" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>                       
                       </div>
                       <div class="col-md-12 text-right">
                         <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -219,9 +217,7 @@
                             </form>
                           </div>
                           <div class="chart">                         
-                              <div  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:10px;">
-                                <div id="barchart_values" style="width:auto; height: auto;"></div>                      
-                              </div>
+                              <div class="col-md-12" id="QuoteChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:10px;"></div>
                           </div>
                           <div class="col-md-12 text-right">
                             <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -455,7 +451,7 @@
     });
   </script>
 
-  {{-- lead chart --}}
+  {{-- Branch chart --}} 
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
     google.charts.load("current", {packages:["corechart"]});
@@ -473,10 +469,10 @@
         slices: {
             0: { color: '#ff6384' },
             1: { color: '#1fa8e0' },
-            2: { color: '#c060a1' }
-          }
+            2: { color: '#c060a1' }            
+          }          
       };
-      var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+      var chart = new google.visualization.PieChart(document.getElementById('Branchchart'));
       chart.draw(data, options);
     }
   </script>
@@ -488,8 +484,8 @@
      function drawChart() {
       var data = google.visualization.arrayToDataTable([
         ['Year', ' ', { role: 'style' } ],
-
-        ['2020', 10,'stroke-color: #1fa8e0; stroke-width: 2; fill-color: #4bc0c0;'],
+       
+        ['2020', 10,'stroke-color: #1aa6b7; stroke-width: 2; fill-color: #1fa8e0;'],  
       ]);
 
        var view = new google.visualization.DataView(data);
@@ -506,11 +502,38 @@
          bar: {groupWidth: "70%"},
          legend: { position: "none" },
        };
-       var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+       var chart = new google.visualization.ColumnChart(document.getElementById("Contact_Chart"));
        chart.draw(view, options);
    }
    </script>
+   {{-- organization chart --}}
+   <script type="text/javascript">
+    google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+     var data = google.visualization.arrayToDataTable([
+       ['Year', ' ', { role: 'style' } ],      
+       ['2020', 10,'stroke-color: #1aa6b7; stroke-width: 2; fill-color: #1fa8e0;'],  
+     ]);
 
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]); 
+      var options = {
+        title: "Contact Chart",
+        width: 550,
+        height: 300,
+        bar: {groupWidth: "70%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("organization"));
+      chart.draw(view, options);
+  }
+  </script>
    {{-- Quote chart --}}
    <script type="text/javascript">
     google.charts.load("current", {packages:["corechart"]});
@@ -518,9 +541,11 @@
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
         ['Year', ' ', { role: 'style' } ],
-        ['2019', 10, 'stroke-color:#c56183; stroke-width: 2;fill-color: #ffa5a5; '],
-        ['2020', 14, 'stroke-color: #1fa8e0; stroke-width: 2; fill-color: #4bc0c0; ']
-
+        ['2018', 10, 'stroke-color:#c56183; stroke-width: 2;fill-color: #ffa5a5; '],
+        ['2019', 12, 'stroke-color: #1aa6b7; stroke-width: 2; fill-color: #1fa8e0; '],
+        ['2020', 13, 'stroke-color:#c56183; stroke-width: 2;fill-color: #ffa5a5; '],
+        ['2021', 14, 'stroke-color: #1aa6b7; stroke-width: 2; fill-color: #1fa8e0; ']
+   
       ]);
 
       var view = new google.visualization.DataView(data);
@@ -538,7 +563,7 @@
         bar: {groupWidth: "70%"},
         legend: { position: "none" },
       };
-      var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+      var chart = new google.visualization.BarChart(document.getElementById("QuoteChart"));
       chart.draw(view, options);
     }
     </script>
