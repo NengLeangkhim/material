@@ -100,7 +100,7 @@ class ModelHrmPolicy extends Model
     {
         $sql=DB::select("SELECT hpu.*,concat(mu.first_name_en,' ',mu.last_name_en) as name,hp.name as policy_name,mp.name as position_name FROM hr_policy_user hpu
         INNER JOIN ma_user mu on mu.id=hpu.ma_user_id
-        INNER JOIN hr_policy hp on hp.id=hpu.hr_policy_id
+        INNER JOIN hr_policy hp on hp.id=hpu.hr_policy_id and hp.is_deleted=false and hp.status=true
         INNER JOIN ma_position mp ON mp.id=mu.ma_position_id
         WHERE hpu.ma_user_id=$id");
         return $sql;
@@ -143,7 +143,7 @@ class ModelHrmPolicy extends Model
         }
         $sql=DB::select("SELECT hpu.*,concat(mu.first_name_en,' ',mu.last_name_en) as name,hp.name as policy_name,mp.name as position_name FROM hr_policy_user hpu
             INNER JOIN ma_user mu on mu.id=hpu.ma_user_id
-            INNER JOIN hr_policy hp on hp.id=hpu.hr_policy_id
+            INNER JOIN hr_policy hp on hp.id=hpu.hr_policy_id and hp.is_deleted=false and hp.status=true
             INNER JOIN ma_position mp ON mp.id=mu.ma_position_id
             WHERE hpu.status='t' AND hpu.is_deleted='f' {$sql_where} AND hpu.create_date BETWEEN '$from' and '$to'");
         return $sql;
