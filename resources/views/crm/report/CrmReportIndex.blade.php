@@ -188,10 +188,9 @@
                                 @csrf
                                 <div class="row" hidden>
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                    <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
                                             </div>
                                             <input type="hidden" name="fromDate">
                                             <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="ReportQuoteFrom" name='ReportQuoteFrom'  required>
@@ -201,7 +200,6 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>

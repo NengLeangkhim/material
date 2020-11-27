@@ -139,13 +139,12 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Currency</label>
+                                        <label for="exampleInputEmail1">Currency<b class="color_label"> *</b></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
                                             <select class="form-control" name="currency" id="currency" onchange="myCurrency()">
-                                                <option value="null">select item</option>
                                                 @if (count($currencys) >0)
                                                     @foreach ($currencys as $currency)
                                                         <option
@@ -176,7 +175,7 @@
                             <br>
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-primary save" id="frm_btn_sub_update_chart_account">Update</button>
-                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_chart_account_list')">Cencel</button>
+                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_chart_account_list')">Cancel</button>
                             </div>
                         </div>
                     </div>

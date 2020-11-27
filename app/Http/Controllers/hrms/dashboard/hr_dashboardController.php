@@ -217,7 +217,7 @@ class hr_dashboardController extends Controller
 
     // check attendance staff by today
     public static function staff_attendence(){
-        $all_em=Employee::allEmployee_without_night_sheet();
+        $all_em = Employee::AllEmployee();
         $intime = 0;
         $late = 0;
         $absent = 0;
@@ -341,8 +341,8 @@ class hr_dashboardController extends Controller
     //generate staff by type gender
     public static function staff_type(){
         $all_em=Employee::AllEmployee();
-        $m = '';
-        $f = '';
+        $m = 0;
+        $f = 0;
 
         foreach($all_em as $val){
            if($val->sex == 'male'){
@@ -570,6 +570,7 @@ class hr_dashboardController extends Controller
         $r = count($data);
         return $r;
     }
+
 
     
 

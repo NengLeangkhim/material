@@ -14,4 +14,5 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('bsc_show_quote', 'api\BSC\InvoiceController@show_quote');
     Route::get('bsc_show_invoice_filter', 'api\BSC\InvoiceController@show_invoice_filter');
     Route::get('bsc_show_quote_single/{id}', 'api\BSC\InvoiceController@show_quote_single');
+    Route::get('bsc_show_vat_chart_account', 'api\BSC\InvoiceController@show_vat_chart_account');
 });

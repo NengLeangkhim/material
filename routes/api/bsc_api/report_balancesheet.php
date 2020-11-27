@@ -20,3 +20,4 @@ use Illuminate\Support\Facades\Route;
 
 // get balancesheet report
 Route::get('/balancesheet','api\BSC\ReportBalanceSheet@index');
+Route::get('/v1/balancesheet', 'api\BSC\ReportBalanceSheet@balanceSheet');

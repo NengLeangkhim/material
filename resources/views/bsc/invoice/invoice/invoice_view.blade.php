@@ -123,11 +123,11 @@
                                             <td>{{ $invoice_detail->product_name }}</td>
                                             <td>{{ $invoice_detail->description }}</td>
                                             <td>{{ $invoice_detail->qty }}</td>
-                                            <td>{{ $invoice_detail->unit_price }}</td>
-                                            <td>{{ $invoice_detail->discount }}</td>
+                                            <td>{{ number_format($invoice_detail->unit_price,4,".",",") }}</td>
+                                            <td>{{ number_format($invoice_detail->discount,4,".",",") }}</td>
                                             <td>{{ $invoice_detail->chart_account_name }}</td>
-                                            <td>{{ $invoice_detail->tax }}</td>
-                                            <td class="item_amount">{{ $invoice_detail->amount }}</td>
+                                            <td>{{ $invoice_detail->tax == 0 ? "No Tax" : "Tax" }}</td>
+                                            <td class="item_amount">{{ number_format($invoice_detail->amount,4,".",",") }}</td>
                                         </tr>
                                     @endforeach
                                 @endif
@@ -181,7 +181,7 @@
                                                         <label for="">Payment : </label>
                                                     </div>
                                                     <div class="col-sm-6 text_right">
-                                                        <label for="">{{ $invoice_payment->amount_paid }}</label>
+                                                        <label for="">{{ number_format($invoice_payment->amount_paid,4,".",",") }}</label>
                                                     </div>
                                                 </div>
 
@@ -209,7 +209,7 @@
                                                 <label for="">Amount Due : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
-                                                <label for="" id="due_amount">{{ $due_amount==null ? $invoices->grand_total : $due_amount }}</label>
+                                                <label for="" id="due_amount">{{$due_amount == null ? number_format($invoices->grand_total, 4, '.', '') : number_format($due_amount, 4, '.', '')}}</label>
                                             </div>
                                         </div>
                                         <hr class="line_in_tag_hr" style="{{ $display }}">
@@ -231,7 +231,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control input_required item_unit_price"  name="amount_paid" id="amount_paid" value="{{ $due_amount==null ? $invoices->grand_total : $due_amount }}" autofocus placeholder="Amount Paid">
+                                                    <input oninput="limitDecimalPlaces(event, 4)" type="number" class="form-control input_required item_unit_price" name="amount_paid" id="amount_paid" value="{{$due_amount == null ? number_format($invoices->grand_total, 4, '.', '') : number_format($due_amount, 4, '.', '')}}" autofocus placeholder="Amount Paid" >
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -337,12 +337,14 @@ $('.detail').click(function(e)
     $(document).ready(function(){
         //show total & grand total
         showTotal();
+        vatTotal();
         showGrandTotal();
 
         $("#amount_paid").on("keyup", function()
         {
             let amount_paid=parseFloat($('#amount_paid').val());
             let due_amount=parseFloat($('#due_amount').text());
+
             if(amount_paid > due_amount){
                 sweetalert('error','Amount Paid is bigger than Due Amount or Grand Total');
                 return false;
@@ -353,11 +355,9 @@ $('.detail').click(function(e)
     // add payment
     function invoice_payment()
     {
-
         let amount_paid=parseFloat($('#amount_paid').val()).toFixed(4);
         let grand_total=parseFloat($('#grand_total').val()).toFixed(4);
         let due_amount=parseFloat($('#due_amount').text()).toFixed(4);
-
         let num_miss = 0;
         $(".input_required").each(function(){
             if($(this).val()=="" || $(this).val()==null){ num_miss++;}
@@ -369,18 +369,17 @@ $('.detail').click(function(e)
             sweetalert('error', 'Please input or select field * required');
             return false;
         }else{
-            if(amount_paid > due_amount){
+            if(parseFloat(amount_paid) > parseFloat(due_amount)){
                 $('#amount_paid').css('border-color', 'red');
                 sweetalert('error','Amount Paid input is bigger than Due Amount or Grand Total');
                 return false;
-            }else if(amount_paid == 0){
+            }else if(parseFloat(amount_paid) == 0){
                 sweetalert('error','Amount Paid can not input Zero');
                 return false;
-            }else if(amount_paid < 0){
+            }else if(parseFloat(amount_paid) < 0){
                 sweetalert('error','Amount Paid must input bigger than Zero');
                 return false;
             }else{
-
                 let due_amounts =parseFloat(due_amount - amount_paid).toFixed(4);
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
@@ -416,10 +415,10 @@ $('.detail').click(function(e)
     }
 
     // input only number & .
-    $('.item_unit_price').keypress(function(e){
-        var x = event.charCode || event.keyCode;
-        if (isNaN(String.fromCharCode(e.which)) && x!=46 || x===32 || x===13 || (x===46 && event.currentTarget.innerText.includes('.'))) e.preventDefault();
-    });
+    // $('.item_unit_price').keypress(function(e){
+    //     var x = event.charCode || event.keyCode;
+    //     if (isNaN(String.fromCharCode(e.which)) && x!=46 || x===32 || x===13 || (x===46 && event.currentTarget.innerText.includes('.'))) e.preventDefault();
+    // });
 
     // End Calculate Grand Total
     function showTotal(){
@@ -438,5 +437,19 @@ $('.detail').click(function(e)
         let totalvat = parseFloat($('#txtVatTotal').text());
         let grandTotal = total + totalvat;
         document.getElementById('txtGrandTotal').innerHTML=grandTotal.toFixed(4);
+    }
+    //Calculate Vat Total
+    function vatTotal()
+    {
+        let total = parseFloat($('#txtTotal').text());
+        let vat_total= (total * 10)/100;
+        document.getElementById('txtVatTotal').innerHTML=vat_total.toFixed(4);
+    }
+    // max length input after dote
+    function limitDecimalPlaces(e, count) {
+        if (e.target.value.indexOf('.') == -1) { return; }
+        if ((e.target.value.length - e.target.value.indexOf('.')) > count) {
+            e.target.value = parseFloat(e.target.value).toFixed(count);
+        }
     }
 </script>

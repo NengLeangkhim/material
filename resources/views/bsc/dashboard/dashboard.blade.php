@@ -1,8 +1,4 @@
 @php
-use \App\Http\Controllers\bsc\DashboardController;
-$read_data=DashboardController::read_data();
-
-
 // print_r($staff_suggestion);
 //function divide number to two digits
 Function index_num($v1){
@@ -32,17 +28,17 @@ Function index_num($v1){
                   <div class=" card card-mini mb-4">
                         <div class="card-body">
                             <h5 class="mb-1" style="font-weight: bold; text-align: center ">
-                              <?php echo 'Income'; ?>
+                              <?php echo 'Revenue'; ?>
                             </h5>
                             <div class="chartjs-wrapper " >
-                                <h3 style="text-align: center; color:#12b9d6"><?php echo "100"; ?> </h3>
+                                <h5 style="text-align: center; color:#12b9d6">{{ number_format($amount_dashboards->total_revenue_this_month_debit,4,".",",") }}</h5>
                             </div>
                             <div class="row" style="text-align: center">
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                     All Total :
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                    1000000
+                                    {{ number_format($amount_dashboards->total_revenue_all_debit,4,".",",") }}
                                 </div>
                             </div>
                         </div>
@@ -56,14 +52,14 @@ Function index_num($v1){
                             <?php echo 'Expense'; ?>
                         </h5>
                         <div class="chartjs-wrapper " >
-                            <h3 style="text-align: center; color:#12b9d6"><?php echo "100"; ?> </h3>
+                            <h5 style="text-align: center; color:#12b9d6">{{number_format($amount_dashboards->total_expense_this_month_debit,4,".",",") }}</h5>
                         </div>
                         <div class="row" style="text-align: center">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                 All Total :
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                1000000
+                                {{ number_format($amount_dashboards->total_expense_all_debit,4,".",",") }}
                             </div>
                         </div>
                     </div>
@@ -77,14 +73,14 @@ Function index_num($v1){
                             <?php echo 'Account Receivable'; ?>
                         </h5>
                         <div class="chartjs-wrapper " >
-                            <h3 style="text-align: center; color:#12b9d6"><?php echo "100"; ?> </h3>
+                            <h5 style="text-align: center; color:#12b9d6">{{ number_format($amount_dashboards->total_receivable_this_month,4,".",",") }}</h5>
                         </div>
                         <div class="row" style="text-align: center">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                 All Total :
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                1000000
+                                {{ number_format($amount_dashboards->total_receivable_all,4,".",",") }}
                             </div>
                         </div>
                     </div>
@@ -98,14 +94,14 @@ Function index_num($v1){
                             <?php echo 'Account Payable'; ?>
                         </h5>
                         <div class="chartjs-wrapper " >
-                            <h3 style="text-align: center; color:#12b9d6"><?php echo "100"; ?> </h3>
+                            <h5 style="text-align: center; color:#12b9d6">{{ number_format($amount_dashboards->total_payable_this_month,4,".",",") }}</h5>
                         </div>
                         <div class="row" style="text-align: center">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                 All Total :
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                1000000
+                                {{ number_format($amount_dashboards->total_payable_all,4,".",",") }}
                             </div>
                         </div>
                     </div>
@@ -124,7 +120,7 @@ Function index_num($v1){
                             <h5 class="mb-1" style="font-weight: bold; ">
                                 Income & Expense By Month
                             </h5>
-                                <p> This Month</p>
+                                {{-- <p> This Month</p>
                                 <table class="table_style1" >
                                     <tr class="tr-review">
                                         <td>Today<td>
@@ -138,7 +134,7 @@ Function index_num($v1){
                                         <td>This Year<td>
                                         <td> :<?php ?></td>
                                     </tr>
-                                </table>
+                                </table> --}}
                                 <div class="chartjs-wrapper" >
                                     <canvas id="bar-chart-grouped" width="800" height="450"></canvas>
                                 </div>
@@ -153,7 +149,7 @@ Function index_num($v1){
                                 <h5 class="mb-1" style="font-weight: bold; ">
                                     Account Receivable & Account Payable By Month
                                 </h5>
-                                <p> This Month</p>
+                                {{-- <p> This Month</p>
                                 <table class="table_style1" >
                                     <tr class="tr-review">
                                         <td>Today<td>
@@ -167,7 +163,7 @@ Function index_num($v1){
                                         <td>This Year<td>
                                         <td> :<?php ?></td>
                                     </tr>
-                                </table>
+                                </table> --}}
                                     <div class="chartjs-wrapper " >
                                         <canvas id="bar-chart-payable" width="800" height="450"></canvas>
                                     </div>
@@ -175,26 +171,102 @@ Function index_num($v1){
                         </div>
                 </div>
         </div>
-
 </div>
+@php
+    if($amount_high_chart_dashboards->arr_month != ""){
+        $arr_month = $amount_high_chart_dashboards->arr_month;
+        $month_name = "";
+        for ($i=0; $i < 5; $i++) { 
+            if ($i != 4) {
+                $opt_camma = ",";
+            }else {
+                $opt_camma = "";
+            }
+            $month_name .= '"'.$arr_month[$i].'"'.$opt_camma;
+        }
+    }
+    
+    //get Data Amount Revenue
+    if ($amount_high_chart_dashboards->arr_total_amount_revenue_debit != "") {
+       $arr_revenue = $amount_high_chart_dashboards->arr_total_amount_revenue_debit;
+        $data_revenue = "";
+        for ($i=0; $i < 5; $i++) { 
+            if ($i != 4) {
+                $opt_camma = ",";
+            }else {
+                $opt_camma = "";
+            }
+            $data_revenue .= $arr_revenue[$i].$opt_camma;
+           
+        }
+    }
 
-<script>
+    // get Data Amount Expens
+    if ($amount_high_chart_dashboards->arr_total_amount_expense_debit != "") {
+        $arr_expense = $amount_high_chart_dashboards->arr_total_amount_expense_debit;
+        $data_expense = "";
+        for ($i=0; $i < 5; $i++) { 
+            if ($i != 4) {
+                $opt_camma = ",";
+            }else {
+                $opt_camma = "";
+            }
+            $data_expense .= $arr_expense[$i].$opt_camma;
+           
+        }
+    }
+
+    // get Data Amount Receivable
+    if ($amount_high_chart_dashboards->arr_total_amount_receivable != "") {
+        $arr_receivable = $amount_high_chart_dashboards->arr_total_amount_receivable;
+        $data_receivable = "";
+        for ($i=0; $i < 5; $i++) { 
+            if ($i != 4) {
+                $opt_camma = ",";
+            }else {
+                $opt_camma = "";
+            }
+            $data_receivable .= $arr_receivable[$i].$opt_camma;
+           
+        }
+    }
+
+    // get Data Amount Payable
+    if ($amount_high_chart_dashboards->arr_total_amount_payable != "") {
+        $arr_payable = $amount_high_chart_dashboards->arr_total_amount_payable;
+        $data_payable = "";
+        for ($i=0; $i < 5; $i++) { 
+            if ($i != 4) {
+                $opt_camma = ",";
+            }else {
+                $opt_camma = "";
+            }
+            $data_payable .= $arr_payable[$i].$opt_camma;
+           
+        }
+    }
+   
+@endphp
+<script>    
+     
+
     //bar chart for Income & Expense by month
         new Chart(document.getElementById("bar-chart-grouped"), {
             type: 'bar',
             data: {
-            labels: ["1900", "1950", "1999", "2050", "2020"],
-            datasets: [
-                {
-                label: "Income",
-                backgroundColor: "#3e95cd",
-                data: [133,221,783,2478,2020]
-                }, {
-                label: "Expense",
-                backgroundColor: "#8e5ea2",
-                data: [408,547,675,734,2020]
-                }
-            ]
+                labels: [<?php echo $month_name; ?>],
+                datasets: [
+                    {
+                        label: "Revenue",
+                        data: [<?php echo $data_revenue; ?>],
+                        backgroundColor: "#36A2EB"
+                    }, 
+                    {
+                        label: "Expense",
+                        data: [<?php echo $data_expense; ?>],
+                        backgroundColor: "#FF6384",
+                    }
+                ]
             },
             options: {
             title: {
@@ -208,18 +280,19 @@ Function index_num($v1){
         new Chart(document.getElementById("bar-chart-payable"), {
             type: 'bar',
             data: {
-            labels: ["1900", "1950", "1999", "2050","2020"],
-            datasets: [
-                {
-                label: "Account Receivable",
-                backgroundColor: "#3e95cd",
-                data: [133,221,783,2478,2020]
-                }, {
-                label: "Account Payable",
-                backgroundColor: "#8e5ea2",
-                data: [408,547,675,734,2020]
-                }
-            ]
+                labels: [<?php echo $month_name; ?>],
+                datasets: [
+                    {
+                        label: "Account Receivable",
+                        data: [<?php echo $data_receivable; ?>],
+                        backgroundColor: "#36A2EB"
+                    }, 
+                    {
+                        label: "Account Payable",
+                        data: [<?php echo $data_payable; ?>],
+                        backgroundColor: "#FF6384"
+                    }
+                ]
             },
             options: {
             title: {

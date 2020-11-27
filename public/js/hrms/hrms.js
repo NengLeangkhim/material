@@ -117,6 +117,28 @@ function hrms_date(){
       });
 }
 // All Employee
+    // modal add and edit employee
+        function hrms_add_edit_employee(id=-1){
+            if(check_session()){
+                return;
+            }
+            $.ajax({
+                type: 'GET',
+                url: '/add_edit_employee',
+                data:{
+                    _token: '<?php echo csrf_token() ?>',
+                    id:id
+                },
+                success: function (data) {
+                    document.getElementById('add_edit_employee').innerHTML=data;
+                    // $('#modal_employee').modal('show');
+                    // $("#emDepartment").select2();
+                    // $("#emPosition").select2();
+                    // hrms_date();
+                }
+            });
+        }
+    // end modal add and edit employee
     // Add modal Employee in View
         function hrms_modal_add_edit_employee(id=-1){
             if(check_session()){
@@ -213,6 +235,97 @@ function hrms_date(){
                 })
         }
 
+
+
+        // insert exit employee information
+        function hrms_insert_exit_employee(){
+            if(!hrms_validation('fm_exit_information')){return;}
+            if(check_session()){return;}
+            $.ajax({
+                type: 'GET',
+                url: 'hrm_insert_exit_employee',
+                data: {
+                    id: $('#exit_infomation_id').val(),
+                    request_exit_date:$('#request_exit_date').val(),
+                    type_of_exit:$('#type_of_exit').val(),
+                    hr_received_date:$('#hr_received_date').val(),
+                    effective_exit_date:$('#effective_exit_date').val(),
+                    training_and_development:$('#training_and_development').val(),
+                    opportunity_to_promote:$('#opportunity_to_promote').val(),
+                    work_presure:$('#work_presure').val(),
+                    working_on_holiday:$('#working_on_holiday').val(),
+                    motivation:$('#motivation').val(),
+                    overall_opion:$('#overall_opion').val(),
+                    submit_date:$('#submit_date').val(),
+                    manager_approved_date:$('#manager_approved_date').val(),
+                    reason_of_exit:$('#reason_of_exit').val(),
+                    duties_and_responsibility:$('#duties_and_responsibility').val(),
+                    given_salary:$('#given_salary').val(),
+                    working_environment:$('#working_environment').val(),
+                    team_work:$('#team_work').val(),
+                    management_issue:$('#management_issue').val(),
+                    comment:$('#comment').val()
+                },
+                success: function (data) {
+                    setTimeout(function () { go_to('hrm_allemployee'); }, 300);
+                   hrms_notification(this.responseText);
+                   $('#modal_exit_employee').modal('hide');
+                }
+            });
+
+    
+        }
+
+
+
+        function hrms_employee_detail(id){
+            if(check_session()){
+                return;
+            }
+            $.ajax({
+                type: 'GET',
+                url: '/profile',
+                data:{
+                    _token: '<?php echo csrf_token() ?>',
+                    id:id
+                },
+                success: function (data) {
+                    $(".content-wrapper").html(data);
+                }
+            });
+        }
+
+
+
+
+        function hrm_delete_employee(id) {
+            
+            if(check_session()){
+            return;
+            }
+            $.ajax({
+                type: 'GET',
+                url: 'hrm_delete_data',
+                data: {
+                    _token: '<?php echo csrf_token() ?>',
+                    perm: 'HRM_09010103'
+                },
+                success: function (data) {
+                    if(data=='1'){
+                        $('#modal_exit_employee').modal('show');
+                        var $inputs = $('#fm_exit_information :input,select,number');
+                        $inputs.each(function (index){
+                            $(this).val('');
+                        });
+                        $('#exit_infomation_id').val(id);
+                    }else{
+                        alert('No Permission');
+                    }
+                }
+            });
+
+        };
+
     // End Employee
 
 
@@ -276,8 +389,8 @@ function hrms_date(){
                         request.send(form_data);
                     }
                 })
-            
-            
+
+
         }
     // End Holiday
     //  Attendance
@@ -405,8 +518,8 @@ function hrms_date(){
                         request.send(form_data);
                     }
                 })
-            
-            
+
+
         }
         function OvertimeDetail(){
             if(check_session()){
@@ -429,24 +542,172 @@ function hrms_date(){
             });
         }
    // End Overtime
+
+   // Warning & Punishment
+        function hrsm_modal_add_edit_warning_and_punishment(id=-1){
+            if(check_session()){return;}
+            $.ajax({
+                type: 'GET',
+                url: '/hrm_modal_warning_and_punishment',
+                data: {
+                    _token: '<?php echo csrf_token() ?>',
+                    id: id
+                },
+                success: function (data) {
+                    document.getElementById('modal').innerHTML = data;
+                    $('#modal_warning_and_punishment').modal('show');
+                    // hrms_date();
+                    $('#warning_date').datetimepicker({
+                        format: 'YYYY-MM-D HH:mm',
+                        sideBySide: true,
+                    });
+                    $('select[name=em_warning_by]').select2();
+                    $('select[name=em_edit_by]').select2();
+                    $('select[name=em_approved_by]').select2();
+                    $('select[name=em_staff_warning]').select2();
+                }
+            });       
+        }
+
+
+        function hrms_modal_add_edit_warning_and_punishment_type(id=-1){
+            if(check_session()){return;}
+            $.ajax({
+                type: 'GET',
+                url: '/hrm_modal_warning_and_punishment_type',
+                data: {
+                    _token: '<?php echo csrf_token() ?>',
+                    id: id
+                },
+                success: function (data) {
+                    document.getElementById('modal').innerHTML = data;
+                    $('#modal_warning_and_punishment_type').modal('show');
+                    hrms_date();
+                    
+                }
+            });
+        }
+
+
+        function hrms_insert_update_warning_and_punishment(){
+            if(!hrms_validation('fm_warning_and_punishment')){return;}
+            if(check_session()){return;}
+            Swal.fire({ //get from sweetalert function
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Save it!'
+                }).then((result) => {
+                    if (result.value) {
+                        var form_element=document.getElementById('fm_warning_and_punishment');
+                        var form_data = new FormData(form_element);
+                        var request = new XMLHttpRequest();
+                        request.open("POST","hrm_insert_update_warning_and_punishment");
+                        request.onreadystatechange=function(){
+                            if(this.readyState==4 && this.status==200){
+                                console.log(this.responseText);
+                                data=JSON.parse(this.responseText);
+                                if($.isEmptyObject(data.error)){
+                                    setTimeout(function () { go_to('hrm_warning_and_punishment'); }, 300);
+                                    hrms_notification(data.success);
+                                    // alert(data.success);
+                                    $('#modal_warning_and_punishment').modal('hide');
+                                }else{
+                                        $.each(data.error, function(key,value){
+                                            $('#'+key).removeClass('d-none');
+                                            // $('#'+key).html(value);
+                                        });
+                                }
+
+                            }
+                        }
+                        request.send(form_data);
+                    }
+                })
+        }
+
+
+        function hrms_insert_update_warning_and_punishment_type(){
+            if(!hrms_validation('fm_warning_and_punishment_type')){return;}
+            if(check_session()){return;}
+            Swal.fire({ //get from sweetalert function
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Save it!'
+                }).then((result) => {
+                    if (result.value) {
+                        var form_element=document.getElementById('fm_warning_and_punishment_type');
+                        var form_data = new FormData(form_element);
+                        var request = new XMLHttpRequest();
+                        request.open("POST","hrm_insert_update_warning_and_punishment_type");
+                        request.onreadystatechange=function(){
+                            if(this.readyState==4 && this.status==200){
+                                console.log(this.responseText);
+                                data=JSON.parse(this.responseText);
+                                if($.isEmptyObject(data.error)){
+                                    setTimeout(function () { go_to('hrm_warning_and_punishment'); }, 300);
+                                    hrms_notification(data.success);
+                                    // alert(data.success);
+                                    $('#modal_warning_and_punishment_type').modal('hide');
+                                }else{
+                                        $.each(data.error, function(key,value){
+                                            $('#'+key).addClass('is-invalid');
+                                        });
+                                }
+
+                            }
+                        }
+                        request.send(form_data);
+                    }
+                })
+        }
+
+        
+   // End Warning and Punishment
+
 // End Employee
 // Training
 
-    function hrm_chechEmployee_training(){
-        var countchecked = $("table input[type=checkbox]:checked").length;
-        if(countchecked>0){
-            submit_form ('hrm_insert_update_traininglist','fm_training_list','hrm_traininglist','modal_traininglist');
-        }else{
-            alert('Please check employee');
-        }
+    // function hrm_chechEmployee_training(){
+    //     var countchecked = $("table input[type=checkbox]:checked").length;
+    //     if(countchecked>0){
+    //         submit_form ('hrm_insert_update_traininglist','fm_training_list','hrm_traininglist','modal_traininglist');
+    //     }else{
+    //         alert('Please check employee');
+    //     }
 
+    // }
+    function hrms_modal_training(id=-1){
+        alert();
+        if(check_session()){return;}
+            $.ajax({
+                type: 'GET',
+                url: 'hrm_modal_traininglist',
+                data: {
+                    _token: '<?php echo csrf_token() ?>',
+                    id: id
+                },
+                success: function (data) {
+                    document.getElementById('modal').innerHTML = data;
+                    $('#modal_training_list').modal('show');
+                    date();
+                    // $('#emName').select2();
+                }
+            });
     }
 
     function hrms_modal_training(ids=-1){
         if(check_session()){
             return;
         }
-        
+
         $.ajax({
             type: 'GET',
             url: 'hrm_modal_traininglist',
@@ -491,7 +752,7 @@ function hrms_date(){
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Yes, Save it!'
                 }).then((result) => {
-                    if (result.value) {  
+                    if (result.value) {
                         var form_element=document.getElementById('fm_training_list');
                         var form_data = new FormData(form_element);
                         var request = new XMLHttpRequest();
@@ -520,7 +781,7 @@ function hrms_date(){
                         request.send(form_data);
                     }
                 })
-            
+
     }
 
 
@@ -599,7 +860,7 @@ function hrms_date(){
                         request.send(form_data);
                     }
                 })
-        
+
     }
 
 

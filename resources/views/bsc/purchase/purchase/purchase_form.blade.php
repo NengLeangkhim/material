@@ -37,7 +37,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-md-3">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="" class="lead" value="lead">Home</a></li>
                     <li class="breadcrumb-item active" onclick="go_to('bsc_purchase_purchase_list')">View Puechase</li>
@@ -117,7 +117,7 @@
                                                 <th style="min-width: 65px;">Quantity</th>
                                                 <th style="min-width: 80px;">Unit Price</th>
                                                 <th style="min-width: 120px;">Account</th>
-                                                <th style="min-width: 90px;">Tax</th>
+                                                <th hidden style="min-width: 90px;">Tax</th>
                                                 <th style="min-width: 125px;">Amount</th>
                                                 <th></th>
                                             </tr>
@@ -147,7 +147,7 @@
                                                         <label for="" id="txtTotal" class="txtTotal">0</label>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <div class="row" hidden>
                                                     <div class="col-sm-6 text_right">
                                                         <label for="">VAT Total :</label>
                                                     </div>
@@ -212,11 +212,6 @@
             }
         });
 
-         // Can Input only Number and . in Field Quantity and UnitPrice
-        $('.item_unit_price').keypress(function(e){
-            var x = event.charCode || event.keyCode;
-            if (isNaN(String.fromCharCode(e.which)) && x!=46 || x===32 || x===13 || (x===46 && event.currentTarget.innerText.includes('.'))) e.preventDefault();
-        });
         myKeyPress();
         
 
@@ -241,8 +236,16 @@
             showGrandTotal();
         });
 
-        $("#purchase_table tbody").delegate('.item_des','keyup',function(){
-
+        // Convert when user input unit price toFixed(.)
+        $("#purchase_table tbody").delegate('.item_unit_price','focusout',function(){
+            tr = $(this).closest('tr');
+            let input_Num = parseFloat($(this).text()).toFixed(4);
+            tr.find('.item_unit_price').text(input_Num);
+        });
+        $("#purchase_table tbody").delegate('.item_unit_price','focus',function(){
+            tr = $(this).closest('tr');
+            let input_Num = parseFloat($(this).text());
+            tr.find('.item_unit_price').text(input_Num);
         });
         
         // Remove border select2 in field Item
@@ -276,16 +279,21 @@
                     showGrandTotal();
                     tr.find('.item_des').attr('contentEditable',true);
                     tr.find('.item_qty').attr('contentEditable',true);
+                    tr.find('.item_unit_price').attr('contentEditable',true);
                     
                 }
             });
         });      
     });
 
+    // Function Can Input only Number and . in Field Quantity and UnitPrice
     function myKeyPress(){
-        // Can Input only Number and . in Field Quantity and UnitPrice
         $('.item_qty').keypress(function(e){
             if (isNaN(String.fromCharCode(e.which))) e.preventDefault();
+        });
+        $('.item_unit_price').keypress(function(e){
+            var x = event.charCode || event.keyCode;
+            if (isNaN(String.fromCharCode(e.which)) && x!=46 || x===32 || x===13 || (x===46 && event.currentTarget.innerText.includes('.'))) e.preventDefault();
         });
     }
 
@@ -320,9 +328,9 @@
                 '<td style="max-width: 165px;padding: 0;overflow: auto;" class="item_name"><select class="item_select stock_product_id" style="width: 100%;height: 51px;"><option value=""></option>'+$("#items").val()+'</select></td>'+
                 '<td style="max-width: 150px;" contenteditable="{{$contenteditable}}" class="item_des" id="item_des"></td>'+
                 '<td style="max-width: 65px;" contenteditable="{{$contenteditable}}" class="item_qty" id="item_qty" onkeypress="if(navigator.userAgent.indexOf(\'Firefox\') != -1) if($(this).parent().index()==0) return (this.innerText.length < 6) ; else return (this.innerText.length < 5); return (this.innerText.length < 5);"></td>'+
-                '<td style="max-width: 80px;" class="item_unit_price" id="item_unit_price"></td>'+
+                '<td style="max-width: 80px;" contenteditable="{{$contenteditable}}" class="item_unit_price" id="item_unit_price"></td>'+
                 '<td style="max-width: 120px;" class="item_account" id="item_account" data-id=""></td>'+
-                '<td style="max-width: 90px;padding: 0;" class="item_tax"><select style="border: 0px; height: 51px;" class="tax form-control"><option value=""></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
+                '<td hidden style="max-width: 90px;padding: 0;" class="item_tax"><select style="border: 0px; height: 51px;" class="tax form-control"><option value=""></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
                 '<td style="max-width: 125px;" class="item_amount" id="item_amount"></td>'+
                 '<td style="text-align: center;"><button type="button" name="remove" data-row="row'+count+'" class="btn btn-danger btn-xs remove">x</button></td>'+
             '</tr>';
