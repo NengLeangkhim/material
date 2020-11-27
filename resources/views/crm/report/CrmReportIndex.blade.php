@@ -493,9 +493,7 @@
                           role: "annotation" },
                         2]); 
        var options = {
-         title: "Contact Chart",
-         width: 550,
-         height: 300,
+         title: "Contact Chart",        
          bar: {groupWidth: "70%"},
          legend: { position: "none" },
        };
@@ -521,11 +519,9 @@
                          role: "annotation" },
                        2]); 
       var options = {
-        title: "Contact Chart",
-        width: 550,
-        height: 300,
+        title: "Contact Chart",      
         bar: {groupWidth: "70%"},
-        legend: { position: "none" },
+        legend: { position: "none" }
       };
       var chart = new google.visualization.ColumnChart(document.getElementById("organization"));
       chart.draw(view, options);
@@ -555,10 +551,9 @@
 
       var options = {
         title: "Quote Performance",
-        width: 550,
-        height: 200,
+        
         bar: {groupWidth: "70%"},
-        legend: { position: "none" },
+        legend: { position: "none" }
       };
       var chart = new google.visualization.BarChart(document.getElementById("QuoteChart"));
       chart.draw(view, options);
