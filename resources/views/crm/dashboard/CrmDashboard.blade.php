@@ -7,8 +7,8 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active">View Dashbaord</li>
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">View Dashbaord</li>
                 </ol>
             </div>
         </div>
@@ -115,7 +115,7 @@
                     </div>
                     <div class="card-body">
                         <div class="chart">
-                            <div id="LeadChart" style="min-height: 300px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                            <div id="LeadChart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -131,7 +131,7 @@
                     </div>
                     <div class="card-body">
                         <div class="chart">
-                            <div id="QuoteChart" style="min-height: 300px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                            <div id="QuoteChart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -152,7 +152,6 @@
                     <div class="card-body">
                         <div class="chart">
                             <div id="ContactChart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
-                            {{-- <div id="contact_chart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div> --}}
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -168,7 +167,6 @@
                     </div>
                     <div class="card-body">
                         <div class="chart">
-                            {{-- <div id="OrgChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></div> --}}
                             <div id="survey_chart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
                         </div>
                     </div>
@@ -590,7 +588,6 @@
     }
 
     // Organization_Chart();
-    // Con_Chart();
     Survey_Chart();
     Lead_Chart();
     Quote_Chart();
