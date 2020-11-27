@@ -58,13 +58,13 @@
                             </div>
                           </form>
                         </div>
-                        <div class="chart">                                      
-                          <div id="Branchchart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;display:block;">                            
-                         
+                        <div class="chart">                                                                
+                          <div style="min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;">                            
+                            <div id="Branchchart" style="width: auto; height:390px;display:block"></div>
                           </div>                          
                         </div>
                         <div class="col-md-12 text-right">
-                          <button class="btn btn-info" onclick="go_to('/crmreport/detaillead')"><span><i class="fas fa-info"></i></span> Detail</button>
+                          <button class="btn btn-info" onclick="go_to('/crmreport/detaillead')" ><span><i class="fas fa-info"></i></span> Detail</button>
                         </div>
                     </div><!-- /.card-body -->
                 </div><!-- /.card -->
@@ -110,7 +110,7 @@
                         </form>
                       </div>
                       <div class="chart"> 
-                        <div id="Contact_Chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>                       
+                        <div id="Contact_Chart" style=" min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;"></div>                       
                       </div>
 
                       {{-- <div class="chart">
@@ -165,7 +165,7 @@
                         </form>
                       </div>
                       <div class="chart col-md-12"> 
-                        <div id="organization" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>                       
+                        <div id="organization" style="min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;"></div>                       
                       </div>
                       <div class="col-md-12 text-right">
                         <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -214,7 +214,7 @@
                             </form>
                           </div>
                           <div class="chart">                         
-                              <div id="QuoteChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:10px;"></div>
+                              <div id="QuoteChart" style="min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;"></div>
                           </div>
                           <div class="col-md-12 text-right">
                             <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -362,9 +362,7 @@
                         var options = {
                             title: 'Quote Performance',
                         };
-
                         var chart = new google.visualization.BarChart(document.getElementById('ReportQuoteChart'))
-
                         chart.draw(view, options)
                     }
                 }
@@ -492,7 +490,7 @@
                           role: "annotation" },
                         2]); 
        var options = {
-         title: "Contact Chart",        
+         title: "Contact Chart",       
          bar: {groupWidth: "70%"},
          legend: { position: "none" },
        };
@@ -518,7 +516,7 @@
                          role: "annotation" },
                        2]); 
       var options = {
-        title: "Contact Chart",      
+        title: "Organization Chart",      
         bar: {groupWidth: "70%"},
         legend: { position: "none" }
       };
