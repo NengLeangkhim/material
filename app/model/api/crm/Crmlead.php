@@ -1546,9 +1546,11 @@ class Crmlead extends Model
     }
     // get count survey
     public static function getcountsurveyresult(){
-        $count_t=DB::select("SELECT count(possible) as true from crm_survey_result  where possible=TRUE and is_deleted=False AND status=TRUE");
+
+         $date= date('Y-m-d');
+        $count_t=DB::select("SELECT count(possible) as true from crm_survey_result  where possible=TRUE and is_deleted=False AND status=TRUE and create_date::date='".$date."'::date");
         $count_t=$count_t[0]->true;
-        $count_f=DB::select("SELECT count(possible) as false from crm_survey_result  where possible=FALSE and is_deleted=False AND status=TRUE");
+        $count_f=DB::select("SELECT count(possible) as false from crm_survey_result  where possible=FALSE and is_deleted=False AND status=TRUE and create_date::date='".$date."'::date");
         $count_f=$count_f[0]->false;
         $array=[
             'true'=>$count_t,

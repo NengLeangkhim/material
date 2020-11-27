@@ -100,22 +100,19 @@
                                         <span id="due_dateError" ><strong></strong></span>
                                     </dd>
                                 <dt class="col-sm-4 dt">Comment</dt>
-                                    <dd class="col-sm-8 dd">
-                                        <?php
-                                            $num2 = count($quoteDetail->data->status_quote);
-                                        ?>
-                                        <input type="text" name="comment" id="comment" class="form-control" value="{{ $quoteDetail->data->status_quote[$num2-1]->comment }}" placeholder="comment">
-                                        <span id="commentError" ><strong></strong></span>
-
-                                    </dd>
-
+                                <dd class="col-sm-8 dd">
+                                    <?php
+                                        $num2 = count($quoteDetail->data->status_quote);
+                                    ?>
+                                    <input type="text" name="comment" id="comment" class="form-control" value="{{ $quoteDetail->data->status_quote[$num2-1]->comment }}" placeholder="comment">
+                                    <span id="commentError" ><strong></strong></span>
+                                </dd>
                                 <dt class="col-sm-12 ">
                                     <div class="text-right" >
-                                            <button type="button" class="mr-2 font-weight-bold btn btn-sm btn-primary"  id="btnUpdateQuoteLead" >Update</button>
-                                            <button type="button" class=" font-weight-bold  btn btn-sm btn-danger" onclick='cancelEditLead();' >Cancel</button>
+                                        <button type="button" class="mr-2 font-weight-bold btn btn-sm btn-primary"  id="btnUpdateQuoteLead" >Update</button>
+                                        <button type="button" class=" font-weight-bold  btn btn-sm btn-danger" onclick='cancelEditLead();' >Cancel</button>
                                     </div>
                                 </dt>
-
                             </dl>
                         </div>
                         <!-- /.card-body -->
@@ -166,7 +163,7 @@
             $('select').select2();
         });
 
-        
+
 
         function cancelEditLead(){
             var qId = <?php echo json_encode($quoteDetail->data->id); ?>;

@@ -1,9 +1,9 @@
  <!-- Content Header (Page header) -->
  <section class="content-header">
     <div class="container-fluid">
-        <div class="row mb-2">
+        <div class="row mb-2 mt-4">
             <div class="col-sm-6">
-                <h1><span><i class="fas fa-chart-pie"></i></span> Report</h1>
+                <h1><span><i class="fas fa-chart-pie"></i></span>Report</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -27,37 +27,37 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                          <form id="FrmChartReport">
-                            @csrf
-                            <div class="row" hidden>
-                                <div class="col-md-6">
-                                    <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                            <form id="FrmChartReport">
+                                @csrf
+                                <div class="row" hidden>
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input type="hidden" name="fromDate">
+                                            <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="LeadChartFrom" name='LeadChartFrom' required>
+                                            <span class="invalid-feedback" role="alert" id="LeadChartFromError"> {{--span for alert--}}
+                                              <strong></strong>
+                                            </span>
                                         </div>
-                                        <input type="hidden" name="fromDate">
-                                        <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="LeadChartFrom" name='LeadChartFrom' required>
-                                        <span class="invalid-feedback" role="alert" id="LeadChartFromError"> {{--span for alert--}}
-                                          <strong></strong>
-                                        </span>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                    <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                        </div>
-                                        <input type="hidden" name="toDate">
-                                        <input type="text" class="form-control" placeholder="Select Date" id="LeadChartTo" value="<?php echo date('Y-m')?>" name='LeadChartTo' required>
-                                        <span class="invalid-feedback" role="alert" id="LeadChartToError"> {{--span for alert--}}
-                                          <strong></strong>
-                                        </span>
                                     </div>
-                                  </div>
-                            </div>
-                          </form>
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input type="hidden" name="toDate">
+                                            <input type="text" class="form-control" placeholder="Select Date" id="LeadChartTo" value="<?php echo date('Y-m')?>" name='LeadChartTo' required>
+                                            <span class="invalid-feedback" role="alert" id="LeadChartToError"> {{--span for alert--}}
+                                                <strong></strong>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <div class="chart">                                      
                           <div id="Branchchart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;display:block;">                            
@@ -65,7 +65,7 @@
                           </div>                          
                         </div>
                         <div class="col-md-12 text-right">
-                          <button class="btn btn-info" onclick="go_to('/crmreport/detaillead')"><span><i class="fas fa-info"></i></span> Detail</button>
+                            <button class="btn btn-info" onclick="go_to('/crmreport/detaillead')"><span><i class="fas fa-info"></i></span> Detail</button>
                         </div>
                     </div><!-- /.card-body -->
                 </div><!-- /.card -->
@@ -180,7 +180,7 @@
                 <!-- BAR CHART -->
                 <div class="card card-success">
                     <div class="card-header" style="background: #ffffff;border:none;">
-                      <h3 class="card-title" style="color: #000000;font-weight: bold;  ">Quote Chart</h3>                    
+                      <h3 class="card-title" style="color: #000000;font-weight: bold;  ">Quote Chart</h3>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
@@ -188,40 +188,42 @@
                                 @csrf
                                 <div class="row" hidden>
                                     <div class="col-md-6">
-                                    <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                        </div>
-                                        <input type="hidden" name="fromDate">
-                                        <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="ReportQuoteFrom" name='ReportQuoteFrom'  required>
-                                        <span class="invalid-feedback" role="alert" id="ReportQuoteFromError"> {{--span for alert--}}
-                                            <strong></strong>
-                                        </span>
+                                        <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input type="hidden" name="fromDate">
+                                            <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="ReportQuoteFrom" name='ReportQuoteFrom'  required>
+                                            <span class="invalid-feedback" role="alert" id="ReportQuoteFromError"> {{--span for alert--}}
+                                                <strong></strong>
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                    <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                        <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input type="hidden" name="toDate">
+                                            <input type="text" class="form-control" placeholder="Select Date" id="ReportQuoteTo" value="<?php echo date('Y-m')?>" name='ReportQuoteTo'  required>
+                                            <span class="invalid-feedback" role="alert" id="ReportQuoteToError"> {{--span for alert--}}
+                                                <strong></strong>
+                                            </span>
                                         </div>
-                                        <input type="hidden" name="toDate">
-                                        <input type="text" class="form-control" placeholder="Select Date" id="ReportQuoteTo" value="<?php echo date('Y-m')?>" name='ReportQuoteTo'  required>
-                                        <span class="invalid-feedback" role="alert" id="ReportQuoteToError"> {{--span for alert--}}
-                                            <strong></strong>
-                                        </span>
                                     </div>
-                                    </div>
-                                </div>                        
+                                </div>
                             </form>
                           </div>
-                          <div class="chart">                         
-                              <div class="col-md-12" id="QuoteChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:10px;"></div>
+                          <div class="chart">
+                              <div  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:10px;">
+                                <div id="barchart_values" style="width:auto; height: auto;"></div>
+                              </div>
                           </div>
                           <div class="col-md-12 text-right">
                             <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
-                          </div>  
+                          </div>
                     </div>
                     </div><!-- /.card-body -->
                 </div><!-- /.card -->
@@ -255,7 +257,6 @@
         chart.draw(data, google.charts.Bar.convertOptions(options));
       }
 </script> --}}
-
 
 <script>
     reportQuoteByStatus();
@@ -497,14 +498,14 @@
                         2]);
        var options = {
          title: "Contact Chart",
-         width: 550,
+         width: 900,
          height: 300,
          bar: {groupWidth: "70%"},
          legend: { position: "none" },
        };
        var chart = new google.visualization.ColumnChart(document.getElementById("Contact_Chart"));
        chart.draw(view, options);
-   }
+        }
    </script>
    {{-- organization chart --}}
    <script type="text/javascript">
@@ -548,13 +549,7 @@
    
       ]);
 
-      var view = new google.visualization.DataView(data);
-      view.setColumns([0, 1,
-                       { calc: "stringify",
-                         sourceColumn: 1,
-                         type: "string",
-                         role: "annotation" },
-                       2]);
+          ]);
 
       var options = {
         title: "Quote Performance",
