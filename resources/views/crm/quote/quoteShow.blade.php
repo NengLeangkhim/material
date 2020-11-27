@@ -42,7 +42,6 @@
                                                     <th style="color: #FFFFFF">Convert To BSC</th>
                                                     <th style="color: #FFFFFF">Modified Time</th>
                                                     <th style="color: #FFFFFF">Action</th>
-
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -84,44 +83,21 @@
                                                                     </td>
                                                                     <td>{{$val2->due_date}}</td>
                                                                     <td>
-                                                                        <?php $num = count($val2->quote_stage); ?>
-                                                                        @if( $num > 0)
-                                                                            @if(($val2->quote_stage[$num-1]->id)==2)
-                                                                                <div class="row-12 form-inline">
-                                                                                    <div class="col-md-4">
-                                                                                        <a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action('/quote/detail', '{{ $val2->id }}')"  >
-                                                                                            <i class="far fa-eye"></i>
-                                                                                        </a>
-                                                                                    </div>
-                                                                                    {{-- <div class="col-md-4">
-                                                                                        <a href="#" class="btn btn-success btn-sm" onclick="goto_Action('/quote/leadBranch', '{{ $val2->id }}')">
-                                                                                            <i class="fas fa-wrench"></i>
-                                                                                        </a>
-                                                                                    </div> --}}
-                                                                                    <div class="col-md-4 ">
-                                                                                    <a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead('/quote/deleteLeadQuote', '{{ $val2->id }}')"> <span class="glyphicon glyphicon-remove"></span>  </a>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                            @endif
-                                                                            @if(($val2->quote_stage[$num-1]->id)!=2)
-                                                                                <div class="row-12 form-inline">
-                                                                                    <div class="col-md-4">
-                                                                                        <a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action('/quote/detail', '{{ $val2->id }}')"  >
-                                                                                            <i class="far fa-eye"></i>
-                                                                                        </a>
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
-                                                                                        <a href="#" class="btn btn-success btn-sm" onclick="goto_Action('/quote/leadBranch', '{{ $val2->id }}')">
-                                                                                            <i class="fas fa-wrench"></i>
-                                                                                        </a>
-                                                                                    </div>
-                                                                                    <div class="col-md-4 ">
-                                                                                    <a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead('/quote/deleteLeadQuote', '{{ $val2->id }}')"> <span class="glyphicon glyphicon-remove"></span>  </a>
-                                                                                    </div>
-                                                                                </div>
-                                                                            @endif
-                                                                        @endif
+                                                                        <div class="row-12 form-inline">
+                                                                            <div class="col-md-4">
+                                                                                <a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action('/quote/detail', '{{ $val2->id }}')"  >
+                                                                                    <i class="far fa-eye"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <a href="#" class="btn btn-success btn-sm" onclick="goto_Action('/quote/leadBranch', '{{ $val2->id }}')">
+                                                                                    <i class="fas fa-wrench"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                            <div class="col-md-4 ">
+                                                                            <a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead('/quote/deleteLeadQuote', '{{ $val2->id }}')"> <span class="glyphicon glyphicon-remove"></span>  </a>
+                                                                            </div>
+                                                                        </div>
                                                                     </td>
                                                                 </tr>
                                                         @endforeach

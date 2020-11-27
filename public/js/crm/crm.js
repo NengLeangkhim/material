@@ -557,7 +557,6 @@ function Crm_delete(id,route,goto,alert) {
     // });
 
 
-     
 
             //click back to home
         $('.lead').click(function(e){
