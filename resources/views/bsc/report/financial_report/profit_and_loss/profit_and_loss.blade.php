@@ -133,6 +133,9 @@
 
 
         var setDataList = (id, name, list, col)=>{
+            if(list.data == undefined || list.total_list == undefined) {
+                return
+            }
             $(id).append(`
                 <div id="${name}-section">
                     <h4>${name} Section</h4>

@@ -15,6 +15,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        date_default_timezone_set('Asia/Phnom_Penh');
         $from_date_this_month = date('Y-m-d 00:00:00', strtotime(date('Y-m-1')));
         $to_date_this_month = date('Y-m-d H:i:s');
 
@@ -35,6 +36,10 @@ class DashboardController extends Controller
                 'total_expense_this_month_credit' => $show_amount_dashboard['total_expense_this_month_credit'],
                 'total_expense_all_debit' => $show_amount_dashboard['total_expense_all_debit'],
                 'total_expense_all_credit' => $show_amount_dashboard['total_expense_all_credit'],
+                'total_revenue_this_month' => $show_amount_dashboard['total_revenue_this_month'],
+                'total_revenue_all' => $show_amount_dashboard['total_revenue_all'],
+                'total_expense_this_month' => $show_amount_dashboard['total_expense_this_month'],
+                'total_expense_all' => $show_amount_dashboard['total_expense_all'],
                 'total_receivable_this_month' => $show_amount_dashboard['total_receivable_this_month'],
                 'total_receivable_all' => $show_amount_dashboard['total_receivable_all'],
                 'total_payable_this_month' => $show_amount_dashboard['total_payable_this_month'],
@@ -46,6 +51,8 @@ class DashboardController extends Controller
                 'arr_total_amount_revenue_credit' => $show_high_chart_dashboard['arr_total_amount_revenue_credit'],
                 'arr_total_amount_expense_debit' => $show_high_chart_dashboard['arr_total_amount_expense_debit'],
                 'arr_total_amount_expense_credit' => $show_high_chart_dashboard['arr_total_amount_expense_credit'],
+                'arr_total_amount_revenue' => $show_high_chart_dashboard['arr_total_amount_revenue'],
+                'arr_total_amount_expense' => $show_high_chart_dashboard['arr_total_amount_expense'],
                 'arr_total_amount_receivable' => $show_high_chart_dashboard['arr_total_amount_receivable'],
                 'arr_total_amount_payable' => $show_high_chart_dashboard['arr_total_amount_payable']
             ]
@@ -146,10 +153,16 @@ class DashboardController extends Controller
         $total_payable_all_debit = self::sum_total_dr_cr_by_acc_type('15')['total_amount_debit'];
         $total_payable_all_credit = self::sum_total_dr_cr_by_acc_type('15')['total_amount_credit'];
 
-        // total account receivable
+        // total balance revenue cr - dr
+        $total_revenue_this_month = $total_revenue_this_month_credit - $total_revenue_this_month_debit;
+        $total_revenue_all = $total_revenue_all_credit - $total_revenue_all_debit;
+        // total balance expense dr -cr
+        $total_expense_this_month = $total_expense_this_month_debit - $total_expense_this_month_credit;
+        $total_expense_all = $total_expense_all_debit - $total_expense_all_credit;
+        // total account receivable dr - cr
         $total_receivable_this_month = $total_receivable_this_month_debit - $total_receivable_this_month_credit;
         $total_receivable_all = $total_receivable_all_debit - $total_receivable_all_credit;
-        // total account payable
+        // total account payable cr - dr
         $total_payable_this_month = $total_payable_this_month_credit - $total_payable_this_month_debit;
         $total_payable_all = $total_payable_all_credit - $total_payable_all_debit;
 
@@ -162,6 +175,10 @@ class DashboardController extends Controller
             'total_expense_this_month_credit' => $total_expense_this_month_credit,
             'total_expense_all_debit' => $total_expense_all_debit,
             'total_expense_all_credit' => $total_expense_all_credit,
+            'total_revenue_this_month' => $total_revenue_this_month,
+            'total_revenue_all' => $total_revenue_all,
+            'total_expense_this_month' => $total_expense_this_month,
+            'total_expense_all' => $total_expense_all,
             'total_receivable_this_month' => $total_receivable_this_month,
             'total_receivable_all' => $total_receivable_all,
             'total_payable_this_month' => $total_payable_this_month,
@@ -181,6 +198,12 @@ class DashboardController extends Controller
         // total expense
         $arr_total_amount_expense_debit = self::get_data_each_five_month('12,13')['arr_total_amount_debit'];
         $arr_total_amount_expense_credit = self::get_data_each_five_month('12,13')['arr_total_amount_credit'];
+        
+        // total revenue credit - debit
+        $arr_total_amount_revenue = self::get_data_each_five_month('10,11')['arr_total_amount_revenue'];
+    
+        // total account expense debit - credit
+        $arr_total_amount_expense = self::get_data_each_five_month('12,13')['arr_total_amount_expense'];
 
         // total account receivable debit - credit
         $arr_total_amount_receivable = self::get_data_each_five_month('14')['arr_total_amount_receivable'];
@@ -194,6 +217,8 @@ class DashboardController extends Controller
             'arr_total_amount_revenue_credit' => $arr_total_amount_revenue_credit,
             'arr_total_amount_expense_debit' => $arr_total_amount_expense_debit,
             'arr_total_amount_expense_credit' => $arr_total_amount_expense_credit,
+            'arr_total_amount_revenue' => $arr_total_amount_revenue,
+            'arr_total_amount_expense' => $arr_total_amount_expense,
             'arr_total_amount_receivable' => $arr_total_amount_receivable,
             'arr_total_amount_payable' => $arr_total_amount_payable
         ];
@@ -215,7 +240,10 @@ class DashboardController extends Controller
                                 bsc_journal
                                 LEFT JOIN bsc_account_charts ON bsc_journal.bsc_account_charts_id = bsc_account_charts.ID
                             WHERE
-                                bsc_account_charts.bsc_account_type_id IN($arr_acc_type)
+                                1 = 1 
+                                AND bsc_account_charts.bsc_account_type_id IN($arr_acc_type)
+                                AND bsc_account_charts.ma_currency_id = 4
+                                AND bsc_account_charts.parent_id IS NOT null
                                 AND bsc_journal.status = 't'
                                 AND bsc_journal.is_deleted = 'f' {$sql_where_date}
                             GROUP BY
@@ -239,6 +267,8 @@ class DashboardController extends Controller
         $arr_month=array();
         $arr_total_amount_debit = array();
         $arr_total_amount_credit = array();
+        $arr_total_amount_revenue = array();
+        $arr_total_amount_expense = array();
         $arr_total_amount_receivable = array();
         $arr_total_amount_payable = array();
         
@@ -261,6 +291,8 @@ class DashboardController extends Controller
                                     LEFT JOIN bsc_account_charts ON bsc_journal.bsc_account_charts_id = bsc_account_charts.ID
                                 WHERE
                                     1 = 1
+                                    AND bsc_account_charts.ma_currency_id = 4
+                                    AND bsc_account_charts.parent_id IS NOT null
                                     AND bsc_journal.create_date >= '$start_date'
                                     AND bsc_journal.create_date <= '$end_date'
                                     AND bsc_journal.status = 't'
@@ -276,6 +308,18 @@ class DashboardController extends Controller
                     $total_credit += $q_total->total_credit;
                 }
             }
+            // find total revenue = cr - dr
+            $total_revenue = 0;
+            if($arr_acc_type == 10 || $arr_acc_type == 11){
+                $total_revenue = $total_credit - $total_debit;
+            }
+
+            // find total expense = dr - cr
+            $total_expense = 0;
+            if($arr_acc_type == 12 || $arr_acc_type == 13){
+                $total_expense = $total_debit - $total_credit;
+            }
+
             // find total account receivable = dr - cr
             $total_account_receivable = 0;
             if($arr_acc_type == 14){
@@ -291,6 +335,8 @@ class DashboardController extends Controller
             array_push($arr_month,$start_month);
             array_push($arr_total_amount_debit, $total_debit);
             array_push($arr_total_amount_credit, $total_credit);
+            array_push($arr_total_amount_revenue, $total_revenue);
+            array_push($arr_total_amount_expense, $total_expense);
             array_push($arr_total_amount_receivable, $total_account_receivable);
             array_push($arr_total_amount_payable, $total_account_payable);
         }
@@ -298,6 +344,8 @@ class DashboardController extends Controller
                 'arr_month'=>$arr_month,
                 'arr_total_amount_debit'=>$arr_total_amount_debit,
                 'arr_total_amount_credit'=>$arr_total_amount_credit,
+                'arr_total_amount_revenue'=>$arr_total_amount_revenue,
+                'arr_total_amount_expense'=>$arr_total_amount_expense,
                 'arr_total_amount_receivable'=>$arr_total_amount_receivable,
                 'arr_total_amount_payable'=>$arr_total_amount_payable,
             ];

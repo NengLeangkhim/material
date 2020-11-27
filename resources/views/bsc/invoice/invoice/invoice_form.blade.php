@@ -1,7 +1,7 @@
 @php
+$item='';
 if (count($bsc_show_customer_branchs) >0) {
     foreach ($bsc_show_customer_branchs as $bsc_show_customer_branch) {
-        $item='';
         $item.="<option value='{$bsc_show_customer_branch->id}'>{$bsc_show_customer_branch->branch}</option>";
     }
 }
