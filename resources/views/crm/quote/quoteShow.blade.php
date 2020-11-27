@@ -42,7 +42,6 @@
                                                     <th style="color: #FFFFFF">Convert To BSC</th>
                                                     <th style="color: #FFFFFF">Modified Time</th>
                                                     <th style="color: #FFFFFF">Action</th>
-
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -117,7 +116,7 @@
                                                                                         </a>
                                                                                     </div>
                                                                                     <div class="col-md-4 ">
-                                                                                    <a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead('/quote/deleteLeadQuote', '{{ $val2->id }}')"> <span class="glyphicon glyphicon-remove"></span>  </a>
+                                                                                    <a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead('/quote/deleteLeadQuote', '{{ $val2->id }}')"> <span class="glyphicon glyphicon-trash"></span>  </a>
                                                                                     </div>
                                                                                 </div>
                                                                             @endif

@@ -114,7 +114,8 @@
                             <table id="OrganizationTbl3" class="table table-bordered table-striped" style="white-space: nowrap;">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th style="display:none;"></th>
+                                        <th>No</th>
                                         <th>Lead Number</th>
                                         <th>Company Name</th>
                                         <th>Customer Name</th>
@@ -197,6 +198,7 @@
                         $.each(response.data, function(index, data){
                             $('#lead-detail-body').append(`
                             <tr>
+                                <td style="display:none;"></td>
                                 <td>${index+1}</td>
                                 <td>${data.lead_number}</td>
                                 <td>${data.name_en}</td>
@@ -210,7 +212,9 @@
                             </tr>
                             `)
                         })
-                        $('#OrganizationTbl3').DataTable();
+                        $('#OrganizationTbl3').DataTable({
+                            'ordering': false,
+                        });
                     }
                 },
                 fail : function(){
