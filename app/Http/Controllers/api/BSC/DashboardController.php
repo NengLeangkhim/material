@@ -28,6 +28,14 @@ class DashboardController extends Controller
         
         $arr_dashboard = [
             'show_amount_dashboard' => [
+                'total_revenue_this_month_debit' => $show_amount_dashboard['total_revenue_this_month_debit'],
+                'total_revenue_this_month_credit' => $show_amount_dashboard['total_revenue_this_month_credit'],
+                'total_revenue_all_debit' => $show_amount_dashboard['total_revenue_all_debit'],
+                'total_revenue_all_credit' => $show_amount_dashboard['total_revenue_all_credit'],
+                'total_expense_this_month_debit' => $show_amount_dashboard['total_expense_this_month_debit'],
+                'total_expense_this_month_credit' => $show_amount_dashboard['total_expense_this_month_credit'],
+                'total_expense_all_debit' => $show_amount_dashboard['total_expense_all_debit'],
+                'total_expense_all_credit' => $show_amount_dashboard['total_expense_all_credit'],
                 'total_revenue_this_month' => $show_amount_dashboard['total_revenue_this_month'],
                 'total_revenue_all' => $show_amount_dashboard['total_revenue_all'],
                 'total_expense_this_month' => $show_amount_dashboard['total_expense_this_month'],
@@ -39,6 +47,10 @@ class DashboardController extends Controller
             ],
             'show_high_chart_dashboard' => [
                 'arr_month' => $show_high_chart_dashboard['arr_month'],
+                'arr_total_amount_revenue_debit' => $show_high_chart_dashboard['arr_total_amount_revenue_debit'],
+                'arr_total_amount_revenue_credit' => $show_high_chart_dashboard['arr_total_amount_revenue_credit'],
+                'arr_total_amount_expense_debit' => $show_high_chart_dashboard['arr_total_amount_expense_debit'],
+                'arr_total_amount_expense_credit' => $show_high_chart_dashboard['arr_total_amount_expense_credit'],
                 'arr_total_amount_revenue' => $show_high_chart_dashboard['arr_total_amount_revenue'],
                 'arr_total_amount_expense' => $show_high_chart_dashboard['arr_total_amount_expense'],
                 'arr_total_amount_receivable' => $show_high_chart_dashboard['arr_total_amount_receivable'],
@@ -155,6 +167,14 @@ class DashboardController extends Controller
         $total_payable_all = $total_payable_all_credit - $total_payable_all_debit;
 
         return [
+            'total_revenue_this_month_debit' => $total_revenue_this_month_debit,
+            'total_revenue_this_month_credit' => $total_revenue_this_month_credit,
+            'total_revenue_all_debit' => $total_revenue_all_debit,
+            'total_revenue_all_credit' => $total_revenue_all_credit,
+            'total_expense_this_month_debit' => $total_expense_this_month_debit,
+            'total_expense_this_month_credit' => $total_expense_this_month_credit,
+            'total_expense_all_debit' => $total_expense_all_debit,
+            'total_expense_all_credit' => $total_expense_all_credit,
             'total_revenue_this_month' => $total_revenue_this_month,
             'total_revenue_all' => $total_revenue_all,
             'total_expense_this_month' => $total_expense_this_month,
@@ -171,13 +191,13 @@ class DashboardController extends Controller
         // array 5 month
         $arr_month = self::get_data_each_five_month()['arr_month'];
 
-        // // total revenue
-        // $arr_total_amount_revenue_debit = self::get_data_each_five_month('10,11')['arr_total_amount_debit'];
-        // $arr_total_amount_revenue_credit = self::get_data_each_five_month('10,11')['arr_total_amount_credit'];
+        // total revenue
+        $arr_total_amount_revenue_debit = self::get_data_each_five_month('10,11')['arr_total_amount_debit'];
+        $arr_total_amount_revenue_credit = self::get_data_each_five_month('10,11')['arr_total_amount_credit'];
 
-        // // total expense
-        // $arr_total_amount_expense_debit = self::get_data_each_five_month('12,13')['arr_total_amount_debit'];
-        // $arr_total_amount_expense_credit = self::get_data_each_five_month('12,13')['arr_total_amount_credit'];
+        // total expense
+        $arr_total_amount_expense_debit = self::get_data_each_five_month('12,13')['arr_total_amount_debit'];
+        $arr_total_amount_expense_credit = self::get_data_each_five_month('12,13')['arr_total_amount_credit'];
         
         // total revenue credit - debit
         $arr_total_amount_revenue = self::get_data_each_five_month('10,11')['arr_total_amount_revenue'];
@@ -193,6 +213,10 @@ class DashboardController extends Controller
 
         return [
             'arr_month' => $arr_month,
+            'arr_total_amount_revenue_debit' => $arr_total_amount_revenue_debit,
+            'arr_total_amount_revenue_credit' => $arr_total_amount_revenue_credit,
+            'arr_total_amount_expense_debit' => $arr_total_amount_expense_debit,
+            'arr_total_amount_expense_credit' => $arr_total_amount_expense_credit,
             'arr_total_amount_revenue' => $arr_total_amount_revenue,
             'arr_total_amount_expense' => $arr_total_amount_expense,
             'arr_total_amount_receivable' => $arr_total_amount_receivable,
