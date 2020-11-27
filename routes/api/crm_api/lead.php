@@ -69,7 +69,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     // update schedule reslut
     Route::post('/updatescheduleredult','api\crm\LeadController@updatescheduleredult');
     
-
 });
 
 
