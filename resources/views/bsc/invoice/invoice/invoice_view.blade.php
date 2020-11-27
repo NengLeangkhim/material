@@ -26,6 +26,7 @@
                         <div class="row">
                             <div class="col-md-8"></div>
                             <div class="col-md-4 text_right">
+                                <button id="add_payment" onclick="go_to('bsc_invoice_invoice_list')" type="button" class="btn btn-danger save" id="frm_btn_sub_add_chart_account">Back</button>
                                 <a href="#" class="btn btn-success purchase_form"  value="" id="">Print</a>
                                 {{-- <a href="#" class="btn btn-secondary purchase_form"  value="bsc_purchase_purchase_purchase_edit" id="purchase_edit" onclick="go_to('bsc_invoice_invoice_edit/{{ $invoices->id }}')">Edit</a> --}}
                                 {{-- <a href="#" class="btn btn-danger purchase_form"  value="" id="">Delete</a> --}}

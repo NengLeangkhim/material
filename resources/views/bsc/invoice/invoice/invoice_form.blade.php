@@ -19,7 +19,7 @@ if (count($bsc_show_customer_branchs) >0) {
             </div>
             <div class="col-sm-3">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="" class="lead" ​value="lead">Invoice</a></li>
+                    <li class="breadcrumb-item"><a href="" class="lead" ​value="lead">Home</a></li>
                     <li class="breadcrumb-item active">New Invoice</li>
                 </ol>
             </div>
