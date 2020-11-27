@@ -42,7 +42,6 @@
                                                     <th style="color: #FFFFFF">Convert To BSC</th>
                                                     <th style="color: #FFFFFF">Modified Time</th>
                                                     <th style="color: #FFFFFF">Action</th>
-
                                                 </tr>
                                             </thead>
                                             <tbody>
