@@ -84,27 +84,27 @@ jQuery("a[data-code]").click(function(e){
        });
 });
 jQuery("a[href]").click(function(e){
-      if(check_session()){
-        return;
-      }
-      var href = $(this).attr("href");
-      var target = $(this).attr("target");
-        $("#nav_bar_sub_r").html(get_pushmenu());
-        if (typeof target !== typeof undefined && target !== false) {
-          window.open(href, target);
-        }else{
-          window.location.href = href;
-        }
+  var href = $(this).attr("href");
+  var target = $(this).attr("target");
+    $("#nav_bar_sub_r").html(get_pushmenu());
+    if (typeof target !== typeof undefined && target !== false) {
+      window.open(href, target);
+    }else{
+      window.location.href = href;
+    }
 });
 //only work on tag a with onclick and go_to
 function set_selected_nav(tar){
   var s=$("#"+tar).find("a")[1];
   var z=$("#"+tar).find("a")[1];
-  s=$(s).attr("onclick");
-  s=s.split("'")[1];
-  if(s.length>0){
-    go_to(s);
-    $(z).addClass('active');// add class active
+  if (typeof s !== typeof undefined && s !== false)
+  {
+    s=$(s).attr("onclick");
+    s=s.split("'")[1];
+    if(s.length>0){
+      go_to(s);
+      $(z).addClass('active');// add class active
+    }
   }
 }
 function get_pushmenu(){
