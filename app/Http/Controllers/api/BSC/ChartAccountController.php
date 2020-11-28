@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\api\BSC;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ChartAccountController extends Controller
 {
@@ -16,12 +18,15 @@ class ChartAccountController extends Controller
      */
     public function index()
     {
-        // if (session_status() == PHP_SESSION_NONE) {
-        //     session_start();
-        // }
-        // if(perms::check_perm_module('STO_01')){
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
 
-        // }
+        if (!perms::check_perm_module_api('BSC_0303', $userid)) {
+            return $this->sendError("No Permission");
+        }
 
         $chart_accounts = DB::table('bsc_account_charts')
                         ->select('bsc_account_charts.*','bsc_account_type.name_en as account_type_name','bsc_account_type.bsc_account_id')
@@ -53,6 +58,16 @@ class ChartAccountController extends Controller
      */
     public function store(Request $request)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_0303', $userid)) {
+            return $this->sendError("No Permission");
+        }
+
         DB::beginTransaction();
         try {
             $input = $request->all();
@@ -103,6 +118,16 @@ class ChartAccountController extends Controller
      */
     public function show($id)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_0303', $userid)) {
+            return $this->sendError("No Permission");
+        }
+
         $chart_account = DB::table('bsc_account_charts')
                         ->select('bsc_account_charts.*','bsc_account_type.name_en as account_type_name','bsc_account_type.bsc_account_id')
                         ->leftJoin('bsc_account_type','bsc_account_charts.bsc_account_type_id','=','bsc_account_type.id')
@@ -134,6 +159,16 @@ class ChartAccountController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_0303', $userid)) {
+            return $this->sendError("No Permission");
+        }
+
         DB::beginTransaction();
         try {
             $input = $request->all();
@@ -183,6 +218,16 @@ class ChartAccountController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_0303', $userid)) {
+            return $this->sendError("No Permission");
+        }
+
         DB::beginTransaction();
         try {
             $sql="delete_bsc_account_charts($id, $request->update_by)";

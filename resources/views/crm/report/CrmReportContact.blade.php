@@ -80,6 +80,7 @@
                                         <th>Position</th>
                                         <th>Email</th>
                                         <th>Facebook</th>
+                                        <th>Date Create</th>
                                         <th>Phone</th>
                                     </tr>
                                 </thead>
@@ -123,6 +124,8 @@
                 success : function(response){
                     if(response.success) {
                         $.each(response.data, function(index, data){
+                            var date= data.create_date;
+                            date=date.split(' ')[0];
                             $('#lead-detail-body').append(`
                             <tr>
                                 <td style="display:none;"></td>
@@ -133,6 +136,7 @@
                                 <td>${data.position}</td>
                                 <td>${data.email}</td>
                                 <td>${data.facebook}</td>
+                                <td>${date}</td>
                                 <td>${data.phone}</td>
                             </tr>
                             `)

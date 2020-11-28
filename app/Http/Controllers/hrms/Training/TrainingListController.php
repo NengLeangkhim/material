@@ -104,6 +104,9 @@ class TrainingListController extends Controller
 
 
     function DeleteTrainingStaff(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $staffid=$_GET['staffid'];
         $hrid=$_GET['trainid'];
         $trainList=new TrainingList();
@@ -130,7 +133,9 @@ class TrainingListController extends Controller
     }
 
     function DeleteTrainingList(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $id=$_GET['id'];
         $userid = $_SESSION['userid'];
         $trainList=new TrainingList();
@@ -138,7 +143,9 @@ class TrainingListController extends Controller
     }
 
     function my_training(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $userid = $_SESSION['userid'];
         $training=TrainingList::my_training($userid);
         return view('hrms/Training/my_training')->with('training',$training);

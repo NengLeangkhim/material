@@ -17,7 +17,7 @@
                     <div class="card-header">
                         <div class="col-12">
                             <div class="row">
-                                <a  href="#" class="btn btn-success purchase_form"  value="bsc_purchase_purchase_form" id="purchase_form"><i class="fas fa-plus"></i> Add New</a>&nbsp;
+                                {!! $button_add !!}&nbsp;
                             </div>
                             <!------------------------------------ Start Tab Menu ------------------------->
                             <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-top: 10px;">
@@ -87,10 +87,14 @@
                                                                 <td style="text-align: center;">
                                                                     <div class="row">
                                                                         <div class="col-md-6">
-                                                                            <a href="javascript:;" onclick="go_to('bsc_purchase_purchase_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
+                                                                            @if ($button_view_purchase == '1')
+                                                                                <a href="javascript:;" onclick="go_to('bsc_purchase_purchase_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
+                                                                            @endif
                                                                         </div>
                                                                         <div class="col-md-6">
-                                                                            <a href="javascript:" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')"><i class="far fa-edit"></i></a>
+                                                                            @if ($button_edit_purchase == '1')
+                                                                                <a href="javascript:" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')"><i class="far fa-edit"></i></a>
+                                                                            @endif
                                                                         </div>
                                                                     </div>
                                                                 </td>
