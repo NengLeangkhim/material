@@ -19,10 +19,15 @@
             </div>
         </div>
      </div><!-- /.container-fluid -->
-</section> 
+</section>
 <section class="content">
-   
-      <!-- /.card -->      
+    <style>
+        .table td, .table th {
+            padding: 0.55rem !important;
+            font-size: 14px;
+        }
+    </style>
+      <!-- /.card -->
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-12">
@@ -55,13 +60,13 @@
                                         <dt class="col-sm-4 dt">Primary Website </dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["primary_website"]}} </dd>
                                         <dt class="col-sm-4 dt">Company Branch </dt>
-                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["company_detail"]}} </dd> 
+                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["company_detail"]}} </dd>
                                         <dt class="col-sm-4 dt">Lead Status </dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["lead_status"]}} </dd>
                                         <dt class="col-sm-4 dt">Assigened To </dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]['assig']}}  </dd>
                                         <dt class="col-sm-4 dt">Service </dt>
-                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["service"]}} </dd>                                       
+                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["service"]}} </dd>
                                         <dt class="col-sm-4 dt">Priority</dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["priority"]}} </dd>
                                         <dt class="col-sm-4 dt">Comment</dt>
@@ -72,9 +77,9 @@
                                         </dd>
                                     <?php
                                 }
-                           ?>                           
+                           ?>
                             {{-- <dd class="col-sm-8 offset-sm-4">Primary Email</dd> --}}
-                            
+
                         </dl>
                     </div>
                     <!-- /.card-body -->
@@ -111,8 +116,8 @@
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["position"]}}</dd>
                                     <?php
                                 }
-                            ?>  
-                            
+                            ?>
+
                         </dl>
                     </div>
                 </div>
@@ -124,7 +129,7 @@
                             {{-- <i class="fas fa-text-width"></i> --}}
                             Address Detail
                         </h3>
-                        
+
                     </div>
                     <!-- /.card-header -->
                      <div class="card-body">
@@ -142,7 +147,7 @@
                                         <dt class="col-sm-4 dt" >Street KH</dt>
                                         <dd class="col-sm-8 dd" >ផ្លូវ {{$detailbranch[$i]["street_kh"]}}</dd>
                                         <dt class="col-sm-4 dt">Home number KH</dt>
-                                        <dd class="col-sm-8 dd" ># {{$detailbranch[$i]["home_kh"]}}</dd>                                       
+                                        <dd class="col-sm-8 dd" ># {{$detailbranch[$i]["home_kh"]}}</dd>
                                         <dt class="col-sm-4 dt">Address EN</dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["address_en"]}} </dd>
                                         <dt class="col-sm-4 dt">Address KH</dt>
@@ -151,14 +156,14 @@
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["latlong"]}} </dd>
                                         <dt class="col-sm-4 dt">Address type</dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["address_type"]}} </dd>
-                                      
+
                                         <input type="text" class="form-control"  hidden name='latlng' id="latlong" value="{{$detailbranch[$i]["latlong"]}}" >
-                                        
+
                                     <?php
                                 }
-                            ?>  
+                            ?>
                         </dl>
-                    </div>  
+                    </div>
                     <div class="card-body">
                         <div id="map"></div>
                     </div>
@@ -182,7 +187,7 @@
                                                     <span class="invalid-feedback" role="alert" id="possibleError"> {{--span for alert--}}
                                                         <strong></strong>
                                                     </span>
-                                                </div>                                                                
+                                                </div>
                                             </div>
                                             <?php
                                                 for($i =0;$i<sizeof($survey); $i++){
@@ -190,7 +195,7 @@
                                             <input type="text" class="form-control"  hidden name='survey_id' id="survey_id" value="{{$survey[$i]["survey_id"]}}" >
                                             <input type="text" class="form-control"  hidden name='branch_id' id="branch_id" value="{{$survey[$i]["branch_id"]}}" >
 
-                                                    <?php 
+                                                    <?php
                                                 }
                                             ?>
                                             <div class="col-md-6">
@@ -199,7 +204,7 @@
                                                 <span class="invalid-feedback" role="alert" id="commentsurveyError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
-                                            </div>                                            
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -207,9 +212,9 @@
                                         <button type="button" class="btn btn-danger" onclick="go_to('survey')">Cencel</button>
                                     </div>
                                 </div>
-                                
+
                             </div>
-                            
+
                         </form>
 
                     </div>
@@ -218,54 +223,54 @@
             {{-- <div class="col-md-4">
                 <div class="card card-secondary">
                     <div class="card-header">
-                      <h3 class="card-title">Update</h3>        
+                      <h3 class="card-title">Update</h3>
                       <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                           <i class="fas fa-minus"></i></button>
                       </div>
                     </div>
                         <div class="card-body">
-                            <strong><i class="fas fa-book mr-1"></i> Education</strong>            
+                            <strong><i class="fas fa-book mr-1"></i> Education</strong>
                             <p class="text-muted">
                               B.S. in Computer Science from the University of Tennessee at Knoxville
-                            </p>            
-                            <hr>            
+                            </p>
+                            <hr>
                             <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-            
+
                             <p class="text-muted">Malibu, California</p>
-            
-                            <hr>            
-                            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>            
+
+                            <hr>
+                            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
                             <p class="text-muted">
                               <span class="tag tag-danger">UI Design</span>
                               <span class="tag tag-success">Coding</span>
                               <span class="tag tag-info">Javascript</span>
                               <span class="tag tag-warning">PHP</span>
                               <span class="tag tag-primary">Node.js</span>
-                            </p>            
+                            </p>
                             <hr>
-                            <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>            
+                            <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
                             <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-                            <strong><i class="fas fa-book mr-1"></i> Education</strong>            
+                            <strong><i class="fas fa-book mr-1"></i> Education</strong>
                             <p class="text-muted">
                               B.S. in Computer Science from the University of Tennessee at Knoxville
-                            </p>            
-                            <hr>            
+                            </p>
+                            <hr>
                             <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-            
+
                             <p class="text-muted">Malibu, California</p>
-            
-                            <hr>            
-                            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>            
+
+                            <hr>
+                            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
                             <p class="text-muted">
                               <span class="tag tag-danger">UI Design</span>
                               <span class="tag tag-success">Coding</span>
                               <span class="tag tag-info">Javascript</span>
                               <span class="tag tag-warning">PHP</span>
                               <span class="tag tag-primary">Node.js</span>
-                            </p>            
+                            </p>
                             <hr>
-                            <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>            
+                            <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
                             <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
                           </div>
                           <!-- /.card-body -->
@@ -278,8 +283,8 @@
 </section>
 
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing&key=AIzaSyA4QECK3Tl4Sdl1zPIHiyZaME5mUaSk4WU&callback=initMap" async defer></script>
-    
-    
+
+
     <script>
         // alert();
         var map;
@@ -295,7 +300,7 @@
 
                     var haightAshbury = {
                         lat:lat,
-                        lng:long 
+                        lng:long
                     };
 
 
@@ -309,7 +314,7 @@
             //declear default value for latlong on map
             addMarker(haightAshbury);
             // document.getElementById('latlong').value = '11.620803, 104.892215';
-           
+
             // This event listener will call addMarker() when the map is clicked.
             map.addListener('click', function(event) {
                 if (markers.length >= 1) {
@@ -370,10 +375,10 @@
         })
         //click to convert branch
         // $('#btn_convert').click(function(){
-            
+
             // var val=document.getElementById("btn_convert").value;
             // var lead_detail_id=document.getElementById("lead_detail_id").value;
-            // var comment=document.getElementById("comment").value;            
+            // var comment=document.getElementById("comment").value;
             // alert("Are you sure to convert branch");
             // $.ajax({
             //         // url:'api/convertbranch/'+val,
@@ -381,9 +386,9 @@
             //         type:'POST',
             //         data:{id:val,detailid:lead_detail_id,com:comment},
             //         success:function(date){
-              
+
             //             go_to("/lead");
-                  
+
             //         }
             //     })
 

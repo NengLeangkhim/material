@@ -208,17 +208,17 @@
                     if(response.success) {
                         $.each(response.data, function(index, data){
                             $('#lead-detail-body').append(`
-                            <tr>
-                                <td style="display:none;"></td>
-                                <td>${index+1}</td>
-                                <td>${data.lead_number}</td>
-                                <td>${data.branch_name_en}</td>
-                                <td>${data.department_name_en}</td>
-                                <td>${data.customer_name_en}</td>
-                                <td>${data.priority}</td>
-                                <td>${data.source_name_en}</td>
-                                <td>${data.status_en}</td>
-                            </tr>
+                                <tr>
+                                    <td style="display:none;"></td>
+                                    <td>${index+1}</td>
+                                    <td>${data.lead_number}</td>
+                                    <td>${data.branch_name_en}</td>
+                                    <td>${data.department_name_en}</td>
+                                    <td>${data.customer_name_en}</td>
+                                    <td>${data.priority}</td>
+                                    <td>${data.source_name_en}</td>
+                                    <td>${data.status_en}</td>
+                                </tr>
                             `)
                         })
                         $('#OrganizationTbl').DataTable({

@@ -31,9 +31,10 @@
                                 </div>
                             </div> --}}
                             <div class="card-body">
-                                <table id="OrganizationTbl" class="table table-bordered table-striped">
+                                <table id="OrganizationTbl" class="table table-bordered table-striped"  style="white-space: nowrap;">
                                     <thead>
                                         <tr style="background: #1fa8e0">
+                                            <th style="color: #FFFFFF">No</th>
                                             <th style="color: #FFFFFF">Organization</th>
                                             <th style="color: #FFFFFF">Contact</th>
                                             <th style="color: #FFFFFF">Email</th>
@@ -47,6 +48,7 @@
                                             for($i =0;$i<sizeof($organize);$i++){
                                                 ?>
                                                     <tr>
+                                                        <td>{{$i+1}}</td>
                                                         <td>{{$organize[$i]["name_en_branch"]}}</td>
                                                         <td>{{$organize[$i]["name_en_contact"]}}</td>
                                                         <td>{{$organize[$i]["email_branch"]}}</td>
