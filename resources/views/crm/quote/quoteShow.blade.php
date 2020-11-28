@@ -17,12 +17,6 @@
             </section>
             <!-- section Main content -->
             <section class="content">
-                <style>
-                    .table td, .table th {
-                        padding: 0.55rem !important;
-                        font-size: 14px;
-                    }
-                </style>
                 <div class="container-fluid" >
                     <div class="row">
                         <div class="col-12">
@@ -36,7 +30,7 @@
                                 </div>
                                 <div class="card-body ">
                                     <div class="table-responsive">
-                                            <table id="tblQuoteList"  class=" table table-bordered table-hover" style="white-space:nowrap;">
+                                            <table id="tblQuoteList"  class="table table-bordered table-hover" style="white-space:nowrap;">
                                                 <thead>
                                                     <tr style="background: #1fa8e0">
                                                         <th style="color: #FFFFFF">No</th>
@@ -53,8 +47,8 @@
                                                 </thead>
                                                 <tbody>
                                                     @if(isset($listQuote))
-                                                        @foreach ($listQuote as $val)
-                                                            @foreach ($val as $key => $val2)
+                                                        @foreach($listQuote as $val)
+                                                            @foreach($val as $key => $val2)
                                                                     <tr>
                                                                         <td>{{$key+1}}</td>
                                                                         <td>{{$val2->quote_number}}</td>
