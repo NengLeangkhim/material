@@ -57,8 +57,8 @@ class ModelHrmQuestionAnswer extends Model
     public static function hrm_get_answer($id){
         $answer_get = DB::table('hr_recruitment_question_choice')
                               ->select('*')
-                              ->where('hr_recruitment_question_id','=',$id)
-                              ->get(); 
+                              ->where([['hr_recruitment_question_id','=',$id],['is_deleted','=','false']])
+                              ->get();
         return $answer_get;
     }
     // ===== Function get data Question Detail =====////
@@ -69,7 +69,7 @@ class ModelHrmQuestionAnswer extends Model
                            ->leftjoin('ma_position as p','q.ma_position_id','=','p.id')
                            ->leftjoin('hr_recruitment_question_type as qt','q.hr_recruitment_question_type_id','=','qt.id')
                            ->where('q.id','=',$id)
-                           ->get(); 
+                           ->get();
         return $question_get;
     }
     // ===== function update answer ========//
