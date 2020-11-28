@@ -242,7 +242,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                                     </div>
-                                                    <input type="date" class="form-control input_required"  name="date_paid" id="date_paid" placeholder="Date Paid">
+                                                    <input type="date" class="form-control input_required" value="{{ date('Y-m-d') }}"  name="date_paid" id="date_paid" placeholder="Date Paid">
                                                 </div>
                                             </div>
                                         </div>
