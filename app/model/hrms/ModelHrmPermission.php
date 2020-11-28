@@ -58,6 +58,9 @@ class ModelHrmPermission extends Model
     }
     //=== Function Get data from table Department for Head Dept===//
     public static function hrm_get_dept_dept($id){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         return DB::table('ma_company_dept')
                    ->select("id","name","is_deleted")
                    ->where([
