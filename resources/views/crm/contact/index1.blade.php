@@ -25,14 +25,15 @@
                                 <div class="col-2">
                                     <div class="row  ">
                                         <!-- <a  href="#" class="btn btn-block btn-success lead" value="addlead" onclick="addlead()"><i class="fas fa-wrench"></i> Add Lead</a>  -->
-                                        <a  href="#" class="btn btn-block btn-success checkcard" ​value="contact" id="checkcard"><i class="fas fa-address-card"></i> Show Card</a> 
+                                        <a  href="#" class="btn btn-block btn-success checkcard" ​value="contact" id="checkcard"><i class="fas fa-address-card"></i> Show Card</a>
                                     </div>
-                                </div>                               
+                                </div>
                             </div>
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="example1" class="table table-bordered table-striped"  style="white-space: nowrap;">
                                      <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>Contact Number</th>
                                             <th>Name eng</th>
                                             <th>Name Kh</th>
@@ -43,8 +44,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($contact as $row)
+                                    @foreach($contact as $key=>$row)
                                         <tr>
+                                            <td>{{ $key+1 }}</td>
                                             <td>TT-CON0000002</td>
                                             <td>{{$row->name_en}}</td>
                                             <td>{{$row->name_kh}}</td>
@@ -54,9 +56,9 @@
                                             <td>
                                                 <a href="#" class="btn btn-block btn-info btn-sm edit" ​value="{{$row->id}}"><i class="fas fa-wrench"></i></a>
                                             </td>
-                                        </tr>                                       
+                                        </tr>
                                     @endforeach
-                                    </tbody>  
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -66,7 +68,7 @@
 
 
             <script type="text/javascript">
-            
+
             $(function () {
                 $("#example1").DataTable({
                 "responsive": true,
@@ -93,4 +95,3 @@
                 alert(id);
             });
             </script>
-            
