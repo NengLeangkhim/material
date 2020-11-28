@@ -214,7 +214,7 @@ class Crmlead extends Model
                             )
 
                         );
-// dd($result);
+                        // dd($result);
                         $lead_id=$result[0]->insert_crm_lead;
 
                         //insert Into crm_lead_address
@@ -253,8 +253,6 @@ class Crmlead extends Model
                          CrmLead::insertleaddetail($branch_id,$lead_status,$comment,$user_create);
 
                          //insert into table crm_survey
-                        // CrmLead::insertsurey($branch_id,$user_create);
-                        // dd($test);
                         if($checksurvey!=='null'){
                                 // var_dump("No");
                                 CrmLead::insertsurey($branch_id,$user_create);
@@ -1545,5 +1543,19 @@ class Crmlead extends Model
         //          JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= clb.id
         //          JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
         //   WHERE  cl.is_deleted=FALSE and cl.status=TRUE  and clb.is_deleted=FALSE and  ls.sequence=1   and clb.status=TRUE  GROUP BY cl.id
+    }
+    // get count survey
+    public static function getcountsurveyresult(){
+
+         $date= date('Y-m-d');
+        $count_t=DB::select("SELECT count(possible) as true from crm_survey_result  where possible=TRUE and is_deleted=False AND status=TRUE and create_date::date='".$date."'::date");
+        $count_t=$count_t[0]->true;
+        $count_f=DB::select("SELECT count(possible) as false from crm_survey_result  where possible=FALSE and is_deleted=False AND status=TRUE and create_date::date='".$date."'::date");
+        $count_f=$count_f[0]->false;
+        $array=[
+            'true'=>$count_t,
+            'false'=>$count_f
+        ];
+        return $array;
     }
 }
