@@ -65,6 +65,7 @@ class ModelHrmPermission extends Model
                     ["status",'=','t'],
                     ["id","=",$id]
                    ])
+                   ->whereRaw("ma_company_id=(select ma_company_id from ma_company_detail where id=(select ma_company_detail_id from ma_user where id=?))",[$id])
                    ->orderBy('name','ASC')
                    ->get();
     }
