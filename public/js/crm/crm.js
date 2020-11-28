@@ -325,7 +325,8 @@ function Crm_delete(id,route,goto,alert) {
       success:function(data){
         $('#CrmTabManageSetting').html(data);
         $('#'+table+'').dataTable({
-          scrollX:true
+            'responsive': true,
+            scrollX:true,
         }); //Set table to datatable
 
   }
@@ -746,19 +747,23 @@ function Crm_delete(id,route,goto,alert) {
 
         //function to get show modal
         function getShowPopup(route,id,modal_mainform,modal_form,tblId,btnId,getName,fieldID,fieldName){
-          var id_ = "id="+id;
-          var url= route;
-          var x=new XMLHttpRequest();
-          x.onreadystatechange=function(){
-              if(this.readyState==4 && this.status==200){
-                  console.log(this.responseText);
-                  document.getElementById(modal_mainform).innerHTML=this.responseText;
-                  $('#'+modal_form+'').modal('show');
-                  getDataTableSelectRow(tblId,btnId,getName,fieldID,fieldName,modal_form);
-              }
-          }
-          x.open("GET", url + "?" + id_ , true);
-          x.send();
+            var id_ = "id="+id;
+            var url= route;
+            $('#'+modal_form+'').modal('hide');  // hide popup before show again
+            var x=new XMLHttpRequest();
+            x.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200){
+                    if(this.responseText.length > 0){
+                          document.getElementById(modal_mainform).innerHTML=this.responseText;
+                          $('#'+modal_form+'').modal('show');
+                          getDataTableSelectRow(tblId,btnId,getName,fieldID,fieldName,modal_form);
+                          // setTimeout(function(){ i = 0; }, 5000);
+                    }
+
+                }
+            }
+            x.open("GET", url + "?" + id_ , true);
+            x.send();
         }
 
 
@@ -936,9 +941,9 @@ function Crm_delete(id,route,goto,alert) {
     $(document).on('click','#clickGetBranch', function(){
             var lead_id = $('#lead_id').val();
             if(lead_id != ""){
-            // getShowPopup('/quote/add/listQuoteBranch',lead_id,'modal-list-quote','listQuoteBranch','tblQuuteBranch','getSelectRow','branchKhName','getLeadBranchId','getLeadBranch');
             var id_ = "id="+lead_id;
             var url= '/quote/add/listQuoteBranch';
+            $('#listQuoteBranch').modal('hide');  // hide popup before show again
             var x=new XMLHttpRequest();
             x.onreadystatechange=function(){
                 if(this.readyState==4 && this.status==200){

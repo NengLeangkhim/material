@@ -31,9 +31,10 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <table id="example1" class="table table-bordered table-striped">
+                                    <table id="example1" class="table table-bordered table-striped" style="white-space: nowrap;">
                                         <thead>
                                             <tr style="background: #1fa8e0">
+                                                <th style="color: #FFFFFF">No</th>
                                                 <th style="color: #FFFFFF">Lead Number</th>
                                                 <th style="color: #FFFFFF">Customer Name</th>
                                                 <th style="color: #FFFFFF">Email</th>
@@ -49,6 +50,7 @@
                                             for($i =0;$i<sizeof($lead);$i++){
                                                 ?>
                                                     <tr>
+                                                        <td>{{$i+1}}</td>
                                                         <td>{{$lead[$i]["lead_number"]}}</td>
                                                         <td>{{$lead[$i]["customer_name_en"]}}</td>
                                                         <td>{{$lead[$i]["email"]}}</td>
