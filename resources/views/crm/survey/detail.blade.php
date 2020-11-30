@@ -157,16 +157,24 @@
                                         <dt class="col-sm-4 dt">Address type</dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["address_type"]}} </dd>
 
-                                        <input type="text" class="form-control"  hidden name='latlng' id="latlong" value="{{$detailbranch[$i]["latlong"]}}" >
+                                        <input type="text" class="form-control"  hidden name='latlng' id="latlong" value="{{$detailbranch[$i]["latlong"]??''}}" >
 
                                     <?php
                                 }
                             ?>
                         </dl>
                     </div>
+                    {{-- map --}}
                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12" id="currentaddress">Current Lead address: {{$detailbranch[0]["address_en"]??''}}</div>
+                            <div class="col-md-12" id="address"></div>
+                            <div class="col-md-12" id="closest_pop_name"></div>
+                        </div>
+                        <input type="hidden" name="pop_location" value="{{ $pop??'' }}">
                         <div id="map"></div>
                     </div>
+                    {{-- map --}}
                         <form id="frm_crmsurvey" method="POST">
                             @csrf
                             <div class="container-fluid" style="border: 1px soild red">
@@ -282,22 +290,142 @@
     <!-- ./col -->
 </section>
 
-<script src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing&key=AIzaSyA4QECK3Tl4Sdl1zPIHiyZaME5mUaSk4WU&callback=initMap" async defer></script>
-
-
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyBWBMJ5VuU5Wz_jBO8JJvJEAnwynIjP4ec&region=KH&language=km&callback=initMap" async defer></script>
+{{-- https://maps.googleapis.com/maps/api/js?libraries=places,drawing&key=AIzaSyA4QECK3Tl4Sdl1zPIHiyZaME5mUaSk4WU&callback=initMap --}}{{-- old map key with no calcaulate funtion --}}
     <script>
         // alert();
         var map;
         var markers = [];
+        var mapCenter;
+        //get value of pop from input
+        var pop_location=pop_location=$("input[type='hidden'][name='pop_location']").val();
+        var pops_latlng_obj=[];//array of google.map.latlg object -will have value after run putPop()
+        var directionsService;
+        var directionsDisplay ;
+        // var directionsDisplay = new google.maps.DirectionsRenderer({
+        //         draggable: true,
+        //         suppressMarkers: true
+        // });
+        //put pops on map
+        function putPop(){
+            try {
+                pop_location=JSON.parse(pop_location);
+                $.each(pop_location,function(key,value){
+                    pop_latlg=value.latlg.split(',');//index 0 = lat;1=long
+                    let latLng= new google.maps.LatLng(pop_latlg[0], pop_latlg[1]);
+                    // pops_latlng_obj.push(latLng);
+                    pops_latlng_obj[key]=[];
+                    pops_latlng_obj[key].push(latLng);
+                    pops_latlng_obj[key].push(value.name_en);
+                    new google.maps.Marker({
+                        position: latLng,
+                        map: map,
+                        // Icon and set locating of title for icon
+                        icon: {
+                            url: "img/icon.png",
+                            anchor: new google.maps.Point(13, 15),
+                            labelOrigin: new google.maps.Point(16, -15),
+                            scaledSize: new google.maps.Size(30, 30), // scaled size
+                        },
+                        // title logo
+                        label: {
+                            text: value.name_en,
+                            fontSize: '12px',
+                            color: 'black',
+                            fontWeight: '400',
+                        },
+                    });
+                });
+            } catch (e) {
+                console.log('Error on  json parse');
+            }
+        }
+        var closest_pop,closest_pop_name;
+        function find_closest_marker(customer_location) {
 
+            var distances = [];
+            var closest = -1;
+            for (var i = 0; i < pops_latlng_obj.length; i++) {
+                    var d = google.maps.geometry.spherical.computeDistanceBetween(pops_latlng_obj[i][0], customer_location);
+                    distances[i] = d;
+                    if (closest == -1 || d < distances[closest]) {
+                            closest = i;
+                    }
+            }
+            closest_pop = new google.maps.LatLng(pops_latlng_obj[closest][0].lat(), pops_latlng_obj[closest][0].lng());
+            closest_pop_name=pops_latlng_obj[closest][1];
+            return closest_pop;
+        }
+        function calculateAndDisplayRoute(directionsService, directionsDisplay, popPosition) {
+            directionsService.route({
+            origin: popPosition,  // Pop Position
+            destination: mapCenter, // Customer Position
+            travelMode: google.maps.TravelMode['WALKING']   // BICYCLING , DRIVING
+            }, function(response, status) {
+
+            if (status == 'OK') {
+                directionsDisplay.setDirections(response);
+                    var _route = response.routes[0].legs[0];
+
+                    distance = google.maps.geometry.spherical.computeDistanceBetween(_route.start_location, _route.end_location);
+                    // console.log('Distance = ' + distance.toFixed(0) + ' m');
+
+                    geocodePosition(mapCenter);
+
+                    pinB = new google.maps.Marker({
+                            position: _route.end_location,
+                            map: map,
+                            draggable: true,
+                            animation: google.maps.Animation.DROP
+                    });
+
+                    google.maps.event.addListener(pinB, 'dragstart', function () {
+                        updateMarkerAddress('Dragging...');
+                    });
+
+                    google.maps.event.addListener(pinB, 'dragend', function () {
+                        mapCenter = pinB.getPosition();
+                        pinB.setMap(null);
+                        pinB.setPosition(mapCenter);
+                        calculateAndDisplayRoute(directionsService, directionsDisplay, find_closest_marker(mapCenter));
+                        geocodePosition(pinB.getPosition());
+                    });
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+            });
+        }
+        function geocodePosition(pos) {
+            newMapCode = [pos.lat(), pos.lng()].join(',');
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({
+                latLng: pos
+            }, function (responses) {
+                console.log(responses);
+                if (responses && responses.length > 0) {
+                    updateMarkerAddress('Distance: ' + distance.toFixed(0) + ' m ; ' + 'Coordination: ' + newMapCode );
+                } else {
+                    updateMarkerAddress('Cannot determine address at this location.');
+                }
+            });
+        }
+        function updateMarkerAddress(str) {
+            document.getElementById('address').innerHTML = str;
+            $("#closest_pop_name").html("Closest Pop: "+closest_pop_name);
+        }
         function initMap() {
-
+            directionsService = new google.maps.DirectionsService;
+            directionsDisplay = new google.maps.DirectionsRenderer({
+                    draggable: true,
+                    suppressMarkers: true
+            });
+            //
             var latlong =document.getElementById('latlong').value;
                     latlong.replace('/[\(\)]//g','');
                     var coords = latlong.split(',');
                     var lat = parseFloat(coords[0]);
                     var long = parseFloat(coords[1]);
-
+                    mapCenter = new google.maps.LatLng(lat, long);
                     var haightAshbury = {
                         lat:lat,
                         lng:long
@@ -308,11 +436,11 @@
             map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 12, // Set the zoom level manually
                 center: haightAshbury,
-                mapTypeId: 'roadmap'
+                mapTypeId: google.maps.MapTypeId.ROADMAP
             });
 
             //declear default value for latlong on map
-            addMarker(haightAshbury);
+            // addMarker(haightAshbury);
             // document.getElementById('latlong').value = '11.620803, 104.892215';
 
             // This event listener will call addMarker() when the map is clicked.
@@ -321,10 +449,20 @@
                     deleteMarkers();
                 }
 
-                addMarker(event.latLng);
+                // addMarker(event.latLng);
                 get_latlng = event.latLng.lat().toFixed(6) +', '+ event.latLng.lng().toFixed(6);
+                mapCenter=event.latLng;
+                // find_closest_marker(event.latLng);
+                pinB.setMap(null);
+                pinB.setPosition(mapCenter);
+                calculateAndDisplayRoute(directionsService, directionsDisplay, find_closest_marker(mapCenter));
+                geocodePosition(mapCenter);
                 document.getElementById('latlong').value = get_latlng;
             });
+            putPop();
+            find_closest_marker(mapCenter);
+            calculateAndDisplayRoute(directionsService, directionsDisplay, find_closest_marker(mapCenter));
+            geocodePosition(mapCenter);
         }
 
         // Adds a marker to the map and push to the array.

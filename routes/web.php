@@ -928,6 +928,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_attendance_edit', 'hrms\Employee\AttendanceController@AttendanceEdit');
         Route::post('hrm_attendance_insert', 'hrms\Employee\AttendanceController@AttendanceEditInsert');
         Route::get('hrm_your_attendance', 'hrms\Employee\AttendanceController@YourAttendance');
+        Route::get('test_hrm_your_attendance', 'hrms\Employee\AttendanceController@AllAttendance');
     // End Attendance
 
     // Start Mission And Out Side
