@@ -31,14 +31,14 @@ Function index_num($v1){
                               <?php echo 'Revenue'; ?>
                             </h5>
                             <div class="chartjs-wrapper " >
-                                <h5 style="text-align: center; color:#12b9d6">{{ number_format($amount_dashboards->total_revenue_this_month_debit,4,".",",") }}</h5>
+                                <h5 style="text-align: center; color:#12b9d6">{{ number_format($amount_dashboards->total_revenue_this_month,4,".",",") }}</h5>
                             </div>
                             <div class="row" style="text-align: center">
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                     All Total :
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                    {{ number_format($amount_dashboards->total_revenue_all_debit,4,".",",") }}
+                                    {{ number_format($amount_dashboards->total_revenue_all,4,".",",") }}
                                 </div>
                             </div>
                         </div>
@@ -52,14 +52,14 @@ Function index_num($v1){
                             <?php echo 'Expense'; ?>
                         </h5>
                         <div class="chartjs-wrapper " >
-                            <h5 style="text-align: center; color:#12b9d6">{{number_format($amount_dashboards->total_expense_this_month_debit,4,".",",") }}</h5>
+                            <h5 style="text-align: center; color:#12b9d6">{{number_format($amount_dashboards->total_expense_this_month,4,".",",") }}</h5>
                         </div>
                         <div class="row" style="text-align: center">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                 All Total :
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                {{ number_format($amount_dashboards->total_expense_all_debit,4,".",",") }}
+                                {{ number_format($amount_dashboards->total_expense_all,4,".",",") }}
                             </div>
                         </div>
                     </div>
@@ -187,8 +187,8 @@ Function index_num($v1){
     }
     
     //get Data Amount Revenue
-    if ($amount_high_chart_dashboards->arr_total_amount_revenue_debit != "") {
-       $arr_revenue = $amount_high_chart_dashboards->arr_total_amount_revenue_debit;
+    if ($amount_high_chart_dashboards->arr_total_amount_revenue != "") {
+       $arr_revenue = $amount_high_chart_dashboards->arr_total_amount_revenue;
         $data_revenue = "";
         for ($i=0; $i < 5; $i++) { 
             if ($i != 4) {
@@ -202,8 +202,8 @@ Function index_num($v1){
     }
 
     // get Data Amount Expens
-    if ($amount_high_chart_dashboards->arr_total_amount_expense_debit != "") {
-        $arr_expense = $amount_high_chart_dashboards->arr_total_amount_expense_debit;
+    if ($amount_high_chart_dashboards->arr_total_amount_expense != "") {
+        $arr_expense = $amount_high_chart_dashboards->arr_total_amount_expense;
         $data_expense = "";
         for ($i=0; $i < 5; $i++) { 
             if ($i != 4) {
