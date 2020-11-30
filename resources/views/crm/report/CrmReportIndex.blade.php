@@ -7,8 +7,8 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('/welcome')">Home</a></li>
-                <li class="breadcrumb-item active">View Report</li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('/welcome')">Home</a></li>
+                    <li class="breadcrumb-item active">View Report</li>
                 </ol>
             </div>
         </div>
@@ -571,6 +571,18 @@
     Quote_Chart();
     Contact_Chart();
     Survey_Chart();
+
+    // Chart responsive
+    window.onresize = () => {
+        Lead_Chart();
+        Quote_Chart();
+        Contact_Chart();
+        Survey_Chart();
+    }
+
+    // $(window).onresize = () => {
+    // };
+
     // Quote_Chart();
     // $(document).ready(function() {
     //   ReportLeadChart();
