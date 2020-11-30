@@ -6,8 +6,10 @@ var reportLeadByStatus = () => {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        data: $('#FrmChartReport').serialize(),
+        // data: $('#FrmChartReport').serialize(),
         success: function (response) {
+            console.log(response);
+            return
             if (response.success == true) {
                 var data = response.data
                 if(data.length < 1){
@@ -31,17 +33,17 @@ var reportLeadByStatus = () => {
                         {
                             id: 1,
                             name_en: 'new',
-                            code: '#EE5A24'
+                            code: '#1fa8e0'
                         },
                         {
                             id: 2,
                             name_en: 'qualified',
-                            code: '#C4E538'
+                            code: '#7d5fff'
                         },
                         {
                             id: 3,
                             name_en: 'surveying',
-                            code: '#fff200'
+                            code: '#1fa8e0'
                         },
                         {
                             id: 4,
@@ -61,7 +63,7 @@ var reportLeadByStatus = () => {
                         {
                             id: 7,
                             name_en: 'junk',
-                            code: '#ff3838'
+                            code: '#1fa8e0'
                         },
                     ]
 
@@ -85,8 +87,10 @@ var reportLeadByStatus = () => {
                     // ]);
 
                     var options = {
-                        title: 'Lead Performance',
+                        title: 'Branch Performance',
                         pieSliceText:'value',
+                        pieHole: 0.4,
+                        legend: { position: "none" },
                         colors: myColors
                     };
 
@@ -149,16 +153,15 @@ var reportContact = () => {
                     var data = google.visualization.arrayToDataTable(result);
                     var view = new google.visualization.DataView(data);
                     view.setColumns([0, 1,
-                        {
-                            calc: "stringify",
-                            sourceColumn: 1,
-                            type: "string",
-                            role: "annotation"
-                        },
-                        2
-                    ]);
+                        { calc: "stringify",
+                          sourceColumn: 1,
+                          type: "string",
+                          role: "annotation" },
+                        2]);
                     var options = {
                         title: 'Contact Performnace',
+                        bar: {groupWidth: "70%"},
+                        legend: { position: "none" },
                     };
 
                     var chart = new google.visualization.ColumnChart(document.getElementById('ContactChart'))
@@ -230,6 +233,8 @@ var reportOrganization = () => {
                     ]);
                     var options = {
                         title: 'Organization Performance',
+                        bar: {groupWidth: "70%"},
+                        legend: { position: "none" },
                     };
 
                     var chart = new google.visualization.ColumnChart(document.getElementById('OrganizationChart'))
@@ -285,22 +290,22 @@ var reportQuoteByStatus = () => {
                         {
                             id: 1,
                             name_en: 'pending',
-                            code: 'color:#EA2027'
+                            code: 'color:#1fa8e0'
                         },
                         {
                             id: 2,
                             name_en: 'approved',
-                            code: 'color:#009432'
+                            code: 'color:#006266'
                         },
                         {
                             id: 3,
                             name_en: 'negogiate',
-                            code: 'color:#FFC312'
+                            code: 'color:#1fa8e0'
                         },
                         {
                             id: 4,
                             name_en: 'open',
-                            code: 'color:#EE5A24'
+                            code: 'color:#006266'
                         },
                         {
                             id: 5,
@@ -315,12 +320,12 @@ var reportQuoteByStatus = () => {
                         {
                             id: 9,
                             name_en: 'accepted',
-                            code: 'color:#fff200'
+                            code: 'color:#1fa8e0'
                         },
                         {
                             id: 12,
                             name_en: 'disapproved',
-                            code: 'color:#ff5252'
+                            code: 'color:#006266'
                         },
                     ]
                     $.each(data, function (index, value) {
@@ -339,10 +344,11 @@ var reportQuoteByStatus = () => {
                     ]);
                     var options = {
                         title: 'Quote Performance',
+                        bar: {groupWidth: "70%"},
+                        legend: { position: "none" }
                     };
 
                     var chart = new google.visualization.BarChart(document.getElementById('QuoteChart'))
-
                     chart.draw(view, options)
                 }
             } else {

@@ -19,7 +19,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                <!-- PIE CHART -->
+                <!-- DONUT CHART -->
                 <div class="card card-primary">
                     <div class="card-header" style="background: #ffffff;border:none;">
                       <h3 class="card-title" style="color: #000000;font-weight: bold;">Branch Chart</h3>
@@ -59,9 +59,8 @@
                           </form>
                         </div>
                         <div class="chart">                                                                
-                          <div style="min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;">                            
-                            <div id="Branchchart" style="width: auto; height:390px;display:block"></div>
-                          </div>                          
+                          <div id="LeadChart" style="min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;">                            
+                        </div>                          
                         </div>
                         <div class="col-md-12 text-right">
                           <button class="btn btn-info" onclick="go_to('/crmreport/detaillead')" ><span><i class="fas fa-info"></i></span> Detail</button>
@@ -110,7 +109,7 @@
                         </form>
                       </div>
                       <div class="chart"> 
-                        <div id="Contact_Chart" style=" min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;"></div>                       
+                        <div id="ContactChart" style=" min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;"></div>                       
                       </div>
 
                       {{-- <div class="chart">
@@ -165,7 +164,7 @@
                         </form>
                       </div>
                       <div class="chart col-md-12"> 
-                        <div id="organization" style="min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;"></div>                       
+                        <div id="OrganizationChart" style="min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;"></div>                       
                       </div>
                       <div class="col-md-12 text-right">
                         <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -447,7 +446,7 @@
   </script>
 
   {{-- Branch chart --}} 
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  {{-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
     google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
@@ -459,7 +458,7 @@
           ['Surveying', 2]      
       ]);
       var options = {
-        title: 'Lead Performance',
+        title: 'Branch Performance',
         pieHole: 0.4,
         slices: {
             0: { color: '#ff6384' },
@@ -470,10 +469,10 @@
       var chart = new google.visualization.PieChart(document.getElementById('Branchchart'));
       chart.draw(data, options);
     }
-  </script>
+  </script> --}}
 
    {{-- Contact chart --}}
-   <script type="text/javascript">
+   {{-- <script type="text/javascript">
      google.charts.load("current", {packages:['corechart']});
      google.charts.setOnLoadCallback(drawChart);
      function drawChart() {
@@ -497,9 +496,9 @@
        var chart = new google.visualization.ColumnChart(document.getElementById("Contact_Chart"));
        chart.draw(view, options);
    }
-   </script>
+   </script> --}}
    {{-- organization chart --}}
-   <script type="text/javascript">
+   {{-- <script type="text/javascript">
     google.charts.load("current", {packages:['corechart']});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
@@ -523,9 +522,9 @@
       var chart = new google.visualization.ColumnChart(document.getElementById("organization"));
       chart.draw(view, options);
   }
-  </script>
+  </script> --}}
    {{-- Quote chart --}}
-   <script type="text/javascript">
+   {{-- <script type="text/javascript">
     google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
@@ -547,12 +546,11 @@
                        2]);
 
       var options = {
-        title: "Quote Performance",
-        
+        title: "Quote Performance",        
         bar: {groupWidth: "70%"},
         legend: { position: "none" }
       };
       var chart = new google.visualization.BarChart(document.getElementById("QuoteChart"));
       chart.draw(view, options);
     }
-    </script>
+    </script> --}}
