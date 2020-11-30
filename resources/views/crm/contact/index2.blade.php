@@ -17,23 +17,23 @@
             </section>
 
             <!-- section Main content -->
-            <section class="content"> 
+            <section class="content">
                 <div class="card card-solid">
                   <div class="card-header">
                     <div class="col-2">
                         <div class="row  ">
                             <!-- <a  href="#" class="btn btn-block btn-success lead" value="addlead" onclick="addlead()"><i class="fas fa-wrench"></i> Add Lead</a>  -->
-                            <a  href="#" class="btn btn-block btn-success listtabel" ​value="checklist" id="listtabel"><i class="fas fa-table"></i> Show List Table</a> 
+                            <a  href="#" class="btn btn-block btn-success listtabel" ​value="checklist" id="listtabel"><i class="fas fa-table"></i> Show List Table</a>
                         </div>
-                    </div>                               
-                </div>  
+                    </div>
+                </div>
                     <div class="card-body pb-0">
                       <div class="row d-flex align-items-stretch">
                         @foreach ($contact as $row )
                         <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch" >
                           <div class="card bg-light" style="width:1000px">
                             <div class="card-header text-muted border-bottom-0">
-                              
+
                             </div>
                             <div class="card-body pt-0">
                               <div class="row">
@@ -63,9 +63,9 @@
                             </div>
                           </div>
                         </div>
-                        @endforeach                      
-                        
-                      </div> 
+                        @endforeach
+
+                      </div>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
@@ -85,12 +85,12 @@
                     <!-- /.card-footer -->
                   </div>
             </section><!-- end section Main content -->
-            <script type="text/javascript">            
-           
+            <script type="text/javascript">
+
               $('.listtabel').click(function(e)
               {
                   var table = $(this).attr("​value");
                   go_to(table);
               })
-             
+
               </script>

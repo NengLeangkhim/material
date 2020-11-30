@@ -103,7 +103,7 @@
                                                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                                     </div>
                                                     {{-- Select active & Inactive Organization --}}
-                                                    <select  class="form-control" name="crm_quote_status_type_id" id="crm_quote_status_type_id">
+                                                    <select  class="form-control select2" name="crm_quote_status_type_id" id="crm_quote_status_type_id">
                                                         <option value="">Select an Option</option>
                                                         @if(isset($quotestatus))
                                                             @foreach ($quotestatus as $key=>$val)
@@ -521,6 +521,12 @@
     {{-- <script type="text/javascript" src="js/crm/crmAddRowQuote.js"></script> --}}
 
     <script type="text/javascript">
+
+            $(document).ready(function() {
+                $(".select2").select2({
+                    placeholder: "Select a State"
+                });
+            });
 
 
             $('.lead').click(function(e)

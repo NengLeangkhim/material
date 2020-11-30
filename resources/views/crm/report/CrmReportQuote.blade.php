@@ -226,9 +226,6 @@
                         'ordering': false,
                     });
 
-
-
-
                 },
                 fail : function(){
                     console.log("ERROR");
