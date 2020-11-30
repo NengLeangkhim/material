@@ -213,7 +213,7 @@
                             </form>
                           </div>
                           <div class="chart">
-                              <div id="ReportQuoteChart" style="min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;"></div>
+                              <div id="QuoteChart" style="min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;"></div>
                           </div>
                           <div class="col-md-12 text-right">
                             <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
