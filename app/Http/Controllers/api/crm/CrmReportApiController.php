@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\api\crm;
 
+use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\perms;
 use App\model\api\crm\CrmReport;
 use DateTime;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
+// CRM_020103 -> CRM_REPORT_TOP_MANAGEMENT
+// CRM_020104 -> CRM_REPORT_TEAM_LEAD
 class CrmReportApiController extends Controller
 {
     /**
@@ -334,5 +338,67 @@ class CrmReportApiController extends Controller
             return $this->sendError($this->queryException);
         }
         return $this->sendResponse($result,'');
+    }
+
+    public function getTotalLeadLeadBranch(Request $request){
+        $fromDate = $request->from_date;
+        $toDate = $request->to_date;
+        $userId = UserController::getUserId();
+        try {
+            if(perms::check_perm_module_api('CRM_020103',$userId) || perms::check_perm_module_api('CRM_020104',$userId)){
+                $userId = null;
+            }
+            $result = $this->crmReport->getTotalLeadLeadBranch($fromDate, $toDate, $userId);
+        } catch(QueryException $e){
+            return $this->sendError($this->queryException);
+        }
+        return $this->sendResponse($result, 'get total lead and total lead branch from '.$fromDate.' and '.$toDate);
+    }
+
+    public function getTotalServicesInEachLeads(Request $request){
+        $fromDate = $request->from_date;
+        $toDate = $request->to_date;
+        $userId = UserController::getUserId();
+        try {
+            if(perms::check_perm_module_api('CRM_020103',$userId) || perms::check_perm_module_api('CRM_020104',$userId)){
+                $userId = null;
+            }
+            $result = $this->crmReport->getTotalServicesInEachLeads($fromDate, $toDate, $userId);
+        } catch(QueryException $e){
+            return $this->sendError($this->queryException);
+        }
+        return $this->sendResponse($result, 'get total services for all lead branches from '.$fromDate.' and '.$toDate);
+    }
+
+    public function getQuoteApprovedOrNot(Request $request){
+        $fromDate = $request->from_date;
+        $toDate = $request->to_date;
+        $userId = UserController::getUserId();
+        try {
+            if(perms::check_perm_module_api('CRM_020103',$userId) || perms::check_perm_module_api('CRM_020104',$userId)){
+                $userId = null;
+            }
+            $quoteApproved = $this->crmReport->getQuoteApprovedOrNot(2,$fromDate, $toDate, $userId);
+            $quoteDisapproved = $this->crmReport->getQuoteApprovedOrNot(12,$fromDate, $toDate, $userId);
+            $result = ['quote_approved' => $quoteApproved, 'quote_disapproved' => $quoteDisapproved];
+        } catch(QueryException $e){
+            return $this->sendError($this->queryException);
+        }
+        return $this->sendResponse($result, 'get quote from '.$fromDate.' and '.$toDate);
+    }
+
+    public function getSurveyedResult(Request $request){
+        $fromDate = $request->from_date;
+        $toDate = $request->to_date;
+        $userId = UserController::getUserId();
+        try{
+            if(perms::check_perm_module_api('CRM_020103',$userId) || perms::check_perm_module_api('CRM_020104',$userId)){
+                $userId = null;
+            }
+            $result = $this->crmReport->getSurveyedResult($fromDate, $toDate, $userId);
+        } catch(QueryException $e){
+            return $this->sendError($this->queryException);
+        }
+        return $this->sendResponse($result, 'get total survey result which is either success or failure in '.$fromDate.' and '.$toDate);
     }
 }
