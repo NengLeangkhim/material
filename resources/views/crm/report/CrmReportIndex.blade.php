@@ -17,7 +17,6 @@
 <!-- section Main content -->
 <section class="content">
     <div class="container-fluid">
-
         <div class="row">
             <div class="col-md-6">
                 <!-- PIE CHART -->
@@ -182,7 +181,7 @@
                 <!-- BAR CHART -->
                 <div class="card card-success">
                     <div class="card-header" style="background: #ffffff;border:none;">
-                      <h3 class="card-title" style="color: #000000;font-weight: bold;  ">Quote Chart</h3>
+                        <h3 class="card-title" style="color: #000000;font-weight: bold;  ">Quote Chart</h3>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
@@ -217,16 +216,67 @@
                                     </div>
                                 </div>
                             </form>
-                          </div>
-                          <div class="chart">
-                              <div  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:10px;">
-                                <div id="barchart_values" style="width:auto; height: auto;"></div>
-                              </div>
-                          </div>
-                          <div class="col-md-12 text-right">
+                        </div>
+                        <div class="chart">
+                            <div id="barchart_values" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:10px;"></div>
+                        </div>
+                        <div class="col-md-12 text-right">
                             <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
-                          </div>
+                        </div>
+                    </div><!-- /.card-body -->
+                </div><!-- /.card -->
+            </div><!-- End Col -->
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <!-- BAR CHART -->
+                <div class="card card-success">
+                    <div class="card-header" style="background: #ffffff;border:none;">
+                        <h3 class="card-title" style="color: #000000;font-weight: bold;  ">Survey Chart</h3>
                     </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <form id="FrmChartQuoteReport">
+                                @csrf
+                                <div class="row" hidden>
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input type="hidden" name="fromDate">
+                                            <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="ReportQuoteFrom" name='ReportQuoteFrom'  required>
+                                            <span class="invalid-feedback" role="alert" id="ReportQuoteFromError"> {{--span for alert--}}
+                                                <strong></strong>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input type="hidden" name="toDate">
+                                            <input type="text" class="form-control" placeholder="Select Date" id="ReportQuoteTo" value="<?php echo date('Y-m')?>" name='ReportQuoteTo'  required>
+                                            <span class="invalid-feedback" role="alert" id="ReportQuoteToError"> {{--span for alert--}}
+                                                <strong></strong>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="chart">
+                            <div  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:10px;">
+                                <div id="survey_chart" style="width:auto; height: auto;"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 text-right">
+                            <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
+                        </div>
                     </div><!-- /.card-body -->
                 </div><!-- /.card -->
             </div><!-- End Col -->
@@ -265,12 +315,12 @@
     reportContact();
     reportOrganization();
     reportLeadByStatus();
-  $(window).resize(function () {
-      reportQuoteByStatus();
-      reportContact();
-      reportOrganization();
-      reportLeadByStatus();
-  });
+    $(window).resize(function () {
+        reportQuoteByStatus();
+        reportContact();
+        reportOrganization();
+        reportLeadByStatus();
+    });
 
     // Quote Chart
     var Quote_Chart = () =>{
@@ -288,11 +338,11 @@
             success: function (response) {
                 if (response.success == true) {
                     var data = response.data
-                    if(data.length < 1) {
-                        $('#QuoteChart').empty()
-                        $('#QuoteChart').append(`<h1 style="text-align:center">No Data</h1>`)
-                        return
-                    }
+                    // if(data.length < 1) {
+                    //     $('#QuoteChart').empty()
+                    //     $('#QuoteChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                    //     return
+                    // }
                     google.charts.load('current', {
                         packages: ['corechart']
                     }).then(CrmLeadDrawChart(data));
@@ -377,6 +427,71 @@
             }
         });
     }
+    // Survey Chart
+    var Survey_Chart = () => {
+        // var myvar= $("#getlead").val();
+        // $.ajax({
+        //     url: '/api/countsurvey',
+        //     type: 'GET',
+        //     dataType:'json',
+        //     headers: {
+        //             'Authorization': `Bearer ${myvar}`,
+        //     },
+            //data: $('#FrmChartContactReport').serialize(),
+            // success: function (response) {
+            //     var success = response.true,
+            //         unsuccess = response.false;
+
+                var data = google.visualization.arrayToDataTable([
+                    ['Task','',{role: 'style'}],
+                    ['Success',12,'color:#25CCF7'],
+                    ['Unsuccess',1,'color:#ff3d67']
+                    ]);
+
+                var view = new google.visualization.DataView(data);
+
+                view.setColumns([0, 1,
+                    {
+                        calc: "stringify",
+                        sourceColumn: 1,
+                        type: "string",
+                        role: "annotation"
+                    },
+                    2
+                ]);
+
+                var options = {
+                    title: 'Survey Performance',
+                    colors:['#ffffff','#ffffff'],
+                    annotations: {
+                        textStyle: {
+                            fontName: 'Times-Roman',
+                            fontSize: 18,
+                            color: '#871b47',
+                            opacity: 0.8
+                        }
+                    },
+                    style: {
+                        opacity: 0.5
+                    },
+                    hAxis: {
+                        maxValue: 100,
+                        value: 0
+                    }
+
+                };
+                var chart = new google.visualization.BarChart(document.getElementById('survey_chart'));
+                    chart.draw(view, options);
+        //     }
+        // })
+    }
+    // Contact Chart
+    var Contact_Chart = () => {
+
+    }
+    //
+
+    Survey_Chart();
     Quote_Chart();
     // $(document).ready(function() {
     //   ReportLeadChart();
@@ -455,7 +570,7 @@
   </script>
 
   {{-- lead chart --}}
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  {{-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> --}}
   <script type="text/javascript">
     google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
@@ -466,6 +581,7 @@
           ['Qualified', 11],
           ['Surveying', 2]
       ]);
+
       var options = {
         title: 'Lead Performance',
         pieHole: 0.4,
@@ -500,9 +616,6 @@
                         2]);
        var options = {
          title: "Contact Chart",
-         width: 900,
-         height: 300,
-         bar: {groupWidth: "70%"},
          legend: { position: "none" },
        };
        var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
@@ -511,27 +624,33 @@
    </script>
 
    {{-- Quote chart --}}
-   <script type="text/javascript">
-    google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-      var data = google.visualization.arrayToDataTable([
-        ['Year', ' ', { role: 'style' } ],
-        ['2019', 10, 'stroke-color:#c56183; stroke-width: 2;fill-color: #ffa5a5; '],
-        ['2020', 14, 'stroke-color: #1fa8e0; stroke-width: 2; fill-color: #4bc0c0; ']
+    <script type="text/javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year', ' ', { role: 'style' } ],
+                ['2019', 10, 'stroke-color:#c56183; stroke-width: 2;fill-color: #ffa5a5; '],
+                ['2020', 14, 'stroke-color: #1fa8e0; stroke-width: 2; fill-color: #4bc0c0; ']
+            ])
 
-      ]);
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {
+                    calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"
+                },
+                2
+            ]);
 
-          ]);
+            var options = {
+                title: "Quote Performance",
+                legend: { position: "none" }
+            }
 
-      var options = {
-        title: "Quote Performance",
-        width: 550,
-        height: 200,
-        bar: {groupWidth: "70%"},
-        legend: { position: "none" },
-      };
-      var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
-      chart.draw(view, options);
-    }
+            var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+            chart.draw(view, options);
+        }
     </script>
