@@ -212,11 +212,11 @@
         success: function (response) {
             if (response.success == true) {
                 var data = response.data
-                if(data.length < 1) {
-                  $('#LeadChart').empty()
-                    $('#LeadChart').append(`<h1 style="text-align:center">No Data</h1>`)
-                    return
-                }
+                // if(data.length < 1) {
+                //   $('#LeadChart').empty()
+                //     $('#LeadChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                //     return
+                // }
                 google.charts.load('current',{
                     packages: ['corechart']
                 }).then(CrmLeadDrawChart(data));
@@ -418,85 +418,86 @@
                 'type' : 'day',
                 'from_date' : currentDateString,
                 'to_date' : currentDateString
-        },
-        //data: $('#FrmChartContactReport').serialize(),
-        success: function (response) {
-            if (response.success == true) {
-                var data = response.data
-                if(data.length < 1) {
-                  $('#ContactChart').empty()
-                    $('#ContactChart').append(`<h1 style="text-align:center">No Data</h1>`)
-                    return
-                }
-                google.charts.load('current', {
-                    packages: ['corechart']
-                }).then(CrmLeadDrawChart(data));
-                //google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
+            },
+            //data: $('#FrmChartContactReport').serialize(),
+            success: function (response) {
+                if (response.success == true) {
+                    var data = response.data
+                    // console.log('Data'+data);
+                    // if(data.length < 1) {
+                    //   $('#ContactChart').empty()
+                    //     $('#ContactChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                    //     return
+                    // }
+                    google.charts.load('current', {
+                        packages: ['corechart']
+                    }).then(CrmContactDrawChart(data));
+                    google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
 
-                function CrmLeadDrawChart(data) {
-                    var result = [
-                        ["Contact", "", {
-                            role: 'style'
-                        }]
-                    ]
-                    var colors = [{
-                            id: 0,
-                            name_en: 'none',
-                            code: '#1fa8e0'
-                        }
-                    ]
-
-                    $.each(data, function (index, value) {
-                        result.push([value.create_date, value.total, colors[0].code])
-                    })
-                    var data = google.visualization.arrayToDataTable(result);
-                    console.log(data);
-                    var view = new google.visualization.DataView(data);
-
-                    view.setColumns([0, 1,
-                        {
-                            calc: "stringify",
-                            sourceColumn: 1,
-                            type: "string",
-                            role: "annotation"
-                        },
-                        2
-                    ]);
-                    var options = {
-                        title: 'Contact Performance',
-                        colors:['#ffffff'],
-                        annotations: {
-                            textStyle: {
-                                fontName: 'Times-Roman',
-                                fontSize: 18,
-                                bold: true,
-                                // The color of the text.
-                                color: '#871b47',
-                                // The transparency of the text.
-                                opacity: 0.8
+                    function CrmContactDrawChart(data) {
+                        var result = [
+                            ["Contact", "", {
+                                role: 'style'
+                            }]
+                        ]
+                        var colors = [{
+                                id: 0,
+                                name_en: 'none',
+                                code: '#1fa8e0'
                             }
-                        },
-                        vAxis: {
-                            minValue: 0,
-                            maxValue: 100,
-                            // format: '#\'%\'',
-                            direction: 1
-                        },
+                        ]
 
-                        hAxis: {
-                            maxTextLines: 10,
-                            textStyle: {
-                                fontSize: 14,
-                            }
-                        },
-                    };
+                        $.each(data, function (index, value) {
+                            result.push([value.create_date, value.total, colors[0].code])
+                        })
+                        var data = google.visualization.arrayToDataTable(result);
+                        var view = new google.visualization.DataView(data);
 
-                    var chart = new google.visualization.ColumnChart(document.getElementById('ContactChart'))
-                    chart.draw(view, options)
+                        view.setColumns([0, 1,
+                            {
+                                calc: "stringify",
+                                sourceColumn: 1,
+                                type: "string",
+                                role: "annotation"
+                            },
+                            2
+                        ]);
+
+                        var options = {
+                            title: 'Contact Performance',
+                            colors:['#ffffff'],
+                            annotations: {
+                                textStyle: {
+                                    fontName: 'Times-Roman',
+                                    fontSize: 18,
+                                    // The color of the text.
+                                    color: '#871b47',
+                                    // The transparency of the text.
+                                    opacity: 0.8
+                                }
+                            },
+                            vAxis: {
+                                minValue: 0,
+                                maxValue: 50,
+                                // format: '#\'%\'',
+                                direction: 1
+                            },
+
+                            hAxis: {
+                                // maxTextLines: 10,
+                                textStyle: {
+                                    fontSize: 16,
+                                }
+                            },
+                        };
+
+                        var chart = new google.visualization.ColumnChart(document.getElementById('ContactChart'))
+                        chart.draw(view, options)
+                        // chart.draw(data, options)
+                    }
                 }
             }
-        }
-      });
+        });
     }
 
     // Survey Chart
@@ -520,6 +521,18 @@
                     ['Unsuccess',unsuccess,'color:#ff3d67']
                     ]);
 
+                var view = new google.visualization.DataView(data);
+
+                view.setColumns([0, 1,
+                    {
+                        calc: "stringify",
+                        sourceColumn: 1,
+                        type: "string",
+                        role: "annotation"
+                    },
+                    2
+                ]);
+
                 var options = {
                     title: 'Survey Performance',
                     colors:['#ffffff','#ffffff'],
@@ -527,10 +540,7 @@
                         textStyle: {
                             fontName: 'Times-Roman',
                             fontSize: 18,
-                            bold: true,
-                            italic: true,
                             color: '#871b47',
-                            auraColor: '#d799ae',
                             opacity: 0.8
                         }
                     },
@@ -538,13 +548,13 @@
                         opacity: 0.5
                     },
                     hAxis: {
-                        maxValue: 50,
+                        maxValue: 100,
                         value: 0
                     }
 
                 };
                 var chart = new google.visualization.BarChart(document.getElementById('survey_chart'));
-                    chart.draw(data, options);
+                    chart.draw(view, options);
             }
         })
     }
