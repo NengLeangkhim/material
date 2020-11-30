@@ -78,7 +78,7 @@
                                                     @csrf
                                                         <div class="MyPfFrame">
                                                             {{-- <label for="img" class="upload-button"> --}}
-                                                                <img class="profile_user" src="<?php   if(isset($pro) && !empty($pro)){echo ($pro[0]->image);}else echo "img/general_pic/user_profile3.jpg";?> " id='image_'>
+                                                                <img class="profile_user" src="<?php   if(isset($employee[0]) && !empty($employee[0])){echo ($employee[0]->image);}else echo "img/general_pic/user_profile3.jpg";?> " id='image_'>
                                                                 {{-- <label for="img" class="pen-hover">
                                                                     <label for="img" class="fas fa-pencil-alt"></label>
                                                                 </label><br> --}}
