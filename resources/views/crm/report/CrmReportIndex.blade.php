@@ -270,9 +270,7 @@
                             </form>
                         </div>
                         <div class="chart">
-                            <div  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:10px;">
-                                <div id="survey_chart" style="width:auto; height: auto;"></div>
-                            </div>
+                            <div id="survey_chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
                         </div>
                         <div class="col-md-12 text-right">
                             <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -417,6 +415,7 @@
                         ]);
                         var options = {
                             title: 'Quote Performance',
+                            colors: ['#ffffff']
                         };
 
                         var chart = new google.visualization.BarChart(document.getElementById('ReportQuoteChart'))
@@ -570,7 +569,6 @@
   </script>
 
   {{-- lead chart --}}
-  {{-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> --}}
   <script type="text/javascript">
     google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
