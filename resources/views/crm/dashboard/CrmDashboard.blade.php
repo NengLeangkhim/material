@@ -38,7 +38,7 @@
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-lg-3 col-6" >
-                <!-- small box -->
+                    <!-- small box -->
                     <div class="small-box bg-white" >
                         <div class="inner">
                             <div class="row">
@@ -222,221 +222,222 @@
 
     // Chart Lead Status
     var Branch_Chart = () => {
-      $.ajax({
-        url: '/api/crm/report/leadByStatus', //get link route
-        type: 'GET',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-            'from_date' : currentDateString,
-            'to_date' : currentDateString
-        },
-        //data: $('#FrmChartReport').serialize(),
-        success: function (response) {
-            if (response.success == true) {
-                var data = response.data
-                // if(data.length < 1) {
-                //   $('#LeadChart').empty()
-                //     $('#LeadChart').append(`<h1 style="text-align:center">No Data</h1>`)
-                //     return
-                // }
-                google.charts.load('current',{
-                    packages: ['corechart']
-                }).then(CrmLeadDrawChart(data));
-                //google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
-                function CrmLeadDrawChart(data) {
-                    var result = [
-                        ["Branch", "", {
-                            role: 'style'
-                        }]
-                    ]
-                    var colors = [{
-                            id: 0,
-                            name_en: 'none',
-                            code: ''
-                        },
-                        {
-                            id: 1,
-                            name_en: 'new',
-                            code: 'color:#36a2eb'
-                        },
-                        {
-                            id: 2,
-                            name_en: 'qualified',
-                            code: 'color:#4bc0c0'
-                        },
-                        {
-                            id: 3,
-                            name_en: 'surveying',
-                            code: 'color:#ffcd56'
-                        },
-                        {
-                            id: 4,
-                            name_en: 'surveyed',
-                            code: 'color:#ff3d67'
-                        },
-                        {
-                            id: 5,
-                            name_en: 'proposition',
-                            code: 'color:#7d9b10'
-                        },
-                        {
-                            id: 6,
-                            name_en: 'won',
-                            code: 'color:#9966ff'
-                        },
-                        {
-                            id: 7,
-                            name_en: 'junk',
-                            code: 'color:#96f'
-                        },
-                    ]
-                    $.each(data, function (index, value) {
-                        if(value.crm_lead_status_id != null){
-                            result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
-                        }
-                    })
-                    var data_chart = google.visualization.arrayToDataTable(result);
-                    var view = new google.visualization.DataView(data_chart);
-                    view.setColumns([0, 1,
-                        {
-                            calc: "stringify",
-                            sourceColumn: 1,
-                            type: "string",
-                            role: "annotation"
-                        },
-                        2
-                    ]);
-                    var options = {
-                        title: 'Branch Performance',
-                        width: '100%',
-                        colors: ['#ffffff'],
-                        pieSliceText:'value',
-                    };
+        $.ajax({
+            url: '/api/crm/report/leadByStatus', //get link route
+            type: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                'from_date' : currentDateString,
+                'to_date' : currentDateString
+            },
+            //data: $('#FrmChartReport').serialize(),
+            success: function (response) {
+                if (response.success == true) {
+                    var data = response.data
+                    // if(data.length < 1) {
+                    //   $('#LeadChart').empty()
+                    //     $('#LeadChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                    //     return
+                    // }
+                    google.charts.load('current',{
+                        packages: ['corechart']
+                    }).then(CrmLeadDrawChart(data));
+                    //google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
+                    function CrmLeadDrawChart(data) {
+                        var result = [
+                            ["Branch", "", {
+                                role: 'style'
+                            }]
+                        ]
+                        var colors = [{
+                                id: 0,
+                                name_en: 'none',
+                                code: ''
+                            },
+                            {
+                                id: 1,
+                                name_en: 'new',
+                                code: 'color:#36a2eb'
+                            },
+                            {
+                                id: 2,
+                                name_en: 'qualified',
+                                code: 'color:#4bc0c0'
+                            },
+                            {
+                                id: 3,
+                                name_en: 'surveying',
+                                code: 'color:#ffcd56'
+                            },
+                            {
+                                id: 4,
+                                name_en: 'surveyed',
+                                code: 'color:#ff3d67'
+                            },
+                            {
+                                id: 5,
+                                name_en: 'proposition',
+                                code: 'color:#7d9b10'
+                            },
+                            {
+                                id: 6,
+                                name_en: 'won',
+                                code: 'color:#9966ff'
+                            },
+                            {
+                                id: 7,
+                                name_en: 'junk',
+                                code: 'color:#96f'
+                            },
+                        ]
+                        $.each(data, function (index, value) {
+                            if(value.crm_lead_status_id != null){
+                                result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
+                            }
+                        })
+                        var data_chart = google.visualization.arrayToDataTable(result);
+                        var view = new google.visualization.DataView(data_chart);
+                        view.setColumns([0, 1,
+                            {
+                                calc: "stringify",
+                                sourceColumn: 1,
+                                type: "string",
+                                role: "annotation"
+                            },
+                            2
+                        ]);
+                        var options = {
+                            title: 'Branch Performance',
+                            width: '100%',
+                            colors: ['#ffffff'],
+                            pieSliceText:'value',
+                            vAxis: {
+                                minValue: 0,
+                                maxValue: 10
+                            }
+                        };
 
-                    var chart = new google.visualization.ColumnChart(document.getElementById('LeadChart'))
-                    chart.draw(view, options)
+                        var chart = new google.visualization.ColumnChart(document.getElementById('LeadChart'))
+                        chart.draw(view, options)
+                    }
                 }
             }
-        }
-      });
+        });
     }
 
     // Quote Chart
     var Quote_Chart = () =>{
-      $.ajax({
-        url: '/api/crm/report/quoteByStatus',
-        type: 'GET',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-            'from_date' : currentDateString,
-            'to_date' : currentDateString
-        },
-        //data: $('#FrmChartQuoteReport').serialize(),
-        success: function (response) {
-            if (response.success == true) {
-                var data = response.data
-                if(data.length < 1) {
-                  $('#QuoteChart').empty()
-                    $('#QuoteChart').append(`<h1 style="text-align:center">No Data</h1>`)
-                    return
-                }
-                google.charts.load('current', {
-                    packages: ['corechart']
-                }).then(CrmLeadDrawChart(data));
-              //  google.charts.setOnLoadCallback(CrmLeadDrawChart(data))
+        $.ajax({
+            url: '/api/crm/report/quoteByStatus',
+            type: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                'from_date' : currentDateString,
+                'to_date' : currentDateString
+            },
+            //data: $('#FrmChartQuoteReport').serialize(),
+            success: function (response) {
+                if (response.success == true) {
+                    var data = response.data
+                    // if(data.length < 1) {
+                    //   $('#QuoteChart').empty()
+                    //     $('#QuoteChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                    //     return
+                    // }
+                    google.charts.load('current', {
+                        packages: ['corechart']
+                    }).then(CrmLeadDrawChart(data));
+                //  google.charts.setOnLoadCallback(CrmLeadDrawChart(data))
 
-                function CrmLeadDrawChart(data) {
-                    var result = [
-                        ["Quote", "", {
-                            role: 'style'
-                        }]
-                    ]
-                    var colors = [{
-                            id: 0,
-                            name_en: 'none',
-                            code: ''
-                        },
-                        {
-                            id: 1,
-                            name_en: 'Pending',
-                            code: 'color:#EA2027'
-                        },
-                        {
-                            id: 2,
-                            name_en: 'Approved',
-                            code: 'color:#009432'
-                        },
-                        {
-                            id: 3,
-                            name_en: 'Negogiate',
-                            code: 'color:#FFC312'
-                        },
-                        {
-                            id: 4,
-                            name_en: 'Open',
-                            code: 'color:#EE5A24'
-                        },
-                        {
-                            id: 5,
-                            name_en: 'Installed',
-                            code: 'color:#12CBC4'
-                        },
-                        {
-                            id: 6,
-                            name_en: 'Installing',
-                            code: 'color:#006266'
-                        },
-                        {
-                            id: 9,
-                            name_en: 'Accepted',
-                            code: 'color:#fff200'
-                        },
-                        {
-                            id: 12,
-                            name_en: 'Disapproved',
-                            code: 'color:#ff5252'
-                        },
-                    ]
-                    $.each(data, function (index, value) {
-                        var color = (colors.find(e => (e.id == value.crm_quote_status_type_id))).code
-                        result.push([value.quote_status_name_en, value.total_quotes, color])
-                    })
-                    var data = google.visualization.arrayToDataTable(result)
-                    var view = new google.visualization.DataView(data)
-                    view.setColumns([0, 1,
-                        {
-                            calc: "stringify",
-                            sourceColumn: 1,
-                            type: "string",
-                            role: "annotation"
-                        },
-                        2
-                    ]);
-                    var options = {
-                        title: 'Quote Performance',
-                        colors: ['#ffffff'],
-                        hAxis: {
+                    function CrmLeadDrawChart(data) {
+                        var result = [
+                            ["Quote", "", {
+                                role: 'style'
+                            }]
+                        ]
+                        var colors = [{
+                                id: 0,
+                                name_en: 'none',
+                                code: ''
+                            },
+                            {
+                                id: 1,
+                                name_en: 'Pending',
+                                code: 'color:#EA2027'
+                            },
+                            {
+                                id: 2,
+                                name_en: 'Approved',
+                                code: 'color:#009432'
+                            },
+                            {
+                                id: 3,
+                                name_en: 'Negogiate',
+                                code: 'color:#FFC312'
+                            },
+                            {
+                                id: 4,
+                                name_en: 'Open',
+                                code: 'color:#EE5A24'
+                            },
+                            {
+                                id: 5,
+                                name_en: 'Installed',
+                                code: 'color:#12CBC4'
+                            },
+                            {
+                                id: 6,
+                                name_en: 'Installing',
+                                code: 'color:#006266'
+                            },
+                            {
+                                id: 9,
+                                name_en: 'Accepted',
+                                code: 'color:#fff200'
+                            },
+                            {
+                                id: 12,
+                                name_en: 'Disapproved',
+                                code: 'color:#ff5252'
+                            },
+                        ]
+                        $.each(data, function (index, value) {
+                            var color = (colors.find(e => (e.id == value.crm_quote_status_type_id))).code
+                            result.push([value.quote_status_name_en, value.total_quotes, color])
+                        })
+                        var data = google.visualization.arrayToDataTable(result)
+                        var view = new google.visualization.DataView(data)
+                        view.setColumns([0, 1,
+                            {
+                                calc: "stringify",
+                                sourceColumn: 1,
+                                type: "string",
+                                role: "annotation"
+                            },
+                            2
+                        ]);
+                        var options = {
+                            title: 'Quote Performance',
+                            colors: ['#ffffff'],
+                            hAxis: {
                                 minValue: 0,
                                 maxValue: 10,
                                 // format: '#\'%\'',
                                 direction: 1
                             },
-                        vAxis: {
+                        };
 
-                        }
-                    };
+                        var chart = new google.visualization.BarChart(document.getElementById('QuoteChart'))
 
-                    var chart = new google.visualization.BarChart(document.getElementById('QuoteChart'))
-
-                    chart.draw(view, options)
+                        chart.draw(view, options)
+                    }
                 }
             }
-        }
-      });
+        });
     }
 
     // Contact Chart
