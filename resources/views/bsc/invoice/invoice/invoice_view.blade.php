@@ -113,7 +113,7 @@
                                     <th>Unit Price</th>
                                     <th>Dsicount</th>
                                     <th>Account</th>
-                                    <th>Tax Rate</th>
+                                    <th>Tax</th>
                                     <th>Amount</th>
                                 </tr>
                             </thead>
@@ -128,7 +128,7 @@
                                             <td>{{ number_format($invoice_detail->unit_price,4,".",",") }}</td>
                                             <td>{{ number_format($invoice_detail->discount,4,".",",") }}</td>
                                             <td>{{ $invoice_detail->chart_account_name }}</td>
-                                            <td>{{ $invoice_detail->tax == 0 ? "No Tax" : "Tax" }}</td>
+                                            <td>{{ $invoice_detail->tax == 0 ? "Exclude" : "Include" }}</td>
                                             <td class="item_amount">{{ number_format($invoice_detail->amount,4,".",",") }}</td>
                                         </tr>
                                     @endforeach
