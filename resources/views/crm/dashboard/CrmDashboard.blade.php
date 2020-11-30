@@ -20,7 +20,8 @@
     <style>
         .chart-number {
             text-align: center;
-            color:#12b9d6
+            color:#12b9d6;
+            margin: 0;
         }
 
         .chart {
@@ -41,11 +42,34 @@
                     <div class="small-box bg-white" >
                         <div class="inner">
                             <div class="row">
-                                <div class="col-12" >
-                                    <div class="p-3 text-center">
-                                        <h2>Leads</h2>
-                                        <p>Today</p>
-                                        <h1 class="chart-number">{{$new_lead}}</h1>
+                                <div class="col-12">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-9">
+                                           <div class="pb-3">
+                                                <h2>Leads</h2>
+                                                <p class="m-0">Today</p>
+                                           </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="pb-3">
+                                                <h1 class="chart-number">{{$new_lead}}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-9">
+                                            <div class="pt-3">
+                                                <h2>Branch</h2>
+                                                <p class="m-0">Today</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="pt-3">
+                                                <h1 class="chart-number">{{$new_lead}}</h1>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -54,15 +78,15 @@
                 </div>
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-white">
+                    <!-- small box -->
+                    <div class="small-box bg-white">
                         <div class="inner">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="p-3 text-center">
                                         <h2 class="title-chart">Contacts</h2>
                                         <p class="sub-title-chart">Today</p>
-                                        <h1 class="chart-number">{{$total_contact}}</h1>
+                                        <h1 class="chart-number" style="margin-bottom: 7px;">{{$total_contact}}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +103,7 @@
                                     <div class="p-3 text-center">
                                         <h2 class="title-chart">Quotes</h2>
                                         <p class="sub-title-chart">Today</p>
-                                        <h1 class="chart-number">{{$total_quote}}</h1>
+                                        <h1 class="chart-number" style="margin-bottom: 7px;">{{$total_quote}}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +112,7 @@
                 </div>
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
-                <!-- small box -->
+                    <!-- small box -->
                     <div class="small-box bg-white">
                         <div class="inner">
                             <div class="row">
@@ -96,7 +120,7 @@
                                     <div class="p-3 text-center">
                                         <h2 class="title-chart">Survey</h2>
                                         <p class="sub-title-chart">Today</p>
-                                        <h1 class="chart-number">{{$total_survey}}</h1>
+                                        <h1 class="chart-number" style="margin-bottom: 7px;">{{$total_survey}}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +135,7 @@
                     <!-- AREA CHART -->
                     <div class="card card-primary" >
                         <div class="card-header" style="background-color: #ffffff !important; border: none;">
-                            <h3 class="card-title text-dark text-bold">Lead Status Chart</h3>
+                            <h3 class="card-title text-dark text-bold">Branch Status Chart</h3>
                         </div>
                         <div class="card-body">
                             <div class="chart">
@@ -197,7 +221,7 @@
     $(function () {
 
     // Chart Lead Status
-    var Lead_Chart = () => {
+    var Branch_Chart = () => {
       $.ajax({
         url: '/api/crm/report/leadByStatus', //get link route
         type: 'GET',
@@ -223,7 +247,7 @@
                 //google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
                 function CrmLeadDrawChart(data) {
                     var result = [
-                        ["Lead", "", {
+                        ["Branch", "", {
                             role: 'style'
                         }]
                     ]
@@ -285,7 +309,7 @@
                         2
                     ]);
                     var options = {
-                        title: 'Lead Performance',
+                        title: 'Branch Performance',
                         width: '100%',
                         colors: ['#ffffff'],
                         pieSliceText:'value',
@@ -338,42 +362,42 @@
                         },
                         {
                             id: 1,
-                            name_en: 'pending',
+                            name_en: 'Pending',
                             code: 'color:#EA2027'
                         },
                         {
                             id: 2,
-                            name_en: 'approved',
+                            name_en: 'Approved',
                             code: 'color:#009432'
                         },
                         {
                             id: 3,
-                            name_en: 'negogiate',
+                            name_en: 'Negogiate',
                             code: 'color:#FFC312'
                         },
                         {
                             id: 4,
-                            name_en: 'open',
+                            name_en: 'Open',
                             code: 'color:#EE5A24'
                         },
                         {
                             id: 5,
-                            name_en: 'installed',
+                            name_en: 'Installed',
                             code: 'color:#12CBC4'
                         },
                         {
                             id: 6,
-                            name_en: 'installing',
+                            name_en: 'Installing',
                             code: 'color:#006266'
                         },
                         {
                             id: 9,
-                            name_en: 'accepted',
+                            name_en: 'Accepted',
                             code: 'color:#fff200'
                         },
                         {
                             id: 12,
-                            name_en: 'disapproved',
+                            name_en: 'Disapproved',
                             code: 'color:#ff5252'
                         },
                     ]
@@ -394,7 +418,16 @@
                     ]);
                     var options = {
                         title: 'Quote Performance',
-                        colors: ['#ffffff']
+                        colors: ['#ffffff'],
+                        hAxis: {
+                                minValue: 0,
+                                maxValue: 10,
+                                // format: '#\'%\'',
+                                direction: 1
+                            },
+                        vAxis: {
+
+                        }
                     };
 
                     var chart = new google.visualization.BarChart(document.getElementById('QuoteChart'))
@@ -484,9 +517,8 @@
                             },
 
                             hAxis: {
-                                // maxTextLines: 10,
                                 textStyle: {
-                                    fontSize: 16,
+                                    fontSize: 14,
                                 }
                             },
                         };
@@ -625,14 +657,14 @@
       });
     }
 
-    Lead_Chart();
+    Branch_Chart();
     Quote_Chart();
     Contact_Chart();
     Survey_Chart();
 
     // responsive chart
     window.onresize = () => {
-        Lead_Chart();
+        Branch_Chart();
         Quote_Chart();
         Contact_Chart();
         Survey_Chart();
