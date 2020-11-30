@@ -19,8 +19,8 @@
 @endphp
 <section class="content-header">
     <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-2">
                 <h4><i class="fas fa-edit"></i> Update Purchase</h4>
             </div>
             <div class="col-md-6">
@@ -49,8 +49,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('bsc_purchase_purchase_list')"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        Back</a></li>
                     <li class="breadcrumb-item"><a href="" class="lead" value="lead">Home</a></li>
                     <li class="breadcrumb-item active" onclick="go_to('bsc_purchase_purchase_list')">View Puechase</li>
                 </ol>

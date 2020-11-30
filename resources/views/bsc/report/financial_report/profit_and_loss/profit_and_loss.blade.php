@@ -16,55 +16,68 @@
 </style>
 
 <section class="content">
-    <div class="is-container container">
-        <h2 id="something">Income Statement</h2>
-        <div class="is-menu row justify-content-between">
-            <div class="is-menu-left col-9 row justify-content-start">
-                <div class="input-group col-8">
-                    <input type="date" id="from-date" class="form-control" aria-label="Text input with dropdown button">
-                    <input type="date" id="to-date" class="form-control" aria-label="Text input with dropdown button">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-tty"></i></span>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-body">
+
+                            <h2 id="something">Income Statement</h2>
+                            <div class="is-menu row justify-content-between">
+                                <div class="is-menu-left col-9 row justify-content-start">
+                                    <div class="input-group col-10">
+                                        <input type="date" id="from-date" class="form-control" aria-label="Text input with dropdown button">
+                                        <input type="date" id="to-date" class="form-control" aria-label="Text input with dropdown button">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-tty"></i></span>
+                                        </div>
+                                        <select class="form-control" name="select_source" id="is-report-type">
+                                            <option value="0" disabled>Report Type</option>
+                                            <option value="1">Monthly</option>
+                                            <option value="2">Quarterly</option>
+                                            <option value="3">Yearly</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group col-2">
+                                        <select class="form-control" name="select_source" id="is-comparison-number">
+                                            <option value="0">None</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                    
+                                <div class="is-menu-right col-3 row justify-content-end">
+                                    <button type="button" class="btn btn-primary" id="btn-get-report">Generate</button>
+                                </div>
+                    
+                            </div>
+                            
+                        </div>
+                        <div class="is-report">
+                            <div class="is-report-header">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="Profit and Loss">
+                                </div>
+                                <p class="card-text">Turbotech</p>
+                                <p class="card-text">For the year ended (DATE)</p>
+                            </div>
+                            <hr>
+                            <div id="is-report-sub-header" class="row"></div>
+                            <hr>
+                            <div id="is-report-body">
+                            </div>
+                            <hr>
+                            <div class="is-report-footer">
+                
+                            </div>
+                        </div>
+
                     </div>
-                    <select class="form-control" name="select_source" id="is-report-type">
-                        <option value="0" disabled>Report Type</option>
-                        <option value="1">Monthly</option>
-                        <option value="2">Quarterly</option>
-                        <option value="3">Yearly</option>
-                    </select>
                 </div>
-                <div class="input-group col-2">
-                    <select class="form-control" name="select_source" id="is-comparison-number">
-                        <option value="0">None</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="is-menu-right col-3 row justify-content-end">
-                <button type="button" class="btn btn-primary" id="btn-get-report">Generate</button>
-            </div>
-
-        </div>
-        <div class="is-report">
-            <div class="is-report-header">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="Profit and Loss">
-                  </div>
-                  <p class="card-text">Turbotech</p>
-                  <p class="card-text">For the year ended (DATE)</p>
-            </div>
-            <hr>
-            <div id="is-report-sub-header" class="row"></div>
-            <hr>
-            <div id="is-report-body">
-            </div>
-            <hr>
-            <div class="is-report-footer">
-
             </div>
         </div>
     </div>

@@ -80,7 +80,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input required type="date" class="form-control input_required" name="end_period_date" id="purchase_date">
+                                            <input required type="date" value="{{date('Y-m-d')}}" class="form-control input_required" name="end_period_date" id="purchase_date">
                                         </div>
                                      </div>
                                 </div>
@@ -385,11 +385,11 @@
                     },
                     dataType: "JSON",
                     success:function(data){
-    
+                        let id = data.saved.data[0].insert_bsc_invoice;
                         if(data.saved.success == false){
                             sweetalert('error','fail to insert!!');
                         }else{
-                            go_to('bsc_purchase_purchase_list');
+                            go_to('bsc_purchase_purchase_view/'+id);
                         }
                     }
                 });   
