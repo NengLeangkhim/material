@@ -69,12 +69,12 @@
                                             <td style="text-align: center">                                                
                                               
                                                 <div class="row-12 form-inline">
-                                                  <div class="col-md-6">
+                                                  <div class="col-md-12">
                                                     <button class="btn btn-info btn-block  btn-sm CrmEditContact" ​value="/contact/edit/{{$row->id}}"><i class="fas fa-wrench"></i></button>      
                                                   </div>
-                                                  <div class="col-md-6 ">
+                                                  {{-- <div class="col-md-6 ">
                                                     <button href="javascript:void(0);" class="btn btn-block  btn-danger btn-sm CrmDeleteContact" onclick="Crm_delete({{$row->id}},'/contact/delete','/contact','Deleted successfully')"><i class="fas fa-trash"></i></button>         
-                                                  </div>
+                                                  </div> --}}
                                               </div> 
                                             </td>
                                         </tr>                                       

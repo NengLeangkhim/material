@@ -270,6 +270,13 @@ class LeadController extends Controller
 
         // return GetLead::Collection($lead);
     }
+     // get all lead for add lead
+     public function getAddLead(){
+            $lead = Lead::getAddLead(); // all lead
+            return GetLead::Collection($lead);
+        
+        // return GetLead::Collection($lead);
+    }
     // get  lead by id
     public function getleadbyid($id){
         $lead = Lead::getleadbyid($id);
@@ -368,7 +375,7 @@ class LeadController extends Controller
         $detail_id=$request->input('lead_detail_id');
         $comment=$request->input('comment');
         $convert=Lead::convertbranch($id,$userid,$detail_id,$comment); //return to model
-
+        return $convert;
 
     }
     // get survey
