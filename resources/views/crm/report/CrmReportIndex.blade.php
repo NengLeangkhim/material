@@ -23,8 +23,8 @@
                 <div class="card card-primary">
                     <div class="card-header" style="background: #ffffff;border:none;">
                       <h3 class="card-title" style="color: #000000;font-weight: bold;">Branch Chart</h3>
-                    </div>                    
-                    <div class="card-body">                      
+                    </div>
+                    <div class="card-body">
                         <div class="form-group">
                           <form id="FrmChartReport">
                             @csrf
@@ -58,9 +58,9 @@
                             </div>
                           </form>
                         </div>
-                        <div class="chart">                                                                
-                          <div id="LeadChart" style="min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;">                            
-                        </div>                          
+                        <div class="chart">
+                          <div id="LeadChart" style="min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;">
+                        </div>
                         </div>
                         <div class="col-md-12 text-right">
                           <button class="btn btn-info" onclick="go_to('/crmreport/detaillead')" ><span><i class="fas fa-info"></i></span> Detail</button>
@@ -72,7 +72,7 @@
                 <!-- Column CHART -->
                 <div class="card card-danger">
                     <div class="card-header" style="background: #ffffff;border:none;">
-                      <h3 class="card-title" style="color: #000000;font-weight: bold; ">Contact Chart</h3>              
+                      <h3 class="card-title" style="color: #000000;font-weight: bold; ">Contact Chart</h3>
                     </div>
                     <div class="card-body">
                       <div class="form-group">
@@ -108,8 +108,8 @@
                           </div>
                         </form>
                       </div>
-                      <div class="chart"> 
-                        <div id="ContactChart" style=" min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;"></div>                       
+                      <div class="chart">
+                        <div id="ContactChart" style=" min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;"></div>
                       </div>
 
                       {{-- <div class="chart">
@@ -127,7 +127,7 @@
                 <!-- LINE CHART -->
                 <div class="card card-info">
                     <div class="card-header" style="background: #ffffff;border:none;">
-                      <h3 class="card-title" style="color: #000000;font-weight: bold; ">Organization Chart</h3>                    
+                      <h3 class="card-title" style="color: #000000;font-weight: bold; ">Organization Chart</h3>
                     </div>
                     <div class="card-body">
                       <div class="form-group">
@@ -163,8 +163,8 @@
                           </div>
                         </form>
                       </div>
-                      <div class="chart col-md-12"> 
-                        <div id="OrganizationChart" style="min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;"></div>                       
+                      <div class="chart col-md-12">
+                        <div id="OrganizationChart" style="min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;"></div>
                       </div>
                       <div class="col-md-12 text-right">
                         <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -176,7 +176,7 @@
                 <!-- BAR CHART -->
                 <div class="card card-success">
                     <div class="card-header" style="background: #ffffff;border:none;">
-                      <h3 class="card-title" style="color: #000000;font-weight: bold;  ">Quote Chart</h3>                    
+                      <h3 class="card-title" style="color: #000000;font-weight: bold;  ">Quote Chart</h3>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
@@ -209,15 +209,15 @@
                                         </span>
                                     </div>
                                     </div>
-                                </div>                        
+                                </div>
                             </form>
                           </div>
-                          <div class="chart">                         
-                              <div id="QuoteChart" style="min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;"></div>
+                          <div class="chart">
+                              <div id="ReportQuoteChart" style="min-height: 380px; height: 380px; max-height: 380px; max-width: 100%;"></div>
                           </div>
                           <div class="col-md-12 text-right">
                             <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
-                          </div>  
+                          </div>
                     </div>
                     </div><!-- /.card-body -->
                 </div><!-- /.card -->
@@ -274,8 +274,8 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
-                'from_date' : currentDateString,
-                'to_date' : currentDateString
+                'from_date' : '2020-11-30',
+                'to_date' : '2020-11-30'
             },
             //data: $('#FrmChartQuoteReport').serialize(),
             success: function (response) {
@@ -305,22 +305,22 @@
                             {
                                 id: 1,
                                 name_en: 'pending',
-                                code: 'color:#EA2027'
+                                code: 'color:#1fa8e0'
                             },
                             {
                                 id: 2,
                                 name_en: 'approved',
-                                code: 'color:#009432'
+                                code: 'color:#ff6384'
                             },
                             {
                                 id: 3,
                                 name_en: 'negogiate',
-                                code: 'color:#FFC312'
+                                code: 'color:#1fa8e0'
                             },
                             {
                                 id: 4,
                                 name_en: 'open',
-                                code: 'color:#EE5A24'
+                                code: 'color:#ff6384'
                             },
                             {
                                 id: 5,
@@ -335,7 +335,7 @@
                             {
                                 id: 9,
                                 name_en: 'accepted',
-                                code: 'color:#fff200'
+                                code: 'color:#1fa8e0'
                             },
                             {
                                 id: 12,
@@ -360,6 +360,8 @@
                         ]);
                         var options = {
                             title: 'Quote Performance',
+                            legend: { position: "none" },
+
                         };
                         var chart = new google.visualization.BarChart(document.getElementById('ReportQuoteChart'))
                         chart.draw(view, options)
@@ -445,7 +447,7 @@
     });
   </script>
 
-  {{-- Branch chart --}} 
+  {{-- Branch chart --}}
   {{-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
     google.charts.load("current", {packages:["corechart"]});
@@ -455,7 +457,7 @@
         ['Task', 'Hours per Day'],
           ['New',     2],
           ['Qualified', 11],
-          ['Surveying', 2]      
+          ['Surveying', 2]
       ]);
       var options = {
         title: 'Branch Performance',
@@ -463,8 +465,8 @@
         slices: {
             0: { color: '#ff6384' },
             1: { color: '#1fa8e0' },
-            2: { color: '#c060a1' }            
-          }          
+            2: { color: '#c060a1' }
+          }
       };
       var chart = new google.visualization.PieChart(document.getElementById('Branchchart'));
       chart.draw(data, options);
@@ -477,19 +479,19 @@
      google.charts.setOnLoadCallback(drawChart);
      function drawChart() {
       var data = google.visualization.arrayToDataTable([
-        ['Year', ' ', { role: 'style' } ],       
-        ['2020', 10,'stroke-color: #1aa6b7; stroke-width: 2; fill-color: #1fa8e0;'],  
+        ['Year', ' ', { role: 'style' } ],
+        ['2020', 10,'stroke-color: #1aa6b7; stroke-width: 2; fill-color: #1fa8e0;'],
       ]);
- 
+
        var view = new google.visualization.DataView(data);
        view.setColumns([0, 1,
                         { calc: "stringify",
                           sourceColumn: 1,
                           type: "string",
                           role: "annotation" },
-                        2]); 
+                        2]);
        var options = {
-         title: "Contact Chart",       
+         title: "Contact Chart",
          bar: {groupWidth: "70%"},
          legend: { position: "none" },
        };
@@ -503,8 +505,8 @@
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
      var data = google.visualization.arrayToDataTable([
-       ['Year', ' ', { role: 'style' } ],      
-       ['2020', 10,'stroke-color: #1aa6b7; stroke-width: 2; fill-color: #1fa8e0;'],  
+       ['Year', ' ', { role: 'style' } ],
+       ['2020', 10,'stroke-color: #1aa6b7; stroke-width: 2; fill-color: #1fa8e0;'],
      ]);
 
       var view = new google.visualization.DataView(data);
@@ -513,9 +515,9 @@
                          sourceColumn: 1,
                          type: "string",
                          role: "annotation" },
-                       2]); 
+                       2]);
       var options = {
-        title: "Organization Chart",      
+        title: "Organization Chart",
         bar: {groupWidth: "70%"},
         legend: { position: "none" }
       };
@@ -534,7 +536,7 @@
         ['2019', 12, 'stroke-color: #1aa6b7; stroke-width: 2; fill-color: #1fa8e0; '],
         ['2020', 13, 'stroke-color:#c56183; stroke-width: 2;fill-color: #ffa5a5; '],
         ['2021', 14, 'stroke-color: #1aa6b7; stroke-width: 2; fill-color: #1fa8e0; ']
-   
+
       ]);
 
       var view = new google.visualization.DataView(data);
@@ -546,7 +548,7 @@
                        2]);
 
       var options = {
-        title: "Quote Performance",        
+        title: "Quote Performance",
         bar: {groupWidth: "70%"},
         legend: { position: "none" }
       };

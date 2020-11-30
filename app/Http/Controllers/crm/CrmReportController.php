@@ -5,6 +5,7 @@ namespace App\Http\Controllers\crm;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\perms;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Route;
 
 class CrmReportController extends Controller
@@ -39,7 +40,7 @@ class CrmReportController extends Controller
                     'LeadChartTo.after_or_equal' => 'Please Select Date Equal or Greater than From Date !!',   //massage validator
                 ]
             );
-        if ($validator->fails()) //check validator for fail
+        if ($validator->fails() && false) //check validator for fail
         {
             return response()->json(array(
                 'errors' => $validator->getMessageBag()->toArray()
@@ -55,8 +56,9 @@ class CrmReportController extends Controller
                 // $res = app()->handle($lead_chart);
                 // $response = json_decode($res->getContent());
                 // return response()->json(['success'=>$response]);
-                $request->from_date = $request->LeadChartFrom.'-01-01';
-                $request->to_date = $request->LeadChartTo.'-12-31';
+                // $request->from_date = $request->LeadChartFrom.'-01-01';
+                // $request->to_date = $request->LeadChartTo.'-12-31';
+
                 $lead_chart = Request::create('/api/crm/report/leadByStatus','GET');
                 $response = json_decode(Route::dispatch($lead_chart)->getContent());
                 // dd($response);
@@ -184,7 +186,7 @@ class CrmReportController extends Controller
                     'ReportQuoteTo.after_or_equal' => 'Please Select Date Equal or Greater than From Date !!',   //massage validator
                 ]
             );
-        if ($validator->fails()) //check validator for fail
+        if ($validator->fails() && false) //check validator for fail
         {
             return response()->json(array(
                 'errors' => $validator->getMessageBag()->toArray()

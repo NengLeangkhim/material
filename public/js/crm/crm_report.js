@@ -8,8 +8,6 @@ var reportLeadByStatus = () => {
         },
         // data: $('#FrmChartReport').serialize(),
         success: function (response) {
-            console.log(response);
-            return
             if (response.success == true) {
                 var data = response.data
                 if(data.length < 1){
@@ -43,7 +41,7 @@ var reportLeadByStatus = () => {
                         {
                             id: 3,
                             name_en: 'surveying',
-                            code: '#1fa8e0'
+                            code: '#ff6384'
                         },
                         {
                             id: 4,
