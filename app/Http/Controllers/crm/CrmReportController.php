@@ -186,7 +186,7 @@ class CrmReportController extends Controller
                     'ReportQuoteTo.after_or_equal' => 'Please Select Date Equal or Greater than From Date !!',   //massage validator
                 ]
             );
-        if ($validator->fails() && false) //check validator for fail
+        if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
                 'errors' => $validator->getMessageBag()->toArray()
