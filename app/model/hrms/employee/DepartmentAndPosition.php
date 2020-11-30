@@ -72,7 +72,7 @@ class DepartmentAndPosition extends Model
     // list all company
     public static function AllCompany(){
         try {
-            $sql = "SELECT id,name FROM ma_company where is_deleted='f' order by name";
+            $sql = "SELECT id,name FROM ma_company where is_deleted='f' and status=true order by name";
             return DB::select($sql);
         } catch (Throwable $e) {
             report($e);

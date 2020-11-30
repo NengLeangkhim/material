@@ -16,16 +16,16 @@ class CrmSettingController extends Controller
             session_start();
         }
         if(perms::check_perm_module('CRM_0209')){//module codes
-          
+
             // $request_contact = Request::create('/api/contacts', 'GET');
             // $contact_table = json_decode(Route::dispatch($request_contact)->getContent());
             // $request_pagination = Request::create('/api/contacts', 'GET');
             // $contact_pagination = json_decode(Route::dispatch($request_pagination)->getContent());
-            return view('crm.setting.CrmSetting'); 
+            return view('crm.setting.CrmSetting');
         }else{
             return view('no_perms');
         }
-        
+
     }
     //--------------------- Lead Status --------------------------//
     public function CrmLeadStatus(){ //Get View Lead Status
@@ -33,14 +33,14 @@ class CrmSettingController extends Controller
             session_start();
         }
         if(perms::check_perm_module('CRM_020901')){//module codes
-          
+
                $LeadStatus = Request::create('/api/crm/leadStatus', 'GET');
                $LeadStatus = json_decode(Route::dispatch($LeadStatus)->getContent());
-            return view('crm.setting.CrmLeadStatus',['tbl'=>$LeadStatus]); 
+            return view('crm.setting.CrmLeadStatus',['tbl'=>$LeadStatus]);
         }else{
             return view('no_perms');
         }
-        
+
     }
     public function StoreLeadStatus(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
@@ -59,7 +59,7 @@ class CrmSettingController extends Controller
                             return $query->where('is_deleted', 'f');})
                                         ],
                 'sequence' => ['nullable','integer',
-                                    ],    
+                                    ],
             ],
             [
                 'name_en.required' => 'This Field is require !!',   //massage validator
@@ -73,10 +73,10 @@ class CrmSettingController extends Controller
             if ($validator->fails()) //check validator for fail
             {
                 return response()->json(array(
-                    'errors' => $validator->getMessageBag()->toArray() 
+                    'errors' => $validator->getMessageBag()->toArray()
                 ));
             }else{
-                if(perms::check_perm_module('CRM_02090101')){//module code list 
+                if(perms::check_perm_module('CRM_02090101')){//module code list
                      $get = Request::create('/api/crm/leadStatus/save','POST',$request->all());
                      $response = json_decode(Route::dispatch($get)->getContent());
                     if($response->success=='true'){
@@ -101,7 +101,7 @@ class CrmSettingController extends Controller
                             return $query->where('is_deleted', 'f');})
                                         ],
                 'sequence' => ['nullable','integer',
-                                    ],    
+                                    ],
             ],
             [
                 'name_en.required' => 'This Field is require !!',   //massage validator
@@ -115,10 +115,10 @@ class CrmSettingController extends Controller
             if ($validator->fails()) //check validator for fail
             {
                 return response()->json(array(
-                    'errors' => $validator->getMessageBag()->toArray() 
+                    'errors' => $validator->getMessageBag()->toArray()
                 ));
             }else{
-                if(perms::check_perm_module('CRM_02090102')){//module code list 
+                if(perms::check_perm_module('CRM_02090102')){//module code list
                     $get = Request::create('/api/crm/leadStatus/save','POST',$request->all());
                     $response = json_decode(Route::dispatch($get)->getContent());
                     if($response->success=='true'){
@@ -151,14 +151,14 @@ class CrmSettingController extends Controller
             session_start();
         }
         if(perms::check_perm_module('CRM_020902')){//module codes
-          
+
             $industry = Request::create('/api/crm/industry', 'GET');
             $tbl = json_decode(Route::dispatch($industry)->getContent());
-            return view('crm.setting.CrmLeadIndustry',['tbl'=>$tbl]); 
+            return view('crm.setting.CrmLeadIndustry',['tbl'=>$tbl]);
         }else{
             return view('no_perms');
         }
-        
+
     }
     // Insert AND Update Lead Industry
     public function StoreLeadIndustry(Request $request){
@@ -176,7 +176,7 @@ class CrmSettingController extends Controller
                             Rule::unique('crm_lead_industry','name_kh')
                             ->where(function ($query) use ($request) {
                             return $query->where('is_deleted', 'f');})
-                                        ],  
+                                        ],
             ],
             [
                 'name_en.required' => 'This Field is require !!',   //massage validator
@@ -188,10 +188,10 @@ class CrmSettingController extends Controller
             if ($validator->fails()) //check validator for fail
             {
                 return response()->json(array(
-                    'errors' => $validator->getMessageBag()->toArray() 
+                    'errors' => $validator->getMessageBag()->toArray()
                 ));
             }else{
-                if(perms::check_perm_module('CRM_02090201')){//module code list 
+                if(perms::check_perm_module('CRM_02090201')){//module code list
                     $create_industry = Request::create('/api/crm/industry/save','POST',$request->all());
                     $response = json_decode(Route::dispatch($create_industry)->getContent());
                     if($response->success=="true"){
@@ -212,7 +212,7 @@ class CrmSettingController extends Controller
                             Rule::unique('crm_lead_industry','name_kh')->ignore($request->id)
                             ->where(function ($query) use ($request) {
                             return $query->where('is_deleted', 'f');})
-                                        ],  
+                                        ],
             ],
             [
                 'name_en.required' => 'This Field is require !!',   //massage validator
@@ -224,10 +224,10 @@ class CrmSettingController extends Controller
             if ($validator->fails()) //check validator for fail
             {
                 return response()->json(array(
-                    'errors' => $validator->getMessageBag()->toArray() 
+                    'errors' => $validator->getMessageBag()->toArray()
                 ));
             }else{
-                if(perms::check_perm_module('CRM_02090202')){//module code list 
+                if(perms::check_perm_module('CRM_02090202')){//module code list
                     $request->user_id = $_SESSION['userid'];
                     $create_industry = Request::create('/api/crm/industry/save','POST',$request->all());
                     $response = json_decode(Route::dispatch($create_industry)->getContent());
@@ -261,14 +261,14 @@ class CrmSettingController extends Controller
             session_start();
         }
         if(perms::check_perm_module('CRM_020903')){//module codes
-          
+
             $request_lead_source = Request::create('/api/crm/source', 'GET');
             $tbl = json_decode(Route::dispatch($request_lead_source)->getContent());
-            return view('crm.setting.CrmLeadSource',['tbl'=>$tbl]); 
+            return view('crm.setting.CrmLeadSource',['tbl'=>$tbl]);
         }else{
             return view('no_perms');
         }
-        
+
     }
     // Insert AND Update Lead Source
     public function StoreLeadSource(Request $request){
@@ -286,7 +286,7 @@ class CrmSettingController extends Controller
                             Rule::unique('crm_lead_source','name_kh')
                             ->where(function ($query) use ($request) {
                             return $query->where('is_deleted', 'f');})
-                                        ],  
+                                        ],
             ],
             [
                 'name_en.required' => 'This Field is require !!',   //massage validator
@@ -298,10 +298,10 @@ class CrmSettingController extends Controller
             if ($validator->fails()) //check validator for fail
             {
                 return response()->json(array(
-                    'errors' => $validator->getMessageBag()->toArray() 
+                    'errors' => $validator->getMessageBag()->toArray()
                 ));
             }else{
-                if(perms::check_perm_module('CRM_02090301')){//module code list 
+                if(perms::check_perm_module('CRM_02090301')){//module code list
                     $request->user_id = $_SESSION['userid'];
                     $create_industry = Request::create('/api/crm/source/save','POST',$request->all());
                     $response = json_decode(Route::dispatch($create_industry)->getContent());
@@ -323,7 +323,7 @@ class CrmSettingController extends Controller
                             Rule::unique('crm_lead_source','name_kh')->ignore($request->id)
                             ->where(function ($query) use ($request) {
                             return $query->where('is_deleted', 'f');})
-                                        ],  
+                                        ],
             ],
             [
                 'name_en.required' => 'This Field is require !!',   //massage validator
@@ -335,10 +335,10 @@ class CrmSettingController extends Controller
             if ($validator->fails()) //check validator for fail
             {
                 return response()->json(array(
-                    'errors' => $validator->getMessageBag()->toArray() 
+                    'errors' => $validator->getMessageBag()->toArray()
                 ));
             }else{
-                if(perms::check_perm_module('CRM_02090302')){//module code list 
+                if(perms::check_perm_module('CRM_02090302')){//module code list
                     $request->user_id = $_SESSION['userid'];
                     $create_industry = Request::create('/api/crm/source/save','POST',$request->all());
                     $response = json_decode(Route::dispatch($create_industry)->getContent());
@@ -372,14 +372,14 @@ class CrmSettingController extends Controller
             session_start();
         }
         if(perms::check_perm_module('CRM_020903')){//module codes
-          
+
             $request_lead_source = Request::create('/api/crm/currentISP', 'GET');
             $tbl = json_decode(Route::dispatch($request_lead_source)->getContent());
-            return view('crm.setting.CrmLeadISP',['tbl'=>$tbl]); 
+            return view('crm.setting.CrmLeadISP',['tbl'=>$tbl]);
         }else{
             return view('no_perms');
         }
-        
+
     }
     // Insert AND Update Lead Source
     public function StoreLeadISP(Request $request){
@@ -397,7 +397,7 @@ class CrmSettingController extends Controller
                             Rule::unique('crm_lead_current_isp','name_kh')
                             ->where(function ($query) use ($request) {
                             return $query->where('is_deleted', 'f');})
-                                        ],  
+                                        ],
             ],
             [
                 'name_en.required' => 'This Field is require !!',   //massage validator
@@ -409,10 +409,10 @@ class CrmSettingController extends Controller
             if ($validator->fails()) //check validator for fail
             {
                 return response()->json(array(
-                    'errors' => $validator->getMessageBag()->toArray() 
+                    'errors' => $validator->getMessageBag()->toArray()
                 ));
             }else{
-                if(perms::check_perm_module('CRM_02090301')){//module code list 
+                if(perms::check_perm_module('CRM_02090301')){//module code list
                     $request->user_id = $_SESSION['userid'];
                     $create_industry = Request::create('/api/crm/currentISP/save','POST',$request->all());
                     $response = json_decode(Route::dispatch($create_industry)->getContent());
@@ -434,7 +434,7 @@ class CrmSettingController extends Controller
                             Rule::unique('crm_lead_current_isp','name_kh')->ignore($request->id)
                             ->where(function ($query) use ($request) {
                             return $query->where('is_deleted', 'f');})
-                                        ],  
+                                        ],
             ],
             [
                 'name_en.required' => 'This Field is require !!',   //massage validator
@@ -446,10 +446,10 @@ class CrmSettingController extends Controller
             if ($validator->fails()) //check validator for fail
             {
                 return response()->json(array(
-                    'errors' => $validator->getMessageBag()->toArray() 
+                    'errors' => $validator->getMessageBag()->toArray()
                 ));
             }else{
-                if(perms::check_perm_module('CRM_02090302')){//module code list 
+                if(perms::check_perm_module('CRM_02090302')){//module code list
                     $request->user_id = $_SESSION['userid'];
                     $create_industry = Request::create('/api/crm/currentISP/save','POST',$request->all());
                     $response = json_decode(Route::dispatch($create_industry)->getContent());
@@ -483,14 +483,14 @@ class CrmSettingController extends Controller
             session_start();
         }
         if(perms::check_perm_module('CRM_020905')){//module codes
-          
+
                $get = Request::create('/api/crm/scheduleType', 'GET');
                $tbl = json_decode(Route::dispatch($get)->getContent());
-            return view('crm.setting.CrmScheduleType',['tbl'=>$tbl]); 
+            return view('crm.setting.CrmScheduleType',['tbl'=>$tbl]);
         }else{
             return view('no_perms');
         }
-        
+
     }
     public function StoreScheduleType(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
@@ -503,7 +503,7 @@ class CrmSettingController extends Controller
                 'name_kh' => [ 'required'
                                         ],
                 'is_result_type' => ['required',
-                                    ],    
+                                    ],
             ],
             [
                 'name_en.required' => 'This Field is require !!',   //massage validator
@@ -516,10 +516,10 @@ class CrmSettingController extends Controller
             if ($validator->fails()) //check validator for fail
             {
                 return response()->json(array(
-                    'errors' => $validator->getMessageBag()->toArray() 
+                    'errors' => $validator->getMessageBag()->toArray()
                 ));
             }else{
-                if(perms::check_perm_module('CRM_02090501')){//module code list 
+                if(perms::check_perm_module('CRM_02090501')){//module code list
                      $get = Request::create('/api/crm/scheduleType/save','POST',$request->all());
                      $response = json_decode(Route::dispatch($get)->getContent());
                     if($response->success=='true'){
@@ -538,7 +538,7 @@ class CrmSettingController extends Controller
                 'name_kh' => [ 'required'
                                         ],
                 'is_result_type' => ['required',
-                                    ],    
+                                    ],
             ],
             [
                 'name_en.required' => 'This Field is require !!',   //massage validator
@@ -551,10 +551,10 @@ class CrmSettingController extends Controller
             if ($validator->fails()) //check validator for fail
             {
                 return response()->json(array(
-                    'errors' => $validator->getMessageBag()->toArray() 
+                    'errors' => $validator->getMessageBag()->toArray()
                 ));
             }else{
-                if(perms::check_perm_module('CRM_02090502')){//module code list 
+                if(perms::check_perm_module('CRM_02090502')){//module code list
                      $get = Request::create('/api/crm/scheduleType/save','POST',$request->all());
                      $response = json_decode(Route::dispatch($get)->getContent());
                     if($response->success=='true'){
@@ -589,14 +589,14 @@ class CrmSettingController extends Controller
             session_start();
         }
         if(perms::check_perm_module('CRM_020906')){//module codes
-          
+
                $get = Request::create('/api/crm/quoteStatusType', 'GET');
                $tbl = json_decode(Route::dispatch($get)->getContent());
-            return view('crm.setting.CrmQuoteStatus',['tbl'=>$tbl]); 
+            return view('crm.setting.CrmQuoteStatus',['tbl'=>$tbl]);
         }else{
             return view('no_perms');
         }
-        
+
     }
     public function StoreQuoteStatus(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
@@ -618,10 +618,10 @@ class CrmSettingController extends Controller
             if ($validator->fails()) //check validator for fail
             {
                 return response()->json(array(
-                    'errors' => $validator->getMessageBag()->toArray() 
+                    'errors' => $validator->getMessageBag()->toArray()
                 ));
             }else{
-                if(perms::check_perm_module('CRM_02090601')){//module code list 
+                if(perms::check_perm_module('CRM_02090601')){//module code list
                      $get = Request::create('/api/crm/quoteStatusType/save','POST',$request->all());
                      $response = json_decode(Route::dispatch($get)->getContent());
                     if($response->success=='true'){
@@ -649,10 +649,10 @@ class CrmSettingController extends Controller
             if ($validator->fails()) //check validator for fail
             {
                 return response()->json(array(
-                    'errors' => $validator->getMessageBag()->toArray() 
+                    'errors' => $validator->getMessageBag()->toArray()
                 ));
             }else{
-                if(perms::check_perm_module('CRM_02090602')){//module code list 
+                if(perms::check_perm_module('CRM_02090602')){//module code list
                      $get = Request::create('/api/crm/quoteStatusType/save','POST',$request->all());
                      $response = json_decode(Route::dispatch($get)->getContent());
                     if($response->success=='true'){
