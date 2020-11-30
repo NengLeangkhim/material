@@ -214,7 +214,7 @@
                           </form>
                         </div>
                         <div class="chart">                         
-                            <div class="col-md-12" id="QuoteChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:10px;"></div>
+                            <div id="QuoteChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:10px;"></div>
                         </div>
                         <div class="col-md-12 text-right">
                           <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -480,8 +480,7 @@ $(window).resize(function () {
    google.charts.setOnLoadCallback(drawChart);
    function drawChart() {
     var data = google.visualization.arrayToDataTable([
-      ['Year', ' ', { role: 'style' } ],
-     
+      ['Year', ' ', { role: 'style' } ],       
       ['2020', 10,'stroke-color: #1aa6b7; stroke-width: 2; fill-color: #1fa8e0;'],  
     ]);
 
@@ -493,9 +492,7 @@ $(window).resize(function () {
                         role: "annotation" },
                       2]); 
      var options = {
-       title: "Contact Chart",
-       width: 550,
-       height: 300,
+       title: "Contact Chart",        
        bar: {groupWidth: "70%"},
        legend: { position: "none" },
      };
@@ -521,11 +518,9 @@ $(window).resize(function () {
                        role: "annotation" },
                      2]); 
     var options = {
-      title: "Contact Chart",
-      width: 550,
-      height: 300,
+      title: "Contact Chart",      
       bar: {groupWidth: "70%"},
-      legend: { position: "none" },
+      legend: { position: "none" }
     };
     var chart = new google.visualization.ColumnChart(document.getElementById("organization"));
     chart.draw(view, options);
@@ -555,10 +550,9 @@ $(window).resize(function () {
 
     var options = {
       title: "Quote Performance",
-      width: 550,
-      height: 200,
+      
       bar: {groupWidth: "70%"},
-      legend: { position: "none" },
+      legend: { position: "none" }
     };
     var chart = new google.visualization.BarChart(document.getElementById("QuoteChart"));
     chart.draw(view, options);
