@@ -559,6 +559,7 @@ class InvoiceController extends Controller
             ['bsc_account_type_id','=',12],
             ['name_en','LIKE','%Tax%'],
             ['parent_id','<>',null],
+            ['ma_currency_id','=',4],
             ['status','=','t'],
             ['is_deleted','=','f']
         ])->get();

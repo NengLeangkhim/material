@@ -19,7 +19,7 @@
             <!-- section Main content -->
             <section class="content">
               <div class="container-fluid">
-                <div class="row">                  
+                <div class="row">
                   <div class="col-md-12">
                     <div class="card">
                       <div class="card-header p-2">
@@ -31,7 +31,7 @@
                             </ul>
                           </div>
                           <div class="col-4 text-right">
-                            <a  href="#" class="btn btn-success crm_contact" ​value="/contact/add" id="crm_contact"><i class="fas fa-plus"></i> Add Contact</a> 
+                            <a  href="#" class="btn btn-success crm_contact" ​value="/contact/add" id="crm_contact"><i class="fas fa-plus"></i> Add Contact</a>
                           </div>
                         </div>
                       </div><!-- /.card-header -->
@@ -45,10 +45,10 @@
                             <!--show contact like table -->
                             <div class="tab-pane" id="Crm_List_Contact">
                               <div class="col-12">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="tblIndexContact" class="table table-bordered table-striped"  style="width:100%; white-space: nowrap;">
                                     <thead>
                                         <tr style="background: #1fa8e0">
-                                            {{-- <th style="color: #FFFFFF">Contact Number</th> --}}
+                                            <th style="color: #FFFFFF">No</th>
                                             <th style="color: #FFFFFF">Name EN</th>
                                             <th style="color: #FFFFFF">Name KH</th>
                                             <th style="color: #FFFFFF">Phone</th>
@@ -58,32 +58,32 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($contact_table->data as $row)
+                                    @foreach($contact_table->data as $key=>$row)
                                         <tr>
-                                            {{-- <td>TT-CON0000002</td> --}}
+                                            <td>{{$key+1}}</td>
                                             <td>{{$row->name_en}}</td>
                                             <td>{{$row->name_kh}}</td>
                                             <td>{{$row->phone}}</td>
                                             {{-- <td>{{$row->facebook}}</td> --}}
                                             <td>{{$row->email}}</td>
-                                            <td style="text-align: center">                                                
-                                              
+                                            <td style="text-align: center">
+
                                                 <div class="row-12 form-inline">
                                                   <div class="col-md-6">
-                                                    <button class="btn btn-info btn-block  btn-sm CrmEditContact" ​value="/contact/edit/{{$row->id}}"><i class="fas fa-wrench"></i></button>      
+                                                    <button class="btn btn-info btn-block  btn-sm CrmEditContact" ​value="/contact/edit/{{$row->id}}"><i class="fas fa-wrench"></i></button>
                                                   </div>
                                                   <div class="col-md-6 ">
-                                                    <button href="javascript:void(0);" class="btn btn-block  btn-danger btn-sm CrmDeleteContact" onclick="Crm_delete({{$row->id}},'/contact/delete','/contact','Deleted successfully')"><i class="fas fa-trash"></i></button>         
+                                                    <button href="javascript:void(0);" class="btn btn-block  btn-danger btn-sm CrmDeleteContact" onclick="Crm_delete({{$row->id}},'/contact/delete','/contact','Deleted successfully')"><i class="fas fa-trash"></i></button>
                                                   </div>
-                                              </div> 
+                                              </div>
                                             </td>
-                                        </tr>                                       
+                                        </tr>
                                     @endforeach
-                                    </tbody>  
+                                    </tbody>
                                 </table>
                             </div>
                           </div>
-                          <!-- /.tab-pane -->        
+                          <!-- /.tab-pane -->
                         </div>
                         <!-- /.tab-content -->
                       </div><!-- /.card-body -->
@@ -96,17 +96,23 @@
               </div><!-- /.container-fluid -->
             </section>
             <div id="ShowModalContact"></div>
-          <script type="text/javascript">  
+          <script type="text/javascript">
             $(document).ready(function() {
+
+                $("#tblIndexContact").DataTable({
+                    "responsive": true,
+                });
+
+
               $(document).on('click', '.pagination a', function(event) {// function click on link pagination
                   event.preventDefault();
                   var page = $(this).attr('href').split('page=')[1];//get value page number
                   fetch_data(page);// execute function
               });
 
-              function fetch_data(page) {// function get data without refresh page 
+              function fetch_data(page) {// function get data without refresh page
                   $.ajax({
-                      url: "/contact/pagination?page=" + page,// URL 
+                      url: "/contact/pagination?page=" + page,// URL
                       success: function(data) {
                           $('#Crm_Card_Contact').html(data);// refresh content
                       }
@@ -114,21 +120,19 @@
               }
 
             });
-                     
+
             $(function () {
-                $("#example1").DataTable({
-                "responsive": true,
-                "autoWidth": false,
-                });
+
                 $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
                 });
+
             });
               $('#crm_contact').click(function(e) // function go to add contact
               {

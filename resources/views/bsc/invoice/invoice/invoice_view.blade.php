@@ -209,7 +209,7 @@
                                                 <label for="">Amount Due : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
-                                                <label for="" id="due_amount">{{ number_format($due_amount==null ? $invoices->grand_total : $due_amount,4,".",",") }}</label>
+                                                <label for="" id="due_amount">{{$due_amount == null ? number_format($invoices->grand_total, 4, '.', '') : number_format($due_amount, 4, '.', '')}}</label>
                                             </div>
                                         </div>
                                         <hr class="line_in_tag_hr" style="{{ $display }}">
@@ -231,7 +231,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                                     </div>
-                                                    <input type="number" class="form-control input_required item_unit_price" oninput="limitDecimalPlaces(event, 4)"  name="amount_paid" id="amount_paid" value="{{ number_format($due_amount==null ? $invoices->grand_total : $due_amount,4,".",".") }}" autofocus placeholder="Amount Paid">
+                                                    <input oninput="limitDecimalPlaces(event, 4)" type="number" class="form-control input_required item_unit_price" name="amount_paid" id="amount_paid" value="{{$due_amount == null ? number_format($invoices->grand_total, 4, '.', '') : number_format($due_amount, 4, '.', '')}}" autofocus placeholder="Amount Paid" >
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -344,6 +344,7 @@ $('.detail').click(function(e)
         {
             let amount_paid=parseFloat($('#amount_paid').val());
             let due_amount=parseFloat($('#due_amount').text());
+
             if(amount_paid > due_amount){
                 sweetalert('error','Amount Paid is bigger than Due Amount or Grand Total');
                 return false;
@@ -414,10 +415,10 @@ $('.detail').click(function(e)
     }
 
     // input only number & .
-    $('.item_unit_price').keypress(function(e){
-        var x = event.charCode || event.keyCode;
-        if (isNaN(String.fromCharCode(e.which)) && x!=46 || x===32 || x===13 || (x===46 && event.currentTarget.innerText.includes('.'))) e.preventDefault();
-    });
+    // $('.item_unit_price').keypress(function(e){
+    //     var x = event.charCode || event.keyCode;
+    //     if (isNaN(String.fromCharCode(e.which)) && x!=46 || x===32 || x===13 || (x===46 && event.currentTarget.innerText.includes('.'))) e.preventDefault();
+    // });
 
     // End Calculate Grand Total
     function showTotal(){

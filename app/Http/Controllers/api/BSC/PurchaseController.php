@@ -376,6 +376,8 @@ class PurchaseController extends Controller
                                     LEFT JOIN bsc_account_type ON bsc_account_charts.bsc_account_type_id = bsc_account_type.id 
                                 WHERE
                                     bsc_account_charts.bsc_account_type_id IN (1,2)
+                                    AND bsc_account_charts.ma_currency_id = 4
+                                    AND bsc_account_charts.parent_id IS NOT NULL
                                     AND bsc_account_charts.status = 't' 
                                     AND bsc_account_charts.is_deleted = 'f' 
                                 GROUP BY
@@ -391,6 +393,7 @@ class PurchaseController extends Controller
                 $paid_from_to = DB::table('bsc_account_charts')
                 ->where([
                     ['bsc_account_type_id','=',$account_type->bsc_account_type_id],
+                    ['ma_currency_id','=',4],
                     ['parent_id','<>',null],
                     ['status','=','t'],
                     ['is_deleted','=','f']

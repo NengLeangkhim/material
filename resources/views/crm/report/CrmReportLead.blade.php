@@ -123,14 +123,15 @@
                         {{-- </div><!--End Form Group--> --}}
 
                         <div class="table-responsive" style="padding-top: 10px;">
-                            <table id="OrganizationTbl" class="table table-bordered table-striped">
+                            <table id="OrganizationTbl" class="table table-bordered table-striped" style="white-space: nowrap;">
                                 <thead>
                                     <tr>
+                                        <th style="display:none;"></th>
+                                        <th>No</th>
                                         <th>Lead Number</th>
                                         <th>Branch Name</th>
                                         <th>Department</th>
                                         <th>Customer Name</th>
-                                        {{-- <th>Create Date</th> --}}
                                         <th>Priority</th>
                                         <th>Source</th>
                                         <th>Status</th>
@@ -207,18 +208,22 @@
                     if(response.success) {
                         $.each(response.data, function(index, data){
                             $('#lead-detail-body').append(`
-                            <tr>
-                                <td>${data.lead_number}</td>
-                                <td>${data.branch_name_en}</td>
-                                <td>${data.department_name_en}</td>
-                                <td>${data.customer_name_en}</td>
-                                <td>${data.priority}</td>
-                                <td>${data.source_name_en}</td>
-                                <td>${data.status_en}</td>
-                            </tr>
+                                <tr>
+                                    <td style="display:none;"></td>
+                                    <td>${index+1}</td>
+                                    <td>${data.lead_number}</td>
+                                    <td>${data.branch_name_en}</td>
+                                    <td>${data.department_name_en}</td>
+                                    <td>${data.customer_name_en}</td>
+                                    <td>${data.priority}</td>
+                                    <td>${data.source_name_en}</td>
+                                    <td>${data.status_en}</td>
+                                </tr>
                             `)
                         })
-                        $('#OrganizationTbl').DataTable();
+                        $('#OrganizationTbl').DataTable({
+                            'ordering': false,
+                        });
                     }
                 },
                 fail : function(){

@@ -32,7 +32,6 @@
                                     <select class="form-control " name="lead_id" id="lead_id" data-code="<?php if(isset($leadSeleted)){echo $leadSeleted;}else{echo '';} ?>">
                                             <option value=''>-- Select Lead  --</option>
                                     </select>
-
                                 </div>
                             </div>
                         </div>
