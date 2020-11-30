@@ -115,7 +115,7 @@ if (count($bsc_show_customer_branchs) >0) {
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                             </div>
-                                            <input type="date" class="form-control input_required"  name="billing_date" id="billing_date">
+                                            <input type="date" class="form-control input_required" value="{{ date('Y-m-d') }}"  name="billing_date" id="billing_date">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -409,10 +409,11 @@ if (count($bsc_show_customer_branchs) >0) {
                     },
                     dataType: "JSON",
                     success:function(data){
+                        let id = data.saved.data[0].insert_bsc_invoice;
                         if(data.saved.success == false){
                             sweetalert('error','Save is fail!');
                         }else{
-                            go_to('bsc_invoice_invoice_list');
+                            go_to('bsc_invoice_invoice_view/'+id);
                         }
                     }
                 });
