@@ -51,9 +51,7 @@
                                         <dt class="col-sm-4 dt">Primary Email</dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["primary_email"]}}</dd>
                                         <dt class="col-sm-4 dt">Primary Phone</dt>
-                                        <dd class="col-sm-8 dd">0000000</dd>
-                                        <dt class="col-sm-4 dt">Primary Website </dt>
-                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["primary_website"]}} </dd>
+                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["primary_phone"]}}</dd>
                                         <dt class="col-sm-4 dt">Company Branch </dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["company_detail"]}} </dd> 
                                         <dt class="col-sm-4 dt">Lead Status </dt>
@@ -62,8 +60,8 @@
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]['assig']}}  </dd>
                                         <dt class="col-sm-4 dt">Service </dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["service"]}} </dd>                                       
-                                        <dt class="col-sm-4 dt">Priority</dt>
-                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["priority"]}} </dd>
+                                        {{-- <dt class="col-sm-4 dt">Priority</dt>
+                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["priority"]}} </dd> --}}
                                         <dt class="col-sm-4 dt">Comment</dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["comment"]}} </dd>
                                         <dt class="col-sm-4 dt">Survey</dt>

@@ -229,10 +229,15 @@ class LeadController extends Controller
 
 
             // var_dump($survey_id);
-            return  Lead::updatebranch($lead_address_id,$lead_detail_id,$lead_item_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
-            $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,$primary_phone,
-            $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-            $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$survey_id);
+            if(perms::check_perm_module('CRM_020505')){//module code list
+                return  Lead::updatebranch($lead_address_id,$lead_detail_id,$lead_item_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
+                $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,$primary_phone,
+                $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+                $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$survey_id);  
+                
+            }else{
+                return view('no_perms');
+            }
     }
 
     // get all branch
@@ -442,7 +447,8 @@ class LeadController extends Controller
         // $userid =$request->input('user_create');
         $name_kh=$request->input('name_kh');
         $name_en=$request->input('name_en');
-        return Lead::insertscheduletype($userid,$name_en,$name_kh); //return to model
+        $result_type=$request->input('result_type');
+        return Lead::insertscheduletype($userid,$name_en,$name_kh,$result_type); //return to model
     }
     // update schedule type
     public function updatescheduletype(Request $request){
@@ -455,7 +461,8 @@ class LeadController extends Controller
         $name_kh=$request->input('name_kh');
         $name_en=$request->input('name_en');
         $status=$request->input('status');
-        return Lead::updatescheduletype($schedule_id,$userid,$name_en,$name_kh,$status); //return to model
+        $result_type=$request->input('result_type');
+        return Lead::updatescheduletype($schedule_id,$userid,$name_en,$name_kh,$status,$result_type); //return to model
     }
     // get schedule
     public function getschedule(){

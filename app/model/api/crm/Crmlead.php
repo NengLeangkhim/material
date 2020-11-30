@@ -1318,14 +1318,14 @@ class Crmlead extends Model
     //        where cls.is_deleted=FALSE and cls.status=TRUE and  cla.ma_user_id=$id");
     // }
     //Model insert​ schdule type
-    public static function insertscheduletype($userid,$name_en,$name_kh){
+    public static function insertscheduletype($userid,$name_en,$name_kh,$result_type){
         if(isset($userid)){
             try{
                 $result=DB::select('SELECT insert_crm_lead_schedule_type(?,?,?,?)',
                 array(
                     $name_en,
                     $name_kh,
-                    't',
+                    $result_type,
                     $userid,
                 )
             );
@@ -1341,7 +1341,7 @@ class Crmlead extends Model
         }
     }
     //update schedule type
-    public static function updatescheduletype($schedule_id,$userid,$name_en,$name_kh,$status){
+    public static function updatescheduletype($schedule_id,$userid,$name_en,$name_kh,$status,$result_type){
         if(isset($schedule_id)){
             try{
                 $result=DB::select('SELECT update_crm_lead_schedule_type(?,?,?,?,?,?)',
@@ -1350,7 +1350,7 @@ class Crmlead extends Model
                     $userid,
                     $name_en,
                     $name_kh,
-                    't',
+                    $result_type,
                     $status
 
                 )
