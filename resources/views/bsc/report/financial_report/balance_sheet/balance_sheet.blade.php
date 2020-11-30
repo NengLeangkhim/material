@@ -16,33 +16,49 @@
 </style>
 
 <section class="content">
-    <div class="is-container container">
-        <h2 id="something">Balance Sheet</h2>
-        <div class="is-menu row justify-content-between">
-            <div class="is-menu-left col-9 row justify-content-start">
-                <div class="input-group col-8">
-                    <input type="date" id="end-date" class="form-control" aria-label="Text input with dropdown button">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        {{-- <div class="row"> --}}
+                            {{-- <div class="col-12"> --}}
+                                <div class="card-body">
+                                    <h2 id="something">Balance Sheet</h2>
+                                    <div class="is-menu row justify-content-between">
+                                        <div class="is-menu-left col-9 row justify-content-start">
+                                            <div class="input-group col-8">
+                                                <input type="date" id="end-date" class="form-control" aria-label="Text input with dropdown button">
+                                            </div>
+                                        </div>
+                            
+                                        <div class="is-menu-right col-3 row justify-content-end">
+                                            <button type="button" class="btn btn-primary" id="btn-get-report">Generate</button>
+                                        </div>
+                            
+                                    </div>
+
+                                </div>
+                            {{-- </div> --}}
+                        {{-- </div> --}}
+                        <div class="is-report">
+                            <div class="is-report-header">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="Balance Sheet">
+                                  </div>
+                                  <p class="card-text">Turbotech</p>
+                                  <p class="card-text">For the year ended (DATE)</p>
+                            </div>
+                            <hr>
+                            <div id="is-report-body">
+                            </div>
+                            <div class="is-report-footer">
+                
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
-            </div>
-
-            <div class="is-menu-right col-3 row justify-content-end">
-                <button type="button" class="btn btn-primary" id="btn-get-report">Generate</button>
-            </div>
-
-        </div>
-        <div class="is-report">
-            <div class="is-report-header">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="Balance Sheet">
-                  </div>
-                  <p class="card-text">Turbotech</p>
-                  <p class="card-text">For the year ended (DATE)</p>
-            </div>
-            <hr>
-            <div id="is-report-body">
-            </div>
-            <div class="is-report-footer">
-
             </div>
         </div>
     </div>

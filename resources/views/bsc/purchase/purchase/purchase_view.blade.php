@@ -8,8 +8,10 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active" onclick="go_to('bsc_purchase_purchase_list')">View Purchase</li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('bsc_purchase_purchase_list')"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        Back</a></li>
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active" onclick="go_to('bsc_purchase_purchase_list')">View Purchase</li>
                 </ol>
             </div>
         </div>
@@ -189,7 +191,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                         </div>
-                                        <input type="date" class="form-control input_required" name="date_paid" id="date_paid" placeholder="Date Paid" >
+                                        <input type="date" value="{{date('Y-m-d')}}" class="form-control input_required" name="date_paid" id="date_paid" placeholder="Date Paid" >
                                     </div>
                                 </div>
                             </div>
