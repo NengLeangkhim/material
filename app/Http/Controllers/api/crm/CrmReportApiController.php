@@ -126,7 +126,7 @@ class CrmReportApiController extends Controller
         $fromDate = $request->from_date;
         $toDate = $request->to_date;
         $statusId = $request->status_id;
-        try {
+        try{
             $result = $this->crmReport->getLeadReportByStatus($fromDate, $toDate, $statusId);
 
             foreach($result as $res){
@@ -143,7 +143,7 @@ class CrmReportApiController extends Controller
                 }
                 $res->lead_branchList = $branches;
             }
-        } catch(QueryException $e){
+        }catch(QueryException $e){
             return $this->sendError($this->queryException);
         }
         $message = 'lead report by status';
