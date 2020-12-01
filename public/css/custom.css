@@ -226,6 +226,7 @@ body{
         background-color: #159ed4;
         color: white;
         position: relative;
+
     }
 
 
@@ -255,6 +256,30 @@ body{
         color: white;
         position: relative;
     }
+
+
+    .color-blue {
+        color: #159ed4;
+        font-weight: 600;
+    }
+
+    .color-red {
+        color: #c52931;
+        font-weight: 600;
+    }
+
+    .color-bluelight {
+        color: #12b9d6;
+        font-weight: 600;
+    }
+
+
+
+
+
+
+
+
 
 .moLoadingClass{
     position: fixed;
