@@ -219,7 +219,6 @@
     var currentDateStringSub7 = currentDate.toJSON().split('T')[0]
 
     $(function () {
-
     // Chart Lead Status
     var Branch_Chart = () => {
         $.ajax({
@@ -326,7 +325,6 @@
             }
         });
     }
-
     // Quote Chart
     var Quote_Chart = () =>{
         $.ajax({
@@ -439,7 +437,6 @@
             }
         });
     }
-
     // Contact Chart
     var Contact_Chart = () =>{
         $.ajax({
@@ -532,7 +529,6 @@
             }
         });
     }
-
     // Survey Chart
     var Survey_Chart = () => {
         var myvar= $("#getlead").val();
@@ -591,7 +587,6 @@
             }
         })
     }
-
     // Organization Chart
     var Organization_Chart = () => {
       $.ajax({
