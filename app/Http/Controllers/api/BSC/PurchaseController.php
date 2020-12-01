@@ -199,11 +199,12 @@ class PurchaseController extends Controller
         ])->first();
         
         $purchase_detail = DB::table('bsc_invoice_detail')
-        ->select('bsc_invoice_detail.*','bsc_account_charts.name_en as chart_account_name','stock_product.name as product_name')
+        ->select('bsc_invoice_detail.*','bsc_account_charts.name_en as chart_account_name','stock_product.name as product_name','ma_measurement.name as measurement_name')
         ->leftJoin('bsc_invoice_detail_bsc_journal_rel','bsc_invoice_detail.id','=','bsc_invoice_detail_bsc_journal_rel.bsc_invoice_detail_id')
         ->leftJoin('bsc_journal','bsc_invoice_detail_bsc_journal_rel.bsc_journal_id','=','bsc_journal.id')
         ->leftJoin('bsc_account_charts','bsc_journal.bsc_account_charts_id','=','bsc_account_charts.id')
         ->leftJoin('stock_product','bsc_invoice_detail.stock_product_id','=','stock_product.id')
+        ->leftJoin('ma_measurement','stock_product.ma_measurement_id','=','ma_measurement.id')
         ->where([
             ['bsc_invoice_detail.bsc_invoice_id','=',$id],
             ['bsc_invoice_detail.status','=','t'],
@@ -501,5 +502,48 @@ class PurchaseController extends Controller
         }
         
         return $this->sendResponse($arr_purchase, 'Purchase retrieved successfully.');
+    }
+
+    public function show_purchase_vat_chart_account(Request $request)
+    {
+        $account_types = DB::select("SELECT
+                                    bsc_account_charts.bsc_account_type_id,
+                                    bsc_account_type.name_en AS account_type_name 
+                                FROM
+                                    bsc_account_charts
+                                    LEFT JOIN bsc_account_type ON bsc_account_charts.bsc_account_type_id = bsc_account_type.id 
+                                WHERE
+                                    bsc_account_charts.bsc_account_type_id IN (3,4,5)
+                                    AND bsc_account_charts.ma_currency_id = 4
+                                    AND bsc_account_charts.parent_id IS NOT NULL
+                                    AND bsc_account_charts.status = 't' 
+                                    AND bsc_account_charts.is_deleted = 'f' 
+                                GROUP BY
+                                    bsc_account_charts.bsc_account_type_id,
+                                    bsc_account_type.name_en 
+                                ORDER BY
+                                    bsc_account_charts.bsc_account_type_id ASC
+                                ");
+
+        $arr_chart_accounts = [];
+        if(count($account_types) > 0){
+            foreach ($account_types as $key => $account_type) {
+                $vat_input_chart_accounts = DB::table('bsc_account_charts')
+                ->where([
+                    ['bsc_account_type_id','=',$account_type->bsc_account_type_id],
+                    ['ma_currency_id','=',4],
+                    ['parent_id','<>',null],
+                    ['status','=','t'],
+                    ['is_deleted','=','f']
+                ])->get();
+                $arr_chart_accounts[$key] = [
+                    'bsc_account_type_id' => $account_type->bsc_account_type_id,
+                    'bsc_account_type_name' => $account_type->account_type_name,
+                    'vat_input_chart_accounts' => $vat_input_chart_accounts
+                ];
+            }
+        }
+        
+        return $this->sendResponse($arr_chart_accounts, 'VAT chart account retrieved successfully.');
     }
 }
