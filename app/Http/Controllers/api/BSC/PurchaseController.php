@@ -141,6 +141,8 @@ class PurchaseController extends Controller
             if(count($purchase_details) > 0){
                 $sql_purchase ="insert_bsc_invoice(null, $request->ma_supplier_id, '$request->billing_date', '$request->due_date', '$request->reference', null, null, null, null, 'purchase', null, $request->total, $request->vat_total, $request->grand_total, $request->create_by, null, null, $request->bsc_account_charts_id, 2, 0, $request->grand_total)";
 
+                // insert_bsc_invoice(ma_customer_id, ma_supplier_id, billing_date, due_date, reference, address, address_kh, effective_date, end_period_date, invoice_type, deposit_on_payment, total, vat_total, grand_total, create_by, crm_quote_id, description, bsc_account_charts_id, bsc_journal_type_id, debit_amount, credit_amount);
+
                 $q_purchase=DB::select("SELECT ".$sql_purchase);
                 $purchase_id = $q_purchase[0]->insert_bsc_invoice;
 
@@ -153,6 +155,17 @@ class PurchaseController extends Controller
                         }
                     }
                 }
+
+                // insert_bsc_invoice_detail(bsc_invoice_id, ma_customer_branch_id, stock_product_id, description, qty, unit_price, discount, bsc_account_charts_id, tax, amount, create_by, description_journal, bsc_account_charts_id_in_journal, bsc_journal_type_id, debit_amount, credit_amount);
+                
+                $sql_journal_vat_input ="insert_bsc_journal(null, $request->bsc_vat_input_account_charts_id, $request->vat_total, 0, $request->create_by, 2)";
+    
+                // insert_bsc_journal("ndescription" varchar, "nbsc_account_charts_id" int4, "ndebit_amount" numeric, "ncredit_amount" numeric, "ncreate_by" int4, "nbsc_journal_type_id" int4);
+    
+                $q_journal_vat_input=DB::select("SELECT ".$sql_journal_vat_input);
+                $journal_id = $q_journal_vat_input[0]->insert_bsc_journal;
+    
+                DB::select("INSERT INTO public.bsc_invoice_bsc_journal_rel(bsc_journal_id, bsc_invoice_id) VALUES ($journal_id, $purchase_id)");
             }else{
                 return $this->sendError("Product can not be null");
             }
@@ -273,31 +286,44 @@ class PurchaseController extends Controller
                 return $this->sendError('Validation Error.', $validator->errors());
             }
 
-            $sql_purchase ="update_bsc_invoice($id, $request->update_by, null, $request->ma_supplier_id, '$request->billing_date', '$request->due_date', '$request->reference', null, null, null, null, 'purchase', null, $request->total, $request->vat_total, $request->grand_total, '$request->status', null, $request->bsc_account_charts_id, 2, 0, $request->grand_total, '$request->status')";
-
-            $q_purchase=DB::select("SELECT ".$sql_purchase);
-            $purchase_id = $q_purchase[0]->update_bsc_invoice;
-
             $purchase_details = $request->purchase_details;
-            
-            if($purchase_details != ""){
-                foreach ($purchase_details as $key => $p_detail) {
-                    // var_dump($p_detail['stock_product_id']);
-                    if($p_detail['is_old'] == 1 && $p_detail['is_delete'] == 0){
-                        if ($p_detail['bsc_account_charts_id'] != null) {
-                            $sql_purchase_detail = "update_bsc_invoice_detail($p_detail[bsc_invoice_detail_id], $request->update_by, $id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], '$request->status', '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0, '$request->status')";
-                            $q_purchase_detail=DB::select("SELECT ".$sql_purchase_detail);
+            if(count($purchase_details) > 0){
+                $sql_purchase ="update_bsc_invoice($id, $request->update_by, null, $request->ma_supplier_id, '$request->billing_date', '$request->due_date', '$request->reference', null, null, null, null, 'purchase', null, $request->total, $request->vat_total, $request->grand_total, '$request->status', null, $request->bsc_account_charts_id, 2, 0, $request->grand_total, '$request->status')";
+
+                $q_purchase=DB::select("SELECT ".$sql_purchase);
+                $purchase_id = $q_purchase[0]->update_bsc_invoice;
+                
+                if($purchase_details != ""){
+                    foreach ($purchase_details as $key => $p_detail) {
+                        // var_dump($p_detail['stock_product_id']);
+                        if($p_detail['is_old'] == 1 && $p_detail['is_delete'] == 0){
+                            if ($p_detail['bsc_account_charts_id'] != null) {
+                                $sql_purchase_detail = "update_bsc_invoice_detail($p_detail[bsc_invoice_detail_id], $request->update_by, $id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], '$request->status', '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0, '$request->status')";
+                                $q_purchase_detail=DB::select("SELECT ".$sql_purchase_detail);
+                            }
+                        }else if($p_detail['is_new'] == 1){
+                            if ($p_detail['bsc_account_charts_id'] != null) {
+                                $sql_purchase_detail_new = "insert_bsc_invoice_detail($purchase_id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], $request->update_by, '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0)";
+                                $q_purchase_detail_new=DB::select("SELECT ".$sql_purchase_detail_new);
+                            }
+                        }else if($p_detail['is_delete'] == 1){
+                            $sql_purchase_detail_delete = "delete_bsc_invoice_detail($p_detail[bsc_invoice_detail_id], $request->update_by)";
+                            $q_purchase_detail_delete=DB::select("SELECT ".$sql_purchase_detail_delete);
                         }
-                    }else if($p_detail['is_new'] == 1){
-                        if ($p_detail['bsc_account_charts_id'] != null) {
-                            $sql_purchase_detail_new = "insert_bsc_invoice_detail($purchase_id, null, $p_detail[stock_product_id], '$p_detail[description]', $p_detail[qty], $p_detail[unit_price], 0, $p_detail[bsc_account_charts_id], $p_detail[tax], $p_detail[amount], $request->update_by, '$p_detail[description]', $p_detail[bsc_account_charts_id], 2, $p_detail[amount], 0)";
-                            $q_purchase_detail_new=DB::select("SELECT ".$sql_purchase_detail_new);
-                        }
-                    }else if($p_detail['is_delete'] == 1){
-                        $sql_purchase_detail_delete = "delete_bsc_invoice_detail($p_detail[bsc_invoice_detail_id], $request->update_by)";
-                        $q_purchase_detail_delete=DB::select("SELECT ".$sql_purchase_detail_delete);
                     }
                 }
+
+                $invoice_journal_rels = DB::table('bsc_invoice_bsc_journal_rel')->where('bsc_invoice_id',$purchase_id)->first();
+                $journal_id = "";
+                if($invoice_journal_rels != ""){
+                    $journal_id = $invoice_journal_rels->bsc_journal_id;
+                }
+                $sql_update_journal_vat_input = "update_bsc_journal($journal_id, $request->update_by, null, $request->bsc_vat_input_account_charts_id, $request->vat_total, 0, '$request->status', 2)";
+                $q_update_journal_vat_input=DB::select("SELECT ".$sql_update_journal_vat_input);
+
+                // update_bsc_journal(selectValue.bsc_journal_id, nupdate_by, ndescription, nbsc_account_charts_id, ndebit_amount, ncredit_amount, njournal_status, nbsc_journal_type_id);
+            }else{
+                return $this->sendError("Product can not be null");
             }
 
             DB::commit();
