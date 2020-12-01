@@ -513,7 +513,7 @@ class PurchaseController extends Controller
                                     bsc_account_charts
                                     LEFT JOIN bsc_account_type ON bsc_account_charts.bsc_account_type_id = bsc_account_type.id 
                                 WHERE
-                                    bsc_account_charts.bsc_account_type_id IN (3,4,5)
+                                    bsc_account_charts.bsc_account_type_id = 5
                                     AND bsc_account_charts.ma_currency_id = 4
                                     AND bsc_account_charts.parent_id IS NOT NULL
                                     AND bsc_account_charts.status = 't' 
