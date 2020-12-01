@@ -17,7 +17,7 @@
 
 <section class="content">
     <div class="is-container container">
-        <h2 id="something">Something</h2>
+        <h2 id="something">Income Statement</h2>
         <div class="is-menu row justify-content-between">
             <div class="is-menu-left col-9 row justify-content-start">
                 <div class="input-group col-8">
@@ -42,23 +42,10 @@
                         <option value="4">4</option>
                     </select>
                 </div>
-
-                <div class="input-group col-2">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        <div role="separator" class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Separated link</a>
-                      </div>
-                    </div>
-                </div>
             </div>
 
             <div class="is-menu-right col-3 row justify-content-end">
-                <button type="button" class="btn btn-primary" id="btn-get-report">Primary</button>
+                <button type="button" class="btn btn-primary" id="btn-get-report">Generate</button>
             </div>
 
         </div>
@@ -67,7 +54,7 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="Profit and Loss">
                   </div>
-                  <p class="card-text">company name</p>
+                  <p class="card-text">Turbotech</p>
                   <p class="card-text">For the year ended (DATE)</p>
             </div>
             <hr>
@@ -146,6 +133,9 @@
 
 
         var setDataList = (id, name, list, col)=>{
+            if(list.data == undefined || list.total_list == undefined) {
+                return
+            }
             $(id).append(`
                 <div id="${name}-section">
                     <h4>${name} Section</h4>

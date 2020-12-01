@@ -33,7 +33,7 @@
                                                 <button class="btn btn-danger form-control" id="btnExportPDFContactReport"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                       </div>
                   </div>
@@ -72,7 +72,8 @@
                             <table id="OrganizationTbl2" class="table table-bordered table-striped" style="white-space: nowrap;">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th style="display:none;"></th>
+                                        <th>No</th>
                                         <th>National ID</th>
                                         <th>Name In English</th>
                                         <th>Name In Khmer</th>
@@ -127,6 +128,7 @@
                             date=date.split(' ')[0];
                             $('#lead-detail-body').append(`
                             <tr>
+                                <td style="display:none;"></td>
                                 <td>${index+1}</td>
                                 <td>${data.national_id}</td>
                                 <td>${data.name_en}</td>
@@ -139,7 +141,9 @@
                             </tr>
                             `)
                         })
-                        $('#OrganizationTbl2').DataTable();
+                        $('#OrganizationTbl2').DataTable({
+                            'ordering': false,
+                        });
                     }
                 },
                 fail : function(){

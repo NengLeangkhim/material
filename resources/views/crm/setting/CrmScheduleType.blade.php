@@ -4,11 +4,11 @@
     }
 @endphp
 <div class="col-12 text-right">
-    <a  href="javascript:void(0);" class="btn btn-success" onclick="CrmModalAction('crm_schedule_type_form','crm_schedule_type','ActionScheduleType','Add Schedule Type')" ​><i class="fas fa-plus"></i> Add Schedule Type</a> 
+    <a  href="javascript:void(0);" class="btn btn-success" onclick="CrmModalAction('crm_schedule_type_form','crm_schedule_type','ActionScheduleType','Add Schedule Type')" ​><i class="fas fa-plus"></i> Add Schedule Type</a>
 </div>
 <div class="col-12" style="margin-top: 10px">
     <div>
-        <table class="table table-bordered display nowrap" style="width: 100%" id="Schedule_type_Tbl">
+        <table class="table table-bordered nowrap" style="width: 100%;" id="Schedule_type_Tbl">
             <thead>
                 <tr>
                     <th>#</th>
@@ -16,33 +16,33 @@
                     <th>Name Khmer</th>
                     <th>Type</th>
                     <th>Create Date</th>
-                    <th>Action</th> 
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-            @php
-                $i=1;
-            @endphp
-             @foreach($tbl->data as $row) 
-                <tr>
-                    <td>{{$i++}}</td>
-                    <td>{{$row->name_en}}</td>
-                    <td>{{$row->name_kh}}</td>
-                    <td>@php
-                            if($row->is_result_type=='true'){
-                            echo 'Result Type';
-                            }else{
-                            echo 'Schedule Type' ;
-                            }
-                        @endphp
-                    </td>
-                    <td>{{date('Y-m-d H:i:s',strtotime($row->create_date))}}</td>
-                    <td class="text-center">
-                        <a href="#" id="{{$row->id}}" class="btn btn-info btn-block CrmEditScheduleType"><i class="fas fa-wrench"></i></a>
-                    </td>
-                </tr>                                           
-             @endforeach 
-            </tbody>  
+                    @php
+                        $i=1;
+                    @endphp
+                    @foreach($tbl->data as $row)
+                        <tr>
+                            <td>{{$i++}}</td>
+                            <td>{{$row->name_en}}</td>
+                            <td>{{$row->name_kh}}</td>
+                            <td>@php
+                                    if($row->is_result_type=='true'){
+                                    echo 'Result Type';
+                                    }else{
+                                    echo 'Schedule Type' ;
+                                    }
+                                @endphp
+                            </td>
+                            <td>{{date('Y-m-d H:i:s',strtotime($row->create_date))}}</td>
+                            <td class="text-center">
+                                <a href="#" id="{{$row->id}}" class="btn btn-info btn-block CrmEditScheduleType"><i class="fas fa-wrench"></i></a>
+                            </td>
+                        </tr>
+                    @endforeach
+            </tbody>
         </table>
     </div>
 </div>
@@ -89,9 +89,9 @@
                        <div class="col-md-6">
                        <div class="form-group">
                            <label for="plan_from">Type<span class="text-danger">*</span></label>
-                           <select name="is_result_type" class="form-control" id="is_result_type">
-                                <option value="1">Result</option>
-                                <option value="0">Schedule</option>
+                           <select name="is_result_type" class="form-control" id="is_result_type" name="is_result_type">
+                                <option value="t">Result</option> 
+                                <option value="f">Schedule</option>
                             </select>
                            <span class="invalid-feedback" role="alert" id="is_result_typeError"> {{--span for alert--}}
                              <strong></strong>

@@ -5,6 +5,7 @@ namespace App\model\api\crm;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CrmReport extends Model
 {
@@ -507,4 +508,119 @@ class CrmReport extends Model
         }
         return $result;
     }
+
+    public function getTotalLeadLeadBranch($fromDate = null, $toDate = null, $userId = null){
+        try {
+            $userConditon = ($userId == null ? ' ' : ' AND cla.ma_user_id = '.$userId.' ');
+            $leadConditon = (($fromDate == null || $toDate == null) ? ' ' : ' AND cl.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ');
+            $branchCondition = (($fromDate == null || $toDate == null) ? ' ' : ' AND clb.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ');
+            $sql = '
+            WITH leads AS (
+                SELECT COUNT(count)
+                FROM (
+                    SELECT DISTINCT ON (cl.id) COUNT(*)
+                    FROM crm_lead AS cl
+                        INNER JOIN crm_lead_branch clb ON cl.id = clb.crm_lead_id
+                        INNER JOIN crm_lead_assign cla ON clb.id = cla.crm_lead_branch_id
+                    WHERE cl.is_deleted = FALSE '.$userConditon.' '.$leadConditon.'
+                    GROUP BY cl.id
+                ) AS me
+            ),
+            branches AS (
+                SELECT COUNT(count)
+                FROM (
+                    SELECT DISTINCT ON (cla.crm_lead_branch_id) COUNT(*)
+                    FROM crm_lead AS cl INNER JOIN crm_lead_branch clb ON cl.id = clb.crm_lead_id INNER JOIN crm_lead_assign cla ON clb.id = cla.crm_lead_branch_id
+                    WHERE cl.is_deleted = FALSE AND clb.is_deleted = FALSE '.$userConditon.' '.$branchCondition.'
+                    GROUP BY cla.crm_lead_branch_id
+                    ORDER BY cla.crm_lead_branch_id DESC
+                ) AS me
+            )
+            SELECT leads.count AS total_lead, branches.count as total_branch FROM leads, branches;
+            ';
+            $result = DB::select($sql);
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    public function getTotalServicesInEachLeads($fromDate = null, $toDate = null, $userId = null){
+        try {
+            $condition =
+                (($fromDate == null || $toDate == null) ? ' ' : ' AND clb.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ')
+                .($userId == null ? ' ' : ' AND cla.ma_user_id = ' .$userId. ' ' )
+            ;
+            $sql = '
+            WITH me AS (
+                SELECT
+                    DISTINCT ON (cli.stock_product_id) cli.stock_product_id, COUNT(*) AS total_sale_products
+                FROM crm_lead cl
+                    INNER JOIN crm_lead_branch clb ON cl.id = clb.crm_lead_id
+                    INNER JOIN crm_lead_items cli ON clb.id = cli.crm_lead_branch_id
+                    INNER JOIN crm_lead_assign cla ON clb.id = cla.crm_lead_branch_id
+                WHERE cl.is_deleted = FALSE AND clb.is_deleted = FALSE AND cli.is_deleted = FALSE '.$condition.'
+                GROUP BY cli.stock_product_id
+            )
+            SELECT sp.name AS product_name, product_price, barcode, image, description, COALESCE(total_sale_products,0) AS total_sale_products
+            FROM me
+                RIGHT JOIN stock_product sp ON me.stock_product_id = sp.id
+                INNER JOIN stock_product_type spt ON sp.stock_product_type_id = spt.id
+            WHERE spt.group_type = \'service\'
+            ';
+            $result = DB::select($sql);
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    public function getQuoteApprovedOrNot($quoteStatusId, $fromDate = null, $toDate = null, $userId = null){
+        try {
+            $condition =
+                (($fromDate == null || $toDate == null) ? ' ' : ' AND crm_quote_status_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ')
+                .($userId == null ? ' ' : ' AND assign_to = '.$userId. ' ')
+            ;
+            $sql = '
+                SELECT COUNT(*) AS total_quote
+                FROM view_crm_quote_report
+                WHERE crm_quote_status_id = '.$quoteStatusId.' '.$condition.'
+            ';
+            $result = DB::selectOne($sql);
+        } catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
+    public function getSurveyedResult($fromDate = null, $toDate = null, $userId = null){
+        try{
+            $condition =
+                (($fromDate == null || $toDate == null) ? ' ' : ' AND create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ')
+                .($userId == null ? ' ' : ' AND create_by = '.$userId.' ')
+            ;
+            $sql = '
+                SELECT
+                CASE possible WHEN TRUE THEN
+                        \'success\'
+                    ELSE
+                        \'failure\'
+                END AS status_en,
+                CASE possible WHEN TRUE THEN
+                        \'ជោគជ័យ\'
+                    ELSE
+                        \'បរាជ័យ\'
+                END AS status_kh,
+                COUNT(*) AS total_suveyed
+                FROM crm_survey_result
+                WHERE is_deleted = FALSE '.$condition.'
+                GROUP BY possible
+            ';
+            $result = DB::select($sql);
+        }catch(QueryException $e){
+            throw $e;
+        }
+        return $result;
+    }
+
 }

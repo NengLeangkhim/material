@@ -4,7 +4,7 @@
     }
 @endphp
 <div class="col-12 text-right">
-    <a  href="javascript:void(0);" class="btn btn-success crm_contact" onclick="CrmModalAction('crm_lead_industry_form','crm_lead_industry_insert','ActionLeadIndustry','Add Lead Industry')" ​><i class="fas fa-plus"></i> Add Lead Industry</a> 
+    <a  href="javascript:void(0);" class="btn btn-success crm_contact" onclick="CrmModalAction('crm_lead_industry_form','crm_lead_industry_insert','ActionLeadIndustry','Add Lead Industry')" ​><i class="fas fa-plus"></i> Add Lead Industry</a>
 </div>
 <div class="col-12" style="margin-top: 10px">
     <div>
@@ -31,9 +31,9 @@
                     <td>
                         <a href="#" id="{{$row->id}}" class="btn btn-block btn-info btn-sm CrmEditLeadIndustry"><i class="fas fa-wrench"></i></a>
                     </td>
-                </tr>                                        
+                </tr>
             @endforeach
-            </tbody>  
+            </tbody>
         </table>
     </div>
 </div>
@@ -100,6 +100,15 @@
               </div><!-- /.END card-Default -->
             </div>
         </div>
-    </div> 
+    </div>
 </form>
 <!-- end modal -->
+
+
+{{-- <script>
+    $(document).ready(function(){
+        $('#Lead_industry_Tbl').DataTable({
+            'responsive': true,
+        });
+    });
+</script> --}}

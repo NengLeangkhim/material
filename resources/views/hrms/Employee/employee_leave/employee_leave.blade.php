@@ -18,6 +18,7 @@
                       <th>Employee ID</th>
                       <th>Mobile</th>
                       <th>Role</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -32,6 +33,7 @@
                       <td style="padding-top:24px ">{{ $e->id_number }}</td>
                       <td style="padding-top:24px ">{{ $e->contact}}</td>
                       <td style="padding-top:24px ">{{ $e->position }}</td>
+                      <td><div class="col-md-4"><a href="javascript:;" onclick="hrms_employee_detail({{$e->id}})"><i class="fas fa-info"></i></a></div></td>
                     </tr>
                     @endforeach
                   </tbody>

@@ -120,13 +120,14 @@
                             <table id="QuoteDetailTbl" class="table table-bordered table-striped" style="border-collapse:collapse; white-space: nowrap; " cellspacing="0" cellpadding="0">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th style="display:none;"></th>
+                                        <th>No</th>
                                         <th>Quote Number</th>
                                         <th>Lead Number</th>
                                         <th>Customer Name</th>
                                         <th>Create Date</th>
                                         <th>Due Date</th>
-                                        <th>email</th>
+                                        <th>Email</th>
                                         <th>Website</th>
                                         <th>Status</th>
                                     </tr>
@@ -206,6 +207,7 @@
                             var create_date = getDate.format("YYYY-MM-DD HH:m:s a");
                             $('#quote-detail-body').append(`
                                 <tr>
+                                    <td style="display:none;"></td>
                                     <td>${index+1}</td>
                                     <td>${data.quote_number}</td>
                                     <td>${data.lead_number}</td>
@@ -217,11 +219,12 @@
                                     <td>${data.quote_status_name_en}</td>
                                 </tr>
                             `)
-                            // data.crm_quote_status_create_date
+
                         })
                     }
-
-                        $('#QuoteDetailTbl').DataTable();
+                    $('#QuoteDetailTbl').DataTable({
+                        'ordering': false,
+                    });
 
                 },
                 fail : function(){

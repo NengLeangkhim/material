@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\BSC;
 use App\Http\Controllers\Controller;
 use App\model\api\BSC\IncomeStatement;
 use Exception;
+use App\Http\Controllers\perms;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,18 @@ class IncomeStatementApiController extends Controller {
 
     public function getIS(Request $request){
         // $data = $this->getIncomeStatement($request);
-        return view('bsc.report.financial_report.profit_and_loss.profit_and_loss');
+
+        if(!perms::check_perm_module('BSC_030101')){
+            return view('no_perms');
+        }
+        
+        try{
+            return view('bsc.report.financial_report.profit_and_loss.profit_and_loss');
+        }catch(Exception $e){
+            echo $e->getMessage();
+            exit;
+        }
+        
     }
 
     public function getCompareIncomeStatement(Request $request){

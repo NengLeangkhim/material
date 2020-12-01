@@ -76,7 +76,7 @@ class MissionAndOutsideController extends Controller
                 $stm=$ms->InsertMissionOutSide($f_date,$t_date,$description,$type,$userid,$shift,$street,$home_number,$latelong,$gazetteers_code,$emid);
             }
 
-            echo $stm;
+            return response()->json(['success'=>$stm]);
         } else {
             return view('no_perms');
         }

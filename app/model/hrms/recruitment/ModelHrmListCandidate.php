@@ -44,7 +44,11 @@ class ModelHrmListCandidate extends Model
     }
     // ===== Function Insert candidate =====////
     public static function insert_candidate($fname,$lname,$name_kh,$zip_file,$email,$password,$position_id,$cover_letter,$interest){
-        return DB::select('SELECT public.insert_hr_recruitment_candidate(?,?,?,?,?,?,?,?,?)',array($fname,$lname,$name_kh,$zip_file,$email,$password,$position_id,$cover_letter,$interest));
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userid=$_SESSION['userid'];
+        return DB::select('SELECT public.insert_hr_recruitment_candidate(?,?,?,?,?,?,?,?,?,?)',array($fname,$lname,$name_kh,$zip_file,$email,$password,$position_id,$cover_letter,$interest,$userid));
     }
     // ===== Function Update candidate =====////
     public static function update_candidate($id,$userid,$fname,$lname,$name_kh,$zip_file,$email,$password,$candidate_id,$position_id,$status,$cover_letter,$interest,$date){

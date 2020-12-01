@@ -139,8 +139,8 @@
                                                     <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
                                                     <td>{{ date('d-m-Y', strtotime($invoice->effective_date))}}</td>
                                                     <td>{{ date('d-m-Y', strtotime($invoice->end_period_date))}}</td>
-                                                    <td>{{ $amount_paid }}</td>
-                                                    <td>{{ $due_amount }}</td>
+                                                    <td>{{ number_format($invoice->amount_paid,4,".",",") }}</td>
+                                                    <td>{{ number_format($invoice->due_amount,4,".",",") }}</td>
                                                     <td>{{ $status }}</td>
                                                 </tr>
                                             @endforeach
@@ -222,15 +222,15 @@
                             if(payment_status == '2'){
                                 if(value.due_amount == null || value.due_amount != 0){
 
-                                    tr+="<tr><td>"+value.invoice_number+"</td><td>"+value.reference+"</td><td>"+value.customer_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+value.effective_date+"</td><td>"+value.end_period_date+"</td><td>"+amount_paid+"</td><td>"+due_amount+"</td><td>"+status+"</td></tr>";
+                                    tr+="<tr><td>"+value.invoice_number+"</td><td>"+value.reference+"</td><td>"+value.customer_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+value.effective_date+"</td><td>"+value.end_period_date+"</td><td>"+parseFloat(amount_paid).toFixed(4)+"</td><td>"+parseFloat(due_amount).toFixed(4)+"</td><td>"+status+"</td></tr>";
                                 }
                             }else if(payment_status == '3'){
                                 if(value.due_amount == 0 && value.due_amount != null){
 
-                                    tr+="<tr><td>"+value.invoice_number+"</td><td>"+value.reference+"</td><td>"+value.customer_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+value.effective_date+"</td><td>"+value.end_period_date+"</td><td>"+amount_paid+"</td><td>"+due_amount+"</td><td>"+status+"</td></tr>";
+                                    tr+="<tr><td>"+value.invoice_number+"</td><td>"+value.reference+"</td><td>"+value.customer_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+value.effective_date+"</td><td>"+value.end_period_date+"</td><td>"+parseFloat(amount_paid).toFixed(4)+"</td><td>"+parseFloat(due_amount).toFixed(4)+"</td><td>"+status+"</td></tr>";
                                 }
                             }else{
-                                tr+="<tr><td>"+value.invoice_number+"</td><td>"+value.reference+"</td><td>"+value.customer_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+value.effective_date+"</td><td>"+value.end_period_date+"</td><td>"+amount_paid+"</td><td>"+due_amount+"</td><td>"+status+"</td></tr>";
+                                tr+="<tr><td>"+value.invoice_number+"</td><td>"+value.reference+"</td><td>"+value.customer_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+value.effective_date+"</td><td>"+value.end_period_date+"</td><td>"+parseFloat(amount_paid).toFixed(4)+"</td><td>"+parseFloat(due_amount).toFixed(4)+"</td><td>"+status+"</td></tr>";
                             }
                         });
                         $("#example1 tbody").html(tr);

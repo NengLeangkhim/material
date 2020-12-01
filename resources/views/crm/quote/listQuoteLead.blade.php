@@ -1,11 +1,35 @@
 
+{{-- <div class="modal fade" id="listQuoteLead" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <h5>Helskdmfklsmdfklsdmafklsmaasdfsx</h5>
+            <h5>Helskdmfklsmdfklsdmafklsmaasdfsak</h5>
+            <h5>Helskdmfklsmdfklsdmafklsma</h5>
+            <h5>Helskdmfklsmdfklsdmafklsma</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> --}}
+
+
 
 
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="listQuoteLead">
     <div class="modal-dialog modal-lg" id="confirm_box1">
         <div class="modal-content">
                 <div class=" modal-header text-center">
-                    <h4 class="modal-title" id="exampleModalLabel"><b>Select Lead Quote</b></h4>
+                    <h4 class="modal-title" ><b>Select Lead Quote</b></h4>
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
                 <div class=" modal-body">
@@ -36,7 +60,6 @@
 
                             <tbody>
 
-                                {{-- foreach variable --}}
                                 @if(isset($listLead))
                                     @foreach ($listLead as $key=>$val)
                                         @foreach ($val as $key2=>$val2)
@@ -89,6 +112,8 @@
     </div>
 
 </div>
+
+
 {{-- <script type="text/javascript">
     $(document).ready(function(){
         var table = $('#tblItemProduct').DataTable();

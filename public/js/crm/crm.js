@@ -39,7 +39,7 @@
                 $("#" + key).addClass("is-invalid"); //give read border to input field
                 // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
                 $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
-                // sweetalert('warning',value);
+                sweetalert('warning',value);
             });
           }
           }
@@ -325,7 +325,8 @@ function Crm_delete(id,route,goto,alert) {
       success:function(data){
         $('#CrmTabManageSetting').html(data);
         $('#'+table+'').dataTable({
-          scrollX:true
+            'responsive': true,
+            scrollX:true,
         }); //Set table to datatable
 
   }
@@ -368,7 +369,7 @@ function Crm_delete(id,route,goto,alert) {
         $.each( data.errors, function( key, value ) {//foreach show error
             $("#" + key).addClass("is-invalid"); //give read border to input field
             // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-            //  sweetalert('warning',value);
+            sweetalert('warning',value);
             $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
 
         });
@@ -401,7 +402,8 @@ function Crm_delete(id,route,goto,alert) {
         $.each( data.errors, function( key, value ) {//foreach show error
             $("#" + key).addClass("is-invalid"); //give read border to input field
             // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-            //  sweetalert('warning',value);
+            
+            sweetalert('warning',value);
             $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
 
         });
@@ -428,8 +430,8 @@ function Crm_delete(id,route,goto,alert) {
               $(".invalid-feedback").children("strong").text("");/// remove errror massage
               $('#lead_status_id').val(id);     //It will define value of id variable for update
               $.each(response.data, function(i, e){ //read array json for show to textbox
-                $('#name_kh').val(response.data.name_en);
-                $('#name_en').val(response.data.name_kh);
+                $('#name_kh').val(response.data.name_kh);
+                $('#name_en').val(response.data.name_en);
                 $('#sequence').val(response.data.sequence);
                 if(response.data.status==true){
                   $('#status').val(1);
@@ -458,8 +460,8 @@ function Crm_delete(id,route,goto,alert) {
               $(".invalid-feedback").children("strong").text("");/// remove errror massage
               $('#lead_industry_id').val(id);     //It will define value of id variable for update
               $.each(response.data, function(i, e){ //read array json for show to textbox
-                $('#name_kh').val(response.data.name_en);
-                $('#name_en').val(response.data.name_kh);
+                $('#name_kh').val(response.data.name_kh);
+                $('#name_en').val(response.data.name_en);
                 if(response.data.status==true){
                   $('#status').val(1);
                 }else{
@@ -487,8 +489,8 @@ function Crm_delete(id,route,goto,alert) {
               $(".invalid-feedback").children("strong").text("");/// remove errror massage
               $('#lead_source_id').val(id);     //It will define value of id variable for update
               $.each(response.data, function(i, e){ //read array json for show to textbox
-                $('#name_kh').val(response.data.name_en);
-                $('#name_en').val(response.data.name_kh);
+                $('#name_kh').val(response.data.name_kh);
+                $('#name_en').val(response.data.name_en);
                 if(response.data.status==true){
                   $('#status').val(1);
                 }else{
@@ -516,12 +518,46 @@ function Crm_delete(id,route,goto,alert) {
               $(".invalid-feedback").children("strong").text("");/// remove errror massage
               $('#lead_isp_id').val(id);     //It will define value of id variable for update
               $.each(response.data, function(i, e){ //read array json for show to textbox
-                $('#name_kh').val(response.data.name_en);
-                $('#name_en').val(response.data.name_kh);
+                $('#name_kh').val(response.data.name_kh);
+                $('#name_en').val(response.data.name_en);
                 if(response.data.status==true){
                   $('#status').val(1);
                 }else{
                   $('#status').val(0);
+                }
+              });
+      }
+      });
+    });
+    // update Schedule Type
+    $(document).on('click', '.CrmEditScheduleType', function(){
+      // alert();
+      var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+      $.ajax({
+      url:"/crm/setting/scheduletype/get",   //Request send to "action.php page"
+      type:"GET",    //Using of Post method for send data
+      data:{id:id},//Send data to server
+      dataType:"json",   //Here we have define json data type, so server will send data in json format.
+      success:function(response){              
+              $('#crm_schedule_type').modal('show'); //It will display modal on webpage
+              $('#ActionScheduleType').text('Update'); //This code will change Button value to Update
+              $('#card_title').text("Update Lead Schedule Type");
+              $('.print-error-msg').hide();
+              $("#crm_schedule_type_form").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid");//remove valid all input field
+              $(".invalid-feedback").children("strong").text("");/// remove errror massage
+              $('#schedule_type_id').val(id);     //It will define value of id variable for update
+              $.each(response.data, function(i, e){ //read array json for show to textbox
+                $('#name_kh').val(response.data.name_kh);
+                $('#name_en').val(response.data.name_en);
+                if(response.data.status==true){
+                  $('#status').val(1);
+                }else{
+                  $('#status').val(0);
+                }
+                if(response.data.is_result_type==true){
+                  $('#is_result_type').val("t");
+                }else{
+                  $('#is_result_type').val("f");
                 }
               });
       }
@@ -555,7 +591,6 @@ function Crm_delete(id,route,goto,alert) {
         // $('#add_row_table_quoteItem').append(tblRow);
     //     });
     // });
-
 
 
 
@@ -746,19 +781,23 @@ function Crm_delete(id,route,goto,alert) {
 
         //function to get show modal
         function getShowPopup(route,id,modal_mainform,modal_form,tblId,btnId,getName,fieldID,fieldName){
-          var id_ = "id="+id;
-          var url= route;
-          var x=new XMLHttpRequest();
-          x.onreadystatechange=function(){
-              if(this.readyState==4 && this.status==200){
-                  console.log(this.responseText);
-                  document.getElementById(modal_mainform).innerHTML=this.responseText;
-                  $('#'+modal_form+'').modal('show');
-                  getDataTableSelectRow(tblId,btnId,getName,fieldID,fieldName,modal_form);
-              }
-          }
-          x.open("GET", url + "?" + id_ , true);
-          x.send();
+            var id_ = "id="+id;
+            var url= route;
+            $('#'+modal_form+'').modal('hide');  // hide popup before show again
+            var x=new XMLHttpRequest();
+            x.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200){
+                    if(this.responseText.length > 0){
+                          document.getElementById(modal_mainform).innerHTML=this.responseText;
+                          $('#'+modal_form+'').modal('show');
+                          getDataTableSelectRow(tblId,btnId,getName,fieldID,fieldName,modal_form);
+                          // setTimeout(function(){ i = 0; }, 5000);
+                    }
+
+                }
+            }
+            x.open("GET", url + "?" + id_ , true);
+            x.send();
         }
 
 
@@ -936,9 +975,9 @@ function Crm_delete(id,route,goto,alert) {
     $(document).on('click','#clickGetBranch', function(){
             var lead_id = $('#lead_id').val();
             if(lead_id != ""){
-            // getShowPopup('/quote/add/listQuoteBranch',lead_id,'modal-list-quote','listQuoteBranch','tblQuuteBranch','getSelectRow','branchKhName','getLeadBranchId','getLeadBranch');
             var id_ = "id="+lead_id;
             var url= '/quote/add/listQuoteBranch';
+            $('#listQuoteBranch').modal('hide');  // hide popup before show again
             var x=new XMLHttpRequest();
             x.onreadystatechange=function(){
                 if(this.readyState==4 && this.status==200){

@@ -524,10 +524,24 @@
                                                                                 <label for="address_type"></label>
                                                                                 <div class="input-group">
                                                                                 </div>
-                                                                                <div class="custom-control custom-checkbox">
+                                                                                <div class="custom-control custom-checkbox">                                                                                  
                                                                                     <input type="text" hidden value="{{$updatelead[$i]['survey_id']}}" name="survey_id">
-                                                                                    <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="checksurvey" {{$updatelead[$i]['survey_status']!=false? 'checked':''}} >
-                                                                                    <label for="customCheckbox2"  class="custom-control-label">Survey Or Don’t Survey</label>
+                                                                                    <?php 
+                                                                                         if(($updatelead[$i]['survey_status'])!=false){
+                                                                                             ?>
+                                                                                                {{-- <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="checksurvey" {{$updatelead[$i]['survey_status']!=false? 'checked':''}} >
+                                                                                                <label for="customCheckbox2"  class="custom-control-label">Survey Or Don’t Survey</label> --}}
+                                                                                             <?php
+                                                                                         }
+                                                                                         else {
+                                                                                             ?>
+                                                                                                <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="checksurvey" {{$updatelead[$i]['survey_status']!=false? 'checked':''}} >
+                                                                                                <label for="customCheckbox2"  class="custom-control-label">Survey Or Don’t Survey</label>
+                                                                                             <?php
+                                                                                         }
+                                                                                    ?>
+                                                                                    {{-- <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="checksurvey" {{$updatelead[$i]['survey_status']!=false? 'checked':''}} >
+                                                                                     --}}
                                                                                 </div>                                                                
                                                                             </div>
                                                                         </div>
