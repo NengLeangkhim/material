@@ -266,7 +266,8 @@ Route::get('/ere_all_req_view','e_request\ere_get_datatable_value@get_all_req_vi
 Route::get('/ere_report','e_request\ere_get_report@ere_report');
 
 //============reportPDF===========
-Route::get('e_request_report_certificate','PdfController@create');
+Route::get('Certificate','Certificate@certificatePDF'); //certificate
+Route::get('Expried_intership','Expried_intership@Expried_internshipPDF');​ //Expried_intership
 
 //=======================E-request==========================
 
