@@ -906,7 +906,7 @@ class Crmlead extends Model
         JOIN ma_user u on la.ma_user_id=u.id
         JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lbc.crm_lead_branch_id
         JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
-        JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
+        left JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
         join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
         join crm_lead on crm_lead.id= lb.crm_lead_id
         left join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
