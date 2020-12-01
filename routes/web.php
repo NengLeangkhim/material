@@ -265,6 +265,9 @@ Route::get('/ere_apr_view','e_request\ere_get_datatable_value@get_approve_view')
 Route::get('/ere_all_req_view','e_request\ere_get_datatable_value@get_all_req_view');
 Route::get('/ere_report','e_request\ere_get_report@ere_report');
 
+//============reportPDF===========
+Route::get('e_request_report_certificate','PdfController@create');
+
 //=======================E-request==========================
 
 //==================STOCK SYSTEM===================================================
