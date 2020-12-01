@@ -1201,3 +1201,11 @@ Route::get('test_chart',function(){
 
 
 //==========================================================> End HRMS <===============================================================///
+
+
+//Datatable server side processing example
+Route::get('dt-example',function(){
+    return view('DatatableExample');
+});
+Route::get('dt-example-gettable','DatatableServersideExample@getTable');
+//Datatable server side processing example
