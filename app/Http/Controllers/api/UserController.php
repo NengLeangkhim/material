@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\User;
 use App\Http\Controllers\Controller;
 use App\model\api\UserLoginDetail;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -93,5 +94,16 @@ class UserController extends Controller
         // Auth::logout();
         JWTAuth::invalidate(JWTAuth::parseToken());
         return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    public static function getUserId(){
+        try {
+            if(!$user = JWTAuth::parseToken()->authenticate()) {
+                return 0;
+            }
+        } catch(Exception $e){
+            return 0;
+        }
+        return $user->id;
     }
 }
