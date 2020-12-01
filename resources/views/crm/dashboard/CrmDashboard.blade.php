@@ -7,8 +7,8 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active">View Dashbaord</li>
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">View Dashbaord</li>
                 </ol>
             </div>
         </div>
@@ -18,449 +18,575 @@
 <section class="content">
     {{-- Style --}}
     <style>
-        .title-chart {
-            color: #000000;
-            font-weight: 600;
-            font-size: 26px;
-        }
-        .sub-title-chart {
-            color: #000000;
-            font-weight: 400;
-            font-size: 12px;
-        }
         .chart-number {
-            font-size: 22px;
+            text-align: center;
+            color:#12b9d6;
+            margin: 0;
+        }
+
+        .chart {
+            width: 100%;
+            min-height: 450px;
+        }
+        .row .g-chart {
+            margin:0 !important;
         }
     </style>
     {{-- /Style --}}
     <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-            <div class="col-lg-3 col-6" >
-              <!-- small box -->
-                <div class="small-box bg-white" >
-                    <div class="inner">
-                        <div class="row">
-                            <div class="col-12" >
-                                <div class="p-3 text-center">
-                                    <h2 class="title-chart">New Leads</h2>
-                                    <p class="sub-title-chart">Today</p>
-                                    <h3 class="text-info chart-number">{{$new_lead}}</h3>
+        <div style="padding: 20px; font-family: Times New Roman, Times, serif;">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-3 col-6" >
+                    <!-- small box -->
+                    <div class="small-box bg-white" >
+                        <div class="inner">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-9">
+                                           <div class="pb-3">
+                                                <h2>Leads</h2>
+                                                <p class="m-0">Today</p>
+                                           </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="pb-3">
+                                                <h1 class="chart-number">{{$new_lead}}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-9">
+                                            <div class="pt-3">
+                                                <h2>Branch</h2>
+                                                <p class="m-0">Today</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="pt-3">
+                                                <h1 class="chart-number">{{$new_lead}}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-white">
-                    <div class="inner">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="p-3 text-center">
-                                    <h2 class="title-chart">Total Contacts</h2>
-                                    <p class="sub-title-chart">Today</p>
-                                    <h3 class="text-info chart-number">{{$total_contact}}</h3>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-white">
+                        <div class="inner">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="p-3 text-center">
+                                        <h2 class="title-chart">Contacts</h2>
+                                        <p class="sub-title-chart">Today</p>
+                                        <h1 class="chart-number" style="margin-bottom: 7px;">{{$total_contact}}</h1>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-white">
-                    <div class="inner">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="p-3 text-center">
-                                    <h2 class="title-chart">Total Quotes</h2>
-                                    <p class="sub-title-chart">Today</p>
-                                    <h3 class="text-info chart-number">{{$total_quote}}</h3>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-white">
+                        <div class="inner">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="p-3 text-center">
+                                        <h2 class="title-chart">Quotes</h2>
+                                        <p class="sub-title-chart">Today</p>
+                                        <h1 class="chart-number" style="margin-bottom: 7px;">{{$total_quote}}</h1>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-                <div class="small-box bg-white">
-                      <div class="inner">
-                          <div class="row">
-                              <div class="col-12">
-                                  <div class="p-3 text-center">
-                                      <h2 class="title-chart">Survey</h2>
-                                      <p class="sub-title-chart">Today</p>
-                                      <h3 class="text-info chart-number">{{$total_survey}}</h3>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                </div>
-            </div>
-            <!-- ./col -->
-        </div>
-        <!-- /.row -->
-        <div class="row">
-            <div class="col-md-6">
-                <!-- AREA CHART -->
-                <div class="card card-primary" >
-                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
-                        <h3 class="card-title text-dark text-bold">Lead Status Chart</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart">
-                            <div id="LeadChart" style="min-height: 300px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-white">
+                        <div class="inner">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="p-3 text-center">
+                                        <h2 class="title-chart">Survey</h2>
+                                        <p class="sub-title-chart">Today</p>
+                                        <h1 class="chart-number" style="margin-bottom: 7px;">{{$total_survey}}</h1>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
+                <!-- ./col -->
             </div>
+            <!-- /.row -->
+            <div class="row g-chart">
+                <div class="col-xl-6">
+                    <!-- AREA CHART -->
+                    <div class="card card-primary" >
+                        <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                            <h3 class="card-title text-dark text-bold">Branch Status Chart</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                <div id="LeadChart" style="width: 100%; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col (LEFT) -->
+                <div class="col-xl-6">
+                    <!-- LINE CHART -->
+                    <div class="card card-info">
+                        <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                            <h3 class="card-title text-dark text-bold">Quote Status Chart</h3>
+                            <?php
+                                if (session_status() == PHP_SESSION_NONE) {
+                                session_start();
+                            }
+                            ?>
+                            <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead">
+                        </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                <div id="QuoteChart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col (RIGHT) -->
+            </div>
+            <!-- /.row -->
+            <!-- /.row -->
+            <div class="row g-chart">
+                <div class="col-xl-6">
+                    <!-- AREA CHART -->
+                    <div class="card card-primary">
+                        <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                            <h3 class="card-title text-dark text-bold">Contact Chart</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                <div id="ContactChart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
             <!-- /.col (LEFT) -->
-            <div class="col-md-6">
-                <!-- LINE CHART -->
-                <div class="card card-info">
-                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
-                        <h3 class="card-title text-dark text-bold">Quote Status Chart</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart">
-                            <div id="QuoteChart" style="min-height: 300px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+            <div class="col-xl-6">
+                    <!-- LINE CHART -->
+                    <div class="card card-info">
+                        <div class="card-header" style="background-color: #ffffff !important; border: none;">
+                            <h3 class="card-title text-dark text-bold">Survey Chart</h3>
                         </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                <div id="survey_chart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card-body -->
+                    <!-- /.card -->
                 </div>
-                <!-- /.card -->
+                <!-- /.col (RIGHT) -->
             </div>
-            <!-- /.col (RIGHT) -->
+            <!-- /.row -->
         </div>
-        <!-- /.row -->
-        <!-- /.row -->
-        <div class="row">
-            <div class="col-md-6">
-                <!-- AREA CHART -->
-                <div class="card card-primary">
-                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
-                        <h3 class="card-title text-dark text-bold">Contact Chart</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart">
-                            {{-- <div id="ContactChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;" ></div> --}}
-                            <div id="contact_chart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-            </div>
-          <!-- /.col (LEFT) -->
-          <div class="col-md-6">
-                <!-- LINE CHART -->
-                <div class="card card-info">
-                    <div class="card-header" style="background-color: #ffffff !important; border: none;">
-                        <h3 class="card-title text-dark text-bold">Survey Chart</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart">
-                            {{-- <div id="OrgChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></div> --}}
-                            <div id="survey_chart" style="width: 900px; height: 400px; max-height: 400px; max-width: 100%;"></div>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-          </div>
-          <!-- /.col (RIGHT) -->
-        </div>
-        <!-- /.row -->
     </div>
 </section><!-- end section Main content -->
 
 <script>
+
     var currentDate = new Date()
     var currentDateString = currentDate.toJSON().split('T')[0]
     currentDate.setDate( currentDate.getDate() - 7 );
     var currentDateStringSub7 = currentDate.toJSON().split('T')[0]
+
     $(function () {
     // Chart Lead Status
-    var Lead_Chart = () => {
-      $.ajax({
-        url: '/api/crm/report/leadByStatus', //get link route
-        type: 'GET',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-            'from_date' : currentDateString,
-            'to_date' : currentDateString
-        },
-        //data: $('#FrmChartReport').serialize(),
-        success: function (response) {
-            if (response.success == true) {
-                var data = response.data
-                if(data.length < 1) {
-                  $('#LeadChart').empty()
-                    $('#LeadChart').append(`<h1 style="text-align:center">No Data</h1>`)
-                    return
-                }
-                google.charts.load('current',{
-                    packages: ['corechart']
-                }).then(CrmLeadDrawChart(data));
-                //google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
-                function CrmLeadDrawChart(data) {
-                    var result = [
-                        ["Lead", "", {
-                            role: 'style'
-                        }]
-                    ]
-                    var colors = [{
-                            id: 0,
-                            name_en: 'none',
-                            code: ''
-                        },
-                        {
-                            id: 1,
-                            name_en: 'new',
-                            code: 'color:#fed330'
-                        },
-                        {
-                            id: 2,
-                            name_en: 'qualified',
-                            code: 'color:#C4E538'
-                        },
-                        {
-                            id: 3,
-                            name_en: 'surveying',
-                            code: 'color:#f06060'
-                        },
-                        {
-                            id: 4,
-                            name_en: 'surveyed',
-                            code: 'color:#fa8231'
-                        },
-                        {
-                            id: 5,
-                            name_en: 'proposition',
-                            code: 'color:#2bcbba'
-                        },
-                        {
-                            id: 6,
-                            name_en: 'won',
-                            code: 'color:#4b4b4b'
-                        },
-                        {
-                            id: 7,
-                            name_en: 'junk',
-                            code: 'color:#ff3838'
-                        },
-                    ]
-                    $.each(data, function (index, value) {
-                        if(value.crm_lead_status_id != null){
-                            result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
-                        }
-                    })
-                    var data_chart = google.visualization.arrayToDataTable(result);
-                    var view = new google.visualization.DataView(data_chart);
-                    view.setColumns([0, 1,
-                        {
-                            calc: "stringify",
-                            sourceColumn: 1,
-                            type: "string",
-                            role: "annotation"
-                        },
-                        2
-                    ]);
-                    var options = {
-                        title: 'Lead Performance',
-                        pieSliceText:'value',
-                    };
+    var Branch_Chart = () => {
+        $.ajax({
+            url: '/api/crm/report/leadByStatus', //get link route
+            type: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                'from_date' : currentDateString,
+                'to_date' : currentDateString
+            },
+            //data: $('#FrmChartReport').serialize(),
+            success: function (response) {
+                if (response.success == true) {
+                    var data = response.data
+                    // if(data.length < 1) {
+                    //   $('#LeadChart').empty()
+                    //     $('#LeadChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                    //     return
+                    // }
+                    google.charts.load('current',{
+                        packages: ['corechart']
+                    }).then(CrmLeadDrawChart(data));
+                    //google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
+                    function CrmLeadDrawChart(data) {
+                        var result = [
+                            ["Branch", "", {
+                                role: 'style'
+                            }]
+                        ]
+                        var colors = [{
+                                id: 0,
+                                name_en: 'none',
+                                code: ''
+                            },
+                            {
+                                id: 1,
+                                name_en: 'new',
+                                code: 'color:#36a2eb'
+                            },
+                            {
+                                id: 2,
+                                name_en: 'qualified',
+                                code: 'color:#4bc0c0'
+                            },
+                            {
+                                id: 3,
+                                name_en: 'surveying',
+                                code: 'color:#ffcd56'
+                            },
+                            {
+                                id: 4,
+                                name_en: 'surveyed',
+                                code: 'color:#ff3d67'
+                            },
+                            {
+                                id: 5,
+                                name_en: 'proposition',
+                                code: 'color:#7d9b10'
+                            },
+                            {
+                                id: 6,
+                                name_en: 'won',
+                                code: 'color:#9966ff'
+                            },
+                            {
+                                id: 7,
+                                name_en: 'junk',
+                                code: 'color:#96f'
+                            },
+                        ]
+                        $.each(data, function (index, value) {
+                            if(value.crm_lead_status_id != null){
+                                result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
+                            }
+                        })
+                        var data_chart = google.visualization.arrayToDataTable(result);
+                        var view = new google.visualization.DataView(data_chart);
+                        view.setColumns([0, 1,
+                            {
+                                calc: "stringify",
+                                sourceColumn: 1,
+                                type: "string",
+                                role: "annotation"
+                            },
+                            2
+                        ]);
+                        var options = {
+                            title: 'Branch Performance',
+                            width: '100%',
+                            colors: ['#ffffff'],
+                            pieSliceText:'value',
+                            vAxis: {
+                                minValue: 0,
+                                maxValue: 10
+                            }
+                        };
 
-                    var chart = new google.visualization.ColumnChart(document.getElementById('LeadChart'))
-                    chart.draw(view, options)
+                        var chart = new google.visualization.ColumnChart(document.getElementById('LeadChart'))
+                        chart.draw(view, options)
+                    }
                 }
             }
-        }
-      });
+        });
     }
-
     // Quote Chart
     var Quote_Chart = () =>{
-      $.ajax({
-        url: '/api/crm/report/quoteByStatus',
-        type: 'GET',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-            'from_date' : currentDateString,
-            'to_date' : currentDateString
-        },
-        //data: $('#FrmChartQuoteReport').serialize(),
-        success: function (response) {
-            if (response.success == true) {
-                var data = response.data
-                if(data.length < 1) {
-                  $('#QuoteChart').empty()
-                    $('#QuoteChart').append(`<h1 style="text-align:center">No Data</h1>`)
-                    return
-                }
-                google.charts.load('current', {
-                    packages: ['corechart']
-                }).then(CrmLeadDrawChart(data));
-              //  google.charts.setOnLoadCallback(CrmLeadDrawChart(data))
+        $.ajax({
+            url: '/api/crm/report/quoteByStatus',
+            type: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                'from_date' : currentDateString,
+                'to_date' : currentDateString
+            },
+            //data: $('#FrmChartQuoteReport').serialize(),
+            success: function (response) {
+                if (response.success == true) {
+                    var data = response.data
+                    // if(data.length < 1) {
+                    //   $('#QuoteChart').empty()
+                    //     $('#QuoteChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                    //     return
+                    // }
+                    google.charts.load('current', {
+                        packages: ['corechart']
+                    }).then(CrmLeadDrawChart(data));
+                //  google.charts.setOnLoadCallback(CrmLeadDrawChart(data))
 
-                function CrmLeadDrawChart(data) {
-                    var result = [
-                        ["Quote", "", {
-                            role: 'style'
-                        }]
-                    ]
-                    var colors = [{
-                            id: 0,
-                            name_en: 'none',
-                            code: ''
-                        },
-                        {
-                            id: 1,
-                            name_en: 'pending',
-                            code: 'color:#EA2027'
-                        },
-                        {
-                            id: 2,
-                            name_en: 'approved',
-                            code: 'color:#009432'
-                        },
-                        {
-                            id: 3,
-                            name_en: 'negogiate',
-                            code: 'color:#FFC312'
-                        },
-                        {
-                            id: 4,
-                            name_en: 'open',
-                            code: 'color:#EE5A24'
-                        },
-                        {
-                            id: 5,
-                            name_en: 'installed',
-                            code: 'color:#12CBC4'
-                        },
-                        {
-                            id: 6,
-                            name_en: 'installing',
-                            code: 'color:#006266'
-                        },
-                        {
-                            id: 9,
-                            name_en: 'accepted',
-                            code: 'color:#fff200'
-                        },
-                        {
-                            id: 12,
-                            name_en: 'disapproved',
-                            code: 'color:#ff5252'
-                        },
-                    ]
-                    $.each(data, function (index, value) {
-                        var color = (colors.find(e => (e.id == value.crm_quote_status_type_id))).code
-                        result.push([value.quote_status_name_en, value.total_quotes, color])
-                    })
-                    var data = google.visualization.arrayToDataTable(result)
-                    var view = new google.visualization.DataView(data)
-                    view.setColumns([0, 1,
-                        {
-                            calc: "stringify",
-                            sourceColumn: 1,
-                            type: "string",
-                            role: "annotation"
-                        },
-                        2
-                    ]);
-                    var options = {
-                        title: 'Quote Performance',
-                    };
+                    function CrmLeadDrawChart(data) {
+                        var result = [
+                            ["Quote", "", {
+                                role: 'style'
+                            }]
+                        ]
+                        var colors = [{
+                                id: 0,
+                                name_en: 'none',
+                                code: ''
+                            },
+                            {
+                                id: 1,
+                                name_en: 'Pending',
+                                code: 'color:#EA2027'
+                            },
+                            {
+                                id: 2,
+                                name_en: 'Approved',
+                                code: 'color:#009432'
+                            },
+                            {
+                                id: 3,
+                                name_en: 'Negogiate',
+                                code: 'color:#FFC312'
+                            },
+                            {
+                                id: 4,
+                                name_en: 'Open',
+                                code: 'color:#EE5A24'
+                            },
+                            {
+                                id: 5,
+                                name_en: 'Installed',
+                                code: 'color:#12CBC4'
+                            },
+                            {
+                                id: 6,
+                                name_en: 'Installing',
+                                code: 'color:#006266'
+                            },
+                            {
+                                id: 9,
+                                name_en: 'Accepted',
+                                code: 'color:#fff200'
+                            },
+                            {
+                                id: 12,
+                                name_en: 'Disapproved',
+                                code: 'color:#ff5252'
+                            },
+                        ]
+                        $.each(data, function (index, value) {
+                            var color = (colors.find(e => (e.id == value.crm_quote_status_type_id))).code
+                            result.push([value.quote_status_name_en, value.total_quotes, color])
+                        })
+                        var data = google.visualization.arrayToDataTable(result)
+                        var view = new google.visualization.DataView(data)
+                        view.setColumns([0, 1,
+                            {
+                                calc: "stringify",
+                                sourceColumn: 1,
+                                type: "string",
+                                role: "annotation"
+                            },
+                            2
+                        ]);
+                        var options = {
+                            title: 'Quote Performance',
+                            colors: ['#ffffff'],
+                            hAxis: {
+                                minValue: 0,
+                                maxValue: 10,
+                                // format: '#\'%\'',
+                                direction: 1
+                            },
+                        };
 
-                    var chart = new google.visualization.BarChart(document.getElementById('QuoteChart'))
+                        var chart = new google.visualization.BarChart(document.getElementById('QuoteChart'))
 
-                    chart.draw(view, options)
+                        chart.draw(view, options)
+                    }
                 }
             }
-        }
-      });
+        });
     }
-
     // Contact Chart
     var Contact_Chart = () =>{
-      $.ajax({
-        url: '/api/crm/report/getContactChartReport', //get link route
-        type: 'GET',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-            'type' : 'day',
-            'from_date' : currentDateString,
-            'to_date' : currentDateString
-        },
-        //data: $('#FrmChartContactReport').serialize(),
-        success: function (response) {
-            if (response.success == true) {
-                var data = response.data
-                if(data.length < 1) {
-                  $('#ContactChart').empty()
-                    $('#ContactChart').append(`<h1 style="text-align:center">No Data</h1>`)
-                    return
-                }
-                google.charts.load('current', {
-                    packages: ['corechart']
-                }).then(CrmLeadDrawChart(data));
-                //google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
+        $.ajax({
+            url: '/api/crm/report/getContactChartReport', //get link route
+            type: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                'type' : 'day',
+                'from_date' : currentDateString,
+                'to_date' : currentDateString
+            },
+            //data: $('#FrmChartContactReport').serialize(),
+            success: function (response) {
+                if (response.success == true) {
+                    var data = response.data
+                    // console.log('Data'+data);
+                    // if(data.length < 1) {
+                    //   $('#ContactChart').empty()
+                    //     $('#ContactChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                    //     return
+                    // }
+                    google.charts.load('current', {
+                        packages: ['corechart']
+                    }).then(CrmContactDrawChart(data));
+                    google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
 
-                function CrmLeadDrawChart(data) {
-                    var result = [
-                        ["Contact", "", {
-                            role: 'style'
-                        }]
-                    ]
-                    var colors = [{
-                            id: 0,
-                            name_en: 'none',
-                            code: 'color:#1dd1a1'
-                        }
-                    ]
-                    $.each(data, function (index, value) {
-                        result.push([value.create_date, value.total, colors[0].code])
-                    })
-                    var data = google.visualization.arrayToDataTable(result);
-                    var view = new google.visualization.DataView(data);
+                    function CrmContactDrawChart(data) {
+                        var result = [
+                            ["Contact", "", {
+                                role: 'style'
+                            }]
+                        ]
+                        var colors = [{
+                                id: 0,
+                                name_en: 'none',
+                                code: '#1fa8e0'
+                            }
+                        ]
 
-                    view.setColumns([0, 1,
-                        {
-                            calc: "stringify",
-                            sourceColumn: 1,
-                            type: "string",
-                            role: "annotation"
-                        },
-                        2
-                    ]);
-                    var options = {
-                        title: 'Contact Chart',
-                    };
+                        $.each(data, function (index, value) {
+                            result.push([value.create_date, value.total, colors[0].code])
+                        })
+                        var data = google.visualization.arrayToDataTable(result);
+                        var view = new google.visualization.DataView(data);
 
-                    var chart = new google.visualization.ColumnChart(document.getElementById('ContactChart'))
-                    chart.draw(view, options)
+                        view.setColumns([0, 1,
+                            {
+                                calc: "stringify",
+                                sourceColumn: 1,
+                                type: "string",
+                                role: "annotation"
+                            },
+                            2
+                        ]);
+
+                        var options = {
+                            title: 'Contact Performance',
+                            colors:['#ffffff'],
+                            annotations: {
+                                textStyle: {
+                                    fontName: 'Times-Roman',
+                                    fontSize: 18,
+                                    // The color of the text.
+                                    color: '#871b47',
+                                    // The transparency of the text.
+                                    opacity: 0.8
+                                }
+                            },
+                            vAxis: {
+                                minValue: 0,
+                                maxValue: 50,
+                                // format: '#\'%\'',
+                                direction: 1
+                            },
+
+                            hAxis: {
+                                textStyle: {
+                                    fontSize: 14,
+                                }
+                            },
+                        };
+
+                        var chart = new google.visualization.ColumnChart(document.getElementById('ContactChart'))
+                        chart.draw(view, options)
+                        // chart.draw(data, options)
+                    }
                 }
             }
-        }
-      });
+        });
     }
+    // Survey Chart
+    var Survey_Chart = () => {
+        var myvar= $("#getlead").val();
+        $.ajax({
+            url: '/api/countsurvey', //get link route
+            type: 'GET',
+            dataType:'json',
+            headers: {
+                    'Authorization': `Bearer ${myvar}`,
+                },
+            //data: $('#FrmChartContactReport').serialize(),
+            success: function (response) {
+                var success = response.true,
+                    unsuccess = response.false;
 
+                var data = google.visualization.arrayToDataTable([
+                    ['Task','',{role: 'style'}],
+                    ['Success',success,'color:#25CCF7'],
+                    ['Unsuccess',unsuccess,'color:#ff3d67']
+                    ]);
+
+                var view = new google.visualization.DataView(data);
+
+                view.setColumns([0, 1,
+                    {
+                        calc: "stringify",
+                        sourceColumn: 1,
+                        type: "string",
+                        role: "annotation"
+                    },
+                    2
+                ]);
+
+                var options = {
+                    title: 'Survey Performance',
+                    colors:['#ffffff','#ffffff'],
+                    annotations: {
+                        textStyle: {
+                            fontName: 'Times-Roman',
+                            fontSize: 18,
+                            color: '#871b47',
+                            opacity: 0.8
+                        }
+                    },
+                    style: {
+                        opacity: 0.5
+                    },
+                    hAxis: {
+                        maxValue: 100,
+                        value: 0
+                    }
+
+                };
+                var chart = new google.visualization.BarChart(document.getElementById('survey_chart'));
+                    chart.draw(view, options);
+            }
+        })
+    }
     // Organization Chart
     var Organization_Chart = () => {
       $.ajax({
@@ -527,47 +653,18 @@
       });
     }
 
-    // Survey Chart
-    var Survey_Chart = () => {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Success',12],
-          ['Unsuccess',6]
-        ]);
-
-        var options = {
-            title: 'Survey Performance',
-            colors:['#1fa8e0','#ff6384']
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('survey_chart'));
-
-        chart.draw(data, options);
-    }
-
-    // new Contact chart
-    var Con_Chart = () => {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Max-Contact',50],
-          ['Contact',6]
-        ]);
-
-        var options = {
-            title: 'Contact Performance',
-            colors:['#1fa8e0','#ff6384'],
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('contact_chart'));
-
-        chart.draw(data, options);
-    }
-
-    // Organization_Chart();
-    Con_Chart();
-    Survey_Chart();
-    Lead_Chart();
+    Branch_Chart();
     Quote_Chart();
-    // Contact_Chart();
-    })
-  </script>
+    Contact_Chart();
+    Survey_Chart();
+
+    // responsive chart
+    window.onresize = () => {
+        Branch_Chart();
+        Quote_Chart();
+        Contact_Chart();
+        Survey_Chart();
+    };
+    });
+
+</script>

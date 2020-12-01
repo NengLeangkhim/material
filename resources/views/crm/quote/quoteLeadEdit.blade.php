@@ -100,22 +100,19 @@
                                         <span id="due_dateError" ><strong></strong></span>
                                     </dd>
                                 <dt class="col-sm-4 dt">Comment</dt>
-                                    <dd class="col-sm-8 dd">
-                                        <?php
-                                            $num2 = count($quoteDetail->data->status_quote);
-                                        ?>
-                                        <input type="text" name="comment" id="comment" class="form-control" value="{{ $quoteDetail->data->status_quote[$num2-1]->comment }}" placeholder="comment">
-                                        <span id="commentError" ><strong></strong></span>
-
-                                    </dd>
-
+                                <dd class="col-sm-8 dd">
+                                    <?php
+                                        $num2 = count($quoteDetail->data->status_quote);
+                                    ?>
+                                    <input type="text" name="comment" id="comment" class="form-control" value="{{ $quoteDetail->data->status_quote[$num2-1]->comment }}" placeholder="comment">
+                                    <span id="commentError" ><strong></strong></span>
+                                </dd>
                                 <dt class="col-sm-12 ">
                                     <div class="text-right" >
-                                            <button type="button" class="mr-2 font-weight-bold btn btn-sm btn-primary"  id="btnUpdateQuoteLead" >Update</button>
-                                            <button type="button" class=" font-weight-bold  btn btn-sm btn-danger" onclick='cancelEditLead();' >Cancel</button>
+                                        <button type="button" class="mr-2 font-weight-bold btn btn-sm btn-primary"  id="btnUpdateQuoteLead" >Update</button>
+                                        <button type="button" class=" font-weight-bold  btn btn-sm btn-danger" onclick='cancelEditLead();' >Cancel</button>
                                     </div>
                                 </dt>
-
                             </dl>
                         </div>
                         <!-- /.card-body -->
@@ -165,46 +162,8 @@
         $(document).ready(function(){
             $('select').select2();
         });
-        $("#crm_quote_status_type_id").change(function(){
-            var id=$(this).val();
-            var lead_id=$("#crm_lead_id").val();
-            var quote_id=$("#quote_id").val();
-            var token=$("#token").val();
-
-            if(id==2){
-                // alert(id+" "+lead_id+" "+quote_id+" "+token);
-                Swal.fire({ //get from sweetalert function
-                title: 'Cancel',
-                text: "Do you wan to Convert to BSC? ",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'OK'
-            }).then((result) => {
-                if(result.value) {
-                    $.ajax({
-                        url:'api/convertqoute',
-                        type:'post',
-                        data:{lead_id:lead_id,quote_id:quote_id},
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                            },
-                        success:function(data){
-                            sweetalert('success','Convert Quote successed!');
-                        },
-                        error: function(data) {
-                            console.log(data);
-                            sweetalert('warning','Data not accessing to server!');
-                        }
-                    })
-                }
-            });
-            }
 
 
-
-        })
 
         function cancelEditLead(){
             var qId = <?php echo json_encode($quoteDetail->data->id); ?>;

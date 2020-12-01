@@ -214,7 +214,7 @@ class Crmlead extends Model
                             )
 
                         );
-// dd($result);
+                        // dd($result);
                         $lead_id=$result[0]->insert_crm_lead;
 
                         //insert Into crm_lead_address
@@ -253,8 +253,6 @@ class Crmlead extends Model
                          CrmLead::insertleaddetail($branch_id,$lead_status,$comment,$user_create);
 
                          //insert into table crm_survey
-                        // CrmLead::insertsurey($branch_id,$user_create);
-                        // dd($test);
                         if($checksurvey!=='null'){
                                 // var_dump("No");
                                 CrmLead::insertsurey($branch_id,$user_create);
@@ -601,7 +599,22 @@ class Crmlead extends Model
         LEFT JOIN crm_lead_source cls on cls.id = cl.crm_lead_source_id
         LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
         LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
-        WHERE  cl.is_deleted=FALSE and cl.status=TRUE ORDER BY cl.lead_number DESC');
+		JOIN crm_lead_branch clb on clb.crm_lead_id = cl.id
+		JOIN crm_lead_detail cld on cld.crm_lead_branch_id = clb.id
+        WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE ORDER BY cl.lead_number DESC ');
+        return $lead;
+    }
+     //get  all lead for add lead
+     public static function getAddLead(){
+        $lead= DB::select('SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
+        cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
+        cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status
+        from crm_lead cl
+        LEFT JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
+        LEFT JOIN crm_lead_source cls on cls.id = cl.crm_lead_source_id
+        LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
+        LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
+        WHERE  cl.is_deleted=FALSE and cl.status=TRUE  ORDER BY cl.lead_number DESC ');
         return $lead;
     }
      //get lead by assisgto
@@ -614,9 +627,10 @@ class Crmlead extends Model
         LEFT JOIN crm_lead_source cls on cls.id = cl.crm_lead_source_id
         LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
         LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
-		jOIN crm_lead_branch clb on clb.crm_lead_id= cl.id
-		JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
-        WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cla.ma_user_id=$userid ORDER BY cl.lead_number ASC");
+				jOIN crm_lead_branch clb on clb.crm_lead_id= cl.id
+				JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
+				JOIN crm_lead_detail cld on cld.crm_lead_branch_id = clb.id
+        WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE and cla.ma_user_id=$userid ORDER BY cl.lead_number ASC");
         return $lead;
     }
     //get   lead  by id
@@ -867,7 +881,7 @@ class Crmlead extends Model
         JOIN ma_user u on la.ma_user_id=u.id
         JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lbc.crm_lead_branch_id
         JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
-        JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
+        left JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
         join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
         join crm_lead on crm_lead.id= lb.crm_lead_id
         left join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
@@ -1159,30 +1173,38 @@ class Crmlead extends Model
     // Model convert branch
     public static function convertbranch($id,$userid,$detail_id,$comment){
         // var_dump($id,$userid,$detail_id);
-        if(isset($detail_id)){
-            try{
-                // $priority='urgent';
-                $result=DB::select('SELECT update_crm_lead_detail(?,?,?,?,?,?)',
-                array(
-                    $detail_id,
-                    $userid,
-                    $id,
-                    2,
-                    $comment,
-                    'f',
-                )
-            );
-                return  $result;
-                // var_dump($result);
-            }catch(Exception $e){
-                return json_encode(["update"=>"fail update_crm_lead_detail","result"=> $e->getMessage()]);
+        $survey =DB::select("SELECT * from crm_survey where crm_lead_branch_id=$id and status=TRUE and is_deleted=FALSE");       
+            if($survey==[]){
+                if(isset($detail_id)){
+                    try{
+                        // $priority='urgent';
+                        $result=DB::select('SELECT update_crm_lead_detail(?,?,?,?,?,?)',
+                        array(
+                            $detail_id,
+                            $userid,
+                            $id,
+                            2,
+                            $comment,
+                            'f',
+                        )
+                    );
+                        return  $result;
+                        // var_dump($result);
+                    }catch(Exception $e){
+                        return json_encode(["update"=>"fail update_crm_lead_detail","result"=> $e->getMessage()]);
+                    }
+                }
+                else
+                {
+                    return json_encode(['update'=>'not found data']);
+        
+                }
             }
-        }
-        else
-        {
-            return json_encode(['update'=>'not found data']);
-
-        }
+            else
+            {
+                return  "error";
+            }
+        
 
     }
     //Model get survey
@@ -1320,14 +1342,14 @@ class Crmlead extends Model
     //        where cls.is_deleted=FALSE and cls.status=TRUE and  cla.ma_user_id=$id");
     // }
     //Model insert​ schdule type
-    public static function insertscheduletype($userid,$name_en,$name_kh){
+    public static function insertscheduletype($userid,$name_en,$name_kh,$result_type){
         if(isset($userid)){
             try{
                 $result=DB::select('SELECT insert_crm_lead_schedule_type(?,?,?,?)',
                 array(
                     $name_en,
                     $name_kh,
-                    't',
+                    $result_type,
                     $userid,
                 )
             );
@@ -1343,7 +1365,7 @@ class Crmlead extends Model
         }
     }
     //update schedule type
-    public static function updatescheduletype($schedule_id,$userid,$name_en,$name_kh,$status){
+    public static function updatescheduletype($schedule_id,$userid,$name_en,$name_kh,$status,$result_type){
         if(isset($schedule_id)){
             try{
                 $result=DB::select('SELECT update_crm_lead_schedule_type(?,?,?,?,?,?)',
@@ -1352,7 +1374,7 @@ class Crmlead extends Model
                     $userid,
                     $name_en,
                     $name_kh,
-                    't',
+                    $result_type,
                     $status
 
                 )
@@ -1545,5 +1567,19 @@ class Crmlead extends Model
         //          JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= clb.id
         //          JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
         //   WHERE  cl.is_deleted=FALSE and cl.status=TRUE  and clb.is_deleted=FALSE and  ls.sequence=1   and clb.status=TRUE  GROUP BY cl.id
+    }
+    // get count survey
+    public static function getcountsurveyresult(){
+
+         $date= date('Y-m-d');
+        $count_t=DB::select("SELECT count(possible) as true from crm_survey_result  where possible=TRUE and is_deleted=False AND status=TRUE and create_date::date='".$date."'::date");
+        $count_t=$count_t[0]->true;
+        $count_f=DB::select("SELECT count(possible) as false from crm_survey_result  where possible=FALSE and is_deleted=False AND status=TRUE and create_date::date='".$date."'::date");
+        $count_f=$count_f[0]->false;
+        $array=[
+            'true'=>$count_t,
+            'false'=>$count_f
+        ];
+        return $array;
     }
 }

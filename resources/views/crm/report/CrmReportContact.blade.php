@@ -27,13 +27,13 @@
                                 <div class="col-3">
                                     <div class="row">
                                         <div class="col-6">
-                                                <button class="btn btn-success form-control"><span><i class="far fa-file-excel"></i></span> Excel</button>
+                                                <button class="btn btn-success form-control" id="btnExportExcelContactReport"><span><i class="far fa-file-excel"></i></span> Excel</button>
                                         </div>
                                         <div class="col-6">
-                                                <button class="btn btn-danger form-control"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
+                                                <button class="btn btn-danger form-control" id="btnExportPDFContactReport"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                       </div>
                   </div>
@@ -69,15 +69,18 @@
                             </div>
                         </div><!--End Form Group-->
                         <div class="table-responsive" style="padding-top: 10px;">
-                            <table id="OrganizationTbl" class="table table-bordered table-striped">
+                            <table id="OrganizationTbl2" class="table table-bordered table-striped" style="white-space: nowrap;">
                                 <thead>
                                     <tr>
+                                        <th style="display:none;"></th>
+                                        <th>No</th>
                                         <th>National ID</th>
                                         <th>Name In English</th>
                                         <th>Name In Khmer</th>
                                         <th>Position</th>
                                         <th>Email</th>
                                         <th>Facebook</th>
+                                        <th>Date Create</th>
                                         <th>Phone</th>
                                     </tr>
                                 </thead>
@@ -108,9 +111,9 @@
             var from = $('#DetailContactFrom').val() == '' ? '' : (new Date($('#DetailContactFrom').val())).toISOString().substring(0, 10)
             var to = new Date($('#DetailContactTo').val());
             to = $('#DetailContactTo').val() == '' ? '' : (new Date(to.getUTCFullYear(), to.getMonth() + 1, 1)).toISOString().substring(0,10)
-            $('#OrganizationTbl').dataTable().fnClearTable();
-            $('#OrganizationTbl').dataTable().fnDraw();
-            $('#OrganizationTbl').dataTable().fnDestroy();
+            $('#OrganizationTbl2').dataTable().fnClearTable();
+            $('#OrganizationTbl2').dataTable().fnDraw();
+            $('#OrganizationTbl2').dataTable().fnDestroy();
             $.ajax({
                 url : url,
                 type : 'GET',
@@ -121,19 +124,26 @@
                 success : function(response){
                     if(response.success) {
                         $.each(response.data, function(index, data){
+                            var date= data.create_date;
+                            date=date.split(' ')[0];
                             $('#lead-detail-body').append(`
                             <tr>
+                                <td style="display:none;"></td>
+                                <td>${index+1}</td>
                                 <td>${data.national_id}</td>
                                 <td>${data.name_en}</td>
                                 <td>${data.name_kh}</td>
                                 <td>${data.position}</td>
                                 <td>${data.email}</td>
                                 <td>${data.facebook}</td>
+                                <td>${date}</td>
                                 <td>${data.phone}</td>
                             </tr>
                             `)
                         })
-                        $('#OrganizationTbl').DataTable();
+                        $('#OrganizationTbl2').DataTable({
+                            'ordering': false,
+                        });
                     }
                 },
                 fail : function(){

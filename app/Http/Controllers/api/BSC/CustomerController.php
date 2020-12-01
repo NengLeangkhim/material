@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\api\BSC;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CustomerController extends Controller
 {
@@ -16,6 +18,16 @@ class CustomerController extends Controller
      */
     public function index()
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030201', $userid)) {
+            return $this->sendError("No Permission");
+        }
+
         $customers=DB::table('ma_customer')
                     ->select('ma_customer.*','crm_lead.lead_number as lead_number','crm_lead.customer_name_en as customer_name','crm_lead.email as lead_email')
                     ->leftJoin('crm_lead','ma_customer.crm_lead_id','=','crm_lead.id')
@@ -44,6 +56,16 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030201', $userid)) {
+            return $this->sendError("No Permission");
+        }
+
         DB::beginTransaction();
         try {
             $input = $request->all();
@@ -126,6 +148,16 @@ class CustomerController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+
+        if (!perms::check_perm_module_api('BSC_030201', $userid)) {
+            return $this->sendError("No Permission");
+        }
+
         DB::beginTransaction();
         try {
             $sql="delete_ma_customer($id, $request->update_by)";

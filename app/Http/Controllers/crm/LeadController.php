@@ -582,6 +582,10 @@ class LeadController extends Controller
                 if($response->update=='success'){
                     return response()->json(['success'=>'Record is successfully added']);
                 }
+                else
+                {
+                    return view('no_perms');
+                }
             }else{
                 return view('no_perms');
             }

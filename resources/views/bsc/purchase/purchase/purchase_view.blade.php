@@ -52,7 +52,7 @@
                                     <th>Description</th>
                                     <th>Quantity</th>
                                     <th>Account</th>
-                                    <th>Tax Rate</th>
+                                    <th hidden>Tax Rate</th>
                                     <th>Amount</th>
                                 </tr>
                             </thead>
@@ -64,7 +64,7 @@
                                             <td>{{$item->description}}</td>
                                             <td>{{$item->qty}}</td>
                                             <td>{{$item->chart_account_name}}</td>
-                                            <td>{{$item->tax}}</td>
+                                            <td hidden>{{$item->tax}}</td>
                                             <td id="txtAmount" class="txtAmount">{{$item->amount}}</td>
                                         </tr>
                                     @endforeach                                   
@@ -86,7 +86,7 @@
                                             <label for="" id="txtTotal" value="">{{$purchase->total}}</label>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row" hidden>
                                         <div class="col-sm-6 text_right">
                                             <label for="">VAT Total :</label>
                                         </div>
@@ -180,7 +180,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                         </div>
-                                        <input type="number" class="form-control input_required" name="amount_paid" id="amount_paid" value="{{$due_amount == null ? $purchase->grand_total : $due_amount}}" autofocus placeholder="Amount Paid" >
+                                        <input oninput="limitDecimalPlaces(event, 4)" type="number" class="form-control input_required" name="amount_paid" id="amount_paid" value="{{$due_amount == null ? number_format($purchase->grand_total, 4, '.', '') : number_format($due_amount, 4, '.', '')}}" autofocus placeholder="Amount Paid" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -232,7 +232,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="row">
+                            <div class="row" style="margin-top: 30px;">
                                 <a href="#" onclick="makePayment()" class="btn btn-success purchase_form"  value="bsc_purchase_purchase_form" id="purchase_form"><i class="fas fa-plus"></i> Add Payment</a>&nbsp;
                                 <button type="button" class="btn btn-danger" onclick="go_to('bsc_purchase_purchase_list')">Cencel</button>
                                 <input type="hidden" name="" id="show_hidden_grand_total" value="{{$purchase->grand_total}}">
@@ -276,7 +276,7 @@
             sweetalert('error', 'Paid Amount can not input Zero');
             return false;
         }else if(amount_paid < 0){
-            sweetalert('error','Amount Paid can not smaller than Zero');
+            sweetalert('error','Amount Paid must bigger than Zero');
             return false;
         }else{
             let num_miss = 0;
@@ -318,11 +318,18 @@
                             if(data.payment == "amount_paid_bigger_then_due"){
                                 sweetalert('error','Amount Paid input is bigger than Due Amount or Grand Total');
                             }
-                            sweetalert('error','Purchase Insert is fail!!');
+                            sweetalert('error','Purchase Insert is fail!!');                            
                         }
                     }
                 });
             }
+        }
+    }
+    // max length input after dote
+    function limitDecimalPlaces(e, count) {
+        if (e.target.value.indexOf('.') == -1) { return; }
+        if ((e.target.value.length - e.target.value.indexOf('.')) > count) {
+            e.target.value = parseFloat(e.target.value).toFixed(count);
         }
     }
 </script>

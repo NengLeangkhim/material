@@ -15,7 +15,33 @@
     </div><!-- /.container-fluid -->
 </section>
 <!-- section Main content -->
+
 <section class="content">
+
+    <style type="text/css">
+        /* body
+        {
+            font-family: Arial;
+            font-size: 10pt;
+        } */
+        table
+        {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+        }
+        table th
+        {
+            background-color: #F7F7F7;
+            color: #333;
+            font-weight: bold;
+        }
+        table th, table td
+        {
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+
     <div class="container-fluid">
       <div class="row">
           <div class="col-12">
@@ -27,10 +53,10 @@
                             <div class="col-3">
                                 <div class="row">
                                     <div class="col-6">
-                                            <button class="btn btn-success form-control"><span><i class="far fa-file-excel"></i></span> Excel</button>
+                                            <button type="button" class="btn btn-success form-control" id="btnReportQuoteExcel" ><span><i class="far fa-file-excel"></i></span> Excel</button>
                                     </div>
                                     <div class="col-6">
-                                            <button class="btn btn-danger form-control"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
+                                            <button class="btn btn-danger form-control" id="btnReportQuotePDF" ><span><i class="far fa-file-pdf"></i></span> Pdf</button>
                                     </div>
                                 </div>
                             </div>
@@ -91,15 +117,17 @@
                             <button class="btn btn-primary" id="btn-generate-report">Generate Report</button>
                         </div>
                         <div class="table-responsive" style="padding-top: 10px;">
-                            <table id="QuoteDetailTbl" class="table table-bordered table-striped">
+                            <table id="QuoteDetailTbl" class="table table-bordered table-striped" style="border-collapse:collapse; white-space: nowrap; " cellspacing="0" cellpadding="0">
                                 <thead>
                                     <tr>
+                                        <th style="display:none;"></th>
+                                        <th>No</th>
                                         <th>Quote Number</th>
                                         <th>Lead Number</th>
                                         <th>Customer Name</th>
                                         <th>Create Date</th>
                                         <th>Due Date</th>
-                                        <th>email</th>
+                                        <th>Email</th>
                                         <th>Website</th>
                                         <th>Status</th>
                                     </tr>
@@ -114,7 +142,12 @@
       </div><!--End Row-->
     </div><!--End Container-Fluid-->
 </section><!-- end section Main content -->
+
+<script src="../assets/plugins/jquery/jquery.min.js"></script>
 <script>
+
+
+
     $('#DetailQuoteFrom').datetimepicker({
         format: 'YYYY-MM',
         sideBySide: true,
@@ -167,24 +200,31 @@
                     'status_id' : status == 0 ? null : status
                 },
                 success : function(response){
-                    $('#quote-detail-body').empty()
+                    $('#quote-detail-body').empty();
                     if(response.success) {
                         $.each(response.data, function(index, data){
+                            var getDate = moment(data.crm_quote_status_create_date);
+                            var create_date = getDate.format("YYYY-MM-DD HH:m:s a");
                             $('#quote-detail-body').append(`
-                            <tr>
-                                <td>${data.quote_number}</td>
-                                <td>${data.lead_number}</td>
-                                <td>${data.customer_name_en}</td>
-                                <td>${data.crm_quote_status_create_date}</td>
-                                <td>${data.due_date}</td>
-                                <td>${data.email}</td>
-                                <td>${data.website}</td>
-                                <td>${data.quote_status_name_en}</td>
-                            </tr>
+                                <tr>
+                                    <td style="display:none;"></td>
+                                    <td>${index+1}</td>
+                                    <td>${data.quote_number}</td>
+                                    <td>${data.lead_number}</td>
+                                    <td>${data.customer_name_en}</td>
+                                    <td>${create_date}</td>
+                                    <td>${data.due_date}</td>
+                                    <td>${data.email}</td>
+                                    <td>${data.website}</td>
+                                    <td>${data.quote_status_name_en}</td>
+                                </tr>
                             `)
+
                         })
                     }
-                    $('#QuoteDetailTbl').DataTable();
+                    $('#QuoteDetailTbl').DataTable({
+                        'ordering': false,
+                    });
 
                 },
                 fail : function(){
@@ -197,3 +237,17 @@
 
     })
 </script>
+
+{{-- <script type="text/javascript">
+
+    function exportReportToExcel(){
+        console.log('in func export excel');
+        let table = document.getElementsByTagName("table"); // you can use document.getElementById('tableId') as well by providing id to the table tag
+        TableToExcel.convert(table[0], { // html code may contain multiple tables so here we are refering to 1st table tag
+            name: `export.xlsx`, // fileName you could use any name
+            sheet: {
+                name: 'Sheet 1' // sheetName
+            }
+        });
+    }
+</script> --}}

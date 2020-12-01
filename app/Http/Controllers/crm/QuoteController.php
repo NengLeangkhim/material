@@ -58,11 +58,13 @@ class QuoteController extends Controller
             $request2->headers->set('Authorization', 'Bearer '.$token);
             $res2 = app()->handle($request2);
             $quoteBranch = json_decode($res2->getContent());
-            // dump($quoteBranch);
+      
 
             // api get quote branch detail by branch id
             $getQuoteBranch = [];
+            
             foreach($quoteBranch->data as $k=>$val){
+               
                 $data['branch_id'] = $val->id;
                 $data['branch_info'] = $val->crm_lead_branch;
                 $request3 = Request::create('api/quotebranch/detail/'.$val->id.'', 'GET');
@@ -77,6 +79,7 @@ class QuoteController extends Controller
                     $data = [];
                 }
             }
+            // dd($listQuoteDetail);
             return view('crm/quote/qouteShowDetail', compact('listQuoteDetail','getQuoteBranch'));
         }
     }
