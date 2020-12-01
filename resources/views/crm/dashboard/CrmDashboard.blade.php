@@ -268,7 +268,7 @@
                 ]
                 $.each(data, function (index, value) {
                     if(value.crm_lead_status_id != null){
-                        result.push([value.status_en, value.total_lead, colors[value.crm_lead_status_id].code])
+                        result.push([value.status_en, value.total_lead, colors[index].code])
                     }
                 })
                 var data_chart = google.visualization.arrayToDataTable(result);

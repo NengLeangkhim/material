@@ -59,7 +59,7 @@ class ModelCrmOrganize extends Model
         left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         left join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         left join stock_product sp on sp.id= clitem.stock_product_id
-        where crm_lead.status=true and ld.status=false and ld.is_deleted=false and ls.sequence=1");
+        where crm_lead.status=true and ld.status=false and ld.is_deleted=false and ls.id=2");
     }
     //get all organize
     // public static function getOrganize(){
@@ -125,7 +125,7 @@ class ModelCrmOrganize extends Model
         join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         join stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=false and ld.is_deleted=false and ls.sequence=1 and la.ma_user_id=$id");
+        where ld.status=false and ld.is_deleted=false and ls.id=2 and la.ma_user_id=$id");
     }
     //get organize by id
     public static function getOrganizeById($id){
@@ -184,6 +184,6 @@ class ModelCrmOrganize extends Model
         left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         left join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         left join stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=false and ld.is_deleted=false and lb.id=$id and ls.sequence=1");
+        where ld.status=false and ld.is_deleted=false and ls.id=2 and ls.sequence=1");
     }
 }
