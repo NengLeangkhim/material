@@ -61,6 +61,7 @@ class ModelHrmPermission extends Model
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        $id=$_SESSION['userid'];
         return DB::table('ma_company_dept')
                    ->select("id","name","is_deleted")
                    ->where([

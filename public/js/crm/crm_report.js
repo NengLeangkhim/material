@@ -194,7 +194,7 @@ var reportContact = () => {
                         bar: {groupWidth: "70%"},
                         legend: { position: "none" },
                     };
-                    var chart = new google.visualization.ColumnChart(document.getElementById("Contact_Chart"));
+                    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
                     chart.draw(view, options);
                 }
 
@@ -305,7 +305,7 @@ var reportOrganization = () => {
                         bar: {groupWidth: "70%"},
                         legend: { position: "none" },
                     };
-                    var chart = new google.visualization.ColumnChart(document.getElementById("organization"));
+                    var chart = new google.visualization.ColumnChart(document.getElementById("OrganizationChart"));
                     chart.draw(view, options);
                 }
             } else {
@@ -375,7 +375,7 @@ var reportQuoteByStatus = () => {
                         bar: {groupWidth: "70%"},
                         legend: { position: "none" },
                         };
-                        var chart = new google.visualization.BarChart(document.getElementById("QuoteChart"));
+                        var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
                         chart.draw(view, options);
                     }
 

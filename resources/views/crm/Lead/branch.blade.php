@@ -59,7 +59,7 @@
                                                             {{-- <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["primary_email"]}}</td>
                                                             <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["primary_website"]}}</td> --}}
                                                             {{-- <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["facebook"]}}</td> --}}
-                                                            <td style="color: #d42931 ; font-weight:bold,text-align: center">
+                                                            <td style="color: #d42931 ; font-weight:bold;text-align: center">
                                                                 <?php
                                                                 if($branch[$i]["schedule_id"]!=null){
                                                                     ?>

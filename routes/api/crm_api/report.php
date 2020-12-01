@@ -24,3 +24,16 @@ use Illuminate\Support\Facades\Route;
     Route::get('/crm/report/getOrganizationChartReport', 'api\crm\CrmReportApiController@getOrganizationChartReport');
     Route::get('/crm/report/getSurvey','api\crm\CrmReportApiController@getSurvey');
 // });
+
+// MARK: - Need Token to access
+// MARK: - from_date : null, : null is refer to from_date can be null.
+Route::group(['middleware' => 'jwt.verify'], function () {
+    //from_date : null, to_date : null
+    Route::get('/crm/report/getTotalLeadLeadBranch','api\crm\CrmReportApiController@getTotalLeadLeadBranch');
+    //from_date : null, to_date : null
+    Route::get('/crm/report/getTotalServicesInEachLeads','api\crm\CrmReportApiController@getTotalServicesInEachLeads');
+    //from_date : null, to_date : null
+    Route::get('/crm/report/getQuoteApprovedOrNot','api\crm\CrmReportApiController@getQuoteApprovedOrNot');
+    //from_date : null, to_date : null
+    Route::get('/crm/report/getSurveyedResult','api\crm\CrmReportApiController@getSurveyedResult');
+});

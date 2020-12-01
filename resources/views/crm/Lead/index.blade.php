@@ -39,7 +39,7 @@
                                                 <th style="color: #FFFFFF">Lead Number</th>
                                                 <th style="color: #FFFFFF">Customer Name</th>
                                                 <th style="color: #FFFFFF">Email</th>
-                                                <th style="color: #FFFFFF">Website </th>
+                                                <th style="color: #FFFFFF">Phone </th>
                                                 {{-- <th style="color: #FFFFFF">Facebook </th> --}}
                                                 <th style="color: #FFFFFF">Action</th>
                                                 {{-- <th>Detail</th> --}}
@@ -55,7 +55,7 @@
                                                         <td>{{$lead[$i]["lead_number"]}}</td>
                                                         <td>{{$lead[$i]["customer_name_en"]}}</td>
                                                         <td>{{$lead[$i]["email"]}}</td>
-                                                        <td>{{$lead[$i]["website"]}}</td>
+                                                        <td>{{$lead[$i]["phone"]}}</td>
                                                         {{-- <td>{{$lead[$i]["create_by"]['last_name_en']." ".$lead[$i]["create_by"]['first_name_en']}}</td>                                                 --}}
                                                         {{-- <td>{{$lead[$i]["facebook"]}}</td>                                                 --}}
                                                         <td>

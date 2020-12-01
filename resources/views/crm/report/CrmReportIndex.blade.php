@@ -1,14 +1,14 @@
  <!-- Content Header (Page header) -->
  <section class="content-header">
   <div class="container-fluid">
-      <div class="row mb-2">
+      <div class="row mb-2 mt-4">
           <div class="col-sm-6">
-              <h1><span><i class="fas fa-chart-pie"></i></span> Report</h1>
+              <h1><span><i class="fas fa-chart-pie"></i></span>Report</h1>
           </div>
           <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('/welcome')">Home</a></li>
-              <li class="breadcrumb-item active">View Report</li>
+                  <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('/welcome')">Home</a></li>
+                  <li class="breadcrumb-item active">View Report</li>
               </ol>
           </div>
       </div>
@@ -64,7 +64,7 @@
                         </div>
                       </div>
                       <div class="col-md-12 text-right">
-                        <button class="btn btn-info" onclick="go_to('/crmreport/detaillead')"><span><i class="fas fa-info"></i></span> Detail</button>
+                          <button class="btn btn-info" onclick="go_to('/crmreport/detaillead')"><span><i class="fas fa-info"></i></span> Detail</button>
                       </div>
                   </div><!-- /.card-body -->
               </div><!-- /.card -->
@@ -110,7 +110,9 @@
                       </form>
                     </div>
                     <div class="chart">
-                      <div id="Contact_Chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                      <div style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">
+                        <div id="columnchart_values" style="width:auto;height:auto;"></div>
+                      </div>
                     </div>
 
                     {{-- <div class="chart">
@@ -123,6 +125,7 @@
               </div> <!-- /.card -->
           </div><!-- End Col -->
       </div><!-- /.row -->
+
       <div class="row">
           <div class="col-md-6">
               <!-- LINE CHART -->
@@ -164,9 +167,8 @@
                         </div>
                       </form>
                     </div>
-                    <div class="chart ">
-                        <div id="organization" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">
-                        </div>
+                    <div class="chart">
+                      <div id="OrganizationChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
                     </div>
                     <div class="col-md-12 text-right">
                       <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
@@ -174,11 +176,12 @@
                   </div><!-- /.card-body -->
               </div><!-- /.card -->
           </div><!-- End Col -->
+
           <div class="col-md-6">
               <!-- BAR CHART -->
               <div class="card card-success">
                   <div class="card-header" style="background: #ffffff;border:none;">
-                    <h3 class="card-title" style="color: #000000;font-weight: bold;  ">Quote Chart</h3>
+                      <h3 class="card-title" style="color: #000000;font-weight: bold;  ">Quote Chart</h3>
                   </div>
                   <div class="card-body">
                       <div class="form-group">
@@ -186,41 +189,92 @@
                               @csrf
                               <div class="row" hidden>
                                   <div class="col-md-6">
-                                  <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                      </div>
-                                      <input type="hidden" name="fromDate">
-                                      <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="ReportQuoteFrom" name='ReportQuoteFrom'  required>
-                                      <span class="invalid-feedback" role="alert" id="ReportQuoteFromError"> {{--span for alert--}}
-                                          <strong></strong>
-                                      </span>
+                                      <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
+                                      <div class="input-group">
+                                          <div class="input-group-prepend">
+                                              <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                          </div>
+                                          <input type="hidden" name="fromDate">
+                                          <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="ReportQuoteFrom" name='ReportQuoteFrom'  required>
+                                          <span class="invalid-feedback" role="alert" id="ReportQuoteFromError"> {{--span for alert--}}
+                                              <strong></strong>
+                                          </span>
                                       </div>
                                   </div>
                                   <div class="col-md-6">
-                                  <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                      <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
+                                      <div class="input-group">
+                                          <div class="input-group-prepend">
+                                              <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                          </div>
+                                          <input type="hidden" name="toDate">
+                                          <input type="text" class="form-control" placeholder="Select Date" id="ReportQuoteTo" value="<?php echo date('Y-m')?>" name='ReportQuoteTo'  required>
+                                          <span class="invalid-feedback" role="alert" id="ReportQuoteToError"> {{--span for alert--}}
+                                              <strong></strong>
+                                          </span>
                                       </div>
-                                      <input type="hidden" name="toDate">
-                                      <input type="text" class="form-control" placeholder="Select Date" id="ReportQuoteTo" value="<?php echo date('Y-m')?>" name='ReportQuoteTo'  required>
-                                      <span class="invalid-feedback" role="alert" id="ReportQuoteToError"> {{--span for alert--}}
-                                          <strong></strong>
-                                      </span>
-                                  </div>
                                   </div>
                               </div>
                           </form>
-                        </div>
-                        <div class="chart">
-                            <div class="col-md-12" id="QuoteChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:10px;"></div>
-                        </div>
-                        <div class="col-md-12 text-right">
+                      </div>
+                      <div class="chart">
+                          <div id="barchart_values" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:10px;"></div>
+                      </div>
+                      <div class="col-md-12 text-right">
                           <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
-                        </div>
+                      </div>
+                  </div><!-- /.card-body -->
+              </div><!-- /.card -->
+          </div><!-- End Col -->
+      </div>
+
+      <div class="row">
+          <div class="col-md-6">
+              <!-- BAR CHART -->
+              <div class="card card-success">
+                  <div class="card-header" style="background: #ffffff;border:none;">
+                      <h3 class="card-title" style="color: #000000;font-weight: bold;  ">Survey Chart</h3>
                   </div>
+                  <div class="card-body">
+                      <div class="form-group">
+                          <form id="FrmChartQuoteReport">
+                              @csrf
+                              <div class="row" hidden>
+                                  <div class="col-md-6">
+                                      <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
+                                      <div class="input-group">
+                                          <div class="input-group-prepend">
+                                              <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                          </div>
+                                          <input type="hidden" name="fromDate">
+                                          <input type="text" class="form-control" placeholder="Select Date" value="<?php echo date('Y-m')?>" id="ReportQuoteFrom" name='ReportQuoteFrom'  required>
+                                          <span class="invalid-feedback" role="alert" id="ReportQuoteFromError"> {{--span for alert--}}
+                                              <strong></strong>
+                                          </span>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <label for="exampleInputEmail1">Date to <b style="color:red">*</b></label>
+                                      <div class="input-group">
+                                          <div class="input-group-prepend">
+                                              <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                          </div>
+                                          <input type="hidden" name="toDate">
+                                          <input type="text" class="form-control" placeholder="Select Date" id="ReportQuoteTo" value="<?php echo date('Y-m')?>" name='ReportQuoteTo'  required>
+                                          <span class="invalid-feedback" role="alert" id="ReportQuoteToError"> {{--span for alert--}}
+                                              <strong></strong>
+                                          </span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
+                      <div class="chart">
+                          <div id="survey_chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                      </div>
+                      <div class="col-md-12 text-right">
+                          <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
+                      </div>
                   </div><!-- /.card-body -->
               </div><!-- /.card -->
           </div><!-- End Col -->
@@ -254,18 +308,17 @@
     }
 </script> --}}
 
-
 <script>
   reportQuoteByStatus();
   reportContact();
   reportOrganization();
   reportLeadByStatus();
-$(window).resize(function () {
-    reportQuoteByStatus();
-    reportContact();
-    reportOrganization();
-    reportLeadByStatus();
-});
+  $(window).resize(function () {
+      reportQuoteByStatus();
+      reportContact();
+      reportOrganization();
+      reportLeadByStatus();
+  });
 
   // Quote Chart
 //   var Quote_Chart = () =>{
