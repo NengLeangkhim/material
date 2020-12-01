@@ -512,8 +512,8 @@ class CrmReport extends Model
     public function getTotalLeadLeadBranch($fromDate = null, $toDate = null, $userId = null){
         try {
             $userConditon = ($userId == null ? ' ' : ' AND cla.ma_user_id = '.$userId.' ');
-            $leadConditon = (($fromDate == null || $toDate == null) ? ' ' : ' AND cl.create_date::DATE BETWEEN \'2020-11-01\'::DATE AND \'2020-11-30\'::DATE ');
-            $branchCondition = (($fromDate == null || $toDate == null) ? ' ' : ' AND clb.create_date::DATE BETWEEN \'2020-11-01\'::DATE AND \'2020-11-30\'::DATE ');
+            $leadConditon = (($fromDate == null || $toDate == null) ? ' ' : ' AND cl.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ');
+            $branchCondition = (($fromDate == null || $toDate == null) ? ' ' : ' AND clb.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ');
             $sql = '
             WITH leads AS (
                 SELECT COUNT(count)
