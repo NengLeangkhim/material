@@ -22,51 +22,23 @@ class CrmReportController extends Controller
     public function GetLeadChart(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
+        }
+
+        if(perms::check_perm_module('CRM_020101')){//module code list
+            $token = $_SESSION['token'];
+            $firstdayMonth = date('Y-m-01');
+            $lastdayMonth = date('Y-m-t');
+            $lead_chart = Request::create('/api/crm/report/leadByStatus?from_date='.$firstdayMonth.'&to_date='.$lastdayMonth,'GET');
+            $lead_chart->headers->set('Accept', 'application/json');
+            $lead_chart->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($lead_chart);
+            $response = json_decode($res->getContent());
+            // dump($response);
+            if(isset($response->success) && $response->success == true){
+                return $response->success ? $this->sendResponse($response->data, $response->message) : $this->sendError($response->message, [], 200);
             }
-            $validator = \Validator::make($request->all(),
-                [
-                    'LeadChartFrom' => [ 'required',
-                                    'date_format:"Y"'
-                                            ],
-                    'LeadChartTo' => [ 'required',
-                                    'date_format:"Y"',
-                                    'after_or_equal:LeadChartFrom',
-                                        ],
-                ],
-                [
-                    'LeadChartFrom.required' => 'Please Select Date !!',   //massage validator
-                    'LeadChartTo.required' => 'Please Select Date !!',   //massage validator
-                    'LeadChartTo.after_or_equal' => 'Please Select Date Equal or Greater than From Date !!',   //massage validator
-                ]
-            );
-        if ($validator->fails()) //check validator for fail
-        {
-            return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray()
-            ));
         }else{
-            if(perms::check_perm_module('CRM_020101')){//module code list
-                $token = $_SESSION['token'];
-                // $request->fromDate = $request->LeadChartFrom.'-01-01';
-                // $request->toDate = $request->LeadChartTo.'-12-31';;
-                // $lead_chart = Request::create('/api/crm/report/leadByStatus','GET');
-                // $lead_chart->headers->set('Accept', 'application/json');
-                // $lead_chart->headers->set('Authorization', 'Bearer '.$token);
-                // $res = app()->handle($lead_chart);
-                // $response = json_decode($res->getContent());
-                // return response()->json(['success'=>$response]);
-                $request->from_date = $request->LeadChartFrom.'-01-01';
-                $request->to_date = $request->LeadChartTo.'-12-31';
-                $lead_chart = Request::create('/api/crm/report/leadByStatus','GET');
-                $response = json_decode(Route::dispatch($lead_chart)->getContent());
-                // dd($response);
-                // if($response->insert=='success'){
-                    // dd($response);
-                    return $response->success ? $this->sendResponse($response->data, $response->message) : $this->sendError($response->message, [], 200);
-                // }
-            }else{
-                 return view('no_perms');
-            }
+                return view('no_perms');
         }
     }
     // Detail Lead Report
@@ -75,44 +47,52 @@ class CrmReportController extends Controller
     }
     // Get data Contact Chart Report
     public function GetContactChart(Request $request){
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
+            if(session_status() == PHP_SESSION_NONE){
+                session_start();
             }
-            $validator = \Validator::make($request->all(),
-                [
-                    'ReportContactFrom' => [ 'required',
-                                    'date_format:"Y-m"'
-                                            ],
-                    'ReportContactTo' => [ 'required',
-                                    'date_format:"Y-m"',
-                                    'after_or_equal:ReportContactFrom',
-                                        ],
-                ],
-                [
-                    'ReportContactFrom.required' => 'Please Select Date !!',   //massage validator
-                    'ReportContactTo.required' => 'Please Select Date !!',   //massage validator
-                    'ReportContactTo.after_or_equal' => 'Please Select Date Equal or Greater than From Date !!',   //massage validator
-                ]
-            );
-        if ($validator->fails()) //check validator for fail
-        {
-            return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray()
-            ));
-        }else{
-            if(perms::check_perm_module('CRM_020101')){//module code list
-                $request->fromDate = $request->ReportContactFrom.'-01';
-                $request->toDate = $request->ReportContactTo.'-30';;
-                $lead_chart = Request::create('/api/crm/report/getContactChartReport','GET');
-                $response = json_decode(Route::dispatch($lead_chart)->getContent());
-                //dd($response);
-                // if($response->insert=='success'){
-                    return $response->success ? $this->sendResponse($response->data, $response->message) : $this->sendError($response->message, [], 200);
-                // }
-            }else{
-                 return view('no_perms');
-            }
-        }
+            $token = $_SESSION['token'];
+            // $validator = \Validator::make($request->all(),
+            //     [
+            //         'ReportContactFrom' => [ 'required',
+            //                         'date_format:"Y-m"'
+            //                                 ],
+            //         'ReportContactTo' => [ 'required',
+            //                         'date_format:"Y-m"',
+            //                         'after_or_equal:ReportContactFrom',
+            //                             ],
+            //     ],
+            //     [
+            //         'ReportContactFrom.required' => 'Please Select Date !!',   //massage validator
+            //         'ReportContactTo.required' => 'Please Select Date !!',   //massage validator
+            //         'ReportContactTo.after_or_equal' => 'Please Select Date Equal or Greater than From Date !!',   //massage validator
+            //     ]
+            // );
+            // if ($validator->fails()) //check validator for fail
+            // {
+            //     return response()->json(array(
+            //         'errors' => $validator->getMessageBag()->toArray()
+            //     ));
+            // }else{
+                if(perms::check_perm_module('CRM_020101')){//module code list
+                    // $request->fromDate = $request->ReportContactFrom.'-01';
+                    // $request->toDate = $request->ReportContactTo.'-30';
+                    $firstdayMonth = date('Y-m-01');
+                    $lastdayMonth = date('Y-m-t');
+
+                    $contact_chart = Request::create('/api/crm/report/getContactChartReport?from_date='.$firstdayMonth.'&to_date='.$lastdayMonth.'','GET');
+                    $contact_chart->headers->set('Accept', 'application/json');
+                    $contact_chart->headers->set('Authorization', 'Bearer '.$token);
+                    $res = app()->handle($contact_chart);
+                    $response = json_decode($res->getContent());
+                    if($response->success == true){
+                        return $response->success ? $this->sendResponse($response->data, $response->message) : $this->sendError($response->message, [], 200);
+                    }else{
+                        return response()->json(['error'=>$response]);
+                    }
+                }else{
+                    return view('no_perms');
+                }
+            // }
     }
     // Detail Contact Report
     public function CrmDetailContactReport(){
@@ -122,42 +102,43 @@ class CrmReportController extends Controller
     public function GetOrganizationChart(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
-            }
-            $validator = \Validator::make($request->all(),
-                [
-                    'ReportOrganizationFrom' => [ 'required',
-                                    'date_format:"Y-m"'
-                                            ],
-                    'ReportOrganizationTo' => [ 'required',
-                                    'date_format:"Y-m"',
-                                    'after_or_equal:ReportOrganizationFrom',
-                                        ],
-                ],
-                [
-                    'ReportOrganizationFrom.required' => 'Please Select Date !!',   //massage validator
-                    'ReportOrganizationTo.required' => 'Please Select Date !!',   //massage validator
-                    'ReportOrganizationTo.after_or_equal' => 'Please Select Date Equal or Greater than From Date !!',   //massage validator
-                ]
-            );
-        if ($validator->fails()) //check validator for fail
-        {
-            return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray()
-            ));
-        }else{
+        }
+        // $validator = \Validator::make($request->all(),
+        //     [
+        //         'ReportOrganizationFrom' => [ 'required',
+        //                         'date_format:"Y-m"'
+        //                                 ],
+        //         'ReportOrganizationTo' => [ 'required',
+        //                         'date_format:"Y-m"',
+        //                         'after_or_equal:ReportOrganizationFrom',
+        //                             ],
+        //     ],
+        //     [
+        //         'ReportOrganizationFrom.required' => 'Please Select Date !!',   //massage validator
+        //         'ReportOrganizationTo.required' => 'Please Select Date !!',   //massage validator
+        //         'ReportOrganizationTo.after_or_equal' => 'Please Select Date Equal or Greater than From Date !!',   //massage validator
+        //     ]
+        // );
+        // if ($validator->fails()) //check validator for fail
+        // {
+        //     return response()->json(array(
+        //         'errors' => $validator->getMessageBag()->toArray()
+        //     ));
+        // }else{
             if(perms::check_perm_module('CRM_020101')){//module code list
-                $request->fromDate = $request->ReportOrganizationFrom.'-01';
-                $request->toDate = $request->ReportOrganizationTo.'-30';;
+                // $request->fromDate = $request->ReportOrganizationFrom.'-01';
+                // $request->toDate = $request->ReportOrganizationTo.'-30';
+                // dump($request->all());
+                //get date from & date to from form name
                 $lead_chart = Request::create('/api/crm/report/getOrganizationChartReport','GET');
                 $response = json_decode(Route::dispatch($lead_chart)->getContent());
-                //dd($response);
-                // if($response->insert=='success'){
+                    if($response->success == true){
                     return $response->success ? $this->sendResponse($response->data, $response->message) : $this->sendError($response->message, [], 200);
-                // }
+                }
             }else{
                  return view('no_perms');
             }
-        }
+        // }
     }
     // Detail Organization Report
     public function CrmDetailOrganizationReport(){
@@ -167,42 +148,44 @@ class CrmReportController extends Controller
     public function GetQuoteChart(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
-            }
-            $validator = \Validator::make($request->all(),
-                [
-                    'ReportQuoteFrom' => [ 'required',
-                                    'date_format:"Y-m"'
-                                            ],
-                    'ReportQuoteTo' => [ 'required',
-                                    'date_format:"Y-m"',
-                                    'after_or_equal:ReportQuoteFrom',
-                                        ],
-                ],
-                [
-                    'ReportQuoteFrom.required' => 'Please Select Date !!',   //massage validator
-                    'ReportQuoteTo.required' => 'Please Select Date !!',   //massage validator
-                    'ReportQuoteTo.after_or_equal' => 'Please Select Date Equal or Greater than From Date !!',   //massage validator
-                ]
-            );
-        if ($validator->fails()) //check validator for fail
-        {
-            return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray()
-            ));
-        }else{
+        }
+        // $validator = \Validator::make($request->all(),
+        //     [
+        //         'ReportQuoteFrom' => [ 'required',
+        //                         'date_format:"Y-m"'
+        //                                 ],
+        //         'ReportQuoteTo' => [ 'required',
+        //                         'date_format:"Y-m"',
+        //                         'after_or_equal:ReportQuoteFrom',
+        //                             ],
+        //     ],
+        //     [
+        //         'ReportQuoteFrom.required' => 'Please Select Date !!',   //massage validator
+        //         'ReportQuoteTo.required' => 'Please Select Date !!',   //massage validator
+        //         'ReportQuoteTo.after_or_equal' => 'Please Select Date Equal or Greater than From Date !!',   //massage validator
+        //     ]
+        // );
+        // if ($validator->fails()) //check validator for fail
+        // {
+        //     return response()->json(array(
+        //         'errors' => $validator->getMessageBag()->toArray()
+        //     ));
+        // }else{
             if(perms::check_perm_module('CRM_020101')){//module code list
-                $request->from_date = date("Y-m-01", strtotime($request->ReportQuoteFrom.'-01'));
-                $request->to_date = date("Y-m-t", strtotime($request->ReportQuoteTo.'-15'));
+                // $request->from_date = date("Y-m-01", strtotime($request->ReportQuoteFrom.'-01'));
+                // $request->to_date = date("Y-m-t", strtotime($request->ReportQuoteTo.'-15'));
+                $request->from_date = date("Y-m-01");
+                $request->to_date = date("Y-m-t");
                 $lead_chart = Request::create('/api/crm/report/quoteByStatus','GET');
                 $response = json_decode(Route::dispatch($lead_chart)->getContent());
-                // dd($response);
-                // if($response->insert=='success'){
+                // dump($response);
+                if($response->success == true){
                     return $response->success ? $this->sendResponse($response->data, $response->message) : $this->sendError($response->message, [], 200);
-                // }
+                }
             }else{
                  return view('no_perms');
             }
-        }
+        // }
     }
     // Detail Quote Report
     public function CrmDetailQuoteReport(){

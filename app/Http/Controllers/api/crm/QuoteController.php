@@ -54,7 +54,7 @@ class QuoteController extends Controller
                     ->get();
                     return QuoteResource::Collection($quote);
                     // dd("staff");
-        
+
                 }
                 else
                 {
@@ -82,14 +82,14 @@ class QuoteController extends Controller
                 return view('no_perms');
             }
 
-        } 
+        }
         catch(Exception $e)
         {
             DB::rollback();
             return json_encode(["insert"=>"fail","result"=> $e->getMessage()]);
         }
-        
-        
+
+
         if(perms::check_perm_module_api('CRM_020602',$userid)){ // top managment
             $quote = Quote::orderBy('id','asc')
                 ->where('status','t')
