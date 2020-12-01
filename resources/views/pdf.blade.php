@@ -1,16 +1,16 @@
+<! DOCTYPE html>
 <html>
 <head>
-    <style>
-        @font-face {
-            font-family: 'Firefly';
-            font-style: normal;
-            font-weight: normal;
-            src: url(http://example.com/fonts/firefly.ttf) format('truetype');
-        }
-    </style>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Laravel Test</title>
+<style></style>
 </head>
 <body>
-    <p style="font-family: firefly, DejaVu Sans, sans-serif;">献给母亲的爱</p>
+    <h1>Welcome to Nicesnippets.com - {{ $title }}</h1>
+    <p>NiceSnippets Blog provides you latest Code Tutorials on PHP, Laravel, Codeigniter,
+    JQuery, Node js, React js, Vue js, PHP, and Javascript. Mobile technologies like Android,
+    React Native, Ionic etc.</p>
+    <h1>ប្រទេស</h1>
+    <p style="color:pink">Seng Kimsros</p>
+    <b>dcdsvsv</b>
 </body>
 </html>
