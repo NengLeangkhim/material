@@ -144,7 +144,7 @@ var reportLeadByStatus = () => {
     });
 }
 
-// chart for report quote view contact by month
+// chart for report view contact by month
 var reportContact = () => {
     $("#FrmChartContactReport input").removeClass("is-invalid"); //remove all error message
     $.ajax({
@@ -255,7 +255,7 @@ var reportContact = () => {
     });
 }
 
-// chart for report quote view organize by month
+// chart for report  view organize by month
 var reportOrganization = () => {
     $("#FrmChartOrganizationReport input").removeClass("is-invalid"); //remove all error message
     $.ajax({
@@ -325,7 +325,7 @@ var reportOrganization = () => {
     });
 }
 
-// chart for report quote view quote was create new
+// chart for report view quote was create new
 var reportQuoteByStatus = () => {
     $("#FrmChartQuoteReport input").removeClass("is-invalid")
     $.ajax({
@@ -486,9 +486,79 @@ var reportQuoteByStatus = () => {
     });
 }
 
+// chart for report view survey status success or unsuccess
+var reportSurvey = () => {
+    $("#FrmChartReportSurvey input").removeClass("is-invalid")
+    $.ajax({
+        url: '/crmreport/survey/chart',
+        type: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: $('#FrmChartReportSurvey').serialize(),
+        success: function (response) {
+            if(response.success == true){
+                    var data = response.data;
+                    var mydata = [['Task','',{role: 'style'}]];
+                    var chartColor = ['color:#ff3d67' ,'color:#25CCF7'];
+                        if(data.length < 1){
+                                mydata.push(['No data', 0,'color:#25CCF7']);
+                        }else{
+                            $.each(data, function(k, val){
+                                mydata.push([data[k]['status_en'], data[k]['total_suveyed'], ''+chartColor[k]+'']);
+                            });
+                        }
+                        // console.log(mydata);
 
 
+                    // var data = google.visualization.arrayToDataTable([
+                    //     ['Task','',{role: 'style'}],
+                    //     ['Success',12,'color:#25CCF7'],
+                    //     ['Unsuccess',1,'color:#ff3d67']
+                    // ]);
+                    var data = google.visualization.arrayToDataTable(mydata);
 
+                    var view = new google.visualization.DataView(data);
+
+                    view.setColumns([0, 1,
+                        {
+                            calc: "stringify",
+                            sourceColumn: 1,
+                            type: "string",
+                            role: "annotation"
+                        },
+                        2
+                    ]);
+
+                    var options = {
+                        title: 'Survey Performance',
+                        colors:['#ffffff','#ffffff'],
+                        annotations: {
+                            textStyle: {
+                                fontName: 'Times-Roman',
+                                fontSize: 18,
+                                color: '#871b47',
+                                opacity: 0.8
+                            }
+                        },
+                        style: {
+                            opacity: 0.5
+                        },
+                        hAxis: {
+                            maxValue: 100,
+                            value: 0
+                        }
+
+                    };
+                    var chart = new google.visualization.BarChart(document.getElementById('survey_chart'));
+                    chart.draw(view, options);
+            }else{
+
+            }
+
+        }
+    });
+}
 
 
 

@@ -191,4 +191,34 @@ class CrmReportController extends Controller
     public function CrmDetailQuoteReport(){
         return view('crm.report.CrmReportQuote');
     }
+
+
+    //function to get data response to survey chart in report crm
+    public function GetSurveyChart(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $token = $_SESSION['token'];
+
+            $fromDate = date("Y-m-01");
+            $toDate = date("Y-m-t");
+            // dump($request->all());
+            $surveyReport = Request::create('/api/crm/report/getSurveyedResult?from_date='.$fromDate.'&to_date='.$toDate.' ','GET');
+            $surveyReport->headers->set('Accept', 'application/json');
+            $surveyReport->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($surveyReport);
+            $response = json_decode($res->getContent());
+            // dd($response);
+            if(isset($response->success) && ($response->success == true)){
+                return $response->success ? $this->sendResponse($response->data, $response->message) : $this->sendError($response->message, [], 200);
+            }
+
+    }
+
+
+
+
+
+
+
 }

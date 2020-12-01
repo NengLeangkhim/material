@@ -332,7 +332,7 @@ class CrmReportApiController extends Controller
 
         $type = $request->input('type');
         $forStatusId = $request->input('status_id');
-        try {
+        try{
             $result = $this->crmReport->getSurvey($fromDate, $toDate);
         } catch(QueryException $e){
             return $this->sendError($this->queryException);

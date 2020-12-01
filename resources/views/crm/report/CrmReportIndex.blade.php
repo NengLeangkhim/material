@@ -229,7 +229,7 @@
       </div>
 
       <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-12">
               <!-- BAR CHART -->
               <div class="card card-success">
                   <div class="card-header" style="background: #ffffff;border:none;">
@@ -237,9 +237,11 @@
                   </div>
                   <div class="card-body">
                       <div class="form-group">
-                          <form id="FrmChartQuoteReport">
+                          <form id="FrmChartReportSurvey">
                               @csrf
                               <div class="row" hidden>
+                                    {{-- <input type="hidden" name="from_date" value="<?php echo date('Y-m-01')?>"> --}}
+                                    {{-- <input type="hidden" name="to_date"  value="<?php echo date('Y-m-t')?>"> --}}
                                   <div class="col-md-6">
                                       <label for="exampleInputEmail1">Date From <b style="color:red">*</b></label>
                                       <div class="input-group">
@@ -313,11 +315,13 @@
   reportContact();
   reportOrganization();
   reportLeadByStatus();
+  reportSurvey();
   $(window).resize(function () {
-      reportQuoteByStatus();
-      reportContact();
-      reportOrganization();
-      reportLeadByStatus();
+        reportQuoteByStatus();
+        reportContact();
+        reportOrganization();
+        reportLeadByStatus();
+        reportSurvey();
   });
 
   // Quote Chart
@@ -425,7 +429,156 @@
 //           }
 //       });
 //   }
+  // Survey Chart
+    // var Survey_Chart = () => {
+    //     // var myvar= $("#getlead").val();
+    //     // $.ajax({
+    //     //     url: '/api/countsurvey',
+    //     //     type: 'GET',
+    //     //     dataType:'json',
+    //     //     headers: {
+    //     //             'Authorization': `Bearer ${myvar}`,
+    //     //     },
+    //         //data: $('#FrmChartContactReport').serialize(),
+    //         // success: function (response) {
+    //         //     var success = response.true,
+    //         //         unsuccess = response.false;
+
+    //             var data = google.visualization.arrayToDataTable([
+    //                 ['Task','',{role: 'style'}],
+    //                 ['Success',12,'color:#25CCF7'],
+    //                 ['Unsuccess',1,'color:#ff3d67']
+    //                 ]);
+
+    //             var view = new google.visualization.DataView(data);
+
+    //             view.setColumns([0, 1,
+    //                 {
+    //                     calc: "stringify",
+    //                     sourceColumn: 1,
+    //                     type: "string",
+    //                     role: "annotation"
+    //                 },
+    //                 2
+    //             ]);
+
+    //             var options = {
+    //                 title: 'Survey Performance',
+    //                 colors:['#ffffff','#ffffff'],
+    //                 annotations: {
+    //                     textStyle: {
+    //                         fontName: 'Times-Roman',
+    //                         fontSize: 18,
+    //                         color: '#871b47',
+    //                         opacity: 0.8
+    //                     }
+    //                 },
+    //                 style: {
+    //                     opacity: 0.5
+    //                 },
+    //                 hAxis: {
+    //                     maxValue: 100,
+    //                     value: 0
+    //                 }
+
+    //             };
+    //             var chart = new google.visualization.BarChart(document.getElementById('survey_chart'));
+    //                 chart.draw(view, options);
+    //     //     }
+    //     // })
+    // }
+  // Contact Chart
+//   var Contact_Chart = () => {
+//       google.charts.load("current", {packages:['corechart']});
+//       google.charts.setOnLoadCallback(drawChart);
+//       function drawChart() {
+//       var data = google.visualization.arrayToDataTable([
+//           ['Year', ' ', { role: 'style' } ],
+
+//           ['2020', 10,'stroke-color: #1fa8e0; stroke-width: 2; fill-color: #4bc0c0;'],
+//       ]);
+
+//       var view = new google.visualization.DataView(data);
+//       view.setColumns([0, 1,
+//                           { calc: "stringify",
+//                           sourceColumn: 1,
+//                           type: "string",
+//                           role: "annotation" },
+//                           2]);
+//       var options = {
+//           title: "Contact Chart",
+//           legend: { position: "none" },
+//       };
+//       var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+//       chart.draw(view, options);
+//       }
+//   }
+//   //Quote Chart
+//   var Quote_Chart = () => {
+//       google.charts.load("current", {packages:["corechart"]});
+//       google.charts.setOnLoadCallback(drawChart);
+//       function drawChart() {
+//           var data = google.visualization.arrayToDataTable([
+//               ['Year', ' ', { role: 'style' } ],
+//               ['2019', 10, 'stroke-color:#c56183; stroke-width: 2;fill-color: #ffa5a5; '],
+//               ['2020', 14, 'stroke-color: #1fa8e0; stroke-width: 2; fill-color: #4bc0c0; ']
+//           ])
+
+//           var view = new google.visualization.DataView(data);
+//           view.setColumns([0, 1,
+//               {
+//                   calc: "stringify",
+//                   sourceColumn: 1,
+//                   type: "string",
+//                   role: "annotation"
+//               },
+//               2
+//           ]);
+
+//           var options = {
+//               title: "Quote Performance",
+//               legend: { position: "none" }
+//           }
+
+//           var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+//           chart.draw(view, options);
+//       }
+//   }
+//   // Lead Chart
+//   var Lead_Chart = () => {
+//       google.charts.load("current", {packages:["corechart"]});
+//       google.charts.setOnLoadCallback(drawChart);
+//       function drawChart() {
+//           var data = google.visualization.arrayToDataTable([
+//               ['Task', 'Hours per Day'],
+//               ['New',     2],
+//               ['Qualified', 11],
+//               ['Surveying', 2]
+//           ]);
+
+//           var options = {
+//               title: 'Lead Performance',
+//               pieHole: 0.4,
+//               slices: {
+//                   0: { color: '#ff6384' },
+//                   1: { color: '#1fa8e0' },
+//                   2: { color: '#c060a1' }
+//               }
+//           };
+//           var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+//           chart.draw(data, options);
+//       }
+//   }
+
+//   Lead_Chart();
 //   Quote_Chart();
+//   Contact_Chart();
+//   Survey_Chart();
+
+  // $(window).onresize = () => {
+  // };
+
+  // Quote_Chart();
   // $(document).ready(function() {
   //   ReportLeadChart();
   // //   ReportContactChart();
@@ -500,7 +653,7 @@
 //       reportQuoteByStatus();
 //     })
 //   });
-// </script>
+</script>
 
 {{-- Branch chart --}}
 {{-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> --}}
