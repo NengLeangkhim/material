@@ -22,6 +22,7 @@ class LeadController extends Controller
         if(perms::check_perm_module('CRM_0205')){//module codes
             $lead=ModelCrmLead::CrmGetLead();
             $result =json_decode($lead,true);
+            // dd($result);
             if($result!=null){
                 return view('crm.Lead.index',['lead'=>$result["data"]]);
             }

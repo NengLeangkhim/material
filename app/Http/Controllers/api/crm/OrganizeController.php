@@ -57,6 +57,7 @@ class OrganizeController extends Controller
             $company_en=$request->input('company_en');
             $company_kh=$request->input('company_kh');
             $primary_email=$request->input('primary_email');
+            $primary_phone=$request->input('primary_phone');
             $website=$request->input('website');
             $facebook=$request->input('company_facebook');
             $lead_source=$request->input('lead_source');
@@ -83,19 +84,19 @@ class OrganizeController extends Controller
             // return;
 
             return  OrganizeController::updateOrganize($lead_address_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$userid,$website,$facebook,$lead_source,$lead_status,$lead_industry,$assig_to_id,
-            $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode, $prioroty,$assig_to);
+            $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode, $prioroty,$assig_to,$primary_phone);
     }
 
 
     public static function updateOrganize($lead_address_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$lead_source,$lead_status,$lead_industry,$assig_to_id,
-    $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode, $prioroty,$assig_to){
+    $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode, $prioroty,$assig_to,$primary_phone){
         try{
             // update address
             $address=Crmlead::updateleadaddress($lead_address_id,$user_create,$lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode);
             $address_id=$address[0]->update_crm_lead_address;
 
             // update branch
-            $branch=Crmlead::updatetablebranch($branch_id,$user_create,$lead_id,$company_en,$company_kh,$primary_email,$address_id,$prioroty);
+            $branch=Crmlead::updatetablebranch($branch_id,$user_create,$lead_id,$company_en,$company_kh,$primary_email,$primary_phone,$address_id,$prioroty);
             $branch_id=$branch[0]->update_crm_lead_branch;
 
             //update assgin to

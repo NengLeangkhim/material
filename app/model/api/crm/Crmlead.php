@@ -592,16 +592,14 @@ class Crmlead extends Model
     //get  all lead
     public static function getlead(){
         $lead= DB::select('SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
-        cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
-        cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status
+        cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,cl.crm_lead_source_id,cl.status,
+        cl.crm_lead_industry_id,cl.crm_lead_current_isp_id
         from crm_lead cl
-        LEFT JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
-        LEFT JOIN crm_lead_source cls on cls.id = cl.crm_lead_source_id
         LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
         LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
 		JOIN crm_lead_branch clb on clb.crm_lead_id = cl.id
 		JOIN crm_lead_detail cld on cld.crm_lead_branch_id = clb.id
-        WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE ORDER BY cl.lead_number DESC ');
+        WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE   GROUP BY cl.id ORDER BY cl.lead_number DESC  ');
         return $lead;
     }
      //get  all lead for add lead
@@ -620,17 +618,15 @@ class Crmlead extends Model
      //get lead by assisgto
     public static function getLeadbyassginto($userid){
         $lead= DB::select("SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
-        cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
-        cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status,cla.ma_user_id
+        cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,cl.crm_lead_source_id,
+        cl.crm_lead_industry_id,cl.crm_lead_current_isp_id
         from crm_lead cl
-        JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
-        LEFT JOIN crm_lead_source cls on cls.id = cl.crm_lead_source_id
         LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
         LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
-				jOIN crm_lead_branch clb on clb.crm_lead_id= cl.id
-				JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
+				JOIN crm_lead_branch clb on clb.crm_lead_id = cl.id
 				JOIN crm_lead_detail cld on cld.crm_lead_branch_id = clb.id
-        WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE and cla.ma_user_id=$userid ORDER BY cl.lead_number ASC");
+				JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
+        WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE  and cla.ma_user_id=$uuserid GROUP BY cl.id ORDER BY cl.lead_number DESC ");
         return $lead;
     }
     //get   lead  by id

@@ -454,12 +454,12 @@
             success: function (response) {
                 if (response.success == true) {
                     var data = response.data
-                    // console.log('Data'+data);
-                    // if(data.length < 1) {
-                    //   $('#ContactChart').empty()
-                    //     $('#ContactChart').append(`<h1 style="text-align:center">No Data</h1>`)
-                    //     return
-                    // }
+                    console.log('Data'+data);
+                    if(data.length < 1) {
+                      $('#ContactChart').empty()
+                        $('#ContactChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                        return
+                    }
                     google.charts.load('current', {
                         packages: ['corechart']
                     }).then(CrmContactDrawChart(data));
