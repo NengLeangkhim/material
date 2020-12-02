@@ -33,7 +33,7 @@ class CrmReportController extends Controller
             $lead_chart->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($lead_chart);
             $response = json_decode($res->getContent());
-            // dump($response);
+            // dump($response,'dfsdfsdf');
             if(isset($response->success) && $response->success == true){
                 return $response->success ? $this->sendResponse($response->data, $response->message) : $this->sendError($response->message, [], 200);
             }
