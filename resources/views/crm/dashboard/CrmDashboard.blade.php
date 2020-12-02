@@ -290,7 +290,7 @@
                 var options = {
                     title: 'Branch Performance',
                     width: '100%',
-                    colors: ['#ffffff'],
+                    colors: [''],
                     pieSliceText:'value',
                     vAxis: {
                         minValue: 0,
@@ -402,7 +402,7 @@
                 ]);
                 var options = {
                     title: 'Quote Performance',
-                    colors: ['#ffffff'],
+                    colors: [''],
                     hAxis: {
                         minValue: 0,
                         maxValue: 10,
@@ -529,7 +529,7 @@
         var Survey_Chart = () => {
             function CrmSurveyChart(suc,unsuc) {
                 var data = google.visualization.arrayToDataTable([
-                    ['Task','',{role: 'style'}],
+                    ['','',{role: 'style'}],
                     ['Success',suc,'color:#25CCF7'],
                     ['Unsuccess',unsuc,'color:#ff3d67']
                 ]);
@@ -547,7 +547,7 @@
                 ]);
                 var options = {
                     title: 'Survey Performance',
-                    colors:['#ffffff','#ffffff'],
+                    colors:['',''],
                     annotations: {
                         textStyle: {
                             fontName: 'Times-Roman',
