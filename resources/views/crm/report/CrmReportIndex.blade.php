@@ -274,9 +274,9 @@
                       <div class="chart">
                           <div id="survey_chart" style="height: 300px; max-width: 100%;"></div>
                       </div>
-                      <div class="col-md-12 text-right">
+                      {{-- <div class="col-md-12 text-right">
                           <button class="btn btn-sm btn-info font-weight-bold" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
-                      </div>
+                      </div> --}}
                   </div><!-- /.card-body -->
               </div><!-- /.card -->
           </div><!-- End Col -->

@@ -365,7 +365,7 @@ var reportQuoteByStatus = () => {
                     google.charts.load("current", {packages:["corechart"]});
                     google.charts.setOnLoadCallback(drawChart);
                     var mydata = [['Year', ' ', { role: 'style' }]];
-                    var colorChart = ['#009432','#009432','#EE5A24','#EA2027','#12CBC4','#006266','#fff200','#ff5252'];
+                    var colorChart = ['rgb(54, 162, 235)','rgb(75, 192, 192)','rgb(255, 205, 86)','rgb(255, 99, 132)','rgb(125, 155, 16)','#12CBC4','#006266','rgb(105, 55, 216)','#ff5252'];
                     $.each(data, function(k, val){
                         mydata.push([data[k]['quote_status_name_en'], data[k]['total_quotes'], 'stroke-color:#e6e6e6; stroke-width: 2;fill-color: '+colorChart[k]+';']);
                     });
