@@ -252,46 +252,17 @@ class hr_dashboardController extends Controller
     //get data staff by each department
     public static function num_staff_byDept(){
 
-        // $it = 0;
-        // $op = 0;
-        // $bus = 0;
-        // $aud = 0;
-        // $fin = 0;
+        $it = 0;
+        $op = 0;
+        $bus = 0;
+        $aud = 0;
+        $fin = 0;
 
             $em =  hr_dashboardModel::staff_byDept();
+            return $em;
+                
 
-                foreach ($em as $key => $val) {
-                    if($val->dept_id == 3){
-                        // print_r($val); echo "<br>";
-                        $it[] = $val;
-                        // $it++;
-                    }
-                    if($val->dept_id == 4){
-                        $op[] = $val;
-                        // $op++;
-                    }
-                    if($val->dept_id == 5){
-                        $bus[] = $val;
-                        // $bus++;
-                    }
-                    if($val->dept_id == 7){
-                        $aud[] = $val;
-                        // $aud++;
-                    }
-                    if($val->dept_id == 10){
-                        $fin[] = $val;
-                        // $fin++;
-                    }
-                }
-
-            $post_data=[
-                'ITD' =>$it,
-                'OPD' =>$op,
-                'BSD' =>$bus,
-                'ACD' =>$aud,
-                'FND' =>$fin
-            ];
-            return $post_data;
+            
 
 
     }
