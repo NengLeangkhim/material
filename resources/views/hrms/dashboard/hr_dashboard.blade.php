@@ -1,5 +1,5 @@
 @php
-use \App\Http\Controllers\hrms\dashboard\hr_dashboardController; 
+use \App\Http\Controllers\hrms\dashboard\hr_dashboardController;
 $can = hr_dashboardController::monthly_can();
 $member_join = hr_dashboardController::monthly_member();
 $promote = hr_dashboardController::monthly_shift();
