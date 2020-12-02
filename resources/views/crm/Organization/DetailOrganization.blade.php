@@ -77,7 +77,7 @@
                             <dt class="col-sm-4 dt">Primary Email</dt>
                             <dd class="col-sm-8 dd">{{$organize["email_branch"]}}</dd>
                             <dt class="col-sm-4 dt">Primary Phone </dt>
-                            <dd class="col-sm-8 dd">{{$organize["contact_phone"]}}
+                            <dd class="col-sm-8 dd">{{$organize["branch_phone"]}}
                             </dd>
                             <dt class="col-sm-4 dt">Customer Type </dt>
                             <dd class="col-sm-8 dd">Public

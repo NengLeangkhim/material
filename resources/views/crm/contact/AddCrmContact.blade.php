@@ -102,7 +102,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="phone"id="phone" placeholder="Primary Phone" >
+                                                <input type="text" class="form-control" name="phone"id="phone" placeholder="Primary Phone"   onkeypress="return onlyNumberKey(event)">
                                                 <span class="invalid-feedback" role="alert" id="phoneError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>
@@ -169,4 +169,13 @@
                     }
                 });
             })
+            // number phone
+            function onlyNumberKey(evt) {         
+          // Only ASCII charactar in that range allowed 
+                var ASCIICode = (evt.which) ? evt.which : evt.keyCode 
+                // alert(ASCIICode);
+                if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) 
+                    return false; 
+                return true; 
+            }
     </script>

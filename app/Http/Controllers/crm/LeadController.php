@@ -238,10 +238,10 @@ class LeadController extends Controller
                                             ],
                     'phone' =>  [  'required'
                                             ],
-                    'service' =>  [  'required'
-                                            ],
-                    'lead_status' =>  [  'required'
-                                            ],
+                    // 'service' =>  [  'required'
+                    //                         ],
+                    // 'lead_status' =>  [  'required'
+                    //                         ],
                     'email' =>  [  'required'
                                             ],
                     'position' =>  [  'required'
@@ -279,9 +279,9 @@ class LeadController extends Controller
                     'primary_email.required' => 'This Field is require !!',   //massage validator
                     'primary_phone.required' => 'This Field is require !!',   //massage validator
                     'assig_to.required' => 'This Field is require !!',   //massage validator
-                    'service.required' => 'This Field is require !!',   //massage validator
+                    // 'service.required' => 'This Field is require !!',   //massage validator
                     // 'vat_number.required' => 'This Field is require !!',   //massage validator
-                    'lead_status.required' => 'This Field is require !!',   //massage validator
+                    // 'lead_status.required' => 'This Field is require !!',   //massage validator
                     // 'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
                     'name_en.required' => 'This Field is require !!',   //massage validator
                     'name_kh.required' => 'This Field is require !!',   //massage validator
@@ -321,20 +321,20 @@ class LeadController extends Controller
                                             ],
                     'assig_to' =>  [  'required'
                                             ],
-                    'service' =>  [  'required'
-                                            ],
-                    'website' =>  [  'required'
-                                            ],
+                    // 'service' =>  [  'required'
+                    //                         ],
+                    // 'website' =>  [  'required'
+                    //                         ],
                     'primary_phone' =>  [  'required'
                                         ],
-                    'company_facebook' =>  [  'required'
-                                            ],
+                    // 'company_facebook' =>  [  'required'
+                    //                         ],
                     'current_speed_isp' =>  [  'required'
                                             ],
                     // 'vat_number' =>  [  'required'
                     //                         ],
-                    'lead_status' =>  [  'required'
-                                            ],
+                    // 'lead_status' =>  [  'required'
+                    //                         ],
                     'email' =>  [  'required'
                                             ],
                     // 'ma_honorifics_id' =>  [  'required'
@@ -387,12 +387,12 @@ class LeadController extends Controller
                     'lead_source.required' => 'This Field is require !!',   //massage validator
                     'lead_industry.required' => 'This Field is require !!',   //massage validator
                     'assig_to.required' => 'This Field is require !!',   //massage validator
-                    'service.required' => 'This Field is require !!',   //massage validator
-                    'website.required' => 'This Field is require !!',   //massage validator
+                    // 'service.required' => 'This Field is require !!',   //massage validator
+                    // 'website.required' => 'This Field is require !!',   //massage validator
                     'current_speed_isp.required' => 'This Field is require !!',   //massage validator
-                    'company_facebook.required' => 'This Field is require !!',   //massage validator
+                    // 'company_facebook.required' => 'This Field is require !!',   //massage validator
                     // 'vat_number.required' => 'This Field is require !!',   //massage validator
-                    'lead_status.required' => 'This Field is require !!',   //massage validator
+                    // 'lead_status.required' => 'This Field is require !!',   //massage validator
                     // 'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
                     'name_en.required' => 'This Field is require !!',   //massage validator
                     'name_kh.required' => 'This Field is require !!',   //massage validator
@@ -504,8 +504,8 @@ class LeadController extends Controller
                 //                         ],
                 'assig_to' =>  [  'required'
                                         ],
-                'service' =>  [  'required'
-                                        ],
+                // 'service' =>  [  'required'
+                //                         ],
                 'ma_honorifics_id' =>  [  'required'
                                         ],
                 'name_en' => [ 'required'
@@ -552,7 +552,7 @@ class LeadController extends Controller
                 // 'lead_source.required' => 'This Field is require !!',   //massage validator
                 // 'lead_industry.required' => 'This Field is require !!',   //massage validator
                 'assig_to.required' => 'This Field is require !!',   //massage validator
-                'service.required' => 'This Field is require !!',   //massage validator
+                // 'service.required' => 'This Field is require !!',   //massage validator
                 'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
                 'name_en.required' => 'This Field is require !!',   //massage validator
                 'name_kh.required' => 'This Field is require !!',   //massage validator
