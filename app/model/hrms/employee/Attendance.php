@@ -62,7 +62,7 @@ class Attendance extends Model
             $allData=array();
             $attendance=array();
             foreach($em as $e){
-                if($e->position != 'CEO'){
+                if($e->id_number != 'TT-0001'){
                     $get_full_en_name = $e->firstName." ".$e->lastName;
                     $detail= self::AttendanceDetail(self::ConvertIdToNumber($e->id_number),$get_full_en_name,$date,$e->id);
                     array_push($attendance,$detail);
