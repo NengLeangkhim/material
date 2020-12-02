@@ -23,7 +23,6 @@
             color:#12b9d6;
             margin: 0;
         }
-
         .chart {
             width: 100%;
             min-height: 450px;
@@ -31,45 +30,33 @@
         .row .g-chart {
             margin:0 !important;
         }
+        .boxs {
+            width: 20% !important;
+            padding: 0 3px !important;
+        }
+
+        @media only screen and (max-width:1199px){
+            .boxs {
+                width: 100% !important;
+            }
+        }
+
     </style>
     {{-- /Style --}}
     <div class="container-fluid">
         <div style="padding: 20px; font-family: Times New Roman, Times, serif;">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <div class="col-lg-3 col-6" >
+                <div class="boxs">
                     <!-- small box -->
                     <div class="small-box bg-white" >
                         <div class="inner">
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-9">
-                                           <div class="pb-3">
-                                                <h2>Leads</h2>
-                                                <p class="m-0">Today</p>
-                                           </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="pb-3">
-                                                <h1 class="chart-number">{{$total_lead}}</h1>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-9">
-                                            <div class="pt-3">
-                                                <h2>Branch</h2>
-                                                <p class="m-0">Today</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="pt-3">
-                                                <h1 class="chart-number">{{$total_branch}}</h1>
-                                            </div>
-                                        </div>
+                                    <div class="p-3 text-center">
+                                        <h2 class="title-chart">Leads</h2>
+                                        <p class="sub-title-chart">Today</p>
+                                        <h1 class="chart-number">{{$total_lead}}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +64,25 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
+                <div class="boxs">
+                    <!-- small box -->
+                    <div class="small-box bg-white">
+                        <div class="inner">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="p-3 text-center">
+                                        <h2 class="title-chart">Branch</h2>
+                                        <p class="sub-title-chart">Today</p>
+                                        <h1 class="chart-number">{{$total_branch}}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <!-- ./col -->
+                <div class="boxs">
                     <!-- small box -->
                     <div class="small-box bg-white">
                         <div class="inner">
@@ -86,7 +91,7 @@
                                     <div class="p-3 text-center">
                                         <h2 class="title-chart">Contacts</h2>
                                         <p class="sub-title-chart">Today</p>
-                                        <h1 class="chart-number" style="margin-bottom: 7px;">{{$total_contact}}</h1>
+                                        <h1 class="chart-number">{{$total_contact}}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -94,7 +99,7 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
+                <div class="boxs">
                     <!-- small box -->
                     <div class="small-box bg-white">
                         <div class="inner">
@@ -103,7 +108,7 @@
                                     <div class="p-3 text-center">
                                         <h2 class="title-chart">Quotes</h2>
                                         <p class="sub-title-chart">Today</p>
-                                        <h1 class="chart-number" style="margin-bottom: 7px;">{{$total_quote}}</h1>
+                                        <h1 class="chart-number">{{$total_quote}}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +116,7 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
+                <div class="boxs">
                     <!-- small box -->
                     <div class="small-box bg-white">
                         <div class="inner">
@@ -120,7 +125,7 @@
                                     <div class="p-3 text-center">
                                         <h2 class="title-chart">Survey</h2>
                                         <p class="sub-title-chart">Today</p>
-                                        <h1 class="chart-number" style="margin-bottom: 7px;">{{$total_survey}}</h1>
+                                        <h1 class="chart-number">{{$total_survey}}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -285,7 +290,7 @@
                 var options = {
                     title: 'Branch Performance',
                     width: '100%',
-                    colors: ['#ffffff'],
+                    colors: [''],
                     pieSliceText:'value',
                     vAxis: {
                         minValue: 0,
@@ -314,12 +319,14 @@
                         //     $('#LeadChart').append(`<h1 style="text-align:center">No Data</h1>`)
                         //     return
                             CrmLeadDrawChart(data);
+                            console.log('Data 0');
                         }
                         google.charts.load('current',{
                             packages: ['corechart']
                         }).then(CrmLeadDrawChart(data));
                         //google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
                         CrmLeadDrawChart(data);
+                        console.log("Data 1");
                     }
                 }
             });
@@ -395,7 +402,7 @@
                 ]);
                 var options = {
                     title: 'Quote Performance',
-                    colors: ['#ffffff'],
+                    colors: [''],
                     hAxis: {
                         minValue: 0,
                         maxValue: 10,
@@ -420,13 +427,12 @@
                 success: function (response) {
                     if (response.success == true) {
                         var data = response.data
+                        console.log(data);
                         if(data.length < 1) {
                             CrmQuoteDrawChart(data);
+                            console.log('Data: 0');
                         }
-                        google.charts.load('current', {
-                            packages: ['corechart']
-                        }).then(CrmQuoteDrawChart(data));
-                    //  google.charts.setOnLoadCallback(CrmLeadDrawChart(data))
+                        console.log('Data: 1');
                         CrmQuoteDrawChart(data);
                     }
                 }
@@ -434,22 +440,26 @@
         }
         // Contact Chart
         var Contact_Chart = () =>{
-            function CrmContactDrawChart(data) {
-                var result = [
-                    ["Contact", "", {
-                        role: 'style'
-                    }]
-                ]
-                var colors = [{
-                        id: 0,
-                        name_en: 'none',
-                        code: '#1fa8e0'
-                    }
-                ]
-                $.each(data, function (index, value) {
-                    result.push([value.create_date, value.total, colors[0].code])
-                })
-                var data = google.visualization.arrayToDataTable(result);
+            function CrmContactDrawChart(get_date,get_total) {
+                // var result = [
+                //     ["Contact", "", {
+                //         role: 'style'
+                //     }]
+                // ]
+                // var colors = [{
+                //         id: 0,
+                //         name_en: 'none',
+                //         code: '#1fa8e0'
+                //     }
+                // ]
+                // $.each(data, function (index, value) {
+                //     result.push([value.create_date, value.total, colors[0].code])
+                // })
+                // var data = google.visualization.arrayToDataTable(result);
+                var data = google.visualization.arrayToDataTable([
+                    ['', '', { role: 'style' }],
+                    [get_date, get_total, 'color:#25CCF7']
+                ]);
                 var view = new google.visualization.DataView(data);
                 view.setColumns([0, 1,
                     {
@@ -462,7 +472,7 @@
                 ]);
                 var options = {
                     title: 'Contact Performance',
-                    colors:['#ffffff'],
+                    colors:[''],
                     annotations: {
                         textStyle: {
                             fontName: 'Times-Roman',
@@ -474,7 +484,7 @@
                     vAxis: {
                         minValue: 0,
                         maxValue: 50,
-                        // direction: 1
+                        direction: 1
                     },
                     hAxis: {
                         textStyle: {
@@ -498,22 +508,20 @@
                 },
                 //data: $('#FrmChartContactReport').serialize(),
                 success: function (response) {
-                    // var data = response.data
-                    // CrmContactDrawChart(data)
-                    console.log(response.data);
-                    if (response.success == true) {
-                        var data = response.data
-                        if(data < 1) {
-                            CrmContactDrawChart(data);
-                            console.log('Data: 0');
-                        }
-                        google.charts.load('current', {
-                            packages: ['corechart']
-                        }).then(CrmContactDrawChart(data));
-                        google.charts.setOnLoadCallback(CrmContactDrawChart(data));
-                        CrmContactDrawChart(data);
-                        console.log('Data: 1');
+                    var data = response.data
+
+                    var create_date, total;
+                    console.log(data.length);
+                    if(data.length < 1) {
+                        create_date = currentDateString;
+                        total = 0;
+                        console.log('Date:' + create_date + '/' + 'Total: ' + total);
+                        CrmContactDrawChart(create_date,total);
                     }
+                    var create_date = data[0].create_date;
+                    var total = data[0].total;
+                    console.log('Date:' + create_date + '/' + 'Total: ' + total);
+                    CrmContactDrawChart(create_date,total);
                 }
             });
         }
@@ -521,7 +529,7 @@
         var Survey_Chart = () => {
             function CrmSurveyChart(suc,unsuc) {
                 var data = google.visualization.arrayToDataTable([
-                    ['Task','',{role: 'style'}],
+                    ['','',{role: 'style'}],
                     ['Success',suc,'color:#25CCF7'],
                     ['Unsuccess',unsuc,'color:#ff3d67']
                 ]);
@@ -539,7 +547,7 @@
                 ]);
                 var options = {
                     title: 'Survey Performance',
-                    colors:['#ffffff','#ffffff'],
+                    colors:['',''],
                     annotations: {
                         textStyle: {
                             fontName: 'Times-Roman',
@@ -652,5 +660,4 @@
             Survey_Chart();
         };
     });
-
 </script>
