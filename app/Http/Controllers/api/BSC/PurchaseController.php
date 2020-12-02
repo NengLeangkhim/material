@@ -198,7 +198,7 @@ class PurchaseController extends Controller
             return $this->sendError("No Permission");
         }
         
-        $purchase = DB::table('bsc_invoice')
+        $q_purchase = DB::table('bsc_invoice')
         ->select('bsc_invoice.*','bsc_account_charts.name_en as chart_account_name','bsc_account_charts.id as chart_account_id','ma_supplier.name as supplier_name')
         ->leftJoin('bsc_invoice_bsc_journal_rel','bsc_invoice.id','=','bsc_invoice_bsc_journal_rel.bsc_invoice_id')
         ->leftJoin('bsc_journal','bsc_invoice_bsc_journal_rel.bsc_journal_id','=','bsc_journal.id')
@@ -210,6 +210,59 @@ class PurchaseController extends Controller
             ['bsc_invoice.status','=','t'],
             ['bsc_invoice.is_deleted','=','f']
         ])->first();
+        $invoice_journal_rels = DB::table('bsc_invoice_bsc_journal_rel')->where('bsc_invoice_id',$id)->orderBy('id','desc')->first();
+        $journal_id = "";
+        if($invoice_journal_rels != ""){
+            $journal_id = $invoice_journal_rels->bsc_journal_id;
+        }
+        $q_vat_input_journal = DB::table('bsc_journal')
+        ->select('bsc_journal.bsc_account_charts_id as vat_input_account_charts_id','bsc_account_charts.name_en as vat_input_account_charts_name')
+        ->leftJoin('bsc_account_charts','bsc_journal.bsc_account_charts_id','=','bsc_account_charts.id')
+        ->where([
+            ['bsc_journal.id','=',$journal_id],
+            ['bsc_journal.bsc_journal_type_id','=','2'],
+            ['bsc_journal.status','=','t'],
+            ['bsc_journal.is_deleted','=','f']
+        ])
+        ->first();
+
+        $vat_input_account_charts_id = "";
+        $vat_input_account_charts_name = "";
+        if($q_vat_input_journal != ""){
+            $vat_input_account_charts_id = $q_vat_input_journal->vat_input_account_charts_id;
+            $vat_input_account_charts_name = $q_vat_input_journal->vat_input_account_charts_name;
+        }
+        
+        $purchase = [];
+        if ($q_purchase != "") {
+            $purchase = [
+                "id" => $q_purchase->id,
+                "ma_customer_id" => $q_purchase->ma_customer_id,
+                "ma_supplier_id" => $q_purchase->ma_supplier_id,
+                "billing_date" => $q_purchase->billing_date,
+                "due_date" => $q_purchase->due_date,
+                "invoice_number" => $q_purchase->invoice_number,
+                "reference" => $q_purchase->reference,
+                "address" => $q_purchase->address,
+                "address_kh" => $q_purchase->address_kh,
+                "effective_date" => $q_purchase->effective_date,
+                "end_period_date" => $q_purchase->end_period_date,
+                "invoice_type" => $q_purchase->invoice_type,
+                "deposit_on_payment" => $q_purchase->deposit_on_payment,
+                "total" => $q_purchase->total,
+                "vat_total" => $q_purchase->vat_total,
+                "grand_total" => $q_purchase->grand_total,
+                "create_date" => $q_purchase->create_date,
+                "status" => $q_purchase->status,
+                "code" => $q_purchase->code,
+                "crm_quote_id" => $q_purchase->crm_quote_id,
+                "chart_account_name" => $q_purchase->chart_account_name,
+                "chart_account_id" => $q_purchase->chart_account_id,
+                "supplier_name" => $q_purchase->supplier_name,
+                "vat_input_account_charts_id" => $vat_input_account_charts_id,
+                "vat_input_account_charts_name" => $vat_input_account_charts_name
+            ];
+        }
         
         $purchase_detail = DB::table('bsc_invoice_detail')
         ->select('bsc_invoice_detail.*','bsc_account_charts.name_en as chart_account_name','stock_product.name as product_name','ma_measurement.name as measurement_name')
@@ -313,7 +366,7 @@ class PurchaseController extends Controller
                     }
                 }
 
-                $invoice_journal_rels = DB::table('bsc_invoice_bsc_journal_rel')->where('bsc_invoice_id',$purchase_id)->first();
+                $invoice_journal_rels = DB::table('bsc_invoice_bsc_journal_rel')->where('bsc_invoice_id',$purchase_id)->orderBy('id','desc')->first();
                 $journal_id = "";
                 if($invoice_journal_rels != ""){
                     $journal_id = $invoice_journal_rels->bsc_journal_id;
