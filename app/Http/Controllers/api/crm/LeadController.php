@@ -270,6 +270,36 @@ class LeadController extends Controller
 
         // return GetLead::Collection($lead);
     }
+     //method support for datatable server side processing
+    public function getLeadDatatable(Request $request){
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+
+        if(perms::check_perm_module_api('CRM_020501',$userid)){ // top managment
+            $lead = Lead::getleadDataTable($request); // all lead
+            return $lead;
+            // dd("top");
+        }
+        else if (perms::check_perm_module_api('CRM_020509',$userid)) { // fro staff (Model and Leadlist by user)
+            $lead = Lead::getLeadbyassginto($userid); //  lead by assigned to
+            return GetLead::Collection($lead);
+            // dd("staff");
+
+        }
+        else
+        {
+            return view('no_perms');
+        }
+
+        // return GetLead::Collection($lead);
+    }
+    ////method support for datatable server side processing using the same query string as api
+    public function getLeadSql(){
+        return Lead::getLeadSql();
+    }
+
      // get all lead for add lead
      public function getAddLead(){
             $lead = Lead::getAddLead(); // all lead

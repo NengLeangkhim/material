@@ -33,6 +33,7 @@ Route::get('/village', 'addressController@getvillage'); //getvillage
 // =========================CRM SYSTEM==========================
 // start lead and branch
 Route::get('/lead','crm\LeadController@getlead'); // get  all lead  show  in table
+Route::get('/lead/datatable','crm\LeadController@getleadDatatable');//get data for datatable
 Route::get('/addlead','crm\LeadController@lead'); // insert lead or branch (button)
 Route::get('/detaillead/{id}','crm\LeadController@getdetailtlead'); // get  show detail  lead
 Route::get('/editlead/{id}','crm\LeadController@editlead');// edit lead
