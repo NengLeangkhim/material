@@ -18,6 +18,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('/getschedule','api\crm\LeadController@getschedule');
     // get lead
     Route::get('/getlead','api\crm\LeadController@getLead');
+    // get lead fro Add lead
+    Route::get('/getaddlead','api\crm\LeadController@getAddLead');
     //get lead detail
     Route::get('/getleadbyid/{id}','api\crm\LeadController@getleadbyid');
     // edit lead

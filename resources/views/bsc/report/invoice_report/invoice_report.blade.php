@@ -14,7 +14,7 @@
                             <div class="col-md-6">
                                 <label for="">Billing Date</label><br/>
                                 <div class="form-group row form-group-marginless">
-                                    <label class="col-lg-2 col-form-label" style="text-align: right">From</label>
+                                    <label class="col-lg-2 col-form-label">From</label>
                                     <div class="col-lg-10">
                                         <div class="input-daterange input-group" id="k_datepicker_5">
                                             <input type="date" class="form-control" name="start" id="billing_date_from">
@@ -29,7 +29,7 @@
                             <div class="col-md-6">
                                 <label for="">Due Date</label><br/>
                                 <div class="form-group row form-group-marginless">
-                                    <label class="col-lg-2 col-form-label" style="text-align: right">From</label>
+                                    <label class="col-lg-2 col-form-label">From</label>
                                     <div class="col-lg-10">
                                         <div class="input-daterange input-group" id="k_datepicker_5">
                                             <input type="date" class="form-control" name="start" id="due_date_from">
@@ -46,7 +46,7 @@
                             <div class="col-md-6">
                                 <label for="">Effective Date</label><br/>
                                 <div class="form-group row form-group-marginless">
-                                    <label class="col-lg-2 col-form-label" style="text-align: right">From</label>
+                                    <label class="col-lg-2 col-form-label">From</label>
                                     <div class="col-lg-10">
                                         <div class="input-daterange input-group" id="k_datepicker_5">
                                             <input type="date" class="form-control" name="start" id="effective_date_from">
@@ -61,7 +61,7 @@
                             <div class="col-md-6">
                                 <label for="">End Period Date</label><br/>
                                 <div class="form-group row form-group-marginless">
-                                    <label class="col-lg-2 col-form-label" style="text-align: right">From</label>
+                                    <label class="col-lg-2 col-form-label">From</label>
                                     <div class="col-lg-10">
                                         <div class="input-daterange input-group" id="k_datepicker_5">
                                             <input type="date" class="form-control" name="start" id="end_period_date_from">

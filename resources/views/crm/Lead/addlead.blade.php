@@ -29,7 +29,7 @@
                                         <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                     </div>
                                     <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead">
-                                    <select class="form-control " name="lead_id" id="lead_id" data-code="<?php if(isset($leadSeleted)){echo $leadSeleted;}else{echo '';} ?>">
+                                    <select class="form-control select2 " name="lead_id" id="lead_id" data-code="<?php if(isset($leadSeleted)){echo $leadSeleted;}else{echo '';} ?>">
                                             <option value=''>-- Select Lead  --</option>
                                     </select>
                                 </div>
@@ -991,7 +991,7 @@
             // console.log('getleadid='+getLeadId);
             var myvar= $("#getlead").val();
               $.ajax({
-                  url:'api/getlead',
+                  url:'api/getaddlead',
                   type:'get',
                   dataType:'json',
                   headers: {

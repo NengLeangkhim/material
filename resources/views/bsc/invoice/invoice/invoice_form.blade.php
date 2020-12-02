@@ -177,7 +177,7 @@ if (count($bsc_show_customer_branchs) >0) {
                                                 <th>Unit Price</th>
                                                 <th>Discount</th>
                                                 <th>Account</th>
-                                                <th style="white-space: nowrap">Tax Rate</th>
+                                                <th style="white-space: nowrap">Tax</th>
                                                 <th>Amount</th>
                                                 {{-- <th></th> --}}
                                             </tr>
@@ -296,12 +296,12 @@ if (count($bsc_show_customer_branchs) >0) {
                             vat_per_item = vats / qty;
 
                             if(vat_number == ""){
-                                tax_rate="Tax";
+                                tax_rate="Include";
                                 attr_tax_rate=1;
                                 price_show = newUnitPrice(discount_type,price,vat_per_item);
                                 amount_show = show_amount_old(discount_type,qty,price_show,discount);
                             }else{
-                                tax_rate="No Tax";
+                                tax_rate="Exclude";
                                 attr_tax_rate=0;
                             }
 

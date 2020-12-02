@@ -219,12 +219,13 @@ class InvoiceController extends Controller
         ])->first();
 
         $invoice_detail = DB::table('bsc_invoice_detail')
-        ->select('bsc_invoice_detail.*','bsc_account_charts.name_en as chart_account_name','ma_customer_branch.branch as customer_branch_name','stock_product.name as product_name')
+        ->select('bsc_invoice_detail.*','bsc_account_charts.name_en as chart_account_name','ma_customer_branch.branch as customer_branch_name','stock_product.name as product_name','ma_measurement.name as measurement_name')
         ->leftJoin('bsc_invoice_detail_bsc_journal_rel','bsc_invoice_detail.id','=','bsc_invoice_detail_bsc_journal_rel.bsc_invoice_detail_id')
         ->leftJoin('bsc_journal','bsc_invoice_detail_bsc_journal_rel.bsc_journal_id','=','bsc_journal.id')
         ->leftJoin('bsc_account_charts','bsc_journal.bsc_account_charts_id','=','bsc_account_charts.id')
         ->leftJoin('ma_customer_branch','bsc_invoice_detail.ma_customer_branch_id','=','ma_customer_branch.id')
         ->leftJoin('stock_product','bsc_invoice_detail.stock_product_id','=','stock_product.id')
+        ->leftJoin('ma_measurement','stock_product.ma_measurement_id','=','ma_measurement.id')
         ->where([
             ['bsc_invoice_detail.bsc_invoice_id','=',$id],
             ['bsc_invoice_detail.status','=','t'],
@@ -416,12 +417,13 @@ class InvoiceController extends Controller
                 $arr_quote_branch_id[$key] = $quote_branch->id;
             }
             $quote_products = DB::table('crm_quote_branch_detail')
-            ->select('crm_quote_branch_detail.*','ma_customer_branch.id as customer_branch_id','ma_customer_branch.branch as customer_branch_name','stock_product.name as product_name','stock_product.description','stock_product.bsc_account_charts_id','bsc_account_charts.name_en as chart_account_name')
+            ->select('crm_quote_branch_detail.*','ma_customer_branch.id as customer_branch_id','ma_customer_branch.branch as customer_branch_name','stock_product.name as product_name','stock_product.description','stock_product.bsc_account_charts_id','bsc_account_charts.name_en as chart_account_name','ma_measurement.name as measurement_name')
             ->leftJoin('crm_quote_branch','crm_quote_branch_detail.crm_quote_branch_id','=','crm_quote_branch.id')
             ->leftJoin('crm_lead_branch','crm_quote_branch.crm_lead_branch_id','=','crm_lead_branch.id')
             ->leftJoin('ma_customer_branch','crm_lead_branch.id','=','ma_customer_branch.crm_lead_branch_id')
             ->leftJoin('stock_product','crm_quote_branch_detail.stock_product_id','=','stock_product.id')
             ->leftJoin('bsc_account_charts','stock_product.bsc_account_charts_id','=','bsc_account_charts.id')
+            ->leftJoin('ma_measurement','stock_product.ma_measurement_id','=','ma_measurement.id')
             ->whereIn('crm_quote_branch_detail.crm_quote_branch_id', $arr_quote_branch_id)
             ->where([
                 ['stock_product.bsc_account_charts_id','<>',null],
@@ -554,15 +556,44 @@ class InvoiceController extends Controller
 
     public function show_vat_chart_account(Request $request)
     {
-        $vat_chart_accounts = DB::table('bsc_account_charts')
-        ->where([
-            ['bsc_account_type_id','=',12],
-            ['name_en','LIKE','%Tax%'],
-            ['parent_id','<>',null],
-            ['ma_currency_id','=',4],
-            ['status','=','t'],
-            ['is_deleted','=','f']
-        ])->get();
-        return $this->sendResponse($vat_chart_accounts, 'VAT chart account retrieved successfully.');
+        $account_types = DB::select("SELECT
+                                    bsc_account_charts.bsc_account_type_id,
+                                    bsc_account_type.name_en AS account_type_name 
+                                FROM
+                                    bsc_account_charts
+                                    LEFT JOIN bsc_account_type ON bsc_account_charts.bsc_account_type_id = bsc_account_type.id 
+                                WHERE
+                                    bsc_account_charts.bsc_account_type_id = 7
+                                    AND bsc_account_charts.ma_currency_id = 4
+                                    AND bsc_account_charts.parent_id IS NOT NULL
+                                    AND bsc_account_charts.status = 't' 
+                                    AND bsc_account_charts.is_deleted = 'f' 
+                                GROUP BY
+                                    bsc_account_charts.bsc_account_type_id,
+                                    bsc_account_type.name_en 
+                                ORDER BY
+                                    bsc_account_charts.bsc_account_type_id ASC
+                                ");
+
+        $arr_chart_accounts = [];
+        if(count($account_types) > 0){
+            foreach ($account_types as $key => $account_type) {
+                $vat_chart_accounts = DB::table('bsc_account_charts')
+                ->where([
+                    ['bsc_account_type_id','=',$account_type->bsc_account_type_id],
+                    ['ma_currency_id','=',4],
+                    ['parent_id','<>',null],
+                    ['status','=','t'],
+                    ['is_deleted','=','f']
+                ])->get();
+                $arr_chart_accounts[$key] = [
+                    'bsc_account_type_id' => $account_type->bsc_account_type_id,
+                    'bsc_account_type_name' => $account_type->account_type_name,
+                    'vat_chart_accounts' => $vat_chart_accounts
+                ];
+            }
+        }
+        
+        return $this->sendResponse($arr_chart_accounts, 'VAT chart account retrieved successfully.');
     }
 }
