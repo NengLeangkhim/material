@@ -53,7 +53,15 @@ Route::get('/test_map', function(){
 
 Route::get('/addleadtype','crm\LeadController@addleadtype'); // use get type in add lead
 //end lead
+Route::get('/leadbranch',function(){
+    return view('crm.LeadBranch.CrmLeadBranchIndex');
+});
+Route::get('/new',function(){
+    return view('crm.LeadBranch.NewStatus');
+});
+// lead branch
 
+//end lead branch
 // start schedule
 
 Route::POST('/insertschedule','crm\CrmScheduleController@insertschedule');
