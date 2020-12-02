@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Http\Controllers\SSP;
 use Exception;
 
 class Crmlead extends Model
@@ -173,11 +174,11 @@ class Crmlead extends Model
             }
             else
             {
-                dd('lead');
-                // return Crmlead::addlead($con_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
-                // $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
-                // $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-                // $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
+                // dd('lead');
+                return Crmlead::addlead($con_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
+                $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
+                $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+                $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
 
             }
 
@@ -589,18 +590,42 @@ class Crmlead extends Model
     //     join stock_product sp on sp.id= clitem.stock_product_id
     //     where ld.status=true and ld.is_deleted=false");
     // }
-    //get  all lead
-    public static function getlead(){
-        $lead= DB::select('SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
-        cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,cl.crm_lead_source_id,cl.status,
-        cl.crm_lead_industry_id,cl.crm_lead_current_isp_id
+    //Get Lead sql
+    private static function getLeadSql(){
+        return "SELECT cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
+        cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,cl.crm_lead_source_id,
+        cl.crm_lead_industry_id,cl.crm_lead_current_isp_id,cl.status
         from crm_lead cl
         LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
         LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
 		JOIN crm_lead_branch clb on clb.crm_lead_id = cl.id
 		JOIN crm_lead_detail cld on cld.crm_lead_branch_id = clb.id
-        WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE   GROUP BY cl.id ORDER BY cl.lead_number DESC  ');
+        WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE GROUP BY cl.id";
+    }
+    //get  all lead
+    public static function getlead(){
+        $lead= DB::select(self::getLeadSql());
         return $lead;
+    }
+    public static function getleadDataTable($request){
+        $table = '('.self::getLeadSql().') as foo';
+
+        // Table's primary key
+        $primaryKey = 'lead_id';
+
+        // Array of database columns which should be read and sent back to DataTables.
+        // The `db` parameter represents the column name in the database, while the `dt`
+        // parameter represents the DataTables column identifier. In this case simple
+        // indexes
+        $columns = array(
+            array( 'db' => 'lead_number', 'dt' => 0 ),
+            array( 'db' => 'customer_name_en', 'dt' => 1 ),
+            array( 'db' => 'email',  'dt' => 2 ),
+            array( 'db' => 'phone',   'dt' => 3 ),
+            array( 'db' => 'lead_id',     'dt' => 4 ),
+        );
+
+        return json_encode(SSP::simple( $request, $table, $primaryKey, $columns ));
     }
      //get  all lead for add lead
      public static function getAddLead(){
@@ -877,7 +902,7 @@ class Crmlead extends Model
         JOIN ma_user u on la.ma_user_id=u.id
         JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lbc.crm_lead_branch_id
         JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
-        JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
+        left JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
         join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
         join crm_lead on crm_lead.id= lb.crm_lead_id
         left join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id

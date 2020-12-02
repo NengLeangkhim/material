@@ -96,7 +96,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" name="primary_phone"id="primary_phone" placeholder="Primary Phone" >
+                                                    <input type="text" class="form-control" name="primary_phone"id="primary_phone" placeholder="Primary Phone" onkeypress="return onlyNumberKey(event)" >
                                                     <span class="invalid-feedback" role="alert" id="primary_phoneError">
                                                         <strong></strong>
                                                     </span>
@@ -111,7 +111,7 @@
 
 
                                             <div class="col-md-6">
-                                                <label for="company_facebook">Facebook<b style="color:red">*</b></label>
+                                                <label for="company_facebook">Facebook</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-facebook"></i></span>
@@ -124,7 +124,7 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <label for="website">Website <b style="color:red">*</b></label>
+                                                <label for="website">Website</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-chrome"></i></span>
@@ -198,7 +198,7 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <label for="lead_status">Lead Status<b style="color:red">*</b></label>
+                                                <label for="lead_status">Lead Status</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-unlock"></i></span>
@@ -416,7 +416,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" name="primary_phone"id="primary_phone" placeholder="Primary Phone" >
+                                                    <input type="text" class="form-control" name="primary_phone"id="primary_phone" placeholder="Primary Phone" onkeypress="return onlyNumberKey(event)" >
                                                     <span class="invalid-feedback" role="alert" id="primary_phoneError">
                                                         <strong></strong>
                                                     </span>
@@ -1044,4 +1044,13 @@
                 })
             })
 
+            // number phone
+            function onlyNumberKey(evt) {         
+          // Only ASCII charactar in that range allowed 
+                var ASCIICode = (evt.which) ? evt.which : evt.keyCode 
+                // alert(ASCIICode);
+                if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) 
+                    return false; 
+                return true; 
+            }
     </script>

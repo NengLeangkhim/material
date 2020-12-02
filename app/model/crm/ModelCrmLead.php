@@ -19,6 +19,15 @@ class ModelCrmLead extends Model
         $res = app()->handle($request);
          return $res->getContent();
     }
+    //method support for datatable server side processing
+    public  static function  CrmGetLeadDataTable($request){
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/getlead-datatable'.$request, 'GET');//
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+         return $res->getContent();
+    }
     // Model get  branch by id
     public  static function  CrmGetBranch($id){
 
