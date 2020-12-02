@@ -383,8 +383,9 @@ class PurchaseController extends Controller
     public function show_product_single(Request $request, $id)
     {
         $products = DB::table('stock_product')
-        ->select('stock_product.*','bsc_account_charts.name_en as chart_account_name')
+        ->select('stock_product.*','bsc_account_charts.name_en as chart_account_name','ma_measurement.name as measurement_name')
         ->leftJoin('bsc_account_charts','stock_product.bsc_account_charts_id','=','bsc_account_charts.id')
+        ->leftJoin('ma_measurement','stock_product.ma_measurement_id','=','ma_measurement.id')
         ->where([
             ['stock_product.id','=',$id],
             ['stock_product.status','=','t'],

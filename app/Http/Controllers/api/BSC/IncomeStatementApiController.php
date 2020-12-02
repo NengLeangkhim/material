@@ -326,7 +326,7 @@ class IncomeStatementApiController extends Controller {
             try {
                 $income = $this->is->getData('(10,11)', $fromDate, $toDate);
                 $expense = $this->is->getData('(12,13)', $fromDate, $toDate);
-                $cogs = $this->is->getData('(5)', $fromDate, $toDate);
+                $cogs = $this->is->getData('(6)', $fromDate, $toDate);
 
                 $total_income = $this->getTotalSameCurrency($income);
                 $total_expense = $this->getTotalSameCurrency($expense);
