@@ -259,7 +259,7 @@
 
 
                                             <div class="col-md-6">
-                                                <label for="service">Service<b style="color:red">*</b></label>
+                                                <label for="service">Service</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-speakap"></i></span>
@@ -267,9 +267,6 @@
                                                     <select class="form-control select2"  multiple="multiple" name="service" id="service" placeholder='Choose service'>
                                                         <option value=''>-- Select Lead Assigened To --</option>
                                                     </select>
-                                                    <span class="invalid-feedback" role="alert" id="serviceError"> {{--span for alert--}}
-                                                        <strong></strong>
-                                                    </span>
                                                 </div>
                                             </div>
 
@@ -473,7 +470,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="service">Service<b style="color:red">*</b></label>
+                                                <label for="service">Service</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-speakap"></i></span>

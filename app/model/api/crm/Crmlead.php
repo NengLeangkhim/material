@@ -163,7 +163,7 @@ class Crmlead extends Model
 
             if($lead_id!=='null')
             {
-                // dd('lead');
+                // dd('branch');
                 return CrmLead::addbranchinlead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
                  $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
                  $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
@@ -173,11 +173,11 @@ class Crmlead extends Model
             }
             else
             {
-                // dd('no lead');
-                return Crmlead::addlead($con_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
-                $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
-                $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-                $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
+                dd('lead');
+                // return Crmlead::addlead($con_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
+                // $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
+                // $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+                // $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
 
             }
 
@@ -286,7 +286,7 @@ class Crmlead extends Model
     $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
     $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey){
 
-        // dd("dxfvfdn");
+        // dd($service);
         // return "df";
         if(isset($company_en)){
             DB::beginTransaction();
@@ -626,7 +626,7 @@ class Crmlead extends Model
 				JOIN crm_lead_branch clb on clb.crm_lead_id = cl.id
 				JOIN crm_lead_detail cld on cld.crm_lead_branch_id = clb.id
 				JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
-        WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE  and cla.ma_user_id=$uuserid GROUP BY cl.id ORDER BY cl.lead_number DESC ");
+        WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE  and cla.ma_user_id=$userid GROUP BY cl.id ORDER BY cl.lead_number DESC ");
         return $lead;
     }
     //get   lead  by id

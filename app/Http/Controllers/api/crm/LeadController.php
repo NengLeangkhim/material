@@ -137,7 +137,7 @@ class LeadController extends Controller
         $lead_status=$request->input('lead_status')!=""?$request->input('lead_status'):1;
         $lead_industry=$request->input('lead_industry');
         $assig_to=$request->input('assig_to');
-        $service=$request->input('service');
+        $service=$request->input('service')!=""?$request->input('service'):null;
         $current_speed_isp=$request->input('current_speed_isp');
         $current_speed=$request->input('current_speed');
         $current_price=$request->input('current_price');
@@ -163,7 +163,7 @@ class LeadController extends Controller
         $addresscode=$request->input('village');
 
         // return $lead_id;
-        // dd($company_branch);
+        // dd($service);
         return  Lead::insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
         $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
         $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,

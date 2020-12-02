@@ -229,8 +229,8 @@ class LeadController extends Controller
                                             ],
                     'phone' =>  [  'required'
                                             ],
-                    'service' =>  [  'required'
-                                            ],
+                    // 'service' =>  [  'required'
+                    //                         ],
                     'lead_status' =>  [  'required'
                                             ],
                     'email' =>  [  'required'
@@ -270,7 +270,7 @@ class LeadController extends Controller
                     'primary_email.required' => 'This Field is require !!',   //massage validator
                     'primary_phone.required' => 'This Field is require !!',   //massage validator
                     'assig_to.required' => 'This Field is require !!',   //massage validator
-                    'service.required' => 'This Field is require !!',   //massage validator
+                    // 'service.required' => 'This Field is require !!',   //massage validator
                     // 'vat_number.required' => 'This Field is require !!',   //massage validator
                     'lead_status.required' => 'This Field is require !!',   //massage validator
                     // 'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
