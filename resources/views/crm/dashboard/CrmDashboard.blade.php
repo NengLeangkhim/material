@@ -27,12 +27,12 @@
             width: 100%;
             min-height: 450px;
         }
-        .row .g-chart {
+        /* .row .g-chart {
             margin:0 !important;
-        }
+        } */
         .boxs {
             width: 20% !important;
-            padding: 0 3px !important;
+            padding: 0 8.5px !important;
         }
 
         @media only screen and (max-width:1199px){
@@ -135,7 +135,7 @@
                 <!-- ./col -->
             </div>
             <!-- /.row -->
-            <div class="row g-chart">
+            <div class="row">
                 <div class="col-xl-6">
                     <!-- AREA CHART -->
                     <div class="card card-primary" >
