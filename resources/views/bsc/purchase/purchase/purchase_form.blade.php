@@ -11,10 +11,10 @@
 <section class="content-header">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3">
-                <h4><i class="fas fa-user-plus"></i> Create Purchase</h4>
-            </div>
             <div class="col-md-6">
+                <h1><i class="fas fa-user-plus"></i> Create Purchase</h1>
+            </div>
+            {{-- <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-4">
                         <label for="exampleInputEmail1">Choose Account <b style="color:red">*</b> </label>
@@ -36,8 +36,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
+            </div> --}}
+            <div class="col-md-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="" class="lead" value="lead">Home</a></li>
                     <li class="breadcrumb-item active" onclick="go_to('bsc_purchase_purchase_list')">View Puechase</li>
@@ -51,11 +51,43 @@
         <div class="row">
             <!-- left column -->
             <div class="col-md-12">
-                <form id="frm_chart_account" action="">
+                {{-- <form id="frm_chart_account" action=""> --}}
                     @csrf
                     <!-- general form elements -->
                     <div class="card card-primary">
+                        <div class="card-header" style="background:#1fa8e0">
+                            <h3 class="card-title">Purchase Detail</h3>
+                        </div>
                         <div class="card-body">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Choose Account <b style="color:red">*</b> </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                            </div>
+                                            <select class="form-control input_required" name="account_type" id="purchase_account_chart_id">
+                                                @if (count($account_payables) > 0)
+                                                    @foreach ($account_payables as $account_payable)
+                                                        <option value="{{$account_payable->id}}">{{$account_payable->name_en}}</option>
+                                                    @endforeach
+                                                @endif
+                                               
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                         <label for="exampleInputEmail1">Choose Vat Chart Account <b style="color:red">*</b></label>
+                                         <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fab fa-chrome"></i></span>
+                                            </div>
+                                            <input required type="date" value="{{date('Y-m-d')}}" class="form-control input_required" name="end_period_date" id="purchase_date">
+                                        </div>
+                                     </div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -117,7 +149,7 @@
                                                 <th style="min-width: 65px;">Quantity</th>
                                                 <th style="min-width: 80px;">Unit Price</th>
                                                 <th style="min-width: 120px;">Account</th>
-                                                <th hidden style="min-width: 90px;">Tax</th>
+                                                <th style="min-width: 90px;">Tax</th>
                                                 <th style="min-width: 125px;">Amount</th>
                                                 <th></th>
                                             </tr>
@@ -147,7 +179,7 @@
                                                         <label for="" id="txtTotal" class="txtTotal">0</label>
                                                     </div>
                                                 </div>
-                                                <div class="row" hidden>
+                                                <div class="row">
                                                     <div class="col-sm-6 text_right">
                                                         <label for="">VAT Total :</label>
                                                     </div>
@@ -176,7 +208,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                {{-- </form> --}}
             </div>
         </div>
     </div>
@@ -199,6 +231,7 @@
                 containerCssClass: "add_class_select2"
             });
             $(".select2 .selection .add_class_select2").css('border','0px');
+            $(".tax").css('background-color','white');
             myKeyPress();
         });
 
@@ -208,6 +241,7 @@
             if($(this).closest('tbody').find('tr').length >1){
                 $('#' + delete_row).remove();
                 showTotal();
+                total_Vat();
                 showGrandTotal();
             }
         });
@@ -222,6 +256,7 @@
             let amount = show_amount(qty, price);
             tr.find('.item_amount').text(amount.toFixed(4));
             showTotal();
+            getVatTotal();
             showGrandTotal();
         });
         
@@ -233,6 +268,7 @@
             let amount =show_amount(qty,price);
             tr.find('.item_amount').text(amount.toFixed(4));
             showTotal();
+            getVatTotal();
             showGrandTotal();
         });
 
@@ -254,9 +290,33 @@
         });
         $(".select2 .selection .add_class_select2").css('border','0px');
 
+        //Delegate Field Tax 
+        $("#purchase_table tbody").delegate('.tax','change',function(){
+            let tr=$(this).closest('tr');
+            let tax = $(this).val();
+            let total_amount = 0;
+            let vat = 0;
+            
+            if(parseInt(tax) == 1){
+                total_amount = tr.find('.item_amount').text();
+                vat = parseFloat(total_amount * 10)/100;
+                tr.find('.item_amount').attr('data-tax_total',vat);
+                showTotal();
+                total_Vat();
+                showGrandTotal();
+            }else{
+                tr.find('.item_amount').attr('data-tax_total',0);
+                showTotal();
+                total_Vat();
+                showGrandTotal();
+            }
+            
+        });
+
         //
         $("#purchase_table tbody").delegate('.stock_product_id','change',function(){
             let tr=$(this).closest('tr');
+            let vat = 0;
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 type:"POST",
@@ -275,16 +335,23 @@
                     tr.find('.item_tax [value=1]').attr('selected', 'true');
                     let amount = show_amount(1, data['product_price']);
                     tr.find('.item_amount').text(amount.toFixed(4));
+                    vat = parseFloat(amount * 10)/100;
+                    tr.find('.item_amount').attr('data-tax_total',vat);
                     showTotal();
+                    total_Vat();
                     showGrandTotal();
                     tr.find('.item_des').attr('contentEditable',true);
                     tr.find('.item_qty').attr('contentEditable',true);
                     tr.find('.item_unit_price').attr('contentEditable',true);
+
+                    tr.find('.tax').prop('disabled',false);
                     
                 }
             });
         });      
     });
+
+
 
     // Function Can Input only Number and . in Field Quantity and UnitPrice
     function myKeyPress(){
@@ -327,15 +394,35 @@
         tr +='<tr id="row'+count+'">'+
                 '<td style="max-width: 165px;padding: 0;overflow: auto;" class="item_name"><select class="item_select stock_product_id" style="width: 100%;height: 51px;"><option value=""></option>'+$("#items").val()+'</select></td>'+
                 '<td style="max-width: 150px;" contenteditable="{{$contenteditable}}" class="item_des" id="item_des"></td>'+
-                '<td style="max-width: 65px;" contenteditable="{{$contenteditable}}" class="item_qty" id="item_qty" onkeypress="if(navigator.userAgent.indexOf(\'Firefox\') != -1) if($(this).parent().index()==0) return (this.innerText.length < 6) ; else return (this.innerText.length < 5); return (this.innerText.length < 5);"></td>'+
+                '<td style="max-width: 65px;" contenteditable="{{$contenteditable}}" class="item_qty" id="item_qty" onkeypress="if(navigator.userAgent.indexOf(\'Firefox\') != -1) if($(this).parent().index()==0) return (this.innerText.length < 6) ; else return (this.innerText.length < 5); return (this.innerText.length < 5);"><span style="float: right;">%</span></td>'+
                 '<td style="max-width: 80px;" contenteditable="{{$contenteditable}}" class="item_unit_price" id="item_unit_price"></td>'+
                 '<td style="max-width: 120px;" class="item_account" id="item_account" data-id=""></td>'+
-                '<td hidden style="max-width: 90px;padding: 0;" class="item_tax"><select style="border: 0px; height: 51px;" class="tax form-control"><option value=""></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
-                '<td style="max-width: 125px;" class="item_amount" id="item_amount"></td>'+
+                '<td style="max-width: 90px;padding: 0;" class="item_tax"><select disabled style="border: 0px; height: 51px;background-color: white;" class="tax form-control"><option value="" disabled hidden selected></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
+                '<td style="max-width: 125px;" class="item_amount" id="item_amount" data-tax_total></td>'+
                 '<td style="text-align: center;"><button type="button" name="remove" data-row="row'+count+'" class="btn btn-danger btn-xs remove">x</button></td>'+
-            '</tr>';
+            '</tr>'; 
         $('#purchase_table tbody').append(tr);
     }
+
+    // function total vat total
+    function getVatTotal(){
+        let vat =0;
+        let total_amount = tr.find('.item_amount').text();
+        vat = parseFloat(total_amount * 10)/100;
+        tr.find('.item_amount').attr('data-tax_total',vat);
+        total_Vat();
+    }
+
+    function total_Vat(){
+        let vat = 0;
+        $('.item_amount').each(function(e){
+            if(!isNaN(parseFloat($(this).attr('data-tax_total')))){
+                vat += parseFloat($(this).attr('data-tax_total'));
+            }
+        });
+        document.getElementById('txtVatTotal').innerHTML=vat.toFixed(4);
+    }
+
 
     // function save all data
     function saveData(){

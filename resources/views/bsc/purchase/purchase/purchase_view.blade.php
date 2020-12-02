@@ -53,8 +53,9 @@
                                     <th>Item</th>
                                     <th>Description</th>
                                     <th>Quantity</th>
+                                    <th>Unit Price</th>
                                     <th>Account</th>
-                                    <th hidden>Tax Rate</th>
+                                    <th>Tax Rate</th>
                                     <th>Amount</th>
                                 </tr>
                             </thead>
@@ -65,8 +66,9 @@
                                             <td>{{$item->product_name}}</td>
                                             <td>{{$item->description}}</td>
                                             <td>{{$item->qty}}</td>
+                                            <td>{{number_format($item->unit_price,4,".",",")}}</td>
                                             <td>{{$item->chart_account_name}}</td>
-                                            <td hidden>{{$item->tax}}</td>
+                                            <td>{{$item->tax == 0 ? "No Tax" : "Tax"}}</td>
                                             <td id="txtAmount" class="txtAmount">{{$item->amount}}</td>
                                         </tr>
                                     @endforeach                                   
@@ -88,7 +90,7 @@
                                             <label for="" id="txtTotal" value="">{{$purchase->total}}</label>
                                         </div>
                                     </div>
-                                    <div class="row" hidden>
+                                    <div class="row">
                                         <div class="col-sm-6 text_right">
                                             <label for="">VAT Total :</label>
                                         </div>

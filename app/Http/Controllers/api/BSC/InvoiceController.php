@@ -563,7 +563,7 @@ class InvoiceController extends Controller
                                     bsc_account_charts
                                     LEFT JOIN bsc_account_type ON bsc_account_charts.bsc_account_type_id = bsc_account_type.id 
                                 WHERE
-                                    bsc_account_charts.bsc_account_type_id IN (7,8)
+                                    bsc_account_charts.bsc_account_type_id = 7
                                     AND bsc_account_charts.ma_currency_id = 4
                                     AND bsc_account_charts.parent_id IS NOT NULL
                                     AND bsc_account_charts.status = 't' 
