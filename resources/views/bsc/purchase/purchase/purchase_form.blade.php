@@ -14,29 +14,6 @@
             <div class="col-md-6">
                 <h1><i class="fas fa-user-plus"></i> Create Purchase</h1>
             </div>
-            {{-- <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="exampleInputEmail1">Choose Account <b style="color:red">*</b> </label>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-building"></i></span>
-                            </div>
-                            <select class="form-control input_required" name="account_type" id="purchase_account_chart_id">
-                                @if (count($account_payables) > 0)
-                                    @foreach ($account_payables as $account_payable)
-                                        <option value="{{$account_payable->id}}">{{$account_payable->name_en}}</option>
-                                    @endforeach
-                                @endif
-                               
-                            </select>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
             <div class="col-md-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="" class="lead" value="lead">Home</a></li>
@@ -78,14 +55,30 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                         <label for="exampleInputEmail1">Choose Vat Chart Account <b style="color:red">*</b></label>
-                                         <div class="input-group">
+                                        <label for="exampleInputEmail1">Choose Vat Chart Account <b style="color:red">*</b></label>
+                                        <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fab fa-chrome"></i></span>
+                                                <span class="input-group-text"><i class="fas fa-building"></i></span>
                                             </div>
-                                            <input required type="date" value="{{date('Y-m-d')}}" class="form-control input_required" name="end_period_date" id="purchase_date">
+                                            <select class="form-control select2 input_required" name="purchase_chart_vat_acc" id="purchase_chart_vat_acc">
+                                                <option selected hidden disabled>select item</option>
+                                                @if (count($show_vat_chart_accounts) > 0)
+                                                    @foreach ($show_vat_chart_accounts as $show_vat_chart_account)
+                                                        <option value="" disabled>{{$show_vat_chart_account->bsc_account_type_name}}</option>
+                                                        @php
+                                                            $sub_chart_acc = $show_vat_chart_account->vat_input_chart_accounts;
+                                                        @endphp
+                                                        @if ($sub_chart_acc != null)
+                                                            @foreach ($sub_chart_acc as $chart_acc)
+                                                                <option value="{{$chart_acc->id}}">&nbsp;&nbsp;&nbsp;{{$chart_acc->name_en}}</option>
+                                                            @endforeach
+                                                        @endif
+
+                                                    @endforeach
+                                                @endif
+                                            </select>
                                         </div>
-                                     </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -394,7 +387,7 @@
         tr +='<tr id="row'+count+'">'+
                 '<td style="max-width: 165px;padding: 0;overflow: auto;" class="item_name"><select class="item_select stock_product_id" style="width: 100%;height: 51px;"><option value=""></option>'+$("#items").val()+'</select></td>'+
                 '<td style="max-width: 150px;" contenteditable="{{$contenteditable}}" class="item_des" id="item_des"></td>'+
-                '<td style="max-width: 65px;" contenteditable="{{$contenteditable}}" class="item_qty" id="item_qty" onkeypress="if(navigator.userAgent.indexOf(\'Firefox\') != -1) if($(this).parent().index()==0) return (this.innerText.length < 6) ; else return (this.innerText.length < 5); return (this.innerText.length < 5);"><span style="float: right;">%</span></td>'+
+                '<td style="max-width: 65px;" contenteditable="{{$contenteditable}}" class="item_qty" id="item_qty" onkeypress="if(navigator.userAgent.indexOf(\'Firefox\') != -1) if($(this).parent().index()==0) return (this.innerText.length < 6) ; else return (this.innerText.length < 5); return (this.innerText.length < 5);"></td>'+
                 '<td style="max-width: 80px;" contenteditable="{{$contenteditable}}" class="item_unit_price" id="item_unit_price"></td>'+
                 '<td style="max-width: 120px;" class="item_account" id="item_account" data-id=""></td>'+
                 '<td style="max-width: 90px;padding: 0;" class="item_tax"><select disabled style="border: 0px; height: 51px;background-color: white;" class="tax form-control"><option value="" disabled hidden selected></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
@@ -461,6 +454,7 @@
                     data:{
                         _token: CSRF_TOKEN,
                         bsc_account_charts_id : $("#purchase_account_chart_id").val(),
+                        bsc_vat_chart_account : $("#purchase_chart_vat_acc").val(),
                         suppier_id            : $("#purchase_supplier").val(),
                         billing_date          : $("#purchase_date").val(),
                         due_date              : $("#purchase_due_date").val(),  

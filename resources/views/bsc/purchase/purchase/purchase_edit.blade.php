@@ -23,32 +23,6 @@
             <div class="col-md-6">
                 <h1><i class="fas fa-edit"></i> Update Purchase</h1>
             </div>
-            {{-- <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="exampleInputEmail1">Choose Account <b style="color:red">*</b> </label>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-building"></i></span>
-                            </div>
-                            <select class="form-control input_required" name="account_type" id="purchase_account_chart_id" {{$display}}>
-                                @if (count($account_payables) > 0)
-                                    @foreach ($account_payables as $account_payable)
-                                        <option 
-                                            @if ($purchase->chart_account_id == $account_payable->id)
-                                                selected
-                                            @endif
-                                            value="{{$account_payable->id}}">{{$account_payable->name_en}}
-                                        </option>
-                                    @endforeach
-                                @endif
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
             <div class="col-md-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('bsc_purchase_purchase_list')"><i class="fa fa-arrow-left" aria-hidden="true"></i>
@@ -93,14 +67,37 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                         <label for="exampleInputEmail1">Choose Vat Chart Account <b style="color:red">*</b></label>
-                                         <div class="input-group">
+                                        <label for="exampleInputEmail1">Choose Vat Chart Account <b style="color:red">*</b></label>
+                                        <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fab fa-chrome"></i></span>
+                                                <span class="input-group-text"><i class="fas fa-building"></i></span>
                                             </div>
-                                            <input required type="date" value="{{date('Y-m-d')}}" class="form-control input_required" name="end_period_date" id="purchase_date">
+                                            
+                                            <select class="form-control select2 input_required" name="purchase_chart_vat_acc" id="purchase_chart_vat_acc" {{$display}}>
+                                                <option selected hidden disabled>select item</option>
+                                                
+                                                @if (count($show_vat_chart_accounts) > 0)
+                                                    @foreach ($show_vat_chart_accounts as $show_vat_chart_account)
+                                                        <option value="" disabled>{{$show_vat_chart_account->bsc_account_type_name}}</option>
+                                                        @php
+                                                            $sub_chart_acc = $show_vat_chart_account->vat_input_chart_accounts;
+                                                        @endphp
+                                                        @if ($sub_chart_acc != null)
+                                                            @foreach ($sub_chart_acc as $chart_acc)
+                                                                <option 
+                                                                    {{-- @if ($chart_acc->id == $purchase->id)
+                                                                        selected
+                                                                    @endif --}}
+                                                                    value="{{$chart_acc->id}}">&nbsp;&nbsp;&nbsp;{{$chart_acc->name_en}}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+
+                                                    @endforeach
+                                                @endif
+                                            </select>
                                         </div>
-                                     </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -560,7 +557,7 @@
         $('#purchase_table tbody').append(tr);
     }
 
-    // function total va tax
+    // function total vat tax
     function getVatTotal(){
         let vat =0;
         let total_amount = tr.find('.item_amount').text();
@@ -620,6 +617,7 @@
                         _token: CSRF_TOKEN,
                         purchase_id           : $("#purchase_id").val(),
                         bsc_account_charts_id : $("#purchase_account_chart_id").val(),
+                        bsc_vat_chart_account : $("#purchase_chart_vat_acc").val(),
                         suppier_id            : $("#purchase_supplier").val(),
                         billing_date          : $("#purchase_date").val(),
                         due_date              : $("#purchase_due_date").val(),  
