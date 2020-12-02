@@ -441,27 +441,25 @@
         // Contact Chart
         var Contact_Chart = () =>{
             function CrmContactDrawChart(get_date,get_total) {
-                var result = [
-                    ["Contact", "", {
-                        role: 'style'
-                    }]
-                ]
-                var colors = [{
-                        id: 0,
-                        name_en: 'none',
-                        code: '#1fa8e0'
-                    }
-                ]
+                // var result = [
+                //     ["Contact", "", {
+                //         role: 'style'
+                //     }]
+                // ]
+                // var colors = [{
+                //         id: 0,
+                //         name_en: 'none',
+                //         code: '#1fa8e0'
+                //     }
+                // ]
                 // $.each(data, function (index, value) {
                 //     result.push([value.create_date, value.total, colors[0].code])
                 // })
                 // var data = google.visualization.arrayToDataTable(result);
-
                 var data = google.visualization.arrayToDataTable([
                     ['', '', { role: 'style' }],
                     [get_date, get_total, 'color:#25CCF7']
                 ]);
-
                 var view = new google.visualization.DataView(data);
                 view.setColumns([0, 1,
                     {
@@ -486,7 +484,7 @@
                     vAxis: {
                         minValue: 0,
                         maxValue: 50,
-                        // direction: 1
+                        direction: 1
                     },
                     hAxis: {
                         textStyle: {
