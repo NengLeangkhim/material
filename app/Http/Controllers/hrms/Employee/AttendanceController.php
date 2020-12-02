@@ -12,7 +12,7 @@ use App\model\setting\LeaveType;
 class AttendanceController extends Controller
 {
     //
-    function AllAttendance(){
+    public static function AllAttendance(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -26,7 +26,7 @@ class AttendanceController extends Controller
                 $date=date('Y-m-d').'';
             }
             // echo $date;
-            // $date= '2020-07-28';
+            // $date= '2020-11-28';
             if($att->CheckHoliday($date)==1 || $att->CheckHoliday($date)==2){
                 return '<center><h1>Holiday !!</h1></center>';
             }else{
@@ -38,14 +38,14 @@ class AttendanceController extends Controller
             return view('noperms');
         }
     }
-    function ShowAttendanceByDate(){
+    public static function ShowAttendanceByDate(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if (perms::check_perm_module('HRM_090103')) {
             $att = new Attendance();
             $em = new Employee();
-            $allem = $em->AllEmployee();
+            $allem = $em->list_employee_without_night_sheet();
             if (isset($_GET['attendance_date'])) {
                 $date = $_GET['attendance_date'] . '';
                 if ($att->CheckHoliday($date) == 1 || $att->CheckHoliday($date) == 2) {

@@ -18,17 +18,27 @@ class LeadController extends Controller
 {
 
     // get lead by APi
-    public function getlead(){
+    public function getlead(Request $request){
         if(perms::check_perm_module('CRM_0205')){//module codes
-            $lead=ModelCrmLead::CrmGetLead();
-            $result =json_decode($lead,true);
-            if($result!=null){
-                return view('crm.Lead.index',['lead'=>$result["data"]]);
-            }
-            else{
-                return view('no_perms');
-            }
+            // $lead=ModelCrmLead::CrmGetLead();
+            // $result =json_decode($lead,true);
+            // if($result!=null){
+                return view('crm.Lead.index',['lead'=>$result["data"]??'']);//pass param in case if error happend
+            // }
+            // else{
+            //     return view('no_perms');
+            // }
 
+        }else{
+            return view('no_perms');
+        }
+    }
+    //get lead to support for datatable request
+    public function getleadDatatable(Request $request){
+        $request=str_replace($request->Url(),'',$request->fullUrl());
+        if(perms::check_perm_module('CRM_0205')){//module codes
+            $lead=ModelCrmLead::CrmGetLeadDataTable($request);
+            return $lead;
         }else{
             return view('no_perms');
         }
@@ -581,6 +591,10 @@ class LeadController extends Controller
                 // return $res;
                 if($response->update=='success'){
                     return response()->json(['success'=>'Record is successfully added']);
+                }
+                else
+                {
+                    return view('no_perms');
                 }
             }else{
                 return view('no_perms');

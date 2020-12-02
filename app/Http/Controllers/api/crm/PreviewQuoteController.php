@@ -283,7 +283,7 @@ class PreviewQuoteController extends Controller
          return $output;
 
      }
-
+     
     public  function getQuoteInfo($q){
         $time = strtotime($q->create_date);
         $newformat = date('Y-m-d',$time);

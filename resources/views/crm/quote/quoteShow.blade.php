@@ -81,8 +81,7 @@
                                                                                                 echo 'No';
                                                                                         }
                                                                                     }
-                                                                                }
-                                                                        ?>
+                                                                            ?>
                                                                     </td>
                                                                     <td>{{$val2->due_date}}</td>
                                                                     <td>
@@ -103,6 +102,7 @@
                                                                         </div>
                                                                     </td>
                                                                 </tr>
+                                                            @endforeach
                                                         @endforeach
                                                     @endif
 
