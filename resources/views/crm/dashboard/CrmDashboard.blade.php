@@ -213,6 +213,7 @@
 
 <script>
 
+
     var currentDate = new Date()
     var currentDateString = currentDate.toJSON().split('T')[0]
     currentDate.setDate( currentDate.getDate() - 7 );
