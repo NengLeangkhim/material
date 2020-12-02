@@ -361,12 +361,7 @@ Function index_num($v1){
 
                       </table>
                       <div class="media py-3 align-items-center justify-content-between">
-                                {{-- <div style="padding-right: 15px">
-                                  <canvas id="staff_dougnutchart"></canvas>
-                                </div>
-                                <div >
-                                  <div id="myLegend_staff_chart"></div>
-                                </div> --}}
+                                
                               <canvas id="chart_employee" width="100%" height="40%;"></canvas>
 
                       </div>
@@ -384,77 +379,11 @@ Function index_num($v1){
                     <table style="">
                       @foreach ($staff_byDept as $dep)
                         <tr class="tr-review">
-<<<<<<< HEAD
                           <td>{{$dep->name}}<td>
                           <td>:</td>
                           <td>{{$dep->count}}</td> 
                         </tr>
                       @endforeach
-=======
-                          <td>
-                            <?php
-                                foreach($staff_byDept['ITD'] as $key=>$val ){
-                                  $IT_name = $val->dept_name;
-                                  echo 'ITD'; break;
-                                }
-
-                            ?>
-
-                          <td>
-                          <td> :<?php echo index_num(count($staff_byDept['ITD'])); ?>
-                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
-                        </tr>
-                        <tr class="tr-review">
-                          <td>
-                          <?php
-                                foreach($staff_byDept['OPD'] as $key=>$val ){
-                                  $OPD_name = $val->dept_name;
-                                  echo $OPD_name; break;
-                                }
-                            ?>
-                          <td>
-                          <td> :<?php echo index_num(count($staff_byDept['OPD'])); ?>
-                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
-                        </tr>
-                        <tr class="tr-review">
-                          <td>
-                          <?php
-                                foreach($staff_byDept['BSD'] as $key=>$val ){
-                                  $BSD_name = $val->dept_name;
-                                  echo $BSD_name; break;
-                                }
-                            ?>
-                          <td>
-                          <td> :<?php echo index_num(count($staff_byDept['BSD'])); ?>
-                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
-                        </tr>
-                        <tr class="tr-review">
-                          <td>
-                            <?php
-                                foreach($staff_byDept['ACD'] as $key=>$val ){
-                                  $ACD_name = $val->dept_name;
-                                  echo $ACD_name; break;
-                                }
-                            ?>
-                          <td>
-                          <td> :<?php echo index_num(count($staff_byDept['ACD'])); ?>
-                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
-                        </tr>
-                        <tr>
-                          <td>
-                          <?php
-                                foreach($staff_byDept['FND'] as $key=>$val ){
-                                  $FND_name = $val->dept_name;
-                                  echo $FND_name; break;
-                                }
-                            ?>
-                          <td>
-                          <td> :<?php echo index_num(count($staff_byDept['FND']));
-                              ?>
-                              {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
-                        </tr>
-
->>>>>>> b4b383d9d8462875b3f712f09826737f3ae14573
                     </table>
                     <div class="media py-3 align-items-center justify-content-between">
 
@@ -510,13 +439,8 @@ Function index_num($v1){
 </div>
 
 
-<<<<<<< HEAD
 <?php 
   
-=======
-<?php
-  $dept_name = array('ITD',$OPD_name,$BSD_name,$ACD_name,$FND_name);
->>>>>>> b4b383d9d8462875b3f712f09826737f3ae14573
 
 ?>
 
