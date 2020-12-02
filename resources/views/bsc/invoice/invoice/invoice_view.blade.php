@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><i class="fas fa-user"></i> View Invoice</h1>
+                <h1><i class="fas fa-eye"></i> View Invoice</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -117,6 +117,9 @@
                                     <th>Amount</th>
                                 </tr>
                             </thead>
+                            @php
+                                // dd($invoice_details);
+                            @endphp
                             <tbody>
                                 @if (count($invoice_details) >0)
                                     @foreach ($invoice_details as $invoice_detail)
@@ -124,12 +127,12 @@
                                             <td>{{ $invoice_detail->customer_branch_name }}</td>
                                             <td>{{ $invoice_detail->product_name }}</td>
                                             <td>{{ $invoice_detail->description }}</td>
-                                            <td>{{ $invoice_detail->qty }}</td>
+                                            <td>{{ $invoice_detail->qty }} <span>{{ $invoice_detail->measurement_name }}</span></td>
                                             <td>{{ number_format($invoice_detail->unit_price,4,".",",") }}</td>
                                             <td>{{ number_format($invoice_detail->discount,4,".",",") }}</td>
                                             <td>{{ $invoice_detail->chart_account_name }}</td>
                                             <td>{{ $invoice_detail->tax == 0 ? "Exclude" : "Include" }}</td>
-                                            <td class="item_amount">{{ number_format($invoice_detail->amount,4,".",",") }}</td>
+                                            <td class="item_amount" data-item_amount="{{ $invoice_detail->amount }}">{{ number_format($invoice_detail->amount,4,".",",") }}</td>
                                         </tr>
                                     @endforeach
                                 @endif
@@ -426,8 +429,8 @@ $('.detail').click(function(e)
     function showTotal(){
         let total_amount = 0;
         $('.item_amount').each(function(e){
-            if(!isNaN(parseFloat($(this).text()))){
-                total_amount += parseFloat($(this).text());
+            if(!isNaN(parseFloat($(this).attr('data-item_amount')))){
+                total_amount += parseFloat($(this).attr('data-item_amount'));
             }
         });
         document.getElementById('txtTotal').innerHTML=total_amount.toFixed(4);

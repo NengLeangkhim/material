@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><i class="fas fa-user"></i> Invoices</h1>
+                <h1><i class="fas fa-file"></i> Invoices</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -107,7 +107,7 @@
                                             <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
                                                 <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
                                                     <div class="card-body">
-                                                        <table id="example2" class="table table-bordered table-striped" style="white-space: nowrap">
+                                                        <table id="example2" class="table table-bordered table-striped">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Invoice Number</th>

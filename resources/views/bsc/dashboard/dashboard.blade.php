@@ -34,10 +34,10 @@ Function index_num($v1){
                                 <h5 style="text-align: center; color:#12b9d6">{{ number_format($amount_dashboards->total_revenue_this_month,4,".",",") }}</h5>
                             </div>
                             <div class="row" style="text-align: center">
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <div class="col-md-4" style="padding: 0px">
                                     All Total :
                                 </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <div class="col-md-8">
                                     {{ number_format($amount_dashboards->total_revenue_all,4,".",",") }}
                                 </div>
                             </div>
@@ -55,10 +55,10 @@ Function index_num($v1){
                             <h5 style="text-align: center; color:#12b9d6">{{number_format($amount_dashboards->total_expense_this_month,4,".",",") }}</h5>
                         </div>
                         <div class="row" style="text-align: center">
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-md-4" style="padding: 0px">
                                 All Total :
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-md-8">
                                 {{ number_format($amount_dashboards->total_expense_all,4,".",",") }}
                             </div>
                         </div>
@@ -76,10 +76,10 @@ Function index_num($v1){
                             <h5 style="text-align: center; color:#12b9d6">{{ number_format($amount_dashboards->total_receivable_this_month,4,".",",") }}</h5>
                         </div>
                         <div class="row" style="text-align: center">
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-md-4" style="padding: 0px">
                                 All Total :
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-md-8">
                                 {{ number_format($amount_dashboards->total_receivable_all,4,".",",") }}
                             </div>
                         </div>
@@ -97,10 +97,10 @@ Function index_num($v1){
                             <h5 style="text-align: center; color:#12b9d6">{{ number_format($amount_dashboards->total_payable_this_month,4,".",",") }}</h5>
                         </div>
                         <div class="row" style="text-align: center">
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-md-4" style="padding: 0px">
                                 All Total :
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-md-8">
                                 {{ number_format($amount_dashboards->total_payable_all,4,".",",") }}
                             </div>
                         </div>
@@ -176,7 +176,7 @@ Function index_num($v1){
     if($amount_high_chart_dashboards->arr_month != ""){
         $arr_month = $amount_high_chart_dashboards->arr_month;
         $month_name = "";
-        for ($i=0; $i < 5; $i++) { 
+        for ($i=0; $i < 5; $i++) {
             if ($i != 4) {
                 $opt_camma = ",";
             }else {
@@ -185,19 +185,19 @@ Function index_num($v1){
             $month_name .= '"'.$arr_month[$i].'"'.$opt_camma;
         }
     }
-    
+
     //get Data Amount Revenue
     if ($amount_high_chart_dashboards->arr_total_amount_revenue != "") {
        $arr_revenue = $amount_high_chart_dashboards->arr_total_amount_revenue;
         $data_revenue = "";
-        for ($i=0; $i < 5; $i++) { 
+        for ($i=0; $i < 5; $i++) {
             if ($i != 4) {
                 $opt_camma = ",";
             }else {
                 $opt_camma = "";
             }
             $data_revenue .= $arr_revenue[$i].$opt_camma;
-           
+
         }
     }
 
@@ -205,14 +205,14 @@ Function index_num($v1){
     if ($amount_high_chart_dashboards->arr_total_amount_expense != "") {
         $arr_expense = $amount_high_chart_dashboards->arr_total_amount_expense;
         $data_expense = "";
-        for ($i=0; $i < 5; $i++) { 
+        for ($i=0; $i < 5; $i++) {
             if ($i != 4) {
                 $opt_camma = ",";
             }else {
                 $opt_camma = "";
             }
             $data_expense .= $arr_expense[$i].$opt_camma;
-           
+
         }
     }
 
@@ -220,14 +220,14 @@ Function index_num($v1){
     if ($amount_high_chart_dashboards->arr_total_amount_receivable != "") {
         $arr_receivable = $amount_high_chart_dashboards->arr_total_amount_receivable;
         $data_receivable = "";
-        for ($i=0; $i < 5; $i++) { 
+        for ($i=0; $i < 5; $i++) {
             if ($i != 4) {
                 $opt_camma = ",";
             }else {
                 $opt_camma = "";
             }
             $data_receivable .= $arr_receivable[$i].$opt_camma;
-           
+
         }
     }
 
@@ -235,20 +235,20 @@ Function index_num($v1){
     if ($amount_high_chart_dashboards->arr_total_amount_payable != "") {
         $arr_payable = $amount_high_chart_dashboards->arr_total_amount_payable;
         $data_payable = "";
-        for ($i=0; $i < 5; $i++) { 
+        for ($i=0; $i < 5; $i++) {
             if ($i != 4) {
                 $opt_camma = ",";
             }else {
                 $opt_camma = "";
             }
             $data_payable .= $arr_payable[$i].$opt_camma;
-           
+
         }
     }
-   
+
 @endphp
-<script>    
-     
+<script>
+
 
     //bar chart for Income & Expense by month
         new Chart(document.getElementById("bar-chart-grouped"), {
@@ -260,7 +260,7 @@ Function index_num($v1){
                         label: "Revenue",
                         data: [<?php echo $data_revenue; ?>],
                         backgroundColor: "#36A2EB"
-                    }, 
+                    },
                     {
                         label: "Expense",
                         data: [<?php echo $data_expense; ?>],
@@ -286,7 +286,7 @@ Function index_num($v1){
                         label: "Account Receivable",
                         data: [<?php echo $data_receivable; ?>],
                         backgroundColor: "#36A2EB"
-                    }, 
+                    },
                     {
                         label: "Account Payable",
                         data: [<?php echo $data_payable; ?>],

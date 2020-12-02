@@ -12,7 +12,7 @@ if (count($bsc_show_customer_branchs) >0) {
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-4">
-                <h1><span><i class="fas fa-user-plus"></i></span> Create Invoice</h1>
+                <h1><span><i class="fas fa-file"></i></span> Create Invoice</h1>
             </div>
             <div class="col-md-5">
 
@@ -67,7 +67,17 @@ if (count($bsc_show_customer_branchs) >0) {
                                                 <option value="" selected hidden disabled>select item</option>
                                                 @if (count($vat_chart_accounts) >0)
                                                     @foreach ($vat_chart_accounts as $vat_chart_account)
-                                                        <option value="{{ $vat_chart_account->id }}">{{ $vat_chart_account->name_en }}</option>
+                                                        <option value="" disabled>{{ $vat_chart_account->bsc_account_type_name }}</option>
+                                                        @php
+                                                            $sub_vat_acc = $vat_chart_account->vat_chart_accounts;
+                                                        @endphp
+                                                        @if ($sub_vat_acc != null){
+                                                            @foreach ($sub_vat_acc as $sub_vat)
+                                                                <option value="{{ $sub_vat->id }}">&nbsp;&nbsp;&nbsp;{{ $sub_vat->name_en }}</option>
+                                                            @endforeach
+                                                        }
+
+                                                        @endif
                                                     @endforeach
                                                 @endif
                                             </select>
