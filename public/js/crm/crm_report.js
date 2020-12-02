@@ -1,5 +1,13 @@
 
 
+function returnNoData(id){
+    // console.log('this call funciton='+id);
+    $('#'+id+'').html('');
+    $('#'+id+'').empty();
+    $('#'+id+'').children().remove();
+    $('#'+id+'').append(`<div class="text-center font-weight-bold color-bluelight font-size-24">No Data</div>`);
+    return 0;
+}
 
 
 // chart for report quote view by branch status
@@ -13,47 +21,58 @@ var reportLeadByStatus = () => {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: $('#FrmChartReport').serialize(),
-        // success: function(response){
-        //     console.log('data repson='+response);
-        //     console.log('data repson.data='+response.data[0]['status_en']);
-        //     // var data1 = JSON.stringify(data);
-        //     // console.log('data respon stringfy='+data1);
-        //     // console.log('data parse='+JSON.parse(data1));
-        //     // data.forEach(function(val){
-        //     //     console.log(val);
-        //     // });
-        // }
         success: function(response) {
-            // console.log('data branch status='+response);
-            if (response.success == true) {
+            if (response.success == true){
 
                 var data = response.data;
                 if(data.length < 1){
-                    $('#QuoteChart').text("");
-                    $('#QuoteChart').append(`<div class="text-center font-weight-bold color-bluelight font-size-24">No Data</div>`);
-                    return 0;
+                    returnNoData('Branchchart');
                 }
+
                 google.charts.load("current", {packages:["corechart"]});
                 google.charts.setOnLoadCallback(drawChart);
+                // var chartColor = ['color: #EE5A24','color: #C4E538','color: #fff200','color: #18dcff','color: #7d5fff','color: #00cec9','color: #ff3838'];
+                // console.log('this color arrr='+chartColor);
                 var mydata = [['Task', 'Hours per Day']];
-                    $.each(data, function(k, val){
-                        mydata.push([data[k]['status_en'], data[k]['total_lead']]);
-                    })
-
+                var numCount = 0;
+                $.each(data, function(k, val){
+                    if(data[k]['total_lead'] == 0){
+                        numCount += 1;
+                    }
+                    mydata.push([data[k]['status_en'], data[k]['total_lead']]);
+                    // mydata.push(['darasok'+k+'', k]);
+                })
+                // console.log('countNum='+numCount+'datelength='+data.length);
+                if(numCount == data.length){
+                    returnNoData('Branchchart');
+                }
                 function drawChart(){
                     var data = google.visualization.arrayToDataTable(mydata);
                     var options = {
                         title: 'Branch Lead Progress',
                         pieHole: 0.4,
                         slices: {
-                            // 0: { color: '#ff6384' },
-                            // 1: { color: '#1fa8e0' },
-                            // 2: { color: '#c060a1' }
+                            // 0: { color: '#ff3838' },
+                            // 1: { color: '#7d5fff' },
+                            // 2: { color: '#fff200' },
+                            // 3: { color: '#C4E538' },
+                            // 4: { color: '#00cec9' },
+                            // 5: { color: '#EE5A24' },
+                            // 6: { color: '#18dcff' },
+                            0: { color: 'rgb(125, 105, 11)' },
+                            1: { color: 'rgb(145, 205, 66)' },
+                            2: { color: 'rgb(54, 162, 235)' },
+                            3: { color: 'rgb(75, 102, 42)' },
+                            4: { color: 'rgb(255, 205, 86)' },
+                            5: { color: 'rgb(255, 99, 132)' },
+                            6: { color: 'rgb(105, 155, 16)' },
                         }
                     };
                     var chart = new google.visualization.PieChart(document.getElementById('Branchchart'));
                     chart.draw(data, options);
+
                 }
+
                 // google.charts.load('current', {
                 //     packages: ['corechart']
                 // });
@@ -189,7 +208,7 @@ var reportContact = () => {
                                     2]);
                     var options = {
                         title: "Contact Progress",
-                        width: 550,
+                        width: "100%",
                         height: 300,
                         bar: {groupWidth: "70%"},
                         legend: { position: "none" },
@@ -300,7 +319,7 @@ var reportOrganization = () => {
                                     2]);
                     var options = {
                         title: "Organization Progress",
-                        width: 550,
+                        width: "100%",
                         height: 300,
                         bar: {groupWidth: "70%"},
                         legend: { position: "none" },
@@ -346,10 +365,11 @@ var reportQuoteByStatus = () => {
                     google.charts.load("current", {packages:["corechart"]});
                     google.charts.setOnLoadCallback(drawChart);
                     var mydata = [['Year', ' ', { role: 'style' }]];
+                    var colorChart = ['#009432','#009432','#EE5A24','#EA2027','#12CBC4','#006266','#fff200','#ff5252'];
                     $.each(data, function(k, val){
-                        mydata.push([data[k]['quote_status_name_en'], data[k]['total_quotes'], 'stroke-color:#e6e6e6; stroke-width: 2;fill-color: #bfbfbf;']);
+                        mydata.push([data[k]['quote_status_name_en'], data[k]['total_quotes'], 'stroke-color:#e6e6e6; stroke-width: 2;fill-color: '+colorChart[k]+';']);
                     });
-
+                    console.log(mydata);
                     function drawChart(){
                         var data = google.visualization.arrayToDataTable(mydata);
                         // var data = google.visualization.arrayToDataTable([
@@ -370,8 +390,8 @@ var reportQuoteByStatus = () => {
 
                         var options = {
                         title: "Quote Performance",
-                        width: 550,
-                        height: 200,
+                        width: "100%",
+                        height: 300,
                         bar: {groupWidth: "70%"},
                         legend: { position: "none" },
                         };
@@ -499,8 +519,10 @@ var reportSurvey = () => {
         success: function (response) {
             if(response.success == true){
                     var data = response.data;
+                    // console.log(data);
                     var mydata = [['Task','',{role: 'style'}]];
                     var chartColor = ['color:#ff3d67' ,'color:#25CCF7'];
+                        $('#survey_chart').text("");
                         if(data.length < 1){
                                 mydata.push(['No data', 0,'color:#25CCF7']);
                         }else{
@@ -509,7 +531,6 @@ var reportSurvey = () => {
                             });
                         }
                         // console.log(mydata);
-
 
                     // var data = google.visualization.arrayToDataTable([
                     //     ['Task','',{role: 'style'}],
@@ -559,9 +580,6 @@ var reportSurvey = () => {
         }
     });
 }
-
-
-
 
 
 

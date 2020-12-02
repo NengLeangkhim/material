@@ -3,7 +3,7 @@
   <div class="container-fluid">
       <div class="row mb-2 mt-4">
           <div class="col-sm-6">
-              <h1><span><i class="fas fa-chart-pie"></i></span>Report</h1>
+              <h1><span><i class="fas fa-chart-pie"></i></span> CRM Report</h1>
           </div>
           <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -59,12 +59,12 @@
                         </form>
                       </div>
                       <div class="chart">
-                        <div id="Branchchart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;display:block;">
+                        <div id="Branchchart" style="height: 300px; width: 100%;">
 
                         </div>
                       </div>
                       <div class="col-md-12 text-right">
-                          <button class="btn btn-info" onclick="go_to('/crmreport/detaillead')"><span><i class="fas fa-info"></i></span> Detail</button>
+                          <button class="btn btn-sm btn-info font-weight-bold" onclick="go_to('/crmreport/detaillead')"><span><i class="fas fa-info"></i></span> Detail</button>
                       </div>
                   </div><!-- /.card-body -->
               </div><!-- /.card -->
@@ -110,8 +110,8 @@
                       </form>
                     </div>
                     <div class="chart">
-                      <div style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">
-                        <div id="columnchart_values" style="width:auto;height:auto;"></div>
+                      <div id="columnchart_values" style="height: 300px; width: 100%;">
+                        {{-- <div id="columnchart_values"></div> --}}
                       </div>
                     </div>
 
@@ -119,7 +119,7 @@
                       <div id="contact-chart"></div>
                     </div> --}}
                     <div class="col-md-12 text-right">
-                      <button class="btn btn-info" onclick="go_to('/crmreport/detailcontact')"><span><i class="fas fa-info"></i></span> Detail</button>
+                      <button class="btn btn-sm btn-info font-weight-bold" onclick="go_to('/crmreport/detailcontact')"><span><i class="fas fa-info"></i></span> Detail</button>
                     </div>
                   </div><!-- /.card-body -->
               </div> <!-- /.card -->
@@ -168,10 +168,10 @@
                       </form>
                     </div>
                     <div class="chart">
-                      <div id="OrganizationChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                      <div id="OrganizationChart" style="height: 300px; max-width: 100%;"></div>
                     </div>
                     <div class="col-md-12 text-right">
-                      <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
+                      <button class="btn btn-sm btn-info font-weight-bold" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
                     </div>
                   </div><!-- /.card-body -->
               </div><!-- /.card -->
@@ -218,10 +218,10 @@
                           </form>
                       </div>
                       <div class="chart">
-                          <div id="barchart_values" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;padding-top:10px;"></div>
+                          <div id="barchart_values" style="height: 300px; max-width: 100%;"></div>
                       </div>
                       <div class="col-md-12 text-right">
-                          <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
+                          <button class="btn btn-sm btn-info font-weight-bold" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
                       </div>
                   </div><!-- /.card-body -->
               </div><!-- /.card -->
@@ -272,10 +272,10 @@
                           </form>
                       </div>
                       <div class="chart">
-                          <div id="survey_chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+                          <div id="survey_chart" style="height: 300px; max-width: 100%;"></div>
                       </div>
                       <div class="col-md-12 text-right">
-                          <button class="btn btn-info" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
+                          <button class="btn btn-sm btn-info font-weight-bold" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
                       </div>
                   </div><!-- /.card-body -->
               </div><!-- /.card -->
@@ -311,18 +311,21 @@
 </script> --}}
 
 <script>
-  reportQuoteByStatus();
-  reportContact();
-  reportOrganization();
-  reportLeadByStatus();
-  reportSurvey();
-  $(window).resize(function () {
+    $(document).ready(function(){
         reportQuoteByStatus();
         reportContact();
         reportOrganization();
         reportLeadByStatus();
         reportSurvey();
-  });
+    });
+
+    $(window).resize(function () {
+            reportQuoteByStatus();
+            reportContact();
+            reportOrganization();
+            reportLeadByStatus();
+            reportSurvey();
+    });
 
   // Quote Chart
 //   var Quote_Chart = () =>{

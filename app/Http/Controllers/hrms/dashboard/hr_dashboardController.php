@@ -9,7 +9,7 @@ use App\model\hrms\employee\Employee;
 
 class hr_dashboardController extends Controller
 {
-    
+
 
 
 
@@ -21,8 +21,8 @@ class hr_dashboardController extends Controller
             $dd_f_month = date('Y-m-d 00:00:00', strtotime(date('Y-m-1')));
             $dd_l_month = date("Y-m-t 23:59:59", strtotime($dd_f_month));
             // declear date for first & last week
-            $f_week = date("Y-m-d", strtotime('sunday last week'));  
-            $l_week = date("Y-m-d", strtotime('sunday this week'));  
+            $f_week = date("Y-m-d", strtotime('sunday last week'));
+            $l_week = date("Y-m-d", strtotime('sunday this week'));
             // declear date for first & last day
             $first = date('Y-m-d 00:00:00');
             $last = date('Y-m-d 23:59:59');
@@ -32,7 +32,7 @@ class hr_dashboardController extends Controller
 
                     if( $get_date > $f_week && $get_date < $l_week) {
                         $ww++;
-                    } 
+                    }
                     // check for a month
                     if( $get_date > $dd_f_month && $get_date < $dd_l_month){
                         $mm++;
@@ -78,7 +78,7 @@ class hr_dashboardController extends Controller
 
 
 
-    // function to get daliy, monthly, weekly number of candidate register 
+    // function to get daliy, monthly, weekly number of candidate register
     public static function monthly_can(){
         $y = 0;
         $m = 0;
@@ -88,7 +88,7 @@ class hr_dashboardController extends Controller
             $i = 0;
             foreach($can as $key=> $val1){
                     $date = $val1->register_date;
-                    $r = hr_dashboardController::cal_date_month(0,0,0,0,$date);  
+                    $r = hr_dashboardController::cal_date_month(0,0,0,0,$date);
                     if($r['month'] == 1){
                         $m++;
                     }
@@ -97,11 +97,11 @@ class hr_dashboardController extends Controller
                     }
                     if( $r['week'] == 1){
                         $w++;
-                        
+
                     }
                     if($r['year'] == 1){
                         $y++;
-                        
+
                     }
                     $i++;
             }
@@ -109,7 +109,7 @@ class hr_dashboardController extends Controller
             // $mm = hr_dashboardController::index_num($m);
             $dd = hr_dashboardController::index_num($d);
             $ww = hr_dashboardController::index_num($w);
-    
+
             $post_data=[
                 'yyy' =>$y,
                 'mmm' =>$m,
@@ -119,7 +119,7 @@ class hr_dashboardController extends Controller
             return $post_data;
     }
 
-    
+
 
 
 
@@ -135,7 +135,7 @@ class hr_dashboardController extends Controller
                 // echo count($member);
                 foreach($member as $key=> $val1){
                         $date = $val1->join_date;
-                        $r = hr_dashboardController::cal_date_month(0,0,0,0,$date);  
+                        $r = hr_dashboardController::cal_date_month(0,0,0,0,$date);
                         if($r['month'] == 1){
                             $m++;
                         }
@@ -148,9 +148,9 @@ class hr_dashboardController extends Controller
                         if($r['year'] == 1){
                             $y++;
                         }
-                        
+
                 }
-        
+
                 // $mm = hr_dashboardController::index_num($m);
                 $dd = hr_dashboardController::index_num($d);
                 $ww = hr_dashboardController::index_num($w);
@@ -162,7 +162,7 @@ class hr_dashboardController extends Controller
                     'ddd' =>$dd
                 ];
                 return $post_data;
-        
+
     }
 
 
@@ -177,7 +177,7 @@ class hr_dashboardController extends Controller
             $shift =hr_dashboardModel::all_shift();
             foreach($shift as $key=> $val1){
                     $date = $val1->create_date;
-                    $r = hr_dashboardController::cal_date_month(0,0,0,0,$date);  
+                    $r = hr_dashboardController::cal_date_month(0,0,0,0,$date);
                     if($r['month'] == 1){
                         $m++;
                     }
@@ -248,14 +248,14 @@ class hr_dashboardController extends Controller
                         array_push($arr,$late_check);
                         $late++;
                     }
-                    
+
                 }
-                
+
 
                 //select staff who check-in 2 times in the morning
                 $f_m1 = date('Y-m-d 00:00:00');
                 $l_m1 = date('Y-m-d 08:00:59');
-                
+
                 if(count($arr) > 0){
                     foreach($arr as $key1=>$val1){
                         foreach($val1 as $val2){
@@ -266,9 +266,9 @@ class hr_dashboardController extends Controller
                                 $late--;
                             }
                         }
-                    }  
+                    }
                 }
-    
+
 
         // check staff absent today
         $absent = count($all_em) - $intime;
@@ -283,7 +283,7 @@ class hr_dashboardController extends Controller
                 'absent' => $ab
             ];
 
-        
+
     }
 
 
@@ -352,14 +352,14 @@ class hr_dashboardController extends Controller
                 $f++;
            }
         }
-        
+
 
         return $data = ['male'=>$m, 'female'=>$f];
     }
-    
 
 
-    //function to count number of staff, candidate, shift promote by last 1,2,3 month 
+
+    //function to count number of staff, candidate, shift promote by last 1,2,3 month
     public static function BylastMonth($date){
 
             date_default_timezone_set('Asia/Phnom_Penh');
@@ -367,20 +367,20 @@ class hr_dashboardController extends Controller
             $f_month = date('Y-m-d 00:00:00', strtotime(date('Y-m-1')));
             $l_month = date("Y-m-t 23:59:59", strtotime($f_month));
 
-            // declear first & last day of the last month  
+            // declear first & last day of the last month
             $f_1_last_month = date('Y-m-01 00:00:00', strtotime('-1 months'));
             $l_1_last_month = date("Y-m-t 23:59:59", strtotime($f_1_last_month));
 
-            // declear first & last day of the 2 last month  
+            // declear first & last day of the 2 last month
             $f_2_last_month = date('Y-m-01 00:00:00', strtotime('-2 months'));
             $l_2_last_month = date("Y-m-t 23:59:59", strtotime($f_2_last_month));
 
-            // declear first & last day of the 3 last month  
+            // declear first & last day of the 3 last month
             $f_3_last_month = date('Y-m-01 00:00:00', strtotime('-3 months'));
             $l_3_last_month = date("Y-m-t 23:59:59", strtotime($f_3_last_month));
 
 
-            // declear first & last day of the 4 last month  
+            // declear first & last day of the 4 last month
             $f_4_last_month = date('Y-m-01 00:00:00', strtotime('-4 months'));
             $l_4_last_month = date("Y-m-t 23:59:59", strtotime($f_4_last_month));
 
@@ -413,7 +413,7 @@ class hr_dashboardController extends Controller
 
 
 
-    //function for divide of each monthly of staff number by data & field create date 
+    //function for divide of each monthly of staff number by data & field create date
     public static function separateMonth($data_, $get_date){
 
         $date1 = date('Y-m-d');
@@ -424,16 +424,15 @@ class hr_dashboardController extends Controller
         $l_4month = 0;
         foreach($data_ as $key=> $val1){
             $date = $val1->$get_date;
-            $r = hr_dashboardController::BylastMonth($date); 
+            $r = hr_dashboardController::BylastMonth($date);
             if($r == 0){
-                $current++;   
+                $current++;
             }
             if($r == 1){
                 $l_1month++;
             }
             if($r == 2){
                 $l_2month++;
-
             }
             if($r == 3){
                 $l_3month++;
@@ -443,7 +442,7 @@ class hr_dashboardController extends Controller
                 $l_4month++;
             }
         }
-       
+
         //declear variable get name of each previus months
         $current_mon_name = (date('F', strtotime($date1)));
         $l_1_mon_name = (date('F', strtotime($date1. "-1 Month")));
@@ -465,7 +464,7 @@ class hr_dashboardController extends Controller
 
 
 
-    // function get last 1,2,3,4 monthly Candidate Register 
+    // function get last 1,2,3,4 monthly Candidate Register
     public static function MonthlyCandidate(){
 
         $field_name = 'register_date';
@@ -475,7 +474,7 @@ class hr_dashboardController extends Controller
             return $r;
         }
         return 0;
-       
+
     }
 
 
@@ -505,7 +504,7 @@ class hr_dashboardController extends Controller
         }
         return 0;
     }
-    
+
 
     //function get last 1,2,3,4 monthly number of staff was submit suggestion
     public static function MonthlyStaffSuggestion(){
@@ -519,7 +518,7 @@ class hr_dashboardController extends Controller
             return 0;
         }
         return 0;
-        
+
     }
 
 
@@ -537,7 +536,7 @@ class hr_dashboardController extends Controller
         return $r;
     }
 
-    //function get position available in staff 
+    //function get position available in staff
     public static function AvailablePosition(){
         $data = hr_dashboardModel::available_position();
         $r = count($data);
@@ -572,7 +571,7 @@ class hr_dashboardController extends Controller
     }
 
 
-    
+
 
 
 

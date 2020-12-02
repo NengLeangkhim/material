@@ -3,7 +3,7 @@
     //=========== JS Chart in HRMS Dashboard==============
 
 
-    // Bar chart for show number of staff by each depertment 
+    // Bar chart for show number of staff by each depertment
     var num_staffByDept  = [staff_byDept['ITD'].length,staff_byDept['OPD'].length,staff_byDept['BSD'].length,staff_byDept['ACD'].length,staff_byDept['FND'].length ];
     var ctx = document.getElementById('chart_staff_each_dept');
     var myChart = new Chart(ctx, {
@@ -75,7 +75,7 @@
                 pointRadius: 8,
                 borderWidth: 1
                 // borderColor: 'orange'
- 
+
             }],
         },
         options: {
@@ -100,7 +100,7 @@
         data_[i] = monthly_candidate[key];
         monthly_name[i] = key;
         i++;
-    }        
+    }
     var ctx = document.getElementById('barChart_candidate');
     var myChart = new Chart(ctx, {
         type: 'bar',
@@ -122,7 +122,7 @@
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
                     'rgba(153, 102, 255, 1)'
-                    
+
                 ],
                 borderWidth: 1,
                 minBarLength: 8,
@@ -142,15 +142,15 @@
 
 
 
-    // Donugt chart for show number of staff AND Gender 
+    // Donugt chart for show number of staff AND Gender
     var data_ = new Array();
     var label_ = new Array();
     var i= 0;
-    for (var key in staff_gender) {    
+    for (var key in staff_gender) {
         data_[i] = staff_gender[key];
         label_[i] = key;
         i++;
-    }  
+    }
     var ctx = document.getElementById('pieChart_staffgender');
     var myChart = new Chart(ctx, {
         type: 'doughnut',
@@ -163,7 +163,7 @@
                     "rgb(54, 162, 235)",
                     // "rgb(25, 130, 112)",
                     "rgb(255, 99, 132)",
-                   
+
                 ],
                 borderWidth: 1,
             }]
@@ -182,7 +182,7 @@
 
 
 
-    
+
 
      // Chart for show number of monthly New Member Staff Join Work for 1,2,3,4 last months
      var data_ = new Array();
@@ -192,7 +192,7 @@
          data_[i] = monthly_New_Member[key];
          monthly_name[i] = key;
          i++;
-     }        
+     }
     var options_ = {
         maintainAspectRatio: false,
         spanGaps: false,
@@ -231,7 +231,7 @@
                     'rgba(153, 102, 255, 1)'
                 ],
                 backgroundColor: [
-            
+
                 'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
                     'rgba(255, 206, 86, 1)',
@@ -249,7 +249,7 @@
                 pointRadius: 10,
                 pointHoverRadius: 15,
                 lineTension: 0.2,
-                showLine: true, 
+                showLine: true,
                 borderWidth: 2.5,
                 pointBorderWidth: 0,
                 borderColor: 'pink'
@@ -262,7 +262,7 @@
                 }]
             }
         }
-        
+
     });
 
 
@@ -278,7 +278,7 @@
         data_[i] = monthly_shift_promote[key];
         monthly_name[i] = key;
         i++;
-    }        
+    }
     var ctx = document.getElementById('idChart_shiftpromote');
     var myChart = new Chart(ctx, {
         type: 'line',
@@ -287,9 +287,9 @@
             datasets: [{
                 label: 'Number of Staff Promote',
                 data: data_,
-                
+
                 backgroundColor: [
-            
+
                 'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
                     'rgba(255, 206, 86, 1)',
@@ -322,7 +322,7 @@
                 }]
             }
         }
-        
+
     });
 
 
@@ -336,7 +336,7 @@
         data_[i] = monthly_staffSuggestion[key];
         monthly_name[i] = key;
         i++;
-    }        
+    }
     var ctx = document.getElementById('idChart_suggestion');
     var myChart = new Chart(ctx, {
         type: 'line',
@@ -345,7 +345,7 @@
             datasets: [{
                 label: 'Staff Suggestion',
                 data: data_,
-                
+
                 backgroundColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
@@ -379,5 +379,5 @@
                 }]
             }
         }
-        
+
     });
