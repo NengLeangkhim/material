@@ -58,8 +58,8 @@
                                                     <tr>
                                                         <td>{{ $purchase->invoice_number }}</td>
                                                         <td>{{ $purchase->supplier_name }}</td>
-                                                        <td>{{ $purchase->billing_date }}</td>
-                                                        <td>{{ $purchase->due_date }}</td>
+                                                        <td>{{ date('d-m-Y', strtotime($purchase->billing_date)) }}</td>
+                                                        <td>{{ date('d-m-Y', strtotime($purchase->due_date)) }}</td>
                                                         <td>{{ $paid }}</td>
                                                         <td>{{ $due }}</td>
                                                         <td>{{ $status }}</td>

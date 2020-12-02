@@ -1,8 +1,16 @@
 <section class="content-header">
     <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
+        <div class="row">
+            <div class="col-md-6">
                 <h1 class="card-title hrm-title"><strong><i class="fas fa-eye"></i> View Purchase Payment</strong></h1>
+            </div>
+            <div class="col-md-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('bsc_purchase_view_purchase_payment')"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        Back</a></li>
+                    <li class="breadcrumb-item"><a href="" class="lead" value="lead">Home</a></li>
+                    <li class="breadcrumb-item active" onclick="go_to('bsc_purchase_view_purchase_payment')">View Puechase Payment</li>
+                </ol>
             </div>
         </div>
     </div><!-- /.container-fluid -->
@@ -45,9 +53,9 @@
                                                     <tr>
                                                         <td>{{$purchase->supplier_name}}</td>
                                                         <td>{{$purchase->invoice_number}}</td>
-                                                        <td>{{$purchase->billing_date}}</td>
-                                                        <td>{{$purchase->due_date}}</td>
-                                                        <td>{{$purchase->create_date}}</td>
+                                                        <td>{{ date('d-m-y', strtotime($purchase->billing_date)) }}</td>
+                                                        <td>{{ date('d-m-Y', strtotime($purchase->due_date)) }}</td>
+                                                        <td>{{ date('d-m-Y', strtotime($purchase->create_date)) }}</td>
                                                         <td>{{$purchase->reference}}</td>
                                                         <td>{{$total}}</td>
                                                         <td>{{$payment}}</td>
