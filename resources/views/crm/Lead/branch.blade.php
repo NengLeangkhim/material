@@ -28,7 +28,7 @@
                                             <!-- <a  href="#" class="btn btn-block btn-success lead" value="addlead" onclick="addlead()"><i class="fas fa-wrench"></i> Add Lead</a>  -->
                                             {{-- <a  href="#" class="btn btn-success lead" ​value="addlead" id="lead"><i class="fas fa-plus"></i> Add Lead</a>  --}}
                                         {{-- </div>
-                                    </div>                               
+                                    </div>
                                 </div> --}}
                                 <div class="card-body">
                                     <table id="example1" class="table table-bordered table-striped">
@@ -40,14 +40,14 @@
                                                 {{-- <th  style="color:#FFFFFF">Email</th>
                                                 <th  style="color:#FFFFFF">Website </th> --}}
                                                 {{-- <th  style="color:#FFFFFF">Facebook </th> --}}
-                                                <th  style="color:#FFFFFF">Schedule</th>
+                                                <th  style="color:#FFFFFF">Schedule Status</th>
                                                 <th  style="color:#FFFFFF">Lead status</th>
                                                 <th  style="color:#FFFFFF">Assigned To</th>
                                                 <th  style="color:#FFFFFF">Detail</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php 
+                                            <?php
                                             for($i =0;$i<sizeof($branch);$i++){
                                                 if($branch[$i]["survey_comment"]!=null){
                                                     ?>
@@ -63,7 +63,16 @@
                                                                 <?php
                                                                 if($branch[$i]["schedule_id"]!=null){
                                                                     ?>
-                                                                    <label for="">Yes</label>
+                                                                        {{-- <label for="">Yes</label> --}}
+                                                                        @isset($scheduleStatus)
+                                                                            {{-- @foreach ($scheduleStatus as $k=>$val)
+                                                                                @if($val[0]->id == $branch[$i]["schedule_id"])
+                                                                                    {{ $val[0]->name_en }}
+                                                                                @endif
+                                                                            @endforeach --}}
+                                                                            {{ $scheduleStatus[$branch[$i]["schedule_id"]][0]->name_en }}
+                                                                        @endisset
+
                                                                     <?php
                                                                 }
                                                                 else {
@@ -72,15 +81,16 @@
                                                                     <?php
                                                                 }
                                                                 ?>
+
                                                             </td>
                                                             <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["lead_status"]}}</td>
-                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]['assig']}}</td> 
-                                                            <td style="color: #d42931 ; font-weight:bold">  
+                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]['assig']}}</td>
+                                                            <td style="color: #d42931 ; font-weight:bold">
                                                                 <div class="row-12 form-inline">
                                                                     <div class="col-md-6">
                                                                         <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')" title="Detail Branch">
                                                                             <i class="far fa-eye"></i>
-                                                                        </a>      
+                                                                        </a>
                                                                     </div>
                                                                     <div class="col-md-6 ">
                                                                         <?php
@@ -97,12 +107,12 @@
                                                                                 </button>
                                                                               <?php
                                                                            }
-                                                                        ?>                                                                        
+                                                                        ?>
                                                                     </div>
                                                                 </div>
-                                                                                                               
+
                                                             </td>
-                                                        </tr> 
+                                                        </tr>
                                                     <?php
                                                 }else {
                                                     ?>
@@ -117,7 +127,16 @@
                                                                 <?php
                                                                 if($branch[$i]["schedule_id"]!=null){
                                                                     ?>
-                                                                        <label for="">Yes</label>
+
+                                                                        @isset($scheduleStatus)
+                                                                            {{-- @foreach ($scheduleStatus as $k=>$val)
+                                                                                @if($branch[$i]["schedule_id"])
+                                                                                    {{ $val[0]->name_en }}
+                                                                                @endif
+                                                                                {{ $val[0]->id }}
+                                                                            @endforeach --}}
+                                                                            {{ $scheduleStatus[$branch[$i]["schedule_id"]][0]->name_en }}
+                                                                        @endisset
                                                                     <?php
                                                                 }
                                                                 else {
@@ -128,13 +147,13 @@
                                                                 ?>
                                                             </td>
                                                             <td>{{$branch[$i]["lead_status"]}}</td>
-                                                            <td>{{$branch[$i]['assig']}}</td> 
-                                                            <td> 
+                                                            <td>{{$branch[$i]['assig']}}</td>
+                                                            <td>
                                                                 <div class="row-12 form-inline">
                                                                     <div class="col-md-6">
                                                                         <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')" title="Detail Branch">
                                                                             <i class="far fa-eye"></i>
-                                                                        </a>       
+                                                                        </a>
                                                                     </div>
                                                                     <div class="col-md-6 ">
                                                                         <?php
@@ -151,16 +170,16 @@
                                                                                 </button>
                                                                               <?php
                                                                            }
-                                                                        ?>                         
+                                                                        ?>
                                                                     </div>
-                                                                </div> 
+                                                                </div>
                                                             </td>
-                                                        </tr> 
+                                                        </tr>
                                                     <?php
                                                 }
                                             }
                                             ?>
-                                        </tbody>  
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -168,7 +187,7 @@
                     </div>
                 </div>
                 {{-- detail schedule --}}
-                <div id="view_schedule"></div>  
+                <div id="view_schedule"></div>
                 {{-- Model alert --}}
                 <div class="modal fade" id="modal-default">
                     <div class="modal-dialog">
@@ -192,7 +211,7 @@
                                                              <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                                          </div>
                                                          <input type="text" class="form-control" id="name_en"  name="name_en"   placeholder=""  >
-                                                         <span class="invalid-feedback" role="alert" id="name_enError"> 
+                                                         <span class="invalid-feedback" role="alert" id="name_enError">
                                                             <strong></strong>
                                                         </span>
                                                      </div>
@@ -208,7 +227,7 @@
                                                             <strong></strong>
                                                         </span>
                                                      </div>
-                                                 </div>                                                
+                                                 </div>
                                              </div>
                                          </div>
                                          <div class="form-group">
@@ -223,7 +242,7 @@
                                                          <span class="invalid-feedback" role="alert" id="to_do_dateError"> {{--span for alert--}}
                                                             <strong></strong>
                                                         </span>
-                                                        
+
                                                      </div>
                                                  </div>
                                                  <div class="col-md-6">
@@ -233,18 +252,18 @@
                                                              <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
                                                          </div>
                                                          <select class="form-control " name="priority" id="priority" >
-                                                             <option value=''>-- Select  Prioroty --</option>  
+                                                             <option value=''>-- Select  Prioroty --</option>
                                                              <option value="urgent">Urgent</option>
                                                              <option value="high">Hight</option>
                                                              <option value="medium">Medium</option>
                                                              <option value="low">Low</option>
-                                                           
+
                                                          </select>
                                                          <span class="invalid-feedback" role="alert" id="priorityError"> {{--span for alert--}}
                                                             <strong></strong>
                                                         </span>
                                                      </div>
-                                                 </div>                                                
+                                                 </div>
                                              </div>
                                          </div>
                                          <div class="form-group">
@@ -256,14 +275,14 @@
                                                              <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                                          </div>
                                                          <select class="form-control" name="schedule_type_id" id="schedule_type_id" >
-                                                             <?php 
+                                                             <?php
                                                              for($i =0;$i<sizeof($schedule_type);$i++){
                                                                  ?>
-                                                                    <option value="{{$schedule_type[$i]["id"]}}" > {{$schedule_type[$i]["name_en"]}} /  {{$schedule_type[$i]["name_kh"]}} </option> 
+                                                                    <option value="{{$schedule_type[$i]["id"]}}" > {{$schedule_type[$i]["name_en"]}} /  {{$schedule_type[$i]["name_kh"]}} </option>
                                                                  <?php
                                                              }
                                                              ?>
-                                                            
+
                                                          </select>
                                                          <span class="invalid-feedback" role="alert" id="schedule_type_idError"> {{--span for alert--}}
                                                             <strong></strong>
@@ -276,15 +295,15 @@
                                                          <div class="input-group-prepend">
                                                              <span class="input-group-text"><i class="far fa-comments"></i></span>
                                                          </div>
-                                                         <input type="text" class="form-control" id="comment"  name="comment"   placeholder="" required >                                                         
+                                                         <input type="text" class="form-control" id="comment"  name="comment"   placeholder="" required >
                                                          <span class="invalid-feedback" role="alert" id="commentError"> {{--span for alert--}}
                                                             <strong></strong>
                                                         </span>
                                                      </div>
-                                                 </div>                                                
+                                                 </div>
                                              </div>
                                          </div>
-                                     
+
                              </div>
                                  <div class="modal-footer justify-content-between">
                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -292,7 +311,7 @@
                                  <button type="button" class="btn btn-primary" id="save" onclick="CrmSubmitModalAction('frm_Crmbranchschdeule','save','/insertschedule','POST','modal-default','Insert  Schedule Successfully','/lead')">Create</button>
                              </div>
                             </form>
-                            
+
                         </div>
                         <!-- /.modal-content -->
                     </div>
@@ -303,7 +322,7 @@
 
 
             <script type="text/javascript">
-            
+
             $(function () {
                 $("#example1").DataTable({
                 "responsive": true,
@@ -319,7 +338,7 @@
                 "responsive": true,
                 });
             });
-            // get modal add schedule 
+            // get modal add schedule
             $('.schedule').each(function(){
                   var id =  $(this).attr("value");
 
@@ -327,9 +346,9 @@
                     var id =  $(this).attr("value");
                         // alert(id);
                         $('#branchID').val(id);
-                })                
+                })
             })
-            // Detail modal add schedule 
+            // Detail modal add schedule
             $('.detailschedule').each(function(){
                   var id =  $(this).attr("value");
 
@@ -342,11 +361,10 @@
                             success:function(data){
                             // alert(data);
                                 $('#view_schedule').html(data);
-                                $('#crm_view_perform_schedule').modal('show');   //It will display modal on webpage   
+                                $('#crm_view_perform_schedule').modal('show');   //It will display modal on webpage
                             }
                         });
                                     // $('#branchID').val(id);
-                    })                
+                    })
             })
             </script>
-            

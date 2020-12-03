@@ -50,10 +50,19 @@ class LeadController extends Controller
             $result =json_decode($branch,true);
             $schedule_type=ModelCrmLead::CrmGetSchdeuleType('FALSE');
             $schedule_type =json_decode($schedule_type,true);
+
             if($result!=null){
+                //get shecdule status type
+                $scheduleStatus = [];
+                foreach($result["data"] as $k=>$val){
+                    if($val['schedule_id'] != ''){
+                        $id = $val['schedule_id'];
+                        $scheduleStatus[$id] = ModelCrmLead::getScheduleType($val['schedule_id']);
+                    }
+                }
                 // $schedule_type =json_decode($schedule_type,true);
                             // DD($result,$schedule_type['data']);
-                return view('crm.Lead.branch',['branch'=>$result["data"] ,'schedule_type'=>$schedule_type['data']]);
+                return view('crm.Lead.branch',['branch'=>$result["data"] ,'schedule_type'=>$schedule_type['data']], compact('scheduleStatus'));
             }
             else
             {
