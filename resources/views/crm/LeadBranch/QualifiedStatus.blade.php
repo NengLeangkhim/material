@@ -5,7 +5,7 @@
 @endphp --}}
 <div class="col-12" style="margin-top: 10px">
     <div class="table-responsive">
-        <table class="table table-bordered" style="width: 100%;" id="Junk_Status_Tbl">
+        <table class="table table-bordered" style="width: 100%;" id="Qualified_status_Tbl">
             <thead>
                 <tr style="background: #1fa8e0">
                     {{-- <th style="color: #FFFFFF">No</th> --}}

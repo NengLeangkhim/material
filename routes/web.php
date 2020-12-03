@@ -53,13 +53,39 @@ Route::get('/test_map', function(){
 
 Route::get('/addleadtype','crm\LeadController@addleadtype'); // use get type in add lead
 //end lead
-Route::get('/leadbranch',function(){
+// index
+Route::get('/leadbranch',function(){ // lead branch
     return view('crm.LeadBranch.CrmLeadBranchIndex');
 });
-Route::get('/new',function(){
-    return view('crm.LeadBranch.NewStatus');
+// All
+Route::get('/crm/leadbranch/all',function(){
+    return view('/crm.LeadBranch.CrmLeadBranchAll');
 });
-// lead branch
+// new
+Route::get('/crm/leadbranch/new',function(){
+    return view('/crm.LeadBranch.NewStatus');
+});
+// surveying
+Route::get('/crm/leadbranch/surveying',function(){
+    return view('/crm.LeadBranch.SurveyingStatus');
+});
+// surveyed
+Route::get('/crm/leadbranch/surveyed',function(){
+    return view('/crm.LeadBranch.SurveyedStatus');
+});
+// proposition
+Route::get('/crm/leadbranch/proposition',function(){
+    return view('/crm.LeadBranch.PropositionStatus');
+});
+// qualified
+Route::get('/crm/leadbranch/qualified',function(){
+    return view('/crm.LeadBranch.QualifiedStatus');
+});
+// junk
+Route::get('/crm/leadbranch/junk',function(){
+    return view('/crm.LeadBranch.JunkStatus');
+});
+// end lead branch
 
 //end lead branch
 // start schedule
