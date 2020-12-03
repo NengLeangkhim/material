@@ -164,11 +164,11 @@ class Crmlead extends Model
 
             if($lead_id!=='null')
             {
-                dd('branch');
-                // return CrmLead::addbranchinlead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
-                //  $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
-                //  $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-                //  $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
+                // dd('branch');
+                return CrmLead::addbranchinlead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
+                 $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
+                 $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+                 $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
 
 
             }
@@ -246,7 +246,7 @@ class Crmlead extends Model
                             CrmLead::insertleaddetail($branch_id,$lead_status,$comment,$user_create);
 
                             //insert into table crm_survey
-                            if($checksurvey!=='null' || $checksurvey==0 ){
+                            if($checksurvey!='null' && $checksurvey==1 ){
                                     // var_dump("No");
                                     CrmLead::insertsurey($branch_id,$user_create);
                                     DB::commit();
