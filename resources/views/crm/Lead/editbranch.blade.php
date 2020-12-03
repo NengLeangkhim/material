@@ -8,9 +8,9 @@
                     <ol class="breadcrumb float-sm-right">
                         <?php
                             for($i =0;$i<sizeof($updatelead); $i++){
-                                ?>                                    
+                                ?>
                                     <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('detailbranch/{{$updatelead[$i]['branch_id']}}')">Detail Branch</a></li>
-                                <?php 
+                                <?php
                             }
                         ?>
                         <li class="breadcrumb-item active">Update Branch</li>
@@ -18,14 +18,14 @@
                 </div>
             </div>
          </div><!-- /.container-fluid -->
-    </section>  
+    </section>
     <section class="content">
         <div class="container-fluid">
             <form id="frm_CrmleadEdit">
                 @csrf
             <div class="row">
                 <div class="col-md-12">
-                   
+
                     <div class="card">
                         <div class="card-body">
                             <div class="col-md-6">
@@ -36,16 +36,16 @@
                                     </div>
                                     <?php
                                         for($i =0;$i<sizeof($updatelead); $i++){
-                                        ?> 
+                                        ?>
                                             <select class="form-control select2" name="lead_id" id="lead_id">
-                                                <option value=''>-- Select Lead  --</option>   
+                                                <option value=''>-- Select Lead  --</option>
                                                 @foreach($lead as $key)
-                                                    <option value="{{$key->lead_id}}" {{$key->lead_id==$updatelead[$i]['lead_id'] ? 'selected="selected"':''}}> {{$key->customer_name_en}}</option>                                                               
-                                                @endforeach                                   
+                                                    <option value="{{$key->lead_id}}" {{$key->lead_id==$updatelead[$i]['lead_id'] ? 'selected="selected"':''}}> {{$key->customer_name_en}}</option>
+                                                @endforeach
                                             </select>
                                             <?php
                                         }
-                                        
+
                                     ?>
                                 </div>
                             </div>
@@ -53,16 +53,16 @@
                     </div>
                 </div>
                 <!-- left column -->
-                <div class="col-md-12">                    
+                <div class="col-md-12">
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header" style="background:#1fa8e0">
                                 <h3 class="card-title">Branch Detail</h3>
-                            </div>                            
+                            </div>
                             <div class="card-body">
                                 <?php
                                      for($i =0;$i<sizeof($updatelead); $i++){
-                                    ?> 
+                                    ?>
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -122,7 +122,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                {{-- <div class="col-md-6">
                                                     <label for="lead_status">Lead Status</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -132,11 +132,12 @@
                                                         <select class="form-control" name="lead_status" id="lead_status">
                                                             <option ></option>
                                                             @foreach($lead_status as $row)
-                                                                <option value="{{$row->id}}" {{$row->name_en==$updatelead[$i]['lead_status'] ? 'selected="selected"':''}}> {{$row->name_en}}</option>                                                               
+                                                                <option value="{{$row->id}}" {{$row->name_en==$updatelead[$i]['lead_status'] ? 'selected="selected"':''}}> {{$row->name_en}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
-                                                </div>
+                                                </div> --}}
+
                                                 <div class="col-md-6">
                                                     <label for="assig_to">Assigened To<b style="color:red">*</b></label>
                                                     <div class="input-group">
@@ -147,7 +148,7 @@
                                                         <select class="form-control select2" name="assig_to" id="assig_to">
                                                             <option></option>
                                                             @foreach($assig_to as $row )
-                                                                <option value="{{$row->id}}" {{$row->id==$updatelead[$i]['assig_id'] ? 'selected="selected"':''}}> {{$row->first_name_en}} {{$row->last_name_en}}</option>                                                               
+                                                                <option value="{{$row->id}}" {{$row->id==$updatelead[$i]['assig_id'] ? 'selected="selected"':''}}> {{$row->first_name_en}} {{$row->last_name_en}}</option>
                                                             @endforeach
                                                         </select>
                                                         <span class="invalid-feedback" role="alert" id="assig_toError"> {{--span for alert--}}
@@ -155,10 +156,7 @@
                                                         </span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="row">                                                
+
                                                 <div class="col-md-6">
                                                     <label for="service">Service<b style="color:red">*</b></label>
                                                     <div class="input-group">
@@ -168,11 +166,11 @@
                                                     <input type="text" hidden value="{{$updatelead[$i]['lead_item_id'] }}" name="lead_item_id">
                                                         <select class="form-control select2bs4" name="service" id="service">
                                                             {{-- <option></option> --}}
-                                                            <?php 
+                                                            <?php
                                                                 for($j=0; $j<sizeof($service); $j++){
                                                                     ?>
                                                                         <option value="{{$service[$j]["id"]}}"  {{$service[$j]['name']==$updatelead[$i]['service'] ? 'selected="selected"':''}}>{{$service[$j]['name']}}</option>
-                                                           
+
                                                                     <?php
                                                                 }
                                                             ?>
@@ -182,7 +180,14 @@
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+
+                                                <div class="col-md-12">
                                                     <label for="comment">Comment</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -191,13 +196,15 @@
                                                         <input type="text" class="form-control" name="comment" id="comment" value="{{$updatelead[$i]['comment']}}" placeholder="Current Price">
                                                     </div>
                                                 </div>
+
                                             </div>
-                                        </div>  
+                                        </div>
                                         <?php
                                     }
                                 ?>
-                            </div>  
+                            </div>
                         </div>
+
                         <div class="card card-primary">
                             <div class="card-body">
                                 <div class="form-group">
@@ -211,36 +218,37 @@
                                             <input type="text" hidden value="{{$_SESSION['token']}}" id="getcontact">
                                             <?php
                                                 for($i =0;$i<sizeof($updatelead); $i++){
-                                                ?> 
+                                                ?>
                                                     <select class="form-control select2" name="contact_id" id="contact_id">
-                                                        <option value=''>-- Select Contact  --</option> 
-                                                        <?php 
+                                                        <option value=''>-- Select Contact  --</option>
+                                                        <?php
                                                             for($j=0; $j<sizeof($contact); $j++){
                                                                 ?>
-                                                                    <option value="{{$contact[$j]['id']}}" {{$contact[$j]['id']==$updatelead[$i]['contact_id'] ? 'selected="selected"':''}}> {{$contact[$j]['name_en']}}</option>                                                               
-                                                       
+                                                                    <option value="{{$contact[$j]['id']}}" {{$contact[$j]['id']==$updatelead[$i]['contact_id'] ? 'selected="selected"':''}}> {{$contact[$j]['name_en']}}</option>
+
                                                                 <?php
                                                             }
-                                                        ?>                                     
+                                                        ?>
                                                     </select>
                                                     <?php
                                                 }
-                                                
-                                            ?>                                           
+
+                                            ?>
                                         </div>
                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="card card-primary">
                             <div class="card-header" style="background:#1fa8e0">
                                 <h3 class="card-title">Contact Detail</h3>
-                            </div>                            
+                            </div>
                             <div class="card-body">
                                 <?php
                                      for($i =0;$i<sizeof($updatelead); $i++){
-                                    ?> 
+                                    ?>
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -311,14 +319,14 @@
                                                                             <span class="input-group-text"><i class="fas fa-industry"></i></span>
                                                                         </div>
                                                                         <select class="form-control " name="ma_honorifics_id" id="ma_honorifics_id" >
-                                                                            <option value=''>-- Select Contact Honorifics --</option>      
-                                                                               
+                                                                            <option value=''>-- Select Contact Honorifics --</option>
+
                                                                              @foreach($honorifics as $row )
-                                                                                <option value="{{$row->id}}" {{$row->lead_name==$updatelead[$i]['gender'] ? 'selected="selected"':''}}> {{$row->lead_name}}</option>                                                               
-                                                                            @endforeach                                      
+                                                                                <option value="{{$row->id}}" {{$row->lead_name==$updatelead[$i]['gender'] ? 'selected="selected"':''}}> {{$row->lead_name}}</option>
+                                                                            @endforeach
                                                                             {{-- <option value='1'>Mr</option>
                                                                             <option value='2'>Ms</option> --}}
-                                                                          
+
                                                                         </select>
                                                                         {{-- <span class="invalid-feedback" role="alert" id="ma_honorifics_idError"> {{--span for alert--}}
                                                                             {{-- <strong></strong> --}}
@@ -333,11 +341,11 @@
                                                                         </div>
                                                                         <input type="text" class="form-control" name="position" id="position" value="{{$updatelead[$i]['position']}}" placeholder="Website">
                                                                     </div>
-                                                                </div> 
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>                                                
+                                                </div>
                                                 <div class="col-md-6">
                                                     <label for="national_id">National ID Ceard / Passport ID</label>
                                                     <div class="input-group">
@@ -349,19 +357,20 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    <?php 
+                                    <?php
                                     }
                                 ?>
-                            </div>  
-                        </div>                         
-                                <div class="card card-primary">
+                            </div>
+                        </div>
+
+                        <div class="card card-primary">
                                     <div class="card-header" style="background:#1fa8e0">
                                         <h3 class="card-title">Address Detail</h3>
                                     </div>
                                     <div class="card-body">
                                         <?php
                                             for($i =0;$i<sizeof($updatelead); $i++){
-                                                ?> 
+                                                ?>
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <div class="col-md-6">
@@ -369,7 +378,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="row">
                                                                             <div class="col-md-6">
-                                                                                <label for="home_en"> Home(EN)<b style="color:red">*</b></label>
+                                                                                <label for="home_en"> Home(EN)</label>
                                                                                 <div class="input-group">
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
@@ -382,7 +391,7 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-6">
-                                                                                <label for="street_en"> Street(EN) <b style="color:red">*</b></label>
+                                                                                <label for="street_en"> Street(EN) </label>
                                                                                 <div class="input-group">
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><i class="fas fa-road"></i></span>
@@ -408,7 +417,7 @@
                                                                     @foreach($province as $row )
                                                                         {{-- <option value="{{$row->code}}">{{$row->name_latin}}/{{$row->name_kh}}</option> --}}
                                                                         <option value="{{$row->code}}" {{$row->name_latin==$updatelead[$i]['province'] ? 'selected="selected"':''}}>{{$row->name_latin}} / {{$row->name_kh}}</option>
-                                                           
+
                                                                         @endforeach
                                                                     </select>
                                                                     <span class="invalid-feedback" role="alert" id="addresscodeError"> {{--span for alert--}}
@@ -425,7 +434,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="row">
                                                                             <div class="col-md-6">
-                                                                                <label for="home_kh"> Home(KH)<b style="color:red">*</b></label>
+                                                                                <label for="home_kh"> Home(KH)</label>
                                                                                 <div class="input-group">
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
@@ -437,7 +446,7 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-6">
-                                                                                <label for="street_kh"> Street(KH) <b style="color:red">*</b></label>
+                                                                                <label for="street_kh"> Street(KH) </label>
                                                                                 <div class="input-group">
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><i class="fas fa-road"></i></span>
@@ -524,37 +533,44 @@
                                                                                 <label for="address_type"></label>
                                                                                 <div class="input-group">
                                                                                 </div>
-                                                                                <div class="custom-control custom-checkbox">                                                                                  
+                                                                                <div class="custom-control custom-checkbox">
                                                                                     <input type="text" hidden value="{{$updatelead[$i]['survey_id']}}" name="survey_id">
-                                                                                    <?php 
+                                                                                    <?php
                                                                                          if(($updatelead[$i]['survey_status'])!=false){
-                                                                                             ?>
+                                                                                            ?>
                                                                                                 {{-- <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="checksurvey" {{$updatelead[$i]['survey_status']!=false? 'checked':''}} >
                                                                                                 <label for="customCheckbox2"  class="custom-control-label">Survey Or Don’t Survey</label> --}}
-                                                                                                 <input type="radio" id="male" name="checksurvey" value="yes" checked >
-                                                                                                <label for="male">Survey</label><br>
-                                                                                                <input type="radio" id="female" name="checksurvey" value="no">
-                                                                                                <label for="female">Don’t Survey</label>
-                                                                                             <?php
+                                                                                            <?php
                                                                                          }
                                                                                          else {
-                                                                                             ?>
-                                                                                                 <input type="radio" id="male" name="checksurvey" value="yes">
-                                                                                                 <label for="male">Survey</label><br>
-                                                                                                 <input type="radio" id="female" name="checksurvey" value="no" checked>
-                                                                                                 <label for="female">Don’t Survey</label>
-                                                                                             <?php
+                                                                                            ?>
+                                                                                                {{-- <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="checksurvey" {{$updatelead[$i]['survey_status']!=false? 'checked':''}} > --}}
+                                                                                                {{-- <label for="customCheckbox2"  class="custom-control-label">Survey Or Don’t Survey</label> --}}
+                                                                                                <div class="input-group pt-4 pl-2">
+                                                                                                    <div class="input-group-prepend pr-4">
+                                                                                                        <span class="font-weight-bold">Survey</span>
+                                                                                                    </div>
+                                                                                                    <div class="custom-control custom-radio ml-2">
+                                                                                                        <input type="radio" id="customRadio2" value="1" name="checksurvey" class="custom-control-input">
+                                                                                                        <label class="custom-control-label" for="customRadio2">Yes</label>
+                                                                                                    </div>
+                                                                                                    <div class="custom-control custom-radio ml-4">
+                                                                                                        <input type="radio" id="customRadio1" value="0" name="checksurvey" class="custom-control-input">
+                                                                                                        <label class="custom-control-label" for="customRadio1">No</label>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            <?php
                                                                                          }
                                                                                     ?>
                                                                                     {{-- <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="checksurvey" {{$updatelead[$i]['survey_status']!=false? 'checked':''}} >
                                                                                      --}}
-                                                                                </div>                                                                
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>        
-                                                           
+                                                            </div>
+
                                                             <div class="col-md-6">
                                                                 <label for="village">Village <b style="color:red">*</b></label>
                                                                 <div class="input-group">
@@ -568,7 +584,7 @@
                                                                         <strong></strong>
                                                                     </span>
                                                                 </div>
-                
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -576,7 +592,7 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div id="map"></div>
-                
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -584,8 +600,8 @@
                                                         <button type="button" class="btn btn-primary" id="frm_btn_sub_addlead" onclick="CrmSubmitFormFull('frm_CrmleadEdit','/branch/update','/lead','Update Successfully')">Update</button>
                                                         <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
                                                     </div>
-                                                </div>                            
-                               
+                                                </div>
+
                             </div>
                         <?php
                     }
@@ -596,7 +612,7 @@
     </section>
 
     <script type="text/javascript">
-    
+
     $( "#contact_id" ).change(function() {
           var to = $(this). children("option:selected"). val();
           var myvar= $( "#getcontact" ).val();
@@ -609,26 +625,26 @@
               'Authorization': `Bearer ${myvar}`,
           },
             success:function(response){
-      
+
                         var name_en = response['data'].name_en;
-                        var name_kh = response['data'].name_kh;             
-                        var email = response['data'].email;             
-                        var phone = response['data'].phone;             
-                        var national_id = response['data'].national_id;             
-                        var position = response['data'].position;             
-                        var honorifics = response['data'].honorifics.name_en;  
-                        var honorifics_id = response['data'].honorifics.id;  
-                        // alert(honorifics);           
-                        $("#name_en").val(name_en); 
-                        $("#name_kh").val(name_kh); 
-                        $("#email").val(email); 
-                        $("#phone").val(phone); 
-                        $("#national_id").val(national_id); 
-                        $("#position").val(position); 
-                        // $("#ma_honorifics_id").val(honorifics); 
-                        var option = "<option value='"+honorifics_id+" 'selected>"+honorifics+"</option>"; 
-  
-                       $("#ma_honorifics_id").append(option); 
+                        var name_kh = response['data'].name_kh;
+                        var email = response['data'].email;
+                        var phone = response['data'].phone;
+                        var national_id = response['data'].national_id;
+                        var position = response['data'].position;
+                        var honorifics = response['data'].honorifics.name_en;
+                        var honorifics_id = response['data'].honorifics.id;
+                        // alert(honorifics);
+                        $("#name_en").val(name_en);
+                        $("#name_kh").val(name_kh);
+                        $("#email").val(email);
+                        $("#phone").val(phone);
+                        $("#national_id").val(national_id);
+                        $("#position").val(position);
+                        // $("#ma_honorifics_id").val(honorifics);
+                        var option = "<option value='"+honorifics_id+" 'selected>"+honorifics+"</option>";
+
+                       $("#ma_honorifics_id").append(option);
 
                         // $('#name_en').prop('readonly', true);
                         // $('#name_kh').prop('readonly', true);
@@ -637,18 +653,18 @@
                         // $('#national_id').prop('readonly', true);
                         // $('#position').prop('readonly', true);
                         // $('#ma_honorifics_id').attr('disabled', true);
-               
-          
+
+
             }
         })
         });
             $('.lead ').click(function(e)
             {
                 var ld = $(this).attr("​value");
-                e.preventDefault();  
+                e.preventDefault();
                 // alert(ld);
-                    $.ajax({   
-                        type: 'GET',   
+                    $.ajax({
+                        type: 'GET',
                         url:ld,
                         success:function(data){
 
@@ -674,7 +690,7 @@
             <script>
                 var map;
                 var markers = [];
-        
+
                 function initMap() {
                     var latlong =document.getElementById('latlong').value;
                     latlong.replace('/[\(\)]//g','');
@@ -684,7 +700,7 @@
 
                     var haightAshbury = {
                         lat:lat,
-                        lng:long 
+                        lng:long
                     };
                     var get_latlng = 0;
                     map = new google.maps.Map(document.getElementById('map'), {
@@ -692,24 +708,24 @@
                         center: haightAshbury,
                         mapTypeId: 'roadmap'
                     });
-                    
-                    
+
+
                     //declear default value for latlong on map
                     addMarker(haightAshbury);
                     // document.getElementById('latlong').value = '-14.774883,24.877663';
-                   
+
                     // This event listener will call addMarker() when the map is clicked.
                     map.addListener('click', function(event) {
                         if (markers.length >= 1) {
                             deleteMarkers();
                         }
-        
+
                         addMarker(event.latLng);
                         get_latlng = event.latLng.lat().toFixed(6) +', '+ event.latLng.lng().toFixed(6);
                         document.getElementById('latlong').value = get_latlng;
                     });
                 }
-        
+
                 // Adds a marker to the map and push to the array.
                 function addMarker(location) {
                     var marker = new google.maps.Marker({
@@ -718,19 +734,19 @@
                     });
                     markers.push(marker);
                 }
-        
+
                 // Sets the map on all markers in the array.
                 function setMapOnAll(map) {
                     for (var i = 0; i < markers.length; i++) {
                         markers[i].setMap(map);
                     }
                 }
-        
+
                 // Removes the markers from the map, but keeps them in the array.
                 function clearMarkers() {
                     setMapOnAll(null);
                 }
-        
+
                 // Deletes all markers in the array by removing references to them.
                 function deleteMarkers() {
                     clearMarkers();

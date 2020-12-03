@@ -123,26 +123,26 @@ class LeadController extends Controller
         $con_id=$request->input('contact_id')!=""? $request->input('contact_id'):"null";
         $prioroty=$request->input('prioroty')!=""? $request->input('prioroty'):"urgent";
         $checksurvey=$request->input('checksurvey')!=""? $request->input('checksurvey'):"null";;
-        $company_en=ucwords($request->input('company_en'));
-        $company_kh=$request->input('company_kh');
+        $company_en=ucwords($request->input('company_en'))!="" ? $request->input('company_en'):null;
+        $company_kh=$request->input('company_kh')!="" ? $request->input('company_kh'):null;
         $primary_email=$request->input('primary_email')!="" ? $request->input('primary_email'):null;
-        $primary_phone=$request->input('primary_phone');
+        $primary_phone=$request->input('primary_phone')!="" ? $request->input('primary_phone'):null;
         $user_create=$userid;
         // $user_create=$request->input('user_create');
         $website=$request->input('website') !="" ? $request->input('website'):null;
         $facebook=$request->input('company_facebook')!="" ? $request->input('company_facebook'):null;
-        $vat_number=$request->input('vat_number');
-        $company_branch=$request->input('branch');
-        $lead_source=$request->input('lead_source');
+        $vat_number=$request->input('vat_number')!="" ?$request->input('vat_number'):null;
+        $company_branch=$request->input('branch')!="" ?$request->input('branch'):null;
+        $lead_source=$request->input('lead_source')!="" ?$request->input('lead_source'):null;
         $lead_status=1;
-        $lead_industry=$request->input('lead_industry');
-        $assig_to=$request->input('assig_to');
+        $lead_industry=$request->input('lead_industry')!="" ?$request->input('lead_industry'):null;
+        $assig_to=$request->input('assig_to')!="" ?$request->input('assig_to'):null;
         $service=$request->input('service')!=""?$request->input('service'):null;
         $current_speed_isp=$request->input('current_speed_isp') !="" ?$request->input('current_speed_isp'):null;
-        $current_speed=$request->input('current_speed');
-        $current_price=$request->input('current_price');
-        $employee_count=$request->input('employee_count');
-        $comment=$request->input('comment');
+        $current_speed=$request->input('current_speed') !="" ?$request->input('current_speed'):null;;
+        $current_price=$request->input('current_price')!="" ?$request->input('current_price'):null;
+        $employee_count=$request->input('employee_count')!="" ?$request->input('employee_count'):null;
+        $comment=$request->input('comment')!="" ?$request->input('comment'):null;
         //contact detail
         $name_kh=$request->input('name_kh')!=""?$request->input('name_kh'):null;
         $name_en=$request->input('name_en')!=""?$request->input('name_en'):null;
@@ -154,16 +154,20 @@ class LeadController extends Controller
         $national_id=$request->input('national_id')!=''? $request->input('national_id'):null;
 
         //address detail
-        $home_en=$request->input('home_en');
-        $home_kh=$request->input('home_kh');
-        $street_en=$request->input('street_en');
-        $street_kh=$request->input('street_kh');
-        $latlong=$request->input('latlong');
-        $address_type=$request->input('address_type');
-        $addresscode=$request->input('village');
+        $home_en=$request->input('home_en') !=''? $request->input('home_en'):null;
+        $home_kh=$request->input('home_kh')!=''? $request->input('home_kh'):null;
+        $street_en=$request->input('street_en')!=''? $request->input('street_en'):null;
+        $street_kh=$request->input('street_kh')!=''? $request->input('street_kh'):null;
+        $latlong=$request->input('latlong')!=''? $request->input('latlong'):null;
+        $address_type=$request->input('address_type')!=''? $request->input('address_type'):null;
+        $addresscode=$request->input('village')!=''? $request->input('village'):null;
 
         // return $lead_id;
-        // dd($company_en);
+        // dd($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
+        // $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
+        // $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+        // $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
+        // dd($con_id,$name_kh);
         return  Lead::insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
         $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
         $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,

@@ -164,11 +164,11 @@ class Crmlead extends Model
 
             if($lead_id!=='null')
             {
-                // dd('branch');
-                return CrmLead::addbranchinlead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
-                 $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
-                 $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-                 $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
+                dd('branch');
+                // return CrmLead::addbranchinlead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
+                //  $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
+                //  $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+                //  $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
 
 
             }
@@ -233,38 +233,61 @@ class Crmlead extends Model
 
                         //insert into crm_lead_comtact
                         $contact_id=null;
-                        if($con_id!=='null')
+                        if($con_id=='null' && $name_kh==null)
                         {
-                                $contact_id=$con_id;
-                        }
-                        else
-                        {
-                            $contact=CrmLead::insertcontact($name_en,$name_kh,$email,$phone,$facebook,$position,$user_create,$national_id,$gender);
-                            $contact_id=$contact[0]->insert_crm_lead_contact;
-                        }
+                            // dd("no contact");
+                                //insert into crm_lead_brach_contact_rel
+                            // CrmLead::insert_branch_contact_rel($branch_id,$contact_id);
 
+                            //insert into crm_lead_item
+                            CrmLead::insertleaditems($branch_id,$service,$address_id,$user_create);
 
-                        //insert into crm_lead_brach_contact_rel
-                        CrmLead::insert_branch_contact_rel($branch_id,$contact_id);
+                            //insert into crm_lead_detail
+                            CrmLead::insertleaddetail($branch_id,$lead_status,$comment,$user_create);
 
-                        //insert into crm_lead_item
-                        CrmLead::insertleaditems($branch_id,$service,$address_id,$user_create);
-
-                        //insert into crm_lead_detail
-                         CrmLead::insertleaddetail($branch_id,$lead_status,$comment,$user_create);
-
-                         //insert into table crm_survey
-                        if($checksurvey!=='null'){
-                                // var_dump("No");
-                                CrmLead::insertsurey($branch_id,$user_create);
+                            //insert into table crm_survey
+                            if($checksurvey!=='null' || $checksurvey==0 ){
+                                    // var_dump("No");
+                                    CrmLead::insertsurey($branch_id,$user_create);
+                                    DB::commit();
+                                    return json_encode(["insert"=>"success"]);
+                            }
+                            else
+                            {
                                 DB::commit();
                                 return json_encode(["insert"=>"success"]);
+                            }
                         }
                         else
                         {
-                            DB::commit();
-                            return json_encode(["insert"=>"success"]);
+                            // dd("contact");
+                            $contact=CrmLead::insertcontact($name_en,$name_kh,$email,$phone,$facebook,$position,$user_create,$national_id,$gender);
+                            $contact_id=$contact[0]->insert_crm_lead_contact;
+                            //insert into crm_lead_brach_contact_rel
+                            CrmLead::insert_branch_contact_rel($branch_id,$contact_id);
+
+                            //insert into crm_lead_item
+                            CrmLead::insertleaditems($branch_id,$service,$address_id,$user_create);
+
+                            //insert into crm_lead_detail
+                            CrmLead::insertleaddetail($branch_id,$lead_status,$comment,$user_create);
+
+                            //insert into table crm_survey
+                            if($checksurvey!=='null' || $checksurvey==0 ){
+                                    // var_dump("No");
+                                    CrmLead::insertsurey($branch_id,$user_create);
+                                    DB::commit();
+                                    return json_encode(["insert"=>"success"]);
+                            }
+                            else
+                            {
+                                DB::commit();
+                                return json_encode(["insert"=>"success"]);
+                            }
                         }
+
+
+                        
 
                         // return json_encode(["result"=>$address_id,$lead_id,$branch_id,$contact_id]);
 
