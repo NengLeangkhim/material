@@ -116,6 +116,7 @@ Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
 
 // start contact
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table
+Route::get('/contact/datatable','crm\ContactController@getcontactDatatable');
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination
 Route::get('/contact/add','crm\ContactController@AddContact'); //go to add contact
 Route::post('/contact/store','crm\ContactController@StoreContact'); //store contact

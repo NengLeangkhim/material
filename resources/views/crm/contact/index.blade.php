@@ -30,7 +30,7 @@
                               <li class="nav-item"><a class="nav-link" href="#Crm_List_Contact" data-toggle="tab"><i class="fas fa-list"></i></a></li>
                             </ul>
                           </div> --}}
-                          <div class="col-4 text-right">
+                          <div class="col-4">
                             <a  href="#" class="btn btn-success crm_contact" ​value="/contact/add" id="crm_contact"><i class="fas fa-plus"></i> Add Contact</a>
                           </div>
                         </div>
@@ -43,12 +43,12 @@
                             </div> --}}
                             <!-- /.tab-pane -->
                             <!--show contact like table -->
-                            <div class="tab-pane" id="Crm_List_Contact">
+                            <div class="active tab-pane" id="Crm_List_Contact">
                               <div class="col-12">
                                 <table id="tblIndexContact" class="table table-bordered table-striped"  style="width:100%; white-space: nowrap;">
                                     <thead>
                                         <tr style="background: #1fa8e0">
-                                            <th style="color: #FFFFFF">No</th>
+                                            {{-- <th style="color: #FFFFFF">No</th> --}}
                                             <th style="color: #FFFFFF">Name EN</th>
                                             <th style="color: #FFFFFF">Name KH</th>
                                             <th style="color: #FFFFFF">Phone</th>
@@ -57,9 +57,6 @@
                                             <th style="color: #FFFFFF">Detail</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-
-                                    </tbody>
                                 </table>
                             </div>
                           </div>
@@ -77,61 +74,46 @@
             </section>
             <div id="ShowModalContact"></div>
           <script type="text/javascript">
-            $(document).ready(function() {
+              t=$("#tblIndexContact").DataTable({
+                // "responsive": true,
+                scrollX:true,
+                "autoWidth": false,
+                "serverSide": true,
+                "ajax": "contact/datatable",
+                "columnDefs": [
+                      {
+                          "searchable": false,
+                          "targets": 4
+                          },
+                      {
+                          // The `data` parameter refers to the data for the cell (defined by the
+                          // `data` option, which defaults to the column being worked with, in
+                          // this case `data: 0`.
+                          "render": function ( data, type, row ) {
+                              return '<div class="row-12 form-inline">'+
+                                          '<div class="col-md-12">'+
+                                            '<button class="btn btn-info btn-block  btn-sm CrmEditContact" onclick=go_to("/contact/edit/'+data+'")><i class="fas fa-wrench"></i></button>'+
+                                          '</div>'+
+                                      '</div>';
+                          },
+                          "targets": 4
+                      },
+                  ]
+              });
 
-                $("#tblIndexContact").DataTable({
-                    "responsive": true,
-                });
-
-
-              // $(document).on('click', '.pagination a', function(event) {// function click on link pagination
-              //     event.preventDefault();
-              //     var page = $(this).attr('href').split('page=')[1];//get value page number
-              //     fetch_data(page);// execute function
-              // });
-
-              // function fetch_data(page) {// function get data without refresh page
-              //     $.ajax({
-              //         url: "/contact/pagination?page=" + page,// URL
-              //         success: function(data) {
-              //             $('#Crm_Card_Contact').html(data);// refresh content
-              //         }
-              //     });
-              // }
-
-            });
-
-            $(function () {
-
-                $('#example2').DataTable({
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": false,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false,
-                    "responsive": true,
-                });
-
-            });
               $('#crm_contact').click(function(e) // function go to add contact
               {
                   var link = $(this).attr("​value");
                   go_to(link);
               });
-              $('.listtabel').click(function(e)
-              {
-                  var table = $(this).attr("​value");
-                  go_to(table);
-              });
-              $('.CrmEditContact').click(function(e)
-            {
-                var id = $(this).attr("​value");
-                go_to(id);
-            });
-            $('.CrmContactDetail').click(function(e)
-            {
-                var id = $(this).attr("​value");
-                go_to(id);
-            });
+              // $('.listtabel').click(function(e)
+              // {
+              //     var table = $(this).attr("​value");
+              //     go_to(table);
+              // });
+            // $('.CrmContactDetail').click(function(e)
+            // {
+            //     var id = $(this).attr("​value");
+            //     go_to(id);
+            // });
           </script>
