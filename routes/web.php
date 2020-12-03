@@ -13,6 +13,8 @@ use PhpParser\Node\Stmt\TryCatch;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('pdf-create','PdfController@create');
 Route::get('/check','RouteController@check'); //Check Database Connection
 Route::get('/','RouteController@home');
 Route::post('/','Login@login');
@@ -122,6 +124,7 @@ Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
 
 // start contact
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table
+Route::get('/contact/datatable','crm\ContactController@getcontactDatatable');
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination
 Route::get('/contact/add','crm\ContactController@AddContact'); //go to add contact
 Route::post('/contact/store','crm\ContactController@StoreContact'); //store contact
@@ -134,6 +137,7 @@ Route::get('/product','crm\ProductsController@getProducts'); //get all Products 
 
 // Start Organization
 Route::get('/organizations','crm\OrganizationController@getorganization'); //get all Organization  show in table
+Route::get('/organizations/datatable','crm\OrganizationController@getorganizationDatatable'); //get all Organization  show in table
 Route::get('/organizations/add','crm\OrganizationController@AddOrganization'); //go to add Organization
 Route::post('/organizations/store','crm\OrganizationController@StoreOrganization'); // add Organization
 Route::get('/organizations/edit/{id}','crm\OrganizationController@EditOrganization'); //go to Edit Organization

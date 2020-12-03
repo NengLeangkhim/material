@@ -19,9 +19,9 @@ class OrganizeController extends Controller
         // dd($userid);
         if(perms::check_perm_module_api('CRM_020301',$userid)){ // for top managment (Organisations List)
             $organ = Organize::getOrganize();
-            return json_encode(["data"=>$organ]);
+            return  json_encode(["data"=>$organ]);
             // dd("top");
-          
+
         }
         else if (perms::check_perm_module_api('CRM_020301',$userid)) { // for staff (Model  name Get Branch by user)
             $organ = Organize::getOrganizebyassigto($userid);
@@ -32,9 +32,31 @@ class OrganizeController extends Controller
         {
             return view('no_perms');
         }
-        
-    }
 
+    }
+    public function getOrganizeDatatable(Request $request){
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+        // dd($userid);
+        if(perms::check_perm_module_api('CRM_020301',$userid)){ // for top managment (Organisations List)
+            $organ = Organize::getOrganizeDatatable($request);
+            return $organ;
+            // dd("top");
+
+        }
+        else if (perms::check_perm_module_api('CRM_020301',$userid)) { // for staff (Model  name Get Branch by user)
+            $organ = Organize::getOrganizebyassigtoDatatable($request,$userid);
+            return $organ;
+            // dd("staff");
+        }
+        else
+        {
+            return view('no_perms');
+        }
+
+    }
 
     public function show($id)
     {

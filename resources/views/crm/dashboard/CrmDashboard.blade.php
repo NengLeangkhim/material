@@ -54,7 +54,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="p-3 text-center">
-                                        <h2 class="title-chart">Leads</h2>
+                                        <h2 class="title-chart">Lead</h2>
                                         <p class="sub-title-chart">Today</p>
                                         <h1 class="chart-number">{{$total_lead}}</h1>
                                     </div>
@@ -89,7 +89,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="p-3 text-center">
-                                        <h2 class="title-chart">Contacts</h2>
+                                        <h2 class="title-chart">Contact</h2>
                                         <p class="sub-title-chart">Today</p>
                                         <h1 class="chart-number">{{$total_contact}}</h1>
                                     </div>
@@ -106,7 +106,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="p-3 text-center">
-                                        <h2 class="title-chart">Quotes</h2>
+                                        <h2 class="title-chart">Quote</h2>
                                         <p class="sub-title-chart">Today</p>
                                         <h1 class="chart-number">{{$total_quote}}</h1>
                                     </div>

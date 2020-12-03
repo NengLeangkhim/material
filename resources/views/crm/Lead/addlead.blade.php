@@ -923,6 +923,9 @@
                 url:'api/branch',
                 type:'get',
                 dataType:'json',
+                headers: {
+                    'Authorization': `Bearer {{$_SESSION['token']}}`,
+                },
                 success:function(response){
                         for(var i=0; i<response['data'].length ;i++){
                             var id = response['data'][i].ma_company_branch_id;
