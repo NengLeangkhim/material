@@ -281,6 +281,7 @@ class OrganizationController extends Controller
                 $create_contact->headers->set('Authorization', 'Bearer '.$token);
                 $res = app()->handle($create_contact);
                 $response = json_decode($res->getContent());
+                // dd($response);
                 if($response->update==='success'){
                     return response()->json(['success'=>'Record is successfully added']);
                 }

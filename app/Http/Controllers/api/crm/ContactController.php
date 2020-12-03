@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\model\api\crm\ModelCrmContact as Contact;
 use App\Http\Resources\ContactResource;
+use App\Http\Controllers\SSP;
 use DB;
 Use Exception;
 
@@ -23,6 +24,26 @@ class ContactController extends Controller
         return ContactResource::Collection($contact);
     }
 
+    public function getContactDataTable(Request $request){
+        $table = '(select * from crm_lead_contact where is_deleted=false) as foo';
+
+        // Table's primary key
+        $primaryKey = 'id';
+
+        // Array of database columns which should be read and sent back to DataTables.
+        // The `db` parameter represents the column name in the database, while the `dt`
+        // parameter represents the DataTables column identifier. In this case simple
+        // indexes
+        $columns = array(
+            array( 'db' => 'name_en', 'dt' => 0 ),
+            array( 'db' => 'name_kh', 'dt' => 1 ),
+            array( 'db' => 'phone',  'dt' => 2 ),
+            array( 'db' => 'email',   'dt' => 3 ),
+            array( 'db' => 'id',     'dt' => 4 ),
+        );
+
+        return json_encode(SSP::simple( $request, $table, $primaryKey, $columns ));
+    }
      /**
      * Display the specified resource.
      *

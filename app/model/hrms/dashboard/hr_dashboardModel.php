@@ -39,10 +39,7 @@ class hr_dashboardModel extends Model
 
     // select satff by each department
     public static function staff_byDept(){
-        $sql = "SELECT s.id, s.first_name_en,s.last_name_en, s.create_date, c_d.id as dept_id, c_d.name as dept_name
-            FROM ma_user s INNER JOIN ma_company_dept c_d
-                ON c_d.id = s.ma_company_dept_id
-                WHERE s.status='t' and s.is_deleted=false order by s.create_date ASC";
+        $sql = "SELECT id,name,name_kh,(SELECT count(*) from ma_user mu WHERE mu.status='t' and mu.is_deleted='f' and mu.ma_company_dept_id=mcd.id and mu.is_employee='t') FROM ma_company_dept mcd WHERE status='t' and is_deleted='f' and ma_company_id=8;";
         return DB::select($sql);     
     }
 

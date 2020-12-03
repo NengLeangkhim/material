@@ -123,21 +123,21 @@ class LeadController extends Controller
         $con_id=$request->input('contact_id')!=""? $request->input('contact_id'):"null";
         $prioroty=$request->input('prioroty')!=""? $request->input('prioroty'):"urgent";
         $checksurvey=$request->input('checksurvey')!=""? $request->input('checksurvey'):"null";;
-        $company_en=$request->input('company_en');
+        $company_en=ucwords($request->input('company_en'));
         $company_kh=$request->input('company_kh');
         $primary_email=$request->input('primary_email');
         $primary_phone=$request->input('primary_phone');
         $user_create=$userid;
         // $user_create=$request->input('user_create');
-        $website=$request->input('website');
-        $facebook=$request->input('company_facebook');
+        $website=$request->input('website') !="" ? $request->input('website'):null;
+        $facebook=$request->input('company_facebook')!="" ? $request->input('company_facebook'):null;
         $vat_number=$request->input('vat_number');
         $company_branch=$request->input('branch');
         $lead_source=$request->input('lead_source');
         $lead_status=$request->input('lead_status')!=""?$request->input('lead_status'):1;
         $lead_industry=$request->input('lead_industry');
         $assig_to=$request->input('assig_to');
-        $service=$request->input('service');
+        $service=$request->input('service')!=""?$request->input('service'):null;
         $current_speed_isp=$request->input('current_speed_isp');
         $current_speed=$request->input('current_speed');
         $current_price=$request->input('current_price');
@@ -163,7 +163,7 @@ class LeadController extends Controller
         $addresscode=$request->input('village');
 
         // return $lead_id;
-        // dd($company_branch);
+        // dd($company_en);
         return  Lead::insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
         $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
         $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
@@ -187,7 +187,7 @@ class LeadController extends Controller
             $lead_detail_id=$request->input('lead_detail_id');
             $lead_item_id=$request->input('lead_item_id');
             $branch_id=$request->input('branch_id');
-            $company_en=$request->input('company_en');
+            $company_en=ucwords($request->input('company_en'));
             $company_kh=$request->input('company_kh');
             $primary_email=$request->input('primary_email');
             $primary_phone=$request->input('primary_phone');
@@ -202,7 +202,7 @@ class LeadController extends Controller
             $lead_industry=$request->input('lead_industry');
             $assig_to_id=$request->input('assig_to_id');
             $assig_to=$request->input('assig_to');
-            $service=$request->input('service');
+            $service=$request->input('service')!=""?$request->input('service'):null;
             $current_speed_isp=$request->input('current_speed_isp');
             $current_speed=$request->input('current_speed');
             $current_price=$request->input('current_price');
@@ -233,8 +233,8 @@ class LeadController extends Controller
                 return  Lead::updatebranch($lead_address_id,$lead_detail_id,$lead_item_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
                 $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,$primary_phone,
                 $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-                $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$survey_id);  
-                
+                $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$survey_id);
+
             }else{
                 return view('no_perms');
             }
@@ -304,7 +304,7 @@ class LeadController extends Controller
      public function getAddLead(){
             $lead = Lead::getAddLead(); // all lead
             return GetLead::Collection($lead);
-        
+
         // return GetLead::Collection($lead);
     }
     // get  lead by id
@@ -358,7 +358,7 @@ class LeadController extends Controller
         $userid = $_SESSION['userid'];
         $lead_id=$request->input('lead_id');
         $lead_number=$request->input('lead_number');
-        $company_en=$request->input('company_en');
+        $company_en=ucwords($request->input('company_en'));
         $company_kh=$request->input('company_kh');
         $primary_email=$request->input('primary_email');
         $primary_phone=$request->input('primary_phone');
@@ -458,7 +458,7 @@ class LeadController extends Controller
         $possible =$request->input('possible');
         $comment =$request->input('commentsurvey');
         $branch_id =$request->input('branch_id');
-        
+
         if($possible=='yes'){
             $possible='t';
         }
