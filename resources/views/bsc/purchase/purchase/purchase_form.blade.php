@@ -7,6 +7,12 @@
             $item.="<option value='{$product->id}'>{$product->name}</option>";
         }
     }
+
+    // if (count($purchase_detail) > 0) {
+    //     foreach ($purchase_detail as $item) {
+    //         dd($item);
+    //     }
+    // }
 @endphp
 <section class="content-header">
     <div class="container-fluid">
@@ -139,7 +145,7 @@
                                             <tr>
                                                 <th style="min-width: 165px;">Item</th>
                                                 <th style="min-width: 150px;">Description</th>
-                                                <th style="min-width: 65px;">Quantity</th>
+                                                <th style="min-width: 160px;" colspan="2">Quantity</th>
                                                 <th style="min-width: 80px;">Unit Price</th>
                                                 <th style="min-width: 120px;">Account</th>
                                                 <th style="min-width: 90px;">Tax</th>
@@ -322,6 +328,7 @@
                 success:function(data){
                     tr.find('.item_des').text(data['description']);
                     tr.find('.item_qty').text(1);
+                    tr.find('.item_unit').text(data['measurement_name']);
                     tr.find('.item_unit_price').text(data['product_price']);
                     tr.find('.item_account').text(data['chart_account_name']);
                     tr.find('.item_account').attr('data-id',data['bsc_account_charts_id']==null ? "null" : data['bsc_account_charts_id']);
@@ -387,7 +394,8 @@
         tr +='<tr id="row'+count+'">'+
                 '<td style="max-width: 165px;padding: 0;overflow: auto;" class="item_name"><select class="item_select stock_product_id" style="width: 100%;height: 51px;"><option value=""></option>'+$("#items").val()+'</select></td>'+
                 '<td style="max-width: 150px;" contenteditable="{{$contenteditable}}" class="item_des" id="item_des"></td>'+
-                '<td style="max-width: 65px;" contenteditable="{{$contenteditable}}" class="item_qty" id="item_qty" onkeypress="if(navigator.userAgent.indexOf(\'Firefox\') != -1) if($(this).parent().index()==0) return (this.innerText.length < 6) ; else return (this.innerText.length < 5); return (this.innerText.length < 5);"></td>'+
+                '<td style="max-width: 90px;border-right-style: hidden;" contenteditable="{{$contenteditable}}" class="item_qty" id="item_qty" onkeypress="if(navigator.userAgent.indexOf(\'Firefox\') != -1) if($(this).parent().index()==0) return (this.innerText.length < 6) ; else return (this.innerText.length < 5); return (this.innerText.length < 5);"><span></span></td>'+
+                '<td style="max-width: 70px;" class="item_unit" id="item_unit"></td>'+
                 '<td style="max-width: 80px;" contenteditable="{{$contenteditable}}" class="item_unit_price" id="item_unit_price"></td>'+
                 '<td style="max-width: 120px;" class="item_account" id="item_account" data-id=""></td>'+
                 '<td style="max-width: 90px;padding: 0;" class="item_tax"><select disabled style="border: 0px; height: 51px;background-color: white;" class="tax form-control"><option value="" disabled hidden selected></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
