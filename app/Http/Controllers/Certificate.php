@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use PDF;
 
-class Certificate extends Controller
-{
-  public function certificatePDF()
+class Certificate extends Controller{
+ 
+    public function certificatePDF()
 
     {
     	$html='<html>
             <head>
-            <title>E-Request Certificate</title>
+                <title>E-Request Certificate</title>
+                <link rel="stylesheet" href="css/e_request/form_main.css">
             </head>
             <body>
                 <div class="certificate" style=" margin-left: 1cm; margin-right: 1cm;">

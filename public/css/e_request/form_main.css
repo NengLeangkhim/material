@@ -1,0 +1,132 @@
+
+.namecompany{
+    color:#1fa8e0;
+}
+
+
+
+/* .expried_intership */
+
+.expried_intership{
+    margin: 20px 20px;
+}
+.center_heading{
+    text-align: center;
+}
+.center_heading h3{
+    text-align: center;
+}
+.list_rule li{
+    list-style: none;
+}
+
+/* /.expried_intership */
+
+/* mistake_form */
+
+.heading{
+    font-size: 12pt;
+}
+.heading h3{
+    margin-bottom: 0px;
+}
+h3{
+    margin: 2px;
+}
+p{
+    font-size: 11pt;
+    margin-bottom: 5px;
+}
+.p_text p{
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.logo_heading h2{
+    font-size: 25px;
+    text-align: center;
+    color:  #1fa8e0;
+}
+.logo_heading h3{
+    font-size: 19px;
+    text-align: center;
+    color:  #1fa8e0;
+}
+.footer{
+    border-top: 2px solid #1fa8e0;
+    
+    
+    
+}
+.signature{
+    text-align: right; 
+}
+.signature p{
+    margin-top: 0;
+    margin-right: 20px;
+}
+.signature_box{
+    border: 2px dotted rgb(211, 208, 10);
+    width: 120px;
+    height: 120px;
+    margin-left: 500px;
+}
+
+
+.reminder{
+    margin: 0;
+    font-size: 9pt; 
+    font-style: italic;
+    text-align: center;
+}
+/* /mistake_form */
+
+
+/* spend_eating_form */
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-size: 14pt;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+    width: 180px;
+    height: 40px;
+    text-align: center;   
+}
+thead tr th{
+    height: 60px;
+}
+.footer_eating{
+    border-top: 2px solid #1fa8e0;
+    margin-top: 110px;
+}
+
+/* /spend_eating_form */
+
+/* /report_calculate_commission */
+.commission_footer tr td{
+    border: none;
+    width: 400px;
+}
+.footer_commission{
+    border-top: 2px solid black;
+    margin-top: 150px;
+}
+
+
+/* check_report_training */
+.staff_training_info tr td{
+    width: 400px;
+    height: 30px;
+    text-align: left;
+    
+}
+.training_info tr td{
+    width: 200px;
+    height: 30px;
+    text-align: center;
+}
+
+

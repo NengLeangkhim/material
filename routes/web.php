@@ -266,8 +266,13 @@ Route::get('/ere_all_req_view','e_request\ere_get_datatable_value@get_all_req_vi
 Route::get('/ere_report','e_request\ere_get_report@ere_report');
 
 //============reportPDF===========
-Route::get('Certificate','Certificate@certificatePDF'); //certificate
-Route::get('Expried_intership','Expried_intership@Expried_internshipPDF');​ //Expried_intership
+Route::get('certificate','Certificate@certificatePDF'); //certificate
+Route::get('Expried_intership','Expried_intership@Expried_internshipPDF'); //Expried_intership
+Route::get('mistake','mistake_form@mistakePDF'); //Mistake_form
+Route::get('spend_eating','spend_eating_form@spend_eatingPDF'); //Mistake_form
+Route::get('commission','report_calculate_price_commission@commissionPDF'); //Commission
+Route::get('Chack_report_training','check_report_training@report_trainingPDF'); //report_training
+
 
 //=======================E-request==========================
 
@@ -278,9 +283,9 @@ Route::get('dashboarhProduct','stock\dashboard@dashboarhProduct');
 Route::get('getChartofProduct','stock\dashbord@getProductDetail');
 Route::get('branchChange','stock\dashboard@BranchChange');
 Route::get('modalCompany','stock\dashboard@dashboard');
-// Route::get('/main',function(){
-//     return view('Main');
-// });
+Route::get('/main',function(){
+    return view('Main');
+});
 Route::post('/dashbord','stock\dashbord@LogIn');
 Route::get('/dashbord','stock\dashbord@Dashbord');
 // Route::get('/','login@checkSession');
