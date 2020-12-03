@@ -85,9 +85,9 @@
                                                         @if ($sub_chart_acc != null)
                                                             @foreach ($sub_chart_acc as $chart_acc)
                                                                 <option 
-                                                                    {{-- @if ($chart_acc->id == $purchase->id)
+                                                                    @if ($chart_acc->id == $purchase->vat_input_account_charts_id)
                                                                         selected
-                                                                    @endif --}}
+                                                                    @endif
                                                                     value="{{$chart_acc->id}}">&nbsp;&nbsp;&nbsp;{{$chart_acc->name_en}}
                                                                 </option>
                                                             @endforeach
@@ -180,11 +180,11 @@
                                             <tr>
                                                 <th style="min-width: 165px;">Item</th>
                                                 <th style="min-width: 150px;">Description</th>
-                                                <th style="min-width: 65px;">Quantity</th>
+                                                <th style="min-width: 160px;" colspan="2">Quantity</th>
                                                 <th style="min-width: 80px;">Unit Price</th>
                                                 <th style="min-width: 120px;">Account</th>
                                                 <th style="min-width: 90px;">Tax</th>
-                                                <th style="min-width: 125px;">Amount</th>
+                                                <th style="min-width: 125px;max-width:125px;">Amount</th>
                                                 <th {{$remove_btn}}></th>
                                             </tr>
                                         </thead>
@@ -213,7 +213,8 @@
                                                         </td>
 
                                                         <td style="max-width: 150px;" contenteditable="{{$contenteditable}}" class="item_des" id="item_des">{{$p_detail->description}}</td>
-                                                        <td style="max-width: 65px;" contenteditable="{{$contenteditable}}" class="item_qty" id="item_qty" onkeypress="return (this.innerText.length < 5)">{{$p_detail->qty}}</td>
+                                                        <td style="max-width: 160px;border-right-style: hidden;" contenteditable="{{$contenteditable}}" class="item_qty" id="item_qty" onkeypress="return (this.innerText.length < 5)">{{$p_detail->qty}} </td>
+                                                        <td style="max-width: 70px;" class="item_unit" id="item_unit">{{ $p_detail->measurement_name}}</td>
                                                         <td style="max-width: 80px;" contenteditable="{{$contenteditable}}" class="item_unit_price" id="item_unit_price">{{$p_detail->unit_price}}</td>
                                                         <td style="max-width: 120px;"class="item_account" id="item_account" data-id="{{$p_detail->bsc_account_charts_id}}">{{$p_detail->chart_account_name}}</td>
                                                         <td style="padding: 0;min-width: 90px;" class="item_tax">
@@ -237,7 +238,7 @@
                                                                 $vat_total = ($p_detail->amount*10)/100;
                                                             }
                                                         @endphp
-                                                        <td style="min-width: 125px;" class="item_amount" data-tax_total="{{ $vat_total }}" id="item_amount">{{$p_detail->amount}}</td>
+                                                        <td style="min-width: 125px;max-width: 125px;" class="item_amount" data-tax_total="{{ $vat_total }}" id="item_amount">{{$p_detail->amount}}</td>
                                                         <td {{$remove_btn}} style="text-align: center;"><button type="button" name="remove" data-row="row{{$key}}" class="btn btn-danger btn-xs remove">x</button></td>
                                                     </tr>
                                                 @endforeach
@@ -482,6 +483,7 @@
                 success:function(data){
                     tr.find('.item_des').text(data['description']);
                     tr.find('.item_qty').text(1);
+                    tr.find('.item_unit').text(data['measurement_name']);
                     tr.find('.item_unit_price').text(data['product_price']);
                     tr.find('.item_account').text(data['chart_account_name']);
                     tr.find('.item_account').attr('data-id',data['bsc_account_charts_id']==null ? "null" : data['bsc_account_charts_id']);
@@ -547,7 +549,8 @@
         tr +='<tr id="row'+count+'">'+
                 '<td style="max-width: 165px;padding: 0;overflow: auto;" class="item_name"><select class="item_select stock_product_id" style="width: 100%;height: 51px;" data-is_old="0" data-is_new="1" data-is_delete="0"><option value=""></option>'+$("#items").val()+'</select></td>'+
                 '<td style="max-width: 150px;" contenteditable="false" class="item_des" id="item_des"></td>'+
-                '<td style="max-width: 65px;" contenteditable="false" class="item_qty" id="item_qty" onkeypress="if(navigator.userAgent.indexOf(\'Firefox\') != -1) if($(this).parent().index()==0) return (this.innerText.length < 6) ; else return (this.innerText.length < 5); return (this.innerText.length < 5);"></td>'+
+                '<td style="max-width: 90px;border-right-style: hidden;" contenteditable="false" class="item_qty" id="item_qty" onkeypress="if(navigator.userAgent.indexOf(\'Firefox\') != -1) if($(this).parent().index()==0) return (this.innerText.length < 6) ; else return (this.innerText.length < 5); return (this.innerText.length < 5);"></td>'+
+                '<td style="max-width: 70px;" class="item_unit" id="item_unit"></td>'+
                 '<td style="max-width: 80px;" contenteditable="false" class="item_unit_price" id="item_unit_price"></td>'+
                 '<td style="max-width: 120px;" class="item_account" id="item_account" data-id=""></td>'+
                 '<td style="max-width: 90px; padding: 0;" class="item_tax"><select disabled style="border: 0px; height: 51px; background-color: white;" class="tax form-control"><option value="" disabled hidden selected></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+

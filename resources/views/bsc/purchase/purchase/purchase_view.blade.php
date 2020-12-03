@@ -1,5 +1,17 @@
 
 <!-- Content Header (Page header) -->
+@php
+    $my_display= "";
+    if (count($purchase_payments) > 0){
+        foreach ($purchase_payments as $item){
+            $due_amount = $item->due_amount;
+            if($due_amount == 0){
+                $my_display="display: none";
+            }
+        }   
+    }
+@endphp
+
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -27,7 +39,7 @@
                             <div class="col-md-8"></div>
                             <div class="col-md-4 text_right">
                                 <a href="#" class="btn btn-success purchase_form"  value="" id="">Print</a>
-                                <a href="#" class="btn btn-secondary purchase_form"  value="bsc_purchase_purchase_purchase_edit" id="purchase_edit" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')">Edit</a>
+                                <a href="#" style="{{$my_display}}" class="btn btn-secondary purchase_form"  value="bsc_purchase_purchase_purchase_edit" id="purchase_edit" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')">Edit</a>
                             </div>
                         </div>
                     </div>
@@ -65,7 +77,7 @@
                                         <tr>
                                             <td>{{$item->product_name}}</td>
                                             <td>{{$item->description}}</td>
-                                            <td>{{$item->qty}}</td>
+                                            <td>{{$item->qty}} <span>{{ $item->measurement_name }}</span></td>
                                             <td>{{number_format($item->unit_price,4,".",",")}}</td>
                                             <td>{{$item->chart_account_name}}</td>
                                             <td>{{$item->tax == 0 ? "No Tax" : "Tax"}}</td>
