@@ -62,7 +62,7 @@ var reportLeadByStatus = () => {
                             0: { color: 'rgb(125, 105, 11)' },
                             1: { color: 'rgb(145, 205, 66)' },
                             2: { color: 'rgb(54, 162, 235)' },
-                            3: { color: 'rgb(75, 102, 42)' },
+                            3: { color: 'rgb(75, 102, 42)'  },
                             4: { color: 'rgb(255, 205, 86)' },
                             5: { color: 'rgb(255, 99, 132)' },
                             6: { color: 'rgb(105, 155, 16)' },
