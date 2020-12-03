@@ -87,6 +87,14 @@ Route::get('/crm/leadbranch/qualified',function(){
 Route::get('/crm/leadbranch/junk',function(){
     return view('/crm.LeadBranch.JunkStatus');
 });
+// Edit lead
+Route::get('/crm/leadbranch/editleadbranch',function(){
+    return view('/crm.LeadBranch.EditLeadBranch');
+});
+// ShowLeadBranch
+Route::get('/crm/leadbranch/showleadbranch',function(){
+    return view('/crm.LeadBranch.JunkStatus');
+});
 // end lead branch
 
 //end lead branch
@@ -116,6 +124,7 @@ Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
 
 // start contact
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table
+Route::get('/contact/datatable','crm\ContactController@getcontactDatatable');
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination
 Route::get('/contact/add','crm\ContactController@AddContact'); //go to add contact
 Route::post('/contact/store','crm\ContactController@StoreContact'); //store contact
@@ -128,6 +137,7 @@ Route::get('/product','crm\ProductsController@getProducts'); //get all Products 
 
 // Start Organization
 Route::get('/organizations','crm\OrganizationController@getorganization'); //get all Organization  show in table
+Route::get('/organizations/datatable','crm\OrganizationController@getorganizationDatatable'); //get all Organization  show in table
 Route::get('/organizations/add','crm\OrganizationController@AddOrganization'); //go to add Organization
 Route::post('/organizations/store','crm\OrganizationController@StoreOrganization'); // add Organization
 Route::get('/organizations/edit/{id}','crm\OrganizationController@EditOrganization'); //go to Edit Organization
