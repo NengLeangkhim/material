@@ -283,6 +283,15 @@ Route::get('requestPaymentForm','requestPaymentForm@requestPaymentForm');
 Route::get('FinishContractWorkLetter','FinishContractWorkLetter@FinishContractWorkLetter');
 Route::get('IntroductionCEO','IntroductionCEO@IntroductionCEO');
 Route::get('StopWorkEmployee','StopWorkEmployee@StopWorkEmployee');
+//============reportPDF===========
+Route::get('certificate','Certificate@certificatePDF'); //certificate
+Route::get('Expried_intership','Expried_intership@Expried_internshipPDF'); //Expried_intership
+Route::get('mistake','mistake_form@mistakePDF'); //Mistake_form
+Route::get('spend_eating','spend_eating_form@spend_eatingPDF'); //Mistake_form
+Route::get('commission','report_calculate_price_commission@commissionPDF'); //Commission
+Route::get('training_checking_list','training_checking_list@report_trainingPDF'); //training_check_list
+Route::get('training_request_proposal','training_request_proposal@training_requestPDF'); //training_request_proposal
+
 //=======================E-request==========================
 
 //==================STOCK SYSTEM===================================================
@@ -292,9 +301,9 @@ Route::get('dashboarhProduct','stock\dashboard@dashboarhProduct');
 Route::get('getChartofProduct','stock\dashbord@getProductDetail');
 Route::get('branchChange','stock\dashboard@BranchChange');
 Route::get('modalCompany','stock\dashboard@dashboard');
-// Route::get('/main',function(){
-//     return view('Main');
-// });
+Route::get('/main',function(){
+    return view('Main');
+});
 Route::post('/dashbord','stock\dashbord@LogIn');
 Route::get('/dashbord','stock\dashbord@Dashbord');
 // Route::get('/','login@checkSession');
