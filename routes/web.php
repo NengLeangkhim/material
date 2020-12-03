@@ -265,6 +265,20 @@ Route::get('/ere_apr_view','e_request\ere_get_datatable_value@get_approve_view')
 Route::get('/ere_all_req_view','e_request\ere_get_datatable_value@get_all_req_view');
 Route::get('/ere_report','e_request\ere_get_report@ere_report');
 
+//======================PDF======================
+Route::get('request','PdfController@request');
+Route::get('warrantyLetter','warrantyLetter@warrantyletter');
+Route::get('stopworkLetter','stopworkLetter@stopworkLetter');
+Route::get('inviteLetter','inviteLetter@inviteLetter');
+Route::get('inviteeetingLetter','inviteMeetingLetter@inviteMeetingLetter');
+Route::get('notice','notice@notice');
+Route::get('requestForm','requestForm@requestForm');
+Route::get('Introduction','Introduction@Introduction');
+Route::get('Decision','Decision@Decision');
+Route::get('requestPaymentForm','requestPaymentForm@requestPaymentForm');
+Route::get('FinishContractWorkLetter','FinishContractWorkLetter@FinishContractWorkLetter');
+Route::get('IntroductionCEO','IntroductionCEO@IntroductionCEO');
+Route::get('StopWorkEmployee','StopWorkEmployee@StopWorkEmployee');
 //=======================E-request==========================
 
 //==================STOCK SYSTEM===================================================
