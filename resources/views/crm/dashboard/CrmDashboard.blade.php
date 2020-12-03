@@ -221,6 +221,13 @@
     var currentDateString = currentDate.toJSON().split('T')[0]
     currentDate.setDate( currentDate.getDate() - 7 );
     var currentDateStringSub7 = currentDate.toJSON().split('T')[0]
+
+    // Convert first letter to uppercase
+    function UpperCaseFirstLetter(string) {
+        return string[0].toUpperCase() + string.slice(1);
+    }
+
+    // Chart
     $(function () {
         // Chart Lead Status
         var Branch_Chart = () => {
@@ -294,7 +301,7 @@
                     pieSliceText:'value',
                     vAxis: {
                         minValue: 0,
-                        maxValue: 10
+                        maxValue: 100
                     }
                 };
                 var chart = new google.visualization.ColumnChart(document.getElementById('LeadChart'))
@@ -392,7 +399,7 @@
                     // var color = (colors.find(e => (e.id == value.crm_quote_status_type_id))).code
                     if(value.crm_quote_status_type_id != null) {
                         var color = colors[index + 1].code;
-                        result.push([value.quote_status_name_en, value.total_quotes, color])
+                        result.push([UpperCaseFirstLetter(value.quote_status_name_en), value.total_quotes, color])
                     }
                 })
                 var data = google.visualization.arrayToDataTable(result)
@@ -411,7 +418,7 @@
                     colors: [''],
                     hAxis: {
                         minValue: 0,
-                        maxValue: 10,
+                        maxValue: 100,
                         // format: '#\'%\'',
                         direction: 1
                     },
@@ -493,7 +500,7 @@
                     },
                     vAxis: {
                         minValue: 0,
-                        maxValue: 50,
+                        maxValue: 100,
                         direction: 1
                     },
                     hAxis: {
@@ -545,7 +552,7 @@
                 var data = google.visualization.arrayToDataTable([
                     ['','',{role: 'style'}],
                     ['Success',suc,'color:#25CCF7'],
-                    ['Unsuccess',unsuc,'color:#ff3d67']
+                    ['Failure',unsuc,'color:#ff3d67']
                 ]);
 
                 var view = new google.visualization.DataView(data);
@@ -574,6 +581,7 @@
                         opacity: 0.5
                     },
                     hAxis: {
+                        minValue: 0,
                         maxValue: 100,
                         value: 0
                     }

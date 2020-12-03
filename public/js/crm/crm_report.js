@@ -1,4 +1,7 @@
-
+// Convert first letter to uppercase
+function UpperCaseFirstLetter(string) {
+	return string[0].toUpperCase() + string.slice(1);
+}
 
 function returnNoData(id){
     // console.log('this call funciton='+id);
@@ -51,22 +54,17 @@ var reportLeadByStatus = () => {
                     var options = {
                         title: 'Branch Lead Progress',
                         pieHole: 0.4,
+                        colors: [''],
+                        // legend: 'none',
                         slices: {
-                            // 0: { color: '#ff3838' },
-                            // 1: { color: '#7d5fff' },
-                            // 2: { color: '#fff200' },
-                            // 3: { color: '#C4E538' },
-                            // 4: { color: '#00cec9' },
-                            // 5: { color: '#EE5A24' },
-                            // 6: { color: '#18dcff' },
-                            0: { color: 'rgb(125, 105, 11)' },
-                            1: { color: 'rgb(145, 205, 66)' },
-                            2: { color: 'rgb(54, 162, 235)' },
-                            3: { color: 'rgb(75, 102, 42)' },
-                            4: { color: 'rgb(255, 205, 86)' },
-                            5: { color: 'rgb(255, 99, 132)' },
-                            6: { color: 'rgb(105, 155, 16)' },
-                        }
+                            0: { color: '#36a2eb' },
+                            1: { color: '#4bc0c0' },
+                            2: { color: '#ffcd56' },
+                            3: { color: '#ff3d67' },
+                            4: { color: '#7d9b10' },
+                            5: { color: '#9966ff' },
+                            6: { color: '#96f' },
+                        },
                     };
                     var chart = new google.visualization.PieChart(document.getElementById('Branchchart'));
                     chart.draw(data, options);
@@ -208,10 +206,16 @@ var reportContact = () => {
                                     2]);
                     var options = {
                         title: "Contact Progress",
-                        width: "100%",
-                        height: 300,
-                        bar: {groupWidth: "70%"},
                         legend: { position: "none" },
+                        vAxis: {
+                            minValue: 0,
+                            maxValue: 100
+                        },
+                        hAxis: {
+                            textStyle: {
+                                fontSize: 14
+                            }
+                        }
                     };
                     var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
                     chart.draw(view, options);
@@ -319,10 +323,16 @@ var reportOrganization = () => {
                                     2]);
                     var options = {
                         title: "Organization Progress",
-                        width: "100%",
-                        height: 300,
-                        bar: {groupWidth: "70%"},
                         legend: { position: "none" },
+                        vAxis: {
+                            minValue: 0,
+                            maxValue: 100
+                        },
+                        hAxis: {
+                            textStyle: {
+                                fontSize: 14
+                            }
+                        }
                     };
                     var chart = new google.visualization.ColumnChart(document.getElementById("OrganizationChart"));
                     chart.draw(view, options);
@@ -367,7 +377,7 @@ var reportQuoteByStatus = () => {
                     var mydata = [['Year', ' ', { role: 'style' }]];
                     var colorChart = ['rgb(54, 162, 235)','rgb(75, 192, 192)','rgb(255, 205, 86)','rgb(255, 99, 132)','rgb(125, 155, 16)','#12CBC4','#006266','rgb(105, 55, 216)','#ff5252'];
                     $.each(data, function(k, val){
-                        mydata.push([data[k]['quote_status_name_en'], data[k]['total_quotes'], 'stroke-color:#e6e6e6; stroke-width: 2;fill-color: '+colorChart[k]+';']);
+                        mydata.push([UpperCaseFirstLetter(data[k]['quote_status_name_en']), data[k]['total_quotes'], 'stroke-color:#e6e6e6; stroke-width: 2;fill-color: '+colorChart[k]+';']);
                     });
                     console.log(mydata);
                     function drawChart(){
@@ -386,14 +396,20 @@ var reportQuoteByStatus = () => {
                                         sourceColumn: 1,
                                         type: "string",
                                         role: "annotation" },
-                                2]);
-
+                        2]);
                         var options = {
-                        title: "Quote Performance",
-                        width: "100%",
-                        height: 300,
-                        bar: {groupWidth: "70%"},
-                        legend: { position: "none" },
+                            title: "Quote Performance",
+                            bar: {groupWidth: "70%"},
+                            legend: { position: "none" },
+                            vAxis: {
+                                textStyle: {
+                                    fontSize: 14
+                                }
+                            },
+                            hAxis: {
+                                minValue: 0,
+                                maxValue: 100
+                            }
                         };
                         var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
                         chart.draw(view, options);
@@ -527,7 +543,7 @@ var reportSurvey = () => {
                                 mydata.push(['No data', 0,'color:#25CCF7']);
                         }else{
                             $.each(data, function(k, val){
-                                mydata.push([data[k]['status_en'], data[k]['total_suveyed'], ''+chartColor[k]+'']);
+                                mydata.push([UpperCaseFirstLetter(data[k]['status_en']), data[k]['total_suveyed'], ''+chartColor[k]+'']);
                             });
                         }
                         // console.log(mydata);
@@ -553,7 +569,7 @@ var reportSurvey = () => {
 
                     var options = {
                         title: 'Survey Performance',
-                        colors:['#ffffff','#ffffff'],
+                        legend: 'none',
                         annotations: {
                             textStyle: {
                                 fontName: 'Times-Roman',
@@ -569,14 +585,12 @@ var reportSurvey = () => {
                             maxValue: 100,
                             value: 0
                         }
-
                     };
                     var chart = new google.visualization.BarChart(document.getElementById('survey_chart'));
                     chart.draw(view, options);
             }else{
 
             }
-
         }
     });
 }
