@@ -13,6 +13,8 @@ use PhpParser\Node\Stmt\TryCatch;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('pdf-create','PdfController@create');
 Route::get('/check','RouteController@check'); //Check Database Connection
 Route::get('/','RouteController@home');
 Route::post('/','Login@login');
@@ -31,6 +33,7 @@ Route::get('/village', 'addressController@getvillage'); //getvillage
 // =========================CRM SYSTEM==========================
 // start lead and branch
 Route::get('/lead','crm\LeadController@getlead'); // get  all lead  show  in table
+Route::get('/lead/datatable','crm\LeadController@getleadDatatable');//get data for datatable
 Route::get('/addlead','crm\LeadController@lead'); // insert lead or branch (button)
 Route::get('/detaillead/{id}','crm\LeadController@getdetailtlead'); // get  show detail  lead
 Route::get('/editlead/{id}','crm\LeadController@editlead');// edit lead
@@ -140,6 +143,7 @@ Route::get('/crmreport/organization/chart','crm\CrmReportController@GetOrganizat
 Route::get('/crmreport/detailorganization','crm\CrmReportController@CrmDetailOrganizationReport'); // show Organization Detail report
 Route::get('/crmreport/quote/chart','crm\CrmReportController@GetQuoteChart'); // Get Quote Chart
 Route::get('/crmreport/detailquote','crm\CrmReportController@CrmDetailQuoteReport'); // show Quote Detail report
+Route::get('/crmreport/survey/chart','crm\CrmReportController@GetSurveyChart'); // Get survey chart report
 
 // End Report
 
@@ -961,7 +965,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_delete_overtime', 'hrms\Employee\OverTimeController@DeleteOvertime');
         Route::get('hrm_my_overtime','hrms\Employee\OverTimeController@my_overtime');
     // End Overtime
-    
+
     // Warning & Punishment
        Route::get('hrm_warning_and_punishment','hrms\Employee\WarningAndPunishmentController@warning_and_punishment_list');
        Route::get('hrm_modal_warning_and_punishment','hrms\Employee\WarningAndPunishmentController@modal_warning_and_punishment');

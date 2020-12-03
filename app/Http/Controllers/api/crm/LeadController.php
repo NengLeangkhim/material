@@ -123,21 +123,21 @@ class LeadController extends Controller
         $con_id=$request->input('contact_id')!=""? $request->input('contact_id'):"null";
         $prioroty=$request->input('prioroty')!=""? $request->input('prioroty'):"urgent";
         $checksurvey=$request->input('checksurvey')!=""? $request->input('checksurvey'):"null";;
-        $company_en=$request->input('company_en');
+        $company_en=ucwords($request->input('company_en'));
         $company_kh=$request->input('company_kh');
         $primary_email=$request->input('primary_email');
         $primary_phone=$request->input('primary_phone');
         $user_create=$userid;
         // $user_create=$request->input('user_create');
-        $website=$request->input('website');
-        $facebook=$request->input('company_facebook');
+        $website=$request->input('website') !="" ? $request->input('website'):null;
+        $facebook=$request->input('company_facebook')!="" ? $request->input('company_facebook'):null;
         $vat_number=$request->input('vat_number');
         $company_branch=$request->input('branch');
         $lead_source=$request->input('lead_source');
         $lead_status=$request->input('lead_status')!=""?$request->input('lead_status'):1;
         $lead_industry=$request->input('lead_industry');
         $assig_to=$request->input('assig_to');
-        $service=$request->input('service');
+        $service=$request->input('service')!=""?$request->input('service'):null;
         $current_speed_isp=$request->input('current_speed_isp');
         $current_speed=$request->input('current_speed');
         $current_price=$request->input('current_price');
@@ -163,7 +163,7 @@ class LeadController extends Controller
         $addresscode=$request->input('village');
 
         // return $lead_id;
-        // dd($company_branch);
+        // dd($company_en);
         return  Lead::insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
         $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
         $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
@@ -187,7 +187,7 @@ class LeadController extends Controller
             $lead_detail_id=$request->input('lead_detail_id');
             $lead_item_id=$request->input('lead_item_id');
             $branch_id=$request->input('branch_id');
-            $company_en=$request->input('company_en');
+            $company_en=ucwords($request->input('company_en'));
             $company_kh=$request->input('company_kh');
             $primary_email=$request->input('primary_email');
             $primary_phone=$request->input('primary_phone');
@@ -202,7 +202,7 @@ class LeadController extends Controller
             $lead_industry=$request->input('lead_industry');
             $assig_to_id=$request->input('assig_to_id');
             $assig_to=$request->input('assig_to');
-            $service=$request->input('service');
+            $service=$request->input('service')!=""?$request->input('service'):null;
             $current_speed_isp=$request->input('current_speed_isp');
             $current_speed=$request->input('current_speed');
             $current_price=$request->input('current_price');
@@ -270,6 +270,36 @@ class LeadController extends Controller
 
         // return GetLead::Collection($lead);
     }
+     //method support for datatable server side processing
+    public function getLeadDatatable(Request $request){
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+
+        if(perms::check_perm_module_api('CRM_020501',$userid)){ // top managment
+            $lead = Lead::getleadDataTable($request); // all lead
+            return $lead;
+            // dd("top");
+        }
+        else if (perms::check_perm_module_api('CRM_020509',$userid)) { // fro staff (Model and Leadlist by user)
+            $lead = Lead::getLeadbyassginto($userid); //  lead by assigned to
+            return GetLead::Collection($lead);
+            // dd("staff");
+
+        }
+        else
+        {
+            return view('no_perms');
+        }
+
+        // return GetLead::Collection($lead);
+    }
+    ////method support for datatable server side processing using the same query string as api
+    public function getLeadSql(){
+        return Lead::getLeadSql();
+    }
+
      // get all lead for add lead
      public function getAddLead(){
             $lead = Lead::getAddLead(); // all lead
@@ -328,7 +358,7 @@ class LeadController extends Controller
         $userid = $_SESSION['userid'];
         $lead_id=$request->input('lead_id');
         $lead_number=$request->input('lead_number');
-        $company_en=$request->input('company_en');
+        $company_en=ucwords($request->input('company_en'));
         $company_kh=$request->input('company_kh');
         $primary_email=$request->input('primary_email');
         $primary_phone=$request->input('primary_phone');

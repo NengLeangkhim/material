@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Http\Controllers\SSP;
 use Exception;
 
 class Crmlead extends Model
@@ -163,7 +164,7 @@ class Crmlead extends Model
 
             if($lead_id!=='null')
             {
-                // dd('lead');
+                // dd('branch');
                 return CrmLead::addbranchinlead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
                  $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
                  $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
@@ -173,7 +174,7 @@ class Crmlead extends Model
             }
             else
             {
-                // dd('no lead');
+                // dd('lead');
                 return Crmlead::addlead($con_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
                 $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
                 $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
@@ -286,7 +287,7 @@ class Crmlead extends Model
     $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
     $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey){
 
-        // dd("dxfvfdn");
+        // dd($service);
         // return "df";
         if(isset($company_en)){
             DB::beginTransaction();
@@ -589,20 +590,42 @@ class Crmlead extends Model
     //     join stock_product sp on sp.id= clitem.stock_product_id
     //     where ld.status=true and ld.is_deleted=false");
     // }
-    //get  all lead
-    public static function getlead(){
-        $lead= DB::select('SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
-        cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
-        cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status
+    //Get Lead sql
+    private static function getLeadSql(){
+        return "SELECT cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
+        cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,cl.crm_lead_source_id,
+        cl.crm_lead_industry_id,cl.crm_lead_current_isp_id,cl.status
         from crm_lead cl
-        LEFT JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
-        LEFT JOIN crm_lead_source cls on cls.id = cl.crm_lead_source_id
         LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
         LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
 		JOIN crm_lead_branch clb on clb.crm_lead_id = cl.id
 		JOIN crm_lead_detail cld on cld.crm_lead_branch_id = clb.id
-        WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE ORDER BY cl.lead_number DESC ');
+        WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE GROUP BY cl.id";
+    }
+    //get  all lead
+    public static function getlead(){
+        $lead= DB::select(self::getLeadSql());
         return $lead;
+    }
+    public static function getleadDataTable($request){
+        $table = '('.self::getLeadSql().') as foo';
+
+        // Table's primary key
+        $primaryKey = 'lead_id';
+
+        // Array of database columns which should be read and sent back to DataTables.
+        // The `db` parameter represents the column name in the database, while the `dt`
+        // parameter represents the DataTables column identifier. In this case simple
+        // indexes
+        $columns = array(
+            array( 'db' => 'lead_number', 'dt' => 0 ),
+            array( 'db' => 'customer_name_en', 'dt' => 1 ),
+            array( 'db' => 'email',  'dt' => 2 ),
+            array( 'db' => 'phone',   'dt' => 3 ),
+            array( 'db' => 'lead_id',     'dt' => 4 ),
+        );
+
+        return json_encode(SSP::simple( $request, $table, $primaryKey, $columns ));
     }
      //get  all lead for add lead
      public static function getAddLead(){
@@ -620,17 +643,15 @@ class Crmlead extends Model
      //get lead by assisgto
     public static function getLeadbyassginto($userid){
         $lead= DB::select("SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
-        cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
-        cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status,cla.ma_user_id
+        cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,cl.crm_lead_source_id,
+        cl.crm_lead_industry_id,cl.crm_lead_current_isp_id
         from crm_lead cl
-        JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
-        LEFT JOIN crm_lead_source cls on cls.id = cl.crm_lead_source_id
         LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
         LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
-				jOIN crm_lead_branch clb on clb.crm_lead_id= cl.id
-				JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
+				JOIN crm_lead_branch clb on clb.crm_lead_id = cl.id
 				JOIN crm_lead_detail cld on cld.crm_lead_branch_id = clb.id
-        WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE and cla.ma_user_id=$userid ORDER BY cl.lead_number ASC");
+				JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
+        WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE  and cla.ma_user_id=$userid GROUP BY cl.id ORDER BY cl.lead_number DESC ");
         return $lead;
     }
     //get   lead  by id

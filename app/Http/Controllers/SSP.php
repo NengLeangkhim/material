@@ -248,7 +248,7 @@ class SSP extends Controller
 		// FROM $table
 		// $where
 		// $order
-		// $limit";
+		// $limit";exit;
 		// Data set length after filtering
 		$resFilterLength = self::sql_exec( $db, $bindings,
 			"SELECT COUNT($primaryKey)

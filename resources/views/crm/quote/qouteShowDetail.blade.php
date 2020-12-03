@@ -39,7 +39,7 @@
                 <div class="col-sm-6 col-xs-4 col-12 pt-2">
                    <div class="row">
                         <div class="col-sm-4 col-4">
-                            <?php $num = count($listQuoteDetail->data->quote_stage); ?>
+                            <?php $num = count($listQuoteDetail->data->quote_stage??''); ?>
                             @if( $num > 0)
                                     @if($listQuoteDetail->data->quote_stage[$num-1]->id == 2)
                                         <button type="button" id="convert_to_BSC" class="btn-block btn-primary btn-sm btn font-weight-bold">Convert To BSC</button>
@@ -47,12 +47,12 @@
                             @endif
                         </div>
                         <div class="col-sm-4 col-4">
-                                <button onclick='PreviewQuote({{$listQuoteDetail->data->id}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
+                                <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
                                     Preview</button>
 
                         </div>
                         <div class="col-sm-4 col-4">
-                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
+                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
                                 PDF</button>
                         </div>
 
@@ -83,32 +83,32 @@
                         @if(isset($listQuoteDetail))
                         <dl class="row">
                             <dt class="col-sm-4 dt" >Subject</dt>
-                                <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->subject}}</dd>
-                                <input type="hidden" name="quote_id"  id="quote_id" value="{{ $listQuoteDetail->data->id }}" readonly>
-                                <input type="hidden" name="crm_lead_id" id="crm_lead_id" value="{{ $listQuoteDetail->data->crm_lead->id }}" readonly>
+                                <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->subject ??""}}</dd>
+                                <input type="hidden" name="quote_id"  id="quote_id" value="{{ $listQuoteDetail->data->id ??""}}" readonly>
+                                <input type="hidden" name="crm_lead_id" id="crm_lead_id" value="{{ $listQuoteDetail->data->crm_lead->id ??"" }}" readonly>
                                 <input type="text" hidden value="{{$_SESSION['token']}}" id="token">
                             <dt class="col-sm-4 dt">Organization Name</dt>
-                                <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->crm_lead->customer_name_en}} </dd>
+                                <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->crm_lead->customer_name_en ??""}} </dd>
                             <dt class="col-sm-4 dt">Assign To</dt>
-                                <dd class="col-sm-8 dd">{{$listQuoteDetail->data->assign_to->first_name_en.' '.$listQuoteDetail->data->assign_to->last_name_en}} </dd>
+                                <dd class="col-sm-8 dd">{{$listQuoteDetail->data->assign_to->first_name_en.' '.$listQuoteDetail->data->assign_to->last_name_en ??""}} </dd>
                             <dt class="col-sm-4 dt">Quote Number</dt>
-                                <dd class="col-sm-8 dd">{{$listQuoteDetail->data->quote_number}}</dd>
+                                <dd class="col-sm-8 dd">{{$listQuoteDetail->data->quote_number ??""}}</dd>
                             {{-- <dt class="col-sm-4 dt">Valid Until </dt> --}}
                                 {{-- <dd class="col-sm-8 dd">{{$listQuoteDetail->data->subject}}</dd> --}}
                             {{-- <dt class="col-sm-4 dt">Convert To BSC </dt> --}}
                                 {{-- <dd class="col-sm-8 dd">{{$listQuoteDetail->data->subject}}</dd> --}}
                             <dt class="col-sm-4 dt">Quote Stage </dt>
                                 <dd class="col-sm-8 dd">
-                                    <?php $num = count($listQuoteDetail->data->quote_stage); ?>
+                                    <?php $num = count($listQuoteDetail->data->quote_stage ??""); ?>
                                     @if( $num > 0)
                                         {{
-                                            ucfirst($listQuoteDetail->data->quote_stage[$num-1]->name_en)
+                                            ucfirst($listQuoteDetail->data->quote_stage[$num-1]->name_en ??"")
                                         }}
                                     @endif
                                 </dd>
                             <dt class="col-sm-4 dt">Create Date</dt>
                                         <?php
-                                            $date = date_create($listQuoteDetail->data->create_date);
+                                            $date = date_create($listQuoteDetail->data->create_date ??"");
                                             $create_date = date_format($date, 'Y-m-d H:i:s A');
                                         ?>
                                 <dd class="col-sm-8 dd">{{$create_date}}</dd>
@@ -116,16 +116,16 @@
                                 {{-- <dd class="col-sm-8 dd">{{$listQuoteDetail->data->subject}}</dd> --}}
                             <dt class="col-sm-4 dt">Create By</dt>
                                 <dd class="col-sm-8 dd" >
-                                    <?php $num = count($listQuoteDetail->data->acknowlegde_by); ?>
+                                    <?php $num = count($listQuoteDetail->data->acknowlegde_by ??""); ?>
                                     @if( $num > 0)
                                         {{
-                                            $listQuoteDetail->data->acknowlegde_by[$num-1]->first_name_en.' '.$listQuoteDetail->data->acknowlegde_by[$num-1]->last_name_en
+                                            $listQuoteDetail->data->acknowlegde_by[$num-1]->first_name_en.' '.$listQuoteDetail->data->acknowlegde_by[$num-1]->last_name_en ??""
                                         }}
                                     @endif
                                 </dd>
                             <dt class="col-sm-4 dt">Comment </dt>
                                 <dd class="col-sm-8 dd">
-                                    <?php $num = count($listQuoteDetail->data->status_quote); ?>
+                                    <?php $num = count($listQuoteDetail->data->status_quote ??""); ?>
                                     @if( $num > 0)
                                         {{
                                             $listQuoteDetail->data->status_quote[$num-1]->comment
@@ -243,14 +243,14 @@
                                                                                                 <div class="row font-size-14">
                                                                                                     <div class="col-12 font-size-17">
                                                                                                             @if(!empty($val2->stock_product) > 0)
-                                                                                                                {{ $val2->stock_product->name }}
+                                                                                                                {{ $val2->stock_product->name ??""}}
                                                                                                             @endif
 
                                                                                                     </div>
                                                                                                     <div class="col-12 font-size-13">
                                                                                                         <p>
                                                                                                             @if(!empty($val2->stock_product))
-                                                                                                                {{ $val2->stock_product->description }}
+                                                                                                                {{ $val2->stock_product->description ??""}}
                                                                                                             @endif
 
                                                                                                         </p>
@@ -289,12 +289,12 @@
 
                                                                                         <td class="">
                                                                                             <div class="row-12 font-size-14">
-                                                                                                <span>{{$val2->price}}</span>
+                                                                                                <span>{{$val2->price ??""}}</span>
                                                                                             </div>
                                                                                             <div class="row-12 pt-1 btn-list-item font-size-14">
 
                                                                                                     <?php
-                                                                                                        if($val2->discount_type == 'number')
+                                                                                                        if($val2->discount_type == 'number' )
                                                                                                             {$dis = '$';}
                                                                                                         else
                                                                                                             {$dis = '%';}
@@ -515,10 +515,10 @@
             window.open(url);
         }
         $("#convert_to_BSC").click(function(){
-           
+
             var lead_id=$("#crm_lead_id").val();
             var quote_id=$("#quote_id").val();
-            var token=$("#token").val();           
+            var token=$("#token").val();
             // alert(lead_id+" "+quote_id+" "+token);
                 Swal.fire({ //get from sweetalert function
                 title: 'Cancel',

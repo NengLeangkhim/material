@@ -89,9 +89,9 @@
                        <div class="col-md-6">
                        <div class="form-group">
                            <label for="plan_from">Type<span class="text-danger">*</span></label>
-                           <select name="is_result_type" class="form-control" id="is_result_type">
-                                <option value="1">Result</option>
-                                <option value="0">Schedule</option>
+                           <select name="is_result_type" class="form-control" id="is_result_type" name="is_result_type">
+                                <option value="t">Result</option> 
+                                <option value="f">Schedule</option>
                             </select>
                            <span class="invalid-feedback" role="alert" id="is_result_typeError"> {{--span for alert--}}
                              <strong></strong>
