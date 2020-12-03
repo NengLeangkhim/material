@@ -29,7 +29,6 @@
     </style>
       <!-- /.card -->
     <div class="col-md-12">
-        @dump($detailbranch)
         <div class="row">
             <div class="col-md-12">
                 {{-- Lead detail --}}
