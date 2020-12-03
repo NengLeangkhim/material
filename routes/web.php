@@ -56,13 +56,10 @@ Route::get('/test_map', function(){
 Route::get('/addleadtype','crm\LeadController@addleadtype'); // use get type in add lead
 //end lead
 // index
-Route::get('/leadbranch',function(){ // lead branch
-    return view('crm.LeadBranch.CrmLeadBranchIndex');
-});
+Route::get('/leadbranch','crm\LeadBranchController@index');
 // All
-Route::get('/crm/leadbranch/all',function(){
-    return view('/crm.LeadBranch.CrmLeadBranchAll');
-});
+Route::get('/crm/leadbranch/{status}','crm\LeadBranchController@GetLeadBranchByStatus');
+Route::get('/crm/leadbranch/datatable/{status}','crm\LeadBranchController@getleadBranchDatatable');
 // new
 Route::get('/crm/leadbranch/new',function(){
     return view('/crm.LeadBranch.NewStatus');

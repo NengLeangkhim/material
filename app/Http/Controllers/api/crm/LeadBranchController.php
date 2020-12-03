@@ -12,20 +12,20 @@ use App\Http\Resources\api\crm\leadBranch\GetLeadBranch as LeadBranchResource;
 class LeadBranchController extends Controller
 {
     // get all lead Branch
-    public function index(){
+    public function index(Request $request){
         $return=response()->json(auth()->user());
         $return=json_encode($return,true);
         $return=json_decode($return,true);
         $userid=$return["original"]['id'];
-
-        if(perms::check_perm_module_api('CRM_020501',$userid)){ // top managment
-            $leadbranch = LeadBranch::GetLeadBranch(); // all lead Branch
-            return LeadBranchResource::Collection($leadbranch);
+        $status = $request->status;
+        if(perms::check_perm_module_api('CRM_021401',$userid)){ // top managment
+            $leadbranch = LeadBranch::getleadBranchDataTable($request,$status); // all lead Branch
+            return $leadbranch;
             // dd("top");
         }
-        else if (perms::check_perm_module_api('CRM_020509',$userid)) { // fro staff (Model and Leadlist by user)
-            $leadbranch = LeadBranch::GetLeadBranch(); //  lead branch by assigned to
-            return LeadBranchResource::Collection($leadbranch);
+        else if (perms::check_perm_module_api('CRM_021402',$userid)) { // fro staff (Model and Leadlist by user)
+            $leadbranch = LeadBranch::getleadBranchDataTableByAssign($request,$status,$userid); //  lead branch by assigned to
+            return $leadbranch;
             // dd("staff");
         }
         else
