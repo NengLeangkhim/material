@@ -361,12 +361,7 @@ Function index_num($v1){
 
                       </table>
                       <div class="media py-3 align-items-center justify-content-between">
-                                {{-- <div style="padding-right: 15px">
-                                  <canvas id="staff_dougnutchart"></canvas>
-                                </div>
-                                <div >
-                                  <div id="myLegend_staff_chart"></div>
-                                </div> --}}
+                                
                               <canvas id="chart_employee" width="100%" height="40%;"></canvas>
 
                       </div>
@@ -380,72 +375,15 @@ Function index_num($v1){
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 " >
                 <div class="card card-mini ">
                   <div class="card-body">
-                    <h3 class="mb-1" style="font-weight: bold">05 Department</h3>
-                    <table style="width: 45%;">
+                    <h3 class="mb-1" style="font-weight: bold">{{count($staff_byDept)}} Department</h3>
+                    <table style="">
+                      @foreach ($staff_byDept as $dep)
                         <tr class="tr-review">
-                          <td>
-                            <?php
-                                foreach($staff_byDept['ITD'] as $key=>$val ){
-                                  $IT_name = $val->dept_name;
-                                  echo 'ITD'; break;
-                                }
-
-                            ?>
-
-                          <td>
-                          <td> :<?php echo index_num(count($staff_byDept['ITD'])); ?>
-                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
+                          <td>{{$dep->name}}<td>
+                          <td>:</td>
+                          <td>{{$dep->count}}</td> 
                         </tr>
-                        <tr class="tr-review">
-                          <td>
-                          <?php
-                                foreach($staff_byDept['OPD'] as $key=>$val ){
-                                  $OPD_name = $val->dept_name;
-                                  echo $OPD_name; break;
-                                }
-                            ?>
-                          <td>
-                          <td> :<?php echo index_num(count($staff_byDept['OPD'])); ?>
-                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
-                        </tr>
-                        <tr class="tr-review">
-                          <td>
-                          <?php
-                                foreach($staff_byDept['BSD'] as $key=>$val ){
-                                  $BSD_name = $val->dept_name;
-                                  echo $BSD_name; break;
-                                }
-                            ?>
-                          <td>
-                          <td> :<?php echo index_num(count($staff_byDept['BSD'])); ?>
-                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
-                        </tr>
-                        <tr class="tr-review">
-                          <td>
-                            <?php
-                                foreach($staff_byDept['ACD'] as $key=>$val ){
-                                  $ACD_name = $val->dept_name;
-                                  echo $ACD_name; break;
-                                }
-                            ?>
-                          <td>
-                          <td> :<?php echo index_num(count($staff_byDept['ACD'])); ?>
-                            {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
-                        </tr>
-                        <tr>
-                          <td>
-                          <?php
-                                foreach($staff_byDept['FND'] as $key=>$val ){
-                                  $FND_name = $val->dept_name;
-                                  echo $FND_name; break;
-                                }
-                            ?>
-                          <td>
-                          <td> :<?php echo index_num(count($staff_byDept['FND']));
-                              ?>
-                              {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
-                        </tr>
-
+                      @endforeach
                     </table>
                     <div class="media py-3 align-items-center justify-content-between">
 
@@ -501,21 +439,21 @@ Function index_num($v1){
 </div>
 
 
-<?php
-  $dept_name = array('ITD',$OPD_name,$BSD_name,$ACD_name,$FND_name);
+<?php 
+  
 
 ?>
 
 <script type="text/javascript">
     //delcare JS variable from php to json
     var staff_byDept = <?php echo json_encode($staff_byDept); ?>;
-    var dept_name = <?php echo json_encode($dept_name); ?>;
     var attendence = <?php echo json_encode($attendancec); ?>;
     var monthly_candidate = <?php echo json_encode($monthly_candidte); ?>;
     var staff_gender = <?php echo json_encode($staff_gender); ?>;
     var monthly_New_Member = <?php echo json_encode($monthly_new_member); ?>;
     var monthly_shift_promote = <?php echo json_encode($monthly_shift_promote); ?>;
     var monthly_staffSuggestion = <?php echo json_encode($monthly_staffSuggestion); ?>;
+
 
 </script>
 

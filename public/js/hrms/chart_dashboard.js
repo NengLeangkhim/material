@@ -4,7 +4,13 @@
 
 
     // Bar chart for show number of staff by each depertment
-    var num_staffByDept  = [staff_byDept['ITD'].length,staff_byDept['OPD'].length,staff_byDept['BSD'].length,staff_byDept['ACD'].length,staff_byDept['FND'].length ];
+    var dept_name=[];
+    var num_staffByDept  = [];
+    $.each(staff_byDept,function(index,value){
+        dept_name[index]=value.name;
+        num_staffByDept[index]=value.count;
+    });
+    
     var ctx = document.getElementById('chart_staff_each_dept');
     var myChart = new Chart(ctx, {
         type: 'bar',

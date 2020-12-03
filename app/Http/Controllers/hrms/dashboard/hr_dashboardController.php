@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\hrms\dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\hrms\Employee\AttendanceController;
 use Illuminate\Http\Request;
 use App\model\hrms\dashboard\hr_dashboardModel;
+use App\model\hrms\employee\Attendance;
 use App\model\hrms\employee\Employee;
 
 class hr_dashboardController extends Controller
@@ -221,66 +223,23 @@ class hr_dashboardController extends Controller
         $intime = 0;
         $late = 0;
         $absent = 0;
-
-
-        // check staff check-in intime in the morning
-        $f_m = date('Y-m-d 00:00:00');
-        $l_m = date('Y-m-d 12:00:00');
-        foreach($all_em as $key=>$val){
-            $id = self::ConvertIdToNumber($val->id_number);
-            $morning_check = hr_dashboardModel::staff_attendance($f_m, $l_m, $id);
-            if(count($morning_check) > 0){
-                $intime++;
-            }
+        $em=Employee::list_employee_without_night_sheet();
+        $date = date('Y-m-d').'';
+        if(Attendance::CheckHoliday($date)==1 || Attendance::CheckHoliday($date)==2){
+                
+        }else{
+            $a = Attendance::AttendanceToday($em,$date);
+            $late=$a[0];
+            $absent=$a[1];
+            $intime=$a[2];
         }
-
-
-
-        // check staff late in the morning
-                // select all staff late around 8am-12am
-                $f_m = date('Y-m-d 08:01:00');
-                $l_m = date('Y-m-d 12:00:00');
-                $arr = array();
-                foreach($all_em as $key=>$val){
-                    $id = self::ConvertIdToNumber($val->id_number);
-                    $late_check = hr_dashboardModel::staff_attendance($f_m, $l_m, $id);
-                    if(count($late_check) > 0){
-                        array_push($arr,$late_check);
-                        $late++;
-                    }
-
-                }
-
-
-                //select staff who check-in 2 times in the morning
-                $f_m1 = date('Y-m-d 00:00:00');
-                $l_m1 = date('Y-m-d 08:00:59');
-
-                if(count($arr) > 0){
-                    foreach($arr as $key1=>$val1){
-                        foreach($val1 as $val2){
-                            $id = $val2->deviceID;
-                            $early_check = hr_dashboardModel::staff_attendance($f_m1, $l_m1, $id);
-                            if(count($early_check) > 0){
-                                // print_r($early_check);
-                                $late--;
-                            }
-                        }
-                    }
-                }
-
-
-        // check staff absent today
-        $absent = count($all_em) - $intime;
-        $ab = hr_dashboardController::index_num($absent);
-        $inti = hr_dashboardController::index_num($intime);
-        $lat = hr_dashboardController::index_num($late);
+        
 
         return $data = [
                 'all_em' => count($all_em),
-                'intime' => $inti,
-                'late' => $lat,
-                'absent' => $ab
+                'intime' => $intime,
+                'late' => $late,
+                'absent' => $absent
             ];
 
 
@@ -293,46 +252,17 @@ class hr_dashboardController extends Controller
     //get data staff by each department
     public static function num_staff_byDept(){
 
-        // $it = 0;
-        // $op = 0;
-        // $bus = 0;
-        // $aud = 0;
-        // $fin = 0;
+        $it = 0;
+        $op = 0;
+        $bus = 0;
+        $aud = 0;
+        $fin = 0;
 
             $em =  hr_dashboardModel::staff_byDept();
+            return $em;
+                
 
-                foreach ($em as $key => $val) {
-                    if($val->dept_id == 3){
-                        // print_r($val); echo "<br>";
-                        $it[] = $val;
-                        // $it++;
-                    }
-                    if($val->dept_id == 4){
-                        $op[] = $val;
-                        // $op++;
-                    }
-                    if($val->dept_id == 5){
-                        $bus[] = $val;
-                        // $bus++;
-                    }
-                    if($val->dept_id == 7){
-                        $aud[] = $val;
-                        // $aud++;
-                    }
-                    if($val->dept_id == 10){
-                        $fin[] = $val;
-                        // $fin++;
-                    }
-                }
-
-            $post_data=[
-                'ITD' =>$it,
-                'OPD' =>$op,
-                'BSD' =>$bus,
-                'ACD' =>$aud,
-                'FND' =>$fin
-            ];
-            return $post_data;
+            
 
 
     }

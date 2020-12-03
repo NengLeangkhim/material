@@ -12,7 +12,7 @@ use App\model\setting\LeaveType;
 class AttendanceController extends Controller
 {
     //
-    function AllAttendance(){
+    public static function AllAttendance(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -38,7 +38,7 @@ class AttendanceController extends Controller
             return view('noperms');
         }
     }
-    function ShowAttendanceByDate(){
+    public static function ShowAttendanceByDate(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }

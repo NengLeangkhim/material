@@ -13,6 +13,8 @@ use PhpParser\Node\Stmt\TryCatch;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('pdf-create','PdfController@create');
 Route::get('/check','RouteController@check'); //Check Database Connection
 Route::get('/','RouteController@home');
 Route::post('/','Login@login');
@@ -31,6 +33,7 @@ Route::get('/village', 'addressController@getvillage'); //getvillage
 // =========================CRM SYSTEM==========================
 // start lead and branch
 Route::get('/lead','crm\LeadController@getlead'); // get  all lead  show  in table
+Route::get('/lead/datatable','crm\LeadController@getleadDatatable');//get data for datatable
 Route::get('/addlead','crm\LeadController@lead'); // insert lead or branch (button)
 Route::get('/detaillead/{id}','crm\LeadController@getdetailtlead'); // get  show detail  lead
 Route::get('/editlead/{id}','crm\LeadController@editlead');// edit lead
@@ -1200,3 +1203,11 @@ Route::get('test_chart',function(){
 
 
 //==========================================================> End HRMS <===============================================================///
+
+
+//Datatable server side processing example
+Route::get('dt-example',function(){
+    return view('DatatableExample');
+});
+Route::get('dt-example-gettable','DatatableServersideExample@getTable');
+//Datatable server side processing example
