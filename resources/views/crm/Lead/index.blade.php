@@ -58,7 +58,7 @@
 
             $(function () {
                 t=$("#example1").DataTable({
-                "responsive": true,
+                scrollX:true,
                 "autoWidth": false,
                 "serverSide": true,
                 "ajax": "lead/datatable",

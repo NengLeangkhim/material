@@ -283,8 +283,8 @@ class LeadController extends Controller
             // dd("top");
         }
         else if (perms::check_perm_module_api('CRM_020509',$userid)) { // fro staff (Model and Leadlist by user)
-            $lead = Lead::getLeadbyassginto($userid); //  lead by assigned to
-            return GetLead::Collection($lead);
+            $lead = Lead::getLeadbyassgintoDataTable($request,$userid); //  lead by assigned to
+            return $lead;
             // dd("staff");
 
         }
