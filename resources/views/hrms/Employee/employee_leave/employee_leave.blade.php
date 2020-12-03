@@ -28,12 +28,20 @@
                     @foreach ($employee_leave as $e)
                       <tr>
                       <th>{{ ++$i }}</th>
-                      <td><img src="{{$e->image}}" alt="" width="50px" height="50px" style="border-radius:50px;margin-right:10px"> {{ $e->name_en }} </td>
-                      <td style="padding-top:24px "> {{$e->name_kh}} </td>
-                      <td style="padding-top:24px ">{{ $e->id_number }}</td>
-                      <td style="padding-top:24px ">{{ $e->contact}}</td>
-                      <td style="padding-top:24px ">{{ $e->position }}</td>
-                      <td><div class="col-md-4"><a href="javascript:;" onclick="hrms_employee_detail({{$e->id}})"><i class="fas fa-info"></i></a></div></td>
+                      <td>
+                        {{-- <img src="{{$e->image}}" alt="" width="50px" height="50px" style="border-radius:50px;margin-right:10px"> {{ $e->name_en }} --}}
+                          <div class="text-center">
+                              <img src="{{$e->image}}" alt="" width="50px" height="50px" style="border-radius:50px;margin-right:10px">
+                          </div>
+                          <div class="text-center">
+                              {{ $e->name_en}}
+                          </div> 
+                      </td>
+                      <td style="padding-top:37px "> {{$e->name_kh}} </td>
+                      <td style="padding-top:37px ">{{ $e->id_number }}</td>
+                      <td style="padding-top:37px ">{{ $e->contact}}</td>
+                      <td style="padding-top:37px ">{{ $e->position }}</td>
+                      <td style="padding-top:37px "><div class="col-md-12 text-center"><a href="javascript:;" onclick="hrms_employee_detail({{$e->id}})"><i class="fas fa-info"></i></a></div></td>
                     </tr>
                     @endforeach
                   </tbody>

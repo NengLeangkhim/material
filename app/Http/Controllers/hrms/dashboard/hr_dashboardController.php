@@ -60,7 +60,7 @@ class hr_dashboardController extends Controller
             return $post_data;
     }
 
-
+    
     // function to add 0 digit to single digit
     public static function index_num($v1){
         //v = 1;
