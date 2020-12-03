@@ -917,12 +917,15 @@
         }
             // get data into combobox branch
         $('#branch').ready(function(){
-        // $('#branch').find('option').not(':first').remove();
+            var myvar= $("#getlead").val();
             $.ajax({
                 // url:'http://127.0.0.1:8000/api/branch',
                 url:'api/branch',
                 type:'get',
                 dataType:'json',
+                headers: {
+                    'Authorization': `Bearer ${myvar}`,
+                },
                 success:function(response){
                         for(var i=0; i<response['data'].length ;i++){
                             var id = response['data'][i].ma_company_branch_id;

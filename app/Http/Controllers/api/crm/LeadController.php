@@ -125,7 +125,7 @@ class LeadController extends Controller
         $checksurvey=$request->input('checksurvey')!=""? $request->input('checksurvey'):"null";;
         $company_en=ucwords($request->input('company_en'));
         $company_kh=$request->input('company_kh');
-        $primary_email=$request->input('primary_email');
+        $primary_email=$request->input('primary_email')!="" ? $request->input('primary_email'):null;
         $primary_phone=$request->input('primary_phone');
         $user_create=$userid;
         // $user_create=$request->input('user_create');
@@ -134,24 +134,24 @@ class LeadController extends Controller
         $vat_number=$request->input('vat_number');
         $company_branch=$request->input('branch');
         $lead_source=$request->input('lead_source');
-        $lead_status=$request->input('lead_status')!=""?$request->input('lead_status'):1;
+        $lead_status=1;
         $lead_industry=$request->input('lead_industry');
         $assig_to=$request->input('assig_to');
         $service=$request->input('service')!=""?$request->input('service'):null;
-        $current_speed_isp=$request->input('current_speed_isp');
+        $current_speed_isp=$request->input('current_speed_isp') !="" ?$request->input('current_speed_isp'):null;
         $current_speed=$request->input('current_speed');
         $current_price=$request->input('current_price');
         $employee_count=$request->input('employee_count');
         $comment=$request->input('comment');
         //contact detail
-        $name_kh=$request->input('name_kh');
-        $name_en=$request->input('name_en');
-        $gender=$request->input('ma_honorifics_id');
-        $facebook_con= $request->input('facebook')!=''? $request->input('facebook'):"null";
-        $email=$request->input('email');
-        $phone=$request->input('phone');
-        $position=$request->input('position');
-        $national_id=$request->input('national_id');
+        $name_kh=$request->input('name_kh')!=""?$request->input('name_kh'):null;
+        $name_en=$request->input('name_en')!=""?$request->input('name_en'):null;
+        $gender=$request->input('ma_honorifics_id')!=""?$request->input('ma_honorifics_id'):null;
+        $facebook_con= $request->input('facebook')!=''? $request->input('facebook'):null;
+        $email=$request->input('email')!=''? $request->input('email'):null;
+        $phone=$request->input('phone')!=''? $request->input('phone'):null;
+        $position=$request->input('position')!=''? $request->input('position'):null;
+        $national_id=$request->input('national_id')!=''? $request->input('national_id'):null;
 
         //address detail
         $home_en=$request->input('home_en');
@@ -198,7 +198,7 @@ class LeadController extends Controller
             $vat_number=$request->input('vat_number');
             $company_branch=$request->input('branch');
             $lead_source=$request->input('lead_source');
-            $lead_status=$request->input('lead_status');
+            // $lead_status=$request->input('lead_status');
             $lead_industry=$request->input('lead_industry');
             $assig_to_id=$request->input('assig_to_id');
             $assig_to=$request->input('assig_to');
@@ -231,7 +231,7 @@ class LeadController extends Controller
             // var_dump($survey_id);
             if(perms::check_perm_module('CRM_020505')){//module code list
                 return  Lead::updatebranch($lead_address_id,$lead_detail_id,$lead_item_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
-                $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,$primary_phone,
+                $vat_number,$company_branch,$lead_source,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,$primary_phone,
                 $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
                 $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$survey_id);  
                 

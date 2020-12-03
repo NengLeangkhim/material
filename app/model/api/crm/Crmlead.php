@@ -672,7 +672,7 @@ class Crmlead extends Model
         return DB::select("SELECT  crm_lead.lead_number,clitem.id as lead_item_id,lbc.id as lead_con_bran_id,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
         lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
         crm_lead.vat_number,cls.name_en as lead_source,cli.name_en as lead_industry,mcd.company,sp.name as service_name,sp.id as servie_id,
-        lb.create_date as date_create_branch,
+        lb.create_date as date_create_branch,ls.id as status_id,
         lb.create_by as user_create_branch_id,ld.comment,
          lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,lb.crm_lead_address_id,
          lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,lb.phone as branch_phone,
@@ -713,7 +713,7 @@ class Crmlead extends Model
         return DB::select("SELECT  crm_lead.lead_number,clitem.id as lead_item_id,lbc.id as lead_con_bran_id,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
         lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
         crm_lead.vat_number,cls.name_en as lead_source,cli.name_en as lead_industry,mcd.company,sp.name as service_name,sp.id as servie_id,
-        lb.create_date as date_create_branch,
+        lb.create_date as date_create_branch,ls.id as status_id,
         lb.create_by as user_create_branch_id,ld.comment,
          lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,lb.crm_lead_address_id,
          lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,lb.phone as branch_phone,
@@ -754,7 +754,7 @@ class Crmlead extends Model
         return DB::select("SELECT  crm_lead.lead_number,clitem.id as lead_item_id,lbc.id as lead_con_bran_id,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
         lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
         crm_lead.vat_number,cls.name_en as lead_source,cli.name_en as lead_industry,mcd.company,sp.name as service_name,sp.id as servie_id,
-        lb.create_date as date_create_branch,
+        lb.create_date as date_create_branch,ls.id as status_id,
         lb.create_by as user_create_branch_id,ld.comment,
          lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,lb.crm_lead_address_id,
          lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,lb.phone as branch_phone,
@@ -795,7 +795,7 @@ class Crmlead extends Model
         return DB::select("SELECT  crm_lead.lead_number,clitem.id as lead_item_id,lbc.id as lead_con_bran_id,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
         lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
         crm_lead.vat_number,cls.name_en as lead_source,cli.name_en as lead_industry,mcd.company,sp.name as service_name,sp.id as servie_id,
-        lb.create_date as date_create_branch,
+        lb.create_date as date_create_branch,ls.id as status_id,
         lb.create_by as user_create_branch_id,ld.comment,lb.crm_lead_address_id,
          lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,
          lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,lb.phone as branch_phone,
@@ -836,7 +836,7 @@ class Crmlead extends Model
         return DB::select("SELECT  crm_lead.lead_number,clitem.id as lead_item_id,lbc.id as lead_con_bran_id,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
         lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
         crm_lead.vat_number,cls.name_en as lead_source,cli.name_en as lead_industry,mcd.company,sp.name as service_name,sp.id as servie_id,
-        lb.create_date as date_create_branch,
+        lb.create_date as date_create_branch,ls.id as status_id,
         lb.create_by as user_create_branch_id,ld.comment,lb.crm_lead_address_id,
          lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,
          lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,lb.phone as branch_phone,
@@ -877,7 +877,7 @@ class Crmlead extends Model
         return DB::select("SELECT  crm_lead.lead_number,clitem.id as lead_item_id,lbc.id as lead_con_bran_id,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
         lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
         crm_lead.vat_number,cls.name_en as lead_source,cli.name_en as lead_industry,mcd.company,sp.name as service_name,sp.id as servie_id,
-        lb.create_date as date_create_branch,
+        lb.create_date as date_create_branch,ls.id as status_id,
         lb.create_by as user_create_branch_id,ld.comment,lb.crm_lead_address_id,
          lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,
          lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,lb.phone as branch_phone,
@@ -915,11 +915,12 @@ class Crmlead extends Model
     }
     // update Branch
     public static function updatebranch($lead_address_id,$lead_detail_id,$lead_item_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
-    $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,$primary_phone,
+    $vat_number,$company_branch,$lead_source,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,$primary_phone,
     $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
     $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$survey_id){
 
         try{
+            DB::beginTransaction();
             // update address
             $address=Crmlead::updateleadaddress($lead_address_id,$user_create,$lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode);
             $address_id=$address[0]->update_crm_lead_address;
@@ -940,29 +941,50 @@ class Crmlead extends Model
              Crmlead::updatetableleaditem($lead_item_id,$user_create,$branch_id,$service,$address_id);
 
             // update lead detail
-            Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,$lead_status,$comment);
+            // Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,$lead_status,$comment);
+            
 
                 $survey=DB::select("SELECT id from crm_survey where is_deleted=FALSE and status=TRUE and crm_lead_branch_id=$branch_id ");
                 // $survey=$survey[0]->id;
                 // $survey=json_decode($survey,true);
                 // dd($survey);
-                if($survey!=null && $checksurvey!=='null'){
+                if($survey!=null && $checksurvey=="yes"){ //   have in crm_survey and chek yes  
+                    // dd("mean survey");
+                    DB::commit();
                     return  json_encode(["update"=>'success']);
                 }
-                elseif($survey!=null && $checksurvey=='null'){
+                elseif($survey!=null && $checksurvey=="no"){  //have in crm_survey and uncheck  
+                    // dd("mean hz ta updat to ot vinh");
                     crmLead::updatesurey($survey_id,$branch_id,$user_create);
+                    Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,1,$comment);
+                    DB::commit();
                     return  json_encode(["update"=>'success']);
                 }
-                elseif($checksurvey=='null'){
+                elseif($survey==null && $checksurvey=="no"){  // no in crm_survey and uncheck  update  status by user choose
+                    // dd("mean hz ta updat to ot vinh");
+                   // update lead detail
+                    // Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,$lead_status,$comment);
+                    DB::commit();
                     return  json_encode(["update"=>'success']);
                 }
+                // elseif($checksurvey=="no"){ 
+                    
+                //     //  Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,$lead_status,$comment);
+                //     DB::commit();
+                //      return  json_encode(["update"=>'success']);
+                //     // dd('ber sin ke chk no update');
+                // }
                 else
                 {
+                    // dd("ot suvey mean sos");
                     CrmLead::insertsurey($branch_id,$user_create);
+                    Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,3,$comment);
+                    DB::commit();
                     return  json_encode(["update"=>'success']);
                 }
 
         }catch(Exception $e){
+            DB::rollback();
             return json_encode(["update"=>"fail update branch","result"=> $e->getMessage()]);
         }
     }

@@ -128,7 +128,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fas fa-unlock"></i></span>
                                                         </div>
-                                                    <input type=" " hidden value="{{$updatelead[$i]['lead_detail_id']}}" name="lead_detail_id">
+                                                        <input type=" " hidden value="{{$updatelead[$i]['lead_detail_id']}}" name="lead_detail_id">
                                                         <select class="form-control" name="lead_status" id="lead_status">
                                                             <option ></option>
                                                             @foreach($lead_status as $row)
@@ -531,12 +531,18 @@
                                                                                              ?>
                                                                                                 {{-- <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="checksurvey" {{$updatelead[$i]['survey_status']!=false? 'checked':''}} >
                                                                                                 <label for="customCheckbox2"  class="custom-control-label">Survey Or Don’t Survey</label> --}}
+                                                                                                 <input type="radio" id="male" name="checksurvey" value="yes" checked >
+                                                                                                <label for="male">Survey</label><br>
+                                                                                                <input type="radio" id="female" name="checksurvey" value="no">
+                                                                                                <label for="female">Don’t Survey</label>
                                                                                              <?php
                                                                                          }
                                                                                          else {
                                                                                              ?>
-                                                                                                <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="checksurvey" {{$updatelead[$i]['survey_status']!=false? 'checked':''}} >
-                                                                                                <label for="customCheckbox2"  class="custom-control-label">Survey Or Don’t Survey</label>
+                                                                                                 <input type="radio" id="male" name="checksurvey" value="yes">
+                                                                                                 <label for="male">Survey</label><br>
+                                                                                                 <input type="radio" id="female" name="checksurvey" value="no" checked>
+                                                                                                 <label for="female">Don’t Survey</label>
                                                                                              <?php
                                                                                          }
                                                                                     ?>
