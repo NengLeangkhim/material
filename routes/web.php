@@ -271,8 +271,8 @@ Route::get('Expried_intership','Expried_intership@Expried_internshipPDF'); //Exp
 Route::get('mistake','mistake_form@mistakePDF'); //Mistake_form
 Route::get('spend_eating','spend_eating_form@spend_eatingPDF'); //Mistake_form
 Route::get('commission','report_calculate_price_commission@commissionPDF'); //Commission
-Route::get('Chack_report_training','check_report_training@report_trainingPDF'); //report_training
-
+Route::get('training_checking_list','training_checking_list@report_trainingPDF'); //training_check_list
+Route::get('training_request_proposal','training_request_proposal@training_requestPDF'); //training_request_proposal
 
 //=======================E-request==========================
 

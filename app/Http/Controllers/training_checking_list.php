@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class check_report_training extends Controller
+class training_checking_list extends Controller
 {
     public function report_trainingPDF()
     {
@@ -28,10 +28,10 @@ class check_report_training extends Controller
                     <div class="heading">
                         <h3 class="center_heading">បញ្ចីត្រួតពិនិត្យការបណ្ដុះបណ្ដាល</h3>
                         <p class="center_heading">ស្ដីពី<br>................................................................................<br>ចាប់ពីថ្ងៃទី...........................ខែ....................ឆ្នាំ..........................</p>
-                        <h3​>II.&nbsp;&nbsp;&nbsp;ព័ត៌មានអំពីអ្នកចូលរួម</h3>
+                        <h3​>I.&nbsp;&nbsp;&nbsp;ព័ត៌មានអំពីអ្នកចូលរួម</h3>
                     </div>
                     
-                    <table class="staff_training_info">
+                    <table class="staff_training_info" style="margin-left: 40px; margin-right: 20px;">
                         <tbody>
                             <tr>
                                 <td><p>ឈ្មោះ៖..................................................................................</p></td>
@@ -49,7 +49,7 @@ class check_report_training extends Controller
                     <div class="p_text">
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;សូមបញ្ចាក់រាល់ថាប្រធានបទ ចំណេះដឹង នឹង ជំនាញខាងក្រោមនេះ បុគ្គលិកពិតជាទទួលបានការបណ្ដុះ<br>បណ្ដាលយ៉ាងពិតប្រាកដមែនដោយគ្រាន់តែធ្វើការគូស ( ) ទៅតាមប្រធានបទនីមួយៗដូចខាងក្រោម សម្រាប់<br>ជាការបញ្ចាក់ និង ជាការយល់ព្រមរបស់សាមីបុគ្គលិកផ្ទាល់។ បុគ្គលិកនឹងយកចំណេះដឹងទាំងនេះទៅអនុវត្ត<br>ក្នុងការបំពេញការងារទទូលខុសត្រូវរបស់ខ្លូនឲ្យបានប្រសើរសម្រាប់ជាប្រយោជន៍របស់ធើបូថេក ឯ.ក តទៅដូចខាងក្រោម៖</p>
                     </div>
-                    <table class="training_info">
+                    <table class="training_info" style="margin-left: 40px; margin-right: 20px;">
                         <tbody>
                             <tr>
                                 <td><p>ប្រធានបទ</p></td>
@@ -58,19 +58,68 @@ class check_report_training extends Controller
                                 <td><p>គូស ( )</p></td>
                             </tr>
                             <tr>
-                                <td><p>តួនាទី៖...................................................................................</p></td>
-                                <td><p>កាលបរិច្ឆេទបម្រើការងារ៖.....................................................</p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
                             </tr>
                             <tr>
-                                <td><p>ឈ្មោះ៖..................................................................................</p></td>
-                                <td><p>កន្លែងបម្រើការងារ៖................................................................</p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
                             </tr>
                             <tr>
-                                <td><p>តួនាទី៖...................................................................................</p></td>
-                                <td><p>កាលបរិច្ឆេទបម្រើការងារ៖.....................................................</p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                            </tr>
+                            <tr>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                            </tr>
+                            <tr>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                            </tr>
+                            <tr>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                            </tr>
+                            <tr>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                            </tr>
+                            <tr>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                            </tr>
+                            <tr>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
                             </tr>
                         </tbody>
                     </table>
+                    <div class="signature">
+                        <p>រាជធានីភ្នំពេញ,ថ្ងៃទី.........ខែ.........ឆ្នាំ...........</p>
+                        <h3 class="heading" style="margin-right: 20px;">ហត្ថលេខាគ្រូសម្របសម្រួល&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;ហត្ថលេខាអ្នកទទួលយល់ព្រម</h3>
+                    </div>
+                    <div class="footer_training">
+                        <p​>&nbsp;&nbsp;បញ្ចីត្រួតពិនិត្យការបណ្ដុះបណ្ដាល(Training Checking List) &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;TT-HRAD-STDP-FM-005-00</p>
+                    </div>
                 </body>
             </html>';
 

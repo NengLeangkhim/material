@@ -119,14 +119,18 @@ thead tr th{
 /* check_report_training */
 .staff_training_info tr td{
     width: 400px;
-    height: 30px;
+    height: 35px;
     text-align: left;
     
 }
 .training_info tr td{
     width: 200px;
-    height: 30px;
+    height: 35px;
     text-align: center;
+}
+.footer_training{
+    border-top: 2px solid #1fa8e0;
+    margin-top: 110px;
 }
 
 
