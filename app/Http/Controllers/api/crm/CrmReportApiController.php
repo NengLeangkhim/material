@@ -265,22 +265,26 @@ class CrmReportApiController extends Controller
     function getTotalReport(Request $request){
         $fromDate = $request->input('from_date');
         $toDate = $request->input('to_date');
+        $userId = UserController::getUserId();
         try {
-            $totalLead = $this->crmReport->getTotalLead($fromDate, $toDate);
-            $totalBranch = $this->crmReport->getTotalBranch($fromDate, $toDate);
+            if(perms::check_perm_module_api('CRM_020103',$userId) || perms::check_perm_module_api('CRM_020104',$userId)){
+                $userId = null;
+            }
+            $totalLeadLeadBranch = $this->crmReport->getTotalLeadLeadBranch($fromDate, $toDate, $userId);
             $totalLeadBranchSurvey = $this->crmReport->getTotalLeadBranchSurvey($fromDate, $toDate);
             $totalQuote = $this->crmReport->getTotalQuote($fromDate, $toDate);
             $totalContact = $this->crmReport->getTotalContact($fromDate, $toDate);
             $totalSurvey = $this->crmReport->getTotalSurvey($fromDate, $toDate);
             $result = [
-                'total_lead' => $totalLead->total_lead
-                ,'total_branch' => $totalBranch->total_branch
+                'total_lead' => $totalLeadLeadBranch[0]->total_lead
+                ,'total_branch' => $totalLeadLeadBranch[0]->total_branch
                 ,'total_lead_branch_survey' => $totalLeadBranchSurvey->total_lead_branch_survey
                 ,'total_quote' => $totalQuote->total_quote
                 ,'total_contact' => $totalContact->total_contact
                 ,'total_survey' => $totalSurvey->total_survey
             ];
         } catch(QueryException $e){
+            dd($e);
             return $this->sendError($this->queryException);
         }
         return $this->sendResponse($result,'');
@@ -332,7 +336,7 @@ class CrmReportApiController extends Controller
 
         $type = $request->input('type');
         $forStatusId = $request->input('status_id');
-        try {
+        try{
             $result = $this->crmReport->getSurvey($fromDate, $toDate);
         } catch(QueryException $e){
             return $this->sendError($this->queryException);

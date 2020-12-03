@@ -145,7 +145,7 @@ class CrmReport extends Model
                 (($fromDate == null || $toDate == null) ? ' ' : ' WHERE lead_detail_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ')
                 .(($statusId == null || $statusId == '') ? ' ' : ''.(($fromDate == null || $toDate == null) ? ' WHERE ' : ' AND ').' crm_lead_status_id = '.$statusId);
                 // dd('with status_report as (SELECT crm_lead_status_id, status_en, status_kh, count(*) AS total_lead FROM view_crm_lead_report '.$condition.' GROUP BY crm_lead_status_id, status_en, status_kh) select sr.* from crm_lead_status as ls inner join status_report sr on ls.id = sr.crm_lead_status_id');
-            $result = DB::select('with status_report as (SELECT crm_lead_status_id, status_en, status_kh, count(*) AS total_lead FROM view_crm_lead_report '.$condition.' GROUP BY crm_lead_status_id, status_en, status_kh) select ls.id as crm_lead_status_id, ls.name_en as status_en, ls.name_kh as status_kh, COALESCE(sr.total_lead, null, 0, total_lead) total_lead from crm_lead_status as ls left join status_report sr on ls.id = sr.crm_lead_status_id WHERE ls.status = TRUE AND ls.is_deleted = FALSE ');
+            $result = DB::select('with status_report as (SELECT crm_lead_status_id, status_en, status_kh, count(*) AS total_lead FROM view_crm_lead_report '.$condition.' GROUP BY crm_lead_status_id, status_en, status_kh) select ls.id as crm_lead_status_id, ls.name_en as status_en, ls.name_kh as status_kh, COALESCE(sr.total_lead, null, 0, total_lead) total_lead from crm_lead_status as ls left join status_report sr on ls.id = sr.crm_lead_status_id WHERE ls.status = TRUE AND ls.is_deleted = FALSE ORDER BY ls.sequence ');
         } catch(QueryException $e){
             throw $e;
         }
@@ -208,7 +208,7 @@ class CrmReport extends Model
                with quote_status as ( SELECT DISTINCT ON (crm_quote_status_type_id) crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh, COUNT(*) AS total_quotes
                 FROM view_crm_quote_report
                 '.(($fromDate==null || $toDate == null) ? '' : 'WHERE crm_quote_status_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
-                GROUP BY crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh) select cqst.id as crm_quote_status_type_id, cqst.name_en as quote_status_name_en,cqst.name_kh as quote_status_name_kh ,COALESCE(total_quotes, null, 0, total_quotes) total_quotes  from crm_quote_status_type cqst left join  quote_status on  quote_status.crm_quote_status_type_id= cqst.id WHERE cqst.status = TRUE AND cqst.is_deleted = FALSE 
+                GROUP BY crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh) select cqst.id as crm_quote_status_type_id, cqst.name_en as quote_status_name_en,cqst.name_kh as quote_status_name_kh ,COALESCE(total_quotes, null, 0, total_quotes) total_quotes  from crm_quote_status_type cqst left join  quote_status on  quote_status.crm_quote_status_type_id= cqst.id WHERE cqst.status = TRUE AND cqst.is_deleted = FALSE ORDER BY sequence
                 ;
             ');
         } catch(QueryException $e){
@@ -512,8 +512,8 @@ class CrmReport extends Model
     public function getTotalLeadLeadBranch($fromDate = null, $toDate = null, $userId = null){
         try {
             $userConditon = ($userId == null ? ' ' : ' AND cla.ma_user_id = '.$userId.' ');
-            $leadConditon = (($fromDate == null || $toDate == null) ? ' ' : ' AND cl.create_date::DATE BETWEEN \'2020-11-01\'::DATE AND \'2020-11-30\'::DATE ');
-            $branchCondition = (($fromDate == null || $toDate == null) ? ' ' : ' AND clb.create_date::DATE BETWEEN \'2020-11-01\'::DATE AND \'2020-11-30\'::DATE ');
+            $leadConditon = (($fromDate == null || $toDate == null) ? ' ' : ' AND cl.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ');
+            $branchCondition = (($fromDate == null || $toDate == null) ? ' ' : ' AND clb.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ');
             $sql = '
             WITH leads AS (
                 SELECT COUNT(count)

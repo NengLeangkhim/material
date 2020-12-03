@@ -13,6 +13,8 @@ use PhpParser\Node\Stmt\TryCatch;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('pdf-create','PdfController@create');
 Route::get('/check','RouteController@check'); //Check Database Connection
 Route::get('/','RouteController@home');
 Route::post('/','Login@login');
@@ -53,7 +55,41 @@ Route::get('/test_map', function(){
 
 Route::get('/addleadtype','crm\LeadController@addleadtype'); // use get type in add lead
 //end lead
+// index
+Route::get('/leadbranch',function(){ // lead branch
+    return view('crm.LeadBranch.CrmLeadBranchIndex');
+});
+// All
+Route::get('/crm/leadbranch/all',function(){
+    return view('/crm.LeadBranch.CrmLeadBranchAll');
+});
+// new
+Route::get('/crm/leadbranch/new',function(){
+    return view('/crm.LeadBranch.NewStatus');
+});
+// surveying
+Route::get('/crm/leadbranch/surveying',function(){
+    return view('/crm.LeadBranch.SurveyingStatus');
+});
+// surveyed
+Route::get('/crm/leadbranch/surveyed',function(){
+    return view('/crm.LeadBranch.SurveyedStatus');
+});
+// proposition
+Route::get('/crm/leadbranch/proposition',function(){
+    return view('/crm.LeadBranch.PropositionStatus');
+});
+// qualified
+Route::get('/crm/leadbranch/qualified',function(){
+    return view('/crm.LeadBranch.QualifiedStatus');
+});
+// junk
+Route::get('/crm/leadbranch/junk',function(){
+    return view('/crm.LeadBranch.JunkStatus');
+});
+// end lead branch
 
+//end lead branch
 // start schedule
 
 Route::POST('/insertschedule','crm\CrmScheduleController@insertschedule');
@@ -80,6 +116,7 @@ Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
 
 // start contact
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table
+Route::get('/contact/datatable','crm\ContactController@getcontactDatatable');
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination
 Route::get('/contact/add','crm\ContactController@AddContact'); //go to add contact
 Route::post('/contact/store','crm\ContactController@StoreContact'); //store contact
@@ -92,6 +129,7 @@ Route::get('/product','crm\ProductsController@getProducts'); //get all Products 
 
 // Start Organization
 Route::get('/organizations','crm\OrganizationController@getorganization'); //get all Organization  show in table
+Route::get('/organizations/datatable','crm\OrganizationController@getorganizationDatatable'); //get all Organization  show in table
 Route::get('/organizations/add','crm\OrganizationController@AddOrganization'); //go to add Organization
 Route::post('/organizations/store','crm\OrganizationController@StoreOrganization'); // add Organization
 Route::get('/organizations/edit/{id}','crm\OrganizationController@EditOrganization'); //go to Edit Organization
@@ -141,6 +179,7 @@ Route::get('/crmreport/organization/chart','crm\CrmReportController@GetOrganizat
 Route::get('/crmreport/detailorganization','crm\CrmReportController@CrmDetailOrganizationReport'); // show Organization Detail report
 Route::get('/crmreport/quote/chart','crm\CrmReportController@GetQuoteChart'); // Get Quote Chart
 Route::get('/crmreport/detailquote','crm\CrmReportController@CrmDetailQuoteReport'); // show Quote Detail report
+Route::get('/crmreport/survey/chart','crm\CrmReportController@GetSurveyChart'); // Get survey chart report
 
 // End Report
 
@@ -962,7 +1001,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_delete_overtime', 'hrms\Employee\OverTimeController@DeleteOvertime');
         Route::get('hrm_my_overtime','hrms\Employee\OverTimeController@my_overtime');
     // End Overtime
-    
+
     // Warning & Punishment
        Route::get('hrm_warning_and_punishment','hrms\Employee\WarningAndPunishmentController@warning_and_punishment_list');
        Route::get('hrm_modal_warning_and_punishment','hrms\Employee\WarningAndPunishmentController@modal_warning_and_punishment');
