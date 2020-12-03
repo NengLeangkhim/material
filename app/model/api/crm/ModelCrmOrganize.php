@@ -16,6 +16,7 @@ class ModelCrmOrganize extends Model
         la.id as assig_id,
         lc.phone as contact_phone,
         lb.name_en as name_en_branch,
+        lb.phone as branch_phone,
         crm_lead.customer_name_en,
 		crm_lead.customer_name_kh,
         lb.email as email_branch,
@@ -58,8 +59,20 @@ class ModelCrmOrganize extends Model
         left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         left join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         left join stock_product sp on sp.id= clitem.stock_product_id
-        where crm_lead.status=true and ld.status=false and ld.is_deleted=false and ls.sequence=1");
+        where crm_lead.status=true and ld.status=false and ld.is_deleted=false and ls.id=2");
     }
+    //get all organize
+    // public static function getOrganize(){
+    //     return DB::select("SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
+    //     cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,cl.crm_lead_source_id,
+    //     cl.crm_lead_industry_id,cl.crm_lead_current_isp_id
+    //     from crm_lead cl
+    //     LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
+    //     LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
+	// 			JOIN crm_lead_branch clb on clb.crm_lead_id = cl.id
+	// 			JOIN crm_lead_detail cld on cld.crm_lead_branch_id = clb.id
+    //     WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=FALSE   GROUP BY cl.id ORDER BY cl.lead_number DESC ");
+    // }
     // get organize by assigto
     public static function getOrganizebyassigto($id){
         return DB::select("SELECT
@@ -72,6 +85,7 @@ class ModelCrmOrganize extends Model
         crm_lead.customer_name_en,
 		crm_lead.customer_name_kh,
         lb.email as email_branch,
+        lb.phone as branch_phone,
         lbc.id as lead_con_bran_id,
         lb.priority,
         crm_lead.vat_number,
@@ -111,7 +125,7 @@ class ModelCrmOrganize extends Model
         join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         join stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=false and ld.is_deleted=false and ls.sequence=1 and la.ma_user_id=$id");
+        where ld.status=false and ld.is_deleted=false and ls.id=2 and la.ma_user_id=$id");
     }
     //get organize by id
     public static function getOrganizeById($id){
@@ -125,6 +139,7 @@ class ModelCrmOrganize extends Model
         lbc.id as lead_con_bran_id,
         lc.phone as contact_phone,
         lb.name_en as name_en_branch,
+        lb.phone as branch_phone,
         crm_lead.customer_name_en,
 		crm_lead.customer_name_kh,
         lb.name_kh as name_kh_branch,
@@ -169,6 +184,6 @@ class ModelCrmOrganize extends Model
         left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         left join crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         left join stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=false and ld.is_deleted=false and lb.id=$id and ls.sequence=1");
+        where ld.status=false and ld.is_deleted=false and ls.id=2");
     }
 }

@@ -52,7 +52,7 @@
                                                         <td>{{$organize[$i]["name_en_branch"]}}</td>
                                                         <td>{{$organize[$i]["name_en_contact"]}}</td>
                                                         <td>{{$organize[$i]["email_branch"]}}</td>
-                                                        <td>{{$organize[$i]["contact_phone"]}}</td>
+                                                        <td>{{$organize[$i]["branch_phone"]}}</td>
                                                         <td>{{$organize[$i]["user_assig_to"]}}</td>
                                                         <td>
                                                             <a href="#" class="btn btn-block btn-info btn-sm organization_detail" ​value='/organizations/detail/{{$organize[$i]["branch_id"]}}' >
