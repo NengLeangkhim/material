@@ -27,12 +27,12 @@
             width: 100%;
             min-height: 450px;
         }
-        .row .g-chart {
+        /* .row .g-chart {
             margin:0 !important;
-        }
+        } */
         .boxs {
             width: 20% !important;
-            padding: 0 3px !important;
+            padding: 0 8.5px !important;
         }
 
         @media only screen and (max-width:1199px){
@@ -135,7 +135,7 @@
                 <!-- ./col -->
             </div>
             <!-- /.row -->
-            <div class="row g-chart">
+            <div class="row">
                 <div class="col-xl-6">
                     <!-- AREA CHART -->
                     <div class="card card-primary" >
@@ -273,7 +273,7 @@
                 ]
                 $.each(data, function (index, value) {
                     if(value.crm_lead_status_id != null){
-                        result.push([value.status_en, value.total_lead, colors[index].code])
+                        result.push([value.status_en, value.total_lead, colors[index + 1].code])
                     }
                 })
                 var data_chart = google.visualization.arrayToDataTable(result);
@@ -312,21 +312,23 @@
                 },
                 //data: $('#FrmChartReport').serialize(),
                 success: function (response) {
+                    // console.log(data);
                     if (response.success == true) {
-                        var data = response.data
+                        var data = response.data;
+                        console.log(data);
                         if(data.length < 1) {
-                        //   $('#LeadChart').empty()
-                        //     $('#LeadChart').append(`<h1 style="text-align:center">No Data</h1>`)
-                        //     return
-                            CrmLeadDrawChart(data);
-                            console.log('Data 0');
+                          $('#LeadChart').empty()
+                            $('#LeadChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                            return
+                            // CrmLeadDrawChart(data);
+                            // console.log('Data 0');
                         }
                         google.charts.load('current',{
                             packages: ['corechart']
                         }).then(CrmLeadDrawChart(data));
                         //google.charts.setOnLoadCallback(CrmLeadDrawChart(data));
                         CrmLeadDrawChart(data);
-                        console.log("Data 1");
+                        // console.log("Data 1");
                     }
                 }
             });
@@ -386,8 +388,12 @@
                     },
                 ]
                 $.each(data, function (index, value) {
-                    var color = (colors.find(e => (e.id == value.crm_quote_status_type_id))).code
-                    result.push([value.quote_status_name_en, value.total_quotes, color])
+                    // console.log(colors[index].code);
+                    // var color = (colors.find(e => (e.id == value.crm_quote_status_type_id))).code
+                    if(value.crm_quote_status_type_id != null) {
+                        var color = colors[index].code;
+                        result.push([value.quote_status_name_en, value.total_quotes, color])
+                    }
                 })
                 var data = google.visualization.arrayToDataTable(result)
                 var view = new google.visualization.DataView(data)
@@ -425,14 +431,18 @@
                 },
                 //data: $('#FrmChartQuoteReport').serialize(),
                 success: function (response) {
+                    // console.log('Data: ' + data);
                     if (response.success == true) {
                         var data = response.data
-                        console.log(data);
+                        console.log(response.data);
                         if(data.length < 1) {
+                            // $('#QuoteChart').empty()
+                            // $('#QuoteChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                            // return
                             CrmQuoteDrawChart(data);
                             console.log('Data: 0');
                         }
-                        console.log('Data: 1');
+                        // console.log('Data: 1');
                         CrmQuoteDrawChart(data);
                     }
                 }
@@ -508,19 +518,23 @@
                 },
                 //data: $('#FrmChartContactReport').serialize(),
                 success: function (response) {
-                    var data = response.data
-
+                    var data = response.data;
                     var create_date, total;
-                    console.log(data.length);
+                    // console.log(data.length);
                     if(data.length < 1) {
-                        create_date = currentDateString;
-                        total = 0;
-                        console.log('Date:' + create_date + '/' + 'Total: ' + total);
-                        CrmContactDrawChart(create_date,total);
+                        $('#ContactChart').empty()
+                            $('#ContactChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                            return
+
+                        // show chart when data
+                        // create_date = currentDateString;
+                        // total = 0;
+                        // console.log('Date:' + create_date + '/' + 'Total: ' + total);
+                        // CrmContactDrawChart(create_date,total);
                     }
-                    var create_date = data[0].create_date;
-                    var total = data[0].total;
-                    console.log('Date:' + create_date + '/' + 'Total: ' + total);
+                    create_date = data[0].create_date;
+                    total = data[0].total;
+                    // console.log('Date:' + create_date + '/' + 'Total: ' + total);
                     CrmContactDrawChart(create_date,total);
                 }
             });

@@ -24,12 +24,12 @@
                     <div class="card">
                       <div class="card-header p-2">
                         <div class="row">
-                          <div class="col-8">
+                          {{-- <div class="col-8">
                             <ul class="nav nav-pills">
                               <li class="nav-item"><a class="nav-link active" href="#Crm_Card_Contact" data-toggle="tab"><i class="fas fa-credit-card"></i></a></li>
                               <li class="nav-item"><a class="nav-link" href="#Crm_List_Contact" data-toggle="tab"><i class="fas fa-list"></i></a></li>
                             </ul>
-                          </div>
+                          </div> --}}
                           <div class="col-4 text-right">
                             <a  href="#" class="btn btn-success crm_contact" ​value="/contact/add" id="crm_contact"><i class="fas fa-plus"></i> Add Contact</a>
                           </div>
@@ -38,9 +38,9 @@
                       <div class="card-body" >
                         <div class="tab-content">
                             {{-- show contact like card --}}
-                            <div class="active tab-pane" id="Crm_Card_Contact" >
+                            {{-- <div class="active tab-pane" id="Crm_Card_Contact" >
                               @include('crm.contact.CrmPaginationContact')
-                            </div>
+                            </div> --}}
                             <!-- /.tab-pane -->
                             <!--show contact like table -->
                             <div class="tab-pane" id="Crm_List_Contact">
@@ -58,27 +58,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($contact_table->data as $key=>$row)
-                                        <tr>
-                                            <td>{{$key+1}}</td>
-                                            <td>{{$row->name_en}}</td>
-                                            <td>{{$row->name_kh}}</td>
-                                            <td>{{$row->phone}}</td>
-                                            {{-- <td>{{$row->facebook}}</td> --}}
-                                            <td>{{$row->email}}</td>
-                                            <td style="text-align: center">
 
-                                                <div class="row-12 form-inline">
-                                                  <div class="col-md-12">
-                                                    <button class="btn btn-info btn-block  btn-sm CrmEditContact" ​value="/contact/edit/{{$row->id}}"><i class="fas fa-wrench"></i></button>      
-                                                  </div>
-                                                  {{-- <div class="col-md-6 ">
-                                                    <button href="javascript:void(0);" class="btn btn-block  btn-danger btn-sm CrmDeleteContact" onclick="Crm_delete({{$row->id}},'/contact/delete','/contact','Deleted successfully')"><i class="fas fa-trash"></i></button>         
-                                                  </div> --}}
-                                              </div> 
-                                            </td>
-                                        </tr>
-                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -104,20 +84,20 @@
                 });
 
 
-              $(document).on('click', '.pagination a', function(event) {// function click on link pagination
-                  event.preventDefault();
-                  var page = $(this).attr('href').split('page=')[1];//get value page number
-                  fetch_data(page);// execute function
-              });
+              // $(document).on('click', '.pagination a', function(event) {// function click on link pagination
+              //     event.preventDefault();
+              //     var page = $(this).attr('href').split('page=')[1];//get value page number
+              //     fetch_data(page);// execute function
+              // });
 
-              function fetch_data(page) {// function get data without refresh page
-                  $.ajax({
-                      url: "/contact/pagination?page=" + page,// URL
-                      success: function(data) {
-                          $('#Crm_Card_Contact').html(data);// refresh content
-                      }
-                  });
-              }
+              // function fetch_data(page) {// function get data without refresh page
+              //     $.ajax({
+              //         url: "/contact/pagination?page=" + page,// URL
+              //         success: function(data) {
+              //             $('#Crm_Card_Contact').html(data);// refresh content
+              //         }
+              //     });
+              // }
 
             });
 
