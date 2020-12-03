@@ -152,7 +152,14 @@ class Crmlead extends Model
     }
     //get lead  Branch
     public static function leadBranch(){
-        return DB::select('SELECT  id,branch as name,company,ma_company_branch_id  FROM "public"."ma_company_detail" Where status=true and is_deleted=false');
+        if (! $user = \JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+        return DB::select('SELECT  id,branch as name,company,ma_company_branch_id
+        FROM "public"."ma_company_detail" Where status=true and is_deleted=false
+        and ma_company_id=(select ma_company_id from ma_company_detail where id=(select ma_company_detail_id from ma_user where id=?))',[$userid]);
     }
 
     public static function insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,

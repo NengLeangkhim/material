@@ -233,8 +233,8 @@ class LeadController extends Controller
                 return  Lead::updatebranch($lead_address_id,$lead_detail_id,$lead_item_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
                 $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,$primary_phone,
                 $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-                $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$survey_id);  
-                
+                $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$survey_id);
+
             }else{
                 return view('no_perms');
             }
@@ -304,7 +304,7 @@ class LeadController extends Controller
      public function getAddLead(){
             $lead = Lead::getAddLead(); // all lead
             return GetLead::Collection($lead);
-        
+
         // return GetLead::Collection($lead);
     }
     // get  lead by id
@@ -458,7 +458,7 @@ class LeadController extends Controller
         $possible =$request->input('possible');
         $comment =$request->input('commentsurvey');
         $branch_id =$request->input('branch_id');
-        
+
         if($possible=='yes'){
             $possible='t';
         }
