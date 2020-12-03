@@ -391,7 +391,7 @@
                     // console.log(colors[index].code);
                     // var color = (colors.find(e => (e.id == value.crm_quote_status_type_id))).code
                     if(value.crm_quote_status_type_id != null) {
-                        var color = colors[index].code;
+                        var color = colors[index + 1].code;
                         result.push([value.quote_status_name_en, value.total_quotes, color])
                     }
                 })
@@ -522,15 +522,15 @@
                     var create_date, total;
                     // console.log(data.length);
                     if(data.length < 1) {
-                        $('#ContactChart').empty()
-                            $('#ContactChart').append(`<h1 style="text-align:center">No Data</h1>`)
-                            return
+                        // $('#ContactChart').empty()
+                        //     $('#ContactChart').append(`<h1 style="text-align:center">No Data</h1>`)
+                        //     return
 
                         // show chart when data
-                        // create_date = currentDateString;
-                        // total = 0;
-                        // console.log('Date:' + create_date + '/' + 'Total: ' + total);
-                        // CrmContactDrawChart(create_date,total);
+                        create_date = currentDateString;
+                        total = 0;
+                        console.log('Date:' + create_date + '/' + 'Total: ' + total);
+                        CrmContactDrawChart(create_date,total);
                     }
                     create_date = data[0].create_date;
                     total = data[0].total;
