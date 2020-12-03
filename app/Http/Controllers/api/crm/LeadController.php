@@ -20,6 +20,7 @@ use App\Http\Resources\api\crm\lead\LeadCurrentSpeedIsp;
 use App\Http\Resources\api\crm\lead\GetSurvey;
 use App\Http\Resources\api\crm\lead\GetSurveyResult;
 use App\Http\Resources\api\crm\lead\GetLeadSchedule;
+use App\model\api\crm\Crmlead;
 use Illuminate\Database\QueryException;
 
 class LeadController extends Controller
@@ -458,7 +459,8 @@ class LeadController extends Controller
         $possible =$request->input('possible');
         $comment =$request->input('commentsurvey');
         $branch_id =$request->input('branch_id');
-        
+        $lead_detail_id=$request->input('lead_detail_id');
+        $comment_branch=$request->input('comment_branch');
         if($possible=='yes'){
             $possible='t';
         }
@@ -466,9 +468,10 @@ class LeadController extends Controller
         {
             $possible='f';
         }
-        // dd($possible);
+        // dd($comment_branch,$lead_detail_id);
         // var_dump($userid,$survey_id,$possible,$comment,$branch_id);
-        return Lead::insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id);
+        
+        return Lead::insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id,$lead_detail_id,$comment_branch);
     }
     // get schdule type
     public function getschduletype($id){

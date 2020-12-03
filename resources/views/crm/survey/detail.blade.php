@@ -29,6 +29,7 @@
     </style>
       <!-- /.card -->
     <div class="col-md-12">
+        @dump($detailbranch)
         <div class="row">
             <div class="col-md-12">
                 {{-- Lead detail --}}
@@ -138,6 +139,7 @@
                                     <input type=" " hidden value="{{$detailbranch[$i]['lead_detail_id']}}" name="lead_detail_id" id="lead_detail_id">
                                     <input type="text" class="form-control" hidden  value="{{$detailbranch[$i]['branch_id']}}"  name='branch_id' id="branch_id"  required>
                                     <input type="text" class="form-control" hidden  value="{{$detailbranch[$i]['comment']}}"  name='comment' id="comment"  required>
+                                    
                                         <dt class="col-sm-4 dt" >Street EN</dt>
                                         <dd class="col-sm-8 dd" >St {{$detailbranch[$i]["street_en"]}}</dd>
                                         <dt class="col-sm-4 dt">Home number EN</dt>
@@ -198,8 +200,10 @@
                                             <?php
                                                 for($i =0;$i<sizeof($survey); $i++){
                                                     ?>
-                                            <input type="text" class="form-control"  hidden name='survey_id' id="survey_id" value="{{$survey[$i]["survey_id"]}}" >
-                                            <input type="text" class="form-control"  hidden name='branch_id' id="branch_id" value="{{$survey[$i]["branch_id"]}}" >
+                                                <input type="text" class="form-control"  hidden name='survey_id' id="survey_id" value="{{$survey[$i]["survey_id"]}}" >
+                                                <input type="text" class="form-control"  hidden name='branch_id' id="branch_id" value="{{$survey[$i]["branch_id"]}}" >
+                                            
+                                            
 
                                                     <?php
                                                 }
@@ -211,6 +215,8 @@
                                                     <strong></strong>
                                                 </span>
                                             </div>
+                                            <input type="hidden" class="form-control" hidden name='lead_detail_id'id="branch_id" value="{{$detailbranch[0]["lead_detail_id"] ?? ''}}">
+                                            <input type="text" class="form-control"  hidden name='comment_branch' id="branch_id" value="{{$detailbranch[10]["comment"]?? null}}" >
                                         </div>
                                     </div>
                                     <div class="col-md-12">

@@ -1277,7 +1277,8 @@ class Crmlead extends Model
         WHERE cs.is_deleted=FALSE and cs.status=TRUE and lb.id=$id");
     }
     //Model insert​ Survey result
-    public static function insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id){
+    public static function insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id,$lead_detail_id,$comment_branch){
+      
         if(isset($survey_id)){
             try{
                     DB::select('SELECT insert_crm_survey_result(?,?,?,?)',
@@ -1298,7 +1299,14 @@ class Crmlead extends Model
                         'f',
                     )
                 );
+                try {
+                      $comment=$comment_branch;
+                    Crmlead::updatetavleleaddetail($lead_detail_id,$userid,$branch_id,4,$comment);
                     return json_encode(['insert'=>'success']);
+                } catch (Exception $e) {
+                    return json_encode(["update"=>"fail update_crm_lead_detail","result"=> $e->getMessage()]);
+                }
+                    
                 }catch(Exception $e){
                     return json_encode(["insert"=>"fail update_crm_survey","result"=> $e->getMessage()]);
                 }
