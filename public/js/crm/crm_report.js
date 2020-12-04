@@ -57,14 +57,21 @@ var reportLeadByStatus = () => {
                         colors: [''],
                         // legend: 'none',
                         slices: {
-                            0: { color: '#36a2eb' },
-                            1: { color: '#4bc0c0' },
-                            2: { color: '#ffcd56' },
-                            3: { color: '#ff3d67' },
-                            4: { color: '#7d9b10' },
-                            5: { color: '#9966ff' },
-                            6: { color: '#96f' },
-                        },
+                            // 0: { color: '#ff3838' },
+                            // 1: { color: '#7d5fff' },
+                            // 2: { color: '#fff200' },
+                            // 3: { color: '#C4E538' },
+                            // 4: { color: '#00cec9' },
+                            // 5: { color: '#EE5A24' },
+                            // 6: { color: '#18dcff' },
+                            0: { color: 'rgb(125, 105, 11)' },
+                            1: { color: 'rgb(145, 205, 66)' },
+                            2: { color: 'rgb(54, 162, 235)' },
+                            3: { color: 'rgb(75, 102, 42)'  },
+                            4: { color: 'rgb(255, 205, 86)' },
+                            5: { color: 'rgb(255, 99, 132)' },
+                            6: { color: 'rgb(105, 155, 16)' },
+                        }
                     };
                     var chart = new google.visualization.PieChart(document.getElementById('Branchchart'));
                     chart.draw(data, options);

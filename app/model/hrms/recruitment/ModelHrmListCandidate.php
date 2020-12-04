@@ -40,19 +40,20 @@ class ModelHrmListCandidate extends Model
     public static function get_detail_candidate($id){
         return DB::select("SELECT c.*,p.name from hr_recruitment_candidate c
                         left join ma_position p on c.ma_position_id=p.id
+                        LEFT join ma_user_education_level l on l.id=c.ma_user_education_level_id
                         WHERE c.id =?",[$id]);
     }
     // ===== Function Insert candidate =====////
-    public static function insert_candidate($fname,$lname,$name_kh,$zip_file,$email,$password,$position_id,$cover_letter,$interest){
+    public static function insert_candidate($fname,$lname,$name_kh,$zip_file,$email,$password,$position_id,$cover_letter,$interest,$education_level,$major){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         $userid=$_SESSION['userid'];
-        return DB::select('SELECT public.insert_hr_recruitment_candidate(?,?,?,?,?,?,?,?,?,?)',array($fname,$lname,$name_kh,$zip_file,$email,$password,$position_id,$cover_letter,$interest,$userid));
+        return DB::select('SELECT public.insert_hr_recruitment_candidate(?,?,?,?,?,?,?,?,?,?,?,?)',array($fname,$lname,$name_kh,$zip_file,$email,$password,$position_id,$cover_letter,$interest,$education_level,$major,$userid));
     }
     // ===== Function Update candidate =====////
-    public static function update_candidate($id,$userid,$fname,$lname,$name_kh,$zip_file,$email,$password,$candidate_id,$position_id,$status,$cover_letter,$interest,$date){
-        return DB::select('SELECT public.update_hr_recruitment_candidate(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($id,$userid,$fname,$lname,$name_kh,$zip_file,$email,$password,$candidate_id,$position_id,$status,$cover_letter,$interest,$date));
+    public static function update_candidate($id,$userid,$fname,$lname,$name_kh,$zip_file,$email,$password,$candidate_id,$position_id,$status,$cover_letter,$interest,$date,$education_level,$major){
+        return DB::select('SELECT public.update_hr_recruitment_candidate(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($id,$userid,$fname,$lname,$name_kh,$zip_file,$email,$password,$candidate_id,$position_id,$status,$cover_letter,$interest,$date,$education_level,$major));
     }
 
     // ===== Function get candidate by date=====////
