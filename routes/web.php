@@ -176,6 +176,13 @@ Route::get('/quote/edit/branch','crm\QuoteController@quoteEditBranch'); // go to
 
 // end quote
 
+// Customer Service
+Route::get('/crmreport/customerservice', function () {
+    return view('crm/report.CrmCustomerService');
+    // return "dfgbfdh";
+});
+// End
+
 
 // Start Report
 Route::get('/crmreport','crm\CrmReportController@CrmIndexReport'); // show index report
