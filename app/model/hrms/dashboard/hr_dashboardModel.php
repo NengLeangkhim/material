@@ -104,8 +104,10 @@ class hr_dashboardModel extends Model
 
     // function to get all position available in staff
     public static function available_position(){
-        $sql = " SELECT count(id) AS count_id FROM ma_user WHERE status='t' AND is_deleted ='f'
-                    GROUP BY ma_position_id ";
+        $sql = "SELECT count(*) FROM ma_user mu
+INNER JOIN ma_position mp on mu.ma_position_id=mp.id
+WHERE mu.status='t' AND mu.is_deleted ='f' and mu.is_employee='t' and mp.status='t' and mp.is_deleted='f'
+                    GROUP BY mu.ma_position_id";
         try {
             $r = DB::select($sql);
             return $r;
