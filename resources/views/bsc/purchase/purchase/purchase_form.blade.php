@@ -148,7 +148,7 @@
                                                 <th style="min-width: 160px;" colspan="2">Quantity</th>
                                                 <th style="min-width: 80px;">Unit Price</th>
                                                 <th style="min-width: 120px;">Account</th>
-                                                <th style="min-width: 90px;">Tax</th>
+                                                <th style="min-width: 100px;">Tax</th>
                                                 <th style="min-width: 125px;">Amount</th>
                                                 <th></th>
                                             </tr>
@@ -245,18 +245,25 @@
             }
         });
 
+        // call function input only number and include( . ) 
         myKeyPress();
         
-
+        // Delegate Field Unit Price
         $("#purchase_table tbody").delegate('.item_qty','keyup',function(){
             tr=$(this).closest('tr');
             var qty=$(this).text();
             let price = tr.find('.item_unit_price').text();
             let amount = show_amount(qty, price);
             tr.find('.item_amount').text(amount.toFixed(4));
-            showTotal();
-            getVatTotal();
-            showGrandTotal();
+            let vat = tr.find('.tax').val();
+            if(parseInt(vat) == 1){
+                showTotal();
+                getVatTotal();
+                showGrandTotal();
+            }else{
+                showTotal();
+                showGrandTotal();
+            }
         });
         
         // Delegate Field Unit Price
@@ -266,9 +273,15 @@
             let qty =  tr.find('.item_qty').text();
             let amount =show_amount(qty,price);
             tr.find('.item_amount').text(amount.toFixed(4));
-            showTotal();
-            getVatTotal();
-            showGrandTotal();
+            let vat = tr.find('.tax').val();
+            if(parseInt(vat) == 1){
+                showTotal();
+                getVatTotal();
+                showGrandTotal();
+            }else{
+                showTotal();
+                showGrandTotal();
+            }
         });
 
         // Convert when user input unit price toFixed(.)
@@ -312,7 +325,7 @@
             
         });
 
-        //
+        //Delegate field stock product id
         $("#purchase_table tbody").delegate('.stock_product_id','change',function(){
             let tr=$(this).closest('tr');
             let vat = 0;
@@ -353,7 +366,7 @@
 
 
 
-    // Function Can Input only Number and . in Field Quantity and UnitPrice
+    // Function Can Input only Number and ( . ) in Field Quantity and UnitPrice
     function myKeyPress(){
         $('.item_qty').keypress(function(e){
             if (isNaN(String.fromCharCode(e.which))) e.preventDefault();
@@ -398,7 +411,7 @@
                 '<td style="max-width: 70px;" class="item_unit" id="item_unit"></td>'+
                 '<td style="max-width: 80px;" contenteditable="{{$contenteditable}}" class="item_unit_price" id="item_unit_price"></td>'+
                 '<td style="max-width: 120px;" class="item_account" id="item_account" data-id=""></td>'+
-                '<td style="max-width: 90px;padding: 0;" class="item_tax"><select disabled style="border: 0px; height: 51px;background-color: white;" class="tax form-control"><option value="" disabled hidden selected></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
+                '<td style="max-width: 100px;padding: 0;" class="item_tax"><select disabled style="border: 0px; height: 51px;background-color: white;" class="tax form-control"><option value="" disabled hidden selected></option><option value="1">Tax</option><option value="0">No Tax</option></select></td>'+
                 '<td style="max-width: 125px;" class="item_amount" id="item_amount" data-tax_total></td>'+
                 '<td style="text-align: center;"><button type="button" name="remove" data-row="row'+count+'" class="btn btn-danger btn-xs remove">x</button></td>'+
             '</tr>'; 
@@ -423,7 +436,7 @@
         });
         document.getElementById('txtVatTotal').innerHTML=vat.toFixed(4);
     }
-
+    // end function total vat
 
     // function save all data
     function saveData(){
@@ -483,7 +496,7 @@
                     }
                 });   
             }else{
-                sweetalert('error','Please select field item!!');
+                sweetalert('error','Please select field Item !!');
             }
         }
     }

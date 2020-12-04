@@ -83,7 +83,6 @@ class PurchasePaymentController extends Controller
             }else{
                 return response()->json(['payment'=>'amount_paid_input_must_bigger_then_Zero']);
             }
-    
         }catch(Exception $e){
             echo $e->getMessage();
             exit;
@@ -102,14 +101,13 @@ class PurchasePaymentController extends Controller
             }
         
             $token = $_SESSION['token'];
-    
             $request = Request::create('/api/bsc_purchase_payments/'.$id, 'GET');
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $response = json_decode($res->getContent()); // convert to json object
             $purchases= $response->data;
-            // dd($purchase);exit;
+            
             return view('bsc.purchase.purchase_payment.purchase_payment_view',compact('purchases'));
         
         }catch(Exception $e){
