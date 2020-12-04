@@ -2,6 +2,7 @@
 
 namespace App\model\hrms\dashboard;
 
+use App\model\hrms\employee\Employee;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 class hr_dashboardModel extends Model
@@ -149,6 +150,24 @@ class hr_dashboardModel extends Model
             echo '<br><a href="/">go back</a><br>';
             echo 'exited';
             exit;
+        }
+    }
+
+
+
+
+    // new employee for this month
+    public static function new_employee_for_this_month(){
+        try {
+            $end_month=date('Y-m-d');
+            $end=date("Y-m-t", strtotime($end_month));
+            $start=date('Y-m-01', strtotime($end_month));
+            $sql="SELECT count(*) FROM ma_user WHERE status='t' and is_deleted='f' and is_employee='t' and join_date::date BETWEEN '$start' and '$end'";
+            $entrance=DB::select($sql);
+            $new_entrance=$entrance[0]->count;
+            return $new_entrance;
+        } catch (\Throwable $th) {
+            throw $th;
         }
     }
 
