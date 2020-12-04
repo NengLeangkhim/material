@@ -27,9 +27,13 @@ class recruitment_userModel extends Model
 
 
     // function to input user create account to table hr_recruitment_candidate
-    public static function insert_user_info($f_n, $l_n, $kh_n, $cv, $em, $pass, $pos, $cov){
-        $sql = "SELECT public.insert_hr_recruitment_candidate('$f_n', '$l_n', '$kh_n', '$cv', '$em', '$pass' ,'$pos', '$cov','')";
+    public static function insert_user_info($f_n, $l_n, $kh_n, $cv, $em, $pass, $pos, $cov,$education_level,$major,$interest){
+        $sql = "SELECT public.insert_hr_recruitment_candidate('$f_n', '$l_n', '$kh_n', '$cv', '$em', '$pass' ,$pos, '$cov','$interest',$education_level,'$major',null)";
         return DB::insert($sql);
+    }
+
+    public static function insert_candidate($fname,$lname,$name_kh,$zip_file,$email,$password,$position_id,$cover_letter,$interest,$education_level,$major){
+        return DB::select('SELECT public.insert_hr_recruitment_candidate(?,?,?,?,?,?,?,?,?,?,?,?)',array($fname,$lname,$name_kh,$zip_file,$email,$password,$position_id,$cover_letter,$interest,$education_level,$major,null));
     }
 
 
