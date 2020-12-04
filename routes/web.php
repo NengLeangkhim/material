@@ -177,10 +177,10 @@ Route::get('/quote/edit/branch','crm\QuoteController@quoteEditBranch'); // go to
 // end quote
 
 // Customer Service
-Route::get('/crmreport/customerservice', function () {
-    return view('crm/report.CrmCustomerService');
-    // return "dfgbfdh";
-});
+Route::get('/crmreport/customerservice','crm\CrmReportController@getCustomerService');
+
+Route::get('/crmreport/getCustomerService', 'crm\CrmReportController@getCustomerServiceData');
+
 // End
 
 
