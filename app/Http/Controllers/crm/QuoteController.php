@@ -58,13 +58,13 @@ class QuoteController extends Controller
             $request2->headers->set('Authorization', 'Bearer '.$token);
             $res2 = app()->handle($request2);
             $quoteBranch = json_decode($res2->getContent());
-      
+
 
             // api get quote branch detail by branch id
             $getQuoteBranch = [];
-            
+
             foreach($quoteBranch->data as $k=>$val){
-               
+
                 $data['branch_id'] = $val->id;
                 $data['branch_info'] = $val->crm_lead_branch;
                 $request3 = Request::create('api/quotebranch/detail/'.$val->id.'', 'GET');
@@ -293,10 +293,11 @@ class QuoteController extends Controller
     //function to list staff for quote assign to
     public static function staffAssignQuote(Request $request)
     {
-        $employee = ModelCrmQuote::getEmployee();
+        // $employee = ModelCrmQuote::getEmployee();
+        $employee = ModelCrmQuote::getEmployee2();
         if(count($employee) > 0){
-            // print_r($employee);
-            return view('crm/quote/listAssignTo', compact('employee'));
+            // return view('crm/quote/listAssignTo', compact('employee'));
+            return response()->json($employee);
         }
     }
 

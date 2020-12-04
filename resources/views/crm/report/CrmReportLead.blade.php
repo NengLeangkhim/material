@@ -51,17 +51,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="exampleInputEmail1">Assign To</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-user-check"></i></span>
-                                        </div>
-                                        <select class="form-control" name="select_assign_to" id="select_assign_to">
-                                            <option value="0">All Staff</option>
-                                        </select>
-                                    </div>
-                                </div>
+
                                 <div class="col-md-4">
                                     <label for="exampleInputEmail1">Status</label>
                                     <div class="input-group">
@@ -73,6 +63,23 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                @if($assign_perm)
+                                    <div class="col-md-4">
+                                        <label for="exampleInputEmail1">Assign To</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user-check"></i></span>
+                                            </div>
+                                            <select class="form-control" name="select_assign_to" id="select_assign_to">
+                                                <option value="0">All Staff</option>
+                                            </select>
+                                        </div>
+                                    </div>`
+                                @else
+                                    <input type="hidden" name="select_assign_to" id="select_assign_to" value="{{ $userId }}">
+                                @endif
+
                             </div>
                         </div><!--End Form Group-->
                         <div class="form-group">

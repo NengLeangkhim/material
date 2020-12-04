@@ -40,7 +40,7 @@
                                                 {{-- <th  style="color:#FFFFFF">Email</th>
                                                 <th  style="color:#FFFFFF">Website </th> --}}
                                                 {{-- <th  style="color:#FFFFFF">Facebook </th> --}}
-                                                <th  style="color:#FFFFFF">Schedule Status</th>
+                                                <th  style="color:#FFFFFF">Schedule Activity</th>
                                                 <th  style="color:#FFFFFF">Lead status</th>
                                                 <th  style="color:#FFFFFF">Assigned To</th>
                                                 <th  style="color:#FFFFFF">Detail</th>

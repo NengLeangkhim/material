@@ -3,6 +3,7 @@
 namespace App\model\crm;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Expr\AssignOp\Concat;
 
 class ModelCrmQuote extends Model
 {
@@ -10,7 +11,6 @@ class ModelCrmQuote extends Model
     //function to get all info employee & position
     public static function getEmployee(){
         try {
-
             $r = DB::table('ma_user as us')
                     ->select('us.*','po.name as positionName')
                     ->leftjoin('ma_position as po','us.ma_position_id','=','po.id')
@@ -28,6 +28,26 @@ class ModelCrmQuote extends Model
             exit;
         }
     }
+
+
+        //function to get all info employee & position type 2
+        public static function getEmployee2(){
+            try {
+                $r = DB::table('ma_user')
+                        ->select('id', DB::raw('CONCAT(first_name_en, last_name_en) AS name_en'))
+                        ->where('is_deleted','=','f')
+                        ->where('status','=','t')
+                        ->orderBy('id','ASC')
+                        ->get();
+                return $r;
+
+            }catch(\Illuminate\Database\QueryException $ex){
+                dump($ex->getMessage());
+                echo '<br><a href="/">go back</a><br>';
+                echo 'exited';
+                exit;
+            }
+        }
 
 
 
