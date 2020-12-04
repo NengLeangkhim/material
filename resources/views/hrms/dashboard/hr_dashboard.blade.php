@@ -333,7 +333,7 @@ Function index_num($v1){
                           <td><b>This Morning</b></td>
                         </tr>
                         <tr class="tr-review">
-                          <td>All Employees<td>
+                          <td>Permission<td>
                           <td> :<?php   echo $attendancec['all_em'];   ?>
                             {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
                         </tr>
