@@ -427,6 +427,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <div class="col-md-6">
@@ -477,6 +478,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <div class="col-md-6">
@@ -507,6 +509,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <div class="col-md-6">
@@ -514,7 +517,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="row">
                                                                             <div class="col-md-6">
-                                                                                <label for="address_type">Address Type <b style="color:red">*</b></label>
+                                                                                <label for="address_type">Address Type <b style="color:rgb(252, 2, 2)">*</b></label>
                                                                                 <div class="input-group">
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
@@ -589,6 +592,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <div class="col-md-12">
@@ -597,12 +601,12 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="col-md-12">
                                                         <button type="button" class="btn btn-primary" id="frm_btn_sub_addlead" onclick="CrmSubmitFormFull('frm_CrmleadEdit','/branch/update','/lead','Update Successfully')">Update</button>
                                                         <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
                                                     </div>
                                                 </div>
-
                             </div>
                         <?php
                     }

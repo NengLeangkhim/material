@@ -43,7 +43,12 @@ class CrmReportController extends Controller
     }
     // Detail Lead Report
     public function CrmDetailLeadReport(){
-        return view('crm.report.CrmReportLead');
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userId = $_SESSION['userid'];
+        $assign_perm = perms::check_perm_module('CRM_0201010101');
+        return view('crm.report.CrmReportLead',compact('assign_perm','userId'));
     }
     // Get data Contact Chart Report
     public function GetContactChart(Request $request){
@@ -142,7 +147,12 @@ class CrmReportController extends Controller
     }
     // Detail Organization Report
     public function CrmDetailOrganizationReport(){
-        return view('crm.report.CrmReportOrganization');
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userId = $_SESSION['userid'];
+        $assign_perm = perms::check_perm_module('CRM_02010601');
+        return view('crm.report.CrmReportOrganization', compact('assign_perm','userId'));
     }
     // Get data Quote Chart Report
     public function GetQuoteChart(Request $request){
@@ -187,9 +197,16 @@ class CrmReportController extends Controller
             }
         // }
     }
+
+
     // Detail Quote Report
     public function CrmDetailQuoteReport(){
-        return view('crm.report.CrmReportQuote');
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userId = $_SESSION['userid'];
+        $assign_perm = perms::check_perm_module('CRM_02010701');
+        return view('crm.report.CrmReportQuote',compact('assign_perm','userId'));
     }
 
 
@@ -198,8 +215,7 @@ class CrmReportController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $token = $_SESSION['token'];
-
+            $token = $_SESSION['token'];
             $fromDate = date("Y-m-01");
             $toDate = date("Y-m-t");
             // dump($request->all());

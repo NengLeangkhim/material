@@ -221,7 +221,7 @@
                           <div id="barchart_values" style="height: 300px; max-width: 100%;"></div>
                       </div>
                       <div class="col-md-12 text-right">
-                          <button class="btn btn-sm btn-info font-weight-bold" onclick="go_to('/crmreport/detailorganization')"><span><i class="fas fa-info"></i></span> Detail</button>
+                          <button class="btn btn-sm btn-info font-weight-bold" onclick="go_to('/crmreport/detailquote')"><span><i class="fas fa-info"></i></span> Detail</button>
                       </div>
                   </div><!-- /.card-body -->
               </div><!-- /.card -->

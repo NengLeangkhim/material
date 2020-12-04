@@ -46,12 +46,29 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-tty"></i></span>
                                         </div>
-                                        <select class="form-control" name="select_source" id="select_source">
+                                        <select class="form-control select2" name="select_source" id="select_source">
                                             <option value="0">Please Select</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+
+                                @if($assign_perm)
+                                    <div class="col-md-4">
+                                        <label for="exampleInputEmail1">Assign To</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user-check"></i></span>
+                                            </div>
+                                            <select class="form-control select2" name="select_assign_to" id="select_assign_to">
+                                                <option value="0">All Staff</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                @else
+                                    <input type="hidden" name="select_assign_to" id="select_assign_to" value="{{ $userId }}">
+                                @endif
+
+                                {{-- <div class="col-md-4">
                                     <label for="exampleInputEmail1">Assign To</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -61,8 +78,10 @@
                                             <option value="0">Please Select</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
+
                             </div>
+
                         </div><!--End Form Group-->
                         <div class="form-group">
                             <div class="row">
@@ -138,6 +157,12 @@
     </div><!--End Container-Fluid-->
 </section><!-- end section Main content -->
 <script>
+
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+
+
     $('#DetailOrganizationFrom').datetimepicker({
         format: 'YYYY-MM',
         sideBySide: true,
