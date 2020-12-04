@@ -402,7 +402,7 @@ function Crm_delete(id,route,goto,alert) {
         $.each( data.errors, function( key, value ) {//foreach show error
             $("#" + key).addClass("is-invalid"); //give read border to input field
             // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-            
+
             sweetalert('warning',value);
             $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
 
@@ -538,7 +538,7 @@ function Crm_delete(id,route,goto,alert) {
       type:"GET",    //Using of Post method for send data
       data:{id:id},//Send data to server
       dataType:"json",   //Here we have define json data type, so server will send data in json format.
-      success:function(response){              
+      success:function(response){
               $('#crm_schedule_type').modal('show'); //It will display modal on webpage
               $('#ActionScheduleType').text('Update'); //This code will change Button value to Update
               $('#card_title').text("Update Lead Schedule Type");
@@ -680,6 +680,26 @@ function Crm_delete(id,route,goto,alert) {
             goto_Action('/addleadtype',lead_id);
         })
 
+
+
+        // // radio button change option select lead status
+        // $('input[name="checksurvey"]').change(function(){ // bind a function to the change event
+        //     if($(this).is(":checked")){ // check if the radio is checked
+        //         var val = $(this).val();
+        //         // console.log('radio val='+val);
+        //         if(val == 1){
+        //             $('#lead_status').val(3).addClass('seleted');
+        //         }else{
+        //             $('#lead_status').val('').addClass('seleted');
+        //         }
+        //     }
+        // });
+
+
+        // // check the radio survey button when status lead change value
+        // $('#lead_status').change(function(){
+
+        // });
 
 
 //========================>> Start-Quote-CRM JS <<=========================================================
