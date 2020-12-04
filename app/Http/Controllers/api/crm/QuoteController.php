@@ -496,21 +496,37 @@ class QuoteController extends Controller
                     // add in ma_customer_branch
                     foreach($branch as $row){
                         $branch_id=$row['crm_lead_branch']['id'];
+                        // get  branch name  and address
                         $address_id=DB::select("SELECT crm_lead_address_id,name_en FROM crm_lead_branch where id=$branch_id");
                         $branch_name=$address_id[0]->name_en;
-                    DB::select(
-                        'SELECT public."insert_ma_customer_branch"(?, ?, ?, ?, ?, ?)',
-                        array(
-                            $customer,
-                            $branch_name,
-                            $userid,
-                            null,
-                            $lead_id,
-                            $address_id[0]->crm_lead_address_id,
-                        ));
+
+                        //get product of beanch 
+                        $product_branch=DB::select("SELECT stock_product_id FROM crm_lead_items where crm_lead_branch_id=$branch_id and status=TRUE and is_deleted=FALSE");
+                        $product_branch=$product_branch[0]->stock_product_id;
+                        //insert in to table ma_customer_branch
+                           $customer_branch=DB::select('SELECT public."insert_ma_customer_branch"(?, ?, ?, ?, ?, ?)',
+                                array(
+                                    $customer,
+                                    $branch_name,
+                                    $userid,
+                                    null,
+                                    $lead_id,
+                                    $address_id[0]->crm_lead_address_id,
+                                ));
+                            $customer_branch=$customer_branch[0]->insert_ma_customer_branch;
+                            // add in ma_customer_service
+                            $nservice_status="active";
+                           $dd= DB::select('SELECT public."insert_ma_customer_service"(?, ?, ?, ?, ?)',
+                                array(
+                                    $customer,
+                                    $customer_branch,
+                                    $product_branch,
+                                    $nservice_status,
+                                    $userid,
+                                ));
                     }
-                DB::commit();
-                return json_encode(["convert"=>"success"]);
+                    DB::commit();
+                    return json_encode(["convert"=>"success"]);
                 // return json_encode(["convert"=>$customer]);
             }catch(Exception $e){
                 DB::rollback();

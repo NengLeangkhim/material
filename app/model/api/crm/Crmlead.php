@@ -786,13 +786,13 @@ class Crmlead extends Model
         (SELECT id from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_id,
 		(SELECT status from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_status
         from  crm_lead_branch_crm_lead_contact_rel lbc
-        left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
-        JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
+        right JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
+        left JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
         JOIN crm_lead_assign la on la.crm_lead_branch_id= lb.id
         JOIN ma_user u on la.ma_user_id=u.id
-        JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lb.id
-        JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
-        JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
+        left JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lb.id
+        left JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
+        left JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
         join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
         join crm_lead on crm_lead.id= lb.crm_lead_id
         left join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
@@ -801,7 +801,7 @@ class Crmlead extends Model
         left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         LEFT JOIN crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         LEFT JOIN stock_product sp on sp.id= clitem.stock_product_id
-        where   lb.crm_lead_id=$id and  ld.crm_lead_status_id=2 ");
+        where ld.status=false and ld.is_deleted=false and lb.crm_lead_id=$id  and  ld.crm_lead_status_id=2 ");
     }
     // get branch by  assig to
     public static function getbranch_leadbyassigto($id,$userid){
@@ -1659,7 +1659,7 @@ class Crmlead extends Model
         JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= clb.id
         JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
         JOIN crm_lead_address cld on cld.crm_lead_id= cl.id
-         WHERE  cl.is_deleted=FALSE and cl.status=TRUE  and clb.is_deleted=FALSE and  ls.sequence=1   and clb.status=TRUE  GROUP BY cl.id");
+         WHERE  cl.is_deleted=FALSE and cl.status=TRUE  and clb.is_deleted=FALSE and  ls.id=2   and clb.status=TRUE  GROUP BY cl.id");
         //  SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.website,cl.facebook,cl.create_date,
         //  cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,cl.crm_lead_source_id,
         //  cl.crm_lead_industry_id,cl.crm_lead_current_isp_id

@@ -26,7 +26,7 @@ class QuoteResource extends JsonResource
     public function toArray($request)
     {
 
-
+        
         //get name assign to and createby
         $assign =User::find($this->assign_to,[
             'id',
@@ -45,11 +45,12 @@ class QuoteResource extends JsonResource
             'last_name_kh',
             'contact'
         ]);
+        
 
         //get address name
         $addr = Address::find($this->crm_lead_address_id);
 
-
+ 
         //get stock
         $quoteBranch =  QuoteBranch::where('crm_quote_id',$this->id)
                                 ->where('status','t')
@@ -68,6 +69,8 @@ class QuoteResource extends JsonResource
                 }
             }
         }
+
+    
 
         //get status quote
         $quoteStatus =  QuoteStatus::where('crm_quote_id',$this->id)
@@ -97,7 +100,7 @@ class QuoteResource extends JsonResource
             ]);
             array_push($acknowlegde,$pre);
         }
-
+    
 
         //find lead by id
         $lead = DB::select("select * from crm_lead where id = $this->crm_lead_id");
@@ -112,10 +115,13 @@ class QuoteResource extends JsonResource
         $contact=null;
         if(count($quoteBranch)>0){
             $contactid = BranchContact::where('crm_lead_branch_id',$quoteBranch[0]->crm_lead_branch_id)->get('crm_lead_contact_id');
-            $last_contact_id= $contactid[count($contactid) - 1]->crm_lead_contact_id;
-            $contact = Contact::whereId($last_contact_id)->first();
+            if(sizeof($contactid)>0){
+                $last_contact_id= $contactid[count($contactid) - 1]->crm_lead_contact_id;
+                $contact = Contact::find($last_contact_id)->first();
+            }
+    
         }
-
+       
 
         return [
             "id"=>$this->id,
