@@ -42,8 +42,8 @@
                                                 <th  style="color:#FFFFFF">Website </th> --}}
                                                 {{-- <th  style="color:#FFFFFF">Facebook </th> --}}
                                                 <th  style="color:#FFFFFF">Assigned To</th>
-                                                <th  style="color:#FFFFFF">status</th>
-                                                <th  style="color:#FFFFFF">Assigned To</th>
+                                                <th  style="color:#FFFFFF">Email</th>
+                                                <th  style="color:#FFFFFF">Status</th>
                                                 {{-- <th  style="color:#FFFFFF">Detail</th> --}}
                                             </tr>
                                         </thead>
