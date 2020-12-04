@@ -104,6 +104,8 @@ Route::get('/product','crm\ProductsController@getProducts'); //get all Products 
 
 // Start Organization
 Route::get('/organizations','crm\OrganizationController@getorganization'); //get all Organization  show in table
+Route::get('/organizations/branches/{id}','crm\OrganizationController@getorganizationBranches'); //get all Organization  show in table
+Route::get('/organizations/branches/datatable/{id}','crm\OrganizationController@getorganizationBranchesDatatable'); //get all Organization  show in table
 Route::get('/organizations/datatable','crm\OrganizationController@getorganizationDatatable'); //get all Organization  show in table
 Route::get('/organizations/add','crm\OrganizationController@AddOrganization'); //go to add Organization
 Route::post('/organizations/store','crm\OrganizationController@StoreOrganization'); // add Organization
@@ -116,6 +118,7 @@ Route::get('/organizations/detail/{id}','crm\OrganizationController@DetailOrgani
 
 // crm quote
 Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote
+Route::get('/quote/datatable','crm\QuoteController@showQuoteListDatatable'); // get show quote
 Route::get('/quote/detail','crm\QuoteController@showQuoteListDetail'); // get show quote detail
 Route::get('/quote/leadBranch','crm\QuoteController@listLeadBranch'); // get list branch of lead by lead id
 
@@ -142,6 +145,13 @@ Route::get('/quote/edit/branch','crm\QuoteController@quoteEditBranch'); // go to
 
 
 // end quote
+
+// Customer Service
+Route::get('/crmreport/customerservice', function () {
+    return view('crm/report.CrmCustomerService');
+    // return "dfgbfdh";
+});
+// End
 
 
 // Start Report
@@ -280,6 +290,29 @@ Route::get('/ere_apr_view','e_request\ere_get_datatable_value@get_approve_view')
 Route::get('/ere_all_req_view','e_request\ere_get_datatable_value@get_all_req_view');
 Route::get('/ere_report','e_request\ere_get_report@ere_report');
 
+//======================PDF======================
+Route::get('request','PdfController@request');
+Route::get('warrantyLetter','warrantyLetter@warrantyletter');
+Route::get('stopworkLetter','stopworkLetter@stopworkLetter');
+Route::get('inviteLetter','inviteLetter@inviteLetter');
+Route::get('inviteeetingLetter','inviteMeetingLetter@inviteMeetingLetter');
+Route::get('notice','notice@notice');
+Route::get('requestForm','requestForm@requestForm');
+Route::get('Introduction','Introduction@Introduction');
+Route::get('Decision','Decision@Decision');
+Route::get('requestPaymentForm','requestPaymentForm@requestPaymentForm');
+Route::get('FinishContractWorkLetter','FinishContractWorkLetter@FinishContractWorkLetter');
+Route::get('IntroductionCEO','IntroductionCEO@IntroductionCEO');
+Route::get('StopWorkEmployee','StopWorkEmployee@StopWorkEmployee');
+//============reportPDF===========
+Route::get('certificate','Certificate@certificatePDF'); //certificate
+Route::get('Expried_intership','Expried_intership@Expried_internshipPDF'); //Expried_intership
+Route::get('mistake','mistake_form@mistakePDF'); //Mistake_form
+Route::get('spend_eating','spend_eating_form@spend_eatingPDF'); //Mistake_form
+Route::get('commission','report_calculate_price_commission@commissionPDF'); //Commission
+Route::get('training_checking_list','training_checking_list@report_trainingPDF'); //training_check_list
+Route::get('training_request_proposal','training_request_proposal@training_requestPDF'); //training_request_proposal
+
 //=======================E-request==========================
 
 //==================STOCK SYSTEM===================================================
@@ -289,9 +322,9 @@ Route::get('dashboarhProduct','stock\dashboard@dashboarhProduct');
 Route::get('getChartofProduct','stock\dashbord@getProductDetail');
 Route::get('branchChange','stock\dashboard@BranchChange');
 Route::get('modalCompany','stock\dashboard@dashboard');
-// Route::get('/main',function(){
-//     return view('Main');
-// });
+Route::get('/main',function(){
+    return view('Main');
+});
 Route::post('/dashbord','stock\dashbord@LogIn');
 Route::get('/dashbord','stock\dashbord@Dashbord');
 // Route::get('/','login@checkSession');
