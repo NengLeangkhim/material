@@ -95,6 +95,10 @@
     </div><!--End Container-Fluid-->
 </section><!-- end section Main content -->
 <script>
+
+
+
+
     $('#DetailContactFrom').datetimepicker({
         format: 'YYYY-MM',
         sideBySide: true,

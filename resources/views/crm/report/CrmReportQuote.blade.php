@@ -95,7 +95,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-tty"></i></span>
                                         </div>
-                                        <select class="form-control" name="select_status" id="select_status">
+                                        <select class="form-control select2" name="select_status" id="select_status">
                                             <option value="0">Please Select</option>
                                         </select>
                                     </div>
@@ -108,7 +108,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                             </div>
-                                            <select class="form-control" name="select_assign_to" id="select_assign_to">
+                                            <select class="form-control select2" name="select_assign_to" id="select_assign_to">
                                                 <option value="0">Please Select</option>
                                             </select>
                                         </div>
@@ -159,7 +159,9 @@
 <script src="../assets/plugins/jquery/jquery.min.js"></script>
 <script>
 
-
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
 
     $('#DetailQuoteFrom').datetimepicker({
         format: 'YYYY-MM',
@@ -188,7 +190,7 @@
     }
 
     $(document).ready(function(){
-        setSelectOptionData('/quote/add/listAssignTo','#select_assign_to')
+        setSelectOptionData('/crmreport/listAssignTo','#select_assign_to')
         setSelectOptionData('/api/quote/status','#select_status')
 
         var url = '/api/crm/report/quoteReportDetail'

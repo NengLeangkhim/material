@@ -119,6 +119,7 @@ Route::get('/quote/add/listQuoteLead','crm\QuoteController@listQuoteLead'); // g
 Route::get('/quote/add/listQuoteBranch','crm\QuoteController@listQuoteBranch'); // get lead branch
 Route::get('/quote/add/listAssignTo','crm\QuoteController@staffAssignQuote'); // list staff get assign quote
 
+
 Route::post('/quote/save','crm\QuoteController@saveQuote'); // sumit quote data to database api
 
 
@@ -144,6 +145,7 @@ Route::get('/crmreport/detailorganization','crm\CrmReportController@CrmDetailOrg
 Route::get('/crmreport/quote/chart','crm\CrmReportController@GetQuoteChart'); // Get Quote Chart
 Route::get('/crmreport/detailquote','crm\CrmReportController@CrmDetailQuoteReport'); // show Quote Detail report
 Route::get('/crmreport/survey/chart','crm\CrmReportController@GetSurveyChart'); // Get survey chart report
+Route::get('/crmreport/listAssignTo','crm\QuoteController@getStaffAssignForReportQuote'); // list staff get assign for report search quote
 
 // End Report
 

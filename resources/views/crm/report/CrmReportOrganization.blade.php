@@ -46,7 +46,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-tty"></i></span>
                                         </div>
-                                        <select class="form-control" name="select_source" id="select_source">
+                                        <select class="form-control select2" name="select_source" id="select_source">
                                             <option value="0">Please Select</option>
                                         </select>
                                     </div>
@@ -59,7 +59,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                             </div>
-                                            <select class="form-control" name="select_assign_to" id="select_assign_to">
+                                            <select class="form-control select2" name="select_assign_to" id="select_assign_to">
                                                 <option value="0">All Staff</option>
                                             </select>
                                         </div>
@@ -157,6 +157,12 @@
     </div><!--End Container-Fluid-->
 </section><!-- end section Main content -->
 <script>
+
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+
+
     $('#DetailOrganizationFrom').datetimepicker({
         format: 'YYYY-MM',
         sideBySide: true,
