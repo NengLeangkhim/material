@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\model\hrms\recruitment\ModelHrmListCandidate;
 use App\Http\Controllers\perms;
+use App\model\hrms\employee\Employee;
 use App\model\hrms\ModelHrmPermission;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class HrmListCandidateController extends Controller
@@ -87,7 +89,8 @@ class HrmListCandidateController extends Controller
                         $action = 'update';
                         $position= ModelHrmPermission::hrm_get_position();
                         $candidate = ModelHrmListCandidate::get_detail_candidate($id);
-                        return view('hrms/recruitment/list_candidate/HrmActionCandidate',['action'=>$action,'position'=>$position,'candidate'=>$candidate]);
+                        $education_level=Employee::education_level();
+                        return view('hrms/recruitment/list_candidate/HrmActionCandidate',['action'=>$action,'position'=>$position,'candidate'=>$candidate,'education'=>$education_level]);
                     }else{
                         return view('no_perms');
                     }
@@ -95,7 +98,8 @@ class HrmListCandidateController extends Controller
                 if(perms::check_perm_module('HRM_09090102')){//module code
                     $action = 'create';
                     $position= ModelHrmPermission::hrm_get_position();
-                    return view('hrms/recruitment/list_candidate/HrmActionCandidate',['action'=>$action,'position'=>$position]);
+                    $education_level=Employee::education_level();
+                    return view('hrms/recruitment/list_candidate/HrmActionCandidate',['action'=>$action,'position'=>$position,'education'=>$education_level]);
                 }else{
                     return view('no_perms');
                 }
@@ -118,6 +122,8 @@ class HrmListCandidateController extends Controller
                                         ->where(function ($query) use ($request) {
                                         return $query->where('is_deleted', 'f');})
                                             ],
+                    'education_level'=>['required','integer'],
+                    'major'=>['required'],
                     'cv' => ['required','mimes:pdf','max:10240'
                                             ],
                     'cover_letter' => [ 'required','mimes:pdf','max:10240'
@@ -145,28 +151,38 @@ class HrmListCandidateController extends Controller
                     'errors' => $validator->getMessageBag()->toArray()
                 ));
             }else{
-                if(perms::check_perm_module('HRM_09090102')){//module code
-                $userid= $_SESSION['userid'];
-                 $fname = $request->fname;
-                 $lname = $request->lname;
-                 $name_kh = $request->name_kh;
-                 $email = $request->email;
-                 $password = $request->pw;
-                 $p = $this->en($password);
-                 $position_id = $request->position;
-                 $interest = '';
-                 $file_cv = $request->file('cv');// GET File
-                 $zip_file = $file_cv->getClientOriginalName(); // GET File name
-                 $destinationPath = public_path('/media/file_candidate_recruitment/'.$email.'/'); //path for move
-                 $file_cv->move($destinationPath,$zip_file); // move file to directory
-                 $file_cover_letter = $request->file('cover_letter');// GET File
-                 $cover_letter = $file_cover_letter->getClientOriginalName(); // GET File name
-                 $file_cover_letter->move($destinationPath,$cover_letter); // move file to directory
-                 $insert_candidate = ModelHrmListCandidate::insert_candidate($fname,$lname,$name_kh,$zip_file,$email,$p,$position_id,$cover_letter,$interest); //insert data
-                return response()->json(['success'=>'Record is successfully added']);
-                }else{
-                    return view('no_perms');
+                DB::beginTransaction();
+                try {
+                    if(perms::check_perm_module('HRM_09090102')){//module code
+                        $userid= $_SESSION['userid'];
+                        $fname = $request->fname;
+                        $lname = $request->lname;
+                        $name_kh = $request->name_kh;
+                        $email = $request->email;
+                        $education_level=$request->education_level;
+                        $major=$request->major;
+                        $password = $request->pw;
+                        $p = $this->en($password);
+                        $position_id = $request->position;
+                        $interest = '';
+                        $file_cv = $request->file('cv');// GET File
+                        $zip_file = $file_cv->getClientOriginalName(); // GET File name
+                        $destinationPath = public_path('/media/file_candidate_recruitment/'.$email.'/'); //path for move
+                        $file_cv->move($destinationPath,$zip_file); // move file to directory
+                        $file_cover_letter = $request->file('cover_letter');// GET File
+                        $cover_letter = $file_cover_letter->getClientOriginalName(); // GET File name
+                        $file_cover_letter->move($destinationPath,$cover_letter); // move file to directory
+                        $insert_candidate = ModelHrmListCandidate::insert_candidate($fname,$lname,$name_kh,$zip_file,$email,$p,$position_id,$cover_letter,$interest,$education_level,$major); //insert data
+                        DB::commit();
+                        return response()->json(['success'=>'Record is successfully added']);
+                    }else{
+                        return view('no_perms');
+                    }
+                } catch (\Throwable $th) {
+                    DB::rollBack();
+                    throw $th;
                 }
+                
             }
       }
       // Function Update
@@ -179,6 +195,8 @@ class HrmListCandidateController extends Controller
                   'lname' => ['required'],
                   'name_kh' => ['required'],
                   'position' => ['required'],
+                  'education_level'=>['required','integer'],
+                  'major'=>['required'],
                   'email' =>  [  'required',
                                       'max:255',
                                       Rule::unique('hr_recruitment_candidate','email')->ignore($request->candidate_id)
@@ -211,45 +229,55 @@ class HrmListCandidateController extends Controller
                   'errors' => $validator->getMessageBag()->toArray()
               ));
           }else{
-              if(perms::check_perm_module('HRM_09090103')){//module code
-                $email = $request->email;
-                $destinationPath = public_path('/media/file_candidate_recruitment/'.$email.'/'); //path for move
-                if($request->file('cv') !=''){
-                    $file_cv = $request->file('cv');// GET File
-                    $zip_file = $file_cv->getClientOriginalName(); // GET File name
-                    $file_cv->move($destinationPath,$zip_file); // move file to directory
+              DB::beginTransaction();
+              try {
+                  if(perms::check_perm_module('HRM_09090103')){//module code
+                    $email = $request->email;
+                    $education_level=$request->education_level;
+                    $major=$request->major;
+                    $destinationPath = public_path('/media/file_candidate_recruitment/'.$email.'/'); //path for move
+                    if($request->file('cv') !=''){
+                        $file_cv = $request->file('cv');// GET File
+                        $zip_file = $file_cv->getClientOriginalName(); // GET File name
+                        $file_cv->move($destinationPath,$zip_file); // move file to directory
+                    }else{
+                        $zip_file = $request->cv_hidden;
+                    }
+                    if($request->file('cover_letter') !=''){
+                        $file_cover_letter = $request->file('cover_letter');// GET File
+                        $cover_letter = $file_cover_letter->getClientOriginalName(); // GET File name
+                        $file_cover_letter->move($destinationPath,$cover_letter); // move file to directory
+                    }else{
+                        $cover_letter = $request->cover_hidden;
+                    }
+                    $userid= $_SESSION['userid'];
+                    $id = $request->candidate_id;
+                    $fname = $request->fname;
+                    $lname = $request->lname;
+                    $name_kh = $request->name_kh;
+                    if(isset($request->pw)){
+                        $password = $request->pw;
+                        $p =$this->en($password);
+                        }else{
+                            $p = $request->pw_update;
+                        }
+                    $position_id = $request->position;
+                    $interest = '';
+                    $status= 't';
+                    date_default_timezone_set("Asia/Phnom_Penh");
+                    $date = date("Y/m/d h:i:sa");
+                    $candidate = $request->candidate;
+                    $update_candidate = ModelHrmListCandidate::update_candidate($id,$userid,$fname,$lname,$name_kh,$zip_file,$email,$p,$candidate,$position_id,$status,$cover_letter,$interest,$date,$education_level,$major); //insert data
+                    DB::commit();
+                    return response()->json(['success'=>'Record is successfully update']);
                 }else{
-                    $zip_file = $request->cv_hidden;
+                    return view('no_perms');
                 }
-                if($request->file('cover_letter') !=''){
-                    $file_cover_letter = $request->file('cover_letter');// GET File
-                    $cover_letter = $file_cover_letter->getClientOriginalName(); // GET File name
-                    $file_cover_letter->move($destinationPath,$cover_letter); // move file to directory
-                }else{
-                    $cover_letter = $request->cover_hidden;
-                }
-               $userid= $_SESSION['userid'];
-               $id = $request->candidate_id;
-               $fname = $request->fname;
-               $lname = $request->lname;
-               $name_kh = $request->name_kh;
-               if(isset($request->pw)){
-                $password = $request->pw;
-                $p =$this->en($password);
-                }else{
-                    $p = $request->pw_update;
-                }
-               $position_id = $request->position;
-               $interest = '';
-               $status= 't';
-               date_default_timezone_set("Asia/Phnom_Penh");
-               $date = date("Y/m/d h:i:sa");
-               $candidate = $request->candidate;
-               $update_candidate = ModelHrmListCandidate::update_candidate($id,$userid,$fname,$lname,$name_kh,$zip_file,$email,$p,$candidate,$position_id,$status,$cover_letter,$interest,$date); //insert data
-              return response()->json(['success'=>'Record is successfully update']);
-              }else{
-                  return view('no_perms');
+              } catch (\Throwable $th) {
+                  DB::rollBack();
+                  throw $th;
               }
+              
           }
     }
 

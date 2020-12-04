@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\hrms\recruitment_user;
 
 use App\Http\Controllers\Controller;
+use App\model\hrms\employee\DepartmentAndPosition;
+use App\model\hrms\employee\Employee;
+use App\model\hrms\recruitment\ModelHrmListCandidate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\model\hrms\recruitment_user\recruitment_userModel;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Auth\Events\Validated;
+use Illuminate\Validation\Rule;
 
 class recruitment_userController extends Controller
 {
@@ -32,86 +37,75 @@ class recruitment_userController extends Controller
 
 
     // function candidate register data
-    public function register_candidate(){
-        if(isset($_POST['btnSubmit']) && isset($_POST['emailaddress']) && isset($_POST['password']) ){
-                //declear variable
-                $kh_name =  $_POST['khname'];
-                $f_name=    $_POST['firstname'];
-                $l_name=    $_POST['lastname'];
-                $email=     $_POST['emailaddress'];
-                $pass=      $_POST['password'];
-                $p = recruitment_userController::en($pass);
-                $pos=       $_POST['position'];
-                $subdir = $email;
-
-                //part create & upload file
-                $targetDir = "media/file_candidate_recruitment/".$subdir;
-                $tmp= $_FILES['uploadcv']['tmp_name'];
-                $tmp2= $_FILES['uploadcover']['tmp_name'];
-                $cv = basename($_FILES['uploadcv']['name']);
-                $cover = basename($_FILES['uploadcover']['name']);
-                $allowed =  array('pdf');
-                $cv_ = pathinfo($cv, PATHINFO_EXTENSION);
-                $cover_ = pathinfo($cover, PATHINFO_EXTENSION);
-
-
-                $r = recruitment_userModel::tbl_hrUser($email);
-                if($r > 0){ // this true when user input the email that already taken
-                    $em_error = 1;
-                    return view('hrms/recruitment_user/index_recruitment_register', compact('em_error'));
-                }
-                else {
-                    $file_size = 5 * 1024 * 1024;
-                    if($_FILES['uploadcv']['size'] > $file_size || $_FILES['uploadcover']['size'] > $file_size) { // check file size if biggest that 5 MB
-                        $error = 'File size too big. Please select file smaller than 5MB';
-                        return view('hrms/recruitment_user/index_recruitment_register', compact('error'));
-
-                    }else{
-
-                        if(in_array($cv_, $allowed) && in_array($cover_, $allowed)) {  // check file is PDF file
-
-                                //check if folder have, remove old folder
-                                if(is_dir($targetDir)){
-                                    unlink($targetDir.'/cv.'.$cv_);
-                                    unlink($targetDir.'/cover.'.$cover_);
-                                    rmdir($targetDir);
-                                }
-                                mkdir($targetDir, 0777, true);
-                                if(move_uploaded_file($tmp, $targetDir.'/cv.'.$cv_) == true){
-                                    if(move_uploaded_file($tmp2, $targetDir.'/cover.'.$cover_)){
-                                        $r = recruitment_userModel::insert_user_info($f_name, $l_name, $kh_name, $cv, $email, $p, $pos, $cover);
-                                        if($r == 1){
-                                                $success = 'Create acccount successfully !';
-                                                return view('hrms/recruitment_user/index_recruitment_register', compact('success'));
-
-                                        }else{
-                                                unlink($targetDir.'/cv.'.$cv_);
-                                                unlink($targetDir.'/cover.'.$cover_);
-                                                rmdir($targetDir);
-                                                $error = 'Create Failed !';
-                                                return view('hrms/recruitment_user/index_recruitment_register', compact('error'));
-                                        }
-                                    }else{
-                                        echo 'cover letter not move'; return 0;
-                                    }
-                                }else{
-
-                                    echo 'cv not move'; return 0;
-                                }
-
-                        }else{
-                            $error = 'Please select the PDF file only !';
-                            return view('hrms/recruitment_user/index_recruitment_register', compact('error'));
-                        }
-                    }
-                }
+    public function register_candidate(Request $request){
+        DB::beginTransaction();
+        try {
+            $validator = \Validator::make($request->all(), [
+                    'firstname' => ['required'],
+                    'lastname' => ['required'],
+                    'khname' => ['required'],
+                    'password' => ['required'],
+                    'position' => ['required'],
+                    'emailaddress' =>  [  'required',
+                                        'max:255',
+                                        Rule::unique('hr_recruitment_candidate','email')
+                                        ->where(function ($query) use ($request) {
+                                        return $query->where('is_deleted', 'f');})
+                                            ],
+                    'education_level'=>['required','integer'],
+                    'major'=>['required'],
+                    'uploadcv' => ['required','mimes:pdf','max:10240'
+                                            ],
+                    'uploadcover' => [ 'required','mimes:pdf','max:10240'
+                                            ],
+                ]
+            );
+            if ($validator->fails()) //check validator for fail
+            {
+                $education_level=Employee::education_level();
+                $position=DepartmentAndPosition::AllPosition();
+                return view('hrms/recruitment_user/index_recruitment_register')->with(['required' => $validator->getMessageBag()->toArray(),'position'=>$position,'education'=>$education_level]);
+            }
+            // dd($request->request);
+            $first_name=$request->firstname;
+            $last_name=$request->lastname;
+            $kh_name=$request->khname;
+            $education_level=$request->education_level;
+            $major=$request->major;
+            $email=$request->emailaddress;
+            $password=self::en($request->password);
+            $position=$request->position;
+            $interest = '';
+            $file_cv = $request->file('uploadcv');// GET File
+            $zip_file = $file_cv->getClientOriginalName(); // GET File name
+            $destinationPath = public_path('/media/file_candidate_recruitment/'.$email.'/'); //path for move
+            $file_cv->move($destinationPath,$zip_file); // move file to directory
+            $file_cover_letter = $request->file('uploadcover');// GET File
+            $cover_letter = $file_cover_letter->getClientOriginalName(); // GET File name
+            $file_cover_letter->move($destinationPath,$cover_letter); // move file to directory
+            $insert_candidate = recruitment_userModel::insert_candidate($first_name,$last_name,$kh_name,$zip_file,$email,$password,$position,$cover_letter,$interest,$education_level,$major); //insert data
+            DB::commit();
+            $education_level=Employee::education_level();
+            $position=DepartmentAndPosition::AllPosition();
+            return view('hrms/recruitment_user/index_recruitment_register')->with(['education'=>$education_level,'position'=>$position,'success' => 'Register Successfully !!']);
+            // return redirect()->route('hrm_recruitment_user_register', ['success' => 'Register Successfully !!']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
         }
-
     }
+    
 
     //function use for route Get Method
     public function register_candidateGet(){
-        return view('hrms/recruitment_user/index_recruitment_register');
+        try {
+            $education_level=Employee::education_level();
+            $position=DepartmentAndPosition::AllPosition();
+            return view('hrms/recruitment_user/index_recruitment_register')->with(['education'=>$education_level,'position'=>$position]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+        
     }
     // end function account submit
 

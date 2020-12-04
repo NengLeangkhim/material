@@ -17,26 +17,25 @@ class QuoteController extends Controller
 
     // function to get all quote lead
     public static function showQuoteList(){
-
+        if(perms::check_perm_module('CRM_0206')){//module codes
+            return view('crm/quote/quoteShow');
+        }else{
+            return view('no_perms');
+        }
+    }
+    public static function showQuoteListDatatable(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         $token = $_SESSION['token'];
         // dump($token);
-        $request = Request::create('/api/quotes', 'GET');
+        $urlQuery=str_replace($request->Url(),'',$request->fullUrl());
+        $request = Request::create('/api/quotes/datatable'.$urlQuery, 'GET');
         $request->headers->set('Accept', 'application/json');
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
-        $listQuote = json_decode($res->getContent());
-
-        if($listQuote != null){
-                return view('crm/quote/quoteShow', compact('listQuote'));
-        }else
-        {
-            return view('crm/quote/quoteShow');
-        }
+        return $res->getContent();
     }
-
     // function to get show qoute detail
     public static function showQuoteListDetail(){
         if (session_status() == PHP_SESSION_NONE) {
