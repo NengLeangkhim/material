@@ -90,6 +90,7 @@ class IncomeStatementApiController extends Controller {
         }
 
         $myResult = $this->getMultipleIncomeStatement($dateList);
+        // dd($myResult);
 
         $data = [
             'header' => $dateList,
@@ -111,7 +112,8 @@ class IncomeStatementApiController extends Controller {
                 "currency_name_kh"=> $value->currency_name_kh,
                 "value_list" => [[
                     "total_debit"=> $value->total_debit,
-                    "total_credit"=> $value->total_credit
+                    "total_credit"=> $value->total_credit,
+                    "total_amount"=> $value->total_amount
                 ]]
             ];
             array_push($newList['data'], $newValue);
@@ -128,12 +130,14 @@ class IncomeStatementApiController extends Controller {
         foreach($firstList['data'] as $key => $value){
             $isAppend ? array_push($firstList['data'][$key]['value_list'], [
                 "total_debit"=> 0,
-                "total_credit"=> 0
+                "total_credit"=> 0,
+                "total_amount"=> 0
             ])
             :
             array_unshift($firstList['data'][$key]['value_list'], [
                 "total_debit"=> 0,
-                "total_credit"=> 0
+                "total_credit"=> 0,
+                "total_amount"=> 0
             ])
             ;
         }
@@ -141,12 +145,14 @@ class IncomeStatementApiController extends Controller {
         foreach($firstList['total_list'] as $key => $value){
            $isAppend ? array_push($firstList['total_list'][$key]['value_list'], [
                 "total_debit"=> 0,
-                "total_credit"=> 0
+                "total_credit"=> 0,
+                "total_amount"=> 0
             ])
             :
             array_unshift($firstList['total_list'][$key]['value_list'], [
                 "total_debit"=> 0,
-                "total_credit"=> 0
+                "total_credit"=> 0,
+                "total_amount"=> 0
             ])
             ;
         }
@@ -160,7 +166,8 @@ class IncomeStatementApiController extends Controller {
                 if($value['ma_currency_id'] == $totalList[$i]['ma_currency_id']){
                     $firstList['total_list'][$key]['value_list'][$index] = [
                         'total_debit' => $totalList[$i]['value_list'][0]['total_debit'],
-                        'total_credit' => $totalList[$i]['value_list'][0]['total_credit']
+                        'total_credit' => $totalList[$i]['value_list'][0]['total_credit'],
+                        'total_amount' => $totalList[$i]['value_list'][0]['total_amount']
                     ];
                     $isInsertNew = false;
                 }
@@ -170,12 +177,14 @@ class IncomeStatementApiController extends Controller {
                 for($j=0; $j<$index; $j++){
                     array_push($value_list, [
                         "total_debit"=> 0,
-                        "total_credit"=> 0
+                        "total_credit"=> 0,
+                        "total_amount"=> 0,
                     ]);
                 }
                 array_push($value_list, [
                     "total_debit"=> $totalList[$i]['value_list'][0]['total_debit'],
-                    "total_credit"=> $totalList[$i]['value_list'][0]['total_debit']
+                    "total_credit"=> $totalList[$i]['value_list'][0]['total_credit'],
+                    "total_amount"=> $totalList[$i]['value_list'][0]['total_amount']
                 ]);
                 $newValue = [
                     "ma_currency_id"=> $totalList[$i]['ma_currency_id'],
@@ -197,6 +206,7 @@ class IncomeStatementApiController extends Controller {
                     // both lists have the same account chart
                     $firstList['data'][$key]['value_list'][$index]['total_debit'] = $secondList[$i]->total_debit;
                     $firstList['data'][$key]['value_list'][$index]['total_credit'] = $secondList[$i]->total_credit;
+                    $firstList['data'][$key]['value_list'][$index]['total_amount'] = $secondList[$i]->total_amount;
                     $isInsertNew = false;
                 }
             }
@@ -207,12 +217,14 @@ class IncomeStatementApiController extends Controller {
                 for($j=0; $j<$index; $j++){
                     array_push($value_list, [
                         "total_debit"=> 0,
-                        "total_credit"=> 0
+                        "total_credit"=> 0,
+                        "total_amount"=> 0
                     ]);
                 }
                 array_push($value_list, [
                     "total_debit"=> $secondList[$i]->total_debit,
-                    "total_credit"=> $secondList[$i]->total_credit
+                    "total_credit"=> $secondList[$i]->total_credit,
+                    "total_amount"=> $secondList[$i]->total_amount
                 ]);
                 $newValue = [
                     "id"=> $secondList[$i]->id,
@@ -248,12 +260,14 @@ class IncomeStatementApiController extends Controller {
         foreach($firstList as $key => $value){
             $isAppend ? array_push($firstList[$key]['value_list'], [
                 "total_debit"=> 0,
-                "total_credit"=> 0
+                "total_credit"=> 0,
+                "total_amount"=> 0
             ])
             :
             array_unshift($firstList[$key]['value_list'], [
                 "total_debit"=> 0,
-                "total_credit"=> 0
+                "total_credit"=> 0,
+                "total_amount"=> 0
             ])
             ;
         }
@@ -266,7 +280,8 @@ class IncomeStatementApiController extends Controller {
             foreach($firstList as $key => $value){
                 if($value['ma_currency_id'] == $secondList[$i]['ma_currency_id']){
                     $firstList[$key]['value_list'][$index]['total_debit'] = $secondList[$i]['value_list'][0]['total_debit'];
-                    $firstList[$key]['value_list'][$index]['total_debit'] = $secondList[$i]['value_list'][0]['total_debit'];
+                    $firstList[$key]['value_list'][$index]['total_credit'] = $secondList[$i]['value_list'][0]['total_credit'];
+                    $firstList[$key]['value_list'][$index]['total_amount'] = $secondList[$i]['value_list'][0]['total_amount'];
                     $isInsertNew = false;
                 }
             }
@@ -275,12 +290,14 @@ class IncomeStatementApiController extends Controller {
                 for($j=0; $j<$index; $j++){
                     array_push($value_list, [
                         "total_debit"=> 0,
-                        "total_credit"=> 0
+                        "total_credit"=> 0,
+                        "total_amount"=> 0
                     ]);
                 }
                 array_push($value_list, [
                     "total_debit"=> $secondList[$i]['value_list'][0]['total_debit'],
-                    "total_credit"=> $secondList[$i]['value_list'][0]['total_debit']
+                    "total_credit"=> $secondList[$i]['value_list'][0]['total_credit'],
+                    "total_amount"=> $secondList[$i]['value_list'][0]['total_amount']
                 ]);
                 $newValue = [
                     "ma_currency_id"=> $secondList[$i]['ma_currency_id'],
@@ -324,9 +341,9 @@ class IncomeStatementApiController extends Controller {
             $fromDate = $date['fromDate'];
             $toDate = $date['toDate'];
             try {
-                $income = $this->is->getData('(10,11)', $fromDate, $toDate);
-                $expense = $this->is->getData('(12,13)', $fromDate, $toDate);
-                $cogs = $this->is->getData('(6)', $fromDate, $toDate);
+                $income = $this->is->getData('10,11', $fromDate, $toDate, false);
+                $expense = $this->is->getData('12,13', $fromDate, $toDate);
+                $cogs = $this->is->getData('6', $fromDate, $toDate);
 
                 $total_income = $this->getTotalSameCurrency($income);
                 $total_expense = $this->getTotalSameCurrency($expense);
@@ -358,32 +375,10 @@ class IncomeStatementApiController extends Controller {
 
     protected function getTotalSameCurrency($value = []){
         $results = [];
-        foreach($value as $key => $val){
-            if(count($results) == 0) {
-                $newValue = [
-                    "ma_currency_id"=> $val->ma_currency_id,
-                    "currency_name_en"=> $val->currency_name_en,
-                    "currency_name_kh"=> $val->currency_name_kh,
-                    "value_list" => [
-                            [
-                                "total_debit"=> $val->total_debit,
-                                "total_credit"=> $val->total_credit
-                            ]
-                        ]
-                ];
-                array_push($results, $newValue);
-            } else {
-                $input = false;
-                for($i = 0; $i < count($results); $i++){
-                    if($val->ma_currency_id == $results[$i]['ma_currency_id']){
-                        $results[$i]['value_list'][0] = [
-                            "total_debit"=> $results[$i]['value_list'][0]['total_debit'] + $val->total_debit,
-                            "total_credit"=> $results[$i]['value_list'][0]['total_credit'] + $val->total_credit
-                        ];
-                        $input = true;
-                    }
-                }
-                if(!$input) {
+
+        if (count($value) > 0) {
+            foreach ($value as $key => $val) {
+                if (count($results) == 0) {
                     $newValue = [
                         "ma_currency_id"=> $val->ma_currency_id,
                         "currency_name_en"=> $val->currency_name_en,
@@ -391,11 +386,39 @@ class IncomeStatementApiController extends Controller {
                         "value_list" => [
                                 [
                                     "total_debit"=> $val->total_debit,
-                                    "total_credit"=> $val->total_credit
+                                    "total_credit"=> $val->total_credit,
+                                    "total_amount"=> $val->total_amount
                                 ]
                             ]
                     ];
                     array_push($results, $newValue);
+                } else {
+                    $input = false;
+                    for ($i = 0; $i < count($results); $i++) {
+                        if ($val->ma_currency_id == $results[$i]['ma_currency_id']) {
+                            $results[$i]['value_list'][0] = [
+                                "total_debit"=> $results[$i]['value_list'][0]['total_debit'] + $val->total_debit,
+                                "total_credit"=> $results[$i]['value_list'][0]['total_credit'] + $val->total_credit,
+                                "total_amount"=> $results[$i]['value_list'][0]['total_amount'] + $val->total_amount
+                            ];
+                            $input = true;
+                        }
+                    }
+                    if (!$input) {
+                        $newValue = [
+                            "ma_currency_id"=> $val->ma_currency_id,
+                            "currency_name_en"=> $val->currency_name_en,
+                            "currency_name_kh"=> $val->currency_name_kh,
+                            "value_list" => [
+                                    [
+                                        "total_debit"=> $val->total_debit,
+                                        "total_credit"=> $val->total_credit,
+                                        "total_amount"=> $val->total_amount
+                                    ]
+                                ]
+                        ];
+                        array_push($results, $newValue);
+                    }
                 }
             }
         }
@@ -410,6 +433,7 @@ class IncomeStatementApiController extends Controller {
                 if($fvalue['ma_currency_id'] == $svalue['ma_currency_id']){
                     $firstValue[$fkey]['value_list'][0]['total_debit'] -= $svalue['value_list'][0]['total_debit'];
                     $firstValue[$fkey]['value_list'][0]['total_credit'] -= $svalue['value_list'][0]['total_credit'];
+                    $firstValue[$fkey]['value_list'][0]['total_amount'] -= $svalue['value_list'][0]['total_amount'];
                     $match = true;
                 }
             }
@@ -421,7 +445,8 @@ class IncomeStatementApiController extends Controller {
                     'value_list' =>  [
                         [
                             'total_debit' => ($svalue['value_list'][0]['total_debit'])*(-1),
-                            'total_credit' => ($svalue['value_list'][0]['total_debit'])*(-1),
+                            'total_credit' => ($svalue['value_list'][0]['total_credit'])*(-1),
+                            'total_amount' => ($svalue['value_list'][0]['total_amount'])*(-1)
                         ]
                     ]
                 ]);
