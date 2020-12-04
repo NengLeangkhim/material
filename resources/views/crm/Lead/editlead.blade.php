@@ -8,9 +8,9 @@
                     <ol class="breadcrumb float-sm-right">
                         <?php
                             for($i =0;$i<sizeof($editlead); $i++){
-                                ?>                                    
+                                ?>
                                     <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('detaillead/{{$editlead[$i]['lead_id']}}')">Detail Lead</a></li>
-                                <?php 
+                                <?php
                             }
                         ?>
                         <li class="breadcrumb-item active">Update Lead</li>
@@ -18,24 +18,24 @@
                 </div>
             </div>
          </div><!-- /.container-fluid -->
-    </section>  
+    </section>
     <section class="content">
         <div class="container-fluid">
             <form id="frm_CrmleadEdit">
                 @csrf
             <div class="row">
-                
+
                 <!-- left column -->
-                <div class="col-md-12">                    
+                <div class="col-md-12">
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header" style="background:#1fa8e0">
                                 <h3 class="card-title">Detail Lead</h3>
-                            </div>                            
+                            </div>
                             <div class="card-body">
                                 <?php
                                      for($i =0;$i<sizeof($editlead); $i++){
-                                    ?> 
+                                    ?>
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -69,7 +69,7 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <label for="primary_email">Primary Email<b style="color:red">*</b></label>
+                                                    <label for="primary_email">Primary Email </label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fas fa-at"></i></span>
@@ -124,12 +124,12 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fab fa-tumblr"></i></span>
                                                         </div>
-                                                        <select class="form-control" name="current_speed_isp" id="current_speed_isp">  
-                                                                                                                
+                                                        <select class="form-control" name="current_speed_isp" id="current_speed_isp">
+
                                                             @foreach($currentisp as $key)
-                                                                <option value="{{$key->id}}" {{$key->id==$editlead[$i]['crm_lead_current_isp_id'] ? 'selected="selected"':''}}> {{$key->name_en}}</option>                                                               
+                                                                <option value="{{$key->id}}" {{$key->id==$editlead[$i]['crm_lead_current_isp_id'] ? 'selected="selected"':''}}> {{$key->name_en}}</option>
                                                             @endforeach
-                                                                                                                       
+
                                                         </select>
                                                     </div>
                                                 </div>
@@ -152,10 +152,10 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                         </div>
-                                                        <select class="form-control "  name="branch" id='branch' > 
+                                                        <select class="form-control "  name="branch" id='branch' >
                                                             @foreach($companybranch as $key)
-                                                                <option value="{{$key->id}}" {{$key->id==$editlead[$i]['ma_company_detail_id'] ? 'selected="selected"':''}}> {{$key->name}} / {{$key->company}}</option>                                                               
-                                                            @endforeach                                                     
+                                                                <option value="{{$key->id}}" {{$key->id==$editlead[$i]['ma_company_detail_id'] ? 'selected="selected"':''}}> {{$key->name}} / {{$key->company}}</option>
+                                                            @endforeach
                                                         </select>
                                                         <span class="invalid-feedback" role="alert" id="branchError"> {{--span for alert--}}
                                                             <strong></strong>
@@ -171,7 +171,7 @@
                                                         <select class="form-control" name="lead_source" id="lead_source" >
                                                             <option></option>
                                                             @foreach($lead_source as $row)
-                                                                <option value="{{$row->id}}" {{$row->id==$editlead[$i]['crm_lead_source_id'] ? 'selected="selected"':''}}> {{$row->lead_source}}</option>                                                               
+                                                                <option value="{{$row->id}}" {{$row->id==$editlead[$i]['crm_lead_source_id'] ? 'selected="selected"':''}}> {{$row->lead_source}}</option>
                                                             @endforeach
                                                         </select>
                                                         <span class="invalid-feedback" role="alert" id="lead_sourceError"> {{--span for alert--}}
@@ -182,7 +182,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <div class="row">                                                
+                                            <div class="row">
                                                 <div class="col-md-6">
                                                     <label for="lead_industry">Industry <b style="color:red">*</b></label>
                                                     <div class="input-group">
@@ -192,7 +192,7 @@
                                                         <select class="form-control " name="lead_industry" id="lead_industry" >
                                                             <option> </option>
                                                             @foreach($lead_industry as $row )
-                                                                <option value="{{$row->id}}" {{$row->id==$editlead[$i]['crm_lead_industry_id'] ? 'selected="selected"':''}}> {{$row->name_en}}</option>                                                               
+                                                                <option value="{{$row->id}}" {{$row->id==$editlead[$i]['crm_lead_industry_id'] ? 'selected="selected"':''}}> {{$row->name_en}}</option>
                                                             @endforeach
                                                         </select>
                                                         <span class="invalid-feedback" role="alert" id="lead_industryError"> {{--span for alert--}}
@@ -209,9 +209,9 @@
                                                             <input type="text" class="form-control" name="employee_count" id="employee_count"  value="{{$editlead[$i]['employee_count']}}" placeholder="Current Speed">
                                                         </div>
                                                     </div>
-                                                
+
                                             </div>
-                                        </div>                                       
+                                        </div>
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -233,7 +233,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>  
+                                        </div>
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -242,11 +242,11 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
                                                         </div>
-                                                        <select class="form-control " name="status" id="status" >                                                  
-                                                            
+                                                        <select class="form-control " name="status" id="status" >
+
                                                             <option value="{{$editlead[$i]['status']}}"  {{$editlead[$i]['status']==true ? 'selected="selected"':''}}>Active</option>
-                                                            <option value="{{$editlead[$i]['status']}}"  {{$editlead[$i]['status']==false ? 'selected="selected"':''}}>Disable</option>                                                   
-                                                          
+                                                            <option value="{{$editlead[$i]['status']}}"  {{$editlead[$i]['status']==false ? 'selected="selected"':''}}>Disable</option>
+
                                                         </select>
                                                         <span class="invalid-feedback" role="alert" id="statusError"> {{--span for alert--}}
                                                             <strong></strong>
@@ -258,10 +258,10 @@
                                         <div class="col-md-12">
                                             <button type="button" class="btn btn-primary" id="frm_btn_sub_addlead" onclick="CrmSubmitFormFull('frm_CrmleadEdit','/lead/update','/lead','Update Successfully')">Update</button>
                                             <button type="button" class="btn btn-danger" onclick="go_to('/lead')">Cencel</button>
-                                        </div>                                      
-                            </div>  
-                            
-                        </div> 
+                                        </div>
+                            </div>
+
+                        </div>
                         <?php
                     }
                 ?>
@@ -271,7 +271,7 @@
     </section>
 
     <script type="text/javascript">
-    
+
     $( "#contact_id" ).change(function() {
           var to = $(this). children("option:selected"). val();
           var myvar= $( "#getcontact" ).val();
@@ -284,26 +284,26 @@
               'Authorization': `Bearer ${myvar}`,
           },
             success:function(response){
-      
+
                         var name_en = response['data'].name_en;
-                        var name_kh = response['data'].name_kh;             
-                        var email = response['data'].email;             
-                        var phone = response['data'].phone;             
-                        var national_id = response['data'].national_id;             
-                        var position = response['data'].position;             
-                        var honorifics = response['data'].honorifics.name_en;  
-                        var honorifics_id = response['data'].honorifics.id;  
-                        // alert(honorifics);           
-                        $("#name_en").val(name_en); 
-                        $("#name_kh").val(name_kh); 
-                        $("#email").val(email); 
-                        $("#phone").val(phone); 
-                        $("#national_id").val(national_id); 
-                        $("#position").val(position); 
-                        // $("#ma_honorifics_id").val(honorifics); 
-                        var option = "<option value='"+honorifics_id+" 'selected>"+honorifics+"</option>"; 
-  
-                       $("#ma_honorifics_id").append(option); 
+                        var name_kh = response['data'].name_kh;
+                        var email = response['data'].email;
+                        var phone = response['data'].phone;
+                        var national_id = response['data'].national_id;
+                        var position = response['data'].position;
+                        var honorifics = response['data'].honorifics.name_en;
+                        var honorifics_id = response['data'].honorifics.id;
+                        // alert(honorifics);
+                        $("#name_en").val(name_en);
+                        $("#name_kh").val(name_kh);
+                        $("#email").val(email);
+                        $("#phone").val(phone);
+                        $("#national_id").val(national_id);
+                        $("#position").val(position);
+                        // $("#ma_honorifics_id").val(honorifics);
+                        var option = "<option value='"+honorifics_id+" 'selected>"+honorifics+"</option>";
+
+                       $("#ma_honorifics_id").append(option);
 
                         // $('#name_en').prop('readonly', true);
                         // $('#name_kh').prop('readonly', true);
@@ -312,18 +312,18 @@
                         // $('#national_id').prop('readonly', true);
                         // $('#position').prop('readonly', true);
                         // $('#ma_honorifics_id').attr('disabled', true);
-               
-          
+
+
             }
         })
         });
             $('.lead ').click(function(e)
             {
                 var ld = $(this).attr("​value");
-                e.preventDefault();  
+                e.preventDefault();
                 // alert(ld);
-                    $.ajax({   
-                        type: 'GET',   
+                    $.ajax({
+                        type: 'GET',
                         url:ld,
                         success:function(data){
 
@@ -349,7 +349,7 @@
             <script>
                 var map;
                 var markers = [];
-        
+
                 function initMap() {
                     var latlong =document.getElementById('latlong').value;
                     latlong.replace('/[\(\)]//g','');
@@ -359,7 +359,7 @@
 
                     var haightAshbury = {
                         lat:lat,
-                        lng:long 
+                        lng:long
                     };
                     var get_latlng = 0;
                     map = new google.maps.Map(document.getElementById('map'), {
@@ -367,24 +367,24 @@
                         center: haightAshbury,
                         mapTypeId: 'roadmap'
                     });
-                    
-                    
+
+
                     //declear default value for latlong on map
                     addMarker(haightAshbury);
                     // document.getElementById('latlong').value = '-14.774883,24.877663';
-                   
+
                     // This event listener will call addMarker() when the map is clicked.
                     map.addListener('click', function(event) {
                         if (markers.length >= 1) {
                             deleteMarkers();
                         }
-        
+
                         addMarker(event.latLng);
                         get_latlng = event.latLng.lat().toFixed(6) +', '+ event.latLng.lng().toFixed(6);
                         document.getElementById('latlong').value = get_latlng;
                     });
                 }
-        
+
                 // Adds a marker to the map and push to the array.
                 function addMarker(location) {
                     var marker = new google.maps.Marker({
@@ -393,19 +393,19 @@
                     });
                     markers.push(marker);
                 }
-        
+
                 // Sets the map on all markers in the array.
                 function setMapOnAll(map) {
                     for (var i = 0; i < markers.length; i++) {
                         markers[i].setMap(map);
                     }
                 }
-        
+
                 // Removes the markers from the map, but keeps them in the array.
                 function clearMarkers() {
                     setMapOnAll(null);
                 }
-        
+
                 // Deletes all markers in the array by removing references to them.
                 function deleteMarkers() {
                     clearMarkers();

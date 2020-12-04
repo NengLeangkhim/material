@@ -28,21 +28,30 @@ class OrganizationController extends Controller
 
     public function getorganization(){
         if(perms::check_perm_module('CRM_0203')){ // Module  Organizations
-            $organ=ModelCrmOrganization::CrmGetOrganize();
-            $result =json_decode($organ,true);
-            if($result!=null){
-                // dd($result);
-                return view('crm.Organization.index',['organize'=>$result["data"]]);
-
-            }
-            else
-            {
-                return view('no_perms');
-            }
+            // $organ=ModelCrmOrganization::CrmGetOrganize();
+            return view('crm.Organization.index',['organize'=>$result["data"]??'']);
         }else{
             return view('no_perms');
         }
-      
+
+    }
+    public function getorganizationDatatable(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if(perms::check_perm_module('CRM_0203')){ // Module  Organizations
+            $token = $_SESSION['token'];
+            $request_query=str_replace($request->Url(),'',$request->fullUrl());
+            $request_contact = Request::create('api/organizies/datatable'.$request_query, 'GET');
+            //$contact_table = json_decode(Route::dispatch($request_contact)->getContent());
+            $request_contact->headers->set('Accept', 'application/json');
+            $request_contact->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request_contact);
+            return $res->getContent();
+        }else{
+            return view('no_perms');
+        }
+
     }
     public function DetailOrganization($id) {
         if(perms::check_perm_module('CRM_02030102')){ //Module detail
@@ -185,7 +194,7 @@ class OrganizationController extends Controller
         else{
             return view('no_perms');
         }
-        
+
     }
     public function UpdateOrganization(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
