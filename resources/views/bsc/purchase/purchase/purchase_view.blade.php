@@ -39,7 +39,7 @@
                             <div class="col-md-8"></div>
                             <div class="col-md-4 text_right">
                                 <a href="#" class="btn btn-success purchase_form"  value="" id="">Print</a>
-                                <a href="#" style="{{$my_display}}" class="btn btn-secondary purchase_form"  value="bsc_purchase_purchase_purchase_edit" id="purchase_edit" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')">Edit</a>
+                                <a href="#" style="{{ $my_display }}" class="btn btn-secondary purchase_form"  value="bsc_purchase_purchase_purchase_edit" id="purchase_edit" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id }}')">Edit</a>
                             </div>
                         </div>
                     </div>
@@ -47,14 +47,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <p for="" class="account_name">Account Name : {{$purchase->chart_account_name}}</p><br/>
-                                <p for="">Date : {{$purchase->billing_date}}</p><br/>
-                                <p for="">Reference : {{$purchase->reference}}</p><br/>
-                                <p for="">Address : {{$purchase->address}}</p><br/>
+                                <p for="">Date : {{ $purchase->billing_date }}</p><br/>
+                                <p for="">Reference : {{ $purchase->reference }}</p><br/>
+                                <p for="">Address : {{ $purchase->address }}</p><br/>
                             </div>
                             <div class="col-md-6">
-                                <p for="">Supplier Name : {{$purchase->supplier_name}}</p><br/>
-                                <p for="">Due Date : {{$purchase->due_date}}</p><br/>
-                                <p for="">Purchase# : {{$purchase->invoice_number}}</p><br/>
+                                <p for="">Supplier Name : {{ $purchase->supplier_name }}</p><br/>
+                                <p for="">Due Date : {{ $purchase->due_date }}</p><br/>
+                                <p for="">Purchase# : {{ $purchase->invoice_number }}</p><br/>
                             </div>
                         </div>
                     </div>
@@ -75,13 +75,13 @@
                                 @if (count($purchase_detail) > 0)
                                     @foreach ($purchase_detail as $item)
                                         <tr>
-                                            <td>{{$item->product_name}}</td>
-                                            <td>{{$item->description}}</td>
-                                            <td>{{$item->qty}} <span>{{ $item->measurement_name }}</span></td>
-                                            <td>{{number_format($item->unit_price,4,".",",")}}</td>
-                                            <td>{{$item->chart_account_name}}</td>
-                                            <td>{{$item->tax == 0 ? "No Tax" : "Tax"}}</td>
-                                            <td id="txtAmount" class="txtAmount">{{$item->amount}}</td>
+                                            <td>{{ $item->product_name }}</td>
+                                            <td>{{ $item->description }}</td>
+                                            <td>{{ $item->qty }} <span>{{ $item->measurement_name }}</span></td>
+                                            <td>{{ number_format($item->unit_price,4,".",",") }}</td>
+                                            <td>{{ $item->chart_account_name }}</td>
+                                            <td>{{ $item->tax == 0 ? "No Tax" : "Tax" }}</td>
+                                            <td id="txtAmount" class="txtAmount">{{ $item->amount }}</td>
                                         </tr>
                                     @endforeach                                   
                                 @endif
@@ -270,6 +270,7 @@
    $(document).ready(function(){
         $('.select2').select2();
 
+        // Delegate Field Amount Paid
         $("#amount_paid").on("keyup", function(){
            let paid_amount =  parseFloat($(this).val());
            let due_amount_payment=parseFloat($('#due_amount_payment').text());

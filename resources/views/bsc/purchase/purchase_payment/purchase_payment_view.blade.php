@@ -42,25 +42,27 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                               @foreach ($purchases as $purchase)
-                                                    @php
-                                                        $payment_amount = $purchase->amount_paid;
-                                                        $payment = number_format($payment_amount, 4, '.', '');
-
-                                                        $grand_total = $purchase->grand_total;
-                                                        $total = number_format($grand_total, 4, '.', '');
-                                                    @endphp
-                                                    <tr>
-                                                        <td>{{$purchase->supplier_name}}</td>
-                                                        <td>{{$purchase->invoice_number}}</td>
-                                                        <td>{{ date('d-m-y', strtotime($purchase->billing_date)) }}</td>
-                                                        <td>{{ date('d-m-Y', strtotime($purchase->due_date)) }}</td>
-                                                        <td>{{ date('d-m-Y', strtotime($purchase->create_date)) }}</td>
-                                                        <td>{{$purchase->reference}}</td>
-                                                        <td>{{$total}}</td>
-                                                        <td>{{$payment}}</td>
-                                                    </tr>
-                                               @endforeach
+                                                @if (count($purchases) > 0)
+                                                    @foreach ($purchases as $purchase)
+                                                        @php
+                                                            $payment_amount = $purchase->amount_paid;
+                                                            $payment = number_format($payment_amount, 4, '.', '');
+    
+                                                            $grand_total = $purchase->grand_total;
+                                                            $total = number_format($grand_total, 4, '.', '');
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $purchase->supplier_name }}</td>
+                                                            <td>{{ $purchase->invoice_number }}</td>
+                                                            <td>{{ date('d-m-y', strtotime($purchase->billing_date)) }}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($purchase->due_date)) }}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($purchase->create_date)) }}</td>
+                                                            <td>{{ $purchase->reference }}</td>
+                                                            <td>{{ $total }}</td>
+                                                            <td>{{ $payment }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>
