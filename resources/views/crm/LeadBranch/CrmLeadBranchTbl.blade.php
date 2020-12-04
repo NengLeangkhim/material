@@ -3,9 +3,6 @@
     session_start();
     }
 @endphp --}}
-<div class="col-12 text-right">
-    <a  href="javascript:void(0);" class="btn btn-success crm_contact" onclick="CrmModalAction('crm_lead_status_form','crm_lead_status','ActionLeadStatus','Add Lead Status')" ​><i class="fas fa-plus"></i> Add Lead Branch</a>
-</div>
 <div class="col-12" style="margin-top: 10px">
     <div class="table-responsive">
         <table id="Lead_Branch_Tbl" class="table table-bordered table-striped nowrap" style="width: 100%;">
@@ -44,4 +41,7 @@
         </table>
     </div>
 </div>
+<script>
+            
+</script>
 

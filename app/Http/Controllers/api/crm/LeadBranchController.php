@@ -19,12 +19,12 @@ class LeadBranchController extends Controller
         $userid=$return["original"]['id'];
         $status = $request->status;
         if(perms::check_perm_module_api('CRM_021401',$userid)){ // top managment
-            $leadbranch = LeadBranch::getleadBranchDataTable($request,$status); // all lead Branch
+            $leadbranch = LeadBranch::getleadBranchDataTable($request,$status,null); // all lead Branch
             return $leadbranch;
             // dd("top");
         }
         else if (perms::check_perm_module_api('CRM_021402',$userid)) { // fro staff (Model and Leadlist by user)
-            $leadbranch = LeadBranch::getleadBranchDataTableByAssign($request,$status,$userid); //  lead branch by assigned to
+            $leadbranch = LeadBranch::getleadBranchDataTable($request,$status,$userid); //  lead branch by assigned to
             return $leadbranch;
             // dd("staff");
         }
