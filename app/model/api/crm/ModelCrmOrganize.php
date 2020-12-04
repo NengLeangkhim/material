@@ -13,6 +13,13 @@ class ModelCrmOrganize extends Model
         where is_deleted=false and id in (select crm_lead_id from
         crm_lead_branch clb join crm_lead_detail cld on  clb.id=cld.crm_lead_branch_id and clb.is_deleted=false and cld.is_deleted=false and cld.crm_lead_status_id=2)";
     }
+    private static function getOrganizeBranchSql($id){
+        return "SELECT clb.id, clb.name_en,clb.name_kh,email,
+        (select first_name_en||' '||last_name_en as assigned_to from ma_user where id=(select ma_user_id from crm_lead_assign where crm_lead_branch_id=clb.id ORDER BY create_date DESC limit 1)),
+        (select (select name_en from crm_lead_status where id=cld.crm_lead_status_id) from crm_lead_detail cld where  cld.is_deleted=false and cld.crm_lead_branch_id=clb.id ORDER BY create_date desc limit 1) as status
+        from crm_lead_branch clb
+        where clb.is_deleted=false and clb.id in (select crm_lead_branch_id from crm_lead_detail cld where  cld.is_deleted=false and cld.crm_lead_status_id=2) and clb.crm_lead_id=$id";
+    }
     //get all organize
     public static function getOrganize(){
         return DB::select(self::getOrganizeSql());
@@ -34,6 +41,26 @@ class ModelCrmOrganize extends Model
             array( 'db' => 'website',   'dt' => 3 ),
             array( 'db' => 'facebook',     'dt' => 4 ),
             array( 'db' => 'id',     'dt' => 5 ),
+        );
+
+        return json_encode(SSP::simple( $request, $table, $primaryKey, $columns ));
+    }
+    public static function getOrganizeBranchDatatable($id,$request){
+        $table = '('.self::getOrganizeBranchSql($id).') as foo';
+
+        // Table's primary key
+        $primaryKey = 'id';
+
+        // Array of database columns which should be read and sent back to DataTables.
+        // The `db` parameter represents the column name in the database, while the `dt`
+        // parameter represents the DataTables column identifier. In this case simple
+        // indexes
+        $columns = array(
+            array( 'db' => 'name_en', 'dt' => 0 ),
+            array( 'db' => 'name_kh', 'dt' => 1 ),
+            array( 'db' => 'assigned_to',  'dt' => 2 ),
+            array( 'db' => 'email',   'dt' => 3 ),
+            array( 'db' => 'status',     'dt' => 4 ),
         );
 
         return json_encode(SSP::simple( $request, $table, $primaryKey, $columns ));

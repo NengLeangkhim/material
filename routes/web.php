@@ -129,6 +129,8 @@ Route::get('/product','crm\ProductsController@getProducts'); //get all Products 
 
 // Start Organization
 Route::get('/organizations','crm\OrganizationController@getorganization'); //get all Organization  show in table
+Route::get('/organizations/branches/{id}','crm\OrganizationController@getorganizationBranches'); //get all Organization  show in table
+Route::get('/organizations/branches/datatable/{id}','crm\OrganizationController@getorganizationBranchesDatatable'); //get all Organization  show in table
 Route::get('/organizations/datatable','crm\OrganizationController@getorganizationDatatable'); //get all Organization  show in table
 Route::get('/organizations/add','crm\OrganizationController@AddOrganization'); //go to add Organization
 Route::post('/organizations/store','crm\OrganizationController@StoreOrganization'); // add Organization
