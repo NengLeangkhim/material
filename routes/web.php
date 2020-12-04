@@ -56,45 +56,12 @@ Route::get('/test_map', function(){
 Route::get('/addleadtype','crm\LeadController@addleadtype'); // use get type in add lead
 //end lead
 // index
-Route::get('/leadbranch',function(){ // lead branch
-    return view('crm.LeadBranch.CrmLeadBranchIndex');
-});
+Route::get('/leadbranch','crm\LeadBranchController@index');
 // All
-Route::get('/crm/leadbranch/all',function(){
-    return view('/crm.LeadBranch.CrmLeadBranchAll');
-});
-// new
-Route::get('/crm/leadbranch/new',function(){
-    return view('/crm.LeadBranch.NewStatus');
-});
-// surveying
-Route::get('/crm/leadbranch/surveying',function(){
-    return view('/crm.LeadBranch.SurveyingStatus');
-});
-// surveyed
-Route::get('/crm/leadbranch/surveyed',function(){
-    return view('/crm.LeadBranch.SurveyedStatus');
-});
-// proposition
-Route::get('/crm/leadbranch/proposition',function(){
-    return view('/crm.LeadBranch.PropositionStatus');
-});
-// qualified
-Route::get('/crm/leadbranch/qualified',function(){
-    return view('/crm.LeadBranch.QualifiedStatus');
-});
-// junk
-Route::get('/crm/leadbranch/junk',function(){
-    return view('/crm.LeadBranch.JunkStatus');
-});
-// Edit lead
-Route::get('/crm/leadbranch/editleadbranch',function(){
-    return view('/crm.LeadBranch.EditLeadBranch');
-});
-// ShowLeadBranch
-Route::get('/crm/leadbranch/showleadbranch',function(){
-    return view('/crm.LeadBranch.JunkStatus');
-});
+Route::get('/crm/leadbranch/{status}','crm\LeadBranchController@GetLeadBranchByStatus');
+Route::get('/crm/leadbranch/datatable/{status}','crm\LeadBranchController@getleadBranchDatatable');
+Route::get('/crm/leadbranch/detail/{id}','crm\LeadBranchController@getdetailbranch'); // get detail branch
+Route::get('/crm/leadbranch/edit/{id}','crm\LeadBranchController@editbranch');//  edit branch
 // end lead branch
 
 //end lead branch
@@ -151,6 +118,7 @@ Route::get('/organizations/detail/{id}','crm\OrganizationController@DetailOrgani
 
 // crm quote
 Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote
+Route::get('/quote/datatable','crm\QuoteController@showQuoteListDatatable'); // get show quote
 Route::get('/quote/detail','crm\QuoteController@showQuoteListDetail'); // get show quote detail
 Route::get('/quote/leadBranch','crm\QuoteController@listLeadBranch'); // get list branch of lead by lead id
 

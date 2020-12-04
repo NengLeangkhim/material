@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\api\stock\StockController;
 use Illuminate\Http\Request;
 use App\model\crm\ModelCrmQuote;
+use App\Http\Controllers\perms;
 
 use Illuminate\Support\Facades\Route;
 
@@ -16,26 +17,25 @@ class QuoteController extends Controller
 
     // function to get all quote lead
     public static function showQuoteList(){
+        if(perms::check_perm_module('CRM_0206')){//module codes
+            return view('crm/quote/quoteShow');
+        }else{
+            return view('no_perms');
+        }
+    }
+    public static function showQuoteListDatatable(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         $token = $_SESSION['token'];
         // dump($token);
-        $request = Request::create('/api/quotes', 'GET');
+        $urlQuery=str_replace($request->Url(),'',$request->fullUrl());
+        $request = Request::create('/api/quotes/datatable'.$urlQuery, 'GET');
         $request->headers->set('Accept', 'application/json');
         $request->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($request);
-        $listQuote = json_decode($res->getContent());
-        // dump($listQuote);
-        // exit;
-        if($listQuote != null){
-                return view('crm/quote/quoteShow', compact('listQuote'));
-        }else
-        {
-            return view('crm/quote/quoteShow');
-        }
+        return $res->getContent();
     }
-
     // function to get show qoute detail
     public static function showQuoteListDetail(){
         if (session_status() == PHP_SESSION_NONE) {
@@ -58,13 +58,13 @@ class QuoteController extends Controller
             $request2->headers->set('Authorization', 'Bearer '.$token);
             $res2 = app()->handle($request2);
             $quoteBranch = json_decode($res2->getContent());
-      
+
 
             // api get quote branch detail by branch id
             $getQuoteBranch = [];
-            
+
             foreach($quoteBranch->data as $k=>$val){
-               
+
                 $data['branch_id'] = $val->id;
                 $data['branch_info'] = $val->crm_lead_branch;
                 $request3 = Request::create('api/quotebranch/detail/'.$val->id.'', 'GET');
