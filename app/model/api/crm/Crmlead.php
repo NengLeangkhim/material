@@ -745,13 +745,13 @@ class Crmlead extends Model
         (SELECT id from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_id,
 		(SELECT status from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_status
         from  crm_lead_branch_crm_lead_contact_rel lbc
-        left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
-        JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
+        right JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
+        left JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
         JOIN crm_lead_assign la on la.crm_lead_branch_id= lb.id
         JOIN ma_user u on la.ma_user_id=u.id
-        JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lbc.crm_lead_branch_id
-        JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
-        JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
+        left JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lb.id
+        left JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
+        left JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
         join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
         join crm_lead on crm_lead.id= lb.crm_lead_id
         left join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
@@ -760,7 +760,7 @@ class Crmlead extends Model
         left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         LEFT JOIN crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         LEFT JOIN stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=true and ld.is_deleted=false  and  lb.crm_lead_id=$id");
+        where ld.status=true and ld.is_deleted=false and lb.crm_lead_id=$id");
     }
     //get branch by lead id convert
     public static function getbranch_lead_convert($id){
@@ -790,7 +790,7 @@ class Crmlead extends Model
         JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
         JOIN crm_lead_assign la on la.crm_lead_branch_id= lb.id
         JOIN ma_user u on la.ma_user_id=u.id
-        JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lbc.crm_lead_branch_id
+        JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lb.id
         JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
         JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
         join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
@@ -831,7 +831,7 @@ class Crmlead extends Model
         JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
         JOIN crm_lead_assign la on la.crm_lead_branch_id= lb.id
         JOIN ma_user u on la.ma_user_id=u.id
-        JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lbc.crm_lead_branch_id
+        JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lb.id
         JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
         JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
         join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
@@ -850,8 +850,8 @@ class Crmlead extends Model
         lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
         crm_lead.vat_number,cls.name_en as lead_source,cli.name_en as lead_industry,mcd.company,sp.name as service_name,sp.id as servie_id,
         lb.create_date as date_create_branch,ls.id as status_id,
-        lb.create_by as user_create_branch_id,ld.comment,lb.crm_lead_address_id,
-         lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,
+        lb.create_by as user_create_branch_id,ld.comment,
+         lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,lb.crm_lead_address_id,
          lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,lb.phone as branch_phone,
         lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.id as lead_assig_id,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
         ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,ld.id as lead_detail_id,
@@ -861,20 +861,20 @@ class Crmlead extends Model
         (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 4) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 3) end end)) as district,
         (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune,
         (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village,
-		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_id,
+		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC  LIMIT 1) as  survey_id,
 		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_status,
 		(SELECT comment as survey_comment from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
 		(SELECT possible  from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date  DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
         (SELECT id from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_id,
 		(SELECT status from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_status
         from  crm_lead_branch_crm_lead_contact_rel lbc
-        left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
-        JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
+        right JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
+        left JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
         JOIN crm_lead_assign la on la.crm_lead_branch_id= lb.id
         JOIN ma_user u on la.ma_user_id=u.id
-        JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lbc.crm_lead_branch_id
-        JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
-        JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
+        left JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lb.id
+        left JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
+        left JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
         join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
         join crm_lead on crm_lead.id= lb.crm_lead_id
         left join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
@@ -883,7 +883,7 @@ class Crmlead extends Model
         left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         LEFT JOIN crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         LEFT JOIN stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=true and ld.is_deleted=false and lb.id=$id");
+        where ld.status=true and ld.is_deleted=false and  lb.id=$id");
     }
     //
     public static function getbranchByIdconvert($id){
@@ -891,8 +891,8 @@ class Crmlead extends Model
         lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
         crm_lead.vat_number,cls.name_en as lead_source,cli.name_en as lead_industry,mcd.company,sp.name as service_name,sp.id as servie_id,
         lb.create_date as date_create_branch,ls.id as status_id,
-        lb.create_by as user_create_branch_id,ld.comment,lb.crm_lead_address_id,
-         lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,
+        lb.create_by as user_create_branch_id,ld.comment,
+         lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,lb.crm_lead_address_id,
          lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,lb.phone as branch_phone,
         lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.id as lead_assig_id,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
         ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,ld.id as lead_detail_id,
@@ -902,20 +902,20 @@ class Crmlead extends Model
         (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 4) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 3) end end)) as district,
         (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune,
         (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village,
-		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_id,
+		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC  LIMIT 1) as  survey_id,
 		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_status,
 		(SELECT comment as survey_comment from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
 		(SELECT possible  from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date  DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
         (SELECT id from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_id,
 		(SELECT status from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_status
         from  crm_lead_branch_crm_lead_contact_rel lbc
-        left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
-        JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
+        right JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
+        left JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
         JOIN crm_lead_assign la on la.crm_lead_branch_id= lb.id
         JOIN ma_user u on la.ma_user_id=u.id
-        JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lbc.crm_lead_branch_id
-        JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
-        JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
+        left JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lb.id
+        left JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
+        left JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
         join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
         join crm_lead on crm_lead.id= lb.crm_lead_id
         left join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
@@ -924,7 +924,7 @@ class Crmlead extends Model
         left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
         LEFT JOIN crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
         LEFT JOIN stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=false and ld.is_deleted=false and lb.id=$id");
+        where ld.status=false and ld.is_deleted=false and  lb.id=$id");
     }
     //get   branch  by id
     public static function getbranchByIdConverted($id){
@@ -954,7 +954,7 @@ class Crmlead extends Model
         JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
         JOIN crm_lead_assign la on la.crm_lead_branch_id= lb.id
         JOIN ma_user u on la.ma_user_id=u.id
-        JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lbc.crm_lead_branch_id
+        JOIN crm_lead_detail  ld on ld.crm_lead_branch_id= lb.id
         JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
         left JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
         join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
