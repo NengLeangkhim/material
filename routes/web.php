@@ -151,6 +151,7 @@ Route::get('/organizations/detail/{id}','crm\OrganizationController@DetailOrgani
 
 // crm quote
 Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote
+Route::get('/quote/datatable','crm\QuoteController@showQuoteListDatatable'); // get show quote
 Route::get('/quote/detail','crm\QuoteController@showQuoteListDetail'); // get show quote detail
 Route::get('/quote/leadBranch','crm\QuoteController@listLeadBranch'); // get list branch of lead by lead id
 

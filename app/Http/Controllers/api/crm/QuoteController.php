@@ -65,7 +65,36 @@ class QuoteController extends Controller
             return json_encode(["select"=>"fail","result"=> $e->getMessage()]);
         }
     }
+    public function getQuoteDatatable(Request $request)
+    {
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
 
+        DB::beginTransaction();
+        try{
+            if(perms::check_perm_module_api('CRM_020602',$userid)){ // top managment
+                $quote =Quote::getQuoteDataTable(0,$request);//0 means get all data
+                    return $quote;
+                // dd(QuoteResource::Collection($quote));
+            }
+            else if (perms::check_perm_module_api('CRM_020603',$userid)) { // fro staff (Model and Leadlist by user)
+                $quote = Quote::getQuoteDataTable($userid,$request);
+                return $quote;
+                // dd("staff");
+            }
+            else
+            {
+                return view('no_perms');
+            }
+        }
+        catch(Exception $e)
+        {
+            DB::rollback();
+            return json_encode(["select"=>"fail","result"=> $e->getMessage()]);
+        }
+    }
     public function getquotebranch($qid){
         // return QuoteBranch::get();
         $quote = QuoteBranch::where('crm_quote_id',$qid)
