@@ -55,7 +55,49 @@ Route::get('/test_map', function(){
 
 Route::get('/addleadtype','crm\LeadController@addleadtype'); // use get type in add lead
 //end lead
+// index
+Route::get('/leadbranch',function(){ // lead branch
+    return view('crm.LeadBranch.CrmLeadBranchIndex');
+});
+// All
+Route::get('/crm/leadbranch/all',function(){
+    return view('/crm.LeadBranch.CrmLeadBranchAll');
+});
+// new
+Route::get('/crm/leadbranch/new',function(){
+    return view('/crm.LeadBranch.NewStatus');
+});
+// surveying
+Route::get('/crm/leadbranch/surveying',function(){
+    return view('/crm.LeadBranch.SurveyingStatus');
+});
+// surveyed
+Route::get('/crm/leadbranch/surveyed',function(){
+    return view('/crm.LeadBranch.SurveyedStatus');
+});
+// proposition
+Route::get('/crm/leadbranch/proposition',function(){
+    return view('/crm.LeadBranch.PropositionStatus');
+});
+// qualified
+Route::get('/crm/leadbranch/qualified',function(){
+    return view('/crm.LeadBranch.QualifiedStatus');
+});
+// junk
+Route::get('/crm/leadbranch/junk',function(){
+    return view('/crm.LeadBranch.JunkStatus');
+});
+// Edit lead
+Route::get('/crm/leadbranch/editleadbranch',function(){
+    return view('/crm.LeadBranch.EditLeadBranch');
+});
+// ShowLeadBranch
+Route::get('/crm/leadbranch/showleadbranch',function(){
+    return view('/crm.LeadBranch.JunkStatus');
+});
+// end lead branch
 
+//end lead branch
 // start schedule
 
 Route::POST('/insertschedule','crm\CrmScheduleController@insertschedule');
@@ -82,6 +124,7 @@ Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
 
 // start contact
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table
+Route::get('/contact/datatable','crm\ContactController@getcontactDatatable');
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination
 Route::get('/contact/add','crm\ContactController@AddContact'); //go to add contact
 Route::post('/contact/store','crm\ContactController@StoreContact'); //store contact
@@ -94,6 +137,9 @@ Route::get('/product','crm\ProductsController@getProducts'); //get all Products 
 
 // Start Organization
 Route::get('/organizations','crm\OrganizationController@getorganization'); //get all Organization  show in table
+Route::get('/organizations/branches/{id}','crm\OrganizationController@getorganizationBranches'); //get all Organization  show in table
+Route::get('/organizations/branches/datatable/{id}','crm\OrganizationController@getorganizationBranchesDatatable'); //get all Organization  show in table
+Route::get('/organizations/datatable','crm\OrganizationController@getorganizationDatatable'); //get all Organization  show in table
 Route::get('/organizations/add','crm\OrganizationController@AddOrganization'); //go to add Organization
 Route::post('/organizations/store','crm\OrganizationController@StoreOrganization'); // add Organization
 Route::get('/organizations/edit/{id}','crm\OrganizationController@EditOrganization'); //go to Edit Organization
@@ -131,6 +177,13 @@ Route::get('/quote/edit/branch','crm\QuoteController@quoteEditBranch'); // go to
 
 
 // end quote
+
+// Customer Service
+Route::get('/crmreport/customerservice', function () {
+    return view('crm/report.CrmCustomerService');
+    // return "dfgbfdh";
+});
+// End
 
 
 // Start Report

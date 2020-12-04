@@ -72,6 +72,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/insertscheduleresult','api\crm\LeadController@insertscheduleresult');
     // update schedule reslut
     Route::post('/updatescheduleredult','api\crm\LeadController@updatescheduleredult');
+    // get company Branch
+    Route::get('/branch','api\crm\LeadController@getLeadBranch');
     
 });
 
@@ -103,7 +105,7 @@ Route::get('/commune/{id}','api\crm\LeadController@getCommune');
     //village
 Route::get('/village/{id}','api\crm\LeadController@getVillage');
 // get company Branch
-Route::get('/branch','api\crm\LeadController@getLeadBranch');
+// Route::get('/branch','api\crm\LeadController@getLeadBranch');
 // insert lead
 // Route::post('/insertlead','api\crm\LeadController@insertLead');
 //get all Honorifics
