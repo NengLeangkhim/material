@@ -87,6 +87,14 @@ Route::get('/crm/leadbranch/qualified',function(){
 Route::get('/crm/leadbranch/junk',function(){
     return view('/crm.LeadBranch.JunkStatus');
 });
+// Edit lead
+Route::get('/crm/leadbranch/editleadbranch',function(){
+    return view('/crm.LeadBranch.EditLeadBranch');
+});
+// ShowLeadBranch
+Route::get('/crm/leadbranch/showleadbranch',function(){
+    return view('/crm.LeadBranch.JunkStatus');
+});
 // end lead branch
 
 //end lead branch
