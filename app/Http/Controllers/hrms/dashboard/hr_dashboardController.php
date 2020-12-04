@@ -517,7 +517,7 @@ class hr_dashboardController extends Controller
         try {
             $em=count(Employee::AllEmployee());
             $new_employee_for_this_month=hr_dashboardModel::new_employee_for_this_month();
-            return ($new_employee_for_this_month/$em)*100;
+            return round(($new_employee_for_this_month/$em)*100,2);
         } catch (\Throwable $th) {
             throw $th;
         }
