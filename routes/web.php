@@ -87,6 +87,14 @@ Route::get('/crm/leadbranch/qualified',function(){
 Route::get('/crm/leadbranch/junk',function(){
     return view('/crm.LeadBranch.JunkStatus');
 });
+// Edit lead
+Route::get('/crm/leadbranch/editleadbranch',function(){
+    return view('/crm.LeadBranch.EditLeadBranch');
+});
+// ShowLeadBranch
+Route::get('/crm/leadbranch/showleadbranch',function(){
+    return view('/crm.LeadBranch.JunkStatus');
+});
 // end lead branch
 
 //end lead branch
@@ -129,6 +137,8 @@ Route::get('/product','crm\ProductsController@getProducts'); //get all Products 
 
 // Start Organization
 Route::get('/organizations','crm\OrganizationController@getorganization'); //get all Organization  show in table
+Route::get('/organizations/branches/{id}','crm\OrganizationController@getorganizationBranches'); //get all Organization  show in table
+Route::get('/organizations/branches/datatable/{id}','crm\OrganizationController@getorganizationBranchesDatatable'); //get all Organization  show in table
 Route::get('/organizations/datatable','crm\OrganizationController@getorganizationDatatable'); //get all Organization  show in table
 Route::get('/organizations/add','crm\OrganizationController@AddOrganization'); //go to add Organization
 Route::post('/organizations/store','crm\OrganizationController@StoreOrganization'); // add Organization
@@ -167,6 +177,13 @@ Route::get('/quote/edit/branch','crm\QuoteController@quoteEditBranch'); // go to
 
 
 // end quote
+
+// Customer Service
+Route::get('/crmreport/customerservice', function () {
+    return view('crm/report.CrmCustomerService');
+    // return "dfgbfdh";
+});
+// End
 
 
 // Start Report

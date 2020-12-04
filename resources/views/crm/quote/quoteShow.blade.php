@@ -41,12 +41,13 @@
                                                         <th style="color: #FFFFFF">Quote Stage</th>
                                                         <th style="color: #FFFFFF">Assigned To </th>
                                                         <th style="color: #FFFFFF">Convert To BSC</th>
-                                                        <th style="color: #FFFFFF">Modified Time</th>
+                                                        <th style="color: #FFFFFF">Due Date</th>
                                                         <th style="color: #FFFFFF">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @if(isset($listQuote))
+                                                    @if(false)
+                                                    {{-- isset($listQuote) --}}
                                                         @foreach($listQuote as $val)
                                                             @foreach($val as $key => $val2)
                                                                     <tr>

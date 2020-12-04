@@ -8,7 +8,7 @@
 </div>
 <div class="col-12" style="margin-top: 10px">
     <div class="table-responsive">
-        <table id="All_type_Tbl" class="table table-bordered table-striped" style="width: 100%;">
+        <table class="table table-bordered" style="width: 100%;" id="All_type_Tbl">
             <thead>
                 <tr style="background: #1fa8e0">
                     {{-- <th style="color: #FFFFFF">No</th> --}}
@@ -32,12 +32,12 @@
                     <td>
                         <div class="row-12 form-inline">
                             <div class="col-md-6">
-                                <a href="javascript:void(0);" class="btn btn-block btn-danger  btn-sm branch" value="detaillead/'+data+'" onclick="go_to(\'detaillead/'+data+'\')" title="Edit Lead">
+                                <a href="javascript:void(0);" class="btn btn-block btn-danger  btn-sm branch" value="detaillead/'+data+'" onclick="go_to('/crm/leadbranch/editleadbranch')" title="Edit Lead">
                                     <i class="fas fa-edit">  </i>
                                 </a>
                             </div>
                             <div class="col-md-6 ">
-                                <a href="javascript:void(0);" class="btn btn-block btn-info btn-sm branch" value="branch/'+data+'" onclick="go_to(\'branch/'+data+'\')" title="Show Branch Of Lead">
+                                <a href="javascript:void(0);" class="btn btn-block btn-info btn-sm branch" value="branch/'+data+'" onclick="go_to('/crm/leadbranch/showleadbranch')" title="Show Branch Of Lead">
                                     <i class="fas fa-code-branch">  </i>
                                 </a>
                             </div>
