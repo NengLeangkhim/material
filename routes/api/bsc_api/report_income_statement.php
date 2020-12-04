@@ -20,4 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 // get income statement report
 // Route::get('/bsc/report/income_statement', 'api\BSC\IncomeStatementApiController@getIncomeStatement');
-Route::get('/bsc/report/pl','api\BSC\IncomeStatementApiController@getCompareIncomeStatement');
+// Route::get('/bsc/report/pl','api\BSC\IncomeStatementApiController@getCompareIncomeStatement');
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::get('/bsc_incomestatements', 'api\BSC\Report\IncomeStatementApiController@index');
+});

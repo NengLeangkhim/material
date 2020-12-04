@@ -86,18 +86,18 @@
 <script>
     $(document).ready(function(){
         $('#btn-get-report').click(function(){
-            console.log()
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: "/api/bsc/report/pl",
-                type: 'GET',
+                url: "/bsc_show_data_profit_and_loss",
+                type: 'POST',
                 data: {
+                    _token: CSRF_TOKEN,
                     type : $('#is-report-type').val() == 0 ? 1 : $('#is-report-type').val(),
                     comparison : $('#is-comparison-number').val(),
                     from_date : $('#from-date').val(),
                     to_date : $('#to-date').val()
                 },
                 success: function(response){
-                    console.log(response)
                     if(response.success){
                         var data = response.data;
                         var col = 12 - ((data.header).length);

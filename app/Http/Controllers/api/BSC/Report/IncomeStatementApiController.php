@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api\BSC;
+namespace App\Http\Controllers\api\BSC\Report;
 
 use App\Http\Controllers\Controller;
 use App\model\api\BSC\IncomeStatement;
@@ -8,6 +8,7 @@ use Exception;
 use App\Http\Controllers\perms;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class IncomeStatementApiController extends Controller {
 
@@ -16,25 +17,19 @@ class IncomeStatementApiController extends Controller {
     function __construct(){
         $this->is = new IncomeStatement();
     }
+    
+    public function index(Request $request)
+    {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
 
-    public function getIS(Request $request){
-        // $data = $this->getIncomeStatement($request);
-
-        if(!perms::check_perm_module('BSC_030101')){
-            return view('no_perms');
+        if (!perms::check_perm_module_api('BSC_030501', $userid)) {
+            return $this->sendError("No Permission");
         }
         
-        try{
-            return view('bsc.report.financial_report.profit_and_loss.profit_and_loss');
-        }catch(Exception $e){
-            echo $e->getMessage();
-            exit;
-        }
-        
-    }
-
-    public function getCompareIncomeStatement(Request $request){
-
         $type = $request->type;
         $comparison = $request->comparison;
         $fromDate = $request->from_date;

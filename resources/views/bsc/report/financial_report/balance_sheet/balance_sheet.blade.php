@@ -27,11 +27,19 @@
                                     <h2 id="something">Balance Sheet</h2>
                                     <div class="is-menu row justify-content-between">
                                         <div class="is-menu-left col-9 row justify-content-start">
-                                            <div class="input-group col-8">
+                                            <div class="input-group col-6">
                                                 <input type="date" id="end-date" class="form-control" aria-label="Text input with dropdown button">
                                             </div>
+                                            <div class="input-group col-6">
+                                                <select class="form-control" name="select_source" id="is-comparison-number">
+                                                    <option value="0">None</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
+                                            </div>
                                         </div>
-                            
                                         <div class="is-menu-right col-3 row justify-content-end">
                                             <button type="button" class="btn btn-primary" id="btn-get-report">Generate</button>
                                         </div>
@@ -67,17 +75,18 @@
 <script>
     $(document).ready(function(){
         $('#btn-get-report').click(function(){
-            console.log()
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: "/api/v1/balancesheet",
-                type: 'GET',
+                url: "/bsc_show_data_balancesheet",
+                type: 'POST',
                 data: {
-                    date : $('#end-date').val()
+                    _token: CSRF_TOKEN,
+                    date : $('#end-date').val(),
+                    comparison : $('#is-comparison-number').val()
                 },
                 success: function(response){
-                    console.log(response);
                     if(response.success){
-                        var data = response.data
+                        var data = response.data.body;
                         var headerId = '#is-report-sub-header'
                         var bodyId = '#is-report-body'
                         $(headerId).empty()
