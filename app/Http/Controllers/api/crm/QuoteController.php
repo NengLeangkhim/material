@@ -34,86 +34,67 @@ class QuoteController extends Controller
 
         DB::beginTransaction();
         try{
-            $pos=DB::select("SELECT ma_company_dept_id FROM ma_user WHERE id=178 and is_deleted=FALSE and status=TRUE");
-            $pos=$pos[0]->ma_company_dept_id;
-            // dd($pos);
-            if($pos==5){
-                if(perms::check_perm_module_api('CRM_020602',$userid)){ // top managment
-                    $quote = Quote::orderBy('id','asc')
-                        ->where('status','t')
-                        ->where('is_deleted','f')
-                        ->get();
-                        return QuoteResource::Collection($quote);
-                    // dd(QuoteResource::Collection($quote));
-                }
-                else if (perms::check_perm_module_api('CRM_020603',$userid)) { // fro staff (Model and Leadlist by user)
-                    $quote = Quote::orderBy('id','asc')
+            if(perms::check_perm_module_api('CRM_020602',$userid)){ // top managment
+                $quote = Quote::orderBy('id','asc')
                     ->where('status','t')
                     ->where('is_deleted','f')
-                    ->where('assign_to',$userid)
+                    ->limit(10)
                     ->get();
                     return QuoteResource::Collection($quote);
-                    // dd("staff");
-
-                }
-                else
-                {
-                    return view('no_perms');
-                }
+                // dd(QuoteResource::Collection($quote));
             }
-            elseif($pos==10)
-            {
-                if(perms::check_perm_module_api('CRM_020602',$userid)){ // top managment
-                    $quote = Quote::orderBy('id','asc')
-                        ->where('status','t')
-                        ->where('is_deleted','f')
-                        ->get();
-                        return QuoteResource::Collection($quote);
-                    // $quote=DB::
-                    // dd($quote);
-                }
-                else
-                {
-                    return view('no_perms');
-                }
+            else if (perms::check_perm_module_api('CRM_020603',$userid)) { // fro staff (Model and Leadlist by user)
+                $quote = Quote::orderBy('id','asc')
+                ->where('status','t')
+                ->where('is_deleted','f')
+                ->where('assign_to',$userid)
+                ->limit(10)
+                ->get();
+                return QuoteResource::Collection($quote);
+                // dd("staff");
+
             }
             else
             {
                 return view('no_perms');
             }
-
         }
         catch(Exception $e)
         {
             DB::rollback();
-            return json_encode(["insert"=>"fail","result"=> $e->getMessage()]);
-        }
-
-
-        if(perms::check_perm_module_api('CRM_020602',$userid)){ // top managment
-            $quote = Quote::orderBy('id','asc')
-                ->where('status','t')
-                ->where('is_deleted','f')
-                ->get();
-                return QuoteResource::Collection($quote);
-            // dd("top");
-        }
-        else if (perms::check_perm_module_api('CRM_020603',$userid)) { // fro staff (Model and Leadlist by user)
-            $quote = Quote::orderBy('id','asc')
-            ->where('status','t')
-            ->where('is_deleted','f')
-            ->where('assign_to',$userid)
-            ->get();
-            return QuoteResource::Collection($quote);
-            // dd("staff");
-
-        }
-        else
-        {
-            return view('no_perms');
+            return json_encode(["select"=>"fail","result"=> $e->getMessage()]);
         }
     }
+    public function getQuoteDatatable(Request $request)
+    {
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
 
+        DB::beginTransaction();
+        try{
+            if(perms::check_perm_module_api('CRM_020602',$userid)){ // top managment
+                $quote =Quote::getQuoteDataTable(0,$request);//0 means get all data
+                    return $quote;
+                // dd(QuoteResource::Collection($quote));
+            }
+            else if (perms::check_perm_module_api('CRM_020603',$userid)) { // fro staff (Model and Leadlist by user)
+                $quote = Quote::getQuoteDataTable($userid,$request);
+                return $quote;
+                // dd("staff");
+            }
+            else
+            {
+                return view('no_perms');
+            }
+        }
+        catch(Exception $e)
+        {
+            DB::rollback();
+            return json_encode(["select"=>"fail","result"=> $e->getMessage()]);
+        }
+    }
     public function getquotebranch($qid){
         // return QuoteBranch::get();
         $quote = QuoteBranch::where('crm_quote_id',$qid)

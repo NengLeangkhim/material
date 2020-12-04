@@ -40,8 +40,7 @@ Function index_num($v1){
 <div style="padding: 20px; font-family: Times New Roman, Times, serif; ">
       {{-- // row l --}}
       <div class="row">
-
-
+      
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
                   <div class=" card card-mini mb-4">
                           <div class="card-body">
@@ -334,7 +333,7 @@ Function index_num($v1){
                           <td><b>This Morning</b></td>
                         </tr>
                         <tr class="tr-review">
-                          <td>All Employees<td>
+                          <td>Permission<td>
                           <td> :<?php   echo $attendancec['all_em'];   ?>
                             {{-- <span><i class='fas fa-user-tie' style='font-size:14px; color: #1fa8e0'></i></span><td> --}}
                         </tr>

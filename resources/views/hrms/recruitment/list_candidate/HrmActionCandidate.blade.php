@@ -19,6 +19,8 @@ use App\Http\Controllers\en_de;
                                 $cover = '';
                                 $button = "Create";
                                 $candidate_id = '';
+                                $education_level='';
+                                $major='';
     }else{
         foreach($candidate as $row){           
                                 // Header Form
@@ -38,6 +40,8 @@ use App\Http\Controllers\en_de;
                                 $candidate = $row->id_condidate;
                                 $button = "Update";
                                 $candidate_id = $row->id;
+                                $education_level=$row->ma_user_education_level_id;
+                                $major=$row->major;
         }
     }
     
@@ -91,6 +95,34 @@ use App\Http\Controllers\en_de;
                                     <label for="plan_detail_schedule">Khmer Name<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="name_kh" id="name_kh" value="<?=$name_kh?>">
                                     <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
+                                        <strong></strong>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="plan_detail_schedule">Education Level<span class="text-danger">*</span></label>
+                                    <select name="education_level" id="education_level" class="form-control">
+                                        <option value="" hidden></option>
+                                        @foreach ($education as $educat)
+                                            @if ($education_level==$educat->id)
+                                                <option selected value="{{$educat->id}}">{{$educat->name_en}}/{{$educat->name_kh}}</option>
+                                            @else
+                                                <option value="{{$educat->id}}">{{$educat->name_en}}/{{$educat->name_kh}}</option>
+                                            @endif
+                                            
+                                        @endforeach
+                                    </select>
+                                    <span class="invalid-feedback" role="alert" id="education_levelError"> {{--span for alert--}}
+                                        <strong></strong>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="plan_detail_schedule">Major<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="major" id="major" value="<?=$major?>">
+                                    <span class="invalid-feedback" role="alert" id="majorError"> {{--span for alert--}}
                                         <strong></strong>
                                     </span>
                                 </div>
