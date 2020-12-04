@@ -54,7 +54,7 @@
                                             <strong></strong>
                                         </span>
                                     </div>
-                                    </div>
+                                </div>
                             </div>
                         </form>
                       </div>
