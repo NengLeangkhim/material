@@ -6,6 +6,7 @@ use App\model\crm\ModelCrmLead;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\api\stock\StockController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\perms;
 use App\model\crm\ModelCrmQuote;
 
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,7 @@ class QuoteController extends Controller
 
     // function to get all quote lead
     public static function showQuoteList(){
+
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }

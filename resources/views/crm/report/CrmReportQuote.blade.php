@@ -68,8 +68,6 @@
                             <div class="row">
 
 
-
-
                                 <div class="col-md-3">
                                     <label for="exampleInputEmail1">Date From <b style="color:red"></b></label>
                                     <div class="input-group">

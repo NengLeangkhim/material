@@ -215,8 +215,7 @@ class CrmReportController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $token = $_SESSION['token'];
-
+            $token = $_SESSION['token'];
             $fromDate = date("Y-m-01");
             $toDate = date("Y-m-t");
             // dump($request->all());

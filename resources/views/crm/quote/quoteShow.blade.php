@@ -72,16 +72,18 @@
                                                                         <td>{{$val2->assign_to->first_name_en.' '.$val2->assign_to->last_name_en ??""}}</td>
                                                                         <td>
 
-                                                                            <?php
-                                                                                    $num = count($val2->quote_stage ??"");
-                                                                                    if($num > 0){
-                                                                                        if($val2->quote_stage[$num-1]->id == 2){
-                                                                                                echo 'Yes';
-                                                                                        }else {
-                                                                                                echo 'No';
-                                                                                        }
-                                                                                    }
-                                                                            ?>
+                                                                            <?php $num = count($val2->quote_stage ?? ""); ?>
+                                                                            @if($num > 0)
+                                                                                    @if(isset($val2->quote_stage[$num-1]->id) && $val2->quote_stage[$num-1]->id == 2)
+                                                                                        <span>Yes</span>
+                                                                                    @else
+                                                                                        <span>No</span>
+                                                                                    @endif
+                                                                                    {{-- @isset($val2->quote_stage[$num-1]->id)
+                                                                                        <span>Yes</span>
+                                                                                    @endisset --}}
+                                                                            @endif
+
                                                                     </td>
                                                                     <td>{{$val2->due_date ??""}}</td>
                                                                     <td>
