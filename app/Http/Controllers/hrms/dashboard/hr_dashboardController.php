@@ -60,7 +60,7 @@ class hr_dashboardController extends Controller
             return $post_data;
     }
 
-
+    
     // function to add 0 digit to single digit
     public static function index_num($v1){
         //v = 1;
@@ -219,24 +219,24 @@ class hr_dashboardController extends Controller
 
     // check attendance staff by today
     public static function staff_attendence(){
-        $all_em = Employee::AllEmployee();
-        $intime = 0;
-        $late = 0;
-        $absent = 0;
         $em=Employee::list_employee_without_night_sheet();
         $date = date('Y-m-d').'';
         if(Attendance::CheckHoliday($date)==1 || Attendance::CheckHoliday($date)==2){
-                
+            $intime = 0;
+            $late = 0;
+            $absent = 0;
+            $permission=0;
         }else{
             $a = Attendance::AttendanceToday($em,$date);
             $late=$a[0];
             $absent=$a[1];
             $intime=$a[2];
+            $permission=$a[3];
         }
         
 
         return $data = [
-                'all_em' => count($all_em),
+                'all_em' => $permission,
                 'intime' => $intime,
                 'late' => $late,
                 'absent' => $absent

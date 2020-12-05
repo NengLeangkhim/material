@@ -41,7 +41,6 @@ class QuoteController extends Controller
         }
 
     }
-
     // function to get show qoute detail
     public static function showQuoteListDetail(){
         if(!(perms::check_perm_module('CRM_020602'))){

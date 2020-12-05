@@ -152,7 +152,14 @@ class Crmlead extends Model
     }
     //get lead  Branch
     public static function leadBranch(){
-        return DB::select('SELECT  id,branch as name,company,ma_company_branch_id  FROM "public"."ma_company_detail" Where status=true and is_deleted=false');
+        if (! $user = \JWTAuth::parseToken()->authenticate()) {
+            $userid = "";
+        }else{
+            $userid = $user->id;
+        }
+        return DB::select('SELECT  id,branch as name,company,ma_company_branch_id
+        FROM "public"."ma_company_detail" Where status=true and is_deleted=false
+        and ma_company_id=(select ma_company_id from ma_company_detail where id=(select ma_company_detail_id from ma_user where id=?))',[$userid]);
     }
 
     public static function insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
@@ -641,18 +648,42 @@ class Crmlead extends Model
         return $lead;
     }
      //get lead by assisgto
+     private static function getLeadbyassgintoSql($userid){
+         return "SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
+         cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,cl.crm_lead_source_id,
+         cl.crm_lead_industry_id,cl.crm_lead_current_isp_id
+         from crm_lead cl
+         LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
+         LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
+                 JOIN crm_lead_branch clb on clb.crm_lead_id = cl.id
+                 JOIN crm_lead_detail cld on cld.crm_lead_branch_id = clb.id
+                 JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
+         WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE  and cla.ma_user_id=$userid GROUP BY cl.id ORDER BY cl.lead_number DESC ";
+     }
     public static function getLeadbyassginto($userid){
-        $lead= DB::select("SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
-        cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,cl.crm_lead_source_id,
-        cl.crm_lead_industry_id,cl.crm_lead_current_isp_id
-        from crm_lead cl
-        LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
-        LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
-				JOIN crm_lead_branch clb on clb.crm_lead_id = cl.id
-				JOIN crm_lead_detail cld on cld.crm_lead_branch_id = clb.id
-				JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
-        WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE  and cla.ma_user_id=$userid GROUP BY cl.id ORDER BY cl.lead_number DESC ");
+        $lead= DB::select(self::getLeadbyassgintoSql($userid));
         return $lead;
+    }
+
+    public static function getLeadbyassgintoDataTable($request,$userid){
+        $table = '('.self::getLeadbyassgintoSql($userid).') as foo';
+
+        // Table's primary key
+        $primaryKey = 'lead_id';
+
+        // Array of database columns which should be read and sent back to DataTables.
+        // The `db` parameter represents the column name in the database, while the `dt`
+        // parameter represents the DataTables column identifier. In this case simple
+        // indexes
+        $columns = array(
+            array( 'db' => 'lead_number', 'dt' => 0 ),
+            array( 'db' => 'customer_name_en', 'dt' => 1 ),
+            array( 'db' => 'email',  'dt' => 2 ),
+            array( 'db' => 'phone',   'dt' => 3 ),
+            array( 'db' => 'lead_id',     'dt' => 4 ),
+        );
+
+        return json_encode(SSP::simple( $request, $table, $primaryKey, $columns ));
     }
     //get   lead  by id
     public static function getleadbyid($id){
@@ -1277,7 +1308,8 @@ class Crmlead extends Model
         WHERE cs.is_deleted=FALSE and cs.status=TRUE and lb.id=$id");
     }
     //Model insert​ Survey result
-    public static function insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id){
+    public static function insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id,$lead_detail_id,$comment_branch){
+      
         if(isset($survey_id)){
             try{
                     DB::select('SELECT insert_crm_survey_result(?,?,?,?)',
@@ -1298,7 +1330,14 @@ class Crmlead extends Model
                         'f',
                     )
                 );
+                try {
+                      $comment=$comment_branch;
+                    Crmlead::updatetavleleaddetail($lead_detail_id,$userid,$branch_id,4,$comment);
                     return json_encode(['insert'=>'success']);
+                } catch (Exception $e) {
+                    return json_encode(["update"=>"fail update_crm_lead_detail","result"=> $e->getMessage()]);
+                }
+                    
                 }catch(Exception $e){
                     return json_encode(["insert"=>"fail update_crm_survey","result"=> $e->getMessage()]);
                 }
