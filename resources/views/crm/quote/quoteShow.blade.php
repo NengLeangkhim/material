@@ -86,6 +86,10 @@
                                         },
                                         "targets": 8,
                                     },
+                                    {
+                                        "searchable": false,
+                                        "targets": 7,
+                                    }
                              ]
                         });
             </script>
