@@ -18,28 +18,37 @@ class QuoteController extends Controller
     // function to get all quote lead
     public static function showQuoteList(){
 
-        if (session_status() == PHP_SESSION_NONE) {
+
+        if(session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $token = $_SESSION['token'];
-        // dump($token);
-        $request = Request::create('/api/quotes', 'GET');
-        $request->headers->set('Accept', 'application/json');
-        $request->headers->set('Authorization', 'Bearer '.$token);
-        $res = app()->handle($request);
-        $listQuote = json_decode($res->getContent());
 
-        if($listQuote != null){
-                return view('crm/quote/quoteShow', compact('listQuote'));
-        }else
-        {
-            return view('crm/quote/quoteShow');
+        if(perms::check_perm_module('CRM_020602')){
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/quotes', 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $listQuote = json_decode($res->getContent());
+            if($listQuote != null){
+                    return view('crm/quote/quoteShow', compact('listQuote'));
+            }else
+            {
+                return view('crm/quote/quoteShow');
+            }
+        }else{
+            return view('no_perms');
         }
+
     }
 
     // function to get show qoute detail
     public static function showQuoteListDetail(){
-        if (session_status() == PHP_SESSION_NONE) {
+        if(!(perms::check_perm_module('CRM_020602'))){
+            return view('no_perms');
+        }
+
+        if(session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if(isset($_GET['id_'])){
@@ -80,32 +89,40 @@ class QuoteController extends Controller
                     $data = [];
                 }
             }
-            // dd($listQuoteDetail);
             return view('crm/quote/qouteShowDetail', compact('listQuoteDetail','getQuoteBranch'));
         }
     }
     // function to add new quote data
     public static function addQuote(Request $request){
+
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $province=ModelCrmLead::CrmGetLeadProvice();
-        $token = $_SESSION['token'];
-        $request = Request::create('/api/quote/status', 'GET');
-        $request->headers->set('Accept', 'application/json');
-        $request->headers->set('Authorization', 'Bearer '.$token);
-        $res = app()->handle($request);
-        $quotestatus = json_decode($res->getContent());
-        return view('crm/quote/addQuote', compact('province','quotestatus'));
+
+        if(perms::check_perm_module('CRM_020604')){
+            $province=ModelCrmLead::CrmGetLeadProvice();
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/quote/status', 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $quotestatus = json_decode($res->getContent());
+            return view('crm/quote/addQuote', compact('province','quotestatus'));
+        }else{
+            return view('no_perms');
+        }
     }
 
 
-    // function to delete lead from quote list
+    // function to delete quote
     public static function deleteLeadQuote(Request $request){
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
+        if(!(perms::check_perm_module('CRM_020606'))){
+            return view('no_perms');
         }
 
+        if(session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if(isset($_POST['id_'])){
             $quoId = $_POST['id_'];
             $create_by = $_SESSION['userid'];
@@ -316,7 +333,12 @@ class QuoteController extends Controller
     //function to list lead branch when edit branch quote
     public function listLeadBranch(Request $request)
     {
-        if (session_status() == PHP_SESSION_NONE) {
+
+        // if(!(perms::check_perm_module('CRM_020605'))){
+        //     return view('no_perms');
+        // }
+
+        if(session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         $token = $_SESSION['token'];
@@ -392,11 +414,13 @@ class QuoteController extends Controller
 
     //function go to edit qoute lead
     public static function quoteEditLead(Request $request){
+        if(!(perms::check_perm_module('CRM_02060501'))){
+            return view('no_perms');
+        }
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if(isset($_GET['qouteId'])){
-
             $token = $_SESSION['token'];
             $request = Request::create('/api/quote/'.$_GET['qouteId'].'', 'GET',$request->all());
             $request->headers->set('Accept', 'application/json');
