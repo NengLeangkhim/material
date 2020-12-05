@@ -630,7 +630,29 @@ var reportSurvey = () => {
         });
     }
 
-
+    // Customer Service
+    $(document).on('click','#btnCustomerServiceExcel',function(){
+        var table = $('#CustomerServiceTbl').DataTable();
+        if(!table.data().any()){  // condition true it mean table empty data
+            sweetalert('warning', 'No data export !');
+            console.log('No Data');
+        }else{
+            exportTableToExcel('CustomerServiceReport');
+            console.log('Data');
+        }
+    });
+    // button to click export quote report to pdf file
+    $(document).on("click", "#btnCustomerServicePDF", function () {
+        var table = $('#CustomerServiceTbl').DataTable();
+        if(!table.data().any()){
+            sweetalert('warning', 'No data export !');
+            console.log('No Data');
+        }else{
+            exportTableToPDF('CustomerServiceTbl','CustomerServiceReport');
+            console.log('Data');
+        }
+    });
+    // END Customer Service
 
     // function click to export quote as excel
     $(document).on('click','#btnReportQuoteExcel',function(){

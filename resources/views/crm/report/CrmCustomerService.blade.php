@@ -27,10 +27,10 @@
                                 <div class="col-3">
                                     <div class="row">
                                         <div class="col-6">
-                                            <button class="btn btn-success form-control" id="btnExportExcelLeadReport"><span><i class="far fa-file-excel"></i></span> Excel</button>
+                                            <button class="btn btn-success form-control" id="btnCustomerServiceExcel"><span><i class="far fa-file-excel"></i></span> Excel</button>
                                         </div>
                                         <div class="col-6">
-                                            <button class="btn btn-danger form-control" id="btnExportPdfLeadReport"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
+                                            <button class="btn btn-danger form-control" id="btnCustomerServicePDF"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
                                         </div>
                                     </div>
                                 </div>
@@ -220,8 +220,6 @@
                 },
                 dataType : 'JSON'
             })
-
         })
-
     })
 </script>

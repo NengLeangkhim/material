@@ -189,7 +189,16 @@ class CrmReportController extends Controller
     }
     // Detail Quote Report
     public function CrmDetailQuoteReport(){
-        return view('crm.report.CrmReportQuote');
+        return view('crm.report.CrmReportQuote', ["statusList"=>$this->getApiData('/api/quote/status'), 'assignToList' => $this->getApiData('/api/leadassig')->data]);
+    }
+
+    function getApiData($route, $method = 'GET'){
+        $token = $this->getToken();
+        $request = Request::create($route,$method);
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        return json_decode($res->getContent());
     }
 
 
@@ -199,7 +208,6 @@ class CrmReportController extends Controller
             session_start();
         }
         $token = $_SESSION['token'];
-
         $fromDate = date("Y-m-01");
         $toDate = date("Y-m-t");
         // dump($request->all());
