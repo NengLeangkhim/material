@@ -36,9 +36,11 @@ var reportLeadByStatus = () => {
                 google.charts.setOnLoadCallback(drawChart);
                 // var chartColor = ['color: #EE5A24','color: #C4E538','color: #fff200','color: #18dcff','color: #7d5fff','color: #00cec9','color: #ff3838'];
                 // console.log('this color arrr='+chartColor);
+                var colors = {};
                 var mydata = [['Task', 'Hours per Day']];
                 var numCount = 0;
                 $.each(data, function(k, val){
+                    colors[k] = {color: val['color']}
                     if(data[k]['total_lead'] == 0){
                         numCount += 1;
                     }
@@ -54,17 +56,9 @@ var reportLeadByStatus = () => {
                     var options = {
                         title: 'Branch Lead Progress',
                         pieHole: 0.4,
-                        colors: [''],
-                        // legend: 'none',
-                        slices: {
-                            0: { color: '#36a2eb' },
-                            1: { color: '#4bc0c0' },
-                            2: { color: '#ffcd56' },
-                            3: { color: '#ff3d67' },
-                            4: { color: '#7d9b10' },
-                            5: { color: '#9966ff' },
-                            6: { color: '#96f' },
-                        },
+                        // colors: [''],
+                        legend: 'none',
+                        slices: colors,
                     };
                     var chart = new google.visualization.PieChart(document.getElementById('Branchchart'));
                     chart.draw(data, options);
