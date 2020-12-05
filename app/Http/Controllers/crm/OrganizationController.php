@@ -53,6 +53,27 @@ class OrganizationController extends Controller
         }
 
     }
+    public function getorganizationBranches($id,Request $request) {// /organizies/branches/{id}
+        if(perms::check_perm_module('CRM_02030103')){ //Module detail
+            return view('crm.Organization.branch',["organize_id"=>$id]);
+        }else{
+            return view('no_perms');
+        }
+    }
+    public function getorganizationBranchesDatatable($id,Request $request) {// /organizies/branches/{id}
+        if(perms::check_perm_module('CRM_02030103')){ //Module detail
+            $token = $_SESSION['token'];
+            $request_query=str_replace($request->Url(),'',$request->fullUrl());
+            $request_contact = Request::create('api/organizies/branches/'.$id.$request_query, 'GET');
+            //$contact_table = json_decode(Route::dispatch($request_contact)->getContent());
+            $request_contact->headers->set('Accept', 'application/json');
+            $request_contact->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request_contact);
+            return $res->getContent();
+        }else{
+            return view('no_perms');
+        }
+    }
     public function DetailOrganization($id) {
         if(perms::check_perm_module('CRM_02030102')){ //Module detail
             $organ=ModelCrmOrganization::CrmGetOrganizeById($id);

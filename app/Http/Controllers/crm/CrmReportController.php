@@ -5,6 +5,7 @@ namespace App\Http\Controllers\crm;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\perms;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Route;
 
 class CrmReportController extends Controller

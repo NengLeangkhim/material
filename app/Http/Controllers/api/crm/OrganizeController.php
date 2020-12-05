@@ -57,7 +57,29 @@ class OrganizeController extends Controller
         }
 
     }
+    public function getOrganizeBranchDatatable($id,Request $request){
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+        // dd($userid);
+        if(perms::check_perm_module_api('CRM_02030103',$userid)){ // for top managment (Organisations List)
+            $organ = Organize::getOrganizeBranchDatatable($id,$request);
+            return $organ;
+            // dd("top");
 
+        }
+        else if (perms::check_perm_module_api('CRM_0203010301',$userid)) { // for staff (Model  name Get Branch by user)
+            $organ = Organize::getOrganizeBranchbyassigtoDatatable($id,$request,$userid);
+            return $organ;
+            // dd("staff");
+        }
+        else
+        {
+            return view('no_perms');
+        }
+
+    }
     public function show($id)
     {
         $organ = Organize::getOrganizeById($id);

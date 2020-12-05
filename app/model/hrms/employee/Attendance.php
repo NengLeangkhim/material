@@ -110,7 +110,7 @@ class Attendance extends Model
             if(count($detail)>0){
                 // print_r($detail);
                 foreach($detail as $de){
-                    if(strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) >= strtotime("06:00:00") && strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) < strtotime("12:00:00") && $de->typeName=='Check-in'){
+                    if(strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) >= strtotime("03:00:00") && strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) < strtotime("12:00:00") && $de->typeName=='Check-in'){
                         $morning_checkin= self::ConvertTimeStampToTime($de->deviceStamp);
                     }elseif(strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) <= strtotime("17:30:00") && strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) >= strtotime("12:00:00") && $de->typeName == 'Check-in'){
                         $evening_checkin= self::ConvertTimeStampToTime($de->deviceStamp);
