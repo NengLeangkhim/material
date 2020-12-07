@@ -57,7 +57,7 @@ var reportLeadByStatus = () => {
                         title: 'Branch Lead Progress',
                         pieHole: 0.4,
                         // colors: [''],
-                        legend: 'none',
+                        // legend: 'none',
                         slices: colors,
                     };
                     var chart = new google.visualization.PieChart(document.getElementById('Branchchart'));

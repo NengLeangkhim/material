@@ -30,7 +30,7 @@
                     <td>{{$row->name_en}}</td>
                     <td>{{$row->name_kh}}</td>
                     <td>{{$row->sequence}}</td>
-                    <td><input type="color" id="favcolor" name="favcolor" value="{{$row->color ?? '#000'}}"></td>
+                    <td class="text-center" ><input style="border: none; background-color: white;" type="color" id="favcolor" name="favcolor" value="{{$row->color ?? '#000'}}"></td>
                     <td>{{date('Y-m-d H:i:s',strtotime($row->create_date))}}</td>
                     <td class="text-center">
                         <a href="#" id="{{$row->id}}" class="btn btn-info btn-block CrmEditLeadStatus"><i class="fas fa-wrench"></i></a>
