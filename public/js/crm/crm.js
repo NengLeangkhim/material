@@ -695,12 +695,46 @@ function CrmLeadBranchView(url,table){
             });
             return table;
         }
-
+        function getDataTableServerSide(tblId,route){ //this method is for list lead on add quote view
+          let table = $('#'+tblId+'').DataTable({
+              sDom: 'lrtip',
+              targets:'no-sort',
+              bSort: false,
+              select: true,
+              serverSide: true,
+              ajax: route,
+              createdRow: function( row, data, dataIndex ) {
+                $(row).attr('id', data[5]);
+                $( row ).find('td:eq(0)').attr('id', 'leadKhName_'+data[5]);
+                $( row ).find('td:eq(1)').attr('id', 'leadEnName_'+data[5]);
+              },
+              columnDefs:
+                [
+                  {
+                    searchable : false,
+                    visible:false,
+                    targets:5,
+                  }
+                ],
+          });
+          $(document).keyup(function(){
+              $('#mySearchQuote').on( 'keyup', function () {
+                  table.search($(this).val()).draw();
+              });
+          });
+          return table;
+      }
 
 
         //function to get datatable with select row
         function getDataTableSelectRow(tblId,btnId,getName,fieldID,fieldName,modal_form){
-            var table = getDataTable(tblId);
+
+            var table ;
+            if(tblId=="tblQuuteLead"){//
+              table = getDataTableServerSide(tblId,"/quote/add/listQuoteLead/datatable");
+            }else{
+              table = getDataTable(tblId);
+            }
             $('#'+tblId+' tbody').on( 'click', 'tr', function () {
                 if ($(this).hasClass('selected') ) {
                     $(this).removeClass('selected');
@@ -1031,7 +1065,7 @@ function CrmLeadBranchView(url,table){
                   if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
                         sweetalert('success','Data has been saved !');
                         setTimeout(function(){
-                            goto_Action('/quote/detail', data.quoteId.id);
+                            go_to('/quote/detail?id_='+data.quoteId);
                         },1300);
 
                     // use go ot view quote detail
