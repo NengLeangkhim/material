@@ -388,8 +388,9 @@ function CrmLeadBranchView(url,table){
         $('#'+table+'').dataTable({
             scrollX:true,
             "serverSide": true,
-            "autoWidth": true,
+            "autoWidth": false,
             "ajax": "/crm/leadbranch/datatable/"+$status,
+            "ordering": false,
             "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 if(aData.DT_RowData!=null){ //check comment survey
                   $(nRow).css({'color':'#d42931','font-weight':'bold'});

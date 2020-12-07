@@ -24,17 +24,24 @@ class ModelLeadBranch extends Model
         }else{
             $user="join crm_lead_assign cla on cla.crm_lead_branch_id=clb.id and cla.is_deleted=false and cla.ma_user_id=$userid or clb.create_by=$userid";
         }
-        return "SELECT clb.id as branch_id, clb.name_en as name_en_branch,clb.name_kh,email as email_branch,phone as branch_phone,
-                (select customer_name_en from crm_lead where id=clb.crm_lead_address_id),
-                (select comment from crm_lead_schedule where crm_lead_branch_id=clb.id ORDER BY create_date desc limit 1) as survey_comment,
-                (select id from crm_lead_schedule where crm_lead_branch_id=clb.id ORDER BY create_date desc limit 1) as schedule_id,
-                (select first_name_en||' '||last_name_en as user_assig_to from ma_user where id=(select ma_user_id from crm_lead_assign where crm_lead_branch_id=clb.id ORDER BY create_date DESC limit 1)),
-                (select (select name_en from crm_lead_status where id=cld.crm_lead_status_id) from crm_lead_detail cld where  cld.is_deleted=false and cld.crm_lead_branch_id=clb.id ORDER BY create_date desc limit 1) as status_name
-                from crm_lead_branch clb
-                $user
-                where clb.is_deleted=false $sql
-                ORDER BY clb.crm_lead_id,clb.id ASC
-        ";
+        return "SELECT clb.id as branch_id, clb.name_en as name_en_branch,clb.name_kh,clb.email as email_branch,clb.phone as branch_phone,
+                    cl.customer_name_en,
+                    cls.comment as survey_comment,
+                    cls.id as schedule_id,
+                    (select first_name_en||' '||last_name_en as user_assig_to from ma_user where id=(select ma_user_id from crm_lead_assign where crm_lead_branch_id=clb.id ORDER BY create_date DESC limit 1)),
+                    cld.id,clst.name_en as status_name
+                    from crm_lead_branch clb
+                                    join crm_lead cl on cl.id=clb.crm_lead_id and cl.is_deleted=false
+                                    left join (select DISTINCT max(id) OVER (PARTITION BY crm_lead_branch_id ) as id,crm_lead_branch_id from crm_lead_schedule) cls_ on cls_.crm_lead_branch_id=clb.id
+                                    left join crm_lead_schedule cls on cls.id=cls_.id
+                                    left join (
+                                        select DISTINCT max(id) OVER (PARTITION BY crm_lead_branch_id ) as id,crm_lead_branch_id from crm_lead_detail
+                                    ) cld_ on cld_.crm_lead_branch_id=clb.id
+                                    left join crm_lead_detail cld on cld.id=cld_.id
+                                    join crm_lead_status clst on clst.id=cld.crm_lead_status_id and clst.is_deleted=false
+                    where clb.is_deleted=false
+                    ORDER BY clb.crm_lead_id,clb.id ASC
+                    ";
     }
     public static function getleadBranchDataTable($request,$status,$userid){
         if(is_null($userid)){

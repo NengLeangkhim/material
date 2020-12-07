@@ -58,7 +58,7 @@
                         $("#tblQuoteList").DataTable({
                             scrollX:true,
                             // "responsive": true,
-                            "autoWidth": true,
+                            "autoWidth": false,
                             "serverSide": true,
                             "ajax": "/quote/datatable",
                             "columnDefs": [
