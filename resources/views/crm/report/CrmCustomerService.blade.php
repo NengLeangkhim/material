@@ -131,12 +131,12 @@
                         <div class="table-responsive" style="padding-top: 10px;">
                             <table id="CustomerServiceTbl" class="table table-bordered table-striped" style="width: 100%;">
                                 <thead>
-                                    <tr>
+                                    <tr style="background: #1fa8e0">
                                         <th style="display:none;"></th>
-                                        <th>No.</th>
-                                        <th>Barcode</th>
-                                        <th>Service Name</th>
-                                        <th>Total</th>
+                                        <th style="color: #FFFFFF">No.</th>
+                                        <th style="color: #FFFFFF">Barcode</th>
+                                        <th style="color: #FFFFFF">Service Name</th>
+                                        <th style="color: #FFFFFF">Total</th>
                                     </tr>
                                 </thead>
                                 <tbody id="customer-service-body">

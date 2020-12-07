@@ -113,18 +113,18 @@
                         <div class="table-responsive" style="padding-top: 10px;">
                             <table id="OrganizationTbl3" class="table table-bordered table-striped" style="white-space: nowrap;">
                                 <thead>
-                                    <tr>
+                                    <tr style="background: #1fa8e0">
                                         <th style="display:none;"></th>
-                                        <th>No</th>
-                                        <th>Lead Number</th>
-                                        <th>Company Name</th>
-                                        <th>Customer Name</th>
-                                        <th>Branch Email</th>
-                                        <th>VAT Number</th>
-                                        <th>Website</th>
-                                        <th>Priority</th>
-                                        <th>Facebook</th>
-                                        <th>Email</th>
+                                        <th style="color: #FFFFFF">No</th>
+                                        <th style="color: #FFFFFF">Lead Number</th>
+                                        <th style="color: #FFFFFF">Company Name</th>
+                                        <th style="color: #FFFFFF">Customer Name</th>
+                                        <th style="color: #FFFFFF">Branch Email</th>
+                                        <th style="color: #FFFFFF">VAT Number</th>
+                                        <th style="color: #FFFFFF">Website</th>
+                                        <th style="color: #FFFFFF">Priority</th>
+                                        <th style="color: #FFFFFF">Facebook</th>
+                                        <th style="color: #FFFFFF">Email</th>
                                     </tr>
                                 </thead>
                                 <tbody id="lead-detail-body">

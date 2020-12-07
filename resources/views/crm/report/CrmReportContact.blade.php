@@ -71,17 +71,17 @@
                         <div class="table-responsive" style="padding-top: 10px;">
                             <table id="OrganizationTbl2" class="table table-bordered table-striped" style="white-space: nowrap;">
                                 <thead>
-                                    <tr>
+                                    <tr style="background: #1fa8e0">
                                         <th style="display:none;"></th>
-                                        <th>No</th>
-                                        <th>National ID</th>
-                                        <th>Name In English</th>
-                                        <th>Name In Khmer</th>
-                                        <th>Position</th>
-                                        <th>Email</th>
-                                        <th>Facebook</th>
-                                        <th>Date Create</th>
-                                        <th>Phone</th>
+                                        <th style="color: #FFFFFF">No</th>
+                                        <th style="color: #FFFFFF">National ID</th>
+                                        <th style="color: #FFFFFF">Name In English</th>
+                                        <th style="color: #FFFFFF">Name In Khmer</th>
+                                        <th style="color: #FFFFFF">Position</th>
+                                        <th style="color: #FFFFFF">Email</th>
+                                        <th style="color: #FFFFFF">Facebook</th>
+                                        <th style="color: #FFFFFF">Date Create</th>
+                                        <th style="color: #FFFFFF">Phone</th>
                                     </tr>
                                 </thead>
                                 <tbody id="lead-detail-body">

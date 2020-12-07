@@ -10,14 +10,14 @@
     <div>
         <table class="table table-bordered display nowrap" style="width: 100%" id="Quote_Status_Tbl">
             <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name English</th>
-                    <th>Name Khmer</th>
-                    <th>Sequence</th>
-                    <th>Color</th>
-                    <th>Create Date</th>
-                    <th>Action</th>
+                <tr style="background: #1fa8e0">
+                    <th style="color: #FFFFFF">#</th>
+                    <th style="color: #FFFFFF">Name English</th>
+                    <th style="color: #FFFFFF">Name Khmer</th>
+                    <th style="color: #FFFFFF">Sequence</th>
+                    <th style="color: #FFFFFF">Color</th>
+                    <th style="color: #FFFFFF">Create Date</th>
+                    <th style="color: #FFFFFF">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,7 +30,7 @@
                     <td>{{$row->name_en}}</td>
                     <td>{{$row->name_kh}}</td>
                     <td>{{$row->sequence}}</td>
-                    <td><input type="color" id="favcolor" name="favcolor" value="{{$row->color ?? '#000'}}"></td>
+                    <td class="text-center"><input style="border: none; background-color: white;" type="color" id="favcolor" name="favcolor" value="{{$row->color ?? '#000'}}"></td>
                     <td>{{date('Y-m-d H:i:s',strtotime($row->create_date))}}</td>
                     <td>
                         <a href="#" id="{{$row->id}}" class="btn btn-block btn-info btn-sm CrmEditQuoteStatus"><i class="fas fa-wrench"></i></a>
