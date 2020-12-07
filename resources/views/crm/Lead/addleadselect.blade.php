@@ -735,7 +735,6 @@
         //Initialize Select2 Elements
             $('#assig_to').select2();
             $('#addresscode').select2();
-            $('#contact_id').select2();
             $('#service').select2();
     })
         // get data into combobox branch
@@ -808,27 +807,49 @@
           })
 
       })
-    $(document).ready(function(){
-        $('#lead_id').select2({
-            ajax: {
-                url: '/lead/search',
-                dataType: 'json',
-                type:'get',
-                delay: 250,
-                data: function (params) {
-                    return {  
-                        search: params.term // search term
-                    };   
-                },
-                processResults: function (response) {
-                    return {
-                        results: response.data
-                    };
-                },
-                cache: true
-            }
+      $(document).ready(function(){
+            // function search lead
+            $('#lead_id').select2({
+                ajax: {
+                    url: '/lead/search',
+                    dataType: 'json',
+                    type:'get',
+                    delay: 250,
+                    data: function (params) {
+                        return {  
+                            search: params.term // search term
+                        };   
+                    },
+                    processResults: function (response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+            // function search lead contacr
+            $('#contact_id').select2({
+                ajax: {
+                    url: '/contact/search',
+                    dataType: 'json',
+                    type:'get',
+                    delay: 250,
+                    data: function (params) {
+                        return {  
+                            search: params.term // search term
+                        };   
+                    },
+                    processResults: function (response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
         });
-    });
               // get  lead in  selection
     // $('#lead_id').ready(function(){
     //     var getLeadId = $('#lead_id').attr('data-code');  // get value daat-id atfer selete option lead
@@ -900,4 +921,72 @@
                 return false;
             return true;
         }
+        // get value in search contact from selection and show in each field
+        $( "#contact_id" ).on('select2:select', function (e){
+          $("#name_en").val(''); //set option null before change
+          $("#name_kh").val('');
+          $("#email").val('');
+          $("#phone").val('');
+          $("#national_id").val('');
+          $("#position").val('');
+          $("#ma_honorifics_id").val('');
+          var to = $(this).children("option:selected"). val();
+          var myvar= $( "#getcontact" ).val();
+          if(to=='Not'){
+            $("#name_en").val('');
+            $("#name_kh").val('');
+            $("#email").val('');
+            $("#phone").val('');
+            $("#national_id").val('');
+            $("#position").val('');
+            $("#ma_honorifics_id").val('');
+            $('#name_en').prop('readonly', false);
+            $('#name_kh').prop('readonly', false);
+            $('#email').prop('readonly', false);
+            $('#phone').prop('readonly', false);
+            $('#national_id').prop('readonly', false);
+            $('#position').prop('readonly', false);
+            $('#ma_honorifics_id').attr('disabled', false);
+          }else{
+            $.ajax({
+              url:'/api/contact/'+to,
+              type:'get',
+              dataType:'json',
+              headers: {
+                'Authorization': `Bearer ${myvar}`,
+              },
+              success:function(response){
+
+                          var name_en = response.data.name_en;
+                          var name_kh = response.data.name_kh;
+                          var email = response.data.email;
+                          var phone = response.data.phone;
+                          var national_id = response.data.national_id;
+                          var position = response.data.position;
+                          if(response.data.honorifics == null){
+                             var honorifics_id ='';
+                          }else{
+                            var honorifics_id = response['data'].honorifics.id;
+                          }
+                          $("#name_en").val(name_en);
+                          $("#name_kh").val(name_kh);
+                          $("#email").val(email);
+                          $("#phone").val(phone);
+                          $("#national_id").val(national_id);
+                          $("#position").val(position);
+                          $("#ma_honorifics_id").val(honorifics_id);
+          
+                          $('#name_en').prop('readonly', true);
+                          $('#name_kh').prop('readonly', true);
+                          $('#email').prop('readonly', true);
+                          $('#phone').prop('readonly', true);
+                          $('#national_id').prop('readonly', true);
+                          $('#position').prop('readonly', true);
+                          $('#ma_honorifics_id').attr('disabled', true);
+  
+  
+              }
+            })
+          }
+        });
 </script>
