@@ -56,7 +56,7 @@ class QuoteController extends Controller
             }
             else
             {
-                return view('no_perms');
+                return [];
             }
         }
         catch(Exception $e)
@@ -75,9 +75,14 @@ class QuoteController extends Controller
         DB::beginTransaction();
         try{
             if(perms::check_perm_module_api('CRM_020602',$userid)){ // top managment
-                $quote =Quote::getQuoteDataTable(0,$request);//0 means get all data
+                $quote =Quote::getQuoteDataTable(-1,$request);//0 means get all data
                     return $quote;
-                // dd(QuoteResource::Collection($quote));
+                // dd(QuoteResource::Collection($q uote));
+            }
+            else if (perms::check_perm_module_api('CRM_020607',$userid)) { // finance (Model and Leadlist by user)
+                $quote = Quote::getQuoteDataTable(0,$request);
+                return $quote;
+                // dd("staff");
             }
             else if (perms::check_perm_module_api('CRM_020603',$userid)) { // fro staff (Model and Leadlist by user)
                 $quote = Quote::getQuoteDataTable($userid,$request);
@@ -86,7 +91,7 @@ class QuoteController extends Controller
             }
             else
             {
-                return view('no_perms');
+                return [];
             }
         }
         catch(Exception $e)
