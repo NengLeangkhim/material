@@ -54,6 +54,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('countsurvey','api\crm\LeadController@getcountsurveyresult');
     //get lead that  have br,anch convert
     Route::get('/getleadconvert','api\crm\LeadController@getleadconvert');
+    Route::get('/getleadconvert/datatable','api\crm\LeadController@getleadconvertDatatable');
 
     //get POP
     Route::get('getpop','api\crm\POPController@getpop');

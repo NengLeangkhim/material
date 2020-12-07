@@ -5,7 +5,7 @@
 @endphp --}}
 <div class="col-12" style="margin-top: 10px">
     <div class="table-responsive">
-        <table id="Lead_Branch_Tbl" class="table table-bordered table-striped nowrap" style="width: 100%;">
+        <table id="Lead_Branch_Tbl" class="table table-bordered table-striped nowrap">
             <thead>
                 <tr style="background: #1fa8e0">
                     {{-- <th style="color: #FFFFFF">Lead No</th> --}}
@@ -42,6 +42,6 @@
     </div>
 </div>
 <script>
-            
+
 </script>
 

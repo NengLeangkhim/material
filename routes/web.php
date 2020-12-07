@@ -133,6 +133,7 @@ Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quo
 Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get stock product api to view
 Route::get('/quote/add/listService','crm\QuoteController@listService'); // get stock service api to view
 Route::get('/quote/add/listQuoteLead','crm\QuoteController@listQuoteLead'); // get organization lead
+Route::get('/quote/add/listQuoteLead/datatable','crm\QuoteController@listQuoteLeadDatatable'); // get organization lead
 Route::get('/quote/add/listQuoteBranch','crm\QuoteController@listQuoteBranch'); // get lead branch
 Route::get('/quote/add/listAssignTo','crm\QuoteController@staffAssignQuote'); // list staff get assign quote
 

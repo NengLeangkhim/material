@@ -16,62 +16,32 @@ class ModelLeadBranch extends Model
         if($status=='all'){
             $sql = '';
         }else{
-            $sql = "and ls.name_en='$status'";
+            $sql = "and clb.id in (select crm_lead_branch_id from crm_lead_detail cld where  cld.is_deleted=false and cld.crm_lead_status_id=(select id from crm_lead_status where name_en='$status'))";
         }
         $user='';
         if(is_null($userid)){
             $user='';
         }else{
-            $user="and la.ma_user_id='$userid'";
+            $user="join crm_lead_assign cla on cla.crm_lead_branch_id=clb.id and cla.is_deleted=false and cla.ma_user_id=$userid or clb.create_by=$userid";
         }
-        return "
-        SELECT  crm_lead.lead_number,crm_lead.customer_name_en,clitem.id as lead_item_id,lbc.id as lead_con_bran_id,lb.crm_lead_id as lead_id,lb.id as branch_id,lc.id as contact_id, lb.name_en as name_en_branch,lb.name_kh as name_kh_branch,
-        lb.email as email_branch,lb.priority,crm_lead.website,crm_lead.facebook,crm_lead.employee_count,crm_lead.current_isp_speed,crm_lead.current_isp_price,clci.name_en as current_isp,
-        crm_lead.vat_number,cls.name_en as lead_source,cli.name_en as lead_industry,mcd.company,sp.name as service_name,sp.id as servie_id,
-        lb.create_date as date_create_branch,
-        lb.create_by as user_create_branch_id,ld.comment,
-         lc.name_en as name_en_contact,lc.name_kh as name_kh_contact ,lb.crm_lead_address_id,
-         lc.email as email_contact, lc.facebook as facebook_contact, lc.position,lc.phone,u.id as user_ass,lb.phone as branch_phone,
-        lc.national_id ,lc.ma_honorifics_id,mh.name_en as gender_en,mh.name_kh as gender_kh,la.id as lead_assig_id,la.ma_user_id ,CONCAT(u.last_name_en,' ',u.first_name_en) as user_assig_to,ls.name_en as status_name,
-        ladd.address_type ,ladd.hom_en,ladd.home_kh,ladd.street_en,street_kh,ladd.latlg,ladd.gazetteer_code,ld.create_date as create_lead_date,ld.create_by,ld.id as lead_detail_id,
-        (SELECT  get_gazetteers_address(ladd.gazetteer_code) ) as address_kh ,
-        (SELECT  get_gazetteers_address_en(ladd.gazetteer_code) ) as address_en,ladd.address_type,
-        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 2) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 1) end end)) as province,
-        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 4) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 3) end end)) as district,
-        (select name_latin from ma_gazetteers where code=(case when length(ladd.gazetteer_code)>7 then substring(ladd.gazetteer_code from 1 for 6) else case when length(ladd.gazetteer_code)=7 then substring(ladd.gazetteer_code from 1 for 5) end end)) as commune,
-        (SELECT name_latin from ma_gazetteers where code=ladd.gazetteer_code) as village,
-		(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC  LIMIT 1) as  survey_id,
-		(SELEct status from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) as  survey_status,
-		(SELECT comment as survey_comment from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
-		(SELECT possible  from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date  DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
-        (SELECT id from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_id,
-		(SELECT status from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_status
-        from  crm_lead_branch_crm_lead_contact_rel lbc
-        left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
-        JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
-        JOIN crm_lead_assign la on la.crm_lead_branch_id= lb.id
-        JOIN ma_user u on la.ma_user_id=u.id
-        JOIN (SELECT id,crm_lead_branch_id,crm_lead_status_id,comment,create_date,create_by,status,is_deleted
-							FROM crm_lead_detail
-							WHERE (id,crm_lead_branch_id) IN
-								(SELECT MAX(id),crm_lead_branch_id
-								 FROM crm_lead_detail
-								 GROUP BY crm_lead_branch_id
-								)GROUP BY id,crm_lead_branch_id,crm_lead_status_id,comment,create_date,create_by,status,is_deleted
-							)ld on ld.crm_lead_branch_id= lbc.crm_lead_branch_id
-        JOIN crm_lead_status ls on ls.id = ld.crm_lead_status_id
-        JOIN ma_honorifics mh on mh.id=lc.ma_honorifics_id
-        join crm_lead_address  ladd on  ladd.id =lb.crm_lead_address_id
-        join crm_lead on crm_lead.id= lb.crm_lead_id
-        left join crm_lead_source cls on cls.id = crm_lead.crm_lead_source_id
-        left join crm_lead_industry  cli on  cli.id = crm_lead.crm_lead_industry_id
-        left JOIN ma_company_detail mcd on mcd.id = crm_lead.ma_company_detail_id
-        left join crm_lead_current_isp clci on clci.id = crm_lead.crm_lead_current_isp_id
-        LEFT JOIN crm_lead_items clitem on clitem.crm_lead_branch_id = lb.id
-        LEFT JOIN stock_product sp on sp.id= clitem.stock_product_id
-        where ld.status=true and ld.is_deleted=false $sql $user
-		ORDER BY crm_lead.id,lb.id ASC
-        ";
+        return "SELECT clb.id as branch_id, clb.name_en as name_en_branch,clb.name_kh,clb.email as email_branch,clb.phone as branch_phone,
+                    cl.customer_name_en,
+                    cls.comment as survey_comment,
+                    cls.id as schedule_id,
+                    (select first_name_en||' '||last_name_en as user_assig_to from ma_user where id=(select ma_user_id from crm_lead_assign where crm_lead_branch_id=clb.id ORDER BY create_date DESC limit 1)),
+                    cld.id,clst.name_en as status_name
+                    from crm_lead_branch clb
+                                    join crm_lead cl on cl.id=clb.crm_lead_id and cl.is_deleted=false
+                                    left join (select DISTINCT max(id) OVER (PARTITION BY crm_lead_branch_id ) as id,crm_lead_branch_id from crm_lead_schedule) cls_ on cls_.crm_lead_branch_id=clb.id
+                                    left join crm_lead_schedule cls on cls.id=cls_.id
+                                    left join (
+                                        select DISTINCT max(id) OVER (PARTITION BY crm_lead_branch_id ) as id,crm_lead_branch_id from crm_lead_detail
+                                    ) cld_ on cld_.crm_lead_branch_id=clb.id
+                                    left join crm_lead_detail cld on cld.id=cld_.id
+                                    join crm_lead_status clst on clst.id=cld.crm_lead_status_id and clst.is_deleted=false
+                    where clb.is_deleted=false
+                    ORDER BY clb.crm_lead_id,clb.id ASC
+                    ";
     }
     public static function getleadBranchDataTable($request,$status,$userid){
         if(is_null($userid)){

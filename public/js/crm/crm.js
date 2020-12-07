@@ -396,10 +396,11 @@ function CrmLeadBranchView(url,table){
       success:function(data){
         $('#CrmTabManageSetting').html(data);
         $('#'+table+'').dataTable({
-            'responsive': true,
             scrollX:true,
             "serverSide": true,
+            "autoWidth": false,
             "ajax": "/crm/leadbranch/datatable/"+$status,
+            "ordering": false,
             "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 if(aData.DT_RowData!=null){ //check comment survey
                   $(nRow).css({'color':'#d42931','font-weight':'bold'});
@@ -425,38 +426,36 @@ function CrmLeadBranchView(url,table){
                   },
                   "targets": 4
               },
-              {
-                "searchable": false,
-                "targets": 7
-                },
             {
                 // The `data` parameter refers to the data for the cell (defined by the
                 // `data` option, which defaults to the column being worked with, in
                 // this case `data: 0`.
+                "searchable": false,
+                "width": "100px",
                 "render": function ( data, type, row ) {
-                    var st='';
-                    st+='<div class="row-12 form-inline">'+
-                    '<div class="col-md-6">'+
+                    var st='<div class="container-fluid">';
+                    st+='<div class="row form-inline">'+
+                    '<div class="col-4">'+
                         '<a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="/crm/leadbranch/detail/'+data+'"  onclick="go_to(\'/crm/leadbranch/detail/'+data+'\')" title="Detail Branch">'+
                             '<i class="far fa-eye"></i>'+
                         '</a>'+
                     '</div>';
                     if(row[4]!=null){
-                    st+='<div class="col-md-6 ">'+
+                    st+='<div class="col-4 ">'+
                                 '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule" onclick="branch_schedule_detail(\''+row[4]+'\')"  id="detailschedule'+row[4]+'" value="'+row[4]+'"  title="Detail Of Branch">'+
                                     '<i class="fas fa-calendar-day"> </i>'+
                                 '</a>'+
                             '</div>'+
                         '</div>';
                     }else{
-                    st+='<div class="col-md-6 ">'+
+                    st+='<div class="col-md-4 ">'+
                                 '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule" onclick="lead_branch_schedule(\''+data+'\')"  id="schedule'+data+'" value="'+data+'">'+
                                     '<i class="fas fa-calendar-day"> </i>'+
                                 '</a>'+
                             '</div>'+
                         '</div>';
                     }
-                    return st;
+                    return st+'</div>';
                 },
                 "targets": 7
             },
@@ -765,12 +764,46 @@ function CrmLeadBranchView(url,table){
             });
             return table;
         }
-
+        function getDataTableServerSide(tblId,route){ //this method is for list lead on add quote view
+          let table = $('#'+tblId+'').DataTable({
+              sDom: 'lrtip',
+              targets:'no-sort',
+              bSort: false,
+              select: true,
+              serverSide: true,
+              ajax: route,
+              createdRow: function( row, data, dataIndex ) {
+                $(row).attr('id', data[5]);
+                $( row ).find('td:eq(0)').attr('id', 'leadKhName_'+data[5]);
+                $( row ).find('td:eq(1)').attr('id', 'leadEnName_'+data[5]);
+              },
+              columnDefs:
+                [
+                  {
+                    searchable : false,
+                    visible:false,
+                    targets:5,
+                  }
+                ],
+          });
+          $(document).keyup(function(){
+              $('#mySearchQuote').on( 'keyup', function () {
+                  table.search($(this).val()).draw();
+              });
+          });
+          return table;
+      }
 
 
         //function to get datatable with select row
         function getDataTableSelectRow(tblId,btnId,getName,fieldID,fieldName,modal_form){
-            var table = getDataTable(tblId);
+
+            var table ;
+            if(tblId=="tblQuuteLead"){//
+              table = getDataTableServerSide(tblId,"/quote/add/listQuoteLead/datatable");
+            }else{
+              table = getDataTable(tblId);
+            }
             $('#'+tblId+' tbody').on( 'click', 'tr', function () {
                 if ($(this).hasClass('selected') ) {
                     $(this).removeClass('selected');
@@ -1101,7 +1134,7 @@ function CrmLeadBranchView(url,table){
                   if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
                         sweetalert('success','Data has been saved !');
                         setTimeout(function(){
-                            goto_Action('/quote/detail', data.quoteId.id);
+                            go_to('/quote/detail?id_='+data.quoteId);
                         },1300);
 
                     // use go ot view quote detail
