@@ -29,7 +29,7 @@ class ModelCrmQuote extends Model
         from crm_quote cq
         left join ma_user ast on ast.id=cq.assign_to
         left join crm_lead cl on cl.id=cq.crm_lead_id
-        where cq.is_deleted=false $condition";
+        where cq.is_deleted=false $condition order by cq.create_date desc";
     }
     public static function getQuoteDataTable($userid,$request){
         $table = '('.self::getQuoteByUserSql($userid).') as foo';

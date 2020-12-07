@@ -47,9 +47,9 @@
                         <table id="tblQuuteLead" class="table table-bordered " style="width: 100%; white-space:nowrap;">
                             <thead>
                                 <tr >
-                                    <th>
+                                    {{-- <th>
                                         No.
-                                    </th>
+                                    </th> --}}
                                     <th>Khmer Name</th>
                                     <th>English Name</th>
                                     <th>Lead Number</th>
@@ -60,7 +60,7 @@
 
                             <tbody>
 
-                                @if(isset($listLead))
+                                @if(false)
                                     @foreach ($listLead as $key=>$val)
                                         @foreach ($val as $key2=>$val2)
                                                 <tr id="{{$val2->lead_id}}">

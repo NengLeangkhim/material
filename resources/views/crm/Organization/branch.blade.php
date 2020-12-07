@@ -59,7 +59,7 @@
 <script type="text/javascript">
     t=$("#TableOrganizeBranchId").DataTable({
     scrollX:true,
-    "autoWidth": false,
+    "autoWidth": true,
     "serverSide": true,
     "ajax": "/organizations/branches/datatable/{{ $organize_id }}",
     });
