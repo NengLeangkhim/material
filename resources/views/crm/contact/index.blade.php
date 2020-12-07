@@ -77,7 +77,7 @@
               t=$("#tblIndexContact").DataTable({
                 // "responsive": true,
                 scrollX:true,
-                "autoWidth": false,
+                "autoWidth": true,
                 "serverSide": true,
                 "ajax": "contact/datatable",
                 "columnDefs": [

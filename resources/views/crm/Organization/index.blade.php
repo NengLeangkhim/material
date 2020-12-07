@@ -54,7 +54,7 @@
               t=$("#OrganizationTbl").DataTable({
                 // "responsive": true,
                 scrollX:true,
-                "autoWidth": false,
+                "autoWidth": true,
                 "serverSide": true,
                 "ajax": "organizations/datatable",
                 "columnDefs": [

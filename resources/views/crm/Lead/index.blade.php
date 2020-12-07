@@ -59,7 +59,7 @@
             $(function () {
                 t=$("#example1").DataTable({
                 scrollX:true,
-                "autoWidth": false,
+                "autoWidth": true,
                 "serverSide": true,
                 "ajax": "lead/datatable",
                 "columnDefs": [
