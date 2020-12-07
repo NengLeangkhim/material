@@ -59,7 +59,7 @@
                                                 <input type="text" class="form-control" hidden  value="{{$detailbranch[$i]['comment']}}"  name='comment' id="comment"  >
                                                 <input type="text" hidden value="{{$detailbranch[$i]['lead_detail_id']}}" name="lead_detail_id" id="lead_detail_id">
                                                 <input type="text" hidden value="{{$detailbranch[$i]['branch_id']}}" name="branch_id" id="branch_id">
-                                                <button type="button"  class="btn btn-success btn-md form-control"  id="btn_convert"  value="{{$detailbranch[$i]["branch_id"]}}" onclick="submit_form('api/convertbranch','frm_Crmlbranchsurvey','/lead')" >Convert</button>
+                                                <button type="button"  class="btn btn-success btn-md form-control"  id="btn_convert"  value="{{$detailbranch[$i]["branch_id"]}}" onclick="submit_form('api/convertbranch','frm_Crmlbranchsurvey','/lead')" >Convert To Organization</button>
                                             </form>
                                         </div>
                                         <div class="col-md-6 " >
@@ -135,46 +135,37 @@
                                         {{-- <dt class="col-sm-4 dt">Priority</dt>
                                         <dd class="col-sm-8 dd">{{$detailbranch[$i]["priority"]}} </dd> --}}
                                         <dt class="col-sm-4 dt">Comment</dt>
-                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["comment"]}} </dd>
-                                        <?php 
-                                            if($detailbranch[$i]["possible"]==false){
-                                                ?>
-                                                    <dt class="col-sm-4 dt" hidden>Survey</dt>
-                                                    <dd class="col-sm-8 dd" hidden>
-                                                        {{$detailbranch[$i]["survey_status"]!=false? 'Survey':'Not yet Survey'}}
-                                                    </dd>
-                                                <?php
-                                            }if($detailbranch[$i]["possible"]==null){
-                                                ?>
-                                                        <dt class="col-sm-4 dt">Survey</dt>
-                                                        <dd class="col-sm-8 dd">
-                                                            {{$detailbranch[$i]["survey_status"]!=false? 'Survey':'Not yet Survey'}}
-                                                        </dd>
-                                                <?php
-                                            }
-                                        ?>
-                                        {{-- <dt class="col-sm-4 dt">Survey</dt>
+                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["comment"] ?? ''}} </dd>
+                                        <dt class="col-sm-4 dt">Survey</dt>
+                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["survey_id"]!=null? 'YES':'NO'}}</dd>
+                                        <dt class="col-sm-4 dt">Survey Result</dt>
                                         <dd class="col-sm-8 dd">
-                                            {{$detailbranch[$i]["survey_status"]!=false? 'Survey':'Not yet Survey'}}
-                                        </dd> --}}
-                                       <?php 
-                                            if($detailbranch[$i]["survey_comment"]==null){
-                                                ?>
-                                                    <dt class="col-sm-4 dt" hidden>Active Survey</dt>
-                                                    <dd class="col-sm-8 dd" hidden>
-                                                        {{$detailbranch[$i]["possible"]==false ? "Suvery Not Access":"Suvery Access"}} => {{$detailbranch[$i]["survey_comment"]!=" "? $detailbranch[$i]["survey_comment"]:"NULL"}}
-                                                    </dd>
-                                                <?php
-                                            }
-                                            else {
-                                                ?>
-                                                    <dt class="col-sm-4 dt">Active Survey</dt>
-                                                    <dd class="col-sm-8 dd">
-                                                        {{$detailbranch[$i]["possible"]==false ? "Suvery Not Access":"Suvery Access"}} => {{$detailbranch[$i]["survey_comment"]!=" "? $detailbranch[$i]["survey_comment"]:"NULL"}}
-                                                    </dd>
-                                                <?php
-                                            }
-                                       ?>
+                                            <?php
+                                                if($detailbranch[$i]["survey_id"]==null){
+                                                    ?>
+                                                    NO
+                                                    <?php
+                                                }
+                                                else {
+                                                    if($detailbranch[$i]["survey_comment"]==null){
+                                                    ?>
+                                                        Surveying
+                                                    <?php
+                                                    }
+                                                    else {
+                                                        ?>
+                                                        {{$detailbranch[$i]["possible"]=='true' ? 'YES':'NO'}}
+                                                        <?php
+                                                    }
+                                                }
+                                               
+                                            ?>
+                                           
+                                        </dd>
+                                        <dt class="col-sm-4 dt">Survey Result Comment</dt>
+                                        <dd class="col-sm-8 dd">{{$detailbranch[$i]["survey_comment"]==null? '':$detailbranch[$i]["survey_comment"]}}</dd>
+                                       
+                                       
                                     <?php
                                 }
                            ?>                           

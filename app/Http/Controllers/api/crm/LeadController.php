@@ -182,58 +182,58 @@ class LeadController extends Controller
             }
             $userid = $_SESSION['userid'];
 
-            $lead_id=$request->input('lead_id');
-            $con_id=$request->input('contact_id');
-            $prioroty=$request->input('prioroty');
+            $lead_id=$request->input('lead_id')!=""?$request->input('lead_id'):null;
+            $con_id=$request->input('contact_id')!=""?$request->input('contact_id'):null;
+            $prioroty=$request->input('prioroty')!=""?$request->input('prioroty'):null;
             $checksurvey=$request->input('checksurvey')!=""? $request->input('checksurvey'):"null";
-            $survey_id=$request->input('survey_id');
-            $lead_address_id=$request->input('address_id');
-            $lead_con_bran_id=$request->input('lead_con_bran_id');
-            $lead_detail_id=$request->input('lead_detail_id');
-            $lead_item_id=$request->input('lead_item_id');
-            $branch_id=$request->input('branch_id');
-            $company_en=ucwords($request->input('company_en'));
-            $company_kh=$request->input('company_kh');
-            $primary_email=$request->input('primary_email');
-            $primary_phone=$request->input('primary_phone');
+            $survey_id=$request->input('survey_id')!=""?$request->input('survey_id'):null;
+            $lead_address_id=$request->input('address_id')!=""?$request->input('address_id'):null;
+            $lead_con_bran_id=$request->input('lead_con_bran_id')!=""?$request->input('lead_con_bran_id'):null;
+            $lead_detail_id=$request->input('lead_detail_id')!=""?$request->input('lead_detail_id'):null;
+            $lead_item_id=$request->input('lead_item_id')!=""?$request->input('lead_item_id'):null;
+            $branch_id=$request->input('branch_id')!=""?$request->input('branch_id'):null;
+            $company_en=ucwords($request->input('company_en'))!=""?$request->input('company_en'):null;
+            $company_kh=$request->input('company_kh')!=""?$request->input('company_kh'):null;
+            $primary_email=$request->input('primary_email')!=""?$request->input('primary_email'):null;
+            $primary_phone=$request->input('primary_phone')!=""?$request->input('primary_phone'):null;
             // $user_create=$request->input('user_create');
             $user_create=$userid;
-            $website=$request->input('website');
-            $facebook=$request->input('company_facebook');
-            $vat_number=$request->input('vat_number');
-            $company_branch=$request->input('branch');
-            $lead_source=$request->input('lead_source');
+            $website=$request->input('website')!=""?$request->input('website'):null;
+            $facebook=$request->input('company_facebook')!=""?$request->input('company_facebook'):null;
+            $vat_number=$request->input('vat_number')!=""?$request->input('vat_number'):null;
+            $company_branch=$request->input('branch')!=""?$request->input('branch'):null;
+            $lead_source=$request->input('lead_source')!=""?$request->input('lead_source'):null;
             // $lead_status=$request->input('lead_status');
-            $lead_industry=$request->input('lead_industry');
-            $assig_to_id=$request->input('assig_to_id');
-            $assig_to=$request->input('assig_to');
+            $lead_industry=$request->input('lead_industry')!=""?$request->input('lead_industry'):null;
+            $assig_to_id=$request->input('assig_to_id')!=""?$request->input('assig_to_id'):null;
+            $assig_to=$request->input('assig_to')!=""?$request->input('assig_to'):null;
             $service=$request->input('service')!=""?$request->input('service'):null;
-            $current_speed_isp=$request->input('current_speed_isp');
-            $current_speed=$request->input('current_speed');
-            $current_price=$request->input('current_price');
-            $employee_count=$request->input('employee_count');
-            $comment=$request->input('comment');
+            $current_speed_isp=$request->input('current_speed_isp')!=""?$request->input('current_speed_isp'):null;
+            $current_speed=$request->input('current_speed')!=""?$request->input('current_speed'):null;
+            $current_price=$request->input('current_price')!=""?$request->input('current_price'):null;
+            $employee_count=$request->input('employee_count')!=""?$request->input('employee_count'):null;
+            $comment=$request->input('comment')!=""?$request->input('comment'):null;;
             //contact detail
-            $name_kh=$request->input('name_kh');
-            $name_en=$request->input('name_en');
-            $gender=$request->input('ma_honorifics_id');
-            $facebook_con= $request->input('facebook')!=''? $request->input('facebook'):"null";
-            $email=$request->input('email');
-            $phone=$request->input('phone');
-            $position=$request->input('position');
-            $national_id=$request->input('national_id');
+            $name_kh=$request->input('name_kh')!=""?$request->input('name_kh'):null;;
+            $name_en=$request->input('name_en')!=""?$request->input('name_en'):null;;
+            $gender=$request->input('ma_honorifics_id')!=""?$request->input('ma_honorifics_id'):null;;
+            $facebook_con= $request->input('facebook')!=''? $request->input('facebook'):null;
+            $email=$request->input('email')!=""?$request->input('email'):null;;
+            $phone=$request->input('phone')!=""?$request->input('phone'):null;;
+            $position=$request->input('position')!=""?$request->input('position'):null;;
+            $national_id=$request->input('national_id')!=""?$request->input('national_id'):null;;
 
             //address detail
-            $home_en=$request->input('home_en');
-            $home_kh=$request->input('home_kh');
-            $street_en=$request->input('street_en');
-            $street_kh=$request->input('street_kh');
-            $latlong=$request->input('latlong');
-            $address_type=$request->input('address_type');
-            $addresscode=$request->input('village');
+            $home_en=$request->input('home_en')!=""?$request->input('home_en'):null;;
+            $home_kh=$request->input('home_kh')!=""?$request->input('name_kh'):null;;
+            $street_en=$request->input('street_en')!=""?$request->input('street_en'):null;;
+            $street_kh=$request->input('street_kh')!=""?$request->input('street_kh'):null;;
+            $latlong=$request->input('latlong')!=""?$request->input('latlong'):null;;
+            $address_type=$request->input('address_type')!=""?$request->input('address_type'):null;;
+            $addresscode=$request->input('village')!=""?$request->input('village'):null;;
 
 
-            // var_dump($survey_id);
+            // dd($lead_detail_id);
             if(perms::check_perm_module('CRM_020505')){//module code list
                 return  Lead::updatebranch($lead_address_id,$lead_detail_id,$lead_item_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
                 $vat_number,$company_branch,$lead_source,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,$primary_phone,

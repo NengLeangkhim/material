@@ -102,7 +102,7 @@ Route::get('/commune/{id}','api\crm\LeadController@getCommune');
     //village
 Route::get('/village/{id}','api\crm\LeadController@getVillage');
 // get company Branch
-// Route::get('/branch','api\crm\LeadController@getLeadBranch');
+Route::get('/branch','api\crm\LeadController@getLeadBranch');
 // insert lead
 // Route::post('/insertlead','api\crm\LeadController@insertLead');
 //get all Honorifics

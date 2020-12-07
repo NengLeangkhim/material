@@ -280,7 +280,7 @@ class Crmlead extends Model
                             CrmLead::insertleaddetail($branch_id,$lead_status,$comment,$user_create);
 
                             //insert into table crm_survey
-                            if($checksurvey!=='null' || $checksurvey==0 ){
+                            if($checksurvey!=='null' || $checksurvey=='yes' ){
                                     // var_dump("No");
                                     CrmLead::insertsurey($branch_id,$user_create);
                                     DB::commit();
@@ -981,15 +981,26 @@ class Crmlead extends Model
             // update branch
             $branch=Crmlead::updatetablebranch($branch_id,$user_create,$lead_id,$company_en,$company_kh,$primary_email,$primary_phone,$address_id,$prioroty);
             $branch_id=$branch[0]->update_crm_lead_branch;
+            // dd($branch_id);
             //update assgin to
             Crmlead::updatetableassigto($assig_to_id,$user_create,$branch_id,$assig_to);
 
             // update contact
-            $contact=Crmlead::updatetablecontact($con_id,$user_create,$name_en,$name_kh,$email,$phone,$facebook_con,$position,$national_id,$gender);
-            $contact_id=$contact[0]->update_crm_lead_contact;
+            $contact_branch=DB::select("SELECT id FROM crm_lead_branch_crm_lead_contact_rel where crm_lead_branch_id=$branch_id and status=TRUE and is_deleted=FALSE");
+           
+            if($contact_branch==null && $con_id!=null ){
 
-            //update branch and contact rel
-            Crmlead::updatetablebranch_contact_rel($lead_con_bran_id,$user_create,$branch_id,$contact_id);
+                    //insert into crm_lead_brach_contact_rel
+                    CrmLead::insert_branch_contact_rel($branch_id,$con_id);
+            }
+            else {
+                    $contact=Crmlead::updatetablecontact($con_id,$user_create,$name_en,$name_kh,$email,$phone,$facebook_con,$position,$national_id,$gender);
+                    $contact_id=$contact[0]->update_crm_lead_contact;
+                     //update branch and contact rel
+                    Crmlead::updatetablebranch_contact_rel($lead_con_bran_id,$user_create,$branch_id,$contact_id);
+            }
+
+            
 
             // update branch item
              Crmlead::updatetableleaditem($lead_item_id,$user_create,$branch_id,$service,$address_id);
@@ -997,46 +1008,47 @@ class Crmlead extends Model
             // update lead detail
             // Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,$lead_status,$comment);
             
-
+                // get check branch have id in table survey ot not
                 $survey=DB::select("SELECT id from crm_survey where is_deleted=FALSE and status=TRUE and crm_lead_branch_id=$branch_id ");
-                // $survey=$survey[0]->id;
-                // $survey=json_decode($survey,true);
-                // dd($survey);
-                if($survey!=null && $checksurvey=="yes"){ //   have in crm_survey and chek yes  
-                    // dd("mean survey");
+                // get status of branch the last
+                $branch_status_id=DB::select("SELECT crm_lead_status_id FROM crm_lead_detail where status=TRUE and is_deleted=FALSE and crm_lead_branch_id=$branch_id");
+                $branch_status_id=$branch_status_id[0]->crm_lead_status_id;
+                
+                if($survey==null && $checksurvey=="null"){ //update lead detail 
+                    // update lead detail
+                    Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,$branch_status_id,$comment);
                     DB::commit();
                     return  json_encode(["update"=>'success']);
+                    // dd("update lead detail 1 ");
                 }
-                elseif($survey!=null && $checksurvey=="no"){  //have in crm_survey and uncheck  
-                    // dd("mean hz ta updat to ot vinh");
+                elseif($survey==null && $checksurvey=='yes'){ // insert survey and update lead
+                    Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,3,$comment);
+                    CrmLead::insertsurey($branch_id,$user_create);                    
+                    DB::commit();
+                    return  json_encode(["update"=>'success']);
+                    // dd("insert survey and update lead ");
+                }
+                elseif($survey==null && $checksurvey=='no'){ //update lead detail
+                    // update lead detail
+                    Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,$branch_status_id,$comment);
+                    DB::commit();
+                    return  json_encode(["update"=>'success']);
+                    // dd("update lead detail 2");
+                }
+                elseif($survey!=null && $checksurvey=='yes' ){ //update lead detail
+                    // update lead detail
+                    Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,$branch_status_id,$comment);
+                    DB::commit();
+                    return  json_encode(["update"=>'success']);
+                    // dd("update lead detail  3");
+                }
+                else{ //update lead detail and update survey 
                     crmLead::updatesurey($survey_id,$branch_id,$user_create);
                     Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,1,$comment);
                     DB::commit();
                     return  json_encode(["update"=>'success']);
+                    // dd("update lead detail and update survey");
                 }
-                elseif($survey==null && $checksurvey=="no"){  // no in crm_survey and uncheck  update  status by user choose
-                    // dd("mean hz ta updat to ot vinh");
-                   // update lead detail
-                    // Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,$lead_status,$comment);
-                    DB::commit();
-                    return  json_encode(["update"=>'success']);
-                }
-                // elseif($checksurvey=="no"){ 
-                    
-                //     //  Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,$lead_status,$comment);
-                //     DB::commit();
-                //      return  json_encode(["update"=>'success']);
-                //     // dd('ber sin ke chk no update');
-                // }
-                else
-                {
-                    // dd("ot suvey mean sos");
-                    CrmLead::insertsurey($branch_id,$user_create);
-                    Crmlead::updatetavleleaddetail($lead_detail_id,$user_create,$branch_id,3,$comment);
-                    DB::commit();
-                    return  json_encode(["update"=>'success']);
-                }
-
         }catch(Exception $e){
             DB::rollback();
             return json_encode(["update"=>"fail update branch","result"=> $e->getMessage()]);

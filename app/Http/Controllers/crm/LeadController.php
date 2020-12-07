@@ -441,10 +441,10 @@ class LeadController extends Controller
                 $create_contact->headers->set('Authorization', 'Bearer '.$token);
                 $res = app()->handle($create_contact);
                 $response = json_decode($res->getContent());
-                // dd($response);
-                if($response->insert==='success'){
-                    return response()->json(['success'=>'Record is successfully added']);
-                }
+                dd($response);
+                // if($response->insert==='success'){
+                //     return response()->json(['success'=>'Record is successfully added']);
+                // }
             }else{
                 return view('no_perms');
             }

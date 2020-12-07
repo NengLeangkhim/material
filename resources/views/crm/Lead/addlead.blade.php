@@ -958,11 +958,11 @@
                                                                         <span class="font-weight-bold">Survey</span>
                                                                     </div>
                                                                     <div class="custom-control custom-radio ml-2">
-                                                                        <input type="radio" id="customRadio2" value="1" name="checksurvey" class="custom-control-input">
+                                                                        <input type="radio" id="customRadio2" value="yes" name="checksurvey" class="custom-control-input">
                                                                         <label class="custom-control-label" for="customRadio2">Yes</label>
                                                                     </div>
                                                                     <div class="custom-control custom-radio ml-4">
-                                                                        <input type="radio" id="customRadio1" value="0" name="checksurvey" class="custom-control-input">
+                                                                        <input type="radio" id="customRadio1" value="no" name="checksurvey" class="custom-control-input">
                                                                         <label class="custom-control-label" for="customRadio1">No</label>
                                                                     </div>
                                                                 </div>
