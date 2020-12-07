@@ -1642,4 +1642,18 @@ class Crmlead extends Model
         ];
         return $array;
     }
+    // Search Lead 
+    public static function SearchLead($search){
+        if(is_null($search)){ 
+            $fetchData = "SELECT id,customer_name_en as text from crm_lead limit 5";
+        }else{ 
+            $fetchData ="SELECT id,customer_name_en as text from crm_lead where customer_name_en like '%".$search."%' 
+                                                   or customer_name_kh like '%".$search."%' 
+                                                   or email like '%".$search."%'
+                                                   or facebook like '%".$search."%'
+                                                   or lead_number like '%".$search."%'
+                                                   limit 20";
+        }
+        return DB::select($fetchData); 
+    }
 }

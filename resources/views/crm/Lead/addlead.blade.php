@@ -29,8 +29,11 @@
                                         <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                     </div>
                                     <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead">
-                                    <select class="form-control select2 " name="lead_id" id="lead_id" data-code="<?php if(isset($leadSeleted)){echo $leadSeleted;}else{echo '';} ?>">
+                                    {{-- <select class="form-control select2 " name="lead_id" id="lead_id" data-code="<?php //if(isset($leadSeleted)){echo $leadSeleted;}else{echo '';} ?>">
                                             <option value=''>-- Select Lead  --</option>
+                                    </select> --}}
+                                    <select name="lead_id" id="lead_id" class="form-control">
+                                        <option value='0'>-- Select Lead  --</option>
                                     </select>
                                 </div>
                             </div>
@@ -38,7 +41,7 @@
                     </div>
                 </div>
                 <!-- left column -->
-                <div class="col-md-12" >
+                <div class="col-md-12" id="CrmChangeSelectLead">
 
 
                         <!-- lead add detail -->
@@ -1219,8 +1222,8 @@
 
                         </div>
                  </div>
-             </div>
-            </div>
+             {{-- </div> --}}
+        </div>
         </form>
     </section>
 
@@ -1239,8 +1242,6 @@
                 lat: 11.620803,
                 lng: 104.892215
             };
-
-
             var get_latlng = 0;
             map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 12, // Set the zoom level manually
@@ -1361,67 +1362,111 @@
               })
 
           })
-                  // get  lead in  selection
-        $('#lead_id').ready(function(){
-            var getLeadId = $('#lead_id').attr('data-code');  // get value daat-id atfer selete option lead
-            // console.log('getleadid='+getLeadId);
-            var myvar= $("#getlead").val();
-              $.ajax({
-                  url:'api/getaddlead',
-                  type:'get',
-                  dataType:'json',
-                  headers: {
-                    'Authorization': `Bearer ${myvar}`,
-                },
-                  success:function(response){
-                          // for(var i=0; i<response['data'].length; i++){
-                          //     var id = response['data'][i].lead_id;
-                          //     var name = response['data'][i].customer_name_en;
-                          //     // alert(name);
-                          //     var option = "<option value='"+id+"'>"+name+"</option>";
-
-                          //     $("#lead_id").append(option);
-                          // }
-                        $.each(response['data'], function(i,item){
-                            var id = response['data'][i].lead_id;
-                                var name = response['data'][i].customer_name_en;
-                                // alert(name);
-                                var option = "<option value='"+id+"'>"+name+"</option>";
-                                $("#lead_id").append(option)
-                                if(getLeadId != ''){
-                                    $('#lead_id option[value="'+getLeadId+'"]').prop('selected', true);
-                                }
-                        })
-
-
-
-                  }
-              })
-          })
-          // get contact in add lead
-          $('#contact_id  #getcontact').ready(function(){
-            // $('#lead_id').find('option').not(':first').remove();
-            var myvar= $( "#getcontact" ).val();
-                $.ajax({
-                    url:'api/contacts',
+        $(document).ready(function(){
+            // function search lead
+            $('#lead_id').select2({
+                ajax: {
+                    url: '/lead/search',
+                    dataType: 'json',
                     type:'get',
-                    dataType:'json',
-                    headers: {
-                      'Authorization': `Bearer ${myvar}`,
-                  },
-                    success:function(response){
-                            $.each(response['data'], function(i,item){
-                              var id = response['data'][i].id;
-                              var name = response['data'][i].name_en;
-                              // alert(name);
-                              var option = "<option value='"+id+"'>"+name+"</option>";
+                    delay: 250,
+                    data: function (params) {
+                        return {  
+                            search: params.term // search term
+                        };   
+                    },
+                    processResults: function (response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+            // function search lead contacr
+            $('#contact_id').select2({
+                ajax: {
+                    url: '/contact/search',
+                    dataType: 'json',
+                    type:'get',
+                    delay: 250,
+                    data: function (params) {
+                        return {  
+                            search: params.term // search term
+                        };   
+                    },
+                    processResults: function (response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
 
-                              $("#contact_id").append(option);
-                            })
+        });
+                  // get  lead in  selection
+        // $('#lead_id').ready(function(){
+        //     var getLeadId = $('#lead_id').attr('data-code');  // get value daat-id atfer selete option lead
+        //     // console.log('getleadid='+getLeadId);
+        //     var myvar= $("#getlead").val();
+        //       $.ajax({
+        //           url:'api/getaddlead',
+        //           type:'get',
+        //           dataType:'json',
+        //           headers: {
+        //             'Authorization': `Bearer ${myvar}`,
+        //         },
+        //           success:function(response){
+        //                   // for(var i=0; i<response['data'].length; i++){
+        //                   //     var id = response['data'][i].lead_id;
+        //                   //     var name = response['data'][i].customer_name_en;
+        //                   //     // alert(name);
+        //                   //     var option = "<option value='"+id+"'>"+name+"</option>";
 
-                    }
-                })
-            })
+        //                   //     $("#lead_id").append(option);
+        //                   // }
+        //                 $.each(response['data'], function(i,item){
+        //                         var id = response['data'][i].lead_id;
+        //                         var name = response['data'][i].customer_name_en;
+        //                         // alert(name);
+        //                         var option = "<option value='"+id+"'>"+name+"</option>";
+        //                         $("#lead_id").append(option)
+        //                         if(getLeadId != ''){
+        //                             $('#lead_id option[value="'+getLeadId+'"]').prop('selected', true);
+        //                         }
+        //                 })
+
+
+
+        //           }
+        //       })
+        //   })
+          // get contact in add lead
+
+        //   $('#contact_id  #getcontact').ready(function(){
+        //     // $('#lead_id').find('option').not(':first').remove();
+        //     var myvar= $( "#getcontact" ).val();
+        //         $.ajax({
+        //             url:'api/contacts',
+        //             type:'get',
+        //             dataType:'json',
+        //             headers: {
+        //               'Authorization': `Bearer ${myvar}`,
+        //           },
+        //             success:function(response){
+        //                     $.each(response['data'], function(i,item){
+        //                       var id = response['data'][i].id;
+        //                       var name = response['data'][i].name_en;
+        //                       // alert(name);
+        //                       var option = "<option value='"+id+"'>"+name+"</option>";
+
+        //                       $("#contact_id").append(option);
+        //                     })
+
+        //             }
+        //         })
+        //     })
 
             // number phone
             function onlyNumberKey(evt) {
