@@ -16,7 +16,8 @@ class ModelCrmQuote extends Model
                     ->leftjoin('ma_position as po','us.ma_position_id','=','po.id')
                     ->where('us.is_deleted','=','f')
                     ->where('us.status','=','t')
-                    ->orderBy('us.id','ASC')
+                    ->where('us.is_employee','=','t')
+                    ->orderBy('us.id_number','ASC')
                     ->get();
 
             return $r;

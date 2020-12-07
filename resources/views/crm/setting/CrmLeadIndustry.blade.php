@@ -10,12 +10,12 @@
     <div>
         <table class="table table-bordered display nowrap" style="width: 100%" id="Lead_industry_Tbl">
             <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name English</th>
-                    <th>Name Khmer</th>
-                    <th>Create Date</th>
-                    <th>Action</th>
+                <tr style="background: #1fa8e0">
+                    <th style="color: #FFFFFF">#</th>
+                    <th style="color: #FFFFFF">Name English</th>
+                    <th style="color: #FFFFFF">Name Khmer</th>
+                    <th style="color: #FFFFFF">Create Date</th>
+                    <th style="color: #FFFFFF">Action</th>
                 </tr>
             </thead>
             <tbody>

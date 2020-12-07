@@ -31,7 +31,7 @@
         }
         table th
         {
-            background-color: #F7F7F7;
+            /* background-color: #F7F7F7; */
             color: #333;
             font-weight: bold;
         }
@@ -141,17 +141,17 @@
                         <div class="table-responsive" style="padding-top: 10px;">
                             <table id="QuoteDetailTbl" class="table table-bordered table-striped" style="border-collapse:collapse; white-space: nowrap; " cellspacing="0" cellpadding="0">
                                 <thead>
-                                    <tr>
+                                    <tr style="background-color: #1fa8e0;">
                                         <th style="display:none;"></th>
-                                        <th>No</th>
-                                        <th>Quote Number</th>
-                                        <th>Lead Number</th>
-                                        <th>Customer Name</th>
-                                        <th>Create Date</th>
-                                        <th>Due Date</th>
-                                        <th>Email</th>
-                                        <th>Website</th>
-                                        <th>Status</th>
+                                        <th style="color: #FFFFFF">No</th>
+                                        <th style="color: #FFFFFF">Quote Number</th>
+                                        <th style="color: #FFFFFF">Lead Number</th>
+                                        <th style="color: #FFFFFF">Customer Name</th>
+                                        <th style="color: #FFFFFF">Create Date</th>
+                                        <th style="color: #FFFFFF">Due Date</th>
+                                        <th style="color: #FFFFFF">Email</th>
+                                        <th style="color: #FFFFFF">Website</th>
+                                        <th style="color: #FFFFFF">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody id="quote-detail-body">

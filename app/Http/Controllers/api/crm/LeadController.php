@@ -22,6 +22,7 @@ use App\Http\Resources\api\crm\lead\GetSurveyResult;
 use App\Http\Resources\api\crm\lead\GetLeadSchedule;
 use App\model\api\crm\Crmlead;
 use Illuminate\Database\QueryException;
+Use Exception;
 
 class LeadController extends Controller
 {
@@ -331,7 +332,7 @@ class LeadController extends Controller
     // get branch by lead id convert
     public function getbranch_lead_convert($id){
         $branch_id_convert = Lead::getbranch_lead_convert($id);
-        return GetLeadBranch::Collection($branch_id_convert);
+        return $branch_id_convert;
     }
     // get  show branch by lead id
     public function getbranch_lead($id){
@@ -618,6 +619,13 @@ class LeadController extends Controller
         $convert = Lead::getleadconvert();
         return json_encode(["data"=>$convert]);
     }
+    public function getleadconvertDatatable(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $convert = Lead::getleadconvertDataTable($request);
+        return $convert;
+    }
 
     public  function   getcountsurveyresult(){
         $return=response()->json(auth()->user());
@@ -633,6 +641,24 @@ class LeadController extends Controller
         else
         {
             return view('no_perms');
+        }
+    }
+    // Search Lead 
+    public function CrmLeadSearch(Request $request){
+        if(is_null($request->search)){
+            $search = null;
+        }else{
+            $search=$request->search;
+        }
+        try{
+            $result = array(['id'=>'Not','text'=>'----- Please Select Lead -----']);
+            $res= Lead::SearchLead($search);
+            foreach($res as $row){
+                array_push($result,['id'=>$row->id,"text"=>$row->text]);
+            }
+            return json_encode(["search"=>"success","data"=>$result]);
+        }catch(Exception $e){
+            return json_encode(["search"=>"fail","result"=> $e->getMessage()]);
         }
     }
 }

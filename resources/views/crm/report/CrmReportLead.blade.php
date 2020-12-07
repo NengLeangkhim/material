@@ -132,16 +132,16 @@
                         <div class="table-responsive" style="padding-top: 10px;">
                             <table id="OrganizationTbl" class="table table-bordered table-striped" style="white-space: nowrap;">
                                 <thead>
-                                    <tr>
+                                    <tr style="background: #1fa8e0">
                                         <th style="display:none;"></th>
-                                        <th>No</th>
-                                        <th>Lead Number</th>
-                                        <th>Branch Name</th>
-                                        <th>Department</th>
-                                        <th>Customer Name</th>
-                                        <th>Priority</th>
-                                        <th>Source</th>
-                                        <th>Status</th>
+                                        <th style="color: #FFFFFF">No</th>
+                                        <th style="color: #FFFFFF">Lead Number</th>
+                                        <th style="color: #FFFFFF">Branch Name</th>
+                                        <th style="color: #FFFFFF">Department</th>
+                                        <th style="color: #FFFFFF">Customer Name</th>
+                                        <th style="color: #FFFFFF">Priority</th>
+                                        <th style="color: #FFFFFF">Source</th>
+                                        <th style="color: #FFFFFF">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody id="lead-detail-body">

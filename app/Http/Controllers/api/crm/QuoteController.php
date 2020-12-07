@@ -205,7 +205,7 @@ class QuoteController extends Controller
             }
 
             DB::commit();
-            return json_encode(["insert"=>"success","result"=>[]]);
+            return json_encode(["insert"=>"success","result"=>[],"quote_id"=>$quote_id]);
         } catch(Exception $e){
             DB::rollback();
             return json_encode(["insert"=>"fail","result"=> $e->getMessage()]);

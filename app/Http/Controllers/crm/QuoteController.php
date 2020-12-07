@@ -137,7 +137,7 @@ class QuoteController extends Controller
             $branId = $_GET['branId'];
             $row_id = $_GET['id'];
             $token = $_SESSION['token'];
-            $request = Request::create('/api/stock/product/', 'GET');
+            $request = Request::create('/api/stock/product', 'GET');
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
@@ -159,7 +159,7 @@ class QuoteController extends Controller
             $row_id = $_GET['id'];
             $branId = $_GET['branId'];
             $token = $_SESSION['token'];
-            $request = Request::create('/api/stock/service/', 'GET');
+            $request = Request::create('/api/stock/service', 'GET');
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
@@ -178,22 +178,36 @@ class QuoteController extends Controller
     public static function listQuoteLead(Request $request){
 
         if(isset($_GET['id'])){
+            // if (session_status() == PHP_SESSION_NONE) {
+            //     session_start();
+            // }
+            // $token = $_SESSION['token'];
+            // $request = Request::create('/api/getleadconvert', 'GET');
+            // $request->headers->set('Accept', 'application/json');
+            // $request->headers->set('Authorization', 'Bearer '.$token);
+            // $res = app()->handle($request);
+            // $listLead = json_decode($res->getContent());
+            // dump($listLead);
+            // exit;
+            return view('crm/quote/listQuoteLead');
+
+        }
+    }
+    public static function listQuoteLeadDatatable(Request $request){
+
+        // if(isset($_GET['id'])){
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
             $token = $_SESSION['token'];
-            $request = Request::create('/api/getleadconvert', 'GET');
+            $urlQuery=str_replace($request->Url(),'',$request->fullUrl());
+            $request = Request::create('/api/getleadconvert/datatable'.$urlQuery, 'GET');
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
-            $listLead = json_decode($res->getContent());
-            // dump($listLead);
-            // exit;
-            return view('crm/quote/listQuoteLead', compact('listLead'));
-
-        }
+            return $res->getContent();
+        // }
     }
-
 
 
     //function to list lead branch to add lead quote
@@ -272,8 +286,7 @@ class QuoteController extends Controller
 
                 if($response->insert=='success'){
                     //when add quote success, get quote id to get view quote detail
-                    $quoteId = ModelCrmQuote::getQuoteLastId();
-                    return response()->json(['success'=>$response,'quoteId'=> $quoteId]);
+                    return response()->json(['success'=>$response,'quoteId'=> $response->quote_id]);
                 }else{
                     return response()->json(['error'=>$response]);
                 }
