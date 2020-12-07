@@ -56,7 +56,7 @@ class QuoteController extends Controller
             }
             else
             {
-                return view('no_perms');
+                return [];
             }
         }
         catch(Exception $e)
