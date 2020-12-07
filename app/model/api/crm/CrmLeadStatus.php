@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class CrmLeadStatus extends Model
 {
     //
-    function saveData($id, $userId, $nameEn, $nameKh, $status, $sequence){
+    function saveData($id, $userId, $nameEn, $nameKh, $status, $sequence, $color){
         try {
             if($id != null){
                 $data = $this->getOneData($id);
@@ -17,9 +17,10 @@ class CrmLeadStatus extends Model
                 $nameKh = ($nameKh == null || $nameKh == '') ? $data->name_kh : $nameKh;
                 $status = ($status == null || $status == '') ? $data->status : $status;
                 $sequence = ($sequence == null || $sequence == '') ? $data->sequence : $sequence;
-                $sql = 'select update_crm_lead_status('.$id.', '.$userId.', \''.$nameEn.'\', \''.$nameKh.'\', \''.$status.'\', \''.$sequence.'\') as id';
+                $color = ($color == null || $color == '') ? $data->color : $color;
+                $sql = 'select update_crm_lead_status('.$id.', '.$userId.', \''.$nameEn.'\', \''.$nameKh.'\', \''.$status.'\', \''.$sequence.'\', \''.$color.'\') as id';
             } else {
-                $sql = 'select insert_crm_lead_status(\''.$nameEn.'\', \''.$nameKh.'\', '.$userId.', '.($sequence == null ? 'null' : $sequence).') as id';
+                $sql = 'select insert_crm_lead_status(\''.$nameEn.'\', \''.$nameKh.'\', '.$userId.', '.($sequence == null ? 'null' : $sequence).', '.($color == null ? 'null' : $color).') as id';
             }
             $newId = DB::selectOne($sql)->id;
             $result = $this->getOneData($newId);
