@@ -1363,6 +1363,7 @@
 
           })
         $(document).ready(function(){
+            // function search lead
             $('#lead_id').select2({
                 ajax: {
                     url: '/lead/search',
@@ -1382,6 +1383,27 @@
                     cache: true
                 }
             });
+            // function search lead contacr
+            $('#contact_id').select2({
+                ajax: {
+                    url: '/contact/search',
+                    dataType: 'json',
+                    type:'get',
+                    delay: 250,
+                    data: function (params) {
+                        return {  
+                            search: params.term // search term
+                        };   
+                    },
+                    processResults: function (response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
         });
                   // get  lead in  selection
         // $('#lead_id').ready(function(){
@@ -1421,6 +1443,7 @@
         //       })
         //   })
           // get contact in add lead
+
         //   $('#contact_id  #getcontact').ready(function(){
         //     // $('#lead_id').find('option').not(':first').remove();
         //     var myvar= $( "#getcontact" ).val();

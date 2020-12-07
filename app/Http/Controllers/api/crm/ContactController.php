@@ -136,4 +136,28 @@ class ContactController extends Controller
             return json_encode(["delete"=>"fail","result"=> $e->getMessage()]);
         }
     }
+    public function SearchContact(Request $request){
+        try {
+            $search = $request->search;
+            if(is_null($search)){ 
+                $fetchData = "SELECT id,name_en as text from crm_lead_contact where is_deleted='f' limit 5";
+            }else{ 
+                $fetchData ="SELECT id,name_en as text from crm_lead_contact where name_en like '%".$search."%' 
+                                                       or name_kh like '%".$search."%' 
+                                                       or email like '%".$search."%'
+                                                       or facebook like '%".$search."%'
+                                                       or phone like '%".$search."%'
+                                                       and is_deleted='f'
+                                                       limit 20";
+            }
+            $results = array(['id'=>'Not','text'=>'--- Select Contact ---']);
+            $res= DB::select($fetchData); 
+            foreach($res as $row){
+                array_push($results,['id'=>$row->id,"text"=>$row->text]);
+            }
+            return json_encode(["search"=>"success","data"=>$results]);
+        } catch(Exception $e){
+            return json_encode(["search"=>"fail","data"=> $e->getMessage()]);
+        }
+    }
 }

@@ -249,7 +249,7 @@ class ContactController extends Controller
             $request_delete->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request_delete);
             $response = json_decode($res->getContent());
-            dd($response);
+            //dd($response);
             if($response->delete=='success'){
                 return response()->json(['success'=>'Record is successfully Update']);
             }
@@ -265,4 +265,18 @@ class ContactController extends Controller
     //         return view('no_perms');
     //     }
     // }
+    // function Lead Contact Search 
+    public function CrmLeadContactSearch(Request $request){
+        if(perms::check_perm_module('CRM_020504')){//module codes
+            $search= $request->search;
+            $token = $_SESSION['token'];
+            $requests = Request::create('/api/contactsearch?search='.$search, 'get');
+            $requests->headers->set('Accept', 'application/json');
+            $requests->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($requests);
+            return $res;
+        }else{
+            return view('no_perms');
+        }
+    }
 }
