@@ -386,9 +386,9 @@ function CrmLeadBranchView(url,table){
       success:function(data){
         $('#CrmTabManageSetting').html(data);
         $('#'+table+'').dataTable({
-            'responsive': true,
             scrollX:true,
             "serverSide": true,
+            "autoWidth": true,
             "ajax": "/crm/leadbranch/datatable/"+$status,
             "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 if(aData.DT_RowData!=null){ //check comment survey
@@ -415,38 +415,36 @@ function CrmLeadBranchView(url,table){
                   },
                   "targets": 4
               },
-              {
-                "searchable": false,
-                "targets": 7
-                },
             {
                 // The `data` parameter refers to the data for the cell (defined by the
                 // `data` option, which defaults to the column being worked with, in
                 // this case `data: 0`.
+                "searchable": false,
+                "width": "100px",
                 "render": function ( data, type, row ) {
-                    var st='';
-                    st+='<div class="row-12 form-inline">'+
-                    '<div class="col-md-6">'+
+                    var st='<div class="container-fluid">';
+                    st+='<div class="row form-inline">'+
+                    '<div class="col-4">'+
                         '<a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="/crm/leadbranch/detail/'+data+'"  onclick="go_to(\'/crm/leadbranch/detail/'+data+'\')" title="Detail Branch">'+
                             '<i class="far fa-eye"></i>'+
                         '</a>'+
                     '</div>';
                     if(row[4]!=null){
-                    st+='<div class="col-md-6 ">'+
+                    st+='<div class="col-4 ">'+
                                 '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule" onclick="branch_schedule_detail(\''+row[4]+'\')"  id="detailschedule'+row[4]+'" value="'+row[4]+'"  title="Detail Of Branch">'+
                                     '<i class="fas fa-calendar-day"> </i>'+
                                 '</a>'+
                             '</div>'+
                         '</div>';
                     }else{
-                    st+='<div class="col-md-6 ">'+
+                    st+='<div class="col-md-4 ">'+
                                 '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule" onclick="lead_branch_schedule(\''+data+'\')"  id="schedule'+data+'" value="'+data+'">'+
                                     '<i class="fas fa-calendar-day"> </i>'+
                                 '</a>'+
                             '</div>'+
                         '</div>';
                     }
-                    return st;
+                    return st+'</div>';
                 },
                 "targets": 7
             },

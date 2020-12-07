@@ -83,16 +83,17 @@ jQuery("a[data-code]").click(function(e){
           }
        });
 });
-jQuery("a[href]").click(function(e){
-  var href = $(this).attr("href");
-  var target = $(this).attr("target");
-    $("#nav_bar_sub_r").html(get_pushmenu());
-    if (typeof target !== typeof undefined && target !== false) {
-      window.open(href, target);
-    }else{
-      window.location.href = href;
-    }
-});
+// jQuery("a[href]").click(function(e){
+//   e.preventDefault();
+//   var href = $(this).attr("href");
+//   var target = $(this).attr("target");
+//     $("#nav_bar_sub_r").html(get_pushmenu());
+//     if (typeof target !== typeof undefined && target !== false) {
+//       window.open(href, target);
+//     }else{
+//       window.location.href = href;
+//     }
+// });
 //only work on tag a with onclick and go_to
 function set_selected_nav(tar){
   var s=$("#"+tar).find("a")[1];

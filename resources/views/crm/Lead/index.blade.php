@@ -72,19 +72,20 @@
                         // `data` option, which defaults to the column being worked with, in
                         // this case `data: 0`.
                         "render": function ( data, type, row ) {
-                            return '<div class="row-12 form-inline">'+
-                                        '<div class="col-md-6">'+
+                            return '<div class="container-fluid"><div class="row form-inline">'+
+                                        '<div class="col-6">'+
                                             '<a href="javascript:void(0);" class="btn btn-block btn-danger  btn-sm branch" value="detaillead/'+data+'" onclick="go_to(\'detaillead/'+data+'\')" title="Edit Lead">'+
                                                 '<i class="fas fa-edit">  </i>'+
                                             '</a>'+
                                         '</div>'+
-                                        '<div class="col-md-6 ">'+
+                                        '<div class="col-6 ">'+
                                             '<a href="javascript:void(0);" class="btn btn-block btn-info btn-sm branch" value="branch/'+data+'" onclick="go_to(\'branch/'+data+'\')" title="Show Branch Of Lead">'+
                                                 '<i class="fas fa-code-branch">  </i>'+
                                             '</a>'+
                                         '</div>'+
-                                    '</div>';
+                                    '</div></div>';
                         },
+                        "width": "100px",
                         "targets": 4
                     },
                 ]
