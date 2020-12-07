@@ -4,7 +4,7 @@
     }
 @endphp
 <div class="col-12 text-right">
-    <a  href="javascript:void(0);" class="btn btn-success" onclick="CrmModalAction('crm_quote_status_form','crm_quote_status_modal','ActionQuoteStatus','Add Quote Status')" ​><i class="fas fa-plus"></i> Add Quote Status</a> 
+    <a  href="javascript:void(0);" class="btn btn-success" onclick="CrmModalAction('crm_quote_status_form','crm_quote_status_modal','ActionQuoteStatus','Add Quote Status')" ​><i class="fas fa-plus"></i> Add Quote Status</a>
 </div>
 <div class="col-12" style="margin-top: 10px">
     <div>
@@ -14,6 +14,8 @@
                     <th>#</th>
                     <th>Name English</th>
                     <th>Name Khmer</th>
+                    <th>Sequence</th>
+                    <th>Color</th>
                     <th>Create Date</th>
                     <th>Action</th>
                 </tr>
@@ -27,13 +29,15 @@
                     <td>{{$i++}}</td>
                     <td>{{$row->name_en}}</td>
                     <td>{{$row->name_kh}}</td>
+                    <td>{{$row->sequence}}</td>
+                    <td><input type="color" id="favcolor" name="favcolor" value="{{$row->color ?? '#000'}}"></td>
                     <td>{{date('Y-m-d H:i:s',strtotime($row->create_date))}}</td>
                     <td>
                         <a href="#" id="{{$row->id}}" class="btn btn-block btn-info btn-sm CrmEditQuoteStatus"><i class="fas fa-wrench"></i></a>
                     </td>
-                </tr>                                        
+                </tr>
             @endforeach
-            </tbody>  
+            </tbody>
         </table>
     </div>
 </div>
@@ -77,7 +81,22 @@
                                   </span>
                               </div>
                           </div>
-                          <div class="col-md-12">
+                          <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="plan_from">Sequence<span class="text-danger"></span></label>
+                                <input type="number" name="sequence" id="sequence" placeholder="Sequence" class="form-control">
+                                <span class="invalid-feedback" role="alert" id="sequenceError"> {{--span for alert--}}
+                                  <strong></strong>
+                                </span>
+                            </div>
+                            </div>
+                            <div class="col-md-2">
+                                 <div class="form-group">
+                                     <label for="plan_from">Color<span class="text-danger"></span></label>
+                                     <input type="color" id="color" name="color" class="form-control">
+                                 </div>
+                             </div>
+                          <div class="col-md-5">
                             <div class="form-group">
                                 <label for="name_kh">Status<span class="text-danger"></span></label>
                                 <select name="status" class="form-control" id="status">
@@ -100,6 +119,6 @@
               </div><!-- /.END card-Default -->
             </div>
         </div>
-    </div> 
+    </div>
 </form>
 <!-- end modal -->

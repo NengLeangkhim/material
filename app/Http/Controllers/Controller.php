@@ -43,4 +43,11 @@ class Controller extends BaseController
 
         return response()->json($response, $code);
     }
+
+    public function getToken() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        return $_SESSION['token'];
+    }
 }
