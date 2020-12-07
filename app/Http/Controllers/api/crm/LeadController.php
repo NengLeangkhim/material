@@ -160,7 +160,7 @@ class LeadController extends Controller
         $street_en=$request->input('street_en')!=''? $request->input('street_en'):null;
         $street_kh=$request->input('street_kh')!=''? $request->input('street_kh'):null;
         $latlong=$request->input('latlong')!=''? $request->input('latlong'):null;
-        $address_type=$request->input('address_type')!=''? $request->input('address_type'):null;
+        $address_type=$request->input('address_type')!=''? $request->input('address_type'):'Main';
         $addresscode=$request->input('village')!=''? $request->input('village'):null;
 
         // return $lead_id;
@@ -229,7 +229,7 @@ class LeadController extends Controller
             $street_en=$request->input('street_en')!=""?$request->input('street_en'):null;;
             $street_kh=$request->input('street_kh')!=""?$request->input('street_kh'):null;;
             $latlong=$request->input('latlong')!=""?$request->input('latlong'):null;;
-            $address_type=$request->input('address_type')!=""?$request->input('address_type'):null;;
+            $address_type=$request->input('address_type')!=""?$request->input('address_type'):'Main';;
             $addresscode=$request->input('village')!=""?$request->input('village'):null;;
 
 

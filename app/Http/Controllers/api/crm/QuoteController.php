@@ -513,10 +513,40 @@ class QuoteController extends Controller
                 DB::rollback();
                 return json_encode(["convert"=>"fail","result"=> $e->getMessage()]);
             }
+    }
+    public function updatestatus(Request $request){
 
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
 
-
-
-
+        $id=$request->input("status");
+        $qoute_id=$request->input("quoteid");
+        $comment_quote=$request->input("comment");
+        $qoutestatusid=$request->input("qoutestatusid");
+        // return json_encode(["convert"=>"success"]);
+        // dd($userid,$id,$qoute_id,$comment_quote,$qoutestatusid);
+        DB::beginTransaction();
+            try{
+                // update crm_quote_status
+                DB::select(
+                    'SELECT public."update_crm_quote_status"(?,?,?,?,?,?)',
+                    array(
+                        $qoutestatusid,
+                        $userid,
+                        $qoute_id,
+                        $comment_quote,
+                        't',
+                        $id
+                    ));
+                    
+                    DB::commit();
+                    return json_encode(["convert"=>"success"]);
+                // return json_encode(["convert"=>$customer]);
+            }catch(Exception $e){
+                DB::rollback();
+                return json_encode(["convert"=>"fail","result"=> $e->getMessage()]);
+            }
     }
 }

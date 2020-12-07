@@ -75,6 +75,7 @@
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
                                         <input type="text" class="form-control" placeholder="Select Date" id="DetailQuoteFrom"  name='DetailQuoteFrom' value="<?php echo date('Y-m')?>"  required>
+                                        
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -84,6 +85,7 @@
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
                                         <input type="text" class="form-control" placeholder="Select Date" id="DetailQuoteTo" name='DetailQuoteTo' value="<?php echo date('Y-m')?>"  required>
+                                       
                                     </div>
                                 </div>
 
@@ -93,12 +95,16 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-tty"></i></span>
                                         </div>
-                                        <select class="form-control select2" name="select_status" id="select_status">
+                                        <select class="form-control" name="select_status" id="select_status">
                                             <option value="0">Please Select</option>
+                                            @forelse ($statusList as $item)
+                                                <option value="{{$item->id}}">{{$item->name_en}}</option>
+                                            @empty
+
+                                            @endforelse
                                         </select>
                                     </div>
                                 </div>
-
                                 @if($assign_perm)
                                     <div class="col-md-3">
                                         <label for="exampleInputEmail1">Assign To <b style="color:red"></b></label>
@@ -106,8 +112,13 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                             </div>
-                                            <select class="form-control select2" name="select_assign_to" id="select_assign_to">
+                                            <select class="form-control" name="select_assign_to" id="select_assign_to">
                                                 <option value="0">Please Select</option>
+                                                @forelse ($assignToList as $item)
+                                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                                @empty
+    
+                                                @endforelse
                                             </select>
                                         </div>
                                     </div>
@@ -124,7 +135,7 @@
 
                             </div>
                         </div><!--End Form Group--> --}}
-                        <div class="text-center">
+                        <div class="text-right">
                             <button class="btn btn-primary" id="btn-generate-report">Generate Report</button>
                         </div>
                         <div class="table-responsive" style="padding-top: 10px;">
@@ -164,32 +175,37 @@
     $('#DetailQuoteFrom').datetimepicker({
         format: 'YYYY-MM',
         sideBySide: true,
-      });
-      $('#DetailQuoteTo').datetimepicker({
+    });
+    $('#DetailQuoteTo').datetimepicker({
         format: 'YYYY-MM',
         sideBySide: true,
-      });
-    var setSelectOptionData = (url, elementId) => {
-        $.ajax({
-            url : url,
-            type : 'GET',
-            data : {
-            },
-            success : function(response){
-                $.each(response, function(i, r){
-                    $(elementId).append(`<option value="${r.id}">${r.name_en}</option>`);
-                })
-            },
-            fail : function(){
-                console.log("ERROR");
-            },
-            dataType : 'JSON'
-        })
-    }
+    });
+
+    // var setSelectOptionData = (url, elementId) => {
+    //     $.ajax({
+    //         url : url,
+    //         type : 'GET',
+    //         headers: {
+    //             Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTYwNzEzNjc5MCwiZXhwIjoxNjA4MzQ2MzkwLCJuYmYiOjE2MDcxMzY3OTAsImp0aSI6ImRjVWZOMEFxaW84U1pJeDMiLCJzdWIiOjIzMCwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.VhQsWJBCsFVvGBOflUZl23ygOKOCX_s84pnGPmrf-qE'
+    //         },
+    //         data : {
+    //         },
+    //         success : function(response){
+    //             $.each(response, function(i, r){
+    //                 $(elementId).append(`<option value="${r.id}">${r.name_en}</option>`);
+    //             })
+    //         },
+    //         fail : function(){
+    //             console.log("ERROR");
+    //         },
+    //         dataType : 'JSON'
+    //     })
+    // }
+
 
     $(document).ready(function(){
-        setSelectOptionData('/crmreport/listAssignTo','#select_assign_to')
-        setSelectOptionData('/api/quote/status','#select_status')
+        // setSelectOptionData('/quote/add/listAssignTo','#select_assign_to')
+        // setSelectOptionData('/api/quote/status','#select_status')
 
         var url = '/api/crm/report/quoteReportDetail'
 

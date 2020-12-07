@@ -89,13 +89,7 @@ class QuoteController extends Controller
             session_start();
         }
         $province=ModelCrmLead::CrmGetLeadProvice();
-        $token = $_SESSION['token'];
-        $request = Request::create('/api/quote/status', 'GET');
-        $request->headers->set('Accept', 'application/json');
-        $request->headers->set('Authorization', 'Bearer '.$token);
-        $res = app()->handle($request);
-        $quotestatus = json_decode($res->getContent());
-        return view('crm/quote/addQuote', compact('province','quotestatus'));
+        return view('crm/quote/addQuote', compact('province'));
     }
 
 
@@ -240,7 +234,6 @@ class QuoteController extends Controller
 
                     'subject' =>  ['required'],
                     'lead_name' =>  [ 'required'],
-                    'crm_quote_status_type_id' =>  ['required'],
                     'due_date' =>  ['required'],
                     'assign_toName' =>  ['required'],
                     'comment' =>  ['required'],

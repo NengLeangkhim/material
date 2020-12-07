@@ -53,7 +53,7 @@
                                 }
                                 else {
                                     ?>
-                                        <div class="col-md-6 ">
+                                        <div class="col-md-8 ">
                                             <form id="frm_Crmlbranchsurvey" method="POST">
                                                 @csrf                                
                                                 <input type="text" class="form-control" hidden  value="{{$detailbranch[$i]['comment']}}"  name='comment' id="comment"  >
@@ -62,7 +62,7 @@
                                                 <button type="button"  class="btn btn-success btn-md form-control"  id="btn_convert"  value="{{$detailbranch[$i]["branch_id"]}}" onclick="submit_form('api/convertbranch','frm_Crmlbranchsurvey','/lead')" >Convert To Organization</button>
                                             </form>
                                         </div>
-                                        <div class="col-md-6 " >
+                                        <div class="col-md-4 " >
                                             <button type="button" ​value="editbranch/{{$detailbranch[$i]["branch_id"]}}" class="btn btn-primary btn-md CrmLeadEdit form-control" >Edit</button>
                                             <input type="text" hidden value="{{$detailbranch[$i]["lead_status"]}}"  id="lead_status" >                                    
                                         </div> 

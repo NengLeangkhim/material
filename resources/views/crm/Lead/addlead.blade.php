@@ -791,7 +791,7 @@
                         <!-- Add address -->
                         <div class="card card-primary">
                             <div class="card-header" style="background:#1fa8e0">
-                                <h3 class="card-title"> Install Address </h3>
+                                <h3 class="card-title"> Address </h3>
                             </div>
 
                             @if(!isset($leadSeleted) || empty($leadSeleted))
