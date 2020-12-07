@@ -12,6 +12,16 @@
     //         }
     //     });
     // }
+    function CrmSelectChange(url,div,id){
+      $.ajax({
+          url:url,  //get URL to route
+          type:"get",
+          data:{id:id},
+          success:function(data){
+            $('#'+div+'').html(data);
+      }
+      });
+      }
     // Function Insert And Update CRM is amazing
     function CrmSubmitFormFull(form,url,goto,alert){
 
@@ -520,59 +530,11 @@ function CrmLeadBranchView(url,table){
         $('.save').click(function(){
             submit_form ('/addlead','frm_lead','lead');
         })
-
-        // get value in search contact from selection and show in each field
-        $( "#contact_id" ).change(function() {
-          var to = $(this). children("option:selected"). val();
-          var myvar= $( "#getcontact" ).val();
-          // alert(to);
-          $.ajax({
-            url:'/api/contact/'+to,
-            type:'get',
-            dataType:'json',
-            headers: {
-              'Authorization': `Bearer ${myvar}`,
-          },
-            success:function(response){
-
-                        var name_en = response['data'].name_en;
-                        var name_kh = response['data'].name_kh;
-                        var email = response['data'].email;
-                        var phone = response['data'].phone;
-                        var national_id = response['data'].national_id;
-                        var position = response['data'].position;
-                        var honorifics = response['data'].honorifics.name_en;
-                        var honorifics_id = response['data'].honorifics.id;
-                        // alert(honorifics);
-                        $("#name_en").val(name_en);
-                        $("#name_kh").val(name_kh);
-                        $("#email").val(email);
-                        $("#phone").val(phone);
-                        $("#national_id").val(national_id);
-                        $("#position").val(position);
-                        // $("#ma_honorifics_id").val(honorifics);
-                        var option = "<option value='"+honorifics_id+" 'selected>"+honorifics+"</option>";
-
-                       $("#ma_honorifics_id").append(option);
-
-                        $('#name_en').prop('readonly', true);
-                        $('#name_kh').prop('readonly', true);
-                        $('#email').prop('readonly', true);
-                        $('#phone').prop('readonly', true);
-                        $('#national_id').prop('readonly', true);
-                        $('#position').prop('readonly', true);
-                        $('#ma_honorifics_id').attr('disabled', true);
-
-
-            }
-        })
-        });
-
-
         // select option lead in add lead, if have value go to list field add branch
         $("#lead_id").change(function () {
             var lead_id = $(this).val();
-            goto_Action('/addleadtype',lead_id);
+            //goto_Action('/addleadtype',lead_id);
+            CrmSelectChange('/typeaddlead','CrmChangeSelectLead',lead_id)
         })
 
 

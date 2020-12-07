@@ -22,6 +22,7 @@ use App\Http\Resources\api\crm\lead\GetSurveyResult;
 use App\Http\Resources\api\crm\lead\GetLeadSchedule;
 use App\model\api\crm\Crmlead;
 use Illuminate\Database\QueryException;
+Use Exception;
 
 class LeadController extends Controller
 {
@@ -636,6 +637,24 @@ class LeadController extends Controller
         else
         {
             return view('no_perms');
+        }
+    }
+    // Search Lead 
+    public function CrmLeadSearch(Request $request){
+        if(is_null($request->search)){
+            $search = null;
+        }else{
+            $search=$request->search;
+        }
+        try{
+            $result = array(['id'=>'Not','text'=>'----- Please Select Lead -----']);
+            $res= Lead::SearchLead($search);
+            foreach($res as $row){
+                array_push($result,['id'=>$row->id,"text"=>$row->text]);
+            }
+            return json_encode(["search"=>"success","data"=>$result]);
+        }catch(Exception $e){
+            return json_encode(["search"=>"fail","result"=> $e->getMessage()]);
         }
     }
 }

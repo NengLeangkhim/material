@@ -149,4 +149,14 @@ class ModelCrmLead extends Model
         // dd($res);
         return $res->getContent();
     }
+    // Seach Lead 
+    public static function SearchLead($search){
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/searchlead?search='.$search, 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        //dd($res);
+        return $res->getContent();
+    }
 }
