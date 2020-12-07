@@ -34,6 +34,7 @@ Route::get('/village', 'addressController@getvillage'); //getvillage
 // start lead and branch
 Route::get('/lead','crm\LeadController@getlead'); // get  all lead  show  in table
 Route::get('/lead/datatable','crm\LeadController@getleadDatatable');//get data for datatable
+Route::get('/lead/search','crm\LeadController@CrmLeadSearch');//Search Lead
 Route::get('/addlead','crm\LeadController@lead'); // insert lead or branch (button)
 Route::get('/detaillead/{id}','crm\LeadController@getdetailtlead'); // get  show detail  lead
 Route::get('/editlead/{id}','crm\LeadController@editlead');// edit lead
@@ -54,6 +55,7 @@ Route::get('/test_map', function(){
 });
 
 Route::get('/addleadtype','crm\LeadController@addleadtype'); // use get type in add lead
+Route::get('/typeaddlead','crm\LeadController@CrmChangeLead'); // select add lead and lead branch
 //end lead
 // index
 Route::get('/leadbranch','crm\LeadBranchController@index');

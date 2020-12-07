@@ -12,6 +12,16 @@
     //         }
     //     });
     // }
+    function CrmSelectChange(url,div,id){
+      $.ajax({
+          url:url,  //get URL to route
+          type:"get",
+          data:{id:id},
+          success:function(data){
+            $('#'+div+'').html(data);
+      }
+      });
+      }
     // Function Insert And Update CRM is amazing
     function CrmSubmitFormFull(form,url,goto,alert){
 
@@ -536,7 +546,8 @@ function CrmLeadBranchView(url,table){
         // select option lead in add lead, if have value go to list field add branch
         $("#lead_id").change(function () {
             var lead_id = $(this).val();
-            goto_Action('/addleadtype',lead_id);
+            //goto_Action('/addleadtype',lead_id);
+            CrmSelectChange('/typeaddlead','CrmChangeSelectLead',lead_id)
         })
 
 

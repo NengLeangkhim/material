@@ -22,6 +22,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('/getlead-datatable','api\crm\LeadController@getleadDataTable');
     // get lead fro Add lead
     Route::get('/getaddlead','api\crm\LeadController@getAddLead');
+    // get lead by Search
+    Route::get('/searchlead','api\crm\LeadController@CrmLeadSearch');
     //get lead detail
     Route::get('/getleadbyid/{id}','api\crm\LeadController@getleadbyid');
     // edit lead
