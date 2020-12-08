@@ -217,6 +217,7 @@
                     'status_id' : status == 0 ? null : status
                 },
                 success : function(response){
+                    console.log(response.data);
                     if(response.success) {
                         $.each(response.data, function(index, data){
                             $('#lead-detail-body').append(`

@@ -243,24 +243,24 @@ class LeadController extends Controller
 
                     'assig_to' =>  [  'required'
                                             ],
-                    'primary_phone' =>  [  'required'
-                                            ],
-                    'phone' =>  [  'required'
-                                            ],
+                    // 'primary_phone' =>  [  'required'
+                    //                         ],
+                    // 'phone' =>  [  'required'
+                    //                         ],
                     // 'service' =>  [  'required'
                     //                         ],
                     // 'lead_status' =>  [  'required'
                     //                         ],
-                    'email' =>  [  'required'
-                                            ],
-                    'position' =>  [  'required'
-                                        ],
-                    'national_id' =>  [  'required'
-                                        ],
-                    'name_en' => [ 'required'
-                                            ],
-                    'name_kh' => [ 'required'
-                                        ],
+                    // 'email' =>  [  'required'
+                    //                         ],
+                    // 'position' =>  [  'required'
+                    //                     ],
+                    // 'national_id' =>  [  'required'
+                                        // ],
+                    // 'name_en' => [ 'required'
+                    //                         ],
+                    // 'name_kh' => [ 'required'
+                                        // ],
                     // 'home_en' => [ 'required'
                     //                     ],
                     // 'street_en' => [ 'required'
@@ -277,8 +277,8 @@ class LeadController extends Controller
                                         ],
                     'latlong' => [ 'required'
                                         ],
-                    'address_type' => [ 'required'
-                                        ],
+                    // 'address_type' => [ 'required'
+                    //                     ],
                     'village' => [ 'required'
                                         ],
                 ],
@@ -286,29 +286,29 @@ class LeadController extends Controller
                     'company_en.required' => 'This Field is require !!',   //massage validator
                     'company_kh.required' => 'This Field is require !!',   //massage validator
                     'primary_email.required' => 'This Field is require !!',   //massage validator
-                    'primary_phone.required' => 'This Field is require !!',   //massage validator
+                    // 'primary_phone.required' => 'This Field is require !!',   //massage validator
                     'assig_to.required' => 'This Field is require !!',   //massage validator
                     // 'service.required' => 'This Field is require !!',   //massage validator
                     // 'vat_number.required' => 'This Field is require !!',   //massage validator
                     // 'lead_status.required' => 'This Field is require !!',   //massage validator
                     // 'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
-                    'name_en.required' => 'This Field is require !!',   //massage validator
-                    'name_kh.required' => 'This Field is require !!',   //massage validator
-                    'email.required' => 'This Field is require !!',   //massage validator
-                    'phone.required' => 'This Field is require !!',   //massage validator
-                    'home_en.required' => 'This Field is require !!',   //massage validator
-                    'street_en.required' => 'This Field is require !!',   //massage validator
-                    'home_kh.required' => 'This Field is require !!',   //massage validator
-                    'street_kh.required' => 'This Field is require !!',   //massage validator
-                    'position.required' => 'This Field is require !!',   //massage validator
-                    'national_id.required' => 'This Field is require !!',   //massage validator
+                    // 'name_en.required' => 'This Field is require !!',   //massage validator
+                    // 'name_kh.required' => 'This Field is require !!',   //massage validator
+                    // 'email.required' => 'This Field is require !!',   //massage validator
+                    // 'phone.required' => 'This Field is require !!',   //massage validator
+                    // 'home_en.required' => 'This Field is require !!',   //massage validator
+                    // 'street_en.required' => 'This Field is require !!',   //massage validator
+                    // 'home_kh.required' => 'This Field is require !!',   //massage validator
+                    // 'street_kh.required' => 'This Field is require !!',   //massage validator
+                    // 'position.required' => 'This Field is require !!',   //massage validator
+                    // 'national_id.required' => 'This Field is require !!',   //massage validator
                     'district.required' => 'This Field is require !!',   //massage validator
                     'commune.required' => 'This Field is require !!',   //massage validator
                     'latlong.required' => 'This Field is require !!',   //massage validator
-                    'address_type.required' => 'This Field is require !!',   //massage validator
+                    // 'address_type.required' => 'This Field is require !!',   //massage validator
                     'village.required' => 'This Field is require !!',   //massage validator
                     'email.email' => 'The Email is Wrong !!',   //massage validator
-                    'phone.regex' => 'The Phone Number is Wrong !!',   //massage validator
+                    // 'phone.regex' => 'The Phone Number is Wrong !!',   //massage validator
                     ]
                 );
             }else{
@@ -382,8 +382,8 @@ class LeadController extends Controller
                     //                     ],
                     'latlong' => [ 'required'
                                         ],
-                    'address_type' => [ 'required'
-                                        ],
+                    // 'address_type' => [ 'required'
+                    //                     ],
                     // 'village' => [ 'required'
                     //                     ],
                 ],
@@ -417,7 +417,7 @@ class LeadController extends Controller
                     // 'district.required' => 'This Field is require !!',   //massage validator
                     // 'commune.required' => 'This Field is require !!',   //massage validator
                     'latlong.required' => 'This Field is require !!',   //massage validator
-                    'address_type.required' => 'This Field is require !!',   //massage validator
+                    // 'address_type.required' => 'This Field is require !!',   //massage validator
                     // 'village.required' => 'This Field is require !!',   //massage validator
                     // 'primary_email.unique' => 'The Email is Already Exist !!',   //massage validator
                     // 'email.unique' => 'The Email is Already Exist !!',   //massage validator
@@ -441,10 +441,10 @@ class LeadController extends Controller
                 $create_contact->headers->set('Authorization', 'Bearer '.$token);
                 $res = app()->handle($create_contact);
                 $response = json_decode($res->getContent());
-                dd($response);
-                // if($response->insert==='success'){
-                //     return response()->json(['success'=>'Record is successfully added']);
-                // }
+                // dd($response);
+                if($response->insert==='success'){
+                    return response()->json(['success'=>'Record is successfully added']);
+                }
             }else{
                 return view('no_perms');
             }
@@ -549,8 +549,8 @@ class LeadController extends Controller
                                     ],
                 'latlong' => [ 'required'
                                     ],
-                'address_type' => [ 'required'
-                                    ],
+                // 'address_type' => [ 'required'
+                //                     ],
                 'village' => [ 'required'
                                     ],
             ],
@@ -577,7 +577,7 @@ class LeadController extends Controller
                 'district.required' => 'This Field is require !!',   //massage validator
                 'commune.required' => 'This Field is require !!',   //massage validator
                 'latlong.required' => 'This Field is require !!',   //massage validator
-                'address_type.required' => 'This Field is require !!',   //massage validator
+                // 'address_type.required' => 'This Field is require !!',   //massage validator
                 'village.required' => 'This Field is require !!',   //massage validator
                 // 'primary_email.unique' => 'The Email is Already Exist !!',   //massage validator
                 // 'email.unique' => 'The Email is Already Exist !!',   //massage validator

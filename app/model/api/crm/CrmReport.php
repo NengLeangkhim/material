@@ -545,11 +545,12 @@ class CrmReport extends Model
         return $result;
     }
 
-    public function getTotalServicesInEachLeads($fromDate = null, $toDate = null, $userId = null){
+    public function getTotalServicesInEachLeads($fromDate = null, $toDate = null, $userId = null, $serviceId = null){
         try {
             $condition =
                 (($fromDate == null || $toDate == null) ? ' ' : ' AND clb.create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE ')
                 .($userId == null ? ' ' : ' AND cla.ma_user_id = ' .$userId. ' ' )
+
             ;
             $sql = '
             WITH me AS (
@@ -567,7 +568,7 @@ class CrmReport extends Model
                 RIGHT JOIN stock_product sp ON me.stock_product_id = sp.id
                 INNER JOIN stock_product_type spt ON sp.stock_product_type_id = spt.id
             WHERE spt.group_type = \'service\'
-            ';
+            '.($serviceId == null ? ' ' : ' AND sp.id = '.$serviceId.' ');
             $result = DB::select($sql);
         } catch(QueryException $e){
             throw $e;

@@ -169,7 +169,7 @@ class Crmlead extends Model
     {
 
 
-            if($lead_id!=='null')
+            if($lead_id!=0)
             {
                 // dd('branch');
                 return CrmLead::addbranchinlead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
@@ -268,7 +268,7 @@ class Crmlead extends Model
                         else
                         {
                             // dd("contact");
-                            $contact=CrmLead::insertcontact($name_en,$name_kh,$email,$phone,$facebook,$position,$user_create,$national_id,$gender);
+                            $contact=CrmLead::insertcontact($name_en,$name_kh,$email,$phone,$facebook_con,$position,$user_create,$national_id,$gender);
                             $contact_id=$contact[0]->insert_crm_lead_contact;
                             //insert into crm_lead_brach_contact_rel
                             CrmLead::insert_branch_contact_rel($branch_id,$contact_id);
@@ -317,7 +317,7 @@ class Crmlead extends Model
     $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
     $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey){
 
-        // dd($service);
+        
         // return "df";
         if(isset($company_en)){
             DB::beginTransaction();
@@ -325,6 +325,7 @@ class Crmlead extends Model
                      //insert Into crm_lead_address
                      $address=Crmlead::insertaddress ($lead_id,$address_type,$home_en,$home_kh,$street_en,$street_kh,$latlong,$addresscode,$user_create);
                      $address_id=$address[0]->insert_crm_lead_address;
+                    //  dd($address);
 
                      //insert into crm_lead_branch
                      $branch=CrmLead::insertbranch ($lead_id,$company_en,$company_kh,$primary_email,$primary_phone,$address_id,$user_create,$prioroty);
@@ -337,11 +338,13 @@ class Crmlead extends Model
                      if($con_id!=='null')
                      {
                              $contact_id=$con_id;
+                            //  dd($con_id);
                      }
                      else
                      {
-                         $contact=CrmLead::insertcontact($name_en,$name_kh,$email,$phone,$facebook,$position,$user_create,$national_id,$gender);
+                         $contact=CrmLead::insertcontact($name_en,$name_kh,$email,$phone,$facebook_con,$position,$user_create,$national_id,$gender);
                          $contact_id=$contact[0]->insert_crm_lead_contact;
+                        
                      }
 
                      //insert into crm_lead_brach_contact_rel
@@ -464,9 +467,9 @@ class Crmlead extends Model
     }
     //insert into table crm_lead_contact
     public  static function insertcontact($name_en,$name_kh,$email,$phone,$facebook_con,$position,$user_create,$national_id,$gender){
-        if(isset($name_en)){
+        // dd($name_en,$name_kh,$email,$phone,$facebook_con,$position,$user_create,$national_id,$gender);
+        // if(isset($name_en)){
             try{
-                // $priority='urgent';
                 $result=DB::select('SELECT insert_crm_lead_contact(?,?,?,?,?,?,?,?,?)',
                 array(
                     $name_en,
@@ -480,15 +483,15 @@ class Crmlead extends Model
                     $gender
                 )
             );
-                return  $result;
+                return $result;
             }catch(Exception $e){
                 return json_encode(["insert"=>"fail insert_crm_lead_contact","result"=> $e->getMessage()]);
             }
-        }
-        else
-        {
-            return json_encode(['inser'=>'not found data']);
-        }
+        // }
+        // else
+        // {
+        //     return json_encode(['inser'=>'not found data']);
+        // }
 
     }
     //insert into table crm_lead_branch_contact_rel
