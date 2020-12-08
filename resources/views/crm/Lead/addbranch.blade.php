@@ -48,15 +48,15 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <label for="primary_phone">Primary Phone <b style="color:red">*</b></label>
+                                                <label for="primary_phone">Primary Phone </label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control" name="primary_phone"id="primary_phone" placeholder="Primary Phone" onkeypress="return onlyNumberKey(event)" >
-                                                    <span class="invalid-feedback" role="alert" id="primary_phoneError">
+                                                    {{-- <span class="invalid-feedback" role="alert" id="primary_phoneError">
                                                         <strong></strong>
-                                                    </span>
+                                                    </span> --}}
                                                 </div>
                                             </div>
 
@@ -143,7 +143,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                         <div class="col-md-6">
-                                            <label for="contact">Search Contact <b style="color:red">*</b></label>
+                                            <label for="contact">Search Contact </label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-check"></i></span>
@@ -169,27 +169,29 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="name_kh">Full Name Khmer <b style="color:red">*</b></label>
+                                                <label for="name_kh">Full Name Khmer </label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control" placeholder="Frist Name"  name='name_kh' id="name_kh" >
-                                                    <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
-                                                        <strong></strong>
-                                                    </span>
+                                                    {{-- <span class="invalid-feedback" role="alert" id="name_khError"> span for alert --}}
+                                                        {{-- <strong></strong>
+                                                    </span> --}}
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="name_en">Full Name English <b style="color:red">*</b></label>
+                                                <label for="name_en">Full Name English </label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control" name="name_en" id="name_en" placeholder="Last Name" >
-                                                    <span class="invalid-feedback" role="alert" id="name_enError"> {{--span for alert--}}
+                                                    {{-- <span class="invalid-feedback" role="alert" id="name_enError">
+                                                        
                                                         <strong></strong>
-                                                    </span>
+                                                    </span> --}}
+                                                     {{--span for alert--}}
                                                 </div>
                                             </div>
                                         </div>
@@ -197,27 +199,27 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1"> Email <b style="color:red">*</b></label>
+                                                <label for="exampleInputEmail1"> Email </label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-at"></i></span>
                                                     </div>
                                                     <input type="email" class="form-control"  name="email" id="email" placeholder="Email">
-                                                    <span class="invalid-feedback" role="alert" id="emailError"> {{--span for alert--}}
+                                                    {{-- <span class="invalid-feedback" role="alert" id="emailError"> span for alert
                                                         <strong></strong>
-                                                    </span>
+                                                    </span> --}}
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="phone"> Phone <b style="color:red">*</b></label>
+                                                <label for="phone"> Phone </label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control" name="phone"id="phone" placeholder="Primary Phone" >
-                                                    <span class="invalid-feedback" role="alert" id="phoneError"> {{--span for alert--}}
+                                                    {{-- <span class="invalid-feedback" role="alert" id="phoneError"> span for alert
                                                         <strong></strong>
-                                                    </span>
+                                                    </span> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -246,15 +248,15 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label for="position">Position <b style="color:red">*</b></label>
+                                                                <label for="position">Position </label>
                                                                 <div class="input-group">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                                                     </div>
                                                                     <input type="text" class="form-control" name="position" id="position" placeholder="Position">
-                                                                    <span class="invalid-feedback" role="alert" id="phoneError"> {{--span for alert--}}
+                                                                    {{-- <span class="invalid-feedback" role="alert" id="phoneError"> span for alert
                                                                         <strong></strong>
-                                                                    </span>
+                                                                    </span> --}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -262,15 +264,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="national_id">National ID Ceard / Passport ID <b style="color:red">*</b></label>
+                                                <label for="national_id">National ID Ceard / Passport ID </label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-address-card"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control" name="national_id" id="national_id" placeholder="National ID Ceard ">
-                                                    <span class="invalid-feedback" role="alert" id="national_idError"> {{--span for alert--}}
+                                                    {{-- <span class="invalid-feedback" role="alert" id="national_idError"> span for alert
                                                         <strong></strong>
-                                                    </span>
+                                                    </span> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -421,7 +423,7 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="row">
-                                                            <div class="col-md-6">
+                                                            {{-- <div class="col-md-6">
                                                                 <label for="address_type">Address Type <b style="color:red">*</b></label>
                                                                 <div class="input-group">
                                                                     <div class="input-group-prepend">
@@ -434,10 +436,10 @@
                                                                         <option value="main">Main</option>
                                                                     </select>
                                                                     <span class="invalid-feedback" role="alert" id="address_typeError"> {{--span for alert--}}
-                                                                        <strong></strong>
+                                                                        {{-- <strong></strong>
                                                                     </span>
-                                                                </div>
-                                                            </div>
+                                                                </div> --}}
+                                                            {{-- </div> --}} 
                                                             <div class="col-md-6">
                                                                 <div class="input-group pt-4 pl-2">
                                                                     <div class="input-group-prepend pr-4">

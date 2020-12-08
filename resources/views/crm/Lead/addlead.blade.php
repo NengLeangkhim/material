@@ -910,7 +910,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name='latlong' id="latlong" placeholder="11.123456, 104.123456 Example" >
+                                                    <input type="text" class="form-control"  name='latlong' id="latlong" placeholder="11.123456, 104.123456 Example" readonly >
                                                     <span class="invalid-feedback" role="alert" id="latlongError"> {{--span for alert--}}
                                                         <strong></strong>
                                                     </span>
@@ -938,7 +938,7 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="row">
-                                                            <div class="col-md-6">
+                                                            {{-- <div class="col-md-6">
                                                                 <label for="address_type">Address Type <b style="color:red">*</b></label>
                                                                 <div class="input-group">
                                                                     <div class="input-group-prepend">
@@ -951,10 +951,10 @@
                                                                         <option value="main">Main</option>
                                                                     </select>
                                                                     <span class="invalid-feedback" role="alert" id="address_typeError"> {{--span for alert--}}
-                                                                        <strong></strong>
+                                                                        {{-- <strong></strong>
                                                                     </span>
                                                                 </div>
-                                                            </div>
+                                                            </div> --}} 
                                                             <div class="col-md-6">
                                                                 <div class="input-group pt-4 pl-2">
                                                                     <div class="input-group-prepend pr-4">
