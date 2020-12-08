@@ -105,7 +105,6 @@ class AttendanceController extends Controller
     function AttendanceEdit(){
         if (perms::check_perm_module('HRM_09010301')) {
             $id = $_GET['id'];
-            echo 'wdefef';
             return view('hrms/Employee/Attendance/AttendanceEdit')->with('id', $id);
         }else{
             return view('modal_no_perms')->with('modal', 'modal_attendance_edit');
