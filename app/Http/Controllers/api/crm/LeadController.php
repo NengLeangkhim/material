@@ -271,7 +271,7 @@ class LeadController extends Controller
         }
         else
         {
-            return view('no_perms');
+            return [];
         }
 
         // return GetLead::Collection($lead);
@@ -296,7 +296,7 @@ class LeadController extends Controller
         }
         else
         {
-            return view('no_perms');
+            return [];
         }
 
         // return GetLead::Collection($lead);
@@ -352,7 +352,7 @@ class LeadController extends Controller
     }
     else
     {
-        return view('no_perms');
+        return [];
     }
 
     }
@@ -427,7 +427,7 @@ class LeadController extends Controller
         }
         else
         {
-            return view('no_perms');
+            return [];
         }
 
     }
@@ -529,7 +529,7 @@ class LeadController extends Controller
         }
         else
         {
-            return view('no_perms');
+            return [];
         }
     }
     // get schedule by id
@@ -640,7 +640,7 @@ class LeadController extends Controller
         }
         else
         {
-            return view('no_perms');
+            return [];
         }
     }
     // Search Lead 

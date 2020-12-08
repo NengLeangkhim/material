@@ -159,4 +159,13 @@ class ModelCrmLead extends Model
         //dd($res);
         return $res->getContent();
     }
+    //function to pass schedule type to branch by schedule id
+    public static function getScheduleType($sche_id){
+        $r = DB::table('crm_lead_schedule as sch')
+            ->select('sch.id','sch_type.id as scheduleTypeId','sch_type.name_en','sch_type.name_kh')
+            ->join('crm_lead_schedule_type as sch_type', 'sch.crm_lead_schedule_type_id','=','sch_type.id')
+            ->where('sch.id','=', $sche_id)
+            ->get();
+        return $r;
+    }
 }
