@@ -119,6 +119,10 @@ class RouteServiceProvider extends ServiceProvider
         $this->registerRoute('api','api',$bsc.'customer_management.php');
         $this->registerRoute('api','api',$bsc.'chart_account.php');
         $this->registerRoute('api','api',$bsc.'dashboard.php');
+
+        // 4.---HRMS
+        $bsc = 'routes/api/hrms_api/';
+        $this->registerRoute('api','api',$bsc.'leave_type.php');
     }
 
     protected function registerRoute($prefix, $middleware, $path){

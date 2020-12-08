@@ -8,6 +8,7 @@ class PdfController extends Controller
 {
     public function request()
     {
+        
     	$html='<html>
         <head>
         <meta charset="UTF-8">

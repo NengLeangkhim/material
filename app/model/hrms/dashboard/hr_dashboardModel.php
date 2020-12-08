@@ -124,10 +124,9 @@ WHERE mu.status='t' AND mu.is_deleted ='f' and mu.is_employee='t' and mp.status=
 
     // function to get number of staff go outside or mission today
     public static function staff_mission($curret_date){
-        $sql= " SELECT count(mis.id) FROM hr_mission mis 
-                JOIN hr_mission_detail mis_de ON mis.id = mis_de.hr_mission_id 
-                WHERE '$curret_date' >= mis.date_from  AND '$curret_date' <= mis.date_to  
-                AND mis.status='t' AND mis.is_deleted = 'f'";
+        $sql= " SELECT count(DISTINCT(hmd.ma_user_id)) FROM hr_mission  hm 
+INNER JOIN hr_mission_detail hmd on hm.id=hmd.hr_mission_id
+WHERE hm.status='t' and hm.is_deleted='f' and '2020-12-05' BETWEEN hm.date_from::date and hm.date_to::date and hm.type='Mission' ";
         try {
             $r = DB::select($sql);
             return $r;

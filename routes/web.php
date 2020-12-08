@@ -14,7 +14,7 @@ use PhpParser\Node\Stmt\TryCatch;
 |
 */
 
-Route::get('pdf-create','PdfController@create');
+Route::get('pdf-create','PdfController@request');
 Route::get('/check','RouteController@check'); //Check Database Connection
 Route::get('/','RouteController@home');
 Route::post('/','Login@login');
