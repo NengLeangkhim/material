@@ -603,11 +603,7 @@ class Crmlead extends Model
         cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,cl.crm_lead_source_id,
         cl.crm_lead_industry_id,cl.crm_lead_current_isp_id,cl.status
         from crm_lead cl
-        LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
-        LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
-		JOIN crm_lead_branch clb on clb.crm_lead_id = cl.id
-		JOIN crm_lead_detail cld on cld.crm_lead_branch_id = clb.id
-        WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE GROUP BY cl.id";
+        WHERE  cl.is_deleted=FALSE and cl.status=TRUE";
     }
     //get  all lead
     public static function getlead(){
