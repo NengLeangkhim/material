@@ -18,11 +18,11 @@ class LeaveTypeController extends Controller
     public function index()
     {
         try {
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
-                $userid = "";
-            }else{
-                $userid = $user->id;
-            }
+            // if (! $user = JWTAuth::parseToken()->authenticate()) {
+            //     $userid = "";
+            // }else{
+            //     $userid = $user->id;
+            // }
             // if (!perms::check_perm_module_api('BSC_030501', $userid)) {
             //     return $this->sendError("No Permission");
             // }
