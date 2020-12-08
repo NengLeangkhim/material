@@ -307,6 +307,7 @@
                 var chart = new google.visualization.ColumnChart(document.getElementById('LeadChart'))
                 chart.draw(view, options)
             }
+            console.log(currentDateString);
             $.ajax({
                 url: '/api/crm/report/leadByStatus', //get link route
                 type: 'GET',

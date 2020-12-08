@@ -259,8 +259,9 @@ class CrmReportController extends Controller
         $token = $_SESSION['token'];
         $fromDate = $request->from_date;
         $toDate = $request->to_date;
+        $serviceId = $request->service_id;
         // dump($request->all());
-        $customerService = Request::create('/api/crm/report/getTotalServicesInEachLeads?from_date='.$fromDate.'&to_date='.$toDate.' ','GET');
+        $customerService = Request::create('/api/crm/report/getTotalServicesInEachLeads?from_date='.$fromDate.'&to_date='.$toDate.'&service_id='.$serviceId.' ','GET');
         $customerService->headers->set('Accept', 'application/json');
         $customerService->headers->set('Authorization', 'Bearer '.$token);
         $res = app()->handle($customerService);

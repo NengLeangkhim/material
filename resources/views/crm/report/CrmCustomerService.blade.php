@@ -195,9 +195,9 @@
                 data : {
                     'from_date' : from == '' ? null : from,
                     'to_date' : to == '' ? null : to,
+                    'service_id' : sourceId == 0 ? null : sourceId,
                 },
                 success : function(response){
-                    console.log(response);
                     if(response.success) {
                         $.each(response.data, function(index, data){
                             $('#customer-service-body').append(`
