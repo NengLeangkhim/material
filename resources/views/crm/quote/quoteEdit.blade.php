@@ -166,7 +166,7 @@
                             <div id="modal-list-quote">
                             </div>
                             <div class="col-md-12">
-                                <div class="row">
+                                <div class="">
                                         @php $Countnum = 0; @endphp
                                         @isset($lead_branch_quote)
                                             @foreach ($lead_branch_quote->data as $key=>$value)

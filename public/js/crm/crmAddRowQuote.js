@@ -219,7 +219,7 @@
                 $('#getTaxation'+branId+'').text(getTax.toFixed(4));
                 $('#grandTotal'+branId+'').text(getsumtotal.toFixed(4));
             }
-            console.log('granTotal='+getsumtotal+'--getTax='+getTax+'--brand='+branId+'---VatNum='+vat);
+            // console.log('granTotal='+getsumtotal+'--getTax='+getTax+'--brand='+branId+'---VatNum='+vat);
 
         }
 
