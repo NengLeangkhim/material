@@ -614,6 +614,9 @@ class InvoiceController extends Controller
                 ])->first();
 
         $preview_invoice_detail = DB::table('bsc_invoice_detail')
+                ->select('bsc_invoice_detail.*','ma_measurement.name as unit_name')
+                ->leftJoin('stock_product','stock_product.id','=','bsc_invoice_detail.stock_product_id')
+                ->leftJoin('ma_measurement','ma_measurement.id','=','stock_product.ma_measurement_id')
                 ->where([
                     ['bsc_invoice_detail.bsc_invoice_id','=',$id],
                     ['bsc_invoice_detail.status','=','t'],
