@@ -74,7 +74,7 @@ class InvoiceController extends Controller
                 $res = app()->handle($request);
                 $ch_account = json_decode($res->getContent()); // convert to json object
                 $ch_accounts=$ch_account->data;
-
+                // dd($invoice_details);exit;
                 return view('bsc.invoice.invoice.invoice_view',compact('invoices','invoice_details','ch_accounts','invoice_payments'));
             }else{
                 return view('no_perms');

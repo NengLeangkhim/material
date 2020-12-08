@@ -34,6 +34,7 @@ Route::get('/village', 'addressController@getvillage'); //getvillage
 // start lead and branch
 Route::get('/lead','crm\LeadController@getlead'); // get  all lead  show  in table
 Route::get('/lead/datatable','crm\LeadController@getleadDatatable');//get data for datatable
+Route::get('/lead/search','crm\LeadController@CrmLeadSearch');//Search Lead
 Route::get('/addlead','crm\LeadController@lead'); // insert lead or branch (button)
 Route::get('/detaillead/{id}','crm\LeadController@getdetailtlead'); // get  show detail  lead
 Route::get('/editlead/{id}','crm\LeadController@editlead');// edit lead
@@ -54,6 +55,7 @@ Route::get('/test_map', function(){
 });
 
 Route::get('/addleadtype','crm\LeadController@addleadtype'); // use get type in add lead
+Route::get('/typeaddlead','crm\LeadController@CrmChangeLead'); // select add lead and lead branch
 //end lead
 // index
 Route::get('/leadbranch','crm\LeadBranchController@index');
@@ -89,10 +91,11 @@ Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
 
 
 
-// start contact
+// start contact 
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table
 Route::get('/contact/datatable','crm\ContactController@getcontactDatatable');
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination
+Route::get('/contact/search','crm\ContactController@CrmLeadContactSearch'); //Search
 Route::get('/contact/add','crm\ContactController@AddContact'); //go to add contact
 Route::post('/contact/store','crm\ContactController@StoreContact'); //store contact
 Route::get('/contact/edit/{id}','crm\ContactController@EditContact');//go to Edit contact
@@ -130,6 +133,7 @@ Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quo
 Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get stock product api to view
 Route::get('/quote/add/listService','crm\QuoteController@listService'); // get stock service api to view
 Route::get('/quote/add/listQuoteLead','crm\QuoteController@listQuoteLead'); // get organization lead
+Route::get('/quote/add/listQuoteLead/datatable','crm\QuoteController@listQuoteLeadDatatable'); // get organization lead
 Route::get('/quote/add/listQuoteBranch','crm\QuoteController@listQuoteBranch'); // get lead branch
 Route::get('/quote/add/listAssignTo','crm\QuoteController@staffAssignQuote'); // list staff get assign quote
 

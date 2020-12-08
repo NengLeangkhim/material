@@ -41,71 +41,9 @@
                                                         <th style="color: #FFFFFF">Assigned To </th>
                                                         <th style="color: #FFFFFF">Has Invoice</th>
                                                         <th style="color: #FFFFFF">Due Date</th>
-                                                        <th style="color: #FFFFFF">Action</th>
+                                                        <th style="color: #FFFFFF;">Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    {{-- @if(isset($listQuote))
-                                                        @foreach($listQuote as $val)
-                                                            @foreach($val as $key => $val2)
-                                                                    <tr>
-                                                                        <td>{{$key+1}}</td>
-                                                                        <td>{{$val2->quote_number ??""}}</td>
-                                                                        <td>{{$val2->subject ??""}}</td>
-                                                                        <td>{{$val2->crm_lead->customer_name_en ??""}}</td>
-                                                                        <td>
-                                                                            @if($val2->crm_lead->vat_number != '')
-                                                                                <span>Exclude</span>
-                                                                            @else
-                                                                                <span>Include</span>
-                                                                            @endif
-                                                                        </td>
-                                                                        <td>
-                                                                            <?php $num = count($val2->quote_stage ??""); ?>
-                                                                            @if( $num > 0)
-                                                                                {{
-                                                                                    $val2->quote_stage[$num-1]->name_en ??""
-                                                                                }}
-                                                                            @endif
-                                                                        </td>
-                                                                        <td>{{$val2->assign_to->first_name_en.' '.$val2->assign_to->last_name_en ??""}}</td>
-                                                                        <td>
-
-                                                                            <?php $num = count($val2->quote_stage ?? ""); ?>
-                                                                            @if($num > 0)
-                                                                                    @if(isset($val2->quote_stage[$num-1]->id) && $val2->quote_stage[$num-1]->id == 2)
-                                                                                        <span>Yes</span>
-                                                                                    @else
-                                                                                        <span>No</span>
-                                                                                    @endif
-
-                                                                            @endif
-
-                                                                    </td>
-                                                                    <td>{{$val2->due_date ??""}}</td>
-                                                                    <td>
-                                                                        <div class="row-12 form-inline">
-                                                                            <div class="col-md-4">
-                                                                                <a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action('/quote/detail', '{{ $val2->id ??''}}')"  >
-                                                                                    <i class="far fa-eye"></i>
-                                                                                </a>
-                                                                            </div>
-                                                                            <div class="col-md-4">
-                                                                                <a href="#" class="btn btn-success btn-sm" onclick="goto_Action('/quote/leadBranch', '{{ $val2->id ??''}}')">
-                                                                                    <i class="fas fa-wrench"></i>
-                                                                                </a>
-                                                                            </div>
-                                                                            <div class="col-md-4 ">
-                                                                            <a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead('/quote/deleteLeadQuote', '{{ $val2->id ??''}}')"> <span class="glyphicon glyphicon-remove"></span>  </a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        @endforeach
-                                                    @endif --}}
-
-                                                </tbody>
                                             </table>
                                     </div>
                                 </div>
@@ -119,7 +57,7 @@
             <script type="text/javascript">
                         $("#tblQuoteList").DataTable({
                             scrollX:true,
-                            "responsive": true,
+                            // "responsive": true,
                             "autoWidth": false,
                             "serverSide": true,
                             "ajax": "/quote/datatable",
@@ -130,7 +68,7 @@
                                         // this case `data: 0`.
                                         "searchable": false,
                                         "render": function ( data, type, row ) {
-                                            return '<div class="row-12 form-inline">'+
+                                            return '<div class="container-fluid"><div class="row form-inline">'+
                                                     '<div class="col-md-4">'+
                                                         '<a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action(\'/quote/detail\', \''+data+'\')"  >'+
                                                             '<i class="far fa-eye"></i>'+
@@ -144,10 +82,15 @@
                                                     '<div class="col-md-4 ">'+
                                                     '<a href="javascript:void(0);" class="btn btn-danger btn-sm " onclick="getDeleteQuoteLead(\'/quote/deleteLeadQuote\', \''+data+'\')"> <span class="glyphicon glyphicon-remove"></span>  </a>'+
                                                     '</div>'+
-                                                '</div>';
+                                                '</div></div>';
                                         },
+                                        "width": "100px",
                                         "targets": 8,
                                     },
+                                    {
+                                        "searchable": false,
+                                        "targets": 7,
+                                    }
                              ]
                         });
             </script>

@@ -149,9 +149,16 @@ class ModelCrmLead extends Model
         // dd($res);
         return $res->getContent();
     }
-
-
-
+    // Seach Lead 
+    public static function SearchLead($search){
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/searchlead?search='.$search, 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        //dd($res);
+        return $res->getContent();
+    }
     //function to pass schedule type to branch by schedule id
     public static function getScheduleType($sche_id){
         $r = DB::table('crm_lead_schedule as sch')
@@ -161,7 +168,4 @@ class ModelCrmLead extends Model
             ->get();
         return $r;
     }
-
-
-
 }

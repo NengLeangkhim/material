@@ -441,10 +441,10 @@ class LeadController extends Controller
                 $create_contact->headers->set('Authorization', 'Bearer '.$token);
                 $res = app()->handle($create_contact);
                 $response = json_decode($res->getContent());
-                // dd($response);
-                if($response->insert==='success'){
-                    return response()->json(['success'=>'Record is successfully added']);
-                }
+                dd($response);
+                // if($response->insert==='success'){
+                //     return response()->json(['success'=>'Record is successfully added']);
+                // }
             }else{
                 return view('no_perms');
             }
@@ -634,7 +634,33 @@ class LeadController extends Controller
         }
         // return redirect()->action('crm\LeadController@lead');
     }
-
+    // function select change lead and lead branh add
+    public function CrmChangeLead(Request $request){
+        if(perms::check_perm_module('CRM_020504')){//module codes
+            $lead_source=ModelCrmLead::CrmGetLeadSource();
+            $lead_status=ModelCrmLead::CrmGetLeadStatus();
+            $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
+            $assig_to=ModelCrmLead::CrmGetLeadAssigTo();
+            $province=ModelCrmLead::CrmGetLeadProvice();
+            if($request->id=='Not'){
+                return view('crm.Lead.addleadselect',['lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province]);
+            }else{
+                return view('crm.Lead.addbranch',['lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province]);
+            }
+        }else{
+            return view('no_perms');
+        }
+    }
+    // function Lead Search
+    public function CrmLeadSearch(Request $request){
+        if(perms::check_perm_module('CRM_020504')){//module codes
+            $search= $request->search;
+            $result=ModelCrmLead::SearchLead($search);
+            return $result;
+        }else{
+            return view('no_perms');
+        }
+    }
 
 
 

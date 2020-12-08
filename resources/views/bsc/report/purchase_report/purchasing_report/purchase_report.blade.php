@@ -14,7 +14,7 @@
                             <div class="col-md-6">
                                 <label for="">Billing Date</label><br/>
                                 <div class="form-group row form-group-marginless">
-                                    <label class="col-lg-2 col-form-label" style="text-align: right">From</label>
+                                    <label class="col-lg-2 col-form-label">From</label>
                                     <div class="col-lg-10">
                                         <div class="input-daterange input-group" id="k_datepicker_5">
                                             <input type="date" class="form-control" name="start" id="billing_date_from">
@@ -29,7 +29,7 @@
                             <div class="col-md-6">
                                 <label for="">Due Date</label><br/>
                                 <div class="form-group row form-group-marginless">
-                                    <label class="col-lg-2 col-form-label" style="text-align: right">From</label>
+                                    <label class="col-lg-2 col-form-label">From</label>
                                     <div class="col-lg-10">
                                         <div class="input-daterange input-group" id="k_datepicker_5">
                                             <input type="date" class="form-control" name="start" id="due_date_from">
@@ -102,8 +102,8 @@
                                                 <tr>
                                                     <td>{{ $purchase->invoice_number }}</td>
                                                     <td>{{ $purchase->supplier_name }}</td>
-                                                    <td>{{ $purchase->billing_date }}</td>
-                                                    <td>{{ $purchase->due_date }}</td>
+                                                    <td>{{ date('d-m-Y', strtotime($purchase->billing_date)) }}</td>
+                                                    <td>{{ date('d-m-Y', strtotime($purchase->due_date)) }}</td>
                                                     <td>{{ $paid }}</td>
                                                     <td>{{ $due }}</td>
                                                     <td>{{ $status }}</td>
@@ -179,15 +179,15 @@
                         if(payment_status == '2'){
                             if(value.due_amount == null || value.due_amount != 0){
                                 
-                                tr += "<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+parseFloat(amount_paid).toFixed(4)+"</td><td>"+parseFloat(due_amount).toFixed(4)+"</td><td>"+status+"</td></tr>";
+                                tr += "<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+moment(value.billing_date).format('DD-MM-YYYY')+"</td><td>"+moment(value.due_date).format('DD-MM-YYYY')+"</td><td>"+parseFloat(amount_paid).toFixed(4)+"</td><td>"+parseFloat(due_amount).toFixed(4)+"</td><td>"+status+"</td></tr>";
                             }
                         }else if(payment_status == '3'){
                             if(value.due_amount == 0 && value.due_amount != null){
                                 
-                                tr += "<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+parseFloat(amount_paid).toFixed(4)+"</td><td>"+parseFloat(due_amount).toFixed(4)+"</td><td>"+status+"</td></tr>";
+                                tr += "<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+moment(value.billing_date).format('DD-MM-YYYY')+"</td><td>"+moment(value.due_date).format('DD-MM-YYYY')+"</td><td>"+parseFloat(amount_paid).toFixed(4)+"</td><td>"+parseFloat(due_amount).toFixed(4)+"</td><td>"+status+"</td></tr>";
                             }
                         }else{
-                            tr += "<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+value.billing_date+"</td><td>"+value.due_date+"</td><td>"+parseFloat(amount_paid).toFixed(4)+"</td><td>"+parseFloat(due_amount).toFixed(4)+"</td><td>"+status+"</td></tr>";
+                            tr += "<tr><td>"+value.invoice_number+"</td><td>"+value.supplier_name+"</td><td>"+moment(value.billing_date).format('DD-MM-YYYY')+"</td><td>"+moment(value.due_date).format('DD-MM-YYYY')+"</td><td>"+parseFloat(amount_paid).toFixed(4)+"</td><td>"+parseFloat(due_amount).toFixed(4)+"</td><td>"+status+"</td></tr>";
                         }
                     });
                 }

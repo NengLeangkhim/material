@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><i class="fas fa-user"></i> Invoices</h1>
+                <h1><i class="fas fa-file"></i> Invoices</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -31,7 +31,7 @@
                                   <a class="nav-link active" id="home-tab" data-toggle="tab" href="#all" role="tab" aria-controls="home" aria-selected="true">All</a>
                                 </li>
                                 <li class="nav-item">
-                                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#awaiting" role="tab" aria-controls="profile" aria-selected="false">Awaiting Payment</a>
+                                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#awaiting" role="tab" aria-controls="profile" aria-selected="false">Waiting Payment</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#paid" role="tab" aria-controls="profile" aria-selected="false">Paid</a>
@@ -107,7 +107,7 @@
                                             <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
                                                 <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
                                                     <div class="card-body">
-                                                        <table id="example2" class="table table-bordered table-striped" style="white-space: nowrap">
+                                                        <table id="example2" class="table table-bordered table-striped">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Invoice Number</th>
@@ -184,6 +184,13 @@
                                                                 @if (count($invoices) >0)
                                                                     @foreach ($invoices as $invoice)
                                                                         @if($invoice->due_amount == 0 && $invoice->due_amount != null)
+                                                                        @php
+                                                                            $paid = $invoice->amount_paid;
+                                                                            $amount_paid = number_format($paid, 4, '.', '');
+
+                                                                            $due = $invoice->due_amount;
+                                                                            $due_amount = number_format($due, 4, '.', '');
+                                                                        @endphp
                                                                             <tr>
                                                                                 <td>{{ $invoice->invoice_number }}</td>
                                                                                 <td>{{ $invoice->reference }}</td>

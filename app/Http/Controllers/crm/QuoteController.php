@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\model\crm\ModelCrmQuote;
 use App\Http\Controllers\perms;
 
+
 use Illuminate\Support\Facades\Route;
 
 class QuoteController extends Controller
@@ -60,7 +61,6 @@ class QuoteController extends Controller
             $res2 = app()->handle($request2);
             $quoteBranch = json_decode($res2->getContent());
 
-
             // api get quote branch detail by branch id
             $getQuoteBranch = [];
 
@@ -90,13 +90,7 @@ class QuoteController extends Controller
             session_start();
         }
         $province=ModelCrmLead::CrmGetLeadProvice();
-        $token = $_SESSION['token'];
-        $request = Request::create('/api/quote/status', 'GET');
-        $request->headers->set('Accept', 'application/json');
-        $request->headers->set('Authorization', 'Bearer '.$token);
-        $res = app()->handle($request);
-        $quotestatus = json_decode($res->getContent());
-        return view('crm/quote/addQuote', compact('province','quotestatus'));
+        return view('crm/quote/addQuote', compact('province'));
     }
 
 
@@ -144,7 +138,7 @@ class QuoteController extends Controller
             $branId = $_GET['branId'];
             $row_id = $_GET['id'];
             $token = $_SESSION['token'];
-            $request = Request::create('/api/stock/product/', 'GET');
+            $request = Request::create('/api/stock/product', 'GET');
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
@@ -166,7 +160,7 @@ class QuoteController extends Controller
             $row_id = $_GET['id'];
             $branId = $_GET['branId'];
             $token = $_SESSION['token'];
-            $request = Request::create('/api/stock/service/', 'GET');
+            $request = Request::create('/api/stock/service', 'GET');
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
@@ -196,11 +190,25 @@ class QuoteController extends Controller
             $listLead = json_decode($res->getContent());
             // dump($listLead);
             // exit;
-            return view('crm/quote/listQuoteLead', compact('listLead'));
+            return view('crm/quote/listQuoteLead',compact($listLead));
 
         }
     }
+    public static function listQuoteLeadDatatable(Request $request){
 
+        // if(isset($_GET['id'])){
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $token = $_SESSION['token'];
+            $urlQuery=str_replace($request->Url(),'',$request->fullUrl());
+            $request = Request::create('/api/getleadconvert/datatable'.$urlQuery, 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            return $res->getContent();
+        // }
+    }
 
 
     //function to list lead branch to add lead quote
@@ -241,7 +249,6 @@ class QuoteController extends Controller
 
                     'subject' =>  ['required'],
                     'lead_name' =>  [ 'required'],
-                    'crm_quote_status_type_id' =>  ['required'],
                     'due_date' =>  ['required'],
                     'assign_toName' =>  ['required'],
                     'comment' =>  ['required'],
@@ -280,8 +287,7 @@ class QuoteController extends Controller
 
                 if($response->insert=='success'){
                     //when add quote success, get quote id to get view quote detail
-                    $quoteId = ModelCrmQuote::getQuoteLastId();
-                    return response()->json(['success'=>$response,'quoteId'=> $quoteId]);
+                    return response()->json(['success'=>$response,'quoteId'=> $response->quote_id]);
                 }else{
                     return response()->json(['error'=>$response]);
                 }
@@ -376,10 +382,9 @@ class QuoteController extends Controller
         //     return view('crm/quote/leadBranch', compact('dataQuoteLead'));
         // }
 
-        dump($token);
+        // dump($token);
         if(isset($_GET['id_']) && $_GET['id_'] != ''){
             $quoteId = $_GET['id_'];
-
                 $request = Request::create('/api/quotebranch/'.$quoteId.'', 'GET');   // this use branch id to get branch deetail
                 $request->headers->set('Accept', 'application/json');
                 $request->headers->set('Authorization', 'Bearer '.$token);
@@ -387,7 +392,7 @@ class QuoteController extends Controller
                 $lead_branch_quote = json_decode($res->getContent());
                 $employee  = ModelCrmQuote::getEmployee();
                 $quoteStatus  = ModelCrmQuote::getQuoteStatus();
-                dump($lead_branch_quote);
+                // dump($lead_branch_quote);
                 if(isset($lead_branch_quote->data)){
                     $quoteBranchDetail = [];
                     foreach($lead_branch_quote->data as $k=>$val){
@@ -398,7 +403,7 @@ class QuoteController extends Controller
                         $quoteBranchDetail[] = json_decode($res2->getContent());
                     }
                 }
-                dump($quoteBranchDetail);
+                // dump($quoteBranchDetail);
 
                 $request3 = Request::create('/api/quote/'.$quoteId.'', 'GET');   // this use branch id to get branch deetail
                 // $request3 = Request::create('/api/quotebranch/'.$quoteId.'', 'GET');   // this use branch id to get branch deetail
@@ -407,7 +412,7 @@ class QuoteController extends Controller
                 $res3 = app()->handle($request3);
                 $quoteDetail = json_decode($res3->getContent());
 
-                dump($quoteDetail);
+                // dump($quoteDetail);
 
                 // foreach($lead_branch_quote->data as $k=>$value){
                 //     dump($value->crm_lead_branch->name);

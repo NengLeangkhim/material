@@ -4,18 +4,18 @@
     }
 @endphp
 <div class="col-12 text-right">
-    <a  href="javascript:void(0);" class="btn btn-success crm_contact" onclick="CrmModalAction('crm_lead_isp_form','crm_lead_isp_modal','ActionLeadISP','Add Lead Current ISP')" ​><i class="fas fa-plus"></i> Add Lead Current ISP</a> 
+    <a  href="javascript:void(0);" class="btn btn-success crm_contact" onclick="CrmModalAction('crm_lead_isp_form','crm_lead_isp_modal','ActionLeadISP','Add Lead Current ISP')" ​><i class="fas fa-plus"></i> Add Lead Current ISP</a>
 </div>
 <div class="col-12" style="margin-top: 10px">
     <div>
         <table class="table table-bordered display nowrap" style="width: 100%" id="Lead_ISP_Tbl">
             <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name English</th>
-                    <th>Name Khmer</th>
-                    <th>Create Date</th>
-                    <th>Action</th>
+                <tr style="background: #1fa8e0">
+                    <th style="color: #FFFFFF">#</th>
+                    <th style="color: #FFFFFF">Name English</th>
+                    <th style="color: #FFFFFF">Name Khmer</th>
+                    <th style="color: #FFFFFF">Create Date</th>
+                    <th style="color: #FFFFFF">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,9 +31,9 @@
                     <td>
                         <a href="#" id="{{$row->id}}" class="btn btn-block btn-info btn-sm CrmEditLeadISP"><i class="fas fa-wrench"></i></a>
                     </td>
-                </tr>                                        
+                </tr>
             @endforeach
-            </tbody>  
+            </tbody>
         </table>
     </div>
 </div>
@@ -100,6 +100,6 @@
               </div><!-- /.END card-Default -->
             </div>
         </div>
-    </div> 
+    </div>
 </form>
 <!-- end modal -->

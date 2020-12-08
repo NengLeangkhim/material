@@ -17,7 +17,9 @@ class ModelCrmQuote extends Model
     private static function getQuoteByUserSql($userid){
         if($userid>0){
             $condition="and (cq.create_by,cq.assign_to)=($userid,$userid)";
-        }else{
+        }else if($userid==0){
+            $condition="and cq.id in (select crm_quote_id from crm_quote_status where crm_quote_status_type_id=9 )";
+        }else if($userid==-1){
             $condition='';
         }
         return "SELECT cq.id,
@@ -29,7 +31,7 @@ class ModelCrmQuote extends Model
         from crm_quote cq
         left join ma_user ast on ast.id=cq.assign_to
         left join crm_lead cl on cl.id=cq.crm_lead_id
-        where cq.is_deleted=false $condition";
+        where cq.is_deleted=false $condition order by cq.create_date desc";
     }
     public static function getQuoteDataTable($userid,$request){
         $table = '('.self::getQuoteByUserSql($userid).') as foo';

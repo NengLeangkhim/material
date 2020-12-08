@@ -45,6 +45,7 @@ class GetLeadBranch extends JsonResource
             "priority"=>$this->priority,
             "company_detail"=>$this->company,
             "lead_status"=>$this->status_name,
+            "lead_status_id"=>$this->status_id,
             "lead_assig_id"=>$this->lead_assig_id,
             "assig_id"=>$this->user_ass,
             "assig"=>$this->user_assig_to,

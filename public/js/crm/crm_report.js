@@ -36,9 +36,11 @@ var reportLeadByStatus = () => {
                 google.charts.setOnLoadCallback(drawChart);
                 // var chartColor = ['color: #EE5A24','color: #C4E538','color: #fff200','color: #18dcff','color: #7d5fff','color: #00cec9','color: #ff3838'];
                 // console.log('this color arrr='+chartColor);
+                var colors = {};
                 var mydata = [['Task', 'Hours per Day']];
                 var numCount = 0;
                 $.each(data, function(k, val){
+                    colors[k] = {color: val['color']}
                     if(data[k]['total_lead'] == 0){
                         numCount += 1;
                     }
@@ -54,17 +56,9 @@ var reportLeadByStatus = () => {
                     var options = {
                         title: 'Branch Lead Progress',
                         pieHole: 0.4,
-                        colors: [''],
+                        // colors: [''],
                         // legend: 'none',
-                        slices: {
-                            0: { color: '#36a2eb' },
-                            1: { color: '#4bc0c0' },
-                            2: { color: '#ffcd56' },
-                            3: { color: '#ff3d67' },
-                            4: { color: '#7d9b10' },
-                            5: { color: '#9966ff' },
-                            6: { color: '#96f' },
-                        },
+                        slices: colors,
                     };
                     var chart = new google.visualization.PieChart(document.getElementById('Branchchart'));
                     chart.draw(data, options);
@@ -630,7 +624,29 @@ var reportSurvey = () => {
         });
     }
 
-
+    // Customer Service
+    $(document).on('click','#btnCustomerServiceExcel',function(){
+        var table = $('#CustomerServiceTbl').DataTable();
+        if(!table.data().any()){  // condition true it mean table empty data
+            sweetalert('warning', 'No data export !');
+            console.log('No Data');
+        }else{
+            exportTableToExcel('CustomerServiceReport');
+            console.log('Data');
+        }
+    });
+    // button to click export quote report to pdf file
+    $(document).on("click", "#btnCustomerServicePDF", function () {
+        var table = $('#CustomerServiceTbl').DataTable();
+        if(!table.data().any()){
+            sweetalert('warning', 'No data export !');
+            console.log('No Data');
+        }else{
+            exportTableToPDF('CustomerServiceTbl','CustomerServiceReport');
+            console.log('Data');
+        }
+    });
+    // END Customer Service
 
     // function click to export quote as excel
     $(document).on('click','#btnReportQuoteExcel',function(){
