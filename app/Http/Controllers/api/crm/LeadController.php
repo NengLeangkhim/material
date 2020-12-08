@@ -149,7 +149,7 @@ class LeadController extends Controller
         $name_kh=$request->input('name_kh')!=""?$request->input('name_kh'):null;
         $name_en=$request->input('name_en')!=""?$request->input('name_en'):null;
         $gender=$request->input('ma_honorifics_id')!=""?$request->input('ma_honorifics_id'):null;
-        $facebook_con= $request->input('facebook')!=''? $request->input('facebook'):null;
+        $facebook_con=null;
         $email=$request->input('email')!=''? $request->input('email'):null;
         $phone=$request->input('phone')!=''? $request->input('phone'):null;
         $position=$request->input('position')!=''? $request->input('position'):null;
@@ -161,7 +161,8 @@ class LeadController extends Controller
         $street_en=$request->input('street_en')!=''? $request->input('street_en'):null;
         $street_kh=$request->input('street_kh')!=''? $request->input('street_kh'):null;
         $latlong=$request->input('latlong')!=''? $request->input('latlong'):null;
-        $address_type=$request->input('address_type')!=''? $request->input('address_type'):'Main';
+        // $address_type=$request->input('address_type')!=''? $request->input('address_type'):'Main';
+        $address_type='main';
         $addresscode=$request->input('village')!=''? $request->input('village'):null;
 
         // return $lead_id;
@@ -170,6 +171,7 @@ class LeadController extends Controller
         // $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
         // $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
         // dd($con_id,$name_kh);
+        // dd($con_id);
         return  Lead::insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
         $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
         $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
@@ -218,7 +220,7 @@ class LeadController extends Controller
             $name_kh=$request->input('name_kh')!=""?$request->input('name_kh'):null;;
             $name_en=$request->input('name_en')!=""?$request->input('name_en'):null;;
             $gender=$request->input('ma_honorifics_id')!=""?$request->input('ma_honorifics_id'):null;;
-            $facebook_con= $request->input('facebook')!=''? $request->input('facebook'):null;
+            $facebook_con= null;
             $email=$request->input('email')!=""?$request->input('email'):null;;
             $phone=$request->input('phone')!=""?$request->input('phone'):null;;
             $position=$request->input('position')!=""?$request->input('position'):null;;
