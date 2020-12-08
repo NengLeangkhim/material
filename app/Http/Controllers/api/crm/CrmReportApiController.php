@@ -133,20 +133,20 @@ class CrmReportApiController extends Controller
         try{
             $result = $this->crmReport->getLeadReportByStatus($fromDate, $toDate, $statusId);
 
-            foreach($result as $res){
-                if($res->crm_lead_status_id == null){
-                    continue;
-                }
-                $branchIds = $this->crmReport->getLeadBranchesByStatus($res->crm_lead_status_id, $fromDate, $toDate);
-                $branches = [];
-                foreach($branchIds as $br){
-                    if($br->crm_lead_branch_id == null) {
-                        continue;
-                    }
-                    array_push($branches, $this->crmReport->getLeadBranchesWithId($br->crm_lead_branch_id));
-                }
-                $res->lead_branchList = $branches;
-            }
+            // foreach($result as $res){
+            //     if($res->crm_lead_status_id == null){
+            //         continue;
+            //     }
+            //     // $branchIds = $this->crmReport->getLeadBranchesByStatus($res->crm_lead_status_id, $fromDate, $toDate);
+            //     $branches = [];
+            //     // foreach($branchIds as $br){
+            //     //     if($br->crm_lead_branch_id == null) {
+            //     //         continue;
+            //     //     }
+            //     //     array_push($branches, $this->crmReport->getLeadBranchesWithId($br->crm_lead_branch_id));
+            //     // }
+            //     $res->lead_branchList = $branches;
+            // }
         }catch(QueryException $e){
             return $this->sendError($this->queryException);
         }
@@ -207,7 +207,7 @@ class CrmReportApiController extends Controller
         $assignTo = $request->input('assign_to');
         $status = $request->input('status_id');
         $fromDate = $request->input('from_date');
-        $toDate = $request->input('to_date');;
+        $toDate = $request->input('to_date');
 
         try {
             $result = $this->crmReport->getAllLeadDetail($leadSource, $assignTo, $status, $fromDate, $toDate);
@@ -271,6 +271,7 @@ class CrmReportApiController extends Controller
                 $userId = null;
             }
             $totalLeadLeadBranch = $this->crmReport->getTotalLeadLeadBranch($fromDate, $toDate, $userId);
+            // dd($totalLeadLeadBranch);
             $totalLeadBranchSurvey = $this->crmReport->getTotalLeadBranchSurvey($fromDate, $toDate);
             $totalQuote = $this->crmReport->getTotalQuote($fromDate, $toDate);
             $totalContact = $this->crmReport->getTotalContact($fromDate, $toDate);
@@ -362,12 +363,13 @@ class CrmReportApiController extends Controller
     public function getTotalServicesInEachLeads(Request $request){
         $fromDate = $request->from_date;
         $toDate = $request->to_date;
+        $serviceId = $request->service_id;
         $userId = UserController::getUserId();
         try {
             if(perms::check_perm_module_api('CRM_020103',$userId) || perms::check_perm_module_api('CRM_020104',$userId)){
                 $userId = null;
             }
-            $result = $this->crmReport->getTotalServicesInEachLeads($fromDate, $toDate, $userId);
+            $result = $this->crmReport->getTotalServicesInEachLeads($fromDate, $toDate, $userId, $serviceId);
         } catch(QueryException $e){
             return $this->sendError($this->queryException);
         }

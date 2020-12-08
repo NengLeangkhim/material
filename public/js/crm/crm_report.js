@@ -47,6 +47,7 @@ var reportLeadByStatus = () => {
                     mydata.push([data[k]['status_en'], data[k]['total_lead']]);
                     // mydata.push(['darasok'+k+'', k]);
                 })
+                console.log(colors);
                 // console.log('countNum='+numCount+'datelength='+data.length);
                 if(numCount == data.length){
                     returnNoData('Branchchart');
