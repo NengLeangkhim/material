@@ -415,7 +415,7 @@ function CrmLeadBranchView(url,table){
             },
             ],
             // "columnDefs": [
-                    
+
             // ]
         }); //Set table to datatable
 

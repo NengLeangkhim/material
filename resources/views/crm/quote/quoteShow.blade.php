@@ -45,7 +45,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @if(isset($listQuote))
+                                                    {{-- @if(isset($listQuote))
                                                         @foreach($listQuote as $val)
                                                             @foreach($val as $key => $val2)
                                                                     <tr>
@@ -78,9 +78,7 @@
                                                                                     @else
                                                                                         <span>No</span>
                                                                                     @endif
-                                                                                    {{-- @isset($val2->quote_stage[$num-1]->id)
-                                                                                        <span>Yes</span>
-                                                                                    @endisset --}}
+
                                                                             @endif
 
                                                                     </td>
@@ -105,7 +103,7 @@
                                                                 </tr>
                                                             @endforeach
                                                         @endforeach
-                                                    @endif
+                                                    @endif --}}
 
                                                 </tbody>
                                             </table>

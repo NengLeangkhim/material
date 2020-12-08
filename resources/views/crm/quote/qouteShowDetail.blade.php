@@ -40,8 +40,8 @@
                    <div class="row">
                         <div class="col-sm-4 col-4">
                             <?php $num = count($listQuoteDetail->data->quote_stage??''); ?>
-                            @if( $num > 0)
-                                    @if($listQuoteDetail->data->quote_stage[$num-1]->id == 2)
+                            @if($num > 0)
+                                    @if(isset($listQuoteDetail->data->quote_stage[$num-1]->id) && $listQuoteDetail->data->quote_stage[$num-1]->id == 2)
                                         <button type="button" id="convert_to_BSC" class="btn-block btn-primary btn-sm btn font-weight-bold">Convert To BSC</button>
                                     @endif
                             @endif

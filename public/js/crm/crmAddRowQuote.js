@@ -30,15 +30,16 @@
                 branId = issetBranId;
             }
 
-            if(branId2 == 'quoteBranchEdit'){
+            var QuoteType = $(this).attr("data-code");
+            if(typeof QuoteType != 'undefined' && QuoteType == 'quoteBranchEdit'){
                 branId = '_new';
-                var numRow = $('#add_row_tablequoteItem').attr("data-id");
+                var numRow = parseInt($('#countNumBranchEdit').val());
                 if(i == 0){   // check if i = 0 assign i = count row of quote branch item to get update new row add item
                     i = parseInt(i + numRow);
                     j = parseInt(j + numRow);
+                    // console.log('thissdasda I value='+i+'---J value='+j);
                 }
             }
-
             var tblRow =
                 '<tr id="'+i+'" class="tr-quote-row row-quote-item" data-id="row_'+i+'" data-code="'+branId+'">'  +
                     '<td class="">' +
@@ -119,9 +120,9 @@
                 i++;
                 j++;
                 clearTrashButton(j,i); //call function clear trash icon
-                // console.log();
+                // console.log('brand='+branId+'--branch2='+branId2);
             if(branId == '_new'){
-                $('#add_row_tablequoteItem').append(tblRow);
+                $('#add_row_tablequoteItem'+branId2+'').append(tblRow);
                 // console.log('row was apend in func add no branch='+branId);
             }else{
                 $('#add_row_tablequoteItem'+branId+'').append(tblRow);
@@ -168,6 +169,8 @@
             $('tbody tr[data-id="row_'+btn_id+'"]').remove();  //use call method remove row quote
             j--;
             clearTrashButton(j,i); //call function clear trash icon
+            // console.log('In Remove this I value='+i+'---J value='+j);
+
             //for loop use when user delete row but grand total will refresh
             var sumTotal = 0;
             for(var x=0; x<=i; x++){
@@ -175,7 +178,6 @@
                 if(value != ""){
                     var getNetPrice = parseFloat(value);
                     sumTotal += getNetPrice;
-                    // console.log(sumTotal);
                 }
             }
 
@@ -196,23 +198,29 @@
 
 
 
-        function checkVatValue(vat,getsumtotal){
+        function checkVatValue(vat,getsumtotal,getBranId){
             var getTax = 0;
             var grandTotal = 0;
-            // console.log('vat in function='+vat);
+            var branId = '';
+            console.log('get Branch ID='+getBranId);
+            if(typeof getBranId != 'undefined' || getBranId != ''){
+                branId = getBranId;
+            }
+
             if(vat != ''){  // exclude tax
                 // console.log('function check vat, have val');
                 getTax = (getsumtotal * 0.1);
                 grandTotal = (getsumtotal + getTax);
-                $('#labelTaxQuote').text('Vat Exclude (10%)');
-                $('#getTaxation').text(getTax.toFixed(4));
-                $("#grandTotal").text(grandTotal.toFixed(4));
+                $('#labelTaxQuote'+branId+'').text('Vat Exclude (10%)');
+                $('#getTaxation'+branId+'').text(getTax.toFixed(4));
+                $('#grandTotal'+branId+'').text(grandTotal.toFixed(4));
             }else{ //include tax
-                // console.log('function check vat, null val');
-                $('#labelTaxQuote').text('Vat Exclude (0%)');
-                $('#getTaxation').text(getTax.toFixed(4));
-                $("#grandTotal").text(getsumtotal.toFixed(4));
+                $('#labelTaxQuote'+branId+'').text('Vat Exclude (0%)');
+                $('#getTaxation'+branId+'').text(getTax.toFixed(4));
+                $('#grandTotal'+branId+'').text(getsumtotal.toFixed(4));
             }
+            console.log('granTotal='+getsumtotal+'--getTax='+getTax+'--brand='+branId+'---VatNum='+vat);
+
         }
 
 
@@ -300,10 +308,7 @@
 
                 var itemQty = parseFloat($.trim($(".itemQty_"+row_id+"").val()));
 
-                // var itemPrice = parseFloat($.trim($("[data-id=price"+row_id+"]").val()));   //old use
-
                 itemPrice = parseFloat($.trim($('#itemPrice_'+row_id+'').val()));
-
 
                 subTotal = (itemQty * itemPrice);
                 $("div #quote-sub-total_"+row_id+"").text(subTotal.toFixed(4));
@@ -330,6 +335,7 @@
                 if(typeof(branId) == 'undefined' || branId == '_new'){
                     branId = '';
                 }
+                console.log('this branch id keyup='+branId);
                 var vatVal = $('#vatNumber'+branId+'').val();
                 // console.log('xx vatVal='+vatVal);
                 if(typeof(vatVal) == 'undefined' || vatVal == ''){
@@ -350,13 +356,12 @@
 
                 //for loop to get sumtotal all rows
                 if(i == 0){
-                    i = $('#add_row_tablequoteItem').data('id');
+                    i = $('#add_row_tablequoteItem'+branId+'').data('id');
                     j = parseInt(j + i);
                 }
                 for(var x=0; x<=i; x++){
 
                     var value = $("#quote-netPrice_"+x+"").text();
-
                     if(value != ''){
                         var getNetPrice = parseFloat(value);
                         // console.log('netPrie='+getNetPrice);
@@ -380,8 +385,9 @@
                     }
 
                 }
-                checkVatValue(vatVal,sumTotal);
-                $("#sumTotal").text(sumTotal.toFixed(4));
+                console.log('sumtotal pass val='+sumTotal);
+                checkVatValue(vatVal,sumTotal,branId);
+                $("#sumTotal"+branId+"").text(sumTotal.toFixed(4));
                 generateGrandTotal(vatVal);
             });
         });
@@ -502,6 +508,7 @@
                     var selectval = new Array;
                     var num = 0;
 
+                    console.log('branid getItem='+branId);
 
                     //function for check seletion of checkbox
                     $("input[name=seleteItem]:checked").each(function(i){
