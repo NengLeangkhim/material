@@ -4,12 +4,14 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><i class="fas fa-user"></i> View Invoice</h1>
+                <h1><i class="fas fa-eye"></i> View Invoice</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active">View Invoice</li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('bsc_invoice_invoice_list')"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        Back</a></li>
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">View Invoice</li>
                 </ol>
             </div>
         </div>
@@ -111,10 +113,13 @@
                                     <th>Unit Price</th>
                                     <th>Dsicount</th>
                                     <th>Account</th>
-                                    <th>Tax Rate</th>
+                                    <th>Tax</th>
                                     <th>Amount</th>
                                 </tr>
                             </thead>
+                            @php
+                                // dd($invoice_details);
+                            @endphp
                             <tbody>
                                 @if (count($invoice_details) >0)
                                     @foreach ($invoice_details as $invoice_detail)
@@ -122,12 +127,12 @@
                                             <td>{{ $invoice_detail->customer_branch_name }}</td>
                                             <td>{{ $invoice_detail->product_name }}</td>
                                             <td>{{ $invoice_detail->description }}</td>
-                                            <td>{{ $invoice_detail->qty }}</td>
+                                            <td>{{ $invoice_detail->qty }} <span>{{ $invoice_detail->measurement_name }}</span></td>
                                             <td>{{ number_format($invoice_detail->unit_price,4,".",",") }}</td>
                                             <td>{{ number_format($invoice_detail->discount,4,".",",") }}</td>
                                             <td>{{ $invoice_detail->chart_account_name }}</td>
-                                            <td>{{ $invoice_detail->tax == 0 ? "No Tax" : "Tax" }}</td>
-                                            <td class="item_amount">{{ number_format($invoice_detail->amount,4,".",",") }}</td>
+                                            <td>{{ $invoice_detail->tax == 0 ? "Exclude" : "Include" }}</td>
+                                            <td class="item_amount" data-item_amount="{{ $invoice_detail->amount }}">{{ number_format($invoice_detail->amount,4,".",",") }}</td>
                                         </tr>
                                     @endforeach
                                 @endif
@@ -240,7 +245,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fab fa-chrome"></i></span>
                                                     </div>
-                                                    <input type="date" class="form-control input_required"  name="date_paid" id="date_paid" placeholder="Date Paid">
+                                                    <input type="date" class="form-control input_required" value="{{ date('Y-m-d') }}"  name="date_paid" id="date_paid" placeholder="Date Paid">
                                                 </div>
                                             </div>
                                         </div>
@@ -424,8 +429,8 @@ $('.detail').click(function(e)
     function showTotal(){
         let total_amount = 0;
         $('.item_amount').each(function(e){
-            if(!isNaN(parseFloat($(this).text()))){
-                total_amount += parseFloat($(this).text());
+            if(!isNaN(parseFloat($(this).attr('data-item_amount')))){
+                total_amount += parseFloat($(this).attr('data-item_amount'));
             }
         });
         document.getElementById('txtTotal').innerHTML=total_amount.toFixed(4);
