@@ -39,7 +39,8 @@ class ModelLeadBranch extends Model
                                     ) cld_ on cld_.crm_lead_branch_id=clb.id
                                     left join crm_lead_detail cld on cld.id=cld_.id
                                     join crm_lead_status clst on clst.id=cld.crm_lead_status_id and clst.is_deleted=false
-                    where clb.is_deleted=false
+                                    $user
+                    where clb.is_deleted=false $sql
                     ORDER BY clb.crm_lead_id,clb.id ASC
                     ";
     }
