@@ -390,11 +390,13 @@ class QuoteController extends Controller
                 $request->headers->set('Authorization', 'Bearer '.$token);
                 $res = app()->handle($request);
                 $lead_branch_quote = json_decode($res->getContent());
+                // dd($lead_branch_quote);
                 $employee  = ModelCrmQuote::getEmployee();
                 $quoteStatus  = ModelCrmQuote::getQuoteStatus();
+                $quoteBranchDetail = [];
                 // dump($lead_branch_quote);
                 if(isset($lead_branch_quote->data)){
-                    $quoteBranchDetail = [];
+
                     foreach($lead_branch_quote->data as $k=>$val){
                         $request2 = Request::create('/api/quotebranch/detail/'.$val->id.'', 'GET');   // this use branch id to get branch deetail
                         $request2->headers->set('Accept', 'application/json');
