@@ -16,8 +16,12 @@ class MissionAndOutsideController extends Controller
     // List all Mission
     function AllMissionAndOutSide()
     {
-        $data=MissionAndOutSide::MissionOutside();
-        return view('hrms/Employee/MissionAndOutSide/MissionAndOutSide')->with('mission',$data);
+        $mission=MissionAndOutSide::MissionOutside();
+        $permission=Request::create('/api/hrms_permission','GET');
+        $permission->headers->set('Accept', 'application/json');
+        $res = app()->handle($permission);
+        $response_permission = json_decode($res->getContent());
+        return view('hrms/Employee/MissionAndOutSide/MissionAndOutSide')->with(['mission'=>$mission,'permission'=>$response_permission]);
     }
 
     // Show modal add or edit mission

@@ -67,7 +67,6 @@ class WarningAndPunishmentController extends Controller
                 'em_reason_of_warning'=>'required|string|max:255',
                 'em_date_warning'=>'required|date',
                 'em_warning_by'=>'required|integer',
-                'em_edit_by'=>'required|integer',
                 'em_approved_by'=>'required|integer',
                 'em_staff_warning'=>'required|integer'
             ]);

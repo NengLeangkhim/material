@@ -10,7 +10,7 @@ class MissionAndOutSide extends Model
     public static function MissionOutside($id=0){
         try {
             if($id>0){
-                $sql= "SELECT id,home_number,street,date_from,date_to,type,description,shift,latlg,gazetteers_code from hr_mission where status='t' and is_deleted='f' and id=$id";
+                $sql= "SELECT id,home_number,street,date_from,date_to,type,description,shift,latlg,gazetteers_code from hr_mission where status='t' and is_deleted='f' and type='mission' and id=$id";
                 $stm= DB::select($sql);
                 $sqldetail= "SELECT ma_user_id FROM hr_mission_detail where status='t' and is_deleted='f' and hr_mission_id=$id";
                 $stmdetail=DB::select($sqldetail);
@@ -29,7 +29,7 @@ class MissionAndOutSide extends Model
                 ];
                 return $data;
             }else{
-                $sql = "SELECT id,home_number,street,date_from,date_to,type,description,shift,street,home_number from hr_mission where status='t' and is_deleted='f'";
+                $sql = "SELECT id,home_number,street,date_from,date_to,type,description,shift,street,home_number from hr_mission where status='t' and is_deleted='f' and type='mission'";
             return $stm=DB::select($sql);
             }
         } catch (\Throwable $th) {
@@ -40,6 +40,15 @@ class MissionAndOutSide extends Model
         
     }
 
+    // mission one row and one employee
+    public static function mission_one_row_one_employee($id){
+        try {
+            $sql="";
+            return DB::select($sql);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
     // Insert Mission
     public static function InsertMissionOutSide($date_from,$date_to,$description,$type,$create_by,$shift,$street,$home_number,$latlg,$gazetteers_code,$emid){
         try {

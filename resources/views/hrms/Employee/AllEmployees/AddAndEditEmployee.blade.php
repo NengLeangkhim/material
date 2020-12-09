@@ -642,7 +642,7 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Mother Occupation <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="parent_mother_occupation" id="parent_mother_occupation" value="@php if(isset($relative)){echo $relative['mother_occupation'];} @endphp">
+                                <input type="text" class="form-control" name="parent_mother_occupation" id="parent_mother_occupation" value="@php if(isset($relative)){echo $relative['mother_occupation'];} @endphp" required>
                             </div>
                         </div>
 
@@ -813,7 +813,7 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Education Status</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="em_education_status" id="parent_father_name" value="@php if(isset($education)){echo $education[0]['education_status'];} @endphp" required>
+                                    <input type="text" class="form-control" name="em_education_status" id="parent_father_name" value="@php if(isset($education)){echo $education[0]['education_status'];} @endphp">
                                 </div>
                             </div>
 
@@ -860,7 +860,7 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">Company's Name</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="company_name" id="parent_father_name" value="@php if(isset($experience)){echo $experience[0]['company_name'];} @endphp" required>
+                                    <input type="text" class="form-control" name="company_name" id="parent_father_name" value="@php if(isset($experience)){echo $experience[0]['company_name'];} @endphp">
                                 </div>
                             </div>
 

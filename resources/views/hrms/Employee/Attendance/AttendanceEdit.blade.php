@@ -1,3 +1,10 @@
+@php
+    $shift=[
+      'am'=>'AM / ព្រឹក',
+      'pm'=>'PM / រសៀល',
+      'full'=>'Full / មួយថ្ងៃ'
+    ]
+@endphp
 <div class="modal fade show" id="modal_attendance_edit" style="display: block; padding-right: 17px;" aria-modal="true">
     <div class="modal-dialog modal-xs">
         <div class="modal-content">
@@ -29,10 +36,12 @@
                         </li>
                     </ul><br/>
                     <div class="tab-content" id="myTabContent">
-                        {{-- ============================ Start Tab account ======================= --}}
+                        {{-- ============================ Start Tab Late of Missed Scan ======================= --}}
                         <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="home-tab">
                             <form id="fm_attendance_edit_late" onsubmit="return false">
                                 @csrf
+                                <label for="">Date <span class="text-danger">*</span></label>
+                                <input type="date" name="late_missed_scan_date" class="form-control" required>
                                 <label for="">Description <span class="text-danger">*</span></label>
                                 <textarea name="desription_late" id="" cols="30" rows="10" class="form-control" required></textarea>
                                 <br>
@@ -53,16 +62,6 @@
                                 @csrf
                                 <div class="row">
                                 <input type="hidden" value="{{$id ?? 0}}" name="id">
-                                  <div class="col-md-12">
-                                    <div class="form-group">
-                                      <label>Type</label>
-                                      <select name="type" id="" class="form-control">
-                                        <option value="Mission">Mission</option>
-                                        <option value="Miss Scance">Miss Scane</option>
-                                        <option value="Other">Other</option>
-                                      </select>
-                                    </div>
-                                  </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
                                       <label>Street</label>
@@ -89,23 +88,24 @@
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label>From Date</label>
-                                      <input type="date" class="form-control" name="date_from">
+                                      <label>From Date <span class="text-danger">*</span></label>
+                                      <input type="date" class="form-control" name="date_from" required>
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label>To Date</label>
-                                      <input type="date" class="form-control" name="date_to">
+                                      <label>To Date <span class="text-danger">*</span></label>
+                                      <input type="date" class="form-control" name="date_to" required>
                                     </div>
                                   </div>
                                   <div class="col-md-12">
                                     <div class="form-group">
-                                      <label>Shift</label>
-                                      <select name="shift" id="" class="form-control">
-                                        <option value="am">AM</option>
-                                        <option value="pm">PM</option>
-                                        <option value="full">Full</option>
+                                      <label>Shift <span class="text-danger">*</span></label>
+                                      <select name="shift" id="" class="form-control" required>
+                                        <option value="" hidden></option>
+                                        @foreach ($shift as $key=>$shif)
+                                          <option value="{{$key}}">{{$shif}}</option>
+                                        @endforeach
                                       </select>
                                     </div>
                                   </div>
@@ -152,13 +152,6 @@
                                     <input type="text" class="form-control" name="permission_reason">
                                   </div>
                                   <div class="col-md-12">
-                                    @php
-                                        $shift=[
-                                          'am'=>'AM / ព្រឹក',
-                                          'pm'=>'PM / រសៀល',
-                                          'full'=>'Full / មួយថ្ងៃ'
-                                        ]
-                                    @endphp
                                     <Label>Shift <span class="text-danger">*</span></Label>
                                     <select name="permission_shift" id="" class="form-control">
                                       <option value="" hidden></option>

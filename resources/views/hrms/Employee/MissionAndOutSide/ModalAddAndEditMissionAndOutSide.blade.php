@@ -116,39 +116,39 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                    <label>Street <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="street" value="@php if(isset($data[1])){echo $data[1]['street'];} @endphp">
+                    <label>Street</label>
+                    <input type="text" class="form-control" name="street" value="{{$data[1]['street'] ?? ''}}">
                   </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                     <label>Home Number</label>
-                    <input type="text" class="form-control" name="home_number" value="@php if(isset($data[1])){echo $data[1]['home_number'];} @endphp">
+                    <input type="text" class="form-control" name="home_number" value="{{$data[1]['home_number'] ?? ''}}">
                   </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                     <label>Late Long <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="latelong" value="@php if(isset($data[1])){echo $data[1]['latlg'];} @endphp">
+                    <input type="text" class="form-control" name="latelong" value="{{$data[1]['latlg'] ?? ''}}">
                   </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                     <label>Gazetteers Code</label>
-                    <input type="text" class="form-control" name="gazetteers_code" value="@php if(isset($data[1])){echo $data[1]['gazetteers_code'];} @endphp">
+                    <input type="text" class="form-control" name="gazetteers_code" value="{{$data[1]['gazetteers_code'] ?? ''}}">
                   </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                     <label>From Date <span class="text-danger">*</span></label>
-                    <input type="date" class="form-control" name="from_date" value="@php if(isset($data[1])){echo date('m/d/Y', strtotime($data[1]['date_from']));} @endphp" required>
+                    <input type="date" class="form-control" name="from_date" value="{{date('m/d/Y', strtotime($data[1]['date_from'] ?? date('m/d/Y')))}}" required>
                     <label id="from_date" class="text-danger d-none">from date is required *</label>
                   </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                     <label>To Date <span class="text-danger">*</span></label>
-                    <input type="date" class="form-control" name="to_date" value="@php if(isset($data[1])){echo date('m/d/Y', strtotime($data[1]['date_to']));} @endphp" required>
+                    <input type="date" class="form-control" name="to_date" value="{{date('m/d/Y', strtotime($data[1]['date_to'] ?? date('m/d/Y')))}}" required>
                     <label id="to_date" class="text-danger d-none">to date is required *</label>
                   </div>
                 </div>
@@ -193,7 +193,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                     <label>Description</label>
-                    <textarea name="description" id="" rows="5" class="form-control">@php if(isset($data[1])){echo $data[1]['description'];} @endphp</textarea>
+                    <textarea name="description" id="" rows="5" class="form-control">{{$data[1]['description'] ?? ''}}</textarea>
                   </div>
                 </div>
                 <!-- /.col -->
@@ -203,7 +203,7 @@
                 </div>
               </div>
             </form>
-            <!-- /.row -->
+            <!-- /.row --> 
           </div>
           
           <!-- /.card-body -->
@@ -213,6 +213,5 @@
 </div>
 
 <script>
-    var type=@php if(isset($data[10])){echo $data[1][0]->type;} @endphp;
-    console.log(type);
+    
   </script>

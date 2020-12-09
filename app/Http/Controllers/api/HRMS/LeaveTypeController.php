@@ -73,9 +73,14 @@ class LeaveTypeController extends Controller
     {
         //
         try {
-            $sql="SELECT erl.id,erl.name,erl.name_kh,erl.annual_count,(select count(*) FROM e_request_temp WHERE leave_type_id=erl.id and ma_user_id=$id) as employee_leave FROM e_request_leaveapplicationform_leave_kind erl WHERE status='t' and is_deleted='f'";
-            $em_leave=DB::select($sql);
-            return response()->json($em_leave);
+            if(is_numeric($id) && $id>0){
+                $sql = "SELECT erl.id,erl.name,erl.name_kh,erl.annual_count,(SELECT (sum (case WHEN (EXTRACT(epoch from(date_to::time-date_from::time))::INTEGER/60)/60 = 9 THEN ((EXTRACT(epoch from(date_to::time-date_from::time))::INTEGER/60)/60)-1 ELSE (EXTRACT(epoch from(date_to::time-date_from::time))::INTEGER/60)/60 END)::FLOAT)/8::FLOAT FROM e_request_temp where ma_user_id=$id AND leave_type_id=erl.id) as employee_leave FROM e_request_leaveapplicationform_leave_kind erl WHERE status='t' and is_deleted='f'";
+                $em_leave = DB::select($sql);
+                return response()->json($em_leave);
+            }else{
+                return response()->json(['error'=>'Parameter must be Number, Integer and Bigger than Zero !!']);
+            }
+            
         } catch (\Throwable $th) {
             throw $th;
         }

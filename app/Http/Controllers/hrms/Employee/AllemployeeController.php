@@ -175,7 +175,6 @@ class AllemployeeController extends Controller
             if($validation->fails()){
                 return response()->json(['error' => $validation->getMessageBag()->toArray()]);
             }
-
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }

@@ -17,25 +17,12 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        dd('index');
-        //
-        try {
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
-                $userid = "";
-            }else{
-                $userid = $user->id;
-            }
-            // if (!perms::check_perm_module_api('BSC_030501', $userid)) {
-            //     return $this->sendError("No Permission");
-            // }
-            $leavea_type=DB::table('e_request_leaveapplicationform_leave_kind')
-            ->select('id','name','name_kh','annual_count')
-            ->where([
-                ['status','=','t'],
-                ['is_deleted','=','f']
-            ])
-            ->get();
-            return response()->json($leavea_type);
+        try{
+            $sql= "SELECT ert.id,concat(mu_user.last_name_en,' ',mu_user.first_name_en) as employee_name,concat(mu_approve.last_name_en,' ',mu_approve.first_name_en) as approve_name,ert.reason,ert.date_from,ert.date_to FROM e_request_temp ert 
+            INNER JOIN ma_user mu_user on mu_user.id=ert.ma_user_id
+            INNER JOIN ma_user mu_approve on mu_approve.id=ert.approve_by ORDER BY ert.date_from desc";
+            $permission_list=DB::select($sql);
+            return response()->json($permission_list);
         } catch (\Throwable $th) {
             throw $th;
         }
