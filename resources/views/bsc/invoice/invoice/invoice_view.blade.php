@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-md-8"></div>
                             <div class="col-md-4 text_right">
-                                <a target="_blank" href="bsc_preview_invoioce/{{ $invoices->id }}" class="btn btn-success purchase_form"  value="" id="">Print</a>
+                                <a target="_blank" href="bsc_preview_invoioce/{{ $invoices->id }}" class="btn btn-success purchase_form"  value="" id="">Preview</a>
                                 {{-- <a href="#" class="btn btn-secondary purchase_form"  value="bsc_purchase_purchase_purchase_edit" id="purchase_edit" onclick="go_to('bsc_invoice_invoice_edit/{{ $invoices->id }}')">Edit</a> --}}
                                 {{-- <a href="#" class="btn btn-danger purchase_form"  value="" id="">Delete</a> --}}
                             </div>
