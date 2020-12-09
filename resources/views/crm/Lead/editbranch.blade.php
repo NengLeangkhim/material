@@ -128,7 +128,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fas fa-unlock"></i></span>
                                                         </div>
-                                                    <input type=" " hidden value="{{$updatelead[$i]['lead_detail_id']}}" name="lead_detail_id">
+                                                        <input type=" " hidden value="{{$updatelead[$i]['lead_detail_id']}}" name="lead_detail_id">
                                                         <select class="form-control" name="lead_status" id="lead_status">
                                                             <option ></option>
                                                             @foreach($lead_status as $row)
@@ -164,6 +164,7 @@
                                                             <span class="input-group-text"><i class="fab fa-speakap"></i></span>
                                                         </div>
                                                     <input type="text" hidden value="{{$updatelead[$i]['lead_item_id'] }}" name="lead_item_id">
+                                                    
                                                         <select class="form-control select2bs4" name="service" id="service">
                                                             {{-- <option></option> --}}
                                                             <?php
@@ -384,6 +385,7 @@
                                                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                                                     </div>
                                                                                      <input type="text" hidden value="{{$updatelead[$i]['lead_address_id']}}" id='address_id' name='address_id'>
+                                                                                     <input type="text"  hidden value="{{$updatelead[$i]['lead_detail_id']}}" name="lead_detail_id" id='lead_detail_id'>
                                                                                     <input type="text" class="form-control"  name='home_en' value="{{$updatelead[$i]['home_en']}}" id="home_en" placeholder="Number of home"  >
                                                                                     <span class="invalid-feedback" role="alert" id="home_enError"> {{--span for alert--}}
                                                                                         <strong></strong>
@@ -427,6 +429,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <div class="col-md-6">
@@ -477,6 +480,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <div class="col-md-6">
@@ -507,6 +511,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <div class="col-md-6">
@@ -514,7 +519,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="row">
                                                                             <div class="col-md-6">
-                                                                                <label for="address_type">Address Type <b style="color:red">*</b></label>
+                                                                                <label for="address_type">Address Type <b style="color:rgb(252, 2, 2)">*</b></label>
                                                                                 <div class="input-group">
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
@@ -530,32 +535,46 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-6">
+
                                                                                 <label for="address_type"></label>
                                                                                 <div class="input-group">
                                                                                 </div>
-                                                                                <div class="custom-control custom-checkbox">
-                                                                                    <input type="text" hidden value="{{$updatelead[$i]['survey_id']}}" name="survey_id">
+                                                                                <div class="">
+                                                                                    <input type="text" hidden value="{{$updatelead[$i]['survey_id'] ?? ''}}" name="survey_id">
                                                                                     <?php
                                                                                          if(($updatelead[$i]['survey_status'])!=false){
                                                                                             ?>
                                                                                                 {{-- <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="checksurvey" {{$updatelead[$i]['survey_status']!=false? 'checked':''}} >
                                                                                                 <label for="customCheckbox2"  class="custom-control-label">Survey Or Don’t Survey</label> --}}
+                                                                                                <div class="input-group pt-2 pl-2">
+                                                                                                    <div class="input-group-prepend pr-4">
+                                                                                                        <span class="font-weight-bold">Survey</span>
+                                                                                                    </div>
+                                                                                                    <div class="custom-control custom-radio ml-2">
+                                                                                                        <input type="radio" id="customRadio2" value="yes" name="checksurvey" class="custom-control-input" checked>
+                                                                                                        <label class="custom-control-label" for="customRadio2">Yes</label>
+                                                                                                    </div>
+                                                                                                    <div class="custom-control custom-radio ml-4">
+                                                                                                        <input type="radio" id="customRadio1" value="no" name="checksurvey" class="custom-control-input">
+                                                                                                        <label class="custom-control-label" for="customRadio1">No</label>
+                                                                                                    </div>
+                                                                                                </div>
                                                                                             <?php
                                                                                          }
                                                                                          else {
                                                                                             ?>
                                                                                                 {{-- <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="1" name="checksurvey" {{$updatelead[$i]['survey_status']!=false? 'checked':''}} > --}}
                                                                                                 {{-- <label for="customCheckbox2"  class="custom-control-label">Survey Or Don’t Survey</label> --}}
-                                                                                                <div class="input-group pt-4 pl-2">
+                                                                                                <div class="input-group pt-2 pl-2">
                                                                                                     <div class="input-group-prepend pr-4">
                                                                                                         <span class="font-weight-bold">Survey</span>
                                                                                                     </div>
                                                                                                     <div class="custom-control custom-radio ml-2">
-                                                                                                        <input type="radio" id="customRadio2" value="1" name="checksurvey" class="custom-control-input">
+                                                                                                        <input type="radio" id="customRadio2" value="yes" name="checksurvey" class="custom-control-input">
                                                                                                         <label class="custom-control-label" for="customRadio2">Yes</label>
                                                                                                     </div>
                                                                                                     <div class="custom-control custom-radio ml-4">
-                                                                                                        <input type="radio" id="customRadio1" value="0" name="checksurvey" class="custom-control-input">
+                                                                                                        <input type="radio" id="customRadio1" value="no" name="checksurvey" class="custom-control-input">
                                                                                                         <label class="custom-control-label" for="customRadio1">No</label>
                                                                                                     </div>
                                                                                                 </div>
@@ -588,6 +607,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <div class="col-md-12">
@@ -596,12 +616,12 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="col-md-12">
                                                         <button type="button" class="btn btn-primary" id="frm_btn_sub_addlead" onclick="CrmSubmitFormFull('frm_CrmleadEdit','/branch/update','/lead','Update Successfully')">Update</button>
                                                         <button type="button" class="btn btn-danger" onclick="go_to('lead')">Cencel</button>
                                                     </div>
                                                 </div>
-
                             </div>
                         <?php
                     }

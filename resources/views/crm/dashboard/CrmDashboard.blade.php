@@ -237,52 +237,53 @@
                         role: 'style'
                     }]
                 ]
-                var colors = [{
-                        id: 0,
-                        name_en: 'none',
-                        code: ''
-                    },
-                    {
-                        id: 1,
-                        name_en: 'new',
-                        code: 'color:#36a2eb'
-                    },
-                    {
-                        id: 2,
-                        name_en: 'qualified',
-                        code: 'color:#4bc0c0'
-                    },
-                    {
-                        id: 3,
-                        name_en: 'surveying',
-                        code: 'color:#ffcd56'
-                    },
-                    {
-                        id: 4,
-                        name_en: 'surveyed',
-                        code: 'color:#ff3d67'
-                    },
-                    {
-                        id: 5,
-                        name_en: 'proposition',
-                        code: 'color:#7d9b10'
-                    },
-                    {
-                        id: 6,
-                        name_en: 'won',
-                        code: 'color:#9966ff'
-                    },
-                    {
-                        id: 7,
-                        name_en: 'junk',
-                        code: 'color:#96f'
-                    },
-                ]
+                // var colors = [{
+                //         id: 0,
+                //         name_en: 'none',
+                //         code: ''
+                //     },
+                //     {
+                //         id: 1,
+                //         name_en: 'new',
+                //         code: 'color:#36a2eb'
+                //     },
+                //     {
+                //         id: 2,
+                //         name_en: 'qualified',
+                //         code: 'color:#4bc0c0'
+                //     },
+                //     {
+                //         id: 3,
+                //         name_en: 'surveying',
+                //         code: 'color:#ffcd56'
+                //     },
+                //     {
+                //         id: 4,
+                //         name_en: 'surveyed',
+                //         code: 'color:#ff3d67'
+                //     },
+                //     {
+                //         id: 5,
+                //         name_en: 'proposition',
+                //         code: 'color:#7d9b10'
+                //     },
+                //     {
+                //         id: 6,
+                //         name_en: 'won',
+                //         code: 'color:#9966ff'
+                //     },
+                //     {
+                //         id: 7,
+                //         name_en: 'junk',
+                //         code: 'color:#96f'
+                //     },
+                // ]
                 $.each(data, function (index, value) {
                     if(value.crm_lead_status_id != null){
-                        result.push([value.status_en, value.total_lead, colors[index + 1].code])
+                        result.push([value.status_en, value.total_lead, value['color']])
                     }
-                })
+                });
+                // console.log(result);
                 var data_chart = google.visualization.arrayToDataTable(result);
                 var view = new google.visualization.DataView(data_chart);
                 view.setColumns([0, 1,
@@ -297,7 +298,7 @@
                 var options = {
                     title: 'Branch Performance',
                     width: '100%',
-                    colors: [''],
+                    legend: 'none',
                     pieSliceText:'value',
                     vAxis: {
                         minValue: 0,
@@ -307,6 +308,7 @@
                 var chart = new google.visualization.ColumnChart(document.getElementById('LeadChart'))
                 chart.draw(view, options)
             }
+            console.log(currentDateString);
             $.ajax({
                 url: '/api/crm/report/leadByStatus', //get link route
                 type: 'GET',

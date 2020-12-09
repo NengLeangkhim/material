@@ -30,31 +30,134 @@
                     <div class="row">
                             {{-- <div class="> --}}
                             <h3 class="card-title"​>
-                                <i class="fas fa-hotel" style=" padding-right:15px; font-size:30px"></i>
-                                    {{$listQuoteDetail->data->subject}}
+                                {{-- <i class="fas fa-hotel" style=" padding-right:15px; font-size:30px"></i> --}}
+                                    {{-- {{$listQuoteDetail->data->subject}} --}}
                             </h3>
                         {{-- </div> --}}
                     </div>
                 </div>
                 <div class="col-sm-6 col-xs-4 col-12 pt-2">
-                   <div class="row">
-                        <div class="col-sm-4 col-4">
+                   <div class="row">                        
                             <?php $num = count($listQuoteDetail->data->quote_stage??''); ?>
                             @if( $num > 0)
-                                    @if($listQuoteDetail->data->quote_stage[$num-1]->id == 2)
-                                        <button type="button" id="convert_to_BSC" class="btn-block btn-primary btn-sm btn font-weight-bold">Convert To BSC</button>
+                                    {{-- when qoute have qoute stage  new --}}
+                                    @if($listQuoteDetail->data->quote_stage[$num-1]->id == 4) 
+                                        <div class="col-sm-3 col-3">
+                                            <button type="button" id="sale"  value="9" class="btn-block btn-primary btn-sm btn font-weight-bold">Accept</button>
+                                        </div>
+                                        <div class="col-sm-3 col-3">
+                                            <button type="button" id="sale"  value="1" class="btn-block btn-danger  btn-sm btn font-weight-bold">Pending</button>
+                                        </div>
+                                        <div class="col-sm-3 col-3">
+                                            <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
+                                                Preview</button>
+            
+                                        </div>
+                                        <div class="col-sm-3 col-3">
+                                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
+                                                PDF</button>
+                                        </div>
                                     @endif
+                                    {{-- when qoute have qoute stage  pending --}} {{-- when qoute have qoute stage Lost meaning suctomer not accept --}}
+                                    @if(($listQuoteDetail->data->quote_stage[$num-1]->id == 1) || $listQuoteDetail->data->quote_stage[$num-1]->id == 17)
+                                        <div class="col-sm-4 col-4">
+                                            <button type="button" id="sale" value="4" class="btn-block btn-primary btn-sm btn font-weight-bold">New</button>
+                                        </div>
+                                        <div class="col-sm-4 col-4">
+                                            <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
+                                                Preview</button>
+            
+                                        </div>
+                                        <div class="col-sm-4 col-4">
+                                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
+                                                PDF</button>
+                                        </div>
+                                    @endif
+                                    {{-- when qoute have qoute stage  accepted --}}
+                                    @if($listQuoteDetail->data->quote_stage[$num-1]->id == 9)
+                                        <div class="col-sm-3 col-3">
+                                            <button type="button" id="sale" value="2"  class="btn-block btn-primary btn-sm btn font-weight-bold">Approved</button>
+                                        </div>
+                                        <div class="col-sm-3 col-3">
+                                            <button type="button" id="sale"  value="12"class="btn-block btn-danger  btn-sm btn font-weight-bold">Disapproved</button>
+                                        </div>
+                                        <div class="col-sm-3 col-3">
+                                            <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
+                                                Preview</button>
+            
+                                        </div>
+                                        <div class="col-sm-3 col-3">
+                                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
+                                                PDF</button>
+                                        </div>
+                                    @endif
+                                    {{-- when qoute have qoute stage  disapproved --}}
+                                    @if($listQuoteDetail->data->quote_stage[$num-1]->id == 12)
+                                        <div class="col-sm-4 col-4">
+                                            <button type="button" id="sale" value="2" class="btn-block btn-primary btn-sm btn font-weight-bold">Approved</button>
+                                        </div>
+                                        <div class="col-sm-4 col-4">
+                                            <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
+                                                Preview</button>
+                                        </div>
+                                        <div class="col-sm-4 col-4">
+                                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
+                                                PDF</button>
+                                        </div>
+                                    @endif
+                                    {{-- when qoute have qoute stage  approved --}}
+                                    @if($listQuoteDetail->data->quote_stage[$num-1]->id == 2)
+                                        <div class="col-sm-4 col-4">
+                                            <button type="button" id="sale" value="3" class="btn-block btn-primary btn-sm btn font-weight-bold">Negogiate</button>
+                                        </div>
+                                        <div class="col-sm-4 col-4">
+                                            <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
+                                                Preview</button>
+                                        </div>
+                                        <div class="col-sm-4 col-4">
+                                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
+                                                PDF</button>
+                                        </div>
+                                    @endif
+                                    {{-- when qoute have qoute stage  negogiate --}}
+                                    @if($listQuoteDetail->data->quote_stage[$num-1]->id == 3)
+                                        <div class="col-sm-3 col-3">
+                                            <button type="button" id="sale" value="16" class="btn-block btn-primary btn-sm btn font-weight-bold">Win</button>
+                                        </div>
+                                        <div class="col-sm-3 col-3">
+                                            <button type="button" id="sale" value="17" class="btn-block btn-danger btn-sm btn font-weight-bold">Lost</button>
+                                        </div>
+                                        <div class="col-sm-3 col-3">
+                                            <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
+                                                Preview</button>
+            
+                                        </div>
+                                        <div class="col-sm-3 col-3">
+                                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
+                                                PDF</button>
+                                        </div>
+                                    @endif
+                                    @if($listQuoteDetail->data->quote_stage[$num-1]->id == 16)
+                                        <div class="col-sm-3 col-3">
+                                            {{-- <button type="button" id="sale" value="16" class="btn-block btn-primary btn-sm btn font-weight-bold">Win</button> --}}
+                                        </div>
+                                        <div class="col-sm-3 col-3">
+                                            {{-- <button type="button" id="sale" value="17" class="btn-block btn-danger btn-sm btn font-weight-bold">Lost</button> --}}
+                                        </div>
+                                        <div class="col-sm-3 col-3">
+                                            <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
+                                                Preview</button>
+            
+                                        </div>
+                                        <div class="col-sm-3 col-3">
+                                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
+                                                PDF</button>
+                                        </div>
+                                    @endif
+                                    
                             @endif
-                        </div>
-                        <div class="col-sm-4 col-4">
-                                <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
-                                    Preview</button>
-
-                        </div>
-                        <div class="col-sm-4 col-4">
-                            <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
-                                PDF</button>
-                        </div>
+                        
+                        
 
 
 
@@ -127,6 +230,9 @@
                                 <dd class="col-sm-8 dd">
                                     <?php $num = count($listQuoteDetail->data->status_quote ??""); ?>
                                     @if( $num > 0)
+                                    <input type="text" hidden value="{{ $listQuoteDetail->data->status_quote[$num-1]->comment}}" id="comment" >
+                                    <input type="text" hidden value="{{ $listQuoteDetail->data->status_quote[$num-1]->id}}" id="status_quote_id" >
+                                    <input type="text" hidden value="{{ $listQuoteDetail->data->status_quote[$num-1]->crm_quote_id}}" id="crm_quote_id" >
                                         {{
                                             $listQuoteDetail->data->status_quote[$num-1]->comment
                                         }}
@@ -140,52 +246,6 @@
                     <!-- /.card-body -->
                 </div>
 
-
-                {{-- card use for Acknowledgement --}}
-                 {{-- <div class="card">
-                    <div class="card-header">
-                        <h1 class="card-title" style="font-weight: bold">
-                            Acknowledgement
-                        </h1>
-                    </div>
-                    <!-- /.card-header -->
-                     <div class="card-body">
-                        <dl class="row">
-                            <dt class="col-sm-4 dt" >Create by</dt>
-                                <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->create_by->first_name_en}}</dd>
-                            <dt class="col-sm-4 dt">Finance Manager</dt>
-                                <dd class="col-sm-8 dd" >Name BBBB</dd>
-                            <dt class="col-sm-4 dt">Sale Manager</dt>
-                                <dd class="col-sm-8 dd">Name CCCC</dd>
-                        </dl>
-                    </div>
-
-                </div> --}}
-
-
-                {{-- card use for Address Detail--}}
-                {{-- <div class="card">
-                    <div class="card-header">
-                        <h1 class="card-title" style="font-weight: bold">
-                            <!-- <i class="fas fa-text-width"></i> -->
-                            Address Detail
-                        </h1>
-                    </div>
-                    <!-- /.card-header -->
-                     <div class="card-body">
-                        <dl class="row">
-                            <dt class="col-sm-4 dt" >Street</dt>
-                                <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->address->street_en}}</dd>
-                            <dt class="col-sm-4 dt">Home number</dt>
-                                <dd class="col-sm-8 dd" >{{$listQuoteDetail->data->address->hom_en}}</dd>
-                            <dt class="col-sm-4 dt">Address</dt>
-                                <dd class="col-sm-8 dd">{{$address[0]->get_gazetteers_address_en}}</dd>
-
-
-                        </dl>
-                    </div>
-
-                </div> --}}
 
 
                 {{-- card use for Item Details--}}
@@ -472,34 +532,6 @@
 
             </div>
 
-            {{-- <div class="col-md-3">
-                <div class="card card-secondary">
-                        <div class="card-header">
-                            <h3 class="card-title">More</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                <i class="fas fa-minus"></i></button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <dl class="row">
-                                <a href="#" >Quote Detail</a>
-                            </dl>
-                            <dl class="row">
-                                <a href="#" >Update</a>
-                            </dl>
-                            <dl class="row">
-                                <a href="#" >Activities</a>
-                            </dl>
-                            <dl class="row">
-                                <a href="#" >Documents</a>
-                            </dl>
-
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-
         </div>
     </div>
     <!-- ./col -->
@@ -514,15 +546,68 @@
             var url = "/api/preview-quote/D/" + recordId;
             window.open(url);
         }
-        $("#convert_to_BSC").click(function(){
-
-            var lead_id=$("#crm_lead_id").val();
-            var quote_id=$("#quote_id").val();
-            var token=$("#token").val();
-            // alert(lead_id+" "+quote_id+" "+token);
+        
+        // sale accept
+        $("button#sale").click(function(){
+            var comment_quote=$("#comment").val(),
+             status_quote_id=$("#status_quote_id").val(),
+             crm_quote_id=$("#crm_quote_id").val(),
+             status_id = $(this).val();   
+             var token=$("#token").val();   
+             if(status_id==16){
+                var lead_id=$("#crm_lead_id").val();
+                var quote_id=$("#quote_id").val();
+                var token=$("#token").val();
+                // alert(lead_id+" "+quote_id+" "+token);
+                    Swal.fire({ //get from sweetalert function
+                    title: 'Cancel',
+                    text: "Are you sure this qoute to customer? ",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if(result.value) {
+                        $.ajax({
+                            url:'api/convertqoute',
+                            type:'post',
+                            data:{lead_id:lead_id,quote_id:quote_id},
+                            headers: {
+                                'Authorization': `Bearer ${token}`,
+                                },
+                            success:function(data){
+                                $.ajax({
+                                    url:'api/updatequotestage',
+                                    type:'post',
+                                    data:{status:status_id,qoutestatusid:status_quote_id,comment:comment_quote,quoteid:crm_quote_id},
+                                    headers: {
+                                        'Authorization': `Bearer ${token}`,
+                                        },
+                                    success:function(data){
+                                        sweetalert('success','Convert Quote successed!');
+                                        goto_Action('/quote/detail',crm_quote_id )
+                                    },
+                                    error: function(data) {
+                                    
+                                        sweetalert('warning','Data not accessing to server!');
+                                    }
+                                })
+                            },
+                            error: function(data) {
+                                console.log(data);
+                                sweetalert('warning','Data not accessing to server!');
+                            }
+                        })
+                    }
+                });
+             }
+             else
+             {
+               
                 Swal.fire({ //get from sweetalert function
                 title: 'Cancel',
-                text: "Do you wan to Convert to BSC? ",
+                text: "Are you Sure? ",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -531,23 +616,27 @@
             }).then((result) => {
                 if(result.value) {
                     $.ajax({
-                        url:'api/convertqoute',
+                        url:'api/updatequotestage',
                         type:'post',
-                        data:{lead_id:lead_id,quote_id:quote_id},
+                        data:{status:status_id,qoutestatusid:status_quote_id,comment:comment_quote,quoteid:crm_quote_id},
                         headers: {
                             'Authorization': `Bearer ${token}`,
                             },
                         success:function(data){
                             sweetalert('success','Convert Quote successed!');
+                            goto_Action('/quote/detail',crm_quote_id )
                         },
                         error: function(data) {
-                            console.log(data);
+                        
                             sweetalert('warning','Data not accessing to server!');
                         }
                     })
                 }
             });
 
+             }
+             
+           
         })
     </script>
 

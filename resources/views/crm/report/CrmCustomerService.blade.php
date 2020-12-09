@@ -27,10 +27,10 @@
                                 <div class="col-3">
                                     <div class="row">
                                         <div class="col-6">
-                                            <button class="btn btn-success form-control" id="btnExportExcelLeadReport"><span><i class="far fa-file-excel"></i></span> Excel</button>
+                                            <button class="btn btn-success form-control" id="btnCustomerServiceExcel"><span><i class="far fa-file-excel"></i></span> Excel</button>
                                         </div>
                                         <div class="col-6">
-                                            <button class="btn btn-danger form-control" id="btnExportPdfLeadReport"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
+                                            <button class="btn btn-danger form-control" id="btnCustomerServicePDF"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
                                         </div>
                                     </div>
                                 </div>
@@ -131,12 +131,12 @@
                         <div class="table-responsive" style="padding-top: 10px;">
                             <table id="CustomerServiceTbl" class="table table-bordered table-striped" style="width: 100%;">
                                 <thead>
-                                    <tr>
+                                    <tr style="background: #1fa8e0">
                                         <th style="display:none;"></th>
-                                        <th>No.</th>
-                                        <th>Barcode</th>
-                                        <th>Service Name</th>
-                                        <th>Total</th>
+                                        <th style="color: #FFFFFF">No.</th>
+                                        <th style="color: #FFFFFF">Barcode</th>
+                                        <th style="color: #FFFFFF">Service Name</th>
+                                        <th style="color: #FFFFFF">Total</th>
                                     </tr>
                                 </thead>
                                 <tbody id="customer-service-body">
@@ -195,9 +195,9 @@
                 data : {
                     'from_date' : from == '' ? null : from,
                     'to_date' : to == '' ? null : to,
+                    'service_id' : sourceId == 0 ? null : sourceId,
                 },
                 success : function(response){
-                    console.log(response);
                     if(response.success) {
                         $.each(response.data, function(index, data){
                             $('#customer-service-body').append(`
@@ -220,8 +220,6 @@
                 },
                 dataType : 'JSON'
             })
-
         })
-
     })
 </script>

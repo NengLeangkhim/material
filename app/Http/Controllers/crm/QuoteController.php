@@ -6,8 +6,8 @@ use App\model\crm\ModelCrmLead;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\api\stock\StockController;
 use Illuminate\Http\Request;
-use App\model\crm\ModelCrmQuote;
 use App\Http\Controllers\perms;
+use App\model\crm\ModelCrmQuote;
 
 use Illuminate\Support\Facades\Route;
 
@@ -59,11 +59,11 @@ class QuoteController extends Controller
             $res2 = app()->handle($request2);
             $quoteBranch = json_decode($res2->getContent());
 
-
+            // dd($quoteBranch,$quoId);
             // api get quote branch detail by branch id
             $getQuoteBranch = [];
 
-            foreach($quoteBranch->data as $k=>$val){
+            foreach($quoteBranch->data??[] as $k=>$val){
 
                 $data['branch_id'] = $val->id;
                 $data['branch_info'] = $val->crm_lead_branch;
@@ -89,13 +89,7 @@ class QuoteController extends Controller
             session_start();
         }
         $province=ModelCrmLead::CrmGetLeadProvice();
-        $token = $_SESSION['token'];
-        $request = Request::create('/api/quote/status', 'GET');
-        $request->headers->set('Accept', 'application/json');
-        $request->headers->set('Authorization', 'Bearer '.$token);
-        $res = app()->handle($request);
-        $quotestatus = json_decode($res->getContent());
-        return view('crm/quote/addQuote', compact('province','quotestatus'));
+        return view('crm/quote/addQuote', compact('province'));
     }
 
 
@@ -143,7 +137,7 @@ class QuoteController extends Controller
             $branId = $_GET['branId'];
             $row_id = $_GET['id'];
             $token = $_SESSION['token'];
-            $request = Request::create('/api/stock/product/', 'GET');
+            $request = Request::create('/api/stock/product', 'GET');
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
@@ -165,7 +159,7 @@ class QuoteController extends Controller
             $row_id = $_GET['id'];
             $branId = $_GET['branId'];
             $token = $_SESSION['token'];
-            $request = Request::create('/api/stock/service/', 'GET');
+            $request = Request::create('/api/stock/service', 'GET');
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
@@ -184,22 +178,36 @@ class QuoteController extends Controller
     public static function listQuoteLead(Request $request){
 
         if(isset($_GET['id'])){
+            // if (session_status() == PHP_SESSION_NONE) {
+            //     session_start();
+            // }
+            // $token = $_SESSION['token'];
+            // $request = Request::create('/api/getleadconvert', 'GET');
+            // $request->headers->set('Accept', 'application/json');
+            // $request->headers->set('Authorization', 'Bearer '.$token);
+            // $res = app()->handle($request);
+            // $listLead = json_decode($res->getContent());
+            // dump($listLead);
+            // exit;
+            return view('crm/quote/listQuoteLead');
+
+        }
+    }
+    public static function listQuoteLeadDatatable(Request $request){
+
+        // if(isset($_GET['id'])){
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
             $token = $_SESSION['token'];
-            $request = Request::create('/api/getleadconvert', 'GET');
+            $urlQuery=str_replace($request->Url(),'',$request->fullUrl());
+            $request = Request::create('/api/getleadconvert/datatable'.$urlQuery, 'GET');
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
-            $listLead = json_decode($res->getContent());
-            // dump($listLead);
-            // exit;
-            return view('crm/quote/listQuoteLead', compact('listLead'));
-
-        }
+            return $res->getContent();
+        // }
     }
-
 
 
     //function to list lead branch to add lead quote
@@ -240,7 +248,6 @@ class QuoteController extends Controller
 
                     'subject' =>  ['required'],
                     'lead_name' =>  [ 'required'],
-                    'crm_quote_status_type_id' =>  ['required'],
                     'due_date' =>  ['required'],
                     'assign_toName' =>  ['required'],
                     'comment' =>  ['required'],
@@ -279,8 +286,7 @@ class QuoteController extends Controller
 
                 if($response->insert=='success'){
                     //when add quote success, get quote id to get view quote detail
-                    $quoteId = ModelCrmQuote::getQuoteLastId();
-                    return response()->json(['success'=>$response,'quoteId'=> $quoteId]);
+                    return response()->json(['success'=>$response,'quoteId'=> $response->quote_id]);
                 }else{
                     return response()->json(['error'=>$response]);
                 }
@@ -295,10 +301,21 @@ class QuoteController extends Controller
     {
         $employee = ModelCrmQuote::getEmployee();
         if(count($employee) > 0){
-            // print_r($employee);
             return view('crm/quote/listAssignTo', compact('employee'));
         }
     }
+
+
+    //function to list staff for quote assign to
+    public static function getStaffAssignForReportQuote(Request $request)
+    {
+        $employee = ModelCrmQuote::getEmployee2();
+        if(count($employee) > 0){
+            return response()->json($employee);
+        }
+    }
+
+
 
 
     //function to list lead branch when edit branch quote
@@ -393,7 +410,7 @@ class QuoteController extends Controller
             $quoteDetail = json_decode($res->getContent());
             $employee  = ModelCrmQuote::getEmployee();
             $quoteStatus  = ModelCrmQuote::getQuoteStatus();
-            // dump($quoteDetail);
+
             // $arr = array('x1'=>100,'x2'=>200,'x3'=>222);
             // $arr2 = [];
             // $arr2 = array('a1'=>'','a2'=>200,'a3'=>333,'a4'=>$arr);

@@ -101,7 +101,7 @@ class ModelCrmLead extends Model
     }
     //Model get lead user assigned to
     public static function CrmGetLeadAssigTo(){
-        return DB::select("SELECT * from  ma_user WHERE is_deleted=FALSE and status=TRUE ORDER BY id ASC");
+        return DB::select("SELECT * from  ma_user WHERE is_deleted=FALSE and status=TRUE  and is_employee=TRUE ORDER BY id  ");
     }
     //Model get lead privice
     public static function CrmGetLeadProvice(){
@@ -148,5 +148,24 @@ class ModelCrmLead extends Model
         $res = app()->handle($request);
         // dd($res);
         return $res->getContent();
+    }
+    // Seach Lead 
+    public static function SearchLead($search){
+        $token = $_SESSION['token'];
+        $request = Request::create('/api/searchlead?search='.$search, 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($request);
+        //dd($res);
+        return $res->getContent();
+    }
+    //function to pass schedule type to branch by schedule id
+    public static function getScheduleType($sche_id){
+        $r = DB::table('crm_lead_schedule as sch')
+            ->select('sch.id','sch_type.id as scheduleTypeId','sch_type.name_en','sch_type.name_kh')
+            ->join('crm_lead_schedule_type as sch_type', 'sch.crm_lead_schedule_type_id','=','sch_type.id')
+            ->where('sch.id','=', $sche_id)
+            ->get();
+        return $r;
     }
 }

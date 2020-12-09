@@ -12,6 +12,16 @@
     //         }
     //     });
     // }
+    function CrmSelectChange(url,div,id){
+      $.ajax({
+          url:url,  //get URL to route
+          type:"get",
+          data:{id:id},
+          success:function(data){
+            $('#'+div+'').html(data);
+      }
+      });
+      }
     // Function Insert And Update CRM is amazing
     function CrmSubmitFormFull(form,url,goto,alert){
 
@@ -208,6 +218,7 @@ function Crm_delete(id,route,goto,alert) {
                 $('#name_kh').val(response.data.name_kh);
                 $('#name_en').val(response.data.name_en);
                 $('#sequence').val(response.data.sequence);
+                $('#color').val(response.data.color)
                 if(response.data.status==true){
                   $('#status').val(1);
                 }else{
@@ -338,6 +349,42 @@ function Crm_delete(id,route,goto,alert) {
       }
       });
     });
+    // update Quote Status
+    $(document).on('click', '.CrmEditQuoteStatus', function(){
+        // alert();
+        var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+        $.ajax({
+        url:"/crm/setting/quotestatus/get",   //Request send to "action.php page"
+        type:"GET",    //Using of Post method for send data
+        data:{id:id},//Send data to server
+        dataType:"json",   //Here we have define json data type, so server will send data in json format.
+        success:function(response){
+                $('#crm_quote_status_modal').modal('show'); //It will display modal on webpage
+                $('#ActionQuoteStatus').text('Update'); //This code will change Button value to Update
+                $('#card_title').text("Update Quote Status");
+                $('.print-error-msg').hide();
+                $("#crm_quote_status_form").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid");//remove valid all input field
+                $(".invalid-feedback").children("strong").text("");/// remove errror massage
+                $('#quote_status_id').val(id);     //It will define value of id variable for update
+                $.each(response.data, function(i, e){ //read array json for show to textbox
+                  $('#name_kh').val(response.data.name_kh);
+                  $('#name_en').val(response.data.name_en);
+                  if(response.data.status==true){
+                    $('#status').val(1);
+                  }else{
+                    $('#status').val(0);
+                  }
+                  $('#sequence').val(response.data.sequence);
+                  $('#color').val(response.data.color);
+                  if(response.data.is_result_type==true){
+                    $('#is_result_type').val("t");
+                  }else{
+                    $('#is_result_type').val("f");
+                  }
+                });
+        }
+        });
+      });
 // -----------Setting CRM ---------- //
 //--------------Lead Branch -------------//
 function CrmLeadBranchView(url,table){
@@ -349,10 +396,11 @@ function CrmLeadBranchView(url,table){
       success:function(data){
         $('#CrmTabManageSetting').html(data);
         $('#'+table+'').dataTable({
-            'responsive': true,
             scrollX:true,
             "serverSide": true,
+            "autoWidth": false,
             "ajax": "/crm/leadbranch/datatable/"+$status,
+            "ordering": false,
             "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 if(aData.DT_RowData!=null){ //check comment survey
                   $(nRow).css({'color':'#d42931','font-weight':'bold'});
@@ -378,17 +426,15 @@ function CrmLeadBranchView(url,table){
                   },
                   "targets": 4
               },
-              {
-                "searchable": false,
-                "targets": 7
-                },
             {
                 // The `data` parameter refers to the data for the cell (defined by the
                 // `data` option, which defaults to the column being worked with, in
                 // this case `data: 0`.
+                "searchable": false,
+                "width": "100px",
                 "render": function ( data, type, row ) {
-                    var st='';
-                    st+='<div class="row-12 form-inline">'+
+                    var st='<div class="container-fluid datatable-action-col">';
+                    st+='<div class="row form-inline">'+
                     '<div class="col-md-6">'+
                         '<a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="/crm/leadbranch/detail/'+data+'"  onclick="go_to(\'/crm/leadbranch/detail/'+data+'\')" title="Detail Branch">'+
                             '<i class="far fa-eye"></i>'+
@@ -409,13 +455,13 @@ function CrmLeadBranchView(url,table){
                             '</div>'+
                         '</div>';
                     }
-                    return st;
+                    return st+'</div>';
                 },
                 "targets": 7
             },
             ],
             // "columnDefs": [
-                    
+
             // ]
         }); //Set table to datatable
 
@@ -484,59 +530,11 @@ function CrmLeadBranchView(url,table){
         $('.save').click(function(){
             submit_form ('/addlead','frm_lead','lead');
         })
-
-        // get value in search contact from selection and show in each field
-        $( "#contact_id" ).change(function() {
-          var to = $(this). children("option:selected"). val();
-          var myvar= $( "#getcontact" ).val();
-          // alert(to);
-          $.ajax({
-            url:'/api/contact/'+to,
-            type:'get',
-            dataType:'json',
-            headers: {
-              'Authorization': `Bearer ${myvar}`,
-          },
-            success:function(response){
-
-                        var name_en = response['data'].name_en;
-                        var name_kh = response['data'].name_kh;
-                        var email = response['data'].email;
-                        var phone = response['data'].phone;
-                        var national_id = response['data'].national_id;
-                        var position = response['data'].position;
-                        var honorifics = response['data'].honorifics.name_en;
-                        var honorifics_id = response['data'].honorifics.id;
-                        // alert(honorifics);
-                        $("#name_en").val(name_en);
-                        $("#name_kh").val(name_kh);
-                        $("#email").val(email);
-                        $("#phone").val(phone);
-                        $("#national_id").val(national_id);
-                        $("#position").val(position);
-                        // $("#ma_honorifics_id").val(honorifics);
-                        var option = "<option value='"+honorifics_id+" 'selected>"+honorifics+"</option>";
-
-                       $("#ma_honorifics_id").append(option);
-
-                        $('#name_en').prop('readonly', true);
-                        $('#name_kh').prop('readonly', true);
-                        $('#email').prop('readonly', true);
-                        $('#phone').prop('readonly', true);
-                        $('#national_id').prop('readonly', true);
-                        $('#position').prop('readonly', true);
-                        $('#ma_honorifics_id').attr('disabled', true);
-
-
-            }
-        })
-        });
-
-
         // select option lead in add lead, if have value go to list field add branch
         $("#lead_id").change(function () {
             var lead_id = $(this).val();
-            goto_Action('/addleadtype',lead_id);
+            //goto_Action('/addleadtype',lead_id);
+            CrmSelectChange('/typeaddlead','CrmChangeSelectLead',lead_id)
         })
 
 
@@ -695,12 +693,46 @@ function CrmLeadBranchView(url,table){
             });
             return table;
         }
-
+        function getDataTableServerSide(tblId,route){ //this method is for list lead on add quote view
+          let table = $('#'+tblId+'').DataTable({
+              sDom: 'lrtip',
+              targets:'no-sort',
+              bSort: false,
+              select: true,
+              serverSide: true,
+              ajax: route,
+              createdRow: function( row, data, dataIndex ) {
+                $(row).attr('id', data[5]);
+                $( row ).find('td:eq(0)').attr('id', 'leadKhName_'+data[5]);
+                $( row ).find('td:eq(1)').attr('id', 'leadEnName_'+data[5]);
+              },
+              columnDefs:
+                [
+                  {
+                    searchable : false,
+                    visible:false,
+                    targets:5,
+                  }
+                ],
+          });
+          $(document).keyup(function(){
+              $('#mySearchQuote').on( 'keyup', function () {
+                  table.search($(this).val()).draw();
+              });
+          });
+          return table;
+      }
 
 
         //function to get datatable with select row
         function getDataTableSelectRow(tblId,btnId,getName,fieldID,fieldName,modal_form){
-            var table = getDataTable(tblId);
+
+            var table ;
+            if(tblId=="tblQuuteLead"){//
+              table = getDataTableServerSide(tblId,"/quote/add/listQuoteLead/datatable");
+            }else{
+              table = getDataTable(tblId);
+            }
             $('#'+tblId+' tbody').on( 'click', 'tr', function () {
                 if ($(this).hasClass('selected') ) {
                     $(this).removeClass('selected');
@@ -1031,7 +1063,7 @@ function CrmLeadBranchView(url,table){
                   if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
                         sweetalert('success','Data has been saved !');
                         setTimeout(function(){
-                            goto_Action('/quote/detail', data.quoteId.id);
+                            go_to('/quote/detail?id_='+data.quoteId);
                         },1300);
 
                     // use go ot view quote detail
@@ -1236,3 +1268,8 @@ function CrmLeadBranchView(url,table){
 
 
 // ========================= End set schedule of branch ================================
+
+
+// qoute stage 
+
+// end quote stage

@@ -30,7 +30,7 @@ class OrganizeController extends Controller
         }
         else
         {
-            return view('no_perms');
+            return [];
         }
 
     }
@@ -53,7 +53,7 @@ class OrganizeController extends Controller
         }
         else
         {
-            return view('no_perms');
+            return [];
         }
 
     }
@@ -76,7 +76,7 @@ class OrganizeController extends Controller
         }
         else
         {
-            return view('no_perms');
+            return [];
         }
 
     }
