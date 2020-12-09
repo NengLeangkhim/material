@@ -460,6 +460,51 @@ function hrms_date(){
                 }
             }
         }
+
+        function hrms_edit_attendance(id){
+            if(check_session()){return;}
+            $.ajax({
+                type: 'GET',
+                url: '/hrm_attendance_edit',
+                data: {
+                    _token: '<?php echo csrf_token() ?>',
+                    id: id
+                },
+                success: function (data) {
+                    document.getElementById('modal').innerHTML = data;
+                    $('#modal_attendance_edit').modal('show');
+                    hrms_date();
+                    $('select[name=permission_approved]').select2();
+                }
+            });
+        }
+        function hrms_insert_permission(){
+            alert('insert permission');
+            if(!hrms_validation('fm_attendance_edit_permission')){return;}
+            if(check_session()){return;}
+            var form_element=document.getElementById('fm_attendance_edit_permission');
+            var form_data = new FormData(form_element);
+            var request = new XMLHttpRequest();
+            request.open("POST","hrms_insert_permission");
+            request.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200){
+                    console.log(this.responseText);
+                    data=JSON.parse(this.responseText);
+                    if($.isEmptyObject(data.error)){
+                        setTimeout(function () { go_to('hrm_attendance'); }, 300);
+                        hrms_notification(data.success);
+                        // alert(data.success);
+                        $('#modal_attendance_edit').modal('hide');
+                    }else{
+                            $.each(data.error, function(key,value){
+                                $('#'+key).removeClass('d-none');
+                                // $('#'+key).html(value);
+                            });
+                    }
+                }
+            }
+            request.send(form_data);
+    }
     // End Attendance
    // Overtime
         function hrms_modal_overtime(id=-1){

@@ -52,7 +52,7 @@
                               <form id="fm_attendance_edit" onsubmit="return false">
                                 @csrf
                                 <div class="row">
-                                <input type="hidden" value="{{$id}}" name="id">
+                                <input type="hidden" value="{{$id ?? 0}}" name="id">
                                   <div class="col-md-12">
                                     <div class="form-group">
                                       <label>Type</label>
@@ -133,11 +133,14 @@
                             <div class="tab-content" id="myTabContent">
                                 <form onsubmit="return false" id="fm_attendance_edit_permission">
                                   @csrf
+                                <input type="hidden" name="id" value="{{$id ?? 0}}">
                                   <div class="col-md-12">
                                     <label for="">Leave Type <span class="text-danger">*</span></label>
                                     <select name="leave_type" id="" class="form-control">
                                       <option value="" hidden></option>
-                                      <option value="1">Sick</option>
+                                      @foreach ($leave_type as $leave)
+                                    <option value="{{$leave->id}}">{{$leave->name}} / {{$leave->name_kh}}</option>
+                                      @endforeach
                                     </select>
                                   </div>
                                   <div class="col-md-12">
@@ -149,25 +152,35 @@
                                     <input type="text" class="form-control" name="permission_reason">
                                   </div>
                                   <div class="col-md-12">
+                                    @php
+                                        $shift=[
+                                          'am'=>'AM / ព្រឹក',
+                                          'pm'=>'PM / រសៀល',
+                                          'full'=>'Full / មួយថ្ងៃ'
+                                        ]
+                                    @endphp
                                     <Label>Shift <span class="text-danger">*</span></Label>
                                     <select name="permission_shift" id="" class="form-control">
                                       <option value="" hidden></option>
-                                      <option value="am">AM</option>
-                                      <option value="pm">PM</option>
-                                      <option value="full">Full</option>
+                                      @foreach ($shift as $key=>$shif)
+                                    <option value="{{$key}}">{{$shif}}</option>
+                                      @endforeach
                                     </select>
                                   </div>
                                   <div class="col-md-12">
                                     <label for="">Approved By <span class="text-danger">*</span></label>
-                                    <select name="permission_approved" id="" class="form-control">
+                                    <select name="permission_approved" id="id_permission_approved" class="form-control">
                                       <option value="" hidden></option>
-                                      <option value="1">Bunthoeun</option>
+                                      @foreach ($approve as $em)
+                                        <option value="{{$em->id}}">{{$em->lastName}} {{$em->firstName}}</option>
+                                      @endforeach
+                                      
                                     </select>
                                   </div>
                                   <br>
                                   <div class="col-md-12 text-right">
                                     <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                                    <button class="btn bg-turbo-color" data-dismiss="modal" onclick="">Save</button>
+                                    <button class="btn bg-turbo-color" data-dismiss="modal" onclick="hrms_insert_permission()">Save</button>
                                   </div>
                                 </form>
                             </div>

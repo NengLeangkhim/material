@@ -9,3 +9,4 @@ use Illuminate\Support\Facades\Route;
 //     Route::resource('hrms_leave_types', 'api\HRMS\LeaveTypeController');
 // });
 Route::resource('hrms_leave_types', 'api\HRMS\LeaveTypeController');
+Route::resource('hrms_permission', 'api\HRMS\PermissionController');

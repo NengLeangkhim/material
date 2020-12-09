@@ -3,26 +3,28 @@
 namespace App\Http\Controllers\api\HRMS;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\perms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class LeaveTypeController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-     public function index()
+    public function index()
     {
+        dd('index');
+        //
         try {
-            // if (! $user = JWTAuth::parseToken()->authenticate()) {
-            //     $userid = "";
-            // }else{
-            //     $userid = $user->id;
-            // }
+            if (! $user = JWTAuth::parseToken()->authenticate()) {
+                $userid = "";
+            }else{
+                $userid = $user->id;
+            }
             // if (!perms::check_perm_module_api('BSC_030501', $userid)) {
             //     return $this->sendError("No Permission");
             // }
@@ -37,7 +39,6 @@ class LeaveTypeController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
-        //
     }
 
     /**
@@ -48,7 +49,6 @@ class LeaveTypeController extends Controller
     public function create()
     {
         //
-        echo 'create';
     }
 
     /**
@@ -60,7 +60,21 @@ class LeaveTypeController extends Controller
     public function store(Request $request)
     {
         //
-        echo 'store';
+        try {
+            $validation=Validator::make($request->all(),[
+                'ma_user_id'=>['required','integer'],
+                'editor_id'=>['required','integer'],
+                'reason'=>'required',
+                'date_from'=>['required','date'],
+                'date_to'=>['required','date']
+            ]);
+            if($validation->fails()){
+                return response()->json(['error' => $validation->getMessageBag()->toArray()]);
+            }
+            return response()->json(['success'=>'Insert Successfully !!']);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
@@ -72,13 +86,6 @@ class LeaveTypeController extends Controller
     public function show($id)
     {
         //
-        try {
-            $sql="SELECT erl.id,erl.name,erl.name_kh,erl.annual_count,(select count(*) FROM e_request_temp WHERE leave_type_id=erl.id and ma_user_id=$id) as employee_leave FROM e_request_leaveapplicationform_leave_kind erl WHERE status='t' and is_deleted='f'";
-            $em_leave=DB::select($sql);
-            return response()->json($em_leave);
-        } catch (\Throwable $th) {
-            throw $th;
-        }
     }
 
     /**
@@ -90,7 +97,6 @@ class LeaveTypeController extends Controller
     public function edit($id)
     {
         //
-        
     }
 
     /**
@@ -103,7 +109,6 @@ class LeaveTypeController extends Controller
     public function update(Request $request, $id)
     {
         //
-        
     }
 
     /**
@@ -115,6 +120,5 @@ class LeaveTypeController extends Controller
     public function destroy($id)
     {
         //
-        echo 'destroy';
     }
 }

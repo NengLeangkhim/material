@@ -122,7 +122,7 @@ class RouteServiceProvider extends ServiceProvider
 
         // 4.---HRMS
         $bsc = 'routes/api/hrms_api/';
-        $this->registerRoute('api','api',$bsc.'leave_type.php');
+        $this->registerRoute('api','api',$bsc.'hrm_api.php');
     }
 
     protected function registerRoute($prefix, $middleware, $path){
