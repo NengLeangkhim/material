@@ -433,22 +433,22 @@ function CrmLeadBranchView(url,table){
                 "searchable": false,
                 "width": "100px",
                 "render": function ( data, type, row ) {
-                    var st='<div class="container-fluid">';
+                    var st='<div class="container-fluid datatable-action-col">';
                     st+='<div class="row form-inline">'+
-                    '<div class="col-4">'+
+                    '<div class="col-md-6">'+
                         '<a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="/crm/leadbranch/detail/'+data+'"  onclick="go_to(\'/crm/leadbranch/detail/'+data+'\')" title="Detail Branch">'+
                             '<i class="far fa-eye"></i>'+
                         '</a>'+
                     '</div>';
                     if(row[4]!=null){
-                    st+='<div class="col-4 ">'+
+                    st+='<div class="col-md-6 ">'+
                                 '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule" onclick="branch_schedule_detail(\''+row[4]+'\')"  id="detailschedule'+row[4]+'" value="'+row[4]+'"  title="Detail Of Branch">'+
                                     '<i class="fas fa-calendar-day"> </i>'+
                                 '</a>'+
                             '</div>'+
                         '</div>';
                     }else{
-                    st+='<div class="col-md-4 ">'+
+                    st+='<div class="col-md-6 ">'+
                                 '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule" onclick="lead_branch_schedule(\''+data+'\')"  id="schedule'+data+'" value="'+data+'">'+
                                     '<i class="fas fa-calendar-day"> </i>'+
                                 '</a>'+

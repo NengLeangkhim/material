@@ -1260,7 +1260,7 @@ class Crmlead extends Model
                             $id,
                             2,
                             $comment,
-                            'f',
+                            't',
                         )
                     );
                         return  $result;

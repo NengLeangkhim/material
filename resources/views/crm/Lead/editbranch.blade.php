@@ -518,7 +518,7 @@
                                                                 <div class="row">
                                                                     <div class="col-md-12">
                                                                         <div class="row">
-                                                                            <div class="col-md-6">
+                                                                            {{-- <div class="col-md-6">
                                                                                 <label for="address_type">Address Type <b style="color:rgb(252, 2, 2)">*</b></label>
                                                                                 <div class="input-group">
                                                                                     <div class="input-group-prepend">
@@ -529,11 +529,11 @@
                                                                                         <option value="{{$updatelead[$i]['address_type']}}" {{$updatelead[$i]['latlong']=='install' ? 'selected="selected"':''}} >Install</option>
                                                                                         <option value="{{$updatelead[$i]['address_type']}}" {{$updatelead[$i]['latlong']=='main' ? 'selected="selected"':''}} >Main</option>
                                                                                     </select>
-                                                                                    <span class="invalid-feedback" role="alert" id="address_typeError"> {{--span for alert--}}
+                                                                                    <span class="invalid-feedback" role="alert" id="address_typeError"> span for alert
                                                                                         <strong></strong>
                                                                                     </span>
                                                                                 </div>
-                                                                            </div>
+                                                                            </div> --}}
                                                                             <div class="col-md-6">
 
                                                                                 <label for="address_type"></label>
