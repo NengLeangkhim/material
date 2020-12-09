@@ -305,6 +305,8 @@ thead tr th{
 /* training_need_analysis */
 .training_analysis_staff_info{
     width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 .training_analysis_staff_info tr td{
     border: 1px solid black;
@@ -314,6 +316,19 @@ thead tr th{
     text-align: left;
     padding-left: 10px;
 }
-
+.training_analysis{
+    width: 100%;
+    border: none;
+}
+.training_analysis tr td{
+    border: none;
+    font-size: 14px;
+    height: 30px;
+    text-align: left;
+    padding-left: 10px;
+}
+.training_analysis_heading{
+    text-indent: 40px;
+}
 
 
