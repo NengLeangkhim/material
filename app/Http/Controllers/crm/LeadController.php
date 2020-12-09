@@ -651,7 +651,7 @@ class LeadController extends Controller
             return view('no_perms');
         }
     }
-    // function Lead Search 
+    // function Lead Search
     public function CrmLeadSearch(Request $request){
         if(perms::check_perm_module('CRM_020504')){//module codes
             $search= $request->search;

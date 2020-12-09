@@ -1248,7 +1248,7 @@ class Crmlead extends Model
     // Model convert branch
     public static function convertbranch($id,$userid,$detail_id,$comment){
         // var_dump($id,$userid,$detail_id);
-        $survey =DB::select("SELECT * from crm_survey where crm_lead_branch_id=$id and status=TRUE and is_deleted=FALSE");       
+        $survey =DB::select("SELECT * from crm_survey where crm_lead_branch_id=$id and status=TRUE and is_deleted=FALSE");
             if($survey==[]){
                 if(isset($detail_id)){
                     try{
@@ -1272,14 +1272,14 @@ class Crmlead extends Model
                 else
                 {
                     return json_encode(['update'=>'not found data']);
-        
+
                 }
             }
             else
             {
                 return  "error";
             }
-        
+
 
     }
     //Model get survey
@@ -1332,7 +1332,7 @@ class Crmlead extends Model
     }
     //Model insert​ Survey result
     public static function insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id,$lead_detail_id,$comment_branch){
-      
+
         if(isset($survey_id)){
             try{
                     DB::select('SELECT insert_crm_survey_result(?,?,?,?)',
@@ -1360,7 +1360,7 @@ class Crmlead extends Model
                 } catch (Exception $e) {
                     return json_encode(["update"=>"fail update_crm_lead_detail","result"=> $e->getMessage()]);
                 }
-                    
+
                 }catch(Exception $e){
                     return json_encode(["insert"=>"fail update_crm_survey","result"=> $e->getMessage()]);
                 }

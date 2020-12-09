@@ -37,11 +37,11 @@
                     </div>
                 </div>
                 <div class="col-sm-6 col-xs-4 col-12 pt-2">
-                   <div class="row">                        
+                   <div class="row">
                             <?php $num = count($listQuoteDetail->data->quote_stage??''); ?>
                             @if( $num > 0)
                                     {{-- when qoute have qoute stage  new --}}
-                                    @if($listQuoteDetail->data->quote_stage[$num-1]->id == 4) 
+                                    @if($listQuoteDetail->data->quote_stage[$num-1]->id == 4)
                                         <div class="col-sm-3 col-3">
                                             <button type="button" id="sale"  value="9" class="btn-block btn-primary btn-sm btn font-weight-bold">Accept</button>
                                         </div>
@@ -51,7 +51,7 @@
                                         <div class="col-sm-3 col-3">
                                             <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
                                                 Preview</button>
-            
+
                                         </div>
                                         <div class="col-sm-3 col-3">
                                             <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
@@ -66,7 +66,7 @@
                                         <div class="col-sm-4 col-4">
                                             <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
                                                 Preview</button>
-            
+
                                         </div>
                                         <div class="col-sm-4 col-4">
                                             <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
@@ -84,7 +84,7 @@
                                         <div class="col-sm-3 col-3">
                                             <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
                                                 Preview</button>
-            
+
                                         </div>
                                         <div class="col-sm-3 col-3">
                                             <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
@@ -130,7 +130,7 @@
                                         <div class="col-sm-3 col-3">
                                             <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
                                                 Preview</button>
-            
+
                                         </div>
                                         <div class="col-sm-3 col-3">
                                             <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
@@ -147,17 +147,17 @@
                                         <div class="col-sm-3 col-3">
                                             <button onclick='PreviewQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-success btn-sm btn font-weight-bold" >
                                                 Preview</button>
-            
+
                                         </div>
                                         <div class="col-sm-3 col-3">
                                             <button onclick='DownloadQuote({{$listQuoteDetail->data->id ??""}})' type="button" class="btn-block btn-info btn-sm btn font-weight-bold" >
                                                 PDF</button>
                                         </div>
                                     @endif
-                                    
+
                             @endif
-                        
-                        
+
+
 
 
 
@@ -546,14 +546,14 @@
             var url = "/api/preview-quote/D/" + recordId;
             window.open(url);
         }
-        
+
         // sale accept
         $("button#sale").click(function(){
             var comment_quote=$("#comment").val(),
              status_quote_id=$("#status_quote_id").val(),
              crm_quote_id=$("#crm_quote_id").val(),
-             status_id = $(this).val();   
-             var token=$("#token").val();   
+             status_id = $(this).val();
+             var token=$("#token").val();
              if(status_id==16){
                 var lead_id=$("#crm_lead_id").val();
                 var quote_id=$("#quote_id").val();
@@ -589,7 +589,7 @@
                                         goto_Action('/quote/detail',crm_quote_id )
                                     },
                                     error: function(data) {
-                                    
+
                                         sweetalert('warning','Data not accessing to server!');
                                     }
                                 })
@@ -604,7 +604,7 @@
              }
              else
              {
-               
+
                 Swal.fire({ //get from sweetalert function
                 title: 'Cancel',
                 text: "Are you Sure? ",
@@ -627,7 +627,7 @@
                             goto_Action('/quote/detail',crm_quote_id )
                         },
                         error: function(data) {
-                        
+
                             sweetalert('warning','Data not accessing to server!');
                         }
                     })
@@ -635,8 +635,8 @@
             });
 
              }
-             
-           
+
+
         })
     </script>
 

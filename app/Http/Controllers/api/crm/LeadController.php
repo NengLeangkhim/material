@@ -477,7 +477,7 @@ class LeadController extends Controller
         }
         // dd($comment_branch,$lead_detail_id);
         // var_dump($userid,$survey_id,$possible,$comment,$branch_id);
-        
+
         return Lead::insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id,$lead_detail_id,$comment_branch);
     }
     // get schdule type
