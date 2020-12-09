@@ -186,7 +186,7 @@ class LeadController extends Controller
             $userid = $_SESSION['userid'];
 
             $lead_id=$request->input('lead_id')!=""?$request->input('lead_id'):null;
-            $con_id=$request->input('contact_id')!=""?$request->input('contact_id'):null;
+            $con_id=$request->input('contact_id')!=""?$request->input('contact_id'):$request->input('contact_id_old');
             $prioroty=$request->input('prioroty')!=""?$request->input('prioroty'):null;
             $checksurvey=$request->input('checksurvey')!=""? $request->input('checksurvey'):"null";
             $survey_id=$request->input('survey_id')!=""?$request->input('survey_id'):null;
@@ -232,7 +232,7 @@ class LeadController extends Controller
             $street_en=$request->input('street_en')!=""?$request->input('street_en'):null;;
             $street_kh=$request->input('street_kh')!=""?$request->input('street_kh'):null;;
             $latlong=$request->input('latlong')!=""?$request->input('latlong'):null;;
-            $address_type=$request->input('address_type')!=""?$request->input('address_type'):'Main';;
+            $address_type=$request->input('address_type')!=""?$request->input('address_type'):'main';;
             $addresscode=$request->input('village')!=""?$request->input('village'):null;;
 
 
