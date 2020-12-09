@@ -392,7 +392,7 @@ class QuoteController extends Controller
         //     return view('crm/quote/leadBranch', compact('dataQuoteLead'));
         // }
 
-        dump($token);
+        // dump($token);
         if(isset($_GET['id_']) && $_GET['id_'] != ''){
             $quoteId = $_GET['id_'];
                 $request = Request::create('/api/quotebranch/'.$quoteId.'', 'GET');   // this use branch id to get branch deetail
