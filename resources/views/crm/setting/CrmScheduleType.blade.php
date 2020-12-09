@@ -10,13 +10,13 @@
     <div>
         <table class="table table-bordered nowrap" style="width: 100%;" id="Schedule_type_Tbl">
             <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name English</th>
-                    <th>Name Khmer</th>
-                    <th>Type</th>
-                    <th>Create Date</th>
-                    <th>Action</th>
+                <tr style="background: #1fa8e0">
+                    <th style="color: #FFFFFF">#</th>
+                    <th style="color: #FFFFFF">Name English</th>
+                    <th style="color: #FFFFFF">Name Khmer</th>
+                    <th style="color: #FFFFFF">Type</th>
+                    <th style="color: #FFFFFF">Create Date</th>
+                    <th style="color: #FFFFFF">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -89,9 +89,9 @@
                        <div class="col-md-6">
                        <div class="form-group">
                            <label for="plan_from">Type<span class="text-danger">*</span></label>
-                           <select name="is_result_type" class="form-control" id="is_result_type">
-                                <option value="1">Result</option>
-                                <option value="0">Schedule</option>
+                           <select name="is_result_type" class="form-control" id="is_result_type" name="is_result_type">
+                                <option value="t">Result</option>
+                                <option value="f">Schedule</option>
                             </select>
                            <span class="invalid-feedback" role="alert" id="is_result_typeError"> {{--span for alert--}}
                              <strong></strong>

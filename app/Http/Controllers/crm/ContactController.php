@@ -11,27 +11,52 @@ use Illuminate\Validation\Rule;
 
 class ContactController extends Controller
 {
-    public function getcontact(){
+    public function getcontact(Request $request){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if(perms::check_perm_module('CRM_0205')){//module codes
             $token = $_SESSION['token'];
-            $request_contact = Request::create('/api/contacts', 'GET');
+            // $request_query=str_replace($request->Url(),'',$request->fullUrl());
+            // $request_contact = Request::create('/contacts-datatable'.$request_query, 'GET');
+            // //$contact_table = json_decode(Route::dispatch($request_contact)->getContent());
+            // $request_contact->headers->set('Accept', 'application/json');
+            // $request_contact->headers->set('Authorization', 'Bearer '.$token);
+            // $res = app()->handle($request_contact);
+            // return $res->getContent();
+            // $contact_table = json_decode($res->getContent());
+            // $contact_pagination=ModelCrmContact::CrmContactGetDataPagination();  // get data from model contact for pagination
+            // $request_pagination = Request::create('/api/contacts', 'GET');
+            // $contact_pagination = json_decode(Route::dispatch($request_pagination)->getContent());
+            // dd($contact_table);
+            return view('crm.contact.index',['contact_table'=>$contact_table??'','contact_pagination'=>$contact_pagination??'']);
+        }else{
+            return view('no_perms');
+        }
+    }
+    public function getcontactDatatable(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if(perms::check_perm_module('CRM_0205')){//module codes
+            $token = $_SESSION['token'];
+            $request_query=str_replace($request->Url(),'',$request->fullUrl());
+            $request_contact = Request::create('api/contacts-datatable'.$request_query, 'GET');
             //$contact_table = json_decode(Route::dispatch($request_contact)->getContent());
             $request_contact->headers->set('Accept', 'application/json');
             $request_contact->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request_contact);
-            $contact_table = json_decode($res->getContent());
-            $contact_pagination=ModelCrmContact::CrmContactGetDataPagination();  // get data from model contact for pagination
+            return $res->getContent();
+            // $contact_table = json_decode($res->getContent());
+            // $contact_pagination=ModelCrmContact::CrmContactGetDataPagination();  // get data from model contact for pagination
             // $request_pagination = Request::create('/api/contacts', 'GET');
             // $contact_pagination = json_decode(Route::dispatch($request_pagination)->getContent());
             // dd($contact_table);
-            return view('crm.contact.index',['contact_table'=>$contact_table,'contact_pagination'=>$contact_pagination]); 
+            // return view('crm.contact.index',['contact_table'=>$contact_table??'','contact_pagination'=>$contact_pagination??'']);
         }else{
             return view('no_perms');
         }
-        
+
     }
     public function FetchDataContact(Request $request) // function Get for paginaion contact
     {
@@ -90,7 +115,7 @@ class ContactController extends Controller
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
-                'errors' => $validator->getMessageBag()->toArray() 
+                'errors' => $validator->getMessageBag()->toArray()
             ));
         }else{
             if(perms::check_perm_module('CRM_020202')){//module code list   
@@ -224,7 +249,7 @@ class ContactController extends Controller
             $request_delete->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request_delete);
             $response = json_decode($res->getContent());
-            dd($response);
+            //dd($response);
             if($response->delete=='success'){
                 return response()->json(['success'=>'Record is successfully Update']);
             }
@@ -240,4 +265,18 @@ class ContactController extends Controller
     //         return view('no_perms');
     //     }
     // }
+    // function Lead Contact Search 
+    public function CrmLeadContactSearch(Request $request){
+        if(perms::check_perm_module('CRM_020504')){//module codes
+            $search= $request->search;
+            $token = $_SESSION['token'];
+            $requests = Request::create('/api/contactsearch?search='.$search, 'get');
+            $requests->headers->set('Accept', 'application/json');
+            $requests->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($requests);
+            return $res;
+        }else{
+            return view('no_perms');
+        }
+    }
 }

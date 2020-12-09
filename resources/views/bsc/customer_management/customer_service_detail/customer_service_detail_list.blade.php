@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><i class="fas fa-user"></i> Customer Sevice Detail</h1>
+                <h1><i class="fas fa-cogs"></i> Customer Sevice Detail</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -39,7 +39,7 @@
                                     <th>Service</th>
                                     <th>Effectvice Date</th>
                                     <th>End Period Date</th>
-                                    <th>Status</th>
+                                    <th>Service Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

@@ -36,47 +36,42 @@
                             <tbody>
 
                                 {{-- foreach variable --}}
+                                @foreach ($listBranch as  $key=>$val2)
+                                    <tr id="{{$val2->id}}" >
+                                        <td class="border">
+                                            {{$key+1}}
+                                            {{-- hidden use for call get value --}}
+                                            <input type="hidden" name="branchId" id="branchId" value="{{$val2->id}}">
+                                            <input type="hidden"  id="brdcompanyEn_{{$val2->id}}" value="{{$val2->name_en}}">
+                                            <input type="hidden"  id="brdAddressNameEn_{{$val2->id}}" value="{{$val2->address_en??''}}">
+                                            <input type="hidden"  id="branAddressId_{{$val2->crm_lead_address_id}}" value="{{$val2->crm_lead_address_id}}">
+                                            <input type="hidden"  id="branVatNumber_{{$val2->id}}" value="{{$val2->vat_number??''}}">
 
-                                @foreach ($listBranch as $key=>$val)
-                                    @foreach ($val as $key2=>$val2)
-                                            <tr id="{{$val2->branch_id}}" >
+                                        </td>
+                                        <td class="border">
+                                            <div   class="branchKhName" >
+                                                {{$val2->name_en}}
+                                            </div>
+                                        </td>
 
-                                                <td class="border">
-                                                    {{$key2+1}}
-                                                    {{-- hidden use for call get value --}}
-                                                    <input type="hidden" name="branchId" id="branchId" value="{{$val2->branch_id}}">
-                                                    <input type="hidden"  id="brdcompanyEn_{{$val2->branch_id}}" value="{{$val2->company_en}}">
-                                                    <input type="hidden"  id="brdAddressNameEn_{{$val2->branch_id}}" value="{{$val2->address_en}}">
-                                                    <input type="hidden"  id="branAddressId_{{$val2->lead_address_id}}" value="{{$val2->lead_address_id}}">
-                                                    <input type="hidden"  id="branVatNumber_{{$val2->branch_id}}" value="{{$val2->vat_number}}">
+                                        <td class="border">
+                                            <div class="branchEnName" >
+                                                {{$val2->name_kh}}
+                                            </div>
+                                        </td>
 
-                                                </td>
-                                                <td class="border">
-                                                    <div   class="branchKhName" >
-                                                        {{$val2->company_en}}
-                                                    </div>
-                                                </td>
+                                        <td class="border">
+                                            <div class="branchEmail">
+                                                {{$val2->email}}
+                                            </div>
+                                        </td>
+                                        <td class="border">
+                                            <div class="branchCompany">
+                                                {{$val2->company_detail??''}}
+                                            </div>
+                                        </td>
 
-                                                <td class="border">
-                                                    <div class="branchEnName" >
-                                                        {{$val2->company_kh}}
-                                                    </div>
-                                                </td>
-
-                                                <td class="border">
-                                                    <div class="branchEmail">
-                                                        {{$val2->primary_email}}
-                                                    </div>
-                                                </td>
-                                                <td class="border">
-                                                    <div class="branchCompany">
-                                                        {{$val2->company_detail}}
-                                                    </div>
-                                                </td>
-
-                                            </tr>
-
-                                    @endforeach
+                                    </tr>
                                 @endforeach
 
                             </tbody>

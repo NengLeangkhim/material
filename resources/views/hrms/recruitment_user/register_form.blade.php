@@ -1,11 +1,6 @@
-<?php 
 
-use Illuminate\Support\Facades\DB;
-// sql select position to show in select box
-    $sql = "SELECT id, name FROM ma_position WHERE status='t' AND is_deleted = 'f' ORDER BY name ASC";
-    $r = DB::select($sql);
 
-?>
+
 
         <form role="form" action="hrm_recruitment_user_register" method="POST" accept-charset="utf-8" enctype="multipart/form-data" >
         
@@ -52,6 +47,12 @@ use Illuminate\Support\Facades\DB;
                     </div>
                 </div>
                 </li>
+                @php
+                    $requi=$required ?? array();
+                    foreach ($requi as $key => $value) {
+                        echo '<div class="text-danger">'.$value[0].'</div>';
+                    }
+                @endphp 
                 <li class="line-form " data-type="control_textbox" id="">
                 <label class="form-label form-label-left " style="color: black;">
                     ឈ្មោះខ្មែរ
@@ -79,6 +80,33 @@ use Illuminate\Support\Facades\DB;
                         <input type="text" id="last_1" name="lastname" class="form-control kh-font-batt lastname ​​validate[required] input-name"  value="" data-component="last" aria-labelledby="label_1 sublabel_1_last"​ placeholder="Lastname" required="">
                     </span>
                     </div>
+                </div>
+                </li>
+                <li class="line-form " data-type="control_textbox" id="">
+                <label class="form-label form-label-left " style="color: black;">
+                    កម្រិតការអប់រំ
+                    <span class="form-required">
+                    *
+                    </span>
+                </label>
+                <div id="cid_0" class="form-input ">
+                    <select name="education_level" id="education_level" class="style_text form-control kh-font-batt validate[required, Email]" data-component="first" aria-labelledby="label_1 sublabel_1_first" required="">
+                        <option value="" hidden></option>
+                        @foreach ($education as $educat)
+                    <option value="{{$educat->id}}">{{$educat->name_en}} / {{$educat->name_kh}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                </li>
+                <li class="line-form " data-type="control_textbox" id="">
+                <label class="form-label form-label-left " style="color: black;">
+                    មុខជំនាញ
+                    <span class="form-required">
+                    *
+                    </span>
+                </label>
+                <div id="cid_0" class="form-input ">
+                    <input type="text" id="major" name="major" data-type="input-textbox" class="style_text form-control kh-font-batt validate[required, Email]" size="20" value="" data-component="first" aria-labelledby="label_1 sublabel_1_first" placeholder="Major" required="" />
                 </div>
                 </li>
                 <li class="line-form " data-type="control_textbox" id="">
@@ -112,13 +140,11 @@ use Illuminate\Support\Facades\DB;
                     </span>
                 </label>
                 <div id="cid_9" class="form-input"  required="">
-                    <select style="color: black; " name="position" id="position" class="input100 form-control style_text validate[required]">
-                        <?php
-                                foreach($r as $key=>$rr){
-                                    // echo ($key<=1)?'<option value="-1" selected disabled hidden >Select position</option>':'';
-                                    echo '<option value="'.$rr->id.'">'.$rr->name.'</option>';
-                                }
-                        ?>
+                    <select style="color: black; " name="position" id="position" class="input100 form-control style_text validate[required]" required>
+                        <option value="" hidden></option>
+                        @foreach ($position as $pos)
+                            <option value="{{$pos->id}}">{{$pos->name}}</option>
+                        @endforeach
                     </select>
                 </div>
                 </li>
@@ -185,6 +211,8 @@ use Illuminate\Support\Facades\DB;
         if(isset($error)){
             $error_ = $error;
         }
+
+        
                     
 
 ?>

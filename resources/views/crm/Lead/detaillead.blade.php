@@ -43,11 +43,11 @@
                     for($i =0;$i<sizeof($detaillead); $i++){
                         ?>
                          <div class="col-md-6 " >
-                            {{-- <button type="button" ​value="editlead/{{$detaillead[$i]["lead_id"]}}" class="btn btn-primary btn-md LeadEdit form-control" >Edit</button>                                                         --}}
+                            {{-- <button type="button" ​value="editlead/{{$detaillead[$i]["lead_id"] ?? ' '}}" class="btn btn-primary btn-md LeadEdit form-control" >Edit</button>                                                         --}}
                         </div>                         
                         <div class="col-md-6 " >
                             <div class="row">
-                                <button type="button" ​value="editlead/{{$detaillead[$i]["lead_id"]}}" class="btn btn-primary btn-md LeadEdit form-control" >Edit</button> 
+                                <button type="button" ​value="editlead/{{$detaillead[$i]["lead_id"] ?? ' '}}" class="btn btn-primary btn-md LeadEdit form-control" >Edit</button> 
                             </div>
                         </div>  
                         <?php
@@ -80,35 +80,35 @@
                             for($i =0;$i<sizeof($detaillead); $i++){
                                 ?>
                                     <dt class="col-sm-4 dt">Lead Number</dt>
-                                    <dd class="col-sm-8 dd" >{{$detaillead[$i]["lead_number"]}}</dd>
+                                    <dd class="col-sm-8 dd" >{{$detaillead[$i]["lead_number"] ?? ' '}}</dd>
                                     <dt class="col-sm-4 dt">Company Name English</dt>
-                                    <dd class="col-sm-8 dd" >{{$detaillead[$i]["customer_name_en"]}}</dd>
+                                    <dd class="col-sm-8 dd" >{{$detaillead[$i]["customer_name_en"] ?? ' '}}</dd>
                                     <dt class="col-sm-4 dt">Company Name Khmer</dt>
-                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["customer_name_kh"]}}</dd>
+                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["customer_name_kh"] ?? ' '}}</dd>
                                     <dt class="col-sm-4 dt">Primary Email</dt>
-                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["email"]}}</dd>
+                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["email"] ?? ' '}}</dd>
                                     <dt class="col-sm-4 dt">Primary Facebook</dt>
-                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["facebook"]}}</dd>
+                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["facebook"] ?? ' '}}</dd>
                                     <dt class="col-sm-4 dt">Primary Website </dt>
-                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["website"]}} </dd>
+                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["website"] ?? ' '}} </dd>
                                     <dt class="col-sm-4 dt">Primary Phone </dt>
-                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["phone"]}} </dd>
+                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["phone"] ?? ' '}} </dd>
                                     <dt class="col-sm-4 dt">Company Branch </dt>
-                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["company"]}} </dd> 
+                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["company"]['company'] ?? ' '}} </dd> 
                                     <dt class="col-sm-4 dt">Vat Number </dt>
-                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["vat_number"]}}</dd>
+                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["vat_number"] ?? ' '}}</dd>
                                     <dt class="col-sm-4 dt">Lead source </dt>
-                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["lead_source"]}} </dd>
+                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["lead_source"]['name_en'] ?? ' '}} </dd>
                                     <dt class="col-sm-4 dt">Industry </dt>
-                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["lead_industry"]}} </dd>
+                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["lead_industry"]['name_en'] ?? ' '}} </dd>
                                     <dt class="col-sm-4 dt">Current ISP </dt>
-                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["current_isp_name"]}}  </dd>
+                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["current_isp_name"]['name_en'] ?? ''}}  </dd>
                                     <dt class="col-sm-4 dt">Current Speed </dt>
-                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["current_isp_speed"]}}  </dd>
+                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["current_isp_speed"] ?? ' '}}  </dd>
                                     <dt class="col-sm-4 dt">Current Price </dt>
-                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["current_isp_price"]}} </dd>
+                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["current_isp_price"] ?? ' '}} </dd>
                                     <dt class="col-sm-4 dt">Employee Count</dt>
-                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["employee_count"]}} </dd>
+                                    <dd class="col-sm-8 dd">{{$detaillead[$i]["employee_count"] ?? ' '}} </dd>
                                  <?php 
                             }
                             ?>  

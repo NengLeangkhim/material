@@ -5,15 +5,15 @@
             }
       foreach($contact as $row){
       //  $honor = $row->ma_honorifics_id;
-        $id = $row->id;
-        $name_en = $row->name_en;
-        $name_kh = $row->name_kh;
-        $email = $row->email;
-        $phone = $row->phone;
-        $facebook = $row->facebook;
-        $position = $row->position;
-        $nation = $row->national_id;
-        $honorifics1 = $row->honorifics->id;
+        $id = $row->id??'';
+        $name_en = $row->name_en??'';
+        $name_kh = $row->name_kh??'';
+        $email = $row->email??'';
+        $phone = $row->phone??'';
+        $facebook = $row->facebook??'';
+        $position = $row->position??'';
+        $nation = $row->national_id??'';
+        $honorifics1 = $row->honorifics->id??'';
       }
   @endphp 
     <script>
