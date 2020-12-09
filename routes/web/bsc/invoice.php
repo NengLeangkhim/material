@@ -19,3 +19,5 @@ use PhpParser\Node\Stmt\TryCatch;
     Route::post('bsc_invoice_payment','bsc\InvoiceController@add_payment');
     Route::get('bsc_invoice_report','bsc\InvoiceController@invoice_report');
     Route::post('bsc_invoice_submit_report','bsc\InvoiceController@invoice_report_get_data');
+    //
+    Route::get('bsc_preview_invoioce/{id}','bsc\InvoicePreviewController@invoice_preview');
