@@ -92,12 +92,12 @@ class LeadBranchController extends Controller
             $service1=json_decode($service,true);
             $companybranch=Lead::leadBranch();
             $lead=Lead::getlead();
-            $con= new ContactController();
-            $contact=$con->index();
-            $contact_n=json_encode($contact,true);
-            $contact=json_decode($contact_n,true);
+            // $con= new ContactController();
+            // $contact=$con->index();
+            // $contact_n=json_encode($contact,true);
+            // $contact=json_decode($contact_n,true);
             // dd($contact);
-            return view('crm.LeadBranch.CrmBranchEdit',['updatelead'=>$result["data"],'lead'=>$lead,'contact'=>$contact,'honorifics'=>$honorifics,'service'=>$service1["original"]["data"],'companybranch'=>$companybranch,'lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province,'currentisp'=>$isp]);
+            return view('crm.LeadBranch.CrmBranchEdit',['updatelead'=>$result["data"],'lead'=>$lead,'honorifics'=>$honorifics,'service'=>$service1["original"]["data"],'companybranch'=>$companybranch,'lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province,'currentisp'=>$isp]);
 
         }else{
             return view('no_perms');
