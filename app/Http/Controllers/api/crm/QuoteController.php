@@ -486,7 +486,7 @@ class QuoteController extends Controller
                         $address_id=DB::select("SELECT crm_lead_address_id,name_en FROM crm_lead_branch where id=$branch_id");
                         $branch_name=$address_id[0]->name_en;
 
-                        //get product of beanch 
+                        //get product of beanch
                         $product_branch=DB::select("SELECT stock_product_id FROM crm_lead_items where crm_lead_branch_id=$branch_id and status=TRUE and is_deleted=FALSE");
                         $product_branch=$product_branch[0]->stock_product_id;
                         //insert in to table ma_customer_branch
@@ -545,7 +545,7 @@ class QuoteController extends Controller
                         't',
                         $id
                     ));
-                    
+
                     DB::commit();
                     return json_encode(["convert"=>"success"]);
                 // return json_encode(["convert"=>$customer]);

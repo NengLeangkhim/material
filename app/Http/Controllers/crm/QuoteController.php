@@ -225,9 +225,19 @@ class QuoteController extends Controller
             $request->headers->set('Authorization', 'Bearer '.$token);
             $res = app()->handle($request);
             $listBranch = json_decode($res->getContent());
-            // dump($listBranch);
+
+            $request2 = Request::create('/api/getleadbyid/'.$id.'', 'GET');
+            $request2->headers->set('Accept', 'application/json');
+            $request2->headers->set('Authorization', 'Bearer '.$token);
+            $res2 = app()->handle($request2);
+            $listLead= json_decode($res2->getContent());
+            $getVatNum = '';
+            if(isset($listLead->data[0]->vat_number)){
+                $getVatNum = $listLead->data[0]->vat_number;
+            }
+
             // exit;
-            return view('crm/quote/listQuoteBranch', compact('listBranch'));
+            return view('crm/quote/listQuoteBranch', compact('listBranch','getVatNum'));
         }
     }
 
@@ -382,7 +392,7 @@ class QuoteController extends Controller
         //     return view('crm/quote/leadBranch', compact('dataQuoteLead'));
         // }
 
-        // dump($token);
+        dump($token);
         if(isset($_GET['id_']) && $_GET['id_'] != ''){
             $quoteId = $_GET['id_'];
                 $request = Request::create('/api/quotebranch/'.$quoteId.'', 'GET');   // this use branch id to get branch deetail
@@ -478,7 +488,6 @@ class QuoteController extends Controller
                         'comment' =>  ['required'],
                     ]
                 );
-
                 if ($validator->fails()) //check validator for fail
                 {
                     return response()->json(array(

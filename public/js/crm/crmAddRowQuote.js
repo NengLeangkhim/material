@@ -119,8 +119,7 @@
                 '</tr>';
                 i++;
                 j++;
-                clearTrashButton(j,i); //call function clear trash icon
-                // console.log('brand='+branId+'--branch2='+branId2);
+                // clearTrashButton(j,i); //call function clear trash icon
             if(branId == '_new'){
                 $('#add_row_tablequoteItem'+branId2+'').append(tblRow);
                 // console.log('row was apend in func add no branch='+branId);
@@ -168,8 +167,7 @@
             }
             $('tbody tr[data-id="row_'+btn_id+'"]').remove();  //use call method remove row quote
             j--;
-            clearTrashButton(j,i); //call function clear trash icon
-            // console.log('In Remove this I value='+i+'---J value='+j);
+            // clearTrashButton(j,i); //call function clear trash icon
 
             //for loop use when user delete row but grand total will refresh
             var sumTotal = 0;
@@ -201,8 +199,6 @@
         function checkVatValue(vat,getsumtotal){
             var getTax = 0;
             var grandTotal = 0;
-
-
             if(vat != ''){  // exclude tax
                 // console.log('function check vat, have val');
                 getTax = (getsumtotal * 0.1);
@@ -328,10 +324,9 @@
 
 
                 var branId = $(this).data("code");
-                if(typeof(branId) == 'undefined' || branId == '_new'){
-                    branId = '';
-                }
-                console.log('this branch id keyup='+branId);
+                // if(typeof(branId) == 'undefined' || branId == '_new'){
+                //     branId = '';
+                // }
                 var vatVal = $('#vatNumber'+branId+'').val();
                 // console.log('xx vatVal='+vatVal);
                 if(typeof(vatVal) == 'undefined' || vatVal == ''){
@@ -503,7 +498,7 @@
                     var selectval = new Array;
                     var num = 0;
 
-                    console.log('this branch for get item ='+branId);
+                    // console.log('this branch for get item ='+branId);
 
                     //function for check seletion of checkbox
                     $("input[name=seleteItem]:checked").each(function(i){
