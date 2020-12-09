@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 class DashboardController extends Controller
 {
-    //
+    //index
     public function Index(){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -30,5 +30,19 @@ class DashboardController extends Controller
         $total_quote = $responseBody->data->total_quote; // get total quote
         $total_survey = $responseBody->data->total_survey; // get total quote
         return view('crm.dashboard.CrmDashboard',['total_lead'=>$total_lead == '' ? '0' : $total_lead,'total_branch'=>$total_branch == '' ? '0' : $total_branch,'total_contact'=>$total_contact == '' ? '0' : $total_contact,'total_quote'=>$total_quote == '' ? '0' : $total_quote,'total_survey'=>$total_survey == '' ? '0' : $total_survey]);
+    }
+
+    public function GetSurveyChart(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $token = $_SESSION['token'];
+        $fromDate = date("Y-m-01");
+        $toDate = date("Y-m-t");
+        $surveyCount = Request::create('/api/countsurvey?from_date='.$fromDate.'&to_date='.$toDate.' ','GET');
+        $surveyCount->headers->set('Accept', 'application/json');
+        $surveyCount->headers->set('Authorization', 'Bearer '.$token);
+        $res = app()->handle($surveyCount);
+        return($res);
     }
 }
