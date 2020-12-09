@@ -66,15 +66,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="company_kh">Company Name khmer <b style="color:red">*</b></label>
+                                                <label for="company_kh">Company Name khmer </label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control" name="company_kh" id="company_kh" placeholder="Customer Name khmer" >
-                                                    <span class="invalid-feedback" role="alert" id="company_khError"> {{--span for alert--}}
+                                                    {{-- <span class="invalid-feedback" role="alert" id="company_khError"> span for alert
                                                         <strong></strong>
-                                                    </span>
+                                                    </span> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -910,7 +910,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-map"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"  name='latlong' id="latlong" placeholder="11.123456, 104.123456 Example" readonly >
+                                                    <input type="text" class="form-control"  name='latlong' id="latlong" placeholder="11.123456, 104.123456 Example"  >
                                                     <span class="invalid-feedback" role="alert" id="latlongError"> {{--span for alert--}}
                                                         <strong></strong>
                                                     </span>
