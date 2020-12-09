@@ -1,4 +1,6 @@
-
+.conatainer{
+    max-width: 1148px;
+}
 .namecompany{
     color:#1fa8e0;
 }
@@ -27,6 +29,7 @@
 .heading{
     font-size: 12pt;
 }
+
 .heading h3{
     margin-bottom: 0px;
 }
@@ -54,7 +57,7 @@ p{
 }
 .footer{
     border-top: 2px solid #1fa8e0;
-    
+    font-size: 10px !important;
     
     
 }
@@ -86,14 +89,11 @@ p{
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
-    font-size: 14pt;
 }
 th, td {
-    padding: 5px;
     text-align: left;
     width: 180px;
-    height: 40px;
-    text-align: center;   
+    height: 40px;  
 }
 thead tr th{
     height: 60px;
@@ -116,7 +116,7 @@ thead tr th{
 }
 
 
-/* check_report_training */
+/* training_checking_list*/
 .staff_training_info tr td{
     width: 400px;
     height: 35px;
@@ -127,10 +127,193 @@ thead tr th{
     width: 200px;
     height: 35px;
     text-align: center;
-}
+} 
 .footer_training{
     border-top: 2px solid #1fa8e0;
     margin-top: 110px;
 }
+
+/* training_request_proposal */
+.training_request tr td{
+    height: 30px;
+    width: 450px;
+    text-align: right;
+}
+.staff_training_request tr td{
+    height: 35px;
+    text-align: center;
+}
+.staff_training_request{
+    width: 100%;
+}
+
+.pdd-top-10px{
+    padding-top: 15px;
+}
+
+.border-top{
+    border-top: 2px solid #1fa8e0;
+    word-wrap: none !important;
+    grid-row: 1 / 2;
+}
+.text-right{
+    text-align: right  !important;
+    font-size: 10px !important;
+    font-weight: bold;
+}
+.text-left{
+    text-align: left  !important;
+    font-weight: bold;
+    font-size: 10px !important;
+    
+}
+
+.text-indent-2rem{
+    text-indent: 2rem;
+}
+.heading p{
+    margin-top: 5px;
+}
+
+
+
+/* change_history */
+
+.copy_to p{
+    font-size: 13px;
+    margin: 0;
+}
+.warning_employee tr,td{
+    border: none;
+    padding: 0;
+    height: 35px;
+}
+.warning_employee{
+    width: 100%; 
+    text-align: left;
+    border:none;
+}
+.change_history_table th,td{
+    padding: 0;
+    text-align: center;
+    height: 35px;
+    font-weight: normal;
+}
+
+/* meetting_note */
+.heading_text p{
+    font-size: 15px;
+    text-indent: 80px;
+}
+.meeting_join_name tr,td{
+    text-align: left;
+}
+.meeting_join_name{
+    border: none;
+}
+.meeting_signature{
+    width: 100%;
+    border: none;
+    
+}
+.meeting_signature td{
+    border: none;
+    width: 50%;
+    text-align: center;
+    height: 150px;
+}
+
+/* staff_note */
+
+.staff_info{
+    border: 1px solid black;
+    border-collapse: collapse; 
+    width: 100%;
+    margin-left: 20px;
+    margin-right: 20px;  
+}
+
+.staff_info tr td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: right;
+    font-size: 16px;
+    height: 35px;
+}
+.staff_note{
+    border: 1px solid black;
+    border-collapse: collapse; 
+    width: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.staff_note tr td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 15px;
+    padding: 0;
+    height: 30px;
+}
+.summary{
+    width: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+    line-height: 25px;
+}
+.summary tr td{
+    padding-left: 10px;
+    font-size: 15px;
+    
+}
+
+/* survey staff exit */
+
+.survey_staff_info{
+    width: 100%;
+
+}
+.survey_staff_info tr td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+    height: 30px;
+}
+.staff_question_exit{
+    border: 1px solid black;
+    border-collapse: collapse; 
+    width: 100%;
+}
+.staff_question_exit tr td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-size: 14px;
+    height: 30px;
+    text-align: center;
+}
+.survey_signature{
+    width: 100%;
+    border: none;
+    margin-top: 20px;
+}
+.survey_signature tr td{
+    height: 25px; 
+    border: none;
+}
+
+/* training_need_analysis */
+.training_analysis_staff_info{
+    width: 100%;
+}
+.training_analysis_staff_info tr td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-size: 14px;
+    height: 30px;
+    text-align: left;
+    padding-left: 10px;
+}
+
 
 

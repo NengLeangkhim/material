@@ -34,12 +34,12 @@ class training_checking_list extends Controller
                     <table class="staff_training_info" style="margin-left: 40px; margin-right: 20px;">
                         <tbody>
                             <tr>
-                                <td><p>ឈ្មោះ៖..................................................................................</p></td>
-                                <td><p>កន្លែងបម្រើការងារ៖................................................................</p></td>
+                                <td>ឈ្មោះ៖........................................................................</td>
+                                <td>កន្លែងបម្រើការងារ៖.....................................................</td>
                             </tr>
                             <tr>
-                                <td><p>តួនាទី៖...................................................................................</p></td>
-                                <td><p>កាលបរិច្ឆេទបម្រើការងារ៖.....................................................</p></td>
+                                <td>តួនាទី៖.........................................................................</p></td>
+                                <td>កាលបរិច្ឆេទបម្រើការងារ៖.........................................</td>
                             </tr>
                         </tbody>
                     </table>
@@ -52,10 +52,10 @@ class training_checking_list extends Controller
                     <table class="training_info" style="margin-left: 40px; margin-right: 20px;">
                         <tbody>
                             <tr>
-                                <td><p>ប្រធានបទ</p></td>
-                                <td><p>បរិយាយ</p></td>
-                                <td><p>ពេលវេលាអនុវត្តន៍</p></td>
-                                <td><p>គូស ( )</p></td>
+                                <td>ប្រធានបទ</td>
+                                <td>បរិយាយ</td>
+                                <td>ពេលវេលាអនុវត្តន៍</td>
+                                <td>គូស ( )</td>
                             </tr>
                             <tr>
                                 <td><p></p></td>
@@ -117,9 +117,10 @@ class training_checking_list extends Controller
                         <p>រាជធានីភ្នំពេញ,ថ្ងៃទី.........ខែ.........ឆ្នាំ...........</p>
                         <h3 class="heading" style="margin-right: 20px;">ហត្ថលេខាគ្រូសម្របសម្រួល&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;ហត្ថលេខាអ្នកទទួលយល់ព្រម</h3>
                     </div>
-                    <div class="footer_training">
-                        <p​>&nbsp;&nbsp;បញ្ចីត្រួតពិនិត្យការបណ្ដុះបណ្ដាល(Training Checking List) &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;TT-HRAD-STDP-FM-005-00</p>
+                    <div class="footer" style="margin-top: 130px;">
+                        <p​>&nbsp;&nbsp;បញ្ចីត្រួតពិនិត្យការបណ្ដុះបណ្ដាល(Training Checking List) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;TT-HRAD-RTP-FM-003-00</p>
                     </div>
+                    
                 </body>
             </html>';
 
