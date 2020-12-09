@@ -52,12 +52,16 @@ class training_need_analysis extends Controller
                     <h3 style="font-size: 16px;">២.ការជ្រើសរើស</h3>
                     <p​>សូមជ្រើសរើសប្រធានបទ ឫ ជំនាញណាមួយដែលអ្នកគិតថាសក្តិសមបំផុតសម្រាប់អ្នក ជាពិសេសលើការងារប្រចាំថ្ងៃរបស់អ្នក។ សូមជ្រើសរើសដោយការគូស TICK ពីលេច១ដល់លេខ៥ ដែលលេខ១មានន័យថាមិនសូវចាំបាច់ និងលេខ៥ ចាំបាច់បំផុត។</p>
                 </div>
-                <table class="staff_note">
+                <table class="staff_subject_survey">
                     <tbody>
                         <tr>
-                            <td rowspan="2" style="width: 30%;">ចំណុចតាមដាន</td>
-                            <td rowspan="2" style="width: 40%;">បរិយាយ</td>
-                            <td rowspan="1" colspan="2" style="width:30%;">លទ្ធផលសម្រេចបាន</td>
+                            <td style="width: 10%;">1.</td>
+                            <td style="width: 40%;">Negotiation Skill/strategy(យុទ្ធសាស្រ្តក្នុងការចរចារ)</td>
+                            <td style="width:10%;">លទ្ធផលសម្រេចបាន</td>
+                            <td style="width: 10%;">ចំណុចតាមដាន</td>
+                            <td style="width: 10%;">បរិយាយ</td>
+                            <td style="width:10%;">លទ្ធផលសម្រេចបាន</td>
+                            <td style="width:10%;">លទ្ធផលសម្រេចបាន</td>
                         </tr>
                     </tbody>
                 </table>
