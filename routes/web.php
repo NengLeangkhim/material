@@ -91,7 +91,7 @@ Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
 
 
 
-// start contact 
+// start contact
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table
 Route::get('/contact/datatable','crm\ContactController@getcontactDatatable');
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination
@@ -176,6 +176,7 @@ Route::get('/crmreport/listAssignTo','crm\QuoteController@getStaffAssignForRepor
 
 // Dashboard CRM
 Route::get('/crm/dashboard','crm\DashboardController@Index'); // show index report
+Route::get('/crm/dashboard/survey/chart','crm\DashboardController@GetSurveyChart');
 // END Dashboard CRM
 
 // Setting CRM
