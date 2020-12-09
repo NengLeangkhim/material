@@ -63,7 +63,7 @@ class QuoteController extends Controller
             // api get quote branch detail by branch id
             $getQuoteBranch = [];
 
-            foreach($quoteBranch->data as $k=>$val){
+            foreach($quoteBranch->data??[] as $k=>$val){
 
                 $data['branch_id'] = $val->id;
                 $data['branch_info'] = $val->crm_lead_branch;

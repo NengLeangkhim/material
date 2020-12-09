@@ -41,6 +41,7 @@
                                                         <th style="color: #FFFFFF">Assigned To </th>
                                                         <th style="color: #FFFFFF">Has Invoice</th>
                                                         <th style="color: #FFFFFF">Due Date</th>
+                                                        <th style="color: #FFFFFF">Create Date</th>
                                                         <th style="color: #FFFFFF;">Action</th>
                                                     </tr>
                                                 </thead>
@@ -68,7 +69,7 @@
                                         // this case `data: 0`.
                                         "searchable": false,
                                         "render": function ( data, type, row ) {
-                                            return '<div class="container-fluid"><div class="row form-inline">'+
+                                            return '<div class="container-fluid datatable-action-col"><div class="row form-inline">'+
                                                     '<div class="col-md-4">'+
                                                         '<a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action(\'/quote/detail\', \''+data+'\')"  >'+
                                                             '<i class="far fa-eye"></i>'+
@@ -85,11 +86,11 @@
                                                 '</div></div>';
                                         },
                                         "width": "100px",
-                                        "targets": 8,
+                                        "targets": 9,
                                     },
                                     {
                                         "searchable": false,
-                                        "targets": 7,
+                                        "targets": [7,8],
                                     }
                              ]
                         });
