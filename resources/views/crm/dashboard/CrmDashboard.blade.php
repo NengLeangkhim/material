@@ -27,20 +27,15 @@
             width: 100%;
             min-height: 450px;
         }
-        /* .row .g-chart {
-            margin:0 !important;
-        } */
         .boxs {
             width: 20% !important;
             padding: 0 8.5px !important;
         }
-
         @media only screen and (max-width:1199px){
             .boxs {
                 width: 100% !important;
             }
         }
-
     </style>
     {{-- /Style --}}
     <div class="container-fluid">
@@ -157,12 +152,6 @@
                     <div class="card card-info">
                         <div class="card-header" style="background-color: #ffffff !important; border: none;">
                             <h3 class="card-title text-dark text-bold">Quote Status Chart</h3>
-                            <?php
-                                if (session_status() == PHP_SESSION_NONE) {
-                                    session_start();
-                                }
-                            ?>
-                            <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead">
                         </div>
                         <div class="card-body">
                             <div class="chart">
@@ -350,58 +339,56 @@
                         role: 'style'
                     }]
                 ]
-                var colors = [{
-                        id: 0,
-                        name_en: 'none',
-                        code: ''
-                    },
-                    {
-                        id: 1,
-                        name_en: 'Pending',
-                        code: 'color:#EA2027'
-                    },
-                    {
-                        id: 2,
-                        name_en: 'Approved',
-                        code: 'color:#009432'
-                    },
-                    {
-                        id: 3,
-                        name_en: 'Negogiate',
-                        code: 'color:#FFC312'
-                    },
-                    {
-                        id: 4,
-                        name_en: 'Open',
-                        code: 'color:#EE5A24'
-                    },
-                    {
-                        id: 5,
-                        name_en: 'Installed',
-                        code: 'color:#12CBC4'
-                    },
-                    {
-                        id: 6,
-                        name_en: 'Installing',
-                        code: 'color:#006266'
-                    },
-                    {
-                        id: 9,
-                        name_en: 'Accepted',
-                        code: 'color:#fff200'
-                    },
-                    {
-                        id: 12,
-                        name_en: 'Disapproved',
-                        code: 'color:#ff5252'
-                    },
-                ]
+                // var colors = [{
+                //         id: 0,
+                //         name_en: 'none',
+                //         code: ''
+                //     },
+                //     {
+                //         id: 1,
+                //         name_en: 'Pending',
+                //         code: 'color:#EA2027'
+                //     },
+                //     {
+                //         id: 2,
+                //         name_en: 'Approved',
+                //         code: 'color:#009432'
+                //     },
+                //     {
+                //         id: 3,
+                //         name_en: 'Negogiate',
+                //         code: 'color:#FFC312'
+                //     },
+                //     {
+                //         id: 4,
+                //         name_en: 'Open',
+                //         code: 'color:#EE5A24'
+                //     },
+                //     {
+                //         id: 5,
+                //         name_en: 'Installed',
+                //         code: 'color:#12CBC4'
+                //     },
+                //     {
+                //         id: 6,
+                //         name_en: 'Installing',
+                //         code: 'color:#006266'
+                //     },
+                //     {
+                //         id: 9,
+                //         name_en: 'Accepted',
+                //         code: 'color:#fff200'
+                //     },
+                //     {
+                //         id: 12,
+                //         name_en: 'Disapproved',
+                //         code: 'color:#ff5252'
+                //     },
+                // ]
                 $.each(data, function (index, value) {
-                    // console.log(colors[index].code);
-                    // var color = (colors.find(e => (e.id == value.crm_quote_status_type_id))).code
                     if(value.crm_quote_status_type_id != null) {
-                        var color = colors[index + 1].code;
-                        result.push([UpperCaseFirstLetter(value.quote_status_name_en), value.total_quotes, color])
+                        // var color = colors[index + 1].code;
+                        result.push([UpperCaseFirstLetter(value.quote_status_name_en), value.total_quotes, value.crm_quote_status_type_color])
                     }
                 })
                 var data = google.visualization.arrayToDataTable(result)
@@ -440,18 +427,15 @@
                 },
                 //data: $('#FrmChartQuoteReport').serialize(),
                 success: function (response) {
-                    // console.log('Data: ' + data);
                     if (response.success == true) {
                         var data = response.data
-                        // console.log(response.data);
+                        console.log(data);
                         if(data.length < 1) {
                             // $('#QuoteChart').empty()
                             // $('#QuoteChart').append(`<h1 style="text-align:center">No Data</h1>`)
                             // return
                             CrmQuoteDrawChart(data);
-                            // console.log('Data: 0');
                         }
-                        // console.log('Data: 1');
                         CrmQuoteDrawChart(data);
                     }
                 }
@@ -460,21 +444,6 @@
         // Contact Chart
         var Contact_Chart = () =>{
             function CrmContactDrawChart(get_date,get_total) {
-                // var result = [
-                //     ["Contact", "", {
-                //         role: 'style'
-                //     }]
-                // ]
-                // var colors = [{
-                //         id: 0,
-                //         name_en: 'none',
-                //         code: '#1fa8e0'
-                //     }
-                // ]
-                // $.each(data, function (index, value) {
-                //     result.push([value.create_date, value.total, colors[0].code])
-                // })
-                // var data = google.visualization.arrayToDataTable(result);
                 var data = google.visualization.arrayToDataTable([
                     ['', '', { role: 'style' }],
                     [get_date, get_total, 'color:#25CCF7']
@@ -529,7 +498,6 @@
                 success: function (response) {
                     var data = response.data;
                     var create_date, total;
-                    // console.log(data.length);
                     if(data.length < 1) {
                         // $('#ContactChart').empty()
                         //     $('#ContactChart').append(`<h1 style="text-align:center">No Data</h1>`)
@@ -538,27 +506,23 @@
                         // show chart when data
                         create_date = currentDateString;
                         total = 0;
-                        // console.log('Date:' + create_date + '/' + 'Total: ' + total);
                         CrmContactDrawChart(create_date,total);
                     }
                     create_date = data[0].create_date;
                     total = data[0].total;
-                    // console.log('Date:' + create_date + '/' + 'Total: ' + total);
                     CrmContactDrawChart(create_date,total);
                 }
             });
         }
         // Survey Chart
         var Survey_Chart = () => {
-            function CrmSurveyChart(suc,unsuc) {
+            function CrmSurveyChart(success,failure) {
                 var data = google.visualization.arrayToDataTable([
                     ['','',{role: 'style'}],
-                    ['Success',suc,'color:#25CCF7'],
-                    ['Failure',unsuc,'color:#ff3d67']
+                    ['Success',success,'color:#25CCF7'],
+                    ['Failure',failure,'color:#ff3d67']
                 ]);
-
                 var view = new google.visualization.DataView(data);
-
                 view.setColumns([0, 1,
                     {
                         calc: "stringify",
@@ -591,29 +555,20 @@
                 var chart = new google.visualization.BarChart(document.getElementById('survey_chart'));
                     chart.draw(view, options);
             }
-            var myvar= $("#getlead").val();
             $.ajax({
-                url: '/api/countsurvey', //get link route
-                // url: '/crmreport/survey/chart', //get link route
+                url: '/crm/dashboard/survey/chart', //get link route
                 type: 'GET',
                 dataType:'json',
                 headers: {
-                    'Authorization': `Bearer ${myvar}`,
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                // headers: {
-                //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                // },
-
-                //data: $('#FrmChartContactReport').serialize(),
                 success: function (response) {
-                    console.log(response.data);
-                    var success = response.true,
-                        unsuccess = response.false;
-                    CrmSurveyChart(success,unsuccess);
+                    var success = response.true;
+                    var failure = response.false;
+                    CrmSurveyChart(success,failure);
                 }
             })
         }
-
         // Organization Chart
         var Organization_Chart = () => {
             $.ajax({
@@ -684,7 +639,7 @@
         Quote_Chart();
         Contact_Chart();
         Survey_Chart();
-        // responsive chart
+        // Responsive chart
         window.onresize = () => {
             Branch_Chart();
             Quote_Chart();

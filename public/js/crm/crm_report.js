@@ -26,12 +26,10 @@ var reportLeadByStatus = () => {
         data: $('#FrmChartReport').serialize(),
         success: function(response) {
             if (response.success == true){
-
                 var data = response.data;
                 if(data.length < 1){
                     returnNoData('Branchchart');
                 }
-
                 google.charts.load("current", {packages:["corechart"]});
                 google.charts.setOnLoadCallback(drawChart);
                 // var chartColor = ['color: #EE5A24','color: #C4E538','color: #fff200','color: #18dcff','color: #7d5fff','color: #00cec9','color: #ff3838'];
@@ -58,7 +56,7 @@ var reportLeadByStatus = () => {
                         title: 'Branch Lead Progress',
                         pieHole: 0.4,
                         // colors: [''],
-                        legend: 'none',
+                        // legend: 'none',
                         slices: colors,
                     };
                     var chart = new google.visualization.PieChart(document.getElementById('Branchchart'));
@@ -370,11 +368,11 @@ var reportQuoteByStatus = () => {
                     google.charts.load("current", {packages:["corechart"]});
                     google.charts.setOnLoadCallback(drawChart);
                     var mydata = [['Year', ' ', { role: 'style' }]];
-                    var colorChart = ['rgb(54, 162, 235)','rgb(75, 192, 192)','rgb(255, 205, 86)','rgb(255, 99, 132)','rgb(125, 155, 16)','#12CBC4','#006266','rgb(105, 55, 216)','#ff5252'];
-                    $.each(data, function(k, val){
-                        mydata.push([UpperCaseFirstLetter(data[k]['quote_status_name_en']), data[k]['total_quotes'], 'stroke-color:#e6e6e6; stroke-width: 2;fill-color: '+colorChart[k]+';']);
+                    // var colorChart = ['rgb(54, 162, 235)','rgb(75, 192, 192)','rgb(255, 205, 86)','rgb(255, 99, 132)','rgb(125, 155, 16)','#12CBC4','#006266','rgb(105, 55, 216)','#ff5252'];
+                    $.each(data, function(index,val){
+                        mydata.push([UpperCaseFirstLetter(val.quote_status_name_en), val.total_quotes, val.crm_quote_status_type_color]);
                     });
-                    console.log(mydata);
+                    // console.log(mydata);
                     function drawChart(){
                         var data = google.visualization.arrayToDataTable(mydata);
                         // var data = google.visualization.arrayToDataTable([

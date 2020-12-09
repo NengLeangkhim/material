@@ -208,7 +208,7 @@ class CrmReport extends Model
                with quote_status as ( SELECT DISTINCT ON (crm_quote_status_type_id) crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh, COUNT(*) AS total_quotes
                 FROM view_crm_quote_report
                 '.(($fromDate==null || $toDate == null) ? '' : 'WHERE crm_quote_status_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
-                GROUP BY crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh) select cqst.id as crm_quote_status_type_id, cqst.name_en as quote_status_name_en,cqst.name_kh as quote_status_name_kh ,COALESCE(total_quotes, null, 0, total_quotes) total_quotes  from crm_quote_status_type cqst left join  quote_status on  quote_status.crm_quote_status_type_id= cqst.id WHERE cqst.status = TRUE AND cqst.is_deleted = FALSE ORDER BY sequence
+                GROUP BY crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh) select cqst.id as crm_quote_status_type_id, cqst.color as crm_quote_status_type_color, cqst.name_en as quote_status_name_en,cqst.name_kh as quote_status_name_kh ,COALESCE(total_quotes, null, 0, total_quotes) total_quotes  from crm_quote_status_type cqst left join  quote_status on  quote_status.crm_quote_status_type_id= cqst.id WHERE cqst.status = TRUE AND cqst.is_deleted = FALSE ORDER BY sequence
                 ;
             ');
         } catch(QueryException $e){
