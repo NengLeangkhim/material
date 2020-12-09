@@ -651,7 +651,8 @@ class Crmlead extends Model
             array( 'db' => 'customer_name_en', 'dt' => 1 ),
             array( 'db' => 'email',  'dt' => 2 ),
             array( 'db' => 'phone',   'dt' => 3 ),
-            array( 'db' => 'lead_id',     'dt' => 4 ),
+            array( 'db' => 'create_date',   'dt' => 4 ),
+            array( 'db' => 'lead_id',     'dt' => 5 ),
         );
 
         return json_encode(SSP::simple( $request, $table, $primaryKey, $columns ));
@@ -660,7 +661,7 @@ class Crmlead extends Model
      public static function getAddLead(){
         $lead= DB::select('SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
         cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
-        cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status
+        cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status,cl.create_date
         from crm_lead cl
         LEFT JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
         LEFT JOIN crm_lead_source cls on cls.id = cl.crm_lead_source_id
@@ -671,16 +672,16 @@ class Crmlead extends Model
     }
      //get lead by assisgto
      private static function getLeadbyassgintoSql($userid){
-         return "SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
-         cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,cl.crm_lead_source_id,
-         cl.crm_lead_industry_id,cl.crm_lead_current_isp_id
-         from crm_lead cl
-         LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
-         LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
-                 JOIN crm_lead_branch clb on clb.crm_lead_id = cl.id
-                 JOIN crm_lead_detail cld on cld.crm_lead_branch_id = clb.id
-                 JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
-         WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE  and cla.ma_user_id=$userid GROUP BY cl.id ORDER BY cl.lead_number DESC ";
+        return "SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
+            cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,cl.crm_lead_source_id,
+            cl.crm_lead_industry_id,cl.crm_lead_current_isp_id,cl.create_date
+            from crm_lead cl
+            LEFT JOIN crm_lead_industry  cli on  cli.id = cl.crm_lead_industry_id
+            LEFT JOIN crm_lead_current_isp clci on clci.id = cl.crm_lead_current_isp_id
+            JOIN crm_lead_branch clb on clb.crm_lead_id = cl.id
+            JOIN crm_lead_detail cld on cld.crm_lead_branch_id = clb.id
+            JOIN crm_lead_assign cla  on  cla.crm_lead_branch_id= clb.id
+            WHERE  cl.is_deleted=FALSE and cl.status=TRUE and cld.status=TRUE  and cla.ma_user_id=$userid GROUP BY cl.id ORDER BY cl.lead_number DESC ";
      }
     public static function getLeadbyassginto($userid){
         $lead= DB::select(self::getLeadbyassgintoSql($userid));
@@ -702,7 +703,8 @@ class Crmlead extends Model
             array( 'db' => 'customer_name_en', 'dt' => 1 ),
             array( 'db' => 'email',  'dt' => 2 ),
             array( 'db' => 'phone',   'dt' => 3 ),
-            array( 'db' => 'lead_id',     'dt' => 4 ),
+            array( 'db' => 'create_date',   'dt' => 4 ),
+            array( 'db' => 'lead_id',     'dt' => 5 ),
         );
 
         return json_encode(SSP::simple( $request, $table, $primaryKey, $columns ));
@@ -711,7 +713,7 @@ class Crmlead extends Model
     public static function getleadbyid($id){
         $lead= DB::select("SELECT  cl.id as lead_id,cl.lead_number,cl.customer_name_en,cl.customer_name_kh,cl.email,cl.phone,cl.website,cl.facebook,cl.create_date,
         cl.employee_count,cl.current_isp_speed,cl.current_isp_price,cl.vat_number,cl.create_by,cl.ma_company_detail_id,mcd.company,cl.crm_lead_source_id,cls.name_en as lead_source,
-        cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status
+        cl.crm_lead_industry_id,cli.name_en as lead_industry,cl.crm_lead_current_isp_id,clci.name_en as current_isp_name,cl.status,cl.create_date
         from crm_lead cl
         LEFT JOIN ma_company_detail mcd on mcd.id = cl.ma_company_detail_id
         LEFT JOIN crm_lead_source cls on cls.id = cl.crm_lead_source_id
@@ -742,7 +744,8 @@ class Crmlead extends Model
 		(SELECT comment as survey_comment from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
 		(SELECT possible  from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date  DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
         (SELECT id from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_id,
-		(SELECT status from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_status
+		(SELECT status from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_status,
+        lb.create_date
         from  crm_lead_branch_crm_lead_contact_rel lbc
         right JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
         left JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id
@@ -787,7 +790,8 @@ class Crmlead extends Model
 		(SELECT comment as survey_comment from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
 		(SELECT possible  from crm_survey_result WHERE  crm_survey_id=(SELEct id from  crm_survey where  crm_lead_branch_id=lb.id ORDER BY create_date  DESC LIMIT 1) ORDER BY crm_survey_result.create_date DESC LIMIT 1),
         (SELECT id from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_id,
-		(SELECT status from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_status
+		(SELECT status from crm_lead_schedule WHERE crm_lead_branch_id=lb.id and crm_lead_schedule.status=TRUE and  is_deleted=FALSE LIMIT 1) as  schedule_status,
+        lb.create_date
         from  crm_lead_branch_crm_lead_contact_rel lbc
         left JOIN crm_lead_branch  lb on lb.id= lbc.crm_lead_branch_id
         JOIN crm_lead_contact lc on lc. id= lbc.crm_lead_contact_id

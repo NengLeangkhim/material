@@ -41,6 +41,7 @@
                                                         <th style="color: #FFFFFF">Assigned To </th>
                                                         <th style="color: #FFFFFF">Has Invoice</th>
                                                         <th style="color: #FFFFFF">Due Date</th>
+                                                        <th style="color: #FFFFFF">Create Date</th>
                                                         <th style="color: #FFFFFF;">Action</th>
                                                     </tr>
                                                 </thead>
@@ -85,11 +86,11 @@
                                                 '</div></div>';
                                         },
                                         "width": "100px",
-                                        "targets": 8,
+                                        "targets": 9,
                                     },
                                     {
                                         "searchable": false,
-                                        "targets": 7,
+                                        "targets": [7,8],
                                     }
                              ]
                         });

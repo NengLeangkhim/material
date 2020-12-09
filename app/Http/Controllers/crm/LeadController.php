@@ -47,14 +47,14 @@ class LeadController extends Controller
     public function  getbranch($id){
         if(perms::check_perm_module('CRM_0210')){//module codes
             $branch=ModelCrmLead::CrmGetBranch($id);
+            // dd($branch);
             $result =json_decode($branch,true);
             $schedule_type=ModelCrmLead::CrmGetSchdeuleType('FALSE');
             $schedule_type =json_decode($schedule_type,true);
-
             if($result!=null){
                 //get shecdule status type
                 $scheduleStatus = [];
-                foreach($result["data"] as $k=>$val){
+                foreach($result["data"]??[] as $k=>$val){
                     if($val['schedule_id'] != ''){
                         $id = $val['schedule_id'];
                         $scheduleStatus[$id] = ModelCrmLead::getScheduleType($val['schedule_id']);
