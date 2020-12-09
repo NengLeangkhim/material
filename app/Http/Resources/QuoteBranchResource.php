@@ -27,8 +27,10 @@ class QuoteBranchResource extends JsonResource
         ]);
 
         //lead branch
-        $branch = Lead::getbranchByIdConverted($this->crm_lead_branch_id);
-        //  $this->crm_lead_branch_id;
+        $branch = Lead::getbranchById($this->crm_lead_branch_id);
+
+        // dd( $this->crm_lead_branch_id);
+
         // return parent::toArray($request);
         return [
             "id"=>$this->id,
