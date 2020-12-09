@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class StopWorkEmployee extends Controller
+class StopWorkStaff extends Controller
 {
-    public function StopWorkEmployee()
+    public function StopWorkStaff()
     {
     	$html='<html>
         <head>
@@ -43,38 +43,31 @@ class StopWorkEmployee extends Controller
             </div>
             <div class="row2_13">
                 <ul>
-                    <li>1. ................................................................................................</li>
-                    <li>2. ................................................................................................</li>
-                    <li>3. ................................................................................................</li>
+                    <li>1. ......................................................................................................................................</li><br>
+                    <li>2. ......................................................................................................................................</li><br>
+                    <li>3. ......................................................................................................................................</li>
                 </ul>
             </div>
             <div class="row4_13">
-                <p style="text-align:center;margin-top:-5px;">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                រាល់សកម្មភាពទាំងឡាយ ដែលកម្មករ-និយោជិកមានឈ្មោះខាងលើប្រព្រឹត្ត ចាប់ពីថ្ងៃជូនដំណឹងនេះ</p><br>
-                <p style="margin-top:-35px;"> តទៅ មិនមែនក្នុងនាមជាកម្មករ-និយោជិករបស់​ <b>ក្រុមហ៊ុន ធើបូថេក ឯ.ក</b> ទៀតឡើយ។<br></p>
+                <p style="text-align:center;">
+                &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                រាល់សកម្មភាពទាំងឡាយ ដែលកម្មករ-និយោជិកមានឈ្មោះខាងលើប្រព្រឹត្ត ចាប់ពីថ្ងៃជូនដំណឹង</p><br>
+                <p style="margin-top:-35px;"> នេះតទៅ មិនមែនក្នុងនាមជាកម្មករ-និយោជិករបស់​ <b>ក្រុមហ៊ុន ធើបូថេក ឯ.ក</b> ទៀតឡើយ។<br></p>
             </div>
             <div class="row6_13">
-                <p>អាស្រ័យហេតុនេះ សូមសាធារណជន និង កម្មករ-និយោជិកទាំងអស់ជ្រាបជាព័ត៌មាន។</p><br>
-                <p style="margin-top:-35px;">ធើបូថេកសូមថ្លែងអំណគុណយ៉ាងជ្រាលជ្រៅបំផុត  ចំពោះលោកដែលបានចូលរួម</p><br>
-                <p style="margin-left:-60px;margin-top:-35px;">បម្រើការងារជូន ធើបូថេក ក្នុងពេលកន្លងមក។</p>
+                <p>អាស្រ័យហេតុនេះ សូមសាធារណជន និង កម្មករ-និយោជិកទាំងអស់ជ្រាបជាព័ត៌មាន។</p>
             </div>
             <div class="lastrow13">
                 <p>រាជធានីភ្នំពេញ ថ្ងៃទី.........ខែ.........ឆ្នាំ ២០២០<br>
-                <b>ប្រធានគណៈកម្មាធិការធនធានមនុស្ស</b>
-                &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;  &nbsp; &nbsp;</p>
+                <b>ប្រធានគណៈកម្មាធិការធនធានមនុស្ស</b>&nbsp; &nbsp;</p>
             </div>           
             <div class="footer13">
                 <h4>ចម្លងជូន :</h4><br>
-                <p  style="margin-top:-30px;">-សមាជិកគណៈកម្មាធិការនាយក</p><br>
-                <p  style="margin-top:-30px;">-នាយកដ្ឋានសវនកម្មផ្ទៃក្នុង</p><br>
-                <p  style="margin-top:-30px;">-នាយកដ្ឋានសាមី</p><br>
-                <h4 style="margin-top:-30px;">ដើម្បីជូនជ្រាបជាព័ត៌មាន</h4><br>
-                <p style="margin-top:-30px;">ឯកសារ-</p>
+                <p style="margin-top:-30px;">-ឯកសារ-</p>
             </div>
              <div class="footer2_13">
-                <p>&nbsp;ទម្រង់លិខិតអនុញ្ញាតឲ្យលាឈប់ &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                TT-HRAD-RTP-FM-005-00</p>
+                <p>&nbsp;ទម្រង់លិខិតបញ្ឈប់ការងារនិយោជិក &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                TT-HRAD-RTP-FM-011-00</p>
             </div>
         </body>
         </html>';
@@ -87,7 +80,7 @@ class StopWorkEmployee extends Controller
 
         $mpdf = new \Mpdf\Mpdf($config);
         $mpdf->WriteHTML($html);
-        $filename = 'StopWorkEmployee.pdf';
+        $filename = 'StopWorkStaff.pdf';
 
         // // $mpdf->Output($filename, 'D');//download
         return $mpdf->Output($filename,'I');

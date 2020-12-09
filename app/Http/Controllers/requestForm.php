@@ -51,16 +51,32 @@ class requestForm extends Controller
             <div class="row9_7">
                 <p>សូម <b>លោកអគ្គនាយក</b> មេត្តាទទួលនូវសេចក្តីគោរពដ៏ខ្ពង់ខ្ពស់អំពីខ្ញុំ។</p>
             </div>
-            <div class="lastrow_7">
-                <p>ថ្ងៃ.................កើត/រោច ខែ............ឆ្នាំ...........ព.ស ២៥៦....</p><br>
-                <p style="margin-right:25px;margin-top:-35px;">......................ថ្ងៃទី..............ខែ...............ឆ្នាំ..........</p> <br>
-                <p style="margin-right:60px;margin-top:-35px;"><b>អ្នកត្រួតពិនិត្យ​</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;​ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                ..........<b>(តួនាទីអ្នកស្នើសុំ)</b>..........</p>
+            <div class="lastrow15" style="font-size:15px;margin-right:20px;margin-top:-10px;">
+                <p>ថ្ងៃ..........កើត/រោចខែ.............ឆ្នាំ................ព.ស ២៥៦....</p><br>
+                <p style="margin-top:-38px;margin-right:20px;">..................ថ្ងៃទី..........ខែ...............ឆ្នាំ............</p>
             </div>
-            <div class="lastrow2_7">
-                <p style="margin-left:100px;margin-top:100px;">............................................................... &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;              
-                ..........(ឈ្មោះអ្នកស្នើសុំ)..........</p>
-            </div>
+            <table class="table" style="border:none;margin-top:-15px;margin-left: 100px; margin-right: 20px;">
+                <tbody style="border:none;">
+                    <tr style="border:none;">
+                        <td style="font-size:15px;border:none;padding:6px 40px;"><p><b>អ្នកត្រួពិនិត្យ</p></td>
+                        <td style="font-size:15px;border:none;padding:6px 30px;"><p> &nbsp; </p></td>
+                        <td style="font-size:15px;border:none;padding:6px 40px;"><p>........(<b>តួនាទីអ្នកស្នើសុំ</b>)........</p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" style="font-size:15px;border:none;padding:5px 0px;"><p>&nbsp;</p></td>
+                        <td colspan="1" style="font-size:15px;border:none;"><p>&nbsp; </p></td>
+                        <td colspan="1" style="border:none;"><p>&nbsp;</p></td>
+                    </tr>
+                    <br>
+                    <br>
+                    <tr>
+                        <td colspan="1" style="font-size:15px;border:none;padding:5px 0px;"><p>...................................................</p></td>
+                        <td colspan="1" style="font-size:15px;border:none;"><p>&nbsp;</p></td>
+                        <td colspan="1" style="font-size:15px;border:none;"><p>........(ឈ្មោះអ្នកស្នើសុំ)........</p></td>
+
+                    </tr>
+                </tbody>
+            </table>
             <div class="footer7">
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<u><b>ជូនភ្ជាប់មកជាមួយ </b></u><br>
                 <p  style="margin-left:20px;margin-top:-5px;">១-..................ចំនួន០១ ច្បាប់</p><br>

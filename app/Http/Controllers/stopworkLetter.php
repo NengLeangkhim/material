@@ -59,19 +59,39 @@ class stopworkLetter extends Controller
                 <p style="margin-right:20px;margin-top:-40px;">ហត្ថលេខាសាមីខ្លួន</p>
             </div>
   
-            <div class="col7">
-                <p><b>នាយក នាយកដ្ឋានធនធាន  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                នាយក នាយកដ្ឋានសាមី<br>
-                &nbsp; &nbsp; &nbsp; មនុស្ស និង រដ្ឋបាល</b> &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
-                .....................................<br>
-                .....................................&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
-                .....................................<br>
-                ................................................&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-                ...............................................&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                ឈ្មោះ.........................................<br>
-                .....................................&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
-                .....................................<br></p>                
-            </div>
+            <table class="table" style="border:none;margin-left: 20px; margin-right: 20px;">
+                <tbody style="border:none;">
+                    <tr style="border:none;">
+                        <td style="font-size:15px;border:none;padding:6px 30px;text-align:center;"><p><b>នាយក ​នាយកដ្ឋានធនធាន</p></td>
+                        <td style="font-size:15px;border:none;padding:6px 30px;text-align:center;"><p> <b>នាយក នាយកដ្ឋានសាមី</p></td>
+                        <td style="font-size:15px;border:none;padding:6px 40px;"><p></p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" style="font-size:15px;border:none;padding:5px 0px;text-align:center;"><p><b>មនុស្ស និង​ រដ្ឋបាល</p></td>
+                        <td colspan="1" style="font-size:15px;border:none;"><p>..........................................</p></td>
+                        <td colspan="1" style="border:none;"><p></p></td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="1" style="font-size:15px;border:none;padding:5px 0px;"><p>..........................................</p></td>
+                        <td colspan="1" style="font-size:15px;border:none;"><p>..........................................</p></td>
+                        <td colspan="1" style="font-size:15px;border:none;"><p></p></td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="1" style="font-size:15px;border:none;padding:5px 0px;"><p>..........................................</p></td>
+                        <td colspan="1" style="font-size:15px;border:none;"><p></p>..........................................</td>
+                        <td colspan="1" style="font-size:15px;border:none;">&nbsp; &nbsp; &nbsp;<p>ឈ្មោះ........................................</p></td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="1" style="font-size:15px;border:none;padding:5px 0px;"><p>..........................................</p></td>
+                        <td colspan="1" style="font-size:15px;border:none;"><p>..........................................</p></td>
+                        <td colspan="1" style="font-size:15px;border:none;"><p></p>&nbsp;</td>
+
+                    </tr>
+                </tbody>
+            </table>
                 
             <div class="footer_2">
                 <p>ទម្រង់លិខិតសុំលាឈប់ពីការងារ &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;

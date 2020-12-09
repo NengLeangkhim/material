@@ -270,15 +270,25 @@ Route::get('request','PdfController@request');
 Route::get('warrantyLetter','warrantyLetter@warrantyletter');
 Route::get('stopworkLetter','stopworkLetter@stopworkLetter');
 Route::get('inviteLetter','inviteLetter@inviteLetter');
-Route::get('inviteeetingLetter','inviteMeetingLetter@inviteMeetingLetter');
-Route::get('notice','notice@notice');
+Route::get('inviteMeetingLetter','inviteMeetingLetter@inviteMeetingLetter');
+Route::get('news','news@news');
 Route::get('requestForm','requestForm@requestForm');
 Route::get('Introduction','Introduction@Introduction');
 Route::get('Decision','Decision@Decision');
 Route::get('requestPaymentForm','requestPaymentForm@requestPaymentForm');
 Route::get('FinishContractWorkLetter','FinishContractWorkLetter@FinishContractWorkLetter');
 Route::get('IntroductionCEO','IntroductionCEO@IntroductionCEO');
-Route::get('StopWorkEmployee','StopWorkEmployee@StopWorkEmployee');
+Route::get('StopWorkStaff','StopWorkStaff@StopWorkStaff');
+Route::get('ProtestLetter','ProtestLetter@ProtestLetter');
+Route::get('Training','Training@Training');
+Route::get('TrainingPreAndPostTest','TrainingPreAndPostTest@TrainingPreAndPostTest');
+Route::get('TrainingEvaluationForm','TrainingEvaluationForm@TrainingEvaluationForm');
+Route::get('TrainingInvitationLetter','TrainingInvitationLetter@TrainingInvitationLetter');
+Route::get('ReceiveWorkLetter','ReceiveWorkLetter@ReceiveWorkLetter');
+Route::get('RequestLetter','RequestLetter@RequestLetter');
+Route::get('requestBuy','requestBuy@requestBuy');
+Route::get('ExternalTrainingReportForm','ExternalTrainingReportForm@ExternalTrainingReportForm');
+Route::get('WorkingPerformanceAppraisalForm','WorkingPerformanceAppraisalForm@WorkingPerformanceAppraisalForm');
 //=======================E-request==========================
 
 //==================STOCK SYSTEM===================================================
