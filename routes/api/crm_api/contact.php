@@ -16,9 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['jwt.verify']], function() {
     // get all contacts
     Route::get('/contacts','api\crm\ContactController@index');
-
+    //Get contact for datatable
+    Route::get('/contacts-datatable','api\crm\ContactController@getContactDataTable');
     // get contact by id
     Route::get('/contact/{id}','api\crm\ContactController@show');
+     // search contact
+     Route::get('/contactsearch','api\crm\ContactController@SearchContact');
 
     // add contact
     Route::post('/contact','api\crm\ContactController@store');

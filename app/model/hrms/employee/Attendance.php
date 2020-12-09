@@ -12,6 +12,7 @@ class Attendance extends Model
     // Check Staff who come to work late, absent, Present, Permission
     public static function CheckInfoStaff($s){
         try {
+            
             $staffdetail=array();
             // veriable for morning
             $staffdetail[0]=0; // late
@@ -26,6 +27,7 @@ class Attendance extends Model
 
             $staffdetail[8]=array();
             $staffdetail[9]= array();
+            $i=0;
             foreach($s as $e){
                 if($e[3]== 'Absent'){
                     $staffdetail[1] += 1;
@@ -48,7 +50,9 @@ class Attendance extends Model
                 } elseif (strtotime($e[5]) > strtotime('12:00:00') && strtotime($e[5]) < strtotime('13:31:00')) {
                     $staffdetail[6] += 1;
                 }
+                $i++;
             }
+            // dd($i);
             return $staffdetail;
         } catch (\Throwable $th) {
             throw $th;
@@ -62,14 +66,16 @@ class Attendance extends Model
             $allData=array();
             $attendance=array();
             foreach($em as $e){
-                if($e->position != 'CEO'){
+                if($e->id_number != 'TT-0001'){
                     $get_full_en_name = $e->firstName." ".$e->lastName;
                     $detail= self::AttendanceDetail(self::ConvertIdToNumber($e->id_number),$get_full_en_name,$date,$e->id);
                     array_push($attendance,$detail);
                 }
                 
             }
+            // dd(count($attendance));
             $staffDetail=self::CheckInfoStaff($attendance);
+            // dd($staffDetail);
             // veriable for morning
             $allData[0]= $staffDetail[0];//late
             $allData[1]= $staffDetail[1];//absent
@@ -104,7 +110,7 @@ class Attendance extends Model
             if(count($detail)>0){
                 // print_r($detail);
                 foreach($detail as $de){
-                    if(strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) >= strtotime("06:00:00") && strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) < strtotime("12:00:00") && $de->typeName=='Check-in'){
+                    if(strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) >= strtotime("03:00:00") && strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) < strtotime("12:00:00") && $de->typeName=='Check-in'){
                         $morning_checkin= self::ConvertTimeStampToTime($de->deviceStamp);
                     }elseif(strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) <= strtotime("17:30:00") && strtotime(self::ConvertTimeStampToTime($de->deviceStamp)) >= strtotime("12:00:00") && $de->typeName == 'Check-in'){
                         $evening_checkin= self::ConvertTimeStampToTime($de->deviceStamp);
@@ -118,7 +124,16 @@ class Attendance extends Model
                     if(self::CheckPermisstion($emid,$date)==1){
                         $morning_checkin="Permission";
                     }elseif($permission=self::CheckOutside($emid,$date)!=0){
-                        $morning_checkin=$permission;
+                        $permission=self::CheckOutside_shift($emid,$date);
+                        if($permission['shift']=='am'){
+                            $morning_checkin = $permission['type'];
+                            $morning_checkout = $permission['type'];
+                        }elseif($permission['shift']=='full'){
+                            $morning_checkin = $permission['type'];
+                            $morning_checkout = $permission['type'];
+                            $evening_checkin=$permission['type'];
+                            $evening_checkout=$permission['type'];
+                        }
                     }else{
                         $morning_checkin = 'Absent';
                     }
@@ -130,7 +145,18 @@ class Attendance extends Model
                     if (self::CheckPermisstion($emid, $date) == 1) {
                         $evening_checkin = "Permission";
                     } elseif (self::CheckOutside($emid, $date) == 1) {
-                        $evening_checkin = "Mission";
+                        $permission=self::CheckOutside_shift($emid,$date);
+                        if($permission['shift']=='pm'){
+                            $morning_checkin = $permission['type'];
+                            $morning_checkout = $permission['type'];
+                        }elseif($permission['shift']=='full'){
+                            $morning_checkin = $permission['type'];
+                            $morning_checkout = $permission['type'];
+                            $evening_checkin=$permission['type'];
+                            $evening_checkout=$permission['type'];
+                        }else{
+                            $evening_checkin = 'Absent';
+                        }
                     } else {
                         $evening_checkin = 'Absent';
                     }
@@ -190,9 +216,8 @@ class Attendance extends Model
         try {
             $dd = new DateTime($date);
             $d = $dd->format('Y-m-d H:i:s');
-            $sql= "SELECT id, request_by, kind_of_leave_id, create_date, date_from, date_to, date_resume, number_date_leave, transfer_job_to, status, reason
-                        FROM public.e_request_leaveapplicationform
-                        where '$d' between date_from and date_to and request_by=$id";
+            $sql= "SELECT id,ma_user_id,create_by,date_from,date_to,reason,approve_by,leave_type_id FROM e_request_temp WHERE ma_user_id=$id and '$d' BETWEEN date_from::date and date_to::date";
+            // echo $sql."<br>";
             $permission=DB::select($sql);
             if(count($permission)>0){
                 return 1;

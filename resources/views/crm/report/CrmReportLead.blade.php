@@ -27,10 +27,10 @@
                             <div class="col-3">
                                 <div class="row">
                                     <div class="col-6">
-                                            <button class="btn btn-success form-control"><span><i class="far fa-file-excel"></i></span> Excel</button>
+                                            <button class="btn btn-success form-control" id="btnExportExcelLeadReport"><span><i class="far fa-file-excel"></i></span> Excel</button>
                                     </div>
                                     <div class="col-6">
-                                            <button class="btn btn-danger form-control"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
+                                            <button class="btn btn-danger form-control" id="btnExportPdfLeadReport"><span><i class="far fa-file-pdf"></i></span> Pdf</button>
                                     </div>
                                 </div>
                             </div>
@@ -46,33 +46,40 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-tty"></i></span>
                                         </div>
-                                        <select class="form-control" name="select_source" id="select_source">
+                                        <select class="form-control select2" name="select_source" id="select_source">
                                             <option value="0">All Lead Source</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="exampleInputEmail1">Assign To</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-user-check"></i></span>
-                                        </div>
-                                        <select class="form-control" name="select_assign_to" id="select_assign_to">
-                                            <option value="0">All Staff</option>
-                                        </select>
-                                    </div>
-                                </div>
+
                                 <div class="col-md-4">
                                     <label for="exampleInputEmail1">Status</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-unlock"></i></span>
                                         </div>
-                                        <select class="form-control" name="select_status" id="select_status">
+                                        <select class="form-control select2" name="select_status" id="select_status">
                                             <option value="0">All Status</option>
                                         </select>
                                     </div>
                                 </div>
+
+                                @if($assign_perm)
+                                    <div class="col-md-4">
+                                        <label for="exampleInputEmail1">Assign To</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user-check"></i></span>
+                                            </div>
+                                            <select class="form-control select2" name="select_assign_to" id="select_assign_to">
+                                                <option value="0">All Staff</option>
+                                            </select>
+                                        </div>
+                                    </div>`
+                                @else
+                                    <input type="hidden" name="select_assign_to" id="select_assign_to" value="{{ $userId }}">
+                                @endif
+
                             </div>
                         </div><!--End Form Group-->
                         <div class="form-group">
@@ -123,17 +130,18 @@
                         {{-- </div><!--End Form Group--> --}}
 
                         <div class="table-responsive" style="padding-top: 10px;">
-                            <table id="OrganizationTbl" class="table table-bordered table-striped">
+                            <table id="OrganizationTbl" class="table table-bordered table-striped" style="white-space: nowrap;">
                                 <thead>
-                                    <tr>
-                                        <th>Lead Number</th>
-                                        <th>Branch Name</th>
-                                        <th>Department</th>
-                                        <th>Customer Name</th>
-                                        {{-- <th>Create Date</th> --}}
-                                        <th>Priority</th>
-                                        <th>Source</th>
-                                        <th>Status</th>
+                                    <tr style="background: #1fa8e0">
+                                        <th style="display:none;"></th>
+                                        <th style="color: #FFFFFF">No</th>
+                                        <th style="color: #FFFFFF">Lead Number</th>
+                                        <th style="color: #FFFFFF">Branch Name</th>
+                                        <th style="color: #FFFFFF">Department</th>
+                                        <th style="color: #FFFFFF">Customer Name</th>
+                                        <th style="color: #FFFFFF">Priority</th>
+                                        <th style="color: #FFFFFF">Source</th>
+                                        <th style="color: #FFFFFF">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody id="lead-detail-body">
@@ -147,6 +155,11 @@
     </div><!--End Container-Fluid-->
 </section><!-- end section Main content -->
 <script>
+
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+
     $('#DetailLeadFrom').datetimepicker({
         format: 'YYYY-MM',
         sideBySide: true,
@@ -204,21 +217,26 @@
                     'status_id' : status == 0 ? null : status
                 },
                 success : function(response){
+                    console.log(response.data);
                     if(response.success) {
                         $.each(response.data, function(index, data){
                             $('#lead-detail-body').append(`
-                            <tr>
-                                <td>${data.lead_number}</td>
-                                <td>${data.branch_name_en}</td>
-                                <td>${data.department_name_en}</td>
-                                <td>${data.customer_name_en}</td>
-                                <td>${data.priority}</td>
-                                <td>${data.source_name_en}</td>
-                                <td>${data.status_en}</td>
-                            </tr>
+                                <tr>
+                                    <td style="display:none;"></td>
+                                    <td>${index+1}</td>
+                                    <td>${data.lead_number}</td>
+                                    <td>${data.branch_name_en}</td>
+                                    <td>${data.department_name_en}</td>
+                                    <td>${data.customer_name_en}</td>
+                                    <td>${data.priority}</td>
+                                    <td>${data.source_name_en}</td>
+                                    <td>${data.status_en}</td>
+                                </tr>
                             `)
                         })
-                        $('#OrganizationTbl').DataTable();
+                        $('#OrganizationTbl').DataTable({
+                            'ordering': false,
+                        });
                     }
                 },
                 fail : function(){

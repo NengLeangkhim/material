@@ -13,6 +13,8 @@ use PhpParser\Node\Stmt\TryCatch;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('pdf-create','PdfController@create');
 Route::get('/check','RouteController@check'); //Check Database Connection
 Route::get('/','RouteController@home');
 Route::post('/','Login@login');
@@ -31,6 +33,8 @@ Route::get('/village', 'addressController@getvillage'); //getvillage
 // =========================CRM SYSTEM==========================
 // start lead and branch
 Route::get('/lead','crm\LeadController@getlead'); // get  all lead  show  in table
+Route::get('/lead/datatable','crm\LeadController@getleadDatatable');//get data for datatable
+Route::get('/lead/search','crm\LeadController@CrmLeadSearch');//Search Lead
 Route::get('/addlead','crm\LeadController@lead'); // insert lead or branch (button)
 Route::get('/detaillead/{id}','crm\LeadController@getdetailtlead'); // get  show detail  lead
 Route::get('/editlead/{id}','crm\LeadController@editlead');// edit lead
@@ -51,8 +55,18 @@ Route::get('/test_map', function(){
 });
 
 Route::get('/addleadtype','crm\LeadController@addleadtype'); // use get type in add lead
+Route::get('/typeaddlead','crm\LeadController@CrmChangeLead'); // select add lead and lead branch
 //end lead
+// index
+Route::get('/leadbranch','crm\LeadBranchController@index');
+// All
+Route::get('/crm/leadbranch/{status}','crm\LeadBranchController@GetLeadBranchByStatus');
+Route::get('/crm/leadbranch/datatable/{status}','crm\LeadBranchController@getleadBranchDatatable');
+Route::get('/crm/leadbranch/detail/{id}','crm\LeadBranchController@getdetailbranch'); // get detail branch
+Route::get('/crm/leadbranch/edit/{id}','crm\LeadBranchController@editbranch');//  edit branch
+// end lead branch
 
+//end lead branch
 // start schedule
 
 Route::POST('/insertschedule','crm\CrmScheduleController@insertschedule');
@@ -79,7 +93,9 @@ Route::Post('/insertsurvey','crm\CrmSurveyController@insertsurvey');
 
 // start contact
 Route::get('/contact','crm\ContactController@getcontact'); //get all Contact show in table
+Route::get('/contact/datatable','crm\ContactController@getcontactDatatable');
 Route::get('/contact/pagination','crm\ContactController@FetchDataContact'); //get all Contact show Pagination
+Route::get('/contact/search','crm\ContactController@CrmLeadContactSearch'); //Search
 Route::get('/contact/add','crm\ContactController@AddContact'); //go to add contact
 Route::post('/contact/store','crm\ContactController@StoreContact'); //store contact
 Route::get('/contact/edit/{id}','crm\ContactController@EditContact');//go to Edit contact
@@ -91,6 +107,9 @@ Route::get('/product','crm\ProductsController@getProducts'); //get all Products 
 
 // Start Organization
 Route::get('/organizations','crm\OrganizationController@getorganization'); //get all Organization  show in table
+Route::get('/organizations/branches/{id}','crm\OrganizationController@getorganizationBranches'); //get all Organization  show in table
+Route::get('/organizations/branches/datatable/{id}','crm\OrganizationController@getorganizationBranchesDatatable'); //get all Organization  show in table
+Route::get('/organizations/datatable','crm\OrganizationController@getorganizationDatatable'); //get all Organization  show in table
 Route::get('/organizations/add','crm\OrganizationController@AddOrganization'); //go to add Organization
 Route::post('/organizations/store','crm\OrganizationController@StoreOrganization'); // add Organization
 Route::get('/organizations/edit/{id}','crm\OrganizationController@EditOrganization'); //go to Edit Organization
@@ -102,6 +121,7 @@ Route::get('/organizations/detail/{id}','crm\OrganizationController@DetailOrgani
 
 // crm quote
 Route::get('/quote','crm\QuoteController@showQuoteList'); // get show quote
+Route::get('/quote/datatable','crm\QuoteController@showQuoteListDatatable'); // get show quote
 Route::get('/quote/detail','crm\QuoteController@showQuoteListDetail'); // get show quote detail
 Route::get('/quote/leadBranch','crm\QuoteController@listLeadBranch'); // get list branch of lead by lead id
 
@@ -113,8 +133,10 @@ Route::get('/quote/add/addrow','crm\QuoteController@addRow'); // get one row quo
 Route::get('/quote/add/listProduct','crm\QuoteController@listProduct'); // get stock product api to view
 Route::get('/quote/add/listService','crm\QuoteController@listService'); // get stock service api to view
 Route::get('/quote/add/listQuoteLead','crm\QuoteController@listQuoteLead'); // get organization lead
+Route::get('/quote/add/listQuoteLead/datatable','crm\QuoteController@listQuoteLeadDatatable'); // get organization lead
 Route::get('/quote/add/listQuoteBranch','crm\QuoteController@listQuoteBranch'); // get lead branch
 Route::get('/quote/add/listAssignTo','crm\QuoteController@staffAssignQuote'); // list staff get assign quote
+
 
 Route::post('/quote/save','crm\QuoteController@saveQuote'); // sumit quote data to database api
 
@@ -129,6 +151,13 @@ Route::get('/quote/edit/branch','crm\QuoteController@quoteEditBranch'); // go to
 
 // end quote
 
+// Customer Service
+Route::get('/crmreport/customerservice','crm\CrmReportController@getCustomerService');
+
+Route::get('/crmreport/getCustomerService', 'crm\CrmReportController@getCustomerServiceData');
+
+// End
+
 
 // Start Report
 Route::get('/crmreport','crm\CrmReportController@CrmIndexReport'); // show index report
@@ -140,11 +169,14 @@ Route::get('/crmreport/organization/chart','crm\CrmReportController@GetOrganizat
 Route::get('/crmreport/detailorganization','crm\CrmReportController@CrmDetailOrganizationReport'); // show Organization Detail report
 Route::get('/crmreport/quote/chart','crm\CrmReportController@GetQuoteChart'); // Get Quote Chart
 Route::get('/crmreport/detailquote','crm\CrmReportController@CrmDetailQuoteReport'); // show Quote Detail report
+Route::get('/crmreport/survey/chart','crm\CrmReportController@GetSurveyChart'); // Get survey chart report
+Route::get('/crmreport/listAssignTo','crm\QuoteController@getStaffAssignForReportQuote'); // list staff get assign for report search quote
 
 // End Report
 
 // Dashboard CRM
 Route::get('/crm/dashboard','crm\DashboardController@Index'); // show index report
+Route::get('/crm/dashboard/survey/chart','crm\DashboardController@GetSurveyChart');
 // END Dashboard CRM
 
 // Setting CRM
@@ -289,6 +321,16 @@ Route::get('RequestLetter','RequestLetter@RequestLetter');
 Route::get('requestBuy','requestBuy@requestBuy');
 Route::get('ExternalTrainingReportForm','ExternalTrainingReportForm@ExternalTrainingReportForm');
 Route::get('WorkingPerformanceAppraisalForm','WorkingPerformanceAppraisalForm@WorkingPerformanceAppraisalForm');
+Route::get('StopWorkEmployee','StopWorkEmployee@StopWorkEmployee');
+//============reportPDF===========
+Route::get('certificate','Certificate@certificatePDF'); //certificate
+Route::get('Expried_intership','Expried_intership@Expried_internshipPDF'); //Expried_intership
+Route::get('mistake','mistake_form@mistakePDF'); //Mistake_form
+Route::get('spend_eating','spend_eating_form@spend_eatingPDF'); //Mistake_form
+Route::get('commission','report_calculate_price_commission@commissionPDF'); //Commission
+Route::get('training_checking_list','training_checking_list@report_trainingPDF'); //training_check_list
+Route::get('training_request_proposal','training_request_proposal@training_requestPDF'); //training_request_proposal
+
 //=======================E-request==========================
 
 //==================STOCK SYSTEM===================================================
@@ -298,9 +340,9 @@ Route::get('dashboarhProduct','stock\dashboard@dashboarhProduct');
 Route::get('getChartofProduct','stock\dashbord@getProductDetail');
 Route::get('branchChange','stock\dashboard@BranchChange');
 Route::get('modalCompany','stock\dashboard@dashboard');
-// Route::get('/main',function(){
-//     return view('Main');
-// });
+Route::get('/main',function(){
+    return view('Main');
+});
 Route::post('/dashbord','stock\dashbord@LogIn');
 Route::get('/dashbord','stock\dashbord@Dashbord');
 // Route::get('/','login@checkSession');
@@ -924,10 +966,12 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_allemployee', 'hrms\Employee\AllemployeeController@AllEmployee');
         Route::get('hrm_add_edit_employee', 'hrms\Employee\AllemployeeController@AddAndEditEmployee');
         Route::post('hrm_insert_update_employee', 'hrms\Employee\AllemployeeController@InsertUpdateEmployee');
-        Route::get('hrm_delete_employee', 'hrms\Employee\AllemployeeController@DeleteEmployee');
+        Route::post('hrm_delete_employee', 'hrms\Employee\AllemployeeController@DeleteEmployee');
         Route::get('hrm_detail_employee', 'hrms\Employee\AllemployeeController@EmployeeDetail');
         Route::get('hrm_employee_leave', 'hrms\Employee\AllemployeeController@Employee_Leave');
         Route::post('hrms_insert_update_employee','hrms\Employee\AllemployeeController@hrms_insert_update_employee');
+        Route::get('add_edit_employee','hrms\Employee\AllemployeeController@add_edit_employee');
+        Route::get('hrm_insert_exit_employee','hrms\Employee\AllemployeeController@insert_exit_employee');
     //End All Employee
 
     // Start Holiday
@@ -950,6 +994,7 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_attendance_edit', 'hrms\Employee\AttendanceController@AttendanceEdit');
         Route::post('hrm_attendance_insert', 'hrms\Employee\AttendanceController@AttendanceEditInsert');
         Route::get('hrm_your_attendance', 'hrms\Employee\AttendanceController@YourAttendance');
+        Route::get('test_hrm_your_attendance', 'hrms\Employee\AttendanceController@AllAttendance');
     // End Attendance
 
     // Start Mission And Out Side
@@ -983,6 +1028,15 @@ Route::get('hrm_list_policy_user/modal','hrms\policy\HrmPolicyController@HrmModa
         Route::get('hrm_my_overtime','hrms\Employee\OverTimeController@my_overtime');
     // End Overtime
 
+    // Warning & Punishment
+       Route::get('hrm_warning_and_punishment','hrms\Employee\WarningAndPunishmentController@warning_and_punishment_list');
+       Route::get('hrm_modal_warning_and_punishment','hrms\Employee\WarningAndPunishmentController@modal_warning_and_punishment');
+       Route::post('hrm_insert_update_warning_and_punishment','hrms\Employee\WarningAndPunishmentController@insert_update_warnning_and_punishment');
+       Route::get('hrm_modal_warning_and_punishment_type','hrms\Employee\WarningAndPunishmentController@modal_warning_and_punishment_type');
+       Route::post('hrm_insert_update_warning_and_punishment_type','hrms\Employee\WarningAndPunishmentController@insert_update_warnning_and_punishment_type');
+       Route::get('hrm_delete_warning_and_punishment','hrms\Employee\WarningAndPunishmentController@delete_worning_and_punishment');
+       Route::get('hrm_delete_warning_and_punishment_type','hrms\Employee\WarningAndPunishmentController@delete_worning_and_punishment_type');
+    // end Warning & Punishment
 // End Employee
 
 // Start Training
@@ -1211,3 +1265,11 @@ Route::get('test_chart',function(){
 
 
 //==========================================================> End HRMS <===============================================================///
+
+
+//Datatable server side processing example
+Route::get('dt-example',function(){
+    return view('DatatableExample');
+});
+Route::get('dt-example-gettable','DatatableServersideExample@getTable');
+//Datatable server side processing example

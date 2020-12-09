@@ -42,8 +42,9 @@ class CrmSurveyController extends Controller
             $survey_id=$sur->getsurveybyid($id);
             $survey =json_encode($survey_id,true);
             $survey =json_decode($survey,true);
+            $pop=json_encode(CRMLeadPOP::getPOP());
             // dd($survey);
-            return view('crm.survey.detail',['detailbranch'=>$result_detail_branch["data"],'survey'=>$survey]);
+            return view('crm.survey.detail',['detailbranch'=>$result_detail_branch["data"],'survey'=>$survey,'pop'=>$pop]);
         
         }else{
             return view('no_perms');
@@ -57,10 +58,12 @@ class CrmSurveyController extends Controller
             $validator = \Validator::make($request->all(), [
                 'commentsurvey' =>  [  'required'
                                         ],
+                'possible'=>['required']
                 
                 ],
             [
                 'commentsurvey.required' => 'This Field is require !!',   //massage validator
+                'possible.required'=>'Please Check Yes or No !!',
                
                 ]
             );

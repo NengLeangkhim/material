@@ -24,7 +24,8 @@ class CrmLeadStatusController extends Controller
             $nameKh = $request->input('name_kh');
             $status = $request->input('status');
             $sequence = $request->input('sequence');
-            $result = $this->leadStatus->saveData($id, $userId, $nameEn, $nameKh, $status, $sequence);
+            $color = $request->input('color');
+            $result = $this->leadStatus->saveData($id, $userId, $nameEn, $nameKh, $status, $sequence, $color);
         } catch(QueryException $e){
             $this->sendError($e);
         }

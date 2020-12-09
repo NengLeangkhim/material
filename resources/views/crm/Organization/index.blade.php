@@ -31,37 +31,18 @@
                                 </div>
                             </div> --}}
                             <div class="card-body">
-                                <table id="OrganizationTbl" class="table table-bordered table-striped">
+                                <table id="OrganizationTbl" class="table table-bordered table-striped"  style="white-space: nowrap;">
                                     <thead>
                                         <tr style="background: #1fa8e0">
+                                            {{-- <th style="color: #FFFFFF">No</th> --}}
                                             <th style="color: #FFFFFF">Organization</th>
-                                            <th style="color: #FFFFFF">Contact</th>
                                             <th style="color: #FFFFFF">Email</th>
                                             <th style="color: #FFFFFF">Phone</th>
-                                            <th style="color: #FFFFFF">Assigned To </th>
+                                            <th style="color: #FFFFFF">website</th>
+                                            <th style="color: #FFFFFF">Facebook</th>
                                             <th style="color: #FFFFFF">Detail</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <?php
-                                            for($i =0;$i<sizeof($organize);$i++){
-                                                ?>
-                                                    <tr>
-                                                        <td>{{$organize[$i]["name_en_branch"]}}</td>
-                                                        <td>{{$organize[$i]["name_en_contact"]}}</td>
-                                                        <td>{{$organize[$i]["email_branch"]}}</td>
-                                                        <td>{{$organize[$i]["contact_phone"]}}</td>
-                                                        <td>{{$organize[$i]["user_assig_to"]}}</td>
-                                                        <td>
-                                                            <a href="#" class="btn btn-block btn-info btn-sm organization_detail" ​value='/organizations/detail/{{$organize[$i]["branch_id"]}}' >
-                                                                <i class="far fa-eye"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                <?php
-                                            }
-                                        ?>
-                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -70,11 +51,37 @@
               </div>
             </section><!-- end section Main content -->
             <script>
-              $(function () {
-                $("#OrganizationTbl").DataTable({
-                "responsive": true,
+              t=$("#OrganizationTbl").DataTable({
+                // "responsive": true,
+                scrollX:true,
                 "autoWidth": false,
-                });
+                "serverSide": true,
+                "ajax": "organizations/datatable",
+                "columnDefs": [
+
+                    {
+                        // The `data` parameter refers to the data for the cell (defined by the
+                        // `data` option, which defaults to the column being worked with, in
+                        // this case `data: 0`.
+                        "searchable": false,
+                        "render": function ( data, type, row ) {
+                            return '<div class="container-fluid datatable-action-col"><div class="row form-inline">'+
+                                        '<div class="col-md-6">'+
+                                            '<a href="javascript:void(0);" class="btn btn-block btn-danger  btn-sm branch" value="detaillead/'+data+'" onclick="go_to(\'detaillead/'+data+'\')" title="Edit Organization">'+
+                                                '<i class="fas fa-edit">  </i>'+
+                                            '</a>'+
+                                        '</div>'+
+                                        '<div class="col-md-6 ">'+
+                                            '<a href="javascript:void(0);" class="btn btn-block btn-info btn-sm branch" value="branch/'+data+'" onclick="go_to(\'organizations/branches/'+data+'\')" title="Show Branch Of Organization">'+
+                                                '<i class="fas fa-code-branch">  </i>'+
+                                            '</a>'+
+                                        '</div>'+
+                                    '</div></div>';
+                        },
+                        "width": "100px",
+                        "targets": 5,
+                    },
+                  ]
               });
               $('.organization_detail').click(function(e)
               {

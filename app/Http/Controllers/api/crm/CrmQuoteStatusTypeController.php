@@ -23,7 +23,9 @@ class CrmQuoteStatusTypeController extends Controller
             $nameEn = $request->input('name_en');
             $nameKh = $request->input('name_kh');
             $status = $request->input('status');
-            $result = $this->quoteStatusType->saveData($id, $userId, $nameEn, $nameKh, $status);
+            $sequence = $request->input('sequence');
+            $color = $request->input('color');
+            $result = $this->quoteStatusType->saveData($id, $userId, $nameEn, $nameKh, $status, $sequence, $color);
         } catch(QueryException $e){
             $this->sendError($e);
         }

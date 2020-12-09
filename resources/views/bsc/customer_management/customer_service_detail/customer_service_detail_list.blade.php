@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><i class="fas fa-user"></i> Customer Sevice Detail</h1>
+                <h1><i class="fas fa-cogs"></i> Customer Sevice Detail</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -26,7 +26,7 @@
                         <div class="col-12">
                             <div class="row">
                                 <!-- <a  href="#" class="btn btn-block btn-success lead" value="addlead" onclick="addlead()"><i class="fas fa-wrench"></i> Add Lead</a>  -->
-                                <a  href="#" class="btn btn-success service_detail" ​value="customer_service_detail_add" id="service_detail"><i class="fas fa-plus"></i> Add Customer Service Detail</a>
+                                {!! $button_add !!}
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                                     <th>Service</th>
                                     <th>Effectvice Date</th>
                                     <th>End Period Date</th>
-                                    <th>Status</th>
+                                    <th>Service Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -54,8 +54,12 @@
                                             <td>{{ $customer_service_detail->end_period_date }}</td>
                                             <td>{{ $customer_service_detail->service_status }}</td>
                                             <td class="td_text_center">
-                                                <a title="Edit" href="javascript:void(0);"​ onclick="go_to('customer_service_detail_edit/{{ $customer_service_detail->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$customer_service_detail->id}},'bsc_customer_service_detail_delete','bsc_customer_service_detail','Customer serivice detail Deleted Succseefully !','BSC_030204')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                @if ($button_edit == '1')
+                                                    <a title="Edit" href="javascript:void(0);"​ onclick="go_to('customer_service_detail_edit/{{ $customer_service_detail->id }}')"><i class="far fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                @endif
+                                                @if ($button_delete == '1')
+                                                    <a title="Delete" href="javascript:void(0);" onclick="bsc_delete_data({{$customer_service_detail->id}},'bsc_customer_service_detail_delete','bsc_customer_service_detail','Customer serivice detail Deleted Succseefully !','BSC_03020403')"><i class="far fa-trash-alt"></i></a>&nbsp;&nbsp;&nbsp;
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

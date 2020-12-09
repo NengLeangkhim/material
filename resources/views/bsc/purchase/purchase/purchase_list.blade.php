@@ -1,4 +1,4 @@
- 
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
@@ -17,7 +17,7 @@
                     <div class="card-header">
                         <div class="col-12">
                             <div class="row">
-                                <a  href="#" class="btn btn-success purchase_form"  value="bsc_purchase_purchase_form" id="purchase_form"><i class="fas fa-plus"></i> Add New</a>&nbsp;
+                                {!! $button_add !!}&nbsp;
                             </div>
                             <!------------------------------------ Start Tab Menu ------------------------->
                             <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-top: 10px;">
@@ -75,24 +75,28 @@
 
                                                                 $paid = number_format($amount_paid, 4, '.', '');
                                                                 $due = number_format($due_amount, 4, '.', '');
-                                                            @endphp
+
+                                                                $remove_btn = "";
+                                                                if ($due == 0) {
+                                                                    $remove_btn = "display:none;";
+                                                                }
+                                                        @endphp
                                                             <tr>
                                                                 <td>{{ $purchase->invoice_number }}</td>
                                                                 <td>{{ $purchase->supplier_name }}</td>
-                                                                <td>{{ $purchase->billing_date }}</td>
-                                                                <td>{{ $purchase->due_date }}</td>
+                                                                <td>{{ date('d-m-Y', strtotime($purchase->billing_date)) }}</td>
+                                                                <td>{{ date('d-m-Y', strtotime($purchase->due_date)) }}</td>
                                                                 <td>{{ $paid }}</td>
                                                                 <td>{{ $due }}</td>
                                                                 <td>{{ $status }}</td>
                                                                 <td style="text-align: center;">
-                                                                    <div class="row">
-                                                                        <div class="col-md-6">
-                                                                            <a href="javascript:;" onclick="go_to('bsc_purchase_purchase_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <a href="javascript:" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')"><i class="far fa-edit"></i></a>
-                                                                        </div>
-                                                                    </div>
+                                                                    @if ($button_view_purchase == '1')
+                                                                        <a href="javascript:;" onclick="go_to('bsc_purchase_purchase_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
+                                                                    @endif
+                                                                    &nbsp;&nbsp;&nbsp;
+                                                                    @if ($button_edit_purchase == '1')
+                                                                        <a href="javascript:" style="{{$remove_btn}}" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')"><i class="far fa-edit"></i></a>
+                                                                    @endif
                                                                 </td>
                                                             </tr>
                                                         @endforeach                                                     
@@ -144,8 +148,8 @@
                                                                             <tr>
                                                                                 <td>{{ $purchase->invoice_number }}</td>
                                                                                 <td>{{ $purchase->supplier_name }}</td>
-                                                                                <td>{{ $purchase->billing_date }}</td>
-                                                                                <td>{{ $purchase->due_date }}</td>
+                                                                                <td>{{ date('d-m-Y', strtotime($purchase->billing_date)) }}</td>
+                                                                                <td>{{ date('d-m-Y', strtotime($purchase->due_date)) }}</td>
                                                                                 <td>{{ $paid }}</td>
                                                                                 <td>{{ $due }}</td>
                                                                                 <td style="text-align: center;">
@@ -200,23 +204,23 @@
 
                                                                                 $due = $purchase->due_amount;
                                                                                 $due_amount = number_format($due, 4, '.', '');
+
+                                                                                $remove_btn = "";
+                                                                                if ($due == 0) {
+                                                                                    $remove_btn = "display:none;";
+                                                                                }
                                                                             @endphp
                                                                             <tr>
                                                                                 <td>{{ $purchase->invoice_number }}</td>
                                                                                 <td>{{ $purchase->supplier_name }}</td>
-                                                                                <td>{{ $purchase->billing_date }}</td>
-                                                                                <td>{{ $purchase->due_date }}</td>
+                                                                                <td>{{ date('d-m-Y', strtotime($purchase->billing_date)) }}</td>
+                                                                                <td>{{ date('d-m-Y', strtotime($purchase->due_date)) }}</td>
                                                                                 <td>{{ $amount_paid }}</td>
                                                                                 <td>{{ $due_amount }}</td>
                                                                                 <td style="text-align: center;">
-                                                                                    <div class="row">
-                                                                                        <div class="col-md-6">
-                                                                                            <a href="javascript:void(0);" onclick="go_to('bsc_purchase_purchase_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
-                                                                                        </div>
-                                                                                        <div class="col-md-6">
-                                                                                            <a href="javascript:" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')"><i class="far fa-edit"></i></a>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    <a href="javascript:void(0);" onclick="go_to('bsc_purchase_purchase_view/{{ $purchase->id}}')"><i class="far fa-eye"></i></a>
+                                                                                        &nbsp;&nbsp;&nbsp;
+                                                                                    <a href="javascript:" style="{{$remove_btn}}" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')"><i class="far fa-edit" value="{{$remove_btn}}"></i></a>
                                                                                 </td>
                                                                             </tr>
                                                                         @endif

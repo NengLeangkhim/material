@@ -2,11 +2,11 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h4><span><i class="fas fa-user-plus"></i></span> Create New Customer Service</h4>
+                <h4><span><i class="fas fa-cogs"></i></span> Create New Customer Service</h4>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="" class="lead" ​value="lead">Customer Service</a></li>
+                    <li class="breadcrumb-item"><a href="" class="lead" ​value="lead">Home</a></li>
                     <li class="breadcrumb-item active">New Customer Service</li>
                 </ol>
             </div>
@@ -87,7 +87,7 @@
                             <br>
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-primary save" id="frm_btn_sub_add_cus_service_detail">Save</button>
-                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_customer_service_detail')">Cencel</button>
+                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_customer_service_detail')">Cancel</button>
                             </div>
                         </div>
                     </div>

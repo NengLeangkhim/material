@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><span><i class="fas fa-user-edit"></i></span>Update Customer Service</h1>
+                <h1><span><i class="fas fa-cogs"></i></span>Update Customer Service</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -117,7 +117,7 @@
                             <br>
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-primary save" id="frm_btn_sub_add_customer_service_detail">Update</button>
-                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_customer_service_detail')">Cencel</button>
+                                <button type="button" class="btn btn-danger" onclick="go_to('bsc_customer_service_detail')">Cancel</button>
                             </div>
                         </div>
                     </div>

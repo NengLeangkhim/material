@@ -109,7 +109,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                 </div>
-                                                <input value="{{$organize["contact_phone"]}}" type="text" class="form-control" name="primary_phone"id="primary_phone" placeholder="Primary Phone" >
+                                                <input value="{{$organize["branch_phone"]}}" type="text" class="form-control" name="primary_phone"id="primary_phone" placeholder="Primary Phone" >
                                                 <span class="invalid-feedback" role="alert" id="primary_phoneError"> {{--span for alert--}}
                                                     <strong></strong>
                                                 </span>

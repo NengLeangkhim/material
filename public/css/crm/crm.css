@@ -168,8 +168,12 @@
     }
 
 
-
-
+    .fc-time{
+        display: none;
+    }
+    .datatable-action-col{
+        width: 7rem;
+    }
 
 
 

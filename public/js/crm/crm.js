@@ -12,6 +12,16 @@
     //         }
     //     });
     // }
+    function CrmSelectChange(url,div,id){
+      $.ajax({
+          url:url,  //get URL to route
+          type:"get",
+          data:{id:id},
+          success:function(data){
+            $('#'+div+'').html(data);
+      }
+      });
+      }
     // Function Insert And Update CRM is amazing
     function CrmSubmitFormFull(form,url,goto,alert){
 
@@ -39,7 +49,7 @@
                 $("#" + key).addClass("is-invalid"); //give read border to input field
                 // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
                 $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
-                // sweetalert('warning',value);
+                sweetalert('warning',value);
             });
           }
           }
@@ -90,225 +100,6 @@ function Crm_delete(id,route,goto,alert) {
 
 };
 // // ---------- END Contact---------- //
-// // ----------- Report ------------- //
-//     //Report Lead
-//       // Lead Chart
-//         function ReportLeadChart(){
-//           $("#FrmChartReport input").removeClass("is-invalid");//remove all error message
-//           $.ajax({
-//             url: '/crmreport/lead/chart',//get link route
-//             type:'GET',
-//             headers: {
-//               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//           },
-//              data://{LeadChartFrom:from,LeadChartTo:to}, //_token: $('#token').val(),
-//             $('#FrmChartReport').serialize(),
-//             success:function(data)
-//             {
-//             //   if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-//             //     google.charts.load('current', {packages: ['corechart']});
-//             //     google.charts.setOnLoadCallback(CrmLeadDrawChart);
-//             //     function CrmLeadDrawChart() {
-//             //         $.each( data.success.data, function( key, value ) {//foreach show error
-//             //         var data_chart = google.visualization.arrayToDataTable([
-//             //            ["Lead","",{role:'style'}],
-//             //           [value.name_en,value.total_lead,'color:#007bff']
-//             //           // ["Junk Lead", 11,'color:#28a745'],
-//             //           // ["Qualified", 66,'color:#ffc107'],
-//             //           // ["Inquiry", 30,'color:#dc3545'],
-//             //           // ["Surveyed", 20,'color:black']
-
-//             //         ]);
-//             //         var view = new google.visualization.DataView(data_chart);
-//             //         view.setColumns([0, 1,
-//             //                         { calc: "stringify",
-//             //                           sourceColumn: 1,
-//             //                           type: "string",
-//             //                           role: "annotation" },
-//             //                         2]);
-//             //         var options = {
-//             //             title: 'Lead Performance',
-//             //         };
-
-//             //         var chart = new google.visualization.BarChart(document.getElementById('LeadChart'));
-
-//             //         chart.draw(view, options);
-//             //       })
-//             //     }
-//             //  }else{
-//             //    $.each( data.errors, function( key, value ) {//foreach show error
-//             //        $("#" + key).addClass("is-invalid"); //give read border to input field
-//             //        // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-//             //        $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
-//             //        // sweetalert('warning',value);
-//             //    });
-//             //  }
-
-//             }
-//           });
-//         }
-//     //Report Contact
-//       // Contact Chart
-//         function ReportContactChart(){
-//           $("#FrmChartContactReport input").removeClass("is-invalid");//remove all error message
-//           $.ajax({
-//             url: '/crmreport/contact/chart',//get link route
-//             type:'GET',
-//             headers: {
-//               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//           },
-//              data://{LeadChartFrom:from,LeadChartTo:to}, //_token: $('#token').val(),
-//             $('#FrmChartContactReport').serialize(),
-//             success:function(data)
-//             {
-//               if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-//                 // Lead Contact
-//                 google.charts.load("current", {packages:["corechart"]});
-//                 google.charts.setOnLoadCallback(CrmContactDrawChart);
-//                 function CrmContactDrawChart() {
-//                   var data = google.visualization.arrayToDataTable([
-//                     ['Task', 'Hours per Day'],
-//                     ['Work',     11],
-//                     ['Eat',      2],
-//                   ]);
-
-//                   var options = {
-//                     title: 'My Daily Activities',
-//                     is3D: true,
-//                   };
-
-//                   var chartLead = new google.visualization.PieChart(document.getElementById('ContactChart'));
-//                   chartLead.draw(data, options);
-//                 }
-
-//              }else{
-//                $.each( data.errors, function( key, value ) {//foreach show error
-//                    $("#" + key).addClass("is-invalid"); //give read border to input field
-//                    // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-//                    $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
-//                    // sweetalert('warning',value);
-//                });
-//              }
-
-//             }
-//           });
-//         }
-//     //Report Organization
-//       // Organization Chart
-//       function ReportOrganizationChart(){
-//         $("#FrmChartOrganizationReport input").removeClass("is-invalid");//remove all error message
-//         $.ajax({
-//           url: '/crmreport/organization/chart',//get link route
-//           type:'GET',
-//           headers: {
-//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//         },
-//            data://{LeadChartFrom:from,LeadChartTo:to}, //_token: $('#token').val(),
-//           $('#FrmChartOrganizationReport').serialize(),
-//           success:function(data)
-//           {
-//             if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-//             // Organization
-//               google.charts.load("current", {packages:["corechart"]});
-//               google.charts.setOnLoadCallback(CrmOrganizationDrawChart);
-//               function CrmOrganizationDrawChart() {
-//                 var data = google.visualization.arrayToDataTable([
-//                   ['Language', 'Speakers (in millions)'],
-//                   ['Assamese', 13], ['Bengali', 83], ['Bodo', 1.4],
-//                   ['Dogri', 2.3], ['Gujarati', 46], ['Hindi', 300],
-//                   ['Kannada', 38], ['Kashmiri', 5.5], ['Konkani', 5],
-//                   ['Maithili', 20], ['Malayalam', 33], ['Manipuri', 1.5],
-//                   ['Marathi', 72], ['Nepali', 2.9], ['Oriya', 33],
-//                   ['Punjabi', 29], ['Sanskrit', 0.01], ['Santhali', 6.5],
-//                   ['Sindhi', 2.5], ['Tamil', 61], ['Telugu', 74], ['Urdu', 52]
-//                 ]);
-
-//                 var options = {
-//                   title: 'Indian Language Use',
-//                   legend: 'none',
-//                   pieSliceText: 'label',
-//                   slices: {  4: {offset: 0.2},
-//                             12: {offset: 0.3},
-//                             14: {offset: 0.4},
-//                             15: {offset: 0.5},
-//                   },
-//                 };
-
-//                 var chart_organization = new google.visualization.PieChart(document.getElementById('OrganizationChart'));
-//                 chart_organization.draw(data, options);
-//               }
-
-
-//            }else{
-//              $.each( data.errors, function( key, value ) {//foreach show error
-//                  $("#" + key).addClass("is-invalid"); //give read border to input field
-//                  // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-//                  $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
-//                  // sweetalert('warning',value);
-//              });
-//            }
-
-//           }
-//         });
-//       }
-//     //Report Quote
-//       // Quote Chart
-//       function ReportQuoteChart(){
-//         $("#FrmChartQuoteReport input").removeClass("is-invalid");//remove all error message
-//         $.ajax({
-//           url: '/crmreport/quote/chart',//get link route
-//           type:'GET',
-//           headers: {
-//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//         },
-//            data://{LeadChartFrom:from,LeadChartTo:to}, //_token: $('#token').val(),
-//           $('#FrmChartQuoteReport').serialize(),
-//           success:function(data)
-//           {
-//             if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
-//             // Quote Chart
-//             google.charts.load('current', {'packages':['corechart']});
-//             google.charts.setOnLoadCallback(CrmQuoteDrawChart);
-
-//             function CrmQuoteDrawChart() {
-//               // Some raw data (not necessarily accurate)
-//               var data = google.visualization.arrayToDataTable([
-//                 ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
-//                 ['2004/05',  165,      938,         522,             998,           450,      614.6],
-//                 ['2005/06',  135,      1120,        599,             1268,          288,      682],
-//                 ['2006/07',  157,      1167,        587,             807,           397,      623],
-//                 ['2007/08',  139,      1110,        615,             968,           215,      609.4],
-//                 ['2008/09',  136,      691,         629,             1026,          366,      569.6]
-//               ]);
-
-//               var options = {
-//                 title : 'Monthly Coffee Production by Country',
-//                 vAxis: {title: 'Cups'},
-//                 hAxis: {title: 'Month'},
-//                 seriesType: 'bars',
-//                 series: {5: {type: 'line'}}
-//               };
-
-//               var chart_quote = new google.visualization.ComboChart(document.getElementById('QuoteChart'));
-//               chart_quote.draw(data, options);
-//             }
-
-
-
-//            }else{
-//              $.each( data.errors, function( key, value ) {//foreach show error
-//                  $("#" + key).addClass("is-invalid"); //give read border to input field
-//                  // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-//                  $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
-//                  // sweetalert('warning',value);
-//              });
-//            }
-
-//           }
-//         });
-//       }
-
-// -----------END Report ---------- //
 // -----------Setting CRM ---------- //
  ////view Manage Setting///////
  function CrmSettingView(url,table){
@@ -319,7 +110,8 @@ function Crm_delete(id,route,goto,alert) {
       success:function(data){
         $('#CrmTabManageSetting').html(data);
         $('#'+table+'').dataTable({
-          scrollX:true
+            'responsive': true,
+            scrollX:true,
         }); //Set table to datatable
 
   }
@@ -362,7 +154,7 @@ function Crm_delete(id,route,goto,alert) {
         $.each( data.errors, function( key, value ) {//foreach show error
             $("#" + key).addClass("is-invalid"); //give read border to input field
             // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-            //  sweetalert('warning',value);
+            sweetalert('warning',value);
             $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
 
         });
@@ -395,7 +187,8 @@ function Crm_delete(id,route,goto,alert) {
         $.each( data.errors, function( key, value ) {//foreach show error
             $("#" + key).addClass("is-invalid"); //give read border to input field
             // $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-            //  sweetalert('warning',value);
+
+            sweetalert('warning',value);
             $("#" + key + "Error").children("strong").text("").text(data.errors[key][0]);
 
         });
@@ -422,9 +215,10 @@ function Crm_delete(id,route,goto,alert) {
               $(".invalid-feedback").children("strong").text("");/// remove errror massage
               $('#lead_status_id').val(id);     //It will define value of id variable for update
               $.each(response.data, function(i, e){ //read array json for show to textbox
-                $('#name_kh').val(response.data.name_en);
-                $('#name_en').val(response.data.name_kh);
+                $('#name_kh').val(response.data.name_kh);
+                $('#name_en').val(response.data.name_en);
                 $('#sequence').val(response.data.sequence);
+                $('#color').val(response.data.color)
                 if(response.data.status==true){
                   $('#status').val(1);
                 }else{
@@ -452,8 +246,8 @@ function Crm_delete(id,route,goto,alert) {
               $(".invalid-feedback").children("strong").text("");/// remove errror massage
               $('#lead_industry_id').val(id);     //It will define value of id variable for update
               $.each(response.data, function(i, e){ //read array json for show to textbox
-                $('#name_kh').val(response.data.name_en);
-                $('#name_en').val(response.data.name_kh);
+                $('#name_kh').val(response.data.name_kh);
+                $('#name_en').val(response.data.name_en);
                 if(response.data.status==true){
                   $('#status').val(1);
                 }else{
@@ -481,8 +275,8 @@ function Crm_delete(id,route,goto,alert) {
               $(".invalid-feedback").children("strong").text("");/// remove errror massage
               $('#lead_source_id').val(id);     //It will define value of id variable for update
               $.each(response.data, function(i, e){ //read array json for show to textbox
-                $('#name_kh').val(response.data.name_en);
-                $('#name_en').val(response.data.name_kh);
+                $('#name_kh').val(response.data.name_kh);
+                $('#name_en').val(response.data.name_en);
                 if(response.data.status==true){
                   $('#status').val(1);
                 }else{
@@ -510,8 +304,8 @@ function Crm_delete(id,route,goto,alert) {
               $(".invalid-feedback").children("strong").text("");/// remove errror massage
               $('#lead_isp_id').val(id);     //It will define value of id variable for update
               $.each(response.data, function(i, e){ //read array json for show to textbox
-                $('#name_kh').val(response.data.name_en);
-                $('#name_en').val(response.data.name_kh);
+                $('#name_kh').val(response.data.name_kh);
+                $('#name_en').val(response.data.name_en);
                 if(response.data.status==true){
                   $('#status').val(1);
                 }else{
@@ -521,7 +315,160 @@ function Crm_delete(id,route,goto,alert) {
       }
       });
     });
+    // update Schedule Type
+    $(document).on('click', '.CrmEditScheduleType', function(){
+      // alert();
+      var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+      $.ajax({
+      url:"/crm/setting/scheduletype/get",   //Request send to "action.php page"
+      type:"GET",    //Using of Post method for send data
+      data:{id:id},//Send data to server
+      dataType:"json",   //Here we have define json data type, so server will send data in json format.
+      success:function(response){
+              $('#crm_schedule_type').modal('show'); //It will display modal on webpage
+              $('#ActionScheduleType').text('Update'); //This code will change Button value to Update
+              $('#card_title').text("Update Lead Schedule Type");
+              $('.print-error-msg').hide();
+              $("#crm_schedule_type_form").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid");//remove valid all input field
+              $(".invalid-feedback").children("strong").text("");/// remove errror massage
+              $('#schedule_type_id').val(id);     //It will define value of id variable for update
+              $.each(response.data, function(i, e){ //read array json for show to textbox
+                $('#name_kh').val(response.data.name_kh);
+                $('#name_en').val(response.data.name_en);
+                if(response.data.status==true){
+                  $('#status').val(1);
+                }else{
+                  $('#status').val(0);
+                }
+                if(response.data.is_result_type==true){
+                  $('#is_result_type').val("t");
+                }else{
+                  $('#is_result_type').val("f");
+                }
+              });
+      }
+      });
+    });
+    // update Quote Status
+    $(document).on('click', '.CrmEditQuoteStatus', function(){
+        // alert();
+        var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
+        $.ajax({
+        url:"/crm/setting/quotestatus/get",   //Request send to "action.php page"
+        type:"GET",    //Using of Post method for send data
+        data:{id:id},//Send data to server
+        dataType:"json",   //Here we have define json data type, so server will send data in json format.
+        success:function(response){
+                $('#crm_quote_status_modal').modal('show'); //It will display modal on webpage
+                $('#ActionQuoteStatus').text('Update'); //This code will change Button value to Update
+                $('#card_title').text("Update Quote Status");
+                $('.print-error-msg').hide();
+                $("#crm_quote_status_form").find('input:text, input:password, input:file, select, textarea').removeClass("is-invalid");//remove valid all input field
+                $(".invalid-feedback").children("strong").text("");/// remove errror massage
+                $('#quote_status_id').val(id);     //It will define value of id variable for update
+                $.each(response.data, function(i, e){ //read array json for show to textbox
+                  $('#name_kh').val(response.data.name_kh);
+                  $('#name_en').val(response.data.name_en);
+                  if(response.data.status==true){
+                    $('#status').val(1);
+                  }else{
+                    $('#status').val(0);
+                  }
+                  $('#sequence').val(response.data.sequence);
+                  $('#color').val(response.data.color);
+                  if(response.data.is_result_type==true){
+                    $('#is_result_type').val("t");
+                  }else{
+                    $('#is_result_type').val("f");
+                  }
+                });
+        }
+        });
+      });
 // -----------Setting CRM ---------- //
+//--------------Lead Branch -------------//
+function CrmLeadBranchView(url,table){
+  $status = /[^/]*$/.exec(url)[0];
+  $.ajax({
+      url:url,  //get URL to route
+      type:"get",
+      data:{},
+      success:function(data){
+        $('#CrmTabManageSetting').html(data);
+        $('#'+table+'').dataTable({
+            scrollX:true,
+            "serverSide": true,
+            "autoWidth": false,
+            "ajax": "/crm/leadbranch/datatable/"+$status,
+            "ordering": false,
+            "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                if(aData.DT_RowData!=null){ //check comment survey
+                  $(nRow).css({'color':'#d42931','font-weight':'bold'});
+                }else{
+                  $(nRow).css({'color':'black'});
+                }
+            },
+            "columnDefs": [
+              {
+                  "searchable": false,
+                  "targets": 4
+                  },
+              {
+                  // The `data` parameter refers to the data for the cell (defined by the
+                  // `data` option, which defaults to the column being worked with, in
+                  // this case `data: 0`.
+                  "render": function ( data, type, row ) {
+                    if(data!=null){
+                      return '<label for="">Yes</label>';
+                    }else{
+                      return '<label for="">No</label>';
+                    }
+                  },
+                  "targets": 4
+              },
+            {
+                // The `data` parameter refers to the data for the cell (defined by the
+                // `data` option, which defaults to the column being worked with, in
+                // this case `data: 0`.
+                "searchable": false,
+                "width": "100px",
+                "render": function ( data, type, row ) {
+                    var st='<div class="container-fluid datatable-action-col">';
+                    st+='<div class="row form-inline">'+
+                    '<div class="col-md-6">'+
+                        '<a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="/crm/leadbranch/detail/'+data+'"  onclick="go_to(\'/crm/leadbranch/detail/'+data+'\')" title="Detail Branch">'+
+                            '<i class="far fa-eye"></i>'+
+                        '</a>'+
+                    '</div>';
+                    if(row[4]!=null){
+                    st+='<div class="col-md-6 ">'+
+                                '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule" onclick="branch_schedule_detail(\''+row[4]+'\')"  id="detailschedule'+row[4]+'" value="'+row[4]+'"  title="Detail Of Branch">'+
+                                    '<i class="fas fa-calendar-day"> </i>'+
+                                '</a>'+
+                            '</div>'+
+                        '</div>';
+                    }else{
+                    st+='<div class="col-md-6 ">'+
+                                '<button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule" onclick="lead_branch_schedule(\''+data+'\')"  id="schedule'+data+'" value="'+data+'">'+
+                                    '<i class="fas fa-calendar-day"> </i>'+
+                                '</a>'+
+                            '</div>'+
+                        '</div>';
+                    }
+                    return st+'</div>';
+                },
+                "targets": 7
+            },
+            ],
+            // "columnDefs": [
+
+            // ]
+        }); //Set table to datatable
+
+  }
+  });
+  }
+//--------------End Lead Branch---------//
 //////////////////////////==========================END MET KEOSAMBO ====================///////////////////////////////
     // $(document).ready(function(){
     //     var a = 0;
@@ -551,7 +498,6 @@ function Crm_delete(id,route,goto,alert) {
     // });
 
 
-     
 
             //click back to home
         $('.lead').click(function(e){
@@ -584,61 +530,33 @@ function Crm_delete(id,route,goto,alert) {
         $('.save').click(function(){
             submit_form ('/addlead','frm_lead','lead');
         })
-
-        // get value in search contact from selection and show in each field
-        $( "#contact_id" ).change(function() {
-          var to = $(this). children("option:selected"). val();
-          var myvar= $( "#getcontact" ).val();
-          // alert(to);
-          $.ajax({
-            url:'/api/contact/'+to,
-            type:'get',
-            dataType:'json',
-            headers: {
-              'Authorization': `Bearer ${myvar}`,
-          },
-            success:function(response){
-
-                        var name_en = response['data'].name_en;
-                        var name_kh = response['data'].name_kh;
-                        var email = response['data'].email;
-                        var phone = response['data'].phone;
-                        var national_id = response['data'].national_id;
-                        var position = response['data'].position;
-                        var honorifics = response['data'].honorifics.name_en;
-                        var honorifics_id = response['data'].honorifics.id;
-                        // alert(honorifics);
-                        $("#name_en").val(name_en);
-                        $("#name_kh").val(name_kh);
-                        $("#email").val(email);
-                        $("#phone").val(phone);
-                        $("#national_id").val(national_id);
-                        $("#position").val(position);
-                        // $("#ma_honorifics_id").val(honorifics);
-                        var option = "<option value='"+honorifics_id+" 'selected>"+honorifics+"</option>";
-
-                       $("#ma_honorifics_id").append(option);
-
-                        $('#name_en').prop('readonly', true);
-                        $('#name_kh').prop('readonly', true);
-                        $('#email').prop('readonly', true);
-                        $('#phone').prop('readonly', true);
-                        $('#national_id').prop('readonly', true);
-                        $('#position').prop('readonly', true);
-                        $('#ma_honorifics_id').attr('disabled', true);
-
-
-            }
-        })
-        });
-
-
         // select option lead in add lead, if have value go to list field add branch
         $("#lead_id").change(function () {
             var lead_id = $(this).val();
-            goto_Action('/addleadtype',lead_id);
+            //goto_Action('/addleadtype',lead_id);
+            CrmSelectChange('/typeaddlead','CrmChangeSelectLead',lead_id)
         })
 
+
+
+        // // radio button change option select lead status
+        // $('input[name="checksurvey"]').change(function(){ // bind a function to the change event
+        //     if($(this).is(":checked")){ // check if the radio is checked
+        //         var val = $(this).val();
+        //         // console.log('radio val='+val);
+        //         if(val == 1){
+        //             $('#lead_status').val(3).addClass('seleted');
+        //         }else{
+        //             $('#lead_status').val('').addClass('seleted');
+        //         }
+        //     }
+        // });
+
+
+        // // check the radio survey button when status lead change value
+        // $('#lead_status').change(function(){
+
+        // });
 
 
 //========================>> Start-Quote-CRM JS <<=========================================================
@@ -740,19 +658,23 @@ function Crm_delete(id,route,goto,alert) {
 
         //function to get show modal
         function getShowPopup(route,id,modal_mainform,modal_form,tblId,btnId,getName,fieldID,fieldName){
-          var id_ = "id="+id;
-          var url= route;
-          var x=new XMLHttpRequest();
-          x.onreadystatechange=function(){
-              if(this.readyState==4 && this.status==200){
-                  console.log(this.responseText);
-                  document.getElementById(modal_mainform).innerHTML=this.responseText;
-                  $('#'+modal_form+'').modal('show');
-                  getDataTableSelectRow(tblId,btnId,getName,fieldID,fieldName,modal_form);
-              }
-          }
-          x.open("GET", url + "?" + id_ , true);
-          x.send();
+            var id_ = "id="+id;
+            var url= route;
+            $('#'+modal_form+'').modal('hide');  // hide popup before show again
+            var x=new XMLHttpRequest();
+            x.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200){
+                    if(this.responseText.length > 0){
+                          document.getElementById(modal_mainform).innerHTML=this.responseText;
+                          $('#'+modal_form+'').modal('show');
+                          getDataTableSelectRow(tblId,btnId,getName,fieldID,fieldName,modal_form);
+                          // setTimeout(function(){ i = 0; }, 5000);
+                    }
+
+                }
+            }
+            x.open("GET", url + "?" + id_ , true);
+            x.send();
         }
 
 
@@ -771,12 +693,46 @@ function Crm_delete(id,route,goto,alert) {
             });
             return table;
         }
-
+        function getDataTableServerSide(tblId,route){ //this method is for list lead on add quote view
+          let table = $('#'+tblId+'').DataTable({
+              sDom: 'lrtip',
+              targets:'no-sort',
+              bSort: false,
+              select: true,
+              serverSide: true,
+              ajax: route,
+              createdRow: function( row, data, dataIndex ) {
+                $(row).attr('id', data[5]);
+                $( row ).find('td:eq(0)').attr('id', 'leadKhName_'+data[5]);
+                $( row ).find('td:eq(1)').attr('id', 'leadEnName_'+data[5]);
+              },
+              columnDefs:
+                [
+                  {
+                    searchable : false,
+                    visible:false,
+                    targets:5,
+                  }
+                ],
+          });
+          $(document).keyup(function(){
+              $('#mySearchQuote').on( 'keyup', function () {
+                  table.search($(this).val()).draw();
+              });
+          });
+          return table;
+      }
 
 
         //function to get datatable with select row
         function getDataTableSelectRow(tblId,btnId,getName,fieldID,fieldName,modal_form){
-            var table = getDataTable(tblId);
+
+            var table ;
+            if(tblId=="tblQuuteLead"){//
+              table = getDataTableServerSide(tblId,"/quote/add/listQuoteLead/datatable");
+            }else{
+              table = getDataTable(tblId);
+            }
             $('#'+tblId+' tbody').on( 'click', 'tr', function () {
                 if ($(this).hasClass('selected') ) {
                     $(this).removeClass('selected');
@@ -930,9 +886,9 @@ function Crm_delete(id,route,goto,alert) {
     $(document).on('click','#clickGetBranch', function(){
             var lead_id = $('#lead_id').val();
             if(lead_id != ""){
-            // getShowPopup('/quote/add/listQuoteBranch',lead_id,'modal-list-quote','listQuoteBranch','tblQuuteBranch','getSelectRow','branchKhName','getLeadBranchId','getLeadBranch');
             var id_ = "id="+lead_id;
             var url= '/quote/add/listQuoteBranch';
+            $('#listQuoteBranch').modal('hide');  // hide popup before show again
             var x=new XMLHttpRequest();
             x.onreadystatechange=function(){
                 if(this.readyState==4 && this.status==200){
@@ -1107,7 +1063,7 @@ function Crm_delete(id,route,goto,alert) {
                   if(typeof(data.success) != "undefined" && data.success !== null) { //condition for check success
                         sweetalert('success','Data has been saved !');
                         setTimeout(function(){
-                            goto_Action('/quote/detail', data.quoteId.id);
+                            go_to('/quote/detail?id_='+data.quoteId);
                         },1300);
 
                     // use go ot view quote detail
@@ -1231,11 +1187,11 @@ function Crm_delete(id,route,goto,alert) {
 
     //function click to submit update quote branch
     $(document).on('click','#btnUpdateQuoteBranch',function(){
-
-            $("#frmEditQuoteBranch input").removeClass("is-invalid");//remove all error message
-            $("#frmEditQuoteBranch select").removeClass("is-invalid");//remove all error message
-            $("#frmEditQuoteBranch textarea").removeClass("is-invalid");//remove all error message
-            $("#frmEditQuoteBranch radio").removeClass("is-invalid");//remove all error message
+            var branId = $(this).attr("data-id");
+            $("#frmEditQuoteBranch"+branId+" input").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteBranch"+branId+" select").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteBranch"+branId+" textarea").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteBranch"+branId+" radio").removeClass("is-invalid");//remove all error message
             var quoteId = $('#quote_id').val();
             $.ajax({
                 method: 'PUT',
@@ -1244,7 +1200,7 @@ function Crm_delete(id,route,goto,alert) {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data:
-                    $('#frmEditQuoteBranch').serialize(),
+                    $('#frmEditQuoteBranch'+branId+'').serialize(),
                 success:function(data)
                 {
 
@@ -1281,9 +1237,6 @@ function Crm_delete(id,route,goto,alert) {
                         });
 
 
-
-
-
                     }
 
                     // if(data.success){
@@ -1312,3 +1265,8 @@ function Crm_delete(id,route,goto,alert) {
 
 
 // ========================= End set schedule of branch ================================
+
+
+// qoute stage
+
+// end quote stage

@@ -10,13 +10,13 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    
+
     public function sendResponse($result, $message)
     {
     	$response = [
             'success' => true,
             'data'    => $result,
-            'message' => $message,
+            'message' => strtoupper($message),
         ];
 
 
@@ -42,5 +42,12 @@ class Controller extends BaseController
 
 
         return response()->json($response, $code);
+    }
+
+    public function getToken() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        return $_SESSION['token'];
     }
 }

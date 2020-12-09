@@ -8,6 +8,8 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('bsc_invoice_view_payment')"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        Back</a></li>
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item active">View Payment</li>
                 </ol>
@@ -48,8 +50,8 @@
                                             <td>{{ date('d-m-Y', strtotime($view_payment_detail->create_date)) }}</td>
                                             <td>{{ date('d-m-Y', strtotime($view_payment_detail->billing_date)) }}</td>
                                             <td>{{ date('d-m-Y', strtotime($view_payment_detail->due_date)) }}</td>
-                                            <td>{{ $view_payment_detail->total_invoice }}</td>
-                                            <td>{{ $view_payment_detail->amount_paid }}</td>
+                                            <td>{{ number_format($view_payment_detail->total_invoice,4,".",".")}}</td>
+                                            <td>{{ number_format($view_payment_detail->amount_paid,4,".",",") }}</td>
                                         </tr>
                                     @endforeach
                                 @endif

@@ -20,7 +20,9 @@ use App\Http\Resources\api\crm\lead\LeadCurrentSpeedIsp;
 use App\Http\Resources\api\crm\lead\GetSurvey;
 use App\Http\Resources\api\crm\lead\GetSurveyResult;
 use App\Http\Resources\api\crm\lead\GetLeadSchedule;
+use App\model\api\crm\Crmlead;
 use Illuminate\Database\QueryException;
+Use Exception;
 
 class LeadController extends Controller
 {
@@ -123,47 +125,53 @@ class LeadController extends Controller
         $con_id=$request->input('contact_id')!=""? $request->input('contact_id'):"null";
         $prioroty=$request->input('prioroty')!=""? $request->input('prioroty'):"urgent";
         $checksurvey=$request->input('checksurvey')!=""? $request->input('checksurvey'):"null";;
-        $company_en=$request->input('company_en');
-        $company_kh=$request->input('company_kh');
-        $primary_email=$request->input('primary_email');
-        $primary_phone=$request->input('primary_phone');
+        $company_en=ucwords($request->input('company_en'))!="" ? $request->input('company_en'):null;
+        $company_kh=$request->input('company_kh')!="" ? $request->input('company_kh'):null;
+        $primary_email=$request->input('primary_email')!="" ? $request->input('primary_email'):null;
+        $primary_phone=$request->input('primary_phone')!="" ? $request->input('primary_phone'):null;
         $user_create=$userid;
         // $user_create=$request->input('user_create');
-        $website=$request->input('website');
-        $facebook=$request->input('company_facebook');
-        $vat_number=$request->input('vat_number');
-        $company_branch=$request->input('branch');
-        $lead_source=$request->input('lead_source');
-        $lead_status=$request->input('lead_status')!=""?$request->input('lead_status'):1;
-        $lead_industry=$request->input('lead_industry');
-        $assig_to=$request->input('assig_to');
-        $service=$request->input('service');
-        $current_speed_isp=$request->input('current_speed_isp');
-        $current_speed=$request->input('current_speed');
-        $current_price=$request->input('current_price');
-        $employee_count=$request->input('employee_count');
-        $comment=$request->input('comment');
+        $website=$request->input('website') !="" ? $request->input('website'):null;
+        $facebook=$request->input('company_facebook')!="" ? $request->input('company_facebook'):null;
+        $vat_number=$request->input('vat_number')!="" ?$request->input('vat_number'):null;
+        $company_branch=$request->input('branch')!="" ?$request->input('branch'):null;
+        $lead_source=$request->input('lead_source')!="" ?$request->input('lead_source'):null;
+        $lead_status=1;
+        $lead_industry=$request->input('lead_industry')!="" ?$request->input('lead_industry'):null;
+        $assig_to=$request->input('assig_to')!="" ?$request->input('assig_to'):null;
+        $service=$request->input('service')!=""?$request->input('service'):null;
+        $current_speed_isp=$request->input('current_speed_isp') !="" ?$request->input('current_speed_isp'):null;
+        $current_speed=$request->input('current_speed') !="" ?$request->input('current_speed'):null;;
+        $current_price=$request->input('current_price')!="" ?$request->input('current_price'):null;
+        $employee_count=$request->input('employee_count')!="" ?$request->input('employee_count'):null;
+        $comment=$request->input('comment')!="" ?$request->input('comment'):null;
         //contact detail
-        $name_kh=$request->input('name_kh');
-        $name_en=$request->input('name_en');
-        $gender=$request->input('ma_honorifics_id');
-        $facebook_con= $request->input('facebook')!=''? $request->input('facebook'):"null";
-        $email=$request->input('email');
-        $phone=$request->input('phone');
-        $position=$request->input('position');
-        $national_id=$request->input('national_id');
+        $name_kh=$request->input('name_kh')!=""?$request->input('name_kh'):null;
+        $name_en=$request->input('name_en')!=""?$request->input('name_en'):null;
+        $gender=$request->input('ma_honorifics_id')!=""?$request->input('ma_honorifics_id'):null;
+        $facebook_con=null;
+        $email=$request->input('email')!=''? $request->input('email'):null;
+        $phone=$request->input('phone')!=''? $request->input('phone'):null;
+        $position=$request->input('position')!=''? $request->input('position'):null;
+        $national_id=$request->input('national_id')!=''? $request->input('national_id'):null;
 
         //address detail
-        $home_en=$request->input('home_en');
-        $home_kh=$request->input('home_kh');
-        $street_en=$request->input('street_en');
-        $street_kh=$request->input('street_kh');
-        $latlong=$request->input('latlong');
-        $address_type=$request->input('address_type');
-        $addresscode=$request->input('village');
+        $home_en=$request->input('home_en') !=''? $request->input('home_en'):null;
+        $home_kh=$request->input('home_kh')!=''? $request->input('home_kh'):null;
+        $street_en=$request->input('street_en')!=''? $request->input('street_en'):null;
+        $street_kh=$request->input('street_kh')!=''? $request->input('street_kh'):null;
+        $latlong=$request->input('latlong')!=''? $request->input('latlong'):null;
+        // $address_type=$request->input('address_type')!=''? $request->input('address_type'):'Main';
+        $address_type='main';
+        $addresscode=$request->input('village')!=''? $request->input('village'):null;
 
         // return $lead_id;
-        // dd($lead_id);
+        // dd($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
+        // $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
+        // $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+        // $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey);
+        // dd($con_id,$name_kh);
+        // dd($con_id);
         return  Lead::insertLead($con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,$primary_phone,
         $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$service,$current_speed_isp,
         $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
@@ -177,62 +185,67 @@ class LeadController extends Controller
             }
             $userid = $_SESSION['userid'];
 
-            $lead_id=$request->input('lead_id');
-            $con_id=$request->input('contact_id');
-            $prioroty=$request->input('prioroty');
+            $lead_id=$request->input('lead_id')!=""?$request->input('lead_id'):null;
+            $con_id=$request->input('contact_id')!=""?$request->input('contact_id'):null;
+            $prioroty=$request->input('prioroty')!=""?$request->input('prioroty'):null;
             $checksurvey=$request->input('checksurvey')!=""? $request->input('checksurvey'):"null";
-            $survey_id=$request->input('survey_id');
-            $lead_address_id=$request->input('address_id');
-            $lead_con_bran_id=$request->input('lead_con_bran_id');
-            $lead_detail_id=$request->input('lead_detail_id');
-            $lead_item_id=$request->input('lead_item_id');
-            $branch_id=$request->input('branch_id');
-            $company_en=$request->input('company_en');
-            $company_kh=$request->input('company_kh');
-            $primary_email=$request->input('primary_email');
-            $primary_phone=$request->input('primary_phone');
+            $survey_id=$request->input('survey_id')!=""?$request->input('survey_id'):null;
+            $lead_address_id=$request->input('address_id')!=""?$request->input('address_id'):null;
+            $lead_con_bran_id=$request->input('lead_con_bran_id')!=""?$request->input('lead_con_bran_id'):null;
+            $lead_detail_id=$request->input('lead_detail_id')!=""?$request->input('lead_detail_id'):null;
+            $lead_item_id=$request->input('lead_item_id')!=""?$request->input('lead_item_id'):null;
+            $branch_id=$request->input('branch_id')!=""?$request->input('branch_id'):null;
+            $company_en=ucwords($request->input('company_en'))!=""?$request->input('company_en'):null;
+            $company_kh=$request->input('company_kh')!=""?$request->input('company_kh'):null;
+            $primary_email=$request->input('primary_email')!=""?$request->input('primary_email'):null;
+            $primary_phone=$request->input('primary_phone')!=""?$request->input('primary_phone'):null;
             // $user_create=$request->input('user_create');
             $user_create=$userid;
-            $website=$request->input('website');
-            $facebook=$request->input('company_facebook');
-            $vat_number=$request->input('vat_number');
-            $company_branch=$request->input('branch');
-            $lead_source=$request->input('lead_source');
-            $lead_status=$request->input('lead_status');
-            $lead_industry=$request->input('lead_industry');
-            $assig_to_id=$request->input('assig_to_id');
-            $assig_to=$request->input('assig_to');
-            $service=$request->input('service');
-            $current_speed_isp=$request->input('current_speed_isp');
-            $current_speed=$request->input('current_speed');
-            $current_price=$request->input('current_price');
-            $employee_count=$request->input('employee_count');
-            $comment=$request->input('comment');
+            $website=$request->input('website')!=""?$request->input('website'):null;
+            $facebook=$request->input('company_facebook')!=""?$request->input('company_facebook'):null;
+            $vat_number=$request->input('vat_number')!=""?$request->input('vat_number'):null;
+            $company_branch=$request->input('branch')!=""?$request->input('branch'):null;
+            $lead_source=$request->input('lead_source')!=""?$request->input('lead_source'):null;
+            // $lead_status=$request->input('lead_status');
+            $lead_industry=$request->input('lead_industry')!=""?$request->input('lead_industry'):null;
+            $assig_to_id=$request->input('assig_to_id')!=""?$request->input('assig_to_id'):null;
+            $assig_to=$request->input('assig_to')!=""?$request->input('assig_to'):null;
+            $service=$request->input('service')!=""?$request->input('service'):null;
+            $current_speed_isp=$request->input('current_speed_isp')!=""?$request->input('current_speed_isp'):null;
+            $current_speed=$request->input('current_speed')!=""?$request->input('current_speed'):null;
+            $current_price=$request->input('current_price')!=""?$request->input('current_price'):null;
+            $employee_count=$request->input('employee_count')!=""?$request->input('employee_count'):null;
+            $comment=$request->input('comment')!=""?$request->input('comment'):null;;
             //contact detail
-            $name_kh=$request->input('name_kh');
-            $name_en=$request->input('name_en');
-            $gender=$request->input('ma_honorifics_id');
-            $facebook_con= $request->input('facebook')!=''? $request->input('facebook'):"null";
-            $email=$request->input('email');
-            $phone=$request->input('phone');
-            $position=$request->input('position');
-            $national_id=$request->input('national_id');
+            $name_kh=$request->input('name_kh')!=""?$request->input('name_kh'):null;;
+            $name_en=$request->input('name_en')!=""?$request->input('name_en'):null;;
+            $gender=$request->input('ma_honorifics_id')!=""?$request->input('ma_honorifics_id'):null;;
+            $facebook_con= null;
+            $email=$request->input('email')!=""?$request->input('email'):null;;
+            $phone=$request->input('phone')!=""?$request->input('phone'):null;;
+            $position=$request->input('position')!=""?$request->input('position'):null;;
+            $national_id=$request->input('national_id')!=""?$request->input('national_id'):null;;
 
             //address detail
-            $home_en=$request->input('home_en');
-            $home_kh=$request->input('home_kh');
-            $street_en=$request->input('street_en');
-            $street_kh=$request->input('street_kh');
-            $latlong=$request->input('latlong');
-            $address_type=$request->input('address_type');
-            $addresscode=$request->input('village');
+            $home_en=$request->input('home_en')!=""?$request->input('home_en'):null;;
+            $home_kh=$request->input('home_kh')!=""?$request->input('name_kh'):null;;
+            $street_en=$request->input('street_en')!=""?$request->input('street_en'):null;;
+            $street_kh=$request->input('street_kh')!=""?$request->input('street_kh'):null;;
+            $latlong=$request->input('latlong')!=""?$request->input('latlong'):null;;
+            $address_type=$request->input('address_type')!=""?$request->input('address_type'):'Main';;
+            $addresscode=$request->input('village')!=""?$request->input('village'):null;;
 
 
-            // var_dump($survey_id);
-            return  Lead::updatebranch($lead_address_id,$lead_detail_id,$lead_item_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
-            $vat_number,$company_branch,$lead_source,$lead_status,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,$primary_phone,
-            $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
-            $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$survey_id);
+            // dd($lead_detail_id);
+            if(perms::check_perm_module('CRM_020505')){//module code list
+                return  Lead::updatebranch($lead_address_id,$lead_detail_id,$lead_item_id,$lead_con_bran_id,$branch_id,$con_id,$lead_id,$company_en,$company_kh,$primary_email,$user_create,$website,$facebook,
+                $vat_number,$company_branch,$lead_source,$lead_industry,$assig_to,$assig_to_id,$service,$current_speed_isp,$primary_phone,
+                $current_speed,$current_price,$employee_count,$name_kh,$name_en,$gender,$email,$facebook_con,$phone,$position,$national_id,
+                $home_en,$home_kh,$street_en,$street_kh,$latlong,$address_type,$addresscode,$comment,$prioroty,$checksurvey,$survey_id);
+
+            }else{
+                return view('no_perms');
+            }
     }
 
     // get all branch
@@ -260,8 +273,45 @@ class LeadController extends Controller
         }
         else
         {
-            return view('no_perms');
+            return [];
         }
+
+        // return GetLead::Collection($lead);
+    }
+     //method support for datatable server side processing
+    public function getLeadDatatable(Request $request){
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+
+        if(perms::check_perm_module_api('CRM_020501',$userid)){ // top managment
+            $lead = Lead::getleadDataTable($request); // all lead
+            return $lead;
+            // dd("top");
+        }
+        else if (perms::check_perm_module_api('CRM_020509',$userid)) { // fro staff (Model and Leadlist by user)
+            $lead = Lead::getLeadbyassgintoDataTable($request,$userid); //  lead by assigned to
+            return $lead;
+            // dd("staff");
+
+        }
+        else
+        {
+            return [];
+        }
+
+        // return GetLead::Collection($lead);
+    }
+    ////method support for datatable server side processing using the same query string as api
+    public function getLeadSql(){
+        return Lead::getLeadSql();
+    }
+
+     // get all lead for add lead
+     public function getAddLead(){
+            $lead = Lead::getAddLead(); // all lead
+            return GetLead::Collection($lead);
 
         // return GetLead::Collection($lead);
     }
@@ -284,7 +334,7 @@ class LeadController extends Controller
     // get branch by lead id convert
     public function getbranch_lead_convert($id){
         $branch_id_convert = Lead::getbranch_lead_convert($id);
-        return GetLeadBranch::Collection($branch_id_convert);
+        return $branch_id_convert;
     }
     // get  show branch by lead id
     public function getbranch_lead($id){
@@ -304,7 +354,7 @@ class LeadController extends Controller
     }
     else
     {
-        return view('no_perms');
+        return [];
     }
 
     }
@@ -316,7 +366,7 @@ class LeadController extends Controller
         $userid = $_SESSION['userid'];
         $lead_id=$request->input('lead_id');
         $lead_number=$request->input('lead_number');
-        $company_en=$request->input('company_en');
+        $company_en=ucwords($request->input('company_en'));
         $company_kh=$request->input('company_kh');
         $primary_email=$request->input('primary_email');
         $primary_phone=$request->input('primary_phone');
@@ -363,18 +413,23 @@ class LeadController extends Controller
         $detail_id=$request->input('lead_detail_id');
         $comment=$request->input('comment');
         $convert=Lead::convertbranch($id,$userid,$detail_id,$comment); //return to model
-
+        return $convert;
 
     }
     // get survey
     public function getsurvey(){
-        if(perms::check_perm_module('CRM_02110101')){ //Modeul Survey list
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+
+        if(perms::check_perm_module_api('CRM_02110101',$userid)){ //Modeul Survey list
             $survey= Lead::getsurvey();
             return GetSurvey::Collection($survey);
         }
         else
         {
-            return view('no_perms');
+            return [];
         }
 
     }
@@ -411,7 +466,8 @@ class LeadController extends Controller
         $possible =$request->input('possible');
         $comment =$request->input('commentsurvey');
         $branch_id =$request->input('branch_id');
-        
+        $lead_detail_id=$request->input('lead_detail_id');
+        $comment_branch=$request->input('comment_branch');
         if($possible=='yes'){
             $possible='t';
         }
@@ -419,9 +475,10 @@ class LeadController extends Controller
         {
             $possible='f';
         }
-        // dd($possible);
+        // dd($comment_branch,$lead_detail_id);
         // var_dump($userid,$survey_id,$possible,$comment,$branch_id);
-        return Lead::insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id);
+
+        return Lead::insertsurveyresult($survey_id,$userid,$possible,$comment,$branch_id,$lead_detail_id,$comment_branch);
     }
     // get schdule type
     public function getschduletype($id){
@@ -437,7 +494,8 @@ class LeadController extends Controller
         // $userid =$request->input('user_create');
         $name_kh=$request->input('name_kh');
         $name_en=$request->input('name_en');
-        return Lead::insertscheduletype($userid,$name_en,$name_kh); //return to model
+        $result_type=$request->input('result_type');
+        return Lead::insertscheduletype($userid,$name_en,$name_kh,$result_type); //return to model
     }
     // update schedule type
     public function updatescheduletype(Request $request){
@@ -450,7 +508,8 @@ class LeadController extends Controller
         $name_kh=$request->input('name_kh');
         $name_en=$request->input('name_en');
         $status=$request->input('status');
-        return Lead::updatescheduletype($schedule_id,$userid,$name_en,$name_kh,$status); //return to model
+        $result_type=$request->input('result_type');
+        return Lead::updatescheduletype($schedule_id,$userid,$name_en,$name_kh,$status,$result_type); //return to model
     }
     // get schedule
     public function getschedule(){
@@ -472,7 +531,7 @@ class LeadController extends Controller
         }
         else
         {
-            return view('no_perms');
+            return [];
         }
     }
     // get schedule by id
@@ -561,5 +620,47 @@ class LeadController extends Controller
         }
         $convert = Lead::getleadconvert();
         return json_encode(["data"=>$convert]);
+    }
+    public function getleadconvertDatatable(Request $request){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $convert = Lead::getleadconvertDataTable($request);
+        return $convert;
+    }
+
+    public  function   getcountsurveyresult(){
+        $return=response()->json(auth()->user());
+        $return=json_encode($return,true);
+        $return=json_decode($return,true);
+        $userid=$return["original"]['id'];
+
+        if(perms::check_perm_module_api('CRM_02110103',$userid)){ // top managment
+            $count = Lead::getcountsurveyresult(); // count survey
+            return $count;
+            // dd("sgfvdr");
+        }
+        else
+        {
+            return [];
+        }
+    }
+    // Search Lead 
+    public function CrmLeadSearch(Request $request){
+        if(is_null($request->search)){
+            $search = null;
+        }else{
+            $search=$request->search;
+        }
+        try{
+            $result = array(['id'=>'Not','text'=>'----- Please Select Lead -----']);
+            $res= Lead::SearchLead($search);
+            foreach($res as $row){
+                array_push($result,['id'=>$row->id,"text"=>$row->text]);
+            }
+            return json_encode(["search"=>"success","data"=>$result]);
+        }catch(Exception $e){
+            return json_encode(["search"=>"fail","result"=> $e->getMessage()]);
+        }
     }
 }

@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1><i class="fas fa-user"></i> View Payment</h1>
+                <h1><i class="fas fa-eye"></i> View Payment</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -65,8 +65,8 @@
                                                 <td>{{ $invoice->customer_name }}</td>
                                                 <td>{{ date('d-m-Y', strtotime($invoice->billing_date))}}</td>
                                                 <td>{{ date('d-m-Y', strtotime($invoice->due_date))}}</td>
-                                                <td>{{ $invoice->amount_paid }}</td>
-                                                <td>{{ $invoice->due_amount }}</td>
+                                                <td>{{ number_format($invoice->amount_paid,4,".",",") }}</td>
+                                                <td>{{ number_format($invoice->due_amount,4,".",",") }}</td>
                                                 <td>{{ $status }}</td>
                                                 <td style="text-align-last: center">
                                                     <a title="Edit" href="javascript:void(0);"​ onclick="go_to('bsc_invoice_invoice_view_detail/{{ $invoice->id }}')"><i class="far fa-eye"></i></a>

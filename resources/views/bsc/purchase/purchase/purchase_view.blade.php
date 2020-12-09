@@ -1,5 +1,17 @@
 
 <!-- Content Header (Page header) -->
+@php
+    $my_display= "";
+    if (count($purchase_payments) > 0){
+        foreach ($purchase_payments as $item){
+            $due_amount = $item->due_amount;
+            if($due_amount == 0){
+                $my_display="display: none";
+            }
+        }   
+    }
+@endphp
+
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -8,8 +20,10 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active" onclick="go_to('bsc_purchase_purchase_list')">View Purchase</li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);" onclick="go_to('bsc_purchase_purchase_list')"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        Back</a></li>
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active" onclick="go_to('bsc_purchase_purchase_list')">View Purchase</li>
                 </ol>
             </div>
         </div>
@@ -25,7 +39,7 @@
                             <div class="col-md-8"></div>
                             <div class="col-md-4 text_right">
                                 <a href="#" class="btn btn-success purchase_form"  value="" id="">Print</a>
-                                <a href="#" class="btn btn-secondary purchase_form"  value="bsc_purchase_purchase_purchase_edit" id="purchase_edit" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id}}')">Edit</a>
+                                <a href="#" style="{{ $my_display }}" class="btn btn-secondary purchase_form"  value="bsc_purchase_purchase_purchase_edit" id="purchase_edit" onclick="go_to('bsc_purchase_purchase_edit_data/{{ $purchase->id }}')">Edit</a>
                             </div>
                         </div>
                     </div>
@@ -33,14 +47,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <p for="" class="account_name">Account Name : {{$purchase->chart_account_name}}</p><br/>
-                                <p for="">Date : {{$purchase->billing_date}}</p><br/>
-                                <p for="">Reference : {{$purchase->reference}}</p><br/>
-                                <p for="">Address : {{$purchase->address}}</p><br/>
+                                <p for="">Date : {{ $purchase->billing_date }}</p><br/>
+                                <p for="">Reference : {{ $purchase->reference }}</p><br/>
+                                <p for="">Address : {{ $purchase->address }}</p><br/>
                             </div>
                             <div class="col-md-6">
-                                <p for="">Supplier Name : {{$purchase->supplier_name}}</p><br/>
-                                <p for="">Due Date : {{$purchase->due_date}}</p><br/>
-                                <p for="">Purchase# : {{$purchase->invoice_number}}</p><br/>
+                                <p for="">Supplier Name : {{ $purchase->supplier_name }}</p><br/>
+                                <p for="">Due Date : {{ $purchase->due_date }}</p><br/>
+                                <p for="">Purchase# : {{ $purchase->invoice_number }}</p><br/>
                             </div>
                         </div>
                     </div>
@@ -51,6 +65,7 @@
                                     <th>Item</th>
                                     <th>Description</th>
                                     <th>Quantity</th>
+                                    <th>Unit Price</th>
                                     <th>Account</th>
                                     <th>Tax Rate</th>
                                     <th>Amount</th>
@@ -60,12 +75,13 @@
                                 @if (count($purchase_detail) > 0)
                                     @foreach ($purchase_detail as $item)
                                         <tr>
-                                            <td>{{$item->product_name}}</td>
-                                            <td>{{$item->description}}</td>
-                                            <td>{{$item->qty}}</td>
-                                            <td>{{$item->chart_account_name}}</td>
-                                            <td>{{$item->tax}}</td>
-                                            <td id="txtAmount" class="txtAmount">{{$item->amount}}</td>
+                                            <td>{{ $item->product_name }}</td>
+                                            <td>{{ $item->description }}</td>
+                                            <td>{{ $item->qty }} <span>{{ $item->measurement_name }}</span></td>
+                                            <td>{{ number_format($item->unit_price,4,".",",") }}</td>
+                                            <td>{{ $item->chart_account_name }}</td>
+                                            <td>{{ $item->tax == 0 ? "No Tax" : "Tax" }}</td>
+                                            <td id="txtAmount" class="txtAmount">{{ $item->amount }}</td>
                                         </tr>
                                     @endforeach                                   
                                 @endif
@@ -180,7 +196,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                         </div>
-                                        <input type="number" class="form-control input_required" name="amount_paid" id="amount_paid" value="{{$due_amount == null ? $purchase->grand_total : $due_amount}}" autofocus placeholder="Amount Paid" >
+                                        <input oninput="limitDecimalPlaces(event, 4)" type="number" class="form-control input_required" name="amount_paid" id="amount_paid" value="{{$due_amount == null ? number_format($purchase->grand_total, 4, '.', '') : number_format($due_amount, 4, '.', '')}}" autofocus placeholder="Amount Paid" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -189,7 +205,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                         </div>
-                                        <input type="date" class="form-control input_required" name="date_paid" id="date_paid" placeholder="Date Paid" >
+                                        <input type="date" value="{{date('Y-m-d')}}" class="form-control input_required" name="date_paid" id="date_paid" placeholder="Date Paid" >
                                     </div>
                                 </div>
                             </div>
@@ -232,7 +248,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="row">
+                            <div class="row" style="margin-top: 30px;">
                                 <a href="#" onclick="makePayment()" class="btn btn-success purchase_form"  value="bsc_purchase_purchase_form" id="purchase_form"><i class="fas fa-plus"></i> Add Payment</a>&nbsp;
                                 <button type="button" class="btn btn-danger" onclick="go_to('bsc_purchase_purchase_list')">Cencel</button>
                                 <input type="hidden" name="" id="show_hidden_grand_total" value="{{$purchase->grand_total}}">
@@ -254,6 +270,7 @@
    $(document).ready(function(){
         $('.select2').select2();
 
+        // Delegate Field Amount Paid
         $("#amount_paid").on("keyup", function(){
            let paid_amount =  parseFloat($(this).val());
            let due_amount_payment=parseFloat($('#due_amount_payment').text());
@@ -276,7 +293,7 @@
             sweetalert('error', 'Paid Amount can not input Zero');
             return false;
         }else if(amount_paid < 0){
-            sweetalert('error','Amount Paid can not smaller than Zero');
+            sweetalert('error','Amount Paid must bigger than Zero');
             return false;
         }else{
             let num_miss = 0;
@@ -318,11 +335,18 @@
                             if(data.payment == "amount_paid_bigger_then_due"){
                                 sweetalert('error','Amount Paid input is bigger than Due Amount or Grand Total');
                             }
-                            sweetalert('error','Purchase Insert is fail!!');
+                            sweetalert('error','Purchase Insert is fail!!');                            
                         }
                     }
                 });
             }
+        }
+    }
+    // max length input after dote
+    function limitDecimalPlaces(e, count) {
+        if (e.target.value.indexOf('.') == -1) { return; }
+        if ((e.target.value.length - e.target.value.indexOf('.')) > count) {
+            e.target.value = parseFloat(e.target.value).toFixed(count);
         }
     }
 </script>
