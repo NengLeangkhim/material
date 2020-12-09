@@ -31,4 +31,24 @@ class DashboardController extends Controller
         $total_survey = $responseBody->data->total_survey; // get total quote
         return view('crm.dashboard.CrmDashboard',['total_lead'=>$total_lead == '' ? '0' : $total_lead,'total_branch'=>$total_branch == '' ? '0' : $total_branch,'total_contact'=>$total_contact == '' ? '0' : $total_contact,'total_quote'=>$total_quote == '' ? '0' : $total_quote,'total_survey'=>$total_survey == '' ? '0' : $total_survey]);
     }
+
+    // public function GetSurveyChart(Request $request){
+    //     if (session_status() == PHP_SESSION_NONE) {
+    //         session_start();
+    //     }
+    //     $token = $_SESSION['token'];
+    //     dd($token);
+    //     $fromDate = date("Y-m-01");
+    //     $toDate = date("Y-m-t");
+    //     // dump($request->all());
+    //     $surveyReport = Request::create('/api/crm/report/getSurveyedResult?from_date='.$fromDate.'&to_date='.$toDate.' ','GET');
+    //     $surveyReport->headers->set('Accept', 'application/json');
+    //     $surveyReport->headers->set('Authorization', 'Bearer '.$token);
+    //     $res = app()->handle($surveyReport);
+    //     $response = json_decode($res->getContent());
+    //     // dd($response);
+    //     if(isset($response->success) && ($response->success == true)){
+    //         return $response->success ? $this->sendResponse($response->data, $response->message) : $this->sendError($response->message, [], 200);
+    //     }
+    // }
 }

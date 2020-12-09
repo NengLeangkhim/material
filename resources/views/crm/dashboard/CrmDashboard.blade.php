@@ -159,8 +159,8 @@
                             <h3 class="card-title text-dark text-bold">Quote Status Chart</h3>
                             <?php
                                 if (session_status() == PHP_SESSION_NONE) {
-                                session_start();
-                            }
+                                    session_start();
+                                }
                             ?>
                             <input type="text" hidden value="{{$_SESSION['token']}}" id="getlead">
                         </div>
@@ -308,7 +308,7 @@
                 var chart = new google.visualization.ColumnChart(document.getElementById('LeadChart'))
                 chart.draw(view, options)
             }
-            console.log(currentDateString);
+            // console.log(currentDateString);
             $.ajax({
                 url: '/api/crm/report/leadByStatus', //get link route
                 type: 'GET',
@@ -324,7 +324,7 @@
                     // console.log(data);
                     if (response.success == true) {
                         var data = response.data;
-                        console.log(data);
+                        // console.log(data);
                         if(data.length < 1) {
                           $('#LeadChart').empty()
                             $('#LeadChart').append(`<h1 style="text-align:center">No Data</h1>`)
@@ -443,13 +443,13 @@
                     // console.log('Data: ' + data);
                     if (response.success == true) {
                         var data = response.data
-                        console.log(response.data);
+                        // console.log(response.data);
                         if(data.length < 1) {
                             // $('#QuoteChart').empty()
                             // $('#QuoteChart').append(`<h1 style="text-align:center">No Data</h1>`)
                             // return
                             CrmQuoteDrawChart(data);
-                            console.log('Data: 0');
+                            // console.log('Data: 0');
                         }
                         // console.log('Data: 1');
                         CrmQuoteDrawChart(data);
@@ -538,7 +538,7 @@
                         // show chart when data
                         create_date = currentDateString;
                         total = 0;
-                        console.log('Date:' + create_date + '/' + 'Total: ' + total);
+                        // console.log('Date:' + create_date + '/' + 'Total: ' + total);
                         CrmContactDrawChart(create_date,total);
                     }
                     create_date = data[0].create_date;
@@ -594,19 +594,26 @@
             var myvar= $("#getlead").val();
             $.ajax({
                 url: '/api/countsurvey', //get link route
+                // url: '/crmreport/survey/chart', //get link route
                 type: 'GET',
                 dataType:'json',
                 headers: {
                     'Authorization': `Bearer ${myvar}`,
                 },
+                // headers: {
+                //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                // },
+
                 //data: $('#FrmChartContactReport').serialize(),
                 success: function (response) {
+                    console.log(response.data);
                     var success = response.true,
                         unsuccess = response.false;
                     CrmSurveyChart(success,unsuccess);
                 }
             })
         }
+
         // Organization Chart
         var Organization_Chart = () => {
             $.ajax({
@@ -672,6 +679,7 @@
                 }
             });
         }
+
         Branch_Chart();
         Quote_Chart();
         Contact_Chart();
