@@ -104,6 +104,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->registerRoute('api','api',$crm.'lead.php');
         $this->registerRoute('api','api',$crm.'report.php');
         $this->registerRoute('api','api',$crm.'crm_setting.php');
+        $this->registerRoute('api','api',$crm.'leadbranch.php');
 
         // 2. --- STOCK API ---
         $stock = 'routes/api/stock_api/';

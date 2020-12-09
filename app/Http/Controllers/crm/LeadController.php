@@ -18,17 +18,27 @@ class LeadController extends Controller
 {
 
     // get lead by APi
-    public function getlead(){
+    public function getlead(Request $request){
         if(perms::check_perm_module('CRM_0205')){//module codes
-            $lead=ModelCrmLead::CrmGetLead();
-            $result =json_decode($lead,true);
-            if($result!=null){
-                return view('crm.Lead.index',['lead'=>$result["data"]]);
-            }
-            else{
-                return view('no_perms');
-            }
+            // $lead=ModelCrmLead::CrmGetLead();
+            // $result =json_decode($lead,true);
+            // if($result!=null){
+                return view('crm.Lead.index',['lead'=>$result["data"]??'']);//pass param in case if error happend
+            // }
+            // else{
+            //     return view('no_perms');
+            // }
 
+        }else{
+            return view('no_perms');
+        }
+    }
+    //get lead to support for datatable request
+    public function getleadDatatable(Request $request){
+        $request=str_replace($request->Url(),'',$request->fullUrl());
+        if(perms::check_perm_module('CRM_0205')){//module codes
+            $lead=ModelCrmLead::CrmGetLeadDataTable($request);
+            return $lead;
         }else{
             return view('no_perms');
         }
@@ -37,13 +47,22 @@ class LeadController extends Controller
     public function  getbranch($id){
         if(perms::check_perm_module('CRM_0210')){//module codes
             $branch=ModelCrmLead::CrmGetBranch($id);
+            // dd($branch);
             $result =json_decode($branch,true);
             $schedule_type=ModelCrmLead::CrmGetSchdeuleType('FALSE');
             $schedule_type =json_decode($schedule_type,true);
             if($result!=null){
+                //get shecdule status type
+                $scheduleStatus = [];
+                foreach($result["data"]??[] as $k=>$val){
+                    if($val['schedule_id'] != ''){
+                        $id = $val['schedule_id'];
+                        $scheduleStatus[$id] = ModelCrmLead::getScheduleType($val['schedule_id']);
+                    }
+                }
                 // $schedule_type =json_decode($schedule_type,true);
                             // DD($result,$schedule_type['data']);
-                return view('crm.Lead.branch',['branch'=>$result["data"] ,'schedule_type'=>$schedule_type['data']]);
+                return view('crm.Lead.branch',['branch'=>$result["data"] ,'schedule_type'=>$schedule_type['data']], compact('scheduleStatus'));
             }
             else
             {
@@ -101,11 +120,11 @@ class LeadController extends Controller
                                         ],
                 'company_kh' =>  [  'required'
                                     ],
-                'primary_email' =>  [  'required',
-                                    Rule::unique('crm_lead','email')->ignore($request->lead_id)
-                                    ->where(function ($query) use ($request) {
-                                    return $query->where('is_deleted', 'f');})
-                                        ],
+                // 'primary_email' =>  [  'required',
+                //                     Rule::unique('crm_lead','email')->ignore($request->lead_id)
+                //                     ->where(function ($query) use ($request) {
+                //                     return $query->where('is_deleted', 'f');})
+                //                         ],
                 'primary_phone' =>  [  'required'
                                         ],
                 'branch' =>  [  'required'
@@ -121,7 +140,7 @@ class LeadController extends Controller
             [
                 'company_en.required' => 'This Field is require !!',   //massage validator
                 'company_kh.required' => 'This Field is require !!',   //massage validator
-                'primary_email.required' => 'This Field is require !!',   //massage validator
+                // 'primary_email.required' => 'This Field is require !!',   //massage validator
                 'primary_phone.required' => 'This Field is require !!',   //massage validator
                 'branch.required' => 'This Field is require !!',   //massage validator
                 'lead_source.required' => 'This Field is require !!',   //massage validator
@@ -214,8 +233,8 @@ class LeadController extends Controller
                 $validator = \Validator::make($request->all(), [
                     'company_en' =>  [  'required'
                                             ],
-                    'company_kh' =>  [  'required'
-                                        ],
+                    // 'company_kh' =>  [  'required'
+                    //                     ],
                     'primary_email' =>  [  'required',
                                         Rule::unique('crm_lead','email')
                                         ->where(function ($query) use ($request) {
@@ -224,32 +243,32 @@ class LeadController extends Controller
 
                     'assig_to' =>  [  'required'
                                             ],
-                    'primary_phone' =>  [  'required'
-                                            ],
-                    'phone' =>  [  'required'
-                                            ],
-                    'service' =>  [  'required'
-                                            ],
-                    'lead_status' =>  [  'required'
-                                            ],
-                    'email' =>  [  'required'
-                                            ],
-                    'position' =>  [  'required'
-                                        ],
-                    'national_id' =>  [  'required'
-                                        ],
-                    'name_en' => [ 'required'
-                                            ],
-                    'name_kh' => [ 'required'
-                                        ],
-                    'home_en' => [ 'required'
-                                        ],
-                    'street_en' => [ 'required'
-                                        ],
-                    'home_kh' => [ 'required'
-                                        ],
-                    'street_kh' => [ 'required'
-                                        ],
+                    // 'primary_phone' =>  [  'required'
+                    //                         ],
+                    // 'phone' =>  [  'required'
+                    //                         ],
+                    // 'service' =>  [  'required'
+                    //                         ],
+                    // 'lead_status' =>  [  'required'
+                    //                         ],
+                    // 'email' =>  [  'required'
+                    //                         ],
+                    // 'position' =>  [  'required'
+                    //                     ],
+                    // 'national_id' =>  [  'required'
+                                        // ],
+                    // 'name_en' => [ 'required'
+                    //                         ],
+                    // 'name_kh' => [ 'required'
+                                        // ],
+                    // 'home_en' => [ 'required'
+                    //                     ],
+                    // 'street_en' => [ 'required'
+                    //                     ],
+                    // 'home_kh' => [ 'required'
+                    //                     ],
+                    // 'street_kh' => [ 'required'
+                                        // ],
                     // 'addresscode' => [ 'required'
                     //                     ],
                     'district' => [ 'required'
@@ -258,38 +277,38 @@ class LeadController extends Controller
                                         ],
                     'latlong' => [ 'required'
                                         ],
-                    'address_type' => [ 'required'
-                                        ],
+                    // 'address_type' => [ 'required'
+                    //                     ],
                     'village' => [ 'required'
                                         ],
                 ],
                 [
                     'company_en.required' => 'This Field is require !!',   //massage validator
-                    'company_kh.required' => 'This Field is require !!',   //massage validator
+                    // 'company_kh.required' => 'This Field is require !!',   //massage validator
                     'primary_email.required' => 'This Field is require !!',   //massage validator
-                    'primary_phone.required' => 'This Field is require !!',   //massage validator
+                    // 'primary_phone.required' => 'This Field is require !!',   //massage validator
                     'assig_to.required' => 'This Field is require !!',   //massage validator
-                    'service.required' => 'This Field is require !!',   //massage validator
+                    // 'service.required' => 'This Field is require !!',   //massage validator
                     // 'vat_number.required' => 'This Field is require !!',   //massage validator
-                    'lead_status.required' => 'This Field is require !!',   //massage validator
+                    // 'lead_status.required' => 'This Field is require !!',   //massage validator
                     // 'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
-                    'name_en.required' => 'This Field is require !!',   //massage validator
-                    'name_kh.required' => 'This Field is require !!',   //massage validator
-                    'email.required' => 'This Field is require !!',   //massage validator
-                    'phone.required' => 'This Field is require !!',   //massage validator
-                    'home_en.required' => 'This Field is require !!',   //massage validator
-                    'street_en.required' => 'This Field is require !!',   //massage validator
-                    'home_kh.required' => 'This Field is require !!',   //massage validator
-                    'street_kh.required' => 'This Field is require !!',   //massage validator
-                    'position.required' => 'This Field is require !!',   //massage validator
-                    'national_id.required' => 'This Field is require !!',   //massage validator
+                    // 'name_en.required' => 'This Field is require !!',   //massage validator
+                    // 'name_kh.required' => 'This Field is require !!',   //massage validator
+                    // 'email.required' => 'This Field is require !!',   //massage validator
+                    // 'phone.required' => 'This Field is require !!',   //massage validator
+                    // 'home_en.required' => 'This Field is require !!',   //massage validator
+                    // 'street_en.required' => 'This Field is require !!',   //massage validator
+                    // 'home_kh.required' => 'This Field is require !!',   //massage validator
+                    // 'street_kh.required' => 'This Field is require !!',   //massage validator
+                    // 'position.required' => 'This Field is require !!',   //massage validator
+                    // 'national_id.required' => 'This Field is require !!',   //massage validator
                     'district.required' => 'This Field is require !!',   //massage validator
                     'commune.required' => 'This Field is require !!',   //massage validator
                     'latlong.required' => 'This Field is require !!',   //massage validator
-                    'address_type.required' => 'This Field is require !!',   //massage validator
+                    // 'address_type.required' => 'This Field is require !!',   //massage validator
                     'village.required' => 'This Field is require !!',   //massage validator
                     'email.email' => 'The Email is Wrong !!',   //massage validator
-                    'phone.regex' => 'The Phone Number is Wrong !!',   //massage validator
+                    // 'phone.regex' => 'The Phone Number is Wrong !!',   //massage validator
                     ]
                 );
             }else{
@@ -298,11 +317,11 @@ class LeadController extends Controller
                                             ],
                     'company_kh' =>  [  'required'
                                         ],
-                    'primary_email' =>  [  'required',
-                                        Rule::unique('crm_lead','email')
-                                        ->where(function ($query) use ($request) {
-                                        return $query->where('is_deleted', 'f');})
-                                            ],
+                    // 'primary_email' =>  [  'required',
+                    //                     Rule::unique('crm_lead','email')
+                    //                     ->where(function ($query) use ($request) {
+                    //                     return $query->where('is_deleted', 'f');})
+                                            // ],
                     'branch' =>  [  'required'
                                             ],
                     'lead_source' =>  [  'required'
@@ -311,32 +330,32 @@ class LeadController extends Controller
                                             ],
                     'assig_to' =>  [  'required'
                                             ],
-                    'service' =>  [  'required'
-                                            ],
-                    'website' =>  [  'required'
-                                            ],
+                    // 'service' =>  [  'required'
+                    //                         ],
+                    // 'website' =>  [  'required'
+                    //                         ],
                     'primary_phone' =>  [  'required'
                                         ],
-                    'company_facebook' =>  [  'required'
-                                            ],
-                    'current_speed_isp' =>  [  'required'
-                                            ],
+                    // 'company_facebook' =>  [  'required'
+                    //                         ],
+                    // 'current_speed_isp' =>  [  'required'
+                    //                         ],
                     // 'vat_number' =>  [  'required'
                     //                         ],
-                    'lead_status' =>  [  'required'
-                                            ],
-                    'email' =>  [  'required'
-                                            ],
+                    // 'lead_status' =>  [  'required'
+                    //                         ],
+                    // 'email' =>  [  'required'
+                    //                         ],
                     // 'ma_honorifics_id' =>  [  'required'
                     //                         ],
-                    'position' =>  [  'required'
-                                        ],
-                    'national_id' =>  [  'required'
-                                        ],
-                    'name_en' => [ 'required'
-                                            ],
-                    'name_kh' => [ 'required'
-                                        ],
+                    // 'position' =>  [  'required'
+                    //                     ],
+                    // 'national_id' =>  [  'required'
+                    //                     ],
+                    // 'name_en' => [ 'required'
+                    //                         ],
+                    // 'name_kh' => [ 'required'
+                    //                     ],
                     // 'email' => [ 'required','email',
                     //             Rule::unique('crm_lead_contact','email')
                     //             ->where(function ($query) use ($request) {
@@ -347,67 +366,68 @@ class LeadController extends Controller
                     //             ->where(function ($query) use ($request) {
                     //             return $query->where('is_deleted', 'f');})
                     //                     ],
-                    'home_en' => [ 'required'
-                                        ],
-                    'street_en' => [ 'required'
-                                        ],
-                    'home_kh' => [ 'required'
-                                        ],
-                    'street_kh' => [ 'required'
-                                        ],
+                    // 'home_en' => [ 'required'
+                    //                     ],
+                    // 'street_en' => [ 'required'
+                    //                     ],
+                    // 'home_kh' => [ 'required'
+                    //                     ],
+                    // 'street_kh' => [ 'required'
+                    //                     ],
                     // 'addresscode' => [ 'required'
                     //                     ],
-                    'district' => [ 'required'
-                                        ],
-                    'commune' => [ 'required'
-                                        ],
+                    // 'district' => [ 'required'
+                    //                     ],
+                    // 'commune' => [ 'required'
+                    //                     ],
                     'latlong' => [ 'required'
                                         ],
-                    'address_type' => [ 'required'
-                                        ],
-                    'village' => [ 'required'
-                                        ],
+                    // 'address_type' => [ 'required'
+                    //                     ],
+                    // 'village' => [ 'required'
+                    //                     ],
                 ],
                 [
                     'company_en.required' => 'This Field is require !!',   //massage validator
                     'company_kh.required' => 'This Field is require !!',   //massage validator
-                    'primary_email.required' => 'This Field is require !!',   //massage validator
-                    'primary_phone.required' => 'This Field is require !!',   //massage validator
+                    // 'primary_email.required' => 'This Field is require !!',   //massage validator
+                    // 'primary_phone.required' => 'This Field is require !!',   //massage validator
                     'branch.required' => 'This Field is require !!',   //massage validator
                     'lead_source.required' => 'This Field is require !!',   //massage validator
                     'lead_industry.required' => 'This Field is require !!',   //massage validator
                     'assig_to.required' => 'This Field is require !!',   //massage validator
-                    'service.required' => 'This Field is require !!',   //massage validator
-                    'website.required' => 'This Field is require !!',   //massage validator
-                    'current_speed_isp.required' => 'This Field is require !!',   //massage validator
-                    'company_facebook.required' => 'This Field is require !!',   //massage validator
+                    // 'service.required' => 'This Field is require !!',   //massage validator
+                    // 'website.required' => 'This Field is require !!',   //massage validator
+                    // 'current_speed_isp.required' => 'This Field is require !!',   //massage validator
+                    // 'company_facebook.required' => 'This Field is require !!',   //massage validator
                     // 'vat_number.required' => 'This Field is require !!',   //massage validator
-                    'lead_status.required' => 'This Field is require !!',   //massage validator
+                    // 'lead_status.required' => 'This Field is require !!',   //massage validator
                     // 'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
                     'name_en.required' => 'This Field is require !!',   //massage validator
                     'name_kh.required' => 'This Field is require !!',   //massage validator
-                    'email.required' => 'This Field is require !!',   //massage validator
-                    'phone.required' => 'This Field is require !!',   //massage validator
-                    'home_en.required' => 'This Field is require !!',   //massage validator
-                    'street_en.required' => 'This Field is require !!',   //massage validator
-                    'home_kh.required' => 'This Field is require !!',   //massage validator
-                    'street_kh.required' => 'This Field is require !!',   //massage validator
-                    'position.required' => 'This Field is require !!',   //massage validator
-                    'national_id.required' => 'This Field is require !!',   //massage validator
+                    // 'email.required' => 'This Field is require !!',   //massage validator
+                    // 'phone.required' => 'This Field is require !!',   //massage validator
+                    // 'home_en.required' => 'This Field is require !!',   //massage validator
+                    // 'street_en.required' => 'This Field is require !!',   //massage validator
+                    // 'home_kh.required' => 'This Field is require !!',   //massage validator
+                    // 'street_kh.required' => 'This Field is require !!',   //massage validator
+                    // 'position.required' => 'This Field is require !!',   //massage validator
+                    // 'national_id.required' => 'This Field is require !!',   //massage validator
                     // 'addresscode.required' => 'This Field is require !!',   //massage validator
-                    'district.required' => 'This Field is require !!',   //massage validator
-                    'commune.required' => 'This Field is require !!',   //massage validator
+                    // 'district.required' => 'This Field is require !!',   //massage validator
+                    // 'commune.required' => 'This Field is require !!',   //massage validator
                     'latlong.required' => 'This Field is require !!',   //massage validator
-                    'address_type.required' => 'This Field is require !!',   //massage validator
-                    'village.required' => 'This Field is require !!',   //massage validator
+                    // 'address_type.required' => 'This Field is require !!',   //massage validator
+                    // 'village.required' => 'This Field is require !!',   //massage validator
                     // 'primary_email.unique' => 'The Email is Already Exist !!',   //massage validator
                     // 'email.unique' => 'The Email is Already Exist !!',   //massage validator
-                    'email.email' => 'The Email is Wrong !!',   //massage validator
+                    // 'email.email' => 'The Email is Wrong !!',   //massage validator
                     // 'phone.unique' => 'The Phone is Already Exist !!',   //massage validator
-                    'phone.regex' => 'The Phone Number is Wrong !!',   //massage validator
+                    // 'phone.regex' => 'The Phone Number is Wrong !!',   //massage validator
                     ]
                 );
             }
+        // dump($request->all());
         if ($validator->fails()) //check validator for fail
         {
             return response()->json(array(
@@ -458,6 +478,7 @@ class LeadController extends Controller
             return view('no_perm');
         }
     }
+
     public function addleadindustry(){
         if(perms::check_perm_module('CRM_02')){
             $staff=$_SESSION['userid'];
@@ -494,8 +515,8 @@ class LeadController extends Controller
                 //                         ],
                 'assig_to' =>  [  'required'
                                         ],
-                'service' =>  [  'required'
-                                        ],
+                // 'service' =>  [  'required'
+                //                         ],
                 'ma_honorifics_id' =>  [  'required'
                                         ],
                 'name_en' => [ 'required'
@@ -512,14 +533,14 @@ class LeadController extends Controller
                 //             ->where(function ($query) use ($request) {
                 //             return $query->where('is_deleted', 'f');})
                 //                     ],
-                'home_en' => [ 'required'
-                                    ],
-                'street_en' => [ 'required'
-                                    ],
-                'home_kh' => [ 'required'
-                                    ],
-                'street_kh' => [ 'required'
-                                    ],
+                // 'home_en' => [ 'required'
+                //                     ],
+                // 'street_en' => [ 'required'
+                //                     ],
+                // 'home_kh' => [ 'required'
+                //                     ],
+                // 'street_kh' => [ 'required'
+                //                     ],
                 'addresscode' => [ 'required'
                                     ],
                 'district' => [ 'required'
@@ -528,8 +549,8 @@ class LeadController extends Controller
                                     ],
                 'latlong' => [ 'required'
                                     ],
-                'address_type' => [ 'required'
-                                    ],
+                // 'address_type' => [ 'required'
+                //                     ],
                 'village' => [ 'required'
                                     ],
             ],
@@ -542,21 +563,21 @@ class LeadController extends Controller
                 // 'lead_source.required' => 'This Field is require !!',   //massage validator
                 // 'lead_industry.required' => 'This Field is require !!',   //massage validator
                 'assig_to.required' => 'This Field is require !!',   //massage validator
-                'service.required' => 'This Field is require !!',   //massage validator
+                // 'service.required' => 'This Field is require !!',   //massage validator
                 'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
                 'name_en.required' => 'This Field is require !!',   //massage validator
                 'name_kh.required' => 'This Field is require !!',   //massage validator
                 // 'email.required' => 'This Field is require !!',   //massage validator
                 // 'phone.required' => 'This Field is require !!',   //massage validator
-                'home_en.required' => 'This Field is require !!',   //massage validator
-                'street_en.required' => 'This Field is require !!',   //massage validator
-                'home_kh.required' => 'This Field is require !!',   //massage validator
-                'street_kh.required' => 'This Field is require !!',   //massage validator
+                // 'home_en.required' => 'This Field is require !!',   //massage validator
+                // 'street_en.required' => 'This Field is require !!',   //massage validator
+                // 'home_kh.required' => 'This Field is require !!',   //massage validator
+                // 'street_kh.required' => 'This Field is require !!',   //massage validator
                 'addresscode.required' => 'This Field is require !!',   //massage validator
                 'district.required' => 'This Field is require !!',   //massage validator
                 'commune.required' => 'This Field is require !!',   //massage validator
                 'latlong.required' => 'This Field is require !!',   //massage validator
-                'address_type.required' => 'This Field is require !!',   //massage validator
+                // 'address_type.required' => 'This Field is require !!',   //massage validator
                 'village.required' => 'This Field is require !!',   //massage validator
                 // 'primary_email.unique' => 'The Email is Already Exist !!',   //massage validator
                 // 'email.unique' => 'The Email is Already Exist !!',   //massage validator
@@ -613,7 +634,33 @@ class LeadController extends Controller
         }
         // return redirect()->action('crm\LeadController@lead');
     }
-
+    // function select change lead and lead branh add
+    public function CrmChangeLead(Request $request){
+        if(perms::check_perm_module('CRM_020504')){//module codes
+            $lead_source=ModelCrmLead::CrmGetLeadSource();
+            $lead_status=ModelCrmLead::CrmGetLeadStatus();
+            $lead_industry=ModelCrmLead::CrmGetLeadIndustry();
+            $assig_to=ModelCrmLead::CrmGetLeadAssigTo();
+            $province=ModelCrmLead::CrmGetLeadProvice();
+            if($request->id=='Not'){
+                return view('crm.Lead.addleadselect',['lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province]);
+            }else{
+                return view('crm.Lead.addbranch',['lead_source'=>$lead_source,'lead_status'=>$lead_status,'lead_industry'=>$lead_industry,'assig_to'=>$assig_to,'province'=>$province]);
+            }
+        }else{
+            return view('no_perms');
+        }
+    }
+    // function Lead Search
+    public function CrmLeadSearch(Request $request){
+        if(perms::check_perm_module('CRM_020504')){//module codes
+            $search= $request->search;
+            $result=ModelCrmLead::SearchLead($search);
+            return $result;
+        }else{
+            return view('no_perms');
+        }
+    }
 
 
 

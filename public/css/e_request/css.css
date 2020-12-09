@@ -1,0 +1,689 @@
+/* PDFController Request_Form */
+.namecompany{
+    color:#1fa8e0;
+}
+.title h1{
+    font-size: 16px;
+    text-align: center;
+    font-family:Khmer OS Muol Light;
+}
+.row1 p{
+    text-align: center;
+    margin-top:-8px;
+}
+
+.row2 p{
+    margin-top:-13px;
+    margin-left:20px;
+    font-size: 11pt;
+}
+.title{
+    margin-top:-35px;
+}
+.title2{
+
+    text-align: center;
+}
+.title2 h3{
+    margin-top:-18px;
+    margin-bottom:-38px;
+}
+.row3{
+    margin-top:-37px;
+    margin-left: 20px;
+    font-size:11pt;
+}
+.row4{
+    margin-left:20px;
+    font-size: 11pt;
+}
+
+.list{
+    margin-top:-30px;
+    text-align:left;
+    margin-left:90px;
+    font-size: 11pt;
+}
+
+.row5 p{
+    font-size: 11pt;
+    margin-top:-15px;
+    margin-left: 20px;
+}
+.row6{
+    font-size: 11pt;
+    margin-top:-35px;
+    margin-left: 70px;
+}
+.lastrow{
+    font-size: 11pt;
+    margin-top:-30px;
+    text-align:right;
+}
+
+.footer p{
+    margin-left:20px;
+    margin-top:51px;
+    border-top:solid 2px #1fa8e0;
+    font-size: 9pt;
+}
+
+/* WarrantyLetter_Form */
+.namecompany1_1{
+    color:#1fa8e0;
+}
+.title1_1 h1{
+    margin-top:-10px;
+    font-size: 16px;
+    text-align: center;
+    font-family:Khmer OS Muol Light;
+}
+.row1_1 p{
+    text-align:right;
+    margin-top:-12px;
+    margin-right:20px;
+    font-size: 11pt;
+}
+
+.row2_1 p{
+    margin-right:20px;
+    margin-top:-15px;
+    margin-left:20px;
+    font-size: 11pt;
+}
+
+.title2_1{
+    text-align: center;
+}
+.title2_1 h3{
+    margin-top:-18px;
+    margin-bottom:-38px;
+}
+.row3_1{
+    margin-top:-37px;
+    margin-left: 20px;
+    font-size:11pt;
+}
+.row4_1{
+    margin-right:20px;
+    margin-left:20px;
+    font-size: 11pt;
+}
+
+.row5_1 p{
+    font-size: 11pt;
+    margin-top:-15px;
+    margin-left: 20px;
+}
+.row6_1{
+    font-size: 11pt;
+    margin-top:-35px;
+    margin-left: 85px;
+}
+.lastrow_1{
+    font-size: 11pt;
+    margin-top:-30px;
+    text-align:right;
+    margin-right:20px;
+}
+
+.footer_1 p{
+    margin-right:20px;
+    margin-left:20px;
+    margin-top:330px;
+    border-top:solid 2px #1fa8e0;
+    font-size: 9pt;
+}
+
+/* StopWorkLetter_Form */
+.namecompany_2{
+    color:#1fa8e0;
+}
+.title_2 h1{
+    font-size: 16px;
+    text-align: center;
+    font-family:Khmer OS Muol Light;
+}
+.row1_2 p{
+    font-size: 11pt;
+    margin-right:20px;
+    text-align: right;
+    margin-top:-6px;
+}
+
+.row2_2 p{
+    margin-right:20px;
+    margin-top:-13px;
+    margin-left:20px;
+    font-size: 11pt;
+}
+.title_2{
+    margin-top:-35px;
+}
+.title2_2{
+
+    text-align: center;
+}
+.title2_2 h3{
+    margin-top:-18px;
+    margin-bottom:-38px;
+}
+.row3_2{
+    margin-right:20px;
+    margin-top:-35px;
+    margin-left: 20px;
+    font-size:11pt;
+}
+.row4_2{
+    margin-right:20px;
+    margin-left:20px;
+    font-size: 11pt;
+}
+
+.row5_2 p{
+    margin-right:20px;
+    font-size: 11pt;
+    margin-top:-15px;
+    margin-left: 20px;
+}
+.row6_2{
+    margin-right:20px;
+    font-size: 11pt;
+    margin-top:-30px;
+    margin-left: 70px;
+}
+.lastrow_2{
+    margin-right:20px;
+    font-size: 11pt;
+    margin-top:-30px;
+    text-align:right;
+}
+.col7 p{
+    font-size: 11pt;
+    margin-right:20px;
+    margin-left: 20px;
+}
+
+.footer_2 p{
+    margin-right:20px;
+    margin-left:20px;
+    margin-top:225px;
+    border-top:solid 2px #1fa8e0;
+    font-size: 9pt;
+}
+/* Invite Letter */
+.title3_4{
+    text-align: center;
+}
+.row3_4{
+    font-size: 11pt;
+    margin-top:-5px;
+}
+.row4_4{
+    font-size: 11pt;
+    margin-top:-30px;
+}
+.lastrow_4{
+    margin-right:40px;
+    font-size: 11pt;
+
+    text-align:right;
+}
+.lastrow_4 h3{
+    margin-right:120px;
+    font-size: 11pt;
+    margin-top:-40px;
+    text-align:right;
+}
+/* Invite Meeting Letter */
+.title4_5{
+    text-align: center;
+}
+.row3_5{
+    font-size: 11pt;
+    margin-top:-5px;
+}
+.row4_5{
+    font-size: 11pt;
+    margin-top:-15px;
+    margin-left: 20px;
+}
+.row5_5{
+    font-size: 11pt;
+    margin-top:-10px;
+}
+.lastrow_5{
+    margin-right:40px;
+    font-size: 11pt;
+
+    text-align:right;
+}
+.lastrow_5 h3{
+    margin-right:120px;
+    font-size: 11pt;
+    margin-top:-40px;
+    text-align:right;
+}
+/* notice Letter */
+.title1_6{
+    text-align: center;
+}
+.row3_6{
+    font-size: 11pt;
+    margin-top:-20px;
+}
+.row4_6{
+    font-size: 11pt;
+    margin-top:-15px;
+    margin-left: 20px;
+}
+.row5_6{
+    font-size: 11pt;
+    margin-right: 20px;
+}
+.row6_6{
+    font-size: 11pt;
+    margin-top:-25px;
+}
+.lastrow_6{
+    margin-right:40px;
+    font-size: 11pt;
+
+    text-align:right;
+}
+.lastrow_6 h3{
+    margin-right:120px;
+    font-size: 11pt;
+    margin-top:-40px;
+    text-align:right;
+}
+.footer6{
+    margin-top: 200px;
+    font-size: 11pt;
+    margin-left: 20px;
+}
+/* Request form Letter */
+.title1_7{
+    text-align: center;
+}
+.row4_7{
+    font-size: 11pt;
+    margin-top:-15px;
+    margin-left: 20px;
+}
+.row5_7{
+    font-size: 11pt;
+    margin-right: 20px;
+}
+.row6_7 ul{
+    margin-top:-20px;
+    list-style: none;
+    margin-left:90px;
+    font-size:11pt;
+}
+.row7_7{
+    margin-top:-29px;
+    margin-left: 130px;
+    font-size: 11pt;
+}
+.row8_7{
+    font-size: 11pt;
+    margin-top:-25px;
+}
+.row9_7{
+    margin-top:-25px;
+    margin-left:130px;
+    font-size:11pt;
+}
+.lastrow_7{
+    margin-right:40px;
+    font-size: 11pt;
+    text-align:right;
+    margin-top: -10px;
+}
+
+.footer7{
+    margin-top: 18px;
+    font-size: 10pt;
+    margin-left: 20px;
+}
+
+/*Introduction Letter */
+.title1_8 {
+    font-size: 12pt;
+    text-align: center;
+}
+.row3_8 h3{
+    font-size: 12pt;
+    text-align: center;
+    margin-top: -30px;
+}
+.row4_8{
+    font-size: 11pt;
+    margin-top:-15px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.row5_8{
+    font-size: 11pt;
+    margin-right: 20px;
+}
+.row6_8 {
+    margin-top:-20px;
+    font-size:11pt;
+}
+.row7_8{
+    margin-top:-29px;
+    margin-left: 130px;
+    font-size: 11pt;
+}
+.row8_8{
+    font-size: 11pt;
+    margin-top:-25px;
+}
+.row9_8{
+    margin-top:-25px;
+    margin-left:130px;
+    font-size:11pt;
+}
+.lastrow_8{
+    margin-right:20px;
+    font-size: 11pt;
+    text-align:right;
+    margin-top: -10px;
+}
+.lastrow_8 h3{
+    margin-right:100px;
+    font-size: 11pt;
+    margin-top:-40px;
+    text-align:right;
+}
+.footer8{
+    margin-top: 130px;
+    font-size: 9pt;
+    margin-left: 20px;
+}
+
+/*Decision Letter */
+.title1_9 {
+    font-size: 12pt;
+    text-align: center;
+}
+.row3_9 h3{
+    font-size: 12pt;
+    text-align: center;
+    margin-top: -30px;
+}
+.row4_9{
+    font-size: 12pt;
+    margin-top:-15px;
+    margin-left: 130px;
+    margin-right: 20px;
+}
+.row5_9{
+    font-size: 11pt;
+    margin-right: 20px;
+    margin-left:70px;
+}
+.title2_9{
+    font-size: 12pt;
+    text-align: center;
+    margin-top:-20px;
+}
+.row6_9 ul{
+    margin-top:-40px;
+    list-style: none;
+    margin-left:20px;
+    font-size:11pt;    
+}
+
+.lastrow_9{
+    margin-right:20px;
+    font-size: 11pt;
+    text-align:right;
+    margin-top: -10px;
+}
+.lastrow_9 h3{
+    margin-right:100px;
+    font-size: 11pt;
+    margin-top:-40px;
+    text-align:right;
+}
+.footer9{
+    margin-top: 280px;
+    font-size: 9pt;
+    margin-left: 20px;
+}
+
+/* Request payment form Letter */
+.title1_10{
+    text-align: center;
+}
+.row4_10{
+    font-size: 11pt;
+    margin-top:-15px;
+    margin-left: 20px;
+}
+.row5_10{
+    font-size: 11pt;
+    margin-right: 20px;
+}
+.row6_10 ul{
+    margin-top:-20px;
+    list-style: none;
+    margin-left:90px;
+    font-size:11pt;
+}
+.row7_10{
+    margin-top:-29px;
+    margin-left: 150px;
+    font-size: 11pt;
+}
+.row8_10{
+    font-size: 11pt;
+    margin-top:-25px;
+}
+.row9_10{
+    margin-top:-25px;
+    margin-left:150px;
+    font-size:11pt;
+}
+.lastrow_10{
+    margin-right:40px;
+    font-size: 11pt;
+    text-align:right;
+    margin-top: -10px;
+}
+
+.footer10{
+    margin-top: 110px;
+    font-size: 11pt;
+    margin-left: 20px;
+}
+/* Finish Contract Work Letter*/
+.namecompany{
+    color:#1fa8e0;
+}
+.title11 h3{
+    font-size: 16px;
+    text-align: center;
+    font-family:Khmer OS Muol Light;
+}
+.row1_11{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.title11{
+    margin-top:-35px;
+}
+
+.row3_11{
+    margin-right: 20px;
+    margin-top:-30px;
+    margin-left: 20px;
+    font-size:11pt;
+}
+.row4_11{
+    margin-right: 20px;
+    margin-left:20px;
+    font-size: 11pt;
+}
+
+.row5_11 p{
+    margin-right: 20px;
+    font-size: 11pt;
+    margin-top:-15px;
+    margin-left: 20px;
+}
+.row6_11{
+    margin-right: 20px;
+    font-size: 11pt;
+    margin-top:-30px;
+    margin-left: 80px;
+}
+.lastrow11{
+    margin-right: 20px;
+    font-size: 11pt;
+    margin-top:-30px;
+    text-align:right;
+}
+
+.footer2_11 p{
+    margin-right: 20px;
+    margin-left:20px;
+    margin-top:50px;
+    border-top:solid 2px #1fa8e0;
+    font-size: 9pt;
+}
+.footer11{
+    margin-top: 95px;
+    font-size: 9pt;
+    margin-left: 20px;
+}
+/* Introduct CEO*/
+.namecompany{
+    color:#1fa8e0;
+}
+.title12 h3{
+    font-size: 16px;
+    text-align: center;
+    font-family:Khmer OS Muol Light;
+}
+.row1_12{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.title12{
+    margin-top:-35px;
+}
+
+.row3_12{
+    margin-right: 20px;
+    margin-top:-30px;
+    margin-left: 20px;
+    font-size:11pt;
+}
+.row4_12{
+    margin-right: 20px;
+    margin-left:20px;
+    font-size: 11pt;
+}
+
+.row5_12 p{
+    margin-right: 20px;
+    font-size: 11pt;
+    margin-top:-15px;
+    margin-left: 20px;
+}
+.row6_12{
+    margin-right: 20px;
+    font-size: 11pt;
+    margin-top:-25px;
+    margin-left: 80px;
+}
+.lastrow12{
+    margin-right: 20px;
+    font-size: 11pt;
+    margin-top:-30px;
+    text-align:right;
+}
+
+.footer2_12 p{
+    margin-right: 20px;
+    margin-left:20px;
+    margin-top:50px;
+    border-top:solid 2px #1fa8e0;
+    font-size: 9pt;
+}
+.footer12{
+    margin-top: 50px;
+    font-size: 9pt;
+    margin-left: 20px;
+}
+
+/* Stop Work Employee CEO*/
+.namecompany{
+    color:#1fa8e0;
+}
+.title13 h3{
+    font-size: 16px;
+    text-align: center;
+    font-family:Khmer OS Muol Light;
+}
+.row1_13{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.title13{
+    margin-top:-35px;
+}
+.row2_13 ul{
+    font-style: italic;
+    list-style: none;
+}
+.row3_13{
+    margin-right: 20px;
+    margin-top:-30px;
+    margin-left: 20px;
+    font-size:11pt;
+}
+.row4_13{
+    margin-right: 20px;
+    margin-left:20px;
+    font-size: 11pt;
+}
+
+.row5_13 p{
+    margin-right: 20px;
+    font-size: 11pt;
+    margin-top:-15px;
+    margin-left: 20px;
+}
+.row6_13{
+    margin-right: 20px;
+    font-size: 11pt;
+    margin-top:-25px;
+    margin-left: 80px;
+}
+.lastrow13{
+    margin-right: 20px;
+    font-size: 11pt;
+    margin-top:-30px;
+    text-align:right;
+}
+
+.footer2_13 p{
+    margin-right: 20px;
+    margin-left:20px;
+    margin-top:50px;
+    border-top:solid 2px #1fa8e0;
+    font-size: 9pt;
+}
+.footer13{
+    margin-top: 50px;
+    font-size: 9pt;
+    margin-left: 20px;
+}

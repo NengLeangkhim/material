@@ -125,7 +125,16 @@ class PurchaseController extends Controller
             $product = json_decode($res->getContent()); // convert to json object
             $products = $product->data;
 
-            return view('bsc.purchase.purchase.purchase_form',compact('suppliers','account_payables','products'));
+            // get chart vat account
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/bsc_show_purchase_vat_chart_account', 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $show_vat_chart_account = json_decode($res->getContent()); // convert to json object
+            $show_vat_chart_accounts = $show_vat_chart_account->data;
+            
+            return view('bsc.purchase.purchase.purchase_form',compact('suppliers','account_payables','products','show_vat_chart_accounts'));
         }catch(Exception $e){
             echo $e->getMessage();
             exit;
@@ -144,6 +153,7 @@ class PurchaseController extends Controller
             $create_by = $_SESSION['userid'];
             $token = $_SESSION['token'];
             $bsc_account_charts_id=$request->bsc_account_charts_id;
+            $bsc_vat_input_account_charts_id=$request->bsc_vat_chart_account;
             $suppier_id=$request->suppier_id;
             $billing_date=$request->billing_date;
             $due_date=$request->due_date;
@@ -163,6 +173,7 @@ class PurchaseController extends Controller
                 'grand_total'=>$grand_total,
                 'create_by'=>$create_by,
                 'bsc_account_charts_id'=>$bsc_account_charts_id,
+                'bsc_vat_input_account_charts_id'=>$bsc_vat_input_account_charts_id,
                 'purchase_details'=>$itemDetail
             );
             
@@ -243,7 +254,16 @@ class PurchaseController extends Controller
             $product = json_decode($res->getContent()); // convert to json object
             $products = $product->data;
 
-            //
+            // get purchase vat chart account data
+            $token = $_SESSION['token'];
+            $request = Request::create('/api/bsc_show_purchase_vat_chart_account', 'GET');
+            $request->headers->set('Accept', 'application/json');
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            $res = app()->handle($request);
+            $show_vat_chart_account = json_decode($res->getContent()); // convert to json object
+            $show_vat_chart_accounts = $show_vat_chart_account->data;
+           
+            //get purchase_payment data
             $token = $_SESSION['token'];
             $request = Request::create('/api/bsc_purchases/'.$id, 'GET');
             $request->headers->set('Accept', 'application/json');
@@ -254,7 +274,7 @@ class PurchaseController extends Controller
             $purchase_detail = $response->data->purchase_detail;
             $purchase_payments = $response->data->purchase_payments;
             
-            return view('bsc.purchase.purchase.purchase_edit',compact('suppliers','account_payables','products','purchase','purchase_detail','purchase_payments'));
+            return view('bsc.purchase.purchase.purchase_edit',compact('suppliers','account_payables','products','purchase','purchase_detail','purchase_payments','show_vat_chart_accounts'));
             
         }catch(Exception $e){
             echo $e->getMessage();
@@ -276,6 +296,7 @@ class PurchaseController extends Controller
             $token = $_SESSION['token'];
             $id=$request->purchase_id;
             $bsc_account_charts_id=$request->bsc_account_charts_id;
+            $bsc_vat_input_account_charts_id=$request->bsc_vat_chart_account;
             $ma_suppier_id=$request->suppier_id;
             $billing_date=$request->billing_date;
             $due_date=$request->due_date;
@@ -285,7 +306,6 @@ class PurchaseController extends Controller
             $grand_total=$request->grand_total;
             $status=$request->status==null ? 0 : 1;
             $itemDetail=$request->itemDetail;
-        
             
             $data = array(
                 'ma_supplier_id'=>$ma_suppier_id,
@@ -296,11 +316,12 @@ class PurchaseController extends Controller
                 'vat_total'=>$vat_total,
                 'grand_total'=>$grand_total,
                 'bsc_account_charts_id'=>$bsc_account_charts_id,
+                'bsc_vat_input_account_charts_id'=>$bsc_vat_input_account_charts_id,
                 'update_by'=>$update_by, 
                 'status'=>$status,
                 'purchase_details'=>$itemDetail
             );
-    
+            
             $request = Request::create('api/bsc_purchases/'.$id, 'PUT',$data);
             $request->headers->set('Accept', 'application/json');
             $request->headers->set('Authorization', 'Bearer '.$token);

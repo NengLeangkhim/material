@@ -17,6 +17,10 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     
     Route::get('/organizies','api\crm\OrganizeController@index');
 
+    Route::get('/organizies/datatable','api\crm\OrganizeController@getOrganizeDatatable');
+
+    Route::get('/organizies/branches/{id}','api\crm\OrganizeController@getOrganizeBranchDatatable');
+
     Route::get('/organize/{id}','api\crm\OrganizeController@show');
 
     Route::put('/organize','api\crm\OrganizeController@update');

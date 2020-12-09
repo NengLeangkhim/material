@@ -84,6 +84,7 @@ jQuery("a[data-code]").click(function(e){
        });
 });
 jQuery("a[href]").click(function(e){
+  e.preventDefault();
   var href = $(this).attr("href");
   var target = $(this).attr("target");
     $("#nav_bar_sub_r").html(get_pushmenu());

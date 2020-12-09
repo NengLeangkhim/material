@@ -18,8 +18,12 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('/getschedule','api\crm\LeadController@getschedule');
     // get lead
     Route::get('/getlead','api\crm\LeadController@getLead');
+    // get lead
+    Route::get('/getlead-datatable','api\crm\LeadController@getleadDataTable');
     // get lead fro Add lead
     Route::get('/getaddlead','api\crm\LeadController@getAddLead');
+    // get lead by Search
+    Route::get('/searchlead','api\crm\LeadController@CrmLeadSearch');
     //get lead detail
     Route::get('/getleadbyid/{id}','api\crm\LeadController@getleadbyid');
     // edit lead
@@ -50,6 +54,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('countsurvey','api\crm\LeadController@getcountsurveyresult');
     //get lead that  have br,anch convert
     Route::get('/getleadconvert','api\crm\LeadController@getleadconvert');
+    Route::get('/getleadconvert/datatable','api\crm\LeadController@getleadconvertDatatable');
 
     //get POP
     Route::get('getpop','api\crm\POPController@getpop');
@@ -70,7 +75,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/insertscheduleresult','api\crm\LeadController@insertscheduleresult');
     // update schedule reslut
     Route::post('/updatescheduleredult','api\crm\LeadController@updatescheduleredult');
-    
 });
 
 

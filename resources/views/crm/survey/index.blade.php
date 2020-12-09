@@ -23,13 +23,13 @@
                     <div class="row">
                         <div class="col-12 col-sm-12" >
                           <div class="card card-primary card-tabs" >
-                            <div class="card-header p-0 pt-1" style="background: #1fa8e0">
+                            <div class="card-header p-0 pt-1" style="background: #FFFFFF">
                               <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                                 <li class="nav-item">
-                                  <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">List Survey</a>
+                                  <a style="color: #000000" class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">List Survey</a>
                                 </li>
                                 <li class="nav-item">
-                                  <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">Survey Result</a>
+                                  <a style="color: #000000" class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">Survey Result</a>
                                 </li>
                               </ul>
                             </div>
