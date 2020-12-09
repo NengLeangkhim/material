@@ -69,7 +69,7 @@
                                         // this case `data: 0`.
                                         "searchable": false,
                                         "render": function ( data, type, row ) {
-                                            return '<div class="container-fluid"><div class="row form-inline">'+
+                                            return '<div class="container-fluid datatable-action-col"><div class="row form-inline">'+
                                                     '<div class="col-md-4">'+
                                                         '<a href="#"  class="qouteViewDetail btn btn-info btn-sm" onclick="goto_Action(\'/quote/detail\', \''+data+'\')"  >'+
                                                             '<i class="far fa-eye"></i>'+

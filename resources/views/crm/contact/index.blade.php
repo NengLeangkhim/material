@@ -90,11 +90,11 @@
                           // `data` option, which defaults to the column being worked with, in
                           // this case `data: 0`.
                           "render": function ( data, type, row ) {
-                              return '<div class="row-12 form-inline">'+
+                              return '<div class="container-fluid datatable-action-col"><div class="row form-inline">'+
                                           '<div class="col-md-12">'+
                                             '<button class="btn btn-info btn-block  btn-sm CrmEditContact" onclick=go_to("/contact/edit/'+data+'")><i class="fas fa-wrench"></i></button>'+
                                           '</div>'+
-                                      '</div>';
+                                      '</div></div>';
                           },
                           "targets": 4
                       },
