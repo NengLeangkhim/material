@@ -43,6 +43,7 @@
                                                 <th  style="color:#FFFFFF">Schedule Activity</th>
                                                 <th  style="color:#FFFFFF">Lead status</th>
                                                 <th  style="color:#FFFFFF">Assigned To</th>
+                                                <th  style="color:#FFFFFF">Create Date</th>
                                                 <th  style="color:#FFFFFF">Detail</th>
                                             </tr>
                                         </thead>
@@ -85,6 +86,7 @@
                                                             </td>
                                                             <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]["lead_status"]}}</td>
                                                             <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]['assig']}}</td>
+                                                            <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]['create_date']}}</td>
                                                             <td style="color: #d42931 ; font-weight:bold">
                                                                 <div class="row-12 form-inline">
                                                                     <div class="col-md-6">
@@ -148,6 +150,7 @@
                                                             </td>
                                                             <td>{{$branch[$i]["lead_status"]}}</td>
                                                             <td>{{$branch[$i]['assig']}}</td>
+                                                            <td>{{$branch[$i]['create_date']}}</td>
                                                             <td>
                                                                 <div class="row-12 form-inline">
                                                                     <div class="col-md-6">

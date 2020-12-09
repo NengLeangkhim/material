@@ -40,7 +40,7 @@
                                                 <th style="color: #FFFFFF">Customer Name</th>
                                                 <th style="color: #FFFFFF">Email</th>
                                                 <th style="color: #FFFFFF">Phone </th>
-                                                {{-- <th style="color: #FFFFFF">Facebook </th> --}}
+                                                <th style="color: #FFFFFF">Create Date </th>
                                                 <th style="color: #FFFFFF">Action</th>
                                                 {{-- <th>Detail</th> --}}
                                             </tr>
@@ -71,6 +71,7 @@
                         // The `data` parameter refers to the data for the cell (defined by the
                         // `data` option, which defaults to the column being worked with, in
                         // this case `data: 0`.
+                        "searchable": false,
                         "render": function ( data, type, row ) {
                             return '<div class="container-fluid"><div class="row form-inline">'+
                                         '<div class="col-6">'+
@@ -86,7 +87,7 @@
                                     '</div></div>';
                         },
                         "width": "100px",
-                        "targets": 4
+                        "targets": 5,
                     },
                 ]
                 });
