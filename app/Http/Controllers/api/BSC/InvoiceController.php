@@ -599,7 +599,7 @@ class InvoiceController extends Controller
 
     public function preview_invoice(Request $request,$id){
         $preview_invoice = DB::table('bsc_invoice')
-                ->select('bsc_invoice.*','ma_customer.name as company_name_en','crm_lead.customer_name_kh as company_name_kh','crm_lead_contact.name_en as contact_name','crm_lead_contact.phone as contact_phone','crm_lead_contact.email as contact_email','crm_lead_address.gazetteer_code as address_name')
+                ->select('bsc_invoice.*','ma_customer.name as company_name_en','crm_lead.customer_name_kh as company_name_kh','crm_lead_contact.name_en as contact_name','crm_lead_contact.phone as contact_phone','crm_lead_contact.email as contact_email','crm_lead_address.gazetteer_code as address_name','ma_customer.vat_number','ma_customer.vat_type')
                 ->leftJoin('ma_customer','ma_customer.id','=','bsc_invoice.ma_customer_id')
                 ->leftJoin('crm_lead','crm_lead.id','=','ma_customer.crm_lead_id')
                 ->leftJoin('crm_lead_branch','crm_lead_branch.crm_lead_id','=','crm_lead.id')
