@@ -169,8 +169,8 @@
                                 <div class="">
                                         @php $Countnum = 0; @endphp
                                         @isset($lead_branch_quote)
-                                            @foreach ($lead_branch_quote->data??[] as $key=>$value)
-                                                <form action="" method="PUT" id="frmEditQuoteBranch">
+                                            @foreach ($lead_branch_quote->data ?? [] as $key=>$value)
+                                                <form action="" method="PUT" id="frmEditQuoteBranch{{ $value->crm_lead_branch->id ?? '' }}">
                                                     @csrf
                                                     <div class="col-md-12">
                                                         <div class="card">
@@ -213,17 +213,17 @@
                                                                                         <input type="hidden" id="getBranchIdEdit" value="{{ $value->crm_lead_branch->id ?? ''}}" readonly>
                                                                                         <input type="hidden" id="vatNumber" value="{{ $value->crm_lead_branch->vat_number ?? ''}}" readonly>
 
-                                                                                        <tr id="{{ $Countnum }}" class="tr-quote-row row-quote-item row-quote-item_{{ $Countnum }}" data-id="row_{{ $Countnum }}" data-code="{{ $value->crm_lead_branch->id }}">
+                                                                                        <tr id="{{ $Countnum }}" class="tr-quote-row row-quote-item row-quote-item_{{ $Countnum }}" data-id="row_{{ $Countnum }}" data-code="{{ $value->crm_lead_branch->id ?? "" }}">
                                                                                             <td style="width: 30%;">
 
                                                                                                 <input type="hidden" name="quote_detail_id_updated[]" value="{{ $val2->id ?? ''}}" readonly>
                                                                                                 <div class="form-group">
                                                                                                     <div class="row pb-2">
                                                                                                         <div class="col-6">
-                                                                                                            <button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemProduct_{{ $Countnum }}"   name="addItemProduct"  id="{{ $Countnum }}"  data-id="_new"> <span>  Add Product </span></button>
+                                                                                                            <button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemProduct_{{ $Countnum }}"   name="addItemProduct"  id="{{ $Countnum }}"  data-id="_new" data-code="{{ $value->crm_lead_branch->id ?? ""}}"> <span>  Add Product </span></button>
                                                                                                         </div>
                                                                                                         <div class="col-6">
-                                                                                                            <button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemService_{{ $Countnum }}"  name="addItemService"  id="{{ $Countnum }}" data-id="_new"> <span>  Add Service </span></button>
+                                                                                                            <button type="button" style="color:white; width: 100%;" class="btn-list-item txtbox-quote  btn-info addItemService_{{ $Countnum }}"  name="addItemService"  id="{{ $Countnum }}" data-id="_new" data-code="{{ $value->crm_lead_branch->id ?? ""}}"> <span>  Add Service </span></button>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                     <div class="row form-inline2">
@@ -321,71 +321,90 @@
                                                                     </dl>
                                                                 </div>
 
-                                                                {{-- table row to show grand total item --}}
-                                                                <dl class="row pr-3">
-                                                                    <table class="table table-bordered">
-                                                                        <tbody>
-                                                                            <tr style="text-align: right">
-                                                                                <td  ><span style="padding-right: 12px;">Sum Total </span></td>
-                                                                                <td  ><div id="sumTotal{{ $value->crm_lead_branch->id ?? ''}}"> 0.0 </div></td>
-                                                                            </tr>
-                                                                            <tr style="text-align: right">
-                                                                                <td >
-                                                                                    <span style="padding-right: 12px;" >Value Add Tax(VAT)</span>
-                                                                                </td>
-                                                                                <td >
-                                                                                    <div id="valueAddTax{{ $value->crm_lead_branch->id ?? ''}}">
-                                                                                        @php
-                                                                                            if($value->crm_lead_branch->vat_number != ''){
-                                                                                                echo 'Yes';
-                                                                                            }else{
-                                                                                                echo 'No';
-                                                                                            }
-                                                                                        @endphp
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
 
-                                                                            <tr style="text-align: right">
-                                                                                <td >
-                                                                                    <span style="padding-right: 12px;" id="labelTaxQuote{{ $value->crm_lead_branch->id ?? ''}}">
-                                                                                        @php
-                                                                                            if($value->crm_lead_branch->vat_number != ''){
-                                                                                                echo '+ Tax (10%)';
-                                                                                            }else{
-                                                                                                echo '+ Tax (0%)';
-                                                                                            }
-                                                                                        @endphp
-                                                                                    </span>
-                                                                                </td>
-                                                                                <td >
-                                                                                    <div id="getTaxation{{ $value->crm_lead_branch->id ?? ''}}">0.0</div>
-                                                                                </td>
-                                                                            </tr>
-
-
-                                                                            <tr class="td-total-quote grandTotal" >
-                                                                                <td  ><span style="padding-right: 12px;">Grand Total</span></td>
-                                                                                <td  ><div id="grandTotal{{ $value->crm_lead_branch->id ?? ''}}"> 0.0 </div></td>
-                                                                            </tr>
-
-                                                                        </tbody>
-
-                                                                    </table>
-                                                                </dl>
 
                                                                 <dl class="col-sm-12 ">
                                                                     <div class="text-right" >
-                                                                            <button type="button" class="mr-2 font-weight-bold btn btn-sm btn-primary"  id="btnUpdateQuoteBranch" >Update</button>
+                                                                            <button type="button" class="mr-2 font-weight-bold btn btn-sm btn-primary"  id="btnUpdateQuoteBranch" data-id="{{ $value->crm_lead_branch->id ?? '' }}">Update</button>
                                                                             <button type="button" class=" font-weight-bold  btn btn-sm btn-danger" onclick="cancelEditBranch();">Cancel</button>
                                                                     </div>
                                                                 </dl>
 
                                                         </div>
                                                     </div>
+
                                                 </form>
                                             @endforeach
                                             <input type="hidden" id="countNumBranchEdit" value="{{ $Countnum  }}">
+                                            <input type="hidden" id="QuoteTypeFunction"  value="quoteEdit">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="p-1">
+                                                        <div class="form-inline rounded back-color-blue">
+                                                            <label class="p-2">Total Branch Item</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body">
+                                                            {{-- table row to show grand total item --}}
+                                                            <dl class="row pr-3">
+                                                                <table class="table table-bordered">
+                                                                    <tbody>
+                                                                        <tr style="text-align: right">
+                                                                            <td  ><span style="padding-right: 12px;">Sum Total </span></td>
+                                                                            <td  ><div id="sumTotal"> 0.0 </div></td>
+                                                                        </tr>
+                                                                        <tr style="text-align: right">
+                                                                            <td >
+                                                                                <span style="padding-right: 12px;" >Value Add Tax(VAT)</span>
+                                                                            </td>
+                                                                            <td >
+                                                                                <div id="valueAddTax">
+                                                                                    @php
+                                                                                        if(isset($lead_branch_quote->data[0]->crm_lead_branch->vat_number)){
+                                                                                            if($lead_branch_quote->data[0]->crm_lead_branch->vat_number != ''){
+                                                                                                echo 'Yes';
+                                                                                            }else{
+                                                                                                echo 'No';
+                                                                                            }
+                                                                                        }
+
+                                                                                    @endphp
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+
+                                                                        <tr style="text-align: right">
+                                                                            <td >
+                                                                                <span style="padding-right: 12px;" id="labelTaxQuote">
+                                                                                    @php
+                                                                                        if(isset($lead_branch_quote->data[0]->crm_lead_branch->vat_number)){
+                                                                                            if($lead_branch_quote->data[0]->crm_lead_branch->vat_number != ''){
+                                                                                                echo '+ Tax (10%)';
+                                                                                            }else{
+                                                                                                echo '+ Tax (0%)';
+                                                                                            }
+                                                                                        }
+                                                                                    @endphp
+                                                                                </span>
+                                                                            </td>
+                                                                            <td >
+                                                                                <div id="getTaxation">0.0</div>
+                                                                            </td>
+                                                                        </tr>
+
+
+                                                                        <tr class="td-total-quote grandTotal" >
+                                                                            <td  ><span style="padding-right: 12px;">Grand Total</span></td>
+                                                                            <td  ><div id="grandTotal"> 0.0 </div></td>
+                                                                        </tr>
+
+                                                                    </tbody>
+
+                                                                </table>
+                                                            </dl>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endisset
                                 </div>
                             </div>
@@ -402,11 +421,12 @@
         // $quoteId = json_encode($quoteDetail->data->id);
     ?>
     <script type="text/javascript">
+
+        $(".row-quote-item").keyup();
+        $(".row-quote-item").keyup();
         $(document).ready(function(){
             $('.select2').select2();
         });
-
-
 
         function cancelEditLead(){
             var qId = <?php echo json_encode($quoteDetail->data->id); ?>;

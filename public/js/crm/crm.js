@@ -1187,11 +1187,11 @@ function CrmLeadBranchView(url,table){
 
     //function click to submit update quote branch
     $(document).on('click','#btnUpdateQuoteBranch',function(){
-
-            $("#frmEditQuoteBranch input").removeClass("is-invalid");//remove all error message
-            $("#frmEditQuoteBranch select").removeClass("is-invalid");//remove all error message
-            $("#frmEditQuoteBranch textarea").removeClass("is-invalid");//remove all error message
-            $("#frmEditQuoteBranch radio").removeClass("is-invalid");//remove all error message
+            var branId = $(this).attr("data-id");
+            $("#frmEditQuoteBranch"+branId+" input").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteBranch"+branId+" select").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteBranch"+branId+" textarea").removeClass("is-invalid");//remove all error message
+            $("#frmEditQuoteBranch"+branId+" radio").removeClass("is-invalid");//remove all error message
             var quoteId = $('#quote_id').val();
             $.ajax({
                 method: 'PUT',
@@ -1200,7 +1200,7 @@ function CrmLeadBranchView(url,table){
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data:
-                    $('#frmEditQuoteBranch').serialize(),
+                    $('#frmEditQuoteBranch'+branId+'').serialize(),
                 success:function(data)
                 {
 
@@ -1237,9 +1237,6 @@ function CrmLeadBranchView(url,table){
                         });
 
 
-
-
-
                     }
 
                     // if(data.success){
@@ -1270,6 +1267,6 @@ function CrmLeadBranchView(url,table){
 // ========================= End set schedule of branch ================================
 
 
-// qoute stage 
+// qoute stage
 
 // end quote stage
