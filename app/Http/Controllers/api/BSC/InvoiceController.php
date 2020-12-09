@@ -380,7 +380,7 @@ class InvoiceController extends Controller
                         LEFT JOIN ma_customer ON crm_quote.crm_lead_id = ma_customer.crm_lead_id
                         LEFT JOIN bsc_invoice ON crm_quote.id = bsc_invoice.crm_quote_id
                     WHERE
-                        qs.crm_quote_status_type_id = 2 
+                        qs.crm_quote_status_type_id = 16 
                         AND ma_customer.id IS NOT null  
                         AND bsc_invoice.crm_quote_id IS NULL
                         AND crm_quote.status = 't' 
