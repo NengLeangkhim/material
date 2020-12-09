@@ -585,7 +585,7 @@
                                         'Authorization': `Bearer ${token}`,
                                         },
                                     success:function(data){
-                                        sweetalert('success','Convert Quote successed!');
+                                        sweetalert('success','Update quote success');
                                         goto_Action('/quote/detail',crm_quote_id )
                                     },
                                     error: function(data) {
