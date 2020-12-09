@@ -328,7 +328,7 @@ Route::get('staff_note','staff_note@staff_notePDF'); //staff_note
 Route::get('training_staff_note','training_staff_note@training_staff_notePDF'); //training_staff_note
 Route::get('survey_staff_exit','survey_staff_exit@survey_staff_exitPDF'); //survey_staff_exit
 Route::get('training_need_analysis','training_need_analysis@training_need_analysisPDF'); //survey_staff_exit
-Route::get('new_staff','e_request\new_staff@new_staffPDF'); //new_staff
+Route::get('new_staff','e_request\pdf\new_staff@new_staffPDF'); //new_staff
 
 
 //=======================E-request==========================

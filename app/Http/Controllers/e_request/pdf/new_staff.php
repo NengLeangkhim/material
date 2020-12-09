@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\e_request;
+namespace App\Http\Controllers\e_request\pdf;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -48,14 +48,7 @@ class new_staff extends Controller
                             <td></td>
                             <td>តួនាទី</td>
                             <td></td>
-                        </tr>         
-                        <tr>
-                            <td>ឈ្មោះ</td>
-                            <td></td>
-                            <td>តួនាទី</td>
-                            <td></td>
-                        </tr>         
-                                  
+                        </tr>                           
                     </tbody>
                 </table>
                 <h3 style="font-size: 16px;">II.ចំណុចដែរបានធ្វើការតាមដាន</h3>
