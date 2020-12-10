@@ -585,7 +585,7 @@
                                         'Authorization': `Bearer ${token}`,
                                         },
                                     success:function(data){
-                                        sweetalert('success','Convert Quote successed!');
+                                        sweetalert('success','Update quote success');
                                         goto_Action('/quote/detail',crm_quote_id )
                                     },
                                     error: function(data) {
@@ -626,15 +626,14 @@
                             sweetalert('success','Convert Quote successed!');
                             goto_Action('/quote/detail',crm_quote_id )
                         },
-                        error: function(data) {
-
+                        error: function(data){
                             sweetalert('warning','Data not accessing to server!');
                         }
                     })
                 }
             });
 
-             }
+            }
 
 
         })
