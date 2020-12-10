@@ -353,6 +353,7 @@ class CrmReport extends Model
 
     public function getOrganizationDetail($leadSource = null, $assignTo = null, $fromDate = null, $toDate = null, $status = 2){ // status qualified
         try{
+            $assignTo = null;
             $select = '
                 SELECT
                     cl.customer_name_en, cl.customer_name_kh, cl.email, cl.website, cl.facebook, cl.crm_lead_source_id, cl.crm_lead_current_isp_id, cl.crm_lead_industry_id,
@@ -486,7 +487,7 @@ class CrmReport extends Model
                 WHERE id in (
                     SELECT DISTINCT ON (crm_lead_branch_id) crm_lead_branch_id
                     FROM crm_lead_detail
-                    WHERE crm_lead_status_id = '.$forStatusId.' and is_deleted = false and status = false
+                    WHERE crm_lead_status_id = '.$forStatusId.' and is_deleted = false and status = true
                     ORDER BY crm_lead_branch_id, create_date DESC
                 )
                 AND is_deleted = false

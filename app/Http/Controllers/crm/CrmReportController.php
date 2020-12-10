@@ -48,7 +48,7 @@ class CrmReportController extends Controller
             session_start();
         }
         $userId = $_SESSION['userid'];
-        $assign_perm = perms::check_perm_module('CRM_0201010101');
+        $assign_perm = perms::check_perm_module('CRM_0201010101') || perms::check_perm_module('CRM_020103');
         return view('crm.report.CrmReportLead',compact('assign_perm','userId'));
     }
     // Get data Contact Chart Report
