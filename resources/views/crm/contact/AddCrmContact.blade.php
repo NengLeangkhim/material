@@ -69,27 +69,27 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="name_kh">Contact Name khmer <b style="color:red">*</b></label>
+                                            <label for="name_kh">Contact Name khmer </label>
                                              <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-building"></i></span>
                                                 </div>
                                                 <input type="text" class="form-control" name="name_kh" id="name_kh" placeholder="Customer Name khmer" >
-                                                <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
+                                                {{-- <span class="invalid-feedback" role="alert" id="name_khError"> span for alert
                                                     <strong></strong>
-                                                </span>
+                                                </span> --}}
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="email">Primary Email<b style="color:red">*</b></label>
+                                            <label for="email">Primary Email</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-at"></i></span>
                                                 </div>
                                                 <input type="email" class="form-control"  name="email" id="email" placeholder="Primary Email">
-                                                <span class="invalid-feedback" role="alert" id="emailError"> {{--span for alert--}}
+                                                {{-- <span class="invalid-feedback" role="alert" id="emailError"> span for alert
                                                     <strong></strong>
-                                                </span>
+                                                </span> --}}
                                             </div>
                                         </div>
                                     </div>

@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-md-8"></div>
                             <div class="col-md-4 text_right">
-                                <a target="_blank" href="bsc_preview_invoioce/{{ $invoices->id }}" class="btn btn-success purchase_form"  value="" id="">Print</a>
+                                <a target="_blank" href="bsc_preview_invoioce/{{ $invoices->id }}" class="btn btn-success purchase_form"  value="" id="">Preview</a>
                                 {{-- <a href="#" class="btn btn-secondary purchase_form"  value="bsc_purchase_purchase_purchase_edit" id="purchase_edit" onclick="go_to('bsc_invoice_invoice_edit/{{ $invoices->id }}')">Edit</a> --}}
                                 {{-- <a href="#" class="btn btn-danger purchase_form"  value="" id="">Delete</a> --}}
                             </div>
@@ -42,6 +42,7 @@
                                         <div class="row">
                                             <input type="hidden" id="bsc_invoice_id" value="{{ $invoices->id }}">
                                             <input type="hidden" id="bsc_account_charts_id" value="{{ $invoices->chart_account_id }}">
+                                            <input type="hidden" name="vat_number" id="vat_number" value="{{ $invoices->vat_number }}">
                                             <div class="col-sm-12">
                                                 <p for="">Account Name : &nbsp;{{ $invoices->chart_account_name }}</p>
                                             </div>
@@ -103,7 +104,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table  class="table table-bordered table-striped">
+                        <table id="tbl_invoice_detail"  class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Customer Branch</th>
@@ -121,7 +122,7 @@
                                 // dd($invoice_details);
                             @endphp
                             <tbody>
-                                @if (count($invoice_details) >0)
+                                {{-- @if (count($invoice_details) >0)
                                     @foreach ($invoice_details as $invoice_detail)
                                         <tr>
                                             <td>{{ $invoice_detail->customer_branch_name }}</td>
@@ -135,7 +136,7 @@
                                             <td class="item_amount" data-item_amount="{{ $invoice_detail->amount }}">{{ number_format($invoice_detail->amount,4,".",",") }}</td>
                                         </tr>
                                     @endforeach
-                                @endif
+                                @endif --}}
                             </tbody>
                         </table><br/>
                         <div class="form-group">
@@ -144,15 +145,16 @@
                                     <div class="col-md-8">
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="row">
+                                        <div class="row" id="display_none">
+                                            <input type="hidden" id="old_total">
                                             <div class="col-sm-6 text_right">
-                                                <label for="">Total : </label>
+                                                <label for="" id="total_label">Total : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
                                                 <label for="" id="txtTotal">0</label>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row" id="display_none_vat">
                                             <div class="col-sm-6 text_right">
                                                 <label for="">Vat Total : </label>
                                             </div>
@@ -160,12 +162,12 @@
                                                 <label for="" id="txtVatTotal">0.0000</label>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row" id="display_none_grand">
                                             <div class="col-sm-6 text_right">
                                                 <label for="">Grand Total : </label>
                                             </div>
                                             <div class="col-sm-6 text_right">
-                                                <label for="" id="txtGrandTotal">0</label>
+                                                <label for="" id="txtGrandTotal">{{ $invoices->grand_total }}</label>
                                             </div>
                                         </div>
                                         <hr class="line_in_tag_hr">
@@ -301,11 +303,14 @@
         </div>
     </div>
 </section><!-- end section Main content -->
-
+<script src="js/bsc/invoice.js"></script>
 
 <script type="text/javascript">
 
 $(function () {
+
+    showData();
+
     $("#example1").DataTable({
     "responsive": true,
     "autoWidth": false,
@@ -341,9 +346,9 @@ $('.detail').click(function(e)
 
     $(document).ready(function(){
         //show total & grand total
-        showTotal();
-        vatTotal();
-        showGrandTotal();
+        // showTotal();
+        // vatTotal();
+        // showGrandTotal();
 
         $("#amount_paid").on("keyup", function()
         {
@@ -426,7 +431,7 @@ $('.detail').click(function(e)
     // });
 
     // End Calculate Grand Total
-    function showTotal(){
+    function showTotals(){
         let total_amount = 0;
         $('.item_amount').each(function(e){
             if(!isNaN(parseFloat($(this).attr('data-item_amount')))){
@@ -437,14 +442,14 @@ $('.detail').click(function(e)
     }
 
     // Calculate Grand Total
-    function showGrandTotal(){
-        let total = parseFloat($('#txtTotal').text());
-        let totalvat = parseFloat($('#txtVatTotal').text());
-        let grandTotal = total + totalvat;
-        document.getElementById('txtGrandTotal').innerHTML=grandTotal.toFixed(4);
-    }
+    // function showGrandTotals(){
+    //     let total = parseFloat($('#txtTotal').text());
+    //     let totalvat = parseFloat($('#txtVatTotal').text());
+    //     let grandTotal = total + totalvat;
+    //     document.getElementById('txtGrandTotal').innerHTML=grandTotal.toFixed(4);
+    // }
     //Calculate Vat Total
-    function vatTotal()
+    function vatTotals()
     {
         let total = parseFloat($('#txtTotal').text());
         let vat_total= (total * 10)/100;
@@ -456,5 +461,86 @@ $('.detail').click(function(e)
         if ((e.target.value.length - e.target.value.indexOf('.')) > count) {
             e.target.value = parseFloat(e.target.value).toFixed(count);
         }
+    }
+
+    // function show amount
+    function show_amounts(discount_type,qty,price,discount)
+    {
+        let amount = 0;
+        let discount_price = 0;
+        if(discount_type == 'percent'){
+            discount_price= (qty * price) * discount/100;
+            amount = (qty * price) - discount_price;
+            return amount;
+        }else{
+            amount = (qty * price)  - discount;
+            return amount;
+        }
+    }
+
+    function showData(){
+        let invoice_details = <?php echo json_encode($invoice_details); ?>;
+        let tr = '';
+        let vat_number = $("#vat_number").val();
+        let amount = 0;
+        let vats = 0;
+        let vat_per_item = 0;
+        let price_show = 0;
+        let amount_show = 0;
+        if(invoice_details.length > 0){
+            $.each(invoice_details, function(e, invoice_detail){
+
+                let discount_type = 'percent';
+                if(discount_type == 'percent'){
+                    percent ="%";
+                }else{
+                    percent ="$";
+                }
+                let qty=invoice_detail.qty;
+                let price=invoice_detail.unit_price;
+                let discount=invoice_detail.discount;
+                amount = show_amounts(discount_type,qty,price,discount);
+                vats = vat(amount);
+                vat_per_item = vats / qty;
+
+                if(vat_number == ""){
+                    tax_rate="Include";
+                    attr_tax_rate=1;
+                    price_show = newUnitPrice(discount_type,price,vat_per_item);
+                    amount_show = show_amount_old(discount_type,qty,price_show,discount);
+                }else{
+                    tax_rate="Exclude";
+                    attr_tax_rate=0;
+                }
+
+                let tax = invoice_detail.tax == 0 ? "Exclude" : "Include"
+                tr += '<tr>'+
+                            '<td>'+invoice_detail.customer_branch_name+'</td>'+
+                            '<td>'+invoice_detail.product_name+'</td>'+
+                            '<td>'+invoice_detail.description+'</td>'+
+                            '<td>'+invoice_detail.qty+' <span>'+invoice_detail.measurement_name+'</span></td>'+
+                            '<td>'+parseFloat(vat_number == ""  ? price_show : price).toFixed(4)+'</td>'+
+                            '<td>'+invoice_detail.discount+''+percent+'</td>'+
+                            '<td>'+invoice_detail.chart_account_name+'</td>'+
+                            '<td>'+tax+'</td>'+
+                            '<td class="item_amount" data-amount="'+amount+'" data-vat="'+vats+'">'+parseFloat(vat_number == "" ? amount_show : amount).toFixed(4)+'</td>'+
+                        '</tr>';
+            });
+        }
+        $("#tbl_invoice_detail tbody").html(tr);
+        showTotal();
+        vatTotals();
+        // showGrandTotal();
+        let total_label ='';
+        if(vat_number == ""){
+            total_label = "Total with Tax :";
+            $('#total_label').html(total_label);
+            $('#display_none_vat').hide();
+        }else{
+            total_label = "Total :";
+            $('#total_label').html(total_label);
+            $('#display_none_vat').show();
+        }
+
     }
 </script>

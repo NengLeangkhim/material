@@ -3,6 +3,15 @@
     session_start();
     }
 @endphp
+<style>
+    th {
+        font-size: 16px;
+    }
+
+    td {
+        font-size: 14px;
+    }
+</style>
 <div class="col-12 text-right">
     <a  href="javascript:void(0);" class="btn btn-success" onclick="CrmModalAction('crm_schedule_type_form','crm_schedule_type','ActionScheduleType','Add Schedule Type')" ​><i class="fas fa-plus"></i> Add Schedule Type</a>
 </div>

@@ -208,7 +208,7 @@ class CrmReport extends Model
                with quote_status as ( SELECT DISTINCT ON (crm_quote_status_type_id) crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh, COUNT(*) AS total_quotes
                 FROM view_crm_quote_report
                 '.(($fromDate==null || $toDate == null) ? '' : 'WHERE crm_quote_status_create_date::DATE BETWEEN \''.$fromDate.'\'::DATE AND \''.$toDate.'\'::DATE').'
-                GROUP BY crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh) select cqst.id as crm_quote_status_type_id, cqst.name_en as quote_status_name_en,cqst.name_kh as quote_status_name_kh ,COALESCE(total_quotes, null, 0, total_quotes) total_quotes  from crm_quote_status_type cqst left join  quote_status on  quote_status.crm_quote_status_type_id= cqst.id WHERE cqst.status = TRUE AND cqst.is_deleted = FALSE ORDER BY sequence
+                GROUP BY crm_quote_status_type_id, quote_status_name_en, quote_status_name_kh) select cqst.id as crm_quote_status_type_id, cqst.color as crm_quote_status_type_color, cqst.name_en as quote_status_name_en,cqst.name_kh as quote_status_name_kh ,COALESCE(total_quotes, null, 0, total_quotes) total_quotes  from crm_quote_status_type cqst left join  quote_status on  quote_status.crm_quote_status_type_id= cqst.id WHERE cqst.status = TRUE AND cqst.is_deleted = FALSE ORDER BY sequence
                 ;
             ');
         } catch(QueryException $e){
@@ -353,6 +353,7 @@ class CrmReport extends Model
 
     public function getOrganizationDetail($leadSource = null, $assignTo = null, $fromDate = null, $toDate = null, $status = 2){ // status qualified
         try{
+            $assignTo = null;
             $select = '
                 SELECT
                     cl.customer_name_en, cl.customer_name_kh, cl.email, cl.website, cl.facebook, cl.crm_lead_source_id, cl.crm_lead_current_isp_id, cl.crm_lead_industry_id,
@@ -486,7 +487,7 @@ class CrmReport extends Model
                 WHERE id in (
                     SELECT DISTINCT ON (crm_lead_branch_id) crm_lead_branch_id
                     FROM crm_lead_detail
-                    WHERE crm_lead_status_id = '.$forStatusId.' and is_deleted = false and status = false
+                    WHERE crm_lead_status_id = '.$forStatusId.' and is_deleted = false and status = true
                     ORDER BY crm_lead_branch_id, create_date DESC
                 )
                 AND is_deleted = false

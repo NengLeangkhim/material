@@ -285,7 +285,7 @@ class CrmReportApiController extends Controller
                 ,'total_survey' => $totalSurvey->total_survey
             ];
         } catch(QueryException $e){
-            dd($e);
+            // dd($e);
             return $this->sendError($this->queryException);
         }
         return $this->sendResponse($result,'');
