@@ -531,7 +531,7 @@ class QuoteController extends Controller
         $return=json_decode($return,true);
         $userid=$return["original"]['id'];
 
-        $id=$request->input("status");
+        $id=$request->input("status"); // id status
         $qoute_id=$request->input("quoteid");
         $comment_quote=$request->input("comment");
         $qoutestatusid=$request->input("qoutestatusid");
@@ -539,18 +539,14 @@ class QuoteController extends Controller
         // dd($userid,$id,$qoute_id,$comment_quote,$qoutestatusid);
         DB::beginTransaction();
             try{
-                // update crm_quote_status
-                DB::select(
-                    'SELECT public."update_crm_quote_status"(?,?,?,?,?,?)',
-                    array(
-                        $qoutestatusid,
-                        $userid,
-                        $qoute_id,
-                        $comment_quote,
-                        't',
-                        $id
-                    ));
-
+                    DB::select(
+                        'SELECT public."insert_crm_quote_status"(?, ?, ?,?)',
+                        array(
+                            $qoute_id,
+                            $comment_quote,
+                            $userid,
+                            $id
+                        ));
                     DB::commit();
                     return json_encode(["convert"=>"success"]);
                 // return json_encode(["convert"=>$customer]);
