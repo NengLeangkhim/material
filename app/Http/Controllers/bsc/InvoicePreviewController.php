@@ -244,8 +244,8 @@ class InvoicePreviewController extends Controller
                 $amount +=$detail->amount;
                 $tr .= '<tr>
                             <td style="text-align: center;font-size: 11px;">'.$i++.'</td>
-                            <td style="font-size: 11px;padding-left: 5px;">'.$detail->unit_name.'</td>
-                            <td style="font-size: 11px;padding-left: 5px;">'.$detail->unit_name.'</td>
+                            <td style="font-size: 11px;padding-left: 5px;">'.$detail->customer_branch_name.'</td>
+                            <td style="font-size: 11px;padding-left: 5px;">'.$detail->product_name.'</td>
                             <td style="font-size: 12px;padding-left: 5px;">'.$description.'</td>
                             <td style="text-align: center;font-size: 11px;">'.$qty.' '.$detail->unit_name.'</td>
                             <td style="text-align: right;font-size: 11px;padding:10px;">$ '.number_format($new_unit_price,4,".",",").'</td>
