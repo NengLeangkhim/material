@@ -186,7 +186,7 @@ class LeadController extends Controller
             $userid = $_SESSION['userid'];
 
             $lead_id=$request->input('lead_id')!=""?$request->input('lead_id'):null;
-            $con_id=$request->input('contact_id')!=""?$request->input('contact_id'):null;
+            $con_id=$request->input('contact_id')!=""?$request->input('contact_id'):$request->input('contact_id_old');
             $prioroty=$request->input('prioroty')!=""?$request->input('prioroty'):null;
             $checksurvey=$request->input('checksurvey')!=""? $request->input('checksurvey'):"null";
             $survey_id=$request->input('survey_id')!=""?$request->input('survey_id'):null;
@@ -232,7 +232,7 @@ class LeadController extends Controller
             $street_en=$request->input('street_en')!=""?$request->input('street_en'):null;;
             $street_kh=$request->input('street_kh')!=""?$request->input('street_kh'):null;;
             $latlong=$request->input('latlong')!=""?$request->input('latlong'):null;;
-            $address_type=$request->input('address_type')!=""?$request->input('address_type'):'Main';;
+            $address_type=$request->input('address_type')!=""?$request->input('address_type'):'main';;
             $addresscode=$request->input('village')!=""?$request->input('village'):null;;
 
 
@@ -401,7 +401,9 @@ class LeadController extends Controller
     //     // var_dump($id,$userid);
 
     // }
+    // convert branch  to  organization
     public function convertbranch(Request $request){
+
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -412,8 +414,34 @@ class LeadController extends Controller
         $id=$request->input('branch_id');
         $detail_id=$request->input('lead_detail_id');
         $comment=$request->input('comment');
-        $convert=Lead::convertbranch($id,$userid,$detail_id,$comment); //return to model
-        return $convert;
+        if(perms::check_perm_module_api('CRM_02100101',$userid)){ //Module Convert to Organization
+            $convert=Lead::convertbranch($id,$userid,$detail_id,$comment); //return to model
+            return $convert;
+        }
+        else
+        {
+            return "error";
+        }
+
+    }
+    // update branch  status to junk
+    public function updatetojunk(Request $request){
+
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userid = $_SESSION['userid'];
+        $id=$request->input('branch_id');
+        $detail_id=$request->input('lead_detail_id');
+        $comment=$request->input('comment');
+        if(perms::check_perm_module_api('CRM_02100102',$userid)){ //Module Branch status junk
+            $update=Lead::updatetojunk($id,$userid,$detail_id,$comment); //return to model
+            return $update;
+        }
+        else
+        {
+            return "error";
+        }
 
     }
     // get survey
