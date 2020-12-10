@@ -36,9 +36,7 @@ class InvoicePreviewController extends Controller
         $res = app()->handle($request);
         $data = json_decode($res->getContent());
        
-        // $invoice = $data->data->preview_invoice;
         $invoice_head = $data->data->preview_invoice;
-        // dd($invoice_head);exit;
         $invoice_detail = $data->data->preview_invoice_detail;
         $invoice_cur = $data->data->preview_currency_rate;
         $invoices=DB::select("SELECT * FROM public.get_gazetteers_address('".$invoice_head->address_name."') as address");
@@ -170,7 +168,7 @@ class InvoicePreviewController extends Controller
                         <tr>
                             <td align="left" valign="top" width="41%"><span style="font-family: khmeros;font-size: 12px;">លេខរៀងវិក្កយបត្រ <br> Invoice No</span></td>
                             <td align="left" valign="top">:</td>
-                            <td width="56%"><span style="font-size: 13px;">'.date('d/m/Y',strtotime($invoice_head->invoice_number)).'</span></td>
+                            <td width="56%"><span style="font-size: 13px;">'.$invoice_head->invoice_number.'</span></td>
                         </tr>
                         <tr>
                             <td align="left" valign="top"><span style="font-family: khmeros;font-size: 12px;">ថ្ងៃចេញវិក្កយបត្រ <br> Billing Date</span></td>
@@ -236,11 +234,19 @@ class InvoicePreviewController extends Controller
                     $total_riel = $new_amount * $rate;
                     $display = "";
                 }
-
+               
+                $description = $detail->description;
+                if($description == "null"){
+                    $description = "";
+                }else{
+                    $description ;
+                }
                 $amount +=$detail->amount;
                 $tr .= '<tr>
                             <td style="text-align: center;font-size: 11px;">'.$i++.'</td>
-                            <td style="font-size: 12px;padding-left: 5px;">'.$detail->description.'</td>
+                            <td style="font-size: 11px;padding-left: 5px;">'.$detail->customer_branch_name.'</td>
+                            <td style="font-size: 11px;padding-left: 5px;">'.$detail->product_name.'</td>
+                            <td style="font-size: 12px;padding-left: 5px;">'.$description.'</td>
                             <td style="text-align: center;font-size: 11px;">'.$qty.' '.$detail->unit_name.'</td>
                             <td style="text-align: right;font-size: 11px;padding:10px;">$ '.number_format($new_unit_price,4,".",",").'</td>
                             <td style="text-align: right;font-size: 11px;padding:10px;">$ '.number_format($total_new_amount,4,".",",").'</td>
@@ -253,16 +259,18 @@ class InvoicePreviewController extends Controller
                     <thead>
                         <tr style="background-color:#1fa8e1;">
                             <th width="5%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">ល.រ​ <br> No</span></th>
-                            <th width="50%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">បរិយាយសេវាកម្ម​ <br> Description</span></th>
+                            <th width="15%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">Customer Branch</span></th>
+                            <th width="15%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">Item</span></th>
+                            <th width="25%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">បរិយាយសេវាកម្ម​ <br> Description</span></th>
                             <th width="10%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">បរិមាណ <br> Quantity</span></th>
                             <th width="15%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">ថ្លៃ​ឯកតា <br> Unit Price</span></th>
-                            <th width="20%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">ថ្លៃសេវា <br> Amount</span></th>
+                            <th width="15%" style="padding:5px;"><span style="color: white;font-size: 11px;font-weight: bold;">ថ្លៃសេវា <br> Amount</span></th>
                         </tr>
                     </thead>
                     <tbody>
                         '.$tr.'
                         <tr>
-                            <td colspan="2" rowspan="2" style="padding-left: 10px;">
+                            <td colspan="4" rowspan="3" style="padding-left: 10px;">
                                 <span style="font-family: khmeros;font-size: 11px;"> * រាល់បញ្ហារបស់លោកអ្នកសូមទូរស័ព្ទមកលេខ: ០២៣​​ ៩៩៩​ ៩៩៨​ ។</span>​ <br>
                                 <span style="font-size: 11px;">Any queries please call to: 023 999 998.</span>​ <br>
                                 <span style="font-family: khmeros;font-size: 11px;"> *សូមអញ្ជើញទូទាត់ប្រាក់ អោយបានមុនថ្ងៃកំណត់ខាងលើ ដើម្បីជៀសវាងការផ្អាកសេវា​ ។</span> <br>
@@ -274,9 +282,9 @@ class InvoicePreviewController extends Controller
                                 <span style="font-size: 13px;">- Account No.: 000488896</span>
                             </td>
                             <td colspan="2" style="text-align: right;padding:5px;">
-                                <span style="font-size: 10px;'.$display.'"> <strong>Total</strong> </span><br>
-                                <span style="font-size: 10px;'.$display.'"> <strong>Vat Total</strong> </span><br>
-                                <span style="font-size: 10px;"> <strong>Grand Total</strong> </span>
+                                <span style="font-size: 11px;'.$display.'"> <strong>Total</strong> </span><br>
+                                <span style="font-size: 11px;'.$display.'"> <strong>Vat Total</strong> </span><br>
+                                <span style="font-size: 11px;"> <strong>Grand Total</strong> </span>
                             </td>
                             <td style="text-align: right;font-size: 11px;padding:10px;">
                                 <span style="'.$display.'"><strong> $ '.number_format($amount,4,".",",").'</strong></span> <br>
