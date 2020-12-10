@@ -87,13 +87,13 @@ class ContactController extends Controller
                                         ],
                 'name_en' => [ 'required'
                                         ],
-                'name_kh' => [ 'required'
-                                    ],
-                'email' => [ 'required','email',
-                            Rule::unique('crm_lead_contact','email')
-                            ->where(function ($query) use ($request) {
-                            return $query->where('is_deleted', 'f');})
-                                        ],
+                // 'name_kh' => [ 'required'
+                //                     ],
+                // 'email' => [ 'required','email',
+                //             Rule::unique('crm_lead_contact','email')
+                //             ->where(function ($query) use ($request) {
+                //             return $query->where('is_deleted', 'f');})
+                //                         ],
                 'phone' => [ 'required','regex:/(0)[0-9]{7}/',
                             Rule::unique('crm_lead_contact','phone')
                             ->where(function ($query) use ($request) {
@@ -103,11 +103,11 @@ class ContactController extends Controller
             [
                 'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
                 'name_en.required' => 'This Field is require !!',   //massage validator
-                'name_kh.required' => 'This Field is require !!',   //massage validator
-                'email.required' => 'This Field is require !!',   //massage validator
+                // 'name_kh.required' => 'This Field is require !!',   //massage validator
+                // 'email.required' => 'This Field is require !!',   //massage validator
                 'phone.required' => 'This Field is require !!',   //massage validator
-                'email.unique' => 'The Email is Already Exist !!',   //massage validator
-                'email.email' => 'The Email is Wrong !!',   //massage validator
+                // 'email.unique' => 'The Email is Already Exist !!',   //massage validator
+                // 'email.email' => 'The Email is Wrong !!',   //massage validator
                 'phone.unique' => 'The Phone is Already Exist !!',   //massage validator
                 'phone.regex' => 'The Phone Number is Wrong !!',   //massage validator
                 ]
@@ -164,17 +164,17 @@ class ContactController extends Controller
             session_start();
             }
             $validator = \Validator::make($request->all(), [
-                'ma_honorifics_id' =>  [  'required'
-                                        ],
+                // 'ma_honorifics_id' =>  [  'required'
+                //                         ],
                 'name_en' => [ 'required'
                                         ],
-                'name_kh' => [ 'required'
-                                    ],
-                'email' => [ 'required','email',
-                            Rule::unique('crm_lead_contact','email')->ignore($request->contact_id)
-                            ->where(function ($query) use ($request) {
-                            return $query->where('is_deleted','f');})
-                                        ],
+                // 'name_kh' => [ 'required'
+                //                     ],
+                // 'email' => [ 'required','email',
+                //             Rule::unique('crm_lead_contact','email')->ignore($request->contact_id)
+                //             ->where(function ($query) use ($request) {
+                //             return $query->where('is_deleted','f');})
+                //                         ],
                 'phone' => [ 'required','regex:/(0)[0-9]{7}/',
                             Rule::unique('crm_lead_contact','phone')->ignore($request->contact_id)
                             ->where(function ($query) use ($request) {
@@ -182,13 +182,13 @@ class ContactController extends Controller
                                     ],    
             ],
             [
-                'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
+                // 'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
                 'name_en.required' => 'This Field is require !!',   //massage validator
-                'name_kh.required' => 'This Field is require !!',   //massage validator
-                'email.required' => 'This Field is require !!',   //massage validator
+                // 'name_kh.required' => 'This Field is require !!',   //massage validator
+                // 'email.required' => 'This Field is require !!',   //massage validator
                 'phone.required' => 'This Field is require !!',   //massage validator
-                'email.unique' => 'The Email is Already Exist !!',   //massage validator
-                'email.email' => 'The Email is Wrong !!',   //massage validator
+                // 'email.unique' => 'The Email is Already Exist !!',   //massage validator
+                // 'email.email' => 'The Email is Wrong !!',   //massage validator
                 'phone.unique' => 'The Phone is Already Exist !!',   //massage validator
                 'phone.regex' => 'The Phone Number is Wrong !!',   //massage validator
                 ]

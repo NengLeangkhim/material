@@ -242,6 +242,18 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
+                                                    <label for="name_en">Full Name English </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="name_en" id="name_en" value="{{$updatelead[$i]['name_en_contact']}}" placeholder="Last Name" >
+                                                        {{-- <span class="invalid-feedback" role="alert" id="name_enError"> span for alert
+                                                            <strong></strong>
+                                                        </span> --}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
                                                     <input type="hidden" name="contact_id_old" id="contact_id_old" value="{{$updatelead[$i]['contact_id']}}">
                                                     <label for="name_kh">Full Name Khmer<b style="color:red"></b></label>
                                                     <div class="input-group">
@@ -251,18 +263,6 @@
                                                         <input type="text" class="form-control" hidden value="{{$updatelead[$i]['lead_con_bran_id']}}"  name='lead_con_bran_id' id="lead_con_bran_id" >
                                                         <input type="text" class="form-control" placeholder="Frist Name"  value="{{$updatelead[$i]['name_kh_contact']}}"  name='name_kh' id="name_kh" >
                                                         <span class="invalid-feedback" role="alert" id="name_khError"> {{--span for alert--}}
-                                                            <strong></strong>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="name_en">Full Name English <b style="color:red">*</b></label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                                        </div>
-                                                        <input type="text" class="form-control" name="name_en" id="name_en" value="{{$updatelead[$i]['name_en_contact']}}" placeholder="Last Name" >
-                                                        <span class="invalid-feedback" role="alert" id="name_enError"> {{--span for alert--}}
                                                             <strong></strong>
                                                         </span>
                                                     </div>

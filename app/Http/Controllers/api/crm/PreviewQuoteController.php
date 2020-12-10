@@ -174,7 +174,7 @@ class PreviewQuoteController extends Controller
          $logo = '<table style="border:none;pedding:0;margin:0;width:100%">
          <tr>
              <td>
-                 <img width="190" style="margin-top:-70px"  src="https://www.turbotech.com/storages/assets/img/system/turbotech.png"/>
+                 <img width="190" style="margin-top:-70px"  src="images/turbotech.png"/>
              </td>
          <td style="padding:0px;margin:0;width:75%;">
              <table style="width:100%;font-family:khcontent">

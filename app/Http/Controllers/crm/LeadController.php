@@ -235,16 +235,16 @@ class LeadController extends Controller
                                             ],
                     // 'company_kh' =>  [  'required'
                     //                     ],
-                    'primary_email' =>  [  'required',
-                                        Rule::unique('crm_lead','email')
-                                        ->where(function ($query) use ($request) {
-                                        return $query->where('is_deleted', 'f');})
-                                            ],
+                    // 'primary_email' =>  [  'required',
+                    //                     Rule::unique('crm_lead','email')
+                    //                     ->where(function ($query) use ($request) {
+                    //                     return $query->where('is_deleted', 'f');})
+                    //                         ],
 
                     'assig_to' =>  [  'required'
                                             ],
-                    // 'primary_phone' =>  [  'required'
-                    //                         ],
+                    'primary_phone' =>  [  'required'
+                                            ],
                     // 'phone' =>  [  'required'
                     //                         ],
                     // 'service' =>  [  'required'
@@ -285,8 +285,8 @@ class LeadController extends Controller
                 [
                     'company_en.required' => 'This Field is require !!',   //massage validator
                     // 'company_kh.required' => 'This Field is require !!',   //massage validator
-                    'primary_email.required' => 'This Field is require !!',   //massage validator
-                    // 'primary_phone.required' => 'This Field is require !!',   //massage validator
+                    // 'primary_email.required' => 'This Field is require !!',   //massage validator
+                    'primary_phone.required' => 'This Field is require !!',   //massage validator
                     'assig_to.required' => 'This Field is require !!',   //massage validator
                     // 'service.required' => 'This Field is require !!',   //massage validator
                     // 'vat_number.required' => 'This Field is require !!',   //massage validator
@@ -315,8 +315,8 @@ class LeadController extends Controller
                 $validator = \Validator::make($request->all(), [
                     'company_en' =>  [  'required'
                                             ],
-                    'company_kh' =>  [  'required'
-                                        ],
+                    // 'company_kh' =>  [  'required'
+                    //                     ],
                     // 'primary_email' =>  [  'required',
                     //                     Rule::unique('crm_lead','email')
                     //                     ->where(function ($query) use ($request) {
@@ -389,7 +389,7 @@ class LeadController extends Controller
                 ],
                 [
                     'company_en.required' => 'This Field is require !!',   //massage validator
-                    'company_kh.required' => 'This Field is require !!',   //massage validator
+                    // 'company_kh.required' => 'This Field is require !!',   //massage validator
                     // 'primary_email.required' => 'This Field is require !!',   //massage validator
                     // 'primary_phone.required' => 'This Field is require !!',   //massage validator
                     'branch.required' => 'This Field is require !!',   //massage validator
@@ -498,13 +498,13 @@ class LeadController extends Controller
             $validator = \Validator::make($request->all(), [
                 'company_en' =>  [  'required'
                                         ],
-                'company_kh' =>  [  'required'
-                                    ],
-                'primary_email' =>  [  'required',
-                                    Rule::unique('crm_lead','email')->ignore($request->lead_id)
-                                    ->where(function ($query) use ($request) {
-                                    return $query->where('is_deleted', 'f');})
-                                        ],
+                // 'company_kh' =>  [  'required'
+                //                     ],
+                // 'primary_email' =>  [  'required',
+                //                     Rule::unique('crm_lead','email')->ignore($request->lead_id)
+                //                     ->where(function ($query) use ($request) {
+                //                     return $query->where('is_deleted', 'f');})
+                //                         ],
                 'primary_phone' =>  [  'required'
                                         ],
                 // 'branch' =>  [  'required'
@@ -519,8 +519,8 @@ class LeadController extends Controller
                 //                         ],
                 // 'ma_honorifics_id' =>  [  'required'
                 //                         ],
-                'name_en' => [ 'required'
-                                        ],
+                // 'name_en' => [ 'required'
+                //                         ],
                 // 'name_kh' => [ 'required'
                 //                     ],
                 // 'email' => [ 'required','email',
@@ -556,8 +556,8 @@ class LeadController extends Controller
             ],
             [
                 'company_en.required' => 'This Field is require !!',   //massage validator
-                'company_kh.required' => 'This Field is require !!',   //massage validator
-                'primary_email.required' => 'This Field is require !!',   //massage validator
+                // 'company_kh.required' => 'This Field is require !!',   //massage validator
+                // 'primary_email.required' => 'This Field is require !!',   //massage validator
                 'primary_phone.required' => 'This Field is require !!',   //massage validator
                 // 'branch.required' => 'This Field is require !!',   //massage validator
                 // 'lead_source.required' => 'This Field is require !!',   //massage validator
@@ -565,8 +565,8 @@ class LeadController extends Controller
                 'assig_to.required' => 'This Field is require !!',   //massage validator
                 // 'service.required' => 'This Field is require !!',   //massage validator
                 'ma_honorifics_id.required' => 'Please Select Honorifics !!',   //massage validator
-                'name_en.required' => 'This Field is require !!',   //massage validator
-                'name_kh.required' => 'This Field is require !!',   //massage validator
+                // 'name_en.required' => 'This Field is require !!',   //massage validator
+                // 'name_kh.required' => 'This Field is require !!',   //massage validator
                 // 'email.required' => 'This Field is require !!',   //massage validator
                 // 'phone.required' => 'This Field is require !!',   //massage validator
                 // 'home_en.required' => 'This Field is require !!',   //massage validator
