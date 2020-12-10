@@ -380,8 +380,8 @@ class InvoiceController extends Controller
                         LEFT JOIN ma_customer ON crm_quote.crm_lead_id = ma_customer.crm_lead_id
                         LEFT JOIN bsc_invoice ON crm_quote.id = bsc_invoice.crm_quote_id
                     WHERE
-                        qs.crm_quote_status_type_id = 16 
-                        AND ma_customer.id IS NOT null  
+                        qs.crm_quote_status_type_id = 16
+                        AND ma_customer.id IS NOT null
                         AND bsc_invoice.crm_quote_id IS NULL
                         AND crm_quote.status = 't'
                         AND crm_quote.is_deleted = 'f'
@@ -614,8 +614,9 @@ class InvoiceController extends Controller
                 ])->first();
 
         $preview_invoice_detail = DB::table('bsc_invoice_detail')
-                ->select('bsc_invoice_detail.*','ma_measurement.name as unit_name')
+                ->select('bsc_invoice_detail.*','ma_customer_branch.branch as customer_branch_name','stock_product.name as product_name','ma_measurement.name as unit_name')
                 ->leftJoin('stock_product','stock_product.id','=','bsc_invoice_detail.stock_product_id')
+                ->leftJoin('ma_customer_branch','ma_customer_branch.id','=','bsc_invoice_detail.ma_customer_branch_id')
                 ->leftJoin('ma_measurement','ma_measurement.id','=','stock_product.ma_measurement_id')
                 ->where([
                     ['bsc_invoice_detail.bsc_invoice_id','=',$id],
