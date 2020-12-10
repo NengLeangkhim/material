@@ -319,6 +319,8 @@ Route::get('commission','report_calculate_price_commission@commissionPDF'); //Co
 Route::get('training_checking_list','training_checking_list@report_trainingPDF'); //training_check_list
 Route::get('training_request_proposal','training_request_proposal@training_requestPDF'); //training_request_proposal
 
+Route::get('annual_training_calendar','annual_training_calendar@annual_training_calendarPDF'); //training_request_proposal
+
 //=======================E-request==========================
 
 //==================STOCK SYSTEM===================================================
