@@ -486,7 +486,7 @@ class CrmReport extends Model
                 WHERE id in (
                     SELECT DISTINCT ON (crm_lead_branch_id) crm_lead_branch_id
                     FROM crm_lead_detail
-                    WHERE crm_lead_status_id = '.$forStatusId.' and is_deleted = false and status = false
+                    WHERE crm_lead_status_id = '.$forStatusId.' and is_deleted = false and status = true
                     ORDER BY crm_lead_branch_id, create_date DESC
                 )
                 AND is_deleted = false
