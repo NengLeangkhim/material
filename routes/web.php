@@ -332,6 +332,8 @@ Route::get('new_staff','e_request\pdf\new_staff@new_staffPDF'); //new_staff
 Route::get('personal_file_check_list','e_request\pdf\personal_file_check_list@personal_file_check_listPDF'); //personal_file_check_list
 
 
+Route::get('annual_training_calendar','annual_training_calendar@annual_training_calendarPDF'); //training_request_proposal
+
 //=======================E-request==========================
 
 //==================STOCK SYSTEM===================================================
