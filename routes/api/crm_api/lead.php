@@ -75,6 +75,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/insertscheduleresult','api\crm\LeadController@insertscheduleresult');
     // update schedule reslut
     Route::post('/updatescheduleredult','api\crm\LeadController@updatescheduleredult');
+   
 });
 
 
@@ -116,6 +117,9 @@ Route::get('/honorifics','api\crm\LeadController@getHonorifics');
 Route::get('/getbranch','api\crm\LeadController@getbranch');
 // convert branch
 Route::post('/convertbranch','api\crm\LeadController@convertbranch');
+ //update status branch to junk
+ Route::post('updatetojunk','api\crm\LeadController@updatetojunk');
+
 //get survey
 // Route::get('/survey','api\crm\LeadController@getsurvey');
 // //get survey result

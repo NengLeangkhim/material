@@ -401,7 +401,9 @@ class LeadController extends Controller
     //     // var_dump($id,$userid);
 
     // }
+    // convert branch  to  organization
     public function convertbranch(Request $request){
+
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -412,8 +414,34 @@ class LeadController extends Controller
         $id=$request->input('branch_id');
         $detail_id=$request->input('lead_detail_id');
         $comment=$request->input('comment');
-        $convert=Lead::convertbranch($id,$userid,$detail_id,$comment); //return to model
-        return $convert;
+        if(perms::check_perm_module_api('CRM_02100101',$userid)){ //Module Convert to Organization
+            $convert=Lead::convertbranch($id,$userid,$detail_id,$comment); //return to model
+            return $convert;
+        }
+        else
+        {
+            return "error";
+        }
+
+    }
+    // update branch  status to junk
+    public function updatetojunk(Request $request){
+
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $userid = $_SESSION['userid'];
+        $id=$request->input('branch_id');
+        $detail_id=$request->input('lead_detail_id');
+        $comment=$request->input('comment');
+        if(perms::check_perm_module_api('CRM_02100102',$userid)){ //Module Branch status junk
+            $update=Lead::updatetojunk($id,$userid,$detail_id,$comment); //return to model
+            return $update;
+        }
+        else
+        {
+            return "error";
+        }
 
     }
     // get survey

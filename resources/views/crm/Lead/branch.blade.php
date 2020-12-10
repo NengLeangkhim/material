@@ -88,31 +88,32 @@
                                                             <td style="color: #d42931 ; font-weight:bold">{{$branch[$i]['assig']}}</td>
                                                             <td style="color: #d42931 ; font-weight:bold">{{date('Y-m-d H:i:s',strtotime($branch[$i]['create_date']))}}</td>
                                                             <td style="color: #d42931 ; font-weight:bold">
-                                                                <div class="row-12 form-inline">
-                                                                    <div class="col-md-6">
-                                                                        <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')" title="Detail Branch">
-                                                                            <i class="far fa-eye"></i>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="col-md-6 ">
-                                                                        <?php
-                                                                           if($branch[$i]["schedule_id"]!=null){
+                                                                <div class="container-fluid datatable-action-col">
+                                                                    <div class="row form-inline">
+                                                                        <div class="col-md-6">
+                                                                            <a href="#" class="btn btn-block btn-info btn-sm branchdetail" ​value="detailbranch/{{$branch[$i]["branch_id"]}}"  onclick="go_to('detailbranch/{{$branch[$i]['branch_id']}}')" title="Detail Branch">
+                                                                                <i class="far fa-eye"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <?php
+                                                                            if($branch[$i]["schedule_id"]!=null){
+                                                                                    ?>
+                                                                                        <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule"  id="detailschedule{{$branch[$i]["schedule_id"]}}" value="{{$branch[$i]["schedule_id"]}}"  title="Detail Schedule Of Branch">
+                                                                                            <i class="fas fa-calendar-day"> </i>
+                                                                                        </button>
+                                                                                    <?php
+                                                                            }else {
                                                                                 ?>
-                                                                                    <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm detailschedule"  id="detailschedule{{$branch[$i]["schedule_id"]}}" value="{{$branch[$i]["schedule_id"]}}"  title="Detail Schedule Of Branch">
+                                                                                    <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule"  id="schedule{{$branch[$i]["branch_id"]}}" data-toggle="modal" data-target="#modal-default" value="{{$branch[$i]["branch_id"]}}"  title="Set Schedule Of Branch">
                                                                                         <i class="fas fa-calendar-day"> </i>
                                                                                     </button>
                                                                                 <?php
-                                                                           }else {
-                                                                              ?>
-                                                                                <button href="javascript:void(0);" class="btn btn-block btn-danger btn-sm schedule"  id="schedule{{$branch[$i]["branch_id"]}}" data-toggle="modal" data-target="#modal-default" value="{{$branch[$i]["branch_id"]}}"  title="Set Schedule Of Branch">
-                                                                                    <i class="fas fa-calendar-day"> </i>
-                                                                                </button>
-                                                                              <?php
-                                                                           }
-                                                                        ?>
+                                                                            }
+                                                                            ?>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-
                                                             </td>
                                                         </tr>
                                                     <?php

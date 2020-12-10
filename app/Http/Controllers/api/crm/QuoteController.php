@@ -525,7 +525,7 @@ class QuoteController extends Controller
             }
     }
     public function updatestatus(Request $request){
-
+        
         $return=response()->json(auth()->user());
         $return=json_encode($return,true);
         $return=json_decode($return,true);

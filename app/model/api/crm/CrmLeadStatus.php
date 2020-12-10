@@ -42,7 +42,7 @@ class CrmLeadStatus extends Model
 
     function getAllData(){
         try {
-            $result = DB::select('select * from crm_lead_status where is_deleted = false order by sequence');
+            $result = DB::select('select * from crm_lead_status where is_deleted = false and status=true order by sequence');
         } catch(QueryException $e){
             throw $e;
         }
