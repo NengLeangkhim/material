@@ -176,7 +176,7 @@ Function index_num($v1){
     if($amount_high_chart_dashboards->arr_month != ""){
         $arr_month = $amount_high_chart_dashboards->arr_month;
         $month_name = "";
-        for ($i=0; $i < 5; $i++) {
+        for ($i=1; $i < 5; $i++) {
             if ($i != 4) {
                 $opt_camma = ",";
             }else {
@@ -190,7 +190,7 @@ Function index_num($v1){
     if ($amount_high_chart_dashboards->arr_total_amount_revenue != "") {
        $arr_revenue = $amount_high_chart_dashboards->arr_total_amount_revenue;
         $data_revenue = "";
-        for ($i=0; $i < 5; $i++) {
+        for ($i=1; $i < 5; $i++) {
             if ($i != 4) {
                 $opt_camma = ",";
             }else {
@@ -205,7 +205,7 @@ Function index_num($v1){
     if ($amount_high_chart_dashboards->arr_total_amount_expense != "") {
         $arr_expense = $amount_high_chart_dashboards->arr_total_amount_expense;
         $data_expense = "";
-        for ($i=0; $i < 5; $i++) {
+        for ($i=1; $i < 5; $i++) {
             if ($i != 4) {
                 $opt_camma = ",";
             }else {
@@ -220,7 +220,7 @@ Function index_num($v1){
     if ($amount_high_chart_dashboards->arr_total_amount_receivable != "") {
         $arr_receivable = $amount_high_chart_dashboards->arr_total_amount_receivable;
         $data_receivable = "";
-        for ($i=0; $i < 5; $i++) {
+        for ($i=1; $i < 5; $i++) {
             if ($i != 4) {
                 $opt_camma = ",";
             }else {
@@ -235,7 +235,7 @@ Function index_num($v1){
     if ($amount_high_chart_dashboards->arr_total_amount_payable != "") {
         $arr_payable = $amount_high_chart_dashboards->arr_total_amount_payable;
         $data_payable = "";
-        for ($i=0; $i < 5; $i++) {
+        for ($i=1; $i < 5; $i++) {
             if ($i != 4) {
                 $opt_camma = ",";
             }else {
