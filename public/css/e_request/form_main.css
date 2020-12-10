@@ -4,24 +4,48 @@
 .namecompany{
     color:#1fa8e0;
 }
-
+.right{
+    text-align: right;
+}
+.left{
+    text-align: left;
+}
+.center{
+    text-align: center;
+}
 
 
 /* .expried_intership */
 
-.expried_intership{
-    margin: 20px 20px;
+.top-header{
+    width: 100%;
+    border: none;
 }
-.center_heading{
-    text-align: center;
-}
-.center_heading h3{
-    text-align: center;
-}
-.list_rule li{
-    list-style: none;
-}
+.top-header tr td{
+    border: none;  
 
+}
+.expried_internship{
+    border: none;
+    width: 100%;
+
+}
+.expried_internship tr td{
+    border: none;
+    font-size: 15px;
+    line-height: 25px;
+}
+.copy{
+    width: 100%;
+    border: none;
+    
+}
+.copy tr td{
+    border: none;
+    font-size: 12px;
+    padding-left: 60px;
+    height: 25px;
+}
 /* /.expried_intership */
 
 /* mistake_form */
@@ -331,4 +355,52 @@ thead tr th{
     text-indent: 40px;
 }
 
+
+/* new_staff */
+
+.new_staff{
+    border: 1px solid black;
+    border-collapse: collapse; 
+    width: 100%;
+    margin-left: 20px;
+    margin-right: 20px;   
+}
+.new_staff tr td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-size: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    height: auto;
+    line-height: 25px; 
+}
+
+
+/* personal_file_check_list */
+pdd-l-10{padding-left: 10px;}
+mg-0{margin: 0 !important;}
+
+.personal_file_check_list{
+    border: 5px solid #4a6594;
+}
+.personal_file{
+    width: 100%;
+    border: none;
+}
+.personal_file tr td{
+    border: none;
+    font-size: 15px;
+    padding-left: 10px;
+    height: 30px; 
+}
+.personal_file_footer{
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+.personal_file_footer p{
+    width: 200px;
+    border: 2px solid black;
+    padding: 5px;
+}
 

@@ -25,7 +25,7 @@ class staff_note extends Controller
                     </div>
                 </div>
                 <div class="heading">
-                    <h3 class="center_heading">កំណត់ត្រាតាមដានការងារនិយោជិក</h3>
+                    <h3 class="center">កំណត់ត្រាតាមដានការងារនិយោជិក</h3>
                     <h3 style="font-size: 16px;">I.ព័ត៌មានកម្មករ-និយោជិក</h3>
                 </div>
                 <table class="staff_info">

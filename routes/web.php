@@ -313,7 +313,7 @@ Route::get('IntroductionCEO','IntroductionCEO@IntroductionCEO');
 Route::get('StopWorkEmployee','StopWorkEmployee@StopWorkEmployee');
 //============reportPDF===========
 Route::get('certificate','Certificate@certificatePDF'); //certificate
-Route::get('Expried_intership','Expried_intership@Expried_internshipPDF'); //Expried_intership
+Route::get('expried_intership','Expried_intership@Expried_internshipPDF'); //Expried_intership
 Route::get('mistake','mistake_form@mistakePDF'); //Mistake_form
 Route::get('spend_eating','spend_eating_form@spend_eatingPDF'); //Mistake_form
 Route::get('commission','calculate_price_commission@commissionPDF'); //Commission
@@ -329,6 +329,7 @@ Route::get('training_staff_note','training_staff_note@training_staff_notePDF'); 
 Route::get('survey_staff_exit','survey_staff_exit@survey_staff_exitPDF'); //survey_staff_exit
 Route::get('training_need_analysis','training_need_analysis@training_need_analysisPDF'); //survey_staff_exit
 Route::get('new_staff','e_request\pdf\new_staff@new_staffPDF'); //new_staff
+Route::get('personal_file_check_list','e_request\pdf\personal_file_check_list@personal_file_check_listPDF'); //personal_file_check_list
 
 
 //=======================E-request==========================
