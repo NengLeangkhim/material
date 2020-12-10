@@ -9,7 +9,7 @@
         var getSumTotal = 0;
 
 
-        $(document).on('click','.btnClickEditBranch', function(){
+        $(document).on('click','#btnEditQuote', function(){
             j = 0;
             i = 0;
         });
@@ -19,25 +19,26 @@
             i = 0;
         });
 
-        // console.log('i val='+i);
+
         $(document).on('click','#btnAddRowQuoteItem', function(event, issetBranId){
 
             var branId = $(this).attr("data-id");
             var branId2 = branId;
             // console.log('check branch in funct add='+branId);
+
             // check to assign new value to branId
             if(typeof(issetBranId) != 'undefined'){
+                // console.log('brandi id isset='+issetBranId);
                 branId2 = issetBranId;
             }
-
             var QuoteType = $(this).attr("data-code");
             if(typeof QuoteType != 'undefined' && QuoteType == 'quoteBranchEdit'){
                 branId = '_new';
+                // console.log('quote type edit, i val='+i+'--J val='+j);
                 if(i == 0){   // check if i = 0 assign i = count row of quote branch item to get update new row add item
                     var numRow = parseInt($('#countNumBranchEdit').val());
-                    i = parseInt(i + numRow);
-                    j = parseInt(j + numRow);
-                    // console.log('thissdasda I value='+i+'---J value='+j);
+                    i = parseInt(i + (numRow+1));
+                    j = parseInt(j + (numRow+1));
                 }
             }
             var tblRow =
@@ -119,14 +120,9 @@
                 '</tr>';
                 i++;
                 j++;
-                // clearTrashButton(j,i); //call function clear trash icon
-            if(branId == '_new'){
+
                 $('#add_row_tablequoteItem'+branId2+'').append(tblRow);
-                // console.log('row was apend in func add no branch='+branId);
-            }else{
-                $('#add_row_tablequoteItem'+branId+'').append(tblRow);
-                // console.log('row was apend in func add with branch='+branId);
-            }
+
         });
 
 
@@ -267,7 +263,7 @@
                 //function to get input only numeric number
                 $(".valid-numeric").keypress(function(e){
                     var keyCode = e.which;
-                    if ( (keyCode != 8 || keyCode ==32 ) && (keyCode < 48 || keyCode > 57)) {
+                    if ((keyCode != 8 || keyCode ==32 ) && (keyCode < 48 || keyCode > 57)) {
                         return false;
                     }
                 });
@@ -347,8 +343,10 @@
 
                 //for loop to get sumtotal all rows
                 if(i == 0){
-                    i = $('#add_row_tablequoteItem'+branId+'').data('id');
+                    // i = $('#add_row_tablequoteItem'+branId+'').data('id');
+                    i = $('#countNumBranchEdit').val();
                     j = parseInt(j + i);
+                    // console.log('this i & j in keyup='+i+'--j='+j);
                 }
                 for(var x=0; x<=i; x++){
 
@@ -553,6 +551,7 @@
                                     }
                                 }else{
                                     //show item in row quote item with multi select
+                                    // console.log('branch id in keyup='+branId);
                                     $("#btnAddRowQuoteItem").trigger( "click", branId);
                                     $("#txtPrdId_"+(i-1)+"").val(prdVal);
                                     $("#product_name"+(i-1)+"").val(prdName);
