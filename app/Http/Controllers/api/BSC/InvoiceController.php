@@ -206,7 +206,7 @@ class InvoiceController extends Controller
         }
 
         $invoice = DB::table('bsc_invoice')
-        ->select('bsc_invoice.*','bsc_account_charts.name_en as chart_account_name','bsc_account_charts.id as chart_account_id','ma_customer.name as customer_name','ma_customer.balance as customer_balance','ma_customer.invoice_balance as customer_invoice_balance')
+        ->select('bsc_invoice.*','bsc_account_charts.name_en as chart_account_name','bsc_account_charts.id as chart_account_id','ma_customer.name as customer_name','ma_customer.balance as customer_balance','ma_customer.invoice_balance as customer_invoice_balance','ma_customer.vat_number')
         ->leftJoin('bsc_invoice_bsc_journal_rel','bsc_invoice.id','=','bsc_invoice_bsc_journal_rel.bsc_invoice_id')
         ->leftJoin('bsc_journal','bsc_invoice_bsc_journal_rel.bsc_journal_id','=','bsc_journal.id')
         ->leftJoin('bsc_account_charts','bsc_journal.bsc_account_charts_id','=','bsc_account_charts.id')
@@ -380,8 +380,8 @@ class InvoiceController extends Controller
                         LEFT JOIN ma_customer ON crm_quote.crm_lead_id = ma_customer.crm_lead_id
                         LEFT JOIN bsc_invoice ON crm_quote.id = bsc_invoice.crm_quote_id
                     WHERE
-                        qs.crm_quote_status_type_id = 16 
-                        AND ma_customer.id IS NOT null  
+                        qs.crm_quote_status_type_id = 16
+                        AND ma_customer.id IS NOT null
                         AND bsc_invoice.crm_quote_id IS NULL
                         AND crm_quote.status = 't'
                         AND crm_quote.is_deleted = 'f'
@@ -614,8 +614,9 @@ class InvoiceController extends Controller
                 ])->first();
 
         $preview_invoice_detail = DB::table('bsc_invoice_detail')
-                ->select('bsc_invoice_detail.*','ma_measurement.name as unit_name')
+                ->select('bsc_invoice_detail.*','ma_customer_branch.branch as customer_branch_name','stock_product.name as product_name','ma_measurement.name as unit_name')
                 ->leftJoin('stock_product','stock_product.id','=','bsc_invoice_detail.stock_product_id')
+                ->leftJoin('ma_customer_branch','ma_customer_branch.id','=','bsc_invoice_detail.ma_customer_branch_id')
                 ->leftJoin('ma_measurement','ma_measurement.id','=','stock_product.ma_measurement_id')
                 ->where([
                     ['bsc_invoice_detail.bsc_invoice_id','=',$id],
