@@ -7510,10 +7510,6 @@
     "platform": {
         "php": "^7.2.5"
     },
-<<<<<<< HEAD
-    "platform-dev": []
-=======
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
->>>>>>> c565594a4cf909774e8409a14341f2244dd1235d
 }
