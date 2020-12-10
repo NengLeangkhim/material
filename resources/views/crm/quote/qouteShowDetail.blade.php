@@ -560,7 +560,7 @@
                 var token=$("#token").val();
                 // alert(lead_id+" "+quote_id+" "+token);
                     Swal.fire({ //get from sweetalert function
-                    title: 'Cancel',
+                    title: 'Update',
                     text: "Are you sure this qoute to customer? ",
                     icon: 'warning',
                     showCancelButton: true,
@@ -606,7 +606,7 @@
              {
 
                 Swal.fire({ //get from sweetalert function
-                title: 'Cancel',
+                title: 'Update',
                 text: "Are you Sure? ",
                 icon: 'warning',
                 showCancelButton: true,
