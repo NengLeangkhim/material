@@ -73,8 +73,8 @@
                                             <input type="text" hidden value="{{$_SESSION['token']}}" id="token">
                                         </dd>
                                     <dt class="col-sm-4 dt">Assign To</dt>
-                                        <dd class="col-sm-8 dd">
-                                            <select class="form-control select2"  name="assign_to" id="assign_to" >
+                                        <dd class="col-md-8 col-sm-8 dd">
+                                            <select class="form-control input-sm selectSearch"  name="assign_to" id="assign_to" >
                                                 <option value="{{ $quoteDetail->data->assign_to->id }}">
                                                     {{ $quoteDetail->data->assign_to->first_name_en.' '.$quoteDetail->data->assign_to->last_name_en ??""}}
                                                 </option>
@@ -204,7 +204,6 @@
                                                                                         <th class="td-item-quote">List Price($)</th>
                                                                                         <th class="td-item-quote">Total($)</th>
                                                                                         <th style="width: 50px;" >
-                                                                                            {{-- <button type="button" class="btn btn-info" id="btnAddRowQuoteItem" data-id="quoteBranchEdit" ><span><i class="fa fa-plus"></i></span></button> --}}
                                                                                             <button type="button" class="btn btn-info" id="btnAddRowQuoteItem" data-id="{{ $value->crm_lead_branch->id ?? ''}}" data-code="quoteBranchEdit"><span><i class="fa fa-plus"></i></span></button>
                                                                                         </th>
                                                                                     </tr>
@@ -426,7 +425,7 @@
         $(".row-quote-item").keyup();
         $(".row-quote-item").keyup();
         $(document).ready(function(){
-            $('.select2').select2();
+            $('.selectSearch').select2();
         });
 
         function cancelEditLead(){
