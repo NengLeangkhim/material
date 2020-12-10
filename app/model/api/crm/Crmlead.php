@@ -1279,9 +1279,42 @@ class Crmlead extends Model
             {
                 return  "error";
             }
-
-
     }
+     // Model convert branch
+     public static function updatetojunk($id,$userid,$detail_id,$comment){
+        $survey =DB::select("SELECT * from crm_survey where crm_lead_branch_id=$id and status=TRUE and is_deleted=FALSE");
+        if($survey==[]){
+            if(isset($detail_id)){
+                try{
+                    // $priority='urgent';
+                    $result=DB::select('SELECT update_crm_lead_detail(?,?,?,?,?,?)',
+                    array(
+                        $detail_id,
+                        $userid,
+                        $id,
+                        7,
+                        $comment,
+                        't',
+                    )
+                );
+                    return  $result;
+                    // var_dump($result);
+                }catch(Exception $e){
+                    return json_encode(["update"=>"fail update_crm_lead_detail","result"=> $e->getMessage()]);
+                }
+            }
+            else
+            {
+                return json_encode(['update'=>'not found data']);
+
+            }
+        }
+        else
+        {
+            return  "error";
+        }
+    }
+
     //Model get survey
     public static function getsurvey(){
         return DB::select('SELECT lb.id as branch_id , cs.id as survey_id, lb.name_en,lb.name_kh,cs.create_date,cs.create_by,

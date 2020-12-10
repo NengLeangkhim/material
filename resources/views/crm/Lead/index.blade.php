@@ -79,6 +79,9 @@
                 "columnDefs": [
                     {
                         "searchable": false,
+                        "render": function(data,type,row){
+                            return moment(data).format('YYYY-M-DD h:mm:ss');
+                        },
                         "targets": 4
                         },
                     {
